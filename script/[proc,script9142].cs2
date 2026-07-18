@@ -1,0 +1,17 @@
+// 9142
+[proc,script9142]()(string)
+def_int $int0 = calc(%crcs_agility_complete + %crcs_magic_complete + %crcs_ranged_complete + %fmc_circus_firebreathing_complete + %fmc_circus_poi_complete + %crcs_thieving_complete);
+def_int $int1 = 3;
+if (%fmc_main = 270) {
+    $int1 = calc($int1 + 2);
+}
+if (%peng_pow_quest = 175) {
+    $int1 = calc($int1 + 1);
+}
+def_string $string0 = "";
+if (%crcs_vendor = null) {
+    $string0 = "You have completed <col=ffffff><tostring($int0)> of <tostring($int1)></col> performances this week.<br>The circus moves to a new location every week.";
+} else {
+    $string0 = "You have completed <col=ffffff><tostring($int0)> of <tostring($int1)></col> performances this week.<br>The circus moves to a new location every week.<br>The ticket vendor is currently located near <col=ffffff><enum(coord, string, crcs_tt_location_text, %crcs_vendor)></col>.";
+}
+return($string0);

@@ -1,0 +1,26 @@
+// 20303
+[clientscript,script20303](component $component0, achievement $achievement1, int $int2)
+if ($int2 ! 1) {
+    if (~script8292(0, 4) = true) {
+        return;
+    }
+    ~script8287(0, 4);
+    return;
+}
+def_quest $quest3 = ~script20302($achievement1);
+if ($quest3 = null) {
+    return;
+}
+def_int $int4 = quest_param($quest3, quest_id);
+if ($int4 = -1) {
+    return;
+}
+def_component $component5 = league_child_tasks:quest_trigger;
+if ($component0 = league_parent_tasks:task_panel) {
+    $component5 = league_parent_tasks:quest_trigger;
+}
+cc_create($component5, ^iftype_layer, $int4);
+cc_setsize(1, 1, ^setsize_abs, ^setsize_abs);
+cc_setop(1, "Goto");
+cc_triggerop(1);
+~script8287(3, 2);

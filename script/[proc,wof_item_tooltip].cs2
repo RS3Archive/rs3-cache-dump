@@ -1,0 +1,24 @@
+// 6967
+[proc,wof_item_tooltip](component $component0, int $int1, obj $obj2, int $int3, int $int4, string $string0, int $int5, int $int6)
+if (~tooltip_time(25) = false) {
+    return;
+}
+if (%wof_trh_interface_state = 4) {
+    return;
+}
+def_component $component7 = wheel_of_fortune:ticker_tooltip_layer;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (if_gethide($component7) = false & (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true)) {
+    $int9 = if_getwidth($component7);
+    $int8 = calc(~script1743 + cc_getwidth / 2 - (~script3365($component7) + $int9 / 2));
+    $int10 = calc(($int9 - 35) / 2);
+    $int8 = max(min($int8, $int10), calc(0 - $int10));
+    $int8 = calc($int8 + $int9 / 2 - 9);
+    if_setposition($int8, 0, ^setpos_abs_left, ^setpos_abs_bottom, wheel_of_fortune:ticker_tooltip_arrow);
+    if_setsize(calc($int8 - 17), 18, ^setsize_abs, ^setsize_abs, wheel_of_fortune:ticker_tooltip_border_sw);
+    if_setsize(calc($int9 - $int8 - 34), 18, ^setsize_abs, ^setsize_abs, wheel_of_fortune:ticker_tooltip_border_se);
+    return;
+}
+~script9673($component0, $int1, $obj2, $int3, $int4, $string0, $int5, $int6);

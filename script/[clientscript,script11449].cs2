@@ -1,0 +1,68 @@
+// 11449
+[clientscript,script11449](struct $struct0, int $int1, int $int2, int $int3)
+if_sethide(false, spotlight:cancel_btn_layer);
+if_setposition(8, if_gety(spotlight:purchase_btn_layer), ^setpos_abs_right, ^setpos_abs_top, spotlight:purchase_btn_layer);
+if_setobject_nonum(struct_param($struct0, spotlight_item), 5, spotlight:popup_item_graphic);
+if (compare("", struct_param($struct0, spotlight_item_name)) ! 0) {
+    if_settext(struct_param($struct0, spotlight_item_name), spotlight:popup_item_name);
+} else {
+    if_settext(oc_name(struct_param($struct0, spotlight_item)), spotlight:popup_item_name);
+}
+def_int $int4 = struct_param($struct0, spotlight_item_price);
+def_int $int5 = $int1;
+def_int $int6 = struct_param(%spotlight_shop_item_chosen, spotlight_quantity);
+def_obj $obj7 = struct_param($struct0, spotlight_item);
+def_string $string0 = "Purchase";
+if (struct_param($struct0, spotlight_item_multiple) = 1) {
+    if ($int4 > 0) {
+        $int5 = min($int1, calc(%spotlight_currency / $int4));
+    }
+    if (oc_stackable($obj7) = false) {
+        $int5 = min(calc($int6 * $int5), inv_freespace(inv));
+    } else if (inv_total(inv, $obj7) > 0) {
+        $int5 = min($int5, calc(^max_32bit_int - inv_total(inv, $obj7)));
+    }
+    $int5 = max($int5, 1);
+}
+switch_struct ($struct0) {
+    case spotlight_misc_penance_blue_egg :
+        if (%barbassault_unlocked_paint_blue = 1) {
+            $int4 = 0;
+            $string0 = "Re-colour";
+        }
+    case spotlight_misc_penance_yellow_egg :
+        if (%barbassault_unlocked_paint_yellow = 1) {
+            $int4 = 0;
+            $string0 = "Re-colour";
+        }
+    case spotlight_misc_penance_white_egg :
+        if (%barbassault_unlocked_paint_white = 1) {
+            $int4 = 0;
+            $string0 = "Re-colour";
+        }
+    case spotlight_misc_penance_green_egg :
+        if (%barbassault_unlocked_paint_green = 1) {
+            $int4 = 0;
+            $string0 = "Re-Colour";
+        }
+}
+if (%spotlight_currency < $int4) {
+    if_settext("You do not have enough currency for the purchase of:", spotlight:buy_popup_text);
+    if_settext("OK", spotlight:purchase_btn_text);
+    if_sethide(true, spotlight:cancel_btn_layer);
+    if_setposition(0, if_gety(spotlight:purchase_btn_layer), ^setpos_abs_centre, ^setpos_abs_top, spotlight:purchase_btn_layer);
+} else if ($int2 = 1 & $int3 = 0) {
+    if_settext("You already have the maximum amount of clue scrolls.", spotlight:buy_popup_text);
+    if_settext("OK", spotlight:purchase_btn_text);
+    if_sethide(true, spotlight:cancel_btn_layer);
+    if_setposition(0, if_gety(spotlight:purchase_btn_layer), ^setpos_abs_centre, ^setpos_abs_top, spotlight:purchase_btn_layer);
+} else if (playermember = false & oc_members($obj7) = 1) {
+    if_settext("This item is for members only:", spotlight:buy_popup_text);
+    if_settext("OK", spotlight:purchase_btn_text);
+    if_sethide(true, spotlight:cancel_btn_layer);
+    if_setposition(0, if_gety(spotlight:purchase_btn_layer), ^setpos_abs_centre, ^setpos_abs_top, spotlight:purchase_btn_layer);
+} else {
+    if_settext("Spend <tostring_localised(calc($int4 * $int5), true)> on purchasing <tostring_localised($int5, true)>:", spotlight:buy_popup_text);
+    if_settext($string0, spotlight:purchase_btn_text);
+}
+if_sethide(false, spotlight:buy_popup_layer);

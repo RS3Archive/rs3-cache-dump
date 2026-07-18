@@ -1,0 +1,23 @@
+// 15512
+[proc,trh_update_progress_bar](int $int0, component $component1, component $component2, int $int3, int $int4, int $int5, component $component6, int $int7)
+def_int $int8 = ~script3810($int0, $component1);
+def_int $int9 = ~script15510($int0, $component1);
+if ($int9 > 0) {
+    $int5 = $int9;
+}
+def_int $int10 = calc($int8 * 100 / $int5);
+def_int $int11 = 0;
+if ($int7 = 1) {
+    $int11 = calc(if_getheight($component1) - $int4);
+} else {
+    $int11 = calc(if_getwidth($component1) - $int4);
+}
+def_int $int12 = calc($int10 * $int11 / 100);
+if ($int7 = 1) {
+    if_setsize($int3, $int12, ^setsize_abs, ^setsize_abs, $component2);
+} else {
+    if_setsize($int12, $int3, ^setsize_abs, ^setsize_abs, $component2);
+}
+if ($component6 ! null) {
+    if_settext("<tostring($int8)>/<tostring($int5)>", $component6);
+}

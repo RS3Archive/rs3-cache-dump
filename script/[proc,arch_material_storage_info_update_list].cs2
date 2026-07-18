@@ -1,0 +1,15 @@
+// 14952
+[proc,arch_material_storage_info_update_list]
+def_component $component0 = arch_material_storage_info:build_layer;
+def_component $component1 = arch_material_storage_info:control_layer;
+if (if_getnextsubid($component0) = 0 & if_getnextsubid($component1) = 0) {
+    ~arch_material_storage_info_build_list;
+    return;
+}
+def_int $int2 = enum_getoutputcount(arch_material_list);
+def_int $int3 = -1;
+while (++$int3 < $int2) {
+    if (cc_find($component1, $int3) = true) {
+        ~arch_material_storage_info_update_item(enum(int, obj, arch_material_list, $int3));
+    }
+}

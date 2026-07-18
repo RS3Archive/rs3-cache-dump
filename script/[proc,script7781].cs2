@@ -1,0 +1,138 @@
+// 7781
+[proc,script7781](obj $obj0, int $int1, inv $inv2, int $int3, int $int4)(int)
+def_obj $obj5 = null;
+def_obj $obj6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+if (oc_param($obj0, special_refund) = 1) {
+    $int9, $int10, $int11 = ~script7782(0, 0, 0, $obj0, $int1, $inv2, 1, $int3, $int4);
+    if (calc($int9 + $int10 + $int11) > 0) {
+        return(2);
+    } else {
+        return(1);
+    }
+}
+switch_obj ($obj0) {
+    case default :
+        switch_category (oc_category($obj0)) {
+            case smithing_deprecated :
+                $obj5 = enum(obj, obj, smithing_login_replace_enum, $obj0);
+                if ($obj5 = null) {
+                    return(0);
+                }
+                $int7 = enum(obj, int, smithing_login_replace_amounts, $obj0);
+                if ($int7 <= 0) {
+                    return(0);
+                }
+                if (calc(^max_32bit_int / $int1) < $int7) {
+                    $int8 = ^max_32bit_int;
+                    ~error("Player <name> MAX INT'd via item <oc_name($obj0)> inside the GE");
+                } else {
+                    $int8 = calc($int7 * $int1);
+                }
+                $obj6 = oc_cert($obj5);
+            case default :
+                return(0);
+        }
+    case macro_hatchethandle :
+        $obj5, $obj6 = null, null;
+    case macro_hatchethandle_dragon :
+        $obj5, $obj6 = null, null;
+    case macro_dragon_hatchethead :
+        $obj5, $obj6 = dragon_axe, cert_dragon_axe;
+    case macro_rune_hatchethead :
+        $obj5, $obj6 = rune_axe, cert_rune_axe;
+    case macro_adamant_hatchethead :
+        $obj5, $obj6 = adamant_axe, cert_adamant_axe;
+    case macro_mithril_hatchethead :
+        $obj5, $obj6 = mithril_axe, cert_mithril_axe;
+    case macro_black_hatchethead :
+        $obj5, $obj6 = black_axe, cert_black_axe;
+    case macro_steel_hatchethead :
+        $obj5, $obj6 = steel_axe, cert_steel_axe;
+    case macro_iron_hatchethead :
+        $obj5, $obj6 = iron_axe, cert_iron_axe;
+    case macro_bronze_hatchethead :
+        $obj5, $obj6 = bronze_axe, cert_bronze_axe;
+    case macro_broken_dragon_hatchet :
+        $obj5, $obj6 = dragon_axe, cert_dragon_axe;
+    case macro_broken_rune_hatchet :
+        $obj5, $obj6 = rune_axe, cert_rune_axe;
+    case macro_broken_adamant_hatchet :
+        $obj5, $obj6 = adamant_axe, cert_adamant_axe;
+    case macro_broken_mithril_hatchet :
+        $obj5, $obj6 = mithril_axe, cert_mithril_axe;
+    case macro_broken_black_hatchet :
+        $obj5, $obj6 = black_axe, cert_black_axe;
+    case macro_broken_steel_hatchet :
+        $obj5, $obj6 = steel_axe, cert_steel_axe;
+    case macro_broken_iron_hatchet :
+        $obj5, $obj6 = iron_axe, cert_iron_axe;
+    case macro_broken_bronze_hatchet :
+        $obj5, $obj6 = bronze_axe, cert_bronze_axe;
+    case macro_pickaxehandle :
+        $obj5, $obj6 = null, null;
+    case macro_rune_pickaxehead :
+        $obj5, $obj6 = rune_pickaxe, cert_rune_pickaxe;
+    case macro_adamant_pickaxehead :
+        $obj5, $obj6 = adamant_pickaxe, cert_adamant_pickaxe;
+    case macro_mithril_pickaxehead :
+        $obj5, $obj6 = mithril_pickaxe, cert_mithril_pickaxe;
+    case macro_steel_pickaxehead :
+        $obj5, $obj6 = steel_pickaxe, cert_steel_pickaxe;
+    case macro_iron_pickaxehead :
+        $obj5, $obj6 = iron_pickaxe, cert_iron_pickaxe;
+    case macro_bronze_pickaxehead :
+        $obj5, $obj6 = bronze_pickaxe, cert_bronze_pickaxe;
+    case macro_broken_rune_pickaxe :
+        $obj5, $obj6 = rune_pickaxe, cert_rune_pickaxe;
+    case macro_broken_adamant_pickaxe :
+        $obj5, $obj6 = adamant_pickaxe, cert_adamant_pickaxe;
+    case macro_broken_mithril_pickaxe :
+        $obj5, $obj6 = mithril_pickaxe, cert_mithril_pickaxe;
+    case macro_broken_steel_pickaxe :
+        $obj5, $obj6 = steel_pickaxe, cert_steel_pickaxe;
+    case macro_broken_iron_pickaxe :
+        $obj5, $obj6 = iron_pickaxe, cert_iron_pickaxe;
+    case macro_broken_bronze_pickaxe :
+        $obj5, $obj6 = bronze_pickaxe, cert_bronze_pickaxe;
+    case bowl_sweetcorn :
+        $obj5, $obj6 = sweetcorn_cooked, cert_sweetcorn_cooked;
+    case bowl_ugthanki :
+        $obj5, $obj6 = ugthanki_kebab, cert_ugthanki_kebab;
+    case bowl_ugthankionion :
+        $obj5, $obj6 = ugthanki_kebab, cert_ugthanki_kebab;
+    case bowl_ugthankitomato :
+        $obj5, $obj6 = ugthanki_kebab, cert_ugthanki_kebab;
+    case stew2 :
+        $obj5, $obj6 = stew1, cert_stew1;
+    case chompy_cooked :
+        $obj5, $obj6 = cooked_chompy, cert_cooked_chompy;
+}
+if ($obj5 = null) {
+    ~sm_mes("That item is no longer in use.");
+    ~script7787(9704, 1, 0, 50, 256);
+    ~script7788($inv2, $obj0, $int1);
+    return(1);
+}
+if ($int4 = 1 & $obj6 ! null) {
+    $obj5 = $obj6;
+}
+if ($int8 = 0) {
+    $int8 = $int1;
+}
+def_int $int12 = ~inv_itemspace2(inv, $obj5, $int8, calc(inv_size(inv) - $int3));
+$int8 = calc($int8 - $int12);
+if ($int8 <= 0) {
+    ~script7787(10046, 1, 0, 100, 256);
+    ~sm_mes("You do not have enough room in your inventory.");
+    return(2);
+}
+~sm_mes("That item is no longer in use. Please accept this substitute.");
+~script7787(9704, 1, 0, 50, 256);
+~script7788($inv2, $obj0, $int1);
+~script7792(inv, $obj5, $int8);
+return(1);

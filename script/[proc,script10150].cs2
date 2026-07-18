@@ -1,0 +1,20 @@
+// 10150
+[proc,script10150](int $int0)
+def_int $int1 = 0;
+def_int $int2 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+if (%twitch_webcam_options_id ! -1 & string_length(%twitch_webcam_idname) > 0) {
+    if_sethide(true, twitch_stream:webcam_build);
+    $int2, $string0, $string1 = ttv_webcam_getdevice_byuniquename(%twitch_webcam_idname);
+    $int1 = ttv_webcam_stop($int2);
+    if ($int0 = 1) {
+        ~script10158(0);
+    } else {
+        ~script10158(1);
+    }
+    if ($int0 = 1) {
+        %twitch_webcam_reload_needed = 1;
+        %varclientbit_23070 = 1;
+    }
+}

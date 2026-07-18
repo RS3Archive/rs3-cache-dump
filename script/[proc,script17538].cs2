@@ -1,0 +1,20 @@
+// 17538
+[proc,script17538](dbrow $dbrow0)(boolean, string)
+def_boolean $boolean1 = true;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int2 = db_getfieldcount($dbrow0, necro_ritual_recipe:col9);
+if ($int2 = 0) {
+    return($boolean1, $string0);
+}
+def_int $int3 = -1;
+def_quest $quest4 = null;
+while (++$int3 < $int2) {
+    $quest4 = ~script17509($dbrow0, $int3);
+    if (~ql4_getprogress($quest4) ! 2) {
+        $string1 = ~quest_name($quest4);
+        $string0 = append($string0, "<col=EB2F2F>You need to complete <$string1> for this ritual.<br>");
+        $boolean1 = false;
+    }
+}
+return($boolean1, $string0);

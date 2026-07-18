@@ -1,0 +1,27 @@
+// 2970
+[proc,script2970](component $component0, component $component1, component $component2, dbrow $dbrow3, int $int4, int $int5, int $int6)(int)
+if ($dbrow3 = null) {
+    return($int5);
+}
+if ($component0 = null | $component1 = null | $component2 = null) {
+    return($int5);
+}
+def_int $int7 = db_getfieldcount($dbrow3, settings_category:col2);
+if ($int7 = 0) {
+    return($int5);
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_boolean $boolean11 = false;
+def_struct $struct12 = null;
+while ($int9 < $int7) {
+    $struct12 = db_getfield($dbrow3, settings_category:col2, $int9);
+    $boolean11 = ~script9395($struct12);
+    if (~script16146($struct12, $boolean11) = true) {
+        $int5 = ~script18933($component0, $component1, $component2, $struct12, $int4, $int9, $int8, $int5, $int6, $boolean11);
+        $int8 = calc($int8 + 1);
+    }
+    $int9 = calc($int9 + 1);
+}
+return($int5);

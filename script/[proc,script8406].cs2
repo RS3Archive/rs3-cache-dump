@@ -1,0 +1,22 @@
+// 8406
+[proc,script8406](component $component0, int $int1)(int, int)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_component $component4 = null;
+if (cc_find($component0, $int1) = true) {
+    $int2 = cc_getx;
+    $int3 = cc_gety;
+    $component4 = cc_getparentlayer;
+    while (cc_find_parent = true) {
+        if (cc_getid ! -1) {
+            $int2 = calc($int2 + (cc_getx - cc_getscrollx));
+            $int3 = calc($int3 + (cc_gety - cc_getscrolly));
+        }
+    }
+    while (if_getparentlayer($component4) ! null) {
+        $int2 = calc($int2 + (if_getx($component4) - if_getscrollx($component4)));
+        $int3 = calc($int3 + (if_gety($component4) - if_getscrolly($component4)));
+        $component4 = if_getparentlayer($component4);
+    }
+}
+return($int2, $int3);

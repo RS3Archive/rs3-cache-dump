@@ -1,0 +1,23 @@
+// 11425
+[proc,script11425](component $component0)(component)
+def_component $component1 = null;
+def_component $component2 = null;
+if ($component0 = null) {
+    return(null);
+}
+if (if_find($component0) = true & cc_param(combatv2_buff_head) = true) {
+    $component1 = cc_param(combatv2_buff_inactive_head);
+    if ($component1 = null) {
+        return(null);
+    }
+    if (.if_find($component1) = true) {
+        $component2 = .cc_param(combatv2_buff_next_container);
+        .cc_setparam(combatv2_buff_prev_container, null);
+        .cc_setparam(combatv2_buff_next_container, null);
+        cc_setparam(combatv2_buff_inactive_head, $component2);
+        if (.if_find($component2) = true) {
+            .cc_setparam(combatv2_buff_prev_container, $component0);
+        }
+    }
+}
+return($component1);

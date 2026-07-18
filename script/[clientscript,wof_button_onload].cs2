@@ -1,0 +1,19 @@
+// 5942
+[clientscript,wof_button_onload]
+if_setonresize("script5944", wheel_of_fortune_button:container);
+def_int $int0 = %wof_button_x;
+def_int $int1 = %wof_button_y;
+if (~script6431 = true) {
+    $int0 = calc(if_getx(toplevel_v2:game_area) + 2);
+    $int1 = calc(if_getheight(toplevel_v2:game_area) / 2);
+    if_setsize(52, 52, ^setsize_abs, ^setsize_abs, wheel_of_fortune_button:wof_tick);
+    if_setsize(22, 22, ^setsize_minus, ^setsize_minus, wheel_of_fortune_button:wof_close_button);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, wheel_of_fortune_button:wof_tick);
+    if_setondrag(null, wheel_of_fortune_button:content_layer);
+    if_setdraggable(null, -1, wheel_of_fortune_button:content_layer);
+} else {
+    if_setdraggable(wheel_of_fortune_button:container, -1, wheel_of_fortune_button:content_layer);
+}
+~wof_position_button($int0, $int1);
+if_setontimer("script10534(event_com, 5)", wheel_of_fortune_button:wof_transparency_gfx);
+if_setonvartransmit("script3564{wof_main_5, wof_main_5, wof_main_5}", wheel_of_fortune_button:wof_keys_left_text);

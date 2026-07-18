@@ -1,0 +1,75 @@
+// 12122
+[proc,invent_discovery_create_card](component $component0, int $int1, component $component2, int $int3, int $int4, int $int5, dbrow $dbrow6)(int)
+def_int $int7 = $int1;
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setsize(212, 166, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int4 - 8), calc($int5 - 8), ^setpos_abs_left, ^setpos_abs_top);
+if (%invent_blueprint_selected = $dbrow6) {
+    cc_setgraphic("invention_discovery_card_effects,1");
+} else {
+    cc_setgraphic("invention_discovery_card_effects,0");
+}
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setsize(196, 150, ^setsize_abs, ^setsize_abs);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(~script14925($dbrow6));
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(db_getfield($dbrow6, invent_blueprint_table:col5, 0));
+cc_setsize(100, 100, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int4 + 48), calc($int5 + 40), ^setpos_abs_left, ^setpos_abs_top);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_text, $int1);
+cc_settext(db_getfield($dbrow6, invent_blueprint_table:col1, 0));
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_top, 12);
+cc_setcolour(0x332200);
+cc_setsize(140, 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int4 + 5), calc($int5 + 5), ^setpos_abs_left, ^setpos_abs_top);
+$int1 = calc($int1 + 1);
+def_string $string0 = tostring(db_getfield($dbrow6, invent_blueprint_table:col9, 0));
+cc_create($component0, ^iftype_text, $int1);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string0);
+cc_settextalign(^settextalign_right, ^settextalign_top, 12);
+cc_setcolour(0x332200);
+cc_setsize(50, 20, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int4 + 141), calc($int5 + 130), ^setpos_abs_left, ^setpos_abs_top);
+def_int $int8 = stringwidth($string0, cc_getfontmetrics);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(skill_icon_invention_16px);
+cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int4 + 170 - $int8), calc($int5 + 128), ^setpos_abs_left, ^setpos_abs_top);
+$int1 = calc($int1 + 1);
+def_int $int9 = db_getfieldcount($dbrow6, invent_blueprint_table:col13);
+def_int $int10 = 0;
+while ($int10 < $int9) {
+    $string0 = ~script12051($dbrow6, $int10);
+    cc_create($component0, ^iftype_text, $int1);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext($string0);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 12);
+    cc_setcolour(0x332200);
+    cc_setsize(50, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int4 + 5), calc($int5 + 130 - 12 * $int10), ^setpos_abs_left, ^setpos_abs_top);
+    $int1 = calc($int1 + 1);
+    $int10 = calc($int10 + 1);
+}
+if ($component2 ! null & cc_find($component2, $int3) = true) {
+    cc_setsize(196, 132, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settrans(255);
+    cc_sethide(false);
+    cc_setparam(invent_client_recipe, $dbrow6);
+    cc_setparam(invent_client_start_id, $int7);
+    cc_setparam(invent_client_end_id, $int1);
+    cc_setonmouserepeat("script12123(event_com, event_comsubid, $dbrow6, $component0, $int7, $int1)");
+    cc_setop(1, "Select");
+    cc_sendtofront;
+    if ($component2 = invent_discovery:side_active_layer) {
+        cc_setonscrollwheel("scrollbar_vertical_wheel(invent_discovery:side_scrollbar_layer, invent_discovery:side_content_layer, event_mousey)");
+    }
+}
+return($int1);

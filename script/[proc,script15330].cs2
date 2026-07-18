@@ -1,0 +1,48 @@
+// 15330
+[proc,script15330](achievement $achievement0, achievement $achievement1)
+cc_deleteall(achievements_summary:almost_wrapper);
+if_sethide(true, achievements_summary:almost_layer_1);
+if_sethide(true, achievements_summary:almost_layer_2);
+if ($achievement0 = null & $achievement1 = null) {
+    cc_create(achievements_summary:almost_wrapper, ^iftype_text, 0);
+    cc_settext("You have no achievements close to completion.");
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(10, 10, ^setsize_minus, ^setsize_minus);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(~rgb_to_hex(255, 255, 255));
+}
+def_int $int2 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+if ($achievement0 ! null) {
+    if_sethide(false, achievements_summary:almost_layer_1);
+    $int2 = achievement_reqstate($achievement0);
+    %cheevo_almost_1_completed = $int2;
+    ~script13310(achievements_summary:almost_1_progress_layer, achievements_summary:almost_1_progress_bitmask_layer, 2, calc(8 * 1000));
+    $string2 = achievement_getname($achievement0);
+    if_settext($string2, achievements_summary:cheevo_almost_1_name);
+    if_setgraphic(achievement_sprite($achievement0), achievements_summary:cheevo_almost_1_icon);
+    $string0 = append(tostring(calc($int2 / 100)), "%");
+    if_settext($string0, achievements_summary:cheevo_almost_1_percent);
+    $string1 = ~achievement_description($achievement0);
+    if_setonmouserepeat("script8799($string1, event_com, -1)", achievements_summary:almost_layer_1);
+    if_setopbase($string2, achievements_summary:almost_layer_1);
+    if_setopcursor(1, cursor_goto, achievements_summary:almost_layer_1);
+}
+if ($achievement1 ! null) {
+    if_sethide(false, achievements_summary:almost_layer_2);
+    $int2 = achievement_reqstate($achievement1);
+    %cheevo_almost_2_completed = $int2;
+    ~script13310(achievements_summary:almost_2_progress_layer, achievements_summary:almost_2_progress_bitmask_layer, 3, calc(8 * 1000));
+    $string2 = achievement_getname($achievement1);
+    if_settext($string2, achievements_summary:cheevo_almost_2_name);
+    if_setgraphic(achievement_sprite($achievement1), achievements_summary:cheevo_almost_2_icon);
+    $string0 = append(tostring(calc($int2 / 100)), "%");
+    if_settext($string0, achievements_summary:cheevo_almost_2_percent);
+    $string1 = ~achievement_description($achievement1);
+    if_setonmouserepeat("script8799($string1, event_com, -1)", achievements_summary:almost_layer_2);
+    if_setopbase($string2, achievements_summary:almost_layer_2);
+    if_setopcursor(1, cursor_goto, achievements_summary:almost_layer_2);
+}

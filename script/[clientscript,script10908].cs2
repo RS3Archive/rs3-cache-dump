@@ -1,0 +1,100 @@
+// 10908
+[clientscript,script10908]
+if_sethide(true, thedrop:answer3);
+if_sethide(true, thedrop:answer4);
+if_sethide(true, thedrop:answer5);
+if_sethide(true, thedrop:thedrop_panel);
+if_sethide(true, thedrop:disabled_answer1);
+if_sethide(true, thedrop:disabled_answer2);
+if_sethide(true, thedrop:disabled_answer3);
+if_sethide(true, thedrop:disabled_answer4);
+if_sethide(true, thedrop:disabled_answer5);
+if_setopcursor(1, cursor_default, thedrop:disabled_answer1);
+if_setopcursor(1, cursor_default, thedrop:disabled_answer2);
+if_setopcursor(1, cursor_default, thedrop:disabled_answer3);
+if_setopcursor(1, cursor_default, thedrop:disabled_answer4);
+if_setopcursor(1, cursor_default, thedrop:disabled_answer5);
+if_sethide(true, thedrop:selected_answer1);
+if_sethide(true, thedrop:selected_answer2);
+if_sethide(true, thedrop:selected_answer3);
+if_sethide(true, thedrop:selected_answer4);
+if_sethide(true, thedrop:selected_answer5);
+if_sethide(true, thedrop:thedrop_panel);
+if (%thedrop_spectating = 1) {
+    if_sethide(false, thedrop:disabled_answer1);
+    if_sethide(false, thedrop:disabled_answer2);
+    if_sethide(false, thedrop:disabled_answer3);
+    if_sethide(false, thedrop:disabled_answer4);
+    if_sethide(false, thedrop:disabled_answer5);
+}
+if (%thedrop_player_questionstruct ! null) {
+    if_setsize(1, 5, ^setsize_abs, ^setsize_abs, thedrop:progress_bar);
+    if_settext(struct_param(%thedrop_player_questionstruct, thedrop_question), thedrop:question_text);
+    switch_int (struct_param(%thedrop_player_questionstruct, thedrop_question_answers)) {
+        case 2 :
+            if_setsize(500, 120, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_1), thedrop:text_answer1);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_2), thedrop:text_answer2);
+        case 3 :
+            if_setsize(500, 120, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_sethide(false, thedrop:answer3);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_1), thedrop:text_answer1);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_2), thedrop:text_answer2);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_3), thedrop:text_answer3);
+            if_setposition(0, 86, ^setpos_abs_centre, ^setpos_abs_top, thedrop:answer3);
+        case 4 :
+            if_setsize(500, 160, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_sethide(false, thedrop:answer3);
+            if_sethide(false, thedrop:answer4);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_1), thedrop:text_answer1);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_2), thedrop:text_answer2);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_3), thedrop:text_answer3);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_4), thedrop:text_answer4);
+        case 5 :
+            if_setsize(500, 160, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_sethide(false, thedrop:answer3);
+            if_sethide(false, thedrop:answer4);
+            if_sethide(false, thedrop:answer5);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_1), thedrop:text_answer1);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_2), thedrop:text_answer2);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_3), thedrop:text_answer3);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_4), thedrop:text_answer4);
+            if_settext(struct_param(%thedrop_player_questionstruct, thedrop_answer_5), thedrop:text_answer5);
+    }
+    if_setontimer("script10909(clientclock, calc(clientclock + 775))", thedrop:progress_bar_layer);
+} else if (%thedrop_player_custom_answer_amount > 0) {
+    if_setsize(1, 5, ^setsize_abs, ^setsize_abs, thedrop:progress_bar);
+    if_settext(%thedrop_player_custom_question, thedrop:question_text);
+    switch_int (%thedrop_player_custom_answer_amount) {
+        case 2 :
+            if_setsize(500, 120, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_settext(%thedrop_player_custom_answer1, thedrop:text_answer1);
+            if_settext(%thedrop_player_custom_answer2, thedrop:text_answer2);
+        case 3 :
+            if_setsize(500, 120, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_sethide(false, thedrop:answer3);
+            if_settext(%thedrop_player_custom_answer1, thedrop:text_answer1);
+            if_settext(%thedrop_player_custom_answer2, thedrop:text_answer2);
+            if_settext(%thedrop_player_custom_answer3, thedrop:text_answer3);
+            if_setposition(0, 86, ^setpos_abs_centre, ^setpos_abs_top, thedrop:answer3);
+        case 4 :
+            if_setsize(500, 160, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_sethide(false, thedrop:answer3);
+            if_sethide(false, thedrop:answer4);
+            if_settext(%thedrop_player_custom_answer1, thedrop:text_answer1);
+            if_settext(%thedrop_player_custom_answer2, thedrop:text_answer2);
+            if_settext(%thedrop_player_custom_answer3, thedrop:text_answer3);
+            if_settext(%thedrop_player_custom_answer4, thedrop:text_answer4);
+        case 5 :
+            if_setsize(500, 160, ^setsize_abs, ^setsize_abs, thedrop:main_overlay);
+            if_sethide(false, thedrop:answer3);
+            if_sethide(false, thedrop:answer4);
+            if_sethide(false, thedrop:answer5);
+            if_settext(%thedrop_player_custom_answer1, thedrop:text_answer1);
+            if_settext(%thedrop_player_custom_answer2, thedrop:text_answer2);
+            if_settext(%thedrop_player_custom_answer3, thedrop:text_answer3);
+            if_settext(%thedrop_player_custom_answer4, thedrop:text_answer4);
+            if_settext(%thedrop_player_custom_answer5, thedrop:text_answer5);
+    }
+    if_setontimer("script10909(clientclock, calc(clientclock + 775))", thedrop:progress_bar_layer);
+}

@@ -1,0 +1,94 @@
+// 8315
+[clientscript,script8315](int $int0, int $int1, int $int2, int $int3)
+if (~script8874 = false) {
+    ~script8306;
+    return;
+}
+%toplevel_v2_window_being_dragged = $int0;
+def_struct $struct4 = ~script10405($int0);
+def_struct $struct5 = ~script8418($struct4, 0);
+def_component $component6 = struct_param($struct4, toplevel_v2_window_layer);
+def_component $component7 = ~script1886($int0);
+if_sendtofront($component6);
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int8, $int9 = ~script8405(if_getparentlayer($component6));
+def_int $int10 = if_getwidth($component6);
+def_int $int11 = if_getwidth($component6);
+def_int $int12 = if_getheight($component6);
+def_int $int13 = if_getx($component6);
+def_int $int14 = if_gety($component6);
+def_int $int15 = 0;
+def_int $int16 = 0;
+$int15, $int16 = ~script8405($component7);
+$int15 = calc($int15 - $int8);
+$int16 = calc($int16 - $int9);
+def_struct $struct17 = struct_param($struct4, toplevel_v2_window_size_struct);
+def_int $int18 = 0;
+def_int $int19 = 0;
+if ($struct17 ! null) {
+    $int18, $int19 = ~script20539($struct17);
+}
+switch_int ($int1) {
+    case 0, 3, 5 :
+        $int13 = calc($int2 - $int8);
+        $int11 = calc(if_getwidth($component6) + if_getx($component6) - $int13);
+        if ($int11 < $int18) {
+            $int13 = calc($int13 - ($int18 - $int11));
+            $int11 = $int18;
+        }
+    case 2 :
+        $int11 = calc($int2 - $int8 - $int13 + struct_param($struct5, toplevel_v2_window_titled_top_right_width));
+        if ($int11 < $int18) {
+            $int11 = $int18;
+        }
+    case 4 :
+        $int11 = calc($int2 - $int8 - $int13 + struct_param($struct5, toplevel_v2_window_titled_right_width));
+        if ($int11 < $int18) {
+            $int11 = $int18;
+        }
+    case 7 :
+        $int11 = calc($int2 - $int8 - $int13 + struct_param($struct5, toplevel_v2_window_titled_bottom_right_width));
+        if ($int11 < $int18) {
+            $int11 = $int18;
+        }
+}
+switch_int ($int1) {
+    case 0, 1, 2 :
+        $int14 = calc($int3 - $int9);
+        $int12 = calc(if_getheight($component6) + if_gety($component6) - $int14);
+        if ($int12 < $int19) {
+            $int14 = calc($int14 - ($int19 - $int12));
+            $int12 = $int19;
+        }
+    case 5 :
+        $int12 = calc($int3 - $int9 - $int14 + struct_param($struct5, toplevel_v2_window_titled_bottom_left_height));
+        if ($int12 < $int19) {
+            $int12 = $int19;
+        }
+    case 6 :
+        $int12 = calc($int3 - $int9 - $int14 + struct_param($struct5, toplevel_v2_window_titled_bottom_height));
+        if ($int12 < $int19) {
+            $int12 = $int19;
+        }
+    case 7 :
+        $int12 = calc($int3 - $int9 - $int14 + struct_param($struct5, toplevel_v2_window_titled_bottom_right_height));
+        if ($int12 < $int19) {
+            $int12 = $int19;
+        }
+}
+def_int $int20 = calc($int15 + if_getwidth($component7) - $int11);
+def_int $int21 = calc($int16 + if_getheight($component7) - $int12);
+$int13 = max($int15, min($int13, $int20));
+$int14 = max($int16, min($int14, $int21));
+$int11 = min($int11, if_getwidth($component7));
+$int12 = min($int12, if_getheight($component7));
+if_setsize($int11, $int12, ^setsize_abs, ^setsize_abs, $component6);
+if_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top, $component6);
+~script8688(~script8379($int13, $int14, $int11, $int12, $int0, $int1, 1));
+if ($int10 ! $int11 & ~script12612($struct4) = true) {
+    ~script8359($int0, ~script8374(struct_param($struct4, toplevel_v2_window_tabs_layer)), ~script8372(struct_param($struct4, toplevel_v2_window_tabs_layer), $int0));
+    ~script1847($int0);
+}
+~script8308($int0, ~script8717($int0), $int13, $int14, $int11, $int12);
+~script8390($int0);

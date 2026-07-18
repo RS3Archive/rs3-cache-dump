@@ -1,0 +1,23 @@
+// 1059
+[clientscript,quickchat_onkey](int $key0, char $char1)
+if ($key0 = ^key_escape & ~cancel_targetmode = true) {
+    return;
+}
+if (~script8854 ! 9 | %chatbox_focus = -1) {
+    return;
+}
+def_int $int2 = %chatbox_focus;
+if (if_find(~script8586($int2)) = true) {
+    switch_int (cc_param(toplevel_v2_chat_quickchat_mode)) {
+        case 0 :
+            ~quickchat_onkey_standard($key0, $char1, $int2);
+        case 1 :
+            ~quickchat_onkey_countdialog($key0, $char1, $int2);
+        case 2 :
+            ~quickchat_onkey_objdialog($key0, $char1, $int2);
+        case 3 :
+            ~quickchat_onkey_search($key0, $char1, $int2);
+        case 4 :
+            ~script2223($key0, $char1, $int2);
+    }
+}

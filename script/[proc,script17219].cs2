@@ -1,0 +1,27 @@
+// 17219
+[proc,script17219](int $int0)
+def_int $int1 = 0;
+def_graphic $graphic2 = null;
+switch_int ($int0) {
+    case 0 :
+        if_sethide(false, quest_fort_casefile:tab_suspects_layer);
+        $graphic2 = "arch_journal_tab_bookmark_restoration_log,0";
+        $int1 = if_getx(quest_fort_casefile:tab_suspects_layer);
+    case 1 :
+        if_sethide(false, quest_fort_casefile:tab_evidence_part1_layer);
+        $graphic2 = "arch_journal_tab_bookmark_research,0";
+        $int1 = if_getx(quest_fort_casefile:tab_evidence_part1_layer);
+    case 2 :
+        if (~script17214 = false) {
+            if_sethide(true, quest_fort_casefile:tab_evidence_part2_layer);
+            return;
+        }
+        if_sethide(false, quest_fort_casefile:tab_evidence_part2_layer);
+        $graphic2 = "arch_journal_tab_bookmark_research,0";
+        $int1 = if_getx(quest_fort_casefile:tab_evidence_part2_layer);
+}
+if_setgraphic($graphic2, quest_fort_casefile:tab_active_bookmark_graphic);
+if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top, quest_fort_casefile:tab_active_bookmark_graphic);
+if ($graphic2 ! null) {
+    ~script17224($int0);
+}

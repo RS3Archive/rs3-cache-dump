@@ -1,0 +1,33 @@
+// 13652
+[clientscript,invent_gizmo_bag_background](component $component0, int $int1, int $int2, int $int3)
+def_int $int4 = 0;
+switch_int ($int3) {
+    case 41091 :
+        return;
+    case 41090 :
+        $int4 = 15;
+    case 41089 :
+        $int4 = 10;
+}
+if_setonvartransmit("script13653{invent_gizmo_bag_grey_out}", $component0);
+def_int $int5 = calc($int1 * $int2);
+def_int $int6 = calc(if_getheight($component0) / $int2);
+def_int $int7 = calc(if_getwidth($component0) / $int1);
+def_int $int8 = 0;
+def_string $string0 = "";
+def_int $int9 = if_getnextsubid($component0);
+while ($int4 < $int5) {
+    cc_create($component0, ^iftype_graphic, $int9);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int7 * ($int4 % $int1) + 2), calc($int6 * ($int4 / $int1) + 2), ^setpos_abs_left, ^setpos_abs_top);
+    if ($int4 >= 15) {
+        $string0 = "You need to manufacture the tier 3 gizmo bag at an inventors workbench to unlock this slot.<br><tostring(oc_param(invent_gizmo_bag_3, recipe_requirement_value_1))> Invention required.";
+        cc_setgraphic(invention_machine_icon_padlock_gold_36px);
+    } else if ($int4 >= 10) {
+        $string0 = "You need to manufacture the tier 2 gizmo bag at an inventors workbench to unlock this slot.<br><tostring(oc_param(invent_gizmo_bag_2, recipe_requirement_value_1))> Invention required.";
+        cc_setgraphic(invention_machine_icon_padlock_silver_36px);
+    }
+    cc_setonmouserepeat("script3876($string0, $component0, $int9)");
+    $int4 = calc($int4 + 1);
+    $int9 = calc($int9 + 1);
+}

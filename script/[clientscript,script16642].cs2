@@ -1,0 +1,30 @@
+// 16642
+[clientscript,script16642]
+def_component $component0 = edict_translation:translation_grid;
+def_boolean $boolean1 = false;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$boolean1, $int2, $int3 = if_grid_getlayoutparams($component0);
+if ($boolean1 = true) {
+    ~error("Grid is not setup to be in CELL mode");
+    return;
+}
+def_int $int4 = calc($int2 * $int3);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_boolean $boolean8 = false;
+while (++$int5 <= $int4) {
+    if ($boolean8 = false) {
+        $int7 = calc($int7 + 1);
+        ~cc_add_graphic($component0, if_getnextsubid($component0), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 16384, ^setsize_aspect, ^setsize_rel, enum(int, graphic, quest_zamorak_act3_translation_int_sprite, $int7));
+        cc_setaspect(1, 1);
+    } else {
+        $int6 = calc($int6 + 1);
+        ~cc_add_text($component0, if_getnextsubid($component0), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 16384, ^setsize_aspect, ^setsize_rel, text_subtitle_paper_journal, enum_string(int_to_letter, $int6));
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    }
+    if (calc($int5 % 5) = 0) {
+        $boolean8 = ~negate_bool($boolean8);
+    }
+}

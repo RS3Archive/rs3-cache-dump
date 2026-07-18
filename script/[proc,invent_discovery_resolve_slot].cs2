@@ -1,0 +1,41 @@
+// 12136
+[proc,invent_discovery_resolve_slot](int $int0, component $component1, component $component2)(int)
+def_graphic $graphic3 = null;
+switch_int ($int0) {
+    case 1 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_0);
+    case 2 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_1);
+    case 3 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_2);
+    case 4 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_3);
+    case 5 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_4);
+    case 6 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_5);
+    case 7 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_6);
+    case 8 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_7);
+    case 9 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_8);
+    case 10 :
+        $graphic3 = if_getgraphic(invent_discovery:part_icon_9);
+}
+if ($graphic3 ! null) {
+    if_setgraphic($graphic3, $component1);
+    if_sethide(false, $component1);
+    if_sethide(false, $component2);
+    if_setgraphic("invention_discovery_icon_select,1", $component2);
+    return(1);
+} else {
+    if_sethide(true, $component1);
+    if_setgraphic("invention_discovery_icon_select,0", $component2);
+    if (%invent_discovery_mode = 2) {
+        if_sethide(true, $component2);
+    } else {
+        if_sethide(false, $component2);
+    }
+    return(0);
+}

@@ -1,0 +1,51 @@
+// 7154
+[clientscript,script7154]
+def_component $component0 = dino_totem:list_layer;
+def_component $component1 = dino_totem:click_layer;
+def_component $component2 = dino_totem:scrollbar_layer;
+def_component $component3 = dino_totem:totem_drag_layer;
+def_component $component4 = dino_totem:totem_model;
+def_component $component5 = if_getlayer($component4);
+def_obj $obj6 = null;
+def_string $string0 = "???";
+def_int $int7 = 0;
+def_int $int8 = 2;
+def_int $int9 = enum_getoutputcount(dino_totem_list);
+def_int $int10 = 0;
+def_boolean $boolean11 = false;
+cc_deleteall($component0);
+cc_deleteall($component1);
+while ($int7 < $int9) {
+    $obj6 = enum(int, obj, dino_totem_list, $int7);
+    if ($obj6 ! null) {
+        $boolean11 = ~script6681($obj6);
+        if ($boolean11 = false) {
+            $boolean11 = ~script6681(oc_param($obj6, recipe_ingredient_type_1));
+        }
+        if ($boolean11 = false) {
+            $boolean11 = ~script6681(oc_param($obj6, recipe_ingredient_type_2));
+        }
+        if ($boolean11 = false) {
+            $boolean11 = ~script6681(oc_param($obj6, recipe_ingredient_type_3));
+        }
+        if ($boolean11 = true) {
+            $string0 = oc_name($obj6);
+        } else {
+            $string0 = "???";
+        }
+        $int10 = ~script1208(calc($int7 + 1));
+        ~script10410($component0, $component1, rs3tli_3x3_button, 2, $int8, calc(if_getwidth($component0) - 6), 28, $int7, false, $string0);
+        if (cc_find($component1, $int7) = true) {
+            cc_setonop("script7218($obj6, $boolean11, $int10)");
+        }
+        $int8 = calc($int8 + 30);
+    }
+    $int7 = calc($int7 + 1);
+}
+if_setscrollsize(0, max(if_getheight($component0), $int8), $component0);
+if_setscrollpos(0, 0, $component0);
+~rs3_scrollbar_vertical($component2, $component0);
+if_setdraggable($component5, -1, $component3);
+if_setondrag("script8479($component3, $component4, -1)", $component3);
+if_setondragcomplete("script8480($component3, $component4, -1)", $component3);
+if_setonvartransmit("script7219{dino_totem_perm_varp1, dino_totem_perm_varp1, dino_totem_perm_varp2, dino_totem_perm_varp3, dino_base_camp_building_varp_1}", $component5);

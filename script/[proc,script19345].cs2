@@ -1,0 +1,82 @@
+// 19345
+[proc,script19345](obj $obj0, obj $obj1, int $int2, int $int3, int $int4, inv $inv5, int $int6, int $int7, int $int8)(int)
+if (~script19362($obj1) = true) {
+    if (oc_members($obj1) = 1 & ~map_members = false) {
+        ~bank_mes("You need to be on a members' world to store that item.");
+    } else {
+        switch_obj ($obj1) {
+            case skilling_offhand_measure :
+                if (calc(%skilling_offhand_sapphire + %skilling_offhand_emerald + %skilling_offhand_ruby + %skilling_offhand_diamond + %skilling_offhand_dragon) ! 0) {
+                    ~bank_mes("<oc_name($obj0)> can not be stored in group storage whilst it has gems stored in it.");
+                }
+            case default :
+                ~bank_mes("<oc_name($obj0)> can not be stored in group storage.");
+        }
+    }
+    return(0);
+}
+def_int $int9 = ~script19579;
+def_int $int10 = ~script19355($obj1);
+if ($int10 = 0) {
+    return(0);
+}
+def_int $int11 = ~script19592($obj1, $int3, $int10);
+if ($int11 >= $int3) {
+    if ($int7 = 1) {
+        if ($int2 ! -1 & oc_stackable($obj1) = true & ~script19587($int2) > 0) {
+            ~script19570($int10, true, $obj1);
+        } else {
+            ~script19570($int10, false, $obj1);
+        }
+    }
+    return(0);
+}
+def_boolean $boolean12 = ~script3802($obj0);
+def_int $int13 = calc($int3 - $int11);
+def_int $int14 = 0;
+~script19572($obj0, $int13);
+if ($boolean12 = false | $int13 = 1) {
+    if ($int2 ! -1) {
+        $int4 = $int2;
+    } else {
+        $int4 = ~script19347($int4, $int10, 1);
+    }
+    if ($int8 = 1) {
+        ~script19603($inv5, $int6, $obj0, $obj1, $int13, $int4);
+    } else {
+        ~script19603($inv5, -1, $obj0, $obj1, $int13, $int4);
+    }
+} else {
+    $int13 = ~script19346($inv5, $int2, $obj0, $int13);
+    if ($int13 > 0) {
+        $int4 = ~script19347($int4, $int10, $int13);
+        while ($int13 > 0) {
+            ~script19603($inv5, -1, $obj0, $obj1, 1, $int4);
+            $int4 = calc($int4 + 1);
+            $int13 = calc($int13 - 1);
+        }
+    }
+}
+if (%group_ironman_storage_first_freeslot ! -1) {
+    %group_ironman_storage_first_freeslot = ~script19595(%group_ironman_storage_first_freeslot, $int10);
+    if (%group_ironman_storage_first_freeslot > $int10 | %group_ironman_storage_first_freeslot >= ~script19579) {
+        %group_ironman_storage_first_freeslot = -1;
+    }
+} else if ($int4 > $int9) {
+    %group_ironman_storage_first_freeslot = ~script19595($int9, $int10);
+    if (%group_ironman_storage_first_freeslot > $int10 | %group_ironman_storage_first_freeslot >= ~script19579) {
+        %group_ironman_storage_first_freeslot = -1;
+    }
+}
+if ($int11 > 0) {
+    if ($int7 = 1) {
+        ~script19570($int10, ~negate_bool($boolean12), $obj1);
+    }
+} else {
+    ~bank_deposit_sound($obj0, $obj1);
+}
+if ($obj0 = oct18_adrenaline_urn) {
+    ~script374;
+}
+%group_ironman_storage_edited = 1;
+return(1);

@@ -1,0 +1,57 @@
+// 326
+[proc,script326](struct $struct0)(struct, struct, int)
+if ($struct0 = null) {
+    return($struct0, $struct0, 0);
+}
+if (struct_param($struct0, mtxmgt_item_struct_override) = 1) {
+    return($struct0, $struct0, struct_param($struct0, mtxmgt_category));
+}
+if (struct_param($struct0, rewardshop_no_preview) = true) {
+    return($struct0, $struct0, 0);
+}
+def_int $int1 = -1;
+def_struct $struct2 = struct_param($struct0, mtxmgt_item_struct);
+if ($struct2 = null) {
+    $struct2 = struct_param($struct0, mtxmgt_parent_struct);
+}
+if ($struct2 = null) {
+    $struct2 = struct_param($struct0, mtxmgt_object_pet_struct);
+}
+def_struct $struct3 = null;
+def_obj $obj4 = struct_param($struct0, rewardshop_obj);
+if ($obj4 ! null) {
+    if ($struct2 = null) {
+        $struct2 = oc_param($obj4, mtxmgt_item_struct);
+    }
+    if ($struct2 = null) {
+        $struct2 = oc_param($obj4, mtxmgt_pet_struct);
+    }
+}
+def_int $int5 = -1;
+if ($struct2 = null) {
+    $int1 = 0;
+} else {
+    $int1 = struct_param($struct2, mtxmgt_category);
+}
+if ($struct2 ! null & $int1 = 6) {
+    $struct2 = struct_param($struct2, mtxmgt_purchase_icon_override_struct);
+    if ($struct2 ! null) {
+        $int1 = struct_param($struct2, mtxmgt_category);
+    }
+}
+if (struct_param($struct0, mtxmgt_object_outfit_enum) ! null) {
+    $int1 = 2;
+}
+if ($obj4 ! null) {
+    $int5 = oc_wearpos($obj4);
+    if ($struct2 = null & $int5 ! -1 & $int5 ! 17 & $int5 ! 14 & $int5 ! 12) {
+        $int1 = 2;
+    }
+}
+if ($struct2 ! null & $int1 = 5) {
+    $struct3 = enum(struct, struct, mtxmgt_pets_struct_structinfo, $struct2);
+}
+if ($struct3 = null) {
+    $struct3 = $struct2;
+}
+return($struct2, $struct3, $int1);

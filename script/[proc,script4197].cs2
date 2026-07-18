@@ -1,0 +1,65 @@
+// 4197
+[proc,script4197](dbrow $dbrow0)
+if ($dbrow0 = null) {
+    return;
+}
+def_int $int1 = 1;
+def_int $int2 = enum_getoutputcount(pof_farmhand_id_to_db);
+def_dbrow $dbrow3 = null;
+def_dbrow $dbrow4 = null;
+def_inv $inv5 = null;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_component $component14 = pof_animal:hirepool_build_layer;
+def_component $component15 = pof_animal:hirepool_click_layer;
+def_component $component16 = pof_animal:farmhand_paddock_build_layer;
+def_component $component17 = pof_animal:farmhand_paddock_click_layer;
+def_int $int18 = db_getfield($dbrow0, pof_paddock:col4, 0);
+def_dbrow $dbrowarray0($int18);
+def_string $string0 = "Assign";
+cc_deleteall($component14);
+cc_deleteall($component15);
+cc_deleteall($component16);
+cc_deleteall($component17);
+while ($int1 <= $int2) {
+    $dbrow3 = enum(int, dbrow, pof_farmhand_id_to_db, $int1);
+    if ($dbrow3 ! null) {
+        if (~script2641($int1) = 1) {
+            if (~script2642($dbrow0, $dbrow3) = 1) {
+                $inv5, $int6 = ~script2645($int1);
+                $dbrow4 = ~script2646($inv5);
+                if ($dbrow4 = $dbrow0) {
+                    $dbrowarray0(calc($int6 - 1)) = $dbrow3;
+                    $int7 = ~script4198($component15, $int7);
+                } else {
+                    $int10, $int11 = ~script4200($int8, $component14);
+                    if ($dbrow4 ! null & $dbrow4 ! $dbrow0) {
+                        $int7 = ~script4199($int10, $int11, $component14, $component15, $int7, $dbrow3, 0, $string0, 1);
+                    } else {
+                        $int7 = ~script4199($int10, $int11, $component14, $component15, $int7, $dbrow3, 1, $string0, 1);
+                    }
+                    $int8 = calc($int8 + 1);
+                }
+            } else {
+                $int7 = ~script4198($component15, $int7);
+            }
+        } else {
+            $int7 = ~script4198($component15, $int7);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+$int1 = 0;
+while ($int1 < $int18) {
+    if ($dbrowarray0($int1) ! null) {
+        $int10, $int11 = ~script4200($int9, $component16);
+        $int9 = ~script4199($int10, $int11, $component16, $component17, $int9, $dbrowarray0($int1), 1, "Unassign", 0);
+    }
+    $int1 = calc($int1 + 1);
+}

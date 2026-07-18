@@ -1,0 +1,20 @@
+// 13172
+[proc,script13172](int $int0, int $int1)
+def_int $int2 = 0;
+if (if_find(mtxmgt_store:items_layer) = true & .if_find(mtxmgt_store:ragdolls_scrollsize_layer) = true) {
+    if (cc_param(mtxmgt_first_visible_index) > 0) {
+        $int2 = cc_param(mtxmgt_first_visible_index);
+    }
+    .cc_setscrollpos($int2, 0);
+    if ($int0 <= 8) {
+        .cc_setscrollsize(0, 0);
+        cc_deleteall(mtxmgt_store:ragdolls_scrollbar_layer);
+        if_setonscrollwheel(null, mtxmgt_store:ragdolls_layer);
+    } else if (.cc_getscrollwidth ! $int0 | $int1 = 1) {
+        .cc_setscrollsize($int0, 0);
+        ~rs3_scrollbar_horizontal(mtxmgt_store:ragdolls_scrollbar_layer, mtxmgt_store:ragdolls_scrollsize_layer);
+        if_setonscrollwheel(null, mtxmgt_store:ragdolls_scrollsize_layer);
+        if_setonscrollwheel("scrollbar_horizontal_wheel(mtxmgt_store:ragdolls_scrollbar_layer, mtxmgt_store:ragdolls_scrollsize_layer, event_mousey)", mtxmgt_store:ragdolls_layer);
+        ~script14180;
+    }
+}

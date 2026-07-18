@@ -1,0 +1,28 @@
+// 8711
+[proc,script8711](int $int0, int $int1, int $int2, int $int3)(int)
+def_int $int4 = 10;
+switch_int ($int1) {
+    case default :
+        switch_int ($int0) {
+            case 0 :
+                return(0);
+            case 2048 :
+                return(calc($int3 / 2 - $int2 / 2));
+            case 4095 :
+                return(calc($int3 - $int2));
+            case default :
+                $int0 = calc($int0 * $int4);
+                $int2 = calc($int2 * $int4);
+                $int3 = calc($int3 * $int4);
+                $int0 = interpolate(calc((0 - $int3) / 2), calc($int3 / 2), calc(0 * $int4), calc(4095 * $int4), $int0);
+                $int0 = calc($int0 - $int2 / 2 + $int3 / 2);
+                $int0 = max(0, min($int0, calc($int3 - $int2)));
+                return(calc($int0 / $int4));
+        }
+    case 0 :
+        return($int0);
+    case 1 :
+        return(calc($int3 / 2 - $int2 / 2 + $int0));
+    case 2 :
+        return(calc($int3 - $int2 - $int0));
+}

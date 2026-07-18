@@ -1,0 +1,19 @@
+// 6881
+[proc,script6881]
+def_int $int0 = calc(enum_getoutputcount(player_kit_hair_index_to_basecolour) - 1);
+def_int $int1 = 1;
+def_int $int2 = 2;
+if (%mtxmgt_selected_hair_colour_slot ! 0) {
+    $int1 = 2;
+    $int2 = 1;
+}
+while ($int0 >= 0) {
+    if (cc_find(mtxmgt:colours, calc($int0 * 2)) = true) {
+        cc_clearops;
+        cc_setop($int1, "Select-primary-colour");
+        if (%mtxmgt_enable_secondary_colour = 1) {
+            cc_setop($int2, "Select-secondary-colour");
+        }
+    }
+    $int0 = calc($int0 - 1);
+}

@@ -1,0 +1,33 @@
+// 13589
+[proc,script13589](struct $struct0)(boolean)
+def_enum $enum1 = struct_param($struct0, cheevo_path_enum);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($enum1 = null) {
+    return(false);
+}
+if (struct_param($struct0, task_requirement_1_type) = 62) {
+    if (~cheevo_requirements_met(enum(int, struct, $enum1, 0)) = 0) {
+        return(true);
+    }
+} else if (~cheevo_requirements_met($struct0) = 0) {
+    return(true);
+}
+if (%cheevo_path_toggle_complete = 1 & %cheevo_path_toggle_locked = 1) {
+    $int2, $int3, $int4 = ~script8218($enum1);
+    if ($int2 >= $int3) {
+        return(true);
+    }
+} else if (%cheevo_path_toggle_locked = 1) {
+    $int2, $int3, $int4 = ~cheevo_tally_enum_locked($enum1);
+    if ($int2 >= $int3) {
+        return(true);
+    }
+} else if (%cheevo_path_toggle_complete = 1) {
+    $int2, $int3, $int4 = ~cheevo_tally_enum($enum1);
+    if ($int2 >= $int3) {
+        return(true);
+    }
+}
+return(false);

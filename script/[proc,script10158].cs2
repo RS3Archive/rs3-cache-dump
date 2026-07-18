@@ -1,0 +1,55 @@
+// 10158
+[proc,script10158](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = ~script8726(8, 26);
+if (%toplevel_v2_legacy_interface = 0 & ($int1 ! -1 | $int2 ! -1 | %toplevel_v2_customization_lock = 1)) {
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 200;
+def_int $int6 = 135;
+def_boolean $boolean7 = false;
+if (%toplevel_v2_legacy_interface = 0) {
+    $int3, $int4 = ~script8715(26);
+} else {
+    $int5, $int6 = 120, 70;
+}
+%varclientbit_23081 = max(min(if_getwidth(toplevel_v2:twitch_window), 2048), max(%varclientbit_23081, 330));
+%varclientbit_23082 = max(min(if_getheight(toplevel_v2:twitch_window), 2048), max(%varclientbit_23082, 300));
+if ($int0 = 1) {
+    %varclientbit_23081 = max(min(if_getwidth(toplevel_v2:twitch_window), 2048), 330);
+    %varclientbit_23082 = max(min(if_getheight(toplevel_v2:twitch_window), 2048), 300);
+    $int3, $int4, $int5, $int6, $boolean7 = ~script8382($int3, $int4, $int5, $int6, 26, 0, 1);
+    if ($boolean7 = true) {
+        ~script8387($int3, $int4, $int5, $int6, 26);
+        if_sethide(true, twitch_stream:webcam_build);
+        ~script8705(26);
+        if_sethide(false, twitch_stream:maximise_button);
+        if_sethide(true, twitch_stream:twitch_player_name);
+        if_sethide(true, twitch_stream:minimise_button);
+        sound_vorbis_volume(tli_click_01, 1, 0, 100);
+    }
+} else {
+    if (%varclientbit_23069 < 1) {
+        mes("There's no need to do that without a webcam enabled.");
+        sound_vorbis_volume(omge_error, 1, 0, 150);
+        return;
+    }
+    if (%varclientbit_23081 < 1 | %varclientbit_23082 < 1) {
+        %varclientbit_23081 = 330;
+        %varclientbit_23082 = 300;
+    }
+    $int3, $int4, %varclientbit_23081, %varclientbit_23082, $boolean7 = ~script8382($int3, $int4, %varclientbit_23081, %varclientbit_23082, 26, 0, 1);
+    if ($boolean7 = true) {
+        if_sethide(false, twitch_stream:webcam_build);
+        ~script8387($int3, $int4, %varclientbit_23081, %varclientbit_23082, 26);
+        ~script8705(26);
+        if_sethide(true, twitch_stream:maximise_button);
+        if_sethide(false, twitch_stream:minimise_button);
+        if_sethide(false, twitch_stream:twitch_player_name);
+        ~script10134;
+        sound_vorbis_volume(tli_click_01, 1, 0, 100);
+    }
+}

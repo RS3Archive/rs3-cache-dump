@@ -1,0 +1,59 @@
+// 19670
+[proc,script19670](dbrow $dbrow0, obj $obj1, int $int2)
+if ($dbrow0 = null | $obj1 = null) {
+    return;
+}
+$int2 = max(1, $int2);
+def_component $component3 = db_getfield($dbrow0, trh_prize_preview_components:col8, 0);
+def_component $component4 = db_getfield($dbrow0, trh_prize_preview_components:col1, 0);
+def_component $component5 = db_getfield($dbrow0, trh_prize_preview_components:col6, 0);
+def_component $component6 = db_getfield($dbrow0, trh_prize_preview_components:col7, 0);
+def_component $component7 = db_getfield($dbrow0, trh_prize_preview_components:col2, 0);
+def_component $component8 = db_getfield($dbrow0, trh_prize_preview_components:col0, 0);
+def_component $component9 = db_getfield($dbrow0, trh_prize_preview_components:col3, 0);
+def_component $component10 = db_getfield($dbrow0, trh_prize_preview_components:col5, 0);
+def_component $component11 = db_getfield($dbrow0, trh_prize_preview_components:col4, 0);
+def_component $component12 = db_getfield($dbrow0, trh_prize_preview_components:col9, 0);
+def_struct $struct13 = oc_param($obj1, trh_preview_anim_struct);
+def_struct $struct14 = oc_param($obj1, trh_preview_pet_struct);
+def_dbrow $dbrow15 = oc_param($obj1, trh_preview_sprite);
+def_dbrow $dbrow16 = oc_param($obj1, trh_preview_model);
+def_boolean $boolean17 = oc_param($obj1, trh_preview_obj_highres);
+if_sethide(true, $component5);
+if_sethide(true, $component6);
+if_sethide(true, $component4);
+if_sethide(true, $component3);
+if_sethide(false, $component12);
+if_sethide(false, $component9);
+if ($struct13 ! null) {
+    if ($struct14 ! null) {
+        ~script17958($struct14, struct_param($struct14, trh_preview_pet_npc), struct_param($struct14, trh_preview_pet_bas), $component11, $component7, $component12, $component8, $component9, 50, null);
+        if_setmodelangle(0, 40, 0, 0, 0, 1400, trh176_overlay:bonus_droptable_reward_pet_layer);
+        ~script17956($struct13, $component11, $component7, $component4, $component8, $component9, 50, trh176_bonus_droptable_rewards_preview_positioning_left);
+    } else {
+        ~script17956($struct13, $component11, $component7, $component4, $component8, $component9, 50, null);
+    }
+} else if ($struct14 ! null) {
+    ~script17958($struct14, struct_param($struct14, trh_preview_pet_npc), struct_param($struct14, trh_preview_pet_bas), $component11, $component7, $component12, $component8, $component9, 50, null);
+    if_setmodelangle(0, 40, 0, 0, 0, 1400, trh176_overlay:bonus_droptable_reward_pet_layer);
+} else {
+    if_sethide(true, $component7);
+    if_sethide(true, $component9);
+    if ($dbrow15 ! null) {
+        ~script16490($dbrow15, $int2, $component5, 1);
+        if_sethide(false, $component5);
+    } else if ($dbrow16 ! null) {
+        if_setmodel(db_getfield($dbrow16, trh_prize_preview_custom_model:col0, 0), $component6);
+        if_setmodelangle(db_getfield($dbrow16, trh_prize_preview_custom_model:col1, 0), $component6);
+        if_sethide(false, $component6);
+    } else {
+        if ($boolean17 = true) {
+            if_setobject_highres($obj1, $component5);
+        } else {
+            if_setobject($obj1, $int2, $component5);
+        }
+        if_sethide(false, $component5);
+    }
+}
+if_settext(~text_plural($int2, oc_name($obj1), "<~script11601($int2, true)> x <oc_name($obj1)>"), $component10);
+if_sethide(true, $component7);

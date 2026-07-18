@@ -1,0 +1,30 @@
+// 13442
+[clientscript,script13442](component $component0, component $component1, component $component2, int $int3)
+def_int $int4 = if_getheight($component0);
+def_int $int5 = calc($int3 - $int4);
+if ($int5 < 0) {
+    $int5 = calc($int5 * -1);
+}
+def_int $int6 = 0;
+if ($int4 < $int3) {
+    $int6 = calc($int4 + 2);
+} else {
+    $int6 = $int3;
+}
+$int6 = max(1, min($int3, $int6));
+if_setsize(18, $int6, ^setsize_abs, ^setsize_abs, $component0);
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int7 < if_getnextsubid($component1)) {
+    if (cc_find($component1, $int7) = true & .cc_find($component2, $int7) = true) {
+        $int8 = calc(cc_gety + cc_getheight - 6);
+        if ($int4 >= $int8) {
+            cc_setontimer("script13443($component2, $int7)");
+        }
+    }
+    $int7 = calc($int7 + 1);
+}
+if ($int4 = $int3) {
+    if_setontimer(null, $component0);
+    return;
+}

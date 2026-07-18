@@ -1,0 +1,27 @@
+// 15830
+[proc,script15830]()(string)
+switch_obj (%follower_obj) {
+    case lore_pig_pet :
+        return("<enum(int, string, quest_bacon_pig_titles, %quest_bacon_pig_title)><enum(int, string, quest_bacon_pig_firstname, %quest_bacon_pig_firstname)><enum(int, string, quest_bacon_pig_lastname, %quest_bacon_pig_lastname)>");
+    case wof52_chinchompa_baby, wof52_chinchompa, wof52_chinchompa_full :
+        return(enum(int, string, wof52_names_enum, %wof52_chinchompa_name_npc));
+    case lore_baby_troll :
+        if (%lore_baby_troll_name ! null) {
+            return(oc_name(%lore_baby_troll_name));
+        }
+}
+if (~script4157 = 5) {
+    return(struct_param(nc_param(oc_param(%follower_obj, follower_npc), mtxmgt_pet_struct), mtxmgt_name));
+}
+def_string $string0 = enum(npc, string, lore_naming_enum, %lore_npc_head);
+if (compare($string0, "Animal") = 0) {
+    if (oc_param(%follower_obj, follower_npc) ! null) {
+        $string0 = enum(npc, string, lore_naming_enum, oc_param(%follower_obj, follower_npc));
+        if (compare($string0, "Animal") = 0) {
+            $string0 = oc_name(%follower_obj);
+        }
+    } else {
+        $string0 = oc_name(%follower_obj);
+    }
+}
+return($string0);

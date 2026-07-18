@@ -1,0 +1,31 @@
+// 12878
+[proc,script12878](struct $struct0)
+def_int $int1 = calc(%timed_event_gained_today * struct_param($struct0, timed_event_currency_multiplier));
+def_int $int2 = calc(struct_param($struct0, timed_event_daily_limit) * struct_param($struct0, timed_event_currency_multiplier));
+def_string $string0 = "Inactive";
+def_string $string1 = "You can use an event extender token to increase your gathering limit per day. These are available for purchase from the event store.";
+if (%timed_event_limit_extended > 0) {
+    $int2 = calc($int2 * 2);
+    $string0 = "<col=00C800>Active";
+    if (%timed_event_limit_extended = 1) {
+        $string1 = "Your gathering limit extender will expire at the end of the day.";
+    } else {
+        $string1 = "Your gathering limit extender will expire in <tostring(%timed_event_limit_extended)> days.";
+    }
+}
+if (cc_find(timed_event:left_container, 3) = true) {
+    cc_settext($string0);
+    if (struct_param($struct0, timed_event_daily_limit_ignore) = 0) {
+        cc_setop(1, "Purchase");
+        cc_setopcursor(1, cursor_use);
+        cc_setonop("script13257");
+        cc_setonmouserepeat("script3876($string1, event_com, event_comsubid)");
+    }
+}
+if (cc_find(timed_event:left_container, 1) = true) {
+    if (struct_param($struct0, timed_event_daily_limit_ignore) = 0) {
+        cc_settext("<tostring_localised($int1, true)>/<tostring_localised($int2, true)>");
+    } else {
+        cc_settext("Limitless");
+    }
+}

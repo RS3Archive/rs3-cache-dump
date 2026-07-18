@@ -1,0 +1,18 @@
+// 12097
+[proc,skillguide_skill](struct $struct0, dbrow $dbrow1)(int)
+def_int $int2 = 0;
+if ($struct0 ! null) {
+    $dbrow1 = struct_param($struct0, skillguide_data);
+    $int2 = struct_param($struct0, skillguide_skill);
+}
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case invent_blueprint_table :
+            $int2 = 27;
+        case arch_excavation :
+            $int2 = 28;
+        case construction_house_furniture :
+            $int2 = 22;
+    }
+}
+return($int2);

@@ -1,0 +1,27 @@
+// 15256
+[proc,script15256]
+def_string $string0 = "";
+def_int $int0 = federated_login_status;
+switch_int ($int0) {
+    case 21 :
+        $string0 = "RuneScape was unable to obtain login information from Steam. Please try again later.";
+    case 24, 25, 26 :
+        $string0 = "RuneScape received an unexpected response (<tostring($int0)>). Please try again later, or check the RuneScape website for server maintenance.";
+    case default :
+        $string0 = "An unexpected error occured (<tostring($int0)>). Please try again later.";
+}
+def_string $string1 = "Go Back";
+def_int $int1 = 1;
+switch_int (%loginscreen_steam_federated_request_type) {
+    case 0 :
+        $string1 = "Try Again";
+    case 100 :
+        $int1 = 2;
+    case 101 :
+        $int1 = 4;
+    case 1, 2 :
+        $int1 = 3;
+}
+if_setsize(0, 74, ^setsize_minus, ^setsize_minus, loginscreen:desktop_background_upper);
+if_sethide(false, loginscreen:desktop_background_lower);
+~loginscreen_steam_popup($string0, $string1, $int1, 0);

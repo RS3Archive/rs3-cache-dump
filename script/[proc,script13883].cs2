@@ -1,0 +1,35 @@
+// 13883
+[proc,script13883](component $component0, int $int1, int $int2)
+if (%bank_slot_existing_highlight = 1) {
+    return;
+}
+if (%bank_slot_being_dragged < 0) {
+    if_sethide(true, bank:ondrag_highlight);
+    if_sethide(true, bank:ondrag_placeholder_highlight);
+    return;
+}
+if (~script13884($component0, $int1, $int2) = true) {
+    return;
+}
+if (cc_find($component0, $int1) = true) {
+    if_sethide(true, bank:ondrag_highlight);
+    if ($int2 = 0) {
+        if (if_getx(bank:ondrag_highlight) = calc(cc_getx - 1) & if_gety(bank:ondrag_highlight) = calc(cc_gety - 1)) {
+            if_sethide(true, bank:ondrag_highlight);
+        }
+    } else {
+        if ($component0 ! bank:bank_inv_insert) {
+            if_sethide(true, bank:ondrag_insert_right_highlight);
+            if_sethide(true, bank:ondrag_insert_left_highlight);
+        } else if (%bank_slot_being_dragged < $int1) {
+            if_sethide(true, bank:ondrag_insert_right_highlight);
+            if_sethide(false, bank:ondrag_insert_left_highlight);
+        } else {
+            if_sethide(false, bank:ondrag_insert_right_highlight);
+            if_sethide(true, bank:ondrag_insert_left_highlight);
+        }
+        if_setposition(calc(cc_getx - 1), calc(cc_gety - 1), ^setpos_abs_left, ^setpos_abs_top, bank:ondrag_highlight);
+        if_setsize(calc(cc_getwidth + 2), calc(cc_getheight + 2), ^setsize_abs, ^setsize_abs, bank:ondrag_highlight);
+        if_sethide(false, bank:ondrag_highlight);
+    }
+}

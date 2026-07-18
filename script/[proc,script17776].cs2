@@ -1,0 +1,17 @@
+// 17776
+[proc,script17776](int $int0, int $int1, int $int2, component $component3)(int)
+def_stat $stat4 = null;
+def_int $int5 = 0;
+def_int $int6 = db_getfieldcount(%necro_ritual_active_recipe, necro_ritual_recipe:col14);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = -1;
+while (++$int9 < $int6) {
+    $stat4, $int5 = ~script17514(%necro_ritual_active_recipe, $int9);
+    $int7 = calc($int1 * paraheight(" <tostring(calc($int5 / 10))> <enum(stat, string, stat_to_string, $stat4)> XP", calc($int2 - 18), notosans_12));
+    ~cc_add_graphic($component3, if_getnextsubid($component3), 0, calc($int0 + $int8), ^setpos_abs_left, ^setpos_abs_top, 18, 18, ^setsize_abs, ^setsize_abs, enum(int, graphic, stat2icon, ~stat_to_int($stat4)));
+    ~cc_add_text($component3, if_getnextsubid($component3), 18, calc($int0 + $int8), ^setpos_abs_left, ^setpos_abs_top, calc($int2 - 18), $int7, ^setsize_abs, ^setsize_abs, text_body_default, " <tostring(calc($int5 / 10))> <enum(stat, string, stat_to_string, $stat4)> XP");
+    ~script2731($component3, cc_getid, 2);
+    $int8 = calc($int8 + cc_getheight);
+}
+return($int8);

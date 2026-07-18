@@ -1,0 +1,100 @@
+// 10121
+[proc,script10121](component $component0, char $char1, int $int2, component $component3)
+def_string $string0 = "";
+def_int $int4 = 0;
+if ($component0 = toplevel_v2_parent_suboverlay_twitch:login_username) {
+    %twitch_login_username = if_gettext($component0);
+    $string0 = %twitch_login_username;
+    $int4 = %twitch_login_username_caret;
+} else if ($component0 = toplevel_v2_parent_suboverlay_twitch:login_password) {
+    $string0 = %twitch_login_password;
+    $int4 = %twitch_login_password_caret;
+} else if ($component0 = toplevel_v2_parent_suboverlay_twitch:stream_name) {
+    %twitch_stream_name = if_gettext($component0);
+    $string0 = %twitch_stream_name;
+    $int4 = %twitch_stream_name_caret;
+}
+switch_int ($int2) {
+    case 84 :
+        if ($component0 = toplevel_v2_parent_suboverlay_twitch:login_password) {
+            ~twitch_login;
+            return;
+        } else {
+            %varclientbit_23065 = 2;
+            ~script10119(1);
+            return;
+        }
+    case 80 :
+        if ($component0 = toplevel_v2_parent_suboverlay_twitch:login_username) {
+            %varclientbit_23065 = 2;
+            ~script10119(1);
+            return;
+        } else if ($component0 = toplevel_v2_parent_suboverlay_twitch:login_password) {
+            %varclientbit_23065 = 1;
+            ~script10119(1);
+            return;
+        }
+    case 96, 97, 98, 99, 102, 103 :
+        if (keyheld_shift = false) {
+            return;
+        }
+        $int4 = ~script1553($int2, $int4, $string0);
+    case 13 :
+        if (~cancel_targetmode = true) {
+            return;
+        }
+        if (string_length($string0) < 1) {
+            ~script8841(52, 0);
+        } else {
+            $string0 = "";
+            $int4 = 0;
+        }
+    case default :
+        $string0, $int4 = ~script802($int4, $string0, 0, $int2, $char1);
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int7 = 0;
+def_component $component8 = null;
+if ($component0 = toplevel_v2_parent_suboverlay_twitch:login_username) {
+    $component8 = toplevel_v2_parent_suboverlay_twitch:text_input_box_login;
+    %twitch_login_username_caret = $int4;
+    %twitch_login_username = $string0;
+    if_setposition(~script1551(%twitch_login_username_caret, %twitch_login_username, museo_sans_11pt_regular, 6), if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_settext(%twitch_login_username, $component0);
+    %varclientbit_23065 = 1;
+} else if ($component0 = toplevel_v2_parent_suboverlay_twitch:login_password) {
+    $component8 = toplevel_v2_parent_suboverlay_twitch:text_input_box_password;
+    %twitch_login_password_caret = $int4;
+    %twitch_login_password = $string0;
+    if_setposition(~script1551(%twitch_login_password_caret, ~script2949(%twitch_login_password), museo_sans_11pt_regular, 6), if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_settext(~script2949(%twitch_login_password), $component0);
+    %varclientbit_23065 = 2;
+} else if ($component0 = toplevel_v2_parent_suboverlay_twitch:stream_name) {
+    $component8 = toplevel_v2_parent_suboverlay_twitch:aif_text_input;
+    %twitch_stream_name_caret = $int4;
+    %twitch_stream_name = $string0;
+    if_setposition(~script1551(%twitch_stream_name_caret, %twitch_stream_name, museo_sans_11pt_regular, 6), if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_settext(%twitch_stream_name, $component0);
+    %varclientbit_23065 = 3;
+    if_setonmouserepeat("script8799($string0, $component0, -1)", $component0);
+}
+$int5 = calc(if_getwidth($component8) - 11);
+$int6 = string_length($string0);
+$string1 = "";
+if ($int4 > 0) {
+    $string1 = substring($string0, 0, $int4);
+}
+$string2 = "";
+if ($int4 < $int6) {
+    $string2 = substring($string0, $int4, $int6);
+}
+$int7 = calc(stringwidth($string1, museo_sans_11pt_regular) - $int5);
+if_setposition(6, if_gety($component0), ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setsize(max(stringwidth($string0, museo_sans_11pt_regular), $int5), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+if ($int7 > 0) {
+    if_setposition(calc(if_getx($component0) - $int7), if_gety($component0), ^setpos_abs_left, ^setpos_abs_top, $component0);
+    if_setposition(calc(if_getx($component3) - $int7), if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
+}

@@ -1,0 +1,41 @@
+// 1654
+[clientscript,script1654](int $int0)
+def_int $int1 = if_getwidth(wheel_of_fortune:advert_0);
+def_int $int2 = if_getx(wheel_of_fortune:advert_0);
+def_int $int3 = if_getx(wheel_of_fortune:advert_1);
+def_int $int4 = if_getx(wheel_of_fortune:advert_2);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = calc($int0 / abs($int0));
+def_int $int8 = -1;
+if ($int0 < 0) {
+    $int5 = min($int2, min($int3, $int4));
+} else {
+    $int5 = max($int2, max($int3, $int4));
+}
+if ($int2 = calc($int1 - $int7)) {
+    $int8 = 0;
+}
+if ($int3 = calc($int1 - $int7)) {
+    $int8 = 1;
+}
+if ($int4 = calc($int1 - $int7)) {
+    $int8 = 2;
+}
+if ($int8 >= 0) {
+    ~script2371($int8);
+    return;
+}
+$int6 = abs(calc($int5 % ($int1 - 1)));
+if ($int6 < scale($int1, 100, 90)) {
+    $int0 = calc($int0 + 2 * $int7);
+} else if ($int6 > scale($int1, 100, 10)) {
+    $int0 = calc($int0 - 2 * $int7);
+}
+if (calc($int6 + abs($int0)) > calc($int1 - 1)) {
+    $int0 = calc(($int1 - 1 - $int6) * $int7);
+}
+if_setposition(calc($int2 + $int0), 0, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:advert_0);
+if_setposition(calc($int3 + $int0), 0, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:advert_1);
+if_setposition(calc($int4 + $int0), 0, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:advert_2);
+if_setontimer("script1654($int0)", wheel_of_fortune:advert_layer);

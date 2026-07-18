@@ -1,0 +1,19 @@
+// 14628
+[proc,arch_research_get_display_state](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(0);
+}
+def_int $intbool1 = ~arch_research_get_unlock_state($dbrow0);
+def_int $int2 = ~arch_research_get_complete_state($dbrow0);
+switch_dbrow ($dbrow0) {
+}
+if ($intbool1 = ^false) {
+    return(0);
+}
+switch_int (db_getfield($dbrow0, arch_research:col1, 0)) {
+    case 2 :
+        if ($int2 = 1) {
+            return(0);
+        }
+}
+return(1);

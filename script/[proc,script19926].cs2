@@ -1,0 +1,25 @@
+// 19926
+[proc,script19926](dbrow $dbrow0, string $string0)(string)
+def_dbrow $dbrow1 = null;
+def_int $int2 = -1;
+$dbrow1 = db_getfield($dbrow0, trh_promo_info_summary_entry:col10, 0);
+if (map_members = false) {
+    $dbrow1 = db_getfield($dbrow0, trh_promo_info_summary_entry:col11, 0);
+}
+$int2 = db_getfield($dbrow0, trh_promo_info_summary_entry:col12, 0);
+if ($dbrow1 = null) {
+    return($string0);
+}
+def_int $int3 = db_getfieldcount($dbrow1, dbtable_35:col0);
+def_int $int4 = 0;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = 0;
+while (++$int6 < $int3 & $int7 = 0) {
+    $int4, $int5 = db_getfield($dbrow1, dbtable_35:col0, $int6);
+    if ($int4 = $int2) {
+        $int7 = 1;
+    }
+}
+$string0 = "<$string0><br><br>Chance to appear: <~tostring_decimal($int5, 2, 1, 0, 1)>%";
+return($string0);

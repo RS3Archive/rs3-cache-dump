@@ -1,0 +1,23 @@
+// 5152
+[clientscript,script5152]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string0 = "";
+%clan_access_countdown_timer = max(calc(%clan_access_countdown_timer - 1), 0);
+if (calc(%clan_access_countdown_timer % 50) = 0) {
+    $int2 = calc(%clan_access_countdown_timer / 50);
+    $int1 = calc($int2 % 60);
+    $int0 = calc($int2 / 60);
+    $string0 = "<tostring($int0)>:";
+    if ($int1 < 10) {
+        $string0 = append($string0, "0<tostring($int1)>");
+    } else {
+        $string0 = append($string0, tostring($int1));
+    }
+    if_settext($string0, clan_kickout_overlay:clan_kickout_timer);
+}
+if (%clan_access_countdown_timer <= 0) {
+    if_setontimer(null, clan_kickout_overlay:clan_kickout_timer);
+    if_close;
+}

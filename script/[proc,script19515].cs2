@@ -1,0 +1,26 @@
+// 19515
+[proc,script19515]
+def_int $int0 = 0;
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "Withdraw";
+def_string $string1 = ~script19536;
+while ($int0 < 200) {
+    if (cc_find(group_ironman_storage:clan_inv, $int0) = true) {
+        $obj1 = inv_getobj(group_ironman_storage_clan_temp, $int0);
+        if ($obj1 = null) {
+            $obj1 = bank_empty_slot;
+        }
+        $int2 = inv_getnum(group_ironman_storage_clan_temp, $int0);
+        $int3 = cc_getinvcount;
+        if ($obj1 ! cc_getinvobject | $int3 = 0 & $int2 > 0 | $int2 = 0 & $int3 > 0) {
+            ~script19540($string0, $string1, $obj1, $int2);
+        } else if ($obj1 = bank_empty_slot) {
+            cc_setobject_nonum(bank_empty_slot, 0);
+        } else {
+            cc_setobject($obj1, $int2);
+        }
+    }
+    $int0 = calc($int0 + 1);
+}

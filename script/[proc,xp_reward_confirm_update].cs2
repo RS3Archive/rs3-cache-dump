@@ -1,0 +1,33 @@
+// 6043
+[proc,xp_reward_confirm_update](component $component0, component $component1, component $component2)
+cc_deleteall($component0);
+if (enum(int, stat, int_to_stat, %xp_reward_currentchoice) = null) {
+    if_sethide(false, $component1);
+    ~xp_reward_textbox("Choose a skill...", $component2, 50);
+    return;
+}
+if (if_gethide(xp_reward:xp_type_choice) = false & %trh154_bonus_xp = 2) {
+    if_sethide(false, $component1);
+    ~xp_reward_textbox("Choose an xp type...", $component2, 50);
+    return;
+}
+if_sethide(true, $component1);
+def_int $int3 = 0;
+while ($int3 < %xp_reward_currentchoice) {
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_sethide(true);
+    $int3 = calc($int3 + 1);
+}
+cc_create($component0, ^iftype_rectangle, $int3);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settrans(255);
+cc_setpausetext("Confirm: <enum(int, string, statstring, %xp_reward_currentchoice)>");
+~xp_reward_textbox(~xp_reward_displayreward(enum(int, stat, int_to_stat, %xp_reward_currentchoice), %xp_reward_internalxp, %xp_reward_item), $component2, 50);
+if (%xp_reward_item = psr_xpblock_dummy) {
+    if (~script17262(%xp_reward_currentchoice) = ^false) {
+        if_settext("Block XP", xp_reward:confirm_button_text);
+    } else {
+        if_settext("Give XP", xp_reward:confirm_button_text);
+    }
+}

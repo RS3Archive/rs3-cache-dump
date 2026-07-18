@@ -1,0 +1,40 @@
+// 13390
+[clientscript,loginscreen_background_fade_out](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5, struct $struct6)
+def_int $int7 = calc(255 - min(255, calc(max(0, calc(clientclock - $int2)) * 4)));
+def_struct $struct8 = enum(int, struct, loginscreen_backgrounds, %loginscreen_background);
+def_enum $enum9 = null;
+if ($struct6 ! null) {
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_0);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_1);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_2);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_3);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_4);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_5);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_6);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_7);
+    if_settrans($int7, loginscreen:nxt_background_graphic_fade_8);
+}
+if ($struct6 = null) {
+    if_settrans($int7, $component1);
+    if ($component1 = loginscreen:background_fader) {
+        if_settrans(calc(255 - $int7), loginscreen:runescape_logo);
+    }
+}
+if ($int7 = 0) {
+    if ($int3 = 111) {
+        if_setontimer("script13387($component0, $component1, clientclock, 111)", $component0);
+    }
+    %loginscreen_background = $int4;
+    $struct8 = enum(int, struct, loginscreen_backgrounds, $int4);
+    if ($struct8 ! null) {
+        $enum9 = struct_param($struct8, loginscreen_background_enum);
+        if ($enum9 ! null) {
+            %loginscreen_background_subid = $int5;
+            if (%loginscreen_background_random ! 1) {
+                if_setontimer("script13387($component0, $component1, clientclock, %loginscreen_background)", $component0);
+            }
+        }
+    }
+    ~loginscreen_set_background;
+    if_setontimer("loginscreen_background_fade_in($component1, clientclock, $struct6)", $component1);
+}

@@ -1,0 +1,47 @@
+// 14745
+[proc,script14745]
+def_component $component0 = text_tooltip:tooltip_dynamic_text;
+def_int $int1 = cc_param(toplevel_v2_tooltip_param_int0);
+def_dbrow $dbrow2 = ~arch_site_get_data($int1);
+if ($dbrow2 = null) {
+    return;
+}
+if (db_getfield($dbrow2, arch_site:col1, 0) ! 2) {
+    return;
+}
+def_string $string0 = ~arch_site_get_name($dbrow2);
+if (string_length($string0) = 0) {
+    $string0 = "Excavation Site";
+}
+def_int $int3 = 200;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+if (~script6431 = true) {
+    $int3 = 300;
+}
+def_int $int8 = db_getfieldcount($dbrow2, arch_site:col17);
+def_dbrow $dbrow9 = null;
+def_int $int10 = 0;
+if ($int8 > 3) {
+    $int3 = calc($int3 * 2);
+    $int10 = 1;
+}
+$int6 = ~script14747($component0, 0, $int6, $int3, $string0, -1, 0);
+$int6 = ~script14748($component0, 0, $int6);
+$int7 = -1;
+def_int $int11 = 0;
+def_int $int12 = $int6;
+def_int $int13 = 0;
+while (++$int7 < $int8) {
+    $dbrow9 = db_getfield($dbrow2, arch_site:col17, $int7);
+    if ($dbrow9 ! null) {
+        $int6, $int11 = ~script14746($component0, $int6, ++$int4, $int3, $dbrow9, $int10, $int13, $int12);
+        if (calc($int4 % 2) = 1) {
+            $int12 = $int6;
+            $int13 = $int11;
+        }
+    }
+}
+if_setsize($int3, calc($int6 - 2), ^setsize_abs, ^setsize_abs, $component0);

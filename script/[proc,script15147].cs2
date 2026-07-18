@@ -1,0 +1,19 @@
+// 15147
+[proc,script15147](obj $obj0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_obj ($obj0) {
+    case coins :
+        return(~script17138(~pouch_total));
+    case event_crafting_currency :
+        return(inv_total(premium_currency_inv, $obj0));
+    case default :
+        $int1 = ~script2549($obj0);
+        if ($int1 > 0) {
+            return($int1);
+        }
+        if (enum_hasoutput(obj, arch_material_list, $obj0) = true) {
+            return(inv_total(arch_material_storage, $obj0));
+        }
+}
+return(0);

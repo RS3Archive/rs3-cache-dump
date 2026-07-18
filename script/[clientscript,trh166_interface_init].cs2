@@ -1,0 +1,40 @@
+// 3801
+[clientscript,trh166_interface_init]
+def_int $int0 = -1;
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+cc_deleteall(wheel_of_fortune:fake_op);
+while (++$int0 < 10) {
+    $obj1, $int2, $int3 = ~trh166_get_gem_info($int0);
+    if_setobject($obj1, $int2, enum(int, component, trh166_id_to_prize_component, $int0));
+    if_setgraphic(enum(int, graphic, trh_rarity_to_gem_graphic, $int3), enum(int, component, trh166_id_to_gem_component, $int0));
+    ~script3923($int0);
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+    ~script4407(enum(int, component, trh166_id_to_main_component, $int0), 1, wof_trh_freeze_cursor);
+    ~script4119($obj1, $int2, enum(int, component, trh166_id_to_main_component, $int0));
+}
+if_setonop("script3803(-1, 1)", trh166:claim_button);
+if_setonop("script3803(-1, 2)", trh166:warning_confirm_click);
+def_int $int4 = 750;
+if (%trh166_last_free_reset = %atlum_day_tracker) {
+    $int4 = calc($int4 - 75 * (10 - ~script3613));
+    $int4 = calc($int4 - 75 * %trh166_num_prizes_frozen);
+    if_settext(tostring($int4), trh166:refresh_button_label);
+}
+if (%atlum_day_tracker = 6552 | %atlum_day_tracker = 6559) {
+    $int4 = calc($int4 - 150 * (10 - ~script3613));
+} else {
+    $int4 = calc($int4 - 75 * (10 - ~script3613));
+}
+$int4 = max(0, $int4);
+if (%trh166_last_free_reset = %atlum_day_tracker & $int4 > 0) {
+    if_settext(tostring($int4), trh166:refresh_button_label);
+} else {
+    if_settext("FREE", trh166:refresh_button_label);
+}
+if_settext("Gone Adventuring", wheel_of_fortune:title_text);
+if_settextfont(cinzel_15pt_bold, wheel_of_fortune:title_text);
+if_setposition(80, 16, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:title_text);
+if_setgraphic(icon_summerskill_40px, wheel_of_fortune:frame_icon);
+if_setposition(40, 12, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:frame_icon);

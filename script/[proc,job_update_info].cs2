@@ -1,0 +1,83 @@
+// 18250
+[proc,job_update_info]
+if_sethide(true, jobs_main:weekly_progress_layer);
+def_boolean $boolean0 = ~script18249;
+def_int $int1 = ~script18160(%omge_job_interface_id);
+if ($int1 < 1) {
+    ~script18258($boolean0);
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_enum $enum4 = null;
+def_int $int5 = 0;
+def_struct $struct6 = null;
+def_enum $enum7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+if (%omge_job_interface_skill = 0) {
+    $int2 = enum(int, int, omge_challenge_skills, calc($int1 - 1));
+    $struct6 = ~script18157($int2);
+    if ($struct6 = null) {
+        ~script18258($boolean0);
+        return;
+    }
+} else if (%omge_job_interface_skill = 63) {
+    switch_int ($int1) {
+        case 1 :
+            $int3 = %omge_challenge_current_skill_1;
+            $int2 = %omge_challenge_current_skill_1;
+            $int5 = %omge_challenge_current_id_1;
+            $int8 = 1;
+        case 2 :
+            $int3 = %omge_challenge_current_skill_2;
+            $int2 = %omge_challenge_current_skill_2;
+            $int5 = %omge_challenge_current_id_2;
+            $int8 = 2;
+        case 3 :
+            $int3 = %omge_challenge_current_skill_3;
+            $int2 = %omge_challenge_current_skill_3;
+            $int5 = %omge_challenge_current_id_3;
+            $int8 = 3;
+        case 4 :
+            $int3 = %omge_challenge_current_skill_4;
+            $int2 = %omge_challenge_current_skill_4;
+            $int5 = %omge_challenge_current_id_4;
+            $int8 = 4;
+        case 5 :
+            $int3 = %omge_challenge_current_skill_5;
+            $int2 = %omge_challenge_current_skill_5;
+            $int5 = %omge_challenge_current_id_5;
+            $int8 = 5;
+    }
+    if ($int3 ! 0 & $struct6 = null) {
+        $enum4 = ~script18158($int3);
+        if ($enum4 ! null) {
+            $struct6 = enum(int, struct, $enum4, $int5);
+        }
+    }
+} else {
+    $int2 = %omge_job_interface_skill;
+    $enum7 = ~script18158($int2);
+    if ($enum7 = null) {
+        ~script18258($boolean0);
+        return;
+    }
+    $struct6 = enum(int, struct, $enum7, $int1);
+}
+if ($int1 = 1 & $struct6 = ~script16319(1)) {
+    $int8 = 1;
+} else if ($int1 = 2 & $struct6 = ~script16319(2)) {
+    $int8 = 2;
+} else if ($int1 = 3 & $struct6 = ~script16319(3)) {
+    $int8 = 3;
+} else if ($int1 = 4 & $struct6 = ~script16319(4)) {
+    $int8 = 4;
+} else if ($int1 = 5 & $struct6 = ~script16319(5)) {
+    $int8 = 5;
+}
+if ($struct6 = null) {
+    ~script18258($boolean0);
+    return;
+}
+~script18251($int2, $struct6, $int8);

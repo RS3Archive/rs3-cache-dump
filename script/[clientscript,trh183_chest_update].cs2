@@ -1,0 +1,56 @@
+// 19053
+[clientscript,trh183_chest_update](int $int0, int $int1, component $component2)
+if (clientclock < $int0) {
+    return;
+}
+if (%trh183_chests_frozen = 0) {
+    if_setontimer("script16715(clientclock, $int1, $component2, 0)", $component2);
+    if_setmodel(mtx_chest_basic, $component2);
+    if_setmodelanim(trh_chest_open_state_level_one_a, $component2);
+    if_setontimer(null, $component2);
+    ~script19054($int1);
+    return;
+}
+if_setmodel(mtx_chest_icicles, $component2);
+switch_int ($int1) {
+    case 1 :
+        if (%trh183_chests_frozen_claimed_1 = 1) {
+            if_setmodelanim(trh_chest_closed_idle, $component2);
+            if_setontimer(null, $component2);
+            if_sethide(true, trh183_overlay:chest_1_prize_layer);
+            if_sethide(true, trh183_overlay:chest_1_multiplier_icon);
+            if_sethide(true, trh183_overlay:chest_1_prize_info);
+            if_setgraphic(trh183_main_chest_panel_frozen_claimed, trh183_overlay:chest_1_parchment);
+        } else {
+            if_setmodelanim(trh_chest_open_state_level_one_a, $component2);
+            if_setontimer("script16715(clientclock, $int1, $component2, 0)", $component2);
+            if_setgraphic(trh183_main_chest_panel_frozen, trh183_overlay:chest_1_parchment);
+        }
+    case 2 :
+        if (%trh183_chests_frozen_claimed_2 = 1) {
+            if_setmodelanim(trh_chest_closed_idle, $component2);
+            if_setontimer(null, $component2);
+            if_sethide(true, trh183_overlay:chest_2_prize_layer);
+            if_sethide(true, trh183_overlay:chest_2_multiplier_icon);
+            if_sethide(true, trh183_overlay:chest_2_prize_info);
+            if_setgraphic(trh183_main_chest_panel_frozen_claimed, trh183_overlay:chest_2_parchment);
+        } else {
+            if_setmodelanim(trh_chest_open_state_level_one_a, $component2);
+            if_setontimer("script16715(clientclock, $int1, $component2, 0)", $component2);
+            if_setgraphic(trh183_main_chest_panel_frozen, trh183_overlay:chest_2_parchment);
+        }
+    case 3 :
+        if (%trh183_chests_frozen_claimed_3 = 1) {
+            if_setmodelanim(trh_chest_closed_idle, $component2);
+            if_setontimer(null, $component2);
+            if_sethide(true, trh183_overlay:chest_3_prize_layer);
+            if_sethide(true, trh183_overlay:chest_3_multiplier_icon);
+            if_sethide(true, trh183_overlay:chest_3_prize_info);
+            if_setgraphic(trh183_main_chest_panel_frozen_claimed, trh183_overlay:chest_3_parchment);
+        } else {
+            if_setmodelanim(trh_chest_open_state_level_one_a, $component2);
+            if_setontimer("script16715(clientclock, $int1, $component2, 0)", $component2);
+            if_setgraphic(trh183_main_chest_panel_frozen, trh183_overlay:chest_3_parchment);
+        }
+}
+if_setontimer(null, $component2);

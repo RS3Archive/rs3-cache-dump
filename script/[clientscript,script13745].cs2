@@ -1,0 +1,22 @@
+// 13745
+[clientscript,script13745](int $int0)
+if ($int0 = -1) {
+    $int0 = %bank_current_inv;
+}
+def_boolean $boolean1 = false;
+if (%bank_player_has_bob > 0) {
+    if_settrans(0, bank:bob_side_tab_icon);
+} else {
+    $boolean1 = true;
+    if_settrans(128, bank:bob_side_tab_icon);
+}
+~script13973(bank:inv_tab_build, bank:inv_tab_click, rs3tli_modal_tab, "", false, ~equal_int($int0, 0));
+~script13973(bank:worn_tab_build, bank:worn_tab_click, rs3tli_modal_tab, "", false, ~equal_int($int0, 2));
+~script13973(bank:bob_tab_build, bank:bob_tab_click, rs3tli_modal_tab, "", $boolean1, ~equal_int($int0, 1));
+if (%varclientbit_45221 = $int0) {
+    return;
+}
+%bank_current_inv = $int0;
+%varclientbit_45221 = $int0;
+~script9313;
+~script13572;

@@ -1,0 +1,33 @@
+// 17884
+[proc,script17884](dbrow $dbrow0)(obj, struct, dbrow, int, int, graphic)
+def_obj $obj1 = null;
+def_struct $struct2 = null;
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+def_int $int5 = -1;
+def_graphic $graphic6 = null;
+if ($dbrow0 = null) {
+    return($obj1, $struct2, $dbrow3, $int4, $int5, $graphic6);
+}
+if (db_getrowtable($dbrow0) ! bp3_reward_item) {
+    ~error("Invalid dbtable.");
+    return($obj1, $struct2, $dbrow3, $int4, $int5, $graphic6);
+}
+if (~ironman_mode = true & ~script17885($dbrow0) = true) {
+    if (db_getfieldcount($dbrow0, bp3_reward_item:col3) > 0) {
+        $obj1, $int4, $int5 = db_getfield($dbrow0, bp3_reward_item:col3, 0);
+    } else if (db_getfieldcount($dbrow0, bp3_reward_item:col4) > 0) {
+        $struct2, $int4, $int5, $graphic6, $obj1 = db_getfield($dbrow0, bp3_reward_item:col4, 0);
+    } else if (db_getfieldcount($dbrow0, bp3_reward_item:col5) > 0) {
+        $dbrow3, $int4, $int5, $graphic6, $obj1 = db_getfield($dbrow0, bp3_reward_item:col5, 0);
+    }
+} else if (db_getfieldcount($dbrow0, bp3_reward_item:col0) > 0) {
+    $obj1, $int4, $int5 = db_getfield($dbrow0, bp3_reward_item:col0, 0);
+} else if (db_getfieldcount($dbrow0, bp3_reward_item:col1) > 0) {
+    $struct2, $int4, $int5, $graphic6, $obj1 = db_getfield($dbrow0, bp3_reward_item:col1, 0);
+} else if (db_getfieldcount($dbrow0, bp3_reward_item:col2) > 0) {
+    $dbrow3, $int4, $int5, $graphic6, $obj1 = db_getfield($dbrow0, bp3_reward_item:col2, 0);
+} else {
+    ~error("No rewards found.");
+}
+return($obj1, $struct2, $dbrow3, $int4, $int5, $graphic6);

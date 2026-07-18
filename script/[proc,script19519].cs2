@@ -1,0 +1,71 @@
+// 19519
+[proc,script19519](string $string0, int $int0)
+$string0 = escape($string0);
+~script8808;
+%tooltip_time = 0;
+if_sethide(true, group_ironman_storage:message_nomatches);
+def_int $int1 = 0;
+def_int $int2 = 44;
+if (~script6431 = true) {
+    $int2 = 52;
+}
+if (string_length($string0) = 0) {
+    if (cc_find(group_ironman_storage:border_layer, 14) = true) {
+        cc_settext("<%group_ironman_cache_clan_name_client> Storage (no search entered)");
+        cc_setmaxlines(1);
+    }
+    if_sethide(false, group_ironman_storage:message_nosearch);
+    while ($int1 < 200) {
+        if (cc_find(group_ironman_storage:clan_inv, $int1) = true) {
+            cc_sethide(true);
+        }
+        $int1 = calc($int1 + 1);
+    }
+    ~script19544(0);
+    ~script19503(0);
+    return;
+} else {
+    if (cc_find(group_ironman_storage:border_layer, 14) = true) {
+        cc_settext("<%group_ironman_cache_clan_name_client> Storage (search: '<$string0>')");
+        cc_setmaxlines(1);
+    }
+    if_sethide(true, group_ironman_storage:message_nosearch);
+}
+def_int $int3 = ~script19579;
+def_int $int4 = 8;
+def_int $int5 = calc(5 + 20);
+def_int $int6 = if_getwidth(group_ironman_storage:clan_items_container);
+def_int $int7 = 0;
+def_string $string1 = "";
+$string0 = lowercase($string0);
+while ($int1 <= $int3) {
+    if (cc_find(group_ironman_storage:clan_inv, $int1) = true) {
+        if ($int0 = 0) {
+            $string1 = oc_name(inv_getobj(group_ironman_storage_clan_temp, $int1));
+        } else {
+            $string1 = oc_name(cc_getinvobject);
+        }
+        if (string_indexof_string(lowercase($string1), $string0, 0) ! -1) {
+            cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+            $int7 = calc($int7 + 1);
+            $int4 = calc($int4 + $int2);
+            if (calc($int4 + 36) >= $int6) {
+                $int4 = 8;
+                $int5 = calc($int5 + $int2);
+            }
+        } else {
+            cc_sethide(true);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+while ($int3 < 200) {
+    if (cc_find(group_ironman_storage:clan_inv, $int3) = true) {
+        cc_sethide(true);
+    }
+    $int3 = calc($int3 + 1);
+}
+if_setscrollpos(0, 0, group_ironman_storage:clan_items_container);
+~script19522(0, 0, "Search results '<$string0>':");
+~script19503($int7);

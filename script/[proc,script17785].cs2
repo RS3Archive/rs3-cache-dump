@@ -1,0 +1,77 @@
+// 17785
+[proc,script17785](int $int0)
+def_int $int1 = 0;
+def_component $component2 = necro_ritual_recipe_selection:list_scroll_layer;
+def_component $component3 = necro_ritual_recipe_selection:list_scrollbar_layer;
+def_int $int4 = 0;
+def_int $int5 = if_getwidth($component2);
+def_string $string0 = "";
+def_enum $enum6 = null;
+def_int $int7 = 0;
+def_dbrow $dbrow8 = null;
+def_int $int9 = 0;
+def_int $int10 = -1;
+def_int $int11 = 0;
+cc_deleteall($component2);
+switch_int (%necro_ritual_recipe_selection_sort) {
+    case 0 :
+        $enum6 = necro_ritual_recipe_selection_sort_level;
+    case 1 :
+        $enum6 = necro_ritual_recipe_selection_sort_alphabetical;
+    case 2 :
+        $enum6 = necro_ritual_recipe_selection_sort_type;
+}
+$int7 = enum_getoutputcount($enum6);
+while (++$int10 < $int7) {
+    $dbrow8 = enum(int, dbrow, $enum6, $int10);
+    if (~script17523($dbrow8) = true) {
+        $string0 = ~script17500($dbrow8);
+        $int4 = calc(24 * paraheight($string0, calc($int5 - (16 - 6) - 16), notosans_12));
+        $int11 = ~script17503($dbrow8, 0);
+        ~cc_add_button_full($component2, $int11, 0, $int1, ^setpos_abs_left, ^setpos_abs_top, $int5, $int4, ^setsize_abs, ^setsize_abs, button_cornered_neutral, $string0, true, true, true, false);
+        cc_setop(1, "Select");
+        cc_setonbuttonpressed("script17792($int11, $dbrow8)");
+        $int1 = calc($int1 + (cc_getheight + 4));
+        if ($int9 = 0) {
+            $int9 = $int11;
+        }
+    }
+}
+$int10 = -1;
+if (if_getheight($component2) < $int1) {
+    if_sethide(false, $component3);
+    if_setscrollsize(0, $int1, $component2);
+    ~rs3_scrollbar_vertical($component3, $component2);
+    while (++$int10 < $int7) {
+        if (cc_find($component2, ~script17503(enum(int, dbrow, $enum6, $int10), 0)) = true) {
+            cc_setsize(calc($int5 - (16 - 6)), calc(24 * paraheight(cc_gettext, calc($int5 - (16 - 6) - 16), notosans_12)), ^setsize_abs, ^setsize_abs);
+        }
+    }
+} else {
+    if_sethide(true, $component3);
+    if_setscrollsize(0, 0, $component2);
+}
+def_int $int12 = %necro_ritual_recipe_selection_selected_recipe;
+def_int $int13 = 0;
+if ($int12 = 0 | ~script17523(~script17499($int12)) = false) {
+    $int13 = ~script17542(~script17497(%necro_ritual_active_site));
+    if ($int13 ! 0) {
+        $int12 = $int13;
+    } else {
+        $int12 = $int9;
+    }
+}
+if ($int12 = 0) {
+    if_close;
+    ~script1296("You have no rituals available to perform.");
+    return;
+}
+def_dbrow $dbrow14 = ~script17499($int12);
+$int12 = ~script17503($dbrow14, 0);
+if (cc_find($component2, $int12) = true) {
+    ~script7872(true, true, true, true);
+}
+if ($int0 = 1) {
+    ~script17793($dbrow14);
+}
+~script8841(99, 1);

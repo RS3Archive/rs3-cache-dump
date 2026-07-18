@@ -1,0 +1,64 @@
+// 8578
+[clientscript,script8578]
+def_int $int0 = ~stat_to_int(struct_param(trh123_rift_info, trh_rifts_skill1));
+def_int $int1 = ~stat_to_int(struct_param(trh123_rift_info, trh_rifts_skill2));
+def_component $component2 = trh_rifts:progress_layer;
+def_string $string0 = "";
+def_int $int3 = 35;
+def_int $int4 = 3;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_boolean $boolean7 = false;
+def_boolean $boolean8 = false;
+def_int $int9 = struct_param(trh123_promo, trh_rifts_reward_threshold);
+~script13310(trh_rifts:skill1_progress, trh_rifts:skill1_progress_mask, 27, 4000);
+~script13310(trh_rifts:skill2_progress, trh_rifts:skill2_progress_mask, 28, 4000);
+if_settext("<tostring(~script8579(1))>/<tostring($int9)>", trh_rifts:skill1_progress_text);
+if_settext("<tostring(~script8579(2))>/<tostring($int9)>", trh_rifts:skill2_progress_text);
+if_setgraphic(struct_param(trh123_rift_info, trh_rifts_skill1_prize_icon_locked), trh_rifts:skill1_prize_graphic);
+if_setgraphic(struct_param(trh123_rift_info, trh_rifts_skill2_prize_icon_locked), trh_rifts:skill2_prize_graphic);
+if (%trh123_skill1_total = $int9) {
+    $boolean7 = true;
+    if_setgraphic(struct_param(trh123_rift_info, trh_rifts_skill1_prize_icon_unlocked), trh_rifts:skill1_prize_graphic);
+}
+if (%trh123_skill2_total = $int9) {
+    $boolean8 = true;
+    if_setgraphic(struct_param(trh123_rift_info, trh_rifts_skill2_prize_icon_unlocked), trh_rifts:skill2_prize_graphic);
+}
+~script8577(trh_rifts:skill1_prize_graphic, -1);
+~script8577(trh_rifts:skill2_prize_graphic, -1);
+if_sethide($boolean7, trh_rifts:skill1_prize_lock);
+if_sethide($boolean8, trh_rifts:skill2_prize_lock);
+def_string $string1 = struct_param(trh123_rift_info, trh_rifts_skill1_prize_icon_tooltip);
+def_string $string2 = struct_param(trh123_rift_info, trh_rifts_skill2_prize_icon_tooltip);
+if (string_length($string1) > 0) {
+    if_setonmouserepeat("script3876($string1, event_com, -1)", trh_rifts:skill1_prize_graphic);
+}
+if (string_length($string2) > 0) {
+    if_setonmouserepeat("script3876($string2, event_com, -1)", trh_rifts:skill2_prize_graphic);
+}
+cc_create($component2, ^iftype_graphic, $int6++);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int3, $int3, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(enum(int, graphic, stat2icon_medium, $int0));
+$string0 = "<enum(int, string, statstring, $int0)> Progress";
+cc_create($component2, ^iftype_text, $int6++);
+cc_setposition(calc($int3 + 10), $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_settext($string0);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setsize(parawidth($string0, 300, museo_sans_11pt_regular), $int3, ^setsize_abs, ^setsize_abs);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour(^white);
+$int5 = calc($int5 + 90);
+cc_create($component2, ^iftype_graphic, $int6++);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int3, $int3, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(enum(int, graphic, stat2icon_medium, $int1));
+$string0 = "<enum(int, string, statstring, $int1)> Progress";
+cc_create($component2, ^iftype_text, $int6++);
+cc_setposition(calc($int3 + 10), $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_settext($string0);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setsize(parawidth($string0, 300, museo_sans_11pt_regular), $int3, ^setsize_abs, ^setsize_abs);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour(^white);

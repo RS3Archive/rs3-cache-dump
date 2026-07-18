@@ -1,0 +1,20 @@
+// 17873
+[proc,script17873](dbrow $dbrow0, int $int1)(boolean)
+if ($dbrow0 = null) {
+    return(false);
+}
+~script17927;
+def_boolean $boolean2 = false;
+def_int $int3 = 0;
+if ($dbrow0 = dbrow_7906) {
+    $dbrow0 = %bp3_current_viewed_pass;
+}
+if ($int1 > ~script17890($dbrow0)) {
+    return(false);
+}
+$int3, $boolean2 = db_getfield($dbrow0, bp3_table:col7, calc($int1 - 1));
+if ($int3 ! $int1) {
+    ~error("Our reward data is OUT OF SYNC. Dbrow has level <tostring($int3)> for level <tostring($int1)>");
+    return(false);
+}
+return($boolean2);

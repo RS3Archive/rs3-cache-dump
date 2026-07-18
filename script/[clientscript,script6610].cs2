@@ -1,0 +1,42 @@
+// 6610
+[clientscript,script6610](int $int0)
+def_int $int1 = 0;
+def_component $component2 = peng_pow_bfish_setup:drag_zone;
+def_int $int3 = calc($int1 + 100);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 100;
+if (if_find(peng_pow_bfish_setup:gamepiece_corral) = true) {
+    $int6 = cc_getx;
+    $int7 = cc_gety;
+    $int8 = cc_getx;
+    $int9 = cc_gety;
+}
+while ($int10 < calc(enum_getoutputcount(bship_gamepiece) + 100)) {
+    if (cc_find($component2, $int10) = true & .if_find(peng_pow_bfish_setup:gamepiece_corral) = true & cc_getx >= .cc_getx & cc_getx <= calc(.cc_getx + .cc_getwidth) & cc_gety >= .cc_gety & cc_gety <= calc(.cc_gety + .cc_getheight)) {
+        sound_vorbis_volume(fremsaga_switch_character, 1, 0, 200);
+        ~script6611($int0, $int1);
+        if ($int0 = 2) {
+            cc_setposition($int6, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        $int4 = cc_getwidth;
+        $int5 = cc_getheight;
+    }
+    $int6 = calc($int6 + $int4);
+    $int7 = calc($int7 + $int5);
+    $int10 = calc($int10 + 1);
+    $int1 = calc($int1 + 1);
+}
+if ($int0 = 2) {
+    if_sethide(false, peng_pow_bfish_setup:rot_arrow_east);
+    if_sethide(true, peng_pow_bfish_setup:rot_arrow_south);
+} else {
+    if_sethide(true, peng_pow_bfish_setup:rot_arrow_east);
+    if_sethide(false, peng_pow_bfish_setup:rot_arrow_south);
+}

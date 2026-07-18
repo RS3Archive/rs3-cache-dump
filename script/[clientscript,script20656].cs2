@@ -1,0 +1,40 @@
+// 20656
+[clientscript,script20656](component $component0, int $int1)
+if (~script6431 = true) {
+    unknown_command_26(true);
+}
+if ($component0 = construction_house_furniture_portal_nexus_configure:active_scrolling) {
+    if_sethide(false, construction_house_furniture_portal_nexus_configure:available_delete);
+}
+%construction_house_furniture_portal_nexus_drag_com = $component0;
+%construction_house_furniture_portal_nexus_drag_id = $int1;
+def_int $int2 = ~script8403(construction_house_furniture_portal_nexus_configure:active_layer);
+def_int $int3 = ~script8404(construction_house_furniture_portal_nexus_configure:active_layer);
+def_int $int4 = if_getheight(construction_house_furniture_portal_nexus_configure:active_layer);
+def_int $int5 = if_getwidth(construction_house_furniture_portal_nexus_configure:active_layer);
+def_int $int6 = calc($int4 - 34);
+def_int $int7 = calc($int4 + 34);
+def_int $int8 = 0;
+if ($int2 >= 0 & $int2 <= if_getwidth(construction_house_furniture_portal_nexus_configure:active_layer)) {
+    if ($int3 >= calc(0 - 34) & $int3 <= 34) {
+        $int8 = -4;
+    } else if ($int3 >= calc($int4 - 34) & $int3 <= calc($int4 + 34)) {
+        $int8 = 4;
+    }
+    if (%construction_house_furniture_portal_nexus_drag_over_last ! -1 & ($int3 < 0 | $int3 > $int4)) {
+        ~script20709;
+    }
+} else if (%construction_house_furniture_portal_nexus_drag_over_last ! -1) {
+    ~script20709;
+}
+if ($int8 = 0) {
+    %construction_house_furniture_portal_nexus_drag_scrolldelay = 0;
+    return;
+}
+if (%construction_house_furniture_portal_nexus_drag_scrolldelay < 10) {
+    %construction_house_furniture_portal_nexus_drag_scrolldelay = calc(%construction_house_furniture_portal_nexus_drag_scrolldelay + 1);
+    return;
+}
+def_component $component9 = construction_house_furniture_portal_nexus_configure:active_scrolling;
+def_component $component10 = construction_house_furniture_portal_nexus_configure:active_scrollbar;
+~scrollbar_ondrag_doscroll($component10, $component9, calc(if_getscrolly($component9) + $int8), 1);

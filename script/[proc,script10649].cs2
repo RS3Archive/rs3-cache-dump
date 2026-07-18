@@ -1,0 +1,55 @@
+// 10649
+[proc,script10649]
+if (~script4157 ! 5) {
+    if_sethide(true, lore_stats_side:pet_abilities);
+    return;
+} else {
+    if_sethide(false, lore_stats_side:pet_abilities);
+}
+def_int $int0 = 1;
+def_struct $struct1 = null;
+def_component $component2 = lore_stats_side:pet_abilities;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+while (++$int6 <= 3) {
+    $int0 = ~mtx_pet_ability_get_active($int6);
+    $struct1 = enum(int, struct, mtxmgt_pet_ability_id_to_struct, $int0);
+    switch_int ($int6) {
+        case 1 :
+            $component3 = lore_stats_side:pet_ability_graphic_1;
+            $component4 = lore_stats_side:pet_ability_text_1;
+            $component5 = lore_stats_side:pet_ability_text_bg_1;
+        case 2 :
+            $component3 = lore_stats_side:pet_ability_graphic_2;
+            $component4 = lore_stats_side:pet_ability_text_2;
+            $component5 = lore_stats_side:pet_ability_text_bg_2;
+        case 3 :
+            $component3 = lore_stats_side:pet_ability_graphic_3;
+            $component4 = lore_stats_side:pet_ability_text_3;
+            $component5 = lore_stats_side:pet_ability_text_bg_3;
+    }
+    if (if_find($component3) = true) {
+        if ($struct1 ! null) {
+            if (~script11359($struct1) = 0 | $struct1 = mtx_pet_ability_bob) {
+                cc_setgraphic(struct_param($struct1, mtx_graphic_on));
+            } else {
+                cc_setgraphic(struct_param($struct1, mtx_graphic_off));
+            }
+            cc_setonmouserepeat("mtx_pet_ability_tooltip($struct1, event_com, -1)");
+            cc_setonmouseleave("script8805");
+        } else {
+            if ($int6 > %mtx_pet_available_abilities) {
+                cc_setonmouserepeat("script11362($component2, -1)");
+                cc_setgraphic(rs3_icon_slot_standard_locked);
+            } else {
+                cc_setonmouserepeat("mtx_pet_ability_tooltip(null, event_com, -1)");
+                cc_setgraphic(rs3_icon_slot_standard);
+            }
+            cc_setonmouseleave("script8805");
+        }
+    }
+    ~script11371($struct1, $component4, $component5);
+}

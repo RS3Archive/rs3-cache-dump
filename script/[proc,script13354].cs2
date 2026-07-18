@@ -1,0 +1,20 @@
+// 13354
+[proc,script13354](achievement $achievement0, component $component1, int $int2)
+def_int $int3 = 1;
+def_component $component4 = ~script10076;
+def_string $string0 = "";
+def_string $string1 = "";
+if ($achievement0 ! null) {
+    $string0 = achievement_getname($achievement0);
+    $string1 = ~achievement_description($achievement0);
+}
+if (.if_find($component4) = true & .cc_param(toplevel_v2_tooltip_type) = 5 & cc_find($component4, 0) = true & compare(cc_param(toplevel_v2_tooltip_param_str0), $string0) = 0 & compare(cc_param(toplevel_v2_tooltip_param_str1), $string1) = 0) {
+    $int3 = 0;
+}
+if ($int3 = 1) {
+    cc_deleteall($component4);
+    cc_create($component4, ^iftype_graphic, 0);
+    cc_setparam_string(toplevel_v2_tooltip_param_str0, $string0);
+    cc_setparam_string(toplevel_v2_tooltip_param_str1, $string1);
+}
+~script9566("", -1, 5, 1000, 25, $component1, $int2, null, 0xe3d7cf, $int3, 0);

@@ -1,0 +1,112 @@
+// 12197
+[proc,script12197](obj $obj0, inv $inv1, int $int2, struct $struct3, component $component4, component $component5, int $int6)(int)
+if (inv_getobj($inv1, $int2) ! $obj0 | inv_getnum($inv1, $int2) = 0) {
+    return($int6);
+}
+if (oc_hasvarobj($obj0) = false) {
+    return($int6);
+}
+def_int $int7 = 0;
+if ($int6 > 0 & cc_find($component5, calc($int6 - 1)) = true) {
+    $int7 = calc(cc_gety + cc_getheight);
+}
+def_graphic $graphicarray0(4);
+def_graphic $graphicarray1(4);
+def_graphic $graphic8 = null;
+def_graphic $graphic9 = null;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = inv_getvar($inv1, $int2, invent_gizmo_1_perk_1);
+def_int $int13 = inv_getvar($inv1, $int2, invent_gizmo_1_perk_2);
+def_int $int14 = inv_getvar($inv1, $int2, invent_gizmo_2_perk_1);
+def_int $int15 = inv_getvar($inv1, $int2, invent_gizmo_2_perk_2);
+$graphic8, $graphic9 = ~invent_perk_get_icons($int12, inv_getvar($inv1, $int2, invent_gizmo_1_perk_1_rank));
+if ($graphic8 ! null) {
+    $graphicarray0($int10) = $graphic8;
+    $graphicarray1($int10) = $graphic9;
+    $int10 = calc($int10 + 1);
+}
+$graphic8, $graphic9 = ~invent_perk_get_icons($int13, inv_getvar($inv1, $int2, invent_gizmo_1_perk_2_rank));
+if ($graphic8 ! null) {
+    $graphicarray0($int10) = $graphic8;
+    $graphicarray1($int10) = $graphic9;
+    $int10 = calc($int10 + 1);
+}
+$int11 = $int10;
+$graphic8, $graphic9 = ~invent_perk_get_icons($int14, inv_getvar($inv1, $int2, invent_gizmo_2_perk_1_rank));
+if ($graphic8 ! null) {
+    $graphicarray0($int10) = $graphic8;
+    $graphicarray1($int10) = $graphic9;
+    $int10 = calc($int10 + 1);
+}
+$graphic8, $graphic9 = ~invent_perk_get_icons($int15, inv_getvar($inv1, $int2, invent_gizmo_2_perk_2_rank));
+if ($graphic8 ! null) {
+    $graphicarray0($int10) = $graphic8;
+    $graphicarray1($int10) = $graphic9;
+    $int10 = calc($int10 + 1);
+}
+if ($int10 = 0) {
+    return($int6);
+}
+if ($int11 = $int10 | $int11 = 0) {
+    $int11 = -1;
+}
+def_int $int16 = 16;
+def_int $int17 = 6;
+def_int $int18 = if_getwidth($component4);
+def_int $int19 = 300;
+def_int $int20 = calc($int10 * (32 + $int17) - $int17 + $int16 * 2);
+if ($int18 < $int20) {
+    $int18 = min($int20, 300);
+}
+def_int $int21 = calc(32 + $int7 + $int16);
+if_setsize($int18, $int21, ^setsize_abs, ^setsize_abs, $component4);
+def_int $int22 = $int16;
+def_int $setposh23 = ^setpos_abs_left;
+if (struct_param($struct3, optext_halign) = 1) {
+    $int22 = calc((32 - $int10 * (32 + $int17) + $int17) / 2);
+    if ($int11 > 0) {
+        $int22 = calc($int22 - $int17);
+    }
+    $setposh23 = ^setpos_abs_centre;
+}
+def_int $int24 = 0;
+while ($int24 < $int10) {
+    cc_create($component5, ^iftype_graphic, $int6++);
+    cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int22, $int7, $setposh23, ^setpos_abs_top);
+    cc_setgraphic($graphicarray0($int24));
+    if ($graphicarray1($int24) ! null) {
+        cc_create($component5, ^iftype_graphic, $int6++);
+        cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int22, $int7, $setposh23, ^setpos_abs_top);
+        cc_setgraphic($graphicarray1($int24));
+    }
+    $int22 = calc($int22 + 32 + $int17);
+    $int24 = calc($int24 + 1);
+    if ($int11 = $int24) {
+        cc_create($component5, ^iftype_line, $int6++);
+        if ($setposh23 = ^setpos_abs_centre) {
+            cc_setposition(calc($int22 - 32 / 2), calc($int7 + 6), $setposh23, ^setpos_abs_top);
+        } else {
+            cc_setposition($int22, calc($int7 + 6), $setposh23, ^setpos_abs_top);
+        }
+        cc_setsize(0, calc(32 - 12), ^setsize_abs, ^setsize_abs);
+        ~script11024(7);
+        $int22 = calc($int22 + $int17 + 1);
+    }
+}
+def_int $int25 = inv_getvar($inv1, $int2, invent_obj_xp);
+def_int $int26 = ~invent_item_level($int25);
+if (($int26 >= 20 | ~script20157 = true) & (~script20178(~script12076($int12)) = true | ~script20178(~script12076($int13)) = true | ~script20178(~script12076($int14)) = true | ~script20178(~script12076($int15)) = true)) {
+    if_setsize($int18, calc($int21 + 16), ^setsize_abs, ^setsize_abs, $component4);
+    cc_create($component5, ^iftype_graphic, $int6++);
+    cc_setgraphic(invention_icon_proc_chance_16x16);
+    cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+    if ($int14 <= 0 | $int15 <= 0) {
+        cc_setposition(1, calc($int7 + 32), ^setpos_abs_centre, ^setpos_abs_top);
+    } else {
+        cc_setposition(-2, calc($int7 + 32), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+}
+return($int6);

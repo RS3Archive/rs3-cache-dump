@@ -1,0 +1,52 @@
+// 2514
+[proc,settings_select_entry](int $int0)
+def_int $int1 = 1023;
+def_int $int2 = ~script20385;
+def_dbrow $dbrow3 = enum(int, dbrow, settings_all_categories, $int0);
+def_dbrow $dbrow4 = null;
+def_int $int5 = db_getfieldcount($dbrow3, settings_category:col3);
+def_int $int6 = 0;
+if ($int5 > 0) {
+    $int1 = $int0;
+    while ($int6 < $int5) {
+        $dbrow4 = db_getfield($dbrow3, settings_category:col3, $int6);
+        switch_int (db_getfield($dbrow4, settings_category:col4, 0)) {
+            case default :
+                $int6 = $int5;
+            case 1 :
+                if (~script6431 = false) {
+                    $int6 = $int5;
+                }
+            case 2 :
+                if (~script6431 = true) {
+                    $int6 = $int5;
+                }
+            case 4 :
+                if (clienttype = enhanced_ios) {
+                    $int6 = $int5;
+                }
+            case 3 :
+                if (platformtype ! ^platformtype_steam) {
+                    $int6 = $int5;
+                }
+            case 5 :
+                if (~script19316 = false) {
+                    $int6 = $int5;
+                }
+            case 6 :
+                if (%league_active_player <= 0) {
+                    $int6 = $int5;
+                }
+        }
+        $int6 = calc($int6 + 1);
+    }
+    $int0 = enum_getreverseindex(dbrow, int, settings_all_categories, $dbrow4, 0);
+} else if (~script2522($dbrow3, $int2) = true) {
+    $int1 = $int2;
+} else {
+    $int1 = ~settings_find_master($dbrow3);
+}
+~script20383($int1);
+~script20384($int0);
+%settings_struct_selected = null;
+%settings_slider_selected = null;

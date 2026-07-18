@@ -1,0 +1,39 @@
+// 10211
+[if_process_active_player,headbar_highlight]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_component $component5 = if_getparentlayer(headbar_highlight:main);
+def_boolean $boolean6 = false;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (if_find(headbar_highlight:main) = true) {
+    cc_setsize(66, 6, ^setsize_abs, ^setsize_abs);
+}
+$int0, $int1, $int2 = get_entity_screen_position(get_entity_overlay_height);
+$boolean6, $int7, $int8, $int9, $int10 = get_entity_bounding_box;
+if ($component5 ! null) {
+    $int3 = if_getwidth($component5);
+    $int4 = if_getheight($component5);
+}
+if (if_find(headbar_highlight:main) = true) {
+    $int0 = calc($int0 - cc_getwidth / 2);
+    $int1 = calc($int1 - cc_getheight / 2 - 15);
+    if ($int0 < 0) {
+        $int0 = 0;
+    }
+    if (calc($int3 - $int0) < cc_getwidth) {
+        $int0 = calc($int3 - cc_getwidth);
+    }
+    if ($int1 < 0) {
+        $int1 = 0;
+    }
+    if (calc($int4 - $int1) < cc_getheight) {
+        $int1 = calc($int4 - cc_getheight);
+    }
+    cc_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+}

@@ -1,0 +1,127 @@
+// 7994
+[proc,script7994](component $component0, struct $struct1, struct $struct2)
+if ($component0 = null | $struct1 = null) {
+    return;
+}
+if_setonvartransmit("script9988($component0, $struct1, $struct2){toplevel_v2_skins_varp}", $component0);
+def_int $int3 = struct_param($struct1, rs3tli_button_layer_type);
+def_struct $struct4 = struct_param($struct1, rs3tli_button_layer_master_struct);
+if ($struct4 ! null) {
+    $struct1 = $struct4;
+}
+$struct1 = ~script9984($struct1, $int3);
+def_graphic $graphic5 = struct_param($struct1, rs3tli_button_graphic_top_left);
+def_graphic $graphic6 = struct_param($struct1, rs3tli_button_graphic_top);
+def_graphic $graphic7 = struct_param($struct1, rs3tli_button_graphic_top_right);
+def_graphic $graphic8 = struct_param($struct1, rs3tli_button_graphic_left);
+def_graphic $graphic9 = struct_param($struct1, rs3tli_button_graphic_middle);
+def_graphic $graphic10 = struct_param($struct1, rs3tli_button_graphic_right);
+def_graphic $graphic11 = struct_param($struct1, rs3tli_button_graphic_bottom_left);
+def_graphic $graphic12 = struct_param($struct1, rs3tli_button_graphic_bottom);
+def_graphic $graphic13 = struct_param($struct1, rs3tli_button_graphic_bottom_right);
+def_int $int14 = struct_param($struct1, rs3tli_button_graphic_width);
+def_int $int15 = struct_param($struct1, rs3tli_button_graphic_height);
+def_boolean $boolean16 = false;
+def_boolean $boolean17 = false;
+switch_int ($int3) {
+    case 2 :
+        if_setonmouseover("script8087(false, event_com)", $component0);
+        if_setonmouseleave("script8087(true, event_com)", $component0);
+        $boolean16 = true;
+    case 3 :
+        if_setonclick("script10016(event_com)", $component0);
+        if_setonrelease("script8087(true, event_com)", $component0);
+        if_setonmouseleave("script8087(true, event_com)", $component0);
+        $boolean16 = true;
+    case 4 :
+        $boolean17 = true;
+    case 5 :
+        if_setnoclickthrough(true, $component0);
+        $boolean17 = true;
+}
+def_graphic $graphic18 = null;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $setposh22 = ^setpos_abs_left;
+def_int $int23 = 0;
+def_int $setposv24 = ^setpos_abs_centre;
+if ($struct2 ! null) {
+    $int19 = struct_param($struct2, rs3tli_icon_graphic_width);
+    $int20 = struct_param($struct2, rs3tli_icon_graphic_height);
+    $int21 = struct_param($struct2, rs3tli_icon_h_spacing);
+    $setposh22 = struct_param($struct2, rs3tli_icon_h_align);
+    $int23 = struct_param($struct2, rs3tli_icon_v_offset);
+    $setposv24 = struct_param($struct2, rs3tli_icon_v_align);
+    switch_int ($int3) {
+        case 1 :
+            $graphic18 = struct_param($struct2, rs3tli_icon_graphic_on);
+        case 2 :
+            $graphic18 = struct_param($struct2, rs3tli_icon_graphic_over);
+        case 3 :
+            $graphic18 = struct_param($struct2, rs3tli_icon_graphic_hit);
+        case 4 :
+            $graphic18 = struct_param($struct2, rs3tli_icon_graphic_selected);
+        case 5 :
+            $graphic18 = struct_param($struct2, rs3tli_icon_graphic_disabled);
+    }
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int14, $int15, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic5);
+cc_sethide($boolean16);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc($int14 * 2), $int15, ^setsize_minus, ^setsize_abs);
+cc_setgraphic($graphic6);
+cc_sethide($boolean16);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_setsize($int14, $int15, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic7);
+cc_sethide($boolean16);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize($int14, calc($int15 * 2), ^setsize_abs, ^setsize_minus);
+cc_setgraphic($graphic8);
+cc_sethide($boolean16);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(calc($int14 * 2), calc(2 * $int15), ^setsize_minus, ^setsize_minus);
+cc_setgraphic($graphic9);
+cc_sethide($boolean16);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_setsize($int14, calc($int15 * 2), ^setsize_abs, ^setsize_minus);
+cc_setgraphic($graphic10);
+cc_sethide($boolean16);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize($int14, $int15, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic11);
+cc_sethide($boolean16);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize(calc($int14 * 2), $int15, ^setsize_minus, ^setsize_abs);
+cc_setgraphic($graphic12);
+cc_sethide($boolean16);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_setsize($int14, $int15, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic13);
+cc_sethide($boolean16);
+if ($struct2 ! null) {
+    cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+    cc_setposition($int21, $int23, $setposh22, $setposv24);
+    cc_setsize($int19, $int20, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic($graphic18);
+    cc_sethide($boolean16);
+}
+if_sethide($boolean17, $component0);

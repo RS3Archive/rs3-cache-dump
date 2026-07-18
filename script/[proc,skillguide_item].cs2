@@ -1,0 +1,47 @@
+// 14715
+[proc,skillguide_item](struct $struct0, dbrow $dbrow1)(obj)
+def_obj $obj2 = null;
+if ($struct0 ! null) {
+    $obj2 = struct_param($struct0, skillguide_item);
+    if ($obj2 ! null) {
+        return($obj2);
+    }
+    $dbrow1 = struct_param($struct0, skillguide_data);
+}
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case arch_site :
+            if (db_getfield($dbrow1, arch_site:col1, 0) = 2) {
+                $dbrow3 = db_getfield($dbrow1, arch_site:col17, 0);
+                if ($dbrow3 ! null & db_getfieldcount($dbrow3, arch_excavation:col17) > 0) {
+                    $dbrow3, $int4 = db_getfield($dbrow3, arch_excavation:col17, max(0, calc(db_getfieldcount($dbrow3, arch_excavation:col17) - 1)));
+                    if ($dbrow3 ! null & db_getrowtable($dbrow3) = arch_restoration) {
+                        $obj2 = db_getfield($dbrow3, arch_restoration:col6, 0);
+                    }
+                }
+            }
+        case arch_excavation :
+            switch_int (db_getfield($dbrow1, arch_excavation:col1, 0)) {
+                case 1 :
+                    if (db_getfieldcount($dbrow1, arch_excavation:col17) > 0) {
+                        $dbrow3, $int4 = db_getfield($dbrow1, arch_excavation:col17, 0);
+                        if ($dbrow3 ! null & db_getrowtable($dbrow3) = arch_restoration) {
+                            $obj2 = db_getfield($dbrow3, arch_restoration:col6, 0);
+                        }
+                    }
+                case 2 :
+                    if (db_getfieldcount($dbrow1, arch_excavation:col15) > 0) {
+                        $obj2, $int4 = db_getfield($dbrow1, arch_excavation:col15, 0);
+                    }
+            }
+        case arch_relic :
+            $obj2 = db_getfield($dbrow1, arch_relic:col9, 0);
+        case necro_ritual_recipe :
+            $obj2 = db_getfield($dbrow1, necro_ritual_recipe:col13:0, 0);
+        case construction_house_furniture :
+            $obj2 = db_getfield($dbrow1, construction_house_furniture:col4, 0);
+    }
+}
+return($obj2);

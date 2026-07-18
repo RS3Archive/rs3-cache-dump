@@ -1,0 +1,71 @@
+// 5081
+[clientscript,script5081](component $component0, int $int1, enum $enum2, int $int3, int $int4, int $int5, int $int6)
+if (%demomode_create = false | %demomode_create = null) {
+    ~clan_field_setup_closedropdown($component0);
+    return;
+}
+sound_vorbis_volume(clans_interface_click, 1, 0, 200);
+if_sethide(false, clan_field_setup:dropdown_container);
+%welcome_screen_time = $int1;
+def_int $int7 = calc($int1 * 10);
+if (cc_find($component0, $int7) = true) {
+    cc_setontimer(null);
+}
+if (cc_find($component0, calc($int7 + 3)) = true) {
+    cc_setgraphic("aif_drop_down_button_1,7");
+}
+if (cc_find($component0, calc($int7 + 5)) = true) {
+    cc_setgraphic(time_worldmap);
+}
+if (cc_find($component0, calc($int7 + 7)) = true) {
+    cc_setgraphic("aif_drop_down_button_1,8");
+}
+if (cc_find($component0, calc($int7 + 4)) = true) {
+    cc_settrans(255);
+}
+if (cc_find($component0, calc($int7 + 6)) = true) {
+    cc_settrans(255);
+}
+if (cc_find($component0, calc($int7 + 8)) = true) {
+    cc_settrans(255);
+}
+cc_deleteall(clan_field_setup:dropdown_options);
+def_int $int8 = 0;
+while ($int8 < $int3) {
+    cc_create(clan_field_setup:dropdown_options, ^iftype_rectangle, if_getnextsubid(clan_field_setup:dropdown_options));
+    cc_sethide(true);
+    $int8 = calc($int8 + 1);
+}
+def_int $int9 = ~script5089($enum2);
+def_int $int10 = 0;
+$int8 = 0;
+while ($int8 < $int4) {
+    if ($int9 ! $int8) {
+        cc_create(clan_field_setup:dropdown_options, ^iftype_text, if_getnextsubid(clan_field_setup:dropdown_options));
+        cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(p11_full);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_setcolour(0xd7c377);
+        cc_settextshadow(false);
+        cc_settext(enum(int, string, $enum2, $int8));
+        cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 16777215)");
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 14140279)");
+        cc_setop(1, "Select");
+        cc_setonop("clan_field_setup_closedropdown($component0)");
+        $int10 = calc($int10 + cc_getheight);
+    } else {
+        cc_create(clan_field_setup:dropdown_options, ^iftype_rectangle, if_getnextsubid(clan_field_setup:dropdown_options));
+        cc_sethide(true);
+    }
+    $int8 = calc($int8 + 1);
+}
+if_setparam_int(clan_field_element_w, $int6, clan_field_setup:dropdown);
+if_setparam_int(clan_field_element_h, $int10, clan_field_setup:dropdown);
+if_setscrollsize(0, $int10, clan_field_setup:dropdown_options);
+~script5082($component0);
+if ($int4 > 4) {
+    ~scrollbar_vertical(clan_field_setup:dropdown_scrollbar, clan_field_setup:dropdown_options, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
+} else {
+    cc_deleteall(clan_field_setup:dropdown_scrollbar);
+}

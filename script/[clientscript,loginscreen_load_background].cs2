@@ -1,0 +1,29 @@
+// 13382
+[clientscript,loginscreen_load_background]
+if (~script6431 = true) {
+    %loginscreen_background = 999;
+    %loginscreen_background_version = 119;
+    %loginscreen_background_random = 0;
+} else {
+    %loginscreen_background = 0;
+    %loginscreen_background_version = 119;
+    %loginscreen_background_random = 0;
+}
+def_struct $struct0 = enum(int, struct, loginscreen_backgrounds, %loginscreen_background);
+if ($struct0 = null) {
+    %loginscreen_background = 109;
+    %loginscreen_background_version = 119;
+    %loginscreen_background_random = 0;
+    $struct0 = enum(int, struct, loginscreen_backgrounds, %loginscreen_background);
+}
+def_enum $enum1 = null;
+if ($struct0 ! null) {
+    $enum1 = struct_param($struct0, loginscreen_background_enum);
+    if ($enum1 ! null) {
+        %loginscreen_background_subid = ~script13386($enum1);
+        if (%loginscreen_background_random ! 1) {
+            if_setontimer("script13387(event_com, loginscreen:background_fader, clientclock, %loginscreen_background)", loginscreen:backgrounds);
+        }
+    }
+}
+~loginscreen_set_background;

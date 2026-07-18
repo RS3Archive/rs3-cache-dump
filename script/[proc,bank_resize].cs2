@@ -1,0 +1,26 @@
+// 9316
+[proc,bank_resize]
+if (if_hassubmodal(toplevel_v2:bank_window, diango_items) = true) {
+    ~diango_resize(0);
+    return;
+} else if (if_hassubmodal(toplevel_v2:bank_window, poh_costume_room) = true) {
+    ~script15069(0);
+    return;
+} else if (if_hassubmodal(toplevel_v2:bank_window, group_ironman_storage) = true) {
+    ~script19511;
+    return;
+}
+if (%bank_init_cycle = clientclock | %bank_init_cycle = -1) {
+    return;
+}
+if (~script10906 = true) {
+    ~script9313;
+    ~script13889;
+    if (%bank_resize_cycle <= clientclock) {
+        ~script13748(%bank_side_tab_selected);
+        ~script10186(0, 20);
+        ~script9324(1);
+        ~script15439;
+        %bank_resize_cycle = calc(clientclock + 5);
+    }
+}

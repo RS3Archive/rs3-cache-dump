@@ -1,0 +1,168 @@
+// 5786
+[proc,bank_swap_external](int $int0, inv $inv1, int $int2, int $int3, boolean $boolean4)(boolean)
+if ($inv1 = null) {
+    ~error("Inventory param $inv was null!");
+    return(false);
+}
+def_int $int5 = inv_size($inv1);
+if ($int2 < 0 | $int2 >= $int5 | $int3 < 0 | $int3 >= $int5) {
+    ~error("Integer param $slot was out of expected bounds!");
+    return(false);
+}
+if ($int0 < 0 | $int0 >= 1820) {
+    ~error("Integer param $bank_slot was out of expected bounds!");
+    return(false);
+}
+def_obj $obj6 = ~bank_get_object($int0);
+def_int $int7 = ~bank_get_num($int0);
+def_obj $obj8 = ~bank_get_invobject($inv1, $int3);
+def_int $int9 = ~bank_get_invnum($inv1, $int3);
+def_int $int10 = $int7;
+def_obj $obj11 = oc_uncert($obj8);
+if ($obj6 = null | $obj8 = null | $int7 < 1 | $int9 < 1 | ~script3994($obj11) = true) {
+    return(false);
+}
+def_int $int12 = %bankcert;
+def_obj $obj13 = oc_cert($obj6);
+def_obj $obj14 = null;
+def_obj $obj15 = null;
+if ($inv1 = worn) {
+    $int12 = 0;
+    $obj14 = ~script8156($obj11);
+    switch_int (~bank_deposit_worn_check($obj14, $int3, $obj8, $obj11, 1)) {
+        case 0 :
+        case 3 :
+            $obj15 = $obj8;
+            $obj8 = $obj14;
+            $obj11 = $obj14;
+        case 2 :
+            if (oc_stackable($obj6) = true) {
+                return(~bank_withdraw($obj6, $int7, $int0, $inv1, $int2, $int7, false));
+            } else {
+                return(~bank_withdraw($obj6, 1, $int0, $inv1, $int2, $int7, false));
+            }
+        case default :
+            return(false);
+    }
+} else if ($inv1 = lore_bob) {
+    if (%follower_obj ! null) {
+        $int10 = calc($int7 - ~script3970(bank, $obj6, $int7, $obj8, ~int_to_bool($int12)));
+        if ($int10 = 0) {
+            ~script2347($obj8, $obj11, ~bank_get_item_slot($inv1, $obj11), $int9, $int0, -1, lore_bob, $int3, 1, 1);
+            ~script14187;
+            return(false);
+        }
+    } else {
+        return(false);
+    }
+} else if ($obj13 = $obj6) {
+    $int12 = 0;
+}
+def_int $int16 = ~bank_get_tab($int0);
+if (playermember = false & oc_members($obj8) = 0 & oc_members($obj6) = 1 & calc(~script5778 - ~script14294) <= 0) {
+    ~bank_mes("You need to subscribe if you wish to store any more items in the bank.");
+    return(false);
+}
+def_boolean $boolean17 = ~script3802($obj11);
+def_int $int18 = ~bank_get_item_slot($inv1, $obj11);
+def_int $int19 = 0;
+if ($int18 ! -1) {
+    $int19 = inv_getnum(bank, $int18);
+}
+def_int $int20 = -1;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 1;
+def_int $int24 = 0;
+$boolean4 = ~script5175($boolean4, $obj6);
+if ($int12 = 1 | oc_stackable($obj6) = true) {
+    $int20 = ~bank_find_inv($inv1, $obj13, 0);
+    if ($int20 ! -1) {
+        $int22 = ~bank_get_invnum($inv1, $int20);
+        $int21 = calc(^max_32bit_int - $int22);
+    }
+    if ($int7 = $int10 & $boolean4 = false) {
+        if ($int20 = -1) {
+            $int23 = 0;
+        } else if ($int21 >= $int10) {
+            $int23 = 0;
+        }
+    }
+} else if ($int7 = 1 & $boolean4 = false) {
+    $int23 = 0;
+}
+if ($int23 = 0) {
+    if ($int20 ! -1) {
+        ~script14362($int0, $int7, $obj6, $int7, $inv1, $int20, ~int_to_bool($int12), $boolean4);
+        ~script14363($inv1, $int3, $obj8, $obj11, $int9, $int0);
+        ~script13016($inv1, $obj15, $obj8);
+        ~script14248($inv1, $obj8, $obj6);
+        return(true);
+    } else if ($int9 = 1 | $boolean17 = false) {
+        if ($int18 = -1) {
+            ~script14365($int0, $obj6, $obj13, $int7, $inv1, $int2, $int3, $obj8, $obj11, $int9, $int12);
+            ~script13016($inv1, $obj15, $obj8);
+            ~script14248($inv1, $obj8, $obj6);
+            return(true);
+        }
+        if (calc(^max_32bit_int - $int19 - $int9) < 0) {
+            if ($obj11 = $obj6) {
+                ~script2347($obj8, $obj11, $int18, $int9, $int18, -1, $inv1, $int3, 1, 1);
+            }
+            return(false);
+        }
+        %bank_deposit_all_or_swap_inprogress = 1;
+        $int24 = ~script2347($obj8, $obj11, $int18, $int9, $int18, -1, $inv1, $int3, 1, 1);
+        %bank_deposit_all_or_swap_inprogress = 0;
+        if ($int24 = 0) {
+            return(false);
+        }
+        if (~bank_get_invobject($inv1, $int3) ! null) {
+            return(false);
+        }
+        $int7 = ~bank_get_num($int0);
+        ~script14362($int0, $int7, $obj6, $int10, $inv1, $int2, ~int_to_bool($int12), $boolean4);
+        ~script6961($int0, $obj6, $boolean4);
+        ~script13016($inv1, $obj15, $obj8);
+        ~script14248($inv1, $obj8, $obj6);
+        return(true);
+    }
+    ~error("<oc_debugname> x <tostring($int9)> couldn't swap with <oc_debugname> x <tostring($int7)>. An inventory object shouldn't need multiple bank slots.");
+    return(false);
+}
+if (~bank_itemspace($obj8, $int9) = 0) {
+    if ($obj8 = $obj6 & oc_stackable($obj8) = true) {
+        ~script2347($obj8, $obj11, $int18, $int9, $int18, -1, $inv1, $int3, 1, 1);
+    }
+    return(false);
+}
+if (%bank_first_freeslot ! -1 & ~script14337 >= ~bank_get_size) {
+    $int18 = calc($int18 - ~bank_freespace_range(0, $int18));
+    $int0 = calc($int0 - ~bank_freespace_range(0, $int0));
+    ~bank_compress;
+}
+%bank_deposit_all_or_swap_inprogress = 1;
+$int24 = ~script2347($obj8, $obj11, $int18, $int9, calc($int0 + 1), ~bank_get_tab($int0), $inv1, $int3, 1, 1);
+%bank_deposit_all_or_swap_inprogress = 0;
+if ($int24 = 0) {
+    return(false);
+}
+if ($int20 ! -1) {
+    if ($int21 > 0 & $int21 >= $int10) {
+        return(true);
+    } else {
+        $int10 = min($int10, $int21);
+    }
+    $int2 = $int20;
+} else if (~bank_get_invobject($inv1, $int3) ! null) {
+    return(false);
+}
+$int7 = ~bank_get_num($int0);
+if (oc_stackable($obj6) = false & $int12 = 0) {
+    ~script14362($int0, $int7, $obj6, 1, $inv1, $int2, ~int_to_bool($int12), $boolean4);
+} else {
+    ~script14362($int0, $int7, $obj6, $int10, $inv1, $int2, ~int_to_bool($int12), $boolean4);
+}
+~script13016($inv1, $obj15, $obj8);
+~script14248($inv1, $obj8, $obj6);
+return(true);

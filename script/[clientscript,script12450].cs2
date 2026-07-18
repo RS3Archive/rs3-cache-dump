@@ -1,0 +1,33 @@
+// 12450
+[clientscript,script12450](int $int0, int $int1)
+if (~machinima_camera_open = false) {
+    ~script12447;
+}
+def_int $int2 = max(1, calc(%machinima_livecamera_camera_pos_speed / 12));
+def_int $int3 = max(1, calc(%machinima_livecamera_camera_rot_speed / 2));
+def_int $int4 = 1000;
+def_int $int5 = 3000;
+switch_int ($int0) {
+    case 0 :
+        $int1 = calc($int1 / $int4 * $int2);
+        if ($int1 ! 0) {
+            cam2_setlookatorientation_xmovement($int1);
+        }
+    case 1 :
+        $int1 = calc($int1 / $int4 * $int2);
+        if ($int1 ! 0) {
+            cam2_setlookatorientation_zmovement($int1);
+        }
+    case 2 :
+        $int1 = calc($int1 / $int5 * -1 * $int3);
+        if ($int1 ! 0) {
+            cam2_setlookatorientation_yrotation($int1);
+        }
+    case 3 :
+        $int1 = calc($int1 / $int5 * -1 * $int3);
+        if ($int1 ! 0) {
+            cam2_setlookatorientation_xrotation($int1);
+        }
+    case default :
+        return;
+}

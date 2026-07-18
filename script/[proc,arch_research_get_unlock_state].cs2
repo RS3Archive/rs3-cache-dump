@@ -1,0 +1,18 @@
+// 14629
+[proc,arch_research_get_unlock_state](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(^true);
+}
+def_int $int1 = db_getfield($dbrow0, arch_research:col0, 0);
+if ($int1 < 0) {
+    return(^true);
+}
+switch_int (calc($int1 / 32)) {
+    case 0 :
+        return(testbit(%arch_research_unlock_1, calc($int1 % 32)));
+    case 1 :
+        return(testbit(%arch_research_unlock_2, calc($int1 % 32)));
+    case 2 :
+        return(testbit(%arch_research_unlock_3, calc($int1 % 32)));
+}
+return(^false);

@@ -1,0 +1,131 @@
+// 8144
+[proc,script8144]
+def_component $component0 = toplevel_v2_ribbon:ribbon_root;
+def_component $component1 = toplevel_v2_ribbon:window_holder;
+def_component $component2 = toplevel_v2_ribbon:window_build;
+def_component $component3 = toplevel_v2_ribbon:window_click;
+def_int $int4 = if_getwidth($component0);
+if ($int4 = 0) {
+    return;
+}
+def_int $int5 = if_getheight($component0);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 32;
+def_int $int23 = 32;
+~script13852($int4, $int5);
+def_int $int24 = if_getwidth($component1);
+def_int $int25 = if_getheight($component1);
+def_boolean $boolean26 = ~script6431;
+if (%toplevel_v2_legacy_interface = 0 & $boolean26 = false) {
+    if (%toplevel_v2_active_skinset = 1) {
+        $int22 = 32;
+        $int23 = 32;
+        $int20 = 4;
+        $int21 = 7;
+    }
+    $int15 = max(1, calc($int24 / $int22));
+    $int16 = max(1, calc($int25 / $int23));
+    $int13 = calc($int24 % $int22 / $int15);
+    $int14 = calc($int25 % $int23 / $int16);
+    $int7 = calc($int15 * $int16);
+    $int6 = $int7;
+    $int9 = ~script2387(%varclientbit_42113);
+    if ($int9 < $int7) {
+        $int8 = calc($int7 - $int9);
+        $int17 = calc($int15 + $int16 - 1);
+        while ($int8 >= $int17 & $int15 > 1 & $int16 > 1) {
+            $int8 = calc($int8 - $int17);
+            $int15 = calc($int15 - 1);
+            $int16 = calc($int16 - 1);
+            $int17 = calc($int15 + $int16 - 1);
+        }
+        while ($int8 >= $int15 & $int16 > 1) {
+            $int8 = calc($int8 - $int15);
+            $int16 = calc($int16 - 1);
+        }
+        while ($int8 >= $int16 & $int15 > 1) {
+            $int8 = calc($int8 - $int16);
+            $int15 = calc($int15 - 1);
+        }
+        $int13 = calc(($int24 - $int22 * $int15) / $int15);
+        $int14 = calc(($int25 - $int23 * $int16) / $int16);
+        $int7 = $int9;
+    }
+    $int18 = calc($int13 / 2);
+    $int19 = calc($int14 / 2);
+} else if ($boolean26 = true) {
+    $int7 = 8;
+    $int22 = 50;
+    $int23 = 50;
+    $int20 = 0;
+    $int21 = 0;
+} else {
+    $int7 = 16;
+    $int22 = 32;
+    $int23 = 32;
+    $int20 = 4;
+    $int21 = 7;
+}
+if (playermember = false & $int9 < ~script2385(135, 1)) {
+    ~script2393(135, $int9);
+}
+~script13846($component2, $component3, ribbon_windows);
+if ($boolean26 = true) {
+    $int19 = 0;
+}
+while ($int10 < $int7) {
+    $int11 = ~script2384($int10, %varclientbit_42113);
+    if ($boolean26 = true) {
+        if (~script13856($int11) = false) {
+            $int20 = 0;
+            $int21 = 0;
+        } else {
+            $int20 = 6;
+            $int21 = 15;
+        }
+    } else if (%toplevel_v2_active_skinset ! 1) {
+        $int20 = 4;
+        $int21 = 4;
+    }
+    if (enum_hasoutput(int, ribbon_windows, $int11) = true) {
+        $int12 = enum_getreverseindex(int, int, ribbon_windows, $int11, 0);
+        if (cc_find($component2, $int12) = true & .cc_find($component3, $int12) = true) {
+            cc_setposition($int18, $int19, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+            .cc_setposition(calc($int18 + $int20), calc($int19 + $int21), ^setpos_abs_left, ^setpos_abs_top);
+            .cc_sethide(false);
+            if ($boolean26 = false) {
+                $int18 = calc($int18 + ($int13 + $int22));
+                if (calc($int18 + $int22) > $int24) {
+                    $int18 = calc($int13 / 2);
+                    $int19 = calc($int19 + ($int14 + $int23));
+                }
+            } else {
+                $int19 = calc($int19 + ($int23 + 3));
+            }
+        }
+    } else {
+        ~script2393($int11, -1);
+    }
+    $int10 = calc($int10 + 1);
+}
+if_setparam_int(ribbon_last_drawn_count, $int7, $component0);
+if_setparam_int(ribbon_last_drawn_count_max, $int6, $component0);
+~script8145;
+~script17044(toplevel_v2_ribbon:intern_note_layer);
+~script15783;

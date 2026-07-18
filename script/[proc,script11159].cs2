@@ -1,0 +1,40 @@
+// 11159
+[proc,script11159]
+def_dbrow $dbrow0 = ~trh189_get_modifiers(1);
+def_int $int1 = db_getfieldcount($dbrow0, dbtable_35:col0);
+def_int $int2 = -1;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if_grid_setlayoutparams(false, $int1, 1, trh189_overlay:left_modifier_grid);
+if_grid_setlayoutparams(false, $int1, 1, trh189_overlay:left_plus_grid);
+if_grid_setlayoutparams(false, $int1, 1, trh189_overlay:left_modifier_shadow_grid);
+cc_deleteall(trh189_overlay:left_modifier_grid);
+cc_deleteall(trh189_overlay:left_plus_grid);
+cc_deleteall(trh189_overlay:left_modifier_shadow_grid);
+def_graphic $graphic5 = null;
+while (++$int2 < $int1) {
+    $int3, $int4 = db_getfield($dbrow0, dbtable_35:col0, $int2);
+    $graphic5 = ~script11161($int3);
+    if ($graphic5 ! null) {
+        cc_create(trh189_overlay:left_modifier_grid, ^iftype_graphic, $int2);
+        cc_setgraphic($graphic5);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setsize(41, 50, ^setsize_abs, ^setsize_abs);
+        if ($int2 < calc($int1 - 1)) {
+            .cc_create(trh189_overlay:left_plus_grid, ^iftype_graphic, $int2);
+            .cc_setgraphic(trh187_rarity_plus);
+            .cc_setposition(18, 0, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+            if (%trh189_left_chest ! $int3) {
+                .cc_settrans(140);
+            }
+        }
+        if (%trh189_left_chest ! $int3) {
+            cc_settrans(140);
+        }
+        cc_create(trh189_overlay:left_modifier_shadow_grid, ^iftype_graphic, $int2);
+        cc_setgraphic(trh_gem_shadow);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setsize(41, 50, ^setsize_abs, ^setsize_abs);
+    }
+}

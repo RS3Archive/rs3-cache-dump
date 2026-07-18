@@ -1,0 +1,29 @@
+// 5218
+[clientscript,script5218](component $component0, component $component1, int $int2, int $int3, component $component4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+if_sethide(false, if_getparentlayer($component0));
+if ($int3 > 0) {
+    if_setontimer("script5218($component0, $component1, $int2, calc($int3 - 1), $component4)", $component4);
+    return;
+}
+if (cc_find($component0, 0) = true) {
+    $int5 = cc_gettrans;
+    if ($int2 = 0) {
+        $int6 = calc($int5 - 22);
+    } else {
+        $int6 = calc($int5 + 22);
+    }
+    $int6 = max($int6, 0);
+    $int6 = min($int6, 255);
+}
+~script4161($component0, $int6);
+~script4161($component1, $int6);
+if ($int6 = 0 & $int2 = 0) {
+    if_setontimer(null, $component4);
+} else if ($int6 = 255 & $int2 = 1) {
+    if_setontimer(null, $component4);
+    if_sethide(true, if_getparentlayer($component0));
+} else {
+    if_setontimer("script5218($component0, $component1, $int2, 0, $component4)", $component4);
+}

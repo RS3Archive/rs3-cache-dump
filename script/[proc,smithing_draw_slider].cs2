@@ -1,0 +1,15 @@
+// 2599
+[proc,smithing_draw_slider]
+def_int $int0 = 0;
+if (%smithing_interface_base_object_selected ! null) {
+    if (%smithing_interface_upgrade_selected > 0) {
+        $int0 = ~script7108(~script2542(%smithing_interface_base_object_selected, %smithing_interface_upgrade_selected));
+    } else {
+        $int0 = ~script7108(%smithing_interface_base_object_selected);
+    }
+    if ($int0 > 0 & %smithing_quantity_selected > 0) {
+        ~static_slider(ms_smithing_makex:slider_build, ms_smithing_makex:slider_click, rs3tli_slider_bar, 1, $int0, %smithing_quantity_selected);
+        return;
+    }
+}
+~static_slider_disabled(ms_smithing_makex:slider_build, ms_smithing_makex:slider_click, rs3tli_slider_bar, 0, 1, 0, true);

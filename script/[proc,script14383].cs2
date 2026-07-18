@@ -1,0 +1,19 @@
+// 14383
+[proc,script14383]()(int, int, boolean)
+if (~script8403(bank:tabs_dynamic) >= 38) {
+    return(0, 0, false);
+}
+def_int $int0 = calc(if_getscrolly(bank:tabs_spacers) + ~script8404(bank:tabs_spacers));
+def_int $int1 = calc(if_getscrolly(bank:tabs_click) + ~script8404(bank:tabs_click));
+def_int $int2 = calc($int1 / 48 + 2 - 1);
+def_int $int3 = calc(~script5796 + 1);
+while ($int2 <= $int3) {
+    if (cc_find(bank:tabs_spacers, $int2) = true & $int0 >= cc_gety & $int0 <= calc(cc_gety + cc_getheight)) {
+        return($int2, calc(if_gety(bank:tabs_spacers) - if_getscrolly(bank:tabs_spacers) + cc_gety), false);
+    }
+    if ($int2 < calc($int3 - 1) & cc_find(bank:tabs_click, $int2) = true & $int1 >= cc_gety & $int1 <= calc(cc_gety + cc_getheight - 4)) {
+        return($int2, calc(if_gety(bank:tabs_dynamic) - if_getscrolly(bank:tabs_dynamic) + cc_gety), true);
+    }
+    $int2 = calc($int2 + 1);
+}
+return(0, 0, false);

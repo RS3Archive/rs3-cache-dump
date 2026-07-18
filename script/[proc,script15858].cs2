@@ -1,0 +1,35 @@
+// 15858
+[proc,script15858](dbrow $dbrow0)
+def_int $int1 = db_getfield($dbrow0, mobile_social_panel_button_info:col0, 0);
+def_int $int2 = db_getfield($dbrow0, mobile_social_panel_button_info:col2, 0);
+if ($int1 = -1 | $int2 = -1) {
+    if_sethide(true, mobile_chat_panel:tabs_layer);
+    return;
+}
+def_struct $struct3 = ~script10405($int1);
+def_struct $struct4 = ~script10405($int2);
+if ($struct3 = null | $struct4 = null) {
+    if_sethide(true, mobile_chat_panel:tabs_layer);
+    return;
+}
+if (%mobile_chat_panel_current_tab = 0) {
+    if_sethide(true, struct_param($struct4, toplevel_v2_window_layer));
+    if (~script383($int1) ! 31) {
+        if_sethide(false, struct_param(~script10405(18), toplevel_v2_window_layer));
+    } else {
+        if_sethide(false, struct_param($struct3, toplevel_v2_window_layer));
+    }
+} else {
+    if (~script383($int1) ! 31) {
+        if_sethide(true, struct_param(~script10405(18), toplevel_v2_window_layer));
+    } else {
+        if_sethide(true, struct_param($struct3, toplevel_v2_window_layer));
+    }
+    switch_dbrow ($dbrow0) {
+        case mobile_guest_clans_button :
+            ~script425(clan_chat:main_content_layer, true, false, true);
+        case mobile_clans_button :
+            ~script425(clan_chat:main_content_layer, false, true, true);
+    }
+    if_sethide(false, struct_param($struct4, toplevel_v2_window_layer));
+}

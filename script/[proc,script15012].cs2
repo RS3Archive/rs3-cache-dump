@@ -1,0 +1,87 @@
+// 15012
+[proc,script15012](inv $inv0)
+cc_deleteall(stock_favourites:draw);
+cc_deleteall(stock_favourites:click);
+def_int $int1 = -1;
+def_int $int2 = inv_size($inv0);
+def_int $int3 = 7;
+def_int $int4 = 7;
+def_int $int5 = calc((742 - 8 - 4 * $int3) / 3);
+def_int $int6 = 58;
+def_int $int7 = if_getnextsubid(stock_favourites:click);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_obj $obj11 = null;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 18;
+def_int $int15 = 18;
+def_int $int16 = 0;
+def_string $string0 = "";
+def_int $int17 = calc($int5 - ($int3 + 40 + $int3) - $int3 - $int15 - $int3 - $int14);
+def_int $int18 = 0;
+def_int $int19 = enum(fontmetrics, int, toplevel_v2_font_heights, notosans_11);
+def_string $string1 = "";
+while (++$int1 < $int2 & $int10 = 0) {
+    $obj11 = inv_getobj($inv0, $int1);
+    $int8 = calc($int1 % 3);
+    $int9 = calc($int1 / 3);
+    if ($obj11 ! null) {
+        $int12 = calc($int3 + $int8 * ($int5 + $int3));
+        $int13 = calc($int4 + $int9 * ($int6 + $int4));
+        if (playermember = false & $int1 >= 6) {
+            $int7 = ~script10410(stock_favourites:draw, stock_favourites:click, rs3tli_content_container, $int12, $int13, $int5, $int6, $int7, true, "");
+            $int7 = ~script11624(stock_favourites:draw, stock_favourites:click, rs3tli_ge_delete_button, calc($int12 + $int5 - $int3 - $int15), calc($int13 + $int4), $int7, 1);
+            if (cc_find(stock_favourites:click, calc($int7 - 1)) = true) {
+                cc_setop(1, "Remove favourite");
+                $string1 = "Remove favourite";
+                cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+            }
+            $int7 = ~script11624(stock_favourites:draw, stock_favourites:click, rs3tli_edit_button, calc($int12 + $int5 - $int3 - $int15 - $int3 - $int14), calc($int13 + $int4), $int7, 1);
+            if (cc_find(stock_favourites:draw, calc(if_getnextsubid(stock_favourites:draw) - 1)) = true) {
+                cc_sethide(true);
+            }
+        } else {
+            $int7 = ~script10410(stock_favourites:draw, stock_favourites:click, rs3tli_content_container, $int12, $int13, $int5, $int6, $int7, false, "");
+            if (cc_find(stock_favourites:click, calc($int7 - 1)) = true) {
+                cc_setonop("script15025");
+                cc_setop(1, "Buy favourite");
+            }
+            $int7 = ~script11624(stock_favourites:draw, stock_favourites:click, rs3tli_ge_delete_button, calc($int12 + $int5 - $int3 - $int15), calc($int13 + $int4), $int7, 1);
+            if (cc_find(stock_favourites:click, calc($int7 - 1)) = true) {
+                cc_setop(1, "Remove favourite");
+                $string1 = "Remove favourite";
+                cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+            }
+            $int7 = ~script11624(stock_favourites:draw, stock_favourites:click, rs3tli_edit_button, calc($int12 + $int5 - $int3 - $int15 - $int3 - $int14), calc($int13 + $int4), $int7, 1);
+            if (cc_find(stock_favourites:click, calc($int7 - 1)) = true) {
+                cc_setonop("script15017");
+                cc_setop(1, "Edit favourite");
+                $string1 = "Edit favourite";
+                cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+            }
+        }
+        $int16 = calc($int13 + ($int6 - 36) / 2);
+        ~script7924(stock_favourites:draw, if_getnextsubid(stock_favourites:draw), 40, 36, calc($int12 + $int3), $int16, rs3_inventory_slot, false, false, false, 0);
+        cc_setonmouserepeat("script9564($obj11, event_com, event_comsubid)");
+        ~cc_add_object_count(stock_favourites:draw, 36, 32, calc($int12 + $int3 + 2), calc($int13 + ($int6 - 36) / 2 + 2), $obj11, 0);
+        $string0 = ~script3930(~script18300($obj11), $int17, 2, notosans_11);
+        $int18 = calc($int12 + $int3 + 40 + $int3);
+        ~script10629(stock_favourites:draw, if_getnextsubid(stock_favourites:draw), $int17, calc($int19 * 2 + 8), $int18, calc($int16 - 4), $string0, ~script10495(2), notosans_11, ^settextalign_left, ^settextalign_top, 0, true);
+        ~script7924(stock_favourites:draw, if_getnextsubid(stock_favourites:draw), 16, 14, $int18, calc($int16 + 36 - $int19), "grand_exchange_misc_graphics,8", false, false, false, 0);
+        $string1 = "Current item Market Price";
+        cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+        ~script10629(stock_favourites:draw, if_getnextsubid(stock_favourites:draw), $int17, $int19, calc($int18 + 16 + $int3), calc($int16 + 36 - $int19), "Loading...", ~script10495(2), notosans_11, ^settextalign_left, ^settextalign_top, 0, true);
+        cc_setparam(stock_favourites_obj, $obj11);
+    } else {
+        $int10 = 1;
+    }
+}
+if (~script1190 ! 0) {
+    $int7 = ~script10410(stock_favourites:draw, stock_favourites:click, rs3tli_content_container, calc($int3 + $int8 * ($int5 + $int3)), calc($int4 + $int9 * ($int6 + $int4)), $int5, $int6, $int7, false, "Add a new favourite");
+    if (cc_find(stock_favourites:click, calc($int7 - 1)) = true) {
+        cc_setonop("script15017");
+        cc_setop(1, "Add favourite");
+    }
+}

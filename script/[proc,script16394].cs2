@@ -1,0 +1,233 @@
+// 16394
+[proc,script16394]
+if (%uitutorial_current_parent = null | %uitutorial_current_step = null) {
+    return;
+}
+def_string $string0 = ~script16444(%uitutorial_current_step);
+if (string_length($string0) = 0) {
+    if_sethide(true, uitutorial:box_container);
+    return;
+}
+def_string $string1 = db_getfield(%uitutorial_current_parent, uitutorial:col0, 0);
+def_string $string2 = "";
+def_int $rgb0 = ^black;
+def_obj $obj1 = db_getfield(%uitutorial_current_step, uitutorial_step:col22, 0);
+def_graphic $graphic2 = db_getfield(%uitutorial_current_step, uitutorial_step:col17, 0);
+def_graphic $graphic3 = db_getfield(%uitutorial_current_step, uitutorial_step:col18, 0);
+def_graphic $graphic4 = db_getfield(%uitutorial_current_step, uitutorial_step:col19, 0);
+def_int $int5 = db_getfield(%uitutorial_current_step, uitutorial_step:col8, 0);
+def_int $int6 = ~script18932(%uitutorial_current_step);
+def_int $int7 = 1;
+def_int $int8 = 1;
+def_component $component9 = %uitutorial_component;
+def_int $int10 = %uitutorial_subid;
+def_int $int11 = db_getfield(%uitutorial_current_step, uitutorial_step:col10, 0);
+if ($component9 = null) {
+    $component9 = db_getfield(%uitutorial_current_step, uitutorial_step:col6, 0);
+    $int10 = ~script18931(%uitutorial_current_step);
+}
+if (db_getfield(%uitutorial_current_parent, uitutorial:col13, 0) = true) {
+    $int7 = ~script16380(%uitutorial_current_parent);
+    $int8 = ~script16382(%uitutorial_current_parent, %uitutorial_current_step_index);
+}
+$string2, $rgb0 = db_getfield(%uitutorial_current_step, uitutorial_step:col5, 0);
+~script9554(uitutorial:background, uitutorial:border, uitutorial:content, $string1, toplevel_v2_default_modal_dialogue_skin_data);
+def_fontmetrics $fontmetrics12 = struct_param(toplevel_v2_default_modal_dialogue_skin_data, toplevel_v2_window_title_font);
+switch_int ($int11) {
+    case 1 :
+        if_sethide(true, uitutorial:close);
+        if_sethide(true, uitutorial:ok_button);
+    case 2 :
+        if_sethide(true, uitutorial:close);
+        if_sethide(false, uitutorial:ok_button);
+    case default :
+        if ($int8 <= 1) {
+            if_sethide(false, uitutorial:close);
+            if_sethide(false, uitutorial:ok_button);
+        } else {
+            if_sethide(false, uitutorial:close);
+            if_sethide(true, uitutorial:ok_button);
+        }
+}
+~script16395($int7, $int8);
+if (%toplevel_v2_mapicons_toggle = 1 & ~script6431 = false) {
+    $graphic2 = ~script16413($graphic2);
+    $graphic3 = ~script16413($graphic3);
+    $graphic4 = ~script16413($graphic4);
+}
+$graphic2 = ~script16414($graphic2);
+$graphic3 = ~script16414($graphic3);
+$graphic4 = ~script16414($graphic4);
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+$int13, $int14, $int15, $int16 = ~script14244;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 0;
+def_int $settextalignh28 = db_getfield(%uitutorial_current_step, uitutorial_step:col4, 0);
+def_int $int29 = calc(min(575, calc($int15 - $int13)) - $int24);
+def_fontmetrics $fontmetrics30 = null;
+def_int $int31 = 0;
+def_int $int32 = enum_getoutputcount(uitutorial_possible_fonts);
+def_int $int33 = 0;
+if (~script6431 = false) {
+    $int33 = 2;
+}
+if (%mobile_zoom ! 0) {
+    $int29 = calc(min(375, calc($int15 - $int13)) - $int24);
+    $int33 = calc($int33 + 2);
+}
+if ($graphic2 ! null | $obj1 ! null) {
+    $int27 = 10;
+    $int29 = calc($int29 - 10);
+    $int18, $int19 = ~script16415($graphic2, $obj1);
+    if ($graphic3 ! null) {
+        $int20, $int21 = ~script16415($graphic3, null);
+        if ($graphic4 ! null) {
+            $int17 = 3;
+            $int22, $int23 = ~script16415($graphic4, null);
+            $int24 = max(max($int18, $int20), $int22);
+            $int25 = calc($int19 + $int21 + $int23);
+            $int26 = 10;
+        } else {
+            $int17 = 2;
+            $int24 = max($int18, $int20);
+            $int25 = calc($int19 + $int21);
+            $int26 = 5;
+        }
+    } else {
+        $int17 = 1;
+        $int24 = $int18;
+        $int25 = $int19;
+    }
+    $int29 = calc($int29 - $int24);
+}
+while ($int33 < $int32) {
+    $fontmetrics30 = enum(int, fontmetrics, uitutorial_possible_fonts, $int33);
+    $int31 = stringwidth($string2, $fontmetrics30);
+    if ($int31 < $int29) {
+        $int33 = $int32;
+    }
+    $int33 = calc($int33 + 1);
+}
+if (~script6431 = true) {
+    if (%mobile_zoom ! 0) {
+        $int33 = 2;
+    } else {
+        $int33 = 0;
+    }
+} else {
+    $int33 = 2;
+}
+def_fontmetrics $fontmetrics34 = museo_sans_11pt_regular;
+def_int $int35 = calc(300 - min(1, $int31) * 20);
+def_int $int36 = 0;
+def_int $int37 = 0;
+def_int $int38 = 0;
+while ($int33 < $int32) {
+    $fontmetrics34 = enum(int, fontmetrics, uitutorial_possible_fonts, $int33);
+    $int36 = ~script11432($fontmetrics34);
+    $int37 = parawidth($string0, $int29, $fontmetrics34);
+    $int38 = ~script7593($string0, $int29, $fontmetrics34, $int36);
+    if ($int38 < $int35) {
+        $int33 = $int32;
+    }
+    $int33 = calc($int33 + 1);
+}
+def_int $int39 = 0;
+def_int $int40 = max(calc($int25 + $int26), calc($int38 + min(1, $int31) * 20));
+if ($int37 < $int29) {
+    $int39 = calc($int24 + 10 + max($int37, $int31));
+} else {
+    $int39 = calc($int24 + 10 + $int29);
+}
+if (if_gethide(uitutorial:pages) = false) {
+    if ($int39 < if_getwidth(uitutorial:pages)) {
+        $int39 = calc(if_getwidth(uitutorial:pages) + 30);
+    }
+    $int39 = calc($int39 + 50);
+    $int40 = calc($int40 + 123);
+} else if (if_gethide(uitutorial:ok_button) = false) {
+    if ($int39 < if_getwidth(uitutorial:ok_button)) {
+        $int39 = calc(if_getwidth(uitutorial:ok_button) + 30);
+    }
+    $int39 = calc($int39 + 50);
+    $int40 = calc($int40 + 123);
+} else {
+    $int39 = calc($int39 + 50);
+    $int40 = calc($int40 + 78);
+}
+if_setsize($int39, $int40, ^setsize_abs, ^setsize_abs, uitutorial:box_container);
+if_setposition(0, calc($int14 + 33), ^setpos_abs_centre, ^setpos_abs_top, uitutorial:box_container);
+~script19682(uitutorial:box_container);
+if_sethide(false, uitutorial:box_container);
+if (calc(stringwidth($string1, $fontmetrics12) + if_getwidth(uitutorial:flashy_icon)) > if_getwidth(uitutorial:build_layer)) {
+    if_sethide(true, uitutorial:flashy_icon);
+} else {
+    if_sethide(false, uitutorial:flashy_icon);
+}
+cc_deleteall(uitutorial:build_layer);
+cc_deleteall(uitutorial:arrow_layer);
+def_int $int41 = 0;
+if ($int31 > 0) {
+    cc_create(uitutorial:build_layer, ^iftype_text, $int41++);
+    cc_setsize(calc($int24 + $int27), 20, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+    cc_settext($string2);
+    cc_setmaxlines(1);
+    cc_setcolour($rgb0);
+    cc_settextfont($fontmetrics30);
+    cc_settextalign($settextalignh28, ^settextalign_centre, 0);
+}
+cc_create(uitutorial:build_layer, ^iftype_text, $int41++);
+cc_setsize(calc($int24 + $int27), calc(min($int31, 1) * 20), ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_settext($string0);
+cc_setcolour(^white);
+cc_settextfont($fontmetrics34);
+cc_settextalign($settextalignh28, ^settextalign_centre, $int36);
+if ($int17 > 0) {
+    cc_create(uitutorial:build_layer, ^iftype_graphic, $int41++);
+    cc_setsize($int18, $int19, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    if ($graphic2 ! null) {
+        cc_setgraphic($graphic2);
+        cc_setontimer("script16417(event_comsubid, event_com)");
+    } else if ($obj1 ! null) {
+        cc_setobject($obj1, -1);
+        cc_setontimer("script16418(event_comsubid, $obj1, event_com)");
+    }
+    if ($int17 >= 2) {
+        cc_setposition(max(0, calc($int24 / 2 - $int18 / 2)), 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_create(uitutorial:build_layer, ^iftype_graphic, $int41++);
+        cc_setsize($int20, $int21, ^setsize_abs, ^setsize_abs);
+        cc_setposition(max(0, calc($int24 / 2 - $int20 / 2)), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_setgraphic($graphic3);
+        cc_setontimer("script16417(event_comsubid, event_com)");
+        if ($int17 >= 3) {
+            cc_setposition(cc_getx, 0, ^setpos_abs_left, ^setpos_abs_centre);
+            cc_create(uitutorial:build_layer, ^iftype_graphic, $int41++);
+            cc_setsize($int22, $int23, ^setsize_abs, ^setsize_abs);
+            cc_setposition(max(0, calc($int24 / 2 - $int22 / 2)), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_setgraphic($graphic4);
+            cc_setontimer("script16417(event_comsubid, event_com)");
+        }
+    }
+}
+~script16416(255);
+if_setontimer("script16408", uitutorial:main_container);
+if ($component9 ! null) {
+    if_setontimer("script16400($int39, $int40, $int5, $int6, $component9, $int10)", uitutorial:timer_layer);
+} else if (~script6431 = true) {
+    if_setontimer("script16402($int39, $int40)", uitutorial:timer_layer);
+}

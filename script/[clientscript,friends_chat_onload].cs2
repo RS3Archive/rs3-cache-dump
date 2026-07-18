@@ -1,0 +1,52 @@
+// 195
+[clientscript,friends_chat_onload](component $component0, int $int1, int $int2)
+def_int $int3 = 19;
+def_fontmetrics $fontmetrics4 = museo_sans_11pt_regular;
+if (~script6431 = true) {
+    $int3 = 27;
+    $fontmetrics4 = museo_sans_17pt_bold;
+    if_sethide(true, friendschat_child:background);
+}
+if_setonclantransmit("friends_chat_onclantransmit($int2)", $component0);
+if_setonfriendtransmit("friends_chat_onclantransmit($int2)", $component0);
+def_component $component5 = ~friendschat_get_component($int2, friendschat:clanlist);
+def_component $component6 = ~friendschat_get_component($int2, friendschat:rank_layer);
+def_component $component7 = ~friendschat_get_component($int2, friendschat:world_layer);
+def_component $component8 = ~friendschat_get_component($int2, friendschat:world_text_layer);
+def_component $component9 = ~friendschat_get_component($int2, friendschat:world_icon_layer);
+if (worldlist_fetch = false) {
+    if_setontimer("script6306($int2, $component7)", $component7);
+}
+~script1600($int2);
+def_int $int10 = 0;
+def_int $int11 = 0;
+while ($int10 < 500) {
+    cc_create($component5, ^iftype_text, $int10);
+    cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+    cc_setposition(8, $int11, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(0xa4997d);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settextfont($fontmetrics4);
+    cc_settextshadow(false);
+    cc_setlinkfriendchat($int10);
+    cc_setmaxlines(1);
+    cc_create($component7, ^iftype_text, $int10);
+    cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int11, ^setpos_abs_right, ^setpos_abs_top);
+    cc_settextfont($fontmetrics4);
+    cc_settextshadow(false);
+    cc_create($component9, ^iftype_graphic, $int10);
+    cc_setsize(24, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(2, calc($int11 + ($int3 - 19) / 2 + 3), ^setpos_abs_left, ^setpos_abs_top);
+    cc_create($component8, ^iftype_text, $int10);
+    cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int11, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settextfont($fontmetrics4);
+    cc_settextshadow(false);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_create($component6, ^iftype_graphic, $int10);
+    cc_setposition(1, calc($int11 + ($int3 - 19) / 2 + 5), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(9, 9, ^setsize_abs, ^setsize_abs);
+    $int11 = calc($int11 + $int3);
+    $int10 = calc($int10 + 1);
+}

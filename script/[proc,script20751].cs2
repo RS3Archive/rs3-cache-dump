@@ -1,0 +1,83 @@
+// 20751
+[proc,script20751](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5, int $int6, int $int7)
+if_sethide(false, house_furniture_catalogue:items_stairs_toggle);
+if_setsize(0, 30, ^setsize_minus, ^setsize_abs, house_furniture_catalogue:items_stairs_toggle);
+if_setsize(16, 36, ^setsize_minus, ^setsize_minus, $component0);
+if_setsize(16, 36, ^setsize_abs, ^setsize_minus, $component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+db_listall(construction_house_room);
+def_dbrow $dbrow8 = db_findnext;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = if_getwidth($component0);
+def_graphic $graphic12 = null;
+def_int $int13 = -1;
+def_string $string0 = "";
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_dbrow $dbrow16 = null;
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int17 = 0;
+def_string $string3 = "";
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = calc(72 - 8 + 2);
+def_int $int21 = calc(72 + 15);
+def_int $int22 = ~script16260;
+while ($dbrow8 ! null) {
+    $int13 = db_getfield($dbrow8, construction_house_room:col0, 0);
+    $string0 = db_getfield($dbrow8, construction_house_room:col1, 0);
+    $int14 = db_getfield($dbrow8, construction_house_room:col3, 0);
+    $int15 = db_getfield($dbrow8, construction_house_room:col2, 0);
+    $graphic12 = db_getfield($dbrow8, construction_house_room:col4, 0);
+    if ($int22 = 0) {
+        if ($dbrow8 = construction_house_room_square) {
+            $dbrow16 = button_makex_available;
+            $int14 = 0;
+            $string1 = "<col=777777><sprite=14154><~script12971(int_to_long($int14))>";
+            $string2 = "<sprite=23771,16><tostring($int15)>";
+            $int17 = 0;
+            $string3 = "Cost: <$string1><br>Level: <$string2>";
+        } else {
+            $dbrow16 = button_makex_unavailable;
+            $string1 = "<col=777777><sprite=14154><~script12971(int_to_long($int14))>";
+            $string2 = "<col=777777><sprite=23771,16><tostring($int15)>";
+            $int17 = 175;
+            $string3 = "Cost: <sprite=14154><~script17371(int_to_long($int14))><br>Level: <$string2><br>Not yet unlocked.";
+        }
+    } else if (stat_base(construction) >= $int15) {
+        $dbrow16 = button_makex_available;
+        $string1 = "<sprite=14154><~script17371(int_to_long($int14))>";
+        $string2 = "<sprite=23771,16><tostring($int15)>";
+        $int17 = 0;
+        $string3 = "Cost: <$string1><br>Level: <$string2>";
+    } else {
+        $dbrow16 = button_makex_unavailable;
+        $string1 = "<col=777777><sprite=14154><~script12971(int_to_long($int14))>";
+        $string2 = "<col=777777><sprite=23771,16><tostring($int15)>";
+        $int17 = 175;
+        $string3 = "Cost: <sprite=14154><~script17371(int_to_long($int14))><br>Level: <$string2><br>Not yet unlocked.";
+    }
+    $int18 = stringwidth($string1, museo_sans_11pt_regular);
+    $int19 = calc((80 - $int18) / 2);
+    ~cc_add_button_full($component2, $int13, $int9, $int10, ^setpos_abs_left, ^setpos_abs_top, 80, $int21, ^setsize_abs, ^setsize_abs, $dbrow16, "", true, true, true, ~equal_int_bool(%varclientbit_61230, $int13));
+    cc_setop(1, "Select");
+    cc_setonmouserepeat("script14732($string0, $string3, event_com, event_comsubid)");
+    cc_setonop("script20752($component0, $component1, $component2, $component3, $component4, $int13, $int6, $dbrow16)");
+    ~cc_add_graphic($component3, $int13, calc($int9 + 8), calc($int10 + 8), ^setpos_abs_left, ^setpos_abs_top, 63, 56, ^setsize_abs, ^setsize_abs, $graphic12);
+    cc_settrans($int17);
+    ~cc_add_text($component4, $int13, calc($int9 + $int19), calc($int10 + $int20), ^setpos_abs_left, ^setpos_abs_top, 63, 13, ^setsize_abs, ^setsize_abs, text_body_default, $string1);
+    $int9 = calc($int9 + 80 + 4);
+    if (calc($int9 + 80) > $int11) {
+        $int9 = 0;
+        $int10 = calc($int10 + $int21 + 4);
+    }
+    $dbrow8 = db_findnext;
+}
+if ($int9 ! 0) {
+    $int10 = calc($int10 + $int21 + 4);
+}
+~script19620($component1, $component0, $int10, $component2, $int5, $int7, -1, -1);

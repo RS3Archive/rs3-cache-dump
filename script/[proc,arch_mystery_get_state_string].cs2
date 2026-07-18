@@ -1,0 +1,16 @@
+// 14585
+[proc,arch_mystery_get_state_string](dbrow $dbrow0)(string)
+if (~arch_mystery_get_complete_state($dbrow0) = ^true) {
+    return("I have solved this mystery.");
+}
+def_int $int1 = ~arch_mystery_get_progress($dbrow0);
+switch_int ($int1) {
+    case 0 :
+        return("I have yet to discover any information on this mystery.");
+    case 1 :
+        return("I am currently looking into this mystery.");
+    case 3 :
+        return("I should talk to the site manager about this mystery.");
+}
+~error("Invalid mystery state: <tostring($int1)>");
+return("");

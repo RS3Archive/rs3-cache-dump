@@ -1,0 +1,65 @@
+// 12889
+[proc,script12889](struct $struct0)(string, string, string, string, string)
+def_int $int1 = calc(%timed_event_countdown_minutes / 1440);
+def_int $int2 = calc(%timed_event_countdown_minutes % 1440 / 60);
+def_int $int3 = calc(%timed_event_countdown_minutes % 60);
+def_int $int4 = calc(59 - %timed_event_countdown_minuteseconds);
+def_string $string0 = tostring($int1);
+def_string $string1 = tostring($int2);
+def_string $string2 = tostring($int3);
+def_string $string3 = tostring($int4);
+def_string $string4 = "<$string0>D <$string1>H <$string2>M";
+def_string $string5 = "<col=CDE1FF>";
+if (%timed_event_countdown_minutes < 60) {
+    $string5 = "<col=DD0000>";
+} else if (%timed_event_countdown_minutes < 1440) {
+    $string5 = "<col=DD4400>";
+}
+if (calc(%timed_event_countdown_minutes + 1) > 0) {
+    if (string_length($string0) = 1) {
+        $string0 = append("0", $string0);
+    }
+    if (string_length($string1) = 1) {
+        $string1 = append("0", $string1);
+    }
+    if (string_length($string2) = 1) {
+        $string2 = append("0", $string2);
+    }
+    if (string_length($string3) = 1) {
+        $string3 = append("0", $string3);
+    }
+}
+def_component $component5 = timed_event:left_container;
+def_component $component6 = timed_event:countdown_layer;
+def_component $component7 = timed_event:event_ended_layer;
+def_component $component8 = timed_event:universe;
+def_component $component9 = timed_event:days_text;
+def_component $component10 = timed_event:hours_text;
+def_component $component11 = timed_event:minutes_text;
+def_component $component12 = timed_event:seconds_text;
+def_component $component13 = ~script10524($struct0);
+if ($struct0 = timed_event10 | $struct0 = timed_event11) {
+    $component5 = timed_event_tasks:left_container;
+    $component6 = timed_event_tasks:countdown_layer;
+    $component7 = timed_event_tasks:event_ended_layer;
+    $component8 = timed_event_tasks:main_layer;
+    $component9 = timed_event_tasks:days_text;
+    $component10 = timed_event_tasks:hours_text;
+    $component11 = timed_event_tasks:minutes_text;
+    $component12 = timed_event_tasks:seconds_text;
+}
+if ($int1 = 0 & $int2 = 0 & $int3 = 0 & $int4 = 0) {
+    if_sethide(true, $component5);
+    if_sethide(true, $component6);
+    if (struct_param($struct0, timed_event_compact_countdown) = 0) {
+        if_sethide(false, $component7);
+    }
+    if_setontimer(null, $component8);
+    if_sethide(true, timed_event:compact_countdown);
+}
+if_settext("<$string5><$string0>", $component9);
+if_settext("<$string5><$string1>", $component10);
+if_settext("<$string5><$string2>", $component11);
+if_settext("<$string5><$string3>", $component12);
+if_settext($string4, $component13);
+return($string5, $string0, $string1, $string2, $string3);

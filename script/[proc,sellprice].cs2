@@ -1,0 +1,32 @@
+// 6077
+[proc,sellprice](int $int0, obj $obj1, inv $inv2)(int)
+if ($obj1 = null) {
+    return(0);
+}
+$obj1 = oc_uncert($obj1);
+def_int $int3 = enum(obj, int, shop_exceptions_shopsell_tokkul, $obj1);
+if ($int0 = 2 & $int3 ! -1) {
+    return($int3);
+}
+$int3 = enum(obj, int, shop_exceptions_shopsell, $obj1);
+if ($int3 ! -1 & $int3 > 0) {
+    return($int3);
+}
+def_int $int4 = 0;
+def_int $int5 = 30;
+if (~elr1_currency($int0) = true) {
+    $int5 = ~script12652;
+    if ($inv2 ! null) {
+        if (enum(inv, int, elr1_shop_discount_percentage, $inv2) > 0) {
+            $int5 = calc($int5 + enum(inv, int, elr1_shop_discount_percentage, $inv2));
+        }
+        if (enum(inv, int, elr1_shop_discount_bonus, $inv2) > 0) {
+            $int4 = calc($int4 + enum(inv, int, elr1_shop_discount_bonus, $inv2));
+        }
+    }
+}
+if ($int0 = 5 & oc_param($obj1, ge_category) = 35) {
+    $int5 = 0;
+}
+$int3 = max(1, calc(scale(~script17369($obj1), 100, $int5) + $int4));
+return($int3);

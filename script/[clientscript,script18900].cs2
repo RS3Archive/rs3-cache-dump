@@ -1,0 +1,26 @@
+// 18900
+[clientscript,script18900]
+def_int $int0 = ~script18854;
+def_int $int1 = calc($int0 * (91 + 4));
+if_setsize($int1, if_getheight(calendar_main:weekdays_container_scroll_layer), ^setsize_abs, ^setsize_abs, calendar_main:weekdays_container_scroll_layer);
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (if_find(calendar_main:weekdays_container_scroll_layer) = true) {
+    while ($int3 < $int0) {
+        $int2 = calc($int3 * (91 + 4) + 4);
+        ~cc_add_child_rect(0, $int3, $int2, 0, ^setpos_abs_left, ^setpos_abs_bottom, 91, 35, ^setsize_abs, ^setsize_abs, rect_medium);
+        ~cc_add_child_text(1, $int3, $int2, 0, ^setpos_abs_left, ^setpos_abs_bottom, 91, 35, ^setsize_abs, ^setsize_abs, child_button_text, "");
+        $int3 = calc($int3 + 1);
+    }
+}
+$int3 = 0;
+if (if_find(calendar_main:weekdays_divider_container) = true) {
+    while ($int3 <= calc($int0 + 1)) {
+        $int2 = calc($int3 * (91 + 4) + 1);
+        ~cc_add_child_rect(0, $int3, $int2, 0, ^setpos_abs_left, ^setpos_abs_top, 2, 0, ^setsize_abs, ^setsize_minus, rect_divider);
+        $int3 = calc($int3 + 1);
+    }
+    $int3 = calc($int3 + 1);
+    ~cc_add_child_rect(0, $int3, 1, 0, ^setpos_abs_left, ^setpos_abs_top, calc($int1 + 2), 2, ^setsize_abs, ^setsize_abs, rect_divider);
+}
+~script18902;

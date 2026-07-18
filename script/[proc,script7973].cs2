@@ -1,0 +1,34 @@
+// 7973
+[proc,script7973](component $component0, int $int1)
+def_string $string0 = "Action bars are locked.<br>Click to unlock.";
+def_string $string1 = "Unlock action bars";
+if (%combatv2_actionbar_locked = 1) {
+    if ($int1 = 1) {
+        ~script6739(12);
+    }
+    if (if_getgraphic($component0) = hud_combat_btn_locked_over) {
+    } else if (if_getgraphic($component0) = hud_combat_btn_unlocked_over) {
+        if_setgraphic(hud_combat_btn_locked_over, $component0);
+    } else if (if_getgraphic($component0) = hud_combat_btn_unlocked) {
+        if_setgraphic(hud_combat_btn_locked, $component0);
+    } else {
+    }
+} else {
+    $string0 = "Action bars are unlocked.<br>Click to lock.";
+    $string1 = "Lock action bars";
+    if ($int1 = 1) {
+        ~script6739(13);
+    }
+    if (if_getgraphic($component0) = hud_combat_btn_locked_over) {
+        if_setgraphic(hud_combat_btn_unlocked_over, $component0);
+    } else if (if_getgraphic($component0) = hud_combat_btn_unlocked_over) {
+    } else if (if_getgraphic($component0) = hud_combat_btn_unlocked) {
+    } else {
+        if_setgraphic(hud_combat_btn_unlocked, $component0);
+    }
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", toplevel_v2_combat_bar:fullscreen_padlock);
+if_setonmouseleave("script8805", toplevel_v2_combat_bar:fullscreen_padlock);
+~script8808;
+if_setop(1, $string1, toplevel_v2_combat_bar:fullscreen_padlock);
+~script6993(0, 0, 0, -1);

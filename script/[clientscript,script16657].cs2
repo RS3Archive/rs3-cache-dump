@@ -1,0 +1,31 @@
+// 16657
+[clientscript,script16657](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, npc $npc6, string $string0, vorbis $vorbis7, boolean $boolean8, boolean $boolean9)
+def_string $string1 = null;
+def_string $string2 = null;
+def_seq $seq10 = null;
+if ($int0 = 0) {
+    $int1 = 0;
+    $int2 = 0;
+    $int5 = db_getfieldcount(%audio_sequence, audio_sequence:col3);
+}
+if ($int2 = 0) {
+    $seq10, $string2, $string1, $npc6, $string0, $vorbis7, $int3, $boolean8, $boolean9 = db_getfield(%audio_sequence, audio_sequence:col3, $int1);
+}
+if ($int2 < $int3) {
+    if ($int2 = 0) {
+        ~script16658($seq10, $npc6, $string2, $string1, $string0, $vorbis7, $boolean8);
+    } else if ($int2 < 60) {
+        if ($boolean8 = true) {
+            if_settrans(max(0, calc(if_gettrans(image_sequence:text) - 5)), image_sequence:text);
+        }
+    } else if ($int2 >= calc($int3 - 60) & $boolean9 = true) {
+        if_settrans(min(255, calc(if_gettrans(image_sequence:text) + 5)), image_sequence:text);
+    }
+    $int2 = calc($int2 + 1);
+} else {
+    $int1 = calc($int1 + 1);
+    $int2 = 0;
+}
+if ($int1 < $int5 & %audio_sequence ! null) {
+    if_setontimer("script16657(calc($int0 + 1), $int1, $int2, $int3, $int4, $int5, $npc6, $string0, $vorbis7, $boolean8, $boolean9)", audio_sequence:audio_sequence);
+}

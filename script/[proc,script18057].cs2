@@ -1,0 +1,17 @@
+// 18057
+[proc,script18057]
+def_int $int0 = ~script17896;
+def_int $int1 = 0;
+def_dbrow $dbrow2 = null;
+while (++$int1 <= $int0) {
+    $dbrow2 = ~script17897($int1);
+    if ($dbrow2 ! null) {
+        ~if_add_child_layer(bp3_missions_tab:mission_list_content_layer, calc($int1 + 40), 0, 0, calc(100 * $int1 - 100), ^setpos_abs_left, ^setpos_abs_top, if_getwidth(bp3_missions_tab:mission_list_content_layer), 200, ^setsize_abs, ^setsize_abs);
+        cc_setparam(bp3_accordion_content_height, calc(58 + 5));
+        cc_setparam_int(is_minimised, ~script17900($int1));
+        ~cc_add_child_text(calc($int1 + 40), 2, calc(if_getwidth(bp3_missions_tab:mission_list_content_layer) / 2 - 100), 20, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth(bp3_missions_tab:mission_list_content_layer) / 3), 20, ^setsize_abs, ^setsize_abs, bp3_text_gold_cinzel_bold_centre_28pt, db_getfield($dbrow2, bp3_mission_category:col0, 0));
+        ~cc_add_child_button_full(0, calc($int1 + 100), 4, 0, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth(bp3_missions_tab:mission_list_content_layer) - 8), 58, ^setsize_abs, ^setsize_abs, bp3_accordian_cutout_button, "", true, true, true, true);
+        cc_setop(1, "Select");
+        cc_setonop("script18063($int1)");
+    }
+}

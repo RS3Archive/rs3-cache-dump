@@ -1,0 +1,34 @@
+// 14437
+[proc,script14437](obj $obj0, int $int1)(boolean)
+if ($int1 = 0) {
+    if (~diango_get_unlocked($obj0) = 0) {
+        return(false);
+    }
+} else if (~diango_get_trh_unlocked($obj0) = 0) {
+    return(false);
+}
+switch_int (%holiday_items_tab) {
+    case default :
+        return(true);
+    case 1 :
+        if (oc_param($obj0, diango_filter_holiday) = 1) {
+            return(true);
+        }
+    case 2 :
+        if (oc_param($obj0, diango_filter_weapon) = 1 | oc_param($obj0, combatv2_melee_weapon) = 1 | oc_param($obj0, combatv2_ranged_weapon) = 1 | oc_param($obj0, combatv2_magic_weapon) = 1 | oc_param($obj0, combatv2_necromancy_weapon) = 1) {
+            return(true);
+        }
+    case 3 :
+        if (oc_param($obj0, diango_filter_armour) = 1 | oc_param($obj0, combatv2_player_armour) > 0) {
+            return(true);
+        }
+    case 4 :
+        if (oc_param($obj0, diango_filter_skill) = 1) {
+            return(true);
+        }
+    case 5 :
+        if (oc_param($obj0, diango_filter_cosmetic) = 1) {
+            return(true);
+        }
+}
+return(false);

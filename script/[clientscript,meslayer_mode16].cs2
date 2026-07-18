@@ -1,0 +1,32 @@
+// 4549
+[clientscript,meslayer_mode16]
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+if (activeclanchannel_find_affined(0) = true) {
+    $int0 = activeclanchannel_getuserslot(chat_playername);
+    if ($int0 = -1) {
+        return;
+    }
+    $int1 = activeclanchannel_getuserrank($int0);
+    $int2 = activeclanchannel_getrankkick;
+} else {
+    mes("You must be in a clan to do that.");
+}
+if ($int1 >= 0) {
+    if ($int1 < $int2) {
+        return;
+    }
+    if (%has_displayname_client = false) {
+        return;
+    }
+    if_sethide(false, meslayer:root);
+    if (%snapshot_open = true) {
+        ~script675;
+    }
+    if_settext("Enter the player to ban from the channel:", meslayer:mes_text);
+    %meslayermode = 16;
+    ~meslayer_setupinput("");
+    if_setonclick(null, meslayer:mes_layer);
+    ~script2026;
+}

@@ -1,0 +1,53 @@
+// 14466
+[proc,script14466](enum $enum0, enum $enum1, component $component2)
+if ($enum0 = null | $enum1 = null | $component2 = null) {
+    return;
+}
+def_int $int3 = -1;
+def_obj $obj4 = null;
+def_int $int5 = 1;
+cc_deleteall($component2);
+def_int $int6 = 0;
+def_int $int7 = enum_getoutputcount($enum0);
+def_int $int8 = 0;
+while (++$int3 < $int7) {
+    $obj4 = enum(int, obj, $enum0, $int3);
+    $int5 = enum(obj, int, $enum1, $obj4);
+    cc_create($component2, ^iftype_text, $int8++);
+    cc_setop(1, "Select");
+    cc_setonop("script14462($int3, 1)");
+    cc_setopcursor(1, cursor_use);
+    cc_setposition(50, calc(40 * $int3 + 7), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext(oc_name($obj4));
+    cc_settextfont(notosans_13);
+    if (~script14468($obj4) = 1) {
+        cc_setcolour(0x777777);
+    } else {
+        cc_setcolour(~script10495(16777215));
+    }
+    cc_setsize(if_getwidth($component2), 32, ^setsize_abs, ^setsize_abs);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $int6 = calc($int6 + 40);
+    cc_create($component2, ^iftype_graphic, $int8++);
+    cc_setobject($obj4, $int5);
+    cc_setposition(10, calc(40 * $int3 + 10), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setop(1, "Select");
+    cc_setopcursor(1, cursor_use);
+    cc_setonop("script14462($int3, 1)");
+    cc_create($component2, ^iftype_graphic, $int8++);
+    if (~script14468($obj4) = 1) {
+        cc_setgraphic(icon_tick_tof);
+    }
+    cc_setposition(12, calc(40 * $int3 + 10), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    cc_create($component2, ^iftype_graphic, $int8++);
+    if (enum_hasoutput(obj, trh168_new_prizes, $obj4) = true) {
+        cc_setgraphic(trh168_new);
+        ~script3537("New!");
+    }
+    cc_setposition(328, calc(40 * $int3 + 16), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(5, 13, ^setsize_abs, ^setsize_abs);
+}
+$int6 = calc($int6 + 10);
+if_setscrollsize(0, $int6, $component2);

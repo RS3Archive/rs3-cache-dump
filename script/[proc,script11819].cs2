@@ -1,0 +1,43 @@
+// 11819
+[proc,script11819](component $component0, component $component1, component $component2, int $int3, int $int4, string $string0, graphic $graphic5)
+if ($component0 = null | $component1 = null | $component2 = null) {
+    return;
+}
+if ($int3 = -1 & if_find($component0) = true | cc_find($component0, $int3) = true) {
+    cc_setgraphic($graphic5);
+    switch_int ($int4) {
+        case 1, 3 :
+            cc_sethide(false);
+        case 4, 2 :
+            cc_sethide(true);
+    }
+}
+if ($int3 = -1 & if_find($component1) = true | cc_find($component1, $int3) = true) {
+    cc_settext($string0);
+    switch_int (%option_ability_cooldown_timer) {
+        case 1 :
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        case 2 :
+            cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    }
+    if ($int4 = 1) {
+        if (%option_ability_cooldown_timer = 0) {
+            cc_sethide(true);
+        } else {
+            cc_sethide(false);
+        }
+    }
+}
+if ($int4 > 0 & ($int3 = -1 & if_find($component2) = true | cc_find($component2, $int3) = true)) {
+    if ($int4 = 1 | $int4 = 3 | $int4 = 4) {
+        cc_settrans(0);
+        cc_sethide(true);
+        cc_setfill(false);
+        cc_setontimer(null);
+    } else {
+        cc_settrans(255);
+        cc_sethide(false);
+        cc_setfill(true);
+        cc_setontimer("combatv2_cooldown_flash_dynamic(event_com, event_comsubid, 1, clientclock)");
+    }
+}

@@ -1,0 +1,12 @@
+// 18509
+[clientscript,script18509](struct $struct0, int $int1, int $int2, int $int3)
+def_dbrow $dbrow4 = struct_param($struct0, trh_banner_reward_track);
+switch_dbtable (db_getrowtable($dbrow4)) {
+    case trh_banner_reward_track :
+        %trh_banner_reward_track_time_minutes = calc(date_minutes_fromruneday(calc(~trh_promo_end_runeday($struct0) + 1)) - ($int2 + 1));
+    case trh_banner_reward_track_list :
+        %trh_banner_reward_track_time_minutes = calc(date_minutes_fromruneday(calc($int1 + 1)) - ($int2 + 1));
+}
+%trh_banner_reward_track_time_minuteseconds = $int3;
+def_component $component5 = wheel_of_fortune:trh_banner_reward_track_time_remaining_text;
+if_setontimer("script18510($component5, $int1)", $component5);

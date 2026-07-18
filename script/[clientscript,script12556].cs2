@@ -1,0 +1,97 @@
+// 12556
+[clientscript,script12556](int $int0)
+def_component $component1 = ~script623($int0);
+def_component $component2 = ~script10($int0);
+cc_deleteall($component1);
+def_int $int3 = if_getwidth($component1);
+def_int $int4 = if_getheight($component1);
+def_int $int5 = 0;
+def_int $int6 = 2;
+def_int $int7 = 0;
+def_obj $obj8 = staff_of_air;
+def_int $int9 = %sm_tut_price;
+if (oc_param($obj8, convert_to_on_trade) ! null & $int5 = 0) {
+    $obj8 = oc_param($obj8, convert_to_on_trade);
+}
+def_string $string0 = "Buy";
+~rs3_background_panel($component2, rs3_content_container_inactive);
+cc_create($component1, ^iftype_rectangle, 0);
+cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour(^white);
+cc_settrans(255);
+~script584($component1, $string0);
+def_int $int10 = if_getnextsubid($component1);
+if_setonmouseover("script629($int0)", $component1);
+if_setonmouseleave("script631($int0)", $component1);
+def_string $string1 = tostring_localised($int6, true);
+def_string $string2 = tostring_localised($int9, true);
+def_string $string3 = ~script11601($int9, true);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_component $component13 = ~script627($int0);
+if_sethide(true, $component13);
+def_string $string4 = "";
+def_int $int14 = 0;
+def_int $int15 = 0;
+$int11 = 7;
+$int12 = calc($int4 - 30);
+~script652($int11, $int12, calc($int3 - 14), 15, $int0, $component1, $int10, 0, 1, 1);
+$int10 = if_getnextsubid($component1);
+cc_create($component1, ^iftype_graphic, $int10);
+$int10 = calc($int10 + 1);
+cc_setposition(6, 30, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(rs3_inventory_slot);
+cc_create($component1, ^iftype_graphic, $int10);
+cc_setposition(8, 32, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setobject($obj8, $int6);
+$string0 = tostring_localised($int6, true);
+cc_setonmouserepeat("script5495($obj8)");
+cc_setonmouseleave("script5495(null)");
+$int10 = calc($int10 + 1);
+cc_create($component1, ^iftype_text, $int10);
+cc_setposition(48, 30, ^setpos_abs_left, ^setpos_abs_top);
+$string0 = ~script18300($obj8);
+$int15 = calc($int3 - 53);
+$int14 = parawidth($string0, $int15, museo_sans_11pt_regular_multiline);
+if ($int14 > $int15) {
+    $int11 = string_length($string0);
+    while ($int14 > $int15 & $int11 > 0) {
+        $int11 = calc($int11 - 1);
+        $string0 = "<substring($string0, 0, $int11)>...";
+        $int14 = parawidth($string0, $int15, museo_sans_11pt_regular_multiline);
+    }
+}
+$int10 = calc($int10 + 1);
+$int4 = calc(paraheight($string0, $int15, museo_sans_11pt_regular_multiline) * 14);
+if ($int4 < 22) {
+    $int4 = 22;
+}
+cc_setsize($int15, $int4, ^setsize_abs, ^setsize_abs);
+cc_setcolour(0xf0be79);
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settextshadow(true);
+cc_settext($string0);
+cc_create($component1, ^iftype_text, $int10);
+cc_setposition(48, min(64, calc(32 + $int4)), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int3 - 53), 15, ^setsize_abs, ^setsize_abs);
+cc_setcolour(^white);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_top, 15);
+cc_settextshadow(true);
+if ($int9 < 10000) {
+    cc_settext("<$string2> coins");
+} else {
+    cc_settext("<$string3> coins");
+    cc_setonmouserepeat("script8799($string2, $component1, $int10)");
+}
+$int10 = calc($int10 + 1);
+cc_create($component1, ^iftype_graphic, $int10);
+cc_setposition(4, 2, ^setpos_abs_right, ^setpos_abs_top);
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(null);
+$int10 = calc($int10 + 1);

@@ -1,0 +1,65 @@
+// 16267
+[proc,script16267](struct $struct0, dbrow $dbrow1, int $int2, int $int3, int $int4, int $int5)(int)
+if (~script16270($struct0, $dbrow1) = false) {
+    return($int2);
+}
+def_int $int6 = ~skillguide_level($struct0, $dbrow1);
+if ($int6 <= $int3 | $int6 > $int4) {
+    return($int2);
+}
+def_int $int7 = ~skillguide_skill($struct0, $dbrow1);
+def_obj $obj8 = ~skillguide_item($struct0, $dbrow1);
+def_string $string0 = ~skillguide_name($struct0, $dbrow1);
+def_boolean $boolean9 = ~skillguide_members($struct0, $dbrow1);
+if ($obj8 ! null & oc_param($obj8, recipe_requirement_type_1) > 0 & oc_param($obj8, recipe_requirement_type_1) ! 62 & oc_param($obj8, recipe_requirement_type_2) = 0 & (oc_param($obj8, recipe_requirement_type_1) = $int7 | $int7 = -1)) {
+    $int6 = oc_param($obj8, recipe_requirement_value_1);
+    $string0 = oc_name($obj8);
+    if (oc_param($obj8, recipe_is_members_only) = true | oc_members(oc_param($obj8, recipe_ingredient_type_1)) = 1 | oc_members(oc_param($obj8, recipe_ingredient_type_2)) = 1 | oc_members(oc_param($obj8, recipe_tool_type_1)) = 1 | oc_members($obj8) = 1) {
+        $boolean9 = true;
+    }
+}
+def_graphic $graphic10 = "aif_level_up_text_box_gold,0";
+def_graphic $graphic11 = "aif_level_up_text_box_gold,1";
+def_graphic $graphic12 = "aif_level_up_text_box_gold,2";
+if ($boolean9 = false) {
+    $graphic10 = "aif_level_up_text_box,0";
+    $graphic11 = "aif_level_up_text_box,1";
+    $graphic12 = "aif_level_up_text_box,2";
+}
+cc_create(levelup:unlocks_layer, ^iftype_text, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_bottom);
+def_int $int13 = calc(stringwidth($string0, verdana_15pt_regular) + stringwidth("New", verdana_15pt_regular));
+cc_setsize(0, 33, ^setsize_minus, ^setsize_abs);
+cc_setontimer("levelup_unlocktimer(event_comsubid, $string0, calc(clientclock + $int2 * $int5))");
+def_int $int14 = cc_getx;
+cc_create(levelup:unlocks_layer, ^iftype_graphic, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(0, 24, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize($int13, 33, ^setsize_abs, ^setsize_abs);
+cc_settiling(true);
+cc_setontimer("levelup_unlocktimer_graphic(event_comsubid, $graphic11, calc(clientclock + $int2 * $int5))");
+cc_sendtoback;
+$int14 = cc_getx;
+$int13 = cc_getwidth;
+cc_create(levelup:unlocks_layer, ^iftype_graphic, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(calc($int14 - 50), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+cc_setontimer("levelup_unlocktimer_graphic(event_comsubid, $graphic10, calc(clientclock + $int2 * $int5))");
+cc_sendtoback;
+cc_create(levelup:unlocks_layer, ^iftype_graphic, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(calc($int14 + $int13), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+cc_setontimer("levelup_unlocktimer_graphic(event_comsubid, $graphic12, calc(clientclock + $int2 * $int5))");
+cc_sendtoback;
+cc_create(levelup:firework_layer, ^iftype_model, if_getnextsubid(levelup:firework_layer));
+cc_setmodel(level_up_fireworks_interface_purple);
+cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+cc_setmodelanim(interface_fireworks);
+cc_setmodelangle(0, 0, 512, 0, 0, calc(1500 + random(1000)));
+$int13 = calc(stringwidth($string0, verdana_15pt_regular) / 2 + 20);
+if (random(2) = 0) {
+    cc_setposition($int13, 120, ^setpos_abs_centre, ^setpos_abs_top);
+} else {
+    cc_setposition(calc($int13 * -1), 120, ^setpos_abs_centre, ^setpos_abs_top);
+}
+cc_setontimer("script3369(event_comsubid, calc(clientclock + $int2 * $int5), 0)");
+return(calc($int2 + 1));

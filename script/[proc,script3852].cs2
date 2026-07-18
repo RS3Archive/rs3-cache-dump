@@ -1,0 +1,69 @@
+// 3852
+[proc,script3852](obj $obj0, obj $obj1)(int, string)
+switch_obj ($obj0) {
+    case castlewars_cloak_saradomin, castlewars_cloak_zamorak :
+        return(1, "You can't remove your team's colours.");
+    case tog_bowl, ornatebowl_magic_bowl :
+        return(1, "You can't collect any tears if you put the bowl in your pack.");
+    case darklight, agrith_silverlight_dyed, silverlight :
+        if (%agrith_quest = 124) {
+            return(2, "");
+        }
+    case falcon_on_gloves, falcon_gloves :
+        return(1, "You should speak to Matthias to get this removed safely.");
+    case barbassault_playericon_attacker_01, barbassault_playericon_defender_01, barbassault_playericon_collector_01, barbassault_playericon_healer_01, barbassault_playericon_attacker_02, barbassault_playericon_defender_02, barbassault_playericon_collector_02, barbassault_playericon_healer_02, barbassault_playericon_attacker_03, barbassault_playericon_defender_03, barbassault_playericon_collector_03, barbassault_playericon_healer_03, barbassault_playericon_attacker_04, barbassault_playericon_defender_04, barbassault_playericon_collector_04, barbassault_playericon_healer_04, barbassault_playericon_attacker_05, barbassault_playericon_defender_05, barbassault_playericon_collector_05, barbassault_playericon_healer_05 :
+        return(1, "You don't really want to remove that down here.");
+    case peng_suit_unwound, peng_suit_wound :
+        if (inv_freespace(inv) < 1) {
+            return(2, "");
+        }
+    case rcguild_attracter_yellow :
+        if (%rcguild_game = 0) {
+            return(1, "The wand vanishes.");
+        }
+        if ($obj1 ! rcguild_repeller_yellow) {
+            return(1, "You cannot remove the attractor wand, except by replacing it with the repeller wand.");
+        }
+    case rcguild_attracter_green :
+        if (%rcguild_game = 0) {
+            return(1, "The wand vanishes.");
+        }
+        if ($obj1 ! rcguild_repeller_green) {
+            return(1, "You cannot remove the attractor wand, except by replacing it with the repeller wand.");
+        }
+    case rcguild_repeller_yellow :
+        if (%rcguild_game = 0) {
+            return(1, "The wand vanishes.");
+        }
+        if ($obj1 ! rcguild_attracter_yellow) {
+            return(1, "You cannot remove the attractor wand, except by replacing it with the repeller wand.");
+        }
+    case rcguild_repeller_green :
+        if (%rcguild_game = 0) {
+            return(1, "The wand vanishes.");
+        }
+        if ($obj1 ! rcguild_attracter_green) {
+            return(1, "You cannot remove the attractor wand, except by replacing it with the repeller wand.");
+        }
+    case rcguild_hat_green_ingame, rcguild_hat_yellow_ingame :
+        if (%rcguild_game ! 0) {
+            return(1, "The wand vanishes.");
+        } else {
+            return(1, "You cannot remove the attractor wand, except by replacing it with the repeller wand.");
+        }
+    case sc_cape_team1, sc_cape_team2 :
+        if (%sc_team ! 0) {
+            return(1, "You can't remove the cape during the game.");
+        }
+    case agidad_shape_fire, agidad_shape_foot, agidad_shape_lightning, agidad_shape_skull, agidad_shape_sword :
+        return(2, "");
+}
+if (inv_totalcat(worn, war_strength_keg) ! 0) {
+    return(1, "You can't remove equipment while trying to balance kegs.");
+}
+if (%acs_player_disguised_as_barrelchest = 1) {
+    return(1, "There's not enough room inside the Barrelchest disguise to mess around with your equipment!");
+}
+if (%tpr_world_gate_controls_active = 1) {
+    return(2, "You should step away from the controls before removing anything.");
+}

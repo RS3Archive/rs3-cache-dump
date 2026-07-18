@@ -1,0 +1,23 @@
+// 16523
+[clientscript,trh180_interface_init]
+def_int $int0 = -1;
+cc_deleteall(wheel_of_fortune:fake_op);
+while (++$int0 <= 30) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+}
+if_setopcursor(1, cursor_use, trh180_overlay:bonus_prize_model);
+if_setopbase("Bonus Easter egg", trh180_overlay:bonus_prize_model);
+~spinner_create(trh180_overlay:easter_preview_load, 3, -1);
+~trh180_interface_update;
+~script16663(trh180_prize_preview_components, struct_param(trh180_promo, trh_featured_prize), 1);
+if_setonvartransmit("trh180_interface_update{trh_promos_var11, trh_promos_var11, trh_promos_var11, trh_promos_var11, trh_promos_var11, trh_promos_var11, trh_promos_var11, trh_promos_var11}", trh180_overlay:universe);
+~trh180_update_progressbar;
+if_setonvartransmit("trh180_update_progressbar{trh180_hunts_completed, trh_promos_var11}", trh180_overlay:prize_layer);
+~script3536("For every 2 bonus eggs opened, you will receive a guaranteed reward.<br>You have currently opened <tostring(%trh180_egg_hunt_reward_progress)>/<tostring(2)> bonus eggs for your next reward.", trh180_overlay:progress_bar_click_layer, -1);
+~script7160;
+~script17283;
+~spinner_create(trh187_overlay:assassin_preview_load, 3, -1);
+~script16663(trh187_prize_preview_components, struct_param(trh187_promo, trh_featured_prize), 1);
+if (%trh180_bonus_egg_state = 1) {
+    ~script16536;
+}

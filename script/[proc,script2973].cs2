@@ -1,0 +1,133 @@
+// 2973
+[proc,script2973](struct $struct0)(int)
+def_int $int1 = ~settings_get_state($struct0);
+switch_struct ($struct0) {
+    case settings_steam_rich_presence :
+        return(clientoption_get(^clientoption_rich_presence));
+    case settings_tap_highlights :
+        if (%toplevel_v2_forced_highlight = 3 & clientoption_get(^clientoption_entity_highlights) = 1) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case settings_stores_buy_value :
+        return(max(100000, $int1));
+    case settings_stores_sell_value :
+        return(max(30000, $int1));
+    case settings_combat_mode_manual :
+        if (%toplevel_v2_legacy_combat = 1) {
+            return(0);
+        }
+        return(~equal_int(%combatv2_combat_mode, 0));
+    case settings_combat_mode_revo :
+        if (%toplevel_v2_legacy_combat = 1) {
+            return(0);
+        }
+        return(~equal_int(%combatv2_combat_mode, 1));
+    case settings_interfaces_slayercounter :
+        if (%slayer_toggle_slayer_counter = 0) {
+            return(0);
+        }
+        return(calc(1 + ~script3345));
+    case settings_camera_keyboard_horizontal :
+        return(%toplevel_v2_camera_keyboard_responce_horizontal);
+    case settings_camera_keyboard_vertical :
+        return(%toplevel_v2_camera_keyboard_responce_vertical);
+    case settings_camera_mouse_horizontal :
+        return(%toplevel_v2_camera_mouse_responce_horizontal);
+    case settings_camera_mouse_vertical :
+        return(%toplevel_v2_camera_mouse_responce_vertical);
+    case settings_camera_mobile_horizontal :
+        return(%toplevel_v2_camera_swipe_response_horizontal);
+    case settings_camera_mobile_vertical :
+        return(%toplevel_v2_camera_swipe_response_vertical);
+    case settings_camera_zoom_rate :
+        return(%toplevel_v2_camera_zoom_rate);
+    case graphics_options_game_brightness_mobile :
+        return(clientoption_get(^clientoption_brightness));
+    case graphics_options_removeroofs :
+        return(clientoption_get(^clientoption_remove_roof));
+    case graphics_options_nxt_loading :
+        return(%loadingscreen_on);
+    case graphics_options_nxt_drawdistance :
+        return(clientoption_get(^clientoption_draw_distance));
+    case graphics_options_nxt_forground_fps :
+        if (enum_hasoutput(int, graphics_opt_fps_mobile_actual, clientoption_get(^clientoption_max_foreground_fps)) = false) {
+            clientoption_set(^clientoption_max_foreground_fps, enum(int, int, graphics_opt_fps_mobile_actual, 1));
+            return(enum(int, int, graphics_opt_fps_mobile_actual, 1));
+        }
+        return(enum_getreverseindex(int, int, graphics_opt_fps_mobile_actual, clientoption_get(^clientoption_max_foreground_fps), 0));
+    case graphics_options_textures :
+        if (clientoption_get(^clientoption_texturing) = 0) {
+            return(0);
+        }
+        return(1);
+    case graphics_options_nxt_anisotropic_filtering :
+        return(clientoption_get(^clientoption_anisotropic_filtering));
+    case graphics_options_nxt_antialiasing :
+        return(clientoption_get(^clientoption_antialiasing_mode));
+    case graphics_options_grounddecoration :
+        return(clientoption_get(^clientoption_ground_decor));
+    case graphics_options_groundblending :
+        return(clientoption_get(^clientoption_ground_blending));
+    case graphics_options_nxt_shadows :
+        return(clientoption_get(^clientoption_shadows));
+    case graphics_options_nxt_shadows_quality :
+        return(clientoption_get(^clientoption_shadow_quality));
+    case graphics_options_nxt_ambient_occlusion :
+        return(clientoption_get(^clientoption_ambient_occlusion));
+    case graphics_options_lightingdetail :
+        if (clientoption_get(^clientoption_lighting_quality) > 1) {
+            clientoption_set(^clientoption_lighting_quality, 1);
+            return(1);
+        }
+        return(clientoption_get(^clientoption_lighting_quality));
+    case graphics_options_nxt_bloom :
+        return(clientoption_get(^clientoption_bloom));
+    case graphics_options_nxt_reflections :
+        return(clientoption_get(^clientoption_reflections));
+    case graphics_options_depth_of_field :
+        return(clientoption_get(^clientoption_dof));
+    case graphics_options_camera_smooth_fade :
+        return(clientoption_get(^clientoption_smooth_clip_fade));
+    case graphics_options_mouseover_highlights :
+        return(clientoption_get(^clientoption_entity_highlights));
+    case graphics_options_tree_canopy_fade :
+        return(clientoption_get(^clientoption_canopy_cutout));
+    case graphics_options_fps_display :
+        return(clientoption_get(^clientoption_diagnostics));
+    case graphics_options_default_player_model :
+        return(clientoption_get(^clientoption_custom_player_model_count));
+    case graphics_optoins_particle_quality :
+        return(clientoption_get(^clientoption_particle_quality));
+    case graphics_options_cursorscale :
+        return(clientoption_get(42));
+    case settings_local_notification_ports_1 :
+        return(~script11748(local_notification_event_ports_1));
+    case settings_local_notification_ports_2 :
+        return(~script11748(local_notification_event_ports_2));
+    case settings_local_notification_ports_3 :
+        return(~script11748(local_notification_event_ports_3));
+    case settings_local_notification_ports_4 :
+        return(~script11748(local_notification_event_ports_4));
+    case settings_local_notification_pof_trapper :
+        return(~script11748(local_notification_event_farm_collector));
+    case settings_local_notification_arch_research :
+        return(~script11748(local_notification_event_arch_research_contract_1));
+    case settings_local_notification_giant_oyster :
+        return(~script11748(local_notification_event_giant_oyster));
+    case settings_local_notification_troll_invasion :
+        return(~script11748(local_notification_event_troll_invasion));
+    case settings_local_notification_god_statues :
+        return(~script11748(local_notification_event_god_statues));
+    case settings_local_notification_herby_werby :
+        return(~script11748(local_notification_event_herby_werby));
+    case settings_local_notification_tears_of_guthix :
+        return(~script11748(local_notification_event_tears_of_guthix));
+    case settings_mobile_toggle_haptic_feedback :
+        return(clientoption_get(^clientoption_haptic_feedback));
+}
+if (struct_param($struct0, settings_clan_system) ! -1 & activeclansettings_find_affined(struct_param($struct0, settings_clan_system)) = true) {
+    return(~script19377($struct0));
+}
+return($int1);

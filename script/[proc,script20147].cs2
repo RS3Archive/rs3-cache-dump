@@ -1,0 +1,35 @@
+// 20147
+[proc,script20147]
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
+if ($dbrow0 = null) {
+    ~error("Attempted lookup without an active league: <tostring(%league_active_player)>");
+    return;
+}
+def_var_int $var_int1 = db_getfield($dbrow0, league:col22, 0);
+def_int $int2 = var_reference_get($var_int1);
+~script1854(db_getfield($dbrow0, league:col10, 0), $int2);
+def_dbrow $dbrow3 = db_getfield($dbrow0, league:col8, 0);
+def_dbrow $dbrow4 = null;
+def_int $int5 = 0;
+def_int $int6 = db_getfieldcount($dbrow3, league_relic_list:col0);
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int5 < $int6) {
+    $dbrow4 = db_getfield($dbrow3, league_relic_list:col0, $int5);
+    $int8 = db_getfield($dbrow4, league_relic_tier:col2, 0);
+    if ($int2 < $int8) {
+        if ($int5 = 0) {
+            %league_relic_cache_current_tier = 63;
+        } else {
+            %league_relic_cache_current_tier = calc($int5 - 1);
+        }
+        %league_relic_cache_current_tier_points = $int7;
+        %league_relic_cache_next_tier_points = $int8;
+        return;
+    }
+    $int7 = $int8;
+    $int5 = calc($int5 + 1);
+}
+%league_relic_cache_current_tier = calc($int5 - 1);
+%league_relic_cache_current_tier_points = 1048575;
+%league_relic_cache_next_tier_points = 1048575;

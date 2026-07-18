@@ -1,0 +1,58 @@
+// 19431
+[proc,script19431](component $component0, int $int1, int $int2, achievement $achievement3)(int)
+def_int $int4 = 0;
+def_int $int5 = 24;
+def_graphic $graphic6 = "rs3_icon_info_24px,0";
+def_graphic $graphic7 = "rs3_icon_info_24px,1";
+def_string $string0 = "View task list";
+def_fontmetrics $fontmetrics8 = ~script20491(text_subtitle_body);
+def_int $int9 = stringwidth($string0, $fontmetrics8);
+def_dbrow $dbrow10 = rect_outline;
+def_int $int11 = calc((65 - 65) / 2);
+def_int $int12 = 65;
+def_graphic $graphic13 = ~script19432($int1);
+def_int $int14 = 0;
+def_int $int15 = achievement_req_count($achievement3);
+$int14 = ~script19623($achievement3);
+def_int $int16 = min(16384, scale(16384, $int15, $int14));
+if (%group_ironman_achievements_list_selected = $int1) {
+    $dbrow10 = rect_outline_selected;
+    $graphic13 = ~script19433($int1);
+    if (achievement_reqstate($achievement3) = -2 & %group_ironman_cache_clanhash ! null) {
+        db_find(group_ironman_journey_rewards:col1, $achievement3);
+        if (~script19337(db_findnext) = true) {
+            if_settext("Claimed", group_ironman_parent:button_reward_claim);
+            if_setenabled(false, group_ironman_parent:button_reward_claim);
+        } else {
+            if_settext("Claim Reward", group_ironman_parent:button_reward_claim);
+            if_setenabled(true, group_ironman_parent:button_reward_claim);
+        }
+    } else {
+        if_settext("Locked", group_ironman_parent:button_reward_claim);
+        if_setenabled(false, group_ironman_parent:button_reward_claim);
+    }
+}
+~if_add_child_layer($component0, $int1, $int4++, 0, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 65, ^setsize_minus, ^setsize_abs);
+~script19436($int1);
+~script16109($int1, $int4++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $int1, false);
+~cc_add_child_rect($int1, $int4++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow10);
+~cc_add_child_graphic($int1, $int4++, 2, 0, ^setpos_abs_left, ^setpos_abs_centre, 64, 64, ^setsize_abs, ^setsize_abs, $graphic13);
+~cc_add_child_layer($int1, $int4++, 10, 4, ^setpos_abs_right, ^setpos_abs_top, 80, 14, ^setsize_minus, ^setsize_minus);
+~cc_add_child_text($int1, $int4++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 6554, $int5, ^setsize_rel, ^setsize_abs, text_body_emphasis, "Tier <tostring($int1)>:");
+~cc_add_child_layer($int1, $int4++, 0, 0, ^setpos_abs_right, ^setpos_abs_top, calc($int9 + 4 + $int5), $int5, ^setsize_abs, ^setsize_abs);
+cc_setop(1, "Go To Achievements");
+cc_setopcursor(1, cursor_goto);
+cc_setonmouseover("script19434(event_com, $int1, $int4, $graphic6, $graphic7)");
+cc_setonmouseleave("script19435(event_com, $int1, $int4, $graphic6, $graphic7)");
+cc_setonscrollwheel("scrollbar_vertical_wheel(group_ironman_parent:achievement_scrollbar, group_ironman_parent:achievement_scrolling, event_mousey)");
+~script19632(20, 10, 8, 12);
+cc_setonswipevertical("script3791(group_ironman_parent:achievement_scrollbar, group_ironman_parent:achievement_scrolling, event_mousey, null)");
+~cc_add_child_graphic($int1, $int4++, 0, 0, ^setpos_abs_right, ^setpos_abs_top, $int5, $int5, ^setsize_abs, ^setsize_abs, $graphic6);
+~cc_add_child_text($int1, $int4++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, $int9, $int5, ^setsize_abs, ^setsize_abs, text_subtitle_body, $string0);
+cc_find_parent;
+cc_find_parent;
+~script17947($int1, $int4++, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, 0, 22, ^setsize_minus, ^setsize_abs, groupbox_progress_bar_back_22px);
+~script17947($int1, $int4++, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, $int16, 12, ^setsize_rel, ^setsize_abs, groupbox_progress_bar_fill_22px_green);
+cc_find_parent;
+~cc_add_child_text($int1, $int4++, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_label_progress_bar_22px, "Tasks to complete: <tostring($int14)>/<tostring($int15)>");
+return(calc($int2 + 65 + 4));

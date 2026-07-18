@@ -1,0 +1,19 @@
+// 12305
+[clientscript,script12305](int $int0)
+if ($int0 = 1 & (if_getnextsubid(toplevel_v2:graph_data_layer) ! 0 | if_getnextsubid(toplevel_v2:graph_data_fine_layer) ! 0)) {
+    return;
+}
+cc_deleteall(toplevel_v2:graph_data_layer);
+cc_deleteall(toplevel_v2:graph_data_fine_layer);
+~script12307;
+if_sethide(true, toplevel_v2:graph_data_layer);
+if_sethide(true, toplevel_v2:graph_data_fine_layer);
+if (~telemetry_member = 0) {
+    return;
+}
+if (%varclientbit_30618 = 0) {
+    ~script12296(1, 0);
+} else {
+    %telemetry_graph_ids_changed = max(%telemetry_graph_ids_changed, 1);
+}
+if_setontimer("script12306", toplevel_v2:graph_listener);

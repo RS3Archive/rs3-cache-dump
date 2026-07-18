@@ -1,0 +1,40 @@
+// 2670
+[proc,script2670]
+if (if_gethide(lobbyscreen:email_validation_button_layer) = true) {
+    return;
+}
+def_string $string0 = "Email Registration";
+def_int $int0 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int1 = -1;
+switch_int (userdetail_lobby_emailstatus) {
+    case 0 :
+        $int0 = 1;
+        $string1 = "Unregistered";
+        $string2 = "You do not currently have an email address registered. Use this button to register.";
+        $int1 = 2510;
+    case 1 :
+        $int0 = 1;
+        $string1 = "Pending Parental Confirmation";
+        $string2 = "You have registered your email address. We are currently waiting for your parent to confirm their email address. Use this button to submit a confirmation code.";
+        $int1 = 2510;
+    case 2 :
+        $int0 = 1;
+        $string1 = "Pending Confirmation";
+        $string2 = "Your email address is currently pending confirmation. Use this button to submit a confirmation code.";
+        $int1 = 2510;
+    case 3 :
+        $string1 = "Registered";
+        $string2 = "Your email address is now registered. Use this button to view or change your email preferences.";
+        $int1 = 2511;
+    case 4 :
+        $string1 = "No longer registered";
+        $string2 = "Your account no longer has a registered email address. Use this button to register again.";
+        $int1 = 2511;
+}
+if ($int0 = 1) {
+    ~script10017(lobbyscreen:email_validation_button_layer, -1, 6, 1, null, null);
+}
+~script10059($string0, $string1, $string2, lobbyscreen:button_evalid);
+if_setonbuttonpressed("lobbyscreen_link($int1)", lobbyscreen:button_evalid);

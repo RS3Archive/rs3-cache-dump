@@ -1,0 +1,129 @@
+// 8385
+[proc,script8385](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(int, int, int)
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = ^max_32bit_int;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = if_getx($component0);
+def_int $int23 = if_gety($component0);
+def_int $int24 = if_getwidth($component0);
+def_int $int25 = if_getheight($component0);
+def_component $component26 = if_getparentlayer($component0);
+def_int $int27 = if_getwidth($component26);
+def_int $int28 = if_getheight($component26);
+def_int $int29 = calc($int22 + $int24 / 2 - ~script8407($component26));
+def_int $int30 = calc($int23 + $int25 / 2 - ~script8408($component26));
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 0;
+def_int $int34 = 0;
+def_int $int35 = 0;
+def_int $int36 = 1;
+$int11, $int12, $int13, $int14 = ~script8395($component0, $component1);
+if (calc($int11 + $int12 + $int13 + $int14) > 0) {
+    $int35 = calc(%varclientbit_19933 * $int8);
+    while ($int9 <= 3) {
+        $int34 = calc(%varclientbit_19931 * $int6);
+        $int33 = calc(%varclientbit_19932 * $int7);
+        $int17 = 0;
+        $int16 = 0;
+        $int31 = $int29;
+        $int32 = $int30;
+        switch_int ($int9) {
+            case 0 :
+                if ($int4 > 0 | $int6 = 0) {
+                    $int17 = $int11;
+                } else if (calc($int22 - $int11) < 0) {
+                    $int16 = $int22;
+                    $int17 = calc($int11 - $int16);
+                } else {
+                    $int16 = $int11;
+                }
+                if (calc($int24 - $int17) < $int2 | calc($int22 - $int16) < 0) {
+                    $int36 = 0;
+                } else {
+                    $int36 = 1;
+                    $int31 = calc($int31 - $int16 - $int17 / 2);
+                }
+            case 1 :
+                if ($int4 < 0 | $int6 = 0) {
+                    $int34 = 0;
+                    $int17 = $int12;
+                    $int16 = $int12;
+                } else if (calc($int22 + $int24 + $int12) > $int27) {
+                    $int33 = calc($int33 * ($int27 - ($int22 + $int24)) / $int12);
+                    $int16 = $int12;
+                    $int17 = calc($int16 - ($int27 - ($int22 + $int24)));
+                } else {
+                    $int16 = $int12;
+                }
+                if (calc($int24 - $int17) < $int2 | calc($int22 + $int24 - $int17) > $int27) {
+                    $int36 = 0;
+                } else {
+                    $int36 = 1;
+                    $int31 = calc($int31 + $int16 - $int17 / 2);
+                }
+            case 2 :
+                if ($int5 > 0 | $int6 = 0) {
+                    $int17 = $int13;
+                } else if (calc($int23 - $int13) < 0) {
+                    $int16 = $int23;
+                    $int17 = calc($int13 - $int16);
+                } else {
+                    $int16 = $int13;
+                }
+                if (calc($int25 - $int17) < $int3 | calc($int23 - $int16) < 0) {
+                    $int36 = 0;
+                } else {
+                    $int36 = 1;
+                    $int32 = calc($int32 - $int16 - $int17 / 2);
+                }
+            case 3 :
+                if ($int5 < 0 | $int6 = 0) {
+                    $int34 = 0;
+                    $int17 = $int14;
+                    $int16 = $int14;
+                } else if (calc($int23 + $int25 + $int14) > $int28) {
+                    $int33 = calc($int33 * ($int28 - ($int23 + $int25)) / $int14);
+                    $int16 = $int14;
+                    $int17 = calc($int16 - ($int28 - ($int23 + $int25)));
+                } else {
+                    $int16 = $int14;
+                }
+                if (calc($int25 - $int17) < $int3 | calc($int23 + $int25 - $int17) > $int28) {
+                    $int36 = 0;
+                } else {
+                    $int36 = 1;
+                    $int32 = calc($int32 + $int16 - $int17 / 2);
+                }
+        }
+        if ($int36 = 1) {
+            $int10 = calc($int33 * $int17 + $int34 * $int16);
+            if ($int35 ! 0) {
+                $int10 = calc($int10 + $int35 * invpow(calc(pow(calc($int31 - get_mousex), 2) + pow(calc($int32 - get_mousey), 2)), 2));
+            }
+        } else {
+            $int10 = ^max_32bit_int;
+        }
+        if ($int15 >= $int10) {
+            $int15 = $int10;
+            $int18 = $int16;
+            $int19 = $int17;
+            $int20 = $int9;
+        }
+        $int9 = calc($int9 + 1);
+    }
+}
+if ($int15 = ^max_32bit_int & ($int18 ! 0 | $int19 ! 0)) {
+    $int20 = -1;
+}
+return($int18, $int19, $int20);

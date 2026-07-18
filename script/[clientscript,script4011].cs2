@@ -1,0 +1,177 @@
+// 4011
+[clientscript,script4011]
+if (%ql4_quest = null) {
+    return;
+}
+def_quest $quest0 = %ql4_quest;
+def_int $int1 = ~ql4_getprogress($quest0);
+if ($int1 = 2) {
+    if_settext("Quest complete!", quest_journal:prog_text);
+} else if ($int1 = 1) {
+    if_settext("Started", quest_journal:prog_text);
+} else {
+    if_settext("Not started", quest_journal:prog_text);
+}
+if (if_gethide(quest_journal:accept_job_2) = true) {
+    if_setsize(260, 0, ^setsize_minus, ^setsize_minus, quest_journal:prog_text);
+} else {
+    if_setsize(424, 0, ^setsize_minus, ^setsize_minus, quest_journal:prog_text);
+}
+def_string $string0 = ~quest_name($quest0);
+if_setsize(calc(stringwidth($string0, if_getfontmetrics(quest_journal:title_1)) + 30), if_getheight(quest_journal:titlebox_1), ^setsize_abs, ^setsize_abs, quest_journal:titlebox_1);
+~script18490($string0, quest_journal:title_1, quest_journal:btn_overview_wiki);
+if (quest_getmembers($quest0) = true) {
+    if_sethide(false, quest_journal:members_icon);
+    if_sethide(true, quest_journal:f2p_icon);
+} else {
+    if_sethide(true, quest_journal:members_icon);
+    if_sethide(false, quest_journal:f2p_icon);
+}
+def_string $string1 = "<quest_getname($quest0)>/Quick guide";
+if_setonbuttonpressed("wiki($string1)", quest_journal:btn_overview_wiki);
+if_setgraphic(quest_param($quest0, quest_icon_big), quest_journal:quest_icon);
+if_settext(tostring(quest_param($quest0, quest_release_year)), quest_journal:quest_icon_footer);
+def_int $int2 = ~script10495(0);
+def_int $int3 = ~script4249("<col=<tostring($int2, 16)>>Start Point:</col>", quest_param($quest0, quest_start_point), quest_journal:start_point_layer, quest_journal:start_point, quest_journal:start_point_text, null, null, $int1, 0);
+$string0 = "";
+if (quest_param($quest0, quest_series) ! 42) {
+    $string0 = enum(int, string, ql4_quest_categories_series, quest_param($quest0, quest_series));
+    if (quest_param($quest0, quest_series_number) > 0) {
+        switch_int (map_lang) {
+            case 0 :
+                $string0 = "<$string0> #<tostring(quest_param($quest0, quest_series_number))>.";
+            case 2 :
+                $string0 = "<$string0> n°<tostring(quest_param($quest0, quest_series_number))>.";
+            case default :
+                $string0 = "<$string0> <tostring(quest_param($quest0, quest_series_number))>.";
+        }
+    }
+    $string0 = "<$string0> (<enum(int, string, ql4_quest_categories_age, quest_param($quest0, quest_age))>.)";
+    if (string_length(quest_param($quest0, quest_release_note)) > 0) {
+        $string0 = "<$string0><br><quest_param($quest0, quest_release_note)>";
+    }
+    $int3 = ~script4249("<col=<tostring($int2, 16)>>Quest Series & Age:</col>", $string0, quest_journal:series_layer, quest_journal:series, quest_journal:series_text, null, null, $int1, $int3);
+} else {
+    $string0 = "<enum(int, string, ql4_quest_categories_age, quest_param($quest0, quest_age))>.";
+    if (string_length(quest_param($quest0, quest_release_note)) > 0) {
+        $string0 = "<$string0> (<quest_param($quest0, quest_release_note)>)";
+    }
+    $int3 = ~script4249("<col=<tostring($int2, 16)>>Age:</col>", $string0, quest_journal:series_layer, quest_journal:series, quest_journal:series_text, null, null, $int1, $int3);
+}
+if (quest_param($quest0, quest_voice_acted) = 2) {
+    $int3 = ~script4249("<col=<tostring($int2, 16)>>Voice-Acted:</col>", "This quest is fully voice-acted and features atmospheric music and effects. We suggest you keep your sound on to get the most out of it.", quest_journal:voice_acted_layer, quest_journal:voice_acted, quest_journal:voice_acted_text, null, null, $int1, $int3);
+    if_sethide(false, quest_journal:voice_acted_layer);
+} else if (quest_param($quest0, quest_voice_acted) = 1) {
+    $int3 = ~script4249("<col=<tostring($int2, 16)>>Voice-Acted:</col>", "This quest is partially voice-acted. We suggest you keep your sound on to get the most out of it.", quest_journal:voice_acted_layer, quest_journal:voice_acted, quest_journal:voice_acted_text, null, null, $int1, $int3);
+    if_sethide(false, quest_journal:voice_acted_layer);
+} else if (quest_param($quest0, quest_voice_acted) = 3) {
+    $int3 = ~script4249("<col=<tostring($int2, 16)>>Music:</col>", "This quest focuses on music. We suggest you keep your sound effects and music on to get the most out of it.", quest_journal:voice_acted_layer, quest_journal:voice_acted, quest_journal:voice_acted_text, null, null, $int1, $int3);
+    if_sethide(false, quest_journal:voice_acted_layer);
+} else {
+    if_sethide(true, quest_journal:voice_acted_layer);
+}
+$int3 = ~script4249("<col=<tostring($int2, 16)>>Requirements:</col>", %qii_text, quest_journal:requirements_layer, quest_journal:requirements, quest_journal:requirements_text, null, null, $int1, $int3);
+if (map_lang ! 0 & has_nxt = true) {
+    cc_deleteall(quest_journal:requirements_dynamic);
+} else {
+    ~script13742(%qii_text, quest_journal:requirements_dynamic, quest_journal:requirements_text, ~script2111($quest0, 1), ~script2111($quest0, 2), ~script2111($quest0, 3), ~script2111($quest0, 4), ~script2111($quest0, 5), ~script2111($quest0, 6), ~script2111($quest0, 7), ~script2111($quest0, 8), ~script2111($quest0, 9), ~script2111($quest0, 10), ~script2111($quest0, 11), ~script2111($quest0, 12));
+}
+def_string $string2 = ~ql4_intro_suggested_quest_requirement($quest0);
+if (string_length($string2) > 0) {
+    $int3 = ~script4249("<col=<tostring($int2, 16)>>Follows events of:</col>", $string2, quest_journal:suggestions_layer, quest_journal:suggestions, quest_journal:suggestions_text, null, null, $int1, $int3);
+    ~script13742($string2, quest_journal:suggestions_dynamic, quest_journal:suggestions_text, quest_param($quest0, quest_suggested_quest1), quest_param($quest0, quest_suggested_quest2), quest_param($quest0, quest_suggested_quest3), quest_param($quest0, quest_suggested_quest4), quest_param($quest0, quest_suggested_quest5), quest_param($quest0, quest_suggested_quest6), quest_param($quest0, quest_suggested_quest7), quest_param($quest0, quest_suggested_quest8), quest_param($quest0, quest_suggested_quest9), quest_param($quest0, quest_suggested_quest10), quest_param($quest0, quest_suggested_quest11), quest_param($quest0, quest_suggested_quest12));
+    if_sethide(false, quest_journal:suggestions_layer);
+    if (~script6431 = true) {
+        $int3 = calc($int3 - 25);
+    } else {
+        $int3 = calc($int3 - 20);
+    }
+    if_sethide(false, quest_journal:suggestions_footer_layer);
+    switch_int (quest_param($quest0, quest_suggested_footer)) {
+        case 1 :
+            $int3 = ~script4249("", "To fully appreciate the backstory and events of this quest, and unlock the full rewards, we strongly recommend you first complete the above suggested quests. You may complete the quest without these prerequisites, and claim the rewards at a later date.", quest_journal:suggestions_footer_layer, quest_journal:suggestions_footer, quest_journal:suggestions_footer_text, null, null, $int1, $int3);
+        case 0 :
+            $int3 = ~script4249("", "", quest_journal:suggestions_footer_layer, quest_journal:suggestions_footer, quest_journal:suggestions_footer_text, null, null, $int1, $int3);
+            if_sethide(true, quest_journal:suggestions_footer_layer);
+    }
+} else {
+    if_sethide(true, quest_journal:suggestions_layer);
+    if_sethide(true, quest_journal:suggestions_footer_layer);
+}
+def_string $string3 = "";
+def_string $string4 = "";
+if (quest_param($quest0, quest_suggested_special) = true) {
+    $string3, $string4 = ~script18529($quest0);
+}
+if (string_length($string4) > 0) {
+    $int3 = ~script4249("<col=<tostring($int2, 16)>><$string3></col>", $string4, quest_journal:suggested_special_layer, quest_journal:suggested_special, quest_journal:suggested_special_text, null, null, $int1, $int3);
+    if_sethide(false, quest_journal:suggested_special_layer);
+} else {
+    if_sethide(true, quest_journal:suggested_special_layer);
+}
+def_string $string5 = ~script6392(quest_param($quest0, quest_req_item1_qty), quest_param($quest0, quest_req_item1), quest_param($quest0, quest_req_item1_suffix), quest_param($quest0, quest_req_item2_qty), quest_param($quest0, quest_req_item2), quest_param($quest0, quest_req_item2_suffix), quest_param($quest0, quest_req_item3_qty), quest_param($quest0, quest_req_item3), quest_param($quest0, quest_req_item3_suffix), quest_param($quest0, quest_req_item4_qty), quest_param($quest0, quest_req_item4), quest_param($quest0, quest_req_item4_suffix), quest_param($quest0, quest_req_item5_qty), quest_param($quest0, quest_req_item5), quest_param($quest0, quest_req_item5_suffix), quest_param($quest0, quest_req_item6_qty), quest_param($quest0, quest_req_item6), quest_param($quest0, quest_req_item6_suffix), quest_param($quest0, quest_req_item7_qty), quest_param($quest0, quest_req_item7), quest_param($quest0, quest_req_item7_suffix), quest_param($quest0, quest_req_item8_qty), quest_param($quest0, quest_req_item8), quest_param($quest0, quest_req_item8_suffix), quest_param($quest0, quest_req_item9_qty), quest_param($quest0, quest_req_item9), quest_param($quest0, quest_req_item9_suffix), quest_param($quest0, quest_req_item10_qty), quest_param($quest0, quest_req_item10), quest_param($quest0, quest_req_item10_suffix), quest_param($quest0, quest_req_item11_qty), quest_param($quest0, quest_req_item11), quest_param($quest0, quest_req_item11_suffix), quest_param($quest0, quest_req_item12_qty), quest_param($quest0, quest_req_item12), quest_param($quest0, quest_req_item12_suffix), quest_param($quest0, quest_req_items), "None.", ", ");
+$int3 = ~script4249("<col=<tostring($int2, 16)>>Required Items:</col>", $string5, quest_journal:items_layer, quest_journal:items, quest_journal:items_text, quest_journal:items_show_button, quest_journal:items_show_button_text, $int1, $int3);
+def_string $string6 = quest_param($quest0, quest_combat);
+def_int $int4 = quest_param($quest0, quest_combat_difficulty);
+if (string_length($string6) = string_length("None.") & $int4 > 1) {
+    if ($int4 = 6) {
+        $string6 = "<$string6> Combat is scaled and you should bring appropriate equipment and food for your level.";
+    } else {
+        $string6 = "You must defeat an enemy of at least: <enum(int, string, ql4_quest_categories_combat_difficulty, $int4)>.";
+    }
+}
+$int3 = ~script4249("<col=<tostring($int2, 16)>>Combat:</col>", $string6, quest_journal:combat_layer, quest_journal:combat, quest_journal:combat_text, null, null, $int1, $int3);
+$string0 = "<enum(int, string, ql4_quest_categories_length, quest_param($quest0, quest_length))>.";
+$int3 = ~script4249("<col=<tostring($int2, 16)>>Length:</col>", $string0, quest_journal:length_layer, quest_journal:length, quest_journal:length_text, null, null, $int1, $int3);
+switch_quest ($quest0) {
+    case carni_fakequest :
+        if_clearops(quest_journal:accept_click);
+        ~script13977(quest_journal:accept_build, quest_journal:accept_click, rs3tli_positive_button, "Offer");
+        if_setposition(0, if_gety(quest_journal:accept_quest), ^setpos_abs_centre, ^setpos_abs_top, quest_journal:accept_quest);
+        if_sethide(true, quest_journal:decline_quest);
+        if_sethide(true, quest_journal:checkbox_withlabel);
+        $string0 = %carni_offerreward;
+    case default :
+        $string0 = ~script2134($quest0, "", "");
+}
+$int3 = ~script4249("<col=<tostring($int2, 16)>>Rewards:</col>", $string0, quest_journal:rewards_layer, quest_journal:rewards, quest_journal:rewards_text, quest_journal:rewards_show_button, quest_journal:rewards_show_button_text, $int1, $int3);
+def_string $string7 = "";
+switch_int (quest_param($quest0, quest_age)) {
+    case 1 :
+        $string7 = "This is a Fifth Age quest, and takes place in the past, before the gods returned to Gielinor.";
+    case 3 :
+        if ($quest0 = world_wakes) {
+            $string7 = "The events of this quest trigger the end of the Fifth Age and begins the Sixth Age.<br>It is recommended, but not necessary, to complete Fifth Age quests before Sixth Age quests to fully understand the story of the Sixth Age.";
+        } else if (quest_param($quest0, quest_id) <= 321) {
+            $string7 = "This is a Sixth Age quest, and takes place after the events of The World Wakes.<br>The gods are free to return to Gielinor. You are the World Guardian.";
+        }
+}
+if (string_length($string7) > 0 | string_length(quest_param($quest0, quest_custom_mes)) > 0) {
+    if (string_length(quest_param($quest0, quest_custom_mes)) > 0) {
+        $int3 = ~script4249("<col=<tostring($int2, 16)>>Note:</col>", quest_param($quest0, quest_custom_mes), quest_journal:age_layer, quest_journal:age, quest_journal:age_text, null, null, $int1, $int3);
+    } else {
+        $int3 = ~script4249("<col=<tostring($int2, 16)>>Note:</col>", $string7, quest_journal:age_layer, quest_journal:age, quest_journal:age_text, null, null, $int1, $int3);
+    }
+    if_sethide(false, quest_journal:age_layer);
+} else {
+    if_sethide(true, quest_journal:age_layer);
+}
+switch_int (quest_param($quest0, quest_age)) {
+    case 1 :
+        if_sethide(false, quest_journal:5th_age_icon);
+        if_sethide(true, quest_journal:6th_age_icon);
+    case 3, 4 :
+        if_sethide(true, quest_journal:5th_age_icon);
+        if_sethide(false, quest_journal:6th_age_icon);
+    case default :
+        if_sethide(true, quest_journal:5th_age_icon);
+        if_sethide(true, quest_journal:6th_age_icon);
+}
+if_setscrollpos(0, 0, quest_journal:text_scrolling_layer_1);
+if ($int3 > if_getheight(quest_journal:text_scrolling_layer_1)) {
+    if_setscrollsize(0, $int3, quest_journal:text_scrolling_layer_1);
+    ~rs3_scrollbar_vertical(quest_journal:scrollbar_layer_1, quest_journal:text_scrolling_layer_1);
+} else {
+    if_setscrollsize(0, 0, quest_journal:text_scrolling_layer_1);
+    cc_deleteall(quest_journal:scrollbar_layer_1);
+}

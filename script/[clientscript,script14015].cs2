@@ -1,0 +1,38 @@
+// 14015
+[clientscript,script14015](component $component0, int $int1, int $int2)
+cc_deleteall($component0);
+def_int $int3 = if_getnextsubid($component0);
+def_int $int4 = calc($int1 * $int1);
+def_int $int5 = calc(if_getwidth($component0) / $int1);
+while ($int3 < $int4) {
+    if ($int2 = 2) {
+        cc_create($component0, ^iftype_text, $int3);
+    } else {
+        cc_create($component0, ^iftype_rectangle, $int3);
+    }
+    if (cc_find($component0, $int3) = true) {
+        cc_setsize($int5, $int5, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int3 % $int1 * $int5), calc($int3 / $int1 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+        switch_int ($int2) {
+            case 0 :
+                cc_setfill(false);
+                cc_setcolour(^white);
+            case 1 :
+                cc_setop(1, "Increment");
+                cc_setop(2, "1");
+                cc_setop(3, "2");
+                cc_setop(4, "3");
+                cc_setop(5, "4");
+                cc_setop(6, "5");
+                cc_setop(7, "Clear");
+                cc_setonop("script14017(event_comsubid, event_op)");
+            case 2 :
+                cc_setcolour(^white);
+                cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+                cc_settextfont(museo_sans_13pt_regular);
+                cc_setparam(trail17_skyscrapers_value, 0);
+                cc_settextshadow(true);
+        }
+    }
+    $int3 = calc($int3 + 1);
+}

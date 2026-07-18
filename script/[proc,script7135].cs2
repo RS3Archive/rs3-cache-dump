@@ -1,0 +1,75 @@
+// 7135
+[proc,script7135](dbrow $dbrow0, int $int1)(string)
+def_string $string0 = "";
+def_dbrow $dbrow2 = null;
+def_int $int3 = 0;
+def_boolean $boolean4 = ~script6431;
+$dbrow2, $int3 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col1, $int1);
+if ($dbrow2 ! null & $int3 > 0) {
+    $string0 = append($string0, "Also requires: <~script7020($dbrow2, $int3)><db_getfield($dbrow2, dino_base_camp_building:col1, 0)> (Tier <tostring($int3)>)</col>");
+}
+$dbrow2, $int3 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col2, $int1);
+if ($dbrow2 ! null & $int3 > 0) {
+    $string0 = append($string0, ", <~script7020($dbrow2, $int3)><db_getfield($dbrow2, dino_base_camp_building:col1, 0)> (Tier <tostring($int3)>)</col>");
+}
+$dbrow2, $int3 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col3, $int1);
+if ($dbrow2 ! null & $int3 > 0) {
+    $string0 = append($string0, ", <~script7020($dbrow2, $int3)><db_getfield($dbrow2, dino_base_camp_building:col1, 0)> (Tier <tostring($int3)>)</col>");
+}
+$dbrow2, $int3 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col4, $int1);
+if ($dbrow2 ! null & $int3 > 0) {
+    $string0 = append($string0, ", <~script7020($dbrow2, $int3)><db_getfield($dbrow2, dino_base_camp_building:col1, 0)> (Tier <tostring($int3)>)</col>");
+}
+$dbrow2, $int3 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col5, $int1);
+if ($dbrow2 ! null & $int3 > 0) {
+    $string0 = append($string0, ", <~script7020($dbrow2, $int3)><db_getfield($dbrow2, dino_base_camp_building:col1, 0)> (Tier <tostring($int3)>)</col>");
+}
+def_stat $stat5 = null;
+def_int $int6 = 0;
+if (string_length($string0) > 1) {
+    if ($boolean4 = true) {
+        $string0 = append($string0, "<br>");
+    } else {
+        $string0 = append($string0, "<br><br>");
+    }
+}
+$stat5, $int6 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col6, $int1);
+if ($stat5 ! null & $int6 > 0) {
+    $string0 = append($string0, "Level requirements: <~script7021($stat5, $int6)><tostring($int6)> <enum(stat, string, stat_to_string, $stat5)></col>");
+}
+$stat5, $int6 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col7, $int1);
+if ($stat5 ! null & $int6 > 0) {
+    $string0 = append($string0, ", <~script7021($stat5, $int6)><tostring($int6)> <enum(stat, string, stat_to_string, $stat5)></col>");
+}
+$stat5, $int6 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col8, $int1);
+if ($stat5 ! null & $int6 > 0) {
+    $string0 = append($string0, ", <~script7021($stat5, $int6)><tostring($int6)> <enum(stat, string, stat_to_string, $stat5)></col>");
+}
+$stat5, $int6 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col9, $int1);
+if ($stat5 ! null & $int6 > 0) {
+    $string0 = append($string0, ", <~script7021($stat5, $int6)><tostring($int6)> <enum(stat, string, stat_to_string, $stat5)></col>");
+}
+$stat5, $int6 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col10, $int1);
+if ($stat5 ! null & $int6 > 0) {
+    $string0 = append($string0, ", <~script7021($stat5, $int6)><tostring($int6)> <enum(stat, string, stat_to_string, $stat5)></col>");
+}
+def_obj $obj7 = null;
+switch_int ($int1) {
+    case 0 :
+        $obj7 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col11, 0);
+    case 1 :
+        $obj7 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col12, 0);
+    case 2 :
+        $obj7 = db_getfield($dbrow0, dino_base_camp_building_prerequisite:col13, 0);
+}
+if ($obj7 ! null) {
+    if (string_length($string0) > 1) {
+        if ($boolean4 = true) {
+            $string0 = append($string0, "<br>");
+        } else {
+            $string0 = append($string0, "<br><br>");
+        }
+    }
+    $string0 = append($string0, "Item requirement: <~script7030($obj7)><oc_name($obj7)>");
+}
+return($string0);

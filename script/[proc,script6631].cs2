@@ -1,0 +1,39 @@
+// 6631
+[proc,script6631](int $int0)(boolean)
+def_int $int1 = -1;
+$int1 = activeclansettings_getaffinedslot(removetags(chat_playername_unfiltered));
+if ($int1 < 0) {
+    return(false);
+}
+if ($int0 = -1) {
+    $int0 = activeclansettings_getaffinedrank($int1);
+}
+switch_int ($int0) {
+    case 100 :
+        if (%clan_permissions_admin_canremovehabitat = 1) {
+            return(true);
+        }
+    case 101 :
+        if (%clan_permissions_organiser_canremovehabitat = 1) {
+            return(true);
+        }
+    case 102 :
+        if (%clan_permissions_coordinator_canremovehabitat = 1) {
+            return(true);
+        }
+    case 103 :
+        if (%clan_permissions_overseer_canremovehabitat = 1) {
+            return(true);
+        }
+    case 125 :
+        if (%clan_permissions_deputyowner_canremovehabitat = 1) {
+            return(true);
+        }
+    case 126 :
+        return(true);
+    case 127 :
+        return(true);
+    case default :
+        return(false);
+}
+return(false);

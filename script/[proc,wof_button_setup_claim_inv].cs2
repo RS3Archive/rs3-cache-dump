@@ -1,0 +1,70 @@
+// 9720
+[proc,wof_button_setup_claim_inv](obj $obj0, int $int1)
+if (%wof_claim_to_inv = -1) {
+    return;
+}
+def_string $string0 = "Claim to backpack";
+def_boolean $boolean2 = false;
+def_string $string1 = "You do not have a prize to claim.";
+def_string $string2 = "You do not have a prize to claim.";
+def_string $string3 = "Backpack";
+if (%wof_reward_slot <= 0) {
+    $string1 = "You do not have a prize to claim.";
+    $string2 = "You do not have a prize to claim.";
+    $boolean2 = false;
+} else {
+    $string0 = "Claim to backpack";
+    $string3 = "Backpack";
+    switch_int (%wof_claim_state) {
+        case 8, 9 :
+            $string2 = "This prize cannot be claimed to your backpack.";
+            $boolean2 = false;
+        case 12 :
+            $string3 = "Can't Claim";
+            $string2 = "You cannot claim this prize at the moment.";
+            $boolean2 = false;
+            switch_obj ($obj0) {
+                case trh_dungeoneering_token :
+                    $string2 = "You have too many dungeoneering tokens and cannot claim this prize at the moment.";
+                case trh87_butterfly_token :
+                    $string2 = "You have too many butterfly tokens and cannot claim this prize at the moment.";
+                case trh104_sailing_token :
+                    $string2 = "You have too many sailing tokens and cannot claim this prize at the moment.";
+            }
+    }
+    switch_int (%wof_claim_to_inv) {
+        case 1 :
+            if (oc_members($obj0) = 1 & map_members = false) {
+                $string1 = "Claim your prize. This is a members-only prize, so you will need to subscribe to use it.";
+            } else {
+                $string1 = "Claim your prize to your backpack.";
+            }
+            $boolean2 = true;
+        case 2 :
+            $string2 = "Your backpack doesn't have room for your prize at the moment.";
+            $string3 = "Backpack Full";
+        case 13 :
+            $string3 = "Subscribe";
+            $string0 = "Subscribe";
+            $string1 = "You must be a member to claim this prize. Click here to subscribe.";
+            $boolean2 = true;
+        case 12 :
+            $string3 = "Can't Claim";
+            $string2 = "You cannot claim this prize at the moment.";
+            $boolean2 = false;
+        case 7 :
+            $string1 = "Treasure Hunter is not available at the moment. Please try later.";
+            $string2 = "Treasure Hunter is not available at the moment. Please try later.";
+        case 10 :
+            $string1 = "Loading...";
+            $string2 = "Loading...";
+    }
+}
+if_setop(1, $string0, wheel_of_fortune:reward_claim_inv_button);
+if_setenabled($boolean2, wheel_of_fortune:reward_claim_inv_button);
+if ($boolean2 = true) {
+    if_setonmouserepeat("script3876($string1, event_com, -1)", wheel_of_fortune:reward_claim_inv_button);
+} else {
+    if_setonmouserepeat("script3876($string2, event_com, -1)", wheel_of_fortune:reward_claim_inv_button);
+}
+if_settext($string3, wheel_of_fortune:reward_claim_inv_button);

@@ -1,0 +1,36 @@
+// 20302
+[proc,script20302](achievement $achievement0)(quest)
+def_quest $quest1 = ~script20301($achievement0);
+def_quest $quest2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($quest1 ! null) {
+    $int4 = quest_questreq_count($quest1);
+    while ($int3 < $int4) {
+        $quest2 = quest_questreq($quest1, $int3);
+        if ($quest2 ! null & ~ql4_getquestcomplete($quest2) = false) {
+            return($quest2);
+        }
+        $int3 = calc($int3 + 1);
+    }
+    return($quest1);
+}
+$int3 = 0;
+$int4 = achievement_quest_req_count($achievement0);
+while ($int3 < $int4) {
+    $quest1 = achievement_quest_req($achievement0, $int3);
+    if ($quest1 ! null & ~ql4_getquestcomplete($quest1) = false & ~script18524($quest1) = false) {
+        return($quest1);
+    }
+    $int3 = calc($int3 + 1);
+}
+$int3 = 0;
+$int4 = achievement_quest_prereq_count($achievement0, 0);
+while ($int3 < $int4) {
+    $quest1 = achievement_quest_prereq($achievement0, 0, $int3);
+    if ($quest1 ! null & ~ql4_getquestcomplete($quest1) = false & ~script18524($quest1) = false) {
+        return($quest1);
+    }
+    $int3 = calc($int3 + 1);
+}
+return(null);

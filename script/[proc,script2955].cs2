@@ -1,0 +1,55 @@
+// 2955
+[proc,script2955](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, graphic $graphic10, graphic $graphic11, graphic $graphic12, graphic $graphic13)
+def_int $setposh14 = null;
+def_int $setposv15 = null;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_graphic $graphic18 = null;
+def_int $int19 = $int4;
+def_int $int20 = $int3;
+switch_int ($int7) {
+    case 0 :
+        $setposv15 = ^setpos_abs_top;
+        $int17 = $int5;
+        $graphic18 = $graphic10;
+        $int19 = $int3;
+        $int20 = $int4;
+    case 1 :
+        $setposh14 = ^setpos_abs_right;
+        $int16 = $int6;
+        $graphic18 = $graphic11;
+    case 2 :
+        $setposv15 = ^setpos_abs_bottom;
+        $int17 = $int5;
+        $graphic18 = $graphic12;
+        $int19 = $int3;
+        $int20 = $int4;
+    case 3 :
+        $setposh14 = ^setpos_abs_left;
+        $int16 = $int6;
+        $graphic18 = $graphic13;
+}
+switch_int ($int8) {
+    case 0 :
+        $setposv15 = ^setpos_abs_top;
+        $int17 = 0;
+    case 1 :
+        $setposh14 = ^setpos_abs_right;
+        $int16 = 0;
+    case 2 :
+        $setposv15 = ^setpos_abs_bottom;
+        $int17 = 0;
+    case 3 :
+        $setposh14 = ^setpos_abs_left;
+        $int16 = 0;
+}
+if ($setposh14 = null | $setposv15 = null) {
+    ~error("Align X and Y or both -1, direction is <tostring($int7)>, position is <tostring($int8)>");
+}
+if (.cc_findbycategory($component0, $int1, $int2) = 1) {
+    .cc_setposition($int16, $int17, $setposh14, $setposv15);
+    if ($int9 = 1) {
+        .cc_setgraphic($graphic18);
+        .cc_setsize($int19, $int20, ^setsize_abs, ^setsize_abs);
+    }
+}

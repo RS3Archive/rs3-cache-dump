@@ -1,0 +1,24 @@
+// 12310
+[proc,script12310](component $component0, int $int1, int $int2)(boolean, int, int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = if_getnextsubid($component0);
+if ($int2 < 0 | calc($int1 + $int2) > $int5) {
+    return(false, $int3, $int4);
+}
+def_int $int6 = 0;
+if (if_find($component0) = true) {
+    $int6 = cc_param(telemetry_graph_component_offset);
+}
+$int6 = calc(($int6 + $int5 - $int1) % $int5);
+def_int $int7 = -1;
+def_int $int8 = 0;
+while (++$int7 < $int2) {
+    if (cc_find($component0, calc(($int6 + $int5 - $int7) % $int5)) = true) {
+        $int8 = cc_param(rs3tli_component_param_int0);
+        $int3, $int4 = ~script12312($int3, $int4, $int8);
+    } else {
+        return(false, $int3, $int4);
+    }
+}
+return(true, $int3, $int4);

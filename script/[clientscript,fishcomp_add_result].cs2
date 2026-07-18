@@ -1,0 +1,159 @@
+// 256
+[clientscript,fishcomp_add_result]
+def_string $string0 = "";
+if (%fishcomp_result_fish = -1 | %fishcomp_result_habitat = -1 | %fishcomp_result_weight = -1 | %fishcomp_result_bait = -1 | %fishcomp_result_hook = -1 | %fishcomp_result_distance = -1 | %fishcomp_result_rating = -1 | %fishcomp_result_big_fish = -1) {
+    return;
+}
+def_int $int0 = calc(if_getnextsubid(fishcomp_overlay:history_habitat_layer) * (18 + 4));
+def_int $int1 = calc((if_getnextsubid(fishcomp_overlay:history_habitat_layer) + 1) * (18 + 4));
+if_setscrollsize(0, $int1, fishcomp_overlay:history_scrolllayer);
+if_setsize(if_getwidth(fishcomp_overlay:history_species_layer), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:history_species_layer);
+cc_create(fishcomp_overlay:history_species_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_species_layer));
+if (%fishcomp_result_big_fish >= 1) {
+    cc_setcolour(0xf1d8b0);
+} else {
+    cc_setcolour(0xa4a467);
+}
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script1668(%fishcomp_result_fish));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+$string0 = "<cc_gettext>: The type of fish";
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if_setsize(if_getwidth(fishcomp_overlay:history_habitat_layer), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:history_habitat_layer);
+cc_create(fishcomp_overlay:history_habitat_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_habitat_layer));
+if (%fishcomp_result_big_fish >= 1) {
+    cc_setcolour(0xf1d8b0);
+} else {
+    cc_setcolour(0xa4a467);
+}
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script276(%fishcomp_result_habitat));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+$string0 = "<cc_gettext>: The habitat in which you caught the fish";
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if_setsize(if_getwidth(fishcomp_overlay:history_weight_layer), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:history_weight_layer);
+cc_create(fishcomp_overlay:history_weight_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_weight_layer));
+if (%fishcomp_result_big_fish >= 1) {
+    cc_setcolour(0xf1d8b0);
+} else {
+    cc_setcolour(0xa4a467);
+}
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(tostring(%fishcomp_result_weight));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+$string0 = "<cc_gettext>: The weight of the fish";
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if_setsize(if_getwidth(fishcomp_overlay:history_bait_layer), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:history_bait_layer);
+cc_create(fishcomp_overlay:history_bait_layer, ^iftype_graphic, if_getnextsubid(fishcomp_overlay:history_bait_layer));
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_bottom);
+def_obj $obj2 = null;
+switch_int (%fishcomp_result_bait) {
+    case 1 :
+        $obj2 = fishcomp_bait_worms;
+        $string0 = "Worm";
+    case 2 :
+        $obj2 = fishcomp_bait_maggots;
+        $string0 = "Maggot";
+    case 3 :
+        $obj2 = fishcomp_bait_crickets;
+        $string0 = "Cricket";
+    case 4 :
+        $obj2 = fishcomp_bait_locusts;
+        $string0 = "Locust";
+    case 5 :
+        $obj2 = fishcomp_bait_cray;
+        $string0 = "Crayfish";
+    case 6 :
+        $obj2 = fishcomp_bait_shrimp;
+        $string0 = "Shrimp";
+    case 7 :
+        $obj2 = fishcomp_bait_emerald_butterfly;
+        $string0 = "Green moth";
+    case 8 :
+        $obj2 = fishcomp_bait_storm_butterfly;
+        $string0 = "Grey moth";
+}
+if (%fishcomp_result_big_fish < 2) {
+    cc_setobject_nonum($obj2, 0);
+    $string0 = "<$string0>: The bait you used to catch the fish";
+} else {
+    $string0 = "You do not know which bait was used to catch this big fish";
+}
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if_setsize(if_getwidth(fishcomp_overlay:history_hook_layer), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:history_hook_layer);
+cc_create(fishcomp_overlay:history_hook_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_hook_layer));
+if (%fishcomp_result_big_fish >= 1) {
+    cc_setcolour(0xf1d8b0);
+} else {
+    cc_setcolour(0xa4a467);
+}
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+if (%fishcomp_result_big_fish < 2) {
+    cc_settext(~script278(%fishcomp_result_hook));
+    $string0 = "<cc_gettext>: The hook you used to catch the fish";
+} else {
+    $string0 = "You do not know which hook was used to catch this big fish";
+}
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if_setsize(if_getwidth(fishcomp_overlay:history_distance_layer), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:history_distance_layer);
+cc_create(fishcomp_overlay:history_distance_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_distance_layer));
+if (%fishcomp_result_big_fish >= 1) {
+    cc_setcolour(0xf1d8b0);
+} else {
+    cc_setcolour(0xa4a467);
+}
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+if (%fishcomp_result_big_fish < 2) {
+    cc_settext(tostring(%fishcomp_result_distance));
+    $string0 = "<cc_gettext>: The distance from the shore where you caught the fish";
+} else {
+    $string0 = "You do not know which weights were used to catch this big fish";
+}
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if_setsize(if_getwidth(fishcomp_overlay:history_rating_layer), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:history_rating_layer);
+cc_create(fishcomp_overlay:history_rating_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_rating_layer));
+if (%fishcomp_result_big_fish >= 1) {
+    cc_setcolour(0xf1d8b0);
+} else {
+    cc_setcolour(0xa4a467);
+}
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+if (%fishcomp_result_big_fish < 2) {
+    cc_settext("<tostring(%fishcomp_result_rating)>%");
+}
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if (%fishcomp_result_rating = 100) {
+    $string0 = "<cc_gettext>: You are catching the highest-quality fish of this type at this habitat.";
+} else {
+    $string0 = "<cc_gettext>: The quality of the fish you caught. Selecting a more suitable habitat, bait, hook and/or weights increases the rating of catches.";
+}
+if (%fishcomp_result_big_fish = 2) {
+    $string0 = "You helped a contestant to catch this big fish";
+}
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if (if_getheight(fishcomp_overlay:fishcomp_right_panel) = 215) {
+    ~rs3_scrollbar_vertical(fishcomp_overlay:history_scrollbar, fishcomp_overlay:history_scrolllayer);
+}
+%fishcomp_result_fish = -1;
+%fishcomp_result_habitat = -1;
+%fishcomp_result_weight = -1;
+%fishcomp_result_bait = -1;
+%fishcomp_result_hook = -1;
+%fishcomp_result_distance = -1;
+%fishcomp_result_rating = -1;
+%fishcomp_result_big_fish = -1;

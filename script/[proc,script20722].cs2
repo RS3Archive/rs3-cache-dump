@@ -1,0 +1,31 @@
+// 20722
+[proc,script20722](int $int0)
+if ($int0 = 1 & %construction_house_plot_owner = 1) {
+    if_settext("House Controls", poh_house_controls:house_settings_title);
+    if_sethide(false, poh_house_controls:instructions_layer);
+    if_sethide(true, poh_house_controls:controls_layer);
+    ~script20723;
+    ~script16272(1, ^key_del, 8, poh_house_controls:instructions_build, 5, 0);
+    if (~script20783(%construction_house_mousespace_locked_coord) = true) {
+        ~script20778(0);
+    } else {
+        ~script20778(1);
+    }
+} else {
+    if_sethide(true, poh_house_controls:instructions_layer);
+    if_sethide(false, poh_house_controls:controls_layer);
+    cc_deleteall(poh_house_controls:instructions_build);
+    if (%construction_house_plot_owner = 0) {
+        if_sethide(true, poh_house_controls:information_pane);
+        if_sethide(true, poh_house_controls:content_button_layer);
+        if_sethide(true, poh_house_controls:neighbourhood_info_tooltip);
+        if_sethide(false, poh_house_controls:neighbourhood_info);
+        ~script20726;
+    } else {
+        if_settext("House Controls", poh_house_controls:house_settings_title);
+        if_sethide(false, poh_house_controls:information_pane);
+        if_sethide(false, poh_house_controls:content_button_layer);
+        if_sethide(false, poh_house_controls:neighbourhood_info_tooltip);
+        if_sethide(true, poh_house_controls:neighbourhood_info);
+    }
+}

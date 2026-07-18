@@ -1,0 +1,133 @@
+// 359
+[clientscript,pof_animal_check_onload](int $int0, inv $inv1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, struct $struct8, struct $struct9, struct $struct10, npc $npc11, int $int12, bas $bas13, int $int14, int $int15, int $int16, int $int17, string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, string $string6, string $string7, string $string8)
+def_int $int18 = scale($int5, 100, 106);
+def_int $int19 = scale($int6, 100, 106);
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_dbrow $dbrow25 = ~script2646($inv1);
+def_int $int26 = 334;
+def_int $int27 = 512;
+def_obj $obj28 = inv_getobj($inv1, $int2);
+if_setsize($int27, $int26, ^setsize_abs, ^setsize_abs, pof_animal:container_layer);
+~script15450($int6, $int5, $int15, $int16, $int17);
+switch_int ($int14) {
+    case 0 :
+        if_sethide(true, pof_animal:add_remove_layer);
+        if_sethide(false, pof_animal:check_data_layer);
+        if_sethide(true, pof_animal:add_remove_farmhands_layer);
+        ~script13972(pof_animal:checkanimal_build, pof_animal:checkanimal_click, rs3tli_modal_tab, "Check Animals", 1);
+        ~script13969(pof_animal:inventory_build, pof_animal:inventory_click, rs3tli_modal_tab, "Add/Remove Animals");
+        ~script13969(pof_animal:farmhands_build, pof_animal:farmhands_click, rs3tli_modal_tab, "Farmhands");
+        if ($obj28 ! null | oc_hasvarobj($obj28) = true) {
+            if (inv_getvar($inv1, $int2, pof_obj_animal_favourite) = 1) {
+                if_setgraphic("stat_star,0", pof_animal:favourite_icon);
+            } else {
+                if_setgraphic("stat_star,1", pof_animal:favourite_icon);
+            }
+        }
+        if (~is_mobile_client = false) {
+            if_clearops(pof_animal:health_bar);
+            if_clearops(pof_animal:happiness_bar);
+        }
+        %pof_animal_check_trait_1_active = 0;
+        %pof_animal_check_trait_2_active = 0;
+        %pof_animal_check_trait_3_active = 0;
+        ~script3695($inv1);
+        if ($int0 = 1) {
+            if_sethide(true, pof_animal:tab_layer);
+            if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, pof_animal:check_data_layer);
+            $int26 = calc($int26 - 23);
+        }
+        if ($dbrow25 ! null) {
+            ~pof_update_button(pof_animal:cure_build, pof_animal:cure_click, "Cure Disease", ~script915($int4));
+            ~pof_update_button(pof_animal:harvest_build, pof_animal:harvest_click, "Gather Produce", ~script915($int7));
+        } else if ($inv1 = inv) {
+            if_sethide(true, pof_animal:button_layer);
+            $int26 = calc($int26 - 42);
+        } else if ($inv1 = pof_barn) {
+            if_sethide(true, pof_animal:cure_build);
+            if_sethide(true, pof_animal:cure_click);
+            if_sethide(true, pof_animal:harvest_build);
+            if_sethide(true, pof_animal:harvest_click);
+        }
+        if_setsize($int27, $int26, ^setsize_abs, ^setsize_abs, pof_animal:container_layer);
+        if ($struct8 = null) {
+            ~script13994(pof_animal:trait1_button, null, rs3tli_3x3_button, "", true);
+        } else {
+            ~script13993(pof_animal:trait1_button, null, rs3tli_3x3_button, "");
+        }
+        if ($struct9 = null) {
+            ~script13994(pof_animal:trait2_button, null, rs3tli_3x3_button, "", true);
+        } else {
+            ~script13993(pof_animal:trait2_button, null, rs3tli_3x3_button, "");
+        }
+        if ($struct10 = null) {
+            ~script13994(pof_animal:trait3_button, null, rs3tli_3x3_button, "", true);
+        } else {
+            ~script13993(pof_animal:trait3_button, null, rs3tli_3x3_button, "");
+        }
+        if_setsize($int18, if_getheight(pof_animal:happinessbar), ^setsize_abs, ^setsize_abs, pof_animal:happinessbar);
+        if_settext("<tostring($int5)>%", pof_animal:happiness_percentage);
+        if_setsize($int19, if_getheight(pof_animal:healthbar), ^setsize_abs, ^setsize_abs, pof_animal:healthbar);
+        if_settext("<tostring($int6)>%", pof_animal:health_percentage);
+        if_settext($string1, pof_animal:breed);
+        if_settext($string2, pof_animal:growth_stage);
+        if_settext($string3, pof_animal:weight);
+        if_settext($string4, pof_animal:speed);
+        if_settext($string5, pof_animal:attractiveness);
+        if_settext($string7, pof_animal:fluff_text);
+        if_settext($string0, pof_animal:name);
+        if_settext($string6, pof_animal:food_info);
+        if_settext($string8, pof_animal:paddock_size);
+        if ($struct8 = null) {
+            if_sethide(true, pof_animal:trait1_layer);
+            if_sethide(false, pof_animal:notraittext);
+        } else {
+            if_sethide(false, pof_animal:trait2_layer);
+            if_sethide(false, pof_animal:trait3_layer);
+            if_sethide(true, pof_animal:notraittext);
+            if_sethide(false, pof_animal:trait1_layer);
+            if_settext(struct_param($struct8, pof_trait_name), pof_animal:trait1);
+            if ($struct9 ! null) {
+                if_settext(struct_param($struct9, pof_trait_name), pof_animal:trait2);
+            } else {
+                if_settext("No Trait", pof_animal:trait2);
+            }
+            if ($struct10 ! null) {
+                if_settext(struct_param($struct10, pof_trait_name), pof_animal:trait3);
+            } else {
+                if_settext("No Trait", pof_animal:trait3);
+            }
+        }
+        if_setnpcmodel($npc11, pof_animal:model);
+        if_setmodelanim(bas_getanim_ready($bas13), pof_animal:model);
+        if_setmodelangle(0, 0, nc_param($npc11, pof_animal_anglex), nc_param($npc11, pof_animal_angley), 0, $int12, pof_animal:model);
+        if ($npc11 = pof_animal_frog_egg) {
+            if_setposition(39, 18, ^setpos_abs_left, ^setpos_abs_top, pof_animal:model);
+        }
+        if ($int12 > 200) {
+            if_setmodelzoom($int12, pof_animal:model);
+        }
+    case 1 :
+        if ($dbrow25 ! null) {
+            ~script3696($dbrow25);
+        }
+    case 2 :
+        if ($dbrow25 ! null) {
+            if_sethide(true, pof_animal:add_remove_layer);
+            if_sethide(true, pof_animal:check_data_layer);
+            if_sethide(false, pof_animal:add_remove_farmhands_layer);
+            ~script13969(pof_animal:checkanimal_build, pof_animal:checkanimal_click, rs3tli_modal_tab, "Check Animals");
+            ~script13969(pof_animal:inventory_build, pof_animal:inventory_click, rs3tli_modal_tab, "Add/Remove Animals");
+            ~script13972(pof_animal:farmhands_build, pof_animal:farmhands_click, rs3tli_modal_tab, "Farmhands", 1);
+            ~script4197($dbrow25);
+        }
+}
+if (db_getfield($dbrow25, pof_paddock:col1, 0) = 2) {
+    if_sethide(true, pof_animal:farmhands_tab);
+} else {
+    if_sethide(false, pof_animal:farmhands_tab);
+}

@@ -1,0 +1,19 @@
+// 1912
+[proc,script1912]
+cc_deleteall(qps:tab1_footer_build);
+cc_deleteall(qps:tab1_footer_click);
+def_int $int0 = -1;
+def_struct $struct1 = null;
+if_settext("Milestone Rewards", qps:tab1_footer_text);
+cc_create(qps:tab1_footer_bg, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(panel_shelf_horizontal_qps);
+while (++$int0 < enum_getoutputcount(qps_if_reward_milestones)) {
+    $struct1 = enum(int, struct, qps_if_reward_milestones, $int0);
+    if ($int0 > 0) {
+        ~script1922(qps:tab1_footer_build, $int0, 3, $struct1, calc($int0 * 270 - 82), 99, 130, 2);
+    }
+    ~script1924(qps:tab1_footer_build, qps:tab1_footer_click, $int0, 3, $struct1, calc(48 + 270 * $int0), 32, 140, 140, 23, false);
+    ~script1913(qps:tab1_footer_build, $int0, $struct1, calc(48 + 270 * $int0), calc(18 + 140), 140, 20);
+}

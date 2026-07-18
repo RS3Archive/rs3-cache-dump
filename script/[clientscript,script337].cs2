@@ -1,0 +1,28 @@
+// 337
+[clientscript,script337](int $int0, int $int1)
+def_int $int2 = calc($int1 + $int0 * 25);
+if (clientclock > calc($int2 + 50)) {
+    cc_deleteall(levelup:firework_layer);
+    if_setontimer(null, levelup:levelup_bg);
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = random(150);
+def_int $int5 = random(50);
+while ($int3 < $int0) {
+    if (clientclock = calc($int1 + $int3 * 25)) {
+        cc_deleteall(levelup:firework_layer);
+        cc_create(levelup:firework_layer, ^iftype_model, if_getnextsubid(levelup:firework_layer));
+        cc_setsize(121, 114, ^setsize_abs, ^setsize_abs);
+        cc_setmodel(level_up_fireworks_interface_pink);
+        cc_setmodelanim(interface_fireworks);
+        cc_setmodelangle(0, 0, 512, 0, 0, calc(900 + random(1000)));
+        $int4 = random(150);
+        $int5 = random(50);
+        if (random(2) = 1) {
+            $int4 = calc($int4 * -1);
+        }
+        cc_setposition($int4, $int5, ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    $int3 = calc($int3 + 1);
+}

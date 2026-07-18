@@ -1,0 +1,40 @@
+// 8765
+[clientscript,script8765]
+if (%oct13_buyitem > 0) {
+    if_sethide(false, oct13_reward_shop:confirm_buy);
+    cc_deleteall(oct13_reward_shop:confirm_buy_window);
+    cc_create(oct13_reward_shop:confirm_buy_window, ^iftype_graphic, 0);
+    if (%oct13_buyitem > 3) {
+        cc_setposition(0, 16, ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setsize(48, 48, ^setsize_abs, ^setsize_abs);
+    } else {
+        cc_setposition(0, 24, ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    }
+    switch_int (%oct13_buyitem) {
+        case 1 :
+            if (playermember = false) {
+                cc_setobject(oct13_lamp_small, 1);
+            } else {
+                cc_setobject(oct13_lamp_medium, 1);
+            }
+        case 2 :
+            if (playermember = false) {
+                cc_setobject(oct13_lamp_medium, 1);
+            } else {
+                cc_setobject(oct13_lamp_large, 1);
+            }
+        case 3 :
+            cc_setobject(oct13_helmet, 1);
+            if_settext("Claim", oct13_reward_shop:oct13_confirm_button_text);
+        case 4 :
+            cc_setgraphic("emotes,89");
+            if_settext("Claim", oct13_reward_shop:oct13_confirm_button_text);
+        case 5 :
+            cc_setgraphic(aif_olympics_reward_shop_title_icon);
+            if_settext("Claim", oct13_reward_shop:oct13_confirm_button_text);
+    }
+} else {
+    cc_deleteall(oct13_reward_shop:confirm_buy_window);
+    if_sethide(true, oct13_reward_shop:confirm_buy);
+}

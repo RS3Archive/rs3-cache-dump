@@ -1,0 +1,62 @@
+// 13285
+[proc,cheevo_details](struct $struct0, int $int1)(string)
+if ($struct0 = null) {
+    return("");
+}
+def_string $string0 = struct_param($struct0, cheevo_details);
+if (~script6431 = true & string_length(struct_param($struct0, cheevo_details_mobile)) > 0) {
+    $string0 = struct_param($struct0, cheevo_details_mobile);
+    if (string_length(struct_param($struct0, cheevo_details_mobile_spria)) > 0 & %luc2_hero_part_1_vis > 0) {
+        $string0 = struct_param($struct0, cheevo_details_mobile_spria);
+    }
+} else if (string_length(struct_param($struct0, cheevo_details_spria)) > 0 & %luc2_hero_part_1_vis > 0) {
+    $string0 = struct_param($struct0, cheevo_details_spria);
+}
+if (string_length(struct_param($struct0, task_details_ironman)) > 0 & ~ironman_mode = true) {
+    $string0 = struct_param($struct0, task_details_ironman);
+}
+if (struct_param($struct0, cheevo_path_enum) ! null) {
+    $string0 = struct_param($struct0, cheevo_path_desc);
+}
+switch_struct ($struct0) {
+    case cheevo_pvm_order_of_slayers :
+        if (%luc2_hero_part_1_vis = 0) {
+            $string0 = "Complete a task from each Slayer Master consecutively, starting with Turael and ending with Laniakea.";
+        } else {
+            $string0 = "Complete a task from each Slayer Master consecutively, starting with Spria and ending with Laniakea.";
+        }
+    case cheevo_atdes_easy_reward :
+        if (%ozan3_main >= 100) {
+            $string0 = " Complete the Easy Tasks and then speak to Hassan in Menaphos to claim your reward.";
+        } else {
+            $string0 = " Complete the Easy Tasks and then speak to Hassan in Al Kharid Palace to claim your reward.";
+        }
+}
+def_string $string1 = "";
+def_int $int2 = 0;
+def_quest $quest3 = null;
+if (struct_param($struct0, quest_id) > 0) {
+    if (string_length($string0) > 0) {
+        return($string0);
+    }
+    $quest3 = struct_param($struct0, quest_struct_quest);
+    if ($quest3 = null) {
+        ~error("quest_struct_quest param not specified on quest #<tostring(struct_param($struct0, quest_id))>.");
+        return($string0);
+    }
+    return(~script8220($quest3));
+} else if (struct_param($struct0, bslay_id) > 0) {
+    return("Defeat this boss at least once.");
+} else if (string_length(struct_param($struct0, task_details_ironman)) > 0 & ~ironman_mode = true) {
+    return($string0);
+} else if ($int1 = 1 & (struct_param($struct0, cheevo_check_var_total) = -1337 & struct_param($struct0, cheevo_meta_list) = null | struct_param($struct0, cheevo_counter) = true)) {
+    $int2 = ~cheevo_get_check_var_total($struct0);
+    $string1 = "<tostring_localised(max(0, ~cheevo_get_progress($struct0)), true)>/<tostring_localised($int2, true)>";
+    if (struct_param($struct0, cheevo_unique_id) = 1701) {
+        return("<$string0> (<$string1> Quest Points)");
+    } else {
+        return("<$string0> (<$string1>)");
+    }
+} else {
+    return($string0);
+}

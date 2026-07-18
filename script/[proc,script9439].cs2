@@ -1,0 +1,157 @@
+// 9439
+[proc,script9439](int $int0)
+if_sethide(true, 6awe2_golem_construction:option_selected_1);
+if_sethide(true, 6awe2_golem_construction:option_selected_2);
+if_sethide(true, 6awe2_golem_construction:option_selected_3);
+switch_int ($int0) {
+    case 0 :
+    case 1 :
+        if_sethide(false, 6awe2_golem_construction:option_selected_1);
+    case 2 :
+        if_sethide(false, 6awe2_golem_construction:option_selected_2);
+    case 3 :
+        if_sethide(false, 6awe2_golem_construction:option_selected_3);
+}
+def_int $int1 = 0;
+if (%6awe2_golem_progress_1_client >= %6awe2_golem_resource_required_client) {
+    $int1 = 1;
+} else if (%6awe2_golem_progress_2_client >= %6awe2_golem_resource_required_client) {
+    $int1 = 2;
+} else if (%6awe2_golem_progress_3_client >= %6awe2_golem_resource_required_client) {
+    $int1 = 3;
+}
+if ($int1 ! 0) {
+    if_sethide(false, 6awe2_golem_construction:contribute_button_disabled);
+} else if ($int0 = 0 | %6awe2_golem_currency = 0) {
+    if_sethide(false, 6awe2_golem_construction:contribute_button_disabled);
+} else {
+    if_sethide(true, 6awe2_golem_construction:contribute_button_disabled);
+}
+~script9441(6awe2_golem_construction:progress_1);
+~script9441(6awe2_golem_construction:progress_2);
+~script9441(6awe2_golem_construction:progress_3);
+if ($int1 = 1) {
+    ~rs3_background_panel(6awe2_golem_construction:option_text_background_1, rs3_content_container_selected);
+} else {
+    ~rs3_background_panel(6awe2_golem_construction:option_text_background_1, rs3_content_container_inactive);
+}
+if ($int1 = 2) {
+    ~rs3_background_panel(6awe2_golem_construction:option_text_background_2, rs3_content_container_selected);
+} else {
+    ~rs3_background_panel(6awe2_golem_construction:option_text_background_2, rs3_content_container_inactive);
+}
+if ($int1 = 3) {
+    ~rs3_background_panel(6awe2_golem_construction:option_text_background_3, rs3_content_container_selected);
+} else {
+    ~rs3_background_panel(6awe2_golem_construction:option_text_background_3, rs3_content_container_inactive);
+}
+if ($int1 = 1) {
+    if_setcolour(^white, 6awe2_golem_construction:option_text_1);
+} else {
+    if_setcolour(0xaed0e0, 6awe2_golem_construction:option_text_1);
+}
+if ($int1 = 2) {
+    if_setcolour(^white, 6awe2_golem_construction:option_text_2);
+} else {
+    if_setcolour(0xaed0e0, 6awe2_golem_construction:option_text_2);
+}
+if ($int1 = 3) {
+    if_setcolour(^white, 6awe2_golem_construction:option_text_3);
+} else {
+    if_setcolour(0xaed0e0, 6awe2_golem_construction:option_text_3);
+}
+switch_int ($int0) {
+    case 0 :
+        if ($int1 ! 0) {
+            switch_int (%6awe2_golem_interface_tab) {
+                case 0 :
+                    if_settext("Head component complete.", 6awe2_golem_construction:description_title);
+                    switch_int ($int1) {
+                        case 1 :
+                            if_settext("The next golem will have an offensive head.", 6awe2_golem_construction:description_text);
+                        case 2 :
+                            if_settext("The next golem will have a defensive head.", 6awe2_golem_construction:description_text);
+                        case 3 :
+                            if_settext("The next golem will have a special head.", 6awe2_golem_construction:description_text);
+                    }
+                case 1 :
+                    if_settext("Torso component complete.", 6awe2_golem_construction:description_title);
+                    switch_int ($int1) {
+                        case 1 :
+                            if_settext("The next golem will have an offensive torso.", 6awe2_golem_construction:description_text);
+                        case 2 :
+                            if_settext("The next golem will have a defensive torso.", 6awe2_golem_construction:description_text);
+                        case 3 :
+                            if_settext("The next golem will have a special torso.", 6awe2_golem_construction:description_text);
+                    }
+                case 2 :
+                    if_settext("Leg component complete.", 6awe2_golem_construction:description_title);
+                    switch_int ($int1) {
+                        case 1 :
+                            if_settext("The next golem will have offensive legs.", 6awe2_golem_construction:description_text);
+                        case 2 :
+                            if_settext("The next golem will have defensive legs.", 6awe2_golem_construction:description_text);
+                        case 3 :
+                            if_settext("The next golem will have special legs.", 6awe2_golem_construction:description_text);
+                    }
+                case 3 :
+                    if_settext("Arm component complete.", 6awe2_golem_construction:description_title);
+                    switch_int ($int1) {
+                        case 1 :
+                            if_settext("The next golem will have offensive arms.", 6awe2_golem_construction:description_text);
+                        case 2 :
+                            if_settext("The next golem will have defensive arms.", 6awe2_golem_construction:description_text);
+                        case 3 :
+                            if_settext("The next golem will have special arms.", 6awe2_golem_construction:description_text);
+                    }
+            }
+        } else {
+            if_settext("Select a component:", 6awe2_golem_construction:description_title);
+            if_settext("Select one of the three components above for more information.", 6awe2_golem_construction:description_text);
+        }
+    case 1 :
+        switch_int (%6awe2_golem_interface_tab) {
+            case 0 :
+                if_settext("Offensive head", 6awe2_golem_construction:description_title);
+                if_settext("This head will give the golem increased attacking power and speed.", 6awe2_golem_construction:description_text);
+            case 1 :
+                if_settext("Offensive torso", 6awe2_golem_construction:description_title);
+                if_settext("This torso will give the golem increased attacking power and speed.", 6awe2_golem_construction:description_text);
+            case 2 :
+                if_settext("Offensive legs", 6awe2_golem_construction:description_title);
+                if_settext("These legs will give the golem increased attacking power and speed.", 6awe2_golem_construction:description_text);
+            case 3 :
+                if_settext("Offensive arms", 6awe2_golem_construction:description_title);
+                if_settext("These arms will give the golem increased attacking power and speed.", 6awe2_golem_construction:description_text);
+        }
+    case 2 :
+        switch_int (%6awe2_golem_interface_tab) {
+            case 0 :
+                if_settext("Defensive head", 6awe2_golem_construction:description_title);
+                if_settext("This gives the golem increased armour and lifespan.", 6awe2_golem_construction:description_text);
+            case 1 :
+                if_settext("Defensive torso", 6awe2_golem_construction:description_title);
+                if_settext("This gives the golem increased armour and lifespan.", 6awe2_golem_construction:description_text);
+            case 2 :
+                if_settext("Defensive legs", 6awe2_golem_construction:description_title);
+                if_settext("This gives the golem increased armour and lifespan.", 6awe2_golem_construction:description_text);
+            case 3 :
+                if_settext("Defensive arms", 6awe2_golem_construction:description_title);
+                if_settext("This gives the golem increased armour and lifespan.", 6awe2_golem_construction:description_text);
+        }
+    case 3 :
+        switch_int (%6awe2_golem_interface_tab) {
+            case 0 :
+                if_settext("Special head", 6awe2_golem_construction:description_title);
+                if_settext("A golem with a special head uses a rallying cry special ability, which aids allies in defending and repairing caravans.", 6awe2_golem_construction:description_text);
+            case 1 :
+                if_settext("Special torso", 6awe2_golem_construction:description_title);
+                if_settext("A golem with a special torso has a healing aura, which heals nearby allies.", 6awe2_golem_construction:description_text);
+            case 2 :
+                if_settext("Special legs", 6awe2_golem_construction:description_title);
+                if_settext("A golem with special legs may perform a special attack which stuns nearby enemies. It also has increased attack speed.", 6awe2_golem_construction:description_text);
+            case 3 :
+                if_settext("Special arms", 6awe2_golem_construction:description_title);
+                if_settext("A golem with special arms uses a gather special ability, causing nearby allies to collect resources more quickly.", 6awe2_golem_construction:description_text);
+        }
+}

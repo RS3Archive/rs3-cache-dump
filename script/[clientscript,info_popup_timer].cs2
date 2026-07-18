@@ -1,0 +1,27 @@
+// 14709
+[clientscript,info_popup_timer](int $int0)
+def_int $int1 = -1;
+def_int $int2 = calc(clientclock - $int0);
+if ($int2 < 50) {
+    if_settrans(scale(255, 50, $int2), info_popup:flash);
+} else if ($int2 >= 50 & $int2 < 150) {
+    if_sethide(true, info_popup:flash);
+} else if ($int2 >= 150 & $int2 < 200) {
+    $int2 = calc(255 - scale(255, 50, calc(200 - $int2)));
+    while (++$int1 < if_getnextsubid(info_popup:bespoke_window_background)) {
+        if (cc_find(info_popup:bespoke_window_background, $int1) = true) {
+            cc_settrans($int2);
+        }
+    }
+    $int1 = -1;
+    while (++$int1 < if_getnextsubid(info_popup:bespoke_window_border)) {
+        if (cc_find(info_popup:bespoke_window_border, $int1) = true) {
+            cc_settrans($int2);
+        }
+    }
+    if_settrans($int2, info_popup:graphic);
+    if_settrans($int2, info_popup:obj);
+    if_settrans($int2, info_popup:title);
+    if_settrans($int2, info_popup:subtitle);
+    if_settrans($int2, info_popup:description);
+}

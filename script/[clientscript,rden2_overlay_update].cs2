@@ -1,0 +1,58 @@
+// 5346
+[clientscript,rden2_overlay_update]
+if_settext(tostring(%rden2_score), rden2_overlay:score_text);
+if_settext(tostring(%rden2_catalyst_held), rden2_overlay:catalyst_text);
+if_settext("<tostring(%rden2_bonus_value)>%", rden2_overlay:charge_text);
+if (%rden2_apparatus_held ! 1) {
+    if_settext("<tostring(%rden2_apparatus_held)> sets", rden2_overlay:apparatus_text);
+} else {
+    if_settext("1 set", rden2_overlay:apparatus_text);
+}
+switch_int (%rden2_apparatus_held) {
+    case 0 :
+        if_setcolour(0xc4312d, rden2_overlay:apparatus_text);
+    case 1 :
+        if_setcolour(0xc4312d, rden2_overlay:apparatus_text);
+    case 2 :
+        if_setcolour(0xd0c420, rden2_overlay:apparatus_text);
+    case 3 :
+        if_setcolour(0xd0c420, rden2_overlay:apparatus_text);
+    case 4 :
+        if_setcolour(0xd0c420, rden2_overlay:apparatus_text);
+    case 5 :
+        if_setcolour(0x28c851, rden2_overlay:apparatus_text);
+    case 6 :
+        if_setcolour(0x28c851, rden2_overlay:apparatus_text);
+}
+if (%rden2_catalyst_held < 3) {
+    if_setcolour(0xc4312d, rden2_overlay:catalyst_text);
+} else {
+    if_setcolour(0x28c851, rden2_overlay:catalyst_text);
+}
+switch_int (%rden2_reagents) {
+    case 0 :
+        if_settext("None", rden2_overlay:reagents_text);
+        if_setcolour(0xc4312d, rden2_overlay:reagents_text);
+    case 1 :
+        if_settext("A", rden2_overlay:reagents_text);
+        if_setcolour(0xd0c420, rden2_overlay:reagents_text);
+    case 2 :
+        if_settext("B", rden2_overlay:reagents_text);
+        if_setcolour(0xd0c420, rden2_overlay:reagents_text);
+    case 3 :
+        if_settext("A & B", rden2_overlay:reagents_text);
+        if_setcolour(0x28c851, rden2_overlay:reagents_text);
+}
+if_settext("<tostring(%rden2_minutes_left)> mins", rden2_overlay:timer_text);
+if (%rden2_minutes_left < 4) {
+    if_setcolour(0xc4312d, rden2_overlay:timer_text);
+} else {
+    if_setcolour(0x28c851, rden2_overlay:timer_text);
+}
+if (%rden2_events_hidden = 0) {
+    if_setgraphic("conq_tick_box,0", rden2_overlay:showevents_button);
+    if_sethide(false, rden2_overlay:events_layer);
+} else {
+    if_setgraphic("conq_tick_box,1", rden2_overlay:showevents_button);
+    if_sethide(true, rden2_overlay:events_layer);
+}

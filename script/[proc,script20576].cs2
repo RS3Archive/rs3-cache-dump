@@ -1,0 +1,43 @@
+// 20576
+[proc,script20576]
+if (%marketplace_bonus_xp_current_choice = 0) {
+    return;
+}
+switch_int (random(6)) {
+    case 0 :
+        sound_vorbis_rate(market26_product_open_01, 1, 0, 150, 350);
+    case 1 :
+        sound_vorbis_rate(market26_product_open_02, 1, 0, 150, 350);
+    case 2 :
+        sound_vorbis_rate(market26_product_open_03, 1, 0, 150, 350);
+    case 3 :
+        sound_vorbis_rate(market26_product_open_04, 1, 0, 150, 350);
+    case 4 :
+        sound_vorbis_rate(market26_product_open_05, 1, 0, 150, 350);
+    case 5 :
+        sound_vorbis_rate(market26_product_open_06, 1, 0, 150, 350);
+}
+def_stat $stat0 = enum(int, stat, int_to_stat, %marketplace_bonus_xp_current_choice);
+def_string $string0 = enum(stat, string, stat_to_string, $stat0);
+def_int $int1 = 0;
+def_boolean $boolean2 = false;
+$int1, $boolean2 = ~script20455(%marketplace_bonus_xp_current_choice, %marketplace_bonus_xp_boosters_to_use);
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int3 = ~script20568($stat0);
+if ($int3 = 2) {
+    $string1 = "<col=FA3232>You cannot place Bonus XP in this skill as you have reached the 100m Bonus XP cap.</col>";
+} else if ($int3 = 0) {
+    $string1 = "<col=FA3232>You cannot place Bonus XP in this skill.</col>";
+} else if ($int3 = 3) {
+    $string1 = "<col=FA3232>You cannot place Bonus XP in this skill because it has reached the 200m XP cap.</col>";
+} else {
+    if ($boolean2 = true) {
+        $string1 = "<col=FA3232>You are receiving less Bonus XP as this redemption will exceed the 100m Bonus XP cap.</col><br>";
+    }
+    $string2 = "You will receive <tostring_localised($int1, true)> Bonus XP in <$string0>.";
+}
+~xp_reward_textbox("<$string1><$string2>", marketplace_bonus_xp_redeem:output, 50);
+if_settext(tostring_localised(%marketplace_bonus_xp_boosters_to_use, true), marketplace_bonus_xp_redeem:quantity_input_display);
+if_settext("You are using <tostring(%marketplace_bonus_xp_boosters_to_use)> Radiant <~text_plural(%marketplace_bonus_xp_boosters_to_use, "Star", "Stars")>.<br>You will receive <tostring_localised($int1, true)> Bonus XP in <$string0>.", marketplace_bonus_xp_redeem:output_confirm);
+~script20560;

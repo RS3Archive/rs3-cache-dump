@@ -1,0 +1,32 @@
+// 4427
+[proc,trh161_update_background]
+if_sethide(true, wheel_of_fortune:foreground_layer);
+if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+def_int $int0 = 0;
+if_setgraphic(trh161_cave_background, wheel_of_fortune:background);
+cc_deleteall(wheel_of_fortune:background_holder);
+~cc_add_graphic_full(wheel_of_fortune:background_holder, $int0++, 0, 75, ^setpos_abs_centre, ^setpos_abs_top, 100, 100, ^setsize_abs, ^setsize_abs, trh161_multiplier_cave_backdrop, false, false, false, 0);
+def_graphic $graphic1 = trh_multiplier_x1;
+switch_int (%trh161_multiplier) {
+    case 1 :
+        $graphic1 = trh_multiplier_x1;
+    case 2 :
+        $graphic1 = trh_multiplier_x2;
+    case 3 :
+        $graphic1 = trh_multiplier_x3;
+}
+~cc_add_graphic_full(wheel_of_fortune:background_holder, $int0++, 0, 75, ^setpos_abs_centre, ^setpos_abs_top, 80, 80, ^setsize_abs, ^setsize_abs, $graphic1, false, false, false, 0);
+cc_setontimer("script12631(event_com, event_comsubid)");
+cc_setparam(rs3tli_component_transparency_type, 1);
+cc_setparam(rs3tli_component_transparency_min, 0);
+cc_setparam(rs3tli_component_transparency_max, 40);
+cc_setparam(rs3tli_component_transparency_playback_rate, scale(4, 10, 1000));
+cc_setcolour(0xffe6e6);
+~cc_add_model_full(wheel_of_fortune:background_holder, $int0++, -180, -90, ^setpos_abs_centre, ^setpos_abs_centre, 250, 150, ^setsize_abs, ^setsize_abs, null, 0, 80, 25, -150, 20, 500);
+cc_setmodelanim(bas_getanim_ready(mtxjul20_cerberus));
+cc_setnpcmodel(trh161_pet);
+cc_setop(1, "Pet");
+cc_setonop("script18841");
+if_setmodellighting(2048, 0, 0, 255, 255, 255, 0, -1, -4, cubemap_refresh_cave_ice, wheel_of_fortune:chest_model_1);
+if_setmodellighting(2048, 0, 0, 255, 255, 255, 0, -1, -4, cubemap_refresh_cave_ice, wheel_of_fortune:chest_model_2);
+if_setmodellighting(2048, 0, 0, 255, 255, 255, 0, -1, -4, cubemap_refresh_cave_ice, wheel_of_fortune:chest_model_3);

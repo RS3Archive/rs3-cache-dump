@@ -1,0 +1,38 @@
+// 19392
+[proc,script19392](int $int0, string $string0, int $int1)(int, string, int, string, graphic)
+def_string $string1 = tostring($int1);
+if ($int1 >= 300) {
+    if ($int1 < 600) {
+        return(24, $string1, 16777060, "Old School <$string1>", "rs3_icon_world_select_game_flags,3");
+    }
+    if ($int1 < 1100 | $int1 > 6000) {
+        return(0, $string1, 16777060, "World <$string1>", null);
+    }
+    return(0, "Lobby", 16777060, "Lobby", null);
+}
+def_int $int2 = 0;
+def_int $int3 = ~script19413($int0);
+if ($int1 = -1) {
+    $int2 = ~script19327($int3);
+    $string1 = ~script19325(calc(date_minutes - $int2));
+    return(0, $string1, 9342606, "'<$string0>' was last online: <$string1>", null);
+}
+def_int $int4 = ~script12799($int1, map_world, 3979038, 16777060);
+def_string $string2 = "RuneScape <$string1>";
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_graphic $graphic7 = null;
+$string2, $int5, $int6 = ~script6305($string2, $int1);
+if ($int6 > 0) {
+    $graphic7 = enum(int, graphic, geopip_flag, $int6);
+} else {
+    $graphic7 = "rs3_icon_world_select_game_flags,0";
+}
+if ($int5 ! -1) {
+    if (testbit($int5, 24) = ^true) {
+        $graphic7 = "rs3_icon_world_select_game_flags,4";
+    } else if (testbit($int5, 16) = ^true) {
+        $graphic7 = "rs3_icon_world_select_game_flags,1";
+    }
+}
+return(24, $string1, $int4, $string2, $graphic7);

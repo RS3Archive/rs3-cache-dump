@@ -1,0 +1,38 @@
+// 20806
+[proc,script20806](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5, int $int6, int $int7)
+if ($component2 = house_furniture_catalogue:items_bg) {
+    if (%varclientbit_61226 = 62) {
+        ~script20751($component0, $component1, $component2, $component3, $component4, %varclientbit_61230, $int6, 1);
+        return;
+    }
+    if_sethide(true, house_furniture_catalogue:items_stairs_toggle);
+    if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component0);
+    if_setsize(16, 0, ^setsize_abs, ^setsize_minus, $component1);
+}
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+def_dbfilter $dbfilter8 = ~script12957(%varclientbit_61226, %varclientbit_61227, %construction_house_furniture_search, %construction_house_selection_client_source);
+def_int $int9 = 0;
+def_int $int10 = 0;
+switch_int (%varclientbit_61233) {
+    case 0 :
+        unknown_command_77($dbfilter8, construction_house_furniture:col9, ~script6427(%varclientbit_61234));
+        $int9, $int10 = ~script20807($component0, $component1, $component2, $component3, $component4, $int6);
+    case 1 :
+        unknown_command_77($dbfilter8, construction_house_furniture:col1, ~script6427(%varclientbit_61234));
+        $int9, $int10 = ~script20807($component0, $component1, $component2, $component3, $component4, $int6);
+    case default :
+        unknown_command_77($dbfilter8, construction_house_furniture:col9, ~script6427(%varclientbit_61234));
+        $int9, $int10 = ~script20807($component0, $component1, $component2, $component3, $component4, $int6);
+}
+if ($int9 = 0) {
+    ~script20480($component2, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, "No items available to display. Update your filter options or clear your category selections.", -1, ^settextalign_centre, ^settextalign_centre);
+    ~script19620($component1, $component0, $int10, $component2, $int5, $int7, -1, -1);
+    return;
+} else if ($int9 >= 400) {
+    $int10 = calc($int10 + ~script5347($component2, if_getnextsubid($component2), 0, $int10, ^setpos_abs_left, ^setpos_abs_top, 0, ^setsize_minus, text_body_default, "Too many items to display. Update your filter options or select individual categories."));
+}
+~script19620($component1, $component0, $int10, $component2, $int5, $int7, -1, -1);
+~script20808($component3);
+~script20811($component2, $component3, $component4);

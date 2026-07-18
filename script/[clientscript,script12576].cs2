@@ -1,0 +1,43 @@
+// 12576
+[clientscript,script12576](component $component0, component $component1, component $component2)
+def_int $int3 = if_getwidth($component0);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 10;
+if (%varclientbit_32658 > 0) {
+    if (cc_find($component0, %varclientbit_32657) = true) {
+        $int4 = cc_getx;
+    }
+    $int6 = ~script12577($int6, %varclientbit_32658, $int4);
+    if ($int6 < 1) {
+        if_sethide(true, gwd2_solo_loot:loot_continue_button_disabled_layer);
+        if_set2dangle(0, $component1);
+        if_set2dangle(0, $component2);
+        return;
+    }
+    %varclientbit_32658 = calc(%varclientbit_32658 + 1);
+}
+while (cc_find($component0, $int5++) = true) {
+    $int4 = calc(cc_getx + $int6);
+    if ($int4 > $int3) {
+        $int4 = calc(-150 + $int4 - $int3);
+        if (%gwd2_solo_temp_spinobj ! null & %varclientbit_32657 = 0 & $int5 ! 1) {
+            if (%gwd2_solo_temp_spinobj = dragon_arrowheads) {
+                cc_setobject(dragon_arrowheads_count5, -1);
+            } else if (%gwd2_solo_temp_spinobj = coins) {
+                cc_setobject(coins_10000, -1);
+            } else {
+                cc_setobject(%gwd2_solo_temp_spinobj, -1);
+            }
+            cc_setmodelzoom(scale(cc_getmodelzoom, 100, 125));
+            %varclientbit_32657 = calc($int5 - 1);
+            %varclientbit_32658 = 1;
+        } else {
+            cc_setobject(enum(int, obj, gwd2_solo_prizes, random(enum_getoutputcount(gwd2_solo_prizes))), -1);
+            cc_setmodelzoom(scale(cc_getmodelzoom, 100, 125));
+        }
+    }
+    cc_setposition($int4, cc_gety, ^setpos_abs_left, ^setpos_rel_centre);
+}
+~script12578($component1, $component2);
+sound_vorbis_volume(agidad_hi_lo_click, 1, 0, 30);

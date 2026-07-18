@@ -1,0 +1,31 @@
+// 11509
+[clientscript,script11509](obj $obj0, struct $struct1, int $int2, int $int3)
+def_int $int4 = 1;
+%mtxmgt_colour_last_selected = $int2;
+if ($obj0 = null) {
+    if ($int3 = 0) {
+        if (%mtxmgt_selected_category = 5) {
+            if_sethide(true, mtxmgt_colour_overlay:no_recols_text);
+        } else {
+            if_settext("No recolours are available for this item.", mtxmgt_colour_overlay:no_recols_text);
+            if_sethide(false, mtxmgt_colour_overlay:no_recols_text);
+        }
+        $int4 = 0;
+    } else if ($struct1 = null) {
+        if_settext("No recolours are available for this outfit or some of your overrides are not recolourable.", mtxmgt_colour_overlay:no_recols_text);
+        if_sethide(false, mtxmgt_colour_overlay:no_recols_text);
+        $int4 = 0;
+    }
+}
+if ($obj0 ! null & (oc_param($obj0, mtxrecol_basic_only) = 1 | oc_param($obj0, mtxrecol_id) < 0)) {
+    $int4 = 0;
+}
+~script11511($struct1, mtxmgt_colour_overlay:basic_colour_buttons, mtxmgt_colour_overlay:basic_colour_buttons_inactive);
+if ($int4 = 1) {
+    ~script11513;
+    ~script11520;
+    ~script11529(1);
+    if_settext(tostring(%mtxmgt_dye_prismatic), mtxmgt_colour_overlay:amount);
+} else {
+    ~script11510;
+}

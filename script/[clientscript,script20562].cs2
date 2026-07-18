@@ -1,0 +1,28 @@
+// 20562
+[clientscript,script20562](int $int0)
+switch_int (random(4)) {
+    case 0 :
+        sound_vorbis_rate(market26_product_scroll_01, 1, 0, 150, 250);
+    case 1 :
+        sound_vorbis_rate(market26_product_scroll_02, 1, 0, 150, 250);
+    case 2 :
+        sound_vorbis_rate(market26_product_scroll_03, 1, 0, 150, 250);
+    case 3 :
+        sound_vorbis_rate(market26_product_scroll_04, 1, 0, 150, 250);
+}
+if (%marketplace_bonus_xp_current_choice < 1) {
+    ~script1296("Please select a skill.");
+    return;
+}
+def_stat $stat1 = enum(int, stat, int_to_stat, %marketplace_bonus_xp_current_choice);
+def_int $int2 = ~script20456($stat1);
+def_int $int3 = 0;
+if ($int2 > 0) {
+    $int3 = 1;
+}
+if (calc(%marketplace_bonus_xp_boosters_to_use - $int0) > $int3) {
+    %marketplace_bonus_xp_boosters_to_use = calc(%marketplace_bonus_xp_boosters_to_use - $int0);
+} else {
+    %marketplace_bonus_xp_boosters_to_use = $int3;
+}
+~script20576;

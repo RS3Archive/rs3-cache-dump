@@ -1,0 +1,24 @@
+// 16853
+[proc,script16853](obj $obj0)(obj)
+def_dbrow $dbrow1 = enum(obj, dbrow, wear_variable_items, $obj0);
+if ($dbrow1 = null) {
+    return($obj0);
+}
+def_int $int2 = calc(db_getfieldcount($dbrow1, worn_variable_item:col0) - 1);
+def_stat $stat3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_boolean $boolean6 = ~map_members;
+while ($int2 >= 0) {
+    $int4 = db_getfield($dbrow1, worn_variable_item:col1, $int2);
+    if ($int4 = 1 | $boolean6 = true) {
+        $obj0 = db_getfield($dbrow1, worn_variable_item:col0, $int2);
+        $stat3 = oc_param($obj0, wear_requires_stat1);
+        $int5 = oc_param($obj0, wear_requires_stat_level1);
+        if ($stat3 ! null & stat_base($stat3) >= $int5) {
+            return($obj0);
+        }
+    }
+    $int2 = calc($int2 - 1);
+}
+return($obj0);

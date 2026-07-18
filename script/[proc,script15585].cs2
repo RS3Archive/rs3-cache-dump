@@ -1,0 +1,54 @@
+// 15585
+[proc,script15585]
+if (%ironman_difficulty_select = 0) {
+    if_setposition(0, 2, ^setpos_abs_centre, ^setpos_abs_top, game_mode_selection:ironman);
+    if (cc_find(game_mode_selection:button_confirm, 0) = true) {
+        cc_settext("Select Mode");
+    }
+} else {
+    if_setposition(-160, 2, ^setpos_abs_centre, ^setpos_abs_top, game_mode_selection:ironman);
+    if_setposition(160, 2, ^setpos_abs_centre, ^setpos_abs_top, game_mode_selection:hardcore);
+    if (cc_find(game_mode_selection:button_confirm, 0) = true) {
+        cc_settext("Select Difficulty");
+    }
+}
+if_sethide(~int_to_bool(%ironman_difficulty_select), game_mode_selection:standard);
+if_sethide(~script6427(%ironman_difficulty_select), game_mode_selection:hardcore);
+if_sethide(~int_to_bool(%ironman_difficulty_select), game_mode_selection:group_ironman);
+def_component $component0 = null;
+switch_int (%ironman_comsubid) {
+    case default :
+        $component0 = game_mode_selection:standard;
+    case 0 :
+        $component0 = game_mode_selection:standard;
+    case 1 :
+        $component0 = game_mode_selection:ironman;
+    case 2 :
+        $component0 = game_mode_selection:hardcore;
+    case 3 :
+        $component0 = game_mode_selection:group_ironman;
+}
+def_int $int1 = if_getx($component0);
+$int1 = calc($int1 - 2);
+if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top, game_mode_selection:highlight_layer);
+if (%ironman_difficulty_select = 0) {
+    if_settext("Choose Game Mode", game_mode_selection:header_text);
+} else {
+    if_settext("Choose Difficulty", game_mode_selection:header_text);
+}
+~script15586;
+def_boolean $boolean2 = ~equal_int_bool(%ironman_comsubid, 5);
+if (~script9096 = true) {
+    ~script13994(acc_create:advanced_build, acc_create:advanced_click, rs3tli_3x3_icon_button, "", $boolean2);
+    ~script13959(acc_create:advanced_icon, rs3_icon_more_options, $boolean2);
+    switch_int (%ironman_selection_temp) {
+        case 0 :
+            if_setgraphic(null, acc_create:advanced_icon_ironman);
+        case 1 :
+            if_setgraphic(rs3_icon_badge_ironman, acc_create:advanced_icon_ironman);
+        case 2 :
+            if_setgraphic(rs3_icon_badge_ironman_hardcore, acc_create:advanced_icon_ironman);
+        case 3 :
+            if_setgraphic(rs3_icon_badge_ironman_group, acc_create:advanced_icon_ironman);
+    }
+}

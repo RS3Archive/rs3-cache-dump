@@ -1,0 +1,92 @@
+// 11470
+[proc,script11470](obj $obj0)(int)
+if ($obj0 = null) {
+    return(0);
+}
+def_obj $obj1 = null;
+def_int $int2 = 0;
+if (oc_param($obj0, degradeable_item) = 0 & ~script12070($obj0) = 1) {
+    $int2 = 200000;
+}
+if (oc_param($obj0, pop_lifespan) > 0) {
+    $int2 = oc_param($obj0, pop_fixcost_coins);
+    if ($int2 < 1) {
+        switch_int (oc_wearpos($obj0)) {
+            case 17 :
+                $int2 = 250000;
+            case 0 :
+                $int2 = oc_param(pop_melee_helm_untradeable, pop_fixcost_coins);
+            case 4 :
+                $int2 = oc_param(pop_melee_body_untradeable, pop_fixcost_coins);
+            case 7 :
+                $int2 = oc_param(pop_melee_legs_untradeable, pop_fixcost_coins);
+            case 9 :
+                $int2 = oc_param(elr2_pop_melee_gloves_untradeable, pop_fixcost_coins);
+            case 10 :
+                $int2 = oc_param(elr2_pop_melee_boots_untradeable, pop_fixcost_coins);
+        }
+    }
+    if ($int2 < 1) {
+        return(0);
+    }
+}
+if (oc_param($obj0, item_degrade_freshitem) = 1) {
+    return(0);
+}
+if (oc_param($obj0, degradeable_item) = 1 & oc_param($obj0, item_degrade_broken_item) = 0) {
+    if (oc_param($obj0, godwars2_nextstate) ! null) {
+        $int2 = oc_param($obj0, godwars2_rechargecost);
+    } else if (oc_param($obj0, rand_reward_rechargecost) > 0) {
+        $int2 = oc_param($obj0, rand_reward_rechargecost);
+    } else if (oc_param($obj0, kk_item_nextstate) ! null) {
+        $int2 = oc_param($obj0, kk_rechargecost);
+        if ($int2 < 1) {
+            $int2 = oc_param(oc_param($obj0, kk_item_nextstate), kk_rechargecost);
+        }
+    } else if (oc_param($obj0, barrows_degradedstate) ! null) {
+        switch_int (oc_wearpos($obj0)) {
+            case 0 :
+                $int2 = 180000;
+            case 4 :
+                $int2 = 270000;
+            case 7 :
+                $int2 = 240000;
+            case 3 :
+                $int2 = 300000;
+            case default :
+                ~error("Got an item with barrows_degraded_state and a non-supported wearpos: <tostring(oc_wearpos($obj0))>");
+        }
+    } else if ($obj0 = qbd2_crossbow_forged) {
+        $int2 = 200000;
+    } else if (oc_param($obj0, god_book_max_time) > 0) {
+        $int2 = 200000;
+    } else if (oc_param($obj0, myq7_blood_essence_max_charge) > 0) {
+        $int2 = 200000;
+    } else if (oc_param($obj0, item_degrade_maxdegrade) > 0 & oc_param($obj0, elfcity_crystal_tool) = 0) {
+        if (oc_param($obj0, elfcity_crystal_rechargeable) = 1) {
+            $int2 = ~script5253;
+        } else if (oc_param($obj0, smithing_masterwork) = true) {
+            $int2 = 200000;
+        } else {
+            $int2 = oc_param($obj0, item_degrade_rechargecost);
+            if ($int2 = -2 | $int2 = -1 & oc_param($obj0, item_degrade_repair_item) ! null) {
+                $int2 = 200000;
+            } else if ($int2 < 1) {
+                $obj1 = oc_param($obj0, item_degrade_nextstate);
+                if ($obj1 ! null) {
+                    $int2 = oc_param($obj1, item_degrade_rechargecost);
+                    if ($int2 < 1) {
+                        $obj1 = oc_param($obj0, item_degrade_nextstate);
+                        if ($obj1 ! null) {
+                            $int2 = oc_param($obj1, item_degrade_rechargecost);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+if ($int2 < 1) {
+    return(0);
+}
+return(scale($int2, 100, 20));

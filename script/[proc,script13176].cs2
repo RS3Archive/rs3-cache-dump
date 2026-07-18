@@ -1,0 +1,29 @@
+// 13176
+[proc,script13176]
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_string $string0 = "";
+$int0, $int1, $int2, $int3, $int4, $string0 = ~script18191;
+def_dbfilter $dbfilter5 = ~script18208($int0, $int1, $int2, $int3, $int4, $string0);
+def_int $int6 = 0;
+switch_int (%varclientbit_35141) {
+    case 0 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col2, true, -1, 0);
+        ~script18192($int6, $int0, $int1, $int2, $int3, $int4, $string0);
+    case 1 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col2, false, -1, 0);
+        ~script18192($int6, $int0, $int1, $int2, $int3, $int4, $string0);
+    case 2 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col23, false, -1, 0);
+        ~script18192($int6, $int0, $int1, $int2, $int3, $int4, $string0);
+    case 3 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col23, true, -1, 0);
+        ~script18192($int6, $int0, $int1, $int2, $int3, $int4, $string0);
+    case default :
+        ~error("Unexpected value of %mtxmgt_store_sort_mode: <tostring(%varclientbit_35141)>, defaulting to alphabetical.");
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col2, true, -1, 0);
+        ~script18192($int6, $int0, $int1, $int2, $int3, $int4, $string0);
+}

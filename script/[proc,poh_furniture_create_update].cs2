@@ -1,0 +1,99 @@
+// 6312
+[proc,poh_furniture_create_update](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+cc_deleteall($component1);
+cc_deleteall($component5);
+def_obj $obj7 = inv_getobj(poh_furniture_menu_inv, calc($int0 - 1));
+if ($obj7 = null | $obj7 = poh_null_furniture_object) {
+    if_sethide(true, $component2);
+    if_sethide(true, $component3);
+    if_sethide(true, $component4);
+    if_sethide(true, $component5);
+    if_sethide(true, $component6);
+    return;
+}
+if_sethide(false, $component2);
+if_sethide(false, $component3);
+if_sethide(false, $component5);
+cc_create($component5, ^iftype_graphic, 0);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(12, 4, ^setpos_abs_left, ^setpos_abs_top);
+cc_setobject_nonum($obj7, 1);
+cc_setoutline(1);
+cc_create($component5, ^iftype_text, 1);
+cc_setsize(60, calc(32 + 4), ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(~script10495(3));
+cc_settextshadow(true);
+cc_settext("Level <tostring(oc_param($obj7, levelrequire))>");
+cc_create($component5, ^iftype_text, 2);
+cc_setsize(60, 12, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(~script10495(3));
+cc_settextshadow(true);
+cc_settext(~script3930("<tostring_localised($int0, true)>. <oc_name($obj7)>", cc_getwidth, 1, cc_getfontmetrics));
+cc_create($component5, ^iftype_text, 3);
+cc_setsize(60, 12, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(~script10495(3));
+cc_settextshadow(true);
+def_string $string0 = oc_param($obj7, poh_cost_overridetext);
+if (string_length($string0) <= 0) {
+    $string0 = ~poh_furniture_create_addingredient("", oc_param($obj7, poh_cost1_obj), oc_param($obj7, poh_cost1_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost2_obj), oc_param($obj7, poh_cost2_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost3_obj), oc_param($obj7, poh_cost3_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost4_obj), oc_param($obj7, poh_cost4_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost5_obj), oc_param($obj7, poh_cost5_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost6_obj), oc_param($obj7, poh_cost6_count));
+}
+cc_settext($string0);
+if (testbit(%mob_client_squad_rank, $int0) = ^false) {
+    ~script13994($component2, null, rs3tli_3x3_button, "", true);
+} else {
+    ~script13994($component2, null, rs3tli_3x3_button, "", false);
+}
+def_int $int8 = 0;
+if (testbit(%mob_client_squad_rank, 0) = ^true) {
+    $int8 = 1;
+}
+cc_create($component1, ^iftype_text, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setpausetext("Make All");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 1);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setpausetext("Make X");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 2);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setpausetext("Make 10");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 3);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setpausetext("Make 5");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 4);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if ($int8 = 0) {
+    cc_setpausetext("Build");
+} else {
+    cc_setpausetext("Make 1");
+}

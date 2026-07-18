@@ -1,0 +1,146 @@
+// 5691
+[proc,skillguide_skill_refresh](int $int0)
+def_int $int1 = -1;
+def_int $int2 = 0;
+def_boolean $boolean3 = false;
+def_int $int4 = 1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 1;
+def_int $int8 = 0;
+cc_deleteall(skillguide:image_layer);
+cc_deleteall(skillguide:background_layer);
+def_int $int9 = 0;
+def_int $int10 = stat_base(enum(int, stat, int_to_stat, %skillguide_skill_clicked));
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 41;
+$int2 = ~script6346($int0, %skillguide_filter_clicked, $int2);
+$int9 = $int2;
+def_struct $struct15 = null;
+def_dbrow $dbrow16 = null;
+if_sethide(true, skillguide:loading_text);
+if (if_find(skillguide:content_layer) = true) {
+    switch_int (%skillguide_sort_mode) {
+        case 1 :
+            $int1 = cc_param(skillguide_sort_inc);
+        case 2 :
+            $int1 = cc_param(skillguide_sort_atoz);
+        case 3 :
+            $int1 = cc_param(skillguide_sort_ztoa);
+        case default :
+            $int1 = cc_param(skillguide_sort_dec);
+    }
+}
+while ($int1 ! -1) {
+    if (cc_find(skillguide:content_layer, $int1) = true) {
+        $struct15 = cc_param(skillguide_struct);
+        $dbrow16 = cc_param(skillguide_data);
+        if (%skillguide_filter_clicked <= 0 | ~skillguide_filter($struct15, $dbrow16) = %skillguide_filter_clicked | %skillguide_filter_clicked = 1 & ~script16271($struct15, $dbrow16) = true) {
+            $boolean3 = ~skillguide_members($struct15, $dbrow16);
+            if (%skill_guide_hide_members_entrys = 1 & $boolean3 = true) {
+                $int6 = 0;
+                cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+                cc_sethide(true);
+            } else {
+                $int13 = ~skillguide_level($struct15, $dbrow16);
+                switch_int (%skillguide_sort_mode) {
+                    case 1 :
+                        if ($int13 >= $int12 & $int13 <= $int10) {
+                            $int11 = calc($int9 + $int14 * $int5 - if_getheight(skillguide:main_content_scrollbar_layer) + $int14);
+                            $int12 = $int13;
+                        }
+                    case 2 :
+                    case 3 :
+                    case default :
+                        if ($int13 > $int12 & $int13 <= $int10) {
+                            $int11 = calc($int9 + $int14 * $int5);
+                            $int12 = $int13;
+                        }
+                }
+                $int6 = 36;
+                $int4 = 0;
+                .cc_create(skillguide:background_layer, ^iftype_graphic, if_getnextsubid(skillguide:background_layer));
+                .cc_setsize(590, $int6, ^setsize_abs, ^setsize_abs);
+                .cc_setposition(0, calc($int9 + $int14 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+                switch_int (%toplevel_v2_active_skinset) {
+                    case 1 :
+                        if ($int7 = 1) {
+                            .cc_setgraphic("aif_skill_select_btn_2,1");
+                            if ($int6 ! 0) {
+                                $int7 = 0;
+                            }
+                        } else {
+                            .cc_setgraphic("aif_skill_select_btn_2,0");
+                            if ($int6 ! 0) {
+                                $int7 = 1;
+                            }
+                        }
+                    case 2 :
+                        if ($int7 = 1) {
+                            .cc_setgraphic("aif_skill_select_btn_1_mobile,1");
+                            if ($int6 ! 0) {
+                                $int7 = 0;
+                            }
+                        } else {
+                            .cc_setgraphic("aif_skill_select_btn_1_mobile,0");
+                            if ($int6 ! 0) {
+                                $int7 = 1;
+                            }
+                        }
+                    case default :
+                        if ($int7 = 1) {
+                            .cc_setgraphic("aif_skill_select_btn_1,1");
+                            if ($int6 ! 0) {
+                                $int7 = 0;
+                            }
+                        } else {
+                            .cc_setgraphic("aif_skill_select_btn_1,0");
+                            if ($int6 ! 0) {
+                                $int7 = 1;
+                            }
+                        }
+                }
+                $int5 = calc($int5 + 1);
+                cc_setposition(5, $int2, ^setpos_abs_left, ^setpos_abs_top);
+                cc_setsize(590, 36, ^setsize_abs, ^setsize_abs);
+                cc_setontimer("script5692($int1, $int2, $struct15, $dbrow16)");
+                cc_sethide(false);
+                $int2 = calc($int2 + 41);
+            }
+        } else {
+            cc_sethide(true);
+        }
+        switch_int (%skillguide_sort_mode) {
+            case 1 :
+                $int1 = cc_param(skillguide_sort_inc);
+            case 2 :
+                $int1 = cc_param(skillguide_sort_atoz);
+            case 3 :
+                $int1 = cc_param(skillguide_sort_ztoa);
+            case default :
+                $int1 = cc_param(skillguide_sort_dec);
+        }
+    } else {
+        $int1 = -1;
+    }
+}
+if (%skillguide_skill_clicked = 27 & %skill_guide_hide_members_entrys = 1) {
+    if_settext("Invention is a members only skill", skillguide:members_filter_text);
+    if_sethide(false, skillguide:members_filter_text);
+} else if ($int4 = 1 & %skill_guide_hide_members_entrys = 1) {
+    if_settext("No results found", skillguide:members_filter_text);
+    if_sethide(false, skillguide:members_filter_text);
+} else {
+    if_sethide(true, skillguide:members_filter_text);
+}
+if ($int2 < if_getheight(skillguide:main_content_scrollbar_layer)) {
+    if_setscrollsize(0, 0, skillguide:main_content_layer);
+} else {
+    if_setscrollsize(0, $int2, skillguide:main_content_layer);
+}
+if_setscrollpos(0, calc($int11 - 5), skillguide:main_content_layer);
+if_setsize(590, $int2, ^setsize_abs, ^setsize_abs, skillguide:content_layer);
+if_setsize(590, $int2, ^setsize_abs, ^setsize_abs, skillguide:image_layer);
+~scrollbar_vertical(skillguide:main_content_scrollbar_layer, skillguide:main_content_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

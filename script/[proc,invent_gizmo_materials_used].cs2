@@ -1,0 +1,40 @@
+// 12193
+[proc,invent_gizmo_materials_used]()(string)
+def_dbrow $dbrowarray0(9);
+def_int $intarray1(9);
+$dbrowarray0(0) = %invent_gizmo_material_0;
+$dbrowarray0(1) = %invent_gizmo_material_1;
+$dbrowarray0(2) = %invent_gizmo_material_2;
+$dbrowarray0(3) = %invent_gizmo_material_3;
+$dbrowarray0(4) = %invent_gizmo_material_4;
+$dbrowarray0(5) = %invent_gizmo_material_5;
+$dbrowarray0(6) = %invent_gizmo_material_6;
+$dbrowarray0(7) = %invent_gizmo_material_7;
+$dbrowarray0(8) = %invent_gizmo_material_8;
+def_int $int0 = 9;
+def_int $int1 = 0;
+def_int $int2 = 0;
+while ($int0-- > 0) {
+    $int2 = calc($intarray1($int0) + 1);
+    $int1 = $int0;
+    while ($int1-- > 0) {
+        if ($dbrowarray0($int0) = $dbrowarray0($int1)) {
+            $intarray1($int1) = calc($intarray1($int1) + $int2);
+            $int1 = -1;
+            $int2 = 0;
+        }
+    }
+    $intarray1($int0) = $int2;
+}
+def_int $int3 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+$int0 = -1;
+while (++$int0 < 9) {
+    if ($dbrowarray0($int0) ! null & $intarray1($int0) > 0) {
+        $intarray1($int0) = calc($intarray1($int0) * ~script12065($dbrowarray0($int0)));
+        $string0 = "<$string0><$string1><tostring_localised($intarray1($int0), true)> x <db_getfield($dbrowarray0($int0), invent_material_table:col1, 0)>";
+        $string1 = ", ";
+    }
+}
+return($string0);

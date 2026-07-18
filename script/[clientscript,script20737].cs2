@@ -1,0 +1,19 @@
+// 20737
+[clientscript,script20737]
+def_int $int0 = if_getx(house_furniture_catalogue:mainmodal_window);
+def_int $int1 = if_getwidth(house_furniture_catalogue:mainmodal_window);
+def_int $int2 = calc(0 - 3);
+if (%varclientbit_61229 = 1) {
+    $int2 = calc(0 - 3 - if_getwidth(house_furniture_catalogue:mainmodal_window));
+}
+if ($int0 > $int2) {
+    $int0 = max($int2, calc($int0 - 10));
+} else {
+    $int0 = min($int2, calc($int0 + 10));
+}
+if_setposition($int0, 1639, ^setpos_abs_left, ^setpos_rel_top, house_furniture_catalogue:mainmodal_window);
+if_setposition(calc($int0 + $int1), 1639, ^setpos_abs_left, ^setpos_rel_top, house_furniture_catalogue:toggle_button_align);
+if ($int2 = $int0) {
+    ~script20742($int1);
+    if_setontimer(null, house_furniture_catalogue:toggle_button_align);
+}

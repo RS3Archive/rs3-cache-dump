@@ -1,0 +1,24 @@
+// 13792
+[clientscript,script13792]
+def_int $int0 = 12;
+def_int $int1 = 5;
+def_int $int2 = 3;
+def_int $int3 = 0;
+def_int $int4 = -1;
+while (++$int4 < $int0) {
+    cc_create(dave_quest_bank:dave_bank_content_layer, ^iftype_graphic, $int3);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    if (inv_getobj(dave_bank_inventory, $int3) ! null) {
+        cc_setobject(inv_getobj(dave_bank_inventory, $int3), inv_getnum(dave_bank_inventory, $int3));
+        cc_setopbase(oc_name(inv_getobj(dave_bank_inventory, $int3)));
+        cc_setop(1, "Withdraw");
+        cc_setoutline(1);
+    }
+    $int1 = calc($int1 + 45);
+    if ($int1 > 180) {
+        $int1 = 5;
+        $int2 = calc($int2 + 45);
+    }
+    $int3 = calc($int3 + 1);
+}

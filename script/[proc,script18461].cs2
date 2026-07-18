@@ -1,0 +1,35 @@
+// 18461
+[proc,script18461](dbrow $dbrow0)(boolean)
+if (%crm_braze_hotfix_disable_all = 1) {
+    return(false);
+}
+switch_dbrow ($dbrow0) {
+    case crm_braze_lobby_main :
+        if (%crm_braze_hotfix_disable_lobby_banner_main_1 = 1) {
+            return(false);
+        }
+    case crm_braze_lobby_secondary_main :
+        if (%crm_braze_hotfix_disable_lobby_banner_main_2 = 1) {
+            return(false);
+        }
+    case crm_braze_lobby_secondary_left :
+        if (%crm_braze_hotfix_disable_lobby_banner_left = 1) {
+            return(false);
+        }
+    case crm_braze_lobby_secondary_right :
+        if (%crm_braze_hotfix_disable_lobby_banner_right = 1) {
+            return(false);
+        }
+    case crm_braze_login_popup :
+        if (%crm_braze_hotfix_disable_login_popup = 1) {
+            return(false);
+        }
+    case crm_braze_marketplace :
+        if (%crm_braze_hotfix_disable_marketplace = 1) {
+            return(false);
+        }
+    case default :
+        ~error("Unknown slot dbrow with location <db_getfield($dbrow0, crm_braze:col3, 0)> when checking if braze is active. Returning as inactive for the slot.");
+        return(false);
+}
+return(true);

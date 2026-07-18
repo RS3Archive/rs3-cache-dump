@@ -1,0 +1,27 @@
+// 5518
+[proc,script5518](struct $struct0)(string)
+def_string $string0 = "";
+def_int $int1 = struct_param($struct0, potion_info_duration);
+def_int $int2 = struct_param($struct0, potion_info_on_death);
+def_int $int3 = struct_param($struct0, potion_info_stat_bonus_decay);
+if ($int1 > 0) {
+    $string0 = append($string0, "Lasts <~script5641($struct0)>");
+}
+switch_int ($int3) {
+    case 1 :
+        if (string_length($string0) > 0) {
+            $string0 = append($string0, ", stat changes are <col=00ffff>diminished</col> by 1 point per minute");
+        } else {
+            $string0 = append($string0, "Stat changes are <col=00ffff>diminished</col> by 1 point per minute");
+        }
+    case 2 :
+        if (string_length($string0) > 0) {
+            $string0 = append($string0, ", stat changes are <col=00ffff>static</col> for the duration");
+        } else {
+            $string0 = append($string0, "Stat changes are <col=00ffff>static</col> for the duration");
+        }
+}
+if (string_length($string0) > 0) {
+    $string0 = append($string0, ".");
+}
+return($string0);

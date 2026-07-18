@@ -1,0 +1,20 @@
+// 11616
+[proc,script11616](struct $struct0, int $int1, component $component2)(int)
+def_int $int3 = 380;
+if (if_getlayer($component2) = rewardshop:item_preview_layer) {
+    $int3 = 600;
+}
+def_seq $seq4 = struct_param($struct0, mtxmgt_preview_anim);
+if ($seq4 = null) {
+    $seq4 = combat_2012_casual_unarmed_idle;
+}
+~if_add_child_model($component2, 0, $int1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+def_npc $npc5 = struct_param($struct0, mtxmgt_preview_transmog_npc);
+if ($npc5 ! null) {
+    cc_setnpcmodel($npc5);
+} else {
+    cc_setplayermodel_self;
+}
+cc_setmodelanim($seq4);
+cc_setmodelangle(1000, 115, 0, 200, 0, $int3);
+return(calc($int1 + 1));

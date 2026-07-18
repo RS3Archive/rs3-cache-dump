@@ -1,0 +1,370 @@
+// 2162
+[proc,ql4_sort](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+if ($int1 = -1 | $int2 = -1 | $int3 = -1 | $int4 = -1 | $int5 = -1 | $int6 = -1 | $int7 = -1) {
+    return;
+}
+def_int $intarray0(calc(%ql4_topquestid + 1));
+def_int $intarray1(calc(%ql4_topquestid + 1));
+def_int $intarray2(calc(%ql4_topquestid + 1));
+def_struct $struct8 = enum(int, struct, ql4_intstruct_lists, $int1);
+if ($struct8 = null) {
+    return;
+}
+def_enum $enum9 = struct_param($struct8, ql4_list_enum);
+def_component $component10 = ~script12681($component0);
+def_component $component11 = ~ql4_layer_scrollbar($component0);
+%ql4_comlevel = ~comlevel;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_boolean $boolean14 = true;
+def_int $int15 = 0;
+def_int $int16 = 1;
+def_enum $enum17 = enum(int, enum, struct_param($struct8, ql4_list_categories), $int2);
+def_enum $enum18 = enum(int, enum, struct_param($struct8, ql4_list_category_retitle), $int2);
+def_enum $enum19 = enum(int, enum, struct_param($struct8, ql4_list_category_reorder), $int2);
+if ($enum19 = null) {
+    $enum19 = ql4_intint_identity;
+}
+if ($enum17 = null) {
+    return;
+}
+def_int $int20 = enum_getoutputcount($enum17);
+def_int $int21 = 0;
+if ($int3 = 1) {
+    $int21 = calc($int20 - 1);
+}
+def_int $int22 = if_getscrolly($component10);
+def_int $int23 = if_getscrollheight($component10);
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_string $string0 = "";
+def_int $int26 = 0;
+~script2164($component0, $int1);
+def_quest $quest27 = null;
+def_int $int28 = 0;
+def_int $int29 = -1;
+def_int $int30 = 0;
+switch_int ($int2) {
+    case 6 :
+        $int30 = 1000;
+    case 2, 9 :
+        $int30 = 100000;
+    case 7 :
+        $int30 = 1000000;
+    case 8 :
+        $int30 = 10000000;
+}
+while ($int12 <= %ql4_topquestid) {
+    $intarray1($int12) = $int12;
+    $quest27 = enum(int, quest, $enum9, $int12);
+    $int25 = -1;
+    if ($quest27 ! null) {
+        if (~script18798($quest27) = 1) {
+            $int26 = calc($int26 + 1);
+        } else {
+            $int29 = ~ql4_getprogress($quest27);
+            $int28 = ~quest_difficulty($quest27);
+            switch_int ($int2) {
+                case 0 :
+                    switch_int (quest_type($quest27)) {
+                        case 1 :
+                            $int25 = 0;
+                        case default :
+                            $int25 = ~script1056(quest_param($quest27, quest_name_first_letter_no_accents));
+                    }
+                case 1 :
+                    switch_int (quest_type($quest27)) {
+                        case 1 :
+                            $int25 = 0;
+                        case default :
+                            $int25 = quest_param($quest27, quest_combat_difficulty);
+                    }
+                case 2 :
+                    switch_int (quest_type($quest27)) {
+                        case 1 :
+                            $int25 = 0;
+                        case default :
+                            $int25 = quest_param($quest27, quest_age);
+                    }
+                    $intarray2($int12) = calc(($int25 + 1) * $int30);
+                    $intarray2($int12) += ~script6268($quest27, 1);
+                case 3 :
+                    switch_int (quest_type($quest27)) {
+                        case 1 :
+                            $int25 = 4;
+                        case default :
+                            if (quest_getmembers($quest27) = true) {
+                                if (quest_param($quest27, quest_sublist) = 1 | quest_param($quest27, quest_sublist) = 2) {
+                                    $int25 = 2;
+                                } else {
+                                    $int25 = 3;
+                                }
+                            } else if (quest_param($quest27, quest_sublist) = 1 | quest_param($quest27, quest_sublist) = 2) {
+                                $int25 = 1;
+                            } else {
+                                $int25 = 0;
+                            }
+                    }
+                case 4 :
+                    switch_int (quest_type($quest27)) {
+                        case 1 :
+                            $int25 = 0;
+                        case default :
+                            $int25 = quest_param($quest27, quest_length);
+                    }
+                case 5 :
+                    switch_int (quest_type($quest27)) {
+                        case 1 :
+                            $int25 = 3;
+                        case default :
+                            $int25 = $int29;
+                    }
+                case 6 :
+                    switch_int (quest_type($quest27)) {
+                        case 1 :
+                            $int25 = 0;
+                        case default :
+                            $int25 = calc(quest_param($quest27, quest_release_year) - 1999);
+                    }
+                    $intarray2($int12) = calc(($int25 + 1) * $int30);
+                    $intarray2($int12) += ~script6268($quest27, 0);
+                case 7 :
+                    $int25 = quest_param($quest27, quest_series);
+                    $intarray2($int12) = calc(($int25 + 1) * $int30);
+                    if ($int25 = 42) {
+                        $intarray2($int12) += calc((~script20419($quest27, $int28) + 1) * 100000);
+                        if (quest_param($quest27, quest_timeline_index) ! -1) {
+                            $intarray2($int12) += calc(quest_param($quest27, quest_timeline_index) + 1);
+                        } else {
+                            $intarray2($int12) += ~script6268($quest27, 1);
+                        }
+                    } else if (quest_param($quest27, quest_series_number) > 0) {
+                        $intarray2($int12) += calc(quest_param($quest27, quest_series_number) + 1);
+                    } else {
+                        $intarray2($int12) += calc(quest_param($quest27, quest_id) + 1);
+                    }
+                case 8 :
+                    $int25 = quest_param($quest27, quest_start_location);
+                    $intarray2($int12) = calc(($int25 + 1) * $int30);
+                    $intarray2($int12) += calc((max(calc(quest_param($quest27, quest_age) - 1), 0) + 1) * 1000000);
+                    $intarray2($int12) += calc(($int28 + 1) * 100000);
+                    $intarray2($int12) += calc((quest_param($quest27, quest_series_number) + 1) * 10000);
+                    $intarray2($int12) += calc((quest_param($quest27, quest_length) + 1) * 1000);
+                    $intarray2($int12) += $int12;
+                case 9 :
+                    $int25 = ~script20419($quest27, $int28);
+                    $intarray2($int12) = calc(($int25 + 1) * $int30);
+                    if (quest_param($quest27, quest_timeline_year) ! -1) {
+                        $intarray2($int12) += calc((quest_param($quest27, quest_timeline_year) - 1999) * 1000);
+                    } else {
+                        $intarray2($int12) += calc((quest_param($quest27, quest_release_year) - 1999) * 1000);
+                    }
+                    if (quest_param($quest27, quest_timeline_index) ! -1) {
+                        $intarray2($int12) += calc(quest_param($quest27, quest_timeline_index) + 1);
+                    } else {
+                        $intarray2($int12) += ~script6268($quest27, 0);
+                    }
+            }
+            if ($int25 > -1 & $int5 = 1 & $int29 = 2) {
+                $int25 = -1;
+                $intarray2($int12) = 0;
+            }
+            if ($int25 > -1 & $int6 = 1 & quest_param($quest27, quest_sublist) = 0) {
+                $int25 = -1;
+                $intarray2($int12) = 0;
+            }
+            if ($int25 > -1 & $int7 = 1 & quest_param($quest27, quest_sublist) ! 0) {
+                $int25 = -1;
+                $intarray2($int12) = 0;
+            }
+            if ($int25 > -1 & $int4 = 0 & $int29 = 0) {
+                $boolean14 = ~script2149($quest27);
+                if ($boolean14 = false) {
+                    $int25 = -1;
+                    $intarray2($int12) = 0;
+                }
+            }
+        }
+    }
+    $intarray0($int12) = $int25;
+    $int12 = calc($int12 + 1);
+}
+$int12 = 0;
+if ($int30 > 0) {
+    array_sort(calc(%ql4_topquestid + 1), 2, 1);
+    $int12 = 1;
+    while ($int12 <= %ql4_topquestid) {
+        $intarray0($int12) = calc($intarray2($int12) / $int30 - 1);
+        $int12 = calc($int12 + 1);
+    }
+} else {
+    array_sort(calc(%ql4_topquestid + 1), 0, 1);
+}
+$int12 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 0;
+def_int $int34 = -1;
+$int33 = $intarray0($int12);
+$intarray0($int12) = $intarray1($int12);
+$intarray1($int12) = $int33;
+$int24 = $int33;
+$int12 = 1;
+while ($int12 <= %ql4_topquestid) {
+    $int33 = $intarray0($int12);
+    $intarray0($int12) = $intarray1($int12);
+    $intarray1($int12) = $int33;
+    if ($int24 ! $int33) {
+        $int34 = 1;
+    } else if ($int12 = %ql4_topquestid) {
+        $int34 = 0;
+    }
+    if ($int34 ! -1) {
+        if ($int30 = 0) {
+            $int32 = calc($int12 - $int34);
+            if ($int31 < $int32 & $int24 ! -1) {
+                ~ql4_quicksort(intarray0, $enum9, $int31, $int32);
+            }
+            $int31 = $int12;
+        }
+        $int24 = $int33;
+        $int34 = -1;
+    }
+    $int12 = calc($int12 + 1);
+}
+$int12 = 0;
+$int24 = 0;
+switch_int ($int1) {
+    case 1 :
+        while ($int12 <= %ql4_topquestid) {
+            if (enum(int, quest, ql4_quests, $intarray0($int12)) = null) {
+                $intarray2($int12) = 0;
+            } else {
+                $intarray2($int12) = ~script7073($intarray0($int12));
+            }
+            $int12 = calc($int12 + 1);
+        }
+}
+$int12 = 0;
+def_int $int35 = 5;
+def_int $int36 = 0;
+def_int $int37 = -1;
+switch_int ($int1) {
+    case 1 :
+        $int37 = %quest_objective;
+    case default :
+        if (struct_param($struct8, ql4_list_id_step) > 0) {
+            $int37 = calc(%ql4_maparrow_itemid - 1000 * (struct_param($struct8, ql4_list_id_step) - 1));
+        } else {
+            $int37 = calc(%ql4_maparrow_itemid - 1000 * ($int1 - 1));
+        }
+}
+def_boolean $boolean38 = ~script6431;
+while ($int3 = 0 & $int21 < $int20 | $int3 = 1 & $int21 >= 0) {
+    $int24 = enum(int, int, $enum19, $int21);
+    if (cc_find($component10, calc(%ql4_topquestid + $int21 + 1)) = true) {
+        cc_setposition(5, $int35, ^setpos_abs_left, ^setpos_abs_top);
+        $string0 = enum(int, string, $enum17, $int24);
+        cc_settext($string0);
+        cc_sethide(false);
+        $int35 = calc($int35 + cc_getheight);
+    }
+    $int15 = 0;
+    while ($int12 <= %ql4_topquestid) {
+        if ($intarray1($int12) = $int24) {
+            $quest27 = enum(int, quest, $enum9, $intarray0($int12));
+            if ($quest27 ! null & cc_find($component10, $intarray0($int12)) = true) {
+                if ($boolean38 = true) {
+                    cc_setposition(10, $int35, ^setpos_abs_left, ^setpos_abs_top);
+                } else {
+                    cc_setposition(15, $int35, ^setpos_abs_left, ^setpos_abs_top);
+                }
+                cc_sethide(false);
+                if ($intarray2($int12) = 0) {
+                    cc_setop(1, "View Quest Overview");
+                    cc_setop(2, "View Quest Journal");
+                    cc_setop(3, "Toggle Map Hint");
+                } else if ($intarray2($int12) = 1) {
+                    cc_setop(1, "View Quest Journal");
+                    cc_setop(2, "View Quest Overview");
+                    cc_setop(3, "Toggle Map Hints");
+                } else {
+                    cc_setop(1, "View Quest Journal");
+                    cc_setop(2, "View Quest Overview");
+                    cc_setop(3, "");
+                }
+                cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 16777215)");
+                if ($intarray0($int12) = $int37) {
+                    cc_setcolour(^cyan);
+                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^cyan)");
+                } else if ($intarray2($int12) = 0) {
+                    cc_setcolour(^red);
+                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^red)");
+                } else if ($intarray2($int12) = 1) {
+                    cc_setcolour(^yellow);
+                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^yellow)");
+                } else {
+                    cc_setcolour(^green);
+                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^green)");
+                }
+                $int35 = calc($int35 + cc_getheight);
+                $int15 = calc($int15 + 1);
+                if (enum(int, int, $enum18, $int24) = 1 & compare(quest_param($quest27, quest_category_retitle), "") ! 0 & cc_find($component10, calc(%ql4_topquestid + $int21 + 1)) = true) {
+                    cc_settext(quest_param($quest27, quest_category_retitle));
+                }
+                $int36 = calc($int36 + 1);
+            }
+        } else if ($intarray1($int12) > $int24) {
+            $int12 = %ql4_topquestid;
+        }
+        $int12 = calc($int12 + 1);
+    }
+    if ($int15 ! 0) {
+        $int35 = calc($int35 + 10);
+    } else {
+        if (cc_find($component10, calc(%ql4_topquestid + $int21 + 1)) = true) {
+            cc_settext("");
+            cc_sethide(true);
+        }
+        $int35 = calc($int35 - 20);
+    }
+    $int12 = 0;
+    if ($int3 = 0) {
+        $int21 = calc($int21 + 1);
+    } else {
+        $int21 = calc($int21 - 1);
+    }
+}
+def_string $string1 = "";
+if ($int1 = 1) {
+    if ($int36 = calc(%ql4_questcount - $int26)) {
+        $string1 = "Showing all <tostring(calc(%ql4_questcount - $int26))> items";
+    } else {
+        $string1 = "Showing <tostring($int36)> of <tostring(calc(%ql4_questcount - $int26))> items";
+    }
+    if ($int3 = 1) {
+        $string1 = append($string1, " (reversed)");
+    }
+    if_settext($string1, ~ql4_layer_status($component0));
+}
+if (%ql4_reinit = 1 | $int23 ! calc($int35 + 5) | $int3 = 1 & %ql4_reverse_list = 0 | $int3 = 0 & %ql4_reverse_list = 1) {
+    if (calc($int35 + 5) >= if_getheight($component10)) {
+        if_setscrollsize(if_getwidth($component10), calc($int35 + 5), $component10);
+    } else {
+        if_setscrollsize(if_getwidth($component10), 0, $component10);
+    }
+    $int23 = $int35;
+    if_setscrollpos(0, 0, $component10);
+    ~scrollbar_vertical($component11, $component10, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+} else {
+    if_setscrollpos(0, $int22, $component10);
+    ~scrollbar_vertical($component11, $component10, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+}
+if ($int1 = 1) {
+    %ql4_filter_doable = $int4;
+    %ql4_filter_done = $int5;
+    %ql4_reverse_list = $int3;
+    %ql4_filter_fullquests = $int6;
+    %ql4_filter_miniquests = $int7;
+}
+%ql4_reinit = 0;

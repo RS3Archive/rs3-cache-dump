@@ -1,0 +1,52 @@
+// 16852
+[proc,script16852]
+def_component $component0 = construction_house_furniture_portal_nexus_configure:available_scrolling;
+def_dbfilter $dbfilter1 = ~script9740;
+unknown_command_77($dbfilter1, construction_house_portal_nexus_teleport_destinations:col1, true);
+def_dbrow $dbrow2 = db_findnext;
+def_int $int3 = 0;
+def_string $string0 = "";
+def_struct $struct4 = null;
+def_int $int5 = calc(30 + 4);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_boolean $boolean8 = true;
+def_dbrow $dbrow9 = null;
+def_int $int10 = 5;
+def_int $int11 = 5;
+if (~script6431 = true) {
+    $int10 = 20;
+    $int11 = 5;
+}
+cc_deleteall($component0);
+while ($dbrow2 ! null) {
+    $int3 = db_getfield($dbrow2, construction_house_portal_nexus_teleport_destinations:col0, 0);
+    if (~script9741($int3) = false) {
+        $struct4 = db_getfield($dbrow2, construction_house_portal_nexus_teleport_destinations:col2, 0);
+        $string0 = db_getfield($dbrow2, construction_house_portal_nexus_teleport_destinations:col1, 0);
+        $boolean8 = ~int_to_bool(~script15411($struct4));
+        if ($boolean8 = true) {
+            $boolean8 = ~script9739($dbrow2, $struct4);
+        }
+        if ($boolean8 = false) {
+            $dbrow9 = text_body_default_disabled;
+        } else {
+            $dbrow9 = text_body_default;
+        }
+        ~if_add_child_layer($component0, $int3, 0, 0, $int6, ^setpos_abs_left, ^setpos_abs_top, 0, 34, ^setsize_minus, ^setsize_abs);
+        cc_setdragdeadzone($int10);
+        cc_setdragdeadtime($int11);
+        cc_setondrag("script20656(event_com, event_comsubid)");
+        cc_setondragcomplete("script20708(event_com, event_comsubid, event_com2, event_comsubid2)");
+        cc_setonop("script20711(event_com, event_comsubid, event_op)");
+        cc_setop(1, "Add");
+        ~script16109($int3, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $int7, ~negate_bool($boolean8));
+        ~cc_add_child_graphic($int3, 2, 2, 0, ^setpos_abs_left, ^setpos_abs_centre, 30, 30, ^setsize_abs, ^setsize_abs, null);
+        ~script20638($struct4, $boolean8);
+        ~cc_add_child_text($int3, 3, 2, 0, ^setpos_abs_right, ^setpos_abs_centre, 38, 2, ^setsize_minus, ^setsize_minus, $dbrow9, $string0);
+        $int7 = calc($int7 + 1);
+        $int6 = calc($int6 + 34);
+    }
+    $dbrow2 = db_findnext;
+}
+~script19620(construction_house_furniture_portal_nexus_configure:available_scrollbar, $component0, $int6, null, 0, 0, 0, 0);

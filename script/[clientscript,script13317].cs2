@@ -1,0 +1,32 @@
+// 13317
+[clientscript,script13317](component $component0)
+cc_deleteall($component0);
+def_achievement $achievement1 = null;
+switch_component ($component0) {
+    case achievements_summary:recent_layer_1 :
+        $achievement1 = %cheevo_recent_complete_1;
+    case achievements_summary:recent_layer_2 :
+        $achievement1 = %cheevo_recent_complete_2;
+    case achievements_summary:recent_layer_3 :
+        $achievement1 = %cheevo_recent_complete_3;
+    case achievements_summary:recent_layer_4 :
+        $achievement1 = %cheevo_recent_complete_4;
+    case default :
+        return;
+}
+if ($achievement1 = null) {
+    if_clearops($component0);
+    return;
+}
+if (achievement_category($achievement1) ! null) {
+    if_setop(1, "Go To", $component0);
+    if_setopbase(achievement_getname($achievement1), $component0);
+    if_setopcursor(1, cursor_goto, $component0);
+} else {
+    if_clearops($component0);
+}
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(achievement_sprite($achievement1));
+cc_setonmouserepeat("cheevo_tooltip($achievement1, $component0, cc_getid)");

@@ -1,0 +1,18 @@
+// 7085
+[clientscript,script7085](component $component0, inv $inv1, int $int2)
+def_enum $enum3 = null;
+if (%slide_puzzle_struct ! null) {
+    $enum3 = struct_param(%slide_puzzle_struct, slidepuzzle_sprite_anim_enum);
+    if ($enum3 = null) {
+        %slidepuzzle_anim_frame_enum = struct_param(%slide_puzzle_struct, slidepuzzle_sprite_single_enum);
+        if_setontimer(null, $component0);
+    } else if (calc(clientclock % (struct_param(%slide_puzzle_struct, slidepuzzle_animation_length_client_cycles) / enum_getoutputcount($enum3))) = 0) {
+        if ($int2 = 0) {
+            if (++%slidepuzzle_anim_frame > calc(enum_getoutputcount($enum3) - 1)) {
+                %slidepuzzle_anim_frame = 0;
+            }
+            %slidepuzzle_anim_frame_enum = enum(int, enum, $enum3, %slidepuzzle_anim_frame);
+        }
+        ~script7995($component0, $inv1);
+    }
+}

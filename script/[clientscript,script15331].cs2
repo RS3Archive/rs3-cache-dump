@@ -1,0 +1,48 @@
+// 15331
+[clientscript,script15331](category $category0, component $component1, component $component2, component $component3)
+if (enum_hasoutput(category, cheevo_categories, $category0) = false) {
+    if_settext("Invalid Category", $component1);
+    return;
+}
+~script2731($component1, -1, 2);
+def_int $int4 = achievement_findcategory($category0);
+def_int $int5 = 0;
+def_achievement $achievement6 = achievement_findnext;
+while ($achievement6 ! null) {
+    if (achievement_reqstate($achievement6) = -2) {
+        $int5 = calc($int5 + 1);
+    }
+    $achievement6 = achievement_findnext;
+}
+def_string $string0 = "<tostring_localised($int5, true)>/<tostring_localised($int4, true)>";
+if_settext($string0, $component1);
+def_int $int7 = -1;
+switch_category ($category0) {
+    case skills :
+        $int7 = 4;
+        %cheevo_cat_skills_completed = $int5;
+        %cheevo_cat_skills_max = $int4;
+    case exploration :
+        $int7 = 5;
+        %cheevo_cat_exploration_completed = $int5;
+        %cheevo_cat_exploration_max = $int4;
+    case atset :
+        $int7 = 6;
+        %cheevo_cat_atset_completed = $int5;
+        %cheevo_cat_atset_max = $int4;
+    case combat :
+        $int7 = 7;
+        %cheevo_cat_combat_completed = $int5;
+        %cheevo_cat_combat_max = $int4;
+    case lore :
+        $int7 = 8;
+        %cheevo_cat_lore_completed = $int5;
+        %cheevo_cat_lore_max = $int4;
+    case activities :
+        $int7 = 9;
+        %cheevo_cat_activities_completed = $int5;
+        %cheevo_cat_activities_max = $int4;
+}
+if ($int7 ! -1) {
+    ~script13310($component2, $component3, $int7, calc(8 * 1000));
+}

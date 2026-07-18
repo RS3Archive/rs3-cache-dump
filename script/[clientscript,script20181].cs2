@@ -1,0 +1,68 @@
+// 20181
+[clientscript,script20181](graphic $graphic0, graphic $graphic1, obj $obj2, int $int3, string $string0, string $string1, string $string2, string $string3)
+def_dbrow $dbrow4 = ~script20117(%league_active_player);
+if ($dbrow4 = null | ~is_mobile_client = true & if_gethide(toplevel_v2_mobile:chat_panel) = false) {
+    if_sethide(true, league_info_popup:base);
+    return;
+}
+def_int $int5 = 33;
+def_int $int6 = 110;
+def_int $int7 = 44;
+if (%toplevel_v2_active_skinset ! 0) {
+    if_sethide(true, league_info_popup:window_decorations);
+    if_sethide(false, league_info_popup:window_decorations_legacymobile);
+} else {
+    if_sethide(false, league_info_popup:window_decorations);
+    if_sethide(true, league_info_popup:window_decorations_legacymobile);
+}
+if_sethide(false, league_info_popup:base);
+if ($graphic0 ! null) {
+    if_setgraphic($graphic0, league_info_popup:graphic_1);
+    if_setgraphic($graphic1, league_info_popup:graphic_2);
+    if_setobject(null, 0, league_info_popup:obj);
+    if ($graphic1 ! null) {
+        if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, league_info_popup:graphic_1);
+        if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, league_info_popup:graphic_2);
+    } else {
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, league_info_popup:graphic_1);
+    }
+} else {
+    if_setgraphic(null, league_info_popup:graphic_1);
+    if_setgraphic(null, league_info_popup:graphic_2);
+    if_setobject_highres($obj2, league_info_popup:obj);
+    if ($obj2 = null) {
+        $int7 = 14;
+    } else {
+        $int7 = 50;
+    }
+}
+switch_int ($int3) {
+    case 5 :
+        if_setcolour(^black, league_info_popup:title);
+        if_setgraphic("rs3_ribbon_leagues_gold,0", league_info_popup:ribbon_l);
+        if_setgraphic("rs3_ribbon_leagues_gold,1", league_info_popup:ribbon_m);
+        if_setgraphic("rs3_ribbon_leagues_gold,2", league_info_popup:ribbon_r);
+    case 4 :
+        if_setgraphic("rs3_ribbon_leagues_red_gold,0", league_info_popup:ribbon_l);
+        if_setgraphic("rs3_ribbon_leagues_red_gold,1", league_info_popup:ribbon_m);
+        if_setgraphic("rs3_ribbon_leagues_red_gold,2", league_info_popup:ribbon_r);
+    case default :
+        if_setgraphic("rs3_ribbon_leagues_red,0", league_info_popup:ribbon_l);
+        if_setgraphic("rs3_ribbon_leagues_red,1", league_info_popup:ribbon_m);
+        if_setgraphic("rs3_ribbon_leagues_red,2", league_info_popup:ribbon_r);
+}
+def_int $int8 = ~script15891($string1, if_getwidth(league_info_popup:desc), if_getfontmetrics(league_info_popup:desc), 0);
+def_int $int9 = calc($int6 + $int8 + $int7);
+if ($int9 <= 200) {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, league_info_popup:base);
+    if_setsize(300, $int9, ^setsize_abs, ^setsize_abs, league_info_popup:base);
+} else {
+    if_setposition(0, calc(0 - $int5), ^setpos_abs_centre, ^setpos_abs_top, league_info_popup:base);
+    if_setsize(300, calc(min($int9, 200) + $int5), ^setsize_abs, ^setsize_abs, league_info_popup:base);
+}
+if_setsize(0, $int7, ^setsize_minus, ^setsize_minus, league_info_popup:desc);
+if_settext($string0, league_info_popup:title);
+if_settext($string1, league_info_popup:desc);
+if_settext($string2, league_info_popup:points_gained);
+if_settext($string3, league_info_popup:points_total);
+if_setontimer("script20182(clientclock)", league_info_popup:base);

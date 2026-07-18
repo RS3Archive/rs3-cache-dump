@@ -1,0 +1,34 @@
+// 3970
+[proc,script3970](inv $inv0, obj $obj1, int $int2, obj $obj3, boolean $boolean4)(int)
+if ($inv0 = null | $obj1 = null | %lore_npc_head = null) {
+    return($int2);
+}
+if (~script14235 = true) {
+    return($int2);
+}
+if (~script14428 = false) {
+    return($int2);
+}
+if (~script9257($inv0, $obj1, 1) = true) {
+    return($int2);
+}
+if (~lore_check($obj1, 0) = true) {
+    return($int2);
+}
+def_int $int5 = ~script11682(%lore_npc_head);
+def_int $int6 = 0;
+if ($obj3 ! null & ($boolean4 = false & $obj3 ! $obj1 | $boolean4 = true & $obj3 ! oc_cert($obj1))) {
+    $int6 = 0;
+} else if (oc_stackable($obj1) = true | $boolean4 = true) {
+    $int6 = ~bank_sideinv_itemspace(lore_bob, oc_cert($obj1), $int2, $int5);
+} else {
+    $int6 = ~bank_sideinv_itemspace(lore_bob, $obj1, $int2, $int5);
+}
+if ($int6 = $int2) {
+    return($int2);
+}
+def_int $int7 = ~script14292($obj1, calc($int2 - $int6), $int5);
+if ($int7 = 0) {
+    return($int2);
+}
+return(calc($int2 - $int7));

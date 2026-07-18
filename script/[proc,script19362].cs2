@@ -1,0 +1,63 @@
+// 19362
+[proc,script19362](obj $obj0)(boolean)
+if (~script1857 = false) {
+    return(true);
+}
+if (~script19574($obj0) = true) {
+    return(true);
+}
+if (~script16768($obj0) = true) {
+    return(true);
+}
+if (~script3996($obj0) = true) {
+    return(true);
+}
+switch_obj ($obj0) {
+    case invent_augmentor, flowers_waterfall_quest_augmented, invent_incomplete_weapon_gizmo, invent_weapon_gizmo :
+        if (~script13692 = 0) {
+            return(true);
+        }
+    case skilling_offhand_measure :
+        if (calc(%skilling_offhand_sapphire + %skilling_offhand_emerald + %skilling_offhand_ruby + %skilling_offhand_diamond + %skilling_offhand_dragon) ! 0) {
+            return(true);
+        } else {
+            return(false);
+        }
+}
+if (enum_hasoutput(obj, group_ironman_storage_blacklist_item, $obj0) = true) {
+    return(true);
+}
+if (enum_hasoutput(obj, group_ironman_storage_whitelist_item, $obj0) = true) {
+    return(false);
+}
+if (enum_hasoutput(category, group_ironman_storage_blacklist_category, oc_category($obj0)) = true) {
+    return(true);
+}
+if (enum_hasoutput(category, group_ironman_storage_whitelist_category, oc_category($obj0)) = true) {
+    return(false);
+}
+if (oc_param($obj0, njslay_is_a_slayer_helmet) = 1) {
+    return(false);
+}
+if (oc_param($obj0, mob_enchanted_ring) = 1) {
+    return(false);
+}
+if (oc_param($obj0, pop_scrimshaw) = 2) {
+    return(false);
+}
+if (oc_category($obj0) = urn) {
+    switch_int (oc_param($obj0, urns_state)) {
+        case 0, 3 :
+            return(false);
+    }
+}
+if (oc_tradeable($obj0) = false) {
+    if (~script19363($obj0) = true) {
+        return(false);
+    }
+    if (~script19364($obj0) = true) {
+        return(false);
+    }
+    return(true);
+}
+return(false);

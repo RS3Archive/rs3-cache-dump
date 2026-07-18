@@ -1,0 +1,32 @@
+// 13901
+[proc,script13901]
+if (~script5918 ! 1) {
+    if_sethide(true, toplevel_v2_combat_bar_mobile_revo:combat_bar_root_wrapper);
+    return;
+}
+def_int $int0 = ~script15873;
+def_int $int1 = calc($int0 + if_getx(toplevel_v2_combat_bar_mobile_buttons:revo_bar_start));
+def_int $int2 = calc(if_getwidth(toplevel_v2:game_area) - 250 - 50 + $int0);
+def_int $int3 = calc(6 + 28 * %combatv2_conservation_length);
+def_int $int4 = calc(if_getx(toplevel_v2:game_area) + if_getwidth(toplevel_v2:game_area) / 2 - $int3 / 2);
+def_int $int5 = min(-12, calc($int2 - ($int4 + $int3)));
+def_int $int6 = %combatv2_conservation_length;
+def_int $int7 = 0;
+if (calc($int4 + $int5) < $int1) {
+    $int7 = calc($int1 - ($int4 + $int5));
+    $int6 = calc($int6 - ($int7 / 28 + min(1, calc($int7 % 28))));
+    $int3 = calc(6 + 28 * $int6);
+    $int5 = calc($int5 + 28 * (%combatv2_conservation_length - $int6) / 2);
+}
+def_int $int8 = 14;
+while ($int8 > 0) {
+    if ($int8 > $int6) {
+        if_sethide(true, enum(int, component, combatv2_mobile_revolution_bar_components, $int8));
+    } else {
+        if_sethide(false, enum(int, component, combatv2_mobile_revolution_bar_components, $int8));
+    }
+    $int8 = calc($int8 - 1);
+}
+if_sethide(false, toplevel_v2_combat_bar_mobile_revo:combat_bar_root_wrapper);
+if_setsize($int3, 34, ^setsize_abs, ^setsize_abs, toplevel_v2_combat_bar_mobile_revo:combat_bar_root);
+if_setposition($int5, 0, ^setpos_abs_centre, ^setpos_abs_bottom, toplevel_v2_combat_bar_mobile_revo:combat_bar_root);

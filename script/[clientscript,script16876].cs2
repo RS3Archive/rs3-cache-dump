@@ -1,0 +1,52 @@
+// 16876
+[clientscript,script16876](int $int0, component $component1, component $component2)
+def_int $int3 = ~script16828(~date_runeday);
+if ($int0 = 0) {
+    $int3 = calc($int3 + 1);
+}
+cc_deleteall($component1);
+def_int $int4 = enum(int, int, gamemode_seasonal_fss_week_to_event_id, $int3);
+if ($int4 = -1) {
+    ~cc_add_text($component1, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 20, 20, ^setsize_minus, ^setsize_minus, null, "Fresh Start Worlds is over!");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    return;
+}
+db_find(weekend_events:col7, $int4);
+def_dbrow $dbrow5 = db_findnext;
+if ($dbrow5 = null) {
+    ~cc_add_text($component1, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 20, 20, ^setsize_minus, ^setsize_minus, null, "Fresh Start Worlds is over!");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    return;
+}
+~cc_add_panel($component1, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 5, ^setsize_minus, ^setsize_abs, true, 5);
+def_int $int6 = db_getfieldcount($dbrow5, weekend_events:col10);
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_graphic $graphic10 = rs_fsw_ui_signup_bullet_primary;
+if ($int0 = 0) {
+    $graphic10 = rs_fsw_ui_signup_bullet_secondary;
+}
+if (.cc_find($component1, 0) = true) {
+    while (++$int7 < $int6) {
+        $int8 = db_getfield($dbrow5, weekend_events:col10, $int7);
+        if (enum_hasoutput(int, gamemode_seasonal_hidden_effects, $int8) = false) {
+            $string0 = ~script16830($int3, $int8, $int0);
+            if (string_length($string0) > 0) {
+                $int9 = ~script15891($string0, calc(.cc_getwidth - 60), museo_sans_15pt_regular, -1);
+                .cc_setsize(0, calc(.cc_getheight + $int9 + 5), ^setsize_minus, ^setsize_abs);
+                ~script15939($component1, 1, $int7, 0, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, $int9, ^setsize_minus, ^setsize_abs);
+                ~script7920($component1, 2, if_getnextcategorysubid(2, $component1), 1, $int7, 10, 6, ^setpos_abs_left, ^setpos_abs_top, 15, 15, ^setsize_abs, ^setsize_abs, $graphic10);
+                ~script10507($component1, 2, if_getnextcategorysubid(2, $component1), 1, $int7, 50, 0, ^setpos_abs_left, ^setpos_abs_centre, 60, 0, ^setsize_minus, ^setsize_minus, null, $string0);
+                cc_settextfont(museo_sans_15pt_regular);
+                cc_setcolour(~script10495(3));
+                cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+            }
+        }
+    }
+    if_setscrollsize(if_getwidth($component1), max(if_getheight($component1), .cc_getheight), $component1);
+    if (if_getheight($component1) < .cc_getheight) {
+        ~rs3_scrollbar_vertical($component2, $component1);
+    }
+}

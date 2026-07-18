@@ -1,0 +1,17 @@
+// 1413
+[proc,event_state](struct $struct0)(int)
+def_int $int1 = %atlum_day_tracker;
+if ($int1 < struct_param($struct0, event_prerelease_date)) {
+    return(0);
+}
+if ($int1 < struct_param($struct0, event_start_date)) {
+    if (struct_param($struct0, event_prerelease_date) ! -1) {
+        return(1);
+    } else {
+        return(0);
+    }
+}
+if ($int1 <= struct_param($struct0, event_end_date)) {
+    return(2);
+}
+return(3);

@@ -1,0 +1,27 @@
+// 12176
+[proc,invent_gizmo_update_slot](dbrow $dbrow0, int $int1)
+def_int $int2 = 0;
+if ($dbrow0 ! null) {
+    cc_setgraphic(db_getfield($dbrow0, invent_material_table:col4, 0));
+    $int2 = ~script12065($dbrow0);
+} else {
+    cc_setgraphic(null);
+}
+cc_setontimer(null);
+if (.cc_find(invent_gizmo:work_layer, cc_param(invent_client_start_id)) = true) {
+    if ($int2 > 1) {
+        .cc_settext(tostring($int2));
+        .cc_sethide(false);
+    } else {
+        .cc_settext("");
+        .cc_sethide(true);
+    }
+}
+if ($int1 = 1) {
+    if ($dbrow0 = null) {
+        ~script12184(cc_param(invent_client_material));
+    } else {
+        ~script12184($dbrow0);
+    }
+}
+cc_setparam(invent_client_material, $dbrow0);

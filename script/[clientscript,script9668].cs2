@@ -1,0 +1,38 @@
+// 9668
+[clientscript,script9668](component $component0, component $component1, component $component2, component $component3)
+def_int $int4 = 0;
+def_int $int5 = 5;
+def_string $string0 = "";
+cc_deleteall($component0);
+cc_deleteall($component1);
+def_int $int6 = 5;
+def_int $int7 = 0;
+while ($int4 < 60) {
+    cc_create($component0, ^iftype_text, $int4);
+    cc_settext("Floor <tostring(calc($int4 + 1))>");
+    cc_setsize(calc(if_getwidth($component2) / 4 - 40), 25, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int6 + 35), $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(0x7592a0);
+    .cc_create($component1, ^iftype_graphic, $int4);
+    .cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    .cc_setposition($int6, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    if (~script9669(calc($int4 + 1)) = 1) {
+        $string0 = "You have completed this floor on hard mode.";
+        .cc_setgraphic("rs3_character_interface_breadcrumb_ticks,1");
+        .cc_setonmouserepeat("script8799($string0, $component1, $int4)");
+    } else {
+        $string0 = "You have not completed this floor on hard mode.";
+        .cc_setgraphic("rs3_character_interface_breadcrumb_ticks,0");
+        .cc_setonmouserepeat("script8799($string0, $component1, $int4)");
+    }
+    $int5 = calc($int5 + cc_getheight + 5);
+    if (calc(++$int4 % 15) = 0) {
+        $int6 = calc(cc_getwidth + cc_getx + 10);
+        $int5 = 5;
+    }
+    $int7 = calc(cc_gety + cc_getheight);
+}
+if_setscrollsize(0, $int7, $component2);
+~rs3_scrollbar_vertical($component3, $component2);

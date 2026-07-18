@@ -1,0 +1,23 @@
+// 3644
+[proc,script3644](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (.if_find(if_getparentlayer($component0)) = true) {
+    $int3 = .cc_getwidth;
+    $int4 = .cc_getheight;
+    $int1, $int2 = if_getgraphicdimensions($component0);
+    if ($int1 < 1 | $int2 < 1) {
+        return;
+    }
+    if ($int1 < $int3 & $int2 < $int4) {
+        if_setsize($int1, $int2, ^setsize_abs, ^setsize_abs, $component0);
+        return;
+    }
+    if (scale($int3, $int1, $int2) < $int4) {
+        if_setsize($int3, scale($int3, $int1, $int2), ^setsize_abs, ^setsize_abs, $component0);
+    } else {
+        if_setsize(scale($int4, $int2, $int1), $int4, ^setsize_abs, ^setsize_abs, $component0);
+    }
+}

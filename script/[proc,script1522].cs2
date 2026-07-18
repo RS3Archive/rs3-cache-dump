@@ -1,0 +1,123 @@
+// 1522
+[proc,script1522](int $int0, component $component1, component $component2, component $component3, component $component4)
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+def_int $int5 = 0;
+if ($int0 = 102039552) {
+    $int5 = 1;
+}
+def_boolean $boolean6 = ~script6431;
+def_int $int7 = 0;
+def_int $int8 = if_getwidth($component1);
+def_int $int9 = min(3, max(1, calc($int8 / 70)));
+$int9 = calc($int8 / $int9);
+def_string $string0 = "";
+def_string $string1 = "";
+if_setsize($int9, 0, ^setsize_abs, ^setsize_minus, $component2);
+if_setposition($int7, 0, ^setpos_abs_left, ^setpos_abs_top, $component2);
+def_int $int10 = calc($int9 / 2 - 35);
+cc_create($component2, ^iftype_graphic, 0);
+cc_setgraphic(rs3_icon_tab_skills);
+cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+$string1 = "The total number of levels gained across all skills.";
+if (%option_virtuallvl = 1) {
+    $string1 = append($string1, "<br><col=00DD00>The total number of virtual levels up to <tostring(120)> (150 for Invention) gained across all skills.");
+}
+if ($boolean6 = false) {
+    cc_setonmouserepeat("script8801($string1, event_com, event_comsubid, ^settextalign_left, ^settextalign_centre, 12)");
+    cc_setonmouseleave("script8805");
+} else {
+    cc_setonclick("script7774($string1, event_com, event_comsubid, 0)");
+}
+$int10 = calc($int10 + 30);
+cc_create($component2, ^iftype_text, 1);
+cc_setsize(40, 0, ^setsize_abs, ^setsize_minus);
+if (%option_virtuallvl = 1) {
+    cc_setposition($int10, -6, ^setpos_abs_left, ^setpos_abs_centre);
+} else {
+    cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+}
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+if ($int5 = 0) {
+    cc_settext(tostring(~skilltotal));
+} else {
+    cc_settext(tostring(~player_inspect_skilltotal_actual));
+}
+~total_xp_tooltip($component2, cc_getid, $int5);
+if (%option_virtuallvl = 1) {
+    cc_create($component2, ^iftype_text, 2);
+    cc_setsize(40, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition($int10, 6, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(0x00dd00);
+    if ($int5 = 0) {
+        cc_settext(tostring(~script11866));
+    } else {
+        cc_settext(tostring(~script11867));
+    }
+    ~total_xp_tooltip($component2, cc_getid, $int5);
+}
+if ($int8 >= 120) {
+    if_setsize($int9, 0, ^setsize_abs, ^setsize_minus, $component3);
+    if_setposition(calc($int7 + $int9), 0, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    $int10 = calc($int9 / 2 - 35);
+    cc_create($component3, ^iftype_graphic, 0);
+    cc_setgraphic(aif_combat_icon);
+    cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $string1 = "Combat level is calculated from levels achieved in combat related skills.";
+    if ($int5 = 1 & %player_inspect_psr_proof = 1) {
+        $string1 = append($string1, ~script17261(%player_inspect_psr_xpblocked, %player_inspect_psr_xpblocked_reward, %player_inspect_psr_minor_reset));
+    }
+    if ($boolean6 = false) {
+        cc_setonmouserepeat("script8801($string1, event_com, event_comsubid, ^settextalign_left, ^settextalign_centre, 12)");
+        cc_setonmouseleave("script8805");
+    } else {
+        cc_setonclick("script7774($string1, event_com, event_comsubid, 0)");
+    }
+    $int10 = calc($int10 + 30);
+    cc_create($component3, ^iftype_text, 1);
+    cc_setsize(40, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    if ($int5 = 0) {
+        cc_settext(tostring(~comlevel));
+    } else {
+        cc_settext(tostring(~player_inspect_comlevel));
+    }
+}
+if ($int8 >= 180 & $int0 ! 61341697) {
+    if_setsize($int9, 0, ^setsize_abs, ^setsize_minus, $component4);
+    if_setposition(calc($int7 + $int9 * 2), 0, ^setpos_abs_left, ^setpos_abs_top, $component4);
+    $int10 = calc($int9 / 2 - 35);
+    cc_create($component4, ^iftype_graphic, 0);
+    cc_setgraphic("rs3_icon_menu_tab_quest_list,0");
+    cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $string1 = "Total quest points earned.";
+    if ($boolean6 = false) {
+        cc_setonmouserepeat("script8801($string1, event_com, event_comsubid, ^settextalign_left, ^settextalign_centre, 12)");
+        cc_setonmouseleave("script8805");
+    } else {
+        cc_setonclick("script7774($string1, event_com, event_comsubid, 0)");
+    }
+    $int10 = calc($int10 + 30);
+    cc_create($component4, ^iftype_text, 1);
+    cc_setsize(40, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    if ($int5 = 0) {
+        cc_settext(tostring(%qp));
+    } else {
+        cc_settext(tostring(%player_inspect_qp));
+    }
+}

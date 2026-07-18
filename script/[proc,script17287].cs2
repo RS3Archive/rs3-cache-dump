@@ -1,0 +1,20 @@
+// 17287
+[proc,script17287](dbrow $dbrow0)(int, string)
+def_int $int1 = 0;
+def_int $int2 = db_getfieldcount($dbrow0, requirements:col3);
+def_quest $quest3 = null;
+def_int $int4 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+while ($int1 < $int2) {
+    $quest3 = db_getfield($dbrow0, requirements:col3, $int1);
+    if (quest_started($quest3) = true) {
+        $int4 = calc($int4 + 1);
+        $string1 = quest_getname($quest3);
+        $string0 = ~script17238($string0, "Quest not started: <$string1>");
+    } else {
+        $string0 = ~script17238($string0, "<str=FFFFFE>Quest not started: <$string1>");
+    }
+    $int1 = calc($int1 + 1);
+}
+return($int4, $string0);

@@ -1,0 +1,62 @@
+// 13945
+[proc,script13945]
+def_inv $inv0 = inv;
+def_inv $inv1 = worn;
+def_inv $inv2 = lore_bob;
+if (%share_preset_last_preset ! 0) {
+    $inv0, $inv1, $inv2 = ~script15906(%share_preset_last_preset);
+}
+def_inv $inv3 = $inv0;
+def_int $int4 = %share_preset_inv_error_bits;
+if (%share_preset_last_preset = 19) {
+    $inv3 = $inv2;
+    $int4 = %share_preset_bob_error_bits;
+    if_setsize(if_getwidth(bank:preset_backpack_bob), calc(8 * 37 + 6), ^setsize_abs, ^setsize_abs, bank:preset_backpack_bob);
+    if_sethide(true, bank:preset_worn);
+} else {
+    if_setsize(if_getwidth(bank:preset_backpack_bob), calc(7 * 37 + 6), ^setsize_abs, ^setsize_abs, bank:preset_backpack_bob);
+    if_sethide(false, bank:preset_worn);
+}
+if ($inv1 = null | $inv3 = null) {
+    return;
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = inv_size($inv3);
+def_int $int8 = if_getwidth(bank:preset_inventory_layer);
+def_int $int9 = 8;
+def_int $int10 = 0;
+def_obj $obj11 = null;
+def_graphic $graphic12 = null;
+cc_deleteall(bank:preset_inventory_slots);
+cc_deleteall(bank:preset_inventory_layer);
+while ($int5 < $int7) {
+    if (testbit($int4, $int5) = ^true) {
+        $graphic12 = rs3_icon_slot_unavailable;
+    } else {
+        $graphic12 = rs3_inventory_slot;
+    }
+    cc_create(bank:preset_inventory_slots, ^iftype_graphic, $int6);
+    cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int9, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic($graphic12);
+    cc_create(bank:preset_inventory_layer, ^iftype_graphic, $int6);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int9 + 4), calc($int10 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    $int9 = calc($int9 + 46);
+    if (calc($int9 + 37) > $int8) {
+        $int9 = 8;
+        $int10 = calc($int10 + 37);
+    }
+    $int6 = calc($int6 + 1);
+    $int5 = calc($int5 + 1);
+}
+$int5 = 0;
+while ($int5 < $int7) {
+    $obj11 = inv_getobj($inv3, $int5);
+    if (cc_find(bank:preset_inventory_layer, $int5) = true) {
+        cc_setobject($obj11, inv_getnum($inv3, $int5));
+        ~script14395($inv3, $obj11);
+    }
+    $int5 = calc($int5 + 1);
+}

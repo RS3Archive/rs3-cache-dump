@@ -1,0 +1,20 @@
+// 10770
+[clientscript,script10770](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = 360;
+def_int $int5 = calc($int4 / $int2 * $int1);
+if_setsize($int5, 32, ^setsize_abs, ^setsize_abs, trail_reward:fill_bar);
+def_string $string0 = "";
+if ($int1 ! -1) {
+    $string0 = "<tostring($int1)>/<tostring($int2)>";
+}
+if ($int3 = 0) {
+    if_settext("Free reroll!", trail_reward:reroll_progress);
+} else {
+    if_settext("Reroll Progress - <$string0>", trail_reward:reroll_progress);
+}
+if ($int0 = 0 & $int3 = 1) {
+    if_sethide(false, trail_reward:button_layer_off);
+} else {
+    if_sethide(true, trail_reward:button_layer_off);
+    if_settext("Reroll Reward (<tostring($int0)>)", trail_reward:button_text);
+}

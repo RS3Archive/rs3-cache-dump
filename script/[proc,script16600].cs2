@@ -1,0 +1,16 @@
+// 16600
+[proc,script16600]()(dbrow)
+def_int $int0 = ~trh179_get_modifier_active;
+if (enum_hasoutput(int, trh179_modifier_order, $int0) = false) {
+    ~error("Unexpected modifier id: <tostring($int0)>, returning base");
+    $int0 = 0;
+}
+db_find(trh179_modifier:col0, $int0);
+def_dbrow $dbrow1 = db_findnext;
+if ($dbrow1 = null) {
+    ~error("Unable to find droptable for modifier <tostring($int0)>");
+    return(trh_promo_categories_trh179_base);
+} else {
+    return(db_getfield($dbrow1, trh179_modifier:col7, 0));
+}
+return(trh_promo_categories_trh179_base);

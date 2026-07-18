@@ -1,0 +1,90 @@
+// 15251
+[proc,script15251](int $int0)
+if (%loginscreen_steam_menu = $int0) {
+    return;
+}
+def_string $string0 = "";
+if_sethide(false, login_steam:main);
+if_sethide(true, login_steam:sso_login);
+if_sethide(true, login_steam:link_account);
+if_sethide(true, loginscreen:desktop_background_lower);
+~login_popup_close(0);
+switch_int ($int0) {
+    case 0 :
+        ~loginscreen_steam_spinner("Checking Steam login status...");
+    case 1 :
+        if_setsize(300, 210, ^setsize_abs, ^setsize_abs, login_steam:main);
+        if_setsize(0, 250, ^setsize_minus, ^setsize_abs, loginscreen:desktop_background_upper);
+        if_sethide(false, login_steam:sso_login);
+        if_setonclick("login_dologin_steam", login_steam:login_button);
+        ~script15268(login_steam:logged_in_user);
+        ~script15272;
+    case 2 :
+        if_settext("Welcome To RuneScape", login_steam:welcome_link);
+        if_setsize(300, 240, ^setsize_abs, ^setsize_abs, login_steam:main);
+        if_setsize(0, 280, ^setsize_minus, ^setsize_abs, loginscreen:desktop_background_upper);
+        if_sethide(false, login_steam:link_account);
+        if_sethide(false, login_steam:link_buttons);
+        if_sethide(true, login_steam:link_new_confirm);
+        if_sethide(true, login_steam:link_external_login);
+        ~stylesheet_static_button(login_steam:button_yes, "Yes - Link my RuneScape account with Steam.", button_cornered_neutral);
+        ~stylesheet_static_button(login_steam:button_no, "No - Create a new account with Steam.", button_cornered_neutral);
+        if (cc_find(login_steam:button_yes, 0) = true) {
+            cc_setonbuttonpressed("script15265");
+        }
+        if (cc_find(login_steam:button_no, 0) = true) {
+            cc_setonbuttonpressed("script15264");
+        }
+        ~script15272;
+    case 5 :
+        if_settext("Create New Account", login_steam:welcome_link);
+        if_setsize(300, 200, ^setsize_abs, ^setsize_abs, login_steam:main);
+        if_setsize(0, 240, ^setsize_minus, ^setsize_abs, loginscreen:desktop_background_upper);
+        if_sethide(false, login_steam:link_account);
+        if_sethide(true, login_steam:link_buttons);
+        if_sethide(false, login_steam:link_new_confirm);
+        if_sethide(true, login_steam:link_external_login);
+        ~stylesheet_static_button(login_steam:confirm, "Create", button_action_positive);
+        ~stylesheet_static_button(login_steam:cancel, "Go Back", button_action_neutral);
+        if (cc_find(login_steam:confirm, 0) = true) {
+            cc_setonbuttonpressed("script2661");
+        }
+        if (cc_find(login_steam:cancel, 0) = true) {
+            cc_setonbuttonpressed("script1396");
+        }
+    case 4 :
+        if_settext("Welcome To RuneScape", login_steam:welcome_link);
+        if_setsize(300, 310, ^setsize_abs, ^setsize_abs, login_steam:main);
+        if_setsize(0, 330, ^setsize_minus, ^setsize_abs, loginscreen:desktop_background_upper);
+        if_sethide(false, login_steam:link_account);
+        if_sethide(true, login_steam:link_buttons);
+        if_sethide(true, login_steam:link_new_confirm);
+        if_sethide(false, login_steam:link_external_login);
+        ~stylesheet_static_button(login_steam:reopen_page, "Launch web page", button_action_neutral);
+        ~stylesheet_static_button(login_steam:cancel_link, "Cancel", button_action_negative);
+        if_setonclick("script15260", login_steam:login_button_external);
+        if (cc_find(login_steam:cancel_link, 0) = true) {
+            cc_setonbuttonpressed("script15252");
+        }
+        if (cc_find(login_steam:reopen_page, 0) = true) {
+            cc_setonbuttonpressed("script15266");
+        }
+        $string0 = "If the browser page didn't launch or it closed without your account being linked use this button to re-launch the web page.";
+        if_setonmouserepeat("script8802($string0, 1000, 0, event_com, event_comsubid, museo_sans_11pt_regular_multiline, ^white)", login_steam:reopen_page);
+        ~script15272;
+    case 3 :
+        ~loginscreen_steam_spinner("Account linking in progress.");
+    case 6 :
+        if_setsize(0, 74, ^setsize_minus, ^setsize_minus, loginscreen:desktop_background_upper);
+        if_sethide(false, loginscreen:desktop_background_lower);
+        ~loginscreen_steam_popup("We failed to link your Steam account. Please try again later.", "Back", 1, 0);
+    case 7 :
+        ~loginscreen_steam_spinner("Logging In - Please Wait");
+    case 8 :
+        if_setsize(0, 74, ^setsize_minus, ^setsize_minus, loginscreen:desktop_background_upper);
+        if_sethide(false, loginscreen:desktop_background_lower);
+        ~loginscreen_steam_popup("Logging in - Please Wait", "Abort Login", 0, 0);
+    case default :
+        ~script15256;
+}
+%loginscreen_steam_menu = $int0;

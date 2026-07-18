@@ -1,0 +1,16 @@
+// 14775
+[proc,script14775]
+def_boolean $boolean0 = ~negate_bool(db_getfield(%collection_log_data, collection_log:col3, 0));
+if_sethide($boolean0, collection_log:favourite_graphic);
+if ($boolean0 = true) {
+    return;
+}
+def_graphic $graphic1 = "rs3_icon_lobby_favorite_large,0";
+def_graphic $graphic2 = "rs3_icon_lobby_favorite_large,0";
+if (~script14512(%collection_log_data) ! %collection_log_selected) {
+    $graphic1 = "rs3_icon_lobby_favorite_large,2";
+    $graphic2 = "rs3_icon_lobby_favorite_large,1";
+}
+if_setgraphic($graphic1, collection_log:favourite_graphic);
+if_setonmouseover("graphic_swapper(collection_log:favourite_graphic, $graphic2)", collection_log:favourite_graphic);
+if_setonmouseleave("graphic_swapper(collection_log:favourite_graphic, $graphic1)", collection_log:favourite_graphic);

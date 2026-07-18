@@ -1,0 +1,38 @@
+// 6514
+[clientscript,script6514]
+def_int $int0 = -1;
+def_int $int1 = enum_getoutputcount(trh158_skill_components);
+def_enum $enum2 = null;
+switch_int (%trh158_th_last_vos_roll) {
+    case 1 :
+        if_setgraphic(glow_seren_yellow_trh158, trh158:vos_active_voice_glow);
+        if_setgraphic(icon_seren_artisan_trh158, trh158:vos_active_voice_icon);
+        $enum2 = trh158_skill_artisan;
+        if_sethide(false, trh158:vos_weekend);
+    case 2 :
+        if_setgraphic(glow_seren_red_trh158, trh158:vos_active_voice_glow);
+        if_setgraphic(icon_seren_combat_trh158, trh158:vos_active_voice_icon);
+        $enum2 = trh158_skill_combat;
+        if_sethide(false, trh158:vos_weekend);
+    case 3 :
+        if_setgraphic(glow_seren_green_trh158, trh158:vos_active_voice_glow);
+        if_setgraphic(icon_seren_gathering_trh158, trh158:vos_active_voice_icon);
+        $enum2 = trh158_skill_gathering;
+        if_sethide(false, trh158:vos_weekend);
+    case 4 :
+        if_setgraphic(glow_seren_blue_trh158, trh158:vos_active_voice_glow);
+        if_setgraphic(icon_seren_support_trh158, trh158:vos_active_voice_icon);
+        $enum2 = trh158_skill_support;
+        if_sethide(false, trh158:vos_weekend);
+    case default :
+        if_sethide(true, trh158:vos_weekend);
+}
+if ($enum2 = null) {
+    return;
+}
+while (++$int0 < $int1) {
+    if_setgraphic(enum(int, graphic, $enum2, $int0), enum(int, component, trh158_skill_components, $int0));
+}
+if_setontimer("script6515(1)", trh158:vos_active_voice_glow);
+~script6517;
+if_setonvartransmit("script6516{trh_promos_var4}", trh158:vos_active_voice_icon);

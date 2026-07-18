@@ -1,0 +1,16 @@
+// 7169
+[proc,script7169](enum $enum0, enum $enum1, obj $obj2)(component, int)
+if (%makex2012_available_recipe_lists = $enum0) {
+    if (%makex2012_active_recipe_list ! $enum1) {
+        if (%dynamic_dropdown_selected_enum = %makex2012_available_recipe_list_names) {
+            return(toplevel_v2:dropdown_list, enum_getreverseindex(enum, int, $enum0, $enum1, 0));
+        } else {
+            return(makex2012_controls:dropdown_click, -1);
+        }
+    } else if (%makex2012_active_recipe ! $obj2) {
+        return(makex2012_controls:items_list, calc(4 * enum_getreverseindex(obj, int, $enum1, $obj2, 0)));
+    } else {
+        return(makex2012:make_button, -1);
+    }
+}
+return(null, -1);

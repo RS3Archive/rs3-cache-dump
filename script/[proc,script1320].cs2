@@ -1,0 +1,47 @@
+// 1320
+[proc,script1320](int $int0, int $int1)
+def_int $int2 = 85;
+def_int $int3 = 3;
+def_int $int4 = ~script11800($int0);
+def_int $int5 = ~script11803;
+def_int $int6 = if_getwidth(toplevel_v2_combat_bar_mobile_buttons:bar_selection_layer);
+def_int $int7 = 0;
+def_int $int8 = calc($int2 + 10);
+def_fontmetrics $fontmetrics9 = museo_sans_27pt_bold;
+def_int $int10 = 100;
+if ($int6 > if_getwidth(toplevel_v2_mobile:root)) {
+    $int10 = calc(if_getwidth(toplevel_v2_mobile:root) * 100 / $int6);
+    $int2 = calc($int2 * $int10 / 100);
+    $int3 = calc($int3 * $int10 / 100);
+    $int8 = calc($int2 + 10);
+    $fontmetrics9 = museo_sans_24pt_bold;
+}
+def_int $int11 = calc($int6 / $int5);
+def_int $int12 = calc(($int11 - $int2) / 2);
+def_graphic $graphic13 = "rs3_btn_combat_bar_adrenaline,0";
+def_component $component14 = toplevel_v2_combat_bar_mobile_buttons:bar_selection_content_layer;
+if_setsize($int6, if_getheight(toplevel_v2_combat_bar_mobile_buttons:bar_selection_layer), ^setsize_abs, ^setsize_abs, toplevel_v2_combat_bar_mobile_buttons:bar_selection_layer);
+cc_deleteall($component14);
+while ($int7 < $int5) {
+    if (calc($int7 + 1) = $int4) {
+        $graphic13 = magic_button_pressed_mainmenu;
+    } else {
+        $graphic13 = magic_button_normal_mainmenu;
+    }
+    ~cc_add_graphic_custom($component14, calc($int7 * 2), $int2, $int2, ^setsize_abs, ^setsize_abs, $int12, 0, ^setpos_abs_left, ^setpos_abs_centre, $graphic13, false, false, false, 0);
+    cc_setop(1, "Select <~script16004(calc($int7 + 1))>");
+    cc_setonop("script1321(calc($int7 + 1))");
+    cc_create($component14, ^iftype_text, calc($int7 * 2 + 1));
+    cc_setsize($int2, $int2, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int12 + 2), 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settext(tostring(calc($int7 + 1)));
+    cc_settextfont($fontmetrics9);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settextshadow(true);
+    ~script6888(2);
+    $int7 = calc($int7 + 1);
+    $int12 = calc($int11 * $int7 + ($int11 - $int2) / 2);
+}
+if (if_find($component14) = true) {
+    cc_setparam(combatv2_last_selected_bar, $int0);
+}

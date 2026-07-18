@@ -1,0 +1,142 @@
+// 10761
+[proc,script10761](obj $obj0, inv $inv1, struct $struct2, struct $struct3, component $component4, component $component5, int $int6)(int)
+def_string $string0 = get_col_tag(~script10495(0));
+def_string $string1 = get_col_tag(~script10495(0));
+def_string $string2 = get_col_tag(~script10495(3));
+def_string $string3 = get_col_tag(^white);
+def_string $string4 = $string2;
+def_string $string5 = $string1;
+def_string $string6 = get_col_tag(~script10495(6));
+def_fontmetrics $fontmetrics7 = struct_param($struct3, optext_font);
+def_int $int8 = 16777215;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_obj $obj14 = null;
+def_struct $struct15 = null;
+def_struct $struct16 = null;
+def_int $int17 = -1;
+def_int $int18 = -1;
+def_int $int19 = -1;
+def_int $int20 = oc_wearpos($obj0);
+def_struct $struct21 = oc_param($obj0, mtxmgt_item_struct);
+def_dbrow $dbrow22 = ~script15769($struct21);
+def_struct $struct23 = null;
+def_int $int24 = -1;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 10;
+def_int $int28 = 34;
+def_int $int29 = 35;
+def_int $int30 = -1;
+def_int $int31 = 0;
+def_string $string7 = "";
+if ($struct21 ! null | $obj0 ! null) {
+    $obj0 = ~script13427($obj0, mtxmgt_store_worn_display_preview);
+    if ($component5 ! minimenu:mobile_tooltip_text) {
+        $int6 = ~script7235("Cosmetic Appearance", $string0, $struct3, $component4, $component5, $int6);
+    }
+    if ($struct21 = null) {
+        if ($inv1 = mtxmgt_store_worn_display_preview & testbit(%mtxmgt_store_worn_display_preview_keepsake_bits, oc_wearpos($obj0)) = ^true) {
+            $int10 = 1;
+            $int6 = ~script7235(oc_name($obj0), $string1, $struct2, $component4, $component5, $int6);
+            if (inv_total(worn_custom_overrides, $obj0) > 0) {
+                $int12 = 1;
+                $int6 = ~script7235("You have this item keepsaked.", $string5, $struct3, $component4, $component5, $int6);
+            } else {
+                $int6 = ~script7235("You don't have this item keepsaked.", $string6, $struct3, $component4, $component5, $int6);
+            }
+        } else {
+            $int6 = ~script7235(oc_name($obj0), $string1, $struct2, $component4, $component5, $int6);
+            if ($obj0 = mtx_invisible_slot) {
+                $int6 = ~script7235("This slot won't be affected.", $string5, $struct3, $component4, $component5, $int6);
+                return($int6);
+            }
+        }
+    } else {
+        $int10 = 1;
+        $int6 = ~script7235(struct_param($struct21, mtxmgt_name), $string1, $struct2, $component4, $component5, $int6);
+        $struct23 = struct_param($struct21, mtxmgt_parent_struct);
+        if ($struct23 ! null) {
+            $int6 = ~script7235("part of '<struct_param($struct23, mtxmgt_name)>'", $string2, $struct3, $component4, $component5, $int6);
+        } else {
+            $struct23 = $struct21;
+        }
+        if (~script6488($struct21) = 1 & ~script12779($struct21, $obj0, ~script13103($inv1, $int20)) = 1) {
+            $int12 = 1;
+            if ($inv1 = inspect_worn_display | $inv1 = mtxmgt_store_worn_display_preview) {
+                $int6 = ~script7235("You already own this override.", $string5, $struct3, $component4, $component5, $int6);
+            }
+        }
+    }
+    if ($int12 = 0 & $struct23 ! null) {
+        if ($int6 > 0 & cc_find($component5, calc($int6 - 1)) = true) {
+            $int9 = calc(cc_gety + cc_getheight);
+        }
+        if ($inv1 = inspect_worn_display) {
+            $int18, $int19 = ~script10780($int20);
+        } else if ($inv1 = mtxmgt_store_worn_display_preview) {
+            $int18, $int19 = ~script13110($int20);
+        }
+        if (($inv1 = mtxmgt_store_worn_display_preview | $inv1 = mtxmgt_store_temp) & $int12 = 0) {
+            $string7 = ~script13099($struct21);
+            if (string_length($string7) > 0) {
+                $int6 = ~script7235($string7, $string6, $struct3, $component4, $component5, $int6);
+            } else {
+                $int6 = ~script7235("You do not own this override.", $string6, $struct3, $component4, $component5, $int6);
+            }
+        }
+    }
+    if ($inv1 = mtxmgt_store_worn_display_preview & $int10 = 1) {
+        if ($int20 = 3) {
+            $struct16 = oc_param($obj0, weapon_category);
+            if (~script7602($struct16) ! $obj0) {
+                $int11 = 1;
+            }
+            $int17 = enum(struct, int, mtx_weapon_category_struct_to_slot, $struct16);
+            $obj14 = inv_getobj(worn, $int20);
+            if ($obj14 ! null) {
+                $struct15 = oc_param($obj14, weapon_category);
+            }
+        } else if ($int20 = 5) {
+            $struct16 = oc_param($obj0, weapon_category);
+            if (~script7603($struct16) ! $obj0) {
+                $int11 = 1;
+            }
+            $int17 = enum(struct, int, mtx_lefthand_category_struct_to_slot, $struct16);
+            $obj14 = inv_getobj(worn, $int20);
+            if ($obj14 ! null) {
+                $struct15 = oc_param($obj14, weapon_category);
+            }
+        } else if ($obj0 ! inv_getobj(mtxmgt_store_worn_display, $int20)) {
+            $int11 = 1;
+        }
+        if ($int17 ! -1) {
+            $int31 = enum_getreversecount(int, mtx_weapon_category_struct_to_slot, $int17);
+            $int30 = -1;
+            while (++$int30 < $int31) {
+                $struct16 = enum_getreverseindex(int, struct, mtx_weapon_category_struct_to_slot, $int17, $int30);
+                if ($struct16 = $struct15) {
+                    $int13 = 1;
+                } else {
+                }
+            }
+            $int31 = enum_getreversecount(int, mtx_lefthand_category_struct_to_slot, $int17);
+            $int30 = -1;
+            while (++$int30 < $int31) {
+                $struct16 = enum_getreverseindex(int, struct, mtx_lefthand_category_struct_to_slot, $int17, $int30);
+                if ($struct16 = $struct15) {
+                    $int13 = 1;
+                } else {
+                }
+            }
+            if ($int13 = 0) {
+                $int6 = ~script7235(" ", $string5, $struct3, $component4, $component5, $int6);
+                $int6 = ~script7235("This customisation requires a different weapon type equipped.", $string5, $struct3, $component4, $component5, $int6);
+            }
+        }
+    }
+}
+return($int6);

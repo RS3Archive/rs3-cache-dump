@@ -1,0 +1,18 @@
+// 7831
+[proc,script7831]
+def_component $component0 = modal_choice_details:title;
+def_component $component1 = modal_choice_details:desc_text_holder;
+def_fontmetrics $fontmetrics2 = if_getfontmetrics($component0);
+def_int $int3 = enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics2);
+def_int $int4 = ~script7593(if_gettext($component0), if_getwidth($component0), $fontmetrics2, $int3);
+if ($int4 > if_getheight($component0)) {
+    if_setsize(8, $int4, ^setsize_minus, ^setsize_abs, $component0);
+    if_setmaxlines(2, $component0);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, $int3, $component0);
+} else if ($int4 < if_getheight($component0)) {
+    if_setsize(8, $int4, ^setsize_minus, ^setsize_abs, $component0);
+    if_setmaxlines(1, $component0);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, $component0);
+}
+if_setposition(if_getx($component1), calc(if_gety($component0) + if_getheight($component0) + 4), ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_setsize(if_getwidth(modal_choice_details:desc_text_holder), calc(if_gety(modal_choice_details:activate_button_holder) - 3 * 4 - if_getheight($component0)), ^setsize_abs, ^setsize_abs, $component1);

@@ -1,0 +1,68 @@
+// 1977
+[clientscript,town_tutorial](component $component0, component $component1)
+def_string $string0 = "Tutorial:<br>Welcome to the Guards team!";
+def_int $int2 = 0;
+if (%town_role = 0) {
+    switch_int (%town_tutorial_step) {
+        case 1 :
+            $string0 = "Tutorial - Robbers:<br><br>Welcome to the island, fresh with opportunity.<br>Your goal as a robber is to infiltrate the town, locate the bank and bring as many loot bags to the boat as possible while avoiding the guards!";
+        case 2 :
+            $string0 = "Tutorial - Robbers:<br><br>To help you sneak around the island, you can take the form of any citizen - just click on any of them to do so.<br>Try this now.";
+            $int2 = 1;
+        case 3 :
+            $string0 = "Tutorial - Robbers:<br><br>Now you are disguised, it'll be harder for guards to spot you - especially if you act like the citizens do.";
+        case 4 :
+            $string0 = "Tutorial - Robbers:<br><br>Ultimately, your goal is to locate the bank and take some loot.<br>Follow the trail there now.";
+            $int2 = 1;
+        case 5 :
+            $string0 = "Tutorial - Robbers:<br><br>This is the bank - plenty of loot ripe for the taking, so let's grab some now.";
+            $int2 = 1;
+        case 6 :
+            $string0 = "Tutorial - Robbers:<br><br>Now that you have loot, you can no longer change form, so you're easier for the guards to spot.<br>Follow the trail to the boat to offload this loot as quickly as possible.";
+            $int2 = 1;
+        case 7 :
+            $string0 = "Tutorial - Robbers:<br><br>Speak to Liara to offload your loot.<br><br>If the boat is too well guarded, additional drop-off points can be found around the map.";
+            $int2 = 1;
+        case 8 :
+            $string0 = "Tutorial - Robbers:<br><br>If the robbers offload enough loot, they'll win.<br>If the guards arrest all of the robbers, last 20 minutes stopping loot capture, or confiscate enough loot from robbers, they win.";
+        case 9 :
+            $string0 = "Tutorial - Robbers:<br><br>If a guard spots you correctly, you'll have to evade capture.<br>If you fail to evade, you'll be arrested on the spot.";
+        case 10 :
+            $string0 = "Tutorial - Robbers:<br><br>If you get arrested two times, you'll be sent to jail.";
+        case 11 :
+            $string0 = "Tutorial - Robbers:<br><br>There are a few ways to escape from jail.<br><br>However, if you don't make it out in time, you'll be converted to the guard team to catch the remaining robbers!";
+        case 12 :
+            $string0 = "Tutorial - Robbers:<br><br>And those are the basics!<br>There are perks to being on each side that can be unlocked from the rewards shop, as well as random events, where townsfolk need your help.<br>For now, click to exit!";
+    }
+} else {
+    switch_int (%town_tutorial_step) {
+        case 1 :
+            $string0 = "Tutorial - Guards:<br><br>Welcome to the island - yours to defend.<br>Your goal as a guard is to prevent the robbers from getting away with too much loot.";
+        case 2 :
+            $string0 = "Tutorial - Guards:<br><br>To help, there are various things you can do. The main ability you have is the ability to accuse.";
+        case 3 :
+            $string0 = "Tutorial - Guards:<br><br>If you think someone is a robber, you can click on them to accuse them.<br><br>Try this now.";
+            $int2 = 1;
+        case 4 :
+            $string0 = "Tutorial - Guards:<br><br>If you are right, the robber will be identified and you can run in for the arrest<br><br>Try arresting someone now.";
+            $int2 = 1;
+        case 5 :
+            $string0 = "Tutorial - Guards:<br><br>After a robber has been arrested twice, any further arrests will put them in jail. If they don't get out of jail, they'll join the guards' team!";
+        case 6 :
+            $string0 = "Tutorial - Guards:<br><br>If all the robbers are caught and converted to guards or the robbers don't get enough loot within 20 minutes, the guard team wins.";
+        case 7 :
+            $string0 = "Tutorial - Guards:<br><br>Be careful though! If you falsely accuse three citizens, Internal Affairs will show up and jail you for 30 seconds for bad form!";
+        case 8 :
+            $string0 = "Tutorial - Guards:<br><br>And those are the basics!<br>Visit the reward shop for perks that can be unlocked. There are also random events, where townsfolk need your help.<br>For now, click to exit!";
+    }
+}
+if_settextfont(museo_sans_11pt_regular, $component1);
+def_int $int3 = min(500, max(30, calc(paraheight($string0, if_getwidth($component1), if_getfontmetrics($component1)) * 15)));
+$int3 = calc($int3 + 85);
+if ($int2 = 1) {
+    if_sethide(true, town_tutorial:next_arrow);
+} else {
+    if_sethide(false, town_tutorial:next_arrow);
+}
+if_setsize(if_getwidth($component0), $int3, ^setsize_abs, ^setsize_abs, $component0);
+if_settext($string0, $component1);

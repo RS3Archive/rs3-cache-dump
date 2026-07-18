@@ -1,0 +1,49 @@
+// 18104
+[proc,script18104](dbrow $dbrow0)
+if_setgraphic(~script18008(50), bp3_buffs_tab:xp_buff_icon);
+def_dbrow $dbrow1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_dbrow $dbrow6 = null;
+def_boolean $boolean7 = false;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = db_getfieldcount($dbrow0, bp3_table:col18);
+while ($int9 < $int10) {
+    $int3 = 0;
+    $dbrow1 = db_getfield($dbrow0, bp3_table:col18, $int9);
+    ~if_add_child_layer(bp3_buffs_tab:xp_buff_content_layer, $int9, $int3++, 0, $int8, ^setpos_abs_centre, ^setpos_abs_top, calc(if_getwidth(bp3_buffs_tab:xp_buff_content_layer) - 50), 58, ^setsize_abs, ^setsize_abs);
+    $int5 = ~script17926($dbrow1);
+    $int2 = db_getfield($dbrow1, bp3_buff:col6, 0);
+    if ($int5 > 0) {
+        $dbrow6 = bp3_accordian_button;
+    } else {
+        $dbrow6 = bp3_accordian_button_desat;
+    }
+    if ($int9 = 0) {
+        $boolean7 = false;
+    } else {
+        $boolean7 = true;
+    }
+    ~cc_add_child_button_full($int9, $int3++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 58, ^setsize_minus, ^setsize_abs, $dbrow6, "", true, true, true, $boolean7);
+    cc_setop(1, "Select");
+    cc_setonop("script18107($int9)");
+    ~cc_add_child_text($int9, $int3++, 0, 19, ^setpos_abs_left, ^setpos_abs_top, calc(cc_getwidth - 43), 20, ^setsize_abs, ^setsize_abs, bp3_text_white_cinzel_bold_centre_18pt, "+<tostring_localised($int5, true)>% <enum(int, string, stat_type_to_string, $int2)> XP");
+    $int3, $int4 = ~script18105($int9, $int3, $dbrow1, $int5, $int2);
+    if (cc_findbycategory(bp3_buffs_tab:xp_buff_content_layer, $int9, 0) = 1) {
+        cc_setparam(bp3_accordion_content_height, $int4);
+        if ($int9 = 0) {
+            cc_setparam(is_minimised, 0);
+            cc_setsize(cc_getwidth, cc_param(bp3_accordion_content_height), ^setsize_abs, ^setsize_abs);
+            $int8 = calc($int8 + cc_param(bp3_accordion_content_height));
+        } else {
+            cc_setparam(is_minimised, 1);
+            $int8 = calc($int8 + 58);
+        }
+    }
+    $int9 = calc($int9 + 1);
+}
+if_setscrollpos(0, 0, bp3_buffs_tab:xp_buff_content_layer);
+~script18109($int8);

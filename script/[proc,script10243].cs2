@@ -1,0 +1,45 @@
+// 10243
+[proc,script10243]
+def_int $int0 = if_getscrollheight(bank:tabs_dynamic);
+def_int $int1 = if_getheight(bank:tabs);
+if (calc($int0 + 48) < $int1) {
+    if_sethide(true, bank:tabs_scroll_up);
+    if_sethide(true, bank:tabs_scroll_down);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:tabs_all_button);
+    if_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top, bank:tabs_dynamic);
+    if_setsize(38, 48, ^setsize_abs, ^setsize_minus, bank:tabs_dynamic);
+    if_setposition(0, calc(48 - 4), ^setpos_abs_left, ^setpos_abs_top, bank:tabs_spacers);
+    if_setsize(38, calc(48 + 12), ^setsize_abs, ^setsize_minus, bank:tabs_spacers);
+    if_setscrollpos(0, 0, bank:tabs_dynamic);
+    if_setscrollpos(0, 0, bank:tabs_spacers);
+    if_setonscrollwheel(null, bank:tabs);
+    if_setonswipevertical(null, bank:tabs);
+    if_setonswipehorizontal(null, bank:tabs);
+} else {
+    if_sethide(false, bank:tabs_scroll_up);
+    if_sethide(false, bank:tabs_scroll_down);
+    if_setposition(0, 24, ^setpos_abs_left, ^setpos_abs_top, bank:tabs_all_button);
+    if_setposition(0, calc(48 + 24), ^setpos_abs_left, ^setpos_abs_top, bank:tabs_dynamic);
+    if_setsize(38, calc(48 * 2), ^setsize_abs, ^setsize_minus, bank:tabs_dynamic);
+    if_setposition(0, calc(48 + 24 - 4), ^setpos_abs_left, ^setpos_abs_top, bank:tabs_spacers);
+    if_setsize(38, calc(48 + 24 + 12), ^setsize_abs, ^setsize_minus, bank:tabs_spacers);
+    if_setonscrollwheel("script10471(event_mousey)", bank:tabs);
+    if_setonswipevertical("script10471(event_mousey)", bank:tabs);
+    if_setonswipehorizontal(null, bank:tabs);
+}
+if_setsize(36, 0, ^setsize_minus, ^setsize_minus, bank:bank_items_layer);
+if_setsize(38, 8, ^setsize_abs, ^setsize_minus, bank:tabs);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, bank:tabs);
+if_setposition(0, 7, ^setpos_abs_left, ^setpos_abs_top, bank:all_tab_icon);
+if_setsize(1, calc(24 - 1), ^setsize_minus, ^setsize_abs, bank:tabs_scroll_up);
+if_setsize(1, calc(24 - 1), ^setsize_minus, ^setsize_abs, bank:tabs_scroll_down);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, bank:tabs_scroll_down);
+if_setop(1, "Scroll Up", bank:tabs_scroll_up);
+if_setop(1, "Scroll Down", bank:tabs_scroll_down);
+if_setsize(18, 11, ^setsize_abs, ^setsize_abs, bank:tabs_scroll_up_icon);
+if_setsize(18, 11, ^setsize_abs, ^setsize_abs, bank:tabs_scroll_down_icon);
+if_setgraphic("bank_arrow_up,0", bank:tabs_scroll_up_icon);
+if_setgraphic("bank_arrow_up,0", bank:tabs_scroll_down_icon);
+if_setvflip(true, bank:tabs_scroll_down_icon);
+if_sethflip(false, bank:tabs_scroll_down_icon);
+if_setsize(38, 48, ^setsize_abs, ^setsize_abs, bank:tabs_all_button);

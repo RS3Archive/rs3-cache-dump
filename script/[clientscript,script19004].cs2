@@ -1,0 +1,38 @@
+// 19004
+[clientscript,script19004](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find($component0, $int1) = true) {
+    $int3 = cc_param(rstli_component_counter);
+    cc_setparam(rstli_component_counter, calc($int3 + 1));
+    if ($int3 < 0) {
+        return;
+    }
+    if (cc_gettrans ! 0) {
+        $int4 = calc(((~script12422(calc($int3 * 6), 1000, cc_param(rs3tli_component_transparency_playback_rate)) + cc_param(rs3tli_component_transparency_offset)) % 90 + 90) % 360);
+        $int5 = scale(enum(int, int, sin_deg2percentage_enum, $int4), 100, 255);
+        $int5 = min($int5, 254);
+        if ($int5 > cc_gettrans) {
+            $int5 = 0;
+        }
+        cc_settrans($int5);
+        if (.cc_find($component0, calc($int1 + 1)) = true) {
+            .cc_settrans($int5);
+        }
+        if (.cc_find($component0, calc($int1 - 3)) = true) {
+            .cc_settrans($int5);
+        }
+        if (.cc_find($component0, calc($int1 - 2)) = true) {
+            .cc_settrans($int5);
+        }
+    }
+    cc_setsize(min(calc(cc_param(rs3tli_component_original_width) + cc_param(rs3tli_component_resize_step) * $int3), cc_param(rs3tli_component_target_width)), min(calc(cc_param(rs3tli_component_original_height) + cc_param(rs3tli_component_resize_step) * $int3), cc_param(rs3tli_component_target_height)), ^setsize_abs, ^setsize_abs);
+    if (cc_getwidth = cc_param(rs3tli_component_target_width) & cc_getheight = cc_param(rs3tli_component_target_height) & cc_gettrans = 0) {
+        cc_setontimer(null);
+        if ($int2 = 3 & .cc_find(trh119_buried_treasure_overlay:bonus_prize_claim, 2) = true) {
+            .cc_sethide(false);
+        }
+    }
+}

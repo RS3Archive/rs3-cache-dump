@@ -1,0 +1,237 @@
+// 13678
+[proc,script13678](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6)
+def_int $int7 = 10;
+def_int $int8 = calc(20 + (55 + 5) * $int2);
+if ($int2 >= $int6 & $int6 ! 0) {
+    $int8 = calc($int8 + 16);
+}
+if (cc_find($component0, $int4) = true) {
+    cc_setsize(calc(2 * $int7), 55, ^setsize_minus, ^setsize_abs);
+    cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setparam(invent_machine_y_offset, $int8);
+    cc_setparam(invent_machine_id, $int3);
+    cc_setop(1, "Select");
+} else {
+    return;
+}
+if ($int2 = 0) {
+    cc_create($component1, ^iftype_rectangle, 0);
+    cc_setsize(calc(2 * $int7), 55, ^setsize_minus, ^setsize_abs);
+    cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(^white);
+    cc_sethide(true);
+    cc_setfill(false);
+}
+def_dbrow $dbrow9 = enum(int, dbrow, invent_machine_hotspot_dbrows, %invent_hotspot_id);
+def_dbrow $dbrow10 = enum(int, dbrow, invent_machine_dbrows, %invent_machine_id);
+def_dbrow $dbrow11 = enum(int, dbrow, invent_machine_dbrows, $int3);
+def_dbrow $dbrow12 = null;
+if ($dbrow11 ! null) {
+    db_find(invent_blueprint_table:col0, db_getfield($dbrow11, invent_machine_table:col4, 0));
+    $dbrow12 = db_findnext;
+}
+def_int $int13 = db_getfield($dbrow10, invent_machine_table:col21, 0);
+def_int $int14 = if_getnextsubid($component1);
+def_int $int15 = 0;
+def_int $int16 = 5;
+def_int $int17 = 5;
+def_int $int18 = 15;
+def_int $int19 = 15;
+def_dbrow $dbrow20 = null;
+def_int $int21 = 0;
+def_graphic $graphic22 = null;
+def_int $int23 = 22;
+def_int $int24 = -1;
+def_string $string0 = null;
+def_int $int25 = -1;
+def_obj $obj26 = null;
+def_int $int27 = -1;
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = calc(55 - 10);
+def_int $int31 = 0;
+cc_create($component1, ^iftype_rectangle, $int14++);
+cc_setsize(calc(2 * $int7), 55, ^setsize_minus, ^setsize_abs);
+cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+cc_setparam(invent_machine_id, db_getfield($dbrow9, invent_machine_hotspots:col5, $int2));
+cc_setfill(true);
+if (calc($int2 % 2) = 0) {
+    ~script13650(rs3_rect_light);
+} else {
+    ~script13650(rs3_rect_dark);
+}
+cc_setmouseovercursor(cursor_use);
+cc_create($component1, ^iftype_graphic, $int14++);
+cc_setgraphic(db_getfield($dbrow12, invent_blueprint_table:col5, 0));
+cc_setsize($int30, $int30, ^setsize_abs, ^setsize_abs);
+cc_setposition($int19, calc($int8 + (55 - $int30) / 2), ^setpos_abs_left, ^setpos_abs_top);
+$int19 = calc($int19 + ($int30 + $int17));
+if ($int2 < $int6) {
+    cc_create($component1, ^iftype_graphic, $int14++);
+    cc_setposition(calc($int19 - $int17 - 12), calc($int8 + 55 - $int23), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    if (db_getfield($dbrow11, invent_machine_table:col6, 0) < db_getfield($dbrow10, invent_machine_table:col6, 0)) {
+        cc_setgraphic("aif_group_sys_arrows,1");
+        cc_setcolour(^red);
+    } else {
+        cc_setgraphic("aif_group_sys_arrows,0");
+        cc_setcolour(^green);
+    }
+}
+cc_create($component1, ^iftype_line, $int14++);
+cc_setsize(0, calc(55 - 1), ^setsize_abs, ^setsize_abs);
+cc_setposition($int19, $int8, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour(^black);
+$int19 = calc($int19 + $int17);
+cc_create($component1, ^iftype_text, $int14++);
+cc_setsize(calc(4 * $int7), calc(55 / 2), ^setsize_minus, ^setsize_abs);
+cc_setposition($int19, $int8, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour(^white);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext(db_getfield($dbrow11, invent_machine_table:col1, 0));
+cc_settextshadow(true);
+cc_create($component1, ^iftype_graphic, $int14++);
+cc_setposition($int19, calc($int8 + 55 / 2 + (55 / 2 - $int23) / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int23, $int23, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("skill_icon_invention_22px,0");
+$string0 = "<col=f5b241>Current Invention level:</col> <tostring(stat(invention))>";
+cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+$int19 = calc($int19 + ($int23 + $int17));
+$int24 = db_getfield($dbrow11, invent_machine_table:col3, 0);
+cc_create($component1, ^iftype_text, $int14++);
+cc_setsize(parawidth("999", if_getwidth($component1), museo_sans_11pt_regular), calc(55 / 2), ^setsize_abs, ^setsize_abs);
+cc_setposition($int19, calc($int8 + 55 / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_settext(tostring($int24));
+if (stat(invention) >= $int24) {
+    cc_setcolour(^green);
+} else {
+    cc_setcolour(^red);
+}
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextshadow(true);
+cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+$int19 = calc($int19 + (parawidth("999", if_getwidth($component1), museo_sans_11pt_regular) + $int17));
+cc_create($component1, ^iftype_graphic, $int14++);
+cc_setposition($int19, calc($int8 + 55 / 2 + (55 / 2 - $int23) / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int23, $int23, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("menaphos_tombs_icon_power_up,3");
+if (%invent_hotspot_id = 1) {
+    cc_setonmouserepeat("script13684(event_com, event_comsubid, 1, db_getfield($dbrow11, invent_machine_table:col21, 0), $int13)");
+} else {
+    cc_setonmouserepeat("script13684(event_com, event_comsubid, 0, 0, $int13)");
+}
+$int19 = calc($int19 + ($int23 + $int17));
+$int28 = db_getfield($dbrow11, invent_machine_table:col21, 0);
+cc_create($component1, ^iftype_text, $int14++);
+cc_setsize(parawidth("9999", if_getwidth($component1), museo_sans_11pt_regular), calc(55 / 2), ^setsize_abs, ^setsize_abs);
+cc_setposition($int19, calc($int8 + 55 / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_settext(tostring($int28));
+cc_settextshadow(true);
+if (calc(%invent_machine_generator_power_provided - %invent_machine_generator_power_used + $int13) >= $int28 | %invent_hotspot_id = 1) {
+    cc_setcolour(^green);
+} else {
+    cc_setcolour(^red);
+}
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_11pt_regular);
+if (%invent_hotspot_id = 1) {
+    cc_setonmouserepeat("script13684(event_com, event_comsubid, 1, db_getfield($dbrow11, invent_machine_table:col21, 0), $int13)");
+} else {
+    cc_setonmouserepeat("script13684(event_com, event_comsubid, 0, 0, $int13)");
+}
+if (calc(db_getfieldcount($dbrow11, invent_machine_table:col8) + db_getfieldcount($dbrow11, invent_machine_table:col7)) > 4) {
+    return;
+}
+$int29 = db_getfieldcount($dbrow11, invent_machine_table:col8);
+$int15 = db_getfieldcount($dbrow11, invent_machine_table:col7);
+while ($int29 > 0) {
+    if ($int31 = 2) {
+        $int18 = 15;
+    }
+    $obj26, $int27 = db_getfield($dbrow11, invent_machine_table:col8, calc($int29 - 1));
+    cc_create($component1, ^iftype_text, $int14++);
+    cc_setsize(parawidth("999", if_getwidth($component1), museo_sans_11pt_regular), calc(55 / 2), ^setsize_abs, ^setsize_abs);
+    if ($int31 >= 2) {
+        cc_setposition($int18, calc($int8 + 55 / 2), ^setpos_abs_right, ^setpos_abs_top);
+    } else {
+        cc_setposition($int18, $int8, ^setpos_abs_right, ^setpos_abs_top);
+    }
+    if (~script2515(inv, $obj26) >= $int27) {
+        cc_setcolour(^green);
+    } else {
+        cc_setcolour(^red);
+    }
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext(tostring($int27));
+    cc_settextshadow(true);
+    cc_setonmouserepeat("script8801(~script13683($obj26, 1), $component1, $int14, ^settextalign_centre, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular))");
+    $int18 = calc($int18 + (parawidth("999", if_getwidth($component1), museo_sans_11pt_regular) + $int17));
+    cc_create($component1, ^iftype_graphic, $int14++);
+    cc_setsize($int23, $int23, ^setsize_abs, ^setsize_abs);
+    if ($int31 >= 2) {
+        cc_setposition($int18, calc($int8 + 55 / 2 + (55 / 2 - $int23) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    } else {
+        cc_setposition($int18, calc($int8 + (55 / 2 - $int23) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    }
+    cc_setobject($obj26, -1);
+    cc_setonmouserepeat("script8801(~script13683($obj26, 1), $component1, $int14, ^settextalign_centre, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular))");
+    $int18 = calc($int18 + ($int23 + $int17));
+    $int29 = calc($int29 - 1);
+    $int31 = calc($int31 + 1);
+}
+while ($int15 > 0) {
+    if ($int31 = 2) {
+        $int18 = 15;
+    }
+    $dbrow20, $int21 = db_getfield($dbrow11, invent_machine_table:col7, calc($int15 - 1));
+    $int25 = db_getfield($dbrow20, invent_material_table:col0, 0);
+    cc_create($component1, ^iftype_text, $int14++);
+    cc_setsize(parawidth("999", if_getwidth($component1), museo_sans_11pt_regular), calc(55 / 2), ^setsize_abs, ^setsize_abs);
+    if ($int31 >= 2) {
+        cc_setposition($int18, calc($int8 + 55 / 2), ^setpos_abs_right, ^setpos_abs_top);
+    } else {
+        cc_setposition($int18, $int8, ^setpos_abs_right, ^setpos_abs_top);
+    }
+    cc_settext(tostring($int21));
+    if (~invent_material_count(db_getfield($dbrow20, invent_material_table:col0, 0)) >= $int21) {
+        cc_setcolour(^green);
+    } else {
+        cc_setcolour(^red);
+    }
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setonmouserepeat("script8801(~script13682($int25, 1, db_getfield($dbrow20, invent_material_table:col1, 0)), $component1, $int14, ^settextalign_centre, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular))");
+    $int18 = calc($int18 + (parawidth("999", if_getwidth($component1), museo_sans_11pt_regular) + $int17));
+    $graphic22 = db_getfield($dbrow20, invent_material_table:col4, 0);
+    cc_create($component1, ^iftype_graphic, $int14++);
+    cc_setgraphic($graphic22);
+    cc_setsize($int23, $int23, ^setsize_abs, ^setsize_abs);
+    if ($int31 >= 2) {
+        cc_setposition($int18, calc($int8 + 55 / 2 + (55 / 2 - $int23) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    } else {
+        cc_setposition($int18, calc($int8 + (55 / 2 - $int23) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    }
+    cc_setonmouserepeat("script8801(~script13682($int25, 1, db_getfield($dbrow20, invent_material_table:col1, 0)), $component1, $int14, ^settextalign_centre, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular))");
+    $int18 = calc($int18 + ($int23 + $int17));
+    $int15 = calc($int15 - 1);
+    $int31 = calc($int31 + 1);
+}
+cc_create($component1, ^iftype_line, $int14++);
+cc_setsize(0, calc(55 - 1), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 5 * $int17 + 2 * $int23 + 2 * parawidth("999", if_getwidth($component1), museo_sans_11pt_regular)), $int8, ^setpos_abs_right, ^setpos_abs_top);
+cc_setcolour(^black);
+if (calc($int2 + 1) = $int6) {
+    if_settext("Upgrades & downgrades available for this machine:", invent_machine_build:button_window_main_text);
+    if ($int6 ! $int5) {
+        cc_create($component1, ^iftype_text, $int14++);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_setsize(calc(2 * $int7), 11, ^setsize_minus, ^setsize_abs);
+        ~script11024(3);
+        cc_setposition(calc($int7 / 2), calc($int8 + 55 + 5), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext("Alternative machines available for this hotspot:");
+    }
+}

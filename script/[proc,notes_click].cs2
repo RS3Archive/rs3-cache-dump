@@ -1,0 +1,29 @@
+// 2449
+[proc,notes_click](int $int0, int $int1)
+def_int $int2 = 0;
+def_component $component3 = ~script7799($int0, notes:main);
+def_component $component4 = ~script7799($int0, notes:scrollbar);
+def_component $component5 = ~script7799($int0, notes:selected);
+while (cc_findbycategory($component3, $int2, 0) = 1) {
+    cc_setop(1, "Select");
+    $int2 = calc($int2 + 1);
+}
+if (%notes_selected ! -1 & cc_findbycategory($component3, %notes_selected, 0) = 1) {
+    cc_setop(1, "Unselect");
+    if (if_gethide(~script7799($int0, notes:dragger)) = false) {
+        if_sethide(true, $component5);
+        return;
+    }
+    if_sethide(false, $component5);
+    if_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top, $component5);
+    if_setsize(0, cc_getheight, ^setsize_minus, ^setsize_abs, $component5);
+    if ($int1 = 1) {
+        if (cc_gety < if_getscrolly($component3)) {
+            ~scrollbar_ondrag_doscroll($component4, $component3, calc(cc_gety - 5), 1);
+        } else if (calc(cc_gety + cc_getheight) > calc(if_getscrolly($component3) + if_getheight($component3))) {
+            ~scrollbar_ondrag_doscroll($component4, $component3, calc(cc_gety - if_getheight($component3) + cc_getheight + 5), 1);
+        }
+    }
+} else {
+    if_sethide(true, $component5);
+}

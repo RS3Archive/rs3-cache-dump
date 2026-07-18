@@ -1,0 +1,53 @@
+// 16982
+[proc,script16982]
+def_dbrow $dbrow0 = ~script16949;
+if ($dbrow0 = null) {
+    return;
+}
+def_dbrow $dbrow1 = null;
+def_int $int2 = 0;
+$dbrow1, $int2 = db_getfield($dbrow0, progression_track:col2, 0);
+if ($dbrow1 = null) {
+    return;
+}
+def_int $int3 = -1;
+def_obj $obj4 = null;
+def_int $int5 = 0;
+def_int $int6 = db_getfieldcount($dbrow1, progression_track_multi_prize:col0);
+while (++$int3 < $int6) {
+    $obj4, $int5 = db_getfield($dbrow1, progression_track_multi_prize:col0, $int3);
+    if ($obj4 ! null) {
+        if (oc_param($obj4, trh188_reward_graphic) ! null) {
+            if_setgraphic(oc_param($obj4, trh188_reward_graphic), ~script17002($int3));
+            if_sethide(false, ~script17003($int3));
+            if_settext(tostring($int5), ~script17003($int3));
+            if_setgraphic(oc_param($obj4, trh188_reward_graphic), ~script17005($int3));
+            if_sethide(false, ~script17004($int3));
+            if_settext(tostring($int5), ~script17004($int3));
+        } else {
+            if_setobject($obj4, $int5, ~script17002($int3));
+            if_sethide(true, ~script17003($int3));
+            if_setobject($obj4, $int5, ~script17005($int3));
+            if_sethide(true, ~script17004($int3));
+        }
+        ~script16983($obj4, $int5, ~script17002($int3));
+        if ($int5 > 1) {
+            if_settext("<tostring($int5)>x <oc_name($obj4)>", ~script17006($int3));
+        } else {
+            if_settext(oc_name($obj4), ~script17006($int3));
+        }
+        if_settext(oc_param($obj4, trh_extended_desc), ~script17007($int3));
+    }
+}
+def_boolean $boolean7 = false;
+if ($int6 ! 2) {
+    $boolean7 = true;
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh188:reward_claim_prize_1_layer);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh188:reward_claim_prize_1_background_layer);
+} else {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, trh188:reward_claim_prize_1_layer);
+    if_setposition(-63, 0, ^setpos_abs_left, ^setpos_abs_centre, trh188:reward_claim_prize_1_background_layer);
+}
+if_sethide($boolean7, trh188:progress_bar_reward_2);
+if_sethide($boolean7, trh188:reward_claim_prize_2_layer);
+if_sethide($boolean7, trh188:reward_claim_prize_2_background_layer);

@@ -1,0 +1,34 @@
+// 20072
+[clientscript,script20072](dbrow $dbrow0)
+if ($dbrow0 = null) {
+    ~error("Marketplace floater setup called with null data - Returning.");
+    return;
+}
+if (~script6431 = false) {
+    if_setdraggable(marketplace_floater:drag_layer, -1, marketplace_floater:floater_pos_layer);
+    if_setondragcomplete("script20073(event_mousex, event_mousey, marketplace_floater:drag_layer, event_com)", marketplace_floater:floater_pos_layer);
+    ~script20074(%marketplace_floater_x, %marketplace_floater_y, marketplace_floater:drag_layer, marketplace_floater:floater_pos_layer);
+}
+def_graphic $graphic1 = db_getfield($dbrow0, marketplace_floater_data:col0, 0);
+if_setgraphic($graphic1, marketplace_floater:background);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int2, $int3, $int4, $int5 = db_getfield($dbrow0, marketplace_floater_data:col1, 0);
+if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, marketplace_floater:background);
+if_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top, marketplace_floater:background);
+if_setsize(145, 31, ^setsize_abs, ^setsize_abs, marketplace_floater:banner_ribbon);
+def_string $string0 = db_getfield($dbrow0, marketplace_floater_data:col2, 0);
+def_int $int6 = if_getwidth(marketplace_floater:banner_text);
+def_int $int7 = parawidth($string0, 100, notosans_bold_12);
+if ($int7 > $int6) {
+    if_setsize(calc(145 + ($int7 - 145)), 31, ^setsize_abs, ^setsize_abs, marketplace_floater:banner_ribbon);
+}
+if_settext($string0, marketplace_floater:banner_text);
+if (db_getfieldcount($dbrow0, marketplace_floater_data:col3) > 0) {
+    if_setonmouserepeat("script2674(db_getfield($dbrow0, marketplace_floater_data:col3, 0), marketplace_floater:container, -1)", marketplace_floater:container);
+} else {
+    if_setonmouserepeat(null, marketplace_floater:container);
+}
+~script20075;

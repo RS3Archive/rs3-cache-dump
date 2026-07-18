@@ -1,0 +1,19 @@
+// 18769
+[clientscript,script18769](component $component0, int $int1, int $int2)
+if (clientclock <= %combatv2_channel_end_client) {
+    return;
+}
+switch_int ($int1) {
+    case 1 :
+        if_setontimer(null, combatv2_channel_bar:bar_progress_layer);
+        ~script18777;
+        ~script18771(0);
+}
+def_int $int3 = 0;
+$int3 = calc(255 / $int2 * (clientclock - %combatv2_channel_end_client));
+if ($int3 > 0) {
+    ~script18774(min($int3, 255));
+}
+if ($int3 >= 255) {
+    if_setontimer(null, $component0);
+}

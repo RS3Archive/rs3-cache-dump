@@ -1,0 +1,64 @@
+// 14486
+[proc,script14486](dbrow $dbrow0, int $int1)
+if (db_getfieldcount($dbrow0, bonds_package:col17) > 0) {
+    switch_int (db_getfield($dbrow0, bonds_package:col17, 0)) {
+        case 1 :
+            ~script14788($dbrow0, $int1);
+        case 3 :
+            ~script14787($dbrow0, $int1);
+    }
+    return;
+}
+def_string $string0 = "You've purchased <db_getfield($dbrow0, bonds_package:col0, 0)>";
+def_string $string1 = "";
+if (db_getfieldcount($dbrow0, bonds_package:col14) > 0) {
+    $string1 = db_getfield($dbrow0, bonds_package:col14, 0);
+}
+def_string $string2 = "";
+if (db_getfieldcount($dbrow0, bonds_package:col15) > 0) {
+    $string2 = db_getfield($dbrow0, bonds_package:col15, 0);
+}
+def_string $string3 = "";
+if (db_getfieldcount($dbrow0, bonds_package:col16) > 0) {
+    $string3 = db_getfield($dbrow0, bonds_package:col16, 0);
+}
+if_sethide(false, bonds_gratz:generic_redeem_layer);
+if_sethide(true, bonds_gratz:runecoins_layer);
+if_sethide(true, bonds_gratz:confirm_button);
+if_setgraphic(db_getfield($dbrow0, bonds_package:col11, 0), bonds_gratz:generic_graphic);
+switch_int ($int1) {
+    case 1 :
+        ~script13463("Sorry, we were unable to process your request. Please try again later.");
+        return;
+    case 2 :
+        if_settext($string0, bonds_gratz:generic_text1);
+        if_settext($string1, bonds_gratz:generic_text2);
+        if (string_length($string3) > 0) {
+            mes($string3);
+        } else {
+            mes($string0);
+        }
+    case 3 :
+        if_settext($string0, bonds_gratz:generic_text1);
+        if_settext($string2, bonds_gratz:generic_text2);
+        if (string_length($string3) > 0) {
+            mes($string3);
+        } else {
+            mes($string0);
+        }
+        if (string_length($string2) > 0) {
+            mes($string2);
+        }
+    case 4 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request due to insufficient funds.", bonds_gratz:generic_text1);
+        if_settext("Please try again later.", bonds_gratz:generic_text2);
+        ~script1296("We were unable to process your request due to insufficient funds. Please try again later.");
+    case 5 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request.", bonds_gratz:generic_text1);
+        if_settext("Please try again later.", bonds_gratz:generic_text2);
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+}

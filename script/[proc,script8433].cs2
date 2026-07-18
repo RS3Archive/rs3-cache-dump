@@ -1,0 +1,102 @@
+// 8433
+[proc,script8433](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, int $int7)
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($component0 = toplevel_v2_window_ability_book_combined:category_buttons_layer) {
+    if ($int7 ! -1 & $int7 < calc(5 * 4 * 2) & calc($int7 % 2) = 0) {
+        $int9 = calc($int7 / 2);
+        switch_int (calc($int9 / 4)) {
+            case 0 :
+                $component0 = toplevel_v2_window_ability_book_melee:category_buttons_layer;
+            case 1 :
+                $component0 = toplevel_v2_window_ability_book_ranged:category_buttons_layer;
+            case 2 :
+                $component0 = toplevel_v2_window_ability_book_magic:category_buttons_layer;
+            case 3 :
+                $component0 = toplevel_v2_window_ability_book_necromancy:category_buttons_layer;
+            case 4 :
+                $component0 = toplevel_v2_window_ability_book_defcon:category_buttons_layer;
+        }
+        $int9 = calc($int9 % 4);
+    } else {
+        return;
+    }
+} else {
+    $int9 = ~script8434($int7);
+    $int9 = max($int9, 0);
+}
+switch_component ($component0) {
+    case toplevel_v2_window_ability_book_melee:category_buttons_layer :
+        $int8 = 1;
+        %ability_book_window_melee_category = $int9;
+        %ability_book_window_combined_page = 0;
+    case toplevel_v2_window_ability_book_ranged:category_buttons_layer :
+        $int8 = 2;
+        %ability_book_window_ranged_category = $int9;
+        %ability_book_window_combined_page = 1;
+    case toplevel_v2_window_ability_book_magic:category_buttons_layer :
+        if (%toplevel_v2_legacy_combat = 1 & $int9 > 2) {
+            return;
+        }
+        $int8 = 3;
+        %ability_book_window_magic_category = $int9;
+        %ability_book_window_combined_page = 2;
+    case toplevel_v2_window_ability_book_magic_ability:category_buttons_layer :
+        $int8 = 8;
+        $int9 = 0;
+    case toplevel_v2_window_ability_book_magic_combat:category_buttons_layer :
+        $int8 = 9;
+        $int9 = 0;
+    case toplevel_v2_window_ability_book_magic_teleport:category_buttons_layer :
+        $int8 = 10;
+        $int9 = 0;
+    case toplevel_v2_window_ability_book_magic_skilling:category_buttons_layer :
+        $int8 = 11;
+        $int9 = 0;
+    case toplevel_v2_window_ability_book_necromancy:category_buttons_layer :
+        $int8 = 4;
+        %ability_book_window_necromancy_category = $int9;
+        %ability_book_window_combined_page = 3;
+    case toplevel_v2_window_ability_book_necromancy_abilities:category_buttons_layer :
+        $int8 = 14;
+        $int9 = 0;
+    case toplevel_v2_window_ability_book_necromancy_spells:category_buttons_layer :
+        $int8 = 15;
+        $int9 = 0;
+    case toplevel_v2_window_ability_book_defcon:category_buttons_layer :
+        $int8 = 5;
+        %ability_book_window_defcon_category = $int9;
+        %ability_book_window_combined_page = 4;
+    case toplevel_v2_window_ability_book_defence:category_buttons_layer :
+        $int8 = 12;
+        $int9 = 0;
+    case toplevel_v2_window_ability_book_constitution:category_buttons_layer :
+        $int8 = 13;
+        $int9 = 0;
+    case toplevel_v2_parent_suboverlay_ability_book_melee:category_buttons_layer :
+        $int8 = 1;
+        %ability_book_suboverlay_melee_category = $int9;
+    case toplevel_v2_parent_suboverlay_ability_book_ranged:category_buttons_layer :
+        $int8 = 2;
+        %ability_book_suboverlay_ranged_category = $int9;
+    case toplevel_v2_parent_suboverlay_ability_book_magic:category_buttons_layer :
+        if (%toplevel_v2_legacy_combat = 1 & $int9 > 2) {
+            return;
+        }
+        $int8 = 3;
+        %ability_book_suboverlay_magic_category = $int9;
+    case toplevel_v2_parent_suboverlay_ability_book_necromancy:category_buttons_layer :
+        $int8 = 4;
+        %ability_book_suboverlay_necromancy_category = $int9;
+    case toplevel_v2_parent_suboverlay_ability_book_defcon:category_buttons_layer :
+        $int8 = 5;
+        %ability_book_suboverlay_defcon_category = $int9;
+    case default :
+        return;
+}
+$int8 = max($int8, 1);
+$int9 = max($int9, 0);
+if (%toplevel_v2_legacy_mode = 2) {
+    ~script11341(toplevel_v2_window_ability_book_combined:category_buttons_layer, toplevel_v2_window_ability_book_combined:subs_layer, toplevel_v2_window_ability_book_combined:melee_layer, toplevel_v2_window_ability_book_combined:ranged_layer, toplevel_v2_window_ability_book_combined:magic_layer, toplevel_v2_window_ability_book_combined:necromancy_layer, toplevel_v2_window_ability_book_combined:defcon_layer);
+}
+~script8426($component0, $component1, $component2, $component3, $component4, $component5, $component6, $int8, $int9);

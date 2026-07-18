@@ -1,0 +1,21 @@
+// 2437
+[clientscript,script2437]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_int (%trawler_number_of_players_client) {
+    case 0 :
+        return;
+    case 1 :
+        $int2 = %trawler_water_level_client;
+    case 2 :
+        $int2 = scale(%trawler_water_level_client, 125, 100);
+    case 3 :
+        $int2 = scale(%trawler_water_level_client, 150, 100);
+    case default :
+        $int2 = scale(%trawler_water_level_client, 175, 100);
+}
+if ($int2 > 100) {
+    $int2 = 100;
+}
+if_setsize(if_getwidth(trawler_game_overlay:water_bar_fill), scale($int2, 100, if_getheight(trawler_game_overlay:water_bar_border)), ^setsize_abs, ^setsize_abs, trawler_game_overlay:water_bar_fill);

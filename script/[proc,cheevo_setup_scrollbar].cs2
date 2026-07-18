@@ -1,0 +1,16 @@
+// 13615
+[proc,cheevo_setup_scrollbar](int $int0, int $int1)
+def_int $int2 = calc($int0 * (60 + 2));
+if (%cheevo_min_mode = 1) {
+    $int2 = calc($int0 * (35 + 2));
+}
+if ($int2 < if_getheight(achievements_sub:build_layer)) {
+    $int2 = if_getheight(achievements_sub:build_layer);
+}
+if_setscrollsize(0, $int2, achievements_sub:build_layer);
+if ($int1 = 1) {
+    if_setscrollpos(0, 0, achievements_sub:build_layer);
+} else if ($int1 = 2) {
+    if_setscrollpos(0, %cheevo_card_y, achievements_sub:build_layer);
+}
+~rs3_scrollbar_vertical(achievements_sub:cheevo_scrollbar, achievements_sub:build_layer);

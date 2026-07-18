@@ -1,0 +1,56 @@
+// 6444
+[clientscript,script6444](dbrow $dbrow0)
+if ($dbrow0 = null) {
+    if_setop(1, "Click", wof_login_popup:bg1);
+    return;
+}
+def_graphic $graphic1 = null;
+def_boolean $boolean2 = ~script245(db_getfield($dbrow0, popup:col13, 0));
+def_boolean $boolean3 = ~script245(db_getfield($dbrow0, popup:col14, 0));
+def_boolean $boolean4 = ~script245(db_getfield($dbrow0, popup:col15, 0));
+def_boolean $boolean5 = db_getfield($dbrow0, popup:col10, 0);
+def_boolean $boolean6 = db_getfield($dbrow0, popup:col27, 0);
+def_dbrow $dbrow7 = db_getfield($dbrow0, popup:col26, 0);
+switch_int (map_lang) {
+    case 1 :
+        $graphic1 = db_getfield($dbrow0, popup:col3, 0);
+    case 2 :
+        $graphic1 = db_getfield($dbrow0, popup:col4, 0);
+    case 3 :
+        $graphic1 = db_getfield($dbrow0, popup:col5, 0);
+    case default :
+        $graphic1 = db_getfield($dbrow0, popup:col2, 0);
+}
+if_sethide($boolean2, wof_login_popup:active_layer_primary);
+if_sethide($boolean3, wof_login_popup:active_layer_secondary);
+if_sethide($boolean4, wof_login_popup:active_layer_tertiary);
+if_sethide($boolean5, wof_login_popup:tickbox_layer);
+if_setsize(db_getfield($dbrow7, popup_layout:col0, 0), wof_login_popup:bespoke_window);
+if_setsize(db_getfield($dbrow7, popup_layout:col1, 0), wof_login_popup:bg1);
+if_setposition(db_getfield($dbrow7, popup_layout:col2, 0), wof_login_popup:bg1);
+if_setgraphic($graphic1, wof_login_popup:bg1);
+if_setsize(db_getfield($dbrow7, popup_layout:col3, 0), wof_login_popup:active_layer_primary);
+if_setposition(db_getfield($dbrow7, popup_layout:col4, 0), wof_login_popup:active_layer_primary);
+if_setop(1, db_getfield($dbrow0, popup:col22, 0), wof_login_popup:active_layer_primary);
+if_setopcursor(1, cursor_goto, wof_login_popup:active_layer_primary);
+if ($boolean3 = false & db_getfieldcount($dbrow7, popup_layout:col5) > 0 & db_getfieldcount($dbrow7, popup_layout:col6) > 0) {
+    if_setsize(db_getfield($dbrow7, popup_layout:col5, 0), wof_login_popup:active_layer_secondary);
+    if_setposition(db_getfield($dbrow7, popup_layout:col6, 0), wof_login_popup:active_layer_secondary);
+    if_setop(1, db_getfield($dbrow0, popup:col23, 0), wof_login_popup:active_layer_secondary);
+    if_setopcursor(1, cursor_goto, wof_login_popup:active_layer_secondary);
+}
+if ($boolean4 = false & db_getfieldcount($dbrow7, popup_layout:col7) > 0 & db_getfieldcount($dbrow7, popup_layout:col8) > 0) {
+    if_setsize(db_getfield($dbrow7, popup_layout:col7, 0), wof_login_popup:active_layer_tertiary);
+    if_setposition(db_getfield($dbrow7, popup_layout:col8, 0), wof_login_popup:active_layer_tertiary);
+    if_setop(1, db_getfield($dbrow0, popup:col24, 0), wof_login_popup:active_layer_tertiary);
+    if_setopcursor(1, cursor_goto, wof_login_popup:active_layer_tertiary);
+}
+if ($boolean5 = false & db_getfieldcount($dbrow7, popup_layout:col9) > 0 & db_getfieldcount($dbrow7, popup_layout:col10) > 0 & db_getfieldcount($dbrow7, popup_layout:col11) > 0) {
+    if_setposition(db_getfield($dbrow7, popup_layout:col9, 0), wof_login_popup:checkbox_layer);
+    if_setposition(db_getfield($dbrow7, popup_layout:col10, 0), wof_login_popup:do_not_show_text);
+    if_settextalign(db_getfield($dbrow7, popup_layout:col11, 0), 0, wof_login_popup:do_not_show_text);
+}
+if_sethide($boolean6, wof_login_popup:extra_btn_layer);
+if ($boolean6 = false) {
+    if_settext(db_getfield($dbrow0, popup:col22, 0), wof_login_popup:extra_btn_text);
+}

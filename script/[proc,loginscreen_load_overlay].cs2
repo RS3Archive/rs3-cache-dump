@@ -1,0 +1,53 @@
+// 4142
+[proc,loginscreen_load_overlay](int $int0)
+if ($int0 ! -1) {
+    %loginscreen_lastmenu = $int0;
+    %loginscreen_lastmenu_options = $int0;
+    ~loginscreen_setactivemenu_full($int0, 1);
+    return;
+}
+if (~script19922 = true) {
+    %loginscreen_lastmenu = 20;
+    %loginscreen_lastmenu_options = 20;
+    %loginscreen_launcher_bypassed = 2;
+    ~loginscreen_setactivemenu_full(20, 1);
+} else if (~script4727 = true) {
+    %loginscreen_lastmenu = 21;
+    %loginscreen_lastmenu_options = 21;
+    ~loginscreen_setactivemenu_full(21, 1);
+} else if (~script6431 = false & %loginscreen_lastmenu ! 12 & os_driver_outdated = true & ~date_runeday > %login_driverwarn_date) {
+    %loginscreen_lastmenu = 12;
+    %loginscreen_lastmenu_options = 12;
+    %loginscreen_launcher_bypassed = 2;
+    ~loginscreen_setactivemenu_full(12, 1);
+} else if (%loginscreen_lastmenu ! 0 & (%graphics_options_firstrun_nxt = false | %graphics_options_firstrun_nxt = null)) {
+    %loginscreen_lastmenu = 0;
+    %loginscreen_lastmenu_options = 0;
+    ~loginscreen_setactivemenu_full(0, 1);
+} else if (~script1011 = true) {
+    %loginscreen_lastmenu = 18;
+    %loginscreen_lastmenu_options = 18;
+    ~loginscreen_setactivemenu_full(18, 1);
+} else if (platformtype = ^platformtype_steam) {
+    %loginscreen_lastmenu = 17;
+    %loginscreen_lastmenu_options = 17;
+    ~loginscreen_setactivemenu_full(17, 1);
+} else if (~script6509 = true) {
+    %loginscreen_lastmenu = 13;
+    %loginscreen_lastmenu_options = 13;
+    ~loginscreen_setactivemenu_full(13, 1);
+    if (%loginscreen_launcher_bypassed < 1 & ~script17264 = true) {
+        ~script17263(mobile_analytics_client_load_deeplink_autologin);
+        %loginscreen_launcher_bypassed = 1;
+        ~login_dologin;
+    }
+} else if (~script15214 = true) {
+    %loginscreen_lastmenu = 16;
+    %loginscreen_lastmenu_options = 16;
+    ~loginscreen_setactivemenu_full(16, 1);
+} else {
+    %loginscreen_userflow_checked = 0;
+    %loginscreen_lastmenu = 8;
+    %loginscreen_lastmenu_options = 8;
+    ~loginscreen_setactivemenu_full(8, 1);
+}

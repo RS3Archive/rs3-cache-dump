@@ -1,0 +1,29 @@
+// 3968
+[proc,script3968](obj $obj0, int $int1, int $int2, inv $inv3, int $int4)
+def_int $int5 = %bankcert;
+def_obj $obj6 = null;
+if ($inv3 = worn | oc_cert($obj0) = $obj0) {
+    $int5 = 0;
+}
+if (~script16797($obj0) = false) {
+    return;
+}
+if (oc_stackable($obj0) = true & ~bank_find_inv($inv3, $obj0, 0) ! -1) {
+    ~bank_withdraw($obj0, $int1, $int2, $inv3, -1, $int1, false);
+} else if ($int5 = 1 & ~bank_find_inv($inv3, oc_cert($obj0), 0) ! -1) {
+    ~bank_withdraw($obj0, $int1, $int2, $inv3, -1, $int1, false);
+} else if ($int4 ! -1 & ~bank_get_invnum($inv3, $int4) > 0) {
+    $obj6 = ~bank_get_invobject($inv3, $int4);
+    if ($obj6 = $obj0 & oc_stackable($obj6) = true | $obj6 = oc_cert($obj0) & $int5 = 1) {
+        ~bank_withdraw($obj0, 1, $int2, $inv3, -1, $int1, false);
+    } else if ($inv3 = worn) {
+        ~bank_withdraw($obj0, 1, $int2, $inv3, $int4, $int1, false);
+    } else if (~bank_swap_external($int2, $inv3, $int4, $int4, false) = true) {
+        ~bank_swap_sound;
+    }
+    return;
+} else if (oc_stackable($obj0) = true | $int5 = 1) {
+    ~bank_withdraw($obj0, $int1, $int2, $inv3, $int4, $int1, false);
+} else {
+    ~bank_withdraw($obj0, 1, $int2, $inv3, $int4, $int1, false);
+}

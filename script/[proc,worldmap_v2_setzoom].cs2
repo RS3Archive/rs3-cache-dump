@@ -1,0 +1,29 @@
+// 7956
+[proc,worldmap_v2_setzoom](int $int0, int $int1)
+def_int $int2 = 25;
+def_int $int3 = %worldmap_zoom;
+%worldmap_zoom = $int0;
+switch_int (%worldmap_zoom) {
+    case 25 :
+        %worldmap_v2_zoom_target_height = 500000;
+    case 37 :
+        %worldmap_v2_zoom_target_height = 338000;
+    case 50 :
+        %worldmap_v2_zoom_target_height = 250000;
+    case 75 :
+        %worldmap_v2_zoom_target_height = 167000;
+    case 100 :
+        %worldmap_v2_zoom_target_height = 125000;
+    case default :
+        %worldmap_v2_zoom_target_height = 62500;
+}
+if ($int1 = 1) {
+    %worldmap_v2_zoom_current_height = %worldmap_v2_zoom_target_height;
+    ~script7952;
+} else if ($int3 ! $int0) {
+    if (%worldmap_v2_zoom_current_height < %worldmap_v2_zoom_target_height) {
+        %worldmap_v2_zoom_rate = calc((%worldmap_v2_zoom_target_height - %worldmap_v2_zoom_current_height) / $int2);
+    } else {
+        %worldmap_v2_zoom_rate = calc((%worldmap_v2_zoom_current_height - %worldmap_v2_zoom_target_height) / $int2);
+    }
+}

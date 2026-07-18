@@ -1,0 +1,140 @@
+// 8506
+[proc,script8506](int $int0, int $int1, string $string0, int $int2, string $string1, string $string2, chatphrase $chatphrase3, int $int4, int $int5, int $int6)
+def_int $int7 = -1;
+def_int $int8 = 0;
+cc_clearops;
+cc_setonop("chat_op($int0, event_op, event_comsubid)");
+cc_setopbase("<col=ffffff><removetags($string1)>");
+if ($int0 = 1019) {
+    ~script3927(1019);
+}
+switch_int ($int1) {
+    case 1, 2, 3, 7, 41, 44, 9, 6, 24, 22 :
+        if (compare(removetags(chat_playername), removetags($string1)) = 0 | compare(removetags(chat_playername_unfiltered), removetags($string2)) = 0) {
+        } else {
+            if (friend_test(removetags($string2)) = true) {
+                $int8 = 1;
+                if (map_quickchat = false & userdetail_quickchat = false) {
+                    cc_setop(6, "Message");
+                }
+            } else {
+                cc_setop(6, "Add friend");
+                cc_setop(7, "Add ignore");
+            }
+            if (player_group_find = true) {
+                $int7 = ~script10275;
+                if ($int1 = 24 | $int1 = 22) {
+                    if (~script10279($int7) = true) {
+                        cc_setop(10, "Kick/ban");
+                    }
+                } else if (~script10281($int7) = true) {
+                    switch_int ($int1) {
+                        case 3, 7 :
+                            if ($int8 = 1) {
+                                cc_setop(9, "Invite to group");
+                            }
+                        case 9 :
+                        case default :
+                            cc_setop(9, "Invite to group");
+                    }
+                }
+            }
+            if (%snapshot_right_click_enabled = 1) {
+                cc_setop(8, "Report");
+            }
+            if ($int1 = 41) {
+                if ($int4 = 1 & $int6 = 0) {
+                    cc_setop(10, "Kick/ban");
+                }
+            } else if ($int1 = 9 & $int5 = 1) {
+                cc_setop(10, "Kick/ban");
+            }
+        }
+    case 100 :
+        cc_setop(1, "Accept trade");
+    case 101, 105, 106, 107, 113, 114, 118, 132 :
+        cc_setop(2, "Accept challenge");
+    case 102 :
+        cc_setop(3, "Give assistance");
+    case 111 :
+        cc_setop(2, "Open invitation");
+    case 112 :
+        cc_setop(3, "Vote");
+    case 17, 18, 42, 45, 20, 25, 23 :
+        if (compare(removetags(chat_playername), removetags($string1)) = 0 | compare(removetags(chat_playername_unfiltered), removetags($string2)) = 0) {
+        } else {
+            if (friend_test(removetags($string2)) = true) {
+                if (map_quickchat = false & userdetail_quickchat = false) {
+                    cc_setop(6, "Message");
+                }
+            } else {
+                cc_setop(6, "Add friend");
+                cc_setop(7, "Add ignore");
+            }
+            if ($int1 = 42) {
+                if ($int4 = 1) {
+                    cc_setop(10, "Kick/ban");
+                }
+            } else if ($int1 = 20 & $int5 = 1) {
+                cc_setop(10, "Kick/ban");
+            }
+            if (chatphrase_getautoresponsecount($chatphrase3) > 0) {
+                if (~script8627($int0) = null) {
+                    ~script8628($int0, $chatphrase3);
+                    ~script8610($int0, $string1);
+                    switch_int ($int1) {
+                        case 20 :
+                            ~script8630($int0, 6);
+                        case 42 :
+                            ~script8630($int0, 9);
+                        case 45 :
+                            ~script8630($int0, 11);
+                        case 18 :
+                            ~script8630($int0, 5);
+                        case 25 :
+                            ~script8630($int0, 14);
+                        case 23 :
+                            ~script8630($int0, 16);
+                        case default :
+                            ~script8630($int0, 4);
+                    }
+                }
+                cc_setop(9, "Quick Response");
+            }
+        }
+    case 108 :
+        cc_setop(10, "Accept alliance");
+    case 135 :
+        cc_setop(4, "Open link");
+    case 127, 115, 125, 136, 145 :
+        if (string_length(enum(int, string, chat_v2_urls, $int2)) > 0) {
+            cc_setop(4, "Open link");
+        }
+    case 140, 143 :
+        switch_int ($int2) {
+            case 2 :
+                cc_setop(4, "Claim Cosmetic");
+            case 3 :
+                cc_setop(4, "Claim free Bank Booster");
+            case 6 :
+                cc_setop(4, "Open Yak Track");
+            case 7 :
+                cc_setop(4, "Open event");
+            case 11 :
+                cc_setop(4, "Open Calendar");
+            case 8 :
+                cc_setop(4, "Open Hero Pass Track");
+            case 9 :
+                cc_setop(4, "Open Hero Pass Missions");
+            case 10 :
+                cc_setop(4, "Open Hero Store");
+            case 12 :
+                cc_setop(4, "Set up Action Bar");
+        }
+    case 141 :
+        cc_setop(4, "Open Treasure Hunter");
+    case 146 :
+        if ($int2 > 0) {
+            cc_setop(4, "World hop to <tostring($int2)>");
+        }
+}

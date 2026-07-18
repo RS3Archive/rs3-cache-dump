@@ -1,0 +1,12 @@
+// 20266
+[proc,script20266](dbrow $dbrow0, int $int1, int $int2, int $int3)(int, int)
+def_obj $obj4 = db_getfield($dbrow0, league_relic:col2, 0);
+def_string $string0 = db_getfield($dbrow0, league_relic:col1, 0);
+if ($obj4 = null) {
+    return(~script19615(0, $int1, $int2, $int3, $string0));
+}
+def_int $int5 = max(50, ~script20478($string0, calc($int3 - 60), text_body_default, 0));
+~script17949(league_parent_relics:overview_scrolling_contents, $int1++, 0, calc($int2 + max(0, calc(($int5 - 50) / 2))), ^setpos_abs_left, ^setpos_abs_top, 50, 50, ^setsize_abs, ^setsize_abs, $obj4, 1);
+~cc_add_text(league_parent_relics:overview_scrolling_contents, $int1++, 0, $int2, ^setpos_abs_right, ^setpos_abs_top, 60, $int5, ^setsize_minus, ^setsize_abs, text_body_default, $string0);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+return($int1, calc($int2 + $int5 + 4));

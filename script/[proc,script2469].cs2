@@ -1,0 +1,65 @@
+// 2469
+[proc,script2469](component $component0, string $string0)
+if (if_gethide($component0) = true) {
+    return;
+}
+if (compare($string0, "") = 0) {
+    if_settext("Friends List<br>RuneScape <tostring(map_world)>", ~friends_title_text($component0));
+} else {
+    if_settext("Friends List<br>Filter: <$string0>", ~friends_title_text($component0));
+}
+def_int $int1 = friend_count;
+def_int $int2 = 0;
+def_component $component3 = ~script3099($component0);
+def_component $component4 = ~script10588($component0);
+def_component $component5 = ~friends_world_layer($component0);
+def_component $component6 = ~script11297($component0);
+if (compare($string0, "") = 0) {
+    while ($int2 < $int1) {
+        if (cc_find($component3, $int2) = true) {
+            cc_sethide(false);
+        }
+        if (cc_find($component4, $int2) = true) {
+            if (cc_param(friends_old_name) = 1) {
+                cc_sethide(false);
+            } else {
+                cc_sethide(true);
+            }
+        }
+        if (cc_find($component5, $int2) = true) {
+            cc_sethide(false);
+        }
+        if (cc_find($component6, $int2) = true) {
+            cc_sethide(false);
+        }
+        $int2 = calc($int2 + 1);
+    }
+    ~script2470($component0, %friend_sort_mode, $string0);
+    return;
+}
+def_boolean $boolean7 = false;
+while ($int2 < $int1) {
+    if (cc_find($component3, $int2) = true) {
+        if (string_indexof_string(lowercase(cc_gettext), lowercase($string0), 0) = -1) {
+            $boolean7 = true;
+        } else {
+            $boolean7 = false;
+        }
+        cc_sethide($boolean7);
+    }
+    if (cc_find($component4, $int2) = true) {
+        if ($boolean7 = false & cc_param(friends_old_name) = 1) {
+            cc_sethide(false);
+        } else {
+            cc_sethide(true);
+        }
+    }
+    if (cc_find($component5, $int2) = true) {
+        cc_sethide($boolean7);
+    }
+    if (cc_find($component6, $int2) = true) {
+        cc_sethide($boolean7);
+    }
+    $int2 = calc($int2 + 1);
+}
+~script2470($component0, %friend_sort_mode, $string0);

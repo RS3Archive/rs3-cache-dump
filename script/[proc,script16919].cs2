@@ -1,0 +1,25 @@
+// 16919
+[proc,script16919]
+if (map_world <= 0) {
+    if_settext("World: Auto", lobbyscreen:current_text);
+    if_sethide(true, lobbyscreen:current_icon);
+    if_setcolour(0xf0be79, lobbyscreen:current_text);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, lobbyscreen:current_text);
+    return;
+}
+def_int $int0 = worldlist_specific_thisworld;
+if (testbit($int0, 24) = ^true) {
+    if_setgraphic(rs3_icon_menu_leagues_active, lobbyscreen:current_icon);
+    if_sethide(false, lobbyscreen:current_icon);
+} else {
+    if (testbit($int0, 0) = ^true) {
+        if_setgraphic("rs3_icon_members_32px,0", lobbyscreen:current_icon);
+        if_setcolour(0xf0be79, lobbyscreen:current_text);
+    } else {
+        if_setgraphic("rs3_icon_non_members_32px,0", lobbyscreen:current_icon);
+        if_setcolour(^white, lobbyscreen:current_text);
+    }
+    if_sethide(false, lobbyscreen:current_icon);
+}
+if_settext("World <tostring(map_world)>", lobbyscreen:current_text);
+~lobbyscreen_loginbutton_text(true);

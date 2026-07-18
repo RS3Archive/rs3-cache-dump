@@ -1,0 +1,15 @@
+// 20234
+[clientscript,script20234](int $int0)
+def_int $int1 = calc(clientclock - $int0);
+def_int $int2 = calc($int1 / 50);
+if ($int1 = 1) {
+    if_setenabled(false, league_onboarding:confirm_link_alt);
+    if_sethide(false, league_onboarding:confirm_link_spinner);
+} else if ($int1 >= 250) {
+    if_setontimer(null, league_onboarding:name_lookup_listener);
+    if_setenabled(true, league_onboarding:confirm_link_alt);
+    if_sethide(true, league_onboarding:confirm_link_spinner);
+    if_settext("Confirm Nomination", league_onboarding:confirm_link_alt);
+} else {
+    if_settext("<tostring(calc(5 - $int2))>...", league_onboarding:confirm_link_alt);
+}

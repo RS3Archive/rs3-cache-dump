@@ -1,0 +1,41 @@
+// 1975
+[clientscript,script1975]
+def_boolean $boolean0 = false;
+def_boolean $boolean1 = false;
+def_boolean $boolean2 = false;
+if (%town_role = 0) {
+    if (%town_bad_perk_2 = 0 | %town_game_perk2_uses = 0) {
+        $boolean0 = true;
+    }
+    if (%town_bad_perk_3 = 0 | %town_game_perk3_uses = 0) {
+        $boolean1 = true;
+    }
+    if (%town_bad_perk_4 = 0 | %town_game_perk4_uses = 0) {
+        $boolean2 = true;
+    }
+    if_settext("Resist arrest", town_side:name_1);
+    if_settext("Great escape", town_side:name_2);
+    if_settext("Decoy", town_side:name_3);
+} else {
+    if (%town_good_perk_2 = 0 | %town_game_perk2_uses = 0) {
+        $boolean0 = true;
+    }
+    if (%town_good_perk_3 = 0 | %town_game_perk3_uses = 0) {
+        $boolean1 = true;
+    }
+    if (%town_good_perk_4 = 0 | %town_game_perk4_uses = 0) {
+        $boolean2 = true;
+    }
+    if_settext("Friendly wave", town_side:name_1);
+    if_settext("Security sensor", town_side:name_2);
+    if_settext("Undercover cop", town_side:name_3);
+}
+cc_deleteall(town_side:ability_button_build_1);
+cc_deleteall(town_side:ability_button_build_2);
+cc_deleteall(town_side:ability_button_build_3);
+~script13991(town_side:ability_button_build_1, town_side:ability_button_click_1, rs3tli_3x3_icon_button, $boolean0);
+~script13991(town_side:ability_button_build_2, town_side:ability_button_click_2, rs3tli_3x3_icon_button, $boolean1);
+~script13991(town_side:ability_button_build_3, town_side:ability_button_click_3, rs3tli_3x3_icon_button, $boolean2);
+~script7999(town_side:name_1, rs3tli_3x3_button_text);
+~script7999(town_side:name_2, rs3tli_3x3_button_text);
+~script7999(town_side:name_3, rs3tli_3x3_button_text);

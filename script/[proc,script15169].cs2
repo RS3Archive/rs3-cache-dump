@@ -1,0 +1,50 @@
+// 15169
+[proc,script15169](dbrow $dbrow0, string $string0, int $int1)
+if ($dbrow0 = null | db_getrowtable($dbrow0) ! event_crafting_core_recipe) {
+    return;
+}
+def_int $int2 = db_getfieldcount($dbrow0, event_crafting_core_recipe:col4);
+def_string $string1 = ~script15122($dbrow0);
+if (paraheight($string1, if_getwidth(event_crafting:recipe_info_name), cinzel_15pt_bold) > 1) {
+    if_setgraphic(event_crafting_container_crafting_item_title_tall, event_crafting:item_crafting_title);
+    if_setsize(372, 46, ^setsize_abs, ^setsize_abs, event_crafting:item_crafting_title);
+    if_setposition(5, 38, ^setpos_abs_left, ^setpos_abs_top, event_crafting:recipe_desc);
+} else {
+    if_setgraphic(event_crafting_container_crafting_item_title, event_crafting:item_crafting_title);
+    if_setsize(372, 29, ^setsize_abs, ^setsize_abs, event_crafting:item_crafting_title);
+    if_setposition(5, 30, ^setpos_abs_left, ^setpos_abs_top, event_crafting:recipe_desc);
+}
+if_settext($string1, event_crafting:recipe_info_name);
+if (string_length($string0) > 0) {
+    if_settext($string0, event_crafting:recipe_desc);
+}
+def_int $int3 = db_getfield($dbrow0, event_crafting_core_recipe:col9, 0);
+if ($int3 > 0) {
+    if_settext("+ <tostring_localised($int3, true)>xp", event_crafting:recipe_xp_info);
+    if_sethide(false, event_crafting:recipe_xp_info);
+} else {
+    if_sethide(true, event_crafting:recipe_xp_info);
+}
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_graphic $graphic6 = null;
+$obj5, $graphic6 = ~script15126($dbrow0);
+if ($graphic6 ! sprite_null) {
+    if_setgraphic($graphic6, event_crafting:recipe_item_graphic);
+    if_sethide(false, event_crafting:recipe_item_graphic);
+    if_sethide(true, event_crafting:recipe_item_object_holder);
+} else {
+    if_setobject_nonum($obj5, 0, event_crafting:recipe_object);
+    if_sethide(true, event_crafting:recipe_item_graphic);
+    if_sethide(false, event_crafting:recipe_item_object_holder);
+}
+while ($int4 < inv_size(event_crafting_active_recipe_inv)) {
+    if_sethide(true, ~script15132($int4));
+    $int4 = calc($int4 + 1);
+}
+$int4 = 0;
+while ($int4 < $int2) {
+    ~script15173($dbrow0, $int4, $int2, $int1);
+    $int4 = calc($int4 + 1);
+}
+~script15171(~script15117($int1, ~script15141($dbrow0)));

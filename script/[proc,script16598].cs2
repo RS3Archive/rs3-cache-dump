@@ -1,0 +1,30 @@
+// 16598
+[proc,script16598](int $int0)(int, int, int, int, int)
+$int0 = max($int0, 0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = ~script16599;
+def_int $int4 = calc($int0 / $int3 * $int3);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+def_int $int8 = -1;
+while ($int7 = -1 | $int8 = -1) {
+    $int1 = enum(int, int, trh179_modifier_order, $int2);
+    db_find(trh179_modifier:col0, $int1);
+    $int5 = db_getfield(db_findnext, trh179_modifier:col3, 0);
+    if ($int0 >= $int4 & $int0 < calc($int4 + $int5)) {
+        $int7 = calc(($int4 + $int5) % 1440);
+        $int8 = calc($int0 / 1440);
+        if (calc($int4 + $int5) >= calc(($int8 + 1) * 1440)) {
+            $int8 = calc($int8 + 1);
+        }
+    } else {
+        $int4 = calc($int4 + $int5);
+        $int2 = calc(($int2 + 1) % enum_getoutputcount(trh179_modifier_order));
+    }
+}
+def_int $int9 = enum(int, int, trh179_modifier_order, calc(($int2 + 1) % enum_getoutputcount(trh179_modifier_order)));
+db_find(trh179_modifier:col0, $int9);
+$int6 = db_getfield(db_findnext, trh179_modifier:col3, 0);
+return($int1, $int8, $int7, $int9, $int6);

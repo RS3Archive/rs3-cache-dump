@@ -1,0 +1,28 @@
+// 19766
+[proc,script19766](int $int0)(int, obj, int, struct, graphic)
+def_int $int1 = %trh205_reward_path_1_prizes_claimed;
+def_int $int2 = %trh205_reward_path_2_prizes_claimed;
+if ($int0 = 1) {
+    $int1 = calc($int1 + 1);
+} else {
+    $int2 = calc($int2 + 1);
+}
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_struct $struct7 = null;
+def_graphic $graphic8 = null;
+def_int $int9 = db_getfieldcount(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0);
+if ($int9 <= 0) {
+    return(0, null, 0, null, null);
+}
+while (++$int3 < $int9) {
+    if (testbit(%trh205_reward_path_joint_prizes_claimed, $int3) = ^false) {
+        $int4 = db_getfield(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0:0, $int3);
+        if ($int1 >= $int4 & $int2 >= $int4) {
+            $int4, $obj5, $int6, $struct7, $graphic8 = db_getfield(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0, $int3);
+            return(1, $obj5, $int6, $struct7, $graphic8);
+        }
+    }
+}

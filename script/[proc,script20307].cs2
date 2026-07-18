@@ -1,0 +1,20 @@
+// 20307
+[proc,script20307](dbrow $dbrow0, int $int1)(graphic)
+def_dbrow $dbrow2 = ~script20119(%league_active_player);
+if ($dbrow2 = null) {
+    return(null);
+}
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+switch_int ($int1) {
+    case 1 :
+        $dbrow3 = db_getfield($dbrow2, league_task_settings:col6, 0);
+        $int4 = db_getfield($dbrow0, league_task:col6, 0);
+    case default :
+        $dbrow3 = db_getfield($dbrow2, league_task_settings:col6, 1);
+        $int4 = db_getfield($dbrow0, league_task:col5, 0);
+}
+if (db_getrowtable($dbrow3) = graphics_dropdown) {
+    return(db_getfield($dbrow3, graphics_dropdown:col0:1, $int4));
+}
+return(db_getfield($dbrow3, league_task_order:col1:1, $int4));

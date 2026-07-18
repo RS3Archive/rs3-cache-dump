@@ -1,0 +1,53 @@
+// 9644
+[proc,script9644](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = get_mousex;
+def_int $int13 = 5;
+def_int $int14 = 2047;
+def_int $int15 = 0;
+if (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) {
+    $int9 = cc_getmodelangle_z;
+    $int10 = cc_getmodelxof;
+    $int11 = cc_getmodelyof;
+    $int7 = cc_getmodelzoom;
+    if ($int4 = 1) {
+        $int5 = cc_getmodelangle_x;
+        $int6 = cc_getmodelangle_y;
+        $int8 = get_mousex;
+        if_setonmouseover(null, $component0);
+        $int4 = 0;
+    }
+    $int12 = calc($int12 - $int8);
+    $int12 = calc($int12 * $int13);
+    $int12 = calc($int12 * -1);
+    $int12 = calc($int12 + $int6);
+    if (cc_param(mtxmgt_store_chathead_mode) = 1 | %mtxmgt_player_preview_chathead = 1) {
+        cc_setparam(mtxmgt_store_chathead_mode, 1);
+        if ($int12 < -512) {
+            $int12 = max($int12, -512);
+        } else {
+            $int12 = min($int12, 512);
+        }
+    } else {
+        $int12 = calc($int12 % $int14);
+        if ($int12 >= $int14) {
+            $int12 = calc($int12 - $int14);
+        }
+    }
+    if ($int3 = -1) {
+        cc_setmodelangle($int10, $int11, $int5, $int12, $int9, $int7);
+    } else {
+        $int15 = 0;
+        while ($int15 < $int3) {
+            if (.cc_find($component1, calc($int2 + $int15)) = true) {
+                .cc_setmodelangle($int10, $int11, $int5, $int12, $int9, $int7);
+            }
+            $int15 = calc($int15 + 1);
+        }
+    }
+    if_setondrag("script8482($component0, $component1, $int2, $int3, 0, $int5, $int6, $int7, $int8)", $component0);
+} else {
+    ~script8481($component0, $component1, $int2, $int3);
+}

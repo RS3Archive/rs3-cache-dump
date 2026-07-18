@@ -1,0 +1,27 @@
+// 2691
+[clientscript,script2691]
+if (if_gethide(lobbyscreen:authenticator_button_layer) = true) {
+    return;
+}
+def_string $string0 = "totp-authenticator";
+def_string $string1 = "";
+def_string $string2 = "Authenticator";
+def_int $int0 = 0;
+def_string $string3 = "";
+def_string $string4 = "";
+def_int $int1 = 2513;
+if (%lobbyscreen_authenticator_registered <= 1) {
+    $int0 = 1;
+    $string3 = "Enhanced security disabled";
+    $string4 = "Use this button to enable RuneScape Authenticator to add an extra layer of security to your account.";
+    $int1 = 2513;
+} else if (%lobbyscreen_authenticator_registered = 2) {
+    $string3 = "Enhanced security enabled";
+    $string4 = "Use this button to manage your Authenticator settings.";
+    $int1 = 2507;
+}
+if ($int0 = 1) {
+    ~script10017(lobbyscreen:authenticator_button_layer, -1, 6, 1, null, null);
+}
+~script10059($string2, $string3, $string4, lobbyscreen:button_authenticator);
+if_setonbuttonpressed("lobbyscreen_link($int1)", lobbyscreen:button_authenticator);

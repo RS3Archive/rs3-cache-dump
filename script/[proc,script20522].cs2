@@ -1,0 +1,17 @@
+// 20522
+[proc,script20522]
+def_int $int0 = if_getwidth(toplevel_v2:background_colour);
+def_int $int1 = if_getheight(toplevel_v2:background_colour);
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (if_find(toplevel_v2_edit_mode:edit_mode_window) = true) {
+    $int2 = cc_getx;
+    $int3 = cc_gety;
+    if (calc(cc_getx + cc_getwidth) > $int0) {
+        $int2 = calc($int0 - cc_getwidth);
+    }
+    if (calc(cc_gety + cc_getheight + if_getheight(toplevel_v2_edit_mode:collapse_area)) > $int1) {
+        $int3 = calc($int1 - cc_getheight);
+    }
+    cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+}

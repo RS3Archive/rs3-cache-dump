@@ -1,0 +1,31 @@
+// 12485
+[clientscript,script12485](dbrow $dbrow0, int $int1)
+if ($dbrow0 = null) {
+    return;
+}
+if (~date_runeday < db_getfield($dbrow0, mm16_task:col9, 0)) {
+    return;
+}
+if (~script12473($int1) = false) {
+    return;
+}
+if_settext(db_getfield($dbrow0, mm16_task:col2, 0), mm16_cases:task_popup_title);
+def_string $string0 = db_getfield($dbrow0, mm16_task:col3, 0);
+if_settext($string0, mm16_cases:task_popup_info);
+if (~script12475($int1) = 1) {
+    if_settext("Current status: Solved", mm16_cases:task_popup_status);
+    if_sethide(true, mm16_cases:positive_button_layer);
+    if_sethide(true, mm16_cases:positive_button_layer_1);
+} else {
+    if ($int1 = %mm16_active_task) {
+        if_settext("Current status: Under investigation", mm16_cases:task_popup_status);
+        if_settext("View tracker", mm16_cases:positive_button_text);
+    } else {
+        if_settext("Current status: Unsolved", mm16_cases:task_popup_status);
+        if_settext("Start case", mm16_cases:positive_button_text);
+    }
+    if_sethide(false, mm16_cases:positive_button_layer);
+    if_sethide(false, mm16_cases:positive_button_layer_1);
+}
+if_sethide(false, mm16_cases:info_popup);
+if_setonvarcstrtransmit("script12486($string0){mm16_task_steps}", mm16_cases:task_popup_info);

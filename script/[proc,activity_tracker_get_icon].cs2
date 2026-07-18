@@ -1,0 +1,61 @@
+// 9408
+[proc,activity_tracker_get_icon](int $int0, int $int1, achievement $achievement2)(graphic)
+def_struct $struct3 = null;
+def_quest $quest4 = null;
+def_graphic $graphic5 = null;
+switch_int ($int0) {
+    case default :
+        return(null);
+    case 2 :
+        return(achievement_sprite($achievement2));
+    case 1 :
+        $quest4 = enum(int, quest, ql4_quests, $int1);
+        if ($quest4 ! null) {
+            return(~quest_icon($quest4));
+        } else {
+            return(null);
+        }
+    case 3 :
+        $struct3 = enum(int, struct, cheevo_id_to_struct, $int1);
+        if ($struct3 ! null) {
+            return(~cheevo_icon($struct3));
+        } else {
+            return(null);
+        }
+    case 4 :
+        $struct3 = ~script16319($int1);
+        if ($struct3 ! null) {
+            return(struct_param($struct3, task_icon));
+        } else if (~challenge_blank_status ! -2) {
+            return(aif_bug_reporting_hourglass);
+        } else {
+            return(null);
+        }
+    case 5 :
+        return(enum(int, graphic, stat2icon_medium, $int1));
+    case 6 :
+        $struct3 = enum(int, struct, uaui_minigames_all, $int1);
+        if ($struct3 ! null) {
+            return(struct_param($struct3, task_icon));
+        } else {
+            return(null);
+        }
+    case 7 :
+        $graphic5 = ~script16096;
+        if ($graphic5 ! null) {
+            return($graphic5);
+        } else {
+            return("challenge_skill_icons_35px,21");
+        }
+    case 8 :
+        $graphic5 = ~script16087;
+        if ($graphic5 ! null) {
+            return($graphic5);
+        } else {
+            return(aif_boss_slayer_points_icon_sml);
+        }
+    case 9 :
+        return(runepass_logo_icon);
+    case 10 :
+        return(db_getfield(~script17905($int1), bp3_mission:col16, 0));
+}

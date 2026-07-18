@@ -1,0 +1,37 @@
+// 17557
+[proc,script17557](string $string0, int $int0, component $component1)
+def_string $string1 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+switch_component ($component1) {
+    case activity_progress_bar_extension:progress_bar_text :
+        $int2 = %activity_progress_bar_extension_progress_bar_max;
+        $int3 = %activity_progress_bar_extension_progress_bar_value;
+    case activity_progress_bar_extension:progress_bar_2_text :
+        $int2 = %activity_progress_bar_extension_progress_bar_2_max;
+        $int3 = %activity_progress_bar_extension_progress_bar_2_value;
+}
+switch_struct (%activity_progress_bar_active_struct) {
+    case raid_rebirth1_slayer_master_boss_healthbar, quest_amascut_avatar_boss_progress :
+        if (calc($int2 - $int3) > 0) {
+            $string1 = "<$string0><~script14945(calc($int2 - $int3), 1)>";
+        }
+    case amascut_boss_encounter_healthbar :
+        switch_int (%activity_progress_bar_extension_progress_bar_type) {
+            case 1 :
+                $string1 = "<$string0><tostring_localised($int3, true)>";
+                if ($int0 = 1) {
+                    $string1 = "<$string0><tostring_localised(scale($int3, max(1, $int2), 100), true)>%";
+                }
+            case default :
+                if (calc($int2 - $int3) > 0) {
+                    $string1 = "<$string0><~script14945(calc($int2 - $int3), 1)>";
+                }
+        }
+    case default :
+        $string1 = "<$string0><tostring_localised($int3, true)>";
+        if ($int0 = 1) {
+            $string1 = "<$string0><tostring_localised(scale($int3, max(1, $int2), 100), true)>%";
+        }
+}
+if_settext($string1, $component1);

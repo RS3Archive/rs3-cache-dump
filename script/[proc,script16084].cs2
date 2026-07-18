@@ -1,0 +1,183 @@
+// 16084
+[proc,script16084](int $int0)(int, obj, graphic, string)
+def_int $int1 = 1;
+def_obj $obj2 = null;
+def_graphic $graphic3 = null;
+def_string $string0 = "";
+def_quest $quest4 = null;
+switch_int ($int0) {
+    case 1 :
+        $string0 = "This boss is located in the Wilderness.";
+        $graphic3 = rs3_highscores_wilderness_pvp_icon;
+        $int1 = 1;
+    case 2 :
+        $quest4 = troll_stronghold;
+        $string0 = ~quest_name($quest4);
+        $string0 = "Defeat Dad ('<$string0>' quest) to access Trollheim.";
+        $graphic3 = ~quest_icon($quest4);
+        if (%troll_quest < 20) {
+            $int1 = 0;
+        }
+    case 3 :
+        $string0 = "<tostring(60)> Strength or <tostring(60)> Agility to push the boulder.";
+        if (~script6431 = true) {
+            $graphic3 = struct_param(magic_teleport_godwars, combatv2_ability_icon);
+        } else {
+            $graphic3 = struct_param(magic_teleport_godwars, combatv2_ability_icon_mobile);
+        }
+        if (stat_base(strength) < 60 & stat_base(agility) < 60) {
+            $int1 = 0;
+        }
+    case 4 :
+        $string0 = "Obtain the dying knight's notes at the God Wars dungeon entrance.";
+        $obj2 = godwars_knights_scroll_closed;
+        if (%godwars_palladin1 = 0) {
+            $int1 = 0;
+        }
+    case 5 :
+        $string0 = "You must first travel to Anachronia, via the boat at the dig site east of Varrock.";
+        $graphic3 = spell_icon_standard_teleport_dino_island;
+        if (%dino_onboarding_progress ! 50) {
+            $int1 = 0;
+        }
+    case 17 :
+        $quest4 = quest_osseous;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must have completed the <$string0> quest in order to access Osseous.";
+        $graphic3 = ~quest_icon($quest4);
+    case 6 :
+        $string0 = "You must own a frozen key which has charges remaining, or sacrifice one ('<achievement_getname(cheevo_godwars2_entrance_cost_skip)>' achievement).";
+        $obj2 = godwars2_frozen_key;
+        if (~obj_gettotal($obj2) = 0 & %godwars2_entrance_cost_skip = 0) {
+            $int1 = 0;
+        }
+    case 7 :
+        $string0 = "You need a Barrows totem.";
+        $obj2 = barrows2_entry_totem;
+        if (~obj_gettotal($obj2) = 0) {
+            $int1 = -1;
+        }
+    case 8 :
+        $string0 = "You need an Ascension Keystone to enter an Ascension Laboratory.";
+        $obj2 = asc_keystone_1;
+        if (~obj_gettotal(asc_keystone_1) > 0) {
+            $int1 = 1;
+        } else {
+            $int1 = -1;
+        }
+    case 9 :
+        $string0 = "You must have previously sacrificed a fire cape.";
+        $obj2 = tzhaar_cape_fire;
+        if (%tzkiln_sacrificed_fire_cape = 0) {
+            $int1 = 0;
+        }
+    case 10 :
+        $string0 = "You must have found all parts and assembled the Ancient Sigil.";
+        $obj2 = gwd2_solo_entrance_key_completed;
+        if (%gwd2_solo_central_door_unlocked = 0) {
+            $int1 = 0;
+        }
+    case 11 :
+        $string0 = "You need a Key to the Crossing.";
+        $obj2 = menaphos_slayer_boss_key;
+        if (~obj_gettotal($obj2) = 0) {
+            $int1 = -1;
+        }
+    case 12 :
+        $quest4 = priest_in_peril;
+        $string0 = ~quest_name($quest4);
+        $string0 = "This boss is located in Morytania, accessed during the '<$string0>' quest.";
+        $graphic3 = ~cheevo_icon(cheevo_atmo_easy_reward);
+        if (%morytania_entry_allowed = 0) {
+            $int1 = -1;
+        }
+    case 13 :
+        $quest4 = ritual_of_the_mahjarrat;
+        $string0 = ~quest_name($quest4);
+        $string0 = "Optional quest: '<$string0>' to face Akrisae.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false) {
+            $int1 = -1;
+        }
+    case 14 :
+        $quest4 = kindred_spirits;
+        $string0 = ~quest_name($quest4);
+        $string0 = "Optional quest: '<$string0>' to face Linza.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false) {
+            $int1 = -1;
+        }
+    case 15 :
+        $quest4 = qbd1;
+        $string0 = ~quest_name($quest4);
+        $string0 = "Optional quest: '<$string0>' to reduce incoming damage from the Queen Black Dragon.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false) {
+            $int1 = -1;
+        }
+    case 16 :
+        $quest4 = ics_little_helper;
+        $string0 = ~quest_name($quest4);
+        $string0 = "Partial completion of the quest '<$string0>' and 88 Slayer to access the Sophanem Slayer dungeon.";
+        $graphic3 = ~quest_icon($quest4);
+        if (%ics_little_var < 15 | stat_base(slayer) < 88) {
+            $int1 = 0;
+        }
+    case 18 :
+        $quest4 = quest_desert_finale;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must complete the quest: '<$string0>'.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false & ~script20163 = false) {
+            $int1 = 0;
+        }
+    case 19 :
+        $quest4 = quest_amascut;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must complete the quest: '<$string0>'.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false & ~script20164 = false) {
+            $int1 = 0;
+        }
+    case 20 :
+        $quest4 = quest_fort_epilogue;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must complete the quest: '<$string0>'.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false & ~script20165 = false) {
+            $int1 = 0;
+        }
+    case 21 :
+        $quest4 = quest_necromancy_hermod;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must complete the quest: '<$string0>'.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false & ~script1858(13) = false) {
+            $int1 = 0;
+        }
+    case 22 :
+        $quest4 = quest_necromancy_finale;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must complete the quest: '<$string0>'.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false & ~script1858(14) = false) {
+            $int1 = 0;
+        }
+    case 23 :
+        $quest4 = quest_wendle_connections;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must complete the quest: '<$string0>'.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false) {
+            $int1 = 0;
+        }
+    case 24 :
+        $quest4 = quest_wendle_sanguine;
+        $string0 = ~quest_name($quest4);
+        $string0 = "You must complete the quest: '<$string0>'.";
+        $graphic3 = ~quest_icon($quest4);
+        if (~ql4_getquestcomplete($quest4) = false) {
+            $int1 = 0;
+        }
+}
+return($int1, $obj2, $graphic3, $string0);

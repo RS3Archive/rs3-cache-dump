@@ -1,0 +1,47 @@
+// 14134
+[clientscript,script14134](enum $enum0, int $int1, int $int2, int $int3, int $int4)
+def_struct $struct5 = enum(int, struct, $enum0, $int1);
+if ($struct5 = null) {
+    return;
+}
+def_obj $obj6 = struct_param($struct5, toolbelt_object);
+if ($obj6 = null) {
+    return;
+}
+def_boolean $boolean7 = ~check_toolbelt($obj6);
+if (struct_param($struct5, toolbelt_upgradeable) = true) {
+    $obj6 = ~script14090($obj6);
+}
+def_string $string0 = oc_name($obj6);
+def_string $string1 = "<col=B8D1D1>";
+def_int $int8 = 0;
+if (%toolbelt_struct = $struct5) {
+    $int8 = 1;
+}
+if (oc_members($obj6) = 1) {
+    $string1 = "<col=F8D56B>";
+}
+if ($boolean7 = true) {
+    ~script14001(toolbelt_v2:toolbelt_build_layer, rs3tli_3x3_available_icon_button, calc($int4 - 11), false, $int8, 1);
+} else {
+    ~script14001(toolbelt_v2:toolbelt_build_layer, rs3tli_3x3_unavailable_icon_button, calc($int4 - 11), false, $int8, 1);
+    $string0 = "<$string0> - Not stored";
+}
+if (cc_find(toolbelt_v2:toolbelt_click_layer, calc($int3 - 1)) = true) {
+    cc_setop(1, "View <$string1><oc_name($obj6)></col>");
+    if (struct_param($struct5, toolbelt_allow_remove) = 1 & $boolean7 = true) {
+        cc_setop(2, "Remove <$string1><oc_name($obj6)></col>");
+    } else if ($obj6 = trail_sextant & $boolean7 = true) {
+        cc_setop(2, "Look through <$string1><oc_name($obj6)></col>");
+    }
+    cc_setonop("toolbelt_info_panel($struct5, $obj6, $boolean7, $int2, calc($int2 - (14 + 20)), event_op)");
+}
+if (cc_find(toolbelt_v2:toolbelt_build_layer, $int4) = true) {
+    cc_setobject($obj6, -1);
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    if ($boolean7 = false | map_members = false & oc_members($obj6) = 1) {
+        cc_setcolour(0x545454);
+    } else {
+        cc_setcolour(^white);
+    }
+}

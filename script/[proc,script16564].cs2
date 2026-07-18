@@ -1,0 +1,42 @@
+// 16564
+[proc,script16564](dbrow $dbrow0, component $component1)(boolean)
+if (db_getfield($dbrow0, child_options:col8, 0) = false & ~tut_is = 7 & ~script15532(0) = true) {
+    return(false);
+}
+def_int $int2 = db_getfieldcount($dbrow0, child_options:col6);
+if ($int2 = 0) {
+    return(true);
+}
+def_int $int3 = 0;
+while ($int3 < $int2) {
+    switch_int (db_getfield($dbrow0, child_options:col6, $int3)) {
+        case 1 :
+            if (%invent_has_tools = 0) {
+                return(false);
+            }
+        case 2 :
+            if (enum_hasoutput(component, child_options_click, $component1) = true) {
+                return(false);
+            }
+        case 3 :
+            if (enum_hasoutput(component, child_options_parent_click_layers, $component1) = true) {
+                return(false);
+            }
+        case 4 :
+            if (~script6431 = true & enum_hasoutput(component, child_options_click, $component1) = false) {
+                return(false);
+            }
+        case 6 :
+            if (~notes_get_count = 30) {
+                return(false);
+            }
+        case 7 :
+            if (~script20129 = false) {
+                return(false);
+            }
+        case 8 :
+            return(false);
+    }
+    $int3 = calc($int3 + 1);
+}
+return(true);

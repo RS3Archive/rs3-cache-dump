@@ -1,0 +1,11 @@
+// 18328
+[clientscript,script18328](dbrow $dbrow0, int $int1, int $int2)
+def_component $component3 = toplevel_v2_extra_action_button:button_graphic_cooldown;
+if_sethide(false, $component3);
+def_int $int4 = db_getfield($dbrow0, extra_action_button:col6, 0);
+if ($int4 = 0) {
+    return;
+}
+def_int $int5 = calc(clientclock + ($int1 - $int2 - $int4) * 30);
+def_int $int6 = calc(clientclock + ($int1 - $int2) * 30);
+if_setontimer("script15976($component3, $int5, $int6)", $component3);

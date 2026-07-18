@@ -1,0 +1,41 @@
+// 6495
+[clientscript,script6495](component $component0, component $component1, component $component2)
+def_string $string0 = "Show";
+def_boolean $boolean3 = null;
+def_component $component4 = toplevel_v2_prayer:header_click_layer;
+def_component $component5 = toplevel_v2_prayer:stats_layer;
+def_component $component6 = toplevel_v2_prayer:stats_info_layer;
+if ($component0 = toplevel_v2_prayer:header_click_layer) {
+    $component4 = toplevel_v2_parent_suboverlay_prayer:header_click_layer;
+    $component5 = toplevel_v2_parent_suboverlay_prayer:stats_layer;
+    $component6 = toplevel_v2_parent_suboverlay_prayer:stats_info_layer;
+}
+if (%prayer_client_showing_active_summary = 0) {
+    $boolean3 = false;
+    $string0 = "Show All";
+    %prayer_client_showing_active_summary = 1;
+    ~script12244;
+    ~script12243(~prayer_mode_enum($component0));
+    if_setscrollpos(0, 0, struct_param(prayer_draw_prayers_normal, prayer_child_view));
+    if_setscrollpos(0, 0, struct_param(prayer_draw_prayers_sub_overlay, prayer_child_view));
+    ~script5808($component1, 1);
+    ~script5808($component5, 1);
+} else {
+    $boolean3 = true;
+    $string0 = "Show Active-Only";
+    %prayer_client_showing_active_summary = 0;
+    if_setsize(0, 1, ^setsize_minus, ^setsize_abs, $component1);
+    if_setsize(0, 1, ^setsize_minus, ^setsize_abs, $component5);
+}
+if_setop(1, $string0, $component0);
+if_setop(1, $string0, $component4);
+if_sethide($boolean3, $component1);
+if_sethide($boolean3, $component5);
+if ($component2 ! null) {
+    if_sethide($boolean3, $component2);
+}
+if ($component6 ! null) {
+    if_sethide($boolean3, $component6);
+}
+~script7819(struct_param(prayer_draw_prayers_normal, prayer_child_buttons));
+~script7819(struct_param(prayer_draw_prayers_sub_overlay, prayer_child_buttons));

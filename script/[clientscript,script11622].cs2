@@ -1,0 +1,17 @@
+// 11622
+[clientscript,script11622]
+switch_int (%mtx_front_end_confirm_shop_type) {
+    case 1 :
+        if_sethide(true, mtx_front_end_confirm:cannot_buy_text);
+        if_sethide(false, mtx_front_end_confirm:buy_container);
+    case 2 :
+        if (%big_window_rewardshop_progress_requirement_met = 0) {
+            if_sethide(true, mtx_front_end_confirm:buy_container);
+            if_sethide(false, mtx_front_end_confirm:cannot_buy_text);
+            if_settext("You do not meet the requirements to claim this item.", mtx_front_end_confirm:cannot_buy_text);
+        } else {
+            ~script18122;
+        }
+    case default :
+        ~script18122;
+}

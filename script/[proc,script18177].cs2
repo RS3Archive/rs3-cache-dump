@@ -1,0 +1,25 @@
+// 18177
+[proc,script18177](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_string $string0 = "";
+if (if_find(mtxmgt_store:items_layer) = true) {
+    $string0 = cc_param(quicksort_string);
+}
+def_dbfilter $dbfilter5 = ~script18176($int0, $int1, $int2, $int3, $int4, $string0);
+def_int $int6 = 0;
+switch_int (%varclientbit_35141) {
+    case 0 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col2, true, -1, 0);
+        ~script18178($int6);
+    case 1 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col2, false, -1, 0);
+        ~script18178($int6);
+    case 2 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col23, false, -1, 0);
+        ~script18178($int6);
+    case 3 :
+        $int6 = db_filter_find($dbfilter5, mtxmgt_cosmetic:col23, true, -1, 0);
+        ~script18178($int6);
+    case default :
+        ~error("Unexpected value of %mtxmgt_store_sort_mode: <tostring(%varclientbit_35141)>");
+        return;
+}

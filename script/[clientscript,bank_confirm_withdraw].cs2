@@ -1,0 +1,13 @@
+// 16803
+[clientscript,bank_confirm_withdraw](string $string0)
+if (if_hassubmodal(toplevel_v2:bank_window, bank) = false) {
+    if_resume_pausebutton(bank:cancel_withdraw_button);
+    if_sethide(true, bank:confirm_withdraw_item_layer);
+    return;
+}
+if_sethide(false, bank:confirm_withdraw_item_layer);
+if_sethide(false, bank:confirm_withdraw_button);
+if_sethide(false, bank:cancel_withdraw_button);
+if_setonclick("bank_close_withdraw_confirm", bank:confirm_withdraw_back_rect);
+~script13979(bank:confirm_withdraw_button, null, rs3tli_positive_button, false, "Withdraw", "Withdraw");
+if_settext($string0, bank:confirm_withdraw_text);

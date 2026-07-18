@@ -1,0 +1,25 @@
+// 12444
+[proc,script12444](int $int0, int $int1, int $int2, int $int3)
+def_boolean $boolean4 = false;
+def_boolean $boolean5 = false;
+def_boolean $boolean6 = false;
+$boolean4, $boolean5, $boolean6 = get_mousebuttons;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if ($boolean5 = true) {
+    if (%machinima_livecamera_camera_type ! 1) {
+        if ($int0 ! $int2) {
+            cam2_setlookatorientation_yrotation(calc(($int2 - $int0) * %machinima_livecamera_camera_rot_speed));
+        }
+        if ($int1 ! $int3) {
+            cam2_setlookatorientation_xrotation(calc(($int1 - $int3) * %machinima_livecamera_camera_rot_speed));
+        }
+    } else {
+        $int7 = max(min(calc(%machinima_livecamera_camera_rot_speed * ($int1 - $int3)), 3500), calc(0 - 3500));
+        $int8 = max(min(calc(%machinima_livecamera_camera_rot_speed * ($int0 - $int2)), 16284), calc(0 - 16284));
+        ~script3012($int7, $int8);
+    }
+}
+if_setonmouserepeat("script10817(event_mousex, event_mousey, $int0, $int1)", machinima_livecamera:mouselistener);

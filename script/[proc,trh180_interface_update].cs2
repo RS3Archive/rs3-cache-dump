@@ -1,0 +1,49 @@
+// 16527
+[proc,trh180_interface_update]
+def_int $int0 = 0;
+def_int $int1 = -1;
+def_component $component2 = null;
+def_dbrow $dbrow3 = null;
+def_dbrow $dbrow4 = null;
+def_struct $struct5 = trh180_chest_setup;
+def_int $int6 = struct_param($struct5, trh_chest_setup_light_ambient);
+def_int $int7 = struct_param($struct5, trh_chest_setup_light_contrast);
+def_int $int8 = struct_param($struct5, trh_chest_setup_light_anticontrast);
+def_int $int9 = struct_param($struct5, trh_chest_setup_light_r);
+def_int $int10 = struct_param($struct5, trh_chest_setup_light_g);
+def_int $int11 = struct_param($struct5, trh_chest_setup_light_b);
+def_int $int12 = struct_param($struct5, trh_chest_setup_light_x);
+def_int $int13 = struct_param($struct5, trh_chest_setup_light_y);
+def_int $int14 = struct_param($struct5, trh_chest_setup_light_z);
+def_material $material15 = struct_param($struct5, trh_chest_setup_light_envmapid);
+def_string $string0 = "";
+while (++$int0 <= 6) {
+    $dbrow3 = ~script16520($int0);
+    $component2 = db_getfield($dbrow3, trh180_egg_info:col1, 0);
+    $int1 = ~script16512($int0);
+    $dbrow4 = enum(int, dbrow, trh180_rarity_to_egg_dbrow, $int1);
+    if (~trh180_get_egg_state($int0) = 0) {
+        if_setop(1, "Smash", $component2);
+        ~script447($component2, $dbrow4);
+        if_setmodel(db_getfield($dbrow4, trh_chest:col4, 0), $component2);
+        if_setmodelanim(null, $component2);
+        if_setontimer("script16528($component2, calc(200 + random(200)), true)", $component2);
+        if_setonmouseover("trh180_egg_mouseover($component2)", $component2);
+        if_setonmouseleave("trh180_egg_mouseleave($component2, null)", $component2);
+        if (~is_mobile_client = false & $int1 > 0) {
+            $string0 = "<~script18341($int1)><~script18840($int1)></col>";
+            if_setonmouserepeat("script12111($string0, $component2, -1)", $component2);
+        }
+    } else {
+        if_clearops($component2);
+        if_setmodel(db_getfield($dbrow4, trh_chest:col7, 0), $component2);
+        if_setmodelanim(null, $component2);
+        if_setontimer(null, $component2);
+        if_setonmouseover(null, $component2);
+        if_setonmouseleave(null, $component2);
+        if_setonmouserepeat(null, $component2);
+    }
+    if_setmodellighting($int6, $int7, $int8, $int9, $int10, $int11, $int12, $int13, $int14, $material15, $component2);
+}
+~trh180_update_bonus_layer;
+~script16532;

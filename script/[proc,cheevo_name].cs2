@@ -1,0 +1,22 @@
+// 13284
+[proc,cheevo_name](struct $struct0)(string)
+if ($struct0 = null) {
+    return("");
+}
+def_string $string0 = "";
+def_dbrow $dbrow1 = struct_param($struct0, cheevo_data);
+if (struct_param($struct0, bslay_id) > 0) {
+    $string0 = struct_param($struct0, bslay_name);
+} else if (struct_param($struct0, cheevo_path_enum) ! null) {
+    $string0 = struct_param($struct0, cheevo_path_name);
+} else if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case arch_mystery :
+            $string0 = db_getfield($dbrow1, arch_mystery:col1, 0);
+        case default :
+            $string0 = struct_param($struct0, cheevo_name);
+    }
+} else {
+    $string0 = struct_param($struct0, cheevo_name);
+}
+return($string0);

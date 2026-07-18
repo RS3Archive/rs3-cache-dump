@@ -1,0 +1,49 @@
+// 5625
+[clientscript,script5625](component $component0, component $component1)
+if (if_find($component1) = true) {
+    cc_setmodelzoom(calc(2 * (if_getheight(fmc_torch:base) / 3)));
+    switch_component ($component1) {
+        case fmc_torch:n_tendril :
+            if (cc_gety <= calc(0 - cc_getheight)) {
+                ~script5623($component1);
+                if_setontimer(null, $component0);
+                return;
+            }
+            cc_setposition(0, calc(cc_gety - 1), ^setpos_abs_centre, ^setpos_abs_top);
+        case fmc_torch:e_tendril :
+            if (cc_getx >= calc(if_getwidth(fmc_torch:base) + cc_getwidth / 2)) {
+                ~script5623($component1);
+                if_setontimer(null, $component0);
+                return;
+            }
+            cc_setposition(calc(cc_getx + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        case fmc_torch:s_tendril :
+            if (cc_gety >= calc(if_getheight(fmc_torch:base) + cc_getheight / 2)) {
+                ~script5623($component1);
+                if_setontimer(null, $component0);
+                return;
+            }
+            cc_setposition(0, calc(cc_gety + 1), ^setpos_abs_centre, ^setpos_abs_top);
+        case fmc_torch:sw_tendril :
+            if (cc_gety >= calc(if_getheight(fmc_torch:base) + cc_getwidth / 2)) {
+                ~script5623($component1);
+                if_setontimer(null, $component0);
+                return;
+            }
+            cc_setposition(calc(cc_getx - 1), calc(cc_gety + 1), ^setpos_abs_left, ^setpos_abs_top);
+        case fmc_torch:w_tendril :
+            if (cc_getx <= calc(0 - cc_getwidth)) {
+                ~script5623($component1);
+                if_setontimer(null, $component0);
+                return;
+            }
+            cc_setposition(calc(cc_getx - 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        case fmc_torch:nw_tendril :
+            if (cc_gety <= calc(0 - cc_getheight)) {
+                ~script5623($component1);
+                if_setontimer(null, $component0);
+                return;
+            }
+            cc_setposition(calc(cc_getx - 1), calc(cc_gety - 1), ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

@@ -1,0 +1,26 @@
+// 18766
+[clientscript,script18766](int $int0, int $int1, int $rgb2, string $string0)
+%combatv2_channel_mode_client = $int0;
+%combatv2_channel_start_client = clientclock;
+%combatv2_channel_end_client = calc(clientclock + 30 * $int1);
+if_setontimer(null, combatv2_channel_bar:universe);
+if_setsize(0, calc(12 + 4), ^setsize_minus, ^setsize_abs, combatv2_channel_bar:header_layer);
+if_setsize(0, 12, ^setsize_minus, ^setsize_minus, combatv2_channel_bar:background_layer);
+switch_int ($int0) {
+    case 0 :
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, combatv2_channel_bar:bar_mask_layer);
+        if_setposition(2, 0, ^setpos_abs_right, ^setpos_abs_centre, combatv2_channel_bar:bar_indicator_layer);
+    case 1 :
+        if_setsize(0, 0, ^setsize_abs, ^setsize_minus, combatv2_channel_bar:bar_mask_layer);
+        if_setposition(calc(0 - 2), 0, ^setpos_abs_left, ^setpos_abs_centre, combatv2_channel_bar:bar_indicator_layer);
+}
+~script18770($string0);
+~script18773($rgb2);
+~script18774(0);
+cc_deleteall(combatv2_channel_bar:bar_mask_marker_layer);
+def_int $int3 = -1;
+while (++$int3 < $int1) {
+    ~cc_add_rect(combatv2_channel_bar:bar_mask_marker_layer, if_getnextsubid(combatv2_channel_bar:bar_mask_marker_layer), calc(if_getwidth(combatv2_channel_bar:bar_progress_layer) - 2 * 1 - scale(calc(30 * $int3), calc(%combatv2_channel_end_client - %combatv2_channel_start_client), calc(if_getwidth(combatv2_channel_bar:bar_progress_layer) - 2 * 1))), 0, ^setpos_abs_left, ^setpos_abs_centre, 1, 0, ^setsize_abs, ^setsize_minus, rect_dark);
+}
+if_setontimer("script18767", combatv2_channel_bar:bar_progress_layer);
+~script18777;

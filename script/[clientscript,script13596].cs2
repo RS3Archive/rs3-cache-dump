@@ -1,0 +1,26 @@
+// 13596
+[clientscript,script13596](component $component0, int $int1)
+cc_deleteall($component0);
+def_achievement $achievement2 = null;
+switch_int ($int1) {
+    case 0 :
+        $achievement2 = %player_inspect_cheevo_complete_1;
+    case 1 :
+        $achievement2 = %player_inspect_cheevo_complete_2;
+    case 2 :
+        $achievement2 = %player_inspect_cheevo_complete_3;
+    case 3 :
+        $achievement2 = %player_inspect_cheevo_complete_4;
+}
+if ($achievement2 = null) {
+    return;
+}
+def_string $string0 = "";
+cc_create($component0, ^iftype_graphic, 0);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(2, 2, ^setsize_minus, ^setsize_minus);
+cc_setgraphic(achievement_sprite($achievement2));
+$string0 = achievement_getname($achievement2);
+$string0 = append($string0, "<br>");
+$string0 = append($string0, ~achievement_description($achievement2));
+cc_setonmouserepeat("script8799($string0, $component0, 0)");

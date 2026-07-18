@@ -1,0 +1,53 @@
+// 19892
+[proc,script19892](struct $struct0, struct $struct1, string $string0, string $string1, string $string2, boolean $boolean2, boolean $boolean3, int $int4)
+if (struct_param($struct0, rewardshop_preview_shop) = 1) {
+    if_sethide(true, rewardshop:item_preview_buy_button);
+    if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, rewardshop:item_preview_close_button);
+    return;
+}
+if_sethide(false, rewardshop:item_preview_buy_button);
+if_setposition(-68, 8, ^setpos_abs_centre, ^setpos_abs_bottom, rewardshop:item_preview_close_button);
+if_sethide(true, rewardshop:item_preview_buy_button_disabled_layer);
+if (string_length($string0) > 0) {
+    if_settext($string0, rewardshop:item_preview_buy_button_text);
+}
+def_boolean $boolean5 = struct_param($struct1, rewardshop_buy_x_first);
+if ($boolean2 = false) {
+    if_clearops(rewardshop:item_preview_buy);
+    if_setonop(null, rewardshop:item_preview_buy);
+    if_setop(1, ~script12793($struct1, struct_param($struct1, rewardshop_buy_option_1), $boolean5), rewardshop:item_preview_buy);
+    if (struct_param($struct1, rewardshop_buy_option_2) ! -1 | struct_param($struct1, rewardshop_buy_option_3) ! -1 | struct_param($struct1, rewardshop_buy_option_4) ! -1) {
+        if (~script6431 = true) {
+            $string1 = "There are more buy options if you tap and hold.";
+        } else {
+            $string1 = "There are more buy options if you right-click.";
+        }
+        if (struct_param($struct1, rewardshop_buy_option_2) ! -1) {
+            if_setop(2, ~script12793($struct1, struct_param($struct1, rewardshop_buy_option_2), false), rewardshop:item_preview_buy);
+        }
+        if (struct_param($struct1, rewardshop_buy_option_3) ! -1) {
+            if_setop(3, ~script12793($struct1, struct_param($struct1, rewardshop_buy_option_3), false), rewardshop:item_preview_buy);
+            if ($boolean5 = false) {
+                if_setop(4, ~script12793($struct1, -1, true), rewardshop:item_preview_buy);
+            }
+        }
+        if (struct_param($struct1, rewardshop_buy_option_4) ! -1) {
+            if_setop(4, ~script12793($struct1, struct_param($struct1, rewardshop_buy_option_4), false), rewardshop:item_preview_buy);
+            if ($boolean5 = false) {
+                if_setop(5, ~script12793($struct1, -1, true), rewardshop:item_preview_buy);
+            }
+        }
+    }
+} else {
+    if_sethide(false, rewardshop:item_preview_buy_button_disabled_layer);
+    if_clearops(rewardshop:item_preview_buy);
+    if_setonmouserepeat("script8799($string1, rewardshop:item_preview_buy_button, -1)", rewardshop:item_preview_buy_button_disabled_layer);
+}
+if (~script6431 = true) {
+    if ($boolean2 = true & string_length($string1) > 0) {
+        if_setonclick("script7774($string1, rewardshop:item_preview_buy_button, -1, $int4)", rewardshop:item_preview_buy_button);
+    } else {
+        if_setonclick(null, rewardshop:item_preview_buy_button);
+    }
+}
+if_setonmouserepeat("script8799($string1, rewardshop:item_preview_buy_button, -1)", rewardshop:item_preview_buy_button);

@@ -1,0 +1,93 @@
+// 129
+[proc,ignore_update](component $component0)
+def_int $int1 = 100;
+if (playermember = true) {
+    $int1 = 400;
+}
+def_component $component2 = ~script12023($component0);
+def_component $component3 = ~script12024($component0);
+def_component $component4 = ~ignore_info_layer($component0);
+def_component $component5 = ~script12026($component0);
+def_component $component6 = ~ignore_button_layer($component0);
+def_component $component7 = ~script14978($component0);
+def_int $int8 = ignore_count;
+if ($int8 < 0) {
+    if_settext("Loading Ignore List.<br>Please wait.", $component5);
+    if_sethide(false, $component5);
+    if_settext("", $component4);
+    return;
+}
+if_settext("<tostring($int8)> / <tostring($int1)>", $component4);
+if_sethide(true, $component5);
+def_int $intarray0(calc($int8 + 1));
+def_int $int9 = 0;
+def_boolean $boolean10 = ~script6431;
+def_int $int11 = enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular);
+if ($boolean10 = true) {
+    $int11 = enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_17pt_bold);
+}
+$int11 = calc($int11 + 4);
+if (if_getwidth($component0) < 155) {
+    if_sethide(true, $component4);
+} else {
+    if_sethide(false, $component4);
+}
+if (if_getwidth($component0) < 125) {
+    if_sethide(true, $component6);
+    if ($component7 ! null) {
+        if_sethide(false, $component7);
+    }
+} else {
+    if_sethide(false, $component6);
+    if ($component7 ! null) {
+        if_sethide(true, $component7);
+    }
+}
+if (if_getnextsubid($component2) = 0) {
+    while ($int9 < 400) {
+        cc_create($component2, ^iftype_text, $int9);
+        cc_setsize(0, $int11, ^setsize_minus, ^setsize_abs);
+        cc_create($component3, ^iftype_graphic, $int9);
+        cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+        $int9 = calc($int9 + 1);
+    }
+    $int9 = 0;
+}
+while ($int9 < $int8) {
+    if (cc_find($component2, $int9) = true) {
+        cc_sethide(false);
+        cc_setontimer("ignore_info($component0, $int9)");
+    }
+    $intarray0($int9) = $int9;
+    $int9 = calc($int9 + 1);
+}
+while ($int9 < 400) {
+    if (cc_find($component2, $int9) = true) {
+        cc_sethide(true);
+        cc_setparam(friends_sort_atoz, -1);
+        cc_setparam(friends_sort_ztoa, -1);
+    }
+    if (cc_find($component3, $int9) = true) {
+        cc_sethide(true);
+    }
+    $int9 = calc($int9 + 1);
+}
+if ($int8 = 0) {
+    return;
+}
+$intarray0($int8) = -1;
+~script12037(intarray0, 0, calc($int8 - 1));
+if_setparam_int(friends_sort_atoz, $intarray0(0), $component0);
+if_setparam_int(friends_sort_ztoa, $intarray0(calc($int8 - 1)), $component0);
+if_setparam_int(friends_sort_mode, -2, $component0);
+$int9 = 0;
+while ($int9 < $int8) {
+    if (cc_find($component2, $intarray0($int9)) = true) {
+        cc_setparam(friends_sort_atoz, $intarray0(calc($int9 + 1)));
+        if ($int9 > 0) {
+            cc_setparam(friends_sort_ztoa, $intarray0(calc($int9 - 1)));
+        }
+    }
+    $int9 = calc($int9 + 1);
+}
+if_setontimer("script12032($component0)", $component0);

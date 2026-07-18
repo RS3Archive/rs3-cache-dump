@@ -1,0 +1,27 @@
+// 13171
+[proc,script13171](int $int0, int $int1)
+def_int $int2 = 0;
+if (if_find(mtxmgt_store:items_layer) = true) {
+    if ($int0 <= if_getheight(cc_getlayer)) {
+        cc_setscrollsize(0, 0);
+        cc_setsize(16, $int0, ^setsize_minus, ^setsize_abs);
+        cc_setscrollpos(0, 0);
+        if (cc_param(mtxmgt_first_visible_index) > 0) {
+            cc_setparam(mtxmgt_first_visible_index, 0);
+        }
+        cc_deleteall(mtxmgt_store:scrollbar_layer);
+    } else if (cc_getscrollheight ! $int0 | $int1 = 1) {
+        cc_setscrollsize(0, $int0);
+        cc_setsize(16, 0, ^setsize_minus, ^setsize_minus);
+        if (cc_param(mtxmgt_first_visible_index) > 0) {
+            $int2 = calc(cc_param(mtxmgt_first_visible_index) * (20 + 4));
+        }
+        if (calc($int0 - cc_getheight) < $int2) {
+            cc_setscrollpos(0, calc($int0 - cc_getheight));
+            ~script13173($int2, cc_getscrolly);
+        } else {
+            cc_setscrollpos(0, $int2);
+        }
+        ~rs3_scrollbar_vertical(mtxmgt_store:scrollbar_layer, mtxmgt_store:items_layer);
+    }
+}

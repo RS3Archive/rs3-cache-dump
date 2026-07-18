@@ -1,0 +1,27 @@
+// 19815
+[proc,script19815](int $int0, int $int1)
+def_int $int2 = $int0;
+def_component $component3 = trh205_overlay:prize_select_full_preview_content_layer;
+def_int $int4 = 0;
+def_dbrow $dbrow5 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col5, 0);
+def_dbrow $dbrow6 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col6, 0);
+def_int $int7 = db_getfieldcount($dbrow5, trh205_reward_path:col0);
+def_int $int8 = db_getfieldcount($dbrow6, trh205_reward_path:col0);
+def_int $int9 = 10;
+def_int $int10 = min(%trh205_reward_path_1_prizes_claimed, $int7);
+if ($int1 = 2) {
+    $int9 = 11;
+    $int10 = min(%trh205_reward_path_2_prizes_claimed, $int8);
+}
+if (cc_findbycategory(trh205_overlay:prize_select_full_preview_content_layer, $int9, $int10) = 1) {
+    $int4 = calc(cc_getx - 220);
+}
+if (if_find($component3) = true) {
+    if_setscrollsize($int2, if_getheight($component3), $component3);
+    if_setscrollpos($int4, 0, $component3);
+    if ($int2 > if_getwidth($component3)) {
+        ~rs3_scrollbar_horizontal(trh205_overlay:prize_select_full_preview_scroll_bar, $component3);
+    } else {
+        cc_deleteall(trh205_overlay:prize_select_full_preview_scroll_bar);
+    }
+}

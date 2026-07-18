@@ -1,0 +1,26 @@
+// 9406
+[proc,activity_tracker_get_path](int $int0, int $int1)(string)
+def_struct $struct2 = null;
+def_struct $struct3 = null;
+def_string $string0 = "";
+def_enum $enum4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (%cheevo_path_enum_id > 0) {
+    $struct2 = enum(int, struct, ~cheevo_path_book_enum, %cheevo_path_enum_id);
+    if ($struct2 ! null) {
+        $string0 = ~cheevo_name($struct2);
+        $enum4 = struct_param($struct2, cheevo_path_enum);
+        if ($enum4 ! null) {
+            $struct3 = enum(int, struct, cheevo_id_to_struct, $int1);
+            if ($struct3 ! null & enum_hasoutput(struct, $enum4, $struct3) = true) {
+                $int6 = enum_getoutputcount($enum4);
+                $int5 = enum_getreverseindex(struct, int, $enum4, $struct3, 0);
+            }
+        }
+        $string0 = "<$string0> (<tostring(calc($int5 + 1))>/<tostring($int6)>)";
+    }
+    return($string0);
+} else {
+    return("NO PATH SELECTED!");
+}

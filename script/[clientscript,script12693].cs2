@@ -1,0 +1,76 @@
+// 12693
+[clientscript,script12693]
+def_struct $struct0 = null;
+def_int $int1 = 0;
+def_int $int2 = 1;
+switch_overlayinterface (struct_param(toplevel_v2_parent_tab_social_seasonal_event, toplevel_v2_parent_tab_suboverlay_2)) {
+    case timed_event, event_weekends :
+    case default :
+        return;
+}
+$struct0 = ~script14441;
+if ($struct0 = null | %seasonal_event_active = 0) {
+    if (%timed_event_active_client = 0) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_seasonal:no_event_layer);
+        return;
+    }
+    ~script92;
+}
+if ($struct0 ! null) {
+    if (struct_param($struct0, timed_event_type) = 3 | struct_param($struct0, timed_event_type) = 5) {
+        if_sethide(true, timed_event:summary_layer);
+        if_sethide(false, timed_event:additional_interface_layer);
+        if (struct_param($struct0, timed_event_type) = 3) {
+            if_sethide(true, timed_event:anniversary_skillcapes_layer);
+            if_sethide(false, timed_event:variety_task_events_layer);
+        } else {
+            if_sethide(false, timed_event:anniversary_skillcapes_layer);
+            if_sethide(true, timed_event:variety_task_events_layer);
+        }
+    } else {
+        if_sethide(false, timed_event:summary_layer);
+        if_sethide(true, timed_event:additional_interface_layer);
+    }
+    if_sethide(true, toplevel_v2_parent_suboverlay_seasonal:no_event_layer);
+    if (struct_param($struct0, side_tab_1_icon_neutral) ! null) {
+        if_setgraphic(struct_param($struct0, side_tab_1_icon_neutral), toplevel_v2_parent_suboverlay_seasonal:tab1_icon);
+        if_setonmouserepeat("script8799(struct_param($struct0, side_tab_1_tooltip), event_com, -1)", toplevel_v2_parent_suboverlay_seasonal:seasonal_tab1_button);
+    }
+    if (struct_param($struct0, side_tab_2_icon_neutral) ! null) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab2_button);
+        if_setgraphic(struct_param($struct0, side_tab_2_icon_neutral), toplevel_v2_parent_suboverlay_seasonal:tab2_icon);
+        if_setonmouserepeat("script8799(struct_param($struct0, side_tab_2_tooltip), event_com, -1)", toplevel_v2_parent_suboverlay_seasonal:seasonal_tab2_button);
+        $int2 = calc($int2 + 1);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab2_button);
+    }
+    if (struct_param($struct0, side_tab_3_icon_neutral) ! null) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab3_button);
+        if_setgraphic(struct_param($struct0, side_tab_3_icon_neutral), toplevel_v2_parent_suboverlay_seasonal:tab3_icon);
+        if_setonmouserepeat("script8799(struct_param($struct0, side_tab_3_tooltip), event_com, -1)", toplevel_v2_parent_suboverlay_seasonal:seasonal_tab3_button);
+        $int2 = calc($int2 + 1);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab3_button);
+    }
+    if (struct_param($struct0, side_tab_4_icon_neutral) ! null) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab4_button);
+        if_setgraphic(struct_param($struct0, side_tab_4_icon_neutral), toplevel_v2_parent_suboverlay_seasonal:tab4_icon);
+        if_setonmouserepeat("script8799(struct_param($struct0, side_tab_4_tooltip), event_com, -1)", toplevel_v2_parent_suboverlay_seasonal:seasonal_tab4_button);
+        $int2 = calc($int2 + 1);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab4_button);
+    }
+    if (struct_param($struct0, side_tab_5_icon_neutral) ! null) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab5_button);
+        if_setgraphic(struct_param($struct0, side_tab_5_icon_neutral), toplevel_v2_parent_suboverlay_seasonal:tab5_icon);
+        if_setonmouserepeat("script8799(struct_param($struct0, side_tab_5_tooltip), event_com, -1)", toplevel_v2_parent_suboverlay_seasonal:seasonal_tab5_button);
+        $int2 = calc($int2 + 1);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_seasonal:seasonal_tab5_button);
+    }
+    if (struct_param($struct0, side_tab_2_layer) = null) {
+        ~script92;
+    }
+} else {
+    if_sethide(false, toplevel_v2_parent_suboverlay_seasonal:no_event_layer);
+}

@@ -1,0 +1,29 @@
+// 5525
+[proc,minimenu_click](component $component0, int $int1)
+def_int $int2 = get_mousex;
+def_int $int3 = get_mousey;
+if (%minimenu_is_dragging = true) {
+    %minimenu_is_dragging = false;
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_component $component8 = null;
+def_int $int9 = 2;
+if (cc_find($component0, $int1) = true) {
+    $component8 = cc_getlayer;
+    if ($component8 ! null) {
+        $int4, $int5, $int6, $int7 = calc(~script3365($component8) + $int9), calc(~script3366($component8) + $int9), calc(if_getheight($component8) - $int9 * 2), calc(if_getwidth($component8) - $int9 * 2);
+        if ($int2 < $int4 | $int3 < $int5 | $int2 > calc($int4 + $int7) | $int3 > calc($int5 + $int6)) {
+            return;
+        }
+    }
+    $int4, $int5, $int6, $int7 = ~script6355, ~script6356, cc_getheight, cc_getwidth;
+    if ($int2 >= $int4 & $int2 < calc($int4 + $int7) & $int3 >= $int5 & $int3 < calc($int5 + $int6)) {
+        unknown_command_35(cc_param(minimenu_submenu), cc_param(minimenu_entry_id), ~script8401, ~script8402);
+        ~minimenu_close;
+        minimenu_close;
+    }
+}

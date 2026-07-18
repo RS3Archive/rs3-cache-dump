@@ -1,0 +1,12 @@
+// 6693
+[proc,bigchinchompa_hud_progress](component $component0, component $component1, component $component2, int $int3)
+def_int $int4 = max(min(%bigchinchompa_drowsiness, 10500), 0);
+~aif_progressbar_set(scale($int4, 10500, 100), bigchinchompa_hud:green_large_progress_value_bounds_layer, bigchinchompa_hud:green_large_progress_text_layer);
+def_string $string0 = "<tostring(scale($int4, 10500, 100))>% sleepy";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component0);
+%tooltip_built = 0;
+if ($int4 >= calc(10500 / 2)) {
+    if_setgraphic("bigchinchompa_sleep_icon,1", $component1);
+} else {
+    if_setgraphic("bigchinchompa_sleep_icon,0", $component1);
+}

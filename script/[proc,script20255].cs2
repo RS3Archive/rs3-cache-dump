@@ -1,0 +1,25 @@
+// 20255
+[proc,script20255](dbrow $dbrow0, int $int1, int $int2, int $int3, int $int4, int $int5, boolean $boolean6)(int)
+def_int $int7 = calc($int4 * (140 + 15) + 4);
+def_boolean $boolean8 = ~negate_bool(~script20142($int1));
+def_int $int9 = db_getfield($dbrow0, league_relic_tier:col3, 0);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 1;
+def_int $int14 = 4;
+~if_add_child_layer(league_parent_relics:relic_main_headers, $int1, 0, $int7, 0, ^setpos_abs_left, ^setpos_abs_top, 140, 0, ^setsize_abs, ^setsize_minus);
+~cc_add_child_rect($int1, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, rect_light);
+~cc_add_child_text($int1, 2, 10, 4, ^setpos_abs_left, ^setpos_abs_top, 0, 20, ^setsize_minus, ^setsize_abs, text_label_standard, "Tier <tostring(calc($int1 + 1))>");
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+~script20259($boolean6, $boolean8);
+~cc_add_child_text($int1, 3, 10, 4, ^setpos_abs_right, ^setpos_abs_top, 0, 20, ^setsize_minus, ^setsize_abs, text_label_standard, "<tostring($int9)> x XP");
+cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+~script20259($boolean6, $boolean8);
+~if_add_child_layer(league_parent_relics:relic_main, 200, $int4, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+cc_setparam(league_relic_column_tier, $int1);
+while ($int10 < $int3) {
+    $int5 = ~script20256($dbrow0, $int1, calc($int2 + $int10), $int4, $int5, $int10, $boolean8, $boolean6);
+    $int10 = calc($int10 + 1);
+}
+return($int5);

@@ -1,0 +1,67 @@
+// 7501
+[clientscript,script7501](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = if_gettrans($component0);
+if ($int1 > 200) {
+    $int3 = max(33, calc($int1 - 12));
+} else if ($int1 > 33) {
+    $int3 = max(33, calc($int1 - 3));
+} else {
+    $int5 = 1;
+    $int3 = 33;
+}
+if ($int2 > 48) {
+    $int4 = max(48, calc($int2 - 3));
+} else {
+    $int6 = 1;
+    $int4 = 48;
+}
+if ($int7 < 255) {
+    if_settrans(min(255, calc($int7 + 3)), $component0);
+}
+if ($int6 = 1 | $int5 = 1 | $int7 = 255) {
+    if (if_getgraphic($component0) = "aif_level_up_text_numbers,3") {
+        if (map_lang = 3) {
+            if_setgraphic("aif_level_up_text_go,3", $component0);
+            if_setsize(765, 200, ^setsize_abs, ^setsize_abs, $component0);
+        } else {
+            if_setgraphic("aif_level_up_text_numbers,2", $component0);
+            if_setsize(200, 200, ^setsize_abs, ^setsize_abs, $component0);
+        }
+        if_settrans(0, $component0);
+    } else if (if_getgraphic($component0) = "aif_level_up_text_numbers,2") {
+        if (map_lang = 3) {
+            if_setgraphic("aif_level_up_text_numbers,3", $component0);
+        } else {
+            if_setgraphic("aif_level_up_text_numbers,1", $component0);
+        }
+        if_settrans(0, $component0);
+        if_setsize(200, 200, ^setsize_abs, ^setsize_abs, $component0);
+    } else if (if_getgraphic($component0) = "aif_level_up_text_numbers,1") {
+        if (map_lang = 3) {
+            if_setgraphic("aif_level_up_text_numbers,2", $component0);
+            if_setsize(200, 200, ^setsize_abs, ^setsize_abs, $component0);
+        } else {
+            switch_int (map_lang) {
+                case 0 :
+                    if_setgraphic("aif_level_up_text_go,0", $component0);
+                case 1 :
+                    if_setgraphic("aif_level_up_text_go,1", $component0);
+                case 2 :
+                    if_setgraphic("aif_level_up_text_go,2", $component0);
+            }
+            if_setsize(765, 200, ^setsize_abs, ^setsize_abs, $component0);
+        }
+        if_settrans(0, $component0);
+    } else {
+        if_sethide(true, $component0);
+        ~script7518(rand_dnd_overlay:rand_dnd_time_left, 15);
+    }
+} else {
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, $component0);
+}

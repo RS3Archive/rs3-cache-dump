@@ -1,0 +1,101 @@
+// 19731
+[proc,trh204_overlay_update](int $int0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+def_component $component9 = null;
+def_int $int10 = 0;
+def_fontmetrics $fontmetrics11 = null;
+def_string $string0 = "";
+def_obj $obj12 = null;
+def_int $int13 = 0;
+def_int $int14 = 1;
+def_int $int15 = 1;
+def_int $int16 = 0;
+switch_int ($int0) {
+    case 1 :
+        $component1 = trh204_overlay:chest_1_layer;
+        $component2 = trh204_overlay:chest_1_description;
+        $component3 = trh204_overlay:chest_1_click_layer;
+        $component4 = trh204_overlay:chest_1_prize_layer;
+        $component5 = trh204_overlay:chest_1_background;
+        $component6 = trh204_overlay:chest_1_background_glow;
+        $component7 = trh204_overlay:chest_1_rarity_corner_graphic;
+        $int10 = %trh204_chest_1;
+        $int15 = %trh204_chest_1_multiplier;
+        $obj12 = %trh204_chest_1_prize_obj;
+        $int13 = %trh204_chest_1_prize_amount;
+        $int14 = %trh204_chest_1_prize_rarity;
+        $int16 = 1;
+    case 2 :
+        $component1 = trh204_overlay:chest_2_layer;
+        $component2 = trh204_overlay:chest_2_description;
+        $component3 = trh204_overlay:chest_2_click_layer;
+        $component4 = trh204_overlay:chest_2_prize_layer;
+        $component5 = trh204_overlay:chest_2_background;
+        $component6 = trh204_overlay:chest_2_background_glow;
+        $component7 = trh204_overlay:chest_2_rarity_corner_graphic;
+        $int10 = %trh204_chest_2;
+        $int15 = %trh204_chest_2_multiplier;
+        $obj12 = %trh204_chest_2_prize_obj;
+        $int13 = %trh204_chest_2_prize_amount;
+        $int14 = %trh204_chest_2_prize_rarity;
+        $int16 = 15;
+    case 3 :
+        $component1 = trh204_overlay:chest_3_layer;
+        $component2 = trh204_overlay:chest_3_description;
+        $component3 = trh204_overlay:chest_3_click_layer;
+        $component4 = trh204_overlay:chest_3_prize_layer;
+        $component5 = trh204_overlay:chest_3_background;
+        $component6 = trh204_overlay:chest_3_background_glow;
+        $component8 = trh204_overlay:chest_3_rarity_layer;
+        $component7 = trh204_overlay:chest_3_rarity_corner_graphic;
+        $component9 = trh204_overlay:chest_3_rarity_corner_graphic_flipped;
+        $int14 = %trh204_chest_3_prize_rarity;
+}
+def_graphic $graphic17 = ~script19987($int14);
+if ($int0 ! 3) {
+    if_setgraphic(trh204_card_back, $component5);
+} else {
+    if_setgraphic(trh204_card_back_mystery, $component5);
+    ~script19726($component8, null, -1, -1, $int14, 100, 80, 35, -50, 1);
+    if_sethide(false, $component8);
+    if_setgraphic($graphic17, $component9);
+    if_sethide(false, $component9);
+}
+if_setgraphic($graphic17, $component7);
+if_sethide(true, $component7);
+if_sethide(true, $component2);
+if_sethide(true, $component4);
+if_setsize(200, 260, ^setsize_abs, ^setsize_abs, $component5);
+if_setparam_int(rs3tli_component_oscillation_offset_max, 2, $component1);
+if_setparam_int(rs3tli_component_oscillation_type, 3, $component1);
+if_setparam_int(rs3tli_component_playback_rate, 4000, $component1);
+if_setgraphic(trh204_card_glow, $component6);
+if_sethide(false, $component6);
+if_setsize(260, 310, ^setsize_abs, ^setsize_abs, $component6);
+if_setopcursor(1, wof_trh_key_cursor, $component3);
+if ($int0 = 3) {
+    return;
+}
+if ($int15 > 1) {
+    $string0 = "<tostring($int15)>x <oc_name($obj12)>";
+} else {
+    $string0 = oc_name($obj12);
+}
+if_settext($string0, $component2);
+$fontmetrics11 = ~script16927(if_getwidth($component2), if_getheight($component2), 3, fonts_notosans_bold, 15, 11, $string0);
+if_settextfont($fontmetrics11, $component2);
+~script19726($component4, $obj12, $int13, $int15, $int14, 100, 80, 35, -50, 1);
+if ($int0 = 2) {
+    %trh204_animations_disabled = false;
+}
+if_setontimer(null, $component5);
+if_scriptqueue_clear($component5);
+if_scriptqueue_add($int16, "script19740($component5, $int10, $component2, $component4, $component7)", $component5);
+~trh204_update_background;

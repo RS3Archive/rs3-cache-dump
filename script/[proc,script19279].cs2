@@ -1,0 +1,31 @@
+// 19279
+[proc,script19279]
+~script19280;
+~script19281;
+~script19282;
+~script19270(trh_dungeon_crawl_overlay:map_button_graphic, trh_dungeon_crawl_overlay:map_button_layer);
+if (%trh_dungeon_crawl_map_critical_path_index = calc(db_getfieldcount(%trh_dungeon_crawl_dungeon_floor_dbrow, trh_dungeon_crawl_map:col5) - 1)) {
+    if_settext("Next Floor", trh_dungeon_crawl_overlay:map_button_text);
+} else {
+    if_settext("<sprite=16033><nbsp>Navigate", trh_dungeon_crawl_overlay:map_button_text);
+}
+if_sethide(true, trh_dungeon_crawl_overlay:map_prize_rarity_graphic);
+if_sethide(true, trh_dungeon_crawl_overlay:map_prize_category_graphic);
+if_sethide(true, trh_dungeon_crawl_overlay:map_prize_multiplier_graphic);
+if (%trh_dungeon_crawl_prize_modifier_floor_count > 0) {
+    if (%trh_dungeon_crawl_prize_rarity > 1) {
+        if_sethide(false, trh_dungeon_crawl_overlay:map_prize_rarity_graphic);
+        if_setgraphic(~script19209(%trh_dungeon_crawl_prize_rarity), trh_dungeon_crawl_overlay:map_prize_rarity_graphic);
+        ~script3536("<~script10979(%trh_dungeon_crawl_prize_rarity)><~script10876(%trh_dungeon_crawl_prize_rarity)>+</col>", trh_dungeon_crawl_overlay:map_prize_rarity_graphic, -1);
+    }
+    if (%trh_dungeon_crawl_prize_category ! 0) {
+        if_sethide(false, trh_dungeon_crawl_overlay:map_prize_category_graphic);
+        if_setgraphic(enum(int, graphic, trh_category_icon, %trh_dungeon_crawl_prize_category), trh_dungeon_crawl_overlay:map_prize_category_graphic);
+        ~script3536("<col=FFFF00><enum(int, string, trh_category_name, %trh_dungeon_crawl_prize_category)> category</col>", trh_dungeon_crawl_overlay:map_prize_category_graphic, -1);
+    }
+    if (%trh_dungeon_crawl_prize_multiplier > 1) {
+        if_sethide(false, trh_dungeon_crawl_overlay:map_prize_multiplier_graphic);
+        if_setgraphic(~script10980(%trh_dungeon_crawl_prize_multiplier), trh_dungeon_crawl_overlay:map_prize_multiplier_graphic);
+        ~script3536("<col=FF00>x<tostring(%trh_dungeon_crawl_prize_multiplier)> multiplier</col>", trh_dungeon_crawl_overlay:map_prize_multiplier_graphic, -1);
+    }
+}

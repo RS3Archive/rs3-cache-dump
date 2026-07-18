@@ -1,0 +1,72 @@
+// 16189
+[proc,script16189](dbrow $dbrow0, int $int1, int $int2, int $int3, int $int4, int $int5, component $component6, struct $struct7, int $int8)
+def_int $int9 = 0;
+def_dbrow $dbrow10 = null;
+def_int $int11 = 0;
+def_obj $obj12 = null;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_string $string0 = "";
+def_int $int16 = 0;
+def_int $int17 = -1;
+def_graphic $graphic18 = null;
+def_boolean $boolean19 = false;
+def_int $int20 = -1;
+def_int $int21 = -1;
+$int9, $dbrow10, $int11 = db_getfield($dbrow0, trh_promo_categories:col0, $int1);
+$int11 = ~script4577($dbrow0, $int9, $int11);
+def_int $int22 = ~script16166($dbrow0);
+def_int $int23 = ~script16168($dbrow10);
+def_int $int24 = calc(~script16169($dbrow10, $struct7) * 4);
+def_int $int25 = 0;
+def_int $int26 = 0;
+while (++$int21 < $int24) {
+    $int25 = calc($int3 + $int21);
+    switch_int (calc($int21 % 4)) {
+        case 0 :
+            $obj12, $int13, $int14, $int15, $int20 = ~script16170($dbrow10, $int20, $struct7);
+            if (if_createnested(^iftype_graphic, $int2, $int25, $int4, $int5, $component6) = 1) {
+                cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+                cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                cc_setobject($obj12, $int13);
+            }
+        case 1 :
+            if (if_createnested(^iftype_text, $int2, $int25, $int4, $int5, $component6) = 1) {
+                ~script16190;
+                if (string_length(oc_param($obj12, param_9096)) > 0) {
+                    $string0 = oc_param($obj12, param_9096);
+                } else {
+                    $string0 = oc_name($obj12);
+                }
+                cc_settext(~script3930($string0, $int8, 3, cc_getfontmetrics));
+            }
+        case 2 :
+            $int17 = scale(80, 118, 55);
+            $graphic18 = enum(int, graphic, trh_rarity_to_gem_graphic, $int14);
+            $boolean19 = ~script16709($component6, $int14, $graphic18, $int2, $int25, 2, $int4, $int5, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int17, 50, ^setsize_abs, ^setsize_abs);
+            if ($boolean19 = false & if_createnested(^iftype_graphic, $int2, $int25, $int4, $int5, $component6) = 1) {
+                cc_setgraphic($graphic18);
+                cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+                cc_setsize($int17, 50, ^setsize_abs, ^setsize_abs);
+            }
+        case 3 :
+            if (if_createnested(^iftype_text, $int2, $int25, $int4, $int5, $component6) = 1) {
+                ~script16190;
+                if ($int15 > 0) {
+                    if (db_getfield($dbrow0, trh_promo_categories:col5, 0) = 1) {
+                        $int26 = ~script16480($int11, $int22, $int15, $int23, 100000);
+                    } else {
+                        $int26 = ~script16167($int11, $int22, $int15, $int23, 100000);
+                    }
+                    if ($int26 > 0) {
+                        cc_settext("<~tostring_decimal($int26, 3, 3, 1, 0)> %");
+                    } else {
+                        cc_settext("<lt> 0.001 %");
+                    }
+                } else {
+                    cc_settext("");
+                }
+            }
+    }
+}

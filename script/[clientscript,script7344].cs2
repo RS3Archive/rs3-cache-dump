@@ -1,0 +1,68 @@
+// 7344
+[clientscript,script7344]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0, $int1 = ~script4187;
+def_string $string0 = "";
+def_int $int2 = ~script20664;
+def_string $string1 = "tomorrow.";
+if ($int2 > 1) {
+    $string1 = "in <tostring($int2)> days.";
+}
+if_setgraphic(enum(int, graphic, pop_voyage_reward_icons, %pop_market_resource), pop_smuggler:smuggler_goods_icon);
+if_settext("<tostring(%pop_market_quantity)> <enum(int, string, pop_voyage_rewards, %pop_market_resource)>", pop_smuggler:smuggler_goods_text);
+if_settext("Available at <tostring(enum(int, int, pop_black_market_costs, %pop_market_resource))> coins each", pop_smuggler:smuggler_price);
+if_settext("Buy 1 for <tostring(enum(int, int, pop_black_market_costs, %pop_market_resource))>", pop_smuggler:buy_title_1);
+if_settext("Buy 5 for <tostring(calc(5 * enum(int, int, pop_black_market_costs, %pop_market_resource)))>", pop_smuggler:buy_title_2);
+if_settext("Buy 10 for <tostring(calc(10 * enum(int, int, pop_black_market_costs, %pop_market_resource)))>", pop_smuggler:buy_title_3);
+if_settext("Buy 50 for <tostring(calc(50 * enum(int, int, pop_black_market_costs, %pop_market_resource)))>", pop_smuggler:buy_title_4);
+if_settext("Buy <tostring(%pop_market_quantity)> for <tostring(calc(%pop_market_quantity * enum(int, int, pop_black_market_costs, %pop_market_resource)))>", pop_smuggler:buy_title_5);
+if (%pop_market_quantity < 50) {
+    if_sethide(true, pop_smuggler:buy_4);
+    if_sethide(true, pop_smuggler:buy_title_4);
+}
+if (%pop_market_quantity < 10) {
+    if_sethide(true, pop_smuggler:buy_3);
+    if_sethide(true, pop_smuggler:buy_title_3);
+}
+if (%pop_market_quantity < 5) {
+    if_sethide(true, pop_smuggler:buy_2);
+    if_sethide(true, pop_smuggler:buy_title_2);
+}
+if (%pop_market_quantity < 1) {
+    if_sethide(true, pop_smuggler:buy_1);
+    if_sethide(true, pop_smuggler:buy_title_1);
+    if_sethide(true, pop_smuggler:buy_2);
+    if_sethide(true, pop_smuggler:buy_title_2);
+    if_sethide(true, pop_smuggler:buy_3);
+    if_sethide(true, pop_smuggler:buy_title_3);
+    if_sethide(true, pop_smuggler:buy_4);
+    if_sethide(true, pop_smuggler:buy_title_4);
+    if_sethide(true, pop_smuggler:buy_5);
+    if_sethide(true, pop_smuggler:buy_title_5);
+    if_settext("New stock available <$string1>", pop_smuggler:buy_none_left);
+    if_sethide(false, pop_smuggler:buy_none_left);
+}
+def_int $int3 = 0;
+switch_int (%pop_market_resource) {
+    case 1 :
+        $int3 = %pop_port_resource_1;
+    case 2 :
+        $int3 = %pop_port_resource_2;
+    case 3 :
+        $int3 = %pop_port_resource_3;
+    case 4 :
+        $int3 = %pop_port_resource_4;
+    case 5 :
+        $int3 = %pop_port_resource_5;
+    case 6 :
+        $int3 = %pop_port_resource_6;
+    case 7 :
+        $int3 = %pop_port_resource_7;
+    case 8 :
+        $int3 = %pop_port_resource_8;
+    case 9 :
+        $int3 = %pop_port_resource_9;
+}
+if_settext("(You currently own <tostring($int3)>)", pop_smuggler:smuggler_current);
+if_settext("Finish repairs for <tostring(calc(%pop_voyage_drydock_hours * 20))>k", pop_smuggler:buy_title_6);

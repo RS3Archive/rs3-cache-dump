@@ -1,0 +1,89 @@
+// 12658
+[proc,script12658](struct $struct0, struct $struct1, int $int2, int $int3, boolean $boolean4, int $int5)(string)
+if ($struct1 ! null & string_length(struct_param($struct1, rewardshop_cost_override_string)) > 0) {
+    return(struct_param($struct1, rewardshop_cost_override_string));
+}
+def_string $string0 = struct_param($struct0, rewardshop_visual_currency_suffix);
+def_string $string1 = ~script17844($struct0, 3);
+def_string $string2 = ~script17844($struct0, 4);
+def_string $string3 = "";
+def_string $string4 = "";
+if ($int5 = 1) {
+    $string3 = ~script17844($struct0, 7);
+    $string4 = ~script17844($struct0, 8);
+    if (string_length($string3) > 0) {
+        $string1 = $string3;
+    }
+    if (string_length($string4) > 0) {
+        $string2 = $string4;
+    }
+}
+if (struct_param($struct0, rewardshop_visual_currency_divisor) > 0) {
+    $int2 = calc($int2 / struct_param($struct0, rewardshop_visual_currency_divisor));
+}
+def_string $string5 = "0";
+def_string $string6 = "0";
+if ($boolean4 = true & struct_param($struct0, rewardshop_cost_longform) = true) {
+    $string5 = tostring_localised($int2, true);
+    if ($int3 > 0) {
+        $string6 = tostring_localised($int3, true);
+    }
+} else {
+    $string5 = ~script11478($int2);
+    if ($int3 > 0) {
+        $string6 = ~script11478($int3);
+    }
+}
+if ($int2 = 1) {
+    if ($int3 = 1) {
+        if ($boolean4 = true) {
+            return("<$string5><$string0> <$string1> and <$string6> <struct_param($struct0, rewardshop_currency2_singular_lowercase)>");
+        } else {
+            return("<$string5><$string0><br><$string1><br><$string6><br><struct_param($struct0, rewardshop_currency2_singular_lowercase)>");
+        }
+    } else if ($int3 > 0) {
+        if ($boolean4 = true) {
+            return("<$string5><$string0> <$string1> and <$string6> <struct_param($struct0, rewardshop_currency2_lowercase)>");
+        } else {
+            return("<$string5><$string0><br><$string1><br><$string6><br><struct_param($struct0, rewardshop_currency2_lowercase)>");
+        }
+    } else if ($boolean4 = true) {
+        return("<$string5><$string0> <$string1>");
+    } else {
+        return("<$string5><$string0><br><$string1>");
+    }
+} else if ($int2 > 0) {
+    if ($int3 = 1) {
+        if ($boolean4 = true) {
+            return("<$string5><$string0> <$string2> and <$string6> <struct_param($struct0, rewardshop_currency2_singular_lowercase)>");
+        } else {
+            return("<$string5><$string0><br><$string2><br><$string6><br><struct_param($struct0, rewardshop_currency2_singular_lowercase)>");
+        }
+    } else if ($int3 > 0) {
+        if ($boolean4 = true) {
+            return("<$string5><$string0> <$string2> and <$string6> <struct_param($struct0, rewardshop_currency2_lowercase)>");
+        } else {
+            return("<$string5><$string0><br><$string2><br><$string6><br><struct_param($struct0, rewardshop_currency2_lowercase)>");
+        }
+    } else if ($boolean4 = true) {
+        return("<$string5><$string0> <$string2>");
+    } else {
+        return("<$string5><$string0><br><$string2>");
+    }
+} else if ($int3 = 1) {
+    if ($boolean4 = true) {
+        return("<$string6> <struct_param($struct0, rewardshop_currency2_singular_lowercase)>");
+    } else {
+        return("<$string6><br><struct_param($struct0, rewardshop_currency2_singular_lowercase)>");
+    }
+} else if ($int3 > 0) {
+    if ($boolean4 = true) {
+        return("<$string6> <struct_param($struct0, rewardshop_currency2_lowercase)>");
+    } else {
+        return("<$string6><br><struct_param($struct0, rewardshop_currency2_lowercase)>");
+    }
+} else if ($boolean4 = true) {
+    return("Nothing!");
+} else {
+    return("Free!");
+}

@@ -1,0 +1,21 @@
+// 15348
+[clientscript,script15348](component $component0, int $int1, category $category2)
+if (enum(category, enum, cheevo_cat_to_subcat, $category2) = null) {
+    return;
+}
+def_int $int3 = achievement_findcategory($category2);
+def_int $int4 = 0;
+def_achievement $achievement5 = achievement_findnext;
+while ($achievement5 ! null) {
+    if (achievement_reqstate($achievement5) = -2) {
+        $int4 = calc($int4 + 1);
+    }
+    $achievement5 = achievement_findnext;
+}
+if (cc_find($component0, $int1) = true) {
+    if (%cheevo_toggle_complete = 0 | %cheevo_toggle_complete = 1 & $int4 < $int3) {
+        cc_setgraphic("rs3_icon_accordion,0");
+    } else {
+        cc_setgraphic(null);
+    }
+}

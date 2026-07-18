@@ -1,0 +1,32 @@
+// 6386
+[clientscript,script6386]
+def_int $int0 = enum_getoutputcount(rand_dnd_resource_ring);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_boolean $boolean3 = false;
+def_int $int4 = if_getwidth(rand_dnd_resource_ring:build_layer);
+def_int $int5 = calc(($int4 - 20) / 2);
+def_int $int6 = 10;
+def_string $string0 = "";
+def_int $int7 = 20;
+if (~script6431 = true) {
+    $int7 = 30;
+}
+while ($int1 < $int0) {
+    $int2 = enum(int, int, rand_dnd_resource_ring, $int1);
+    $string0 = ~script3151($int2);
+    if (stat_base(dungeoneering) < ~script3144($int2) | ~script3136($int2) = 0 | ~script3145($int2) = 0 | map_members = false & ~script3150($int2) = 1) {
+        $boolean3 = true;
+    } else {
+        $boolean3 = false;
+    }
+    ~script12501(rand_dnd_resource_ring:build_layer, rand_dnd_resource_ring:click_layer, rs3tli_3x3_button, calc(8 + $int4 / 2 * ($int1 % 2)), $int6, $int5, $int7, $int1, $boolean3, $string0);
+    if (calc(++$int1 % 2) = 0) {
+        $int6 = calc($int6 + ($int7 + 3));
+    }
+}
+$int6 = calc($int6 + ($int7 + 3));
+if (if_getheight(rand_dnd_resource_ring:content_layer) < $int6) {
+    if_setscrollsize(0, $int6, rand_dnd_resource_ring:content_layer);
+    ~rs3_scrollbar_vertical(rand_dnd_resource_ring:scrollbar_layer, rand_dnd_resource_ring:content_layer);
+}

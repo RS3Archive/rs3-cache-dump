@@ -1,0 +1,46 @@
+// 11572
+[clientscript,trh50_skill_init](stat $stat0, component $component1)
+def_int $int2 = enum(stat, int, stat_to_int, $stat0);
+def_enum $enum3 = stat2icon_small;
+def_struct $struct4 = rs3_icon_holder;
+def_struct $struct5 = rs3_icon_holder_over;
+def_int $int6 = 0;
+cc_deleteall($component1);
+if ($stat0 = null) {
+    $enum3 = stat2icon_small_off;
+    switch_stat ($stat0) {
+        case archaeology :
+            if_sethide(false, trh50_skill_toggle:archaeology_no_click);
+        case necromancy :
+            if_sethide(false, trh50_skill_toggle:necromancy_no_click);
+    }
+} else if ($stat0 = invention & ~invent_skill_unlocked = false) {
+    $enum3 = stat2icon_small_off;
+    if_sethide(false, trh50_skill_toggle:invention_no_click);
+}
+cc_create($component1, ^iftype_rectangle, $int6);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setop(1, "Toggle");
+cc_setopbase(enum(stat, string, stat_to_string, $stat0));
+cc_setonop("trh50_skill_toggle($stat0, $component1, 11)");
+~rs3_background_panel_dynamic($component1, $struct4, 0, 0, 45, 45, null);
+if_setonmouserepeat("trh50_background_onmouseover($struct5, $component1, $stat0)", $component1);
+if_setonmouseleave("trh50_background_onmouseover($struct4, $component1, null)", $component1);
+$int6 = if_getnextsubid($component1);
+cc_create($component1, ^iftype_graphic, $int6);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(enum(int, graphic, $enum3, $int2));
+def_string $string0 = "You haven't reached the maximum level in <enum(stat, string, stat_to_string, $stat0)>.";
+$int6 = calc($int6 + 1);
+cc_create($component1, ^iftype_graphic, $int6);
+cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if (%trh165_core_type_selected = 1) {
+    if (testbit(%trh50_skill_select_temp, $int2) = ^true) {
+        cc_setgraphic("mob_cross_icon,0");
+    }
+} else if (%trh165_core_type_selected = 2 & testbit(%trh165_skill_select_temp, $int2) = ^true) {
+    cc_setgraphic("mob_cross_icon,0");
+}

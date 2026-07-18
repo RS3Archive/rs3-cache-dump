@@ -1,0 +1,18 @@
+// 12189
+[proc,script12189](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int)
+if ($int5 = 0) {
+    return($int1, $int3);
+}
+def_dbrow $dbrow6 = ~script12076(calc($int5 % 65536));
+def_string $string0 = ~invent_perk_get_name_range($dbrow6, calc($int5 % 16777216 / 65536), calc($int5 / 16777216));
+def_int $int7 = db_getfield($dbrow6, invent_perk_table:col6, 0);
+if ($int7 > 1) {
+    $string0 = append($string0, " (Two slots)");
+}
+$int1, $int3 = ~script176($component0, $int1, $int2, $int3, $int4, rs3_contextual_input_bullet, 16, 16, $string0, rs3tli_default_font_dynamic);
+def_string $string1 = db_getfield($dbrow6, invent_perk_table:col4, 0);
+if ($int7 > 1) {
+    $string1 = append($string1, " This perk will take up two slots in a gizmo.");
+}
+cc_setonmouserepeat("script3876($string1, event_com, event_comsubid)");
+return($int1, $int3);

@@ -1,0 +1,28 @@
+// 6746
+[proc,script6746]
+if (%omge_job_interface_id < 1) {
+    ~script6748;
+    return;
+}
+def_struct $struct0 = null;
+def_enum $enum1 = null;
+def_int $int2 = 0;
+switch_int (%dndtracker_filter_selection) {
+    case 0, 1 :
+        $enum1 = uaui_minigames_all;
+    case 2 :
+        $enum1 = uaui_minigames_dnds;
+    case 3 :
+        $enum1 = uaui_minigames_all_minigames;
+    case 4 :
+        $enum1 = uaui_minigames_combat;
+    case 5 :
+        $enum1 = uaui_minigames_nocombat;
+}
+if ($enum1 = null) {
+    ~script6748;
+    return;
+}
+$struct0 = enum(int, struct, $enum1, %omge_job_interface_id);
+~script6747($struct0);
+if_setonvartransmit("script10621($struct0){cheevo_tracker_var_3, cheevo_tracker_var_4, task_main, activity_tracker_card_4, activity_tracker_card_5}", minigames_main:controls_layer);

@@ -1,0 +1,109 @@
+// 14205
+[proc,script14205](component $component0, int $int1, int $int2)
+if (worldmap_isloaded = false) {
+    return;
+}
+def_component $component3 = ~script8101;
+def_int $int4 = 1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = %worldmap_zoom;
+def_int $int16 = %worldmap_zoom;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+if (~is_mobile_client = false) {
+    if ($int1 > 0) {
+        switch_int (%worldmap_zoom) {
+            case 37 :
+                $int16 = 25;
+            case 50 :
+                $int16 = 37;
+            case 75 :
+                $int16 = 50;
+            case 100 :
+                $int16 = 75;
+            case 200 :
+                $int16 = 100;
+            case default :
+                $int16 = 25;
+                $int4 = 0;
+        }
+    } else {
+        switch_int (%worldmap_zoom) {
+            case 25 :
+                $int16 = 37;
+            case 37 :
+                $int16 = 50;
+            case 50 :
+                $int16 = 75;
+            case 75 :
+                $int16 = 100;
+            case 100 :
+                $int16 = 200;
+            case default :
+                $int16 = 200;
+                $int4 = 0;
+        }
+    }
+} else if ($int2 = 1) {
+    if (%worldmap_zoom < 50) {
+        $int21 = 1;
+    } else {
+        $int21 = 2;
+    }
+    $int16 = calc($int15 - $int1 * $int21);
+} else if ($int1 > 0) {
+    if (%worldmap_zoom <= 200 & %worldmap_zoom > 100) {
+        $int16 = 100;
+    } else if (%worldmap_zoom <= 100 & %worldmap_zoom > 75) {
+        $int16 = 75;
+    } else if (%worldmap_zoom <= 75 & %worldmap_zoom > 50) {
+        $int16 = 50;
+    } else if (%worldmap_zoom <= 50 & %worldmap_zoom > 37) {
+        $int16 = 37;
+    } else if (%worldmap_zoom <= 37 & %worldmap_zoom > 25) {
+        $int16 = 25;
+    } else {
+        $int16 = 25;
+        $int4 = 0;
+    }
+} else if (%worldmap_zoom >= 25 & %worldmap_zoom < 37) {
+    $int16 = 37;
+} else if (%worldmap_zoom >= 37 & %worldmap_zoom < 50) {
+    $int16 = 50;
+} else if (%worldmap_zoom >= 50 & %worldmap_zoom < 75) {
+    $int16 = 75;
+} else if (%worldmap_zoom >= 75 & %worldmap_zoom < 100) {
+    $int16 = 100;
+} else if (%worldmap_zoom >= 100 & %worldmap_zoom < 200) {
+    $int16 = 200;
+} else {
+    $int16 = 200;
+    $int4 = 0;
+}
+if (~is_mobile_client = false & $int2 = 1 & $int4 = 1) {
+    $int5, $int6 = worldmap_getsize;
+    $int9, $int10 = if_getwidth($component3), if_getheight($component3);
+    if ($int5 > 0 & $int6 > 0) {
+        $int7, $int8 = worldmap_getdisplayposition;
+        $int11 = calc(get_mousex - ~script3365($component3) - $int9 / 2);
+        $int12 = calc(get_mousey - ~script3366($component3) - $int10 / 2);
+        $int13, $int14 = scale($int5, $int9, $int11), scale($int6, $int10, $int12);
+        $int13 = calc($int7 + $int13);
+        $int14 = calc($int8 - $int14);
+        if_setontimer("script9643($component0, $int11, $int12, $int13, $int14, $int5, $int6, 0)", $component0);
+    }
+}
+~worldmap_setzoom($int16, 0);
+~worldmap_zoom_setcolour($int4);

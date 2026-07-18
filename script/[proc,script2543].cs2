@@ -1,0 +1,31 @@
+// 2543
+[proc,script2543](obj $obj0, obj $obj1)(obj)
+def_dbrow $dbrow2 = enum(obj, dbrow, smithing_material_to_item_dbrow, $obj0);
+def_string $string0 = "";
+def_enum $enum3 = null;
+def_int $int4 = db_getfieldcount($dbrow2, accordian_builder:col0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_obj $obj8 = null;
+def_obj $obj9 = null;
+while ($int6 < $int4) {
+    $string0, $enum3 = db_getfield($dbrow2, accordian_builder:col0, $int6);
+    $int5 = enum_getoutputcount($enum3);
+    while ($int7 < $int5) {
+        $obj8 = enum(int, obj, $enum3, $int7);
+        if ($int6 = 0 & $int7 = 0) {
+            $obj9 = $obj8;
+        }
+        if (oc_param($obj8, weapon_category) ! null & oc_param($obj8, weapon_category) = oc_param($obj1, weapon_category)) {
+            return($obj8);
+        }
+        if (oc_category($obj1) = oc_category($obj8)) {
+            return($obj8);
+        }
+        $int7 = calc($int7 + 1);
+    }
+    $int7 = 0;
+    $int6 = calc($int6 + 1);
+}
+return($obj9);

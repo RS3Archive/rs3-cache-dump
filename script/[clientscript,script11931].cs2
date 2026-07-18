@@ -1,0 +1,24 @@
+// 11931
+[clientscript,script11931](int $int0, int $int1)
+if ($int1 ! 1) {
+    return;
+}
+~script9554(arch_orthen_site_map:modal_dialog_window_background, arch_orthen_site_map:modal_dialog_window_border, arch_orthen_site_map:modal_dialog_window_content, enum(int, string, arch_orthen_site_name_list, $int0), toplevel_v2_default_modal_dialogue_skin_data);
+if_sethide(false, arch_orthen_site_map:popup_window);
+def_string $string0 = "<enum(int, string, arch_orthen_site_info, $int0)><br><br>Requires level <tostring(enum(int, int, arch_orthen_site_level_list, $int0))> Archaeology.";
+def_string $string1 = "Fast travel";
+def_boolean $boolean2 = false;
+if (map_members = false) {
+    if (playermember = false) {
+        $string0 = "<$string0><br>Members' only location.";
+        $string1 = "Subscribe";
+    } else {
+        $string0 = "<$string0><br>This location is unavailable on free worlds.";
+        $boolean2 = true;
+    }
+} else if (~script6431 = false) {
+    $string0 = "<$string0><br>Keyboard Shortcut : <~script13398($int0)>";
+}
+if_settext($string0, arch_orthen_site_map:site_info_text);
+sound_vorbis_volume(6awe2_drummers_small_drum_hit_5, 1, 0, 150);
+~script13971(arch_orthen_site_map:teleport_button_build_layer, arch_orthen_site_map:teleport_button_control_layer, rs3tli_positive_button, $string1, $boolean2);

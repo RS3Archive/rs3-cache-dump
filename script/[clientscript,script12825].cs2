@@ -1,0 +1,100 @@
+// 12825
+[clientscript,script12825]
+def_int $int0 = 0;
+def_int $int1 = 1;
+def_int $int2 = enum_getoutputcount(elrc_collections);
+while ($int1 <= $int2) {
+    if ($int1 ! 5) {
+        $int0 = calc($int0 + enum_getoutputcount(enum(int, enum, elrc_collections, $int1)));
+    }
+    $int1 = calc($int1 + 1);
+}
+def_int $int3 = ~script12823(2, 1);
+if_settext("<tostring($int3)>/<tostring($int0)>", elrc:collections_progress_text);
+~script12826(2, $int0, $int3);
+$int1 = 1;
+$int0 = 0;
+$int0 = enum_getoutputcount(elrc_collection_castaways);
+$int3 = ~script12823(2, 0);
+if_settext("<tostring($int3)>/<tostring($int0)>", elrc:tasks_progress_text);
+~script12826(1, $int0, $int3);
+$int1 = 1;
+$int0 = 0;
+$int2 = enum_getoutputcount(elrc_miniquest_categories);
+while ($int1 <= $int2) {
+    $int0 = calc($int0 + enum_getoutputcount(enum(int, enum, elrc_miniquest_categories, $int1)));
+    $int1 = calc($int1 + 1);
+}
+$int3 = ~script12823(3, 0);
+if_settext("<tostring($int3)>/<tostring($int0)>", elrc:miniquests_progress_text);
+~script12826(3, $int0, $int3);
+if (~script12824(2, 1) = 16) {
+    if_setgraphic("elr_journal_icon_collections_birds,1", elrc:bird_stamp);
+}
+if (~script12824(2, 2) = 16) {
+    if_setgraphic("elr_journal_icon_collections_mushrooms,1", elrc:mushroom_stamp);
+}
+if (~script12824(2, 3) = 16) {
+    if_setgraphic("elr_journal_icon_collections_berries,1", elrc:berry_stamp);
+}
+if (~script12824(2, 4) = 16) {
+    if_setgraphic("elr_journal_icon_collections_implings,1", elrc:impling_stamp);
+}
+if (~script12824(2, 5) = 10) {
+    if_setgraphic("elr_journal_icon_collections_castaways,1", elrc:castaway_stamp);
+}
+if (~script12824(3, 1) = 10) {
+    if_setgraphic("elr_journal_icon_collections_miniquests,1", elrc:miniquest_stamp);
+}
+def_int $int4 = 0;
+def_int $int5 = 276;
+if (%pgc_objective1 > 0) {
+    if_settext("<tostring(%pgc_objective1_progress)>/<tostring(%pgc_objective1_target)>", elrc:contract_amount);
+    if (%pgc_objective1_progress ! %pgc_objective1_target) {
+        $int4 = calc(276 * 100 / %pgc_objective1_target);
+        $int5 = calc($int4 * %pgc_objective1_progress / 100);
+    }
+    if_setsize($int5, 21, ^setsize_abs, ^setsize_abs, elrc:contract_progress_bar);
+} else {
+    if_sethide(true, elrc:contract_layer);
+}
+~script12898;
+if (%islands_cr1_type ! 127) {
+    ~script13255(%islands_cr1_type, elrc:resource_graphic_1);
+    if (%islands_cr1 <= 0) {
+        if_sethide(false, elrc:resource_graphic_tick_1);
+    }
+}
+if (%islands_cr2_type ! 127) {
+    ~script13255(%islands_cr2_type, elrc:resource_graphic_2);
+    if (%islands_cr2 <= 0) {
+        if_sethide(false, elrc:resource_graphic_tick_2);
+    }
+}
+if (%islands_cr3_type ! 127) {
+    ~script13255(%islands_cr3_type, elrc:resource_graphic_3);
+    if (%islands_cr3 <= 0) {
+        if_sethide(false, elrc:resource_graphic_tick_3);
+    }
+}
+if (%islands_cr4_type ! 127) {
+    ~script13255(%islands_cr4_type, elrc:resource_graphic_4);
+    if (%islands_cr4 <= 0) {
+        if_sethide(false, elrc:resource_graphic_tick_4);
+    }
+}
+if (%islands_cr5_type ! 127) {
+    ~script13255(%islands_cr5_type, elrc:resource_graphic_5);
+    if (%islands_cr5 <= 0) {
+        if_sethide(false, elrc:resource_graphic_tick_5);
+    }
+}
+if (%islands_cr6_type ! 127) {
+    ~script13255(%islands_cr6_type, elrc:resource_graphic_6);
+    if (%islands_cr6 <= 0) {
+        if_sethide(false, elrc:resource_graphic_tick_6);
+    }
+}
+if_settext("Waiko is an island built on trade, both with the east and the west.<br><br>We only accept two currencies here - hard work and chimes! Well, three if you count taijitu.<br><br>There are many ways for visitors to earn chimes, and there'll always be a willing buyer for your goods in Waiko market.<br><br>To get yourself a start, we'd recommend either chopping bamboo or fishing for tarpon right here on Waiko. They're not great for earning experience, but you should get a nice amount of chimes for gathering those resources. <br><br>A wider range of opportunities exist on other Arc islands, especially within the uncharted islands! Finding these rarer resources is where you'll gain some juicy experience.", elrc:guide_page_1_1);
+if_settext("Speaking of the uncharted islands, once you've collected a few chimes, you should head to see Rosie in Waiko Market, who will sell you supplies for such expeditions. Or you could just take advantage of the handful of free supplies she gives out every day, and head straight out there.", elrc:guide_page_1_2);
+if_settext("There's all sorts to discover out there, including something we call taijitu - they're a highly prized rare currency, which you might want to take to Boni in Waiko Market. She sells all sorts of useful stuff. We'll leave the rest of the discovery to you! <br><br>If you find yourself getting into the swing of making expeditions to the uncharted isles, you'll also probably want a flag so you can claim one for yourself - again, that's something you should talk to Boni about. <br><br>As for warriors from the west, you will also find much to fight in the uncharted islands, but true slayers should pay a visit to the acolytes of Seiryu on the island of Aminishi.<br><br>Finally, if you ever find yourself at a loss for what to do, find one of the many contract givers around Wushanko, like Sojobo in Waiko Market.<br><br>They'll give you something to focus on, and some nice rewards too in the form of chimes and experience.<br><br>You can even keep whatever you gather while completing them! <br><br>We hope that you enjoy your time in the east.<br><br><br>Please don't litter.", elrc:guide_page_2);

@@ -1,0 +1,24 @@
+// 10644
+[proc,cc_set_stylesheet_text](dbrow $dbrow0, int $int1, int $int2)
+if ($dbrow0 = null | db_getrowtable($dbrow0) ! interface_skin_text) {
+    return;
+}
+def_int $int3 = %toplevel_v2_active_skinset;
+def_fontmetrics $fontmetrics4 = notosans_11;
+def_int $rgb5 = 0xe3d7cf;
+def_int $settextalignh6 = ^settextalign_left;
+def_int $settextalignv7 = ^settextalign_centre;
+def_boolean $boolean8 = true;
+if (db_getfieldcount($dbrow0, interface_skin_text:col0) <= $int3) {
+    $int3 = 0;
+}
+$fontmetrics4, $boolean8, $settextalignh6, $settextalignv7, $rgb5 = db_getfield($dbrow0, interface_skin_text:col0, $int3);
+cc_settextfont($fontmetrics4);
+cc_settextshadow($boolean8);
+if ($int1 = 1) {
+    cc_setcolour($rgb5);
+}
+if ($int2 = 1) {
+    cc_settextalign($settextalignh6, $settextalignv7, 0);
+}
+cc_setonvartransmit("stylesheet_skin_update_text(event_com, event_comsubid, $dbrow0, %toplevel_v2_active_skinset, $int3, $int1, $int2){toplevel_v2_skins_varp}");

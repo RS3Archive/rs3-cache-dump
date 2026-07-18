@@ -1,0 +1,30 @@
+// 879
+[proc,script879]
+if_settext("You can unlock the <col=FFCB05>Cloak of Talent</col> by handing in <col=FFCB05>Tokens of Talent</col> which can be gained through skilling all over Gielinor!<br><br>Similarly you will be able to unlock the <col=FFCB05>Cloak of Might</col> by gaining <col=FFCB05>Tokens of Might</col> through combat!<br><br>That's not all! Once you've unlocked both of the capes you will unlock a final <col=FFCB05>Cloak of Proficiency</col> which combines the best of both worlds!", timed_event_tasks:info_text);
+def_obj $obj0 = null;
+def_obj $obj1 = null;
+def_inv $inv2 = null;
+def_component $component3 = null;
+def_struct $struct4 = timed_event11;
+def_int $int5 = 5000;
+def_int $int6 = 0;
+def_int $int7 = 0;
+while ($int7 < 4) {
+    $component3, $obj0, $int5 = ~script880($int7);
+    switch_int ($int7) {
+        case 0 :
+            $int6 = %event11_cape_skilling_unlocked;
+        case 1 :
+            $int6 = %event11_cape_combat_unlocked;
+        case 2 :
+            $int6 = %event11_cape_master_unlocked;
+    }
+    cc_create($component3, ^iftype_graphic, 0);
+    cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    $obj0, $obj1, $inv2 = ~script13265($obj0);
+    if ($int7 < 3) {
+        cc_setonmouserepeat("script12893($struct4, $int5, $int6, $obj0, $obj1, $component3, calc(if_getnextsubid($component3) - 1))");
+    }
+    $int7 = calc($int7 + 1);
+}

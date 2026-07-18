@@ -1,0 +1,308 @@
+// 13590
+[proc,script13590](int $int0, int $int1)
+if (~script12082 = 0) {
+    return;
+}
+def_component $component2 = cheevo_paths:paths_card_build_layer;
+def_component $component3 = cheevo_paths:paths_recbutton_click_layer;
+def_component $component4 = cheevo_paths:paths_guidance_build_layer;
+def_component $component5 = cheevo_paths:paths_jump_build_layer;
+def_component $component6 = cheevo_paths:paths_card_scroll_layer;
+def_component $component7 = cheevo_paths:paths_hide_comp_build;
+def_component $component8 = cheevo_paths:paths_hide_comp_click;
+def_component $component9 = cheevo_paths:paths_dropdown_build;
+def_component $component10 = cheevo_paths:paths_dropdown_click;
+def_component $component11 = cheevo_paths:paths_hide_locked_build;
+def_component $component12 = cheevo_paths:paths_hide_locked_click;
+def_component $component13 = cheevo_paths:paths_progress_layer_wrapper;
+def_component $component14 = cheevo_paths:paths_progress_layer;
+def_component $component15 = cheevo_paths:paths_progress_bitmask_layer;
+def_component $component16 = cheevo_paths:paths_filter_wrapper_layer;
+def_component $component17 = cheevo_paths:paths_back_button_layer;
+def_component $component18 = cheevo_paths:paths_book_button_layer;
+def_component $component19 = cheevo_paths:paths_book_button_text;
+def_component $component20 = cheevo_paths:paths_book_button_graphic;
+if ($int1 = 1) {
+    $component2 = cheevo_paths_embedded:paths_card_build_layer;
+    $component3 = cheevo_paths_embedded:paths_recbutton_click_layer;
+    $component4 = cheevo_paths_embedded:paths_guidance_build_layer;
+    $component5 = cheevo_paths_embedded:paths_jump_build_layer;
+    $component6 = cheevo_paths_embedded:paths_card_scroll_layer;
+    $component7 = cheevo_paths_embedded:paths_hide_comp_build;
+    $component8 = cheevo_paths_embedded:paths_hide_comp_click;
+    $component9 = cheevo_paths_embedded:paths_dropdown_build;
+    $component10 = cheevo_paths_embedded:paths_dropdown_click;
+    $component11 = cheevo_paths_embedded:paths_hide_locked_build;
+    $component12 = cheevo_paths_embedded:paths_hide_locked_click;
+    $component13 = cheevo_paths_embedded:paths_progress_layer_wrapper;
+    $component14 = cheevo_paths_embedded:paths_progress_layer;
+    $component15 = cheevo_paths_embedded:paths_progress_bitmask_layer;
+    $component16 = cheevo_paths_embedded:paths_filter_wrapper_layer;
+    $component17 = cheevo_paths_embedded:paths_back_button_layer;
+    $component18 = cheevo_paths_embedded:paths_book_button_layer;
+    $component19 = cheevo_paths_embedded:paths_book_button_text;
+    $component20 = cheevo_paths_embedded:paths_book_button_graphic;
+}
+def_string $string0 = "";
+if ($int0 = 1) {
+    ~static_checkbox_create($component7, $component8, "", "", "", calc(1 - min(%cheevo_path_toggle_complete, 1)));
+    ~static_checkbox_create($component11, $component12, "", "", "", calc(1 - min(%cheevo_path_toggle_locked, 1)));
+    if (~script15532(0) = true | ~cheevo_path_intro = true) {
+        if_settext("Skip Tutorial", $component19);
+        $string0 = "Reset/skip introduction path in Burthorpe.";
+    } else {
+        if_settext(enum(int, string, cheevo_paths_name, %cheevo_path_book_id), $component19);
+        $string0 = "Next Book of Paths";
+    }
+    if_setgraphic(enum(int, graphic, cheevo_paths_icon, %cheevo_path_book_id), $component20);
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component18);
+}
+def_component $component21 = if_getparentlayer($component2);
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+cc_deleteall($component5);
+if_setscrollsize(0, 0, $component21);
+cc_deleteall($component6);
+if_sethide(true, $component6);
+def_int $int22 = ~script10495(0);
+def_int $int23 = ~script10495(3);
+if_sethide(false, $component9);
+if_sethide(false, $component10);
+if_sethide(false, $component13);
+if_sethide(false, $component16);
+%cheevo_paths_completed, %cheevo_paths_max = ~script13588(~cheevo_path_book_enum);
+~script10428($component9, $component10, ~cheevo_path_book_enum, -1, struct_param(cheevo_path_select, cheevo_path_name), %cheevo_path_enum_id, 0);
+def_int $int24 = 0;
+if (%cheevo_path_enum_id = 0) {
+    if_sethide(true, $component17);
+    if_sethide(false, $component18);
+    if (%toplevel_v2_mobile_interface = 0) {
+        .cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+        .cc_setsize(10, 50, ^setsize_minus, ^setsize_abs);
+        .cc_setposition(10, $int24, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_settextfont(museo_sans_11pt_regular);
+        .cc_setcolour($int23);
+        .cc_settextshadow(true);
+        .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        .cc_settext("Following a path can break up your objectives into achievable steps, and help guide you towards reaching your goals.");
+        .cc_setmaxlines(3);
+        $int24 = calc($int24 + (.cc_getheight + 2));
+    }
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setsize(80, 16, ^setsize_abs, ^setsize_abs);
+    cc_setposition(10, $int24, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour(~script10495(4));
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settext("Paths Completed");
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setsize(10, 16, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int24, ^setpos_abs_right, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour(~script10495(4));
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_settext("<tostring_localised(%cheevo_paths_completed, true)>/<tostring_localised(calc(%cheevo_paths_max - 1), true)>");
+    if_sethide(false, $component13);
+    $int24 = calc($int24 + 16);
+    if_setposition(10, $int24, ^setpos_abs_left, ^setpos_abs_top, $component13);
+    if_setsize(10, if_getheight($component13), ^setsize_minus, ^setsize_abs, $component13);
+    if ($int0 = 1) {
+        ~script13310($component14, $component15, 49, calc(8 * 1000));
+    }
+    if (%cheevo_path_rec1_id > 0 | %cheevo_path_rec2_id > 0 | %cheevo_path_rec3_id > 0) {
+        cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+        cc_setsize(10, 22, ^setsize_minus, ^setsize_abs);
+        $int24 = calc($int24 + (if_getheight($component13) + 2));
+        cc_setposition(10, $int24, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_setcolour($int22);
+        cc_settextshadow(true);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_settext("Recommended Paths");
+        $int24 = ~script8953($component2, $component3, 10, $int24);
+    }
+    $int24 = calc($int24 + 2);
+    if ($int24 > if_getheight($component21)) {
+        if_setscrollsize(0, $int24, $component21);
+        if_sethide(false, $component6);
+        ~rs3_scrollbar_vertical($component6, $component21);
+    }
+    return;
+} else {
+    if_sethide(true, $component13);
+    if_sethide(true, $component18);
+    if_sethide(false, $component17);
+}
+def_int $int25 = 0;
+def_struct $struct26 = enum(int, struct, ~cheevo_path_book_enum, %cheevo_path_enum_id);
+def_enum $enum27 = struct_param($struct26, cheevo_path_enum);
+def_int $int28 = enum_getoutputcount($enum27);
+def_int $int29 = 0;
+def_int $intarray0($int28);
+def_int $int30 = 0;
+while ($int25 < $int28) {
+    $struct26 = enum(int, struct, $enum27, $int25);
+    $int30 = ~cheevo_obtain_progress($struct26);
+    switch_int ($int30) {
+        case -2 :
+            if (%cheevo_path_toggle_complete = 0) {
+                $intarray0($int29) = $int25;
+                $int29 = calc($int29 + 1);
+            }
+        case -1 :
+            if (%cheevo_path_toggle_locked = 0) {
+                $intarray0($int29) = $int25;
+                $int29 = calc($int29 + 1);
+            }
+        case default :
+            $intarray0($int29) = $int25;
+            $int29 = calc($int29 + 1);
+    }
+    $int25 = calc($int25 + 1);
+}
+$struct26 = null;
+$int25 = 0;
+if ($int29 = 0) {
+    return;
+}
+def_int $int31 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_cursor $cursor32 = null;
+def_string $string4 = "";
+def_int $int33 = 0;
+def_int $int34 = 0;
+def_int $int35 = 0;
+def_int $int36 = 0;
+def_int $int37 = 0;
+def_int $int38 = 0;
+def_boolean $boolean39 = ~script6431;
+def_boolean $boolean40 = false;
+$int25 = 0;
+while ($int25 < $int29) {
+    $struct26 = enum(int, struct, $enum27, $intarray0($int25));
+    $int31 = ~cheevo_obtain_progress($struct26);
+    $int22, $int23 = ~script13592($int31, $struct26);
+    $string1 = "";
+    $string3 = "";
+    $cursor32 = null;
+    $string4 = "";
+    $int34 = calc(if_getwidth($component2) - 40 - 24);
+    $int36 = calc(if_getwidth($component2) - 8);
+    $int35 = 30;
+    $int37 = 30;
+    $string1 = ~cheevo_details($struct26, 1);
+    $string2 = ~script8954($struct26, $int31, "");
+    $int35 = ~script7593($string1, $int34, museo_sans_11pt_regular, 0);
+    if ($int35 < 40) {
+        $int35 = 40;
+    }
+    $int37 = ~script7593($string2, $int36, museo_sans_11pt_regular, 0);
+    $int33 = calc(2 + 16 + $int35 + 2 + $int37 + 4 + 2 + 4);
+    cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
+    cc_setposition(0, $int38, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, $int33, ^setsize_minus, ^setsize_abs);
+    cc_setfill(true);
+    cc_setcolour(~script10495(12));
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setsize(0, 16, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, calc($int38 + 3), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour($int22);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settext(~script13575(~cheevo_name($struct26), cc_getwidth, cc_getfontmetrics, 1));
+    cc_create($component5, ^iftype_graphic, $int25);
+    cc_sethide(true);
+    $string3, $string4, $cursor32, $boolean40 = ~script8950($struct26, $boolean39);
+    if ($cursor32 ! null) {
+        cc_setsize(19, 19, ^setsize_abs, ^setsize_abs);
+        cc_setposition(4, calc($int38 + 2), ^setpos_abs_right, ^setpos_abs_top);
+        if (%cheevo_path_guidance_id > 0 & %cheevo_path_guidance_id = struct_param($struct26, cheevo_unique_id)) {
+            if (struct_param($struct26, quest_id) > 0) {
+                cc_setgraphic(struct_param(toplevel_v2_window_data_questlist, toplevel_v2_window_tab_icon));
+            } else if (struct_param($struct26, bslay_id) > 0) {
+                cc_setgraphic(struct_param(toplevel_v2_window_data_ability_melee, toplevel_v2_window_tab_icon));
+            } else if ($boolean40 = true) {
+                cc_setgraphic(struct_param(toplevel_v2_window_data_cheevo_tracker, toplevel_v2_window_tab_icon));
+            } else if (struct_param($struct26, task_step_1_arrow) ! null) {
+                cc_setgraphic(struct_param(toplevel_v2_window_data_cheevo_paths, toplevel_v2_window_tab_icon));
+            }
+        } else if (struct_param($struct26, quest_id) > 0) {
+            cc_setgraphic(struct_param(toplevel_v2_window_data_questlist, toplevel_v2_window_tab_icon_inactive));
+        } else if (struct_param($struct26, bslay_id) > 0) {
+            cc_setgraphic(struct_param(toplevel_v2_window_data_ability_melee, toplevel_v2_window_tab_icon_inactive));
+        } else if ($boolean40 = true) {
+            cc_setgraphic(struct_param(toplevel_v2_window_data_cheevo_tracker, toplevel_v2_window_tab_icon_inactive));
+        } else if (struct_param($struct26, task_step_1_arrow) ! null) {
+            cc_setgraphic(struct_param(toplevel_v2_window_data_cheevo_paths, toplevel_v2_window_tab_icon_inactive));
+        }
+        cc_setop(1, $string3);
+        cc_setopcursor(1, $cursor32);
+        cc_setonmouserepeat("script3876($string4, event_com, event_comsubid)");
+        cc_setnoclickthrough(true);
+        cc_sethide(false);
+    }
+    cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+    cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int38 + 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(~cheevo_icon($struct26));
+    if ($int31 = -1 | $int31 = -2) {
+        cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+        cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+        cc_setposition(4, calc($int38 + 20), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(~cheevo_status_icon($int31));
+    }
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setsize($int34, $int35, ^setsize_abs, ^setsize_abs);
+    cc_setposition(50, calc($int38 + 16 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour($int23);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settext($string1);
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setsize($int36, $int37, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int38 + 16 + 2 + $int35 + 4 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour($int23);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settext($string2);
+    cc_create($component4, ^iftype_text, $int25);
+    cc_setsize(0, $int33, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int38, ^setpos_abs_left, ^setpos_abs_top);
+    $string3, $string4, $cursor32 = ~script8951($struct26, $boolean39);
+    if ($cursor32 ! null) {
+        cc_setop(1, $string3);
+        cc_setopcursor(1, $cursor32);
+        cc_setonmouserepeat("script3876($string4, event_com, event_comsubid)");
+    }
+    if (%cheevo_path_guidance_id > 0 & %cheevo_path_guidance_id = struct_param($struct26, cheevo_unique_id)) {
+        cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
+        cc_setposition(0, $int38, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(1, $int33, ^setsize_minus, ^setsize_abs);
+        cc_setfill(false);
+        cc_setcolour(~script10495(0));
+    }
+    $int38 = calc($int38 + $int33 + 2);
+    $int25 = calc($int25 + 1);
+}
+if ($int38 > if_getheight($component21)) {
+    if_setscrollsize(0, $int38, $component21);
+    if ($component2 = cheevo_paths_embedded:paths_card_build_layer) {
+        if (%cheevo_path_scrollpos_embedded = 0) {
+            if_setscrollpos(0, 0, $component21);
+            %cheevo_path_scrollpos_embedded = 1;
+        }
+    } else if (%cheevo_path_scrollpos = 0) {
+        if_setscrollpos(0, 0, $component21);
+        %cheevo_path_scrollpos = 1;
+    }
+    if_sethide(false, $component6);
+    ~rs3_scrollbar_vertical($component6, $component21);
+}

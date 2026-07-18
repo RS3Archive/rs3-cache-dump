@@ -1,0 +1,42 @@
+// 19465
+[proc,script19465]
+def_int $int0 = calc(if_getwidth(group_ironman_parent:rules_scrolling_right) - 10);
+cc_deleteall(group_ironman_parent:rules_scrolling_right);
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(group_ironman_rules_order);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int1 < $int2) {
+    $int3 = enum(int, int, group_ironman_rules_order, $int1);
+    $int8 = ~script19336($int3);
+    ~if_add_child_layer(group_ironman_parent:rules_scrolling_right, $int3, 0, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_abs);
+    $int6 = ~script19466($int3, $int8, enum(int, string, group_ironman_rules_title, $int3));
+    $int5 = 0;
+    if ($int8 = 0) {
+        switch_int ($int3) {
+            case 1 :
+                $int7, $int5 = ~script19469($int7, $int0);
+            case 2 :
+                $int7, $int5 = ~script19470($int7, $int0);
+            case 3 :
+                $int7, $int5 = ~script19471($int7, $int0);
+            case 4 :
+                $int7, $int5 = ~script19472($int7, $int0);
+            case 5 :
+                $int7, $int5 = ~script19473($int7, $int0);
+            case 6 :
+                $int7, $int5 = ~script19474($int7, $int0);
+            case default :
+                return;
+        }
+    }
+    $int5 = calc($int5 + $int6);
+    ~script19468($int3, $int5);
+    $int4 = calc($int4 + 10 + $int5);
+    $int1 = calc($int1 + 1);
+}
+~script19620(group_ironman_parent:rules_scrollbar_right, group_ironman_parent:rules_scrolling_right, $int4, null, -1, 0, -1, -1);

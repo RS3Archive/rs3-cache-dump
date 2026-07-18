@@ -1,0 +1,30 @@
+// 14888
+[clientscript,script14888](int $int0, int $int1, int $int2)
+if (%arch_research_management_popup_type ! 0) {
+    return;
+}
+def_dbrow $dbrow3 = ~script14655($int1, $int2);
+def_int $int4 = enum_getoutputcount(arch_researcher_category_list);
+def_enum $enum5 = null;
+def_int $int6 = -1;
+def_int $int7 = -1;
+switch_int ($int0) {
+    case 1 :
+        if ($dbrow3 = null) {
+            if (if_gethide(arch_research_management:panel_background_layer) = true) {
+                ~script14890;
+            }
+        } else {
+            while (++$int7 < $int4) {
+                $enum5 = enum(int, enum, arch_researcher_category_list, $int7);
+                $int6 = enum_getoutputcount($enum5);
+                if (enum_getreversecount(dbrow, $enum5, $dbrow3) > 0) {
+                    if (if_gethide(arch_research_management:panel_background_layer) = true) {
+                        ~script14890;
+                    }
+                    ~script14884($enum5, enum_getreverseindex(dbrow, int, $enum5, $dbrow3, 0));
+                    return;
+                }
+            }
+        }
+}

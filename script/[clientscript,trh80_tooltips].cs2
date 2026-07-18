@@ -1,0 +1,14 @@
+// 12208
+[clientscript,trh80_tooltips](component $component0)
+def_string $string0 = enum(component, string, trh80_text_from_component, $component0);
+def_string $string1 = enum(component, string, trh80_text2_from_component, $component0);
+def_int $int1 = enum(component, int, trh80_price_from_component, $component0);
+def_string $string2 = "Combine <tostring($int1)> grotesque souls to create <$string0>. You will receive <tostring(calc(3 * $int1))> Slayer XP.";
+if ($component0 = trh80_corrupt:soulgem_button) {
+    $string2 = "Combine <tostring(500)> grotesque souls to create a soul gem. This can be used to upgrade your grotesque armour.";
+}
+switch_component ($component0) {
+    case trh80_corrupt:helmet_button_disabled, trh80_corrupt:chestplate_button_disabled, trh80_corrupt:legplates_button_disabled, trh80_corrupt:gauntlets_button_disabled, trh80_corrupt:boots_button_disabled, trh80_corrupt:cape_button_disabled, trh80_corrupt:wings_button_disabled :
+        $string2 = "Owned! You have created <$string1>.";
+}
+~script3877($string2, $component0, -1);

@@ -1,0 +1,59 @@
+// 8938
+[proc,scrollbar_vertical_mobile](component $component0, component $component1, struct $struct2)
+def_int $int3 = if_getscrollheight($component1);
+def_int $int4 = if_getheight($component0);
+def_int $int5 = $int4;
+def_int $int6 = 0;
+if ($int3 > 0) {
+    $int6 = scale(if_getheight($component1), $int3, $int5);
+} else {
+    $int6 = $int5;
+}
+$int6 = max($int6, struct_param($struct2, rs3tli_scroller_min_height));
+if (struct_param($struct2, rs3tli_scroller_max_height) ! -1) {
+    $int6 = min($int6, struct_param($struct2, rs3tli_scroller_max_height));
+}
+def_int $int7 = if_getscrolly($component1);
+def_int $int8 = calc($int3 - if_getheight($component1));
+def_int $int9 = 0;
+if ($int7 > 0) {
+    $int8 = max(1, calc($int3 - if_getheight($component1)));
+    if ($int7 > $int8) {
+        if_setscrollpos(if_getscrollx($component1), $int8, $component1);
+        $int7 = $int8;
+    }
+    $int9 = scale($int7, $int8, calc($int5 - $int6));
+    $int9 = min(max($int9, 0), calc($int5 - $int6));
+}
+def_struct $struct10 = ~script12611($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 0, ^setsize_abs, ^setsize_minus);
+cc_setonclick("scrollbar_vertical_jump($component0, $component1, event_mousey)");
+cc_create($component0, ^iftype_rectangle, 1);
+cc_setcolour(0xf9fabd);
+cc_settrans(51);
+cc_setfill(true);
+cc_setposition(4, $int9, ^setpos_abs_left, ^setpos_abs_top);
+~script12591(7, $struct10);
+cc_setdraggable($component0, 0);
+cc_setdragrenderbehaviour(3);
+cc_setsize(8, $int6, ^setsize_abs, ^setsize_abs);
+cc_setondrag("scrollbar_vertical_drag($component0, $component1, event_mousey, 0)");
+cc_setondragcomplete("scrollbar_vertical_drag($component0, $component1, event_mousey, 1)");
+cc_create($component0, ^iftype_graphic, 2);
+cc_sethide(true);
+cc_create($component0, ^iftype_graphic, 3);
+cc_sethide(true);
+cc_create($component0, ^iftype_rectangle, 4);
+cc_setcolour(0x4bb9d9);
+cc_setfill(true);
+cc_settrans(153);
+cc_sendtoback;
+cc_setposition(7, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(2, 0, ^setsize_abs, ^setsize_minus);
+~script12591(7, $struct10);
+if_setonscrollwheel("scrollbar_vertical_wheel($component0, $component1, event_mousey)", $component0);
+if_setonscrollwheel("scrollbar_vertical_wheel($component0, $component1, event_mousey)", $component1);
+~script14178($component0, $component1);
+return;

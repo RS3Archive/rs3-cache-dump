@@ -1,0 +1,53 @@
+// 7676
+[proc,script7676](component $component0, struct $struct1)
+if ($component0 = null | $struct1 = null) {
+    return;
+}
+if_setonvartransmit("script9985($component0, $struct1){toplevel_v2_skins_varp}", $component0);
+def_int $int2 = struct_param($struct1, rs3tli_button_layer_type);
+def_struct $struct3 = struct_param($struct1, rs3tli_button_layer_master_struct);
+if ($struct3 ! null) {
+    $struct1 = $struct3;
+}
+$struct1 = ~script9984($struct1, $int2);
+def_graphic $graphic4 = struct_param($struct1, rs3tli_button_graphic_left);
+def_graphic $graphic5 = struct_param($struct1, rs3tli_button_graphic_middle);
+def_graphic $graphic6 = struct_param($struct1, rs3tli_button_graphic_right);
+def_int $int7 = struct_param($struct1, rs3tli_button_graphic_width);
+def_int $int8 = struct_param($struct1, rs3tli_button_graphic_height);
+def_boolean $boolean9 = false;
+def_boolean $boolean10 = false;
+switch_int ($int2) {
+    case 2 :
+        if_setonmouseover("script8087(false, event_com)", $component0);
+        if_setonmouseleave("script8087(true, event_com)", $component0);
+        $boolean9 = true;
+    case 3 :
+        if_setonclick("script10016(event_com)", $component0);
+        if_setonrelease("script8087(true, event_com)", $component0);
+        if_setonmouseleave("script8087(true, event_com)", $component0);
+        $boolean9 = true;
+    case 4 :
+        $boolean10 = true;
+    case 5 :
+        if_setnoclickthrough(true, $component0);
+        $boolean10 = true;
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(calc(2 * $int7), $int8, ^setsize_minus, ^setsize_abs);
+cc_setgraphic($graphic5);
+cc_sethide($boolean9);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic4);
+cc_sethide($boolean9);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic6);
+cc_sethide($boolean9);
+if_sethide($boolean10, $component0);

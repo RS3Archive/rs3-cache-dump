@@ -1,0 +1,43 @@
+// 17886
+[proc,script17886](obj $obj0, struct $struct1, dbrow $dbrow2, int $int3, int $int4, graphic $graphic5)(string)
+def_dbrow $dbrow6 = %bp3_current_viewed_pass;
+def_string $string0 = "Extra Reward";
+switch_int ($int4) {
+    case default :
+        ~error("No name specified for data.");
+    case 0 :
+        if ($obj0 ! null & $int3 > 0) {
+            if ($int3 = 1) {
+                $string0 = oc_name($obj0);
+            } else {
+                $string0 = "<tostring_localised($int3, true)> x <oc_name($obj0)>";
+            }
+        }
+    case 1 :
+        if ($struct1 = null) {
+            return($string0);
+        }
+        switch_int (struct_param($struct1, mtxmgt_category)) {
+            case 2, 5, 4 :
+                $string0 = ~script17935($struct1);
+            case 3 :
+                $string0 = "'<~script17935($struct1)>' title";
+            case default :
+                ~error("Unsupported mtxmgt reward");
+        }
+    case 3 :
+        $string0 = "<tostring_localised($int3, true)> x <~text_plural($int3, ~script17930($dbrow6), ~script17929($dbrow6))>";
+    case 4 :
+        if ($dbrow2 = null) {
+            return($string0);
+        }
+        $string0 = "<tostring($int3)> x <~script17915($dbrow2)> <~text_plural($int3, "charge", "charges")>";
+    case 5 :
+        if ($dbrow2 = null) {
+            return($string0);
+        }
+        $string0 = "+<tostring($int3)>% <~script17915($dbrow2)>";
+    case 6 :
+        $string0 = "Progress Booster";
+}
+return($string0);

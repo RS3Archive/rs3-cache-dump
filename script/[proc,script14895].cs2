@@ -1,0 +1,64 @@
+// 14895
+[proc,script14895](dbrow $dbrow0, int $int1)
+def_int $int2 = ~script14631($dbrow0);
+def_int $int3 = -1;
+def_string $string0 = "0";
+def_string $string1 = "0";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "Research";
+def_int $int4 = 0;
+if ($dbrow0 ! null) {
+    if_sethide(true, arch_research_management:research_info_holding_layer);
+    if_sethide(false, arch_research_management:research_info_content_layer);
+    $int3 = ~arch_research_get_level($dbrow0);
+    if_settext(db_getfield($dbrow0, arch_research:col3, 0), arch_research_management:research_info_name);
+    if_setgraphic(~script14635($dbrow0), arch_research_management:research_info_banner_graphic);
+    if_setgraphic(~arch_research_get_overlay($dbrow0), arch_research_management:research_info_overlay_graphic);
+    if ($int3 ! -1) {
+        if_sethide(false, arch_research_management:research_info_requirement_layer);
+        if_settext("Lvl <tostring($int3)>", arch_research_management:research_info_skill_requirement_level);
+    } else {
+        if_sethide(true, arch_research_management:research_info_requirement_layer);
+        if_settext("Lvl 1", arch_research_management:research_info_skill_requirement_level);
+        $int3 = stat_base(archaeology);
+    }
+    if_settext(db_getfield($dbrow0, arch_research:col6, 0), arch_research_management:research_info_description);
+    if ($int2 > 0) {
+        ~script14896;
+        $string4 = ~script14665($int2);
+        switch_int (~script14649($int2)) {
+            case 1 :
+                $string0 = ~script14664($int2);
+                $string2 = "Report ETA: <col=FFFFFF><$string0></col>";
+                $string5 = "Terminate";
+            case 2 :
+                $string2 = "<col=FFFFFF>Report available</col>";
+                $string5 = "View Report";
+        }
+    } else {
+        ~script14897($dbrow0, $int1);
+        $string0 = ~script14648($dbrow0, $int1, %arch_research_management_contract_selected);
+        $string1 = ~script14646($dbrow0, $int1, $int3, %arch_research_management_contract_selected);
+        $string2 = "Duration: <col=FFFFFF><$string0></col>";
+        $string3 = "Cost: <col=FFFFFF><$string1></col>";
+        $string4 = ~arch_research_get_reward_string($dbrow0, $int1, $int3);
+    }
+    cc_deleteall(arch_research_management:research_info_contract_summary_build_layer);
+    ~script14874(arch_research_management:research_info_contract_summary_build_layer, 0, 0, if_getwidth(arch_research_management:research_info_contract_summary_build_layer), if_getheight(arch_research_management:research_info_contract_summary_build_layer), $string2, $string3, true);
+    if_settext($string4, arch_research_management:research_info_rewards_text);
+    cc_deleteall(arch_research_management:research_info_rewards_scrollbar_layer);
+    $int4 = ~script7593($string4, if_getwidth(arch_research_management:research_info_rewards_text), if_getfontmetrics(arch_research_management:research_info_rewards_text), 0);
+    if ($int4 > if_getheight(arch_research_management:research_info_rewards_build_layer)) {
+        if_setscrollsize(0, $int4, arch_research_management:research_info_rewards_build_layer);
+        ~rs3_scrollbar_vertical(arch_research_management:research_info_rewards_scrollbar_layer, arch_research_management:research_info_rewards_build_layer);
+    } else {
+        if_setscrollsize(0, 0, arch_research_management:research_info_rewards_build_layer);
+    }
+    if_setscrollpos(0, 0, arch_research_management:research_info_rewards_build_layer);
+    ~script13969(arch_research_management:research_info_button_build_layer, arch_research_management:research_info_button_control_layer, rs3tli_positive_button, $string5);
+} else {
+    if_sethide(false, arch_research_management:research_info_holding_layer);
+    if_sethide(true, arch_research_management:research_info_content_layer);
+}

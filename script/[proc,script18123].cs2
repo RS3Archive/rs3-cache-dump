@@ -1,0 +1,58 @@
+// 18123
+[proc,script18123]
+if (if_hassuboverlay(toplevel_v2:big_window, q4_awareness_2023) = true) {
+    if (if_gethide(q4_awareness_2023:info_overlay) = false) {
+        ~script18399;
+    } else {
+        if_triggerop(q4_awareness_2023:mainmodal_window_close_button, -1, 1);
+    }
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = ~script3418(%big_window_last_layout);
+if (~script16229(%big_window_last_layout, $int1) = true) {
+    return;
+}
+switch_dbrow (%big_window_last_layout) {
+    case mtx_front_end_info :
+        switch_int ($int1) {
+            case 0 :
+                if (if_gethide(mtx_front_end_confirm:confirm_buy_universe) = false) {
+                    if_triggerop(mtx_front_end_confirm:confirm_buy_close, -1, 1);
+                    return;
+                }
+            case 2, 6, 7, 9, 1 :
+                if (if_gethide(mtx_front_end_confirm:confirm_buy_universe) = false) {
+                    if_triggerop(mtx_front_end_confirm:confirm_buy_close, -1, 1);
+                    return;
+                }
+            case 3 :
+                if (if_hassuboverlay(mtx_front_end_bonds:bond_overlay_holder, bonds_insufficient_funds) = true) {
+                    if_triggerop(bonds_insufficient_funds:cancel_button_active_layer, -1, 1);
+                    return;
+                }
+                if (if_hassuboverlay(mtx_front_end_bonds:bond_overlay_holder, bonds_redeem_generic_embedded) = true) {
+                    $int0 = enum_getreverseindex(component, int, bonds_redeem_generic_fakeop_id_to_component, bonds_redeem_generic_embedded:mainmodal_window_close_button, 0);
+                    if_triggerop(mtx_front_end_bonds:fake_op, $int0, 1);
+                    return;
+                }
+            case 4 :
+                if (if_gethide(mtx_front_end_confirm:probabilities_layer) = false) {
+                    if_triggerop(mtx_front_end_confirm:probabilities_window_close, -1, 1);
+                    return;
+                } else if (if_gethide(mtx_front_end_confirm:confirm_buy_universe) = false) {
+                    if_triggerop(mtx_front_end_confirm:confirm_buy_close, -1, 1);
+                    return;
+                } else if (if_gethide(mobile_shop_hard_currency:one_tap_purchase_layer) = false) {
+                    if_sethide(true, mobile_shop_hard_currency:one_tap_purchase_layer);
+                    return;
+                }
+        }
+    case mtx_bp3 :
+        if (~script18124($int1) = true) {
+            return;
+        }
+}
+if (cc_find(~script11777(%big_window_last_layout, $int1), calc(6 - 1)) = true) {
+    cc_triggerop(1);
+}

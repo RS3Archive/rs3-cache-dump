@@ -1,0 +1,85 @@
+// 6563
+[clientscript,script6563](component $component0, component $component1, component $component2)
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = if_getwidth($component0);
+def_int $int6 = $int5;
+def_int $int7 = 30;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = enum_getoutputcount(elfcity_increasers_toggle);
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_obj $obj14 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_boolean $boolean15 = false;
+def_boolean $boolean16 = false;
+cc_deleteall($component0);
+cc_deleteall($component1);
+if_sethide(true, elfcity_increaser:list_loading);
+while (++$int3 < $int11) {
+    $obj14 = enum(int, obj, elfcity_increasers_toggle, $int3);
+    if ($obj14 ! null) {
+        $int12 = ~script6561($obj14);
+        $boolean15 = enum_hasoutput(obj, elfcity_increasers_activatable, $obj14);
+        $int13 = oc_param($obj14, elfcity_increaser_max_charge);
+        if ($boolean15 = true | %elfcity_increaser_drawtype = 1) {
+            if (%elfcity_increaser_drawtype = 1 & $int12 > 0) {
+                $int12 = ~script6562($obj14);
+            }
+            $int6, $string1 = calc($int5 - 75), "Current available: <tostring_localised($int12, true)>";
+        } else {
+            $int6, $string1 = calc($int5 - 18), "Current charges: <tostring_localised($int12, true)>";
+        }
+        $string0 = oc_name($obj14);
+        $int8 = ~script7593($string0, $int6, museo_sans_11pt_regular, 0);
+        $int9 = ~script7593($string1, $int6, museo_sans_11pt_regular, 0);
+        $int7 = max(30, calc(10 + $int8 + 5 + $int9));
+        $int10 = calc($int4 + 5);
+        ~script2682($component0, $int5, $int7, 0, $int4, true, $int3);
+        ~cc_add_rect_struct($component0, $int5, $int7, 0, $int4, false, rs3_rect_outline);
+        ~script10629($component0, if_getnextsubid($component0), calc($int6 - 10), $int8, 5, $int10, $string0, 0, museo_sans_11pt_regular, ^settextalign_left, ^settextalign_top, 0, false);
+        ~script2731($component0, cc_getid, 2);
+        $int10 = calc($int10 + ($int8 + 5));
+        ~script10629($component0, if_getnextsubid($component0), calc($int6 - 10), $int9, 5, $int10, $string1, 0, museo_sans_11pt_regular, ^settextalign_left, ^settextalign_top, 0, false);
+        ~script2731($component0, cc_getid, 3);
+        if (%elfcity_increaser_drawtype ! 1) {
+            if ($boolean15 = true) {
+                $boolean16 = ~equal_int_bool(0, $int12);
+                ~script10410($component0, $component1, rs3tli_3x3_button, calc($int6 - 5), calc($int4 + ($int7 / 2 - ($int7 - 10) / 2)), 75, calc($int7 - 10), if_getnextsubid($component1), $boolean16, "Activate");
+                if ($boolean16 = false & cc_find($component1, $int3) = true) {
+                    cc_setopbase("<~script4033($obj14)><oc_name($obj14)>");
+                    cc_setop(1, "Convert");
+                    if ($obj14 = elfcity_maw_increase_ports & $int12 > 0) {
+                        if ($int12 >= 5) {
+                            cc_setop(2, "Convert-5");
+                        }
+                        if ($int12 >= 10) {
+                            cc_setop(3, "Convert-10");
+                        }
+                        cc_setop(4, "Convert-All");
+                    }
+                }
+            } else {
+                ~dynamic_checkbox_create($component0, $component1, calc($int6 - 5), calc($int4 + ($int7 / 2 - 18 / 2)), if_getnextsubid($component1), ~script6560($obj14));
+                if (cc_find($component1, $int3) = true) {
+                    cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize($int5, $int7, ^setsize_abs, ^setsize_abs);
+                }
+            }
+        } else {
+            $boolean16 = ~equal_int_bool(0, $int12);
+            ~script12501($component0, $component1, rs3tli_3x3_button, calc($int6 - 5), calc($int4 + ($int7 / 2 - ($int7 - 10) / 2)), 75, calc($int7 - 10), if_getnextsubid($component1), $boolean16, "Exchange");
+            $string1 = "1 convert requires <tostring_localised($int13, true)> <~text_plural($int13, "charge", "charges")>.";
+            if (cc_find($component1, $int3) = true) {
+                cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+            }
+        }
+        $int4 = calc($int4 + ($int7 + 5));
+    }
+}
+if_setscrollpos(0, 0, elfcity_increaser:list_main);
+if_setscrollsize(0, max(if_getheight($component0), $int4), elfcity_increaser:list_main);
+~rs3_scrollbar_vertical($component2, elfcity_increaser:list_main);

@@ -1,0 +1,26 @@
+// 15601
+[proc,lobbyscreen_chat_notify](int $int0, int $int1)
+def_component $component2 = ~script15603($int0);
+if ($component2 = null) {
+    return;
+}
+def_int $int3 = -1;
+def_int $int4 = 0;
+if (if_find($component2) = true) {
+    $int3 = cc_param(lobby_chat_notify_uid);
+    if ($int3 = -1) {
+        cc_setparam(lobby_chat_notify_uid, $int1);
+        $int3 = $int1;
+    }
+}
+if ($int3 ! -1) {
+    $int4 = ~lobbyscreen_chat_notify_count($int0, $int3, $int1);
+}
+if ($int4 <= 0) {
+    ~script15600($int0);
+    return;
+}
+if_sethide(false, $component2);
+if (cc_find($component2, 1) = true) {
+    cc_settext(tostring(min(99, $int4)));
+}

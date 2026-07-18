@@ -1,0 +1,10 @@
+// 20653
+[proc,script20653]
+def_int $int0 = calc(%bond_repackage_count * %bond_repackage_cost);
+def_int $int1 = calc(inv_total(inv, rs_bond_untradeable) + %bonds_pouch_untradeable_total);
+if_settext(~script17372(~script17400, 9, 0), mtx_front_end_bonds:manage_coins_count);
+if_settext(tostring($int1), mtx_front_end_bonds:manage_bonds_count);
+if_settext(tostring(%bonds_pouch_tradeable_total), mtx_front_end_bonds:manage_tradeable_bonds_count);
+if_settext(tostring(%bond_repackage_count), mtx_front_end_bonds:conversion_amount);
+if_settext(tostring_localised($int0, true), mtx_front_end_bonds:conversion_cost);
+if_setonvartransmit("script15377{bond_repackage_count, bond_repackage_cost}", mtx_front_end_bonds:convert);

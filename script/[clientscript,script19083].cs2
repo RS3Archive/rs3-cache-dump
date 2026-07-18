@@ -1,0 +1,37 @@
+// 19083
+[clientscript,script19083]
+cc_deleteall(trh199_overlay:blueprint_grid);
+def_enum $enum0 = struct_param(trh199_promo, trh199_blueprints);
+def_int $int1 = enum_getoutputcount($enum0);
+def_component $component2 = trh199_overlay:blueprint_grid;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_dbrow $dbrow5 = null;
+def_string $string0 = "";
+def_graphic $graphic6 = null;
+while (++$int3 < calc($int1 + 1)) {
+    $dbrow5 = enum(int, dbrow, $enum0, $int3);
+    if (~script19068($dbrow5) = true) {
+        $graphic6 = trh199_blueprint_complete;
+    } else if (~script19069($dbrow5) = false) {
+        $graphic6 = trh199_blueprint_locked;
+    } else {
+        $graphic6 = trh199_blueprint_incomplete;
+    }
+    ~cc_add_layer($component2, $int3, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 146, calc(122 - 10), ^setsize_abs, ^setsize_abs);
+    ~script7920($component2, calc($int3 + 1), $int4, 0, $int3, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 146, 122, ^setsize_abs, ^setsize_abs, $graphic6);
+    cc_setonmouseover("script19084(calc($int3 + 1), $int4)");
+    cc_setonmouseleave("script19085(calc($int3 + 1), $int4)");
+    $int4 = calc($int4 + 1);
+    ~script7920($component2, calc($int3 + 1), $int4, 0, $int3, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 146, 122, ^setsize_abs, ^setsize_abs, trh199_blueprint_highlight);
+    cc_sethide(true);
+    $int4 = calc($int4 + 1);
+    $string0 = db_getfield($dbrow5, trh199_blueprint:col1, 0);
+    ~script10507($component2, calc($int3 + 1), $int4, 0, $int3, 0, -5, ^setpos_abs_centre, ^setpos_abs_centre, calc(146 - 40), 122, ^setsize_abs, ^setsize_abs, text_body_emphasis, "<col=FFFFFF><$string0></col>");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setonop("script19086($int3)");
+    cc_setonvartransmit("script19097($int3){trh_promos_var33}");
+    cc_setop(1, "Select");
+    cc_setopcursor(1, cursor_use);
+    $int4 = 0;
+}

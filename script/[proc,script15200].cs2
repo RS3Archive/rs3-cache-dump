@@ -1,0 +1,29 @@
+// 15200
+[proc,script15200]
+cc_deleteall(lunarfm_remotefarm:navbuttons_buildlayer);
+cc_deleteall(lunarfm_remotefarm:navbuttons_clicklayer);
+def_int $int0 = 0;
+def_int $int1 = calc(if_getwidth(lunarfm_remotefarm:navbuttons) - 30);
+def_int $int2 = 30;
+def_int $int3 = 2;
+def_int $int4 = 4;
+def_int $int5 = 6;
+def_int $int6 = enum_getoutputcount(remote_farm_category_indexes);
+def_string $string0 = "";
+def_boolean $boolean7 = false;
+while ($int0 < $int6) {
+    if (%remote_farm_patch_category_index = $int0) {
+        $boolean7 = true;
+    } else {
+        $boolean7 = false;
+    }
+    ~script10410(lunarfm_remotefarm:navbuttons_buildlayer, lunarfm_remotefarm:navbuttons_clicklayer, rs3tli_3x3_button, $int4, $int3, $int1, $int2, $int0, $boolean7, enum(int, string, remote_farm_category_names, $int0));
+    $int3 = calc($int3 + ($int2 + $int5));
+    if (cc_find(lunarfm_remotefarm:navbuttons_clicklayer, $int0) = true) {
+        cc_setonop("script15201($int0)");
+    }
+    $int0 = calc($int0 + 1);
+}
+$int3 = calc($int3 - $int5);
+if_setscrollsize(0, $int3, lunarfm_remotefarm:navbuttons_scroll_layer);
+~rs3_scrollbar_vertical(lunarfm_remotefarm:scrollbar_buttons, lunarfm_remotefarm:navbuttons_scroll_layer);

@@ -1,0 +1,27 @@
+// 15066
+[proc,script15066]
+def_int $int0 = 0;
+if (unknown_command_39 = 1) {
+    if_setgraphic(icon_connection_wifi, device_status_icons:data_icon);
+} else if (unknown_command_42 = false) {
+    $int0 = 1;
+    if_setgraphic(icon_connection_no_signal, device_status_icons:data_icon);
+} else {
+    $int0 = 2;
+    if_setgraphic(icon_connection_data, device_status_icons:data_icon);
+}
+if ($int0 ! %varclientbit_46362) {
+    ~script13814;
+    %varclientbit_46362 = $int0;
+}
+def_int $int1 = battery_getlevelpercent;
+if (battery_ischarging = 1) {
+    if_setgraphic(icon_battery_charging, device_status_icons:battery_icon);
+} else if ($int1 >= 80) {
+    if_setgraphic(icon_battery_high_charge, device_status_icons:battery_icon);
+} else if ($int1 >= 40) {
+    if_setgraphic(icon_battery_mid_charge, device_status_icons:battery_icon);
+} else {
+    if_setgraphic(icon_battery_low_charge, device_status_icons:battery_icon);
+}
+if_settext("<tostring($int1)>%", device_status_icons:device_battery_precent);

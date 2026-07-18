@@ -1,0 +1,43 @@
+// 19162
+[proc,script19162](component $component0)
+def_int $int1 = ~script19145(trh203_promo);
+if (~script18365 = true) {
+    if_setnpcmodel(trh203_christmas_character, $component0);
+} else if ($int1 < 30) {
+    if_setnpcmodel(trh203_character_blue, $component0);
+} else {
+    if_setnpcmodel(trh203_character_red, $component0);
+}
+def_int $int2 = 12;
+if_npc_setcustombodymodel($int2, null, trh_academy_shared_overlay:character_model);
+def_dbrow $dbrow3 = ~script19150(trh203_promo);
+def_stat $stat4 = null;
+def_model $model5 = null;
+if (db_getfieldcount($dbrow3, trh203_nodes:col1) > 0) {
+    $stat4 = db_getfield($dbrow3, trh203_nodes:col1, 0);
+    switch_stat ($stat4) {
+        case mining :
+            if ($int1 < 10) {
+                $model5 = bronze_pickaxe_2012;
+            } else if ($int1 < 20) {
+                $model5 = iron_pickaxe_2012;
+            } else if ($int1 < 30) {
+                $model5 = steel_pickaxe_2012;
+            } else if ($int1 < 40) {
+                $model5 = mithril_pickaxe_2012;
+            } else if ($int1 < 50) {
+                $model5 = adamant_pickaxe_2012;
+            } else if ($int1 < 60) {
+                $model5 = rune_pickaxe_2012;
+            } else if ($int1 < 70) {
+                $model5 = dragon_pickaxe_2012;
+            } else if ($int1 < 80) {
+                $model5 = elf_crystal_pickaxe01;
+            } else if ($int1 < 90) {
+                $model5 = m_s_bane_pickaxe;
+            } else {
+                $model5 = m_s_pickaxe_earth_song;
+            }
+            if_npc_setcustombodymodel($int2, $model5, trh_academy_shared_overlay:character_model);
+    }
+}

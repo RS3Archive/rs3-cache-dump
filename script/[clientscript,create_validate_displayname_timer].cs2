@@ -1,0 +1,27 @@
+// 7856
+[clientscript,create_validate_displayname_timer]
+def_int $int0 = create_name_validate_reply;
+if ($int0 = -3) {
+    return;
+}
+if_setontimer(null, acc_create:name_listener);
+if ($int0 = 2) {
+    ~script7845(1, "");
+    return;
+}
+switch_int ($int0) {
+    case -2, 3 :
+        ~create_error("Error contacting server.");
+    case 5 :
+        ~create_error("Display name already in use. Try a different name or click the randomise button to generate an available one.");
+    case 6 :
+        ~create_error("Display name includes inappropriate content.");
+    case 7 :
+        ~create_error("Display name is banned.");
+    case 8 :
+        ~create_error("Display name is reserved.");
+    case 4 :
+        ~create_error("Please enter a valid display name.");
+    case default :
+        ~create_error("Unexpected server response.");
+}

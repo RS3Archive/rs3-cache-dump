@@ -1,0 +1,39 @@
+// 5671
+[proc,script5671]
+cc_deleteall(investigate:unlocks);
+def_enum $enum0 = struct_param(%investigation, investigate_chapter_sections);
+def_int $int1 = 0;
+if ($enum0 = null) {
+    return;
+}
+$int1 = enum(int, int, $enum0, %investigation_chapter);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int2 < $int1) {
+    if (calc($int2 + 1) = %investigation_selected_section) {
+        $int6 = 1;
+    } else {
+        $int6 = 0;
+    }
+    $int5 = ~script13998(investigate:unlocks, investigate:unlocks_click_layer, rs3tli_3x3_icon_button, $int3, $int4, 36, 46, $int5, false, "", $int6);
+    if (cc_find(investigate:unlocks_click_layer, $int2) = true) {
+        cc_setonop("script5672(%investigation, %investigation_chapter, calc($int2 + 1), event_op)");
+        if (~script5647(%investigation, %investigation_chapter, calc($int2 + 1)) = 1) {
+            cc_setop(2, "Replay");
+            cc_setonmouserepeat("script8799(~script5688(%investigation, %investigation_chapter, calc($int2 + 1)), event_com, event_comsubid)");
+            ~script4512(investigate:unlocks, 28, 41, calc($int3 + 4), calc($int4 + 2), ~script5685(%investigation, %investigation_chapter, calc($int2 + 1)));
+        } else {
+            cc_setonmouserepeat("script8799(\"???\", event_com, event_comsubid)");
+            ~script4512(investigate:unlocks, 18, 18, calc($int3 + 8), calc($int4 + 13), "rs3_icon_lock_18px,0");
+        }
+    }
+    if (calc(++$int2 % 8) = 0) {
+        $int3 = 0;
+        $int4 = calc($int4 + 48);
+    } else {
+        $int3 = calc($int3 + 38);
+    }
+}

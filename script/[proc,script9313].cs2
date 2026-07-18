@@ -1,0 +1,185 @@
+// 9313
+[proc,script9313]
+if (%toplevel_v2_legacy_interface = 1) {
+    ~script13951(struct_param(toplevel_v2_window_data_bank_window, toplevel_v2_window_layer), 714);
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int0, $int2, $int1, $int3 = ~script2956;
+if_setposition($int0, $int2, ^setpos_abs_left, ^setpos_abs_top, bank:all);
+if_setsize(calc($int0 + $int1), calc($int2 + $int3), ^setsize_minus, ^setsize_minus, bank:all);
+def_int $int4 = 213;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_boolean $boolean7 = ~script6431;
+if ($boolean7 = true) {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, bank:bank_display_panel);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, bank:bottom_panel);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, bank:inventory_panel);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:bank_button_panel);
+    if_setposition(70, 12, ^setpos_abs_right, ^setpos_abs_top, bank:help_button_layer);
+    $int4 = 253;
+    $int5 = 105;
+    $int6 = 126;
+} else {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:bank_display_panel);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, bank:bottom_panel);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:inventory_panel);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, bank:bank_button_panel);
+    if_setposition(50, 15, ^setpos_abs_right, ^setpos_abs_top, bank:help_button_layer);
+}
+def_int $int8 = if_getheight(bank:content);
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+if (%share_preset_menu_open = 1) {
+    if_setsize($int4, 499, ^setsize_abs, ^setsize_abs, bank:right_panel);
+    if_setsize(calc($int4 + 4), 0, ^setsize_minus, ^setsize_minus, bank:main_panel);
+    if_sethide(false, bank:preset_full_layer);
+    if_sethide(false, bank:button_panel_inner_preset);
+    if_sethide(true, bank:button_panel_inner);
+    if_sethide(true, bank:bank_items_layer);
+    if_sethide(true, bank:bottom_panel);
+    $int9, $int10, $int11 = 1, 1, 1;
+} else {
+    if_setsize($int4, 0, ^setsize_abs, ^setsize_minus, bank:right_panel);
+    if_setsize(calc($int4 + 4), 0, ^setsize_minus, ^setsize_minus, bank:main_panel);
+    if_sethide(true, bank:preset_full_layer);
+    if_sethide(true, bank:button_panel_inner_preset);
+    if_sethide(false, bank:button_panel_inner);
+    if_sethide(false, bank:bank_items_layer);
+    if_sethide(false, bank:bottom_panel);
+    if ($boolean7 = true & $int8 <= 650) {
+        $int9, $int10, $int11 = 1, 1, 1;
+    }
+    if ($int8 < calc(358 + 239 + $int5)) {
+        $int9, $int10, $int11 = 1, 1, 1;
+    } else if ($int8 < calc(608 + 138 + $int5)) {
+        $int9, $int10, $int11 = 0, 1, 1;
+    } else if ($int8 < calc(608 + 239 + $int5)) {
+        $int9, $int10, $int11 = 1, 0, 1;
+    } else if ($int8 < calc(909 + 138 + $int5 + $int6) | %bank_player_has_bob = 0) {
+        $int9, $int10, $int11 = 0, 0, 1;
+    } else if ($int8 < calc(909 + 239 + $int5 + $int6)) {
+        $int9, $int10, $int11 = 1, 0, 0;
+    }
+}
+if (%share_preset_menu_open = 1) {
+    if_sethide(true, bank:button_panel_tabs);
+} else {
+    if_sethide(false, bank:button_panel_tabs);
+}
+if ($int9 = 1) {
+    if_setsize(0, 138, ^setsize_minus, ^setsize_abs, bank:bank_button_panel);
+    if_setposition(0, 24, ^setpos_abs_left, ^setpos_abs_top, bank:button_panel_inner);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, bank:side_tab_presets);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:share_preset_quick_buttons);
+    if_setsize(0, 24, ^setsize_minus, ^setsize_minus, bank:button_panel_inner);
+    if_sethide(true, bank:button_panel_bg_untabbed);
+    if (%bank_side_tab_selected = 0) {
+        if_sethide(false, bank:default_options_container);
+        if_sethide(true, bank:share_preset_quick_buttons);
+    } else {
+        if_sethide(true, bank:default_options_container);
+        if_sethide(false, bank:share_preset_quick_buttons);
+    }
+} else {
+    if_setsize(0, 239, ^setsize_minus, ^setsize_abs, bank:bank_button_panel);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:button_panel_inner);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:side_tab_presets);
+    if_setposition(0, 24, ^setpos_abs_left, ^setpos_abs_top, bank:share_preset_quick_buttons);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, bank:button_panel_inner);
+    if_sethide(false, bank:button_panel_bg_untabbed);
+    if_sethide(false, bank:default_options_container);
+    if_sethide(false, bank:share_preset_quick_buttons);
+}
+def_boolean $boolean12 = true;
+def_boolean $boolean13 = true;
+def_boolean $boolean14 = true;
+switch_int (%bank_current_inv) {
+    case default :
+        $boolean12 = false;
+    case 2 :
+        $boolean13 = false;
+    case 1 :
+        $boolean14 = false;
+}
+def_component $component15 = null;
+def_component $component16 = null;
+if ($int10 = 1) {
+    if ($boolean7 = true & $int8 <= 650) {
+        if_setsize(0, calc(138 + 5), ^setsize_minus, ^setsize_minus, bank:inventory_panel);
+        if_setsize(0, 30, ^setsize_minus, ^setsize_minus, bank:inventory_container);
+        if_setsize(0, 70, ^setsize_minus, ^setsize_minus, bank:worn_container);
+        if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, bank:worn_container);
+        if_setsize(0, 35, ^setsize_minus, ^setsize_minus, bank:bob_container);
+    } else {
+        if_setsize(0, calc(358 + $int5), ^setsize_minus, ^setsize_abs, bank:inventory_panel);
+        if_setsize(0, calc(291 + $int5), ^setsize_minus, ^setsize_abs, bank:inventory_container);
+        if_setsize(0, 291, ^setsize_minus, ^setsize_abs, bank:worn_container);
+        if_setposition(0, 35, ^setpos_abs_left, ^setpos_abs_bottom, bank:worn_container);
+        if_setsize(0, 295, ^setsize_minus, ^setsize_abs, bank:bob_container);
+    }
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:bob_container);
+    if_sethide(true, bank:active_inv_highlight);
+} else {
+    if_setsize(0, calc(291 + $int5), ^setsize_minus, ^setsize_abs, bank:inventory_container);
+    if_setsize(0, 240, ^setsize_minus, ^setsize_abs, bank:worn_container);
+    if_sethide(false, bank:active_inv_highlight);
+    $boolean13 = false;
+    if ($int11 = 1) {
+        if_setsize(0, calc(608 + $int5), ^setsize_minus, ^setsize_abs, bank:inventory_panel);
+        if (%bank_current_inv = 2) {
+            $boolean12 = false;
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, bank:worn_container);
+            if_setposition(0, 35, ^setpos_abs_left, ^setpos_abs_bottom, bank:inventory_container);
+            if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:bob_container);
+        } else {
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, bank:inventory_container);
+            if_setposition(0, 35, ^setpos_abs_left, ^setpos_abs_bottom, bank:worn_container);
+            if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:bob_container);
+        }
+    } else {
+        if_setsize(0, calc(909 + $int5 + $int6), ^setsize_minus, ^setsize_abs, bank:inventory_panel);
+        if_setposition(0, -25, ^setpos_abs_left, ^setpos_abs_centre, bank:worn_container);
+        if_setsize(0, calc(295 + $int6), ^setsize_minus, ^setsize_abs, bank:bob_container);
+        if_setposition(0, 35, ^setpos_abs_left, ^setpos_abs_bottom, bank:bob_container);
+        $boolean12 = false;
+        $boolean14 = false;
+    }
+    switch_int (%bank_current_inv) {
+        case 0 :
+            $component15 = bank:inventory_inv_contents;
+            $component16 = bank:inventory_container;
+        case 2 :
+            $component15 = bank:inventory_worn_contents;
+            $component16 = bank:worn_container;
+        case 1 :
+            $component15 = bank:inventory_bob_contents;
+            $component16 = bank:bob_container;
+    }
+    if ($component15 ! null) {
+        if_setsize(if_getwidth($component15), if_getheight($component15), ^setsize_abs, ^setsize_abs, bank:active_inv_highlight);
+        if_setposition(if_getx($component16), if_gety($component16), ^setpos_abs_left, ^setpos_abs_top, bank:active_inv_highlight);
+    }
+}
+if_sethide($boolean12, bank:inventory_container);
+if_sethide($boolean13, bank:worn_container);
+if_sethide($boolean14, bank:bob_container);
+~script10241;
+if (%bank_filter ! 0 | %share_preset_menu_open = 1) {
+    if_sethide(true, bank:tabs);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, bank:bank_items_layer);
+} else {
+    if_sethide(false, bank:tabs);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom, bank:bank_items_layer);
+}
+if (~script5767 = 1) {
+    if_sethide(true, bank:bank_button_panel);
+    if_sethide(true, bank:help_button_layer);
+} else {
+    if_sethide(false, bank:bank_button_panel);
+    if_sethide(false, bank:help_button_layer);
+}

@@ -1,0 +1,31 @@
+// 18186
+[proc,script18186](dbfilter $dbfilter0, int $int1)(dbfilter)
+def_int $intbool2 = testbit($int1, 1);
+def_int $intbool3 = testbit($int1, 3);
+def_int $intbool4 = testbit($int1, 6);
+mes_typed(^chattype_console, 0, "Availability: <tostring($intbool2)> <tostring($intbool3)> <tostring($intbool4)>");
+def_dbfilter $dbfilter5 = null;
+if ($intbool2 = ^true) {
+    if ($intbool3 = ^true) {
+        if ($intbool4 = ^true) {
+        } else {
+            $dbfilter5 = db_filter_unknown(db_filter_combine(db_filter_unknown(~script18185), db_filter_unknown(~script18184)));
+        }
+    } else if ($intbool4 = ^true) {
+        $dbfilter5 = db_filter_unknown(db_filter_combine(db_filter_unknown(~script18185), ~script18184));
+    } else {
+        $dbfilter5 = ~script18185;
+    }
+} else if ($intbool3 = ^true) {
+    if ($intbool4 = ^true) {
+        $dbfilter5 = db_filter_unknown(~script18185);
+    } else {
+        $dbfilter5 = db_filter_combine(db_filter_unknown(~script18185), ~script18184);
+    }
+} else if ($intbool4 = ^true) {
+    $dbfilter5 = db_filter_combine(db_filter_unknown(~script18185), db_filter_unknown(~script18184));
+} else {
+    $dbfilter0 = db_filter_value(mtxmgt_cosmetic:col24, ^min_32bit_int, ^filterop_lt, 0);
+    $dbfilter5 = null;
+}
+return(~script18180($dbfilter0, $dbfilter5));

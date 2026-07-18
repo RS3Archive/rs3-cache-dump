@@ -1,0 +1,109 @@
+// 9215
+[proc,script9215](int $int0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_obj $obj7 = null;
+def_int $int8 = -1;
+def_obj $obj9 = null;
+def_int $int10 = -1;
+$component2, $component2, $component2, $component3, $component2, $component2 = ~script8682(toplevel_v2_inventory:main_layer);
+$component2, $component2, $component2, $component2, $component2, $component4, $component2, $component2, $component2, $component2, $component2, $component2 = ~script8472(toplevel_v2_worn:content_layer);
+$component2, $component2, $component2, $component5, $component2, $component2 = ~script8682(toplevel_v2_parent_suboverlay_inventory:content_layer);
+$component2, $component2, $component2, $component2, $component2, $component6, $component2, $component2, $component2, $component2, $component2, $component2 = ~script8472(toplevel_v2_parent_suboverlay_worn:content_layer);
+def_component $component11 = ~bank_get_inv_component(inv);
+def_component $component12 = ~bank_get_inv_component(worn);
+if (~script6352($component11) = true & cc_find($component11, $int1) = true | ~script6352($component3) = true & cc_find($component3, $int1) = true | ~script6352($component5) = true & cc_find($component5, $int1) = true) {
+    $obj7 = cc_getinvobject;
+    $int8 = cc_getinvcount;
+}
+if (~script6352($component12) = true & cc_find($component12, $int0) = true | ~script6352($component4) = true & cc_find($component4, $int0) = true | ~script6352($component6) = true & cc_find($component6, $int0) = true) {
+    $obj9 = cc_getinvobject;
+    $int10 = cc_getinvcount;
+}
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+if ($obj9 ! null & oc_stackable($obj9) = true) {
+    $int15 = inv_total(worn, $obj9);
+    $int16 = inv_total(inv, $obj9);
+    if ($int16 > 0) {
+        if (calc(^max_32bit_int - $int16) < $int15) {
+            $int16 = ^max_32bit_int;
+        } else {
+            $int16 = calc($int16 + $int15);
+        }
+        $int13 = ~script9250(inv, $obj9);
+        if (cc_find($component3, $int13) = true) {
+            ~script9230($obj9, $int16);
+        }
+        if (cc_find($component5, $int13) = true) {
+            ~script9230($obj9, $int16);
+        }
+        if ($component11 ! null & cc_find($component11, $int13) = true) {
+            ~script9240($component11, cc_param(rs3_setup_interface_inv_scrollbar), inv, $obj9, $int16, 1, "", "", "", "", "", "", "", "", "", "");
+        }
+        if (cc_find($component4, $int0) = true) {
+            ~script9222(null, 0);
+        }
+        if (cc_find($component6, $int0) = true) {
+            ~script9222(null, 0);
+        }
+        if ($component12 ! null & cc_find($component12, $int0) = true) {
+            ~script9222(null, 0);
+        }
+    }
+}
+if ($obj7 ! null & oc_stackable($obj7) = true) {
+    $int15 = inv_total(worn, $obj7);
+    $int16 = inv_total(inv, $obj7);
+    if ($int15 > 0) {
+        if (calc(^max_32bit_int - $int15) < $int16) {
+            $int15 = ^max_32bit_int;
+        } else {
+            $int15 = calc($int15 + $int16);
+        }
+        $int14 = ~script9250(worn, $obj7);
+        if (cc_find($component4, $int14) = true) {
+            ~script9222($obj9, $int16);
+        }
+        if (cc_find($component6, $int14) = true) {
+            ~script9222($obj9, $int16);
+        }
+        if ($component12 ! null & cc_find($component12, $int14) = true) {
+            ~script9222($obj9, $int16);
+        }
+        if (cc_find($component3, $int1) = true) {
+            ~script9230(null, 0);
+        }
+        if (cc_find($component5, $int1) = true) {
+            ~script9230(null, 0);
+        }
+        if ($component11 ! null & cc_find($component11, $int1) = true) {
+            ~script9240($component11, cc_param(rs3_setup_interface_inv_scrollbar), inv, null, 0, 1, "", "", "", "", "", "", "", "", "", "");
+        }
+    }
+}
+if ($int16 = 0 | $int15 = 0) {
+    if (cc_find($component3, $int1) = true) {
+        ~script9230($obj9, $int10);
+    }
+    if (cc_find($component5, $int1) = true) {
+        ~script9230($obj9, $int10);
+    }
+    if ($component11 ! null & cc_find($component11, $int1) = true) {
+        ~script9240($component11, cc_param(rs3_setup_interface_inv_scrollbar), inv, $obj9, $int10, 1, "", "", "", "", "", "", "", "", "", "");
+    }
+    if (cc_find($component4, $int0) = true) {
+        ~script9222($obj7, $int8);
+    }
+    if (cc_find($component6, $int0) = true) {
+        ~script9222($obj7, $int8);
+    }
+    if ($component12 ! null & cc_find($component12, $int0) = true) {
+        ~script9222($obj7, $int8);
+    }
+}

@@ -1,0 +1,46 @@
+// 1355
+[clientscript,dial_rotate](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = struct_param(enum(int, struct, dial_enum, %safes_dialtype), safes_dial_digitcount);
+if ($int0 < %varclientbit_40358) {
+    if_setontimer("dial_rotate(calc($int0 + 1))", safes_if:dial_digit);
+} else if ($int0 <= calc(%varclientbit_40358 * 2)) {
+    if ($int0 = %varclientbit_40358) {
+        $int3 = calc((%varclientbit_40356 + ~script1354) % $int4);
+        if ($int3 < 0) {
+            $int3 = calc($int4 + $int3);
+        }
+        if (%varclientbit_40360 = 1) {
+            if ($int3 = ~script1435(%varclientbit_40355)) {
+                sound_vorbis_volume(safe_dial_turn_05, 1, 0, 150);
+            } else {
+                sound_vorbis_volume(safe_dial_turn_04, 1, 0, 150);
+            }
+        } else if ($int3 = ~script1435(%varclientbit_40355)) {
+            sound_vorbis_volume(safe_dial_turn_05, 1, 0, 50);
+        } else {
+            sound_vorbis_volume(safe_dial_turn_04, 1, 0, 50);
+        }
+    }
+    $int1 = scale(65536, $int4, %varclientbit_40356);
+    $int2 = calc(scale(65536, $int4, calc(%varclientbit_40356 + ~script1354)) - $int1);
+    if_set2dangle(~tween(calc($int0 - %varclientbit_40358), %varclientbit_40358, $int1, $int2, 0), safes_if:dial_digit);
+    if_set2dangle(~tween(calc($int0 - %varclientbit_40358), %varclientbit_40358, $int1, $int2, 0), safes_if:dial_bg);
+    if ($int0 = calc(%varclientbit_40358 * 2)) {
+        $int3 = calc((%varclientbit_40356 + ~script1354) % $int4);
+        if ($int3 < 0) {
+            $int3 = calc($int4 + $int3);
+        }
+        %varclientbit_40356 = $int3;
+        if (%varclientbit_40356 = ~script1435(%varclientbit_40355)) {
+            if_setgraphic("safes_notch,1", safes_if:notch);
+        } else {
+            if_setgraphic("safes_notch,0", safes_if:notch);
+        }
+    }
+    if_setontimer("dial_rotate(calc($int0 + 1))", safes_if:dial_digit);
+} else {
+    if_setontimer("dial_rotate(0)", safes_if:dial_digit);
+}

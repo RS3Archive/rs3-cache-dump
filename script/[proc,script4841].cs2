@@ -1,0 +1,77 @@
+// 4841
+[proc,script4841](int $int0)(int, int, int, int, int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (clanprofile_find = true) {
+    switch_int ($int0) {
+        case 1 :
+            $int3 = %clan_custom_slot_1_destination_id_varp;
+            $int1 = %clan_custom_slot_1_type_varp;
+            $int2 = %clan_custom_slot_1_tier_varp;
+            $int4 = %clan_custom_slot_1_options1_varp;
+            $int5 = %clan_custom_slot_1_options2_varp;
+            $int6 = %clan_custom_slot_1_options3_varp;
+        case 2 :
+            $int3 = %clan_custom_slot_2_destination_id_varp;
+            $int1 = %clan_custom_slot_2_type_varp;
+            $int2 = %clan_custom_slot_2_tier_varp;
+            $int4 = %clan_custom_slot_2_options1_varp;
+            $int5 = %clan_custom_slot_2_options2_varp;
+            $int6 = %clan_custom_slot_2_options3_varp;
+        case 3 :
+            $int3 = %clan_custom_slot_3_destination_id_varp;
+            $int1 = %clan_custom_slot_3_type_varp;
+            $int2 = %clan_custom_slot_3_tier_varp;
+            $int4 = %clan_custom_slot_3_options1_varp;
+            $int5 = %clan_custom_slot_3_options2_varp;
+            $int6 = %clan_custom_slot_3_options3_varp;
+    }
+}
+def_int $int7 = 1;
+def_int $int8 = 1;
+def_enum $enum9 = null;
+def_struct $struct10 = null;
+def_enum $enum11 = null;
+def_enum $enum12 = null;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+$enum11 = enum(int, enum, clan_custom_category_enums, $int1);
+if ($enum11 = null) {
+    return(0, 0, 0, 0, 0, 0);
+}
+$enum12 = enum(int, enum, $enum11, $int2);
+if ($enum12 = null) {
+    return(0, 0, 0, 0, 0, 0);
+}
+while ($int7 <= 3) {
+    $enum9 = enum(int, enum, $enum12, $int7);
+    if ($enum9 ! null) {
+        switch_int ($int7) {
+            case 1 :
+                $struct10 = enum(int, struct, $enum9, $int4);
+            case 2 :
+                $struct10 = enum(int, struct, $enum9, $int5);
+            case 3 :
+                $struct10 = enum(int, struct, $enum9, $int6);
+        }
+        if ($struct10 ! null) {
+            $int13 = struct_param($struct10, clan_custom_if_resource_type1);
+            $int16 = calc($int16 + struct_param($struct10, clan_custom_if_resource_cost1));
+            $int14 = struct_param($struct10, clan_custom_if_resource_type2);
+            $int17 = calc($int17 + struct_param($struct10, clan_custom_if_resource_cost2));
+            $int15 = struct_param($struct10, clan_custom_if_resource_type3);
+            $int18 = calc($int18 + struct_param($struct10, clan_custom_if_resource_cost3));
+        }
+    }
+    $enum9 = null;
+    $int7 = calc($int7 + 1);
+}
+return($int13, $int16, $int14, $int17, $int15, $int18);

@@ -1,0 +1,59 @@
+// 11303
+[clientscript,poh_aquarium_mouseover](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $intarray0(9);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $rgb11 = ^green;
+$int2, $int3 = ~script11304($int1);
+if (%poh_aquarium_floorplan_selected > 0) {
+    $int6 = lc_param(enum(int, loc, poh_aquarium_loclist, %poh_aquarium_floorplan_selected), poh_loc_size);
+    $int7 = $int6;
+    $int5 = calc($int7 * $int6);
+} else {
+    return;
+}
+while ($int9 < $int7) {
+    while ($int8 < $int6) {
+        $intarray0($int10) = calc($int1 + 16 * $int9 + $int8);
+        $int8 = calc($int8 + 1);
+        $int10 = calc($int10 + 1);
+    }
+    $int8 = 0;
+    $int9 = calc($int9 + 1);
+}
+while ($int10 < 9) {
+    $intarray0($int10) = -1;
+    $int10 = calc($int10 + 1);
+}
+def_int $int12 = 0;
+def_int $int13 = 0;
+$int10 = 0;
+while ($int10 < $int5) {
+    $int12, $int13 = ~script11304($intarray0($int10));
+    if ($int12 < $int2 | $int13 > 15 | $intarray0($int10) < -1 | ~script11306($intarray0($int10)) = 1) {
+        $int4 = 1;
+        $intarray0($int10) = -1;
+    }
+    $int10 = calc($int10 + 1);
+}
+$int10 = 0;
+if ($int4 = 1) {
+    $rgb11 = ^red;
+}
+while ($int10 < $int5) {
+    if ($intarray0($int10) ! -1 & cc_find($component0, $intarray0($int10)) = true) {
+        if ($int4 = 0 & $intarray0($int10) = $int1) {
+            cc_setop(1, "Build");
+        }
+        cc_settrans(0);
+        cc_setcolour($rgb11);
+    }
+    $int10 = calc($int10 + 1);
+}

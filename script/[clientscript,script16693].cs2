@@ -1,0 +1,37 @@
+// 16693
+[clientscript,script16693](component $component0, int $int1)
+cc_deleteall($component0);
+~cc_add_background($component0, if_getnextsubid($component0), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, background_default, true);
+def_int $int2 = db_find_with_count(season2022_task_dbtable:col0, $int1);
+def_dbrow $dbrow3 = db_findnext;
+if ($int2 = 0 | $dbrow3 = null) {
+    ~cc_add_text($component0, if_getnextsubid($component0), 0, 5, ^setpos_abs_centre, ^setpos_abs_top, 20, 60, ^setsize_minus, ^setsize_abs, text_title_section, "Coming Soon");
+    ~cc_add_graphic($component0, if_getnextsubid($component0), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 66, 66, ^setsize_abs, ^setsize_abs, rs3_icon_lock_33px);
+    ~error("Unable to find a Task DBROW for ID: <tostring($int1)>");
+    return;
+}
+def_string $string0 = db_getfield($dbrow3, season2022_task_dbtable:col1, 0);
+~cc_add_text($component0, if_getnextsubid($component0), 0, 5, ^setpos_abs_centre, ^setpos_abs_top, 20, 60, ^setsize_minus, ^setsize_abs, text_title_section, $string0);
+def_string $string1 = db_getfield($dbrow3, season2022_task_dbtable:col2, 0);
+if ($int1 > 1 & testbit(%season2022_task_unlock, calc($int1 - 2)) = ^false) {
+    if (compare($string1, "Coming Soon") ! 0) {
+        ~cc_add_text($component0, if_getnextsubid($component0), 5, 65, ^setpos_abs_centre, ^setpos_abs_top, 20, 90, ^setsize_minus, ^setsize_minus, text_body_default, $string1);
+        cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    } else {
+        ~cc_add_graphic($component0, if_getnextsubid($component0), 5, 0, ^setpos_abs_centre, ^setpos_abs_centre, 66, 66, ^setsize_abs, ^setsize_abs, rs3_icon_lock_33px);
+    }
+    return;
+}
+if (%season2022_tier_unlocked < 0) {
+    return;
+}
+if ($int1 > %season2022_tier_unlocked) {
+    ~cc_add_text($component0, if_getnextsubid($component0), 0, 65, ^setpos_abs_centre, ^setpos_abs_top, 20, 90, ^setsize_minus, ^setsize_minus, text_body_default, "Complete the previous task to unlock this one.");
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    return;
+}
+def_int $int4 = calc(db_getfieldcount($dbrow3, season2022_task_dbtable:col3) - 1);
+def_int $int5 = max(0, min(calc(%season2022_tier_unlocked - $int1), $int4));
+def_string $string2 = db_getfield($dbrow3, season2022_task_dbtable:col3, $int5);
+~cc_add_text($component0, if_getnextsubid($component0), 0, 65, ^setpos_abs_centre, ^setpos_abs_top, 20, 90, ^setsize_minus, ^setsize_minus, text_body_default, $string2);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);

@@ -1,0 +1,29 @@
+// 8167
+[proc,script8167](component $component0, int $int1)
+~if_highlight_clear_channel(1);
+if (cc_find($component0, $int1) = true) {
+    if_opensubclient(toplevel_v2:state_change_notifications, toplevel_v2_lock_notification);
+    if (has_nxt = true) {
+        ~script8169(0, 29, false);
+    } else {
+        ~script8169(0, 29, true);
+    }
+    ~script115;
+    if (%toplevel_v2_customization_lock = 1) {
+        sound_vorbis_volume(tli_lock, 1, 15, 120);
+        if_setontimer("script8168(event_com, 29, 28)", toplevel_v2_lock_notification:animation_layer);
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, ~script8170(29));
+        if (has_nxt = false) {
+            ~script8169(19, 29, false);
+        }
+    } else {
+        sound_vorbis_volume(tli_unlock, 1, 10, 120);
+        if_setontimer("script8168(event_com, 0, 1)", toplevel_v2_lock_notification:animation_layer);
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, ~script8170(0));
+        if (has_nxt = false) {
+            ~script8169(0, 10, false);
+        }
+    }
+    cc_setop(1, "");
+    cc_setonop(null);
+}

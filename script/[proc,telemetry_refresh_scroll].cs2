@@ -1,0 +1,63 @@
+// 11825
+[proc,telemetry_refresh_scroll](int $int0, int $int1, int $int2, int $int3, component $component4, component $component5, component $component6, component $component7, component $component8, int $int9, int $int10)
+def_int $int11 = 33;
+if ($int0 = 1 & %varclientbit_32703 = 1) {
+    $int11 = 0;
+    if_sethide(true, $component8);
+} else {
+    if_sethide(false, $component8);
+}
+if_setsize(0, $int11, ^setsize_minus, ^setsize_abs, $component8);
+if_setsize(0, $int11, ^setsize_minus, ^setsize_minus, $component7);
+if_setposition(0, $int11, ^setpos_abs_left, ^setpos_abs_bottom, $component5);
+def_int $int12 = calc($int2 * 27 + $int3 * 18 + max(0, calc($int3 - 1)) * 4);
+def_int $int13 = if_getwidth($component7);
+def_int $int14 = if_getheight($component7);
+def_int $int15 = 0;
+def_int $int16 = 0;
+if (($int0 = 2 | ~script6431 = true & $int0 = 1) & $int1 > $int13) {
+    $int16 = 1;
+    $int14 = calc($int14 - 16);
+}
+if ($int12 > $int14) {
+    $int15 = 1;
+    $int13 = calc($int13 - 16);
+    if ($int0 = 2 & $int16 = 0 & $int1 > $int13) {
+        $int16 = 1;
+        $int14 = calc($int14 - 16);
+    }
+}
+if_setscrollsize(max($int1, $int13), max($int12, $int14), $component6);
+if ($int0 = 1 & ~script6431 = false) {
+    $int10 = 0;
+}
+if_setsize($int13, $int14, ^setsize_abs, ^setsize_abs, $component7);
+if_setscrollpos($int10, $int9, $component6);
+if ($int15 = 1 & $int16 = 1) {
+    if_setsize(16, $int14, ^setsize_abs, ^setsize_abs, $component4);
+    if_setsize($int13, 16, ^setsize_abs, ^setsize_abs, $component5);
+} else {
+    if_setsize(16, $int11, ^setsize_abs, ^setsize_minus, $component4);
+    if_setsize(0, 16, ^setsize_minus, ^setsize_abs, $component5);
+}
+def_int $int17 = 0;
+if ($int16 = 1) {
+    ~rs3_scrollbar_horizontal($component5, $component6);
+    if_sethide(false, $component5);
+    $int17 = 3;
+} else {
+    if_sethide(true, $component5);
+}
+if ($int15 = 1) {
+    ~rs3_scrollbar_vertical($component4, $component6);
+    if_sethide(false, $component4);
+    $int17 = 12;
+} else {
+    if_sethide(true, $component4);
+}
+if ($int17 > 0) {
+    if ($int16 = 1 & $int15 = 1) {
+        $int17 = 15;
+    }
+    ~telemetry_setup_scroll($component4, $component5, $component6, $int17);
+}

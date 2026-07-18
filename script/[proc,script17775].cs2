@@ -1,0 +1,44 @@
+// 17775
+[proc,script17775](int $int0)(int)
+def_component $component1 = necro_ritual_information:output_layer;
+def_component $component2 = necro_ritual_information:output_holding_layer;
+def_component $component3 = necro_ritual_information:output_scrollbar_layer;
+def_component $component4 = necro_ritual_information:output_title_layer;
+def_int $int5 = 18;
+def_int $int6 = calc(if_getwidth($component1) - if_getwidth($component4) - 16 - 8 * 2);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = calc($int5 * 4);
+def_int $int10 = 3;
+def_int $int11 = 3;
+if (if_getwidth($component1) < calc(201 + 8 * 2)) {
+    $int6 = calc(if_getwidth($component1) - 8 * 2 - 16 - 2);
+    if_setposition(8, calc($int5 + 8 * 2), ^setpos_abs_left, ^setpos_abs_top, $component2);
+    if_setposition(2, calc($int5 + 8 * 2), ^setpos_abs_right, ^setpos_abs_top, $component3);
+    $int7 = calc($int7 + $int5);
+    $int10 = calc($int10 + 2);
+    $int9 = calc($int5 * 3);
+} else {
+    if_setposition(calc(if_getwidth($component4) + 8 * 2), 8, ^setpos_abs_left, ^setpos_abs_top, $component2);
+    if_setposition(0, 8, ^setpos_abs_right, ^setpos_abs_top, $component3);
+}
+if_setsize($int6, $int5, ^setsize_abs, ^setsize_abs, $component2);
+$int8 = calc($int8 + ~script17776($int8, $int5, $int6, $component2));
+$int8 = calc($int8 + ~script17777($int8, $int5, $int6, $component2));
+$int8 = calc($int8 + ~script17778($int8, $int5, $int6, $component2));
+$int8 = calc($int8 + ~script17779($int8, $int5, $int6, $component2));
+$int8 = calc($int8 + ~script17780($int8, $int5, $int6, $component2));
+if ($int8 > $int9) {
+    if_sethide(false, $component3);
+    if_setsize(16, $int9, ^setsize_abs, ^setsize_abs, $component3);
+    if_setscrollpos(0, 0, $component2);
+    if_setscrollsize(0, $int8, $component2);
+    ~rs3_scrollbar_vertical($component3, $component2);
+} else {
+    if_sethide(true, $component3);
+    if_setscrollsize(0, 0, $component2);
+}
+if_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_top, $component1);
+if_setsize(calc(if_getwidth(necro_ritual_information:content_layer) - if_getwidth($component1)), calc(min($int8, $int9) + 8 * $int10), ^setsize_minus, ^setsize_abs, $component1);
+if_setsize($int6, min($int8, $int9), ^setsize_abs, ^setsize_abs, $component2);
+return(calc($int7 + min($int8, $int9) + 8 * $int11));

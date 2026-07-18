@@ -1,0 +1,17 @@
+// 2638
+[proc,script2638]
+if (~script6431 = false) {
+    return;
+}
+def_component $component0 = toplevel_v2_combat_bar_mobile_buttons:button_layer_right;
+if (testbit(%mobile_has_action_bar_buttons_switched, calc(~script11800(1043) - 1)) = ^true) {
+    $component0 = toplevel_v2_combat_bar_mobile_buttons:button_layer_left;
+}
+def_int $int1 = if_getheight(toplevel_v2:game_area);
+def_int $int2 = if_getheight(toplevel_v2_mobile:settings_mobile);
+def_int $int3 = calc($int1 - 410 - $int2 - 10);
+if (%toplevel_v2_mobile_toggle_right_action_buttons = 0 & %varclientbit_38843 > 0 & %mobile_interface_mode = 1 & $int3 <= if_getheight($component0)) {
+    if_sethide(true, $component0);
+    return;
+}
+if_sethide(false, $component0);

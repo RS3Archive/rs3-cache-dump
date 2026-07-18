@@ -1,0 +1,34 @@
+// 20710
+[clientscript,script20710](component $component0, int $int1)
+if (%construction_house_furniture_portal_nexus_drag_com = null) {
+    return;
+}
+if (%construction_house_furniture_portal_nexus_drag_com = $component0 & %construction_house_furniture_portal_nexus_drag_id = $int1) {
+    ~script20709;
+    return;
+}
+def_int $int2 = ui_getcategory($int1);
+if (%construction_house_furniture_portal_nexus_drag_over_last ! -1 & %construction_house_furniture_portal_nexus_drag_over_last ! $int2) {
+    ~script20709;
+}
+%construction_house_furniture_portal_nexus_drag_over_last = $int2;
+if ($int2 = 43) {
+    if (cc_findbycategory($component0, $int2, 1) = 1) {
+        cc_sethide(false);
+    }
+    return;
+}
+if (cc_findbycategory($component0, $int2, 0) = 1) {
+    cc_setsize(0, calc(34 * 2), ^setsize_minus, ^setsize_abs);
+    if_setscrollsize(0, calc(if_getscrollheight(construction_house_furniture_portal_nexus_configure:active_scrolling) + 34), construction_house_furniture_portal_nexus_configure:active_scrolling);
+    ~scrollbar_resize(construction_house_furniture_portal_nexus_configure:active_scrollbar, construction_house_furniture_portal_nexus_configure:active_scrolling, if_getscrolly(construction_house_furniture_portal_nexus_configure:active_scrolling));
+}
+if (cc_findbycategory($component0, $int2, 1) = 1 & .cc_findbycategory($component0, $int2, 2) = 1) {
+    if ($int2 < ui_getcategory(%construction_house_furniture_portal_nexus_drag_id)) {
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    } else if ($int2 > ui_getcategory(%construction_house_furniture_portal_nexus_drag_id)) {
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+        .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

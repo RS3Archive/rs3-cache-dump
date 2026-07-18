@@ -1,0 +1,50 @@
+// 12234
+[proc,script12234](struct $struct0)
+def_int $int1 = if_getwidth(struct_param($struct0, prayer_child_top));
+def_int $int2 = if_getwidth(struct_param($struct0, prayer_child_ticker));
+def_int $int3 = if_getwidth(struct_param($struct0, prayer_child_header_icon));
+def_int $int4 = calc($int1 - ($int2 + $int3 + 4));
+def_boolean $boolean5 = ~script6431;
+if ($int1 < 108) {
+    if_sethide(true, struct_param($struct0, prayer_child_header_title));
+    if_sethide(true, struct_param($struct0, prayer_child_header_icon));
+    if_sethide(false, struct_param($struct0, prayer_child_ticker));
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, struct_param($struct0, prayer_child_ticker));
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, struct_param($struct0, prayer_child_ticker));
+    ~script11993(struct_param($struct0, prayer_child_ticker_text), 0);
+} else if ($int1 >= 108 & $boolean5 = false) {
+    if_sethide(true, struct_param($struct0, prayer_child_header_title));
+    if_sethide(false, struct_param($struct0, prayer_child_header_icon));
+    if_sethide(false, struct_param($struct0, prayer_child_ticker));
+    if_setposition(4, 0, ^setpos_abs_right, ^setpos_abs_centre, struct_param($struct0, prayer_child_ticker));
+    if_setsize(65, 0, ^setsize_abs, ^setsize_minus, struct_param($struct0, prayer_child_ticker));
+    ~script11993(struct_param($struct0, prayer_child_ticker_text), 0);
+} else if ($boolean5 = true) {
+    if_sethide(false, struct_param($struct0, prayer_child_header_title));
+    if_setposition(-14, 0, ^setpos_abs_centre, ^setpos_abs_centre, struct_param($struct0, prayer_child_header_title));
+    if_setsize($int4, 0, ^setsize_abs, ^setsize_minus, struct_param($struct0, prayer_child_header_title));
+    if (%prayer_client_showing_active_summary = 1) {
+        switch_int (%prayer_mode) {
+            case 0 :
+                if_settext("Active Prayers", struct_param($struct0, prayer_child_header_title));
+            case 1 :
+                if_settext("Active Curses", struct_param($struct0, prayer_child_header_title));
+        }
+    } else {
+        switch_int (%prayer_mode) {
+            case 0 :
+                if_settext("Prayers", struct_param($struct0, prayer_child_header_title));
+            case 1 :
+                if_settext("Curses", struct_param($struct0, prayer_child_header_title));
+        }
+    }
+    if_sethide(false, struct_param($struct0, prayer_child_header_icon));
+    if_sethide(false, struct_param($struct0, prayer_child_ticker));
+    if_setposition(4, 0, ^setpos_abs_right, ^setpos_abs_centre, struct_param($struct0, prayer_child_ticker));
+    if_setsize(65, 0, ^setsize_abs, ^setsize_minus, struct_param($struct0, prayer_child_ticker));
+    ~script11993(struct_param($struct0, prayer_child_ticker_text), 0);
+} else {
+    if_sethide(true, struct_param($struct0, prayer_child_header_title));
+    if_sethide(true, struct_param($struct0, prayer_child_header_icon));
+    if_sethide(true, struct_param($struct0, prayer_child_ticker));
+}

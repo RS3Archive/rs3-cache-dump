@@ -1,0 +1,43 @@
+// 13056
+[clientscript,script13056](stat $stat0, int $int1, component $component2, component $component3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+if (~xp_reward_checkskill($stat0, %xp_reward_minlevel, %xp_reward_item, 1) = false) {
+    return;
+}
+if (%xp_reward_currentchoice = $int1) {
+    %xp_reward_currentchoice = 0;
+    $int4 = 1;
+    %xp_reward_previouschoice = 1;
+}
+if (%xp_reward_secondchoice = $int1) {
+    %xp_reward_secondchoice = 0;
+    $int5 = 1;
+    %xp_reward_previouschoice = 2;
+}
+if ($int4 = 0 & $int5 = 0) {
+    if (%xp_reward_currentchoice = 0) {
+        %xp_reward_currentchoice = $int1;
+        %xp_reward_previouschoice = 1;
+    } else if (%xp_reward_secondchoice = 0) {
+        %xp_reward_secondchoice = $int1;
+        %xp_reward_previouschoice = 2;
+    } else if (%xp_reward_currentchoice ! 0 & %xp_reward_secondchoice ! 0) {
+        if (%xp_reward_previouschoice = 1) {
+            %xp_reward_secondchoice = $int1;
+            %xp_reward_previouschoice = 2;
+        } else {
+            %xp_reward_currentchoice = $int1;
+            %xp_reward_previouschoice = 1;
+        }
+    }
+}
+def_int $int6 = calc(enum_getoutputcount(xp_reward_buttonlist_multi2) - 1);
+while ($int6 >= 0) {
+    $component2 = enum(int, component, xp_reward_buttonlist_multi2, $int6);
+    if ($component2 ! null) {
+        if_callonresize($component2);
+    }
+    $int6 = calc($int6 - 1);
+}
+if_callonresize($component3);

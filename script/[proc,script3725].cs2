@@ -1,0 +1,28 @@
+// 3725
+[proc,script3725](component $component0)(boolean)
+if (if_hassubmodal(~script8074, wheel_of_fortune) = true) {
+    if (%uitutorial_current_parent = uitutorial_treasure_hunter) {
+        return(false);
+    }
+    if (%uitutorial_current_parent ! null & db_getfield(%uitutorial_current_parent, uitutorial:col12, 0) ! -1) {
+        return(false);
+    }
+}
+def_component $component1 = null;
+def_dbrow $dbrow2 = null;
+def_int $int3 = -1;
+switch_int (%mobile_zoom) {
+    case 5 :
+        $component1 = ~script3724($component0);
+        db_find(interface_fullscreen_interface:col1, $component1);
+        $dbrow2 = db_findnext;
+        if ($dbrow2 = null) {
+            return(true);
+        }
+    case 2 :
+        $int3 = ~script441(%toplevel_v2_parent_last_parent_index);
+        if (db_getfield(%uitutorial_current_parent, uitutorial:col10, 0) ! %toplevel_v2_parent_last_parent_index | db_getfield(%uitutorial_current_parent, uitutorial:col11, 0) ! $int3) {
+            return(true);
+        }
+}
+return(false);

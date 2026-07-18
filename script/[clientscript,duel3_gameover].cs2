@@ -1,0 +1,29 @@
+// 6899
+[clientscript,duel3_gameover]
+if (%worldswitcher_1stfavfailed = true) {
+    if_setposition(0, 30, ^setpos_abs_centre, ^setpos_abs_top, duel3_gameover:opponent_area);
+    if_sethide(false, duel3_gameover:stake_area);
+    cc_deleteall(duel3_gameover:stake_area);
+    ~script6902(duel3_gameover:stake);
+    if_setoninvtransmit("script6901(event_com){duelwinnings, minecart_temp_inv}", duel3_gameover:stake);
+} else {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, duel3_gameover:opponent_area);
+    if_sethide(true, duel3_gameover:stake_area);
+    cc_deleteall(duel3_gameover:stake_area);
+    cc_deleteall(duel3_gameover:stake);
+    if_setoninvtransmit(null, duel3_gameover:stake);
+}
+def_component $component0 = duel3_gameover:mainmodal_window_background;
+def_component $component1 = duel3_gameover:mainmodal_window_border;
+def_component $component2 = duel3_gameover:mainmodal_window_content;
+def_int $int3 = 89456658;
+~script9554($component0, $component1, $component2, %duel_title_name, toplevel_v2_default_main_modal_skin_data);
+if (string_length(%duel3_opponentname) > 0) {
+    if_settext(%duel3_opponentname, duel3_gameover:name);
+    if_setpausetext("Offer rematch to <removetags(%duel3_opponentname)>", duel3_gameover:rematch);
+    if_setontimer("script6900(event_com, calc(clientclock + 50))", duel3_gameover:hooks);
+} else {
+    if_settext("(Gone offline)", duel3_gameover:name);
+    if_setontimer(null, duel3_gameover:hooks);
+}
+if_sethide(true, duel3_gameover:rematch);

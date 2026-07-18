@@ -1,0 +1,29 @@
+// 13191
+[proc,script13191](component $component0, int $int1)(string, graphic)
+if ($int1 < 0) {
+    return("", null);
+}
+def_string $string0 = "";
+def_graphic $graphic2 = null;
+def_obj $obj3 = null;
+if ($int1 < 28) {
+    if ($component0 ! mtxmgt_store_banner_overlay:currency_buy_keepsake_keys_button & %mtx_batch11_customiser_consumable > 0) {
+        $obj3 = inv_getobj(inv, $int1);
+        if (~script13088($obj3) = 1) {
+            $string0 = oc_name($obj3);
+        }
+    }
+} else {
+    switch_int (calc($int1 - 28)) {
+        case 0 :
+            $string0 = "Buy <struct_param(mtx_batch11_keepsake_buy_1, mtxmgt_name)>";
+        case 1 :
+            $string0 = "Buy <struct_param(mtx_batch11_keepsake_buy_3, mtxmgt_name)>";
+        case 2 :
+            $string0 = "Buy <struct_param(mtx_batch11_keepsake_buy_6, mtxmgt_name)>";
+    }
+    if (string_length($string0) > 0) {
+        $graphic2 = "wardrobe_icon_keepsake_16px,0";
+    }
+}
+return($string0, $graphic2);

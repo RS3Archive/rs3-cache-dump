@@ -1,0 +1,36 @@
+// 18875
+[proc,script18875](dbrow $dbrow0, struct $struct1, int $int2)(graphic)
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+if ($dbrow0 ! null) {
+    $graphic3 = ~script18922($dbrow0, 7);
+    switch_int (map_lang) {
+        case 1 :
+            $graphic4 = ~script18922($dbrow0, 8);
+        case 2 :
+            $graphic4 = ~script18922($dbrow0, 9);
+        case 3 :
+            $graphic4 = ~script18922($dbrow0, 10);
+    }
+} else if ($struct1 ! null) {
+    $graphic3 = struct_param($struct1, calendar_header_graphic_en);
+    switch_int (map_lang) {
+        case 1 :
+            $graphic4 = struct_param($struct1, calendar_header_graphic_de);
+        case 2 :
+            $graphic4 = struct_param($struct1, calendar_header_graphic_fr);
+        case 3 :
+            $graphic4 = struct_param($struct1, calendar_header_graphic_pt);
+    }
+}
+if ($graphic4 ! null) {
+    return($graphic4);
+} else if ($graphic3 ! null) {
+    return($graphic3);
+}
+db_find(calendar_category:col0, $int2);
+def_dbrow $dbrow5 = db_findnext;
+if ($dbrow5 ! null) {
+    $graphic3 = db_getfield($dbrow5, calendar_category:col2, 0);
+}
+return($graphic3);

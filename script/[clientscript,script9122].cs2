@@ -1,0 +1,39 @@
+// 9122
+[clientscript,script9122](int $int0, obj $obj1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, string $string0)
+%wof_reward_slot = $int0;
+%wof_claim_state = $int7;
+%wof_claim_to_inv = $int8;
+%wof_claim_to_bank = $int9;
+%wof_result_slot_client = $int0;
+%wof_trh_reward_rarity = $int4;
+%wof_mode = $int10;
+%trh_multispin_continue = $int11;
+if (%wof_reward_slot <= 0) {
+    if_sethide(true, wheel_of_fortune:reward_layer);
+    return;
+}
+if_sethide(false, wheel_of_fortune:reward_won_item_layer);
+if (%wof_claim_state = 7) {
+    ~wof_button_disable;
+    return;
+}
+def_string $string1 = "<col=FFCD37><oc_name($obj1)>";
+def_string $string2 = "<col=FF0000>";
+switch_struct (~script16161) {
+    case trh109_promo, trh184_promo :
+        $string2 = ~script16595($int3);
+}
+if ($int3 > 1) {
+    $string1 = "<$string2><tostring($int3)></col>x <$string1>";
+}
+~script16706(wheel_of_fortune:reward_item_won_gems_layer, $obj1, $int2, $int3, $int4, $int5);
+~script14943(wheel_of_fortune:reward_won_item_panel, $string1, $string0, oc_members($obj1), $int5);
+~wof_button_setup_claim($obj1, $int2);
+~wof_button_setup_claim_bank($obj1, $int2);
+~wof_button_setup_claim_inv($obj1, $int2);
+~wof_button_setup_discard($obj1, $int2);
+if (%wof_trh_interface_state = 2) {
+    ~script6566;
+} else {
+    ~wof_hotkey(1);
+}

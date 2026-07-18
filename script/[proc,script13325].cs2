@@ -1,0 +1,58 @@
+// 13325
+[proc,script13325](struct $struct0, int $int1, int $int2)
+cc_deleteall(mtxmgt:modular_pet_armour_build);
+cc_deleteall(mtxmgt:modular_pet_armour_control);
+if_sethide(false, mtxmgt:modular_pet_buttons_slots);
+def_int $int3 = if_getnextsubid(mtxmgt:modular_pet_buttons_slots);
+def_int $int4 = 1;
+def_int $int5 = 1;
+def_int $int6 = 0;
+def_int $int7 = 1;
+def_int $int8 = 5;
+while ($int5 <= 7) {
+    if_sethide(true, ~script13631($int5));
+    $int5 = calc($int5 + 1);
+}
+$int5 = 1;
+while ($int5 <= struct_param($struct0, mtxmgt_pet_number_of_outfit_models)) {
+    if ($int1 = $int5) {
+        if_sethide(false, ~script13631($int5));
+        $int4 = 4;
+    } else {
+        $int4 = 1;
+    }
+    $int3 = ~script11605(mtxmgt:modular_pet_armour_build, mtxmgt:modular_pet_armour_control, rs3tli_30px_button, 0, $int8, $int3, $int4, "Select", "Unselect", ~script2412($int5, $struct0));
+    if (cc_find(mtxmgt:modular_pet_armour_control, $int5) = true) {
+        cc_setopcursor(1, cursor_use);
+    }
+    ~script4512(mtxmgt:modular_pet_armour_build, calc(30 - 2 * 2), calc(30 - 2 * 2), 2, calc($int8 + 2), ~script2679($struct0, $int5));
+    $int7 = calc($int7 + 1);
+    $int8 = calc($int8 + (30 + 4));
+    $int5 = calc($int5 + 1);
+    $int6 = calc($int6 + 1);
+}
+cc_deleteall(mtxmgt:modular_pet_texture_build);
+cc_deleteall(mtxmgt:modular_pet_texture_control);
+if (struct_param($struct0, mtxmgt_pet_number_of_retexture_options) > 1) {
+    if_sethide(false, mtxmgt:modular_pet_buttons_texture);
+    $int3 = if_getnextsubid(mtxmgt:modular_pet_buttons_texture);
+    $int8 = 5;
+    $int5 = 1;
+    while ($int5 <= struct_param($struct0, mtxmgt_pet_number_of_retexture_options)) {
+        if ($int2 = $int5) {
+            $int4 = 4;
+        } else {
+            $int4 = 1;
+        }
+        ~script11605(mtxmgt:modular_pet_texture_build, mtxmgt:modular_pet_texture_control, rs3tli_30px_button, 0, $int8, $int3++, $int4, "Select", "Unselect", ~script2431($struct0, $int5));
+        if (cc_find(mtxmgt:modular_pet_texture_control, $int5) = true) {
+            cc_setopcursor(1, cursor_use);
+        }
+        ~script4512(mtxmgt:modular_pet_texture_build, calc(30 - 8), calc(30 - 8), 4, calc($int8 + 4), ~script2737($struct0, $int5));
+        if (~script1529($struct0, $int5) = 0) {
+            ~script4512(mtxmgt:modular_pet_texture_build, 14, 18, 18, calc($int8 + 15), icon_padlock_new_trh_catwalk);
+        }
+        $int5 = calc($int5 + 1);
+        $int8 = calc($int8 + (30 + 4));
+    }
+}

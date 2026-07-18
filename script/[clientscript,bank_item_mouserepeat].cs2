@@ -1,0 +1,25 @@
+// 9301
+[clientscript,bank_item_mouserepeat](component $component0, int $int1)
+def_obj $obj2 = null;
+if (cc_find(bank:bank_inv, $int1) = true) {
+    $obj2 = cc_getinvobject;
+} else {
+    $obj2 = inv_getobj(bank, $int1);
+}
+if ($obj2 ! null & oc_hasvarobj($obj2) = true & %bank_transmitting_objvar = 0) {
+    ~script17211($obj2);
+    return;
+}
+~script14421($obj2, $int1);
+if (%bank_searchmode_client = true) {
+    %tli_optext_custom_string = "Item is in tab <tostring(~script14374(~bank_get_tab($int1)))>";
+} else {
+    switch_int (%bank_filter) {
+        case 1 :
+            %tli_optext_custom_string = "Item is in tab <tostring(~script14374(~bank_get_tab($int1)))><br><br><~script4747($obj2)>";
+        case default :
+            %tli_optext_custom_string = "Item is in tab <tostring(~script14374(~bank_get_tab($int1)))>";
+        case 0 :
+            %tli_optext_custom_string = "";
+    }
+}

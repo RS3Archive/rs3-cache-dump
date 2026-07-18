@@ -1,0 +1,30 @@
+// 5910
+[proc,script5910]
+if (%machinima_remember_selection_skybox = 0) {
+    if_settext("You need to select a skybox first", machinima_skybox_filter:skybox_base);
+    if_setcolour(^red, machinima_skybox_filter:skybox_base);
+} else {
+    if_settext("Skybox base values : <enum(int, string, machinima_interface_skybox, %machinima_remember_selection_skybox)>", machinima_skybox_filter:skybox_base);
+    if_setcolour(^white, machinima_skybox_filter:skybox_base);
+}
+def_int $int0 = calc(if_gety(machinima_skybox_filter:volumetric_density) + if_getheight(machinima_skybox_filter:volumetric_density));
+if ($int0 >= if_getheight(machinima_skybox_filter:scroll_layer)) {
+    if_setscrollsize(0, $int0, machinima_skybox_filter:scroll_layer);
+    ~rs3_scrollbar_vertical(machinima_skybox_filter:scroll_bar, machinima_skybox_filter:scroll_layer);
+} else {
+    if_setscrollsize(0, 0, machinima_skybox_filter:scroll_layer);
+    if_setscrollpos(0, 0, machinima_skybox_filter:scroll_layer);
+    cc_deleteall(machinima_skybox_filter:scroll_layer);
+}
+if_settext(tostring(%machinima_custom_sun_colour_r), machinima_skybox_filter:sun_ambient_colour_r);
+if_settext(tostring(%machinima_custom_sun_colour_g), machinima_skybox_filter:sun_ambient_colour_g);
+if_settext(tostring(%machinima_custom_sun_colour_b), machinima_skybox_filter:sun_ambient_colour_b);
+if_settext(tostring(%machinima_custom_fog_colour_r), machinima_skybox_filter:fog_colour_r);
+if_settext(tostring(%machinima_custom_fog_colour_g), machinima_skybox_filter:fog_colour_g);
+if_settext(tostring(%machinima_custom_fog_colour_b), machinima_skybox_filter:fog_colour_b);
+if_settext(tostring(%machinima_custom_sun_ambient), machinima_skybox_filter:sun_ambient_text);
+if_settext(tostring(%machinima_custom_fog_depth), machinima_skybox_filter:fog_depth_text);
+if_settext(tostring(%machinima_custom_volumetric_colour_r), machinima_skybox_filter:volumetric_colour_r);
+if_settext(tostring(%machinima_custom_volumetric_colour_g), machinima_skybox_filter:volumetric_colour_g);
+if_settext(tostring(%machinima_custom_volumetric_colour_b), machinima_skybox_filter:volumetric_colour_b);
+if_settext(tostring(%machinima_custom_volumetric_depth), machinima_skybox_filter:volumetric_density_text);

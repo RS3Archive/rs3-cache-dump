@@ -1,0 +1,46 @@
+// 17327
+[proc,script17327]
+def_obj $obj0 = null;
+def_int $int1 = 0;
+def_string $string0 = "";
+def_graphic $graphic2 = null;
+$obj0, $int1, $string0 = ~script17297;
+if_sethide(false, trh192_overlay:reward_claim_prize_graphic);
+if_sethide(true, trh192_overlay:reward_claim_prize_model);
+if ($obj0 ! null) {
+    if ($int1 > 1) {
+        if_settext("<tostring($int1)> x <oc_name($obj0)>", trh192_overlay:reward_claim_prize_title_text);
+    } else {
+        if_settext(oc_name($obj0), trh192_overlay:reward_claim_prize_title_text);
+    }
+    switch_obj ($obj0) {
+        case wof_lamp_prismatic_large :
+            $graphic2 = icon_lamp_huge;
+        case wof_falling_star_prismatic :
+            $graphic2 = icon_prismaticstar;
+        case trh192_archers_outfit_bow :
+            if_sethide(false, trh192_overlay:reward_claim_prize_model);
+            if_sethide(true, trh192_overlay:reward_claim_prize_graphic);
+    }
+    if ($graphic2 ! null) {
+        if_setgraphic($graphic2, trh192_overlay:reward_claim_prize_graphic);
+    } else if ($int1 = 1) {
+        if_setobject_highres($obj0, trh192_overlay:reward_claim_prize_graphic);
+    } else {
+        if_setobject($obj0, $int1, trh192_overlay:reward_claim_prize_graphic);
+    }
+    if (~script17296 = 19) {
+        if_setgraphic("trh_rarity_gems,3", trh192_overlay:target_progress_reward_preview_graphic);
+        if_sethide(true, trh192_overlay:target_progress_reward_preview_model);
+        if_sethide(false, trh192_overlay:target_progress_reward_preview_graphic);
+    } else if ($graphic2 ! null) {
+        if_setgraphic($graphic2, trh192_overlay:target_progress_reward_preview_graphic);
+        if_sethide(false, trh192_overlay:target_progress_reward_preview_graphic);
+        if_sethide(true, trh192_overlay:target_progress_reward_preview_model);
+    } else {
+        if_setobject($obj0, $int1, trh192_overlay:target_progress_reward_preview_model);
+        if_sethide(true, trh192_overlay:target_progress_reward_preview_graphic);
+        if_sethide(false, trh192_overlay:target_progress_reward_preview_model);
+    }
+    ~script17328($obj0, max(1, $int1), $string0);
+}

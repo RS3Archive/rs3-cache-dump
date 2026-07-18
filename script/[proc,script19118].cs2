@@ -1,0 +1,28 @@
+// 19118
+[proc,script19118](dbrow $dbrow0, int $int1)(string)
+if ($dbrow0 = null) {
+    return("");
+}
+if (db_getfieldcount($dbrow0, mtxmgt_cosmetic:col16) ! 0) {
+    return(~script18207($dbrow0));
+}
+def_string $string0 = "";
+if (db_getfieldcount($dbrow0, mtxmgt_cosmetic:col3) > 0) {
+    $string0 = db_getfield($dbrow0, mtxmgt_cosmetic:col3, 0);
+} else {
+    $string0 = db_getfield($dbrow0, mtxmgt_cosmetic:col2, 0);
+}
+if (compare($string0, "") ! 0) {
+    if ($int1 = 1) {
+        switch_int (db_getfield($dbrow0, mtxmgt_cosmetic:col19, 0)) {
+            case 0 :
+                $string0 = "<$string0> (Male)";
+            case 1 :
+                $string0 = "<$string0> (Female)";
+        }
+    }
+    if (db_getfield($dbrow0, mtxmgt_cosmetic:col5, 0) = 3) {
+        $string0 = append($string0, " Title");
+    }
+}
+return($string0);

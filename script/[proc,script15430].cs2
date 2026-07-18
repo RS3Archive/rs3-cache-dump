@@ -1,0 +1,55 @@
+// 15430
+[proc,script15430](int $int0, dbrow $dbrow1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+switch_int ($int0) {
+    case 1 :
+        $component2 = trh193_overlay:bonus_option_1_title_text;
+        $component3 = trh193_overlay:bonus_option_1_info_text;
+        $component4 = trh193_overlay:bonus_option_1_build_layer;
+    case 2 :
+        $component2 = trh193_overlay:bonus_option_2_title_text;
+        $component3 = trh193_overlay:bonus_option_2_info_text;
+        $component4 = trh193_overlay:bonus_option_2_build_layer;
+}
+cc_deleteall($component4);
+if ($dbrow1 = null) {
+    return;
+}
+def_string $string0 = "";
+def_int $int5 = db_getfield($dbrow1, trh193_bonus:col1, 0);
+def_int $int6 = db_getfield($dbrow1, trh193_bonus:col2, 0);
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_graphic $graphic9 = null;
+def_int $int10 = 0;
+def_int $int11 = 0;
+$graphic9, $int10, $int11 = db_getfield($dbrow1, trh193_bonus:col4, 0);
+$obj7, $int8 = db_getfield($dbrow1, trh193_bonus:col3, 0);
+if ($int5 > 1 | $int6 > 0) {
+    if_settext("Bonus", $component2);
+    if ($int5 > 1) {
+        if_settext("Minimum Multipliers", $component2);
+        $string0 = "Increase all multipliers under x<tostring($int5)> on the trail to <col=FF00>x<tostring($int5)></col>!";
+    } else if ($int6 > 0) {
+        if_settext("Increase Multipliers", $component2);
+        $string0 = "Increase all multipliers on the trail by <col=FF00><tostring($int6)></col>!<br>(Max multiplier: x8)";
+    }
+    ~if_add_child_graphic($component4, 0, if_getnextsubid($component4), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int10, $int11, ^setsize_abs, ^setsize_abs, $graphic9);
+} else if ($obj7 ! null & $int8 > 0) {
+    if_settext("Reward Item", $component2);
+    if ($int8 > 1) {
+        $string0 = "<tostring($int8)> x <oc_name($obj7)>";
+    } else {
+        $string0 = oc_name($obj7);
+    }
+    if ($graphic9 ! null) {
+        ~if_add_child_graphic($component4, 0, if_getnextsubid($component4), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int10, $int11, ^setsize_abs, ^setsize_abs, $graphic9);
+    } else {
+        ~if_add_child_model($component4, 0, if_getnextsubid($component4), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 100, 100, ^setsize_abs, ^setsize_abs);
+        cc_setobject_nonum($obj7, $int8);
+        cc_setmodellighting(2048, 0, 0, 255, 255, 255, 0, 0, 0, reflec_small);
+    }
+}
+if_settext($string0, $component3);

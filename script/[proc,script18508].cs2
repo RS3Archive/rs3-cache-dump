@@ -1,0 +1,24 @@
+// 18508
+[proc,script18508]
+def_struct $struct0 = ~script18493;
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_dbrow $dbrow3 = struct_param($struct0, trh_banner_reward_track);
+def_struct $struct4 = null;
+def_graphic $graphic5 = null;
+def_int $int6 = ~script18496($struct0);
+$obj1, $int2, $struct4, $graphic5 = ~script18494($struct0);
+if ($struct4 ! null) {
+    if_setgraphic($graphic5, wheel_of_fortune:trh_banner_reward_track_final_reward_preview);
+} else if ($obj1 ! null) {
+    if_setobject($obj1, $int2, wheel_of_fortune:trh_banner_reward_track_final_reward_preview);
+}
+if (%trh_banner_reward_track_claimed = 1) {
+    if_sethide(false, wheel_of_fortune:trh_banner_reward_track_final_reward_claimed_icon);
+    if_setgraphic("aif_tick_cross_icon,0", wheel_of_fortune:trh_banner_reward_track_final_reward_claimed_icon);
+} else if (%trh_banner_reward_track_progress >= $int6) {
+    if_sethide(false, wheel_of_fortune:trh_banner_reward_track_final_reward_claimed_icon);
+    if_setgraphic("aif_tick_cross_icon,1", wheel_of_fortune:trh_banner_reward_track_final_reward_claimed_icon);
+} else {
+    if_sethide(true, wheel_of_fortune:trh_banner_reward_track_final_reward_claimed_icon);
+}

@@ -1,0 +1,17 @@
+// 17676
+[proc,script17676](struct $struct0)(string)
+def_string $string0 = "";
+if (struct_param($struct0, combatv2_buff_tooltip_full_override) = true) {
+    $string0 = ~script11088($struct0);
+} else {
+    $string0 = struct_param($struct0, combatv2_ability_name);
+    if (%toplevel_v2_legacy_combat = 1 & compare(struct_param($struct0, combatv2_ability_info_legacy_contextual), "") ! 0) {
+        $string0 = append($string0, "<br><struct_param($struct0, combatv2_ability_info_legacy_contextual)>");
+    } else if (compare(struct_param($struct0, combatv2_ability_info), "") ! 0) {
+        $string0 = append($string0, "<br><struct_param($struct0, combatv2_ability_info)>");
+    }
+}
+if (struct_param($struct0, combatv2_buff_tooltip_has_scripted_text) = true) {
+    $string0 = "<$string0><~script11087($struct0)>";
+}
+return($string0);

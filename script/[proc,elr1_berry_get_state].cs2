@@ -1,0 +1,22 @@
+// 12895
+[proc,elr1_berry_get_state](int $int0)(int)
+def_int $int1 = 0;
+if ($int0 = 1) {
+    $int1 = %elr1_berry_time_1;
+} else if ($int0 = 2) {
+    $int1 = %elr1_berry_time_2;
+} else {
+    ~error("Tuai Leit Berry Planter Code: elr1_berry_get_state called with unhandled patch ID <tostring($int0)>");
+    return(-1);
+}
+if ($int1 = 0) {
+    return(0);
+} else if (date_minutes >= calc(2520 + $int1)) {
+    return(4);
+} else if (date_minutes >= calc(scale(3, 4, 2520) + $int1)) {
+    return(3);
+} else if (date_minutes >= calc(scale(1, 4, 2520) + $int1)) {
+    return(2);
+} else {
+    return(1);
+}

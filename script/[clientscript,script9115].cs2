@@ -1,0 +1,17 @@
+// 9115
+[clientscript,script9115]
+if_setobject_nonum(%wishing_well_player_donate_obj, ^max_32bit_int, confirm_donation:confirm_item);
+if_settext(oc_name(%wishing_well_player_donate_obj), confirm_donation:confirm_item_name);
+~script9117;
+if_setonvartransmit("script9116{wishing_well_player_donate_count}", confirm_donation:confirm_item_count);
+if (%wishing_well_player_donate_obj = rs_bond | %wishing_well_player_donate_obj = rs_bond_untradeable) {
+    if_settext("Total Bonds : <tostring_localised(%wishing_well_player_total_count, true)>", confirm_donation:confirm_item_amount);
+} else if (%wishing_well_player_total_count = 1) {
+    if_settext("Value: <tostring_localised(%wishing_well_player_total_count, true)> coin", confirm_donation:confirm_item_amount);
+} else {
+    if_settext("Value: <tostring_localised(%wishing_well_player_total_count, true)> coins", confirm_donation:confirm_item_amount);
+}
+~script9119;
+if_setonvartransmit("script9118{wishing_well_player_re_donate, wishing_well_player_re_donate}", confirm_donation:add_more_stuff_layer);
+~script10687;
+if_setonvartransmit("script10685{wishing_well_player_choose_charity}", confirm_donation:charity_options_layer);

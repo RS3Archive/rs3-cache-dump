@@ -1,0 +1,95 @@
+// 3395
+[clientscript,script3395]
+def_struct $struct0 = ~trh_promo_current;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_obj $obj4 = null;
+def_int $int5 = -1;
+def_int $int6 = %trh_prize_additional_num;
+if (%trh_prize_additional_num > 0) {
+    $int1 = 1;
+}
+if (~trh_promo_current = trh211_promo) {
+    $int1 = 0;
+}
+if (%trh_infinite_progression_current_prize ! null) {
+    $obj4 = %trh_infinite_progression_current_prize;
+    $int5 = %trh_infinite_progression_current_prize_amount;
+    if (struct_param($struct0, trh_has_infinite_progress_bar) = true) {
+        if_setgraphic(if_getgraphic(wheel_of_fortune:infinite_progression_gem_graphic_1), wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+        if_sethide(false, wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+    } else {
+        if_sethide(true, wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+    }
+    if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_top, wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+    if_setposition(0, 52, ^setpos_abs_centre, ^setpos_abs_top, wheel_of_fortune:reward_layer_additional_prize_object);
+    if_setsize(87, 87, ^setsize_abs, ^setsize_abs, wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+    $int2 = 1;
+} else if (%trh_bonus_current_prize ! null) {
+    $obj4 = %trh_bonus_current_prize;
+    $int5 = %trh_bonus_current_prize_amount;
+    if_setgraphic(~script8948(%trh_bonus_current_prize_rarity), wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+    if_setsize(82, 100, ^setsize_abs, ^setsize_abs, wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, wheel_of_fortune:reward_layer_additional_prize_rarity_gem);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, wheel_of_fortune:reward_layer_additional_prize_object);
+    if_settext("as a bonus reward.", wheel_of_fortune:reward_layer_additional_prize_text);
+    $int2 = 1;
+}
+switch_struct ($struct0) {
+    case trh177_promo :
+        if (~script16422 > 0) {
+            $int3 = 1;
+        }
+    case trh196_promo :
+        if (~script6735 > 0) {
+            $int3 = 1;
+        }
+    case trh205_promo :
+        if (~script19753 > 0) {
+            $int3 = 1;
+        }
+}
+def_boolean $boolean7 = ~is_mobile_client;
+if ($int1 = 1) {
+    if_setgraphic(~script14484(%trh_prize_additional_obj), wheel_of_fortune:reward_layer_additional_currency_graphic);
+    if_settext(oc_name(%trh_prize_additional_obj), wheel_of_fortune:reward_layer_additional_currency_name);
+    if_settext("to spend in the : <~script14481(%trh_prize_additional_obj)>.", wheel_of_fortune:reward_layer_additional_currency_info);
+    if_settext("+<tostring($int6)>", wheel_of_fortune:reward_layer_additional_currency_amount);
+    if_sethide(false, wheel_of_fortune:reward_layer_additional_currency);
+    if ($int2 = 0) {
+        if_setposition(if_getx(wheel_of_fortune:reward_layer_additional_currency), 2, ^setpos_abs_left, ^setpos_abs_centre, wheel_of_fortune:reward_layer_additional_currency);
+    } else if ($boolean7 = false) {
+        if_setposition(if_getx(wheel_of_fortune:reward_layer_additional_currency), 113, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:reward_layer_additional_currency);
+    } else {
+        if_setposition(if_getx(wheel_of_fortune:reward_layer_additional_currency), -88, ^setpos_abs_left, ^setpos_abs_centre, wheel_of_fortune:reward_layer_additional_currency);
+    }
+} else {
+    if_sethide(true, wheel_of_fortune:reward_layer_additional_currency);
+}
+def_boolean $boolean8 = false;
+if ($int2 = 1) {
+    if_sethide(false, wheel_of_fortune:reward_layer_additional_prize);
+    $boolean8 = ~script17187($obj4);
+    if ($boolean8 = false) {
+        if_setobject($obj4, $int5, wheel_of_fortune:reward_layer_additional_prize_object);
+    }
+    ~script3394($obj4, wheel_of_fortune:reward_layer_additional_prize_object);
+    if ($int1 = 1) {
+        if ($boolean7 = false) {
+            if_setposition(if_getx(wheel_of_fortune:reward_layer_additional_prize), 93, ^setpos_abs_left, ^setpos_abs_centre, wheel_of_fortune:reward_layer_additional_prize);
+        } else {
+            if_setposition(if_getx(wheel_of_fortune:reward_layer_additional_prize), 90, ^setpos_abs_left, ^setpos_abs_centre, wheel_of_fortune:reward_layer_additional_prize);
+        }
+    } else {
+        if_setposition(if_getx(wheel_of_fortune:reward_layer_additional_prize), 2, ^setpos_abs_left, ^setpos_abs_centre, wheel_of_fortune:reward_layer_additional_prize);
+    }
+} else {
+    if_sethide(true, wheel_of_fortune:reward_layer_additional_prize);
+}
+if ($int3 = 1) {
+    ~script6754($struct0);
+    if_sethide(false, wheel_of_fortune:reward_layer_bonus_prizes);
+} else {
+    if_sethide(true, wheel_of_fortune:reward_layer_bonus_prizes);
+}

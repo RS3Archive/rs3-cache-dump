@@ -1,0 +1,35 @@
+// 10342
+[clientscript,group_create_text_input](component $component0, component $component1, char $char2, int $int3, component $component4)
+%group_create_input_varc = if_gettext($component0);
+switch_int ($int3) {
+    case 84 :
+        ~script10346;
+    case 13 :
+        if (~cancel_targetmode = true) {
+            return;
+        }
+        %group_create_input_varc = "";
+        ~script10346;
+    case 96, 97, 98, 99, 102, 103 :
+        if (keyheld_shift = false) {
+            return;
+        }
+        ~script1553($int3, %group_create_input_caret_varc, %group_create_input_varc);
+    case 85 :
+        if (string_length(%group_create_input_varc) > 0) {
+            %group_create_input_varc = substring(%group_create_input_varc, 0, calc(string_length(%group_create_input_varc) - 1));
+        }
+    case default :
+        if (string_length(%group_create_input_varc) < 12) {
+            %group_create_input_varc = ~add_to_inputstring(%group_create_input_varc, 9, $int3, $char2);
+        }
+}
+%group_create_input_caret_varc = ~script1552(%group_create_input_caret_varc, %group_create_input_varc, museo_sans_11pt_regular, $component0, -1);
+if_setposition(%group_create_input_caret_varc, if_gety($component4), ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_settext("<tostring(string_length(%group_create_input_varc))>/12", $component1);
+if (string_length(%group_create_input_varc) >= 10) {
+    if_setcolour(0xdd0000, $component1);
+} else {
+    if_setcolour(0x1f1d19, $component1);
+}
+if_settext(%group_create_input_varc, $component0);

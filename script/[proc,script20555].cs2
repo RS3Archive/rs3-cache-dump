@@ -1,0 +1,42 @@
+// 20555
+[proc,script20555]
+cc_deleteall(mtx_front_end_bonds:redeem);
+cc_deleteall(mtx_front_end_bonds:scrollbar);
+if_setsize(0, -8, ^setsize_minus, ^setsize_minus, mtx_front_end_bonds:redeem);
+def_int $int0 = enum_getoutputcount(bonds_store_packages);
+if ($int0 <= 0) {
+    return;
+}
+def_int $int1 = -1;
+def_dbrow $dbrow2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "";
+def_graphic $graphic5 = null;
+def_int $int6 = 0;
+while (++$int1 < $int0) {
+    $dbrow2 = enum(int, dbrow, bonds_store_packages, $int1);
+    if (~script12115($dbrow2) = true) {
+        $string0 = db_getfield($dbrow2, bonds_package:col0, 0);
+        $graphic5 = db_getfield($dbrow2, bonds_package:col2, 0);
+        $int6 = db_getfield($dbrow2, bonds_package:col6, 0);
+        ~if_add_child_layer(mtx_front_end_bonds:redeem, ui_getcategory(if_getnextsubid(mtx_front_end_bonds:redeem)), ui_getdynid(if_getnextsubid(mtx_front_end_bonds:redeem)), 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 176, 176, ^setsize_abs, ^setsize_abs);
+        cc_setop(1, "Preview");
+        cc_setonop("script20556($int1)");
+        ~script20615(mtx_front_end_bonds:redeem, $string0, $graphic5, ~script20466($int6, null, 2), 2, true, false, false, 0);
+        $int3 = calc($int3 + 1);
+    }
+}
+def_int $int7 = ~divide_up($int3, 3);
+def_int $int8 = calc($int7 * 176 + ($int7 + 1) * 8);
+if ($int8 > if_getheight(mtx_front_end_bonds:redeem)) {
+    if_setscrollsize(0, $int8, mtx_front_end_bonds:redeem);
+    ~rs3_scrollbar_vertical(mtx_front_end_bonds:scrollbar, mtx_front_end_bonds:redeem);
+    if_sethide(true, mtx_front_end_bonds:fade_top);
+    if_sethide(false, mtx_front_end_bonds:fade_bottom);
+} else {
+    if_setscrollsize(0, 0, mtx_front_end_bonds:redeem);
+    if_setsize(0, $int8, ^setsize_minus, ^setsize_abs, mtx_front_end_bonds:redeem);
+    if_sethide(true, mtx_front_end_bonds:fade_top);
+    if_sethide(true, mtx_front_end_bonds:fade_bottom);
+}

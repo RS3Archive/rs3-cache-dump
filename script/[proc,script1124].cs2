@@ -1,0 +1,19 @@
+// 1124
+[proc,script1124](int $int0)(int)
+def_int $int1 = %pop_ship_stat_speed;
+def_int $int2 = %pop_ship_stat_speedboost;
+switch_int ($int0) {
+    case 1 :
+        $int2 = calc($int2 + %pop_voyage_1_speedboost);
+    case 2 :
+        $int2 = calc($int2 + %pop_voyage_2_speedboost);
+    case 3 :
+        $int2 = calc($int2 + %pop_voyage_3_speedboost);
+    case 4 :
+        $int2 = calc($int2 + %pop_voyage_4_speedboost);
+    case default :
+        return(0);
+}
+$int2 = min(max($int2, -20), 35);
+$int1 = scale(calc(100 + $int2), 100, $int1);
+return($int1);

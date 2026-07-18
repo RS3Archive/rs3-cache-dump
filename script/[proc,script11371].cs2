@@ -1,0 +1,39 @@
+// 11371
+[proc,script11371](struct $struct0, component $component1, component $component2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+switch_struct ($struct0) {
+    case mtx_pet_ability_banking :
+        if (%mtx_bank_time_left > 0) {
+            $int3 = %mtx_pet_bank_cooldown_end;
+        }
+    case mtx_pet_ability_repair :
+        if (%mtx_repair_time_left > 0) {
+            $int3 = %mtx_pet_repair_cooldown_end;
+        }
+    case mtx_pet_ability_alchemy :
+        if (%mtx_alch_time_left > 0) {
+            $int3 = %mtx_pet_alch_cooldown_end;
+        }
+    case mtx_pet_ability_fertiliser :
+        if (%mtx_fertiliser_time_left > 0) {
+            $int3 = %mtx_pet_fertiliser_cooldown_end;
+        }
+    case mtx_pet_ability_lifesaver :
+        if (%mtx_lifesaver_time_left > 0) {
+            $int3 = %mtx_pet_lifesaver_cooldown_end;
+        }
+}
+if ($int3 > clientclock) {
+    $int4 = calc(($int3 - clientclock) / 50);
+    if ($int4 > 60) {
+        if_settext("<tostring(calc($int4 / 60))>m", $component1);
+    } else {
+        if_settext(tostring($int4), $component1);
+    }
+    if_sethide(false, $component2);
+    if_setontimer("script11372($component1, $component2, $int3)", $component1);
+} else {
+    if_settext("", $component1);
+    if_sethide(true, $component2);
+}

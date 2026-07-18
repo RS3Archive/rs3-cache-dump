@@ -1,0 +1,22 @@
+// 20294
+[proc,script20294](component $component0, dbrow $dbrow1, int $int2)(int)
+def_dbrow $dbrow3 = db_findnext;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($dbrow3 ! null) {
+    $int4 = db_getfield($dbrow3, league_task:col5, 0);
+    if ($int4 >= db_getfieldcount($dbrow1, league_task_order:col1)) {
+        $int5 = 200;
+    } else {
+        $int5 = calc(200 + db_getfield($dbrow1, league_task_order:col1:0, $int4));
+    }
+    if (cc_findbycategory($component0, $int5, 0) = 1) {
+        ~cc_add_child_layer(0, db_getfield($dbrow3, league_task:col0, 0), 0, 0, ^setpos_abs_right, ^setpos_abs_top, 6, 40, ^setsize_minus, ^setsize_abs);
+        cc_setonresize("script20296($component0, $dbrow3, $int5, $int2)");
+        cc_callonresize;
+        $int6 = calc($int6 + 1);
+    }
+    $dbrow3 = db_findnext;
+}
+return($int6);

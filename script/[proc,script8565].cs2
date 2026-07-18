@@ -1,0 +1,29 @@
+// 8565
+[proc,script8565](int $int0)
+if (%prayer_quick_number_of_presets <= 0) {
+    cc_setgraphic(null);
+    return;
+}
+def_struct $struct1 = null;
+def_int $int2 = 0;
+$struct1 = enum(int, struct, combatv2_prayer_order_by_level, $int0);
+if (~script6799(%prayer_quick_selected_preset) = 1) {
+    $struct1 = enum(int, struct, combatv2_curse_order_by_level, $int0);
+}
+if ($struct1 ! null) {
+    $struct1 = ~script9101($struct1);
+} else {
+    return;
+}
+$int2 = struct_param($struct1, combatv2_ability_level_req);
+if (~script6807(%prayer_quick_selected_preset, ~script6808($struct1)) = ^true) {
+    if (stat_base(prayer) < $int2) {
+        cc_setgraphic(null);
+        return;
+    } else {
+        cc_setgraphic(combatv2_prayerglow);
+    }
+    ~script8562($struct1);
+} else {
+    cc_setgraphic(null);
+}

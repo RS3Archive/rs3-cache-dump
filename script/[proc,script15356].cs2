@@ -1,0 +1,24 @@
+// 15356
+[proc,script15356](component $component0, int $int1)
+def_component $component2 = achievements_sub:category_scrollinglayer;
+def_int $int3 = 0;
+def_int $int4 = -1;
+if (if_find($component0) = true) {
+    $int4 = cc_param(cheevo_ui_last_click_id);
+}
+if ($int4 = -1) {
+    $int4 = calc(if_getnextsubid($component0) - 1);
+}
+if (cc_find($component0, $int4) = true) {
+    $int3 = calc(cc_gety + cc_getheight);
+    $int3 = max($int3, calc(if_gety(achievements_sub:subcategory_container) + if_getheight(achievements_sub:subcategory_container)));
+    if ($int3 > if_getheight($component2)) {
+        if_setscrollsize(0, $int3, $component2);
+        if_setscrollpos(0, $int1, $component2);
+        ~rs3_scrollbar_vertical(achievements_sub:category_scrollbar, $component2);
+    } else {
+        if_setscrollsize(0, 0, $component2);
+        if_setscrollpos(0, 0, $component2);
+        cc_deleteall(achievements_sub:category_scrollbar);
+    }
+}

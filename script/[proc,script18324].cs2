@@ -1,0 +1,43 @@
+// 18324
+[proc,script18324]
+switch_struct (%activity_progress_bar_active_struct) {
+    case dino_boss_healthbar :
+        ~script17549;
+        ~script17550;
+        ~script17555(0x413741, "", 1);
+    case spiderboss1_info, spiderboss2_info :
+        ~script17549;
+        ~script17550;
+        if (%activity_progress_bar_active_struct = spiderboss1_info) {
+            ~script17555(0xffb400, "Burn: ", 1);
+        } else if (%activity_progress_bar_extension_progress_bar_max > 0) {
+            ~script17555(^green, "Acidity level: ", 1);
+        }
+    case egwd_jas_boss_healthbar, egwd_ful_boss_healthbar, egwd_zamorak_boss_healthbar, rasial_boss_healthbar :
+        ~script17549;
+        ~script17550;
+    case egwd_wen_boss_healthbar, hermod_boss_healthbar :
+        ~script17550;
+    case egwd_bik_boss_healthbar :
+        ~script17555(0xc95924, "", 1);
+    case big_game_hunter_havenhythe_info_chinchompa_1, big_game_hunter_havenhythe_info_chinchompa_2, big_game_hunter_havenhythe_info_chinchompa_3, big_game_hunter_havenhythe_info_chinchompa_4, big_game_hunter_havenhythe_info_kebbit_1, big_game_hunter_havenhythe_info_kebbit_2, big_game_hunter_havenhythe_info_kebbit_3, big_game_hunter_havenhythe_info_kebbit_4, dino_game_creature_info_1, dino_game_creature_info_2, dino_game_creature_info_3, dino_game_creature_info_4, dino_game_creature_info_5, dino_game_creature_info_6, dino_game_creature_info_7, dino_game_creature_info_8, dino_game_creature_info_9 :
+        ~script17555(0xc95924, "Aggression: ", 0);
+    case elidinis_boss_healthbar :
+        ~script17555(0x0e9bbd, "Barrier strength: ", 1);
+        ~script19134(0xb78c14, "", 0);
+    case fort_boss_healthbar :
+        ~script17549;
+        ~script17550;
+        ~script17555(0x552b55, "Power: ", 1);
+    case raid_rebirth1_wyrm_boss_healthbar, raid_rebirth1_beast_boss_healthbar, raid_rebirth1_slayer_master_boss_healthbar :
+        ~script17549;
+        ~script17550;
+    case amascut_boss_encounter_healthbar :
+        ~script17549;
+        ~script17550;
+}
+def_struct $struct0 = struct_param(%activity_progress_bar_active_struct, activity_progress_bar_second_healthbar);
+if ($struct0 ! null & struct_param($struct0, activity_progress_bar_progress_markers) = 1) {
+    if_sethide(false, activity_progress_bar_extension:progress_markers);
+    ~script18326(activity_progress_bar_extension:container, struct_param($struct0, activity_progress_bar_marker_1_pos), struct_param($struct0, activity_progress_bar_marker_2_pos), struct_param($struct0, activity_progress_bar_marker_3_pos), struct_param($struct0, activity_progress_bar_marker_4_pos), struct_param($struct0, activity_progress_bar_marker_5_pos), struct_param($struct0, activity_progress_bar_marker_divisor));
+}

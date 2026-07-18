@@ -1,0 +1,32 @@
+// 12321
+[proc,script12321](component $component0, int $int1, component $component2)
+if ($component0 = null) {
+    return;
+}
+if ($component2 = null) {
+    return;
+}
+if (%telemetry_graph_ids_changed ! 0) {
+    return;
+}
+def_int $int3 = 0;
+if (if_find($component2) = true) {
+    $int3 = cc_param(telemetry_graph_component_offset);
+}
+def_int $int4 = if_getnextsubid($component2);
+if (cc_find($component0, $int1) = true & .cc_find($component2, calc(($int4 + $int3 - 1) % $int4)) = true) {
+    if (.cc_getwidth > 0 & .cc_getheight > 0) {
+        cc_setsize(.cc_getwidth, .cc_getheight, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc(if_getx($component2) + .cc_getx), .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        if (.cc_param(rs3tli_component_target_align_y) = 0) {
+            cc_setcolour(%telemetry_graph_colour_negative_highlight);
+        } else {
+            cc_setcolour(%telemetry_graph_colour_positive_highlight);
+        }
+        ~script10019($component0, $int1);
+    } else {
+        cc_settrans(255);
+        cc_setsize(1, 1, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

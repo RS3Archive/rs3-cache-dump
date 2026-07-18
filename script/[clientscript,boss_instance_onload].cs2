@@ -1,0 +1,58 @@
+// 11053
+[clientscript,boss_instance_onload](struct $struct0)
+if ($struct0 = null) {
+    $struct0 = %boss_instance_struct;
+}
+def_int $int1 = 0;
+$int1 = struct_param($struct0, boss_instance_max_players);
+def_struct $struct2 = struct_param($struct0, boss_instance_bossslayer_link);
+if (struct_param($struct0, boss_instance_hard_player_requirement) > 0) {
+    if_sethide(false, boss_instance:playercount_disabled);
+    if_sethide(false, boss_instance:protection_disabled);
+} else {
+    if_sethide(true, boss_instance:playercount_disabled);
+}
+if (struct_param($struct0, boss_instance_change_spawn_speed) = true) {
+    if_sethide(true, boss_instance:spawnspeed_disabled);
+} else {
+    if_sethide(false, boss_instance:spawnspeed_disabled);
+}
+if (struct_param($struct0, boss_instance_hard_player_requirement) > 0) {
+    %boss_instance_setup_playercount_temp = struct_param($struct0, boss_instance_hard_player_requirement);
+} else if (%boss_instance_setup_playercount ! 0) {
+    %boss_instance_setup_playercount_temp = min(%boss_instance_setup_playercount, $int1);
+} else if (%boss_instance_setup_playercount_temp = 0) {
+    %boss_instance_setup_playercount_temp = $int1;
+}
+if (struct_param($struct0, boss_instance_has_combat) = true) {
+    if (%boss_instance_setup_combatlevel ! 0) {
+        %boss_instance_setup_combatlevel_temp = min(%boss_instance_setup_combatlevel, comlevel_active);
+    } else if (%boss_instance_setup_combatlevel_temp = 0) {
+        %boss_instance_setup_combatlevel_temp = comlevel_active;
+    }
+} else {
+    %boss_instance_setup_combatlevel_temp = 0;
+}
+if (struct_param($struct0, boss_instance_change_spawn_speed) = true & %boss_instance_setup_spawnspeed ! 0) {
+    %boss_instance_setup_spawnspeed_temp = %boss_instance_setup_spawnspeed;
+}
+if_settext(struct_param($struct0, boss_instance_boss_name), boss_instance:bossname_text);
+if ((struct_param($struct0, boss_instance_boss_hardmode) ! null | struct_param($struct0, boss_instance_is_hardmode) = 1) & struct_param($struct0, boss_instance_hide_hardmode_checkbox) = 0) {
+    if_sethide(false, boss_instance:hardmode_layer);
+} else {
+    if_sethide(true, boss_instance:hardmode_layer);
+}
+if (struct_param($struct0, boss_instance_hide_practicemode_checkbox) = 1) {
+    if_sethide(true, boss_instance:practicemode_layer);
+}
+if_settext("<struct_param($struct0, boss_instance_practice_mode_text)>:", boss_instance:practicemode);
+if (%boss_instance_setup_hardmode_temp = 1) {
+    if_sethide(false, boss_instance:checkbox_selected_layer);
+    if_sethide(true, boss_instance:checkbox_deselected_layer);
+    if_sethide(false, boss_instance:practicemode_checkbox_deselected_disabled_layer);
+} else {
+    if_sethide(true, boss_instance:checkbox_selected_layer);
+    if_sethide(false, boss_instance:checkbox_deselected_layer);
+    if_sethide(true, boss_instance:practicemode_checkbox_deselected_disabled_layer);
+}
+%boss_instance_setup_protection_temp = %boss_instance_setup_protection;

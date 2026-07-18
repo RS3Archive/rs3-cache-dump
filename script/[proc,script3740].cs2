@@ -1,0 +1,45 @@
+// 3740
+[proc,script3740](component $component0, component $component1, component $component2)
+cc_deleteall($component0);
+if (%lucky_strike_box_selected = 0 & %lucky_strike_skill_selected = 0) {
+    if_sethide(false, $component1);
+    ~script3743("Choose a skill, column, row or corner...", $component2, 50);
+    return;
+}
+if_sethide(true, $component1);
+def_int $int3 = 0;
+def_string $string0 = null;
+if (%lucky_strike_skill_selected ! 0) {
+    while ($int3 < %lucky_strike_skill_selected) {
+        cc_create($component0, ^iftype_rectangle, $int3);
+        cc_sethide(true);
+        $int3 = calc($int3 + 1);
+    }
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_settrans(255);
+    $string0 = "Confirm: <enum(int, string, statstring, %lucky_strike_skill_selected)>";
+} else {
+    while ($int3 < %lucky_strike_box_selected) {
+        cc_create($component0, ^iftype_rectangle, $int3);
+        cc_sethide(true);
+        $int3 = calc($int3 + 1);
+    }
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_settrans(255);
+    switch_int (%lucky_strike_box_selected) {
+        case 1, 2, 3, 4, 5, 6, 7, 8, 9 :
+            $string0 = "Confirm: Column <tostring(%lucky_strike_box_selected)> selected.";
+            sound_vorbis_volume(bind_chain_1, 1, 0, 130);
+        case 10, 11, 12, 13 :
+            $string0 = "Confirm: Row <tostring(calc(%lucky_strike_box_selected - 9))> selected.";
+            sound_vorbis_volume(bind_chain_1, 1, 0, 130);
+        case 20, 21, 22, 23 :
+            $string0 = "Confirm: Corner selected.";
+            sound_vorbis_volume(bind_chain_1, 1, 0, 130);
+    }
+}
+~script3743($string0, $component2, 50);

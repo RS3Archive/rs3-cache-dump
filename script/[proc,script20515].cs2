@@ -1,0 +1,62 @@
+// 20515
+[proc,script20515](enum $enum0)
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount($enum0);
+def_int $int3 = 0;
+def_int $int4 = if_getwidth(toplevel_v2_edit_mode:advanced_scrolling);
+def_int $int5 = calc($int4 - 22);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_struct $struct8 = null;
+def_string $string0 = "";
+def_int $int9 = 0;
+while ($int1 < $int2) {
+    $int3 = enum(int, int, $enum0, $int1);
+    $struct8 = ~script10405($int3);
+    if ($struct8 ! null) {
+        $int7 = 1;
+        switch_int ($int3) {
+            case 1027 :
+                if (staffmodlevel < 2) {
+                    $int7 = 0;
+                }
+            case 2008 :
+                if (%toplevel_v2_undock_target_info = 0) {
+                    $int7 = 0;
+                }
+            case 1019 :
+                if (%toplevel_v2_splitpm = 0) {
+                    $int7 = 0;
+                }
+            case 1042, 1043, 1044, 1048 :
+                $int7 = 0;
+            case 1015 :
+                $int7 = 0;
+            case 1025 :
+                if (%toplevel_v2_clock_options = 0 | %toplevel_v2_clock_options = 1) {
+                    $int7 = 0;
+                }
+            case 1016 :
+                $int7 = 0;
+        }
+        if ($int7 = 1) {
+            $int6 = enum(int, int, toplevel_v2_edit_mode_default_selection, $int3);
+            if ($int6 = 0 & struct_param($struct8, toplevel_v2_window_hide_borders) = false & if_gethide(struct_param($struct8, toplevel_v2_window_layer)) = false) {
+                $int6 = 1;
+            }
+            $string0 = struct_param($struct8, toplevel_v2_window_name);
+            $int9 = max(24, ~script15891($string0, $int5, museo_sans_11pt_regular, 0));
+            ~cc_add_checkbox_full(toplevel_v2_edit_mode:advanced_click, $int3, 0, 0, ^setpos_abs_right, ^setpos_abs_top, 10, $int9, ^setsize_minus, ^setsize_abs, checkbox_default_left_aligned, $string0, true, true, ~int_to_bool($int6));
+            cc_setparam(edit_mode_border_state, $int6);
+            cc_setparam(edit_mode_window_id, $int3);
+            cc_setop(1, "Toggle");
+            cc_setonop("script6591(event_comsubid)");
+            cc_setonscrollwheel("scrollbar_vertical_wheel(toplevel_v2_edit_mode:advanced_scrollbar, toplevel_v2_edit_mode:advanced_scrolling, event_mousey)");
+            cc_sethide(true);
+            if ($int6 = 1) {
+                ~script8393($int3, $int6);
+            }
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

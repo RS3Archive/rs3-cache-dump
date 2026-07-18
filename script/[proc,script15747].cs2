@@ -1,0 +1,178 @@
+// 15747
+[proc,script15747](int $int0, dbrow $dbrow1)(int)
+if ($int0 = 0) {
+    return(0);
+}
+if (platformtype = ^platformtype_apple & ~script16252($dbrow1) = false) {
+    return(0);
+}
+if (db_getfield($dbrow1, mobile_shop_feature_information:col18, 0) = false & ~ironman_mode = true) {
+    return(0);
+}
+if (db_getfield($dbrow1, mobile_shop_feature_information:col19, 0) = true) {
+    switch_dbrow ($dbrow1) {
+        case mobile_shop_returner_pack_small, mobile_shop_returner_pack_medium, mobile_shop_returner_pack_large :
+            if (%mobile_shop_membership_purchased = 1) {
+                return(0);
+            }
+        case default :
+            if (playermember = true | %mobile_shop_membership_purchased = 1) {
+                return(0);
+            }
+    }
+}
+switch_dbrow ($dbrow1) {
+    case mobile_shop_bundle_runecoins_2400_keys_450 :
+        if (%mobile_shop_launch_currency_pack = 1) {
+            return(0);
+        }
+    case mobile_shop_mobile_membership_level_1 :
+        if (%mobile_shop_launch_membership_pack_1 = 1 | %mobile_launch_tool_unlocked = 1) {
+            return(0);
+        }
+    case mobile_shop_mobile_membership_level_2 :
+        if (%mobile_shop_launch_membership_pack_2 = 1 | %mobile_launch_outfit_unlocked = 1) {
+            return(0);
+        }
+    case mobile_shop_membership_free_trial_and_1_month_2 :
+        if (%membership_expiry_minutes > 0 | %mobile_shop_membership_purchased = 1) {
+            return(0);
+        }
+    case mobile_shop_membership_prem_gold_20_21 :
+        if (%bonds_prem_gold_20_21_purchased = 1) {
+            return(0);
+        }
+        return(%prem20_summer_sale_eligible);
+    case mobile_shop_membership_prem_21_22 :
+        if (%mobile_shop_membership_prem_21_22 = 1) {
+            return(0);
+        }
+        return(~bool_to_int(~script11568));
+    case mobile_shop_returner_pack_small :
+        if (~script11458 = false) {
+            return(0);
+        }
+        if (%mobile_shop_returner_pack_small = 1 | %returner_pack_small_purchased = 1) {
+            return(0);
+        }
+    case mobile_shop_returner_pack_medium :
+        if (~script11458 = false) {
+            return(0);
+        }
+        if (%mobile_shop_returner_pack_medium = 1 | %returner_pack_medium_purchased = 1) {
+            return(0);
+        }
+    case mobile_shop_returner_pack_large :
+        if (~script11458 = false) {
+            return(0);
+        }
+        if (%mobile_shop_returner_pack_large = 1 | %returner_pack_large_purchased = 1) {
+            return(0);
+        }
+    case mobile_shop_necro_release_bundle, mobile_shop_necro_release_bundle_sale, mobile_shop_necro_release_bundle_bolt_ons :
+        if (%mobile_shop_necro_release_bundle = 1) {
+            return(0);
+        }
+        if (~script17436($dbrow1) = false) {
+            return(0);
+        }
+        switch_dbrow ($dbrow1) {
+            case mobile_shop_necro_release_bundle_sale :
+                if (~script18311 = false) {
+                    return(0);
+                }
+            case mobile_shop_necro_release_bundle :
+                if (~script18311 = true) {
+                    return(0);
+                }
+        }
+    case mobile_shop_returner_dxp_bundle :
+        if (~script15766 = false) {
+            return(0);
+        }
+    case mobile_shop_bundle_ultimtate_currency_half_price :
+        if (~script18400(5038) = 0 | %mobile_shop_bundle_ultimtate_currency_dec_2023 = 1) {
+            return(0);
+        }
+    case mobile_shop_bundle_ultimtate_currency_quarter_price :
+        if (~script18400(12990) = 0 | %mobile_shop_bundle_ultimtate_currency_dec_2023 = 1) {
+            return(0);
+        }
+    case mobile_shop_small_xmas_bundle_2023 :
+        if (%mobile_shop_small_xmas_bundle_2023 = 1) {
+            return(0);
+        }
+    case mobile_shop_medium_xmas_bundle_2023 :
+        if (%mobile_shop_medium_xmas_bundle_2023 = 1) {
+            return(0);
+        }
+    case mobile_shop_large_xmas_bundle_2023 :
+        if (%mobile_shop_large_xmas_bundle_2023 = 1) {
+            return(0);
+        }
+    case mobile_shop_black_prime_pack, mobile_shop_black_prime_pack_with_membership :
+        if (%mobile_shop_black_primal_pack = 1) {
+            return(0);
+        }
+        if (~script19078($dbrow1) = false) {
+            return(0);
+        }
+    case mobile_shop_dxp_protean_pack :
+        if (%mobile_shop_dxp_protean_pack = 1) {
+            return(0);
+        }
+        if (%atlum_day_tracker < 8843 | %atlum_day_tracker > 8846) {
+            return(0);
+        }
+    case mobile_shop_celestial_pack, mobile_shop_celestial_pack_with_membership :
+        if (%mobile_shop_celestial_pack = 1) {
+            return(0);
+        }
+        if (~script12545($dbrow1) = false) {
+            return(0);
+        }
+    case mobile_shop_jan25_golden_bundle_small :
+        if (%mobile_shop_jan25_golden_bundle_small = 1) {
+            return(0);
+        }
+    case mobile_shop_jan25_golden_bundle_medium :
+        if (%mobile_shop_jan25_golden_bundle_medium = 1) {
+            return(0);
+        }
+    case mobile_shop_jan25_golden_bundle_large :
+        if (%mobile_shop_jan25_golden_bundle_large = 1) {
+            return(0);
+        }
+    case mobile_shop_mtx_direct_bundle_large_stars_small :
+        if (%mobile_shop_mtx_direct_bundle_large_stars_small = 1) {
+            return(0);
+        }
+    case mobile_shop_mtx_direct_bundle_large_stars_medium :
+        if (%mobile_shop_mtx_direct_bundle_large_stars_medium = 1) {
+            return(0);
+        }
+    case mobile_shop_mtx_direct_bundle_large_stars_large :
+        if (%mobile_shop_mtx_direct_bundle_large_stars_large = 1) {
+            return(0);
+        }
+    case mobile_shop_mtx_direct_bundle_small_xpbombs_small :
+        if (%mobile_shop_mtx_direct_bundle_small_xpbombs_small = 1) {
+            return(0);
+        }
+    case mobile_shop_mtx_direct_bundle_small_xpbombs_medium :
+        if (%mobile_shop_mtx_direct_bundle_small_xpbombs_medium = 1) {
+            return(0);
+        }
+    case mobile_shop_mtx_direct_bundle_small_xpbombs_large :
+        if (%mobile_shop_mtx_direct_bundle_small_xpbombs_large = 1) {
+            return(0);
+        }
+    case mobile_shop_desert_wanderer_bundle_with_membership, mobile_shop_desert_wanderer_bundle :
+        if (%mobile_shop_mtx_desert_wanderer_bundle = 1) {
+            return(0);
+        }
+}
+if (db_getfieldcount($dbrow1, mobile_shop_feature_information:col20) > 0 & ~script12115(db_getfield($dbrow1, mobile_shop_feature_information:col20, 0)) = false) {
+    return(0);
+}
+return(1);

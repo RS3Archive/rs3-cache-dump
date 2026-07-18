@@ -1,0 +1,32 @@
+// 8303
+[proc,script8303](obj $obj0)(obj)
+def_obj $obj1 = null;
+switch_category (oc_category($obj0)) {
+    case pop_scrimshaw :
+        if (oc_param($obj0, pop_untradeable_version) ! null) {
+            return(oc_param($obj0, pop_untradeable_version));
+        } else if (oc_param($obj0, pop_new_version) ! null) {
+            return(oc_param($obj0, pop_new_version));
+        }
+    case enchanted_silver_jewellery :
+        if (oc_param($obj0, invent_compactor_iscompacted) = true) {
+            return(null);
+        }
+        if (oc_members($obj0) = 0 | map_members = true) {
+            if (oc_param($obj0, item_degrade_freshitem) = 1) {
+                return(enum(obj, obj, enchanted_silver_new_to_used, $obj0));
+            } else {
+                return(enum_getreverseindex(obj, obj, enchanted_silver_new_to_used, $obj0, 0));
+            }
+        }
+    case urn :
+        $obj1 = enum(obj, obj, urns_rune_to_started, $obj0);
+        return($obj1);
+    case rcu_pouch :
+        if ($obj0 = rcsiphonxp_massive_pouch_active) {
+            return(rcsiphonxp_massive_pouch_inactive);
+        } else if ($obj0 = rcsiphonxp_massive_pouch_inactive) {
+            return(rcsiphonxp_massive_pouch_active);
+        }
+}
+return(null);

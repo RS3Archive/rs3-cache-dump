@@ -1,0 +1,37 @@
+// 9278
+[clientscript,xmas13_rewards_setup]
+def_int $int0 = 0;
+if (calc(^max_32bit_int - %xmas13_points_nice) > %xmas13_points_naughty) {
+    $int0 = calc(%xmas13_points_nice + %xmas13_points_naughty);
+} else {
+    $int0 = ^max_32bit_int;
+}
+if_settext("Total points: <col=EBD090><tostring($int0)></col>", xmas13_rewards:points);
+if (%xmas13_unlocked_scarf = 1 | $int0 < 500) {
+    if_setcolour(0xb92922, xmas13_rewards:scarf_cost);
+    if (%xmas13_unlocked_scarf = 1) {
+        if_settext("Already unlocked.", xmas13_rewards:scarf_cost);
+    }
+    if_sethide(true, xmas13_rewards:scarf_buy);
+    if_sethide(false, xmas13_rewards:scarf_buy_disabled);
+}
+if (%xmas13_unlocked_jumper = 1 | $int0 < 1000 | map_members = false) {
+    if_setcolour(0xb92922, xmas13_rewards:jumper_cost);
+    if (%xmas13_unlocked_jumper = 1) {
+        if_settext("Already unlocked.", xmas13_rewards:jumper_cost);
+    } else if (map_members = false) {
+        if_settext("Members' only.", xmas13_rewards:jumper_cost);
+    }
+    if_sethide(true, xmas13_rewards:jumper_buy);
+    if_sethide(false, xmas13_rewards:jumper_buy_disabled);
+}
+if (%xmas13_unlocked_pet = 1 | $int0 < 2000 | map_members = false | testbit(%lore_followers_owned_2, calc(42 % 32)) = ^true) {
+    if_setcolour(0xb92922, xmas13_rewards:demon_cost);
+    if (%xmas13_unlocked_pet = 1) {
+        if_settext("Already unlocked.", xmas13_rewards:demon_cost);
+    } else if (map_members = false) {
+        if_settext("Members' only.", xmas13_rewards:demon_cost);
+    }
+    if_sethide(true, xmas13_rewards:demon_buy);
+    if_sethide(false, xmas13_rewards:demon_buy_disabled);
+}

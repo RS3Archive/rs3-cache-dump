@@ -1,0 +1,15 @@
+// 18266
+[clientscript,script18266](stat $stat0, component $component1)
+def_int $int2 = enum(stat, int, stat_to_int, $stat0);
+if (~script15772($stat0) = true) {
+    if (testbit(%uaui_skill_select_temp, $int2) = ^false) {
+        %uaui_skill_select_temp = setbit(%uaui_skill_select_temp, $int2);
+    } else {
+        %uaui_skill_select_temp = clearbit(%uaui_skill_select_temp, $int2);
+    }
+    ~script18265($component1, $stat0);
+    switch_stat ($stat0) {
+        case attack, prayer, summoning :
+            ~static_checkbox(uaui_skill_selector:combat_toggle_checkbox, ~script18161(1), false);
+    }
+}

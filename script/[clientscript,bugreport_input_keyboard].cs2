@@ -1,0 +1,92 @@
+// 7664
+[clientscript,bugreport_input_keyboard](int $int0, char $char1, component $component2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_string $string0 = "";
+if (~script11370 = 0) {
+    mes("Chat is not available until your date of birth is recorded. Please enter your DOB above.");
+    return;
+}
+switch_int ($int0) {
+    case 84 :
+        if (~is_mobile_client = false) {
+            ~script7666(%bugreport_input_focus, $component2);
+            ~script7665(%bugreport_input_focus);
+        }
+        return;
+    case 13 :
+        if (~cancel_targetmode = true) {
+            return;
+        }
+        ~script675;
+        ~bugreport_input_close;
+        return;
+    case 96, 97, 98, 99, 102, 103 :
+        if (~is_mobile_client = true) {
+            return;
+        }
+        if (keyheld_shift = false & $int0 ! 102 & $int0 ! 103) {
+            return;
+        }
+        if (%bugreport_input_focus = 1) {
+            %bugreport_caret = ~script7673($int0, %bugreport_caret, %bugreport_input, $component2);
+            ~script7671(bugreport_interface:input_text, bugreport_interface:input_caret, %bugreport_input);
+            return;
+        } else if (%bugreport_input_focus = 2) {
+            %bugreport_caret_repro = ~script7673($int0, %bugreport_caret_repro, %bugreport_repro, $component2);
+            ~script7671(bugreport_interface:input_repro, bugreport_interface:repro_caret, %bugreport_repro);
+            return;
+        }
+    case default :
+        $string0 = "";
+        $string0 = append_char($string0, $char1);
+        if (char_isprintable($char1) = true | $int0 = 85 | $int0 = 101) {
+            if ($char1 = '<') {
+                return;
+            }
+            if (%bugreport_input_focus = 1) {
+                if ($int0 ! 85 & $int0 ! 101 & string_length(removetags(%bugreport_input)) >= 500) {
+                    ~script7667(bugreport_interface:chars_left);
+                    return;
+                }
+                $int4, $int5 = if_getcharposatindex(string_length(%bugreport_input), $component2);
+                if ($int5 >= if_getheight($component2) & $int0 ! 85 & $int0 ! 101) {
+                    return;
+                }
+                %bugreport_input, %bugreport_caret = ~script802(%bugreport_caret, %bugreport_input, $int3, $int0, $char1);
+                if_settext(%bugreport_input, $component2);
+                if (compare(if_gettext($component2), "Fox Mulder") = 0) {
+                    if_settext("Keep searching for the Truth.", $component2);
+                }
+                if (compare(if_gettext($component2), "Zodalia") = 0) {
+                    if_settext("By the axe of the emperor!", $component2);
+                } else if (compare(if_gettext($component2), "3.1415926535897932384626433832795028841971") = 0) {
+                    if_settext("I'm hungry gimme that pie!", $component2);
+                } else if (compare(if_gettext($component2), "Fr33 st00f pl0x!") = 0) {
+                    if_settext("Have you tried picking up ashes?", $component2);
+                } else if (compare(if_gettext($component2), "OMG bugs!") = 0) {
+                    %bugreport_bugs_squashed = 5000;
+                }
+                ~script7671(bugreport_interface:input_text, bugreport_interface:input_caret, %bugreport_input);
+            } else if (%bugreport_input_focus = 2) {
+                if ($int0 ! 85 & $int0 ! 101 & string_length(removetags(%bugreport_repro)) >= 500) {
+                    ~script7667(bugreport_interface:chars_repro);
+                    return;
+                }
+                $int4, $int5 = if_getcharposatindex(string_length(%bugreport_repro), $component2);
+                if ($int5 >= if_getheight($component2) & $int0 ! 85 & $int0 ! 101) {
+                    return;
+                }
+                %bugreport_repro, %bugreport_caret_repro = ~script802(%bugreport_caret_repro, %bugreport_repro, $int3, $int0, $char1);
+                if_settext(%bugreport_repro, $component2);
+                ~script7671(bugreport_interface:input_repro, bugreport_interface:repro_caret, %bugreport_repro);
+            }
+        }
+        ~script7665(%bugreport_input_focus);
+        ~component_flashtext_stop(92078094);
+        ~component_flashtext_stop(92078109);
+        if_settext(tostring(calc(500 - string_length(removetags(%bugreport_input)))), bugreport_interface:chars_left);
+        if_settext(tostring(calc(500 - string_length(removetags(%bugreport_repro)))), bugreport_interface:chars_repro);
+        return;
+}

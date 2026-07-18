@@ -1,0 +1,30 @@
+// 205
+[proc,script205]
+def_int $int0 = 0;
+def_int $int1 = 1;
+def_inv $inv2 = enum(int, inv, stockmarket_collectinv, 0);
+def_obj $obj3 = null;
+def_obj $obj4 = null;
+while ($int0 < 8 & $int1 = 1) {
+    $inv2 = enum(int, inv, stockmarket_collectinv, $int0);
+    $obj3 = inv_getobj($inv2, 0);
+    $obj4 = inv_getobj($inv2, 1);
+    $obj3, $obj4 = ~script17386($obj3, $obj4, inv_getobj($inv2, 2));
+    if ($obj3 ! null | $obj4 ! null) {
+        $int1 = 0;
+    }
+    $int0 = calc($int0 + 1);
+}
+if ($int1 = 1) {
+    if_sethide(false, stockmarket_collectall:send_to_bank_disabled_layer);
+    if_sethide(false, stockmarket_collectall:send_to_inv_disabled_layer);
+    if_setonvartransmit(null, stockmarket_collectall:send_to_bank_text);
+    if_setonvartransmit(null, stockmarket_collectall:send_to_inv_text);
+    if_setcolour(struct_param(rs3tli_neutral_button_text, rs3tli_button_text_disabled_colour), stockmarket_collectall:send_to_bank_text);
+    if_setcolour(struct_param(rs3tli_positive_button_text, rs3tli_button_text_disabled_colour), stockmarket_collectall:send_to_inv_text);
+} else {
+    if_sethide(true, stockmarket_collectall:send_to_bank_disabled_layer);
+    if_sethide(true, stockmarket_collectall:send_to_inv_disabled_layer);
+    ~script7689(stockmarket_collectall:send_to_bank_text, rs3tli_neutral_button_text);
+    ~script7689(stockmarket_collectall:send_to_inv_text, rs3tli_positive_button_text);
+}

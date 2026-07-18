@@ -1,0 +1,21 @@
+// 1456
+[clientscript,script1456](int $int0)
+~lobby_popup_close;
+switch_int ($int0) {
+    case 0 :
+        mes_typed(^chattype_console, 0, "Pending Transaction Debug: No transactions found state, login would move onto checking credit card expiry.");
+    case 1 :
+        mes_typed(^chattype_console, 0, "Pending Transaction Debug: Apply state. Calling popup");
+        ~lobby_popup(10005, lobby_popup_positive_action, "Pending Transaction", "Pending transactions found!<br><br>Do you wish to apply them now?", "loadingwheel,9", "Yes", "No");
+    case 2 :
+        mes_typed(^chattype_console, 0, "Pending Transaction Debug: Applying in progress state. Calling popup");
+        ~lobby_popup(10006, lobby_popup_default, "Pending Transaction", "Attempting to apply transactions", rs3_loading_spinner_default, "", "Cancel");
+    case 3 :
+        mes_typed(^chattype_console, 0, "Pending Transaction Debug: Failed state. Calling popup");
+        ~lobby_popup(10007, lobby_popup_warning_positive_action, "Pending Transaction", "Pending transaction failed to apply.<br><br>Do you wish to try again?", "loadingwheel,11", "Yes", "No");
+    case 4 :
+        mes_typed(^chattype_console, 0, "Pending Transaction Debug: Success state. Calling popup");
+        ~lobby_popup(10007, lobby_popup_negative_close, "Pending Transaction", "Transactions applied!", "loadingwheel,8", "", "OK");
+    case default :
+        mes_typed(^chattype_console, 0, "Pending Transaction Debug: Invalid state <tostring($int0)>. Use ^lobby_pendingtransaction_none_found = 0, ^lobby_pendingtransaction_need_apply = 1, ^lobby_pendingtransaction_applying = 2, ^lobby_pendingtransaction_failed = 3, ^lobby_pendingtransaction_success = 4");
+}

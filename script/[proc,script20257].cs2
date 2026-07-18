@@ -1,0 +1,44 @@
+// 20257
+[proc,script20257](dbrow $dbrow0, int $int1, int $int2, int $int3, int $int4, boolean $boolean5, boolean $boolean6, int $int7)(int)
+def_dbrow $dbrow8 = db_getfield($dbrow0, league_relic_tier:col1, $int2);
+def_boolean $boolean9 = ~league_relic_active($dbrow8);
+def_boolean $boolean10 = $boolean5;
+def_boolean $boolean11 = true;
+def_string $string0 = db_getfield($dbrow8, league_relic:col0, 0);
+def_graphic $graphic12 = db_getfield($dbrow8, league_relic:col3, 0);
+def_graphic $graphic13 = "league_1_relic_base,0";
+def_graphic $graphic14 = "league_1_relic_base,1";
+def_dbrow $dbrow15 = button_panel;
+def_int $int16 = 0;
+if ($int7 = 0) {
+    $int16 = 12;
+}
+if ($boolean9 = true) {
+    $graphic13 = "league_1_relic_base,4";
+    $graphic14 = "league_1_relic_base,5";
+} else {
+    $boolean11 = false;
+    if ($boolean10 = true) {
+        $dbrow15 = button_panel;
+        $graphic12 = db_getfield($dbrow8, league_relic:col4, 0);
+    }
+}
+~script20258($string0, $int1, $int2, $int7);
+~cc_add_child_button_full(calc($int1 + 100), $int2, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, $int16, 0, ^setsize_minus, ^setsize_minus, $dbrow15, "", true, true, true, $boolean11);
+~script20258($string0, $int1, $int2, $int7);
+cc_find_parent;
+~cc_add_child_graphic(0, $int3++, 0, 4, ^setpos_abs_centre, ^setpos_abs_top, 44, 40, ^setsize_abs, ^setsize_abs, $graphic13);
+cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic14)");
+cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic13)");
+~cc_add_child_graphic(0, $int3++, 0, calc(4 + 4), ^setpos_abs_centre, ^setpos_abs_top, 32, 32, ^setsize_abs, ^setsize_abs, $graphic12);
+switch_int ($int7) {
+    case 2 :
+        ~cc_add_child_graphic(0, $int3++, 4, -10, ^setpos_abs_right, ^setpos_abs_centre, 24, 24, ^setsize_abs, ^setsize_abs, "rs3_icon_calendar_navigation_flipped_24px,0");
+    case 3 :
+        ~cc_add_child_graphic(0, $int3++, 4, -10, ^setpos_abs_left, ^setpos_abs_centre, 24, 24, ^setsize_abs, ^setsize_abs, "rs3_icon_calendar_navigation_24px,0");
+}
+~cc_add_child_text(0, $int3++, 0, 2, ^setpos_abs_centre, ^setpos_abs_bottom, calc($int16 + 4), 32, ^setsize_minus, ^setsize_abs, text_label_standard, $string0);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 16);
+cc_setmaxlines(2);
+~script20259($boolean9, $boolean10);
+return($int3);

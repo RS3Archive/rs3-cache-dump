@@ -1,0 +1,93 @@
+// 5176
+[proc,script5176]
+def_int $int0 = -1;
+def_int $int1 = 10;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = enum(int, int, hcape_enum_city_starting_goal, %hcape_p_city);
+def_struct $struct5 = enum(int, struct, hcape_enum_goal_id_to_struct, $int4);
+def_int $int6 = -1;
+def_int $int7 = 0;
+cc_deleteall(hcape_interface:goals_icons);
+while ($struct5 ! null) {
+    if ($int4 = %hcape_active_goal) {
+        $int7 = 1;
+    } else {
+        $int7 = 0;
+    }
+    if (struct_param($struct5, hcape_goal_type) = 0) {
+        ~script13998(hcape_interface:goals_icons, null, rs3tli_3x3_button, $int1, 0, 60, 60, 0, false, "", $int7);
+        if (~script5200($int4) = 1) {
+            cc_create(hcape_interface:goals_icons, ^iftype_graphic, if_getnextsubid(hcape_interface:goals_icons));
+            cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(60, 60, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic("aif_herald_cape_icons,26");
+        }
+        cc_create(hcape_interface:goals_icons, ^iftype_graphic, if_getnextsubid(hcape_interface:goals_icons));
+        cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(60, 60, ^setsize_abs, ^setsize_abs);
+        cc_setop(1, "Goal details");
+        cc_setonop("script5179($int4)");
+        cc_setgraphic(struct_param($struct5, hcape_goal_image));
+        $int1 = calc($int1 + 70);
+    } else {
+        $int2 = ~script14213($int4);
+        $int3 = ~script14212($int4);
+        ~script13998(hcape_interface:goals_icons, null, rs3tli_3x3_button, $int1, 0, 120, 60, 0, false, "", $int7);
+        cc_create(hcape_interface:goals_icons, ^iftype_text, if_getnextsubid(hcape_interface:goals_icons));
+        cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(120, 60, ^setsize_abs, ^setsize_abs);
+        cc_settext("Tasks Complete:<br><br><tostring($int3)> of <tostring($int2)>");
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextshadow(true);
+        ~script11024(3);
+        cc_create(hcape_interface:goals_icons, ^iftype_graphic, if_getnextsubid(hcape_interface:goals_icons));
+        cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(120, 120, ^setsize_abs, ^setsize_abs);
+        cc_setop(1, "Goal details");
+        cc_setonop("script5179($int4)");
+        $int1 = calc($int1 + 130);
+    }
+    $int4 = struct_param($struct5, hcape_goal_next_id);
+    $struct5 = enum(int, struct, hcape_enum_goal_id_to_struct, $int4);
+}
+$int4 = 14;
+$struct5 = enum(int, struct, hcape_enum_goal_id_to_struct, $int4);
+while ($struct5 ! null) {
+    if (struct_param($struct5, hcape_goal_hide_if_incomplete) = 1 & ~script5200($int4) = 0) {
+        $int4 = struct_param($struct5, hcape_goal_next_id);
+        $struct5 = enum(int, struct, hcape_enum_goal_id_to_struct, $int4);
+    } else {
+        if ($int4 = %hcape_active_goal) {
+            $int7 = 1;
+        } else {
+            $int7 = 0;
+        }
+        ~script13998(hcape_interface:goals_icons, null, rs3tli_3x3_button, $int1, 0, 60, 60, 0, false, "", $int7);
+        cc_create(hcape_interface:goals_icons, ^iftype_graphic, if_getnextsubid(hcape_interface:goals_icons));
+        cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(60, 60, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(struct_param($struct5, hcape_goal_image));
+        cc_setop(1, "Goal details");
+        if (%hcape_current_tier > 3) {
+            cc_setonop("script5179($int4)");
+            if (~script5200($int4) = 1) {
+                cc_create(hcape_interface:goals_icons, ^iftype_graphic, if_getnextsubid(hcape_interface:goals_icons));
+                cc_setsize(60, 60, ^setsize_abs, ^setsize_abs);
+                cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top);
+                cc_setgraphic("aif_herald_cape_icons,26");
+            }
+        } else {
+            cc_setonop("script5179(13)");
+            cc_setgraphic("aif_herald_cape_icons,15");
+        }
+        $int4 = struct_param($struct5, hcape_goal_next_id);
+        $struct5 = enum(int, struct, hcape_enum_goal_id_to_struct, $int4);
+        $int1 = calc($int1 + 70);
+    }
+}
+if ($int1 > if_getwidth(hcape_interface:goals_icons)) {
+    if_setscrollsize($int1, 0, hcape_interface:goals_icons);
+}
+~rs3_scrollbar_horizontal(hcape_interface:goals_scrollbar, hcape_interface:goals_icons);

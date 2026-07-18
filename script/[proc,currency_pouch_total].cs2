@@ -1,0 +1,12 @@
+// 14965
+[proc,currency_pouch_total](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(-1);
+}
+switch_int (db_getfield($dbrow0, currency_table:col1, 0)) {
+    case 0 :
+        return(~currency_pouch_total_var($dbrow0));
+    case 1 :
+        return(~currency_pouch_total_inv($dbrow0));
+}
+return(-1);

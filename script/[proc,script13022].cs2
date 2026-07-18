@@ -1,0 +1,12 @@
+// 13022
+[proc,script13022](dbrow $dbrow0)(int)
+if (db_getfield($dbrow0, book:col0, 0) ! -1) {
+    return(~book_get_unlock_state($dbrow0));
+}
+switch_dbrow ($dbrow0) {
+    case book_kharidet_trindine_memory :
+        if (%arch_kharidet_mq_vault_progress < 2) {
+            return(0);
+        }
+}
+return(1);

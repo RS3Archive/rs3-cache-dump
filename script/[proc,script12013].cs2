@@ -1,0 +1,38 @@
+// 12013
+[proc,script12013](component $component0, component $component1, int $int2)
+def_string $string0 = "Your prayer points, which are needed to keep prayers active.<br>You can restore these by praying at an altar<br>or by drinking a prayer restore potion.";
+def_string $string1 = "";
+if (%prayer_client_showing_active_summary = 1) {
+    switch_int (%prayer_mode) {
+        case default :
+            $string1 = "<~script8241(1)> here to show the full list of prayers.";
+        case 0 :
+            $string1 = "<~script8241(1)> here to show the full list of prayers.";
+        case 1 :
+            $string1 = "<~script8241(1)> here to show the full list of curses.";
+    }
+} else {
+    switch_int (%prayer_mode) {
+        case default :
+            $string1 = "<~script8241(1)> here to show only the active prayers and additional information.";
+        case 0 :
+            $string1 = "<~script8241(1)> here to show only the active prayers and additional information.";
+        case 1 :
+            $string1 = "<~script8241(1)> here to show only the active curses and additional information.";
+    }
+}
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setsize($int2, 0, ^setsize_minus, ^setsize_minus, $component0);
+if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, $component1);
+if_setsize($int2, 0, ^setsize_abs, ^setsize_minus, $component1);
+if (~script6431 = true) {
+    if_setop(5, "Info", $component0);
+    if_setonop("script7774($string1, event_com, event_comsubid, 0)", $component0);
+    if_setop(5, "Info", $component1);
+    if_setonop("script7774($string0, event_com, event_comsubid, 0)", $component1);
+} else {
+    if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", $component0);
+    if_setonmouseleave("script8805", $component0);
+    if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component1);
+    if_setonmouseleave("script8805", $component1);
+}

@@ -1,0 +1,117 @@
+// 12274
+[proc,script12274]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string0 = "---";
+def_string $string1 = "---";
+def_string $string2 = "";
+def_int $int3 = -1;
+def_int $int4 = -1;
+$int3, $int4 = ~script15912(%bslay_monster_struct);
+def_string $string3 = "You have not set a fastest time for this boss.";
+switch_int ($int3) {
+    case 2 :
+        $string3 = "You have not set a fastest time for this boss in solo mode.";
+    case 3 :
+        $string3 = "You have not set a fastest time for this boss in duo mode.";
+    case 4 :
+        $string3 = "You have not set a fastest time for this boss in group mode.";
+    case 5 :
+        $string3 = "You have not set a fastest time for this boss in enrage mode.";
+}
+if (%bslay_monster_fastest_kill ! -1) {
+    if (%bslay_monster_fastest_kill > 0) {
+        $string0 = ~script15908(-1, -1, -1, ~script4705(%bslay_monster_fastest_kill), ~script16472(%bslay_monster_fastest_kill), 5, -1, 1, 1, 1, 0, 0, 0);
+        $string3 = "Fastest kill: <$string0>";
+        switch_int ($int3) {
+            case 2 :
+                $string3 = "Fastest solo mode kill: <$string0>";
+                $string2 = "(solo mode)";
+            case 3 :
+                $string3 = "Fastest duo mode kill: <$string0>";
+                $string2 = "(duo mode)";
+            case 4 :
+                $string3 = "Fastest group mode kill: <$string0>";
+                $string2 = "(group mode)";
+            case 5 :
+                $string3 = "Fastest enrage mode kill: <$string0>";
+                $string2 = "(enrage mode)";
+        }
+        if_setop(2, "Announce to Local Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(3, "Announce to Friends Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(4, "Announce to Clan Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(5, "Announce to Guest Clan Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(10, "Reset time", bslay_boss_info:boss_timed_death_graphic);
+    } else {
+        if_setop(2, "", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(3, "", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(4, "", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(5, "", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(10, "", bslay_boss_info:boss_timed_death_graphic);
+    }
+    if (%bslay_monster_fastest_kill_hard > -1) {
+        if (%bslay_monster_fastest_kill_hard > 0) {
+            $string1 = ~script15908(-1, -1, -1, ~script4705(%bslay_monster_fastest_kill_hard), ~script16472(%bslay_monster_fastest_kill_hard), 5, -1, 1, 1, 1, 0, 0, 0);
+            switch_int ($int4) {
+                case 1 :
+                    $string3 = append($string3, "<br>Fastest hard mode kill: <$string1>");
+                    $string2 = "(hard mode)";
+                case 2 :
+                    $string3 = append($string3, "<br>Fastest solo mode kill: <$string1>");
+                    $string2 = "(solo mode)";
+                case 3 :
+                    $string3 = append($string3, "<br>Fastest duo mode kill: <$string1>");
+                    $string2 = "(duo mode)";
+                case 4 :
+                    $string3 = append($string3, "<br>Fastest group mode kill: <$string1>");
+                    $string2 = "(group mode)";
+                case 5 :
+                    $string3 = "Fastest enrage mode kill: <$string0>";
+                    $string2 = "(enrage mode)";
+            }
+            if (%bslay_monster_struct = bslay_dino_boss) {
+                $string0 = append($string0, "<br><$string1>");
+            } else {
+                $string0 = append($string0, "<br><col=FF3030><$string1></col>");
+            }
+            if_setop(6, "Announce to Local Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+            if_setop(7, "Announce to Friends Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+            if_setop(8, "Announce to Clan Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+            if_setop(9, "Announce to Guest Clan Chat <$string2>", bslay_boss_info:boss_timed_death_graphic);
+            if_setop(10, "Reset time", bslay_boss_info:boss_timed_death_graphic);
+        } else {
+            switch_int ($int4) {
+                case 1 :
+                    $string3 = append($string3, "<br>You have not set a fastest time for this boss in hard mode.");
+                case 2 :
+                    $string3 = append($string3, "<br>You have not set a fastest time for this boss in solo mode.");
+                case 3 :
+                    $string3 = append($string3, "<br>You have not set a fastest time for this boss in duo mode.");
+                case 4 :
+                    $string3 = append($string3, "<br>You have not set a fastest time for this boss in group mode.");
+                case 5 :
+                    $string3 = append($string3, "<br>You have not set a fastest time for this boss in enrage mode.");
+            }
+            if (%bslay_monster_struct = bslay_dino_boss) {
+                $string0 = append($string0, "<br>---");
+            } else {
+                $string0 = append($string0, "<br><col=FF3030>---</col>");
+            }
+            if_setop(6, "", bslay_boss_info:boss_timed_death_graphic);
+            if_setop(7, "", bslay_boss_info:boss_timed_death_graphic);
+            if_setop(8, "", bslay_boss_info:boss_timed_death_graphic);
+            if_setop(9, "", bslay_boss_info:boss_timed_death_graphic);
+        }
+    } else {
+        if_setop(6, "", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(7, "", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(8, "", bslay_boss_info:boss_timed_death_graphic);
+        if_setop(9, "", bslay_boss_info:boss_timed_death_graphic);
+    }
+    if_setonmouserepeat("script8799($string3, bslay_boss_info:boss_death_graphic, -1)", bslay_boss_info:boss_timed_death);
+    if_settext($string0, bslay_boss_info:boss_timed_death_text);
+    if_sethide(false, bslay_boss_info:boss_timed_death);
+} else {
+    if_sethide(true, bslay_boss_info:boss_timed_death);
+}

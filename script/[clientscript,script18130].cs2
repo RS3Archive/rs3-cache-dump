@@ -1,0 +1,31 @@
+// 18130
+[clientscript,script18130]
+def_string $string0 = "";
+def_string $string1 = "";
+def_graphic $graphic0 = null;
+def_boolean $boolean1 = false;
+if (~script17853 ! null) {
+    $string0 = "Missions";
+    $string1 = "Complete Hero Pass Missions to gain Hero Points and other rewards!";
+    $graphic0 = rs3_featured_hero_pass_missions;
+    if_settext("Hero Pass Missions", featured_main:skill_title);
+    if_settext($string0, featured_main:skill_label);
+    if_setgraphic($graphic0, featured_main:skill_graphic);
+    if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", featured_main:missions_layer);
+    if_setonmouseleave("script8805", featured_main:missions_layer);
+} else {
+    $boolean1, $string0, $string1, $graphic0 = ~featured_content_get_skill;
+    if ($graphic0 = null) {
+        $graphic0 = rs3_challenge_woodcutting;
+    }
+    if_sethide($boolean1, featured_main:skill_daily_stamp);
+    if_settext($string0, featured_main:skill_title);
+    if (%challenge_returner_active = 1) {
+        if_settext("Returner Challenges", featured_main:skill_label);
+    } else {
+        if_settext("Skill", featured_main:skill_label);
+    }
+    if_setgraphic($graphic0, featured_main:skill_graphic);
+    if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", featured_main:missions_layer);
+    if_setonmouseleave("script8805", featured_main:missions_layer);
+}

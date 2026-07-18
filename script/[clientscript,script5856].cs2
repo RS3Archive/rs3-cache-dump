@@ -1,0 +1,90 @@
+// 5856
+[clientscript,script5856]
+def_component $component0 = 6awe3_rewards:skill_book;
+def_component $component1 = 6awe3_rewards:skill_category;
+def_component $component2 = 6awe3_rewards:skill_extras;
+def_component $component3 = 6awe3_rewards:skill_scrollbar;
+def_component $component4 = 6awe3_rewards:skill_scrolling;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = enum_getoutputcount(6awe3_ability_order);
+def_int $int8 = 5;
+def_int $int9 = 25;
+def_int $int10 = 0;
+def_int $int11 = if_getwidth($component0);
+def_struct $struct12 = null;
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+while ($int5 < $int7) {
+    ~script7924($component0, $int5, 32, 32, 0, 0, null, false, false, false, 0);
+    cc_sethide(true);
+    $int5 = calc($int5 + 1);
+}
+~script10629($component1, 0, $int11, 17, 0, 0, "Passive abilities", 15777401, museo_sans_13pt_regular, ^settextalign_centre, ^settextalign_centre, 11, false);
+~cc_add(^iftype_line, $component1, 1, $int11, 0, 0, 17);
+cc_setcolour(0xf0be79);
+$int5 = 0;
+while ($int5 < $int7) {
+    $int6 = enum(int, int, 6awe3_ability_order, $int5);
+    $struct12 = enum(int, struct, 6awe3_ability_to_struct, $int6);
+    if (~script5857($struct12) = true & struct_param($struct12, 6awe3_ability_cast) = 0 & cc_find($component0, $int5) = true) {
+        if (calc($int8 + 35) > $int11) {
+            $int8, $int9 = 5, calc($int9 + 40);
+        }
+        cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_sethide(false);
+        if (~script5858($struct12) = true) {
+            cc_setgraphic(struct_param($struct12, 6awe3_ability_disable));
+        } else {
+            cc_setgraphic(struct_param($struct12, 6awe3_ability_graphic));
+        }
+        cc_setondrag("script5859");
+        cc_setondragcomplete("script5911");
+        cc_setonmouseover("script6005($int5, $struct12)");
+        cc_setonmouseleave("script6025($int5, $struct12)");
+        cc_setop(1, "Select");
+        cc_setonop("script6227($int5)");
+        $int8 = calc($int8 + 40);
+    }
+    $int5 = calc($int5 + 1);
+}
+~script10629($component1, 2, $int11, 17, 0, calc($int9 + 40), "Active abilities", 15777401, museo_sans_13pt_regular, ^settextalign_centre, ^settextalign_centre, 11, false);
+~cc_add(^iftype_line, $component1, 3, $int11, 0, 0, calc($int9 + 57));
+cc_setcolour(0xf0be79);
+$int5 = 0;
+$int9 = calc($int9 + 65);
+$int8 = 5;
+while ($int5 < $int7) {
+    $int6 = enum(int, int, 6awe3_ability_order, $int5);
+    $struct12 = enum(int, struct, 6awe3_ability_to_struct, $int6);
+    if (~script5857($struct12) = true & struct_param($struct12, 6awe3_ability_cast) ! 0 & cc_find($component0, $int5) = true) {
+        if (calc($int8 + 35) > $int11) {
+            $int8, $int9 = 5, calc($int9 + 40);
+        }
+        cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_sethide(false);
+        if (~script5858($struct12) = true) {
+            cc_setgraphic(struct_param($struct12, 6awe3_ability_disable));
+        } else {
+            cc_setgraphic(struct_param($struct12, 6awe3_ability_graphic));
+        }
+        cc_setondrag("script5859");
+        cc_setondragcomplete("script5911");
+        cc_setonmouseover("script6005($int5, $struct12)");
+        cc_setonmouseleave("script6025($int5, $struct12)");
+        cc_setop(1, "Select");
+        cc_setonop("script6227($int5)");
+        $int8 = calc($int8 + 40);
+    }
+    $int5 = calc($int5 + 1);
+}
+$int9 = calc($int9 + 40);
+if ($int9 > if_getheight($component0)) {
+    if_setscrollsize(0, $int9, $component0);
+    if_setscrollsize(0, $int9, $component2);
+    if_setscrollsize(0, $int9, $component1);
+}
+~rs3_scrollbar_vertical($component3, $component4);
+~script6228(%6awe3_skill_selected);

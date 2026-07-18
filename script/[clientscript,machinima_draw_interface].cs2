@@ -1,0 +1,60 @@
+// 2875
+[clientscript,machinima_draw_interface]
+if (%machinima_interface_remember_tab = 2) {
+    ~static_checkbox_create(machinima_skybox_filter:enable_advanced_build_withlabel, machinima_skybox_filter:enable_advanced_click_withlabel, "Apply advanced data on login", "The saved skybox data will be applied on login", "Don't apply save data", %machinima_remember_selection_advanced);
+    if_sethide(true, machinima_skybox_filter:button_layer);
+    if_sethide(false, machinima_skybox_filter:advanced_layer);
+    ~script5910;
+    return;
+} else {
+    if_sethide(false, machinima_skybox_filter:button_layer);
+    if_sethide(true, machinima_skybox_filter:advanced_layer);
+}
+def_enum $enum0 = machinima_interface_skybox;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = %machinima_remember_selection_skybox;
+def_boolean $boolean7 = false;
+if (%machinima_interface_remember_tab = 1) {
+    $enum0 = machinima_interface_filter;
+    $int6 = %machinima_remember_selection_filter;
+    if (%accessibility_high_contrast_enabled = 1) {
+        if_settext("<col=FF0000>Filter changes will not be visible while High Contrast Mode is active.</col>", machinima_skybox_filter:description);
+    } else {
+        if_settext("Filters can dramatically change the appearance of the world.", machinima_skybox_filter:description);
+    }
+} else if (%accessibility_high_contrast_enabled = 1) {
+    if_settext("<col=FF0000>Skybox changes will be obscured while High Contrast Mode is active.</col>", machinima_skybox_filter:description);
+} else {
+    if_settext("Skyboxes change the appearance of the sky and lighting of an area.", machinima_skybox_filter:description);
+}
+cc_deleteall(machinima_skybox_filter:button_draw_layer);
+cc_deleteall(machinima_skybox_filter:button_click_layer);
+if (if_find(machinima_skybox_filter:button_layer) = true) {
+    $int5 = calc(cc_getwidth / 2 - 10);
+}
+def_int $int8 = enum_getoutputcount($enum0);
+while ($int1 < $int8) {
+    if (%machinima_interface_remember_tab = 0) {
+        $boolean7 = ~negate_bool(~machinima_is_unlocked($int1));
+    } else {
+        $boolean7 = false;
+    }
+    if ($int1 = $int6) {
+        $int2 = ~script13998(machinima_skybox_filter:button_draw_layer, machinima_skybox_filter:button_click_layer, rs3tli_3x3_button, $int3, $int4, calc($int5 - 10), 22, $int2, $boolean7, enum(int, string, $enum0, $int1), 1);
+    } else {
+        $int2 = ~script13998(machinima_skybox_filter:button_draw_layer, machinima_skybox_filter:button_click_layer, rs3tli_3x3_button, $int3, $int4, calc($int5 - 10), 22, $int2, $boolean7, enum(int, string, $enum0, $int1), 0);
+    }
+    if ($int3 = 0) {
+        $int3 = $int5;
+    } else {
+        $int3 = 0;
+        $int4 = calc($int4 + 25);
+    }
+    $int1 = calc($int1 + 1);
+}
+if_setscrollsize(0, calc($int4 + 25), machinima_skybox_filter:button_scroll_layer);
+~rs3_scrollbar_vertical(machinima_skybox_filter:scroll_bar_button, machinima_skybox_filter:button_scroll_layer);

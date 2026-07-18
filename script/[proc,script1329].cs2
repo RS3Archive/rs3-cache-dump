@@ -1,0 +1,18 @@
+// 1329
+[proc,script1329]
+if (~is_mobile_client = false) {
+    return;
+}
+if (calc(^max_32bit_int - %appsflyer_client_login_session_to_be_tracked) = 0) {
+    return;
+}
+switch_int (++%appsflyer_client_login_session_to_be_tracked) {
+    case 2 :
+        ~script380(mobile_analytics_2_sessions_completed);
+    case 3 :
+        ~script380(mobile_analytics_3_sessions_completed);
+    case 5 :
+        ~script380(mobile_analytics_5_sessions_completed);
+    case 10 :
+        ~script380(mobile_analytics_10_sessions_completed);
+}

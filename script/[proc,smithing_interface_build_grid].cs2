@@ -1,0 +1,110 @@
+// 2603
+[proc,smithing_interface_build_grid](enum $enum0, int $int1, component $component2, int $int3)(int)
+def_int $int4 = 0;
+def_int $int5 = enum_getoutputcount($enum0);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_obj $obj11 = null;
+def_int $int12 = 1;
+if ($component2 = ms_smithing_makex:accordion_content_layer_5 | $component2 = ms_smithing_makex:accordion_content_layer_6 | $component2 = ms_smithing_makex:accordion_content_layer_7 | $component2 = ms_smithing_makex:accordion_content_layer_8 | $component2 = ms_smithing_makex:accordion_content_layer_9) {
+    $int12 = 0;
+}
+def_int $int13 = 1;
+def_int $int14 = 1;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_graphic $graphicarray0(3);
+$graphicarray0(0) = "aif_make_x_unavailable,0";
+$graphicarray0(1) = "aif_make_x_unavailable,1";
+$graphicarray0(2) = "aif_make_x_unavailable,2";
+def_graphic $graphicarray1(3);
+$graphicarray1(0) = "aif_make_x_available,0";
+$graphicarray1(1) = "aif_make_x_available,1";
+$graphicarray1(2) = "aif_make_x_available,2";
+cc_deleteall($component2);
+while ($int6 < $int5) {
+    $obj11 = enum(int, obj, $enum0, $int6);
+    $int14 = 1;
+    $int15 = 0;
+    $int17 = 0;
+    if ($obj11 ! null) {
+        $int9 = calc($int6 % 4);
+        $int10 = calc($int6 / 4);
+        $int7 = calc((46 + 5) * $int9 + 5);
+        $int8 = calc((46 + 5) * $int10 + 5);
+        if (enum_hasoutput(obj, smithing_hopper_id_to_obj, $obj11) = true) {
+            $int17 = 1;
+            $int16 = ~script2549($obj11);
+            if ($int16 <= 0 & $int12 = 1) {
+                $int14 = 0;
+            }
+        }
+        switch_int ($int3) {
+            case 3 :
+                if ($int17 = 0) {
+                    $int3 = 0;
+                }
+            case 4 :
+                if (oc_param($obj11, smithing_max_upgrades) > 0) {
+                    $obj11 = ~script2542($obj11, %smithing_interface_upgrade_selected);
+                }
+                if (~script7105($obj11) = false | ~script7108($obj11) <= 0) {
+                    $int14 = 0;
+                } else {
+                    $int14 = 1;
+                }
+        }
+        cc_create($component2, ^iftype_graphic, $int1);
+        cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+        if ($int3 = 3 & %smithing_interface_material_dbrow_selected ! null & enum(obj, dbrow, smithing_material_to_item_dbrow, $obj11) = %smithing_interface_material_dbrow_selected | $int3 = 4 & ($obj11 = %smithing_interface_base_object_selected | oc_param($obj11, smithing_base_version) = %smithing_interface_base_object_selected)) {
+            $int15 = 1;
+        }
+        if ($int14 = 1) {
+            if ($int15 = 1) {
+                cc_setgraphic($graphicarray1(2));
+            } else {
+                cc_setonmouseover("graphic_swapper_dynamic($component2, $int1, $graphicarray1(1))");
+                cc_setonmouseleave("graphic_swapper_dynamic($component2, $int1, $graphicarray1(0))");
+                cc_setgraphic($graphicarray1(0));
+            }
+        } else if ($int15 = 1) {
+            cc_setgraphic($graphicarray0(2));
+        } else {
+            cc_setonmouseover("graphic_swapper_dynamic($component2, $int1, $graphicarray0(1))");
+            cc_setonmouseleave("graphic_swapper_dynamic($component2, $int1, $graphicarray0(0))");
+            cc_setgraphic($graphicarray0(0));
+        }
+        $int1 = calc($int1 + 1);
+        cc_setsize(46, 46, ^setsize_abs, ^setsize_abs);
+        cc_create($component2, ^iftype_graphic, $int1);
+        $int1 = calc($int1 + 1);
+        if ($int3 = 3) {
+            cc_setop(2, "Deposit all <oc_name($obj11)>");
+            cc_setop(3, "Deposit-X <oc_name($obj11)>");
+            cc_setop(4, "Withdraw all <oc_name($obj11)>");
+            cc_setop(5, "Withdraw-X <oc_name($obj11)>");
+        }
+        if ($int17 = 1) {
+            cc_setobject_alwaysnum($obj11, $int16);
+        } else if ($int12 = 0 & oc_param($obj11, recipe_make_stack_size) > 1) {
+            cc_setobject($obj11, ~script18374($obj11));
+        } else {
+            cc_setobject_nonum($obj11, 1);
+        }
+        cc_setparam(smithing_interface_object, $obj11);
+        if ($int3 ! 5) {
+            cc_setop(1, "Select <oc_name($obj11)>");
+            cc_setonop("smithing_grid_op(event_com, event_comsubid, event_op, $int3)");
+        }
+        cc_setposition(calc($int7 + (46 - 36) / 2 + 2), calc($int8 + (46 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setonmouserepeat("script9564($obj11, event_com, event_comsubid)");
+    }
+    $int6 = calc($int6 + 1);
+}
+$int4 = calc($int8 + 46 + 5);
+return($int4);

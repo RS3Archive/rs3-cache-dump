@@ -1,0 +1,18 @@
+// 15616
+[proc,script15616]
+if (if_gethide(lobbyscreen:friendslist_panel) = true | userdetail_quickchat = true) {
+    return;
+}
+if (string_length(%last_pm_received_sender) = 0) {
+    ~script15617("You haven't received any messages to which you can reply.");
+    return;
+}
+def_int $int0 = friend_getslotfromname(%last_pm_received_sender);
+if ($int0 = -1) {
+    ~script15617("That player is not on your Friends list.");
+    return;
+}
+def_string $string0 = "";
+def_string $string1 = "";
+$string0, $string1 = friend_getname($int0);
+~lobbyscreen_input("Send message to <$string0>", "", 0, %last_pm_received_sender, "");

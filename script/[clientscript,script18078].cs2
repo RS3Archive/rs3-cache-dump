@@ -1,0 +1,15 @@
+// 18078
+[clientscript,script18078](int $int0, dbrow $dbrow1, dbrow $dbrow2, int $int3, component $component4)
+if (%bp3_mission_chain_selected_component ! null & cc_find(%bp3_mission_chain_selected_component, %bp3_mission_chain_selected_component_id) = true) {
+    ~script7872(true, true, true, false);
+}
+if (cc_find($component4, $int3) = true) {
+    %bp3_mission_chain_selected_component = $component4;
+    %bp3_mission_chain_selected_component_id = $int3;
+    ~script7872(true, true, true, true);
+}
+def_int $int5 = calc(if_getheight(bp3_missions_tab:mission_info_chain_layer) + 10);
+def_component $component6 = bp3_missions_tab:mission_info_content_layer;
+$int5 = ~script18079($dbrow2, $component6, $int5);
+sound_vorbis_volume(bp3_ui_small_arrow_click_01, 1, 0, 100);
+~script18075($int5, $component6);

@@ -1,0 +1,44 @@
+// 7253
+[clientscript,script7253]
+def_int $int0 = 0;
+def_obj $obj1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+def_string $string0 = "";
+def_string $string1 = "No crewman";
+while ($int0 < inv_size(pop_crew)) {
+    $obj1 = inv_getobj(pop_crew, $int0);
+    if (enum_hasoutput(obj, pop_captain_list, $obj1) = true) {
+        $graphic3 = "aif_pop_captain_icon_holder,2";
+        $graphic2 = "aif_pop_captain_icon_holder,0";
+        $graphic4 = "aif_pop_captain_icon_holder,1";
+    } else {
+        $graphic3 = "aif_pop_crew_icon_holder,2";
+        $graphic2 = "aif_pop_crew_icon_holder,0";
+        $graphic4 = "aif_pop_crew_icon_holder,1";
+    }
+    if (cc_find(pop_ship:crew_layer_backgrounds, $int0) = true) {
+        if (%pop_ship_crew_selected_var = $int0) {
+            cc_setgraphic($graphic3);
+            cc_setonmouseover(null);
+            cc_setonmouseleave(null);
+        } else {
+            cc_setgraphic($graphic2);
+            cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic4)");
+            cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic2)");
+        }
+    }
+    if (cc_find(pop_ship:captain_layer_backgrounds, $int0) = true) {
+        if (%pop_ship_crew_selected_var = $int0) {
+            cc_setgraphic($graphic3);
+            cc_setonmouseover(null);
+            cc_setonmouseleave(null);
+        } else {
+            cc_setgraphic($graphic2);
+            cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic4)");
+            cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic2)");
+        }
+    }
+    $int0 = calc($int0 + 1);
+}

@@ -1,0 +1,46 @@
+// 2788
+[proc,script2788](enum $enum0, int $int1)
+if ($enum0 = null) {
+    return;
+}
+def_string $string0 = "";
+def_int $int2 = 1;
+def_int $int3 = enum_getoutputcount($enum0);
+sound_vorbis_volume(tli_click_01, 1, 0, 120);
+if ($int1 < $int3) {
+    switch_enum ($enum0) {
+        case graphics_opt_brightness :
+            clientoption_set(^clientoption_brightness, $int1);
+            $int2 = 0;
+        case ogl_top_roofs :
+            clientoption_set(^clientoption_remove_roof, $int1);
+            $int2 = 0;
+        case ogl_top_highest_high_med_low :
+            clientoption_set(^clientoption_draw_distance, $int1);
+        case graphics_opt_fps_mobile :
+            clientoption_set(^clientoption_max_foreground_fps, enum(int, int, graphics_opt_fps_mobile_actual, $int1));
+        case graphics_opt_anisotropic_mobile :
+            clientoption_set(^clientoption_anisotropic_filtering, $int1);
+        case ogl_nxt_top_antialiasing :
+            clientoption_set(^clientoption_antialiasing_mode, $int1);
+        case ogl_nxt_top_shadows_quality :
+            clientoption_set(^clientoption_shadow_quality, $int1);
+        case ogl_nxt_ambient_occlusion :
+            clientoption_set(^clientoption_ambient_occlusion, $int1);
+        case graphics_opt_reflections :
+            clientoption_set(^clientoption_reflections, $int1);
+        case ogl_top_high_low_lighting_detail :
+            clientoption_set(^clientoption_lighting_quality, $int1);
+        case ogl_default_player_model :
+            clientoption_set(^clientoption_custom_player_model_count, $int1);
+        case ogl_nxt_particle_quality :
+            clientoption_set(^clientoption_particle_quality, $int1);
+        case ogl_nxt_top_cursor_scale :
+            clientoption_set(42, $int1);
+    }
+    if ($int2 = 1) {
+        %using_autosetup = 0;
+        autosetup_setcustom;
+        ~script2707;
+    }
+}

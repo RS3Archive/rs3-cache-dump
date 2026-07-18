@@ -1,0 +1,73 @@
+// 18080
+[proc,script18080](dbrow $dbrow0, dbrow $dbrow1, int $int2, int $int3)(int)
+def_int $int4 = 0;
+def_dbrow $dbrow5 = null;
+if (db_getfieldcount($dbrow0, bp3_mission:col6) > 0) {
+    $dbrow5 = db_getfield($dbrow0, bp3_mission:col6, 0);
+}
+def_int $int6 = 10;
+def_int $int7 = 0;
+def_component $component8 = bp3_missions_tab:mission_info_chain_layer;
+def_component $component9 = bp3_missions_tab:mission_info_chain_title_layer;
+def_component $component10 = bp3_missions_tab:mission_info_chain_scroll_bar;
+if (if_find($component9) = true) {
+    ~cc_add_child_text(4, $int4, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_gold_cinzel_bold_16pt, "Mission Chain");
+    cc_setcolour(0xe0d471);
+    $int2 = calc($int2 + 30);
+} else {
+    ~error("Cannot find title parent layer when setting up the chain side panel.");
+}
+def_int $int11 = 0;
+if (if_find($component8) = true) {
+    cc_createchild(^iftype_layer, $int4, 4);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    $int4 = calc($int4 + 1);
+    $int11 = calc($int11 + 1);
+    ~cc_add_child_button_full(4, $int4, $int6, $int2, ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, bp3_mission_chain_button, ~script17839(db_getfield($dbrow0, bp3_mission:col9, 0)), true, true, true, true);
+    cc_setop(1, "Select");
+    cc_setonop("script18078($int4, $dbrow0, $dbrow0, event_comsubid, $component8)");
+    %bp3_mission_chain_selected_component = $component8;
+    %bp3_mission_chain_selected_component_id = cc_getid;
+    $int4 = calc($int4 + 1);
+    $int6 = calc($int6 + 75);
+    while ($dbrow5 ! null) {
+        ~cc_add_child_graphic(4, $int4, calc($int6 - 15), calc($int2 + 30), ^setpos_abs_left, ^setpos_abs_top, 30, 10, ^setsize_abs, ^setsize_abs, bp3_mission_chain_link);
+        cc_setcolour(^white);
+        cc_sendtoback;
+        $int4 = calc($int4 + 1);
+        $int11 = calc($int11 + 1);
+        ~cc_add_child_button_full(4, $int4, $int6, $int2, ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, bp3_mission_chain_button, ~script17839(db_getfield($dbrow5, bp3_mission:col9, 0)), true, true, true, false);
+        cc_setop(1, "Select");
+        cc_setonop("script18078($int4, $dbrow0, $dbrow5, event_comsubid, $component8)");
+        $int4 = calc($int4 + 1);
+        $int6 = calc($int6 + 75);
+        if (db_getfieldcount($dbrow5, bp3_mission:col6) > 0) {
+            $dbrow5 = db_getfield($dbrow5, bp3_mission:col6, 0);
+        } else {
+            $dbrow5 = null;
+        }
+        if (++$int7 > 10 & $dbrow5 ! null) {
+            ~error("Chain is too long, possible recurrsive loop. Breaking early.");
+            $dbrow5 = null;
+        }
+    }
+    $int2 = calc($int2 + 75);
+    if ($int6 > if_getwidth($component8)) {
+        if_setscrollpos($int3, 0, $component8);
+        if_setscrollsize(calc($int6 + 20), $int2, $component8);
+        if_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top, $component10);
+        ~rs3_scrollbar_horizontal($component10, $component8);
+        $int2 = calc($int2 + 15);
+        if_setsize(if_getwidth($component8), $int2, ^setsize_abs, ^setsize_abs, $component8);
+    } else {
+        if_setsize(if_getwidth($component8), $int2, ^setsize_abs, ^setsize_abs, $component8);
+        if_setscrollpos($int3, 0, $component8);
+        if_setscrollsize(0, $int2, $component8);
+        cc_deleteall($component10);
+        $int2 = calc($int2 + 10);
+    }
+} else {
+    ~error("Cannot find parent layer when trying to populate BP3 missions chain panel.");
+}
+return($int2);

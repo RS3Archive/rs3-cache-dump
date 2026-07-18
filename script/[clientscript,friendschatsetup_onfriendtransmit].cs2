@@ -1,0 +1,64 @@
+// 1893
+[clientscript,friendschatsetup_onfriendtransmit]
+cc_deleteall(friendschatsetup:name);
+cc_deleteall(friendschatsetup:rank);
+cc_deleteall(friendschatsetup:icon);
+cc_deleteall(friendschatsetup:scrollbar);
+def_int $int0 = friend_count;
+if ($int0 = -2) {
+    ~script11981("Connecting to Friend Server - Please wait...");
+    return;
+} else if ($int0 = -1) {
+    ~script11981("Loading Friends List - Please wait...");
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = if_getwidth(friendschatsetup:name);
+def_int $intarray0(calc($int0 + 1));
+def_int $intarray1(calc($int0 + 1));
+while ($int2 < $int0) {
+    $int1 = friend_getrank($int2);
+    cc_create(friendschatsetup:icon, ^iftype_graphic, $int2);
+    cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+    cc_create(friendschatsetup:name, ^iftype_text, $int2);
+    cc_setsize(0, 14, ^setsize_minus, ^setsize_abs);
+    cc_create(friendschatsetup:rank, ^iftype_text, $int2);
+    cc_setsize(0, 14, ^setsize_minus, ^setsize_abs);
+    cc_setontimer("friendschatsetup_info($int2, $int1)");
+    $intarray0($int2) = $int2;
+    $intarray1($int2) = $int1;
+    $int2 = calc($int2 + 1);
+}
+$intarray0($int0) = -1;
+$intarray1($int0) = -1;
+if ($int0 > 1) {
+    array_sort($int0, 1, 0);
+    if_setparam_int(friends_sort_rank_atoz, $intarray0(0), friendschatsetup:chat_frame);
+    if_setparam_int(friends_sort_rank_ztoa, $intarray0(calc($int0 - 1)), friendschatsetup:chat_frame);
+    $int2 = 0;
+    while ($int2 < $int0) {
+        if (cc_find(friendschatsetup:name, $intarray0($int2)) = true) {
+            cc_setparam(friends_sort_rank_atoz, $intarray0(calc($int2 + 1)));
+            if ($int2 > 0) {
+                cc_setparam(friends_sort_rank_ztoa, $intarray0(calc($int2 - 1)));
+            }
+        }
+        $int2 = calc($int2 + 1);
+    }
+    ~script11953(intarray0, 0, calc($int0 - 1));
+    if_setparam_int(friends_sort_atoz, $intarray0(0), friendschatsetup:chat_frame);
+    if_setparam_int(friends_sort_ztoa, $intarray0(calc($int0 - 1)), friendschatsetup:chat_frame);
+    if_setparam_int(friends_sort_mode, -2, friendschatsetup:chat_frame);
+    $int2 = 0;
+    while ($int2 < $int0) {
+        if (cc_find(friendschatsetup:name, $intarray0($int2)) = true) {
+            cc_setparam(friends_sort_atoz, $intarray0(calc($int2 + 1)));
+            if ($int2 > 0) {
+                cc_setparam(friends_sort_ztoa, $intarray0(calc($int2 - 1)));
+            }
+        }
+        $int2 = calc($int2 + 1);
+    }
+}
+if_setontimer("script11955", friendschatsetup:chat_frame);

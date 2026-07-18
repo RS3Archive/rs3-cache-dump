@@ -1,0 +1,15 @@
+// 10534
+[clientscript,script10534](component $component0, int $int1)
+if (calc(clientclock % 5) ! 0) {
+    return;
+}
+def_int $int2 = if_gettrans($component0);
+def_int $int3 = 0;
+if ($int2 <= 100 & $int1 < 0) {
+    if_setontimer("script10534($component0, calc($int1 * -1))", $component0);
+}
+if ($int2 >= 255 & $int1 > 0) {
+    if_setontimer("script10534($component0, calc($int1 * -1))", $component0);
+}
+$int3 = max(min(calc($int2 + $int1), 255), 0);
+if_settrans($int3, $component0);

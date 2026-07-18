@@ -1,0 +1,39 @@
+// 8783
+[clientscript,script8783](int $int0, int $int1, component $component2)
+if_setonresize(null, $component2);
+def_int $int3 = enum_getoutputcount(toplevel_v2_panel_id_listing);
+def_int $int4 = 0;
+def_struct $struct5 = null;
+def_component $component6 = null;
+def_int $int7 = 1;
+def_struct $struct8 = ~script10405($int0);
+def_component $component9 = null;
+if ($struct8 ! null) {
+    $component9 = struct_param($struct8, toplevel_v2_window_layer);
+    if ($component9 ! null & if_gethide($component9) = false) {
+        while ($int1 >= 0) {
+            $int4 = enum(int, int, toplevel_v2_panel_id_listing, $int1);
+            $struct5 = ~script10405($int4);
+            if ($struct5 ! null) {
+                $component6 = struct_param($struct5, toplevel_v2_window_layer);
+                if ($component6 ! null & if_gethide($component6) = false & struct_param($struct5, toplevel_v2_window_allow_overlap) = false & ~script8394($component9, $component6) = 1) {
+                    if (~script12612($struct5) = true) {
+                        ~script8356($int4, $int0, ~script8374(struct_param($struct5, toplevel_v2_window_tabs_layer)), 0, 0);
+                        $int7 = 1;
+                        $int1 = 0;
+                    } else {
+                        $int7 = 0;
+                    }
+                    %toplevel_v2_redraw_toggle_full_save = 1;
+                }
+            }
+            $int1 = calc($int1 - 1);
+        }
+        if ($int7 = 0 & ~script8786($int0, 0) = false) {
+            if_setonresize("script8782($int0, $int1, event_com, if_getx($component9), if_gety($component9), if_getwidth($component9), if_getheight($component9), 1)", $component2);
+            if_callonresize($component2);
+            %toplevel_v2_redraw_process_left = calc(%toplevel_v2_redraw_process_left + 1);
+        }
+    }
+}
+~script8784;

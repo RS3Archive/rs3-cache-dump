@@ -1,0 +1,53 @@
+// 11369
+[proc,script11369](struct $struct0, component $component1, int $int2, int $int3, graphic $graphic4, string $string0)(int, int)
+def_int $int5 = ~script10495(3);
+def_int $int6 = ~script10495(4);
+def_int $int7 = ~script10495(9);
+def_int $int8 = ~script10495(12);
+def_fontmetrics $fontmetrics9 = museo_sans_11pt_regular;
+def_int $int10 = enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics9);
+def_int $int11 = 24;
+def_int $int12 = 0;
+if ($int10 > $int11) {
+    $int12 = calc($int10 / 2 - $int11 / 2);
+}
+def_int $int13 = 2;
+def_int $int14 = max(0, calc(if_getwidth($component1) - 3 * $int13 - $int11));
+.cc_create($component1, ^iftype_graphic, $int2);
+.cc_setposition($int13, calc($int3 + $int12), ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int11, $int11, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic4);
+$int2 = calc($int2 + 1);
+cc_create($component1, ^iftype_text, $int2);
+cc_settextfont($fontmetrics9);
+cc_setposition(calc(.cc_getx + .cc_getwidth + $int13), $int3, ^setpos_abs_left, ^setpos_abs_top);
+if (string_length($string0) > 0) {
+    cc_settext($string0);
+} else {
+    cc_settext(~script11659($struct0, 1));
+}
+cc_setsize(calc(cc_getx + $int13), max(~script7593(cc_gettext, $int14, cc_getfontmetrics, 0), $int11), ^setsize_minus, ^setsize_abs);
+if ($int12 = 0) {
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+} else {
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+}
+if ($struct0 = %mtxmgt_purchase_struct) {
+    cc_setcolour($int6);
+} else {
+    cc_setcolour($int5);
+}
+$int2 = calc($int2 + 1);
+.cc_create($component1, ^iftype_rectangle, $int2);
+.cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(0, cc_getheight, ^setsize_minus, ^setsize_abs);
+if (calc((.cc_getid / 3 + 1) % 2) = 1) {
+    .cc_setcolour($int7);
+} else {
+    .cc_setcolour($int8);
+}
+.cc_setfill(true);
+.cc_sendtoback;
+$int2 = calc($int2 + 1);
+$int3 = calc($int3 + cc_getheight + $int13);
+return($int2, $int3);

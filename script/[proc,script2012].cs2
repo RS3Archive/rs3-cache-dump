@@ -1,0 +1,58 @@
+// 2012
+[proc,script2012](int $int0, int $int1)
+def_struct $struct2 = ~script10405($int1);
+def_component $component3 = struct_param($struct2, toplevel_v2_window_tabs_layer);
+def_int $int4 = ~script8374($component3);
+def_struct $struct5 = ~script10405($int0);
+def_struct $struct6 = ~script8418($struct2, 0);
+def_component $component7 = struct_param($struct5, toplevel_v2_window_layer);
+def_component $component8 = struct_param($struct5, toplevel_v2_window_tabs_layer);
+def_component $component9 = struct_param($struct5, toplevel_v2_window_tabs_scroll_layer);
+def_int $int10 = calc(~script8374($component8) - $int4);
+def_int $int11 = struct_param($struct6, toplevel_v2_window_titled_tab_width);
+def_int $int12 = min(~script1849($struct6, $component7, $component8, $int11, %toplevel_v2_move_action_tab_insert_x_offset), $int4);
+def_int $int13 = calc(max(0, min(~script8403($component8), if_getwidth($component8))) + %toplevel_v2_move_action_tab_insert_x_offset + if_getscrollx($component8));
+$int13 = max(0, $int13);
+$int13 = min($int13, calc(max(if_getwidth($component8), if_getscrollwidth($component8)) - $int10 * $int11));
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+if (%toplevel_v2_default_move_action_tab_target ! -1) {
+    if (%toplevel_v2_default_move_action_tab_target = %toplevel_v2_last_window_bar_over) {
+        $int17 = 1;
+    }
+    %toplevel_v2_default_move_action_tab_target = -1;
+}
+if (struct_param($struct6, toplevel_v2_window_titled_tab_mode) = 2) {
+    ~script20536($component8, $struct6, $int12, $int10, $int17, $int18);
+    return;
+}
+while (cc_find($component8, $int16) = true & .cc_find($component8, calc($int16 + 1)) = true) {
+    $int18 = $int17;
+    if ($int16 >= calc($int10 * 4) & $int16 < calc(($int10 + $int12) * 4)) {
+        cc_setparam_int(rs3tli_component_target_pos_x, calc($int11 * max(0, calc($int16 / 4 - $int10))));
+    } else if ($int16 < calc($int10 * 4)) {
+        cc_setparam_int(rs3tli_component_target_pos_x, calc($int13 + $int11 * ($int16 / 4)));
+        $int18 = 1;
+    } else {
+        cc_setparam_int(rs3tli_component_target_pos_x, calc(struct_param($struct6, toplevel_v2_window_titled_tab_width) * ($int16 / 4)));
+    }
+    cc_setparam_int(rs3tli_component_target_pos_y, 0);
+    cc_setparam_int(rs3tli_component_target_align_x, 0);
+    cc_setparam_int(rs3tli_component_target_align_y, 0);
+    if ($int18 = 0) {
+        cc_setposition(calc(cc_param(rs3tli_component_target_pos_x) - (cc_param(rs3tli_component_target_pos_x) - cc_getx) / 2), calc(cc_param(rs3tli_component_target_pos_y) - (cc_param(rs3tli_component_target_pos_y) - cc_gety) / 2), cc_param(rs3tli_component_target_align_x), cc_param(rs3tli_component_target_align_y));
+    } else {
+        cc_setposition(cc_param(rs3tli_component_target_pos_x), cc_param(rs3tli_component_target_pos_y), cc_param(rs3tli_component_target_align_x), cc_param(rs3tli_component_target_align_y));
+    }
+    .cc_setposition(calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2), 0, ^setpos_abs_left, ^setpos_abs_centre);
+    if (cc_param(toplevel_v2_window_tab_id) = $int0) {
+        ~script1848($int0, cc_getx);
+    }
+    if (cc_find($component8, calc($int16 + 1)) = true & .cc_find($component8, calc($int16 + 2)) = true) {
+        .cc_setposition(cc_getx, calc(cc_gety + cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int16 = calc($int16 + 4);
+}

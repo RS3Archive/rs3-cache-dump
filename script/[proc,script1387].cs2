@@ -1,0 +1,73 @@
+// 1387
+[proc,script1387]
+def_component $component0 = rand_inspect_stats:list;
+def_component $component1 = rand_inspect_stats:scrollbar;
+def_component $component2 = rand_inspect_stats:background;
+def_component $component3 = rand_inspect_stats:icon;
+def_component $component4 = rand_inspect_stats:stat;
+def_component $component5 = rand_inspect_stats:stat_base;
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component0);
+def_int $int6 = enum_getoutputcount(toplevel_v2_stats_structs);
+def_int $int7 = if_getwidth($component0);
+def_int $int8 = if_getheight($component0);
+def_int $int9 = 60;
+def_int $int10 = calc(27 + 4);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+$int14, $int13, $int11, $int12, $int15 = ~script1899($int7, $int8, $int9, $int10, 16, $int6);
+def_int $int16 = calc($int10 * $int14);
+if ($int15 = 1) {
+    if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component0);
+} else {
+    cc_deleteall($component1);
+}
+def_int $intarray0($int13);
+def_int $int17 = 0;
+while ($int17 < $int13) {
+    $intarray0($int17) = ~script8108($int11, $int12, $int17);
+    $int17 = calc($int17 + 1);
+}
+$int17 = 0;
+def_int $int18 = 0;
+if ($int15 = 1) {
+    if_setscrollsize(0, $int16, $component0);
+    ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setscrollsize(0, 0, $component0);
+}
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+while ($int19 < $int6) {
+    $int20 = calc($int19 % $int13);
+    $int21 = calc($int19 / $int13);
+    $int22 = $intarray0($int20);
+    $int23 = calc($int21 * $int10 + 4);
+    if (cc_find($component2, $int19) = true) {
+        cc_setposition($int22, $int23, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find($component3, $int19) = true) {
+        cc_setposition($int22, $int23, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find($component4, $int19) = true) {
+        cc_setposition(calc($int22 + 24), calc($int23 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find($component5, $int19) = true) {
+        cc_setposition(calc($int22 + 39), calc($int23 + 14), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int19 = calc($int19 + 1);
+}
+if_setsize(16384, 0, ^setsize_rel, ^setsize_minus, rand_inspect_stats:skilltotal);
+if ($int7 >= 120) {
+    if_setsize(calc(16384 / 2), 0, ^setsize_rel, ^setsize_minus, rand_inspect_stats:skilltotal);
+    if_setsize(calc(16384 / 2), 0, ^setsize_rel, ^setsize_minus, rand_inspect_stats:combat_level);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, rand_inspect_stats:combat_level);
+    if_sethide(false, rand_inspect_stats:combat_level);
+} else {
+    if_sethide(true, rand_inspect_stats:combat_level);
+}

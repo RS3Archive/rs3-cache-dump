@@ -1,0 +1,187 @@
+// 7420
+[proc,script7420](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)(boolean)
+~lobby_worldswitcher_sort;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_int $int10 = 0;
+def_string $string1 = "";
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_string $string2 = "";
+$int8, $int9, $string0, $int10, $string1, $int11, $int12, $string2 = worldlist_start;
+if ($int8 = -1) {
+    return(false);
+}
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = if_getwidth($component0);
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_string $string3 = "";
+def_graphic $graphic21 = null;
+def_int $int22 = 0;
+def_int $int23 = 30;
+def_int $int24 = 0;
+def_int $int25 = 22;
+def_dbrow $dbrow26 = ~script20117(-1);
+def_int $int27 = 4;
+def_int $int28 = $int27;
+if (~script6431 = true) {
+    $int25 = 44;
+}
+def_component $component29 = $component1;
+def_component $component30 = $component2;
+if (~script7421($dbrow26, ~script20335(1)) = true) {
+    $int24 = calc($int24 + $int25 + $int27);
+}
+if (~script7421($dbrow26, ~script20335(2)) = true) {
+    $int24 = calc($int24 + $int25 + $int27);
+}
+if (~script7421($dbrow26, ~script20335(3)) = true) {
+    $int24 = calc($int24 + $int25 + $int27);
+}
+if ($int24 ! 0) {
+    $int24 = calc($int24 + $int27);
+}
+if ($dbrow26 = null) {
+    if_sethide(true, whop:switch_mode);
+    if_setonbuttonpressed(null, whop:normal_worlds);
+    if_setonbuttonpressed(null, whop:league_worlds);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, whop:static_panel);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, whop:static_panel);
+} else {
+    $int23 = calc($int23 + 40);
+    if_setposition(0, 40, ^setpos_abs_left, ^setpos_abs_top, whop:static_panel);
+    if_setsize(0, 40, ^setsize_minus, ^setsize_minus, whop:static_panel);
+    if_sethide(false, whop:switch_mode);
+    if_setonbuttonpressed("script20340($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7)", whop:normal_worlds);
+    if_setonbuttonpressed("script20341($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7)", whop:league_worlds);
+    ~script20342;
+}
+if_setcolour(^black, whop:title_favourite_seperator);
+if_setcolour(^black, whop:title_world_seperator);
+if_setcolour(^black, whop:title_players_seperator);
+if_setcolour(^black, whop:title_activity_seperator);
+if_setcolour(^black, whop:title_location_seperator);
+if_setcolour(^black, whop:title_type_seperator);
+if_setcolour(^black, whop:title_loot_seperator);
+if_setcolour(^white, whop:title_seperator);
+if_setcolour(^white, whop:title_seperator_1);
+if_setcolour(^white, whop:footer_seperator);
+if_setposition(0, $int23, ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_setsize(if_getwidth($component4), $int24, ^setsize_abs, ^setsize_abs, $component4);
+if_setsize($int17, calc(35 + $int24 + $int23), ^setsize_abs, ^setsize_minus, $component0);
+if_setposition(0, calc($int24 + $int23), ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setsize(16, calc(35 + $int24 + $int23), ^setsize_abs, ^setsize_minus, $component3);
+if_setposition(0, calc($int24 + $int23), ^setpos_abs_right, ^setpos_abs_top, $component3);
+def_int $int31 = calc(if_getwidth(whop:mainmodal_window) - 800 - 16);
+while ($int8 ! -1) {
+    if (~script7421($dbrow26, $int8) = true) {
+        if ($int8 = ~script20335(1) | $int8 = ~script20335(2) | $int8 = ~script20335(3)) {
+            $int18, $int13, $int22, $graphic21 = ~script11037($int19, $int27), 1, "rs3_icon_lobby_favorite_small,0";
+            $component29 = $component5;
+            $component30 = $component6;
+        } else {
+            $int18, $int22, $graphic21 = $int28, 0, "rs3_icon_lobby_favorite_small,2";
+            if (calc($int15 % 2) = 0) {
+                $int13 = 12;
+            } else {
+                $int13 = 9;
+            }
+            $component29 = $component1;
+            $component30 = $component2;
+        }
+        if (%league_lobby_select_league_worlds = 1) {
+            if ($graphic21 = "rs3_icon_lobby_favorite_small,0") {
+                $graphic21 = rs3_icon_leagues_world_select_gold;
+            } else {
+                $graphic21 = rs3_icon_leagues_world_select_silver;
+            }
+        }
+        if (map_world = $int8) {
+            $int13 = 17;
+            $int20 = $int18;
+        }
+        if (testbit($int9, 0) = ^false) {
+            $int14 = 3;
+        } else {
+            $int14 = 1;
+        }
+        ~script11015($component29, $int13, 0, $int18, $int17, $dbrow26);
+        ~script7742($component29, $graphic21, 2, calc($int18 + ($int25 - 21) / 2), 21, 21);
+        cc_setop(1, "Toggle favourite");
+        cc_setonop("script7426(event_com, event_comsubid, $int22, $component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7, $int8)");
+        cc_setonmouseover("script7437(event_com, event_comsubid, $int8)");
+        cc_setonmouseleave("script7438(event_com, event_comsubid, $int8)");
+        ~script11014($component29, tostring($int8), $int14, 30, $int18, 64, $dbrow26);
+        if ($int11 >= 1980) {
+            $string3 = "FULL";
+        } else if ($int11 >= 0) {
+            $string3 = tostring($int11);
+        } else {
+            $string3 = "OFFLINE";
+        }
+        ~script11014($component29, $string3, $int14, 105, $int18, 70, $dbrow26);
+        switch_int (map_lang) {
+            case default :
+                $graphic21 = enum(int, graphic, geopip_flag, $int10);
+            case 1 :
+                $graphic21 = enum(int, graphic, geopip_flag, 56);
+                $string1 = "German";
+            case 2 :
+                $graphic21 = enum(int, graphic, geopip_flag, 74);
+                $string1 = "French";
+            case 3 :
+                $graphic21 = enum(int, graphic, geopip_flag, 31);
+                $string1 = "Portuguese";
+            case 6 :
+                $graphic21 = enum(int, graphic, geopip_flag, 67);
+                $string1 = "Spanish (Latin American)";
+        }
+        if (string_length($string0) = 0) {
+            $string0 = "-";
+        }
+        ~script7742($component29, $graphic21, 409, calc($int18 + ($int25 - 12) / 2), 12, 24);
+        ~script11014($component29, $string0, $int14, 180, $int18, 225, $dbrow26);
+        ~script11014($component29, $string1, $int14, 435, $int18, 214, $dbrow26);
+        if (testbit($int9, 0) = ^false) {
+            ~script11014($component29, "Free", $int14, calc(655 + $int31), $int18, 65, $dbrow26);
+        } else {
+            ~script11014($component29, "Members", $int14, calc(655 + $int31), $int18, 65, $dbrow26);
+        }
+        if (testbit($int9, 3) = ^true) {
+            ~script7742($component29, rs3_contextual_input_accept, calc(736 + $int31), calc($int18 + ($int25 - 16) / 2), 16, 16);
+        } else {
+            ~script7742($component29, rs3_contextual_input_minus, calc(736 + $int31), calc($int18 + ($int25 - 16) / 2), 16, 16);
+        }
+        if (cc_find($component30, $int8) = true) {
+            cc_setop(1, "Select");
+            cc_setop(2, "Quick-hop");
+            cc_setposition(calc(30 - 5), $int18, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(calc($int17 - 30 + 5), $int25, ^setsize_abs, ^setsize_abs);
+            cc_sethide(false);
+        }
+        if ($int22 = 0) {
+            $int28 = calc($int28 + $int25 + $int27);
+        } else {
+            $int19 = calc($int19 + 1);
+        }
+        $int15 = calc($int15 + 1);
+    }
+    $int8, $int9, $string0, $int10, $string1, $int11, $int12, $string2 = worldlist_next;
+}
+def_int $int32 = if_getheight($component0);
+if ($int28 > $int32) {
+    if_setscrollsize(0, $int28, $component0);
+    if ($int20 ! 0) {
+        if_setscrollpos(0, max(0, min($int28, calc($int20 - $int32 / 2))), $component0);
+    }
+} else {
+    if_setscrollsize(0, 0, $component0);
+}
+~scrollbar_vertical($component3, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+return(true);

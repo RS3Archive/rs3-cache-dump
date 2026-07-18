@@ -1,0 +1,21 @@
+// 15400
+[proc,script15400]
+def_dbrow $dbrow0 = ~script15392(%con_contracts_current_id);
+def_string $string0 = db_getfield($dbrow0, con_contracts:col2, 0);
+def_string $string1 = db_getfield($dbrow0, con_contracts:col3, 0);
+def_string $string2 = enum(int, string, con_contracts_areas, %con_contracts_current_location);
+def_int $int1 = -1;
+if (%con_contracts_current_id > 0) {
+    if_settext($string0, con_contracts_minigame_child:location_title);
+    if_settext($string1, con_contracts_minigame_child:description);
+    if_settext($string2, con_contracts_minigame_child:contract_npc);
+    if_settext("XP Reward: <tostring_localised(calc(db_getfield($dbrow0, con_contracts:col12, 0) / 10), true)>", con_contracts_minigame_child:contract_reward_text);
+    if_sethide(false, con_contracts_minigame_child:task_info);
+    while (++$int1 < 5) {
+        ~script15401($dbrow0, $int1);
+    }
+} else {
+    if_settext("Contract complete.", con_contracts_minigame_child:location_title);
+    if_settext("Head over to any estate agent to pick up a contract.", con_contracts_minigame_child:description);
+    if_sethide(true, con_contracts_minigame_child:task_info);
+}

@@ -1,0 +1,24 @@
+// 15872
+[proc,mobile_toggle_hud]
+def_component $component0 = toplevel_v2_combat_bar_mobile_buttons:button_layer_left;
+if (testbit(%mobile_has_action_bar_buttons_switched, calc(~script11800(1043) - 1)) = ^true) {
+    $component0 = toplevel_v2_combat_bar_mobile_buttons:button_layer_right;
+}
+if (if_gethide(toplevel_v2_mobile:chat_panel) = false) {
+    if_sethide(true, mobile_ribbon_left:root);
+    if_sethide(true, toplevel_v2_combat_bar_mobile:combat_toggle);
+    if_sethide(true, $component0);
+    if_sethide(true, toplevel_v2_combat_bar_mobile_buttons:selection_layer);
+    if_sethide(true, toplevel_v2:com_target_window_content);
+    if_sethide(false, toplevel_v2:mobile_left_blocking_background);
+} else {
+    if_sethide(false, mobile_ribbon_left:root);
+    if_sethide(false, toplevel_v2_combat_bar_mobile:combat_toggle);
+    if_sethide(false, $component0);
+    if_sethide(false, toplevel_v2_combat_bar_mobile_buttons:selection_layer);
+    if_sethide(false, toplevel_v2:com_target_window_content);
+    if_sethide(true, toplevel_v2:mobile_left_blocking_background);
+    if (~script11205(weekends_doublexp) = true) {
+        ~script13017(%doublexp_week_time_remaining, %doublexp_personal_buff_time_remaining, %doublexp_time_paused);
+    }
+}

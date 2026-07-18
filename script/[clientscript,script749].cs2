@@ -1,0 +1,27 @@
+// 749
+[clientscript,script749](component $component0, int $int1, int $int2)
+def_int $int3 = 1000;
+if (%tuska_island2_progress > 0) {
+    $int3 = calc($int3 + 1000);
+}
+if (%tuska_island3_progress > 0) {
+    $int3 = calc($int3 + 1000);
+}
+if (%tuska_island4_progress > 0) {
+    $int3 = calc($int3 + 1000);
+}
+def_int $int4 = calc(%tuska_island1_progress + %tuska_island2_progress + %tuska_island3_progress + %tuska_island4_progress);
+def_int $int5 = scale(255, $int3, calc($int3 - $int4));
+def_int $int6 = scale(255, $int3, $int4);
+def_int $int7 = 0;
+if_settext("<tostring(scale($int4, 4000, 100))>%", tuska_island_overlay:percent_complete);
+$int4 = scale(350, 4000, $int4);
+if_setcolour(~rgb_to_hex($int5, $int6, $int7), tuska_island_overlay:prog1_m);
+if (if_getwidth($component0) < $int4) {
+    if_setsize(calc(if_getwidth($component0) + 1), 23, ^setsize_abs, ^setsize_abs, $component0);
+} else if (if_getwidth($component0) > $int4) {
+    if_setsize(max(0, calc(if_getwidth($component0) - 1)), 23, ^setsize_abs, ^setsize_abs, $component0);
+}
+if ($int4 = 350) {
+    if_sethide(false, tuska_island_overlay:progress_full_power);
+}

@@ -1,0 +1,31 @@
+// 19009
+[proc,script19009](struct $struct0, int $int1, int $int2, int $int3, int $int4, graphic $graphic5, graphic $graphic6)
+def_graphic $graphic7 = null;
+def_int $int8 = $int2;
+def_int $int9 = $int2;
+def_string $string0 = "Dig";
+if ($struct0 = trh198_promo) {
+    $string0 = "Prepare";
+    $graphic7, $graphic5, $graphic6 = ~script18988($int1);
+    if ($int1 = 12) {
+        $int9 = 66;
+        $int4 = calc($int4 - ($int9 - $int2));
+        $string0 = "Complete";
+    }
+}
+cc_create(trh119_buried_treasure_overlay:grid_rect_layer, ^iftype_graphic, $int1);
+cc_setsize($int8, $int9, ^setsize_abs, ^setsize_abs);
+cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic5);
+cc_setop(1, $string0);
+cc_setonop("script19007($int1, event_op)");
+cc_create(trh119_buried_treasure_overlay:grid_chest_layer, ^iftype_graphic, $int1);
+cc_setopcursor(1, cursor_dig);
+cc_setsize($int8, $int9, ^setsize_abs, ^setsize_abs);
+cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+cc_setonvartransmit("script19014($int1){trh_grid_marks, trh_grid_marks2, trh142_var_1, trh142_var_2, trh142_var_3, trh142_var_4, trh142_var_5, trh142_var_6, trh142_var_7}");
+cc_create(trh119_buried_treasure_overlay:grid_hover_layer, ^iftype_graphic, $int1);
+cc_setsize($int8, $int9, ^setsize_abs, ^setsize_abs);
+cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic6)");
+cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, null)");

@@ -1,0 +1,35 @@
+// 12664
+[clientscript,script12664]
+def_int $int0 = if_getheight(trh93_overlay_new:progress_bar_fill);
+def_int $int1 = 210;
+def_int $int2 = 1;
+def_int $int3 = max(1, scale($int1, 100, %trh93_keys_used));
+def_int $int4 = scale(calc($int3 - 1), $int1, 28);
+if ($int0 < $int3) {
+    $int2 = min(calc($int0 + 2), $int3);
+} else if ($int0 > $int3) {
+    $int2 = max(calc($int0 - 2), $int3);
+} else {
+    if_setontimer(null, trh93_overlay_new:progress_bar_fill);
+    return;
+}
+if ($int2 = 0) {
+    $int2 = 1;
+    if_setontimer(null, trh93_overlay_new:progress_bar_fill);
+}
+if_setsize(41, $int2, ^setsize_abs, ^setsize_abs, trh93_overlay_new:progress_bar_fill);
+if (%trh93_keys_used >= 5) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_1,1", trh93_overlay_new:marker_1);
+}
+if (%trh93_keys_used >= 15) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_2,1", trh93_overlay_new:marker_2);
+}
+if (%trh93_keys_used >= 35) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_3,1", trh93_overlay_new:marker_3);
+}
+if (%trh93_keys_used >= 60) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_4,1", trh93_overlay_new:marker_4);
+}
+if (%trh93_keys_used >= 100) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_5,1", trh93_overlay_new:marker_5);
+}

@@ -1,0 +1,150 @@
+// 8781
+[proc,script8781](int $int0)
+if ($int0 = -1) {
+    $int0 = 8;
+}
+if (~script8699($int0) ! 1 & $int0 = 8) {
+    ~script193(1);
+    return;
+}
+if_sethide(true, toplevel_v2_mobile:settings_mobile);
+~script8306;
+~script8792;
+if (%toplevel_v2_mobile_interface = 1) {
+    %varclientbit_32705 = 0;
+    if_setcolour(^black, toplevel_v2:background_colour);
+    ~script8352;
+    ~script13892;
+    ~script8784;
+    return;
+} else if (%toplevel_v2_legacy_interface = 1) {
+    %varclientbit_32705 = 0;
+    if_setcolour(^black, toplevel_v2:background_colour);
+    ~script9943;
+    ~script8784;
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_struct $struct14 = null;
+def_component $component15 = null;
+def_component $component16 = null;
+%toplevel_v2_redraw_process_left = 0;
+if_setcolour(^black, toplevel_v2:background_colour);
+~script8352;
+$int12 = calc(enum_getoutputcount(toplevel_v2_panel_id_listing) - 1);
+def_int $int17 = $int0;
+if ($int0 = 8 & %toplevel_v2_edit_mode = false & ~script20475 = false) {
+    switch_int (%toplevel_v2_last_loaded_layout) {
+        case 15, 16, 17 :
+            $int0 = ~script16635(15, 0);
+            $int17 = 8;
+    }
+}
+while ($int12 >= 0) {
+    $int13 = enum(int, int, toplevel_v2_panel_id_listing, $int12);
+    $struct14 = ~script10405($int13);
+    if ($struct14 ! null) {
+        $component15 = struct_param($struct14, toplevel_v2_window_layer);
+        if ($component15 ! null) {
+            $int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11 = ~script8701($int0, $int13);
+            $int9 = ~script20525($int13, $int0, $int17, $int9);
+            if (struct_param($struct14, toplevel_v2_window_allow_move) = true | ~script20451($struct14) ! 0) {
+                $component16 = ~script1886($int13);
+                ~script16000($int0, $int13);
+                switch_int ($int13) {
+                    case 1032 :
+                        if (%toplevel_v2_legacy_mode ! 0 | %combatv2_actionbar_current_bar2 = 0 | %combatv2_actionbar_current_bar2 > ~script11803) {
+                            $int9 = 0;
+                        }
+                    case 1033 :
+                        if (%toplevel_v2_legacy_mode ! 0 | %combatv2_actionbar_current_bar3 = 0 | %combatv2_actionbar_current_bar3 > ~script11803) {
+                            $int9 = 0;
+                        }
+                    case 1034 :
+                        if (%toplevel_v2_legacy_mode ! 0 | %combatv2_actionbar_current_bar4 = 0 | %combatv2_actionbar_current_bar4 > ~script11803) {
+                            $int9 = 0;
+                        }
+                    case 1035 :
+                        if (%toplevel_v2_legacy_mode ! 0 | %combatv2_actionbar_current_bar5 = 0 | %combatv2_actionbar_current_bar5 > ~script11803) {
+                            $int9 = 0;
+                        }
+                    case 1042, 1043, 1044, 1048 :
+                        $int9 = 0;
+                }
+                if ($int9 = 0 | $int13 = 1008) {
+                    if_sethide(true, $component15);
+                } else {
+                    if_sethide(false, $component15);
+                    %toplevel_v2_redraw_process_left = calc(%toplevel_v2_redraw_process_left + 1);
+                }
+                if (~script8137($int13) = false) {
+                    $int5 = min($int5, if_getwidth($component16));
+                    $int6 = min($int6, if_getheight($component16));
+                } else {
+                    $int5, $int6 = ~script8140($int13, $int7, $int8);
+                }
+                $int1 = ~script8711($int1, $int3, $int5, if_getwidth($component16));
+                $int2 = ~script8711($int2, $int4, $int6, if_getheight($component16));
+                if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component15);
+                if_setsize($int5, $int6, ^setsize_abs, ^setsize_abs, $component15);
+                if (if_gettrans($component15) ! $int10) {
+                    if_settrans($int10, $component15);
+                    ~script8411($int13, 0);
+                }
+                if ($int9 = 1) {
+                    if (struct_param($struct14, toplevel_v2_window_allow_tabs) = true) {
+                        if ($int10 = 1) {
+                            ~script8361($int13);
+                        } else {
+                            ~script8350($int17, $int13, 1);
+                        }
+                    }
+                    if ($int13 ! 1008) {
+                        if_setonresize("script8782($int13, calc($int12 - 1), event_com, if_getx($component15), if_gety($component15), if_getwidth($component15), if_getheight($component15), 0)", $component15);
+                        if_callonresize($component15);
+                    }
+                } else if (struct_param($struct14, toplevel_v2_window_allow_tabs) = true) {
+                    ~script8361($int13);
+                }
+            } else {
+                switch_int ($int13) {
+                    case 1042, 1043, 1044 :
+                        $int9 = 0;
+                }
+                if ($int9 = 1) {
+                    if_sethide(false, $component15);
+                } else {
+                    if_sethide(true, $component15);
+                }
+            }
+            if (struct_param($struct14, toplevel_v2_window_hide_borders) = true) {
+                ~script8393($int13, 0);
+            }
+        }
+    }
+    $int12 = calc($int12 - 1);
+}
+~script20740;
+if (~script8785 = true) {
+    %varclientbit_19931 = 3;
+    %varclientbit_19932 = 1;
+    %varclientbit_19933 = 0;
+    ~script8753;
+} else {
+    %varclientbit_19931 = 3;
+    %varclientbit_19932 = 1;
+    %varclientbit_19933 = 3;
+    ~script13875;
+}

@@ -1,0 +1,40 @@
+// 15598
+[proc,script15598]()(int, int, int, int, int, int)
+def_int $int0 = 0;
+def_int $int1 = -1;
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = -1;
+def_int $int6 = ~script1960;
+def_int $int7 = 0;
+def_int $chattype8 = ^chattype_gamemessage;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_chatphrase $chatphrase10 = null;
+def_int $int11 = -1;
+$chattype8, $string0, $int9, $string0, $string0, $string0, $string0, $chatphrase10, $string0, $int9, $int11 = chat_gethistory_byuid($int6);
+while ($int7 < 200 & $chattype8 ! null) {
+    switch_int ($chattype8) {
+        case ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming :
+            $int0 = calc($int0 + 1);
+            if ($int1 = -1) {
+                $int1 = $int6;
+            }
+        case ^chattype_friendschat, ^chattype_quickchat_friend_chat :
+            $int4 = calc($int4 + 1);
+            if ($int5 = -1) {
+                $int5 = $int6;
+            }
+        case ^chattype_clanchat, ^chattype_quickchat_clanchat, ^chattype_clanguestchat, ^chattype_quickchat_clanguestchat :
+            if ($int11 = 0) {
+                $int2 = calc($int2 + 1);
+                if ($int3 = -1) {
+                    $int3 = $int6;
+                }
+            }
+    }
+    $int7 = calc($int7 + 1);
+    $chattype8, $string0, $int9, $string0, $string0, $string0, $string0, $chatphrase10, $string0, $int9, $int11 = chat_gethistory_byuid(--$int6);
+}
+return($int0, $int1, $int2, $int3, $int4, $int5);

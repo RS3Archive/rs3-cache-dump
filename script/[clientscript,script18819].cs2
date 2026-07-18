@@ -1,0 +1,35 @@
+// 18819
+[clientscript,script18819]
+if_sethide(false, trh184_overlay:splash_screen);
+if_sethide(true, trh184_overlay:universe);
+def_int $int0 = 0;
+~cc_add_graphic(trh184_overlay:splash_screen, $int0++, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, trh184_splash_background);
+~cc_add_rect(trh184_overlay:splash_screen, $int0++, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, null);
+cc_setcolour(^black);
+cc_setfill(true);
+cc_settrans(100);
+def_seq $seq1 = combat_2012_ability_magic_basic_dragon_breath;
+def_seq $seq2 = combat_2012_ability_magic_basic_dragon_breath_spotanim;
+~cc_add_model(trh184_overlay:splash_screen, $int0++, -160, 50, ^setpos_abs_centre, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs);
+cc_setnpcmodel(trh184_splash_screen_npc);
+cc_setmodelangle(0, 0, 100, 300, 0, 650);
+cc_setontimer("script18820(event_com, event_comsubid, calc(seqlength($seq1) + 1), $seq1, $seq2)");
+~cc_add_model(trh184_overlay:splash_screen, $int0++, -160, 10, ^setpos_abs_centre, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs);
+cc_setmodel(trh184_magic_trail_dragon_breath_spotanim);
+cc_setmodelangle(0, 0, 100, 300, 0, 900);
+~script18821(trh184_overlay:splash_screen, calc($int0 - 2), $seq1, $seq2);
+~cc_add_graphic(trh184_overlay:splash_screen, $int0++, 370, -25, ^setpos_abs_centre, ^setpos_abs_centre, 580, 200, ^setsize_abs, ^setsize_abs, trh_rainbow_trail_aura_splashscreen);
+cc_sethflip(true);
+~cc_add_graphic(trh184_overlay:splash_screen, $int0++, 0, -25, ^setpos_abs_centre, ^setpos_abs_centre, 175, 175, ^setsize_abs, ^setsize_abs, null);
+cc_setobject_highres(trh184_rainbow_title_scroll);
+~cc_add_graphic(trh184_overlay:splash_screen, $int0++, 0, 10, ^setpos_abs_centre, ^setpos_abs_top, 372, 38, ^setsize_abs, ^setsize_abs, ~script235(trh184_title_en, trh184_title_de, trh184_title_fr, trh184_title_pt));
+~cc_add_graphic(trh184_overlay:splash_screen, $int0++, 0, 30, ^setpos_abs_centre, ^setpos_abs_bottom, 566, 90, ^setsize_abs, ^setsize_abs, trh190_text_shadow);
+~cc_add_text(trh184_overlay:splash_screen, $int0++, 0, 50, ^setpos_abs_centre, ^setpos_abs_bottom, 566, 55, ^setsize_abs, ^setsize_abs, null, "");
+cc_settextfont(notosans_12);
+cc_setcolour(^white);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settext("Featuring the return of the <col=F0BE79>Rainbow Dragonbreath ability override</col>, the <col=FF0000>R<col=FF7F00>a<col=FFFF00>i<col=FF00>n<col=1B69E7>b<col=943FEE>o<col=B929ED>w</col> title and<br>the <col=F0BE79>Rainbow Trail aura override</col>!<br>Win it by opening the <col=F0BE79>Rainbow Chest</col>, or from the <col=F0BE79>Rainbow Bonus</col>.");
+~cc_add_button(trh184_overlay:splash_screen, $int0++, 0, 20, ^setpos_abs_centre, ^setpos_abs_bottom, 200, 32, ^setsize_abs, ^setsize_abs, button_action_positive, "Play Now");
+cc_setonop("trh_overlay_op(3, 0)");
+cc_setop(1, "Play Now");
+~script16198(false, 31981632);

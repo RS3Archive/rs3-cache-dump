@@ -1,0 +1,35 @@
+// 14788
+[proc,script14788](dbrow $dbrow0, int $int1)
+if_sethide(false, bonds_gratz:runecoins_layer);
+if_sethide(true, bonds_gratz:generic_redeem_layer);
+if_sethide(true, bonds_gratz:confirm_button);
+if_sethide(false, bonds_gratz:confirm_button_runecoins);
+def_string $string0 = "";
+if (db_getfieldcount($dbrow0, bonds_package:col19) > 0) {
+    $string0 = tostring(db_getfield($dbrow0, bonds_package:col19, 0));
+}
+switch_int ($int1) {
+    case 1 :
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+    case 2 :
+        if_settext("You've gained <$string0> Runecoins.", bonds_gratz:runecoins_text_01);
+        if_settext("Current Runecoins : <tostring_localised(%mtxmgt_total_runecoins, true)>", bonds_gratz:runecoins_text_02);
+        if_setonvarctransmit("script6189{mtxmgt_total_runecoins}", bonds_gratz:runecoins_text_02);
+        ~script13463("You've gained <$string0> Runecoins.");
+    case 3 :
+        if_settext("You've purchased <$string0> Runecoins.", bonds_gratz:runecoins_text_01);
+        if_settext("They will be added to your account shortly.", bonds_gratz:runecoins_text_02);
+        ~script13463("Your Runecoins will be added to your account shortly.");
+    case 4 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request.", bonds_gratz:runecoins_text_01);
+        if_settext("Please try again later.", bonds_gratz:runecoins_text_02);
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+    case 5 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request.", bonds_gratz:runecoins_text_01);
+        if_settext("Please try again later.", bonds_gratz:runecoins_text_02);
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+}

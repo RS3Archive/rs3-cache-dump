@@ -1,0 +1,119 @@
+// 9239
+[proc,script9239](component $component0, component $component1, inv $inv2, int $int3, int $int4, int $int5, string $string0)
+def_int $int6 = 0;
+def_component $component7 = null;
+def_boolean $boolean8 = false;
+def_obj $obj9 = null;
+def_int $int10 = 0;
+if (if_find($component1) = true) {
+    $component7 = cc_param(rs3_setup_interface_inv_scrollbar);
+    $boolean8 = cc_param(rs3_setup_interface_inv_isinvother);
+}
+def_int $int11 = 0;
+def_boolean $boolean12 = ~is_mobile_client;
+def_string $string1 = "";
+while ($int6 <= $int4) {
+    if (cc_find($component1, $int6) = true) {
+        if ($int6 >= $int3) {
+            if ($boolean8 = false) {
+                $obj9 = inv_getobj($inv2, $int6);
+                $int10 = inv_getnum($inv2, $int6);
+            } else {
+                $obj9 = invother_getobj($inv2, $int6);
+                $int10 = invother_getnum($inv2, $int6);
+            }
+            if ($obj9 ! null) {
+                if (oc_stackable($obj9) = true) {
+                    $int11 = $int10;
+                } else {
+                    $int11 = inv_total($inv2, $obj9);
+                }
+            } else {
+                $int11 = 0;
+            }
+            switch_component ($component1) {
+                case bank:inventory_click, bank:bob_click :
+                    ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, ~script14419($inv2, $obj9, $int11, $string0));
+                case group_ironman_storage:inventory_click :
+                    ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, ~script14419($inv2, $obj9, $int11, $string0));
+                case modal_storage:inventory_obj_build_layer, modal_storage:storage_obj_build_layer :
+                    if (%modal_storage_active_inv = arch_restoration_workbench_storage & $component1 = modal_storage:storage_obj_build_layer & $int6 >= ~script1020) {
+                        if (.cc_find($component0, $int6) = true) {
+                            ~script14710($component1, $component7, $int6, .cc_getx, .cc_gety, rs3_icon_lock_ability_book, "", "Requires a higher workbench storage upgrade from Ezreal's shop in the Archaeology Guild.");
+                        }
+                    } else if ($int11 > 10) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-All", "<$string0>-1", "<$string0>-5", "<$string0>-10", "<$string0>-50", "<$string0>-X", "", "", "", "Examine");
+                    } else if ($int11 > 5) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-All", "<$string0>-1", "<$string0>-5", "<$string0>-10", "", "<$string0>-X", "", "", "", "Examine");
+                    } else if ($int11 > 1) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-All", "<$string0>-1", "<$string0>-5", "", "", "<$string0>-X", "", "", "", "Examine");
+                    } else {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, $string0, "", "", "", "", "", "", "", "", "Examine");
+                    }
+                case lore_stats_side:inventory_invlayer :
+                    if ($int11 > 5) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "<$string0>-10", "<$string0>-All", "<$string0>-X", "", "", "", "", "Examine");
+                    } else if ($int11 > 1) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "", "<$string0>-All", "<$string0>-X", "", "", "", "", "Examine");
+                    } else {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, $string0, "", "", "", "", "", "", "", "", "Examine");
+                    }
+                case arch_material_storage:storage_obj_build_layer, arch_material_storage:inventory_obj_build_layer :
+                    if ($component1 = arch_material_storage:storage_obj_build_layer & $int6 >= ~script14683) {
+                        if (.cc_find($component0, $int6) = true) {
+                            ~script14710($component1, $component7, $int6, .cc_getx, .cc_gety, rs3_icon_lock_ability_book, "", "Requires a higher material storage upgrade from Ezreal's shop in the Archaeology Guild.");
+                        }
+                    } else if ($int11 > 5) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "<$string0>-10", "<$string0>-All", "<$string0>-X", "", "", "", "", "Examine");
+                    } else if ($int11 > 1) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "", "<$string0>-All", "<$string0>-X", "", "", "", "", "Examine");
+                    } else {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, $string0, "", "", "", "", "", "", "", "", "Examine");
+                    }
+                case rand_storage:storage_obj_build_layer, rand_storage:inventory_obj_build_layer :
+                    if ($component1 = rand_storage:storage_obj_build_layer & $int6 >= ~script5354) {
+                        if (.cc_find($component0, $int6) = true) {
+                            ~script14710($component1, $component7, $int6, .cc_getx, .cc_gety, aif_locked_button_icon, "", ~script5355($int6));
+                            cc_clearops;
+                        }
+                    } else if ($int11 > 10) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-All", "<$string0>-1", "<$string0>-5", "<$string0>-10", "<$string0>-50", "<$string0>-X", "", "", "", "Examine");
+                    } else if ($int11 > 5) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-All", "<$string0>-1", "<$string0>-5", "<$string0>-10", "", "<$string0>-X", "", "", "", "Examine");
+                    } else if ($int11 > 1) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-All", "<$string0>-1", "<$string0>-5", "", "", "<$string0>-X", "", "", "", "Examine");
+                    }
+                case house_furniture_trunk:inventory_build :
+                    if ($int11 > 5) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "<$string0>-10", "<$string0>-All", "<$string0>-X", "", "", "", "", "Examine");
+                    } else if ($int11 > 1) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "", "<$string0>-All", "<$string0>-X", "", "", "", "", "Examine");
+                    } else {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, $string0, "", "", "", "", "", "", "", "", "Examine");
+                    }
+                case default :
+                    if ($int11 > 5) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "<$string0>-10", "<$string0>-<tostring(%bank_move_x)>", "<$string0>-X", "<$string0>-All", "", "", "", "Examine");
+                    } else if ($int11 > 1) {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, "<$string0>-1", "<$string0>-5", "", "<$string0>-<tostring(%bank_move_x)>", "<$string0>-X", "<$string0>-All", "", "", "", "Examine");
+                    } else {
+                        ~script12092($component1, $component7, $inv2, $int6, $obj9, $int10, $int5, $string0, "", "", "", "", "", "", "", "", "Examine");
+                    }
+            }
+        } else {
+            cc_clearops;
+            cc_setopbase("");
+            cc_setondragcomplete(null);
+            if ($boolean12 = false) {
+                cc_setdragdeadzone(5);
+                cc_setdragdeadtime(5);
+            } else {
+                cc_setdragdeadzone(20);
+                cc_setdragdeadtime(5);
+            }
+            cc_setobject_nonum(null, 0);
+            cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+        }
+    }
+    $int6 = calc($int6 + 1);
+}

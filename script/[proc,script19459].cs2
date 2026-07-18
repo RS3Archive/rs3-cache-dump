@@ -1,0 +1,46 @@
+// 19459
+[proc,script19459](component $component0, int $int1, int $int2, int $int3, string $string0, string $string1, graphic $graphic4, string $string2, int $int5, int $int6, string $string3, int $int7, string $string4, graphic $graphic8, int $int9, string $string5, string $string6)
+def_int $int10 = 0;
+def_int $int11 = 20;
+def_string $string7 = "";
+def_string $string8 = "";
+def_dbrow $dbrow12 = rect_outline;
+if ($int9 ! -1) {
+    $dbrow12 = rect_outline_error;
+}
+~if_add_child_layer($component0, $int1, $int10++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+if (compare($string0, "-") ! 0) {
+    $string7 = "<$string0> has <$string5> skill total.";
+    $string8 = "<$string0> has <$string6> quest points.";
+    ~script19409($int1, $int3, $int5, $string0, 1);
+}
+~script16109($int1, $int10++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $int1, false);
+~cc_add_child_rect($int1, $int10++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow12);
+~cc_add_child_panel($int1, $int10++, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 4, 0, ^setsize_minus, ^setsize_minus, false, 4);
+~cc_add_child_graphic($int1, $int10++, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, $int11, $int11, ^setsize_abs, ^setsize_abs, $graphic4);
+~script3537($string2);
+~cc_add_child_text($int1, $int10++, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, 144, 0, ^setsize_abs, ^setsize_minus, text_body_default, $string0);
+cc_setmaxlines(1);
+~script3537($string1);
+~cc_add_child_layer($int1, $int10++, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, 110, 0, ^setsize_abs, ^setsize_minus);
+~cc_add_child_graphic($int1, $int10++, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, $int6, 12, ^setsize_abs, ^setsize_abs, $graphic8);
+~script3537($string4);
+~cc_add_child_text($int1, $int10++, 0, 0, ^setpos_abs_right, ^setpos_abs_centre, calc($int6 + 4), 0, ^setsize_minus, ^setsize_minus, text_body_default, $string3);
+cc_setcolour($int7);
+cc_setmaxlines(1);
+~script3537($string4);
+cc_find_parent;
+cc_find_parent;
+switch_int ($int9) {
+    case 50 :
+        ~cc_add_child_button($int1, $int9, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, 136, 30, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Vote");
+        cc_setop(1, "Vote");
+    case 51 :
+        ~cc_add_child_button($int1, $int9, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, 136, 30, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Cancel Vote");
+        cc_setop(1, "Cancel Vote");
+    case 52 :
+        ~cc_add_child_button($int1, $int9, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, 136, 30, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Vote");
+        ~script7872(false, true, false, false);
+    case default :
+        ~script19462($int1, $int10, $string5, $string6, $string7, $string8);
+}

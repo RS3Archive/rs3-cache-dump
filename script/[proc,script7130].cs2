@@ -1,0 +1,42 @@
+// 7130
+[proc,script7130](obj $obj0, int $int1, int $int2, component $component3)(int, int)
+def_int $int4 = 2;
+def_int $int5 = 0;
+def_obj $obj6 = oc_param($obj0, recipe_tool_type_1);
+def_struct $struct7 = oc_param($obj0, recipe_tool_1_multiple);
+def_string $string0 = "";
+def_int $int8 = 1;
+def_boolean $boolean9 = false;
+def_int $int10 = 0;
+while ($int8 <= 3) {
+    if ($struct7 ! null) {
+        $boolean9 = ~script7114($struct7);
+        if ($boolean9 = false) {
+            $int10 = 0;
+        } else {
+            $int10 = 1;
+        }
+        $int2 = calc($int2 + $int4);
+        $int1, $int2 = ~makex2012_draw_ingredient($obj0, 3, $int2, 1, 2, struct_param($struct7, recipe_ingredient_type_1), null, 0, 1, $int10, $boolean9, $component3, $int1);
+        $int2 = calc($int2 + $int4);
+    } else if ($obj6 ! null & ~check_toolbelt($obj6) = false) {
+        $boolean9 = ~check_tool($obj6);
+        if ($boolean9 = false) {
+            $int10 = 0;
+        } else {
+            $int10 = 1;
+        }
+        $int2 = calc($int2 + $int4);
+        $int1, $int2 = ~makex2012_draw_ingredient($obj0, 3, $int2, 1, 2, $obj6, null, 0, 1, $int10, $boolean9, $component3, $int1);
+        $int2 = calc($int2 + $int4);
+    }
+    switch_int (++$int8) {
+        case 2 :
+            $obj6 = oc_param($obj0, recipe_tool_type_2);
+            $struct7 = oc_param($obj0, recipe_tool_2_multiple);
+        case 3 :
+            $obj6 = oc_param($obj0, recipe_tool_type_3);
+            $struct7 = oc_param($obj0, recipe_tool_3_multiple);
+    }
+}
+return($int2, $int1);

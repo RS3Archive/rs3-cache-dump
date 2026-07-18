@@ -1,0 +1,18 @@
+// 7215
+[proc,crs_heading](struct $struct0, quest $quest1, achievement $achievement2, dbrow $dbrow3, boolean $boolean4)(string)
+def_string $string0 = "";
+if ($struct0 ! null) {
+    if (string_length(struct_param($struct0, latest_label)) > 0) {
+        $string0 = struct_param($struct0, latest_label);
+    } else if (struct_param($struct0, latest_skill) = 1) {
+        $string0 = db_getfield(crs_type_skilling, crs_type:col1, 0);
+    }
+}
+if (string_length($string0) = 0) {
+    if ($boolean4 = true) {
+        $string0 = db_getfield($dbrow3, crs_type:col1, 0);
+    } else {
+        $string0 = db_getfield($dbrow3, crs_type:col0, 0);
+    }
+}
+return($string0);

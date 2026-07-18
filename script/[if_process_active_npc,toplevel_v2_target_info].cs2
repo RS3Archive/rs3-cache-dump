@@ -1,0 +1,47 @@
+// 10218
+[if_process_active_npc,toplevel_v2_target_info]
+if (is_npc_active = false) {
+    ~script38;
+    return;
+}
+if (npc_type = chompybird_dead) {
+    ~script38;
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0, $int1 = ~script7(npc_type);
+if ($int0 = -1) {
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int3, $int2 = get_npc_stat(hitpoints);
+if (%toplevel_v2_legacy_combat = 1) {
+    if ($int3 > 0) {
+        $int3 = max(1, calc($int3 / 10));
+    }
+    $int2 = max(1, calc($int2 / 10));
+}
+switch_npc (npc_type) {
+    case stalker_boss :
+        $int3 = %stalker_boss_current_health;
+}
+if (nc_param(npc_type, toplevel_v2_target_hide_lifepoints) = 1 | compare(tostring($int3), if_gettext(toplevel_v2_target_info:entity_health_left)) ! 0) {
+    if (nc_param(npc_type, toplevel_v2_target_hide_lifepoints) = 1) {
+        if_settext("", toplevel_v2_target_info:entity_health_left);
+    } else {
+        if_settext(tostring_localised($int3, true), toplevel_v2_target_info:entity_health_left);
+    }
+    $int4 = max(min(scale($int3, $int2, 100), 100), 0);
+    $int5 = calc($int4 * 16384 / 100);
+    if_setsize($int5, if_getheight(toplevel_v2_target_info:probar_fake_layer), ^setsize_rel, ^setsize_abs, toplevel_v2_target_info:probar_actual_health_layer);
+}
+~script17671(nc_param(npc_type, combatv2_npc_min_damage_potential_pvn), %toplevel_v2_target_hitchance);
+if (%toplevel_v2_target_npc_pray_client ! %toplevel_v2_target_npc_pray_varn) {
+    %toplevel_v2_target_npc_pray_client = %toplevel_v2_target_npc_pray_varn;
+    ~script90;
+}
+~script5($int0, $int1);

@@ -1,0 +1,33 @@
+// 455
+[proc,script455](int $int0, int $int1, int $int2)
+def_string $string0 = "";
+def_string $string1 = "";
+def_enum $enum3 = clan_int_to_job_title;
+cc_setgraphic(enum(int, graphic, clanchat2_rankgraphic, $int1));
+if (~script6431 = true) {
+    $int0 = calc($int0 + (27 / 2 - cc_getheight / 2));
+} else {
+    $int0 = calc($int0 + 3);
+}
+cc_setposition(cc_getx, $int0, ^setpos_abs_left, ^setpos_abs_top);
+$string0 = "Rank: <enum(int, string, clan_core_rank_int_to_rank, $int1)>";
+if ($int2 > 0) {
+    switch_int (map_lang) {
+        case 1 :
+            $enum3 = clan_int_to_job_title_de;
+        case 2 :
+            $enum3 = clan_int_to_job_title_fr;
+        case 3 :
+            $enum3 = clan_int_to_job_title_pt;
+        case 6 :
+            $enum3 = clan_int_to_job_title_es_mx;
+    }
+    $string1 = enum(int, string, $enum3, $int2);
+    $string0 = "<$string0><br>Title: <$string1>";
+}
+if (~script6431 = false) {
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+} else {
+    cc_setonclick("script7774($string0, event_com, event_comsubid, 0)");
+}
+cc_sethide(false);

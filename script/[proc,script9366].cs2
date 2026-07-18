@@ -1,0 +1,35 @@
+// 9366
+[proc,script9366](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)
+def_enum $enum9 = enum(int, enum, clan_noticeboard_event_subtype_id, $int3);
+if ($int6 = 0 | $int5 = 0 | $int3 = 0 | ~script4616($int1, $int2) <= 0) {
+    return;
+}
+if_settext(fromdate($int1), clan_noticeboard_broadcast:date_text);
+if_settext(~script9365, clan_noticeboard_broadcast:reltime_text);
+if_settext(enum(int, string, clan_noticeboard_event_time, $int2), clan_noticeboard_broadcast:gametime_text);
+if_settext(enum(int, string, clan_noticeboard_event_type, $int3), clan_noticeboard_broadcast:type_text);
+if ($enum9 ! null & $int4 > 0) {
+    if_settext(enum(int, string, $enum9, $int4), clan_noticeboard_broadcast:subtype_text);
+} else {
+    if_settext("", clan_noticeboard_broadcast:subtype_text);
+}
+if_settext(enum(int, string, clan_noticeboard_event_place, $int5), clan_noticeboard_broadcast:place_text);
+if ($int6 >= 1 & $int6 <= 200) {
+    if_settext(tostring($int6), clan_noticeboard_broadcast:world_text);
+} else if ($int6 = 201) {
+    if_settext("N/A", clan_noticeboard_broadcast:world_text);
+}
+if_settext(enum(int, string, clan_offset_rank_int_to_rank_plus, $int7), clan_noticeboard_broadcast:attendees_text);
+if (%clan_noticeboard_broadcast_ranklimit = 1) {
+    if_settext("Broadcast will only be sent to <enum(int, string, clan_offset_rank_int_to_rank_plus, $int7)>+", clan_noticeboard_broadcast:ranklimit_text);
+} else {
+    if_settext("Broadcast will be sent to the whole clan.", clan_noticeboard_broadcast:ranklimit_text);
+}
+if ($int8 = 0) {
+    if_settext("This event is not mandatory.", clan_noticeboard_broadcast:mandatory_text);
+} else {
+    if_settext("This event is mandatory.", clan_noticeboard_broadcast:mandatory_text);
+}
+~script9369;
+~script9374;
+if_sethide(true, clan_noticeboard_broadcast:showconfirm_disabled_layer);

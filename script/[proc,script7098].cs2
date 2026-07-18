@@ -1,0 +1,34 @@
+// 7098
+[proc,script7098]
+def_vorbis $vorbis0 = null;
+def_int $int1 = 120;
+if (%makex2012_total_remaining ! 0) {
+    switch_int (random(3)) {
+        case 0 :
+            $vorbis0 = makex_ui_production_interrupt_01;
+        case 1 :
+            $vorbis0 = makex_ui_production_interrupt_02;
+        case 2 :
+            $vorbis0 = makex_ui_production_interrupt_03;
+    }
+    $int1 = 50;
+} else {
+    switch_int (random(4)) {
+        case 0 :
+            $vorbis0 = makex_ui_production_complete_01;
+        case 1 :
+            $vorbis0 = makex_ui_production_complete_02;
+        case 2 :
+            $vorbis0 = makex_ui_production_complete_03;
+        case 3 :
+            $vorbis0 = makex_ui_production_complete_04;
+    }
+}
+sound_vorbis_rate($vorbis0, 1, 0, $int1, random_sound_pitch(5, 10));
+if_setontimer(null, makex2012_progress_dialogue:cancel_layer);
+if_settext("Done", makex2012_progress_dialogue:time_text);
+if_setontimer(null, makex2012_progress_dialogue:time_text);
+if_sethide(true, makex2012_progress_dialogue:cancel_button);
+if (~script6431 = false) {
+    if_sethide(false, makex2012_progress_dialogue:done_button);
+}

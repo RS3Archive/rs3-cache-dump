@@ -1,0 +1,128 @@
+// 18242
+[proc,script18242](struct $struct0, int $int1, int $int2)
+def_struct $struct3 = $struct0;
+def_int $int4 = 0;
+if ($struct3 ! null) {
+    if (~script16319(1) = $struct0 & $int2 = 0) {
+        if (%omge_challenge_current_progress_1 >= struct_param($struct0, challenge_target) & ~script18262(1) = 1) {
+            $int4 = 2;
+        } else {
+            $int4 = 1;
+        }
+    } else if (~script16319(2) = $struct0 & $int2 = 1) {
+        if (%omge_challenge_current_progress_2 >= struct_param($struct0, challenge_target) & ~script18262(2) = 1) {
+            $int4 = 2;
+        } else {
+            $int4 = 1;
+        }
+    } else if (~script16319(3) = $struct0 & $int2 = 2) {
+        if (%omge_challenge_current_progress_3 >= struct_param($struct0, challenge_target) & ~script18262(3) = 1) {
+            $int4 = 2;
+        } else {
+            $int4 = 1;
+        }
+    } else if (~script16319(4) = $struct0 & $int2 = 3) {
+        if (%omge_challenge_current_progress_4 >= struct_param($struct0, challenge_target) & ~script18262(4) = 1) {
+            $int4 = 2;
+        } else {
+            $int4 = 1;
+        }
+    } else if (~script16319(5) = $struct0 & $int2 = 4) {
+        if (%omge_challenge_current_progress_5 >= struct_param($struct0, challenge_target) & ~script18262(5) = 1) {
+            $int4 = 2;
+        } else {
+            $int4 = 1;
+        }
+    }
+}
+def_int $int5 = 28556;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 50;
+def_int $int10 = 50;
+def_graphic $graphic11 = null;
+def_int $int12 = 1;
+def_int $int13 = 0;
+def_boolean $boolean14 = false;
+def_int $int15 = 0;
+def_string $string0 = "";
+if ($struct3 = null) {
+    $boolean14 = true;
+    $int15 = ~challenge_blank_status;
+    $string0 = ~challenge_blank_string($int15);
+}
+def_boolean $boolean16 = false;
+def_int $int17 = %omge_job_interface_id;
+if (calc($int17 - 1) = $int1) {
+    $boolean16 = true;
+}
+def_fontmetrics $fontmetrics18 = notosans_bold_13;
+if ($struct3 = null) {
+    $fontmetrics18 = notosans_12;
+} else {
+    $string0 = ~script17040($struct3);
+}
+if (cc_find(jobs_main:button_graphics, $int1) = true) {
+    $int13 = calc(0 + (49 + 10) * $int2);
+    ~cc_add_child_button($int1, 0, $int12, $int13, ^setpos_abs_left, ^setpos_abs_top, calc(254 - 3), 49, ^setsize_abs, ^setsize_abs, button_cornered_neutral, $string0);
+    ~script7872(~negate_bool($boolean14), true, true, $boolean16);
+    cc_settextfont($fontmetrics18);
+    cc_settextshadow(false);
+    cc_sethide(false);
+}
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+if (cc_find(jobs_main:button_icons, $int1) = true) {
+    $graphic11 = struct_param($struct0, task_icon);
+    if ($struct3 = null & $int15 ! -2) {
+        $graphic11 = aif_bug_reporting_hourglass;
+    }
+    cc_sethide(false);
+    cc_setgraphic($graphic11);
+    if ($graphic11 ! null) {
+        $int7 = calc(35 - $int9);
+        $int8 = calc(35 - $int10);
+    } else {
+        $int7 = 0;
+        $int8 = 0;
+        $int9 = 35;
+        $int10 = 35;
+    }
+    if ($int9 >= 35 | $int10 >= 35) {
+        cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+        cc_setposition(4, calc(7 + (49 + 10) * $int2), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc(4 + $int7 / 2), calc($int8 / 2 + 7 + (49 + 10) * $int2), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int19 = cc_getx;
+    $int20 = cc_gety;
+    $int21 = cc_getwidth;
+    $int22 = cc_getheight;
+}
+def_graphic $graphic23 = null;
+if (cc_find(jobs_main:button_stamps, $int1) = true) {
+    switch_int ($int4) {
+        case 2 :
+            $graphic23 = ~cheevo_status_icon(-2);
+    }
+    if ($graphic23 = null) {
+        cc_sethide(true);
+    } else {
+        cc_sethide(false);
+        cc_setgraphic($graphic23);
+        cc_setsize($int21, $int22, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int19, $int20, ^setpos_abs_left, ^setpos_abs_top);
+    }
+}
+if ($struct3 ! null & cc_find(jobs_main:button_clickboxes, $int1) = true) {
+    cc_sethide(false);
+    cc_setsize(254, 49, ^setsize_abs, ^setsize_abs);
+    cc_setposition(1, calc(0 + (49 + 10) * $int2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settrans(255);
+    cc_setop(1, "Select");
+    cc_setonop("job_button_onop(88014867, 88014869, event_comsubid)");
+}

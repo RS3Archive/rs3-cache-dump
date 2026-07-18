@@ -1,0 +1,37 @@
+// 7105
+[proc,script7105](obj $obj0)(boolean)
+if ($obj0 = null | $obj0 = makex2012_default_recipe) {
+    return(false);
+}
+if (map_members = false & ~script7116($obj0) = true) {
+    return(false);
+}
+def_int $int1 = oc_param($obj0, recipe_requirement_type_1);
+def_int $int2 = oc_param($obj0, recipe_requirement_value_1);
+def_int $int3 = 1;
+def_int $int4 = oc_param($obj0, assist_exception);
+if (oc_param($obj0, smithing_progress_needed) > 0) {
+    $int4 = 1;
+}
+while ($int1 > 0) {
+    if (~script7106($obj0, $int1, $int2, $int4, oc_param($obj0, recipe_can_be_boosted), $int3) = false) {
+        return(false);
+    }
+    switch_int (++$int3) {
+        case 2 :
+            $int1 = oc_param($obj0, recipe_requirement_type_2);
+            $int2 = oc_param($obj0, recipe_requirement_value_2);
+        case 3 :
+            $int1 = oc_param($obj0, recipe_requirement_type_3);
+            $int2 = oc_param($obj0, recipe_requirement_value_3);
+        case 4 :
+            $int1 = oc_param($obj0, recipe_requirement_type_4);
+            $int2 = oc_param($obj0, recipe_requirement_value_4);
+        case 5 :
+            $int1 = oc_param($obj0, recipe_requirement_type_5);
+            $int2 = oc_param($obj0, recipe_requirement_value_5);
+        case default :
+            $int1 = 0;
+    }
+}
+return(true);

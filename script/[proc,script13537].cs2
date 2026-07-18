@@ -1,0 +1,28 @@
+// 13537
+[proc,script13537](int $int0)
+if (%toplevel_v2_mobile_interface = 0 & (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_chat_style = 1)) {
+    return;
+}
+def_component $component1 = ~script8552($int0);
+def_component $component2 = if_getparentlayer($component1);
+def_component $component3 = ~script13539($int0);
+def_int $int4 = -1;
+def_int $int5 = 20;
+if (%toplevel_v2_mobile_interface = 1) {
+    if ($int0 ! 18) {
+        return;
+    }
+    if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
+    if_setsize($int5, 0, ^setsize_minus, ^setsize_minus, $component1);
+} else {
+    $int5 = 0;
+    if (%chat_v2_button_displaymode = 1 | ~script6578($int0) = 1 | $component3 ! null & if_getwidth($component3) < if_getwidth(if_getparentlayer($component3))) {
+        if_setsize($int5, 55, ^setsize_minus, ^setsize_minus, $component2);
+    } else {
+        if_setsize($int5, 55, ^setsize_minus, ^setsize_minus, $component2);
+    }
+    if_setposition(0, 29, ^setpos_abs_left, ^setpos_abs_bottom, $component2);
+}
+def_int $int6 = enum(int, int, settings_chat_size_bottomdisplacement, ~script3873);
+def_int $int7 = ~script8503($component1, 0, $int6);
+~script8504($int0, $int7);

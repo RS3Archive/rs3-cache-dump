@@ -1,0 +1,16 @@
+// 6347
+[clientscript,lobbyscreen_load_timer](int $int0)
+def_int $int1 = clientoption_get(^clientoption_volume_main_effects);
+def_int $int2 = clientoption_get(^clientoption_volume_main_music);
+def_int $int3 = clientoption_get(^clientoption_volume_background_effects);
+def_int $int4 = clientoption_get(^clientoption_volume_speech);
+def_int $int5 = clientoption_get(^clientoption_volume_login_music);
+if (%lobbyscreen_randomly_selected_account ! 0) {
+    if (%lobby_open_origin = 1 & playermember = false & userdetail_lobby_playage > 0) {
+        if_setontimer("script1999(lobbyscreen:base, 0, $int1, $int2, $int3, $int4, $int5)", lobbyscreen:base);
+    } else {
+        if_setontimer(null, lobbyscreen:base);
+        ~lobbyscreen_load;
+    }
+    %lobby_open_origin = 0;
+}

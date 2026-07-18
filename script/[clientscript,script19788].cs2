@@ -1,0 +1,141 @@
+// 19788
+[clientscript,script19788](int $int0)
+def_int $int1 = -1;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_dbrow $dbrow5 = null;
+switch_int ($int0) {
+    case 1 :
+        $int1 = %trh205_promo_bonus_option_1;
+        $component2 = trh205_overlay:bonus_option_1_title_text;
+        $component3 = trh205_overlay:bonus_option_1_info_text;
+        $component4 = trh205_overlay:bonus_option_1_build_layer;
+    case 2 :
+        $int1 = %trh205_promo_bonus_option_2;
+        $component2 = trh205_overlay:bonus_option_2_title_text;
+        $component3 = trh205_overlay:bonus_option_2_info_text;
+        $component4 = trh205_overlay:bonus_option_2_build_layer;
+    case default :
+        return;
+}
+$dbrow5 = ~script19751($int1);
+def_int $int6 = db_getfield($dbrow5, trh205_promo_bonus:col3, 0);
+cc_deleteall($component4);
+def_int $int7 = 0;
+def_component $component8 = null;
+def_material $material9 = null;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_obj $obj12 = null;
+def_int $int13 = 0;
+def_model $model14 = null;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+if ($int6 > 0) {
+    if ($int6 > 1) {
+        $string1 = "<col=DEA73E>Next <tostring($int6)> parcels:</col><br>";
+    } else {
+        $string1 = "<col=DEA73E>Next parcels:</col>";
+    }
+    cc_create($component4, ^iftype_graphic, $int7);
+    $int7 = calc($int7 + 1);
+    cc_setgraphic(trh177_key);
+    cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
+    cc_setposition(1, 6, ^setpos_abs_right, ^setpos_abs_bottom);
+    cc_create($component4, ^iftype_graphic, $int7);
+    $int7 = calc($int7 + 1);
+    cc_setgraphic(~script19761($int6));
+    cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
+    cc_setposition(20, 6, ^setpos_abs_right, ^setpos_abs_bottom);
+    if (db_getfieldcount($dbrow5, trh205_promo_bonus:col10) > 0) {
+        $component8, $material9 = db_getfield($dbrow5, trh205_promo_bonus:col10, 0);
+        if (if_find($component8) = true) {
+            cc_create($component4, ^iftype_model, $int7);
+            $int7 = calc($int7 + 1);
+            cc_setmodel(mtx_parcel_medium);
+            cc_setmodelangle(2, 12, 28, 1995, 11, 550);
+            cc_setretex(0, mtx_parcel_sticker, $material9);
+            cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+            cc_setsize(80, 80, ^setsize_abs, ^setsize_abs);
+        }
+        if (db_getfieldcount($dbrow5, trh205_promo_bonus:col6) > 0) {
+            $obj12, $int13 = db_getfield($dbrow5, trh205_promo_bonus:col6, 0);
+            $string0 = "<db_getfield($dbrow5, trh205_promo_bonus:col13, 0)> Parcel";
+            $string1 = "<$string1>Additionally contain <oc_name($obj12)> x <tostring($int13)>";
+        }
+    } else {
+        $string0 = "Modifiers";
+        if (db_getfieldcount($dbrow5, trh205_promo_bonus:col5) > 0) {
+            $int10 = db_getfield($dbrow5, trh205_promo_bonus:col5, 0);
+            $string1 = "<$string1> <col=00FF00>x<tostring($int10)></col> multiplier";
+            cc_create($component4, ^iftype_graphic, $int7);
+            $int7 = calc($int7 + 1);
+            cc_setgraphic(~script10980($int10));
+            cc_setposition(10, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(100, 100, ^setsize_abs, ^setsize_abs);
+        } else {
+            ~error("Setting up trh205 bonus. Bonus with id <tostring(db_getfield($dbrow5, trh205_promo_bonus:col0, 0))> doesn't have a multiplier.");
+        }
+        if (db_getfieldcount($dbrow5, trh205_promo_bonus:col4) > 0) {
+            $int11 = db_getfield($dbrow5, trh205_promo_bonus:col4, 0);
+            if ($int11 >= 5) {
+                $string1 = append($string1, "<br><~script10979($int11)><~script10876($int11)></col> rarity");
+            } else {
+                $string1 = append($string1, "<br><~script10979($int11)><~script10876($int11)></col> rarity plus");
+            }
+            cc_create($component4, ^iftype_graphic, $int7);
+            $int7 = calc($int7 + 1);
+            cc_setgraphic(~script19209($int11));
+            cc_setposition(80, 30, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(66, 82, ^setsize_abs, ^setsize_abs);
+        } else {
+            ~error("Setting up trh205 bonus. Bonus with id <tostring(db_getfield($dbrow5, trh205_promo_bonus:col0, 0))> doesn't have a rarity");
+        }
+    }
+} else if (db_getfieldcount($dbrow5, trh205_promo_bonus:col7) > 0) {
+    $string1 = "<col=DEA73E>Instant Prize:</col><br>";
+    $obj12, $int13 = db_getfield($dbrow5, trh205_promo_bonus:col7, 0);
+    switch_obj ($obj12) {
+    }
+    $string0 = "Instant reward";
+    if ($int13 > 1) {
+        $string1 = "<$string1><oc_name($obj12)> x <tostring($int13)>";
+    } else {
+        $string1 = "<$string1><oc_name($obj12)>";
+    }
+    if (db_getfieldcount($dbrow5, trh205_promo_bonus:col11) > 0) {
+        $model14, $int16, $int17, $int15, $int18, $int19, $int20 = db_getfield($dbrow5, trh205_promo_bonus:col11, 0);
+        cc_create($component4, ^iftype_model, $int7);
+        $int7 = calc($int7 + 1);
+        cc_setmodel($model14);
+        cc_setmodelangle($int16, $int17, $int18, $int19, $int20, $int15);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setsize(80, 80, ^setsize_abs, ^setsize_abs);
+        $int21 = db_getfieldcount($dbrow5, trh205_promo_bonus:col12);
+        while ($int21 > 0) {
+            cc_setrecol($int21, db_getfield($dbrow5, trh205_promo_bonus:col12, calc($int21 - 1)));
+            $int21 = calc($int21 - 1);
+        }
+    } else if ($obj12 ! null) {
+        cc_create($component4, ^iftype_graphic, $int7);
+        $int7 = calc($int7 + 1);
+        cc_setobject($obj12, $int13);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    }
+}
+if (db_getfieldcount($dbrow5, trh205_promo_bonus:col2) > 0) {
+    $string1 = "<$string1><br><db_getfield($dbrow5, trh205_promo_bonus:col2, 0)>";
+}
+if ($int1 > 0) {
+    if_settext($string0, $component2);
+    if_settext($string1, $component3);
+}

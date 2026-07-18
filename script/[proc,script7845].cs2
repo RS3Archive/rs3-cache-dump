@@ -1,0 +1,48 @@
+// 7845
+[proc,script7845](int $int0, string $string0)
+if_sethide(false, acc_create_name:name_label_desc);
+if_sethide(true, acc_create_name:name_check_spinner);
+%acc_create_validation_name = $int0;
+if ($int0 = 4) {
+    if_settext($string0, acc_create_name:name_label_desc);
+    if_setcolour(0xf99222, acc_create_name:name_label_desc);
+    if_setgraphic(null, acc_create_name:name_status);
+} else if ($int0 = 1) {
+    if_settext("You have entered a valid character name which is available!", acc_create_name:name_label_desc);
+    if_setcolour(0x2dba14, acc_create_name:name_label_desc);
+    if_setgraphic("rs3_character_interface_register_ticks,1", acc_create_name:name_status);
+} else if ($int0 = 5) {
+    if_settext($string0, acc_create_name:name_label_desc);
+    ~script2731(acc_create_name:name_label_desc, -1, 2);
+    if_setgraphic(null, acc_create_name:name_status);
+} else if (string_length($string0) = 0) {
+    if ($int0 = 0) {
+        if_settext("The display name entered is invalid.", acc_create_name:name_label_desc);
+        ~script2731(acc_create_name:name_label_desc, -1, 6);
+        if_setgraphic("rs3_character_interface_register_ticks,2", acc_create_name:name_status);
+    } else {
+        if_settext("A display name is needed to play.<br>Your friends can use it to add you in-game!", acc_create_name:name_label_desc);
+        ~script2731(acc_create_name:name_label_desc, -1, 2);
+        if_setgraphic(null, acc_create_name:name_status);
+    }
+} else {
+    if_settext($string0, acc_create_name:name_label_desc);
+    ~script2731(acc_create_name:name_label_desc, -1, 6);
+    if_setgraphic("rs3_character_interface_register_ticks,2", acc_create_name:name_status);
+}
+switch_int (%acc_create_validation_name) {
+    case 0 :
+        if_setcolour(0xeb2f2f, acc_create_name:name_highlight_rect);
+        if_sethide(false, acc_create_name:name_highlight_rect);
+    case 4 :
+        if_setcolour(0xf99222, acc_create_name:name_highlight_rect);
+        if_sethide(false, acc_create_name:name_highlight_rect);
+    case 1 :
+        if_setcolour(0x2dba14, acc_create_name:name_highlight_rect);
+        if_sethide(false, acc_create_name:name_highlight_rect);
+    case 2 :
+        if_setcolour(0x010101, acc_create_name:name_highlight_rect);
+        if_sethide(false, acc_create_name:name_highlight_rect);
+    case default :
+        if_sethide(true, acc_create_name:name_highlight_rect);
+}

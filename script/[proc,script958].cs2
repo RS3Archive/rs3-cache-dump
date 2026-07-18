@@ -1,0 +1,31 @@
+// 958
+[proc,script958](component $component0, component $component1, string $string0, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 12;
+if ($int2 = 1) {
+    $int3, $int4 = if_getcharposatindex(%bugreport_caret, $component0);
+    if (calc($int4 - $int5) > 60) {
+        if_setscrollpos(0, calc($int4 - $int5 - 60), bugreport_interface:input_text_layer);
+        ~scrollbar_vertical(bugreport_interface:scrollbar_build_layer, bugreport_interface:input_text_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+    } else {
+        if_setscrollpos(0, 0, bugreport_interface:input_text_layer);
+        ~scrollbar_vertical(bugreport_interface:scrollbar_build_layer, bugreport_interface:input_text_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+    }
+} else if ($int2 = 2) {
+    $int3, $int4 = if_getcharposatindex(%bugreport_caret_repro, $component0);
+    if (calc($int4 - $int5) > 60) {
+        if_setscrollpos(0, calc($int4 - $int5 - 60), bugreport_interface:repro_text_layer);
+        ~scrollbar_vertical(bugreport_interface:scrollbar_build_layer_repro, bugreport_interface:repro_text_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+    } else {
+        if_setscrollpos(0, 0, bugreport_interface:repro_text_layer);
+        ~scrollbar_vertical(bugreport_interface:scrollbar_build_layer_repro, bugreport_interface:repro_text_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+    }
+}
+if_setposition(calc($int3 + 4), calc($int4 - $int5 + 4), ^setpos_abs_left, ^setpos_abs_top, $component1);
+if (applet_hasfocus = true) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}
+if_setontimer("script7672(clientclock, $component1)", $component0);

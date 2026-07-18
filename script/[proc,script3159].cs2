@@ -1,0 +1,33 @@
+// 3159
+[proc,script3159](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, component $component13, component $component14, component $component15, component $component16)
+def_boolean $boolean17 = ~is_mobile_client;
+if ($boolean17 = false) {
+    if_setsize(calc(if_getx($component9) - if_getx($component1)), 0, ^setsize_abs, ^setsize_minus, $component2);
+    if_setsize(calc(if_getwidth($component5) - if_getwidth($component2) - 2), 0, ^setsize_abs, ^setsize_minus, $component4);
+    ~script15629($component0, $component10, $component11, $component14);
+}
+if_setscrollsize(0, 0, $component5);
+if_setscrollpos(0, 0, $component5);
+~scrollbar_vertical($component6, $component5, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(0, 0, $component12);
+if_setscrollpos(0, 0, $component12);
+~scrollbar_vertical($component13, $component12, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setonclansettingstransmit("script3164($component2, $component3, $component4, $component7, $component5, $component6, $component8, $component9)", $component5);
+if_setonclanchanneltransmit("script3164($component2, $component3, $component4, $component7, $component5, $component6, $component8, $component9)", $component5);
+if_setonfriendtransmit("script11461($component2, $component3, $component4, $component7, $component5, $component6, $component8, $component9)", $component5);
+if (activeclanchannel_find_affined(0) = true) {
+    ~script3165($component2, $component3, $component4, $component7, $component5, $component6, $component8, $component9);
+    if (if_gethide(lobbyscreen:clanchat_panel) = false | $boolean17 = true & if_button_gettoggled(lobbyscreen_pane_mobile_social:clan_chat_button) = true) {
+        ~script3161(1);
+    } else {
+        ~script3161(0);
+    }
+} else {
+    ~script4547($component2, $component3, $component4, $component7, $component5, $component6, $component8, $component9);
+    ~script3161(0);
+}
+%lobbyscreen_input_clan = "";
+%lobby_caret_clan = string_length(%lobbyscreen_input_clan);
+if_setonclick("script1335(event_mousex, $component15, $component16)", $component15);
+~script1390($component15, $component16, %lobbyscreen_input_clan);
+if_sethide(true, $component16);

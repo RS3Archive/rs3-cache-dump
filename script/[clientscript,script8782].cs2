@@ -1,0 +1,32 @@
+// 8782
+[clientscript,script8782](int $int0, int $int1, component $component2, int $int3, int $int4, int $int5, int $int6, int $int7)
+if_setonresize(null, $component2);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_boolean $boolean12 = true;
+def_struct $struct13 = ~script10405($int0);
+def_component $component14 = null;
+if ($struct13 ! null) {
+    $component14 = struct_param($struct13, toplevel_v2_window_layer);
+    if ($component14 ! null & if_gethide($component14) = false & (struct_param($struct13, toplevel_v2_window_allow_move) = true | ~script20451($struct13) ! 0)) {
+        $int8, $int9, $int10, $int11, $boolean12 = ~script8382($int3, $int4, $int5, $int6, $int0, 0, 1);
+        if ($boolean12 = true & ($int7 > 0 | ~script8399($int3, $int4, calc($int3 + $int5), calc($int4 + $int6), $int8, $int9, calc($int8 + $int10), calc($int9 + $int11)) >= calc($int10 * $int11 / 3))) {
+            ~script8387($int8, $int9, $int10, $int11, $int0);
+        } else if ($int7 < 1 | ~script12612($struct13) = false) {
+            if ($int7 < 5) {
+                if_setonresize("script8782($int0, $int1, event_com, if_getx($component14), if_gety($component14), if_getwidth($component14), if_getheight($component14), calc($int7 + 1))", $component14);
+                if_callonresize($component14);
+                %toplevel_v2_redraw_process_left = calc(%toplevel_v2_redraw_process_left + 1);
+            } else {
+                ~script8387(if_getx($component14), if_gety($component14), if_getwidth($component14), if_getheight($component14), $int0);
+            }
+        } else {
+            if_setonresize("script8783($int0, $int1, event_com)", $component14);
+            if_callonresize($component14);
+            %toplevel_v2_redraw_process_left = calc(%toplevel_v2_redraw_process_left + 1);
+        }
+    }
+}
+~script8784;

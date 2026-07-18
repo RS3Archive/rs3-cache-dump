@@ -1,0 +1,42 @@
+// 16022
+[proc,script16022](struct $struct0, int $int1)(string)
+def_string $string0 = struct_param($struct0, mtx_front_end_confirm_details_override);
+def_string $string1 = struct_param($struct0, mtx_front_end_confirm_details_f2p_override);
+if (playermember = false & string_length($string1) > 0) {
+    $string0 = $string1;
+}
+def_dbrow $dbrow2 = null;
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_int $int6 = 0;
+if (string_length($string0) = 0) {
+    switch_int ($int1) {
+        case 2 :
+            $dbrow2 = ~script15769($struct0);
+            if (db_getfield($dbrow2, mtxmgt_cosmetic:col6, 0) = 20 & db_getfieldcount($dbrow2, mtxmgt_cosmetic:col13) > 0) {
+                $int4 = db_filter_find(db_filter_combine(db_filter_combine(db_filter_value(mtxmgt_cosmetic:col13, db_getfield($dbrow2, mtxmgt_cosmetic:col13, 0), ^filterop_eq, 0), db_filter_unknown(db_filter_value(mtxmgt_cosmetic:col6, 20, ^filterop_eq, 0))), db_filter_value(mtxmgt_cosmetic:col21, 0, ^filterop_eq, 0)), mtxmgt_cosmetic:col6, true, -1, 0);
+                $dbrow3 = db_findnext;
+                if ($int4 > 1) {
+                    $string0 = "This outfit contains:";
+                }
+                while ($dbrow3 ! null) {
+                    $obj5 = db_getfield($dbrow3, mtxmgt_cosmetic:col4, 0);
+                    if ($obj5 ! null) {
+                        $string0 = "<$string0><br>- <oc_name($obj5)>";
+                    }
+                    $dbrow3 = db_findnext;
+                }
+            }
+        case 5 :
+            $string0 = enum(int, string, mtx_front_end_confirm_pet_subcat_details_strings, struct_param($struct0, mtxmgt_subcat));
+        case 4 :
+            $string0 = enum(int, string, mtx_front_end_confirm_anim_subcat_details_strings, struct_param($struct0, mtxmgt_subcat));
+        case default :
+            return("");
+    }
+}
+if (string_length($string0) = 0) {
+    return("");
+}
+return(~script14145(" ", "Details:", $string0));

@@ -1,0 +1,17 @@
+// 19080
+[clientscript,trh199_overlay_onload]
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int0 = -1;
+while (++$int0 < 10) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+}
+~spinner_create(trh199_overlay:preview_load, 3, -1);
+def_obj $obj1 = null;
+def_int $int2 = 1;
+def_dbrow $dbrow3 = ~script19070(struct_param(trh199_promo, trh199_blueprints));
+if (%trh199_crafting_started = 0) {
+    $obj1, $int2 = db_getfield($dbrow3, trh199_blueprint:col3, 0);
+    if (oc_param($obj1, trh_preview_outfit_struct) = null) {
+        ~script16663(trh199_prize_preview_components, $obj1, 1);
+    }
+}

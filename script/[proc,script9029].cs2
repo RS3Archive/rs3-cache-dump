@@ -1,0 +1,109 @@
+// 9029
+[proc,script9029](struct $struct0, quest $quest1, achievement $achievement2)(string)
+if ($struct0 = null & $quest1 = null & $achievement2 = null) {
+    return("");
+}
+def_string $string0 = "";
+def_boolean $boolean3 = ~is_mobile_client;
+def_int $int4 = 0;
+if ($quest1 ! null) {
+    return(~quest_start_point($quest1));
+} else if ($achievement2 ! null) {
+    return("");
+} else if ($struct0 ! null) {
+    if (struct_param($struct0, task_struct) ! null) {
+        $struct0 = struct_param($struct0, task_struct);
+    }
+    if (struct_param($struct0, quest_id) > 0) {
+        $quest1 = enum(int, quest, ql4_quests, struct_param($struct0, quest_id));
+        if ($quest1 ! null) {
+            return(~quest_start_point($quest1));
+        }
+    } else {
+        if ($struct0 = crs_slayer_assignment & %slayer_count = 0) {
+            $int4 = ~script7155;
+            if (%slayer_master = 0) {
+                if (compare($string0, "") ! 0) {
+                    $string0 = append($string0, "<br>");
+                }
+                $string0 = append($string0, "Talk to <~script10500> in Burthorpe for your first assignment.");
+            } else if ($int4 ! %slayer_master) {
+                if (compare($string0, "") ! 0) {
+                    $string0 = append($string0, "<br>");
+                }
+                $string0 = append($string0, "Task from <~script10499(%slayer_master)> complete. Why not get a new assignment from <~script10499($int4)>?");
+            } else {
+                if (compare($string0, "") ! 0) {
+                    $string0 = append($string0, "<br>");
+                }
+                $string0 = append($string0, "Task complete. Return to <~script10499(%slayer_master)> for a new assignment.");
+            }
+        }
+        if ((compare(struct_param($struct0, task_step_1), "") ! 0 | compare(struct_param($struct0, task_step_1_mobile), "") ! 0) & (compare(struct_param($struct0, task_step_2), "") ! 0 | compare(struct_param($struct0, task_step_2_mobile), "") ! 0)) {
+            if (compare($string0, "") ! 0) {
+                $string0 = append($string0, "<br>");
+            }
+            if (compare(struct_param($struct0, task_step_1_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<img=<7>> <struct_param($struct0, task_step_1_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_1), "") ! 0) {
+                $string0 = append($string0, "<img=<7>> <struct_param($struct0, task_step_1)>");
+            }
+            if (compare(struct_param($struct0, task_step_2_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_2_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_2), "") ! 0) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_2)>");
+            }
+            if (compare(struct_param($struct0, task_step_3_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_3_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_3), "") ! 0) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_3)>");
+            }
+            if (compare(struct_param($struct0, task_step_4_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_4_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_4), "") ! 0) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_4)>");
+            }
+            if (compare(struct_param($struct0, task_step_5_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_5_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_5), "") ! 0) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_5)>");
+            }
+            if (compare(struct_param($struct0, task_step_6_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_6_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_6), "") ! 0) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_6)>");
+            }
+            if (compare(struct_param($struct0, task_step_7_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_7_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_7), "") ! 0) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_7)>");
+            }
+            if (compare(struct_param($struct0, task_step_8_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_8_mobile)>");
+            } else if (compare(struct_param($struct0, task_step_8), "") ! 0) {
+                $string0 = append($string0, "<br><img=<7>> <struct_param($struct0, task_step_8)>");
+            }
+        } else if (compare(struct_param($struct0, task_step_1), "") ! 0 | compare(struct_param($struct0, task_step_1_mobile), "") ! 0) {
+            if (compare($string0, "") ! 0) {
+                $string0 = append($string0, "<br>");
+            }
+            if (compare(struct_param($struct0, task_step_1_mobile), "") ! 0 & $boolean3 = true) {
+                $string0 = append($string0, struct_param($struct0, task_step_1_mobile));
+            } else if (compare(struct_param($struct0, task_step_1), "") ! 0) {
+                $string0 = append($string0, struct_param($struct0, task_step_1));
+            }
+        }
+        if (compare(struct_param($struct0, task_information_mobile), "") ! 0 & $boolean3 = true) {
+            if (compare($string0, "") ! 0) {
+                $string0 = append($string0, "<br><br>");
+            }
+            $string0 = append($string0, "Tip: <struct_param($struct0, task_information_mobile)>");
+        } else if (compare(struct_param($struct0, task_information), "") ! 0) {
+            if (compare($string0, "") ! 0) {
+                $string0 = append($string0, "<br><br>");
+            }
+            $string0 = append($string0, "Tip: <struct_param($struct0, task_information)>");
+        }
+    }
+}
+return($string0);

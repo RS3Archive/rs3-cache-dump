@@ -1,0 +1,24 @@
+// 12610
+[proc,script12610]
+if (if_find(toplevel_v2:viewport) = true) {
+    if (cc_param(toplevel_v2_window_data) ! null) {
+        return;
+    } else {
+        cc_setparam(toplevel_v2_window_data, toplevel_v2_window_data_transparent_background_override);
+    }
+}
+def_int $int0 = -1;
+def_struct $struct1 = null;
+def_component $component2 = null;
+def_int $int3 = enum_getoutputcount(toplevel_v2_panel_id_listing);
+def_int $int4 = -1;
+while (++$int4 < $int3) {
+    $int0 = enum(int, int, toplevel_v2_panel_id_listing, $int4);
+    $struct1 = ~script10405($int0);
+    if ($struct1 ! null) {
+        $component2 = struct_param($struct1, toplevel_v2_window_content_layer);
+        if ($component2 ! null & if_find($component2) = true) {
+            cc_setparam(toplevel_v2_window_data, $struct1);
+        }
+    }
+}

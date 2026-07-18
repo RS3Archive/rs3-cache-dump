@@ -1,0 +1,72 @@
+// 12637
+[proc,script12637](int $int0, int $int1, int $setposh2, int $setposv3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = cc_param(rs3tli_component_oscillation_offset_max);
+def_int $int7 = cc_param(rs3tli_component_oscillation_type);
+switch_int ($int7) {
+    case 0, 2, 3 :
+        cc_setparam(rs3tli_component_anchor_pos_x, $int0);
+        cc_setparam(rs3tli_component_anchor_pos_y, $int1);
+        $int5 = scale(max(min(enum(int, int, sin_deg2percentage_enum, calc((~script12706(-1) + 270) % 360)), 99), -99), 100, $int6);
+        if (cc_param(rs3tli_component_oscillation_flip_y) = true) {
+            $int5 = ~invert($int5);
+        }
+        if ($setposv3 = ^setpos_abs_bottom) {
+            $int1 = calc($int1 - $int5);
+        } else {
+            $int1 = calc($int1 + $int5);
+        }
+        if ($int7 = 3) {
+            $int4 = scale(max(min(enum(int, int, sin_deg2percentage_enum, calc(~script12706(-1) % 360)), 99), -99), 100, $int6);
+        } else if ($int7 = 2) {
+            $int4 = scale(max(min(enum(int, int, sin_deg2percentage_enum, calc((~script12706(-1) + 90) % 360)), 99), -99), 100, $int6);
+        } else {
+            cc_setposition($int0, $int1, $setposh2, $setposv3);
+            return;
+        }
+        if (cc_param(rs3tli_component_oscillation_flip_x) = true) {
+            $int4 = ~invert($int4);
+        }
+        if ($setposh2 = ^setpos_abs_right) {
+            $int0 = calc($int0 - $int4);
+        } else {
+            $int0 = calc($int0 + $int4);
+        }
+        cc_setposition($int0, $int1, $setposh2, $setposv3);
+    case 1 :
+        cc_setparam(rs3tli_component_anchor_pos_x, $int0);
+        cc_setparam(rs3tli_component_anchor_pos_y, $int1);
+        $int4 = scale(max(min(enum(int, int, sin_deg2percentage_enum, calc((~script12706(-1) + 90) % 360)), 99), -99), 100, $int6);
+        if (cc_param(rs3tli_component_oscillation_flip_x) = true) {
+            $int4 = ~invert($int4);
+        }
+        if ($setposh2 = ^setpos_abs_right) {
+            $int0 = calc($int0 - $int4);
+        } else {
+            $int0 = calc($int0 + $int4);
+        }
+        cc_setposition($int0, $int1, $setposh2, $setposv3);
+    case 4 :
+        cc_setparam(rs3tli_component_anchor_pos_x, $int0);
+        cc_setparam(rs3tli_component_anchor_pos_y, $int1);
+        $int5 = scale(calc(max(min(enum(int, int, sin_deg2percentage_enum, calc((~script12706(-1) + 90) % 360)), 99), -99) - 99), 100, $int6);
+        if ($setposv3 = ^setpos_abs_bottom) {
+            $int1 = calc($int1 - $int5);
+        } else {
+            $int1 = calc($int1 + $int5);
+        }
+        $int4 = scale(max(min(enum(int, int, sin_deg2percentage_enum, calc(~script12706(-1) % 360)), 99), -99), 100, $int6);
+        if (cc_param(rs3tli_component_oscillation_flip_x) = true) {
+            $int4 = ~invert($int4);
+        }
+        if ($int4 < 0) {
+            $int4 = calc($int4 / 2);
+        }
+        if ($setposh2 = ^setpos_abs_right) {
+            $int0 = calc($int0 - $int4);
+        } else {
+            $int0 = calc($int0 + $int4);
+        }
+        cc_setposition($int0, $int1, $setposh2, $setposv3);
+}

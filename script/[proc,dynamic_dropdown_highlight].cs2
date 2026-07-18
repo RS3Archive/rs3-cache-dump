@@ -1,0 +1,22 @@
+// 10437
+[proc,dynamic_dropdown_highlight](component $component0, int $int1)
+def_component $component2 = toplevel_v2:dropdown_highlight;
+switch_toplevelinterface (if_gettop) {
+    case default :
+        $component2 = toplevel_v2:dropdown_highlight;
+    case lobbyscreen :
+        $component2 = lobbyscreen:dropdown_highlight;
+    case loginscreen :
+        $component2 = loginscreen:dropdown_highlight;
+}
+cc_deleteall($component2);
+if (cc_find($component0, $int1) = true) {
+    if (cc_param(dynamic_dropdown_element_active) = 0) {
+        return;
+    }
+    .cc_create($component2, ^iftype_rectangle, 0);
+    .cc_setsize(5, cc_getheight, ^setsize_minus, ^setsize_abs);
+    .cc_setposition(5, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setfill(true);
+    .cc_setcolour(~script10495(17));
+}

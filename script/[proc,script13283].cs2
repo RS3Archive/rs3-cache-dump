@@ -1,0 +1,33 @@
+// 13283
+[proc,script13283](struct $struct0)(struct)
+if ($struct0 = null) {
+    return(null);
+}
+def_int $int1 = 0;
+def_enum $enum2 = struct_param($struct0, cheevo_chain_enum);
+if ($enum2 = null) {
+    return(null);
+}
+def_int $int3 = enum_getoutputcount($enum2);
+def_struct $struct4 = null;
+while ($int1 <= $int3) {
+    $struct4 = enum(int, struct, $enum2, $int1);
+    if (~cheevo_obtain_progress($struct4) ! -2) {
+        switch_int (struct_param($struct0, cheevo_chain)) {
+            case 1 :
+                if ($int1 = 0) {
+                    $struct4 = null;
+                } else {
+                    $struct4 = enum(int, struct, $enum2, calc($int1 - 1));
+                }
+                $int1 = $int3;
+            case 2 :
+                if ($int1 = $int3) {
+                    $struct4 = null;
+                }
+                $int1 = $int3;
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+return($struct4);

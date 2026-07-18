@@ -1,0 +1,32 @@
+// 20807
+[proc,script20807](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5)(int, int)
+def_dbrow $dbrow6 = db_findnext;
+def_int $int7 = -1;
+def_obj $obj8 = null;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = if_getwidth($component0);
+def_int $int12 = 0;
+while ($dbrow6 ! null & $int12 < 400) {
+    $int7 = db_getfield($dbrow6, construction_house_furniture:col0, 0);
+    $obj8 = db_getfield($dbrow6, construction_house_furniture:col4, 0);
+    if (%varclientbit_61239 = 0 | inv_total(house_furniture_trunk, $obj8) > 0) {
+        ~cc_add_button($component2, $int7, $int9, $int10, ^setpos_abs_left, ^setpos_abs_top, 80, 72, ^setsize_abs, ^setsize_abs, button_makex_unavailable, "");
+        cc_setop(1, "Select");
+        cc_setonmouserepeat("script9564($obj8, event_com, event_comsubid)");
+        cc_setonop("script20810($component0, $component1, $component2, $component3, $component4, $int7, $int5)");
+        ~script17949($component3, $int7, calc($int9 + 12), calc($int10 + 8), ^setpos_abs_left, ^setpos_abs_top, 63, 56, ^setsize_abs, ^setsize_abs, null, 1);
+        ~cc_add_text($component4, $int7, calc($int9 + 8), calc($int10 + 8), ^setpos_abs_left, ^setpos_abs_top, 63, 13, ^setsize_abs, ^setsize_abs, text_body_default, "");
+        $int9 = calc($int9 + 80 + 4);
+        if (calc($int9 + 80) > $int11) {
+            $int9 = 0;
+            $int10 = calc($int10 + 72 + 4);
+        }
+        $int12 = calc($int12 + 1);
+    }
+    $dbrow6 = db_findnext;
+}
+if ($int9 ! 0) {
+    $int10 = calc($int10 + 72 + 4);
+}
+return($int12, $int10);

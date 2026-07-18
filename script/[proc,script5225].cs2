@@ -1,0 +1,28 @@
+// 5225
+[proc,script5225](int $int0)(int)
+def_int $int1 = -1;
+$int1 = activeclansettings_getaffinedslot(removetags(chat_playername_unfiltered));
+if ($int1 < 0) {
+    return(0);
+}
+if ($int0 = -1) {
+    $int0 = activeclansettings_getaffinedrank($int1);
+}
+switch_int ($int0) {
+    case 100 :
+        return(%clan_permissions_admin_cangather);
+    case 101 :
+        return(%clan_permissions_organiser_cangather);
+    case 102 :
+        return(%clan_permissions_coordinator_cangather);
+    case 103 :
+        return(%clan_permissions_overseer_cangather);
+    case 125 :
+        return(%clan_permissions_deputyowner_cangather);
+    case 126 :
+        return(1);
+    case 127 :
+        return(1);
+    case default :
+        return(0);
+}

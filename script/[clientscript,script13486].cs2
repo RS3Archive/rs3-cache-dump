@@ -1,0 +1,75 @@
+// 13486
+[clientscript,script13486]
+def_component $component0 = slayer_pod_codex:list_layer;
+def_component $component1 = slayer_pod_codex:scrollbar_layer;
+def_component $component2 = slayer_pod_codex:monster_drag_layer;
+def_component $component3 = slayer_pod_codex:monster_model;
+def_component $component4 = if_getlayer($component3);
+def_npc $npc5 = null;
+def_obj $obj6 = null;
+def_struct $struct7 = null;
+def_seq $seq8 = null;
+def_string $string0 = "???";
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 5;
+def_int $int12 = 5;
+def_int $int13 = 0;
+def_int $int14 = if_getwidth($component0);
+def_int $int15 = if_getheight($component0);
+def_int $int16 = enum_getoutputcount(slayer_pod_npc_list);
+def_int $intbool17 = ^false;
+cc_deleteall($component0);
+while ($int10 < $int16) {
+    $npc5 = enum(int, npc, slayer_pod_npc_list, calc($int10 + 1));
+    if ($npc5 ! null) {
+        $intbool17 = ~slayer_codex_check_monster($int10);
+        $struct7 = enum(npc, struct, slayer_pod_monster_struct, $npc5);
+        if ($intbool17 = ^true) {
+            $string0 = struct_param($struct7, slayer_pod_name);
+        } else {
+            $string0 = "???";
+        }
+        $obj6 = struct_param($struct7, slayer_pod_obj);
+        $seq8 = struct_param($struct7, slayer_pod_npc_anim);
+        if ($int13 = 0) {
+            $int11, $int12 = 5, 5;
+        } else {
+            $int11 = calc(5 + $int13 % 5 * 40 + $int13 % 5 * 5);
+            $int12 = calc(5 + $int13 / 5 * 40 + $int13 / 5 * 5);
+        }
+        $int13 = calc($int13 + 1);
+        if ($intbool17 = ^true) {
+            ~rs3_background_panel_dynamic($component0, rs3_content_container_active, $int11, $int12, 40, 40, null);
+        } else {
+            ~rs3_background_panel_dynamic($component0, rs3_content_container_inactive, $int11, $int12, 40, 40, null);
+        }
+        if ($obj6 ! null) {
+            cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+            cc_setposition(calc($int11 + 4), calc($int12 + 4), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+            cc_setobject($obj6, -1);
+            if ($intbool17 = ^false) {
+                cc_setcolour(0x010000);
+            } else {
+                cc_setcolour(^white);
+            }
+        }
+        cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+        cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setop(1, "Select");
+        cc_setonop("script13487($int10, calc($int13 - 1), $struct7)");
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    } else {
+        ~rs3_background_panel_dynamic($component0, rs3_content_container_active, -50, -50, 1, 1, null);
+        cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+        cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+    }
+    $int10 = calc($int10 + 1);
+}
+if_setscrollsize(16, calc($int12 + 45), $component0);
+~rs3_scrollbar_vertical($component1, $component0);
+if_setdraggable($component4, -1, $component2);
+if_setondrag("script8479($component2, $component3, -1)", $component2);
+if_setondragcomplete("script8480($component2, $component3, -1)", $component2);

@@ -1,0 +1,51 @@
+// 12035
+[proc,script12035](component $component0, string $string0)
+if (if_gethide($component0) = true) {
+    return;
+}
+if (compare($string0, "") = 0) {
+    if_settext("Ignore List", ~ignore_title_text($component0));
+} else {
+    if_settext("Ignore List<br>Filter: <$string0>", ~ignore_title_text($component0));
+}
+def_component $component1 = ~script12023($component0);
+def_component $component2 = ~script12024($component0);
+def_int $int3 = 0;
+def_int $int4 = ignore_count;
+if (compare($string0, "") = 0) {
+    while ($int3 < $int4) {
+        if (cc_find($component1, $int3) = true) {
+            cc_sethide(false);
+        }
+        if (cc_find($component2, $int3) = true) {
+            if (cc_param(friends_old_name) = 1) {
+                cc_sethide(false);
+            } else {
+                cc_sethide(true);
+            }
+        }
+        $int3 = calc($int3 + 1);
+    }
+    ~script12036($component0, %ignore_sort_mode, $string0);
+    return;
+}
+def_boolean $boolean5 = false;
+while ($int3 < $int4) {
+    if (cc_find($component1, $int3) = true) {
+        if (string_indexof_string(lowercase(cc_gettext), lowercase($string0), 0) = -1) {
+            $boolean5 = true;
+        } else {
+            $boolean5 = false;
+        }
+        cc_sethide($boolean5);
+    }
+    if (cc_find($component2, $int3) = true) {
+        if ($boolean5 = false & cc_param(friends_old_name) = 1) {
+            cc_sethide(false);
+        } else {
+            cc_sethide(true);
+        }
+    }
+    $int3 = calc($int3 + 1);
+}
+~script12036($component0, %ignore_sort_mode, $string0);

@@ -1,0 +1,36 @@
+// 13396
+[proc,script13396](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, struct $struct6)
+def_int $int7 = calc($int2 + 2 * 31);
+def_int $int8 = calc($int3 + 2 * 31);
+def_int $int9 = calc($int0 - 31);
+def_int $int10 = calc($int1 - 31);
+if ($int0 < $int9) {
+    $int7 = calc($int7 - ($int9 - $int0));
+    $int9 = 0;
+}
+if ($int1 < $int10) {
+    $int8 = calc($int8 - ($int10 - $int1));
+    $int10 = 0;
+}
+if_sethide(false, minimenu:menu_blocking_layer);
+if_setposition($int9, $int10, ^setpos_abs_left, ^setpos_abs_top, minimenu:menu_blocking_layer);
+if_setsize($int7, $int8, ^setsize_abs, ^setsize_abs, minimenu:menu_blocking_layer);
+if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, minimenu:menu_layer);
+~minimenu_draw_container($int2, $int3, $int4, $struct6, minimenu:menu_build_layer, minimenu:menu_background_layer, enum(int, string, minimenu_chooseoption, map_lang));
+def_int $int11 = 0;
+def_string $string0 = "0";
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_string $string1 = "0";
+def_int $int14 = 0;
+while ($int11 < $int5) {
+    $int12, $string0 = unknown_command_28($int11);
+    if ($int12 > 1) {
+        ~minimenu_draw_entry("<$string0><col=FFFFFF> <gt>", 0, -1, $int11, calc($int5 - $int11 - 1), $int2, $struct6, minimenu:menu_build_layer);
+    } else {
+        $int13, $string1, $int14 = unknown_command_29($int11, 0);
+        ~minimenu_draw_entry($string1, 1, $int11, 0, calc($int5 - $int11 - 1), $int2, $struct6, minimenu:menu_build_layer);
+        cc_setonmouseover("script14224");
+    }
+    $int11 = calc($int11 + 1);
+}

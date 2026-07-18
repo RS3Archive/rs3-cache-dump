@@ -1,0 +1,23 @@
+// 10451
+[proc,script10451](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if ($component0 ! null & if_find($component0) = true & (cc_param(slider_current_control) ! $int3 | cc_param(slider_current_control_category) ! $int2)) {
+    cc_setparam(slider_current_control, $int3);
+    cc_setparam(slider_current_control_category, $int2);
+    if ($int6 = 0 & cc_findbycategory($component0, $int2, $int3) = 1) {
+        cc_triggerop(1);
+        ~script10603($component0, $int2, $int3);
+    }
+    cc_deleteall($component1);
+}
+if ($int6 = 0 & if_getnextsubid($component1) > 0) {
+    return;
+}
+def_int $int7 = calc($int5 - $int4 + 1);
+def_int $int8 = 0;
+while ($int8 < $int7) {
+    cc_create($component1, ^iftype_text, $int8);
+    cc_setsize(1, 1, ^setsize_abs, ^setsize_abs);
+    cc_setposition(-1, -1, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setop(1, "Select");
+    $int8 = calc($int8 + 1);
+}

@@ -1,0 +1,28 @@
+// 16894
+[proc,script16894]
+def_string $string0 = "With membership you will not only enjoy Fresh Start Worlds, you'll gain access to a whole host of exclusive perks and amazing members-only content:";
+if (%gamemode_seasonal_fss_registration_current_step = 5) {
+    if_settext("Fresh Start Worlds require membership", gamemode_seasonal_fss_registration:title_paywall);
+    if_settext("Extend Membership", gamemode_seasonal_fss_registration:paywall_buy);
+    if_settext("Convert to Standard", gamemode_seasonal_fss_registration:paywall_cancel);
+    $string0 = "To continue playing Fresh Start Worlds membership is required.<br><br>You can convert your account to the standard game, but you will no longer be able to access Fresh Start Worlds or amazing members-only content:";
+} else {
+    if_settext("Fresh Start Worlds is a special members' event", gamemode_seasonal_fss_registration:title_paywall);
+    if_settext("Become a Member", gamemode_seasonal_fss_registration:paywall_buy);
+    if_settext("Go Back", gamemode_seasonal_fss_registration:paywall_cancel);
+}
+if_settext("", gamemode_seasonal_fss_registration:text_paywall);
+def_component $component0 = gamemode_seasonal_fss_registration:paywall_upsell;
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = ~script15891($string0, $int1, notosans_13, 0);
+def_int $int3 = 20;
+def_int $int4 = calc($int2 + $int3);
+~if_add_child_layer($component0, 0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int2, ^setsize_minus, ^setsize_abs);
+~script10507($component0, 0, 2, 0, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, $string0);
+$int4 = ~script16897($component0, 1, $int4, $int1, "190+ extra quests", rs_fsw_ui_signup_bullet_primary);
+$int4 = ~script16897($component0, 2, $int4, $int1, "11 additional skills", rs_fsw_ui_signup_bullet_primary);
+$int4 = ~script16897($component0, 3, $int4, $int1, "40 awesome minigames", rs_fsw_ui_signup_bullet_primary);
+$int4 = ~script16897($component0, 4, $int4, $int1, "Access to both RuneScape and RuneScape Old School", rs_fsw_ui_signup_bullet_primary);
+$int4 = ~script16897($component0, 5, $int4, $int1, "...and much more!", rs_fsw_ui_signup_bullet_primary);
+if_sethide(false, gamemode_seasonal_fss_registration:paywall_code);
+~script16930(gamemode_seasonal_fss_registration:paywall_code, -1, 0, "A Fresh Start Worlds passcode can be obtained by redeeming a bond on another account, and will provide 14 days of membership upon redemption.<br><br>This is recommended for existing players.");

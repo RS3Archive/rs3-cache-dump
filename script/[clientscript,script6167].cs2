@@ -1,0 +1,18 @@
+// 6167
+[clientscript,script6167](int $int0, int $int1)
+def_int $int2 = 0;
+if ($int0 < 1) {
+    $int0 = calc($int0 + 1);
+    if_setontimer("script6167($int0, $int1)", rcsiphonxp_shop:items_buy_op_layer);
+} else {
+    if_setontimer(null, rcsiphonxp_shop:items_buy_op_layer);
+    $int2 = calc(enum_getoutputcount(rcsiphonxp_item_iterator) / 2);
+    while ($int2 < enum_getoutputcount(rcsiphonxp_item_iterator)) {
+        if (cc_find(rcsiphonxp_shop:items_buy_op_layer, $int2) = true) {
+            cc_sendtofront;
+            $int1 = ~script6172($int2, $int1);
+        }
+        $int2 = calc($int2 + 1);
+    }
+    if_sendtofront(rcsiphonxp_shop:items_tooltip_layer);
+}

@@ -1,0 +1,85 @@
+// 17966
+[proc,script17966](dbrow $dbrow0, int $int1, int $int2, int $int3, int $int4)(int)
+~script17927;
+def_obj $obj5 = null;
+def_struct $struct6 = null;
+def_dbrow $dbrow7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_graphic $graphic10 = null;
+$obj5, $struct6, $dbrow7, $int8, $int9, $graphic10 = ~script17884($dbrow0);
+if ($int4 > 0) {
+    $int8 = $int4;
+}
+~script17927;
+if ($obj5 = null | $obj5 = obj_null) {
+    switch_int ($int9) {
+        case 3 :
+            ~script17927;
+            $graphic10 = bp3_icon_2023_q3_emblem_128;
+        case 1 :
+            if ($struct6 ! null) {
+                switch_int (struct_param($struct6, mtxmgt_category)) {
+                    case 2 :
+                        switch_int (struct_param($struct6, mtxmgt_subcat)) {
+                            case 3, 5 :
+                                $graphic10 = bp3_icon_weapon_override_128;
+                            case default :
+                                $graphic10 = bp3_icon_outfit_128;
+                        }
+                    case 5 :
+                        $graphic10 = bp3_icon_pet_128;
+                    case 4 :
+                        switch_int (struct_param($struct6, mtxmgt_subcat)) {
+                            case 7 :
+                                $graphic10 = bp3_icon_ability_override_128;
+                            case 4 :
+                                $graphic10 = bp3_icon_overhead_skilling_128;
+                            case 0 :
+                                $graphic10 = bp3_icon_tool_override_128;
+                        }
+                    case 3 :
+                        $graphic10 = bp3_icon_title_128;
+                    case default :
+                        ~error("Missing icon for <struct_param($struct6, mtxmgt_name)>");
+                }
+            }
+        case 5 :
+            switch_int (map_lang) {
+                case 0 :
+                    $graphic10 = bp3_icon_xp_buff_en_fr_128;
+                case 1 :
+                    $graphic10 = bp3_icon_xp_buff_de_128;
+                case 2 :
+                    $graphic10 = bp3_icon_xp_buff_en_fr_128;
+                case 3 :
+                    $graphic10 = bp3_icon_xp_buff_pt_128;
+            }
+    }
+}
+if ($obj5 = bp3_reward_crate) {
+    $graphic10 = bp3_icon_satchel_128;
+}
+~script17927;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = calc($int3 - 8);
+if ($obj5 ! null & $graphic10 = null) {
+    ~script17950($int1, $int2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int13, $int13, ^setsize_abs, ^setsize_abs, $obj5, $int8);
+    $int2 = calc($int2 + 1);
+} else if ($graphic10 ! null) {
+    ~cc_add_child_graphic($int1, $int2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int13, $int13, ^setsize_abs, ^setsize_abs, $graphic10);
+    $int2 = calc($int2 + 1);
+} else {
+    ~error("Unspecified reward drawing.");
+}
+if ($int8 > 1) {
+    $int1, $int2 = ~script17967($int1, $int2, $int8);
+}
+def_string $string0 = "";
+if (~ironman_mode = true & ~script17885($dbrow0) = true) {
+    $string0 = "As you're an <text_gender("Ironman", "Ironwoman")>, this reward has been adjusted for you";
+    ~script17948($int1, $int2, 5, 5, ^setpos_abs_right, ^setpos_abs_top, 20, 20, ^setsize_abs, ^setsize_abs, icon_ironman_20x20, $string0, 0);
+    $int2 = calc($int2 + 1);
+}
+return($int2);

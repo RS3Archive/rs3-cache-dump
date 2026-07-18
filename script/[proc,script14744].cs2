@@ -1,0 +1,52 @@
+// 14744
+[proc,script14744]
+def_component $component0 = text_tooltip:tooltip_dynamic_text;
+def_int $int1 = cc_param(toplevel_v2_tooltip_param_int0);
+def_dbrow $dbrow2 = ~arch_site_get_data($int1);
+if ($dbrow2 = null) {
+    return;
+}
+if (db_getfield($dbrow2, arch_site:col1, 0) ! 1) {
+    return;
+}
+def_string $string0 = ~arch_site_get_name($dbrow2);
+def_string $string1 = ~script15985($dbrow2);
+def_string $string2 = ~arch_site_get_manager_name($dbrow2);
+def_boolean $boolean3 = db_getfield($dbrow2, arch_site:col4, 0);
+def_graphic $graphic4 = db_getfield($dbrow2, arch_site:col8, 0);
+def_dbrow $dbrow5 = ~arch_qualification_get_data(db_getfield($dbrow2, arch_site:col7, 0));
+def_obj $obj6 = db_getfield($dbrow2, arch_site:col13, 0);
+def_int $int7 = 200;
+def_int $int8 = 0;
+def_int $int9 = 100;
+def_fontmetrics $fontmetrics10 = museo_sans_11pt_regular;
+def_int $int11 = 0;
+if (~script6431 = true) {
+    $int7 = 300;
+    $int9 = 150;
+    $fontmetrics10 = museo_sans_13pt_regular;
+}
+$int11 = ~script14747($component0, 0, $int11, $int7, $string0, -1, 0);
+$int11 = ~script14748($component0, 0, $int11);
+if ($graphic4 ! null) {
+    ~script7924($component0, if_getnextsubid($component0), $int7, $int9, 0, $int11, $graphic4, false, false, false, 0);
+    $int11 = calc($int11 + ($int9 + 2));
+}
+def_int $int12 = ~script7593(db_getfield($dbrow2, arch_site:col3, 0), calc($int7 - 2 * 4), $fontmetrics10, enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics10));
+~cc_add_colour_text($component0, calc($int7 - 2 * 4), $int12, 4, $int11, $fontmetrics10, db_getfield($dbrow2, arch_site:col3, 0), ~script10495(3));
+cc_settextalign(^settextalign_left, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics10));
+$int11 = calc($int11 + ($int12 + 2 * 2));
+if (map_members = false & $boolean3 = true) {
+    $int11 = ~script14754($component0, $int11, ++$int8);
+}
+if (string_length($string2) > 0) {
+    $int11 = ~script14753($component0, $int11, ++$int8, $string1, $string2);
+}
+$int11 = ~script14753($component0, $int11, ++$int8, "Archaeology Level", tostring(db_getfield($dbrow2, arch_site:col6, 0)));
+if ($dbrow5 ! null) {
+    $int11 = ~script14753($component0, $int11, ++$int8, "Qualification", db_getfield($dbrow5, arch_qualification:col1, 0));
+}
+if ($obj6 ! null) {
+    $int11 = ~script14753($component0, $int11, ++$int8, "Soil", oc_name($obj6));
+}
+if_setsize($int7, calc($int11 - 2), ^setsize_abs, ^setsize_abs, $component0);

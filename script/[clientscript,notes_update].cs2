@@ -1,0 +1,66 @@
+// 2443
+[clientscript,notes_update](int $int0)
+if (%notes_loaded = false) {
+    return;
+}
+def_component $component1 = ~script7799($int0, notes:main);
+def_component $component2 = ~script7799($int0, notes:drag);
+def_component $component3 = ~script7799($int0, notes:dragger);
+def_component $component4 = ~script7799($int0, notes:loading_mes);
+def_component $component5 = ~script7799($int0, notes:bottom);
+def_component $component6 = ~script7799($int0, notes:noclick);
+def_component $component7 = ~script7799($int0, notes:fixed_layer);
+def_component $component8 = ~script7799($int0, notes:content);
+def_component $component9 = ~script7799($int0, notes:button_layer);
+if (if_gethide($component3) = false) {
+    if_setontimer("notes_update($int0)", $component1);
+    return;
+} else {
+    if_setontimer(null, $component1);
+}
+def_int $int10 = 33;
+if (~script6431 = true) {
+    $int10 = 42;
+}
+if_setsize(0, $int10, ^setsize_minus, ^setsize_abs, $component7);
+if_setsize(0, $int10, ^setsize_minus, ^setsize_minus, $component8);
+~meslayer_close(13);
+~script16547;
+%notes_scrolldelay = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_string $string0 = "";
+cc_deleteall($component1);
+if_setsize(24, 8, ^setsize_minus, ^setsize_minus, $component2);
+if (userdetail_quickchat = true) {
+    if_settext("The notes system is not available for users restricted to quick-chat.", $component4);
+    if_sethide(false, $component4);
+    return;
+} else {
+    if_settext("", $component4);
+    if_sethide(true, $component4);
+}
+while ($int12 < 30) {
+    $string0 = ~notes_get_note($int12);
+    if (compare($string0, "") ! 0) {
+        $int11 = ~notes_build($int0, $string0, $int11, $int13, ~notes_get_colour($int12));
+        $int13 = calc($int13 + 1);
+    }
+    $int12 = calc($int12 + 1);
+}
+if ($int13 <= 0) {
+    if_settext("No notes", $component4);
+    if_sethide(false, $component4);
+} else if ($int11 < if_getheight($component1)) {
+    if (cc_findbycategory($component1, calc($int13 - 1), 0) = 1) {
+        if_setsize(cc_getwidth, calc(if_getheight($component1) - (cc_gety + cc_getheight)), ^setsize_abs, ^setsize_abs, $component5);
+        if_setposition(cc_getx, calc(cc_gety + cc_getheight), ^setpos_abs_left, ^setpos_abs_top, $component5);
+        if_sethide(false, $component5);
+    }
+} else {
+    if_sethide(true, $component5);
+}
+~notes_scrollbar($int0, $int11);
+if_sethide(true, $component6);
+~child_buttons_resize($component9, 11);

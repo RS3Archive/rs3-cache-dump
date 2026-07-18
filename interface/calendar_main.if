@@ -1,0 +1,513 @@
+// 1284:0
+[main]
+type=layer
+width=742
+heightmode=minus
+onload=script18867(0)
+onvartransmit=script18882
+onvartransmitlist=calendar_main_unprotected
+
+// 1284:1
+[top_bar_container]
+type=layer
+y=3
+width=740
+height=32
+layer=main
+
+// 1284:2
+[today_container]
+type=layer
+width=138
+heightmode=minus
+layer=top_bar_container
+onload=script18885
+onvartransmit=script18886
+onvartransmitlist=uaui_dnd_trackers_1
+
+// 1284:3
+[week_selector_container]
+type=layer
+width=336
+heightmode=minus
+xmode=abs_centre
+layer=top_bar_container
+
+// 1284:4
+[time_container]
+type=layer
+width=138
+heightmode=minus
+xmode=abs_right
+layer=top_bar_container
+onload=script18888
+onvartransmit=script18889
+onvartransmitlist=clock_time_date_minutes
+
+// 1284:5
+[time_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=time_container
+noclickthrough=yes
+onload=rs3_background_panel(event_com, rs3_content_container_active)
+
+// 1284:6
+[today_text]
+type=text
+width=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=today_container
+hide=yes
+noclickthrough=yes
+textfont=museo_sans_15pt_bold
+textalignh=1
+textalignv=1
+colour=0x000000
+maxlines=1
+
+// 1284:7
+[today_view_button]
+type=button
+widthmode=minus
+heightmode=minus
+layer=today_container
+noclickthrough=yes
+sprite.graphic=button_action_neutral
+text.text=Today
+text.textshadow=no
+stylesheet=button_action_neutral
+transmitop1=yes
+opbase=Previous Week
+op1=Go to
+onop=script18959
+onmouserepeat=script14459("Switch to the current week.", event_com, event_comsubid)
+
+// 1284:8
+[current_view_text_container]
+type=layer
+width=238
+heightmode=minus
+xmode=abs_centre
+layer=week_selector_container
+onload=script18891
+
+// 1284:9
+[current_view_text_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=current_view_text_container
+noclickthrough=yes
+onload=rs3_background_panel(event_com, rs3_content_container_active)
+
+// 1284:10
+[current_view_backward]
+type=button
+width=32
+heightmode=minus
+layer=week_selector_container
+noclickthrough=yes
+sprite.graphic=button_icon_neutral
+text.textshadow=no
+stylesheet=button_icon_neutral
+transmitop1=yes
+opbase=Previous Week
+op1=Go to
+onload=stylesheet_set(event_com)
+onop=script18893
+onmouserepeat=script14459("Switch to the previous week.", event_com, event_comsubid)
+
+// 1284:11
+[icon_backward]
+type=graphic
+x=4
+y=4
+width=24
+height=24
+layer=week_selector_container
+noclickthrough=yes
+graphic="rs3_icon_calendar_navigation_24px,0"
+hflip=yes
+colour=0xffffff
+clickmask=no
+
+// 1284:12
+[current_view_backward_noclickthru_layer]
+type=layer
+width=32
+heightmode=minus
+layer=week_selector_container
+hide=yes
+noclickthrough=yes
+
+// 1284:13
+[current_view_forward]
+type=button
+width=32
+heightmode=minus
+xmode=abs_right
+layer=week_selector_container
+noclickthrough=yes
+sprite.graphic=button_icon_neutral
+stylesheet=button_icon_neutral
+transmitop1=yes
+opbase=Next Week
+op1=Go to
+onload=stylesheet_set(event_com)
+onop=script18894
+onmouserepeat=script14459("Switch to the next week.", event_com, event_comsubid)
+
+// 1284:14
+[icon_forward]
+type=graphic
+x=4
+y=4
+width=24
+height=24
+xmode=abs_right
+layer=week_selector_container
+noclickthrough=yes
+graphic="rs3_icon_calendar_navigation_24px,0"
+colour=0xffffff
+clickmask=no
+
+// 1284:15
+[current_view_forward_noclickthru_layer]
+type=layer
+width=32
+heightmode=minus
+xmode=abs_right
+layer=week_selector_container
+hide=yes
+noclickthrough=yes
+
+// 1284:16
+[weekdays_container]
+type=layer
+x=44
+y=46
+width=73
+height=38
+widthmode=minus
+layer=main
+
+// 1284:17
+[weekdays_container_scroll_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=weekdays_container
+onload=script18900
+onvartransmit=script18901
+onvartransmitlist=uaui_dnd_trackers_1
+
+// 1284:18
+[weekdays_divider_container]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=weekdays_container
+
+// 1284:19
+[top_divider_layer]
+type=layer
+y=87
+height=2
+widthmode=minus
+layer=main
+onload=script349(event_com)
+
+// 1284:20
+[today_highlight_outline_inner]
+type=rectangle
+width=93
+heightmode=minus
+layer=main
+hide=yes
+colour=0xffffff
+onload=stylesheet_set_rect(event_com, rect_highlight_outline)
+
+// 1284:21
+[today_highlight_outline_outer]
+type=rectangle
+width=93
+heightmode=minus
+layer=main
+hide=yes
+colour=0xffffff
+onload=stylesheet_set_rect(event_com, rect_highlight_outline)
+
+// 1284:22
+[rows_container]
+type=layer
+y=90
+width=24
+height=122
+widthmode=minus
+heightmode=minus
+layer=main
+
+// 1284:23
+[entry_details_open_listener]
+type=layer
+width=1
+layer=rows_container
+transmitop1=yes
+op1=Select
+opcursor0=cursor_use
+
+// 1284:24
+[rows_container_scroll_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=rows_container
+onload=script18896(1)
+
+// 1284:25
+[line_divider_container]
+type=layer
+height=282
+widthmode=minus
+layer=rows_container_scroll_layer
+
+// 1284:26
+[categories_container]
+type=layer
+x=3
+width=41
+heightmode=minus
+layer=rows_container_scroll_layer
+onload=script18904
+
+// 1284:27
+[entries_container_parent]
+type=layer
+x=48
+width=48
+widthmode=minus
+heightmode=minus
+layer=rows_container_scroll_layer
+
+// 1284:28
+[empty_entries_container]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=entries_container_parent
+onload=script18906
+
+// 1284:29
+[entries_container]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=entries_container_parent
+
+// 1284:30
+[rows_scrollbar]
+type=layer
+y=90
+width=20
+height=122
+heightmode=minus
+xmode=abs_right
+layer=main
+
+// 1284:31
+[divider_layer]
+type=layer
+y=26
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=main
+onload=script349(event_com)
+
+// 1284:32
+[disclaimer_container]
+type=layer
+height=24
+widthmode=minus
+ymode=abs_bottom
+layer=main
+
+// 1284:33
+[disclaimer_bg]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=disclaimer_container
+colour=0xffffff
+onload=stylesheet_set_rect(event_com, rect_black)
+
+// 1284:34
+[disclaimer_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=disclaimer_container
+noclickthrough=yes
+textfont=museo_sans_11pt_regular
+text=All calendar entries and their details are subject to change.
+textalignh=1
+textalignv=1
+maxlines=1
+onload=script20490(event_com, text_body_small_print, 0, 0)
+
+// 1284:35
+[overlay_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=main
+hide=yes
+noclickthrough=yes
+
+// 1284:36
+[time_graphic]
+type=graphic
+x=5
+width=28
+height=28
+ymode=abs_centre
+layer=time_container
+noclickthrough=yes
+graphic=rs3_icon_calendar_global_time
+colour=0xffffff
+clickmask=no
+
+// 1284:37
+[time_text]
+type=text
+width=35
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=time_container
+noclickthrough=yes
+textfont=museo_sans_15pt_bold
+textalignh=1
+textalignv=1
+maxlines=1
+
+// 1284:38
+[current_view_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=current_view_text_container
+noclickthrough=yes
+textfont=museo_sans_15pt_bold
+textalignh=1
+textalignv=1
+colour=0x000000
+maxlines=1
+
+// 1284:39
+[overlay_background]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=overlay_layer
+colour=0x000000
+fill=yes
+trans=200
+onclick=script18880
+
+// 1284:40
+[entry_details]
+type=layer
+width=106
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=overlay_layer
+onload=script8420(calendar_main:entry_details_window_background, calendar_main:entry_details_window_border, calendar_main:entry_details_window_content, calendar_main:entry_details_window_close_button, "", 28782, null)
+
+// 1284:41
+[entry_details_window_background]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=entry_details
+
+// 1284:42
+[entry_details_window_content]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=entry_details
+
+// 1284:43
+[entry_details_layer]
+type=layer
+width=8
+height=65
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=entry_details_window_content
+
+// 1284:44
+[entry_details_footer_layer]
+type=layer
+width=12
+height=60
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=entry_details_window_content
+
+// 1284:45
+[entry_details_summary_layer]
+type=layer
+width=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=entry_details_layer
+noclickthrough=yes
+
+// 1284:46
+[entry_details_scrollbar_layer]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=entry_details_layer
+
+// 1284:47
+[entry_details_window_border]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=entry_details
+
+// 1284:48
+[entry_details_window_close_button]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=entry_details
+transmitop1=yes
+op1=Close
+onop=script18880
+

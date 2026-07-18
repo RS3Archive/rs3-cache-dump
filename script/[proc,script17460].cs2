@@ -1,0 +1,14 @@
+// 17460
+[proc,script17460](struct $struct0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_struct ($struct0) {
+    case combatv2_ability_necromancy_lesser_bone_shield :
+        $int1 = 25;
+    case combatv2_ability_necromancy_greater_bone_shield :
+        $int1 = 50;
+}
+if (oc_param(inv_getobj(worn, 13), combatv2_item_passive_struct) = combatv2_item_passive_necro_zemouregal_nexus_t80 & %necro_zemouregal_nexus_t80_effect_anti_switch = 2) {
+    $int2 = 15;
+}
+return(calc(scale(stat_base(necromancy), 100, $int1) + $int2));

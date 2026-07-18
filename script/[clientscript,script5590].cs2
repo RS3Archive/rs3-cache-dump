@@ -1,0 +1,22 @@
+// 5590
+[clientscript,script5590](component $component0, int $int1, int $int2)
+if ($component0 ! settings:set_click) {
+    $int2 = calc(1 - $int2);
+}
+switch_component ($component0) {
+    case settings:set_click :
+        if (~script2992($int1) = true) {
+            $int2 = calc(1 - $int2);
+        }
+        ~settings_checkbox_update(ui_getcategory($int1), ui_getdynid($int1), $int2);
+    case graphics_options_v2_client_mobile:non_adv_options_click :
+        ~script2789(graphics_options_non_advance, $int1, $int2);
+        ~script2684;
+    case graphics_options_v2_client_mobile:adv_options_click :
+        ~script2789(graphics_options_advance, $int1, $int2);
+        ~script2684;
+}
+if (cc_find($component0, $int1) = true) {
+    cc_setonop("script5590(event_com, event_comsubid, $int2)");
+    cc_check_set(~int_to_bool($int2));
+}

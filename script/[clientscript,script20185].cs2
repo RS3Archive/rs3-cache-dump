@@ -1,0 +1,30 @@
+// 20185
+[clientscript,script20185]
+if (playermember = true | %lobbyscreen_trial_expires > %lobbyscreen_current_minute | %lobbyscreen_member_expires > %lobbyscreen_current_minute) {
+    if_setenabled(false, league_lobby_splash:become_member);
+    if_setenabled(true, league_lobby_splash:play_normal);
+} else {
+    if_sethide(false, league_lobby_splash:become_member);
+    if_setenabled(false, league_lobby_splash:play_league);
+}
+if (%league_lobby_account_type = 0) {
+    if_sethide(false, league_lobby_splash:contents_normal);
+    if_sethide(false, league_lobby_splash:contents_leagues);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, league_lobby_splash:contents_normal);
+    if_setsize(300, 40, ^setsize_abs, ^setsize_minus, league_lobby_splash:contents_normal);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, league_lobby_splash:contents_leagues);
+    if_setsize(300, 40, ^setsize_abs, ^setsize_minus, league_lobby_splash:contents_leagues);
+    if_sethide(true, league_lobby_splash:play_normal_existing);
+    if_setposition(0, 4, ^setpos_abs_centre, ^setpos_abs_bottom, league_lobby_splash:play_league);
+    if_setposition(0, 40, ^setpos_abs_centre, ^setpos_abs_bottom, league_lobby_splash:become_member);
+} else {
+    if_sethide(true, league_lobby_splash:contents_normal);
+    if_sethide(false, league_lobby_splash:contents_leagues);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, league_lobby_splash:contents_leagues);
+    if_setsize(13108, 40, ^setsize_rel, ^setsize_minus, league_lobby_splash:contents_leagues);
+    if_sethide(false, league_lobby_splash:play_normal_existing);
+    if_setposition(-150, 4, ^setpos_abs_centre, ^setpos_abs_bottom, league_lobby_splash:play_normal_existing);
+    if_setposition(150, 4, ^setpos_abs_centre, ^setpos_abs_bottom, league_lobby_splash:play_league);
+    if_setposition(150, 40, ^setpos_abs_centre, ^setpos_abs_bottom, league_lobby_splash:become_member);
+    if_settext("Enter Lobby", league_lobby_splash:play_normal);
+}

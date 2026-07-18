@@ -1,0 +1,22 @@
+// 403
+[proc,script403](int $int0, dbrow $dbrow1)(boolean)
+if (db_getrowtable($dbrow1) ! trh_category_prizes) {
+    ~error("Invalid dbtable.");
+    return(false);
+}
+def_int $int2 = 0;
+def_int $int3 = db_getfieldcount($dbrow1, trh_category_prizes:col0);
+def_obj $obj4 = null;
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = -1;
+while ($int2 < $int3) {
+    $obj4, $int6, $int5, $int6, $int7, $int8, $int9, $int6 = db_getfield($dbrow1, trh_category_prizes:col0, $int2);
+    if ($int5 = $int0 & ~wof_reward_check($obj4) = false & ($int9 = -1 | ~trh_prize_level_check($int7, $int8, enum(int, stat, int_to_stat, $int9)) = true) & (playermember = true | oc_members($obj4) = 0)) {
+        return(true);
+    }
+    $int2 = calc($int2 + 1);
+}
+return(false);

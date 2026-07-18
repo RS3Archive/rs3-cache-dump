@@ -1,0 +1,101 @@
+// 2223
+[proc,script2223](int $key0, char $char1, int $int2)
+def_component $component3 = ~script8599($int2);
+def_component $component4 = ~script8592($int2);
+def_component $component5 = ~script8593($int2);
+def_chatphrase $chatphrase6 = null;
+def_int $int7 = calc(if_getnextsubid($component4) - 1);
+if (if_find($component4) = true) {
+    $chatphrase6 = cc_param(toplevel_v2_chat_quickchat_rootphrase);
+}
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_int $int10 = 1000;
+def_int $int11 = -1;
+switch_int ($key0) {
+    case default :
+        if (char_isalphanumeric($char1) = true) {
+            while ($int9 < $int7) {
+                if (cc_find($component4, calc(~script1844($int9) + 1)) = true & string_indexof_char(lowercase(cc_gettext), char_tolowercase($char1), 0) = 0 & .cc_find($component4, 0) = true) {
+                    .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                    .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+                    .cc_setcolour(0x577e45);
+                    .cc_setfill(true);
+                    if ($int9 < ~script8617($int2)) {
+                        if (cc_gety < if_getscrolly($component4)) {
+                            ~scrollbar_resize($component5, $component4, cc_gety);
+                        }
+                    } else if ($int9 > ~script8617($int2) & calc(cc_gety + cc_getheight) > calc(if_getheight($component4) + if_getscrolly($component4))) {
+                        ~scrollbar_resize($component5, $component4, calc(cc_gety + cc_getheight - if_getheight($component4)));
+                    }
+                    ~script8618($int2, $int9);
+                    return;
+                }
+                $int9 = calc($int9 + 1);
+            }
+        }
+    case ^key_page_up :
+        if ($int7 = 0) {
+            return;
+        }
+        if (~script8617($int2) <= 0) {
+            ~script8618($int2, calc($int7 - 1));
+        } else {
+            ~script8618($int2, calc(~script8617($int2) - 1));
+        }
+        if (cc_find($component4, calc(~script1844(~script8617($int2)) + 1)) = true) {
+            if (.cc_find($component4, 0) = true) {
+                .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+                .cc_setcolour(0x577e45);
+                .cc_setfill(true);
+            }
+            if (cc_gety < if_getscrolly($component4)) {
+                ~scrollbar_resize($component5, $component4, calc(if_getscrolly($component4) - cc_getheight));
+            } else if (calc(cc_gety + cc_getheight) > calc(if_getheight($component4) + if_getscrolly($component4))) {
+                ~scrollbar_resize($component5, $component4, if_getscrollheight($component4));
+            }
+        }
+    case ^key_page_down :
+        if ($int7 = 0) {
+            return;
+        }
+        if (~script8617($int2) = calc($int7 - 1)) {
+            ~script8618($int2, 0);
+        } else {
+            ~script8618($int2, calc(~script8617($int2) + 1));
+        }
+        if (cc_find($component4, calc(~script1844(~script8617($int2)) + 1)) = true) {
+            if (.cc_find($component4, 0) = true) {
+                .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+                .cc_setcolour(0x577e45);
+                .cc_setfill(true);
+            }
+            if (calc(cc_gety + cc_getheight) > calc(if_getheight($component4) + if_getscrolly($component4))) {
+                ~scrollbar_resize($component5, $component4, calc(if_getscrolly($component4) + cc_getheight));
+            } else if (cc_gety < if_getscrolly($component4)) {
+                ~scrollbar_resize($component5, $component4, 0);
+            }
+        }
+    case ^key_home :
+        ~quickchat_open(~script8613($int2), ~script8605($int2), $int2);
+    case ^key_escape :
+        ~quickchat_close($int2);
+    case ^key_return :
+        if (~script8617($int2) >= 0 & cc_find($component4, calc(~script8617($int2) + 1)) = true) {
+            ~quickchat_phrase_int($component3, $chatphrase6, ~script1844(~script8617($int2)), $int2);
+        }
+    case ^key_backspace :
+        if (~script8615($int2) = false) {
+            ~quickchat_close($int2);
+        } else {
+            ~script8618($int2, -1);
+            if_sethide(true, ~script8588($int2));
+            if_sethide(true, ~script8590($int2));
+            if_sethide(true, ~script8594($int2));
+            if_sethide(false, ~script8598($int2));
+            if_sethide(false, ~script8599($int2));
+            if_sethide(true, ~script8600($int2));
+        }
+}

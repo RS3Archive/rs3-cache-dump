@@ -1,0 +1,26 @@
+// 20043
+[proc,trh209_overlay_setup]
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int0 = -1;
+while (++$int0 <= 2) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+}
+def_component $component1 = null;
+$int0 = 0;
+while (++$int0 <= 2) {
+    switch_int ($int0) {
+        case 1 :
+            $component1 = trh209_overlay:chest_1_model;
+        case 2 :
+            $component1 = trh209_overlay:chest_2_model;
+    }
+    ~script20044($int0, $component1);
+}
+if_setnpcmodel(trh209_display_npc, trh209_overlay:npc_model);
+if_setmodelanim(pop_npc_wall_lean, trh209_overlay:npc_model);
+if_setmodelangle(15, 40, 0, 0, 0, 600, trh209_overlay:npc_model);
+if_sethide(true, trh209_overlay:chest_1_multiplier_icon);
+if_sethide(true, trh209_overlay:chest_2_multiplier_icon);
+if (if_gethide(trh209_overlay:warning_layer) = false) {
+    if_sethide(true, trh209_overlay:warning_layer);
+}

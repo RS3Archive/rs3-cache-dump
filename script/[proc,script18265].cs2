@@ -1,0 +1,56 @@
+// 18265
+[proc,script18265](component $component0, stat $stat1)
+def_int $int2 = enum(stat, int, stat_to_int, $stat1);
+def_boolean $boolean3 = ~script15772($stat1);
+def_enum $enum4 = stat2icon_small_off;
+if ($boolean3 = true) {
+    $enum4 = stat2icon_small;
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+def_graphic $graphic5 = "aif_ring_btn_1,0";
+def_graphic $graphic6 = "aif_ring_btn_1,2";
+def_int $int7 = 1908;
+def_graphic $graphic8 = "aif_ring_btn_1,1";
+def_string $string0 = "You haven't reached the maximum level in <enum(stat, string, stat_to_string, $stat1)>.";
+if ($boolean3 = true) {
+    if (testbit(%uaui_skill_select_temp, $int2) = ^true) {
+        if ($int2 = 1) {
+            $string0 = "You will currently not receive combat challenges.";
+        } else {
+            $string0 = "You will currently not receive <enum(stat, string, stat_to_string, $stat1)> challenges.";
+        }
+    } else if ($int2 = 1) {
+        $string0 = "You will currently receive combat challenges.";
+    } else {
+        $string0 = "You will currently receive <enum(stat, string, stat_to_string, $stat1)> challenges.";
+    }
+    cc_setgraphic($graphic5);
+    cc_setop(1, "Choose");
+    cc_setopbase(enum(stat, string, stat_to_string, $stat1));
+    cc_setonop("script18266($stat1, $component0)");
+    cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic8)");
+    cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic5)");
+} else {
+    cc_setgraphic($graphic6);
+    if (~script6431 = true) {
+        cc_setop(1, "Choose");
+        cc_setopbase(enum(stat, string, stat_to_string, $stat1));
+    }
+    if ($int2 = 1) {
+        $string0 = "You haven't reached the maximum level in all your combat skills.";
+    }
+}
+cc_create($component0, ^iftype_graphic, 1);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(enum(int, graphic, $enum4, $int2));
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component0);
+if (testbit(%uaui_skill_select_temp, $int2) = ^true) {
+    cc_create($component0, ^iftype_graphic, 2);
+    cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setgraphic("mob_cross_icon,0");
+}

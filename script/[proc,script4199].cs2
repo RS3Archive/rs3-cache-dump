@@ -1,0 +1,41 @@
+// 4199
+[proc,script4199](int $int0, int $int1, component $component2, component $component3, int $int4, dbrow $dbrow5, int $int6, string $string0, int $int7)(int)
+def_struct $struct8 = rs3tli_3x3_icon_pof_button;
+def_int $int9 = 0;
+if ($int6 = 0) {
+    $struct8 = rs3tli_3x3_icon_pof_greyed_button;
+}
+def_struct $struct10 = struct_param($struct8, rs3tli_button_struct_text);
+if (if_find($component2) = true) {
+    $int4 = ~script10410($component2, $component3, $struct8, $int0, $int1, 75, 75, $int4, false, db_getfield($dbrow5, pof_farmhand:col0, 0));
+    cc_setop(1, "Select");
+    cc_setonop("script5452($dbrow5, $int7, event_op)");
+    cc_setop(2, $string0);
+    $int9 = calc(if_getnextsubid($component2) - 2);
+    if (cc_find($component2, $int9) = true) {
+        cc_settextshadow(true);
+        cc_setsize(75, 30, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextalign(^settextalign_centre, ^settextalign_top, 13);
+        cc_settextfont(struct_param($struct10, rs3tli_button_text_font));
+    }
+    cc_create($component2, ^iftype_model, if_getnextsubid($component2));
+    cc_setposition(calc($int0 + 19), calc($int1 + 30 + db_getfield($dbrow5, pof_farmhand:col20, 0)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject_nonum(db_getfield($dbrow5, pof_farmhand:col18, 0), 0);
+    cc_setmodelanim(null);
+    cc_setmodelzoom(scale(120, 100, db_getfield($dbrow5, pof_farmhand:col19, 0)));
+    cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+    cc_setposition(calc($int0 + (75 - 26)), calc($int1 + (75 - 24)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject_nonum(pof_currency, 1);
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setposition($int0, calc($int1 + (75 - 17)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc(75 - 14), 15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(struct_param($struct10, rs3tli_button_text_font));
+    cc_settextshadow(true);
+    ~script11024(0);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 13);
+    cc_settext(tostring(db_getfield($dbrow5, pof_farmhand:col13, 0)));
+}
+return($int4);

@@ -1,0 +1,51 @@
+// 3696
+[proc,script3696](dbrow $dbrow0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_dbrow $dbrow3 = null;
+def_obj $obj4 = null;
+def_int $int5 = 0;
+if_sethide(false, pof_animal:add_remove_layer);
+if_sethide(true, pof_animal:check_data_layer);
+if_sethide(true, pof_animal:add_remove_farmhands_layer);
+~script13969(pof_animal:checkanimal_build, pof_animal:checkanimal_click, rs3tli_modal_tab, "Check Animals");
+~script13972(pof_animal:inventory_build, pof_animal:inventory_click, rs3tli_modal_tab, "Add/Remove Animals", 1);
+~script13969(pof_animal:farmhands_build, pof_animal:farmhands_click, rs3tli_modal_tab, "Farmhands");
+%pof_animal_check_trait_1_active = 0;
+if ($dbrow0 = null) {
+    return;
+}
+def_int $int6 = inv_size(inv);
+def_inv $inv7 = db_getfield($dbrow0, pof_paddock:col6, 0);
+def_string $string0 = "Assign";
+def_component $component8 = pof_animal:inventory_build_layer;
+def_component $component9 = pof_animal:inventory_click_layer;
+def_component $component10 = pof_animal:paddock_build_layer;
+def_component $component11 = pof_animal:paddock_click_layer;
+cc_deleteall($component8);
+cc_deleteall($component9);
+cc_deleteall($component10);
+cc_deleteall($component11);
+def_int $int12 = inv_size($inv7);
+if (inv_freespace($inv7) = $int12) {
+    $int2 = 0;
+} else {
+    $int1 = 0;
+    while ($int1 < $int12) {
+        $obj4 = inv_getobj($inv7, $int1);
+        if ($obj4 ! null) {
+            $dbrow3 = oc_param($obj4, pof_animal_db);
+            if ($dbrow3 ! null) {
+                $int2 = db_getfield($dbrow3, pof_animal_table:col0, 0);
+                $int1 = calc($int12 + 1);
+            }
+        }
+        $int1 = calc($int1 + 1);
+    }
+}
+def_int $int13 = db_getfield($dbrow0, pof_paddock:col2, 0);
+$int5 = ~script4185($inv7, $int2, $int13, $component10, $component11, "Remove", 0);
+$int5 = ~script4185(inv, $int2, $int13, $component8, $component9, "Add", 1);
+$int5 = max($int5, calc(if_getheight(pof_animal:inventory_contentlayer) - 78));
+if_setscrollsize(0, calc($int5 + 78), pof_animal:inventory_contentlayer);
+~scrollbar_vertical(pof_animal:inventory_scrollbar, pof_animal:inventory_contentlayer, null, null, null, null, null, null);

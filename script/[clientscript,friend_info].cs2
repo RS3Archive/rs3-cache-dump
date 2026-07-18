@@ -1,0 +1,172 @@
+// 1101
+[clientscript,friend_info](component $component0, int $int1, int $int2, int $int3)
+def_component $component4 = ~script3099($component0);
+def_component $component5 = ~script10588($component0);
+def_component $component6 = ~friends_world_layer($component0);
+def_component $component7 = ~script11297($component0);
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = friend_getworld($int1);
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_int $rgb13 = 0xa4997d;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_boolean $boolean16 = ~script6431;
+$string0, $string1 = friend_getname($int1);
+if (compare($string1, "") ! 0) {
+    $int8 = 1;
+}
+if (friend_is_referrer($int1) = true | friend_is_referred($int1) = true) {
+    $int9 = 1;
+}
+def_fontmetrics $fontmetrics17 = museo_sans_11pt_regular;
+if ($boolean16 = true) {
+    $fontmetrics17 = museo_sans_17pt_bold;
+}
+if (cc_find($component4, $int1) = true) {
+    cc_setopbase("<col=ffffff><$string0>");
+    if ($int8 = 1) {
+        $string0 = "     <$string0>";
+    }
+    if ($int9 = 1) {
+        $string0 = "     <$string0>";
+        $rgb13 = 0x88bcf3;
+    }
+    cc_setcolour($rgb13);
+    cc_setontimer(null);
+    cc_settextfont($fontmetrics17);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_setlinkfriend($int1);
+    if ($int10 ! 0) {
+        if (%share_in_progress = 1) {
+            cc_setop(1, "Share");
+            if (map_quickchat = false & userdetail_quickchat = false) {
+                cc_setop(4, "Message");
+            }
+        } else if (map_quickchat = false & userdetail_quickchat = false) {
+            cc_setop(1, "Message");
+        }
+        if ($boolean16 = false) {
+            cc_setop(2, "Quick Message");
+        }
+        cc_setop(3, "Trail");
+        cc_setop(6, "Join");
+        if (compare(friend_getnotes($int1), "") ! 0) {
+            cc_setop(7, "Edit Note");
+        } else {
+            cc_setop(7, "Add Note");
+        }
+        if (player_group_find = true) {
+            cc_setop(9, "Invite to group");
+        }
+        if ($int10 = map_world) {
+            cc_setop(10, "Compare");
+        }
+    } else if (compare(friend_getnotes($int1), "") ! 0) {
+        cc_setop(7, "Edit Note");
+    } else {
+        cc_setop(7, "Add Note");
+    }
+    cc_setop(8, "Delete");
+    cc_setonop("friend_op(event_op, event_opbase, $int1)");
+    $string2 = $string0;
+    if (stringwidth($string0, $fontmetrics17) > $int2) {
+        while (stringwidth("<$string0>...", $fontmetrics17) > $int2) {
+            $string0 = substring($string0, 0, calc(string_length($string0) - 1));
+        }
+        $string0 = "<$string0>...";
+    }
+    cc_settext($string0);
+    if ($int8 = 1) {
+        $string2 = "<$string2><br>Last known as: <$string1>";
+    }
+    $string3 = friend_getnotes($int1);
+    if (compare($string3, "") ! 0) {
+        $string2 = "<$string2><br><$string3>";
+    }
+    cc_setonmouserepeat("script3876($string2, event_com, event_comsubid)");
+    cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 2);
+    cc_setparam_string(toplevel_v2_tooltip_mobile_string, $string2);
+    cc_sethide(false);
+}
+if (cc_find($component5, $int1) = true) {
+    cc_sethide(false);
+    if ($int9 = 1) {
+        cc_setgraphic(aif_friends_list_icons);
+    } else {
+        cc_setgraphic(friends_changed_name);
+        if ($int8 = 0) {
+            cc_setparam(friends_old_name, 0);
+            cc_sethide(true);
+        } else {
+            cc_setparam(friends_old_name, 1);
+        }
+    }
+}
+if ($int10 = 0) {
+    $string0 = "Offline";
+    $string2 = "Offline";
+} else if ($int10 < 300) {
+    $string0 = tostring($int10);
+    $int14 = calc(2 + 24 + 2);
+    $string2 = friend_getworldname($int1);
+    $string2, $int11, $int12 = ~script6305($string2, $int10);
+} else if ($int10 < 600) {
+    $string0 = tostring($int10);
+    $int14 = calc(2 + 24 + 2);
+    $string2 = friend_getworldname($int1);
+} else {
+    if ($int10 >= 1100 & $int10 <= 5000) {
+        $string0 = "Lobby";
+    } else {
+        $string0 = friend_getworldname($int1);
+    }
+    $string2 = $string0;
+}
+$int15 = stringwidth($string0, $fontmetrics17);
+if (cc_find($component7, $int1) = true) {
+    if ($int14 > 0 & $int3 >= calc($int15 + $int14)) {
+        if ($int10 >= 300 & $int10 < 600) {
+            cc_setgraphic("rs3_icon_world_select_game_flags,3");
+        } else if ($int11 = -1) {
+            if ($int12 >= 0) {
+                cc_setgraphic(enum(int, graphic, geopip_flag, $int12));
+            } else {
+                cc_setgraphic("rs3_icon_world_select_game_flags,0");
+            }
+        } else if (testbit($int11, 24) = ^true) {
+            cc_setgraphic("rs3_icon_world_select_game_flags,4");
+        } else if (testbit($int11, 16) = ^true) {
+            cc_setgraphic("rs3_icon_world_select_game_flags,1");
+        } else {
+            cc_setgraphic(enum(int, graphic, geopip_flag, $int12));
+        }
+        cc_setonmouserepeat("script3126($string2, event_com, event_comsubid, $component0, $component4)");
+        cc_sethide(false);
+    } else {
+        cc_sethide(true);
+        $int14 = 0;
+    }
+}
+if (cc_find($component6, $int1) = true) {
+    cc_setposition(calc(2 + $int14), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont($fontmetrics17);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settext($string0);
+    if ($int10 = 0) {
+        cc_setcolour(0xdd5c3e);
+    } else if ($int10 = map_world) {
+        cc_setcolour(0x3cb71e);
+    } else {
+        cc_setcolour(0xffff64);
+    }
+    cc_setonmouserepeat("script3126($string2, event_com, event_comsubid, $component0, $component4)");
+    cc_sethide(false);
+}

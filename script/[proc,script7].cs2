@@ -1,0 +1,50 @@
+// 7
+[proc,script7](npc $npc0)(int, int)
+if (%toplevel_v2_legacy_mode = 3) {
+    ~script38;
+    return(-1, -1);
+}
+if (%npctarget = null & %playertarget = null & (%toplevel_v2_mobile_interface = 0 | %mobile_interface_mode ! 1 | %varclientbit_41275 = 1)) {
+    ~script38;
+    return(-1, -1);
+}
+if (%toplevel_v2_mobile_interface = 1) {
+    return(0, 0);
+}
+def_boolean $boolean1 = false;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (%toplevel_v2_undock_target_info = 0 | %toplevel_v2_undock_target_info = 1 & %toplevel_v2_legacy_mode >= 2) {
+    $boolean1, $int2, $int3, $int4, $int5 = get_entity_bounding_box;
+    if ($boolean1 = false) {
+        ~script38;
+        return(-1, -1);
+    }
+    $int6, $int8, $int7 = get_entity_screen_position(0);
+    $int6, $int9, $int7 = get_entity_screen_position(get_entity_overlay_height);
+    $int9 = calc($int9 - 20);
+    if ($npc0 ! null) {
+        $int9 = calc($int9 - nc_param($npc0, toplevel_v2_overhead_panel_vertical_offset));
+    }
+    $int10 = calc($int8 - $int9);
+    if (cc_find(toplevel_v2_targeting:universe, %toplevel_v2_target_layer_id) = true) {
+        cc_sethide(false);
+        cc_setposition($int2, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(calc($int4 - $int2), $int10, ^setsize_abs, ^setsize_abs);
+    } else {
+        %toplevel_v2_target_layer_id = if_getnextsubid(toplevel_v2_targeting:universe);
+        cc_create(toplevel_v2_targeting:universe, ^iftype_rectangle, %toplevel_v2_target_layer_id);
+        cc_settrans(255);
+        cc_setposition($int2, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(calc($int4 - $int2), $int10, ^setsize_abs, ^setsize_abs);
+    }
+}
+if_sethide(false, toplevel_v2_target_info:visible_info);
+return($int6, $int9);

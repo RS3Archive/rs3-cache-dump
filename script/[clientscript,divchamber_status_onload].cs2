@@ -1,0 +1,27 @@
+// 4476
+[clientscript,divchamber_status_onload]
+def_component $component0 = null;
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int4 = -1;
+while (++$int4 < 5) {
+    $component0, $component1, $component2, $component3 = ~divchamber_status_components($int4);
+    if_setobject_nonum(enum(int, obj, divchamber_recovery_bot, calc(8 + $int4)), 1, $component2);
+    if_setonmouserepeat("script3876(oc_name(enum(int, obj, divchamber_recovery_bot, calc(8 + $int4))), $component2, -1)", $component2);
+    if (%divchamber_recovery_progress > calc(1 + $int4)) {
+        if_settrans(0, $component2);
+        ~script13991($component0, $component1, rs3tli_3x3_button, false);
+        $string0, $string1 = ~divchamber_status_tooltip($int4, 0);
+    } else {
+        if_settrans(120, $component2);
+        ~script13991($component0, $component1, rs3tli_3x3_button, true);
+        $string0, $string1 = ~divchamber_status_tooltip($int4, 1);
+    }
+    if_settext($string0, $component3);
+    if (string_length($string1) > 0) {
+        if_setonmouserepeat("script3876($string1, $component3, -1)", $component3);
+    }
+}

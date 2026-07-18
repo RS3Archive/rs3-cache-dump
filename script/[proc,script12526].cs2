@@ -1,0 +1,90 @@
+// 12526
+[proc,script12526](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int1, $int2, $int3 = ~script3419($int0, %invent_tasks_opened);
+def_component $component4 = null;
+def_component $component5 = null;
+$component4, $component5 = ~script12527($int0);
+if ($component4 = null | $component5 = null) {
+    return;
+}
+if ($int1 = 0) {
+    if_sethide(true, $component4);
+    return;
+}
+def_dbrow $dbrow6 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_dbrow $dbrow7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+$dbrow6 = enum(int, dbrow, invention_techtree_tasks, calc($int1 - 1));
+if ($dbrow6 = null) {
+    if_sethide(true, $component4);
+    return;
+}
+if_sethide(false, $component4);
+$string0 = db_getfield($dbrow6, invent_techtree_task_table:col1, 0);
+$int10 = string_indexof_string($string0, "X", 0);
+if ($int10 ! -1) {
+    $string2 = substring($string0, 0, $int10);
+    $string3 = substring($string0, calc($int10 + 1), string_length($string0));
+    $string0 = $string2;
+    $int9 = db_getfield($dbrow6, invent_techtree_task_table:col2, $int2);
+    $int13 = db_getfield($dbrow6, invent_techtree_task_table:col0, 0);
+    if ($int13 = 3) {
+        $int8, $int12 = db_getfield($dbrow6, invent_techtree_task_table:col5, $int3);
+        if ($int8 = 0) {
+            $string0 = append($string0, "any ");
+        }
+    }
+    $string0 = append($string0, tostring($int9));
+    $string0 = append($string0, $string3);
+    $int11 = string_indexof_string($string0, "Y", 0);
+    if ($int11 ! -1) {
+        $string0 = substring($string0, 0, $int11);
+        switch_int ($int13) {
+            case 1 :
+                $int8 = db_getfield($dbrow6, invent_techtree_task_table:col3, $int3);
+                db_find(invent_material_table:col0, $int8);
+                $dbrow7 = db_findnext;
+                while ($dbrow7 ! null) {
+                    $string0 = append($string0, db_getfield($dbrow7, invent_material_table:col1, 0));
+                    $dbrow7 = db_findnext;
+                }
+            case 2 :
+                $int8 = db_getfield($dbrow6, invent_techtree_task_table:col4, $int3);
+                db_find(invent_material_table:col0, $int8);
+                $dbrow7 = db_findnext;
+                while ($dbrow7 ! null) {
+                    $string0 = append($string0, db_getfield($dbrow7, invent_material_table:col1, 0));
+                    $dbrow7 = db_findnext;
+                }
+            case 3 :
+                $int8, $int12 = db_getfield($dbrow6, invent_techtree_task_table:col5, $int3);
+                if ($int8 = 0) {
+                    $string0 = append($string0, "empty ");
+                }
+                db_find(invent_blueprint_table:col0, $int8);
+                $dbrow7 = db_findnext;
+                while ($dbrow7 ! null) {
+                    $string1 = db_getfield($dbrow7, invent_blueprint_table:col2, 0);
+                    if ($int9 > 1 & string_length($string1) > 0) {
+                        $string0 = append($string0, $string1);
+                    } else {
+                        $string0 = append($string0, db_getfield($dbrow7, invent_blueprint_table:col1, 0));
+                    }
+                    $dbrow7 = db_findnext;
+                }
+        }
+    }
+}
+if_settext($string0, $component5);

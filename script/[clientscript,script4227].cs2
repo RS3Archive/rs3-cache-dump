@@ -1,0 +1,69 @@
+// 4227
+[clientscript,script4227](component $component0, component $component1, component $component2)
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount(chompybird_hats);
+def_int $int5 = 0;
+def_component $component6 = if_getparentlayer($component0);
+if_setscrollpos(0, 0, $component6);
+if (calc($int4 * 28) < if_getheight($component6)) {
+    if_sethide(true, $component2);
+    if_setsize(calc(if_getwidth($component6) + 16), 0, ^setsize_abs, ^setsize_minus, $component6);
+} else {
+    if_setscrollsize(0, calc($int4 * 28 + 2), $component6);
+    if_sethide(false, $component2);
+    ~rs3_scrollbar_vertical($component2, $component6);
+}
+def_obj $obj7 = null;
+def_string $string0 = "";
+def_int $int8 = 0;
+def_int $int9 = 3;
+def_int $int10 = calc(if_getwidth($component0) / 2);
+while ($int3 < $int4) {
+    $obj7 = enum(int, obj, chompybird_hats, $int3);
+    if ($obj7 ! null) {
+        $string0 = oc_name($obj7);
+        $int8 = oc_param($obj7, chompybird_hat_killreq);
+        cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+        cc_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(0, 28, ^setsize_minus, ^setsize_abs);
+        cc_setfill(true);
+        if (calc($int3 % 2) = 0) {
+            ~script13650(rs3_rect_light);
+        } else {
+            ~script13650(rs3_rect_dark);
+        }
+        if (%cbmulti < $int8) {
+            $int9 = 6;
+        } else {
+            $int9 = 3;
+        }
+        cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+        cc_setposition(5, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(calc($int10 - 5), 28, ^setsize_abs, ^setsize_abs);
+        cc_settextfont(museo_sans_11pt_regular);
+        ~script2731($component0, cc_getid, $int9);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setmaxlines(1);
+        cc_settext($string0);
+        cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+        cc_setposition(5, $int5, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(calc($int10 - 5), 28, ^setsize_minus, ^setsize_abs);
+        cc_settextfont(museo_sans_11pt_regular);
+        ~script2731($component0, cc_getid, $int9);
+        cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+        cc_setmaxlines(1);
+        cc_settext(tostring($int8));
+        cc_create($component1, ^iftype_rectangle, if_getnextsubid($component1));
+        cc_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(0, 28, ^setsize_minus, ^setsize_abs);
+        cc_setop(1, "Claim");
+        cc_setopbase($string0);
+        cc_setonmouseover("script14315($obj7)");
+        cc_setonmouseleave("script14316");
+        $int5 = calc($int5 + 28);
+    }
+    $int3 = calc($int3 + 1);
+}

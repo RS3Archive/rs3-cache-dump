@@ -1,0 +1,30 @@
+// 2920
+[proc,script2920](string $string0, int $int0, int $int1)
+~script3181;
+if (string_length($string0) > 0) {
+    %lobbyscreen_input = removetags($string0);
+} else {
+    %lobbyscreen_input = "";
+}
+if_settext(%lobbyscreen_input, lobbyscreen_report_abuse_stage1:name);
+if (if_gethide(enum(int, component, ~script17126, 4)) = false) {
+    ~script3161(0);
+}
+if_setonkey("script3185(event_keycode, event_keychar, event_com)", lobbyscreen_report_abuse_stage1:name);
+%lobby_caret = string_length(%lobbyscreen_input);
+~script1566(0, %lobbyscreen_input, 12);
+if_setonclick("script1878(event_mousex, lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret)", lobbyscreen_report_abuse_stage1:name);
+~script1879(lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret, %lobbyscreen_input);
+if_sethide(true, lobbyscreen_report_abuse_stage1:name_caret);
+if ($int0 = 1) {
+    ~script7886(lobbyscreen_report_abuse_stage1:mute_checkbox, true, true, %snapshot_mute);
+    if ($int1 = 5 | $int1 = 6) {
+        if_settext("Suggest to temporarily mute this player", lobbyscreen_report_abuse_stage1:mute_checkbox);
+    } else {
+        if_settext("Temporarily mute this player", lobbyscreen_report_abuse_stage1:mute_checkbox);
+    }
+    if_sethide(false, lobbyscreen_report_abuse_stage1:mute_checkbox);
+} else {
+    if_sethide(true, lobbyscreen_report_abuse_stage1:mute_checkbox);
+}
+if_sethide(false, lobbyscreen:report_abuse_stage1);

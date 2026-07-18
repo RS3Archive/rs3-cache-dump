@@ -1,0 +1,608 @@
+// 11497
+[proc,telemetry_window_populate](int $int0)
+~script11496($int0);
+def_component $component1 = null;
+def_int $int2 = -1;
+def_int $int3 = -1;
+if ($int0 = 1) {
+    $component1 = telemetry:skill_target_layer;
+} else if ($int0 = 2) {
+    $component1 = toplevel_v2_parent_suboverlay_telemetry:skill_target_layer;
+}
+if ($component1 ! null & if_getnextsubid($component1) = 0) {
+    $int3 = enum_getoutputcount(toplevel_v2_stats_structs);
+    while (++$int2 < $int3) {
+        cc_create($component1, ^iftype_graphic, $int2);
+    }
+}
+def_int $int4 = telemetry_get_group_count;
+if ($int4 = -1) {
+    return;
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 33;
+def_int $int17 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int18 = 0;
+def_int $int19 = 0;
+$component1 = null;
+def_component $component20 = null;
+def_component $component21 = null;
+def_component $component22 = null;
+def_component $component23 = null;
+def_component $component24 = null;
+def_int $int25 = 0;
+def_int $int26 = 0;
+if ($int0 = 1) {
+    $int25 = if_getwidth(telemetry:buttons_layer);
+    $int26 = parawidth("888:88:88", 1000, if_getfontmetrics(telemetry:stopwatch_time));
+    if (if_find(telemetry:stopwatch_layer) = true & .if_find(telemetry:add_row_button_layer) = true) {
+        if (%telemetry_interval_type ! telemetryinterval_1) {
+            cc_setposition(4, 4, ^setpos_abs_right, ^setpos_abs_bottom);
+            cc_setsize(0, cc_getheight, ^setsize_abs, ^setsize_abs);
+            .cc_sethide(false);
+        } else if (calc($int26 + 4 * 24 + 6 * 4) > $int25) {
+            cc_setposition(calc(0 - 24), 4, ^setpos_abs_right, ^setpos_abs_bottom);
+            if (calc($int26 + 3 * 24 + 5 * 4) > $int25) {
+                cc_setsize(calc(2 * 4), cc_getheight, ^setsize_minus, ^setsize_abs);
+                .cc_sethide(true);
+            } else {
+                cc_setsize(calc(24 + 3 * 4), cc_getheight, ^setsize_minus, ^setsize_abs);
+                .cc_sethide(false);
+            }
+        } else {
+            cc_setposition(4, 4, ^setpos_abs_right, ^setpos_abs_bottom);
+            cc_setsize(calc(2 * 24 + 4 * 4), cc_getheight, ^setsize_minus, ^setsize_abs);
+            .cc_sethide(false);
+        }
+    }
+}
+$int25 = 0;
+if (%telemetry_show_precise_values = 1) {
+    $int26 = parawidth("-2,088,888,888", 1000, museo_sans_11pt_regular);
+} else {
+    $int26 = parawidth("-888W", 1000, museo_sans_11pt_regular);
+}
+$int26 = calc(max($int26, parawidth("8W 88W", 1000, museo_sans_11pt_regular)) + 4);
+def_int $int27 = 0;
+def_int $int28 = 0;
+def_enum $enum29 = null;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 1;
+def_int $int34 = 1;
+def_stat $stat35 = null;
+def_component $component36 = ~script10075;
+while ($int5 < $int4) {
+    $int6 = telemetry_get_group_id($int5);
+    $component1, $component20, $component21, $component22, $component23, $component24 = ~script11495($int6, $int0);
+    if ($component1 ! null & $component20 ! null & $component21 ! null & $component22 ! null) {
+        if (~script12282($int6, 0) = 1) {
+            $int7 = telemetry_get_column_count($int5);
+            $int10 = telemetry_get_row_count($int5);
+            $int12 = 0;
+            $int11 = 0;
+            while ($int12 < $int10) {
+                $int13 = telemetry_get_row_id($int5, $int12);
+                if (~script12280($int6, $int13, 0) = 1) {
+                    $int11 = calc($int11 + 1);
+                }
+                $int12 = calc($int12 + 1);
+            }
+            $int12 = 0;
+            $int14 = calc($int14 + $int11);
+            $int8 = 0;
+            $int17 = 0;
+            $int16 = 33;
+            if ($int11 > 0 & $int7 > 0) {
+                $int15 = calc($int15 + 1);
+                cc_create($component1, ^iftype_rectangle, 0);
+                cc_setfill(true);
+                cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+                cc_setsize(0, 18, ^setsize_minus, ^setsize_abs);
+                ~script10010(rs3_rect_dark);
+                if ($int0 = 1) {
+                    ~script12591(6, toplevel_v2_window_data_telemetry);
+                }
+                cc_sendtoback;
+                $int27 = calc($int11 * 27 + 18);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component1);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component1);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component20);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component20);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component21);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component21);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component22);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component22);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component24);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component24);
+                $int28 = calc($int28 + ($int11 * 27 + 18 + 4));
+                cc_create($component1, ^iftype_rectangle, 1);
+                cc_setfill(true);
+                cc_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top);
+                cc_setsize(0, calc($int11 * 27), ^setsize_minus, ^setsize_abs);
+                ~script10010(rs3_rect_light);
+                if ($int0 = 1) {
+                    ~script12591(6, toplevel_v2_window_data_telemetry);
+                }
+                $int2 = calc(2 - 1);
+                $int3 = calc(2 + ($int10 + 1) * ($int7 + 3));
+                while (++$int2 < $int3) {
+                    if (calc(($int2 - 2) % ($int7 + 3)) < 3) {
+                        cc_create($component1, ^iftype_graphic, $int2);
+                    } else {
+                        cc_create($component1, ^iftype_text, $int2);
+                    }
+                }
+                if ($int6 ! 1 & cc_find($component1, calc(2 + 0)) = true) {
+                    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+                    cc_setposition(4, calc(18 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setgraphic(~script12288($int6, 1));
+                    $string0 = ~script12292(~script12287($int6, 1));
+                    cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+                    cc_setnoclickthrough(true);
+                }
+                while ($int8 < $int7) {
+                    $int9 = telemetry_get_column_id($int5, $int8);
+                    $int33 = ~script12281($int9, 0);
+                    $int17 = 18;
+                    while ($int12 < $int10) {
+                        $int13 = telemetry_get_row_id($int5, $int12);
+                        $int34 = ~script12280($int6, $int13, 0);
+                        if ($int33 = 1) {
+                            if ($int12 = 0) {
+                                $string0 = enum(int, string, telemetry_all_statistics, $int9);
+                                if (calc(parawidth($string0, 1000, museo_sans_11pt_regular) + 4) < $int26) {
+                                    $string1 = $string0;
+                                } else {
+                                    $string1 = enum(int, string, telemetry_all_statistics_short, $int9);
+                                }
+                                cc_create($component21, ^iftype_text, if_getnextsubid($component21));
+                                cc_setsize(calc($int26 - 4), 18, ^setsize_abs, ^setsize_abs);
+                                cc_setposition($int16, 0, ^setpos_abs_left, ^setpos_abs_top);
+                                cc_setop(1, $string0);
+                                cc_setop(2, "Remove <$string0> column");
+                                cc_setnoclickthrough(true);
+                                if (.cc_find($component1, calc(2 + 3 + $int8)) = true) {
+                                    .cc_setsize($int26, 18, ^setsize_abs, ^setsize_abs);
+                                    .cc_setposition($int16, 0, ^setpos_abs_left, ^setpos_abs_top);
+                                    .cc_settextfont(museo_sans_11pt_regular);
+                                    .cc_settext(~script3930($string1, calc(.cc_getwidth - 4), 1, .cc_getfontmetrics));
+                                    .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+                                    .cc_setcolour(~script10495(3));
+                                    .cc_settextshadow(true);
+                                    .cc_setparam_int(telemetry_component_column, $int8);
+                                    if (compare($string0, $string1) = 0) {
+                                        $string0 = "";
+                                    } else {
+                                        $string0 = "<$string0><br>";
+                                    }
+                                    $string0 = "<$string0>Select to hide this column.";
+                                    cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+                                }
+                            }
+                            if ($int34 = 1 & cc_find($component1, calc(2 + ($int12 + 1) * (3 + $int7) + 3 + $int8)) = true) {
+                                cc_setposition($int16, $int17, ^setpos_abs_left, ^setpos_abs_top);
+                                cc_setsize($int26, 27, ^setsize_abs, ^setsize_abs);
+                                cc_settextfont(museo_sans_11pt_regular);
+                                cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+                                $int18 = telemetry_get_grid_value($int5, $int12, $int8);
+                                $int2 = ~script12285($int6, $int13);
+                                if ($int0 = 1 & $int9 = 1 & %varclientbit_2053 = 1 & .cc_find(toplevel_v2:telemetry_overlay_layer, $int2) = true) {
+                                    .cc_setparam(rs3tli_component_last_update, clientclock);
+                                    .cc_sethide(false);
+                                    .cc_setparam(rs3tli_component_anchor_com, $component1);
+                                    .cc_setparam(rs3tli_component_anchor_subid, cc_getid);
+                                    if (.cc_param(rs3tli_component_param_int0) = enum(telemetry_interval, int, telemetry_interval_type_to_int, %telemetry_interval_type)) {
+                                        $int19 = ~script11853(calc($int18 - .cc_param(rs3tli_component_param_int1)), $int9);
+                                        if ($int19 > 0) {
+                                            $string0 = "+<~telemetry_get_text($int19, $int13, $int9, -1)>";
+                                            .cc_settrans(0);
+                                            .cc_setparam(rs3tli_component_transparency_hold, 500);
+                                        } else if ($int19 = 0) {
+                                            $string0 = .cc_gettext;
+                                            if (calc(.cc_getx + .cc_getwidth) <= 0) {
+                                                .cc_settrans(255);
+                                            }
+                                        } else {
+                                            $string0 = "";
+                                            .cc_settrans(255);
+                                        }
+                                    } else {
+                                        $string0 = "";
+                                        .cc_setparam(rs3tli_component_param_int0, enum(telemetry_interval, int, telemetry_interval_type_to_int, %telemetry_interval_type));
+                                        .cc_settrans(255);
+                                    }
+                                    .cc_settext($string0);
+                                    .cc_setparam(rs3tli_component_param_int1, $int18);
+                                }
+                                if ($int9 = 1 & $int18 = ^max_32bit_int) {
+                                    $string0 = "Lots!";
+                                    cc_settext(~script3930($string0, calc(cc_getwidth - 4), 1, cc_getfontmetrics));
+                                } else {
+                                    $int18 = ~script11853($int18, $int9);
+                                    $string0 = ~telemetry_get_text($int18, $int13, $int9, -1);
+                                    cc_settext($string0);
+                                }
+                                cc_setcolour(^white);
+                                cc_settextshadow(true);
+                                cc_setparam_int(telemetry_component_row, $int12);
+                                cc_setparam_int(telemetry_component_column, $int8);
+                                cc_setparam(rs3tli_component_param_int0, $int9);
+                                cc_setonmouserepeat("script12599(event_com, event_comsubid, $int2, $int10, $int7)");
+                            }
+                        } else if ($int12 = 0) {
+                            cc_create($component21, ^iftype_text, if_getnextsubid($component21));
+                            cc_setposition($int16, 0, ^setpos_abs_left, ^setpos_abs_top);
+                        }
+                        if ($int8 = 0) {
+                            if ($int34 = 1) {
+                                if ($int6 = 1 & $int13 ! -1 & cc_find($component1, calc(2 + ($int12 + 1) * (3 + $int7) + 0)) = true) {
+                                    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+                                    cc_setposition(4, calc($int17 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                                    cc_setgraphic(~script12288($int6, $int13));
+                                    cc_setparam_int(telemetry_component_row, $int12);
+                                    $stat35 = enum(int, stat, int_to_stat, $int13);
+                                    $component36 = ~script10075;
+                                    $int2 = cc_getid;
+                                    if ($stat35 ! null) {
+                                        cc_setonmouserepeat("stats_mouseover($component1, $int2, $stat35, $component36, 0)");
+                                        cc_setonmouseleave("script546($component36)");
+                                    } else {
+                                        $string0 = ~script12292(~script12287($int6, $int13));
+                                        if ($int13 = 0) {
+                                            if (%option_virtuallvl = 1) {
+                                                $string0 = "<$string0><br>Total level: <tostring(~script11866)>";
+                                            } else {
+                                                $string0 = "<$string0><br>Total level: <tostring(~skilltotal)>";
+                                            }
+                                            if (~total_bonus_xp = true) {
+                                                $string0 = "<$string0><br>Total XP: <~total_xp_string(0)><br>Bonus XP: <col=00FF00><~script9202>";
+                                            } else {
+                                                $string0 = "<$string0><br>Total XP: <~total_xp_string(0)>";
+                                            }
+                                        } else if ($int13 = 30) {
+                                            $string0 = "<$string0><br>Combat level: <tostring(~comlevel)>";
+                                        }
+                                        cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+                                    }
+                                    cc_setnoclickthrough(true);
+                                }
+                                if (.cc_find($component1, calc(2 + ($int12 + 1) * (3 + $int7) + 1)) = true) {
+                                    cc_create($component20, ^iftype_text, if_getnextsubid($component20));
+                                    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+                                    cc_setposition(4, calc($int17 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                                    .cc_setsize(8, 8, ^setsize_abs, ^setsize_abs);
+                                    .cc_setposition(0, calc($int17 + 27 / 2 - 8 / 2), ^setpos_abs_left, ^setpos_abs_top);
+                                    .cc_setgraphic("rs3_icon_runemetrics_pinned,0");
+                                    .cc_setparam_int(telemetry_component_row, $int12);
+                                    .cc_setparam_int(telemetry_is_pin, 1);
+                                    if (telemetry_is_row_pinned($int5, $int12) = true) {
+                                        cc_setop(1, "Unpin row");
+                                    } else {
+                                        cc_setop(1, "Pin row");
+                                        .cc_sethide(true);
+                                    }
+                                    if ($int6 = 1) {
+                                        $stat35 = enum(int, stat, int_to_stat, $int13);
+                                        if ($stat35 ! null) {
+                                            cc_setop(2, "Set level target");
+                                            cc_setop(3, "Set XP target");
+                                            cc_setop(4, "Clear target");
+                                        }
+                                    }
+                                    cc_setop(5, "Send to Graph");
+                                    cc_setop(6, "Hide row");
+                                    cc_setop(7, "Remove row");
+                                    if (%telemetry_interval_type = telemetryinterval_0) {
+                                        cc_setop(8, "---");
+                                        cc_setop(9, "Reset row");
+                                        cc_setop(10, "Reset all rows");
+                                    }
+                                    cc_setonop("script12598(event_op, $int6, $int13, $component1, .cc_getid)");
+                                }
+                                if (cc_find($component1, calc(2 + ($int12 + 1) * (3 + $int7) + 2)) = true) {
+                                    cc_setposition(33, $int17, ^setpos_abs_left, ^setpos_abs_top);
+                                    cc_setsize(33, 27, ^setsize_minus, ^setsize_abs);
+                                }
+                            } else {
+                                cc_create($component20, ^iftype_text, if_getnextsubid($component20));
+                            }
+                            if ($int11 > 1) {
+                                if ($int34 = 1) {
+                                    cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                                    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+                                    cc_setposition(4, calc($int17 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                                    cc_sendtofront;
+                                    cc_setparam_int(telemetry_component_row, $int12);
+                                    ~script11832($component22, $component1, 2, $int5, $int12, $int8, $int0);
+                                    cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                                    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+                                    cc_setposition(4, calc($int17 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                                    cc_setparam_int(telemetry_component_row, $int12);
+                                    cc_setonmouseover("telemetry_highlight(cc_getid, $component22, $component1, $int0, $int26)");
+                                    cc_setonmouseleave("telemetry_hide_highlight($int0)");
+                                } else {
+                                    cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                                    cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                                }
+                            } else {
+                                cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                                cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                            }
+                        }
+                        $int12 = calc($int12 + 1);
+                        if ($int34 = 1) {
+                            $int17 = calc($int17 + 27);
+                        }
+                    }
+                    if ($int33 = 1) {
+                        cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                        cc_setsize(calc($int26 - 4), 18, ^setsize_abs, ^setsize_abs);
+                        cc_setposition($int16, 0, ^setpos_abs_left, ^setpos_abs_top);
+                        cc_setparam_int(telemetry_component_column, $int8);
+                        ~script11832($component22, $component1, 1, $int5, $int12, $int8, $int0);
+                        cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                        cc_setsize(calc($int26 - 4), 18, ^setsize_abs, ^setsize_abs);
+                        cc_setposition($int16, 0, ^setpos_abs_left, ^setpos_abs_top);
+                        cc_setparam_int(telemetry_component_column, $int8);
+                        cc_setonmouseover("telemetry_highlight(cc_getid, $component22, $component1, $int0, $int26)");
+                        cc_setonmouseleave("telemetry_hide_highlight($int0)");
+                        $int16 = calc($int16 + $int26);
+                    } else {
+                        cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                        cc_create($component22, ^iftype_text, if_getnextsubid($component22));
+                    }
+                    $int8 = calc($int8 + 1);
+                    $int12 = 0;
+                }
+                ~script11824($component23);
+                $int31 = ~script11835($int6);
+                if (telemetry_get_column_count($int5) < $int31 & ~telemetry_member = 1) {
+                    if_sethide(false, $component23);
+                    if_setposition($int16, 0, ^setpos_abs_left, ^setpos_abs_top, $component23);
+                    if_setop(1, "Show all columns", $component23);
+                    if (~script6431 = true) {
+                        $string0 = "Tap to show all columns, or press and hold to add individual columns.";
+                    } else {
+                        $string0 = "Left-click to show all columns, or right-click to add individual columns.";
+                    }
+                    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component23);
+                    $enum29 = enum(int, enum, telemetry_group_to_all_stats_enum, $int6);
+                    if ($enum29 ! null) {
+                        $int30 = 0;
+                        while ($int30 < $int31) {
+                            $int32 = enum(int, int, $enum29, $int30);
+                            if (telemetry_get_column_index($int5, $int32) = -1) {
+                                if_setop(calc($int30 + 1), "Show <enum(int, string, telemetry_all_statistics, $int32)>", $component23);
+                            }
+                            $int30 = calc($int30 + 1);
+                        }
+                    }
+                    $int16 = calc($int16 + 20);
+                }
+                if (cc_find($component1, 1) = true) {
+                    cc_sendtoback;
+                }
+            } else {
+                ~script11824($component23);
+            }
+        } else {
+            if (%telemetry_hide_upsell_columns = 0 & ~script12282($int6, 1) = 1) {
+                $int15 = calc($int15 + 1);
+                $int14 = calc($int14 + 1);
+                $int11 = 1;
+                $int16 = -5;
+                $int17 = 18;
+                cc_create($component1, ^iftype_rectangle, 0);
+                cc_setfill(true);
+                cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+                cc_setsize(0, 18, ^setsize_minus, ^setsize_abs);
+                ~script10010(rs3_rect_dark);
+                if ($int0 = 1) {
+                    ~script12591(6, toplevel_v2_window_data_telemetry);
+                }
+                cc_sendtoback;
+                $int27 = calc($int11 * 27 + 18);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component1);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component1);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component20);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component20);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component21);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component21);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component22);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component22);
+                if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component24);
+                if_setposition(0, $int28, ^setpos_abs_left, ^setpos_abs_top, $component24);
+                $int28 = calc($int28 + ($int11 * 27 + 18 + 4));
+                cc_create($component1, ^iftype_rectangle, 1);
+                cc_setfill(true);
+                cc_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top);
+                cc_setsize(0, calc($int11 * 27), ^setsize_minus, ^setsize_abs);
+                ~script10010(rs3_rect_light);
+                if ($int0 = 1) {
+                    ~script12591(6, toplevel_v2_window_data_telemetry);
+                }
+                cc_create($component21, ^iftype_text, if_getnextsubid($component21));
+                cc_setposition($int16, 0, ^setpos_abs_left, ^setpos_abs_top);
+                cc_create($component1, ^iftype_graphic, calc(2 + 0));
+                cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+                cc_setposition(4, calc($int17 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setgraphic(~script12288($int6, 0));
+            }
+            ~script11824($component23);
+        }
+    }
+    $int25 = max($int25, $int16);
+    $int5 = calc($int5 + 1);
+}
+if (~telemetry_member = 0 & %telemetry_hide_upsell_columns = 0) {
+    $int4 = enum_getoutputcount(telemetry_groups);
+} else {
+    $int4 = -1;
+}
+$int5 = 0;
+while ($int5 < $int4) {
+    $int6 = enum(int, int, telemetry_groups, $int5);
+    if (~script12282($int6, 1) = 1) {
+        $component1, $component20, $component21, $component22, $component23, $component24 = ~script11495($int6, $int0);
+        if ($component1 ! null & $component20 ! null & $component21 ! null & $component22 ! null & .cc_find($component21, calc(if_getnextsubid($component21) - 1)) = true) {
+            $int16 = max(33, calc(.cc_getx + .cc_getwidth));
+            $enum29 = enum(int, enum, telemetry_group_to_all_stats_enum, $int6);
+            if ($enum29 ! null) {
+                $int8 = 0;
+                $int31 = ~script11835($int6);
+                while ($int8 < $int31) {
+                    $int9 = enum(int, int, $enum29, $int8);
+                    if (~script12281($int9, 1) = 1 & ~script12281($int9, 0) = 0) {
+                        $string0 = enum(int, string, telemetry_all_statistics, $int9);
+                        cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+                        cc_setgraphic(rs3_icon_lock_12px);
+                        cc_setcolour(~script10495(3));
+                        cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+                        cc_setposition(calc($int16 + -1), calc(18 / 2 - cc_getheight / 2 + -1), ^setpos_abs_left, ^setpos_abs_top);
+                        cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+                        cc_setposition(calc($int16 + -1 + 12 + 2), 0, ^setpos_abs_left, ^setpos_abs_top);
+                        cc_setsize(calc($int26 - (-1 + 12 + 2)), 18, ^setsize_abs, ^setsize_abs);
+                        cc_settextfont(museo_sans_11pt_regular);
+                        if (calc(parawidth($string0, 1000, cc_getfontmetrics) + 2) < cc_getwidth) {
+                            $string1 = $string0;
+                        } else {
+                            $string1 = enum(int, string, telemetry_all_statistics_short, $int9);
+                        }
+                        cc_settext(~script3930($string1, calc(cc_getwidth - 2), 1, cc_getfontmetrics));
+                        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+                        cc_setcolour(~script10495(3));
+                        cc_settextshadow(true);
+                        $int17 = cc_getheight;
+                        $int27 = if_getheight($component1);
+                        while ($int17 < $int27) {
+                            cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+                            $string0 = "-";
+                            cc_settext($string0);
+                            cc_setsize($int26, 27, ^setsize_abs, ^setsize_abs);
+                            cc_setposition($int16, $int17, ^setpos_abs_left, ^setpos_abs_top);
+                            cc_settextfont(museo_sans_11pt_regular);
+                            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+                            cc_setcolour(~script10495(5));
+                            cc_settextshadow(true);
+                            $int17 = calc($int17 + cc_getheight);
+                        }
+                        $int16 = calc($int16 + $int26);
+                    }
+                    $int8 = calc($int8 + 1);
+                }
+                if ($int16 ! calc(.cc_getx + .cc_getwidth)) {
+                    cc_create($component24, ^iftype_rectangle, if_getnextsubid($component24));
+                    cc_setposition(max(calc(.cc_getx + .cc_getwidth - 2), 0), 0, ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize(cc_getx, 0, ^setsize_minus, ^setsize_minus);
+                    cc_setfill(true);
+                    cc_settrans(205);
+                    if (.if_find($component24) = true) {
+                        if (.cc_param(rs3tli_component_param_int0) = 1) {
+                            cc_setcolour(~script10495(4));
+                        } else {
+                            cc_setcolour(~script10495(3));
+                        }
+                        .cc_setparam(rs3tli_component_param_int0, 0);
+                        .cc_setparam(rs3tli_component_param_int1, calc(clientclock + 5));
+                    }
+                    cc_setonmouseover("script12341(event_com, event_comsubid, ~script10495(4))");
+                    cc_setonmouseleave("script12346(event_com, event_comsubid, ~script10495(3))");
+                    cc_setontimer("script12347(event_com, event_comsubid, ~script10495(3))");
+                    cc_setonclick("cc_settrans(event_com, event_comsubid, 180)");
+                    cc_setonrelease("cc_settrans(event_com, event_comsubid, 205)");
+                    cc_setnoclickthrough(true);
+                    $string0 = "Click here to upgrade";
+                    cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+                    cc_setop(1, "Upgrade");
+                    cc_setop(2, "Hide Pro features");
+                    cc_setonop("script12319(event_op)");
+                    $int25 = max($int25, $int16);
+                }
+            }
+        }
+    }
+    $int5 = calc($int5 + 1);
+}
+def_component $component37 = telemetry:info_text;
+if ($int0 = 2) {
+    $component37 = toplevel_v2_parent_suboverlay_telemetry:info_text;
+}
+if ($int14 = 0) {
+    if_sethide(false, $component37);
+    $int14 = calc($int14 + 1);
+    %telemetry_last_legacy_content_width = 78;
+    %telemetry_last_legacy_content_height = 58;
+} else {
+    if_sethide(true, $component37);
+    %telemetry_last_legacy_content_width = calc(33 + $int26);
+    if (~telemetry_member = 1 | %telemetry_hide_upsell_columns = 1 | %telemetry_member = 0 & %telemetry_hide_upsell_columns = 0 & %telemetry_show_precise_values = 1) {
+        %telemetry_last_legacy_content_width = calc(%telemetry_last_legacy_content_width - 4);
+    }
+    if ($int25 > calc(33 + $int26 + 20) & %telemetry_show_precise_values = 0) {
+        %telemetry_last_legacy_content_width = calc(%telemetry_last_legacy_content_width + $int26);
+    }
+    %telemetry_last_legacy_content_height = calc($int14 * 27 + $int15 * 18 + max(0, calc($int15 - 1)) * 4);
+}
+if (%varclientbit_32703 = 0) {
+    %telemetry_last_legacy_content_height = calc(%telemetry_last_legacy_content_height + 33);
+}
+def_int $int38 = 0;
+if ($int0 = 1 & ~script12616(~script10405(28)) = true) {
+    $int38 = 1;
+}
+def_component $component39 = null;
+def_component $component40 = null;
+def_component $component41 = null;
+def_component $component42 = null;
+if ($int0 = 2) {
+    $component39 = toplevel_v2_parent_suboverlay_telemetry:scrollbar;
+    $component40 = toplevel_v2_parent_suboverlay_telemetry:scrollbar_horizontal;
+    $component41 = toplevel_v2_parent_suboverlay_telemetry:scroll_layer;
+    $component42 = toplevel_v2_parent_suboverlay_telemetry:scrollwheel_layer;
+    ~telemetry_refresh_scroll($int0, $int25, $int14, $int15, $component39, $component40, $component41, toplevel_v2_parent_suboverlay_telemetry:data_layer, toplevel_v2_parent_suboverlay_telemetry:buttons_layer, %telemetry_suboverlay_lastscrollpos, %telemetry_suboverlay_lastscrollpos_horizontal);
+    if_setonscrollwheel(null, $component41);
+    ~script12597($component42, $component39, $component40, $component41);
+} else if ($int0 = 1 & if_hassuboverlay(toplevel_v2:telemetry_window_content, telemetry) = true) {
+    $component39 = telemetry:scrollbar;
+    $component40 = telemetry:scrollbar_horizontal;
+    $component41 = telemetry:scroll_layer;
+    $component42 = telemetry:scrollwheel_layer;
+    if (%toplevel_v2_legacy_interface = 1) {
+        ~script12603;
+        if_setop(2, "", telemetry:open_parent_button_active_layer);
+    } else {
+        if_setop(2, "Toggle lightweight mode", telemetry:open_parent_button_active_layer);
+    }
+    ~telemetry_refresh_scroll($int0, $int25, $int14, $int15, $component39, $component40, $component41, telemetry:data_layer, telemetry:buttons_layer, %telemetry_lastscrollpos, %telemetry_lastscrollpos_horizontal);
+    if_setnoclickthrough(true, $component39);
+    if_setnoclickthrough(true, $component40);
+    if_setonscrollwheel(null, $component41);
+    if ($int38 = 0) {
+        ~script12597($component42, $component39, $component40, $component41);
+    }
+}
+if (%telemetry_interval_type = telemetryinterval_1) {
+    if_sethide(false, telemetry:stopwatch_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_telemetry:stopwatch_layer);
+    ~script11823;
+} else {
+    if_sethide(true, telemetry:stopwatch_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:stopwatch_layer);
+}
+if ($int0 = 1) {
+    ~script12646(toplevel_v2:telemetry_overlay_layer, 0);
+}

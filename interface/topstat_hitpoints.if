@@ -1,0 +1,89 @@
+// 1504:0
+[health]
+type=graphic
+x=1
+width=31
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=globe
+graphic="topstat_fill_full,0"
+tiling=yes
+colour=0x000000
+clickmask=no
+
+// 1504:1
+[topstat_hitpoints_layer]
+type=layer
+width=67
+height=34
+noclickthrough=yes
+
+// 1504:2
+[background]
+type=graphic
+width=67
+height=34
+layer=topstat_hitpoints_layer
+graphic=topstat_slot_full_lrg
+hflip=yes
+clickmask=no
+transmitop1=yes
+transmitop2=yes
+op1=Regenerate
+op2=Cure Poison
+onload=script11338(event_com, null)
+onmouseover=graphic_swapper(event_com, topstat_slot_roll_empty_lrg)
+onmouseleave=graphic_swapper(event_com, topstat_slot_full_lrg)
+onvartransmit=script11338(event_com, null)
+onvartransmitlist=toplevel_v2_general_varp,easter09,arch_relic_1,arch_relic_2,arch_relic_3,arch_relic_4,arch_main_4
+
+// 1504:3
+[globe]
+type=layer
+y=1
+height=31
+widthmode=minus
+xmode=abs_right
+layer=topstat_hitpoints_layer
+onload=script9889(event_com)
+onvartransmit=script8118(event_com)
+onstattransmit=script8118(event_com)
+onvartransmitlist=area_ardougne_login
+onstattransmitlist=hitpoints
+
+// 1504:4
+[regenerate_listener]
+type=layer
+width=32
+height=32
+xmode=abs_right
+layer=topstat_hitpoints_layer
+onvartransmit=script10590(topstat_hitpoints:health_button_anim_layer)
+onvartransmitlist=easter09,easter09
+
+// 1504:5
+[health_button_anim_layer]
+type=layer
+width=32
+height=32
+xmode=abs_right
+layer=topstat_hitpoints_layer
+onload=script10584(event_com, 2, -1)
+
+// 1504:6
+[icon]
+type=graphic
+x=6
+width=20
+height=20
+xmode=abs_right
+ymode=abs_centre
+layer=topstat_hitpoints_layer
+graphic="topstat_icon,0"
+tiling=yes
+colour=0x000000
+clickmask=no
+onvartransmit=script73(event_com, "topstat_icon,0", "topstat_icon,0", topstat_hitpoints:health, "topstat_fill_full,0", "aif_topstat_fill_full,10")
+onvartransmitlist=combatv2_poisoned
+

@@ -1,0 +1,88 @@
+// 11608
+[proc,script11608]()(int, int, string, int, int)
+def_string $string0 = "";
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_int (%slayc_current_challenge) {
+    case 1 :
+        if (%luc2_hero_part_1_vis = 0) {
+            $string0 = "Special assignment for Turael:<br><tostring(%slayc_turael_challenge)>/15 of the creatures in the cellar.";
+        } else {
+            $string0 = "Special assignment for Spria.<br><tostring(%slayc_turael_challenge)>/15 of the creatures in the cellar.";
+        }
+        $int2 = 15;
+        $int1 = %slayc_turael_challenge;
+        $int0 = calc($int2 - $int1);
+    case 2 :
+        if (%luc2_hero_part_1_vis ! 1) {
+            $string0 = "Special assignment: Investigate strange activity by activating your Enchanted gem at the Fairy rings in the Haunted Woods, Mort Myre and west of Canifis on Mazchna's behalf.";
+        } else {
+            $string0 = "Special assignment: Investigate strange activity by activating your Enchanted gem at the Fairy rings in the Haunted Woods, Mort Myre and west of Canifis on Achtryn's behalf.";
+        }
+        $int2 = 3;
+        if (%slayc_mazchna_woods_ring >= 3) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%slayc_mazchna_farm_ring >= 3) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%slayc_mazchna_swamp_ring >= 3) {
+            $int1 = calc($int1 + 1);
+        }
+        $int0 = calc($int2 - $int1);
+    case 12 :
+        $int2 = %slayc_raptor_challenge_length;
+        $int1 = %slayc_raptor_challenge_count;
+        $int0 = calc($int2 - $int1);
+        $string0 = "Special assignment: Cull the area surrounding the fort of undead.<br>You have killed: <tostring($int1)>/<tostring($int2)> undead.";
+    case 3 :
+        $string0 = "Special assignment: Bring perfect scales from green, blue, red and black dragons back to Vannaka.";
+        $int2 = 4;
+        if (~obj_gettotal(slayc_blue_dragon_scale) > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (~obj_gettotal(slayc_green_dragon_scale) > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (~obj_gettotal(slayc_red_dragon_scale) > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (~obj_gettotal(slayc_black_dragon_scale) > 0) {
+            $int1 = calc($int1 + 1);
+        }
+    case 4 :
+        $string0 = "Special assignment for Chaeldar.<br><tostring(%slayc_chaeldar_challenge)>/10 of the required zygomites.";
+        $int2 = 10;
+        $int1 = %slayc_chaeldar_challenge;
+        $int0 = calc($int2 - $int1);
+    case 5 :
+        $string0 = "Special Assignment: Defeat the Kalphite Queen on behalf of Sumona.";
+    case 6 :
+        if (%luc2_hero_part_1_vis = 0) {
+            $string0 = "Special assignment for Duradel.<br>You have slain the following creatures in the Canifis Slayer tower:";
+        } else {
+            $string0 = "Special assignment for Lapalok.<br>You have slain the following creatures in the Canifis Slayer tower:";
+        }
+        $string0 = append($string0, "<br><tostring(%slayc_duradel_crawling_hands)>/<tostring(17)> crawling hands<br><tostring(%slayc_duradel_banshees)>/<tostring(12)> banshees<br><tostring(%slayc_duradel_infernal_magi)>/<tostring(9)> infernal mages<br><tostring(%slayc_duradel_bloodveld)>/<tostring(7)> bloodvelds<br><tostring(%slayc_duradel_aberrant_spectres)>/<tostring(7)> aberrant spectres<br><tostring(%slayc_duradel_gargoyles)>/<tostring(5)> gargoyles<br><tostring(%slayc_duradel_nechryael)>/<tostring(6)> nechryaels<br><tostring(%slayc_duradel_abyssal_demons)>/<tostring(6)> abyssal demons");
+        $int2 = calc(17 + 12 + 9 + 7 + 7 + 5 + 6 + 6);
+        $int1 = calc(%slayc_duradel_crawling_hands + %slayc_duradel_banshees + %slayc_duradel_infernal_magi + %slayc_duradel_bloodveld + %slayc_duradel_aberrant_spectres + %slayc_duradel_gargoyles + %slayc_duradel_nechryael + %slayc_duradel_abyssal_demons);
+        $int0 = calc(17 - %slayc_duradel_crawling_hands + (12 - %slayc_duradel_banshees) + (9 - %slayc_duradel_infernal_magi) + (7 - %slayc_duradel_bloodveld) + (7 - %slayc_duradel_aberrant_spectres) + (5 - %slayc_duradel_gargoyles) + (6 - %slayc_duradel_nechryael) + (6 - %slayc_duradel_abyssal_demons));
+    case 11 :
+        $string0 = "Special Assignment: Defeat Dragith Nurn on behalf of Jacquelyn.";
+    case default :
+        if (%slayc_morvran_challenge = 1) {
+            $string0 = "Special assignment: Obtain Dark crystals from the King Black Dragon, Kalphite Queen, Dagannoth Kings, Commander Zilyana, Kree'arra, General Graardor, K'ril Tsutsaroth, Queen Black Dragon, Araxxi and the hard mode Giant Mole on Morvran's behalf.";
+            $int2 = 10;
+            $int1 = ~script2409;
+            $int0 = calc($int2 - $int1);
+        } else if (%slayc_laniakea_challenge = 1) {
+            $string0 = "Special assignment for Laniakea: Obtain vials of poison from luminous snagglers, devil's snare, liverworts and lampenflora.";
+            $int2 = 4;
+            $int1 = calc(%slayc_laniakea_challenge_lampenflora + %slayc_laniakea_challenge_liverwort + %slayc_laniakea_challenge_devilssnare + %slayc_laniakea_challenge_luminous);
+            $int0 = calc($int2 - $int1);
+        } else {
+            return(0, $int0, $string0, $int1, $int2);
+        }
+}
+return(1, $int0, $string0, $int1, $int2);

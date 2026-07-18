@@ -1,0 +1,22 @@
+// 3281
+[proc,script3281]()(string)
+def_int $int0 = 0;
+def_string $string0 = "Someone in Amberfell sent a message asking for help from Wendlewick.<br><br>   The message was sent last night, by someone who left the village and went to the river.<br><br>   I need to look for clues and talk to the villagers to work out who it was.<br><br>   If I find out that someone is lying about their actions last night, it's likely that they're my contact.<br><br>CLUES:<br><br>";
+def_int $int1 = ~script2248;
+if ($int1 = 0) {
+    $string0 = append($string0, "I've not found any clues yet.");
+    return($string0);
+}
+def_int $int2 = 1;
+def_dbrow $dbrow3 = null;
+while ($int2 <= $int1) {
+    db_filter_find(unknown_command_62(quest_wendle_secrets_part_2_clues:col1, $int2, 3, basevartype_0), quest_wendle_secrets_part_2_clues:col0, true, -1, 0);
+    $dbrow3 = db_findnext;
+    if ($dbrow3 = null) {
+        error("No clue has order index: <tostring($int2)>. $total_clues_found was <tostring($int1)>.");
+    } else {
+        $string0 = append($string0, db_getfield($dbrow3, quest_wendle_secrets_part_2_clues:col2, 0));
+    }
+    $int2 = calc($int2 + 1);
+}
+return($string0);

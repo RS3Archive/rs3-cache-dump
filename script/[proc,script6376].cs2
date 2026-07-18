@@ -1,0 +1,24 @@
+// 6376
+[proc,script6376]()(boolean)
+def_component $component0 = cc_getlayer;
+if ($component0 = null) {
+    return(false);
+}
+def_int $int1 = cc_getx;
+def_int $int2 = cc_gety;
+if (.cc_find($component0, cc_getid) = true) {
+    while ($component0 ! null & .cc_find_parent = true) {
+        $int1 = calc($int1 + .cc_getx - .cc_getscrollx);
+        $int2 = calc($int2 + .cc_gety - .cc_getscrolly);
+        if (.cc_getid = -1) {
+            if ($int1 < calc(.cc_getx - 5) | $int2 < calc(.cc_gety - 5)) {
+                return(true);
+            }
+            if (calc($int1 + cc_getwidth) > calc(.cc_getx + .cc_getwidth + 5) | calc($int2 + cc_getheight) > calc(.cc_gety + .cc_getheight + 5)) {
+                return(true);
+            }
+        }
+        $component0 = .cc_getlayer;
+    }
+}
+return(false);

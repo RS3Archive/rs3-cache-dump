@@ -1,0 +1,19 @@
+// 14366
+[proc,bank_swap_slots](int $int0, int $int1)
+def_obj $obj2 = null;
+def_int $int3 = -1;
+if (cc_find(bank:bank_inv, $int0) = true) {
+    $obj2 = cc_getinvobject;
+    $int3 = cc_getinvcount;
+    if (.cc_find(bank:bank_inv, $int1) = true) {
+        ~script13796(.cc_getinvobject, .cc_getinvcount);
+    }
+}
+if (cc_find(bank:bank_inv, $int1) = true) {
+    ~script13796($obj2, $int3);
+}
+if ($obj2 = bank_empty_slot & ($int0 < %bank_first_freeslot | %bank_first_freeslot = -1)) {
+    %bank_first_freeslot = $int0;
+} else if ($int1 = %bank_first_freeslot) {
+    %bank_first_freeslot = ~script14353($int1, %bank_used_slots);
+}

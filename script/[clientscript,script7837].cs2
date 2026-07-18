@@ -1,0 +1,23 @@
+// 7837
+[clientscript,script7837](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_string $string0 = if_gettext($component0);
+def_int $int3 = min(70, calc(1 + min(scale($int1, 366, 14), scale($int2, 86, 14))));
+def_fontmetrics $fontmetrics4 = enum(int, fontmetrics, fonts_notosans_regular, $int3);
+def_int $int5 = parawidth($string0, $int1, $fontmetrics4);
+def_int $int6 = paraheight($string0, $int1, $fontmetrics4);
+def_int $int7 = calc($int6 * $int3);
+def_int $int8 = %chat_v3_update_interface;
+if ($int8 <= 0) {
+    $int8 = 4;
+}
+while ($int3 >= 11 & ($int6 > $int8 | $int7 > $int2 | $int5 > $int1)) {
+    $fontmetrics4 = enum(int, fontmetrics, fonts_notosans_regular, $int3);
+    $int5 = parawidth($string0, $int1, $fontmetrics4);
+    $int6 = paraheight($string0, $int1, $fontmetrics4);
+    $int7 = calc($int6 * $int3);
+    $int3 = calc($int3 - 1);
+}
+if_settextfont($fontmetrics4, $component0);
+if_settextalign(^settextalign_centre, ^settextalign_centre, 0, $component0);

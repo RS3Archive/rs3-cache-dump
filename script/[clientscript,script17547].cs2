@@ -1,0 +1,40 @@
+// 17547
+[clientscript,script17547](component $component0)
+def_component $component1 = ~script18321($component0, activity_progress_bar:tooltip_progress_amount);
+def_int $int2 = %activity_progress_bar_active_shield;
+def_int $int3 = %activity_progress_bar_active_progress;
+def_int $int4 = %activity_progress_bar_active_secondary_progress;
+def_int $int5 = %activity_progress_bar_extension_second_health_bar_progress;
+if (%toplevel_v2_legacy_combat = 1 & struct_param(%activity_progress_bar_active_struct, activity_progress_bar_data_type) = 1) {
+    $int2 = calc($int2 / 10);
+    $int3 = calc($int3 / 10);
+    $int4 = calc($int4 / 10);
+    $int5 = calc($int5 / 10);
+}
+def_string $string0 = "";
+if (~script18321($component0, activity_progress_bar:container) ! activity_progress_bar:container) {
+    $string0 = tostring_localised($int5, true);
+    if_settext($string0, $component1);
+    return;
+}
+if (%activity_progress_bar_active_shield > 0) {
+    $string0 = tostring_localised($int2, true);
+} else if (%activity_progress_bar_active_secondary_progress > 0) {
+    $string0 = tostring_localised($int4, true);
+} else {
+    switch_struct (%activity_progress_bar_active_struct) {
+        case april_fools25_activity_progress_bar :
+            if ($int3 < %activity_progress_bar_active_max_progress) {
+                $string0 = "<tostring_localised(scale($int3, max(1, %activity_progress_bar_active_max_progress), 100), true)>%";
+            } else {
+                $string0 = "Training Complete";
+            }
+        case default :
+            $string0 = tostring_localised($int3, true);
+    }
+}
+if (%activity_progress_bar_active_shield > 0 | %activity_progress_bar_active_progress > 0 & %activity_progress_bar_hide_progress = 0) {
+    if_settext($string0, $component1);
+} else {
+    if_settext("", $component1);
+}

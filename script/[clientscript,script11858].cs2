@@ -1,0 +1,35 @@
+// 11858
+[clientscript,script11858](int $int0, int $int1, int $int2, int $int3, component $component4, component $component5)
+def_int $int6 = if_getwidth($component4);
+def_int $int7 = calc($int2 - $int6);
+if ($int7 < 0) {
+    $int7 = calc($int7 * -1);
+}
+def_int $int8 = 1;
+def_int $int9 = scale($int6, $int2, 100);
+if ($int9 < 70) {
+    $int8 = min(3, $int7);
+} else if ($int9 < 90) {
+    $int8 = min(2, $int7);
+}
+def_int $int10 = 0;
+if ($int6 < $int2) {
+    $int10 = calc($int6 + $int8);
+} else {
+    $int10 = calc($int6 - $int8);
+}
+$int10 = max(1, min($int2, $int10));
+if_setsize($int10, 19, ^setsize_abs, ^setsize_abs, $component4);
+def_int $int11 = 1;
+def_int $int12 = 0;
+while ($int11 <= 10) {
+    $int12 = calc($int3 * $int11);
+    if ($int6 < $int12 & $int10 >= $int12) {
+        ~script11885($int0, $int1, $int11, $component4);
+    }
+    $int11 = calc($int11 + 1);
+}
+if ($int6 = $int2) {
+    if_setontimer(null, $component5);
+    return;
+}

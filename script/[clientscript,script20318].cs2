@@ -1,0 +1,55 @@
+// 20318
+[clientscript,script20318](component $component0, component $component1, component $component2, component $component3, component $component4, dbrow $dbrow5, int $int6, int $int7, int $int8)
+def_int $int9 = scale(255, 350, $int7);
+if ($int7 <= 350) {
+    if (cc_findbycategory($component0, ~script20173(calc(3000 + $int6))) = 1) {
+        cc_settrans($int9);
+    }
+    if (cc_findbycategory($component0, ~script20173(calc(3000 * 2 + $int6))) = 1) {
+        cc_settrans($int9);
+    }
+    if (cc_findbycategory($component0, ~script20173(calc(3000 * 3 + $int6))) = 1) {
+        cc_settrans($int9);
+    }
+    if (cc_findbycategory($component0, ~script20173(calc(3000 * 4 + $int6))) = 1) {
+        cc_settrans($int9);
+    }
+    if (cc_findbycategory($component0, ~script20173(calc(3000 * 5 + $int6))) = 1) {
+        cc_settrans($int9);
+    }
+    if (cc_find($component3, $int6) = true) {
+        cc_setontimer("script20318($component0, $component1, $component2, $component3, $component4, $dbrow5, $int6, calc($int7 + 1), $int8)");
+    }
+    return;
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+if (cc_find($component0, $int6) = true) {
+    cc_find_parent;
+    if (.cc_find($component0, $int6) = true) {
+        $int10 = calc(cc_param(league_task_cat_full_height) - .cc_getheight - 4);
+        $int11 = calc(cc_param(league_task_cat_entries) - 1);
+        cc_setparam(league_task_cat_full_height, $int10);
+        cc_setparam(league_task_cat_entries, $int11);
+        if (db_getfield($dbrow5, league_task:col5, 0) = 0) {
+            cc_setparam(league_task_cat_entries_global, calc(cc_param(league_task_cat_entries_global) - 1));
+        }
+        if (~script20171($int8, calc(200 - ui_getcategory(cc_getid))) = 0) {
+            cc_setsize(0, $int10, ^setsize_minus, ^setsize_abs);
+        }
+        if (if_find($component0) = true) {
+            cc_setparam(league_task_total, max(0, calc(cc_param(league_task_total) - 1)));
+            cc_setparam(league_task_fading_out, max(0, calc(cc_param(league_task_fading_out) - 1)));
+        }
+        .cc_delete;
+        if (.cc_find($component3, $int6) = true) {
+            .cc_delete;
+        }
+        if ($int11 <= 0 & $component0 ! league_parent_tasks:task_panel) {
+            if_setonresize("script20285", $component4);
+            if_callonresize($component4);
+        } else if (~script20320($component0, $component2) = false) {
+            ~script20309($component0, $component1, $component2);
+        }
+    }
+}

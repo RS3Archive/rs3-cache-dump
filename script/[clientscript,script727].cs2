@@ -1,0 +1,67 @@
+// 727
+[clientscript,script727](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = if_gettrans($component0);
+if ($int1 > 256) {
+    $int3 = max(72, calc($int1 - 12));
+} else if ($int1 > 25) {
+    $int3 = max(72, calc($int1 - 4));
+} else {
+    $int5 = 1;
+    $int3 = 72;
+}
+if ($int2 > 72) {
+    $int4 = max(72, calc($int2 - 4));
+} else {
+    $int6 = 1;
+    $int4 = 72;
+}
+if ($int7 < 255) {
+    if_settrans(min(255, calc($int7 + 3)), $component0);
+}
+if ($int6 = 1 | $int5 = 1 | $int7 = 255) {
+    if (if_getgraphic($component0) = "menaphos_tombs_countdown,3") {
+        if (map_lang = 3) {
+            if_setgraphic("menaphos_tombs_go,3", $component0);
+            if_setsize(256, 256, ^setsize_abs, ^setsize_abs, $component0);
+        } else {
+            if_setgraphic("menaphos_tombs_countdown,2", $component0);
+            if_setsize(256, 256, ^setsize_abs, ^setsize_abs, $component0);
+        }
+        if_settrans(0, $component0);
+    } else if (if_getgraphic($component0) = "menaphos_tombs_countdown,2") {
+        if (map_lang = 3) {
+            if_setgraphic("menaphos_tombs_countdown,3", $component0);
+        } else {
+            if_setgraphic("menaphos_tombs_countdown,1", $component0);
+        }
+        if_settrans(0, $component0);
+        if_setsize(256, 256, ^setsize_abs, ^setsize_abs, $component0);
+    } else if (if_getgraphic($component0) = "menaphos_tombs_countdown,1") {
+        if (map_lang = 3) {
+            if_setgraphic("menaphos_tombs_countdown,2", $component0);
+            if_setsize(256, 256, ^setsize_abs, ^setsize_abs, $component0);
+        } else {
+            switch_int (map_lang) {
+                case 0 :
+                    if_setgraphic("menaphos_tombs_go,0", $component0);
+                case 1 :
+                    if_setgraphic("menaphos_tombs_go,1", $component0);
+                case 2 :
+                    if_setgraphic("menaphos_tombs_go,2", $component0);
+            }
+            if_setsize(256, 256, ^setsize_abs, ^setsize_abs, $component0);
+        }
+        if_settrans(0, $component0);
+    } else {
+        if_sethide(true, $component0);
+        ~script13475(tomb_overlay:tomb_time_left, 15);
+    }
+} else {
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, $component0);
+}

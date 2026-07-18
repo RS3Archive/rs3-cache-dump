@@ -1,0 +1,14 @@
+// 5686
+[proc,script5686](obj $obj0)(int)
+def_int $int1 = 0;
+def_int $int2 = enum(obj, int, mtx52_rune_to_energy, $obj0);
+if ($int2 <= 0) {
+    return(0);
+}
+if (inv_getobj(worn, 13) = mtx52_runepouch) {
+    $int1 = inv_getvar(worn, 13, mtx52_runepouch_energy);
+    if ($int1 >= $int2) {
+        return(max(0, calc($int1 / $int2)));
+    }
+}
+return(0);

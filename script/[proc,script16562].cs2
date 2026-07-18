@@ -1,0 +1,44 @@
+// 16562
+[proc,script16562](enum $enum0, int $int1, component $component2)(boolean, int)
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount($enum0);
+def_int $int5 = 0;
+def_int $rgb6 = ^black;
+def_int $int7 = 0;
+def_dbrow $dbrow8 = null;
+def_string $string0 = "";
+def_int $int9 = 3;
+def_int $int10 = 22;
+def_int $int11 = 24;
+def_int $int12 = 24;
+def_fontmetrics $fontmetrics13 = museo_sans_11pt_regular;
+if (~script6431 = true) {
+    $int10 = 28;
+    $int11 = 32;
+    $int12 = 32;
+    $fontmetrics13 = museo_sans_13pt_regular;
+}
+while ($int3 < $int4) {
+    $dbrow8 = enum(int, dbrow, $enum0, $int3);
+    if (~script16564($dbrow8, $component2) = true) {
+        $int7 = ~script16565($dbrow8, $component2);
+        switch_int ($int7) {
+            case 0 :
+                $int5 = calc($int5 + ($int12 + $int9));
+            case 3 :
+                $string0 = db_getfield($dbrow8, child_options:col0, 0);
+                $int5 = calc($int5 + (stringwidth($string0, $fontmetrics13) + $int10 + 4 + 12));
+            case 1 :
+                $string0, $rgb6 = ~script17399(%money_pouch_display);
+                $int5 = calc($int5 + (4 + stringwidth($string0, $fontmetrics13)));
+            case 2 :
+                $string0, $rgb6 = ~script16568($dbrow8, $int7);
+                $int5 = calc($int5 + ($int10 + $int9 + stringwidth($string0, $fontmetrics13)));
+        }
+    }
+    $int3 = calc($int3 + 1);
+}
+if ($int5 >= $int1) {
+    return(false, $int5);
+}
+return(true, $int5);

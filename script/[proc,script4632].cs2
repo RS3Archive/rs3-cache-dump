@@ -1,0 +1,102 @@
+// 4632
+[proc,script4632](int $int0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+if (%dhat_kills > 2000000) {
+    $string1 = "over <tostring_localised(2000000, true)>";
+} else {
+    $string1 = tostring_localised(%dhat_kills, true);
+}
+$int1 = min(^max_32bit_int, calc(1000 * %dhat_kills / max(1, %dhat_deaths) / 1000));
+$int2 = calc(1000 * %dhat_kills / max(1, %dhat_deaths) % 1000);
+if ($int2 = 0) {
+    $string0 = tostring($int1);
+} else {
+    $string0 = append(tostring($int1), ".");
+    if ($int2 < 100) {
+        $string0 = append($string0, "0");
+    }
+    if ($int2 < 10) {
+        $string0 = append($string0, "0");
+    }
+    $string0 = append($string0, tostring($int2));
+    if (calc($int2 % 10) = 0) {
+        $string0 = substring($string0, 0, calc(string_length($string0) - 2));
+    }
+    if (calc($int2 % 100) = 0) {
+        $string0 = substring($string0, 0, calc(string_length($string0) - 2));
+    }
+}
+$string3 = tostring_localised(%dhat_streak, true);
+if ($int0 = 2) {
+    if (%dhat_kills > 2000) {
+        $string5 = "Behold <%dhat_name>, champion of <$string1> clashes across Gielinor!";
+    } else if (%dhat_kills = 1) {
+        $string5 = "Here stands <%dhat_name>, once victor of a duel.";
+    } else {
+        $string5 = "Here stands <%dhat_name>, victor of <$string1> duels.";
+    }
+    $string2 = "<%dhat_name> defeats <$string0> opponents for every loss!";
+    if (%dhat_streak > 250) {
+        $string3 = "over <tostring_localised(250, true)>";
+    }
+    $string4 = "<%dhat_name> has vanquished <tostring_localised(%dhat_streak, true)> opponents in a row.";
+} else if ($int0 = 0) {
+    if (%dhat_kills > 2000) {
+        $string5 = "Behold <%dhat_name>, champion of <$string1> bouts in the Duel Arena!";
+    } else if (%dhat_kills = 1) {
+        $string5 = "Here stands <%dhat_name>, once victor of a duel.";
+    } else {
+        $string5 = "Here stands <%dhat_name>, victor of <$string1> duels.";
+    }
+    $string2 = "<%dhat_name> defeats <$string0> opponents for every loss!";
+    if (%dhat_streak > 250) {
+        $string3 = "over <tostring_localised(250, true)>";
+    }
+    $string4 = "<%dhat_name> has vanquished <tostring_localised(%dhat_streak, true)> opponents in a row.";
+} else if ($int0 = 1) {
+    if (%dhat_kills > 2000) {
+        $string5 = "Behold <%dhat_name>, taker of <$string1> heads in the Wilderness!";
+    } else {
+        $string5 = "Here stands <%dhat_name>, who has killed <$string1> opponents in the Wilderness.";
+    }
+    $string2 = "Vanquisher of <$string0> foes for every fall!";
+    if (%dhat_streak > 250) {
+        $string3 = "Over <tostring_localised(250, true)>";
+    }
+    $string4 = "<$string3> victims in succession have rendered their souls to <%dhat_name>.";
+}
+if_settext($string5, dhat_statue:brag_text);
+if_settext($string4, dhat_statue:streak_text);
+if_settext($string2, dhat_statue:kdr_text);
+if_settext("Highest value Wilderness kill:<br><tostring_localised_long(%dhat_value, true)> coins.", dhat_statue:value_text);
+if_sethide(false, dhat_statue:divider_1);
+if_sethide(false, dhat_statue:divider_2);
+if_sethide(true, dhat_statue:kdr_text);
+if_sethide(true, dhat_statue:streak_text);
+if (%dhat_kdr = 1) {
+    if_sethide(false, dhat_statue:kdr_text);
+    if (%dhat_streak > 1) {
+        if_sethide(false, dhat_statue:streak_text);
+    }
+}
+if_sethide(true, dhat_statue:value_text);
+if ($int0 = 1 & %dhat_value > 0) {
+    if_sethide(false, dhat_statue:value_text);
+}
+if_setposition(if_getx(dhat_statue:divider_1), if_gety(dhat_statue:value_text), ^setpos_abs_left, ^setpos_abs_top, dhat_statue:divider_1);
+if (if_gethide(dhat_statue:value_text) = true) {
+    if_sethide(true, dhat_statue:divider_1);
+    if_setposition(if_getx(dhat_statue:streak_text), 0, ^setpos_abs_left, ^setpos_abs_bottom, dhat_statue:streak_text);
+    if_setposition(if_getx(dhat_statue:kdr_text), if_getheight(dhat_statue:streak_text), ^setpos_abs_left, ^setpos_abs_bottom, dhat_statue:kdr_text);
+}
+if_setposition(if_getx(dhat_statue:divider_1), if_gety(dhat_statue:kdr_text), ^setpos_abs_left, ^setpos_abs_top, dhat_statue:divider_2);
+if (if_gethide(dhat_statue:streak_text) = true) {
+    if_sethide(true, dhat_statue:divider_2);
+}

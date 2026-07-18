@@ -1,0 +1,13 @@
+// 19546
+[clientscript,script19546](int $int0)
+if ($int0 < 5) {
+    if_setontimer("script19546(calc($int0 + 1))", group_ironman_storage:space_layer);
+    return;
+}
+if_setontimer(null, group_ironman_storage:space_layer);
+def_int $int1 = calc(200 - inv_freespace(group_ironman_storage_clan_temp));
+def_string $string0 = "Total number of Group Ironman storage spaces used and available.";
+if_sethide(false, group_ironman_storage:space_contents);
+if_settext(tostring_localised($int1, true), group_ironman_storage:space_current);
+if_settext(tostring_localised(~script19353, true), group_ironman_storage:space_total);
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", group_ironman_storage:space_contents);

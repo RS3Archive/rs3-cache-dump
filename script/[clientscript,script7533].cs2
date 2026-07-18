@@ -1,0 +1,49 @@
+// 7533
+[clientscript,script7533](component $component0, int $int1, int $int2, int $setposh3, enum $enum4, struct $struct5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+if (.cc_find($component0, $int1) = true) {
+    .cc_setontimer(null);
+    .cc_setposition(0, $int2, $setposh3, ^setpos_abs_top);
+    $int6, $int7, $int8, $int9 = .cc_getx, .cc_gety, .cc_getwidth, .cc_getheight;
+    $int10 = calc($int6 + $int8 - 18);
+    $int11, $int12 = calc($int6 + 18), max(calc($int8 - 36), 0);
+    $int13 = calc($int7 + $int9 - 16);
+    $int14, $int15 = calc($int7 + 16), max(calc($int9 - 32), 0);
+    ~rs3_background_panel_dynamic($component0, rs3_content_container_active, calc($int6 + 5), calc($int7 + 5), calc($int8 - 5), calc($int9 - 5), ^white);
+    cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int6 + 10), calc($int7 + ($int9 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setoutline(1);
+    cc_setobject_nonum(struct_param($struct5, slayer_contract_icon), 1);
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(calc($int8 - (36 + 5)), $int9, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int6 + 10 + 36), $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(if_getcolour(slayer_contracts_menu:confirm_text));
+    cc_settextshadow(true);
+    $int16, $int17 = struct_param($struct5, slayer_contract_category), struct_param($struct5, slayer_contract_count);
+    $int18, $int19 = enum(int, int, slayer_contracts_rewards_combatxp, $int16), enum(int, int, slayer_contracts_rewards_cash, $int16);
+    $int18, $int19 = calc($int18 * $int17), calc($int19 * $int17);
+    if (struct_param($struct5, slayer_contract_large) = true) {
+        $int18, $int19 = scale(111, 100, $int18), scale(111, 100, $int19);
+    }
+    if ($enum4 = slayer_contracts_list_wilderness) {
+        $int18, $int19 = scale(150, 100, $int18), scale(150, 100, $int19);
+    }
+    ~script7535("<col=ffffff><tostring($int17)> x <enum(int, string, smki_critter_names, $int16)></col><br>", $struct5, "<br>Combat XP: <~script940(calc($int18 / 10))><br><u=ff0000>or</u> Coins: <~script940($int19)>");
+    .cc_setonop("script7536(event_com, event_comsubid, $enum4, $struct5)");
+}

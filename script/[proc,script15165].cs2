@@ -1,0 +1,69 @@
+// 15165
+[proc,script15165](dbrow $dbrow0, component $component1, component $component2, dbrow $dbrow3, int $int4, int $int5, int $int6)(int)
+if ($dbrow3 = null) {
+    return($int4);
+}
+if (db_getrowtable($dbrow3) ! event_crafting_core_recipe) {
+    return($int4);
+}
+def_boolean $boolean7 = db_getfield($dbrow3, event_crafting_core_recipe:col5, 0);
+def_int $int8 = 0;
+def_boolean $boolean9 = false;
+def_string $string0 = "";
+$int8, $string0 = ~script15139($dbrow3, $dbrow0);
+if ($int8 ! 1) {
+    $boolean9 = true;
+}
+if ($int6 = 1) {
+    $int4 = ~script15192($component1, $component2, rs3tli_3x3_button, 5, $int5, 250, 50, if_getnextsubid($component2), $boolean9, ~script15122($dbrow3), 1, 35);
+} else {
+    $int4 = ~script15191($component1, $component2, rs3tli_3x3_button, 5, $int5, 250, 50, if_getnextsubid($component2), $boolean9, ~script15122($dbrow3), 35);
+}
+def_obj $obj10 = null;
+def_graphic $graphic11 = null;
+$obj10, $graphic11 = ~script15126($dbrow3);
+cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+def_int $int12 = calc(50 / 2 - 32 / 2);
+if ($obj10 ! null | $graphic11 ! null) {
+    if ($obj10 ! null) {
+        cc_setobject_nonum($obj10, 0);
+    } else {
+        cc_setgraphic($graphic11);
+    }
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(10, calc($int5 + $int12), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+def_string $string1 = "This can be crafted multiple times.";
+def_int $int13 = 32;
+if ($boolean9 = true | $boolean7 = true) {
+    cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(250 - $int13), calc($int5 + $int12), ^setpos_abs_left, ^setpos_abs_top);
+    if ($boolean9 = true) {
+        switch_int ($int8) {
+            case 3 :
+                cc_setgraphic(icon_tick_daily);
+            case default :
+                cc_setgraphic(event_crafting_icon_task_locked);
+        }
+        if (cc_find($component1, calc(if_getnextsubid($component1) - 3)) = true & string_length($string0) > 0) {
+            cc_setonmouserepeat("script8799($string0, $component1, calc(if_getnextsubid($component1) - 3))");
+            if (~is_mobile_client = true) {
+                cc_setop(1, "Select");
+                cc_setonop("script15194($string0, event_com)");
+            }
+        }
+    } else if ($boolean7 = true) {
+        cc_setgraphic(event_crafting_icon_task_repeat);
+        cc_setonmouserepeat("script8799($string1, $component1, calc(if_getnextsubid($component1) - 1))");
+        if (~is_mobile_client = true) {
+            cc_setop(1, "Select");
+            cc_setonop("script7774($string1, event_com, event_comsubid, 0)");
+        }
+    }
+} else {
+    cc_sethide(true);
+}
+return($int4);

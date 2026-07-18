@@ -1,0 +1,46 @@
+// 12170
+[clientscript,invent_gizmo_examine_setup](obj $obj0, int $int1, int $int2, int $int3, int $int4)
+if_settext(oc_name($obj0), invent_gizmo_examine:item_name);
+if_setobject($obj0, -1, invent_gizmo_examine:item_icon);
+def_component $component5 = invent_gizmo_examine:gizmo_info;
+def_string $string0 = null;
+def_int $int6 = 0;
+def_int $int7 = 10;
+def_int $int8 = 10;
+def_int $int9 = calc(if_getwidth($component5) - 20);
+def_dbrow $dbrow10 = null;
+cc_deleteall($component5);
+if ($int1 = 0) {
+    ~script12086($component5, $int6, $int8, $int7, $int9, "This gizmo has no perks.", rs3tli_default_font_dynamic);
+    if_setscrollsize(0, 0, $component5);
+    if_setscrollpos(0, 0, $component5);
+    if_sethide(true, invent_gizmo_examine:scrollbar_layer);
+}
+$dbrow10 = ~script12076($int1);
+$string0 = "<col=ffff00><~invent_perk_get_name_range($dbrow10, $int2, -1)></col>";
+$string0 = "<$string0><br><db_getfield($dbrow10, invent_perk_table:col4, 0)>";
+def_int $int11 = db_getfield($dbrow10, invent_perk_table:col6, 0);
+$int6, $int7 = ~script176($component5, $int6, $int8, $int7, $int9, db_getfield($dbrow10, invent_perk_table:col2, 0), 32, 32, $string0, rs3tli_default_font_dynamic);
+$int7 = calc($int7 + 10);
+if ($int11 > 1) {
+    $string0 = "<col=ffff00><~invent_perk_get_name_range($dbrow10, $int2, -1)></col>";
+    $string0 = "<$string0><br>This perk uses up two slots on a gizmo.";
+    $int6, $int7 = ~script176($component5, $int6, $int8, $int7, $int9, db_getfield($dbrow10, invent_perk_table:col3, 0), 32, 32, $string0, rs3tli_default_font_dynamic);
+    $int7 = calc($int7 + 10);
+} else if ($int3 > 0) {
+    $dbrow10 = ~script12076($int3);
+    $string0 = "<col=ffff00><~invent_perk_get_name_range($dbrow10, $int4, -1)></col>";
+    $string0 = "<$string0><br><db_getfield($dbrow10, invent_perk_table:col4, 0)>";
+    $int6, $int7 = ~script176($component5, $int6, $int8, $int7, $int9, db_getfield($dbrow10, invent_perk_table:col2, 0), 32, 32, $string0, rs3tli_default_font_dynamic);
+    $int7 = calc($int7 + 10);
+}
+if (if_getheight($component5) >= calc($int7 - 8)) {
+    if_setscrollsize(0, 0, $component5);
+    if_setscrollpos(0, 0, $component5);
+    if_sethide(true, invent_gizmo_examine:scrollbar_layer);
+} else {
+    if_setscrollsize(if_getwidth($component5), $int7, $component5);
+    if_setscrollpos(0, 0, $component5);
+    if_sethide(false, invent_gizmo_examine:scrollbar_layer);
+    ~rs3_scrollbar_vertical(invent_gizmo_examine:scrollbar_layer, $component5);
+}

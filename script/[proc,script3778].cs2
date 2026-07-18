@@ -1,0 +1,52 @@
+// 3778
+[proc,script3778](dbrow $dbrow0, component $component1)
+if ($dbrow0 = null) {
+    return;
+}
+def_int $int2 = calc(db_getfield($dbrow0, runepass_table:col21, 0) - 1);
+def_int $int3 = min($int2, max(0, calc(%runepass_task_sets_completed - 1)));
+def_int $int4 = min($int2, %runepass_task_sets_completed);
+def_int $int5 = -1;
+def_int $int6 = db_getfieldcount($dbrow0, runepass_table:col15);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = -1;
+def_int $int11 = -1;
+def_int $int12 = db_getfieldcount($dbrow0, runepass_table:col29);
+if ($int3 = $int2) {
+    if ($int12 = 1 & %runepass_task_sets_completed = 71) {
+        $int3 = calc($int3 - 1);
+    }
+    $int10, $int8, $int9 = db_getfield($dbrow0, runepass_table:col14, $int3);
+    if (if_find($component1) = true) {
+        cc_setposition(calc($int8 - cc_getwidth / 2), calc($int9 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_set2dangle(0);
+        return;
+    }
+}
+$int5, $int7 = ~script299($int3, $dbrow0);
+def_int $int13 = ~script275;
+if ($int12 = 1 & $int4 = calc(71 - 1)) {
+    $int13 = 0;
+}
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+$int10, $int14, $int15 = db_getfield($dbrow0, runepass_table:col14, $int3);
+$int10, $int16, $int17 = db_getfield($dbrow0, runepass_table:col14, $int4);
+def_int $int18 = calc(1000 / ($int7 + 1));
+def_int $int19 = calc($int13 / $int18);
+def_int $int20 = calc($int13 % $int18);
+$int19 = min($int19, $int7);
+if ($int19 > 0) {
+    $int10, $int11, $int14, $int15 = db_getfield($dbrow0, runepass_table:col15, calc($int5 + $int19 - 1));
+}
+if ($int19 < $int7 & calc($int5 + $int19) > -1) {
+    $int10, $int11, $int16, $int17 = db_getfield($dbrow0, runepass_table:col15, calc($int5 + $int19));
+}
+if (if_find($component1) = true) {
+    cc_setposition(calc(($int14 * ($int18 - $int20) + $int16 * $int20) / $int18 - cc_getwidth / 2), calc(($int15 * ($int18 - $int20) + $int17 * $int20) / $int18 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_set2dangle(calc((scale(calc(atan2(calc($int17 - $int15), calc($int14 - $int16)) - 4096), 16384, 65536) + 32768) % 65536));
+}

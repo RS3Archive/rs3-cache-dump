@@ -1,0 +1,22 @@
+// 12760
+[clientscript,script12760](int $int0)
+def_int $int1 = calc($int0 / 50);
+def_int $int2 = calc($int1 / 60);
+$int1 = calc($int1 % 60);
+if ($int1 > 9) {
+    if_settext("<tostring($int2)>:<tostring($int1)>", cruc_dm_overlay:pickup_timer_value);
+} else {
+    if_settext("<tostring($int2)>:0<tostring($int1)>", cruc_dm_overlay:pickup_timer_value);
+}
+if ($int2 = 0 & $int1 <= 5) {
+    if (calc($int0 / 20 % 2) > 0) {
+        if_sethide(true, cruc_dm_overlay:pickup_timer_value);
+    } else {
+        if_sethide(false, cruc_dm_overlay:pickup_timer_value);
+    }
+}
+if (--$int0 <= 0) {
+    if_setontimer(null, cruc_dm_overlay:pickup_timer);
+} else {
+    if_setontimer("script12760($int0)", cruc_dm_overlay:pickup_timer);
+}

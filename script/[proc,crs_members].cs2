@@ -1,0 +1,39 @@
+// 9027
+[proc,crs_members](struct $struct0, quest $quest1, achievement $achievement2)(boolean)
+if ($quest1 ! null) {
+    return(quest_getmembers($quest1));
+} else if ($achievement2 ! null) {
+    return(achievement_getmembers($achievement2));
+} else if ($struct0 ! null) {
+    if (struct_param($struct0, task_struct) ! null) {
+        $struct0 = struct_param($struct0, task_struct);
+    }
+    switch_int (~script7663($struct0, $quest1, $achievement2)) {
+        case 7 :
+            if (%slayer_master > 1) {
+                return(true);
+            }
+            $struct0 = ~script16091;
+            if ($struct0 ! null) {
+                if (struct_param($struct0, slayer_sl_req) <= 5) {
+                    return(false);
+                } else {
+                    return(true);
+                }
+            }
+        case 1 :
+            if (struct_param($struct0, quest_id) > 0) {
+                $quest1 = enum(int, quest, ql4_quests, struct_param($struct0, quest_id));
+                if ($quest1 ! null) {
+                    return(quest_getmembers($quest1));
+                }
+            }
+        case 4 :
+            return(struct_param($struct0, challenge_members_only));
+        case default :
+            if (struct_param($struct0, cheevo_game) ! 1 & struct_param($struct0, task_game) ! 1) {
+                return(true);
+            }
+    }
+}
+return(false);

@@ -1,0 +1,275 @@
+// 6263
+[proc,fishcomp_rewards_shop_refresh]
+if_settext(tostring(%fishcomp_fish_tokens), fishcomp_rewards_shop:tokens_txt);
+if_settext(tostring(%fishcomp_career_medals), fishcomp_rewards_shop:medals_txt);
+if (%fishcomp_reward_shop_item = 0) {
+    if_sethide(true, fishcomp_rewards_shop:confirm_window_no_title_layer);
+    if_sethide(true, fishcomp_rewards_shop:blocker_layer);
+} else {
+    if_sethide(false, fishcomp_rewards_shop:confirm_window_no_title_layer);
+    if_sethide(false, fishcomp_rewards_shop:blocker_layer);
+}
+if_setobject(%fishcomp_rewards_shop_species_1, %fishcomp_rewards_shop_quantity_1, fishcomp_rewards_shop:fish_1_icon);
+if_setopbase(oc_name(%fishcomp_rewards_shop_species_1), fishcomp_rewards_shop:fish_1_icon);
+if_setobject(%fishcomp_rewards_shop_species_2, %fishcomp_rewards_shop_quantity_2, fishcomp_rewards_shop:fish_2_icon);
+if_setopbase(oc_name(%fishcomp_rewards_shop_species_2), fishcomp_rewards_shop:fish_2_icon);
+switch_obj (%fishcomp_rewards_shop_species_1) {
+    case cert_raw_shark :
+        if_settext("Shark", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_swordfish :
+        if_settext("Swordfish", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_lobster :
+        if_settext("Lobster", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_tuna :
+        if_settext("Tuna", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_salmon :
+        if_settext("Salmon", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_pike :
+        if_settext("Pike", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_trout :
+        if_settext("Trout", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_herring :
+        if_settext("Herring", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_sardine :
+        if_settext("Sardine", fishcomp_rewards_shop:species_name_1_txt);
+    case cert_raw_shrimp :
+        if_settext("Shrimp", fishcomp_rewards_shop:species_name_1_txt);
+    case default :
+        if_settext("", fishcomp_rewards_shop:species_name_1_txt);
+}
+switch_obj (%fishcomp_rewards_shop_species_2) {
+    case cert_raw_shark :
+        if_settext("Shark", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_swordfish :
+        if_settext("Swordfish", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_lobster :
+        if_settext("Lobster", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_tuna :
+        if_settext("Tuna", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_salmon :
+        if_settext("Salmon", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_pike :
+        if_settext("Pike", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_trout :
+        if_settext("Trout", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_herring :
+        if_settext("Herring", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_sardine :
+        if_settext("Sardine", fishcomp_rewards_shop:species_name_2_txt);
+    case cert_raw_shrimp :
+        if_settext("Shrimp", fishcomp_rewards_shop:species_name_2_txt);
+    case default :
+        if_settext("", fishcomp_rewards_shop:species_name_2_txt);
+}
+def_obj $obj0 = null;
+def_int $int1 = 0;
+def_obj $obj2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+$obj0, $int1, $obj2, $int3, $int4, $int5, $int6, $int7 = ~script6264;
+if ($int4 = 0) {
+    if_settext("(Insufficient tokens)", fishcomp_rewards_shop:raw_fish_cost_txt);
+} else {
+    if_settext("<tostring($int4)> tokens", fishcomp_rewards_shop:raw_fish_cost_txt);
+}
+if ($int4 = 0 | %fishcomp_fish_tokens < $int4) {
+    if_sethide(false, fishcomp_rewards_shop:raw_fish_icon_button_resize_disabled_layer);
+} else {
+    if_sethide(true, fishcomp_rewards_shop:raw_fish_icon_button_resize_disabled_layer);
+}
+def_string $string0 = "Noted raw fish appropriate for your Fishing level:<br>";
+def_int $int8 = calc(~script7721 - %fishcomp_telebanks);
+if (%fishcomp_reward_shop_item = 1) {
+    if ($obj0 ! null) {
+        $string0 = "<$string0><tostring($int1)>x <oc_name($obj0)><br>";
+    }
+    if ($obj2 ! null) {
+        $string0 = "<$string0><tostring($int3)>x <oc_name($obj2)><br>";
+    }
+    if_settext($string0, fishcomp_rewards_shop:confirm_desc_text);
+    if_settext("Cost: <tostring($int4)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+}
+if (%fishcomp_reward_shop_item = 8) {
+    if_settext("You will catch an extra fish for the next 20 minutes.", fishcomp_rewards_shop:confirm_desc_text);
+    if_settext("Cost: <tostring(100)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+}
+if (%fishcomp_reward_shop_item = 9) {
+    if ($int8 = 1) {
+        if_settext("This will reset your tackle boxes daily teleports.<br>You have <tostring($int8)> teleport left currently.", fishcomp_rewards_shop:confirm_desc_text);
+    } else {
+        if_settext("This will reset your tackle boxes daily teleports.<br>You have <tostring($int8)> teleports left currently.", fishcomp_rewards_shop:confirm_desc_text);
+    }
+    if_settext("Cost: <tostring(100)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+}
+def_string $string1 = "This tackle box holds:<br>";
+def_int $int9 = 0;
+def_int $int10 = calc(%fishcomp_reward_tackle_box_level + 1);
+if (~script2189($int10, 0) = 1) {
+    $int9 = calc($int9 + 1);
+}
+if (~script2189($int10, 1) = 1) {
+    $int9 = calc($int9 + 1);
+}
+if (~script2189($int10, 2) = 1) {
+    $int9 = calc($int9 + 1);
+}
+if (~script2189($int10, 3) = 1) {
+    $int9 = calc($int9 + 1);
+}
+if (~script2189($int10, 4) = 1) {
+    $int9 = calc($int9 + 1);
+}
+if ($int9 = 1) {
+    $string1 = "<$string1><tostring($int9)> fishing tool<br>";
+} else if ($int9 > 0) {
+    $string1 = "<$string1><tostring($int9)> fishing tools<br>";
+}
+def_int $int11 = 0;
+if (~script2189($int10, 5) = 1) {
+    $int11 = calc($int11 + 1);
+}
+if (~script2189($int10, 6) = 1) {
+    $int11 = calc($int11 + 1);
+}
+if (~script2189($int10, 7) = 1) {
+    $int11 = calc($int11 + 1);
+}
+if ($int11 = 1) {
+    $string1 = "<$string1><tostring($int11)> stack of <tostring(~script6261($int10))> bait<br>";
+} else if ($int11 > 0) {
+    $string1 = "<$string1><tostring($int11)> stacks of <tostring(~script6261($int10))> bait<br>";
+}
+def_int $int12 = 0;
+if (~script2189($int10, 8) = 1) {
+    $int12 = calc($int12 + 1);
+}
+if (~script2189($int10, 9) = 1) {
+    $int12 = calc($int12 + 1);
+}
+if ($int12 = 1) {
+    $string1 = "<$string1><tostring($int12)> fishing gloves<br>";
+} else if ($int12 > 0) {
+    $string1 = "<$string1><tostring($int12)> fishing gloves<br>";
+}
+def_int $int13 = 0;
+if (~script2189($int10, 10) = 1) {
+    $int13 = calc($int13 + 1);
+}
+if ($int13 = 1) {
+    $string1 = "<$string1><tostring($int13)> stack of <tostring(~script6262($int10))> raw fish<br>";
+} else if ($int13 > 0) {
+    $string1 = "<$string1><tostring($int13)> stacks of <tostring(~script6262($int10))> raw fish<br>";
+}
+$string1 = "<$string1>The fishing outfit<br>";
+$int4 = enum(int, int, fishcomp_tackle_box_tokens, $int10);
+if (%fishcomp_reward_shop_item = 2) {
+    if_settext($string1, fishcomp_rewards_shop:confirm_desc_text);
+    if_settext("Cost: <tostring($int4)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+}
+if_settext("<tostring($int4)> tokens", fishcomp_rewards_shop:tackle_box_cost_txt);
+def_int $int14 = enum(int, int, fishcomp_tackle_box_medals, $int10);
+if_settext("Requires <tostring($int14)> medals", fishcomp_rewards_shop:tackle_box_req_txt);
+if (~obj_gettotal(fishcomp_tackle_box_01) = 0 & ~obj_gettotal(fishcomp_tackle_box_02) = 0 & ~obj_gettotal(fishcomp_tackle_box_03) = 0 & ~obj_gettotal(fishcomp_tackle_box_04) = 0 & ~obj_gettotal(fishcomp_tackle_box_05) = 0 & %fishcomp_reward_tackle_box_level > 0) {
+    if_sethide(true, fishcomp_rewards_shop:tackle_box_icon_button_resize_disabled_layer);
+} else if (%fishcomp_fish_tokens < $int4 | %fishcomp_career_medals < $int14 | %fishcomp_reward_tackle_box_level = 5) {
+    if_sethide(false, fishcomp_rewards_shop:tackle_box_icon_button_resize_disabled_layer);
+} else {
+    if_sethide(true, fishcomp_rewards_shop:tackle_box_icon_button_resize_disabled_layer);
+}
+switch_int (%fishcomp_reward_tackle_box_level) {
+    case 0 :
+        if_settext("Beginner's tackle box", fishcomp_rewards_shop:tackle_box_title_txt);
+        if_setobject(fishcomp_tackle_box_01, -1, fishcomp_rewards_shop:tackle_box_icon);
+        if_setobject(fishcomp_tackle_box_01, -1, fishcomp_rewards_shop:tackle_box_reset_icon);
+        if_sethide(false, fishcomp_rewards_shop:tackle_box_reset_button_resize_disabled_layer);
+        if_settext("You must buy a tackle box before you can reset it.", fishcomp_rewards_shop:tackle_box_reset_txt);
+    case 1 :
+        if_settext("Basic tackle box", fishcomp_rewards_shop:tackle_box_title_txt);
+        if_setobject(fishcomp_tackle_box_02, -1, fishcomp_rewards_shop:tackle_box_icon);
+        if_setobject(fishcomp_tackle_box_01, -1, fishcomp_rewards_shop:tackle_box_reset_icon);
+        if_sethide(true, fishcomp_rewards_shop:tackle_box_reset_button_resize_disabled_layer);
+        if_settext("Reset your<br>daily teleports.", fishcomp_rewards_shop:tackle_box_reset_txt);
+    case 2 :
+        if_settext("Standard tackle box", fishcomp_rewards_shop:tackle_box_title_txt);
+        if_setobject(fishcomp_tackle_box_03, -1, fishcomp_rewards_shop:tackle_box_icon);
+        if_setobject(fishcomp_tackle_box_02, -1, fishcomp_rewards_shop:tackle_box_reset_icon);
+        if_sethide(true, fishcomp_rewards_shop:tackle_box_reset_button_resize_disabled_layer);
+        if_settext("Reset your<br>daily teleports.", fishcomp_rewards_shop:tackle_box_reset_txt);
+    case 3 :
+        if_settext("Professional tackle box", fishcomp_rewards_shop:tackle_box_title_txt);
+        if_setobject(fishcomp_tackle_box_04, -1, fishcomp_rewards_shop:tackle_box_icon);
+        if_setobject(fishcomp_tackle_box_03, -1, fishcomp_rewards_shop:tackle_box_reset_icon);
+        if_sethide(true, fishcomp_rewards_shop:tackle_box_reset_button_resize_disabled_layer);
+        if_settext("Reset your<br>daily teleports.", fishcomp_rewards_shop:tackle_box_reset_txt);
+    case 4 :
+        if_settext("Champion's tackle box", fishcomp_rewards_shop:tackle_box_title_txt);
+        if_setobject(fishcomp_tackle_box_05, -1, fishcomp_rewards_shop:tackle_box_icon);
+        if_setobject(fishcomp_tackle_box_04, -1, fishcomp_rewards_shop:tackle_box_reset_icon);
+        if_sethide(true, fishcomp_rewards_shop:tackle_box_reset_button_resize_disabled_layer);
+        if_settext("Reset your<br>daily teleports.", fishcomp_rewards_shop:tackle_box_reset_txt);
+    case 5 :
+        if_settext("Champion's tackle box", fishcomp_rewards_shop:tackle_box_title_txt);
+        if_settext("(Purchased)", fishcomp_rewards_shop:tackle_box_cost_txt);
+        if_settext("", fishcomp_rewards_shop:tackle_box_req_txt);
+        if_setobject(fishcomp_tackle_box_05, -1, fishcomp_rewards_shop:tackle_box_icon);
+        if_setobject(fishcomp_tackle_box_05, -1, fishcomp_rewards_shop:tackle_box_reset_icon);
+        if_sethide(true, fishcomp_rewards_shop:tackle_box_reset_button_resize_disabled_layer);
+        if_settext("Reset your<br>daily teleports.", fishcomp_rewards_shop:tackle_box_reset_txt);
+}
+if_setmodelangle(0, 0, 250, 1666, 0, 1440, fishcomp_rewards_shop:tackle_box_icon);
+if_setmodelangle(0, 0, 250, 1666, 0, 1440, fishcomp_rewards_shop:tackle_box_reset_icon);
+if_setobject_nonum(fishcomp_fishing_outfit_hat, 0, fishcomp_rewards_shop:outfit_hat_icon);
+if (%fishcomp_unlocked_outfit_hat = 1) {
+    if_settext("(Purchased)", fishcomp_rewards_shop:outfit_hat_cost_txt);
+} else {
+    if (%fishcomp_reward_shop_item = 3) {
+        if_settext("Cost: <tostring(140)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+        if_settext("Wear this fishing hat to increase the amount of Fishing experience you earn.", fishcomp_rewards_shop:confirm_desc_text);
+    }
+    if_settext("<tostring(140)> tokens", fishcomp_rewards_shop:outfit_hat_cost_txt);
+}
+if_setobject_nonum(fishcomp_fishing_outfit_body, 0, fishcomp_rewards_shop:outfit_body_icon);
+if (%fishcomp_unlocked_outfit_body = 1) {
+    if_settext("(Purchased)", fishcomp_rewards_shop:outfit_body_cost_txt);
+} else {
+    if (%fishcomp_reward_shop_item = 4) {
+        if_settext("Cost: <tostring(140)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+        if_settext("Wear this fishing jacket to increase the amount of Fishing experience you earn.", fishcomp_rewards_shop:confirm_desc_text);
+    }
+    if_settext("<tostring(140)> tokens", fishcomp_rewards_shop:outfit_body_cost_txt);
+}
+if_setobject_nonum(fishcomp_fishing_outfit_legs, 0, fishcomp_rewards_shop:outfit_legs_icon);
+if (%fishcomp_unlocked_outfit_legs = 1) {
+    if_settext("(Purchased)", fishcomp_rewards_shop:outfit_legs_cost_txt);
+} else {
+    if (%fishcomp_reward_shop_item = 5) {
+        if_settext("Cost: <tostring(140)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+        if_settext("Wear these fishing waders to increase the amount of Fishing experience you earn.", fishcomp_rewards_shop:confirm_desc_text);
+    }
+    if_settext("<tostring(140)> tokens", fishcomp_rewards_shop:outfit_legs_cost_txt);
+}
+if_setobject_nonum(fishcomp_fishing_outfit_boots, 0, fishcomp_rewards_shop:outfit_boots_icon);
+if (%fishcomp_unlocked_outfit_boots = 1) {
+    if_settext("(Purchased)", fishcomp_rewards_shop:outfit_boots_cost_txt);
+} else {
+    if (%fishcomp_reward_shop_item = 6) {
+        if_settext("Cost: <tostring(140)> tokens", fishcomp_rewards_shop:confirm_cost_text);
+        if_settext("Wear these fishing boots to increase the amount of Fishing experience you earn.", fishcomp_rewards_shop:confirm_desc_text);
+    }
+    if_settext("<tostring(140)> tokens", fishcomp_rewards_shop:outfit_boots_cost_txt);
+}
+switch_int (%fishcomp_rewards_shop_extras_tab) {
+    case 0 :
+        ~script11504(fishcomp_rewards_shop:fish_tab_selected_layer, fishcomp_rewards_shop:raw_fish_outer_layer);
+    case 1 :
+        ~script11504(fishcomp_rewards_shop:buff_tab_selected_layer, fishcomp_rewards_shop:buff_outer_layer);
+}
+switch_int (%fishcomp_rewards_shop_tackle_tab) {
+    case 0 :
+        ~script11506(fishcomp_rewards_shop:box_tab_selected_layer, fishcomp_rewards_shop:tackle_box_layer);
+    case 1 :
+        ~script11506(fishcomp_rewards_shop:reset_tab_selected_layer, fishcomp_rewards_shop:tackle_box_reset_layer);
+}

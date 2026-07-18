@@ -1,0 +1,25 @@
+// 11198
+[proc,trh_promo_info_countdown](struct $struct0)
+if ($struct0 = null) {
+    return;
+}
+if_setontimer(null, wheel_of_fortune:countdown_text);
+if (%trh_promo_time_runeday < ~trh_promo_start_runeday($struct0)) {
+    if_settext("Coming Soon!", wheel_of_fortune:countdown_text);
+    if_settextfont(museo_sans_13pt_bold, wheel_of_fortune:countdown_text);
+} else if ($struct0 = trh130_promo) {
+    if_settext(~trh_promo_info_countdown_time(%trh130_promo_time_minutes, %trh130_promo_time_minuteseconds), wheel_of_fortune:countdown_text);
+    if_setontimer("script13729", wheel_of_fortune:countdown_text);
+} else {
+    if_settext(~trh_promo_info_countdown_time(%trh_promo_time_minutes, %trh_promo_time_minuteseconds), wheel_of_fortune:countdown_text);
+    if_setontimer("trh_promo_info_countdown_time_update", wheel_of_fortune:countdown_text);
+}
+if_sethide(false, wheel_of_fortune:countdown_text);
+if_sethide(false, wheel_of_fortune:info_icon);
+if_sethide(false, wheel_of_fortune:info_icon_holder);
+if (%trh_promo_info_seen < ~trh_promo_start_runeday($struct0)) {
+    if_setgraphic("rs3_info_button_base,1", wheel_of_fortune:info_icon_holder);
+    %trh_promo_info_seen = ~trh_promo_start_runeday($struct0);
+} else {
+    if_setgraphic("rs3_info_button_base,0", wheel_of_fortune:info_icon_holder);
+}

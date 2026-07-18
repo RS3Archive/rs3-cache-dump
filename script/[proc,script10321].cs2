@@ -1,0 +1,172 @@
+// 10321
+[proc,script10321](component $component0)
+def_struct $struct1 = ~script10285(%group_type);
+def_enum $enum2 = null;
+if ($struct1 ! null) {
+    $enum2 = struct_param($struct1, group_team_enum);
+}
+def_component $component3 = ~script10293($component0);
+def_component $component4 = ~script10304($component0);
+def_component $component5 = ~script10305($component0);
+def_component $component6 = ~script10310($component0);
+def_component $component7 = ~script10309($component0);
+def_component $component8 = ~script10306($component0);
+def_component $component9 = ~script4244($component0);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_graphic $graphic12 = null;
+def_graphic $graphic13 = null;
+def_graphic $graphic14 = null;
+def_graphic $graphic15 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_player_group_status $player_group_status16 = playergroupstatus_0;
+def_int $int17 = player_group_member_count;
+def_int $int18 = ~script10275;
+def_int $int19 = if_getheight($component6);
+def_int $int20 = if_getwidth($component6);
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 17;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = ~script10495(12);
+def_int $int28 = ~script10495(13);
+cc_deleteall($component3);
+cc_deleteall($component4);
+cc_deleteall($component7);
+if_sethide(false, $component4);
+if_sethide(true, $component5);
+if_sethide(true, $component9);
+~script10629($component3, if_getnextsubid($component3), $int20, 15, 0, 0, player_group_get_displayname, 15777401, museo_sans_13pt_regular, ^settextalign_centre, ^settextalign_centre, 13, true);
+cc_setmaxlines(1);
+if (calc($int24 + $int17 * 43) < $int19) {
+    if_setsize(0, 33, ^setsize_minus, ^setsize_minus, $component6);
+    $int11 = 1;
+    $int20 = if_getwidth($component3);
+} else {
+    if_setsize(20, 33, ^setsize_minus, ^setsize_minus, $component6);
+}
+while ($int21 < $int17) {
+    $string4 = player_group_member_get_displayname($int21);
+    if (player_group_member_is_owner($int21) = true) {
+        $graphic13, $string1 = "rs3_icon_grouping_system_rank,0", "Group Leader";
+    } else {
+        switch_int (player_group_member_get_rank($int21)) {
+            case default :
+                $graphic13, $string1 = null, "";
+            case 10 :
+                $graphic13, $string1 = "rs3_icon_grouping_system_rank,3", "Recruiter";
+            case 20 :
+                $graphic13, $string1 = "rs3_icon_grouping_system_rank,2", "Organiser";
+            case 50 :
+                $graphic13, $string1 = "rs3_icon_grouping_system_rank,1", "Admin";
+            case 100 :
+                $graphic13, $string1 = "rs3_icon_grouping_system_rank,0", "Group Leader";
+        }
+    }
+    $player_group_status16 = player_group_member_get_status($int21);
+    switch_player_group_status ($player_group_status16) {
+        case playergroupstatus_0 :
+            $graphic12, $string0 = "rs3_icon_grouping_system,2", "Not Ready";
+        case playergroupstatus_1 :
+            $graphic12, $string0 = "rs3_icon_grouping_system,1", "Ready";
+        case playergroupstatus_2 :
+            $graphic12, $string0 = "rs3_icon_grouping_system,3", "Waiting for Start";
+        case playergroupstatus_3 :
+            $graphic12, $string0 = "rs3_icon_grouping_system,4", "Teleported";
+        case default :
+            $graphic12, $string0 = null, "";
+    }
+    if ($int18 = $int21) {
+        ~script10335($player_group_status16);
+        ~script10338;
+        ~script5894;
+        if ($player_group_status16 = playergroupstatus_0 & if_getheight($component0) >= 120) {
+            if_sethide(false, $component8);
+            if ($int11 = 1) {
+                if_setsize(0, 63, ^setsize_minus, ^setsize_minus, $component6);
+            } else {
+                if_setsize(20, 63, ^setsize_minus, ^setsize_minus, $component6);
+            }
+            if_setsize(if_getwidth($component7), 63, ^setsize_abs, ^setsize_minus, $component7);
+            $int19 = if_getheight($component6);
+        } else {
+            if_sethide(true, $component8);
+            if ($int11 = 1) {
+                if_setsize(0, 33, ^setsize_minus, ^setsize_minus, $component6);
+            } else {
+                if_setsize(20, 33, ^setsize_minus, ^setsize_minus, $component6);
+            }
+            if_setsize(if_getwidth($component7), 33, ^setsize_abs, ^setsize_minus, $component7);
+            $int19 = if_getheight($component6);
+        }
+    }
+    $graphic14, $string2 = "rs3_icon_grouping_system_user,2", "<$string4> is offline";
+    if (player_group_member_is_online($int21) = true) {
+        $int23, $graphic14 = player_group_member_get_last_seen_node_id($int21), "rs3_icon_grouping_system_user,1";
+        $string2 = "<$string4> is on world: <tostring($int23)>";
+        if ($int23 = map_world) {
+            $int26 = player_group_member_get_same_world_var($int21, lifepoints);
+            $int25 = max(1, player_group_member_get_same_world_var($int21, maxlifepoints));
+            $graphic14, $string2 = "rs3_icon_grouping_system_user,0", "<$string4> is on your world.";
+            if ($int18 = $int21) {
+                $string2 = "You are on world <tostring($int23)>.";
+            }
+        }
+    } else {
+        $int23 = -1;
+    }
+    ~script10066($component4, $int21, calc($int20 - 10), 38, 5, $int24, $int27, true, 0);
+    ~script10324($int18, $int21, $string4, $int23);
+    cc_setonmouseover("script10322(event_com, event_comsubid, $component3, if_getnextsubid($component3), $int28)");
+    cc_setonmouseleave("script10323(event_com, event_comsubid, $component3, if_getnextsubid($component3), $int27)");
+    cc_setlinkplayergroup($int21, 1);
+    ~script10629($component3, if_getnextsubid($component3), calc($int20 - 79), 13, 79, calc($int24 + 2), $string4, ~script10495(3), museo_sans_11pt_regular, ^settextalign_left, ^settextalign_centre, 13, true);
+    cc_setmaxlines(1);
+    ~script10456($component3, null, $graphic14, $string2, 21, calc($int24 + 2), 34);
+    ~script7924($component3, if_getnextsubid($component3), 20, 20, 4, calc($int24 + 9), $graphic12, false, false, false, 0);
+    if (string_length($string0) > 0) {
+        cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+    }
+    ~script7924($component3, if_getnextsubid($component3), 20, 20, 54, calc($int24 + 9), $graphic13, false, false, false, 0);
+    if (string_length($string1) > 0) {
+        cc_setonmouserepeat("script3876($string1, event_com, event_comsubid)");
+    }
+    if ($enum2 ! null & $int20 >= 170) {
+        $int22 = player_group_member_get_team($int21);
+        $graphic15 = ~script10274($enum2, $int22);
+        if ($int22 > 0 & $graphic15 ! null) {
+            $string3 = ~script10273($int22);
+            if ($graphic15 = "aif_display_number,1") {
+                ~script7924($component3, if_getnextsubid($component3), 37, 36, calc($int20 - 40), calc($int24 - 4), $graphic15, false, false, false, 0);
+                ~script10629($component3, if_getnextsubid($component3), 37, 36, calc($int20 - 40), calc($int24 - 4), tostring($int22), ~script10495(1), museo_sans_11pt_regular, ^settextalign_centre, ^settextalign_centre, 11, true);
+            } else {
+                ~script7924($component3, if_getnextsubid($component3), 20, 20, calc($int20 - 25), calc($int24 + 2), $graphic15, false, false, false, 0);
+            }
+            cc_setonmouserepeat("script3876($string3, event_com, event_comsubid)");
+        }
+    }
+    if ($int23 = -1) {
+        ~script10629($component3, if_getnextsubid($component3), calc($int20 - 74), 15, 74, calc($int24 + 15), "Offline. Last world: <tostring(player_group_member_get_last_seen_node_id($int21))>", ~script10495(3), museo_sans_11pt_regular, ^settextalign_left, ^settextalign_centre, 13, true);
+        cc_setmaxlines(1);
+    } else if ($int23 = map_world) {
+        ~script10469($component3, if_getnextsubid($component3), 74, calc($int24 + 15), calc($int20 - 84), 20, $int26, $int25, 16711680);
+    } else {
+        ~script10629($component3, if_getnextsubid($component3), calc($int20 - 74), 15, 74, calc($int24 + 15), "On world: <tostring($int23)>", ~script10495(3), museo_sans_11pt_regular, ^settextalign_left, ^settextalign_centre, 13, true);
+        cc_setmaxlines(1);
+    }
+    $int24 = calc($int24 + 43);
+    $int21 = calc($int21 + 1);
+}
+if ($int24 > $int19) {
+    if_setscrollsize(0, $int24, $component6);
+    ~scrollbar_vertical($component7, $component6, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setscrollsize(0, 0, $component6);
+    if_setscrollpos(0, 0, $component6);
+}

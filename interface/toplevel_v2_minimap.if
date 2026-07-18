@@ -1,0 +1,561 @@
+// 1465:0
+[minimap]
+type=layer
+contenttype=1338
+height=60
+widthmode=minus
+heightmode=minus
+noclickthrough=yes
+
+// 1465:1
+[minimap_hud_nis]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 1465:2
+[minimap_graphic_footer]
+type=graphic
+height=39
+widthmode=minus
+ymode=abs_bottom
+layer=minimap_hud_nis
+hide=yes
+noclickthrough=yes
+graphic=rs3_minimap_square_footer
+tiling=yes
+colour=0xffffff
+clickmask=no
+
+// 1465:3
+[graphic_topleft]
+type=graphic
+width=60
+height=61
+layer=minimap_hud_nis
+graphic=navigation_inset_top
+colour=0xffffff
+clickmask=no
+
+// 1465:4
+[graphic_topright]
+type=graphic
+width=60
+height=61
+xmode=abs_right
+layer=minimap_hud_nis
+graphic=navigation_inset_top
+hflip=yes
+colour=0xffffff
+clickmask=no
+
+// 1465:5
+[graphic_botleft]
+type=graphic
+width=60
+height=61
+ymode=abs_bottom
+layer=minimap_hud_nis
+graphic=navigation_inset_bottom
+colour=0xffffff
+clickmask=no
+
+// 1465:6
+[graphic_botright]
+type=graphic
+width=60
+height=61
+xmode=abs_right
+ymode=abs_bottom
+layer=minimap_hud_nis
+graphic=navigation_inset_bottom
+hflip=yes
+colour=0xffffff
+clickmask=no
+
+// 1465:7
+[minimap_hud_legacy]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+
+// 1465:8
+[minimap_hud_mixed]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=script9902
+onvartransmit=script9902
+onvartransmitlist=toplevel_v2_general_varp,telemetry_setup,toplevel_v2_general_varp_2
+
+// 1465:9
+[world_map_container]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=world_map_layer
+graphic=rs3_minimap_classic_ring_38px
+colour=0xffffff
+
+// 1465:10
+[world_map]
+type=graphic
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=world_map_layer
+graphic=navigation_icon_worldmap_on
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+transmitop2=yes
+transmitop3=yes
+transmitop4=yes
+transmitop5=yes
+op1=Open World Map
+op2=Clear your marker
+op3=Open World Select
+op4=Skybox/Filters
+op5=Toggle High Contrast Mode
+onload=worldmap_button(event_com)
+onmouseleave=script8805
+onvartransmit=worldmap_button(event_com)
+onmouserepeat=script8799("World Map", event_com, -1)
+onvartransmitlist=swansong_temp,playerdesign2_col,toplevel_v2_general_varp
+
+// 1465:11
+[compass_layer]
+type=layer
+width=41
+height=41
+layer=minimap_hud_mixed
+noclickthrough=yes
+
+// 1465:12
+[run_layer]
+type=layer
+width=42
+height=42
+xmode=abs_right
+layer=minimap_hud_mixed
+noclickthrough=yes
+
+// 1465:13
+[run_container]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=run_layer
+graphic=rs3_minimap_classic_ring_41px
+colour=0xffffff
+
+// 1465:14
+[run_background]
+type=graphic
+width=34
+height=34
+xmode=abs_centre
+ymode=abs_centre
+layer=run_layer
+graphic=navigation_backing_energy
+colour=0xffffff
+transmitop1=yes
+transmitop2=yes
+op1=Toggle Run
+op2=Toggle Rest
+onload=topstat_run_button_init(event_com)
+onmouseleave=script8805
+onmouserepeat=script8799("Run Energy", event_com, -1)
+onvarctransmit=topstat_run_button_update(event_com)
+onvarctransmitlist=option_run_status_varc
+
+// 1465:15
+[run_circle]
+type=graphic
+width=34
+height=34
+xmode=abs_centre
+ymode=abs_centre
+layer=run_layer
+graphic=navigation_backing_energy
+colour=0xffffff
+
+// 1465:16
+[run_background_1]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=run_layer
+graphic=navigation_energy_click_area
+colour=0xffffff
+onmouseover=graphic_swapper(event_com, navigation_highlight_energy)
+onmouseleave=graphic_swapper(event_com, navigation_energy_click_area)
+onclick=graphic_swapper(event_com, null)
+
+// 1465:17
+[run_hide]
+type=graphic
+width=28
+height=28
+xmode=abs_centre
+ymode=abs_centre
+layer=run_layer
+graphic=navigation_level_energy_circle
+tiling=yes
+colour=0xffffff
+
+// 1465:18
+[run_graphic]
+type=graphic
+width=22
+height=28
+xmode=abs_centre
+ymode=abs_centre
+layer=run_layer
+graphic=navigation_icon_energy_off
+colour=0xffffff
+onload=script2304(toplevel_v2_minimap:run_background, toplevel_v2_minimap:run_hide, toplevel_v2_minimap:run_text)
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1465:19
+[run_text]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=run_layer
+textfont=notosans_11
+text=100%
+textalignh=1
+textalignv=1
+textshadow=yes
+onload=script1019(event_com)
+
+// 1465:20
+[home_teleport_layer]
+type=layer
+y=1
+width=38
+height=38
+ymode=abs_bottom
+layer=minimap_hud_mixed
+noclickthrough=yes
+
+// 1465:21
+[world_map_layer]
+type=layer
+y=1
+width=38
+height=38
+xmode=abs_right
+ymode=abs_bottom
+layer=minimap_hud_mixed
+noclickthrough=yes
+
+// 1465:22
+[clock_layer]
+type=layer
+y=-1
+width=94
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=minimap_hud_mixed
+noclickthrough=yes
+
+// 1465:23
+[minimap_circle_move_layer]
+type=layer
+width=94
+height=32
+layer=clock_layer
+noclickthrough=yes
+onload=script3421(event_com, -1, 1004)
+
+// 1465:24
+[clock_background_graphic]
+type=graphic
+width=94
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=clock_layer
+noclickthrough=yes
+graphic=rs3_minimap_classic_ring_clock
+colour=0xffffff
+clickmask=no
+
+// 1465:25
+[slayer_counter]
+type=layer
+x=44
+y=1
+width=34
+height=34
+ymode=abs_bottom
+layer=minimap_hud_mixed
+hide=yes
+noclickthrough=yes
+transmitop1=yes
+op1=Toggle Slayer Counter
+onmouseleave=script8805
+onmouserepeat=script8799("Slayer Counter", event_com, -1)
+
+// 1465:26
+[telemetry]
+type=layer
+x=4
+y=1
+width=34
+height=34
+ymode=abs_bottom
+layer=minimap_hud_mixed
+hide=yes
+noclickthrough=yes
+transmitop1=yes
+transmitop2=yes
+transmitop3=yes
+transmitop4=yes
+op1=Toggle Metrics
+op2=RuneMetrics Settings
+op3=Open Graphs
+op4=Open Drops
+onmouseleave=script8805
+onvartransmit=script20498
+onop=script12601(event_op)
+onmouserepeat=script8799("RuneMetrics", event_com, -1)
+onvartransmitlist=xpdisplay_base_var
+
+// 1465:27
+[xp_tracker]
+type=layer
+x=4
+y=1
+width=34
+height=34
+ymode=abs_bottom
+layer=minimap_hud_mixed
+hide=yes
+noclickthrough=yes
+transmitop1=yes
+transmitop2=yes
+transmitop3=yes
+op1=Toggle Metrics
+op2=Toggle XP Popups
+op3=Metrics Settings
+onmouseleave=script8805
+onop=script9897(event_op)
+onmouserepeat=script8799("Metrics", event_com, -1)
+
+// 1465:28
+[clock_container_layer]
+type=layer
+width=4
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=clock_layer
+onload=script18280(toplevel_v2_minimap:clock_text)
+onvartransmit=script18281(toplevel_v2_minimap:clock_text)
+onvartransmitlist=toplevel_v2_general_varp_2,clock_time_date_minutes
+
+// 1465:29
+[event_alert_layer]
+type=layer
+x=5
+width=18
+height=18
+xmode=abs_right
+ymode=abs_centre
+layer=clock_layer
+noclickthrough=yes
+onmouserepeat=script1272(event_com)
+
+// 1465:30
+[clock_text]
+type=text
+x=26
+width=48
+height=26
+widthmode=minus
+ymode=abs_centre
+layer=clock_container_layer
+noclickthrough=yes
+textfont=notosans_14
+text=23:59
+textalignh=1
+textalignv=1
+textshadow=yes
+onmouserepeat=script11066(event_com)
+
+// 1465:31
+[calendar_icon]
+type=graphic
+width=26
+height=26
+ymode=abs_centre
+layer=clock_container_layer
+noclickthrough=yes
+graphic="sept16_icon_calendar,0"
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+op1=Open Calendar
+onmouseover=graphic_swapper(event_com, "sept16_icon_calendar,1")
+onmouseleave=graphic_swapper(event_com, "sept16_icon_calendar,0")
+onmouserepeat=script8799("Calendar", event_com, -1)
+
+// 1465:32
+[home_teleport_container]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=home_teleport_layer
+graphic=rs3_minimap_classic_ring_38px
+colour=0xffffff
+
+// 1465:33
+[home_teleport]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=home_teleport_layer
+graphic="aif_magic_standard_icons,1"
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+transmitop2=yes
+op1=Open Lodestone Network
+op2=Teleport Previous Destination
+onload=script5841(event_com)
+onmouseover=graphic_swapper(event_com, navigation_icon_teleport_over)
+onmouseleave=graphic_swapper(event_com, navigation_icon_teleport_on)
+onvartransmit=script5841(event_com)
+onmouserepeat=script8799("Home Teleport", event_com, -1)
+onvartransmitlist=thas_teleport_hubs_var1
+
+// 1465:34
+[com_34]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=event_alert_layer
+graphic=rs3_icon_info
+colour=0xffffff
+clickmask=no
+
+// 1465:35
+[alert_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=event_alert_layer
+hide=yes
+textfont=p11_full
+textshadow=yes
+
+// 1465:36
+[slayer_counter_background]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=slayer_counter
+graphic=rs3_minimap_classic_ring_30px
+colour=0xffffff
+onmouseover=graphic_swapper(toplevel_v2_minimap:slayer_counter_graphic, "trh56_icon_slayer_xp,1")
+onmouseleave=graphic_swapper(toplevel_v2_minimap:slayer_counter_graphic, "trh56_icon_slayer_xp,0")
+
+// 1465:37
+[slayer_counter_graphic]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=slayer_counter
+graphic="trh56_icon_slayer_xp,0"
+colour=0xffffff
+
+// 1465:38
+[xp_tracker_background]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=xp_tracker
+graphic=rs3_minimap_classic_ring_30px
+colour=0xffffff
+onmouseover=graphic_swapper(toplevel_v2_minimap:xp_tracker_graphic, "rs3_icon_menu_runemetrics_metrics,1")
+onmouseleave=graphic_swapper(toplevel_v2_minimap:xp_tracker_graphic, "rs3_icon_menu_runemetrics_metrics,0")
+
+// 1465:39
+[xp_tracker_graphic]
+type=graphic
+width=26
+height=22
+xmode=abs_centre
+ymode=abs_centre
+layer=xp_tracker
+graphic="rs3_icon_menu_runemetrics_metrics,0"
+colour=0xffffff
+
+// 1465:40
+[compass_container]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=compass_layer
+graphic=rs3_minimap_classic_ring_41px
+colour=0xffffff
+clickmask=no
+
+// 1465:41
+[telemetry_legacy_container]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=telemetry
+graphic=rs3_minimap_classic_ring_30px
+colour=0xffffff
+
+// 1465:42
+[telemetry_graphic]
+type=graphic
+width=24
+height=24
+xmode=abs_centre
+ymode=abs_centre
+layer=telemetry
+graphic="rs3_icon_menu_tab_runemetrics,0"
+colour=0xffffff
+clickmask=no
+onmouseover=graphic_swapper(event_com, "rs3_icon_menu_tab_runemetrics,1")
+onmouseleave=graphic_swapper(event_com, "rs3_icon_menu_tab_runemetrics,0")
+

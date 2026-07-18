@@ -1,0 +1,37 @@
+// 12633
+[proc,script12633](int $int0, int $int1)(int, int, int, int)
+def_int $int2 = -1;
+def_int $int3 = -1;
+switch_int (cc_param(rs3tli_component_oscillation_type)) {
+    case 0, 1, 2, 3, 4 :
+        $int2 = cc_param(rs3tli_component_anchor_pos_x);
+        if ($int2 = ^min_32bit_int) {
+            $int2 = cc_getx;
+        }
+        $int3 = cc_param(rs3tli_component_anchor_pos_y);
+        if ($int3 = ^min_32bit_int) {
+            $int3 = cc_gety;
+        }
+    case default :
+        $int2 = cc_getx;
+        $int3 = cc_gety;
+}
+def_int $setposh4 = cc_param(rs3tli_component_target_align_x);
+def_int $setposv5 = cc_param(rs3tli_component_target_align_y);
+switch_int ($setposh4) {
+    case ^setpos_abs_centre :
+        $int2 = calc($int2 - $int0 / 2 + cc_getwidth / 2);
+    case ^setpos_abs_right :
+        $int2 = calc($int0 - ($int2 + cc_getwidth));
+    case default :
+        $setposh4 = ^setpos_abs_left;
+}
+switch_int ($setposv5) {
+    case ^setpos_abs_centre :
+        $int3 = calc($int3 - $int1 / 2 + cc_getheight / 2);
+    case ^setpos_abs_bottom :
+        $int3 = calc($int1 - ($int3 + cc_getheight));
+    case default :
+        $setposv5 = ^setpos_abs_top;
+}
+return($int2, $int3, $setposh4, $setposv5);

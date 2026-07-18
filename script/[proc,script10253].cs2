@@ -1,0 +1,11 @@
+// 10253
+[proc,script10253](int $int0)(int, int)
+def_int $int1 = calc($int0 % (360 * 7));
+def_int $int2 = 15;
+if ($int1 >= calc(360 * 3)) {
+    $int2 = calc($int2 / pow(2, calc(($int1 - 360 * 3) / 180 + 1)));
+    if ($int2 = 0) {
+        return(0, $int1);
+    }
+}
+return(~invert(scale(scale(65536, 360, $int2), 100, enum(int, int, sin_deg2percentage_enum, calc($int1 % 360)))), $int1);

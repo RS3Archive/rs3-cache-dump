@@ -1,0 +1,33 @@
+// 13739
+[proc,graphics_options_choosesetting](int $int0, enum $enum1, int $int2)
+def_int $int3 = 0;
+switch_toplevelinterface (if_gettop) {
+    case toplevel_v2 :
+        $int3 = 1;
+    case lobbyscreen :
+        $int3 = 2;
+    case default :
+        $int3 = 0;
+}
+def_struct $struct4 = null;
+if ($enum1 = graphics_options_fullscreen_resolution) {
+    $struct4 = graphics_options_fullscreenresolutions;
+} else {
+    $struct4 = enum(int, struct, $enum1, $int2);
+}
+if ($struct4 = null) {
+    return;
+}
+sound_vorbis_volume(tli_click_01, 1, 0, 100);
+def_int $int5 = ~graphics_options_detailset($struct4, $int0, $int3);
+if ($int5 = 0) {
+    if ($struct4 = graphics_options_fullscreenresolutions) {
+        setwindowmode(getdefaultwindowmode);
+        ~graphics_options_message($int3, 0, "RuneScape was unable to change to that resolution.<br><br>Please visit our website for more information.");
+    } else {
+        ~graphics_options_message($int3, 1, "RuneScape was unable to implement that setting.<br><br>Please visit our website for more information.");
+    }
+} else if ($struct4 ! graphics_options_fullscreenresolutions & autosetup_getlevel ! 0) {
+    autosetup_setcustom;
+}
+~graphics_options_rebuild(getwindowmode, ~graphics_options_reviewoptions, $int3);

@@ -1,0 +1,139 @@
+// 548
+[clientscript,stats_update](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, stat $stat8, component $component9, component $component10, int $int11)
+$component10 = toplevel_v2:tooltips_layer;
+if (%stats_mouseover = 0) {
+    return;
+}
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $intbool14 = ^false;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_string $string0 = "";
+def_enum $enum21 = ~script12289($stat8);
+def_int $int22 = enum(stat, int, stat_to_statcap, $stat8);
+def_string $string1 = "<enum(stat, string, stat_to_string, $stat8)>: <tostring(stat($stat8))>/<tostring(stat_base_actual($stat8))>";
+if (~script11868($stat8) = 1) {
+    $string1 = "<enum(stat, string, stat_to_string, $stat8)>: <tostring(~script11863($stat8))>/<tostring(~script11862($stat8))>";
+}
+def_int $int23 = 0;
+switch_stat ($stat8) {
+    case attack :
+        $int23 = %bonusxp_attack;
+    case strength :
+        $int23 = %bonusxp_strength;
+    case defence :
+        $int23 = %bonusxp_defence;
+    case magic :
+        $int23 = %bonusxp_magic;
+    case ranged :
+        $int23 = %bonusxp_ranged;
+    case prayer :
+        $int23 = %bonusxp_prayer;
+    case summoning :
+        $int23 = %bonusxp_summoning;
+    case mining :
+        $int23 = %bonusxp_mining;
+    case smithing :
+        $int23 = %bonusxp_smithing;
+    case crafting :
+        $int23 = %bonusxp_crafting;
+    case woodcutting :
+        $int23 = %bonusxp_woodcutting;
+    case farming :
+        $int23 = %bonusxp_farming;
+    case firemaking :
+        $int23 = %bonusxp_firemaking;
+    case fishing :
+        $int23 = %bonusxp_fishing;
+    case cooking :
+        $int23 = %bonusxp_cooking;
+    case dungeoneering :
+        $int23 = %bonusxp_dungeoneering;
+    case slayer :
+        $int23 = %bonusxp_slayer;
+    case runecraft :
+        $int23 = %bonusxp_runecrafting;
+    case hunter :
+        $int23 = %bonusxp_hunter;
+    case thieving :
+        $int23 = %bonusxp_thieving;
+    case construction :
+        $int23 = %bonusxp_construction;
+    case hitpoints :
+        $int23 = %bonusxp_hitpoints;
+    case agility :
+        $int23 = %bonusxp_agility;
+    case fletching :
+        $int23 = %bonusxp_fletching;
+    case herblore :
+        $int23 = %bonusxp_herblore;
+    case divination :
+        $int23 = %bonusxp_divination;
+    case invention :
+        $int23 = %bonusxp_invention;
+    case archaeology :
+        $int23 = %bonusxp_archaeology;
+    case necromancy :
+        $int23 = %bonusxp_necromancy;
+}
+if (cc_find($component10, $int0) = true & parawidth($string1, 190, p12_full) < cc_getwidth & %stats_mouseover = ~script11860($stat8)) {
+    cc_settext($string1);
+    if (cc_find($component10, $int1) = true) {
+        cc_settext(tostring_localised(stat_visible_xp_actual($stat8), true));
+    }
+    if (~script11860($stat8) < $int22 & cc_find($component10, $int2) = true) {
+        cc_settext(tostring_localised(calc(enum(int, int, $enum21, calc(~script11860($stat8) + 1)) - stat_visible_xp_actual($stat8)), true));
+    }
+    if ($int23 > 0 & cc_find($component10, $int3) = true) {
+        cc_settext(tostring_localised(calc($int23 / 10), true));
+    }
+    if (~script4036(enum(stat, int, stat_to_int, $stat8)) = ^true) {
+        $intbool14, $int12, $int13 = ~script4037(enum(stat, int, stat_to_int, $stat8));
+        $int19 = $int12;
+        if ($intbool14 = ^true) {
+            $int19 = enum(int, int, $enum21, $int12);
+        }
+        $int20 = max(0, calc($int19 - stat_visible_xp_actual($stat8)));
+        $string0 = tostring_localised($int20, true);
+        if (cc_find($component10, $int6) = true) {
+            if ($intbool14 = ^true) {
+                $int17 = enum(int, int, $enum21, $int13);
+                $int18 = enum(int, int, $enum21, $int12);
+                if (calc($int18 - $int17) ! 0) {
+                    $int15 = scale(calc(stat_visible_xp_actual($stat8) - $int17), calc($int18 - $int17), 100);
+                } else {
+                    $int15 = -1;
+                }
+            } else if (calc($int12 - $int13) ! 0) {
+                $int15 = scale(calc(stat_visible_xp_actual($stat8) - $int13), calc($int12 - $int13), 100);
+            } else {
+                $int15 = -1;
+            }
+            if ($int15 > 100) {
+                $int15 = 100;
+            }
+            $int15 = max($int15, 0);
+            $int16 = calc($int15 * ($int7 - 4));
+            $int16 = calc($int16 / 100);
+            cc_setsize($int16, 16, ^setsize_abs, ^setsize_abs);
+            if (cc_find($component10, $int5) = true) {
+                if ($int15 > 47) {
+                    cc_setcolour(^black);
+                }
+                cc_settext("<tostring($int15)>%");
+            }
+            if (cc_find($component10, $int4) = true) {
+                cc_settext($string0);
+            }
+        }
+    }
+    return;
+}
+cc_deleteall($component10);
+%stats_mouseover = stat_base_actual($stat8);
+~stats_mouseover_create($component9, $int11, $stat8, 0);

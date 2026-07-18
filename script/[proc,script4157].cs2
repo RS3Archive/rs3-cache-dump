@@ -1,0 +1,24 @@
+// 4157
+[proc,script4157]()(int)
+if (oc_category(%follower_obj) = mtx_pet & oc_param(%follower_obj, mtxmgt_pet_legendary) = 1) {
+    return(5);
+}
+if (oc_param(%follower_obj, object_pet) = true) {
+    return(6);
+}
+db_find(lore:col5, %follower_obj);
+def_dbrow $dbrow0 = db_findnext;
+if ($dbrow0 = null) {
+    switch_int (~follower_type) {
+        case 1 :
+            return(1);
+        case 2, 3, 4 :
+            return(6);
+        case 5 :
+            return(7);
+        case default :
+            return(8);
+    }
+} else {
+    return(db_getfield($dbrow0, lore:col0, 0));
+}

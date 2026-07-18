@@ -1,0 +1,40 @@
+// 13339
+[proc,cheevo_update_pin](component $component0, int $int1, achievement $achievement2)
+def_string $string0 = "Pin Achievement";
+def_string $string1 = "Pin";
+def_int $int3 = 1;
+def_graphic $graphic4 = "achievement_icon_pin_14px,0";
+def_graphic $graphic5 = "achievement_icon_pin_14px,1";
+def_graphic $graphic6 = "achievement_icon_pin_14px,2";
+def_int $int7 = 0;
+def_int $int8 = 0;
+if (~script15325($achievement2) > -1) {
+    $string0 = "Unpin Achievement";
+    $string1 = "Unpin";
+    $int3 = 2;
+    $graphic4 = "achievement_icon_pinned_14px,0";
+    $graphic5 = "achievement_icon_pinned_14px,1";
+    $graphic6 = "achievement_icon_pinned_14px,2";
+    $int7 = 1;
+} else if (~script8230 = false) {
+    $int8 = 1;
+    $graphic4 = "achievement_icon_pin_14px,4";
+}
+cc_clearops;
+cc_clearscripthooks;
+cc_setonvartransmit("cheevo_update_pin($component0, $int1, $achievement2){activity_tracker_cheevo_1, activity_tracker_cheevo_2, activity_tracker_cheevo_3, activity_tracker_cheevo_4, activity_tracker_cheevo_5}");
+cc_setgraphic($graphic4);
+if ($int8 = 0) {
+    cc_setop($int3, $string1);
+    cc_setopcursor($int3, cursor_use);
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, $graphic5)");
+    cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, $graphic4)");
+    cc_setonclick("graphic_swapper_dynamic(event_com, event_comsubid, $graphic6)");
+    cc_setonrelease("graphic_swapper_dynamic(event_com, event_comsubid, $graphic5)");
+    if ($int7 = 1) {
+        cc_setonop("script13340");
+    } else {
+        cc_setonop("script13341");
+    }
+}

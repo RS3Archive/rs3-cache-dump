@@ -1,0 +1,31 @@
+// 1182
+[proc,lobby_friends_join](component $component0, int $int1)
+if (worldlist_fetch = false) {
+    if_setontimer("lobby_friends_join($component0, $int1)", $component0);
+    return;
+}
+if_setontimer(null, $component0);
+def_int $int2 = 0;
+def_string $string0 = "";
+def_int $int3 = 0;
+def_string $string1 = "";
+$int3, $string0, $int2, $string0, $int2, $int2, $string1 = worldlist_specific($int1);
+if ($int3 = -1) {
+    mes("Sorry, you can't join that person.");
+} else if (testbit($int3, 30) = ^true & ~script16823 = false & staffmodlevel < 2) {
+    mes("This world is for seasonal players only.");
+    return;
+} else if (testbit($int3, 30) = ^false & ~script16823 = true & staffmodlevel < 2) {
+    mes("This world is for non-seasonal players only.");
+    return;
+} else if (worldlist_switch($int1, $string1) = true) {
+    %loginscreen_pvp_warned = 0;
+    ~lobbyscreen_entergame(lobbyscreen:login_button);
+} else {
+    if (~is_mobile_client = false) {
+        ~script3686("Sorry, we couldn't contact world <tostring($int1)>.<br>Please choose a different world.");
+    } else {
+        ~script426("Sorry, we couldn't contact world <tostring($int1)>.<br>Please choose a different world.", lobbyscreen_pane_mobile_social:join_player_button, -1, 1);
+    }
+    mes("Sorry, we couldn't contact world <tostring($int1)>. Please choose a different world.");
+}

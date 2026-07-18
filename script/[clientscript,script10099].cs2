@@ -1,0 +1,69 @@
+// 10099
+[clientscript,script10099](int $int0, int $int1, int $int2)
+def_component $component3 = sb_overlay:small_spider;
+def_int $int4 = if_getwidth(sb_overlay:border_blur);
+def_int $int5 = if_getheight(sb_overlay:border_blur);
+def_int $int6 = 50;
+def_int $int7 = -50;
+def_int $int8 = -50;
+def_int $int9 = 1500;
+if ($int2 = 1) {
+    $component3 = sb_overlay:big_spider;
+    $int6 = 0;
+    $int9 = 1000;
+}
+def_int $int10 = if_getwidth($component3);
+def_int $int11 = if_getheight($component3);
+def_int $int12 = 0;
+switch_int ($int0) {
+    case 0 :
+        if ($int1 = 1) {
+            $int7 = $int4;
+            $int8 = $int6;
+            $int12 = 0;
+            if_setmodelangle(0, 0, 512, 512, 0, $int9, $component3);
+        } else {
+            $int7 = calc($int10 * -1);
+            $int8 = $int6;
+            $int12 = 1;
+            if_setmodelangle(0, 0, 512, 1536, 0, $int9, $component3);
+        }
+    case 1 :
+        if ($int1 = 1) {
+            $int7 = $int4;
+            $int8 = calc($int5 - $int11 - $int6);
+            $int12 = 0;
+            if_setmodelangle(0, 0, 512, 512, 0, $int9, $component3);
+        } else {
+            $int7 = calc($int10 * -1);
+            $int8 = calc($int5 - $int11 - $int6);
+            $int12 = 1;
+            if_setmodelangle(0, 0, 512, 1536, 0, $int9, $component3);
+        }
+    case 2 :
+        if ($int1 = 1) {
+            $int7 = $int6;
+            $int8 = $int5;
+            $int12 = 2;
+            if_setmodelangle(0, 0, 512, 1024, 0, $int9, $component3);
+        } else {
+            $int7 = $int6;
+            $int8 = calc($int11 * -1);
+            $int12 = 3;
+            if_setmodelangle(0, 0, 512, 0, 0, $int9, $component3);
+        }
+    case 3 :
+        if ($int1 = 1) {
+            $int7 = calc($int4 - $int10 - $int6);
+            $int8 = $int5;
+            $int12 = 2;
+            if_setmodelangle(0, 0, 512, 1024, 0, $int9, $component3);
+        } else {
+            $int7 = calc($int4 - $int10 - $int6);
+            $int8 = calc($int11 * -1);
+            $int12 = 3;
+            if_setmodelangle(0, 0, 512, 0, 0, $int9, $component3);
+        }
+}
+if_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top, $component3);
+if_setontimer("script10100($int12, $component3, $int4, $int5)", sb_overlay:spider_controller);

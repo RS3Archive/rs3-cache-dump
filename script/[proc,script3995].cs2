@@ -1,0 +1,52 @@
+// 3995
+[proc,script3995]
+if (%mtxfair17_chinchompa_prize_index = 0 | %mtxfair17_chinchompa_prize_type = 0) {
+    return;
+}
+def_obj $obj0 = null;
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_string $string0 = "";
+def_enum $enum3 = null;
+switch_int (%mtxfair17_chinchompa_prize_type) {
+    case 1 :
+        $obj0 = enum(int, obj, mtxfair17_chinchompa_prize_lol, %mtxfair17_chinchompa_prize_index);
+        $int2 = enum(int, int, mtxfair17_chinchompa_prize_lol_amount, %mtxfair17_chinchompa_prize_index);
+        $string0 = enum(int, string, mtxfair17_chinchompa_prize_lol_desc, %mtxfair17_chinchompa_prize_index);
+    case 2 :
+        $obj0 = enum(int, obj, mtxfair17_chinchompa_prize_mystery, %mtxfair17_chinchompa_prize_index);
+        $int2 = enum(int, int, mtxfair17_chinchompa_prize_mystery_amount, %mtxfair17_chinchompa_prize_index);
+        $string0 = enum(int, string, mtxfair17_chinchompa_prize_mystery_desc, %mtxfair17_chinchompa_prize_index);
+    case 3 :
+        switch_int (%mtxfair17_chinchompa_prize_struct) {
+            case 1 :
+                $enum3 = mtxfair17_chinchompa_prize_chinchompa_week_1;
+            case 2 :
+                $enum3 = mtxfair17_chinchompa_prize_chinchompa_week_2;
+            case 3 :
+                $enum3 = mtxfair17_chinchompa_prize_chinchompa_week_3;
+            case 4 :
+                $enum3 = mtxfair17_chinchompa_prize_chinchompa_week_4;
+            case default :
+                return;
+        }
+        $struct1 = enum(int, struct, $enum3, %mtxfair17_chinchompa_prize_index);
+        $int2 = 1;
+    case default :
+        return;
+}
+if (%mtxfair17_chinchompa_prize_type = 3) {
+    if ($struct1 = null) {
+        return;
+    }
+    if_settext(struct_param($struct1, mtxmgt_name), mtxfair17_chinchompa:prize_name_and_amount);
+    if_settext(struct_param($struct1, rewardshop_tooltip), mtxfair17_chinchompa:prize_description);
+} else {
+    if ($obj0 = null) {
+        return;
+    }
+    if_settext("<tostring($int2)>x <oc_name($obj0)>", mtxfair17_chinchompa:prize_name_and_amount);
+    if_settext($string0, mtxfair17_chinchompa:prize_description);
+}
+sound_vorbis_volume(sliske1_page_turn_02, 1, 0, 100);
+if_sethide(false, mtxfair17_chinchompa:prize_claim_layer);

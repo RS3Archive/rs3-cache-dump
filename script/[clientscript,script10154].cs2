@@ -1,0 +1,21 @@
+// 10154
+[clientscript,script10154]
+def_int $int0 = -1;
+def_string $string0 = "";
+if (calc(clientclock % 50) = 0) {
+    $int0 = ttv_stream_getquality;
+    if ($int0 = 1) {
+        $string0 = "Your internet connection and/or computer is having minor difficulty broadcasting. If this persists, we recommend that you lower the bandwidth usage setting and try again.";
+        if_sethide(false, twitch_stream:quality_warning);
+        if_sethide(true, twitch_stream:quality_error);
+        if_setonmouserepeat("script8799($string0, twitch_stream:quality_warning, -1)", twitch_stream:quality_warning);
+    } else if ($int0 = 2) {
+        if_sethide(true, twitch_stream:quality_warning);
+        if_sethide(false, twitch_stream:quality_error);
+        $string0 = "Your internet connection and/or computer is unable to broadcast and may stop broadcasting entirely. We recommend that you lower the bandwidth usage setting and try again.";
+        if_setonmouserepeat("script8799($string0, twitch_stream:quality_error, -1)", twitch_stream:quality_error);
+    } else {
+        if_sethide(true, twitch_stream:quality_warning);
+        if_sethide(true, twitch_stream:quality_error);
+    }
+}

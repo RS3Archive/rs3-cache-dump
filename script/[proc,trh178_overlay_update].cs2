@@ -1,0 +1,61 @@
+// 16487
+[proc,trh178_overlay_update]
+def_int $int0 = -1;
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+def_dbrow $dbrow4 = null;
+def_int $rgb5 = ^black;
+~trh178_set_chest;
+switch_int (%trh178_vault) {
+    case 44 :
+        $graphic1 = "trh178_progress_bar,1";
+        $graphic3 = trh178_emerald_lock;
+        $graphic2 = trh178_emerald_lock_open;
+        $dbrow4 = trh_prize_generation_emerald_vault_trh178;
+        $rgb5 = ^green;
+    case 45 :
+        $graphic1 = "trh178_progress_bar,2";
+        $graphic3 = trh178_ruby_lock;
+        $graphic2 = trh178_ruby_lock_open;
+        $dbrow4 = trh_prize_generation_ruby_vault_trh178;
+        $rgb5 = ^red;
+    case 46 :
+        $graphic1 = "trh178_progress_bar,3";
+        $graphic3 = trh178_diamond_lock;
+        $graphic2 = trh178_diamond_lock_open;
+        $dbrow4 = trh_prize_generation_diamond_vault_trh178;
+        $rgb5 = ^white;
+    case 78 :
+        $graphic1 = "trh178_progress_bar,1";
+        $graphic3 = trh178_dragonstone_lock;
+        $graphic2 = trh178_dragonstone_lock_open;
+        $dbrow4 = trh_prize_generation_dragonstone_vault_trh178;
+        $rgb5 = ^green;
+    case 79 :
+        $graphic1 = "trh178_progress_bar,2";
+        $graphic3 = trh178_onyx_lock;
+        $graphic2 = trh178_onyx_lock_open;
+        $dbrow4 = trh_prize_generation_onyx_vault_trh178;
+        $rgb5 = ^red;
+    case 80 :
+        $graphic1 = "trh178_progress_bar,3";
+        $graphic3 = trh178_hydrix_lock;
+        $graphic2 = trh178_hydrix_lock_open;
+        $dbrow4 = trh_prize_generation_hydrix_vault_trh178;
+        $rgb5 = ^white;
+    case default :
+        return;
+}
+def_string $string0 = db_getfield(~trh_chest_get_dbrow(%trh178_vault), trh_chest:col1, 0);
+~script16498($dbrow4, trh178_overlay:prize_display_grid);
+if_setgraphic($graphic1, trh178_overlay:progress_bar_graphic);
+if_settext("You open your <$string0> and receive", trh178_overlay:prize_claim_title);
+if_setcolour($rgb5, trh178_overlay:light_flare);
+if_setcolour($rgb5, trh178_overlay:glow);
+if (%trh178_keys_required = 0) {
+    if_setgraphic($graphic2, trh178_overlay:progress_lock);
+} else {
+    if_setgraphic($graphic3, trh178_overlay:progress_lock);
+}
+~trh178_chest_setup;

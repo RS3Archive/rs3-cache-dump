@@ -1,0 +1,127 @@
+// 13663
+[clientscript,script13663]
+if (%invent_machine_id = 0) {
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "";
+db_find(invent_machine_table:col0, %invent_machine_id);
+def_dbrow $dbrow5 = db_findnext;
+def_int $int6 = db_getfield($dbrow5, invent_machine_table:col17, 0);
+def_int $int7 = db_getfield($dbrow5, invent_machine_table:col10, 0);
+def_obj $obj8 = null;
+def_int $int9 = 0;
+def_obj $obj10 = null;
+def_int $int11 = 0;
+def_int $int12 = db_getfieldcount($dbrow5, invent_machine_table:col19);
+def_int $int13 = db_getfield($dbrow5, invent_machine_table:col22, 0);
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+if ($int7 = 2 & %invent_machine_batches_stored > 0) {
+    $int17 = scale(%invent_machine_batches_stored, $int6, 100);
+    $int18 = %invent_machine_batches_stored;
+} else {
+    $int17 = scale(%invent_machine_amount_stored, $int6, 100);
+    $int18 = %invent_machine_amount_stored;
+}
+if (calc($int17 % 100) > 0) {
+    $int17 = calc($int17 + 100);
+}
+$int17 = calc($int17 / 100);
+$int17 = calc($int17 * $int13);
+if ($int12 > 0) {
+    $obj8, $int9 = db_getfield($dbrow5, invent_machine_table:col19, 0);
+    if ($int12 > 1) {
+        $obj10, $int11 = db_getfield($dbrow5, invent_machine_table:col19, 1);
+    }
+}
+def_int $int19 = 0;
+if (%invent_machine_amount_stored = 0 | calc(^max_32bit_int - 60 * %invent_machine_amount_stored / ($int6 * (60 / 60))) < 0) {
+    $int19 = 1;
+}
+if (%invent_machine_amount_stored > 0) {
+    if ($obj8 ! null) {
+        if (%invent_machine_secondary_1 < $int9) {
+            $int19 = 1;
+        } else {
+            $int14 = calc(%invent_machine_secondary_1 / $int9);
+        }
+    }
+    if ($obj10 ! null) {
+        if (%invent_machine_secondary_2 < $int11) {
+            $int19 = 1;
+        } else {
+            $int15 = calc(%invent_machine_secondary_2 / $int11);
+        }
+    }
+    if (%invent_machine_charge_stored < $int13) {
+        $int19 = 1;
+    } else {
+        $int16 = calc(%invent_machine_charge_stored / $int13 * $int6);
+    }
+    if ($int7 = 2 & %invent_machine_batches_stored < 1) {
+        $int19 = 1;
+    }
+}
+if ($int19 = 0) {
+    if ($obj8 ! null) {
+        $int18 = min(%invent_machine_amount_stored, $int14);
+    }
+    if ($obj10 ! null) {
+        $int18 = min($int18, $int15);
+    }
+    $int18 = min($int18, $int16);
+    $int0 = calc(60 * $int18 / ($int6 * (60 / 60)));
+    if ($int0 < 60) {
+        $int3, $int4 = ~script10900(date_minutes);
+        $int3 = 0;
+        $int4 = calc(60 - $int4);
+    } else {
+        $int1 = calc($int0 / 10080);
+        $int2 = calc(($int0 - $int1 * 10080) / 1440);
+        $int3 = calc(($int0 - $int1 * 10080 - $int2 * 1440) / 60);
+        if (calc($int18 % $int6) = 0) {
+            $int3 = calc($int3 - 1);
+        }
+        $int0, $int4 = ~script10900(date_minutes);
+        $int4 = calc(60 - $int4);
+    }
+    $string0 = "<tostring($int4)> minutes";
+    if ($int3 > 0) {
+        $string0 = "<tostring($int3)> hours <$string0>";
+    }
+    if ($int2 > 0) {
+        $string0 = "<tostring($int2)> days <$string0>";
+    }
+    if ($int1 > 0) {
+        $string0 = "<tostring($int1)> weeks <$string0>";
+    }
+    if ($obj8 ! null & $int14 < %invent_machine_amount_stored | $obj10 ! null & $int15 < %invent_machine_amount_stored | %invent_machine_charge_stored < $int17) {
+        $string0 = "<col=ff0000>! <$string0> !</col>";
+    }
+} else if (%invent_machine_amount_stored = 0) {
+    $string0 = "<col=ff0000>! You have no items to process !</col>";
+} else if ($obj8 ! null & %invent_machine_secondary_1 < $int9) {
+    $string0 = "<col=ff0000>You have no: <oc_name($obj8)></col>";
+    if ($obj10 ! null & %invent_machine_secondary_2 < $int11) {
+        $string0 = "<$string0><col=ff0000>, <oc_name($obj10)></col>";
+    }
+} else if ($obj10 ! null & %invent_machine_secondary_2 < $int11) {
+    $string0 = "<col=ff0000>You have no: <oc_name($obj10)></col>";
+} else if (%invent_machine_charge_stored < $int13) {
+    $string0 = "<col=ff0000>You have no charge to process items</col>";
+} else if ($int7 = 2 & %invent_machine_batches_stored < 1 & %invent_machine_amount_stored > 0) {
+    $string0 = "<col=ff0000>You don't have enough batch items</col>";
+} else {
+    $string0 = "Lots!";
+}
+if (if_find(invent_machine_management:input_eta_text) = true) {
+    cc_settext($string0);
+}

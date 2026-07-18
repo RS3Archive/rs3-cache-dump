@@ -1,0 +1,28 @@
+// 7468
+[clientscript,diango_items_init]
+if (%holiday_items_tab = -1) {
+    %holiday_items_tab = 0;
+}
+~script3288;
+~diango_cancel_search;
+%p_dialog_listener = diango_items:text_input_listener;
+%p_dialog_mode = 0;
+%p_dialog_input = "";
+~rs3_scrollbar_vertical(diango_items:holiday_scrollbar, diango_items:holiday_items);
+def_string $string0 = "Diango's Item Retrieval";
+if (%diango_interface_mode = 1) {
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, diango_items:holiday_container);
+    if_sethide(true, diango_items:tabs_layer);
+    $string0 = "Quest Storage Chest";
+} else {
+    if_setsize(0, 40, ^setsize_minus, ^setsize_minus, diango_items:holiday_container);
+    if_sethide(false, diango_items:tabs_layer);
+}
+if (~script6431 = true) {
+    if_setposition(4, 4, ^setpos_abs_left, ^setpos_abs_top, diango_items:text_input_box);
+    if_setposition(4, 4, ^setpos_abs_left, ^setpos_abs_bottom, diango_items:holiday_area);
+}
+~script9554(diango_items:mainmodal_window_background, diango_items:mainmodal_window_border, diango_items:mainmodal_window_content, $string0, toplevel_v2_default_main_modal_skin_data);
+~script14436;
+~diango_resize(1);
+~script8841(94, 1);

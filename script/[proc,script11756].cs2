@@ -1,0 +1,14 @@
+// 11756
+[proc,script11756](dbrow $dbrow0, int $int1)
+if ($dbrow0 = null) {
+    return;
+}
+def_int $int2 = db_getfield($dbrow0, local_notification_event:col6, 0);
+switch_int (calc($int2 / 32)) {
+}
+if ($int1 = 1) {
+    %local_notification_toggle_event = setbit(%local_notification_toggle_event, $int2);
+} else {
+    %local_notification_toggle_event = clearbit(%local_notification_toggle_event, $int2);
+    ~local_notification_cancel($dbrow0);
+}

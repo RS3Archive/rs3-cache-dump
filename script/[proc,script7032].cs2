@@ -1,0 +1,265 @@
+// 7032
+[proc,script7032](int $int0, int $int1)
+def_enum $enum2 = null;
+def_int $int3 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+switch_int ($int1) {
+    case 1 :
+        $enum2 = pop_ship_hulls;
+        $string1 = "Hulls";
+    case 2 :
+        $enum2 = pop_ship_decks;
+        $string1 = "Deck Items 1";
+    case 3 :
+        $enum2 = pop_ship_decks;
+        $string1 = "Deck Items 2";
+    case 4 :
+        $enum2 = pop_ship_rudders;
+        $string1 = "Rudders";
+    case 5 :
+        $enum2 = pop_ship_rams;
+        $string1 = "Rams/Figureheads";
+}
+if ($int0 > 0 & $int1 > 0) {
+    $int3 = ~script1161($int0, $int1);
+}
+if_settext($string1, pop_ship:list_title);
+cc_deleteall(pop_ship:list_boxes);
+cc_deleteall(pop_ship:list_text);
+cc_deleteall(pop_ship:list_lock);
+cc_deleteall(pop_ship:list_boxes_click);
+cc_deleteall(pop_ship:list_scroll);
+if_sethide(true, pop_ship:list_scroll);
+if_sethide(true, pop_ship:list_layer);
+if ($enum2 = null | %pop_ship_voyage_state > 0) {
+    if_setopkey(1, ^key_escape, 0, pop_ship:close_button);
+    if_setopkey(1, 0, 0, pop_ship:list_closer);
+    return;
+}
+if_setopkey(1, 0, 0, pop_ship:close_button);
+if_setopkey(1, ^key_escape, 0, pop_ship:list_closer);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $intbool7 = ^false;
+def_int $int8 = 0;
+def_struct $struct9 = null;
+def_int $int10 = 0;
+def_int $int11 = 0;
+while ($int4 < enum_getoutputcount($enum2)) {
+    $struct9 = enum(int, struct, $enum2, $int4);
+    if ($struct9 = null) {
+        return;
+    }
+    $int8 = 0;
+    $int11 = struct_param($struct9, pop_ship_obsoleted_by);
+    switch_int ($int1) {
+        case 1 :
+            $intbool7 = testbit(%pop_ship_unlocked_hulls, $int4);
+            while ($int11 > 0) {
+                if (testbit(%pop_ship_unlocked_hulls, $int11) = ^true | $int4 = 0 & %pop_ship_unlocked_hulls ! 0) {
+                    $int8 = 1;
+                    $int11 = -2;
+                } else {
+                    $int11 = struct_param(enum(int, struct, pop_ship_hulls, $int11), pop_ship_obsoleted_by);
+                }
+            }
+        case 2, 3 :
+            $intbool7 = testbit(%pop_ship_unlocked_decks, $int4);
+            while ($int11 > 0) {
+                if (testbit(%pop_ship_unlocked_decks, $int11) = ^true) {
+                    $int8 = 1;
+                    $int11 = -2;
+                } else {
+                    $int11 = struct_param(enum(int, struct, pop_ship_decks, $int11), pop_ship_obsoleted_by);
+                }
+            }
+        case 4 :
+            $intbool7 = testbit(%pop_ship_unlocked_rudders, $int4);
+            while ($int11 > 0) {
+                if (testbit(%pop_ship_unlocked_rudders, $int11) = ^true) {
+                    $int8 = 1;
+                    $int11 = -2;
+                } else {
+                    $int11 = struct_param(enum(int, struct, pop_ship_rudders, $int11), pop_ship_obsoleted_by);
+                }
+            }
+        case 5 :
+            $intbool7 = testbit(%pop_ship_unlocked_rams, $int4);
+            while ($int11 > 0) {
+                if (testbit(%pop_ship_unlocked_rams, $int11) = ^true) {
+                    $int8 = 1;
+                    $int11 = -2;
+                } else {
+                    $int11 = struct_param(enum(int, struct, pop_ship_rams, $int11), pop_ship_obsoleted_by);
+                }
+            }
+    }
+    if ($int4 = $int3 | %pop_ship_collapse_list = 0) {
+        $int8 = 0;
+    }
+    if ($int8 = 0) {
+        $int5 = calc($int5 + 1);
+        ~script13998(pop_ship:list_boxes, pop_ship:list_boxes_click, rs3tli_3x3_button, 0, $int6, calc(if_getwidth(pop_ship:list_contents) - 5), 32, $int4, false, "", ~equal_int(%pop_ship_list_selected_var, $int4));
+    } else {
+        ~script10410(pop_ship:list_boxes, pop_ship:list_boxes_click, rs3tli_3x3_button, -1, -1, 1, 1, $int4, false, "");
+    }
+    cc_create(pop_ship:list_text, ^iftype_text, $int4);
+    cc_setcolour(^white);
+    cc_settext("   <struct_param($struct9, pop_ship_upgrade_name)>");
+    if ($int8 = 0) {
+        cc_setsize(if_getwidth(pop_ship:list_contents), 32, ^setsize_abs, ^setsize_abs);
+    } else {
+        cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+    }
+    cc_setposition(0, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 12);
+    if_setcolour(0xfaf2d6, pop_ship:cost_1_amount);
+    if_setcolour(0xfaf2d6, pop_ship:cost_2_amount);
+    cc_create(pop_ship:list_lock, ^iftype_graphic, $int4);
+    if ($intbool7 = ^false & $int8 = 0) {
+        $int10 = 1;
+        cc_setsize(12, 15, ^setsize_abs, ^setsize_abs);
+        cc_setposition(6, calc($int6 + (32 - 15) / 2), ^setpos_abs_right, ^setpos_abs_top);
+        switch_int (struct_param($struct9, pop_ship_upgrade_cost1type)) {
+            case 1 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_1) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 2 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_2) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 3 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_3) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 4 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_4) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 5 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_5) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 6 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_6) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 7 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_7) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 8 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_8) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+            case 9 :
+                if (struct_param($struct9, pop_ship_upgrade_cost1value) > %pop_port_resource_9) {
+                    if_setcolour(^red, pop_ship:cost_1_amount);
+                    $int10 = 0;
+                }
+        }
+        switch_int (struct_param($struct9, pop_ship_upgrade_cost2type)) {
+            case 1 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_1) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 2 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_2) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 3 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_3) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 4 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_4) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 5 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_5) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 6 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_6) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 7 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_7) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 8 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_8) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+            case 9 :
+                if (struct_param($struct9, pop_ship_upgrade_cost2value) > %pop_port_resource_9) {
+                    if_setcolour(^red, pop_ship:cost_2_amount);
+                    $int10 = 0;
+                }
+        }
+        if ($int10 = 0) {
+            cc_setgraphic("aif_clan_loyalty_lock,2");
+        } else {
+            cc_setgraphic("aif_clan_loyalty_lock,0");
+        }
+    } else {
+        if ($int4 = $int3) {
+            cc_setgraphic("aif_tick_cross_icon,0");
+        }
+        if ($int8 = 0) {
+            cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        } else {
+            cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+        }
+        cc_setposition(7, calc($int6 + (32 - 15) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    }
+    $int4 = calc($int4 + 1);
+    if ($int8 = 0) {
+        $int6 = calc($int6 + 32 + 5);
+    }
+}
+if_setscrollsize(0, $int6, pop_ship:list_contents);
+~rs3_scrollbar_vertical(pop_ship:list_scroll, pop_ship:list_contents);
+if_sethide(false, pop_ship:list_layer);
+if_sethide(true, pop_ship:crew_manager_layer);
+if_sethide(true, pop_ship:crew_compare_layer);
+if_sethide(false, pop_ship:crew_roster_open);
+if_sethide(true, pop_ship:crew_roster_close);
+if_sethide(true, pop_ship:active_voyage_send_layer);
+if ($int5 < 6) {
+    if_sethide(true, pop_ship:list_scroll);
+} else {
+    if_sethide(false, pop_ship:list_scroll);
+}
+switch_int ($int1) {
+    case 1 :
+        if_setposition(0, 17, ^setpos_abs_centre, ^setpos_abs_centre, pop_ship:list_layer);
+    case 2 :
+        if_setposition(-117, 17, ^setpos_abs_centre, ^setpos_abs_centre, pop_ship:list_layer);
+    case 3 :
+        if_setposition(125, 17, ^setpos_abs_centre, ^setpos_abs_centre, pop_ship:list_layer);
+    case 4 :
+        if_setposition(255, 17, ^setpos_abs_centre, ^setpos_abs_centre, pop_ship:list_layer);
+    case 5 :
+        if_setposition(-255, 17, ^setpos_abs_centre, ^setpos_abs_centre, pop_ship:list_layer);
+}

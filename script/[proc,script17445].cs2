@@ -1,0 +1,20 @@
+// 17445
+[proc,script17445](struct $struct0)(int)
+def_int $int1 = ~script17446($struct0);
+switch_struct ($struct0) {
+    case combatv2_ability_necromancy_finger_of_death :
+        $int1 = max(0, calc($int1 - 100 * %combatv2_buff_necromancy_necrosis_stacks));
+}
+switch_int (struct_param($struct0, combatv2_ability_parent_stat)) {
+    case 4 :
+        if ($int1 > 0 & %combatv2_buff_magic_greater_flow_charged_active = 1) {
+            $int1 = max(0, calc($int1 - 450));
+        } else if ($int1 > 0 & %combatv2_buff_magic_flow_charged_active = 1) {
+            $int1 = max(0, calc($int1 - 350));
+        } else if ($int1 > 0 & %combatv2_buff_magic_greater_flow_active = 1) {
+            $int1 = max(0, calc($int1 - 200));
+        } else if ($int1 > 0 & %combatv2_buff_magic_flow_active = 1) {
+            $int1 = max(0, calc($int1 - 100));
+        }
+}
+return($int1);

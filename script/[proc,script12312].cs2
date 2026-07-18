@@ -1,0 +1,22 @@
+// 12312
+[proc,script12312](int $int0, int $int1, int $int2)(int, int)
+if ($int2 > 0) {
+    if ($int0 <= calc(^max_32bit_int - $int2)) {
+        $int0 = calc($int0 + $int2);
+    } else if ($int1 < ^max_32bit_int) {
+        $int1 = calc($int1 + 1);
+        $int0 = calc(^min_32bit_int + $int0 - (^max_32bit_int - $int2) - 1);
+    } else {
+        $int0 = ^max_32bit_int;
+    }
+} else if ($int2 < 0) {
+    if ($int0 >= calc(^min_32bit_int - $int2)) {
+        $int0 = calc($int0 + $int2);
+    } else if ($int1 > ^min_32bit_int) {
+        $int1 = calc($int1 - 1);
+        $int0 = calc(^max_32bit_int + $int0 - (^min_32bit_int - $int2) + 1);
+    } else {
+        $int0 = ^min_32bit_int;
+    }
+}
+return($int0, $int1);

@@ -1,0 +1,167 @@
+// 9237
+[proc,script9237](component $component0, component $component1, component $component2, component $component3, inv $inv4, boolean $boolean5, int $int6, int $int7, int $int8)
+if ($component1 = null | $inv4 = null) {
+    return;
+}
+$int7 = max($int6, min($int7, calc(inv_size($inv4) - 1)));
+if ($component2 ! null) {
+    if_sethide(true, $component2);
+}
+def_component $component9 = if_getlayer($component1);
+def_int $int10 = 36;
+def_int $int11 = 32;
+def_int $int12 = $int10;
+def_int $int13 = $int11;
+if ($component0 ! null) {
+    if (%toplevel_v2_active_skinset ! 1) {
+        if_sethide(false, $component0);
+    } else {
+        if_sethide(true, $component0);
+    }
+    cc_deleteall($component0);
+    $int12 = 40;
+    $int13 = 36;
+}
+def_boolean $boolean14 = ~script6431;
+def_int $int15 = 2;
+def_int $int16 = 2;
+def_int $int17 = 2;
+def_int $int18 = 2;
+def_int $int19 = 2;
+def_int $int20 = 2;
+def_graphic $graphic21 = rs3_inventory_slot;
+def_int $int22 = 0;
+if ($boolean14 = true) {
+    switch_component ($component0) {
+        case lore_stats_side:inventory_slotlayer :
+            $int10 = 44;
+            $int11 = 39;
+            $int12 = 44;
+            $int13 = 44;
+        case house_furniture_trunk:inventory_slots :
+        case default :
+            $int10 = 44;
+            $int11 = 39;
+            $int12 = 44;
+            $int13 = 44;
+    }
+    $int15 = 2;
+}
+cc_deleteall($component1);
+if (if_find($component1) = true) {
+    cc_setparam(rs3_setup_interface_inv_inventory, $inv4);
+    cc_setparam(rs3_setup_interface_inv_scrollbar, $component3);
+    cc_setparam(rs3_setup_interface_inv_isinvother, $boolean5);
+}
+def_int $int23 = min(calc($int7 - $int6 + 1), inv_size($inv4));
+def_int $int24 = 0;
+def_int $int25 = 0;
+if ($component9 ! null) {
+    $int24 = if_getwidth($component9);
+    $int25 = if_getheight($component9);
+} else {
+    $int24 = if_getwidth($component1);
+    $int25 = if_getheight($component1);
+}
+def_int $int26 = calc($int10 + $int18);
+def_int $int27 = calc($int11 + 2 + $int15);
+if (%toplevel_v2_legacy_interface = 1 & ~script9931($component1, ~script8073) = true) {
+    $int16 = min(15, calc(($int25 - $int23 / 4 * $int27) / 2));
+    $int19 = max($int19, calc(($int24 - 5 * ($int26 + $int18)) / 2));
+    $int20 = 2;
+}
+def_int $int28 = $int23;
+if ($component1 = bank:inventory_click | $component1 = bank:bob_click | $component1 = lore_stats_side:inventory_invlayer & $int23 < 4 | $component1 = group_ironman_storage:inventory_click) {
+    $int28 = 4;
+}
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+$int29, $int30, $int31 = ~script9856(calc($int24 - $int20), $int26, calc($int19 + $int20), $int18);
+$int29 = min($int29, $int28);
+if ($int29 >= $int28) {
+    $int30 = max($int18, calc(($int24 - $int28 * $int12) / ($int28 + 2)));
+    $int31 = max($int30, $int19);
+    $int30 = calc($int30 + $int12);
+}
+def_int $int32 = 0;
+$int32 = max(1, calc($int23 / $int29));
+if (calc($int23 % $int29) > 0) {
+    $int32 = calc($int32 + 1);
+}
+def_int $int33 = 0;
+def_int $int34 = 0;
+if ($component9 ! null & $component3 ! null) {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component9);
+    if (calc($int32 * $int27) > calc($int25 + 5)) {
+        $int33 = 1;
+        if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component9);
+        if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, $component3);
+        if_setsize(16, if_getheight($component9), ^setsize_abs, ^setsize_abs, $component3);
+        if_sethide(false, $component3);
+        $int24 = if_getwidth($component9);
+        $int29, $int30, $int31 = ~script9856(calc($int24 - $int20), $int26, calc($int19 + $int20), $int18);
+        $int29 = min($int29, $int28);
+        if ($int29 >= $int28) {
+            $int30 = max($int18, calc(($int24 - $int28 * $int12) / ($int28 + 2)));
+            $int31 = max($int30, $int19);
+            $int30 = calc($int30 + $int12);
+        }
+        $int32 = max(1, calc($int23 / $int29));
+        if (calc($int23 % $int29) > 0) {
+            $int32 = calc($int32 + 1);
+        }
+        $int34 = calc($int32 * $int27 + $int16);
+        if_setscrollsize(0, $int34, $component9);
+        ~rs3_scrollbar_vertical($component3, $component9);
+    } else {
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component9);
+        if_setscrollsize(0, 0, $component9);
+        if_sethide(true, $component3);
+    }
+}
+def_int $int35 = 0;
+def_int $int36 = 0;
+def_int $int37 = -1;
+def_int $int38 = 0;
+def_int $intarray0($int29);
+while ($int35 < $int29) {
+    $intarray0($int35) = ~script9857($int30, $int19, $int31, $int35);
+    $int35 = calc($int35 + 1);
+}
+$int35 = 0;
+if ($component0 ! null) {
+    while ($int35 <= $int7) {
+        cc_create($component0, ^iftype_graphic, $int35);
+        .cc_create($component1, ^iftype_graphic, $int35);
+        if ($int35 >= $int6) {
+            cc_setsize($int12, $int13, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic($graphic21);
+            cc_settrans($int22);
+            cc_setposition(calc($intarray0(calc($int35 % $int29)) - 1), calc($int35 / $int29 * $int27 + $int16 - 1), ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize($int10, $int11, ^setsize_abs, ^setsize_abs);
+            .cc_setposition(calc($intarray0(calc($int35 % $int29)) + 3), calc($int35 / $int29 * $int27 + 1 + $int16), ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+            cc_sethide(true);
+            .cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+            .cc_sethide(true);
+        }
+        $int35 = calc($int35 + 1);
+    }
+} else {
+    while ($int35 <= $int7) {
+        cc_create($component1, ^iftype_graphic, $int35);
+        if ($int35 >= $int6) {
+            cc_setsize($int12, $int13, ^setsize_abs, ^setsize_abs);
+            if ($boolean14 = false) {
+                cc_setnoclickthrough(true);
+            }
+            cc_setposition(calc($intarray0(calc($int35 % $int29)) + 3), calc($int35 / $int29 * $int27 + 1 + $int16), ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+            cc_sethide(true);
+        }
+        $int35 = calc($int35 + 1);
+    }
+}

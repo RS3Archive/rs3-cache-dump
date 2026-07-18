@@ -1,0 +1,55 @@
+// 6801
+[proc,script6801](component $component0, component $component1, component $component2, component $component3)
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int4 = 0;
+def_int $int5 = 1;
+def_int $int6 = 120;
+def_string $string0 = "";
+if_settext("<tostring(~script2073)>/<tostring(~script2072)>", dino_base_camp:total_workers_text);
+if_settext("Max resources: <tostring_localised(~script6641, true)>", dino_base_camp:max_resources_text);
+while ($int5 <= 6) {
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(100, 24, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int6, 10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_13pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext("<tostring(calc(~script5844($int5) * 10 * (60 / 10)))>/hr");
+    ~script2733($component0, cc_getid, 3);
+    $string0 = "The amount of resources you will generate per hour";
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+    cc_setgraphic(icon_workers);
+    cc_setsize(54, 54, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int6 + 23), 34, ^setpos_abs_left, ^setpos_abs_top);
+    $int4 = if_getnextsubid($component3);
+    cc_create($component2, ^iftype_text, $int4);
+    cc_setsize(54, 54, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int6 + 23), 34, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setop(1, "Assign workers");
+    cc_create($component3, ^iftype_text, $int4);
+    cc_setsize(100, 24, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int6, 67, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_15pt_bold);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(tostring(~script5844($int5)));
+    cc_setcolour(^white);
+    ~script11605($component3, $component2, rs3tli_decrease_button_23px, calc($int6 + 25), 96, if_getnextsubid($component3), 1, "Decrease workers - 1", "", "");
+    if (cc_find($component2, calc(if_getnextsubid($component2) - 1)) = true) {
+        cc_setop(2, "Decrease workers - 5");
+        cc_setop(3, "Decrease workers - 10");
+        cc_setop(4, "Decrease workers - X");
+        cc_setop(5, "Decrease workers - All");
+    }
+    ~script11605($component3, $component2, rs3tli_increase_button_23px, calc($int6 + 55), 96, if_getnextsubid($component3), 1, "Increase workers - 1", "", "");
+    if (cc_find($component2, calc(if_getnextsubid($component2) - 1)) = true) {
+        cc_setop(2, "Increase workers - 5");
+        cc_setop(3, "Increase workers - 10");
+        cc_setop(4, "Increase workers - X");
+        cc_setop(5, "Increase workers - All");
+    }
+    $int6 = calc($int6 + 110);
+    $int5 = calc($int5 + 1);
+}

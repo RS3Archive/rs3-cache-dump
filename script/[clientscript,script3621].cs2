@@ -1,0 +1,28 @@
+// 3621
+[clientscript,script3621]
+if (%runepass_target_scroll = 0 & %runepass_scroll_start = 0) {
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+if_setgraphic(runepass_icon_scroll_default, runepass:slider_yak);
+if_setmouseovercursor(cursor_use, runepass:slider_yak);
+$int1 = calc(%runepass_target_scroll - %runepass_scroll_start);
+if ($int1 ! 0) {
+    $int2 = calc(%runepass_target_scroll - if_getscrolly(runepass:scrolling));
+    $int0 = calc($int1 / 50);
+    $int0 = calc(2 * $int0 * $int2 / $int1);
+    if ($int0 > 0) {
+        $int0 = min(max(25, $int0), $int2);
+    } else {
+        $int0 = max(min(calc(0 - 25), $int0), $int2);
+    }
+}
+if (abs($int0) < 5) {
+    %runepass_target_scroll = 0;
+    %runepass_scroll_start = 0;
+}
+%runepass_last_scroll = if_getscrolly(runepass:scrolling);
+if_setscrollpos(if_getscrollx(runepass:scrolling), calc(if_getscrolly(runepass:scrolling) + $int0), runepass:scrolling);
+~script3660(if_getscrolly(runepass:scrolling));

@@ -1,0 +1,29 @@
+// 18258
+[proc,script18258](boolean $boolean0)
+if_setgraphic(null, jobs_main:info_daily_stamp);
+if_setgraphic(null, jobs_main:info_skill_icon);
+if_settext("", jobs_main:job_name);
+if_sethide(true, jobs_main:pin_layer);
+if_sethide(true, jobs_main:tele_layer);
+if_sethide(true, jobs_main:objectives_layer);
+if_sethide(true, jobs_main:rewards_layer);
+if_sethide(true, jobs_main:buttons_layer);
+if_sethide(true, jobs_main:feedback_layer);
+~script18243;
+def_string $string0 = "You have completed all available Daily Challenges.";
+if ($boolean0 = false) {
+    if_sethide(false, jobs_main:feedback_layer);
+    if_settext("Challenges Completed!", jobs_main:feedback_heading);
+    if (%challenge_returner_active = 1) {
+        $string0 = "You have completed all available Returner Challenges.";
+    }
+    if_settext("<$string0><br>Come back tomorrow for new tasks to complete!", jobs_main:feedback_description);
+} else if (%omge_job_interface_id = 0) {
+    if_sethide(false, jobs_main:feedback_layer);
+    if_settext("Choose a Challenge", jobs_main:feedback_heading);
+    if (%challenge_returner_active = 1) {
+        if_settext("Select a returner challenge from the list on the left.", jobs_main:feedback_description);
+    } else {
+        if_settext("Select a daily challenge from the list on the left.", jobs_main:feedback_description);
+    }
+}

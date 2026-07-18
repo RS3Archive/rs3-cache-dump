@@ -1,0 +1,22 @@
+// 12068
+[proc,script12068](obj $obj0)(int)
+if (oc_param($obj0, invent_charge_drain_rate) ! -1) {
+    return(oc_param($obj0, invent_charge_drain_rate));
+}
+def_int $int1 = oc_param($obj0, invent_item_tier_override);
+if ($int1 = -1) {
+    $int1 = ~script7959($obj0);
+}
+def_int $int2 = 1575;
+if ($int1 >= 70) {
+    $int2 = calc(($int1 - 70) * 225 + 2250);
+}
+if (oc_wearpos($obj0) = 5) {
+    $int2 = scale($int2, 2, 1);
+} else if (oc_wearpos2($obj0) = 5) {
+    $int2 = scale($int2, 2, 3);
+}
+if (oc_param($obj0, invent_contraption_type) = 3) {
+    $int2 = calc($int2 / 4);
+}
+return($int2);

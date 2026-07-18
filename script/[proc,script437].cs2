@@ -1,0 +1,42 @@
+// 437
+[proc,script437](dbrow $dbrow0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)(int)
+if ($dbrow0 = null) {
+    ~error("$probability_dbrow was null, returning null.");
+    return(-1);
+}
+if (db_getrowtable($dbrow0) ! dbtable_35) {
+    ~error("$probability_dbrow was not of dbtable probability_distribution, returning null.");
+    return(-1);
+}
+if (db_getfieldcount($dbrow0, dbtable_35:col0) = 0) {
+    ~error("The non-null dbrow we are using has no outcomes, returning null.");
+    return(-1);
+}
+def_int $int7 = db_getfieldcount($dbrow0, dbtable_35:col0);
+def_int $intarray0($int7);
+def_int $intarray1($int7);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = -1;
+def_int $int11 = -1;
+while (++$int11 < $int7) {
+    $int9, $int10 = db_getfield($dbrow0, dbtable_35:col0, $int11);
+    if ($int9 ! $int1 & $int9 ! $int2 & $int9 ! $int3 & $int9 ! $int4 & $int9 ! $int5 & $int9 ! $int6) {
+        $int8 = calc($int8 + $int10);
+        $intarray0($int11) = $int8;
+        $intarray1($int11) = $int9;
+    }
+}
+if ($int8 = 0) {
+    ~error("We found a dbrow defined for the distribtuion but it had no probability data, returning null.");
+    return(-1);
+}
+def_int $int12 = random($int8);
+$int11 = -1;
+while (++$int11 < $int7) {
+    if ($int12 < $intarray0($int11)) {
+        return($intarray1($int11));
+    }
+}
+~error("Unable to find outcome for dbrow, returning null");
+return(-1);

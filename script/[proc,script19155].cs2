@@ -1,0 +1,21 @@
+// 19155
+[proc,script19155](string $string0, fontmetrics $fontmetrics0)(int)
+def_int $int1 = calc(1 + ~script15884($string0, " "));
+if ($int1 = 1) {
+    return(stringwidth($string0, $fontmetrics0));
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string1 = "";
+def_int $int5 = string_length($string0);
+while ($int3 ! $int5) {
+    $int4 = string_indexof_char($string0, ' ', $int3);
+    if ($int4 = -1) {
+        $int4 = $int5;
+    }
+    $string1 = substring($string0, $int3, $int4);
+    $int2 = max($int2, stringwidth($string1, $fontmetrics0));
+    $int3 = min(calc($int4 + 1), $int5);
+}
+return($int2);

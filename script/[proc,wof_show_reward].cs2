@@ -1,0 +1,49 @@
+// 6976
+[proc,wof_show_reward]
+~script3915;
+~script17165(~script16161, true);
+~script19064;
+if (%wof_reward_slot <= 0 & %trh_multispin_continue = 0) {
+    ~wof_show_wheel;
+    return;
+}
+def_struct $struct0 = ~script16161;
+if_sethide(true, wheel_of_fortune:chests_layer);
+if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+if_sethide(true, wheel_of_fortune:foreground_grey);
+if_sethide(false, wheel_of_fortune:reward_layer);
+if_sethide(true, wheel_of_fortune:play_again_layer);
+if_sethide(true, wheel_of_fortune:ticker_tooltip_layer);
+switch_struct ($struct0) {
+    case trh87_promo :
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_setgraphic(trh87_easter_background_leaf, wheel_of_fortune:background);
+    case trh104_promo :
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_setgraphic(trh104_background, wheel_of_fortune:background);
+        if_setgraphic(~trh104_get_map_graphic, trh104_overlay:background_map);
+    case trh109_promo :
+        ~script12906;
+    case trh169_promo :
+        if_setmodelanim(null, trh169_overlay:trh169_slime_model);
+    case trh93_promo, trh99_promo :
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+    case trh185_promo :
+        if (~script16682 = true) {
+            if_sethide(true, wheel_of_fortune:reward_layer);
+            if_sethide(false, trh_generic_jackpot_claim:prize_claim_overlay);
+        }
+    case trh182_promo, trh203_promo, trh207_promo :
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+        if_setgraphic(struct_param($struct0, trh_promo_background), wheel_of_fortune:background);
+    case default :
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+        if_setgraphic(struct_param($struct0, trh_promo_background), wheel_of_fortune:background);
+}
+~script3904;
+%wof_trh_interface_state = 4;
+~script16198(false, 82116873);
+if (%wof_mode = 0) {
+    sound_vorbis_volume(trh_reward_screen, 1, 0, 120);
+}
+~wof_reward_clear;

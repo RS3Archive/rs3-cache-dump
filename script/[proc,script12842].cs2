@@ -1,0 +1,19 @@
+// 12842
+[proc,script12842](int $int0)(int)
+if ($int0 = 21 & %skillguide_filter_set > 0) {
+    return(%skillguide_filter_set);
+}
+if (%gamearea_id ! 40) {
+    return(0);
+}
+def_enum $enum1 = enum(int, enum, skillguide_skill_filters, $int0);
+if ($enum1 = null) {
+    return(0);
+}
+def_int $int2 = enum_getoutputcount($enum1);
+while (--$int2 >= 0) {
+    if (compare("Dungeoneering", enum(int, string, $enum1, $int2)) = 0) {
+        return($int2);
+    }
+}
+return(0);

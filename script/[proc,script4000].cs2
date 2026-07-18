@@ -1,0 +1,17 @@
+// 4000
+[proc,script4000](obj $obj0)(int)
+def_int $int1 = oc_param($obj0, food_prayer_abs);
+def_int $int2 = oc_param($obj0, food_prayer_percent);
+if ($int2 > 0) {
+    if (inv_total(inv, deal_wrench_blessed) > 0 | inv_total(worn, deal_wrench_blessed) > 0) {
+        $int2 = calc($int2 + 2);
+    }
+    $int1 = calc($int1 + scale($int2, 100, ~script7081));
+}
+switch_obj ($obj0) {
+    case jaro_fruit_saradomin, jaro_fruit_guthix, jaro_fruit_zamorak :
+        if (%ecosystem_inarea = 0) {
+            return(0);
+        }
+}
+return($int1);

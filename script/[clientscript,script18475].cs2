@@ -1,0 +1,18 @@
+// 18475
+[clientscript,script18475](component $component0, int $int1)
+if_setonvartransmit("script18477{crm_braze_marketplace_spotlight_active}", mtx_front_end_spotlight:set_var_fake_op);
+def_string $string0 = "";
+if (cc_find($component0, 0) = true) {
+    switch_int ($int1) {
+        case 2 :
+            if (cc_crmview_contains("title_text") = true) {
+                $string0 = cc_crmview_getstring("title_text");
+            }
+            if_sethide(false, mtx_front_end_spotlight:crm_braze);
+            ~script18476(1);
+            if_settext($string0, mtx_front_end_spotlight:ccrm_text_braze);
+        case 3, 4, 5, 6 :
+            ~script18476(2);
+            if_sethide(true, mtx_front_end_spotlight:crm_braze);
+    }
+}

@@ -1,0 +1,33 @@
+// 12326
+[clientscript,script12326](component $component0, int $int1)
+if ($component0 = null) {
+    return;
+}
+if (%telemetry_graph_ids_changed ! 0) {
+    return;
+}
+def_int $int2 = 0;
+if (if_find($component0) = true) {
+    if (cc_param(telemetry_graph_display_type) ! %varclientbit_30621 | cc_param(telemetry_graph_display_zoom) ! %varclientbit_30622) {
+        return;
+    }
+    $int2 = cc_param(telemetry_graph_component_offset);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "<enum(int, string, telemetry_all_statistics, %varclientbit_30620)>:";
+def_string $string1 = "";
+if (cc_find($component0, $int1) = true) {
+    cc_settrans(0);
+    $int3 = cc_param(rs3tli_component_param_int0);
+    if ($int3 = ^max_32bit_int) {
+        $string0 = "<$string0> Max (";
+        $string1 = ")";
+    } else if ($int3 = ^min_32bit_int) {
+        $string0 = "<$string0> Min (";
+        $string1 = ")";
+    }
+    $int3 = ~script11853($int3, %varclientbit_30620);
+    $string0 = "<$string0> <~telemetry_get_text($int3, %varclientbit_30619, %varclientbit_30620, -1)><$string1>";
+    ~script8803($string0, 250, 0, $component0, $int1, museo_sans_11pt_regular_multiline, 0xe3d7cf);
+}

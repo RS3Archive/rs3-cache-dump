@@ -1,0 +1,84 @@
+// 13439
+[proc,script13439](int $int0, struct $struct1, int $int2)
+def_component $component3 = repmodal:progress_background_layer;
+def_int $int4 = 122880000;
+def_component $component5 = repmodal:progress_value_bounds_layer;
+def_int $int6 = 122880078;
+def_int $int7 = 122880083;
+def_component $component8 = repmodal:progress_rewards_layer;
+def_component $component9 = repmodal:progress_text_layer;
+def_enum $enum10 = struct_param($struct1, reputation_rewards);
+def_enum $enum11 = struct_param($struct1, reputation_tiers);
+def_int $int12 = 0;
+def_int $int13 = 1;
+def_int $int14 = 0;
+def_int $int15 = calc(if_getwidth($component3) - 50);
+def_int $int16 = calc(if_getwidth($component5) / 100);
+def_int $int17 = enum_getoutputcount($enum10);
+def_obj $obj18 = null;
+def_graphic $graphic19 = null;
+def_string $string0 = "";
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = ~script13431($int0);
+def_int $int25 = 44;
+$int24 = calc($int24 / 4250);
+def_struct $struct26 = null;
+cc_deleteall($component3);
+cc_deleteall($component8);
+while ($int20 < $int17) {
+    $obj18 = enum(int, obj, $enum10, $int20);
+    $graphic19 = oc_param($obj18, timed_event_reward_graphic);
+    $int12 = enum(int, int, $enum11, $int20);
+    $int14 = ~reputation_unlock_state($int20, $int0);
+    if ($int14 = 1) {
+        $int14 = 0;
+    } else {
+        $int14 = 2;
+    }
+    if ($obj18 ! null) {
+        if ($int14 = 0) {
+            $struct26 = rs3_icon_holder_selected;
+        } else {
+            $struct26 = rs3_icon_holder;
+            $int14 = 2;
+        }
+        ~rs3_background_panel_dynamic($component8, $struct26, $int21, $int22, calc(36 + 4), calc(32 + 4), null);
+        cc_create($component8, ^iftype_graphic, if_getnextsubid($component8));
+        switch_int ($int0) {
+            case 1 :
+                cc_setonvartransmit("reputation_update_ui($int0){menaphos_slave_faction_amount, menaphos_perm_1}");
+            case 2 :
+                cc_setonvartransmit("reputation_update_ui($int0){menaphos_royal_faction_amount, menaphos_perm_1}");
+            case 3 :
+                cc_setonvartransmit("reputation_update_ui($int0){menaphos_merchant_faction_amount, menaphos_perm_1}");
+            case 4 :
+                cc_setonvartransmit("reputation_update_ui($int0){menaphos_sailor_faction_amount, menaphos_perm_1}");
+        }
+        if ($graphic19 = null) {
+            cc_setobject($obj18, $int13);
+            cc_setposition(calc($int21 + 4), calc($int22 + 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        } else {
+            cc_setgraphic($graphic19);
+            cc_setposition(calc($int21 + 4), calc($int22 + 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+        }
+        cc_setonmouserepeat("script13481($struct1, calc($int12 / 10), $int14, $obj18, $component8, calc(if_getnextsubid($component8) - 1))");
+        $int23 = if_getnextsubid($component8);
+        .cc_create($component9, ^iftype_text, if_getnextsubid($component9));
+        .cc_settext(tostring($int20));
+        .cc_setposition(calc($int21 + 2), 0, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_settextfont(museo_sans_11pt_regular);
+        .cc_setsize(40, 22, ^setsize_abs, ^setsize_abs);
+        .cc_setcolour(^white);
+        .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        $int21 = calc($int21 + 36 + 4 + $int25);
+        if (~script6431 = true) {
+            cc_setonclick("script8296($struct1, calc($int12 / 10), $int14, $obj18, $graphic19)");
+        }
+    }
+    $int20 = calc($int20 + 1);
+}

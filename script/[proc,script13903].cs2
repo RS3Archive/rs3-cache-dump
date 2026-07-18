@@ -1,0 +1,23 @@
+// 13903
+[proc,script13903]
+if (%bank_filter ! 0) {
+    if_triggerop(bank:bottom_panel_cancel_button, -1, 1);
+    ~bank_filter_clear(0);
+}
+~dynamic_dropdown_hide;
+if_sethide(true, bank:message_nofilter);
+~script10239;
+~bank_build_tabs(1);
+~bank_show_search(%bank_lastsearchstring, 1);
+%bank_searchmode_client = true;
+%p_dialog_listener = bank:text_input_listener;
+%p_dialog_mode = 8;
+%p_dialog_maxchar = 12;
+def_string $string0 = "";
+if_setontimer("bank_search_timer($string0, clientclock)", bank:bank_search_button_layer);
+if_setontimer("diango_search_timer($string0, clientclock, bank:search_icon, bank:diango_inv, 1)", bank:search_icon);
+~script9833(bank:text_input_listener, bank:text_input_listen, bank:text_input_caret, bank:text_input_display, bank:text_input_clickout, 0, 0);
+if_sethide(false, bank:bottom_panel_cancel);
+if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom, bank:bottom_panel_cancel);
+~script13993(bank:bottom_panel_cancel, null, rs3tli_30px_button_3x3, "Cancel Search");
+if_setonop("bank_search_abort", bank:bottom_panel_cancel_button);

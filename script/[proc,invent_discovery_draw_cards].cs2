@@ -1,0 +1,65 @@
+// 12121
+[proc,invent_discovery_draw_cards]
+cc_deleteall(invent_discovery:side_draw_layer);
+cc_deleteall(invent_discovery:side_active_layer);
+cc_deleteall(invent_discovery:drag_layer);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_dbrow $dbrow2 = null;
+def_int $int3 = enum_getoutputcount(invent_blueprint_list);
+def_int $intarray0($int3);
+def_int $intarray1($int3);
+def_int $int4 = 0;
+while ($int4 < $int3) {
+    $dbrow2 = enum(int, dbrow, invent_blueprint_list, $int4);
+    $intarray0($int4) = $int4;
+    $intarray1($int4) = db_getfield($dbrow2, invent_blueprint_table:col9, 0);
+    cc_create(invent_discovery:side_active_layer, ^iftype_rectangle, $int4);
+    cc_sethide(true);
+    $int4 = calc($int4 + 1);
+}
+array_sort($int3, 1, 0);
+$int4 = 0;
+while ($int4 < enum_getoutputcount(invent_blueprint_list)) {
+    $dbrow2 = enum(int, dbrow, invent_blueprint_list, $intarray0($int4));
+    if (~script12058($dbrow2) = 0 & ~script14702($dbrow2) = 1) {
+        $int0 = ~invent_discovery_create_card(invent_discovery:side_draw_layer, $int0, invent_discovery:side_active_layer, $intarray0($int4), 5, calc(5 + $int1 * 40), $dbrow2);
+        $int1 = calc($int1 + 1);
+    }
+    $int4 = calc($int4 + 1);
+}
+if ($int1 = 0) {
+    cc_create(invent_discovery:side_draw_layer, ^iftype_text, $int0);
+    cc_settext("No inventions");
+    cc_settextfont(cinzel_15pt_bold);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 16);
+    ~script10674(cc_getlayer, cc_getid, 0);
+    cc_setsize(20, 20, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, 10, ^setpos_abs_left, ^setpos_abs_top);
+    $int0 = calc($int0 + 1);
+    cc_create(invent_discovery:side_draw_layer, ^iftype_text, $int0);
+    cc_settext("You can't think of anything new to invent at the moment.");
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 12);
+    ~script10674(cc_getlayer, cc_getid, 3);
+    cc_setsize(20, 60, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, 40, ^setpos_abs_left, ^setpos_abs_top);
+    $int0 = calc($int0 + 1);
+}
+def_int $int5 = calc($int1 * 40 + 120);
+if ($int5 <= if_getheight(invent_discovery:side_layer)) {
+    if_sethide(true, invent_discovery:side_scrollbar_layer);
+    if_setscrollpos(0, 0, invent_discovery:side_content_layer);
+    if_setposition(5, 1, ^setpos_abs_left, ^setpos_abs_top, invent_discovery:side_content_layer);
+} else {
+    if_sethide(false, invent_discovery:side_scrollbar_layer);
+    if_setscrollpos(0, max(0, if_getscrolly(invent_discovery:side_content_layer)), invent_discovery:side_content_layer);
+    if_setscrollsize(0, $int5, invent_discovery:side_content_layer);
+    ~rs3_scrollbar_vertical(invent_discovery:side_scrollbar_layer, invent_discovery:side_content_layer);
+    if_setposition(0, 1, ^setpos_abs_left, ^setpos_abs_top, invent_discovery:side_content_layer);
+}
+if (if_find(invent_discovery:side_popup_layer) = true) {
+    cc_setparam(invent_client_recipe, null);
+    cc_setparam(invent_client_start_id, 0);
+    cc_setparam(invent_client_end_id, 0);
+}

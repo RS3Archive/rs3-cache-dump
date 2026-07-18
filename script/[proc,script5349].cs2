@@ -1,0 +1,19 @@
+// 5349
+[proc,script5349](component $component0, int $int1, int $int2, int $int3, int $int4, int $setposh5, int $setposv6, int $int7, int $setsize8, dbrow $dbrow9, string $string0)(int)
+def_int $int10 = 0;
+switch_int ($setsize8) {
+    case ^setsize_abs :
+        $int10 = ~script20478($string0, $int7, text_body_default, 0);
+    case ^setsize_minus :
+        $int10 = ~script20478($string0, calc(if_getwidth($component0) - $int7), text_body_default, 0);
+    case ^setsize_rel :
+        $int10 = ~script20478($string0, scale(if_getwidth($component0), 16384, $int7), text_body_default, 0);
+    case default :
+        $int10 = ~script20478($string0, if_getwidth($component0), text_body_default, 0);
+}
+if_createchild(^iftype_text, $int1, $int2, $component0);
+cc_setsize($int7, $int10, $setsize8, ^setsize_abs);
+cc_setposition($int3, $int4, $setposh5, $setposv6);
+cc_settext($string0);
+~cc_set_stylesheet_text($dbrow9, 1, 1);
+return($int10);

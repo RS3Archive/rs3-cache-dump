@@ -1,0 +1,26 @@
+// 2326
+[proc,script2326](model $model0)
+def_int $int1 = clientclock;
+switch_model ($model0) {
+    case easter09_nut_machine_nuts_good, easter09_nut_machine_nuts, easter09_nut_machine_chocolate_egg :
+        %easter09_nuts_correct = 0;
+        if_sethide(false, easter09_nuts:result);
+        if_settext("Incorrect", easter09_nuts:result_text);
+        sound_synth(easter09_nut_int_incorrect, 1, 0);
+        if_setcolour(^red, easter09_nuts:result_text);
+        if_setontimer("script2327($int1)", easter09_nuts:result);
+    case default :
+        if (++%easter09_nuts_correct = 10) {
+            if_sethide(false, easter09_nuts:end_layer);
+            if_setop(1, "Train", easter09_nuts:end);
+            if_setonclick(null, easter09_nuts:reject);
+        } else {
+            if_sethide(false, easter09_nuts:result);
+            if_settext("Correct", easter09_nuts:result_text);
+            sound_synth(easter09_nut_int_correct, 1, 0);
+            if_setcolour(^green, easter09_nuts:result_text);
+            if_setontimer("script2327($int1)", easter09_nuts:result);
+        }
+}
+if_settext("Correct: <tostring(%easter09_nuts_correct)>/<tostring(10)>", easter09_nuts:correct_count);
+sound_synth(easter09_nut_int_correct, 1, 0);

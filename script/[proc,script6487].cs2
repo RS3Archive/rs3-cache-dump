@@ -1,0 +1,20 @@
+// 6487
+[proc,script6487]
+if (if_getnextsubid(toplevel_v2_edit_mode:advanced_text) > 0) {
+    ~script20516;
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(toplevel_v2_edit_mode_categories);
+def_enum $enum2 = null;
+def_string $string0 = "";
+while ($int0 < $int1) {
+    $enum2 = enum(int, enum, toplevel_v2_edit_mode_categories, $int0);
+    $string0 = enum(int, string, toplevel_v2_edit_mode_category_names, $int0);
+    ~cc_add_button(toplevel_v2_edit_mode:advanced_cat, $int0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 24, ^setsize_minus, ^setsize_abs, button_accordion_20px, $string0);
+    cc_setonop("script20513(event_comsubid)");
+    cc_setonscrollwheel("scrollbar_vertical_wheel(toplevel_v2_edit_mode:advanced_scrollbar, toplevel_v2_edit_mode:advanced_scrolling, event_mousey)");
+    ~script20515($enum2);
+    $int0 = calc($int0 + 1);
+}
+~script20514(-1);

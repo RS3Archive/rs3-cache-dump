@@ -1,0 +1,51 @@
+// 3451
+[proc,script3451](int $int0, int $int1, int $int2, int $int3)
+~script10014(graphics_options_windowmode_resizable_button, rs3tli_3x3_icon_button, rs3tli_windowmode_resizable_icons);
+~script10083(2, 0, $int0, graphics_options_v2_client:resizable_button_selected_layer, graphics_options_v2_client:resizable_button_active_layer, $int1, $int2, $int3);
+if (fullscreen_modecount > 0) {
+    ~script10014(graphics_options_windowmode_fullscreen_button, rs3tli_3x3_icon_button, rs3tli_windowmode_fullscreen_icons);
+    ~script10083(3, -1, $int0, graphics_options_v2_client:fullscreen_button_selected_layer, graphics_options_v2_client:fullscreen_button_active_layer, $int1, $int2, $int3);
+} else {
+    if_sethide(true, graphics_options_v2_client:fullscreen_button_layer);
+}
+if (%selectedresolution < 0) {
+    %selectedresolution = max(fullscreen_lastmode, 0);
+}
+if (%selectedresolution >= fullscreen_modecount) {
+    %selectedresolution = 0;
+}
+~script10428(graphics_options_v2_client:resolutions_build, graphics_options_v2_client:resolutions_click, graphics_options_fullscreen_resolution, -1, "", %selectedresolution, 0);
+~rs3_background_panel(graphics_options_v2_client:manual_setup_bg, rs3_content_container_active);
+if_sethide(false, graphics_options_v2_client:manual_setup_ultra);
+if_sethide(false, graphics_options_v2_client:manual_setup_ultra_plus);
+def_int $int4 = calc(if_getwidth(graphics_options_v2_client:manual_setup_buttons_layer) / 7);
+if_setsize(calc($int4 - 2), 24, ^setsize_abs, ^setsize_abs, graphics_options_v2_client:manual_setup_min);
+if_setsize(calc($int4 - 2), 24, ^setsize_abs, ^setsize_abs, graphics_options_v2_client:manual_setup_low);
+if_setsize(calc($int4 - 2), 24, ^setsize_abs, ^setsize_abs, graphics_options_v2_client:manual_setup_mid);
+if_setsize(calc($int4 - 2), 24, ^setsize_abs, ^setsize_abs, graphics_options_v2_client:manual_setup_high);
+if_setsize(calc($int4 - 2), 24, ^setsize_abs, ^setsize_abs, graphics_options_v2_client:manual_setup_ultra);
+if_setsize(calc($int4 - 2), 24, ^setsize_abs, ^setsize_abs, graphics_options_v2_client:manual_setup_ultra_plus);
+if_setsize(calc($int4 - 2), 24, ^setsize_abs, ^setsize_abs, graphics_options_v2_client:manual_setup_custom);
+if_setposition(calc($int4 * 1), 0, ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client:manual_setup_low);
+if_setposition(calc($int4 * 2), 0, ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client:manual_setup_mid);
+if_setposition(calc($int4 * 3), 0, ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client:manual_setup_high);
+if_setposition(calc($int4 * 4), 0, ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client:manual_setup_ultra);
+if_setposition(calc($int4 * 5), 0, ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client:manual_setup_ultra_plus);
+if_setposition(calc($int4 * 6), 0, ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client:manual_setup_custom);
+~script10013(graphics_options_v2_client:manual_setup_min_button_on_layer, graphics_options_v2_client:manual_setup_min_button_over_layer, graphics_options_v2_client:manual_setup_min_button_hit_layer, graphics_options_v2_client:manual_setup_min_button_selected_layer, graphics_options_v2_client:manual_setup_min_button_active_layer, graphics_options_v2_client:manual_setup_min_button_disabled_layer, graphics_options_v2_client:manual_setup_min_button_text);
+~script10079($int3, 1, graphics_options_v2_client:manual_setup_min_button_layer, graphics_options_v2_client:manual_setup_min_button_selected_layer, graphics_options_v2_client:manual_setup_min_button_active_layer, graphics_options_v2_client:manual_setup_min_button_text, "MIN", -1);
+~script10013(graphics_options_v2_client:manual_setup_low_button_on_layer, graphics_options_v2_client:manual_setup_low_button_over_layer, graphics_options_v2_client:manual_setup_low_button_hit_layer, graphics_options_v2_client:manual_setup_low_button_selected_layer, graphics_options_v2_client:manual_setup_low_button_active_layer, graphics_options_v2_client:manual_setup_low_button_disabled_layer, graphics_options_v2_client:manual_setup_low_button_text);
+~script10079($int3, 2, graphics_options_v2_client:manual_setup_low_button_layer, graphics_options_v2_client:manual_setup_low_button_selected_layer, graphics_options_v2_client:manual_setup_low_button_active_layer, graphics_options_v2_client:manual_setup_low_button_text, "LOW", -1);
+~script10013(graphics_options_v2_client:manual_setup_mid_button_on_layer, graphics_options_v2_client:manual_setup_mid_button_over_layer, graphics_options_v2_client:manual_setup_mid_button_hit_layer, graphics_options_v2_client:manual_setup_mid_button_selected_layer, graphics_options_v2_client:manual_setup_mid_button_active_layer, graphics_options_v2_client:manual_setup_mid_button_disabled_layer, graphics_options_v2_client:manual_setup_mid_button_text);
+~script10079($int3, 3, graphics_options_v2_client:manual_setup_mid_button_layer, graphics_options_v2_client:manual_setup_mid_button_selected_layer, graphics_options_v2_client:manual_setup_mid_button_active_layer, graphics_options_v2_client:manual_setup_mid_button_text, "MID", -1);
+~script10013(graphics_options_v2_client:manual_setup_high_button_on_layer, graphics_options_v2_client:manual_setup_high_button_over_layer, graphics_options_v2_client:manual_setup_high_button_hit_layer, graphics_options_v2_client:manual_setup_high_button_selected_layer, graphics_options_v2_client:manual_setup_high_button_active_layer, graphics_options_v2_client:manual_setup_high_button_disabled_layer, graphics_options_v2_client:manual_setup_high_button_text);
+~script10079($int3, 4, graphics_options_v2_client:manual_setup_high_button_layer, graphics_options_v2_client:manual_setup_high_button_selected_layer, graphics_options_v2_client:manual_setup_high_button_active_layer, graphics_options_v2_client:manual_setup_high_button_text, "HIGH", -1);
+~script10013(graphics_options_v2_client:manual_setup_ultra_button_on_layer, graphics_options_v2_client:manual_setup_ultra_button_over_layer, graphics_options_v2_client:manual_setup_ultra_button_hit_layer, graphics_options_v2_client:manual_setup_ultra_button_selected_layer, graphics_options_v2_client:manual_setup_ultra_button_active_layer, graphics_options_v2_client:manual_setup_ultra_button_disabled_layer, graphics_options_v2_client:manual_setup_ultra_button_text);
+~script10079($int3, 5, graphics_options_v2_client:manual_setup_ultra_button_layer, graphics_options_v2_client:manual_setup_ultra_button_selected_layer, graphics_options_v2_client:manual_setup_ultra_button_active_layer, graphics_options_v2_client:manual_setup_ultra_button_text, "ULTRA", -1);
+~script10013(graphics_options_v2_client:manual_setup_ultra_plus_button_on_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_over_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_hit_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_selected_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_active_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_disabled_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_text);
+~script10079($int3, 6, graphics_options_v2_client:manual_setup_ultra_plus_button_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_selected_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_active_layer, graphics_options_v2_client:manual_setup_ultra_plus_button_text, "ULTRA+", -1);
+~script10013(graphics_options_v2_client:manual_setup_custom_button_on_layer, graphics_options_v2_client:manual_setup_custom_button_over_layer, graphics_options_v2_client:manual_setup_custom_button_hit_layer, graphics_options_v2_client:manual_setup_custom_button_selected_layer, graphics_options_v2_client:manual_setup_custom_button_active_layer, graphics_options_v2_client:manual_setup_custom_button_disabled_layer, graphics_options_v2_client:manual_setup_custom_button_text);
+~script10079($int3, 0, graphics_options_v2_client:manual_setup_custom_button_layer, graphics_options_v2_client:manual_setup_custom_button_selected_layer, graphics_options_v2_client:manual_setup_custom_button_active_layer, graphics_options_v2_client:manual_setup_custom_button_text, "CUSTOM", -1);
+~rs3_background_panel(graphics_options_v2_client:auto_setup_bg, rs3_content_container_active);
+~script13969(graphics_options_v2_client:auto_setup_button, null, rs3tli_neutral_button, "Re-run Auto Setup");
+if_setonclick("autosetup($int3)", graphics_options_v2_client:auto_setup_button);

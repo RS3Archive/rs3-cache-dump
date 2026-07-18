@@ -1,0 +1,21 @@
+// 5575
+[clientscript,script5575]
+if (%rden2_minimap_flash_direction = 1) {
+    if (++%rden2_minimap_flash_value >= 80) {
+        %rden2_minimap_flash_direction = 0;
+    }
+} else if (--%rden2_minimap_flash_value <= 0) {
+    %rden2_minimap_flash_direction = 1;
+}
+def_int $int0 = calc(255 * %rden2_minimap_flash_value / 80);
+if ($int0 < 230 & $int0 >= 123) {
+    $int0 = calc($int0 - $int0 / 20);
+}
+if ($int0 > 25 & $int0 <= 122) {
+    $int0 = calc($int0 + $int0 / 20);
+}
+if_settrans($int0, rden2_minimap:reagenta);
+if_settrans($int0, rden2_minimap:reagentb);
+$int0 = calc(255 - $int0);
+if_settrans($int0, rden2_minimap:bonus1);
+if_settrans($int0, rden2_minimap:bonus2);

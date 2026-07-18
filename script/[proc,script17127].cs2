@@ -1,0 +1,16 @@
+// 17127
+[proc,script17127](component $component0, component $component1, int $int2, int $int3)
+if ($int2 > if_getheight($component0)) {
+    if_setscrollsize(0, $int2, $component0);
+    if (~is_mobile_client = false) {
+        ~scrollbar_resize($component1, $component0, calc(%lobby_friendschat_lastscrollpos + if_getscrollheight($component0) - %lobby_friendschat_lastscrollsize));
+    } else {
+        ~scrollbar_resize($component1, $component0, 0);
+    }
+    if_sethide(false, $component1);
+} else {
+    if_setscrollsize(0, 0, $component0);
+    if_setscrollpos(0, 0, $component0);
+    ~scrollbar_resize($component1, $component0, 0);
+    if_sethide(true, $component1);
+}

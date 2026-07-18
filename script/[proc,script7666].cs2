@@ -1,0 +1,45 @@
+// 7666
+[proc,script7666](int $int0, component $component1)
+if (~is_mobile_client = true) {
+    return;
+}
+def_string $string0 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($int0 = 1) {
+    if (calc(string_length(removetags(%bugreport_input)) + 1) > 500) {
+        return;
+    }
+    $int2, $int3 = if_getcharposatindex(string_length(%bugreport_input), $component1);
+    if ($int3 > if_getheight($component1)) {
+        return;
+    }
+    $string0 = substring(%bugreport_input, %bugreport_caret, string_length(%bugreport_input));
+    %bugreport_input = substring(%bugreport_input, 0, %bugreport_caret);
+    %bugreport_input = append(%bugreport_input, "<br>");
+    %bugreport_input = append(%bugreport_input, $string0);
+    %bugreport_caret = calc(%bugreport_caret + 4);
+    if_settext(%bugreport_input, $component1);
+    ~script7671(bugreport_interface:input_text, bugreport_interface:input_caret, %bugreport_input);
+    if_settext(tostring(calc(500 - string_length(removetags(%bugreport_input)))), bugreport_interface:chars_left);
+    return;
+} else if ($int0 = 2) {
+    if (calc(string_length(removetags(%bugreport_repro)) + 1) > 500) {
+        return;
+    }
+    $int2, $int3 = if_getcharposatindex(string_length(%bugreport_repro), $component1);
+    if ($int3 > if_getheight($component1)) {
+        return;
+    }
+    $string0 = substring(%bugreport_repro, %bugreport_caret_repro, string_length(%bugreport_repro));
+    %bugreport_repro = substring(%bugreport_repro, 0, %bugreport_caret_repro);
+    %bugreport_repro = append(%bugreport_repro, "<br>");
+    %bugreport_repro = append(%bugreport_repro, $string0);
+    %bugreport_caret_repro = calc(%bugreport_caret_repro + 4);
+    if_settext(%bugreport_repro, $component1);
+    ~script7671(bugreport_interface:input_repro, bugreport_interface:repro_caret, %bugreport_repro);
+    if_settext(tostring(calc(500 - string_length(removetags(%bugreport_repro)))), bugreport_interface:chars_repro);
+    return;
+} else {
+    return;
+}

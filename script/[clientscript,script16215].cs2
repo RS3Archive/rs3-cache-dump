@@ -1,0 +1,22 @@
+// 16215
+[clientscript,script16215](component $component0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+if (cc_find($component0, $int2) = true) {
+    cc_setposition(cc_getx, max(0, calc(cc_gety - 8)), ^setpos_abs_left, ^setpos_abs_top);
+    if (cc_gety ! 0) {
+        return;
+    }
+    $int5 = cc_param(rs3tli_progress_current);
+    cc_setontimer(null);
+    cc_delete;
+    if (cc_findbycategory($component0, $int1, 0) = 1) {
+        $int7 = cc_param(rs3tli_component_last_update);
+        $int6 = cc_param(rs3tli_progress_target);
+        cc_setparam(rs3tli_component_last_update, max(0, calc($int7 - 1)));
+    }
+    if (cc_find($component0, $int3) = true) {
+        cc_settext(~script361(min($int6, calc($int5 + $int4)), 0));
+    }
+}

@@ -1,0 +1,14 @@
+// 17186
+[proc,stylesheet_set](component $component0)
+def_stylesheet $stylesheet1 = if_getstylesheet($component0);
+if ($stylesheet1 = null) {
+    return;
+}
+db_find(interface_skin:col0, $stylesheet1);
+def_dbrow $dbrow2 = db_findnext;
+if ($dbrow2 ! null & if_find($component0) = true) {
+    ~cc_set_stylesheet($dbrow2);
+    if (db_getfield($dbrow2, interface_skin:col1, 0) = 16) {
+        ~cc_set_stylesheet_scrollbar($dbrow2);
+    }
+}

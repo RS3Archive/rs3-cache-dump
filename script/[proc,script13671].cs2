@@ -1,0 +1,102 @@
+// 13671
+[proc,script13671](component $component0)
+if (%invent_machine_id = 0) {
+    return;
+}
+def_int $int1 = 1;
+def_obj $obj2 = null;
+def_obj $obj3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 36390;
+def_graphic $graphic7 = invention_icon_inspiration;
+def_int $int8 = 0;
+def_int $int9 = if_getnextsubid($component0);
+def_int $int10 = $int9;
+def_int $int11 = calc(if_getwidth($component0) - 4);
+def_int $int12 = 0;
+db_find(invent_machine_table:col0, %invent_machine_id);
+def_dbrow $dbrow13 = db_findnext;
+def_int $int14 = db_getfieldcount($dbrow13, invent_machine_table:col19);
+if ($int14 > 0) {
+    $obj2, $int4 = db_getfield($dbrow13, invent_machine_table:col19, 0);
+    if ($int14 > 1) {
+        $obj3, $int5 = db_getfield($dbrow13, invent_machine_table:col19, 1);
+    }
+    $int4, $int5 = ~script13641(%invent_hotspot_id);
+    if ($obj2 ! null) {
+        $int1 = 2;
+    }
+    if ($obj3 ! null) {
+        $int1 = 3;
+    }
+}
+$int1 = min($int1, 3);
+while ($int8 < $int1) {
+    $int10 = $int9;
+    cc_create($component0, ^iftype_graphic, $int9);
+    cc_setsize($int11, $int11, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(rs3_inventory_slot);
+    if ($int1 = 1) {
+        $int12 = 0;
+        $int9 = calc($int9 + 1);
+        ~script13674($component0, $int9, null, invention_icon_inspiration, -1, $int11, $int12, 0);
+        ~script13310(invent_machine_management:input_generator_charge_bar, invent_machine_management:input_generator_charge_bar_mask, 31, 8000);
+        if (.if_find(invent_machine_management:input_generator_charge_bar_container) = true) {
+            .cc_setposition(.cc_getx, $int12, ^setpos_abs_left, ^setpos_abs_centre);
+            if_sethide(true, invent_machine_management:input_secondary_1_bar_container);
+            if_sethide(true, invent_machine_management:input_secondary_2_bar_container);
+        }
+    } else if ($int1 = 2) {
+        if ($int8 = 0) {
+            $int12 = calc(0 - if_getheight($component0) / 4);
+            $int9 = calc($int9 + 1);
+            ~script13674($component0, $int9, $obj2, null, -1, $int11, $int12, 1);
+            ~script13310(invent_machine_management:input_secondary_1_bar, invent_machine_management:input_secondary_1_bar_mask, 29, 8000);
+            if (.if_find(invent_machine_management:input_secondary_1_bar_container) = true) {
+                .cc_setposition(.cc_getx, $int12, ^setpos_abs_left, ^setpos_abs_centre);
+                if_sethide(true, invent_machine_management:input_secondary_2_bar_container);
+            }
+        } else {
+            $int12 = calc(if_getheight($component0) / 4);
+            $int9 = calc($int9 + 1);
+            ~script13674($component0, $int9, null, $graphic7, -1, $int11, $int12, 0);
+            ~script13310(invent_machine_management:input_generator_charge_bar, invent_machine_management:input_generator_charge_bar_mask, 31, 8000);
+            if (.if_find(invent_machine_management:input_generator_charge_bar_container) = true) {
+                .cc_setposition(.cc_getx, $int12, ^setpos_abs_left, ^setpos_abs_centre);
+                if_sethide(true, invent_machine_management:input_secondary_2_bar_container);
+            }
+        }
+    } else if ($int1 = 3) {
+        if ($int8 = 0) {
+            $int12 = calc(0 - if_getheight($component0) / 3);
+            $int9 = calc($int9 + 1);
+            ~script13674($component0, $int9, $obj2, null, -1, $int11, $int12, 1);
+            ~script13310(invent_machine_management:input_secondary_1_bar, invent_machine_management:input_secondary_1_bar_mask, 29, 8000);
+            if (.if_find(invent_machine_management:input_secondary_1_bar_container) = true) {
+                .cc_setposition(.cc_getx, $int12, ^setpos_abs_left, ^setpos_abs_centre);
+            }
+        } else if ($int8 = 1) {
+            $int12 = 0;
+            $int9 = calc($int9 + 1);
+            ~script13674($component0, $int9, $obj3, null, -1, $int11, $int12, 1);
+            ~script13310(invent_machine_management:input_secondary_2_bar, invent_machine_management:input_secondary_2_bar_mask, 30, 8000);
+            if (.if_find(invent_machine_management:input_secondary_2_bar_container) = true) {
+                .cc_setposition(.cc_getx, $int12, ^setpos_abs_left, ^setpos_abs_centre);
+            }
+        } else {
+            $int12 = calc(if_getheight($component0) / 3);
+            $int9 = calc($int9 + 1);
+            ~script13674($component0, $int9, null, $graphic7, -1, $int11, $int12, 0);
+            ~script13310(invent_machine_management:input_generator_charge_bar, invent_machine_management:input_generator_charge_bar_mask, 31, 8000);
+            if (.if_find(invent_machine_management:input_generator_charge_bar_container) = true) {
+                .cc_setposition(.cc_getx, $int12, ^setpos_abs_left, ^setpos_abs_centre);
+            }
+        }
+    }
+    if (cc_find($component0, $int10) = true) {
+        cc_setposition(0, $int12, ^setpos_abs_centre, ^setpos_abs_centre);
+    }
+    $int8 = calc($int8 + 1);
+    $int9 = calc($int9 + 1);
+}

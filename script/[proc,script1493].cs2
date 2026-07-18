@@ -1,0 +1,35 @@
+// 1493
+[proc,script1493]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(dino_reward_herb_bag_herbs);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = -1;
+while ($int0 < $int1) {
+    $obj7 = enum(int, obj, dino_reward_herb_bag_herbs, $int0);
+    $int8 = ~script1491($obj7);
+    if ($int8 ! -1) {
+        $int2 = inv_getnum(dino_reward_herb_bag, $int8);
+        if ($int2 > 0) {
+            $int6 = 1;
+            $int3 = ~bank_itemspace2($obj7, $int2);
+            $int4 = calc($int2 - $int3);
+            if (~bank_deposit(dino_reward_herb_bag, $obj7, $int4, $int8) = 1) {
+                $int5 = 1;
+            }
+            ~script1492;
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+if ($int6 = 0) {
+    ~bank_mes("The herb bag is already empty.");
+} else if ($int5 = 0) {
+    ~bank_mes("You don't have enough space in your bank to do that.");
+} else {
+    ~bank_mes_spam("You empty the herbs to your bank.");
+}

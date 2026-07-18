@@ -1,0 +1,30 @@
+// 12329
+[clientscript,telemetry_stopwatch]
+if (%telemetry_interval_type ! telemetryinterval_1) {
+    %telemetry_stopwatch_time = 0;
+    if_sethide(true, telemetry:stopwatch_time);
+    if_sethide(true, telemetry:play_button_layer);
+    if_sethide(true, telemetry:pause_button_layer);
+    if_sethide(true, telemetry:reset_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:stopwatch_time);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:play_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:pause_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:reset_button_layer);
+    return;
+} else {
+    if_sethide(false, telemetry:stopwatch_time);
+    if_sethide(false, telemetry:reset_button_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_telemetry:stopwatch_time);
+    if_sethide(false, toplevel_v2_parent_suboverlay_telemetry:reset_button_layer);
+}
+if (%telemetry_stopwatch_active = 1) {
+    if_sethide(true, telemetry:play_button_layer);
+    if_sethide(false, telemetry:pause_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:play_button_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_telemetry:pause_button_layer);
+} else {
+    if_sethide(false, telemetry:play_button_layer);
+    if_sethide(true, telemetry:pause_button_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_telemetry:play_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:pause_button_layer);
+}

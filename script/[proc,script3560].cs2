@@ -1,0 +1,41 @@
+// 3560
+[proc,script3560](component $component0)
+def_int $int1 = 0;
+def_component $component2 = null;
+def_struct $struct3 = null;
+if (if_find($component0) = true & cc_param(combatv2_buff_head) = true) {
+    mes_typed(^chattype_console, 0, "Inactive list.");
+    $component2 = cc_param(combatv2_buff_inactive_head);
+    while (.if_find($component2) = true) {
+        if (++$int1 > 50) {
+            return;
+        }
+        if (.cc_param(combatv2_buff_head) = false) {
+            $struct3 = .cc_param(combatv2_buff_struct);
+            if ($struct3 ! null) {
+                mes_typed(^chattype_console, 0, "<tostring($int1)> - <struct_param($struct3, combatv2_ability_name)>");
+            } else {
+                mes_typed(^chattype_console, 0, "<tostring($int1)> - null");
+            }
+        }
+        $component2 = .cc_param(combatv2_buff_next_container);
+    }
+    $int1 = 0;
+    mes_typed(^chattype_console, 0, "Active list.");
+    $component2 = cc_param(combatv2_buff_active_head);
+    while (.if_find($component2) = true) {
+        if (++$int1 > 50) {
+            return;
+        }
+        if (.cc_param(combatv2_buff_head) = false) {
+            $struct3 = .cc_param(combatv2_buff_struct);
+            if ($struct3 ! null) {
+                mes_typed(^chattype_console, 0, "<tostring($int1)> - <struct_param($struct3, combatv2_ability_name)>");
+            } else {
+                mes_typed(^chattype_console, 0, "<tostring($int1)> - null");
+            }
+        }
+        $component2 = .cc_param(combatv2_buff_next_container);
+    }
+}
+return;

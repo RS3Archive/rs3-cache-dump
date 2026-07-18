@@ -1,0 +1,22 @@
+// 15702
+[clientscript,script15702]
+def_string $string0 = escape(getclipboard);
+def_string $string1 = "";
+if (compare($string0, "") ! 0) {
+    if (string_length($string0) <= 6) {
+        if (~script15549($string0) = false) {
+            %loginscreen_totp_auth = $string0;
+            %login_caret = string_length($string0);
+            ~script15700;
+            ~script9824;
+            return;
+        } else {
+            $string1 = "Your clipboard contains characters other than numbers.";
+        }
+    } else {
+        $string1 = "The content of your clipboard is too big to be pasted.";
+    }
+} else {
+    $string1 = "There is nothing in your clipboard to be pasted.";
+}
+~script10943($string1, loginscreen:auth_input_layer);

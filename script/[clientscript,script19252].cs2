@@ -1,0 +1,20 @@
+// 19252
+[clientscript,script19252](int $int0, component $component1, int $int2)
+def_int $int3 = 50;
+def_int $int4 = ui_getcategory($int2);
+def_int $int5 = 0;
+if (cc_find($component1, $int2) = true) {
+    if (clientclock >= calc($int0 + $int3)) {
+        cc_deleteallnested;
+        cc_delete;
+        return;
+    }
+    if (calc(($int0 + $int3 - clientclock) % 5) = 0) {
+        cc_setposition(cc_getx, calc(cc_gety - 1), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    while (++$int5 < 5) {
+        if (.cc_findbycategory($component1, $int4, $int5) = 1 & clientclock >= calc($int0 + $int3 - 10)) {
+            .cc_settrans(calc(255 - 25 * ($int0 + $int3 - clientclock)));
+        }
+    }
+}

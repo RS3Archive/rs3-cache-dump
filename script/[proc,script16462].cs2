@@ -1,0 +1,85 @@
+// 16462
+[proc,script16462](component $component0, int $int1, int $int2, int $int3, int $int4, string $string0)(int)
+def_int $int5 = 0;
+def_int $int6 = 10;
+def_int $intarray0($int6);
+def_int $intarray1($int6);
+def_int $int7 = 0;
+while ($int5 < $int6 & $int7 = 0) {
+    if ($int5 = 0) {
+        $intarray0($int5) = 0;
+    } else {
+        $intarray0($int5) = calc($intarray1(calc($int5 - 1)) + 4);
+    }
+    $intarray1($int5) = string_indexof_string($string0, "<br>", $intarray0($int5));
+    if ($intarray1($int5) = -1) {
+        $int7 = 1;
+        $intarray1($int5) = string_length($string0);
+    } else {
+        $int5 = calc($int5 + 1);
+    }
+}
+$int6 = $int5;
+$int5 = 0;
+def_int $int8 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_rectangle, $int8++);
+cc_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour(~script10495(9));
+def_int $int9 = calc($int8 - 1);
+def_fontmetrics $fontmetrics10 = museo_sans_11pt_regular;
+def_fontmetrics $fontmetrics11 = museo_sans_11pt_regular;
+if (~script6431 = true) {
+    $fontmetrics10 = museo_sans_13pt_regular;
+    $fontmetrics11 = museo_sans_13pt_regular;
+}
+$int2 = calc($int2 + cc_getheight + 8);
+cc_create($component0, ^iftype_text, $int8++);
+cc_setposition(4, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_settext("Requirements:");
+cc_setsize(calc(2 * 4), ~script7593(cc_gettext, calc($int3 - 2 * 4), $fontmetrics10, 0), ^setsize_minus, ^setsize_abs);
+cc_settextfont($fontmetrics10);
+if ($int4 = 0) {
+    cc_setcolour(~script10495(6));
+} else {
+    cc_setcolour(~script10495(3));
+}
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+$int2 = calc($int2 + cc_getheight + 8);
+def_int $int12 = 16;
+def_int $int13 = 16;
+def_int $int14 = calc(4 + $int12 + 4 + $int1);
+def_int $int15 = 0;
+while ($int5 < $int6 & $int5 < 4) {
+    cc_create($component0, ^iftype_graphic, $int8++);
+    cc_setposition(4, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int12, $int13, ^setsize_abs, ^setsize_abs);
+    if ($int5 = 3 & $int6 > 4) {
+        cc_setgraphic(rs3_contextual_input_plus);
+    } else {
+        cc_setgraphic(rs3_contextual_input_hollow);
+    }
+    cc_create($component0, ^iftype_text, $int8++);
+    cc_setposition($int14, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext(substring($string0, $intarray0($int5), $intarray1($int5)));
+    $int15 = ~script7593(cc_gettext, calc($int3 - $int14 - 4), $fontmetrics11, 0);
+    if ($int15 < $int13) {
+        $int15 = $int13;
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    } else {
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    }
+    cc_setsize(calc($int14 + 4), $int15, ^setsize_minus, ^setsize_abs);
+    cc_settextfont($fontmetrics11);
+    if ($int4 = 0) {
+        cc_setcolour(~script10495(6));
+    } else {
+        cc_setcolour(^white);
+    }
+    $int2 = calc($int2 + cc_getheight + 2);
+    $int5 = calc($int5 + 1);
+}
+$int2 = calc($int2 + 8);
+cc_find($component0, $int9);
+cc_setsize(0, calc($int2 - 2 - cc_gety), ^setsize_minus, ^setsize_abs);
+return($int2);

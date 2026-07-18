@@ -1,0 +1,22 @@
+// 17419
+[proc,trh194_chest_setup]
+if_setsize(600, 500, ^setsize_abs, ^setsize_abs, wheel_of_fortune:chest_layer_1);
+if_setsize(220, 190, ^setsize_abs, ^setsize_abs, wheel_of_fortune:wheel_spin_button_layer_1);
+if_setposition(20, 30, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:chest_model_1);
+if_setposition(90, 0, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:wheel_spin_button_layer_1);
+def_int $int0 = 0;
+if (%trh194_keys_required = 0) {
+    if_setmodelanim(trh_chest_open_level_one_a, wheel_of_fortune:chest_model_1);
+    if_setontimer(null, wheel_of_fortune:chest_model_1);
+    if_setonmouseover(null, wheel_of_fortune:wheel_spin_button_active_layer_1);
+    if_setonmouseleave(null, wheel_of_fortune:wheel_spin_button_active_layer_1);
+    if_setopcursor(1, cursor_open, wheel_of_fortune:wheel_spin_button_active_layer_1);
+} else {
+    if_setopcursor(1, wof_trh_key_cursor, wheel_of_fortune:wheel_spin_button_active_layer_1);
+    if_setmodelanim(trh_chest_closed_idle, wheel_of_fortune:chest_model_1);
+    $int0 = calc(22 + random(72));
+    if_setontimer("script9683(wheel_of_fortune:chest_model_1, $int0)", wheel_of_fortune:chest_model_1);
+    if_setontimer(null, wheel_of_fortune:wheel_spin_button_active_layer_1);
+    if_setonmouseover("wof_chest_mouseover(wheel_of_fortune:chest_model_1)", wheel_of_fortune:wheel_spin_button_active_layer_1);
+    if_setonmouseleave("wof_chest_mouseleave(wheel_of_fortune:chest_model_1)", wheel_of_fortune:wheel_spin_button_active_layer_1);
+}

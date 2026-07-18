@@ -1,0 +1,23 @@
+// 5086
+[clientscript,clan_field_setup_highlight](component $component0, int $int1, int $int2)
+if ($int1 = %welcome_screen_time) {
+    $int2 = 255;
+}
+def_int $int3 = calc($int1 * 10);
+if (cc_find($component0, $int3) = true) {
+    if ($int2 = 255) {
+        cc_setontimer(null);
+        if (.cc_find($component0, calc($int3 + 4)) = true) {
+            .cc_settrans(255);
+        }
+        if (.cc_find($component0, calc($int3 + 6)) = true) {
+            .cc_settrans(255);
+        }
+        if (.cc_find($component0, calc($int3 + 8)) = true) {
+            .cc_settrans(255);
+        }
+    } else {
+        cc_setontimer("clan_field_setup_highlight_fade(event_com, event_comsubid, $int2)");
+        ~clan_field_setup_highlight_fade($component0, $int2);
+    }
+}

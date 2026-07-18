@@ -1,0 +1,15 @@
+// 10123
+[clientscript,script10123]
+if (calc(clientclock % 50) = 0) {
+    if (ttv_stream_getstate = 0) {
+        if_setontimer(null, twitch_stream:viewer_count);
+        if_settext("0", twitch_stream:viewer_count);
+        return;
+    }
+    if_settext(tostring(ttv_stream_getviewers), twitch_stream:viewer_count);
+    if (%toplevel_v2_legacy_interface = 1 & getwindowmode > 1) {
+        if_sethide(true, twitch_stream:viewers);
+    } else {
+        if_sethide(false, twitch_stream:viewers);
+    }
+}

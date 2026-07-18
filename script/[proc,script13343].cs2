@@ -1,0 +1,37 @@
+// 13343
+[proc,script13343](int $int0, int $int1, int $int2, string $string0, struct $struct3)(int)
+def_int $int4 = calc(if_getwidth(achievements_sub:cheevo_details) / 2 - 6);
+def_string $string1 = "";
+cc_create(achievements_sub:cheevo_details, ^iftype_text, if_getnextsubid(achievements_sub:cheevo_details));
+if (calc($int0 % 2) = 0) {
+    cc_setposition(3, $int1, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    cc_setposition(3, $int1, ^setpos_abs_right, ^setpos_abs_top);
+}
+def_int $int5 = calc(paraheight($string0, $int4, museo_sans_11pt_regular) * 16);
+cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+cc_settext($string0);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour($int2);
+if ($struct3 ! null) {
+    if (struct_param($struct3, cheevo_link_to_cheevo) = 1) {
+        cc_setop(1, "Go To");
+        cc_setonop("cheevo_find_achievement($struct3)");
+        cc_setopcursor(1, cursor_goto);
+    }
+    $string1 = struct_param($struct3, cheevo_details);
+    if (string_length(struct_param($struct3, task_details_ironman)) > 0 & ~ironman_mode = true) {
+        $string1 = struct_param($struct3, task_details_ironman);
+    }
+    cc_setonmouserepeat("script8799($string1, achievements_sub:cheevo_details, cc_getid)");
+}
+if (calc($int0 % 2) = 1) {
+    if (.cc_find(achievements_sub:cheevo_details, calc(cc_getid - 1)) = true) {
+        $int1 = calc($int1 + max(cc_getheight, .cc_getheight));
+    } else {
+        $int1 = calc($int1 + cc_getheight);
+    }
+}
+return($int1);

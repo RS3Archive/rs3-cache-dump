@@ -1,0 +1,28 @@
+// 19506
+[proc,script19506](intarray $intarray0, int $int1)(int)
+def_int $int2 = 0;
+def_int $int3 = ~script19579;
+def_obj $obj4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int2 < $int3) {
+    if (cc_find(group_ironman_storage:clan_inv, $int2) = true) {
+        if ($int1 = 0) {
+            $obj4 = inv_getobj(group_ironman_storage_clan_temp, $int2);
+        } else {
+            $obj4 = cc_getinvobject;
+        }
+        if ($obj4 ! null & $obj4 ! bank_empty_slot) {
+            $int5 = ~script8232($obj4);
+            cc_setparam(bank_filter_subcat, $int5);
+            if ($int5 ! -1) {
+                $intarray0($int5) = calc($intarray0($int5) + 1);
+                $int6 = calc($int6 + 1);
+            }
+        } else {
+            cc_setparam(bank_filter_subcat, -1);
+        }
+    }
+    $int2 = calc($int2 + 1);
+}
+return($int6);

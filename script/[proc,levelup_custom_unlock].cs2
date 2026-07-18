@@ -1,0 +1,32 @@
+// 3367
+[proc,levelup_custom_unlock](string $string0, int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_graphic $graphic4 = null;
+cc_create(levelup:unlocks_layer, ^iftype_text, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize(0, 33, ^setsize_minus, ^setsize_abs);
+$int3 = calc(stringwidth($string0, verdana_15pt_regular) + stringwidth("New", verdana_15pt_regular));
+cc_setontimer("levelup_unlocktimer(event_comsubid, $string0, calc(clientclock + $int0 * $int1))");
+$int2 = cc_getx;
+cc_create(levelup:unlocks_layer, ^iftype_graphic, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(0, 24, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize($int3, 33, ^setsize_abs, ^setsize_abs);
+cc_settiling(true);
+$graphic4 = "aif_level_up_text_box,1";
+cc_setontimer("levelup_unlocktimer_graphic(event_comsubid, $graphic4, calc(clientclock + $int0 * $int1))");
+cc_sendtoback;
+$int2 = cc_getx;
+$int3 = cc_getwidth;
+cc_create(levelup:unlocks_layer, ^iftype_graphic, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(calc($int2 - 50), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+$graphic4 = "aif_level_up_text_box,0";
+cc_setontimer("levelup_unlocktimer_graphic(event_comsubid, $graphic4, calc(clientclock + $int0 * $int1))");
+cc_sendtoback;
+cc_create(levelup:unlocks_layer, ^iftype_graphic, if_getnextsubid(levelup:unlocks_layer));
+cc_setposition(calc($int2 + $int3), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+$graphic4 = "aif_level_up_text_box,2";
+cc_setontimer("levelup_unlocktimer_graphic(event_comsubid, $graphic4, calc(clientclock + $int0 * $int1))");
+cc_sendtoback;

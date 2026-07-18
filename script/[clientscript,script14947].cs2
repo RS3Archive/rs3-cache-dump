@@ -1,0 +1,37 @@
+// 14947
+[clientscript,script14947](dbrow $dbrow0, int $int1)
+if_sethide(false, bonds_gratz:mtxgame_layer);
+if_sethide(true, bonds_gratz:confirm_button);
+if (~script444 = 1) {
+    if_sethide(true, bonds_gratz:goto_mtxgame_button);
+}
+if_sethide(false, bonds_gratz:mtxgame_buttons_layer);
+def_string $string0 = "";
+if (db_getfieldcount($dbrow0, bonds_package:col19) > 0) {
+    $string0 = tostring(db_getfield($dbrow0, bonds_package:col19, 0));
+}
+switch_int ($int1) {
+    case 1 :
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+    case 2 :
+        if_settext("You've gained <$string0> keys.", bonds_gratz:mtxgame_text_01);
+        if_settext("Current keys: <tostring(~script6950)>", bonds_gratz:mtxgame_text_02);
+        if_setonvarctransmit("script6055{wof_rsspintoken_balance}", bonds_gratz:mtxgame_text_02);
+        ~script13463("You've gained <$string0> keys.");
+    case 3 :
+        if_settext("You've purchased <$string0> keys.", bonds_gratz:mtxgame_text_01);
+        if_settext("They will be added to your account shortly.", bonds_gratz:mtxgame_text_02);
+        ~script13463("Your keys will be added to your account shortly.");
+    case 4 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request.", bonds_gratz:mtxgame_text_01);
+        if_settext("Please try again later.", bonds_gratz:mtxgame_text_02);
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+    case 5 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request.", bonds_gratz:mtxgame_text_01);
+        if_settext("Please try again later.", bonds_gratz:mtxgame_text_02);
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+}

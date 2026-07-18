@@ -1,0 +1,40 @@
+// 9284
+[proc,script9284](component $component0, int $int1)(int)
+switch_int ($int1) {
+    case 0 :
+        switch_component ($component0) {
+            case toplevel_v2_window_ability_book_magic_combat:category_buttons_layer, toplevel_v2_window_ability_book_magic_teleport:category_buttons_layer, toplevel_v2_window_ability_book_magic_skilling:category_buttons_layer :
+                return(%ability_book_filter_unavailable_spells);
+            case toplevel_v2_window_ability_book_magic_ability:category_buttons_layer :
+                return(%ability_book_filter_unavailable);
+            case toplevel_v2_window_ability_book_magic:category_buttons_layer :
+                if (%ability_book_window_magic_category ! 0) {
+                    return(%ability_book_filter_unavailable_spells);
+                }
+                return(%ability_book_filter_unavailable);
+            case toplevel_v2_parent_suboverlay_ability_book_magic:category_buttons_layer :
+                if (%ability_book_suboverlay_magic_category ! 0) {
+                    return(%ability_book_filter_unavailable_spells);
+                }
+                return(%ability_book_filter_unavailable);
+            case toplevel_v2_window_ability_book_necromancy:category_buttons_layer :
+                if (%ability_book_window_necromancy_category ! 0) {
+                    return(%ability_book_filter_unavailable_spells);
+                }
+                return(%ability_book_filter_unavailable);
+            case toplevel_v2_parent_suboverlay_ability_book_necromancy:category_buttons_layer :
+                if (%ability_book_suboverlay_necromancy_category = 1) {
+                    return(%ability_book_filter_unavailable_spells);
+                }
+                return(%ability_book_filter_unavailable);
+            case toplevel_v2_window_ability_book_necromancy_spells:category_buttons_layer :
+                return(%ability_book_filter_unavailable_spells);
+            case default :
+                return(%ability_book_filter_unavailable);
+        }
+    case 1 :
+        return(%ability_book_filter_locked_abilities);
+    case 2 :
+        return(%ability_book_filter_lodestone_teleports);
+}
+return(0);

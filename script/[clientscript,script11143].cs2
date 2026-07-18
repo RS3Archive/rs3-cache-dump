@@ -1,0 +1,29 @@
+// 11143
+[clientscript,script11143](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, int $int8)
+def_int $int9 = calc($int8 * 40);
+def_int $int10 = 230;
+if_setsize(0, $int10, ^setsize_minus, ^setsize_abs, $component5);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component5);
+if_setscrollpos(0, 0, $component6);
+if ($int9 < 400) {
+    if_setsize($int9, $int10, ^setsize_abs, ^setsize_abs, $component6);
+    if_setposition(100, 0, ^setpos_abs_left, ^setpos_abs_top, $component6);
+    if_setscrollsize(0, 0, $component6);
+    if_sethide(true, $component7);
+} else {
+    if_setsize(400, $int10, ^setsize_abs, ^setsize_abs, $component6);
+    if_setposition(100, 0, ^setpos_abs_left, ^setpos_abs_top, $component6);
+    if_setsize(400, 16, ^setsize_abs, ^setsize_abs, $component7);
+    if_setposition(100, $int10, ^setpos_abs_left, ^setpos_abs_top, $component7);
+    if_setscrollsize($int9, $int10, $component6);
+    if_sethide(false, $component7);
+    ~rs3_scrollbar_horizontal($component7, $component6);
+    $int10 = calc($int10 + 16);
+    $int9 = 400;
+}
+def_struct $struct11 = toplevel_v2_default_main_modal_skin_data;
+$int10 = calc($int10 + struct_param($struct11, toplevel_v2_window_titled_top_height) + struct_param($struct11, toplevel_v2_window_titled_bottom_height));
+$int9 = calc($int9 + 100 + struct_param($struct11, toplevel_v2_window_titled_left_width) + struct_param($struct11, toplevel_v2_window_titled_right_width));
+$int9 = max($int9, 300);
+if_setsize($int9, $int10, ^setsize_abs, ^setsize_abs, $component0);
+~script8421($component1, $component2, $component3, $component4, "Egg Notes", $struct11, 1007, 1, null, null);

@@ -1,0 +1,52 @@
+// 11332
+[clientscript,script11332]
+def_int $int0 = 0;
+def_int $int1 = 390;
+switch_int (%trh53_spring_cleaner_tier_client) {
+    case 0 :
+        $int0 = 200;
+    case 1 :
+        $int0 = 600;
+    case 2 :
+        $int0 = 1800;
+    case 3 :
+        $int0 = 4000;
+    case 4 :
+        $int0 = 10000;
+    case 5 :
+        $int0 = 10000;
+    case default :
+        return;
+}
+def_int $int2 = if_getwidth(trh53_spring_cleaner_updated:green_large_progress_value_layer);
+def_int $int3 = 0;
+if ($int2 >= $int1) {
+    if (%trh53_spring_cleaner_tier_client < 4) {
+        %trh53_spring_cleaner_tier_client = calc(%trh53_spring_cleaner_tier_client + 1);
+        %trh53_spring_cleaner_upgrade_charges_client_spoof = 1;
+        ~script9554(trh53_spring_cleaner_updated:mainmodal_window_background, trh53_spring_cleaner_updated:mainmodal_window_border, trh53_spring_cleaner_updated:mainmodal_window_content, ~script11327(%trh53_spring_cleaner_tier_client), toplevel_v2_default_main_modal_skin_data);
+        if_setsize(1, 19, ^setsize_abs, ^setsize_abs, trh53_spring_cleaner_updated:green_large_progress_value_layer);
+        ~script11330;
+        return;
+    } else {
+        $int3 = 1;
+    }
+}
+def_int $int4 = min(scale($int1, $int0, %trh53_spring_cleaner_upgrade_charges_client), $int1);
+if ($int2 >= $int4 | $int3 = 1) {
+    if (%trh53_spring_cleaner_upgrade_charges_client = 10000) {
+        %trh53_spring_cleaner_tier_client = 5;
+        ~script9554(trh53_spring_cleaner_updated:mainmodal_window_background, trh53_spring_cleaner_updated:mainmodal_window_border, trh53_spring_cleaner_updated:mainmodal_window_content, ~script11327(%trh53_spring_cleaner_tier_client), toplevel_v2_default_main_modal_skin_data);
+        if_settext("Fully Upgraded!", trh53_spring_cleaner_updated:upgrade_progress_text);
+        ~script11330;
+    } else {
+        if_settext("<tostring_localised(%trh53_spring_cleaner_upgrade_charges_client, true)> / <tostring_localised($int0, true)>", trh53_spring_cleaner_updated:upgrade_progress_text);
+    }
+    if_setontimer(null, trh53_spring_cleaner_updated:green_large_progress_value_layer);
+    return;
+}
+$int4 = calc($int2 + max(calc(($int4 - $int2) / 20), 1));
+if_setsize($int4, 19, ^setsize_abs, ^setsize_abs, trh53_spring_cleaner_updated:green_large_progress_value_layer);
+%trh53_spring_cleaner_upgrade_charges_client_spoof = scale($int0, $int1, $int4);
+if_settext("<tostring_localised(%trh53_spring_cleaner_upgrade_charges_client_spoof, true)> / <tostring_localised($int0, true)>", trh53_spring_cleaner_updated:upgrade_progress_text);
+return;

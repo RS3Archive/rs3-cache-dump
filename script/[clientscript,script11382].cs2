@@ -1,0 +1,38 @@
+// 11382
+[clientscript,script11382]
+def_int $int0 = if_getwidth(trh54_guaranteed_quality:progress_bar_fill);
+def_int $int1 = calc(if_getwidth(trh54_guaranteed_quality:progress_bar_background) - 4);
+def_int $int2 = 0;
+def_int $int3 = calc($int1 / 24);
+def_int $int4 = calc(%trh54_key_progress * $int3);
+if ($int0 < $int4) {
+    $int2 = min(calc($int0 + 1), $int4);
+} else if ($int0 > $int4) {
+    $int2 = max(calc($int0 - 2), $int4);
+} else {
+    if_setontimer(null, trh54_guaranteed_quality:progress_bar_fill);
+    return;
+}
+if ($int2 = 0) {
+    $int2 = 1;
+    if_setontimer(null, trh54_guaranteed_quality:progress_bar_fill);
+}
+if ($int2 < calc($int3 * 5)) {
+    if_setgraphic(container_unlock_qps_inactive, trh54_guaranteed_quality:gem_container_yellow);
+    if_setgraphic(trh_progress_indicator, trh54_guaranteed_quality:gem_indicator_yellow);
+    if_setgraphic(trhmar18_gem_yellow_inactive, trh54_guaranteed_quality:gem_icon_yellow);
+} else {
+    if_setgraphic(container_unlock_qps_active, trh54_guaranteed_quality:gem_container_yellow);
+    if_setgraphic(trh_progress_indicator_active, trh54_guaranteed_quality:gem_indicator_yellow);
+    if_setgraphic(trhmar18_gem_yellow_active, trh54_guaranteed_quality:gem_icon_yellow);
+}
+if ($int2 < calc($int3 * (5 + 8))) {
+    if_setgraphic(container_unlock_qps_inactive, trh54_guaranteed_quality:gem_container_orange);
+    if_setgraphic(trh_progress_indicator, trh54_guaranteed_quality:gem_indicator_orange);
+    if_setgraphic(trhmar18_gem_orange_inactive, trh54_guaranteed_quality:gem_icon_orange);
+} else {
+    if_setgraphic(container_unlock_qps_active, trh54_guaranteed_quality:gem_container_orange);
+    if_setgraphic(trh_progress_indicator_active, trh54_guaranteed_quality:gem_indicator_orange);
+    if_setgraphic(trhmar18_gem_orange_active, trh54_guaranteed_quality:gem_icon_orange);
+}
+if_setsize($int2, 18, ^setsize_abs, ^setsize_abs, trh54_guaranteed_quality:progress_bar_fill);

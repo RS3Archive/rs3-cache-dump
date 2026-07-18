@@ -1,0 +1,10 @@
+// 14964
+[proc,currency_total](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(-1);
+}
+def_int $int1 = ~currency_pouch_total($dbrow0);
+if (db_getfield($dbrow0, currency_table:col1, 0) = 1) {
+    $int1 = ~script11882($int1, inv_total(inv, db_getfield($dbrow0, currency_table:col4, 0)));
+}
+return($int1);

@@ -1,0 +1,29 @@
+// 7875
+[proc,script7875](int $int0)
+if_sethide(true, acc_create:female_sleected_layer);
+if_sethide(true, acc_create:male_selected_layer);
+switch_int ($int0) {
+    case 0 :
+        if_sethide(false, acc_create:male_selected_layer);
+        if (if_find(acc_create:male_button) = true) {
+            ~script7872(true, true, true, true);
+        }
+        if (if_find(acc_create:female_button) = true) {
+            ~script7872(true, true, true, false);
+        }
+    case 1 :
+        if_sethide(false, acc_create:female_sleected_layer);
+        if (if_find(acc_create:female_button) = true) {
+            ~script7872(true, true, true, true);
+        }
+        if (if_find(acc_create:male_button) = true) {
+            ~script7872(true, true, true, false);
+        }
+}
+%acc_create_gender = $int0;
+if ($int0 = 1 & %acc_create_current_tab = 5) {
+    %acc_create_current_tab = 1;
+    if_setmodelanim(acc_create_idle, acc_create:avatar_paperdoll);
+}
+~script8154;
+~script7894(%acc_create_current_tab, 0);

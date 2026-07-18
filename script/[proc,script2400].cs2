@@ -1,0 +1,76 @@
+// 2400
+[proc,script2400](component $component0)
+if (%toplevel_v2_window_being_dragged ! -1 | %toplevel_v2_legacy_interface = 1 | %toplevel_v2_mobile_interface = 1) {
+    return;
+}
+if ($component0 = null) {
+    return;
+}
+def_int $int1 = ~script2387(1);
+def_int $int2 = 0;
+if (if_find(toplevel_v2_ribbon:ribbon_root) = true) {
+    $int2 = cc_param(ribbon_last_drawn_count);
+}
+$int1 = calc($int1 - $int2);
+if ($int1 <= 0) {
+    ~script8800("Open Ribbon Setup", $component0, -1);
+    return;
+}
+~script8421(toplevel_v2_ribbon_extra:background, toplevel_v2_ribbon_extra:border, toplevel_v2_ribbon_extra:content, null, "", toplevel_v2_bespoke_window_skin_data, -1, 0, null, toplevel_v2_window_data_ribbon);
+def_int $int3 = 32;
+def_int $int4 = 32;
+def_int $int5 = 4;
+def_int $int6 = -2;
+def_int $int7 = -2;
+def_int $int8 = 0;
+def_int $int9 = 0;
+if (%toplevel_v2_active_skinset = 1) {
+    $int3 = 32;
+    $int4 = 32;
+    $int5 = 0;
+    $int8 = 4;
+    $int9 = 7;
+}
+def_int $int10 = calc($int3 + 8);
+def_int $int11 = calc(($int4 + $int5) * $int1 + 8);
+def_int $int12 = 0;
+def_int $int13 = -1;
+def_int $int14 = $int2;
+def_int $int15 = 0;
+def_int $int16 = calc($int1 + $int2);
+if (if_getwidth(toplevel_v2_ribbon:ribbon_root) < if_getheight(toplevel_v2_ribbon:ribbon_root)) {
+    $int12 = ~script2255($int11, $int10, $component0, -1, 2, $int6, $int7, 0, 0, toplevel_v2:ribbon_extra_context_menu_layer);
+} else {
+    if (%toplevel_v2_active_skinset = 1) {
+        $int11 = calc(($int3 + $int5) * $int1 + 8);
+    }
+    $int12 = ~script2255($int10, $int11, $component0, -1, 1, $int7, $int6, 0, 0, toplevel_v2:ribbon_extra_context_menu_layer);
+}
+~script13846(toplevel_v2_ribbon_extra:window_build, toplevel_v2_ribbon_extra:window_click, ribbon_windows);
+while ($int14 < $int16) {
+    $int13 = ~script2384($int14, 1);
+    if (%toplevel_v2_active_skinset ! 1) {
+        $int8 = 4;
+        $int9 = 4;
+    }
+    if (enum_hasoutput(int, ribbon_windows, $int13) = true) {
+        $int13 = enum_getreverseindex(int, int, ribbon_windows, $int13, 0);
+        if (cc_find(toplevel_v2_ribbon_extra:window_build, $int13) = true & .cc_find(toplevel_v2_ribbon_extra:window_click, $int13) = true) {
+            cc_sethide(false);
+            .cc_sethide(false);
+            switch_int ($int12) {
+                case 0, 1 :
+                    cc_setposition(0, $int15, ^setpos_abs_centre, ^setpos_abs_bottom);
+                    .cc_setposition(0, calc($int15 + $int9), ^setpos_abs_centre, ^setpos_abs_bottom);
+                    $int15 = calc($int15 + ($int3 + $int5));
+                case default :
+                    cc_setposition($int15, 0, ^setpos_abs_right, ^setpos_abs_centre);
+                    .cc_setposition(calc($int15 + $int8), 0, ^setpos_abs_right, ^setpos_abs_centre);
+                    $int15 = calc($int15 + ($int4 + $int5));
+            }
+        }
+    } else {
+        ~script2393($int13, -1);
+    }
+    $int14 = calc($int14 + 1);
+}

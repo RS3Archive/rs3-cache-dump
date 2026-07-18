@@ -1,0 +1,23 @@
+// 11613
+[proc,script11613](struct $struct0, npc $npc1, bas $bas2, component $component3)
+if ($struct0 = null) {
+    ~error("Shop data is null.");
+    return;
+}
+def_int $int4 = struct_param($struct0, mtxmgt_preview_y_offset_adult);
+if ($int4 = 0) {
+    $int4 = struct_param($struct0, mtxmgt_preview_y_offset);
+}
+def_int $int5 = struct_param($struct0, mtx_front_end_confirm_pet_zoom);
+if (if_getlayer($component3) = rewardshop:item_preview_layer & $int5 = 650) {
+    $int5 = 400;
+}
+if (if_getlayer($component3) = mtx_front_end_confirm:confirm_buy_content) {
+    $int4 = calc($int4 - 70);
+}
+if_setnpcmodel($npc1, $component3);
+if_setmodelanim(bas_getanim_ready($bas2), $component3);
+if_setmodelangle(1000, $int4, 0, 180, 0, $int5, $component3);
+if (struct_param($struct0, mtxmgt_pet_is_modular) = 1) {
+    ~script11614($struct0);
+}

@@ -1,0 +1,26 @@
+// 20353
+[proc,script20353](obj $obj0)(obj)
+db_find(trh187_contract_reward_setup:col1, $obj0);
+def_dbrow $dbrow1 = db_findnext;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_enum $enum4 = null;
+def_obj $obj5 = null;
+def_struct $struct6 = null;
+if ($dbrow1 = null) {
+    return($obj5);
+}
+while ($int2++ < calc(db_getfieldcount($dbrow1, trh187_contract_reward_setup:col4) - 1)) {
+    $enum4 = db_getfield($dbrow1, trh187_contract_reward_setup:col4, $int2);
+    $int3 = -1;
+    while ($int3++ <= enum_getoutputcount($enum4)) {
+        $obj5 = enum(int, obj, $enum4, $int3);
+        if ($obj5 ! null) {
+            $struct6 = oc_param($obj5, mtxmgt_item_struct);
+            if (~script10881($struct6) = 0) {
+                return($obj5);
+            }
+        }
+    }
+}
+return($obj5);

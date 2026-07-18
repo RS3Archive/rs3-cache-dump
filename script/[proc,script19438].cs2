@@ -1,0 +1,67 @@
+// 19438
+[proc,script19438]
+~script20486(group_ironman_parent:reward_subtitle, text_subtitle_body, 0, ^setsize_minus, 2, "Complete all tier <tostring(%group_ironman_achievements_list_selected)> tasks to unlock these rewards:");
+db_find(group_ironman_journey_rewards:col0, %group_ironman_achievements_list_selected);
+def_dbrow $dbrow0 = db_findnext;
+def_component $component1 = group_ironman_parent:reward_selection_area;
+if (if_find($component1) = true & cc_param(rs3tli_component_param_int0) = %group_ironman_achievements_list_selected & cc_param(rs3tli_component_param_int1) = %group_ironman_achievements_sublist_selected) {
+    return;
+}
+cc_deleteall($component1);
+if ($dbrow0 = null) {
+    ~script19450;
+    return;
+}
+def_int $int2 = db_getfieldcount($dbrow0, group_ironman_journey_rewards:col2);
+def_int $int3 = db_getfieldcount($dbrow0, group_ironman_journey_rewards:col4);
+def_int $int4 = db_getfieldcount($dbrow0, group_ironman_journey_rewards:col3);
+def_int $int5 = calc($int2 + $int3 + $int4);
+if ($int5 = 0) {
+    ~script19450;
+    return;
+}
+if ($int5 = 1) {
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, group_ironman_parent:reward_selected_area);
+    if_sethide(true, $component1);
+} else {
+    if_setsize(40, 0, ^setsize_minus, ^setsize_minus, group_ironman_parent:reward_selected_area);
+    if_sethide(false, $component1);
+}
+def_int $int6 = calc(40 * $int5 + ($int5 - 1) * 4);
+if_setsize(40, $int6, ^setsize_abs, ^setsize_abs, $component1);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_graphic $graphic9 = null;
+def_graphic $graphic10 = null;
+def_string $string0 = "";
+def_int $int11 = $int2;
+def_int $int12 = 0;
+def_int $int13 = 0;
+while ($int7 < $int11) {
+    $graphic9, $graphic10, $int12, $int13, $string0 = db_getfield($dbrow0, group_ironman_journey_rewards:col2, $int7);
+    ~script19439($component1, $int8, $graphic9, $graphic10, null, null, $string0, $int12, $int13);
+    $int8 = calc($int8 + 1);
+    $int7 = calc($int7 + 1);
+}
+$int7 = 0;
+$int11 = $int3;
+def_struct $struct14 = null;
+while ($int7 < $int11) {
+    $graphic9 = db_getfield($dbrow0, group_ironman_journey_rewards:col4:0, $int7);
+    $struct14 = ~script19338($dbrow0, $int7, %group_ironman_cache_ruleset);
+    ~script19439($component1, $int8, $graphic9, null, $struct14, null, "", -1, -1);
+    $int8 = calc($int8 + 1);
+    $int7 = calc($int7 + 1);
+}
+$int7 = 0;
+$int11 = $int4;
+def_dbrow $dbrow15 = null;
+while ($int7 < $int11) {
+    $graphic9 = db_getfield($dbrow0, group_ironman_journey_rewards:col3:0, $int7);
+    $dbrow15 = ~script19339($dbrow0, $int7, %group_ironman_cache_ruleset);
+    ~script19439($component1, $int8, $graphic9, null, null, $dbrow15, "", -1, -1);
+    $int8 = calc($int8 + 1);
+    $int7 = calc($int7 + 1);
+}
+if_setparam_int(rs3tli_component_param_int0, %group_ironman_achievements_list_selected, $component1);
+if_setparam_int(rs3tli_component_param_int1, %group_ironman_achievements_sublist_selected, $component1);

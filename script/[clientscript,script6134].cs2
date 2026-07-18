@@ -1,0 +1,24 @@
+// 6134
+[clientscript,script6134](int $int0)
+def_int $int1 = %fremsaga_bilrach_mind_cursor_animation_counter;
+%fremsaga_bilrach_mind_cursor_animation_counter = calc(%fremsaga_bilrach_mind_cursor_animation_counter + $int0);
+if (%fremsaga_bilrach_mind_cursor_animation_counter > 300) {
+    %fremsaga_bilrach_mind_cursor_animation_counter = calc(%fremsaga_bilrach_mind_cursor_animation_counter - 300);
+}
+def_int $int2 = %fremsaga_bilrach_mind_cursor_animation_counter;
+def_int $int3 = calc(300 / 2);
+if ($int1 <= $int3 & %fremsaga_bilrach_mind_cursor_animation_counter >= $int3) {
+    switch_int ($int0) {
+        case 4 :
+            sound_vorbis_volume(fremsaga2_mind_probe_pulse_low, 1, 0, 70);
+        case 8 :
+            sound_vorbis_volume(fremsaga2_mind_probe_pulse_med, 1, 0, 80);
+        case 12 :
+            sound_vorbis_volume(fremsaga2_mind_probe_pulse_high, 1, 0, 90);
+    }
+}
+if ($int2 > $int3) {
+    $int2 = calc(300 - $int2);
+}
+$int2 = scale($int2, $int3, 200);
+if_settrans($int2, fremsaga_bilrach_mind:cursor_thing);

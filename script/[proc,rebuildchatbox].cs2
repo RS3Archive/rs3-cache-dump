@@ -1,0 +1,196 @@
+// 84
+[proc,rebuildchatbox](int $int0)
+def_component $component1 = ~script8552($int0);
+cc_deleteall($component1);
+~script8628($int0, null);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+if (%toplevel_v2_legacy_interface = 0 & (%toplevel_v2_mobile_interface = 1 | %toplevel_v2_chat_style = 0) | $int0 = 1019) {
+    $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, $int13 = ~script8546($int0);
+} else {
+    $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, $int13 = ~script9910;
+}
+def_int $intarray0(147);
+def_int $int14 = 0;
+while ($int14 < 147) {
+    switch_int ($int14) {
+        case 120, 115 :
+            $intarray0($int14) = 1;
+        case 146 :
+            if (staffmodlevel >= 2) {
+                $intarray0($int14) = 1;
+            } else {
+                $intarray0($int14) = 0;
+            }
+        case 125, 127, 137, 138, 139 :
+            $intarray0($int14) = $int10;
+        case 1 :
+            if (%toplevel_v2_legacy_interface = 0 & (%toplevel_v2_mobile_interface = 1 | %toplevel_v2_chat_style = 0)) {
+                if ($int0 = 18) {
+                    $intarray0($int14) = 1;
+                } else {
+                    $intarray0($int14) = $int2;
+                }
+            } else if ($int0 ! 1019 & (%chat_v2_legacy_filter = 2 | %chat_v2_legacy_filter = 0)) {
+                $intarray0($int14) = 1;
+            } else {
+                $intarray0($int14) = $int5;
+            }
+        case 0, 4, 27, 28, 29, 109, 110, 26, 117, 122, 123, 124, 126, 129, 130, 133, 134, 135, 136, 140, 141, 142, 143, 145 :
+            $intarray0($int14) = $int2;
+        case 2, 17, 116 :
+            $intarray0($int14) = $int5;
+        case 7 :
+            switch_int ($int0) {
+                case 18 :
+                    if (%toplevel_v2_legacy_interface = 0 & (%toplevel_v2_mobile_interface = 1 | %toplevel_v2_chat_style = 0)) {
+                        $intarray0($int14) = 1;
+                    } else if (%chat_v2_legacy_filter = 2 | %chat_v2_legacy_filter = 0 | %chat_v2_legacy_filter = 3) {
+                        $intarray0($int14) = 1;
+                    } else {
+                        $intarray0($int14) = $int6;
+                    }
+                case 19, 1019 :
+                    $intarray0($int14) = 1;
+                case default :
+                    $intarray0($int14) = $int6;
+            }
+        case 3, 6, 5, 18, 19, 30, 31 :
+            if ((%toplevel_v2_legacy_interface = 1 | %toplevel_v2_mobile_interface = 0 & %toplevel_v2_chat_style = 1) & $int0 = 18 & %chat_v2_legacy_filter = 0 & %toplevel_v2_splitpm = 1) {
+                $intarray0($int14) = 0;
+            } else {
+                $intarray0($int14) = $int6;
+            }
+        case 9, 11, 20 :
+            $intarray0($int14) = $int7;
+        case 100, 101, 103, 105, 106, 108, 111, 112, 113, 114, 118, 119, 132, 102, 104 :
+            $intarray0($int14) = $int3;
+        case 41, 43, 42, 107 :
+            $intarray0($int14) = $int8;
+        case 144 :
+            $intarray0($int14) = $int13;
+        case 44, 46, 45 :
+            $intarray0($int14) = $int9;
+        case 32 :
+            $intarray0($int14) = $int11;
+        case 24, 22, 25, 23, 128 :
+            $intarray0($int14) = $int12;
+        case default :
+            $intarray0($int14) = 0;
+    }
+    $int14 = calc($int14 + 1);
+}
+switch_int ($int0) {
+    case 18 :
+        %toplevel_v2_chat_last_local_chat_uid = %toplevel_v2_chat_last_uid;
+    case 19 :
+        %toplevel_v2_chat_last_chat2_uid = %toplevel_v2_chat_last_uid;
+    case 20 :
+        %toplevel_v2_chat_last_chat3_uid = %toplevel_v2_chat_last_uid;
+    case 21 :
+        %toplevel_v2_chat_last_chat4_uid = %toplevel_v2_chat_last_uid;
+    case 22 :
+        %toplevel_v2_chat_last_chat5_uid = %toplevel_v2_chat_last_uid;
+    case 23 :
+        %toplevel_v2_chat_last_chat6_uid = %toplevel_v2_chat_last_uid;
+    case 25 :
+        %toplevel_v2_chat_last_chat8_uid = %toplevel_v2_chat_last_uid;
+    case 46 :
+        %toplevel_v2_chat_last_chat_group_ironman_uid = %toplevel_v2_chat_last_uid;
+    case 1019 :
+        %toplevel_v2_chat_last_splitpm_uid = %toplevel_v2_chat_last_uid;
+    case 24 :
+        %toplevel_v2_chat_last_twitch_uid = %toplevel_v2_chat_last_uid;
+}
+%toplevel_v2_chat_last_uid = max(0, ~script1960);
+def_int $int15 = %toplevel_v2_chat_last_uid;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_chatphrase $chatphrase19 = null;
+def_string $string5 = "";
+def_int $int20 = -1;
+def_int $int21 = if_getwidth($component1);
+def_int $int22 = -1;
+$int17, $string0, $int18, $string1, $string2, $string3, $string4, $chatphrase19, $string5, $int20, $int22 = chat_gethistory_byuid($int15);
+def_int $int23 = ~script4467;
+def_int $int24 = ~script1891;
+def_int $int25 = 1;
+def_boolean $boolean26 = ~script6431;
+def_int $int27 = ~script3873;
+def_fontmetrics $fontmetrics28 = enum(int, fontmetrics, settings_chat_size_to_fontmetric, $int27);
+def_int $int29 = ~script11432($fontmetrics28);
+def_int $int30 = enum(int, int, settings_chat_size_bottomdisplacement, $int27);
+def_int $setposv31 = ^setpos_abs_bottom;
+def_int $int32 = if_gettrans(chatdefault:mobile_listener_graphic);
+if (if_gethide(toplevel_v2_mobile:chat_panel) = false) {
+    $int32 = 0;
+}
+if ($boolean26 = true & %settings_chat_message_direction = 0) {
+    $setposv31 = ^setpos_abs_top;
+}
+def_int $int33 = 0;
+def_int $int34 = 0;
+while ($int33 < 200 & $int16 < 500) {
+    if ($int17 > -1) {
+        switch_int ($int17) {
+            case 41, 43, 42 :
+                if ($int22 = 1) {
+                    $int34 = $int13;
+                } else {
+                    $int34 = $intarray0($int17);
+                }
+            case default :
+                $int34 = $intarray0($int17);
+        }
+        if ($int34 = 1 & ~script8508($int0, $int17, $int18, $string2, $int20, $int22) = 1) {
+            cc_create($component1, ^iftype_text, $int33);
+            ~script8505($int17, $string5, $int18, $string1, $string4, $int22, $chatphrase19, $string0);
+            cc_settextfont($fontmetrics28);
+            cc_settextalign(^settextalign_left, ^settextalign_top, $int29);
+            cc_settextshadow(true);
+            cc_setposition(0, $int30, ^setpos_abs_left, $setposv31);
+            ~script8506($int0, $int17, $string5, $int18, $string1, $string2, $chatphrase19, $int23, $int24, $int22);
+            ~script16610($int17, $int18);
+            cc_setparam(toplevel_v2_chat_line_uid, $int15);
+            cc_setsize(0, calc(paraheight(cc_gettext, $int21, cc_getfontmetrics) * $int29), ^setsize_minus, ^setsize_abs);
+            $int30 = calc($int30 + cc_getheight);
+            if ($boolean26 = true) {
+                cc_settrans($int32);
+                $int30 = calc($int30 + 4);
+            }
+            $int33 = calc($int33 + 1);
+            ~script10487($int17, $string3, $int22);
+        }
+        if ($int25 = 1) {
+            switch_int ($int17) {
+                case 3, 6, 7, 18, 19 :
+                    %last_pm_received_sender = removetags($string2);
+                    $int25 = 0;
+            }
+        }
+    }
+    $int15 = chat_getprevuid($int15);
+    if ($int15 ! -1) {
+        $int17, $string0, $int18, $string1, $string2, $string3, $string4, $chatphrase19, $string5, $int20, $int22 = chat_gethistory_byuid($int15);
+        $int16 = calc($int16 + 1);
+    } else {
+        $int16 = 500;
+    }
+}
+~script8504($int0, $int30);

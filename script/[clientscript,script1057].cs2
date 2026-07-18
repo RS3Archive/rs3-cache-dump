@@ -1,0 +1,97 @@
+// 1057
+[clientscript,script1057](string $string0, int $int0, string $string1, string $string2, string $string3, string $string4, string $string5)
+def_int $int1 = 0;
+def_int $int2 = 65;
+def_int $int3 = ~script2042;
+if ($int3 < 140) {
+    $int2 = calc($int2 + 10);
+}
+if_settext($string0, chat_v3_choice:title_text);
+switch_int (%mobile_zoom) {
+    case 0, 1, 4, 5, 6 :
+        ~script1025(chat_v3_choice:title_text, -1, museo_sans_24pt_regular, museo_sans_21pt_regular, museo_sans_19pt_regular);
+        if_sethide(false, chat_v3_choice:chat_behind_the_choice);
+        if_sethide(false, chat_v3_choice:chat_text_frame_layer_1);
+        if_setposition(150, 0, ^setpos_abs_left, ^setpos_abs_bottom, chat_v3_choice:chat_text_layer_1);
+        if_setsize(11468, 30, ^setsize_rel, ^setsize_minus, chat_v3_choice:chat_text_layer_1);
+    case default :
+        ~script1025(chat_v3_choice:title_text, -1, museo_sans_19pt_regular, museo_sans_17pt_regular, museo_sans_15pt_regular);
+        if_sethide(true, chat_v3_choice:chat_behind_the_choice);
+        if_sethide(true, chat_v3_choice:chat_text_frame_layer_1);
+        if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, chat_v3_choice:chat_text_layer_1);
+        if_setsize(0, 30, ^setsize_minus, ^setsize_minus, chat_v3_choice:chat_text_layer_1);
+        $int2 = 30;
+}
+def_int $rgb4 = 0x0d2e3e;
+if (%toplevel_v2_active_skinset = 1) {
+    $rgb4 = 0x41362a;
+} else if (%toplevel_v2_active_skinset = 0) {
+    $rgb4 = 0x24211e;
+}
+def_int $int5 = calc($int2 + 5);
+def_string $string6 = "";
+def_int $int6 = calc(if_getheight(chat_v3_choice:choice_buttons_draw) - 10);
+$int6 = calc($int6 - $int0 * $int5);
+$int6 = calc($int6 - if_getheight(chat_v3_choice:background_frame_layer));
+cc_deleteall(chat_v3_choice:choice_buttons_draw);
+cc_deleteall(chat_v3_choice:choice_buttons_click);
+def_int $int7 = 0;
+def_int $int8 = 0;
+$int7, $int7, $int8, $int7 = ~script2956;
+while ($int1 < $int0) {
+    switch_int ($int1) {
+        case 0 :
+            $string6 = $string1;
+        case 1 :
+            $string6 = $string2;
+        case 2 :
+            $string6 = $string3;
+        case 3 :
+            $string6 = $string4;
+        case 4 :
+            $string6 = $string5;
+    }
+    if (string_length($string6) <= 0) {
+        return;
+    }
+    cc_create(chat_v3_choice:choice_buttons_draw, ^iftype_rectangle, if_getnextsubid(chat_v3_choice:choice_buttons_draw));
+    cc_setsize(0, $int2, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, calc($int6 + $int5 * $int1), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setcolour($rgb4);
+    cc_setfill(true);
+    cc_settrans(30);
+    cc_create(chat_v3_choice:choice_buttons_draw, ^iftype_graphic, if_getnextsubid(chat_v3_choice:choice_buttons_draw));
+    cc_setsize(0, $int2, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, calc($int6 + $int5 * $int1), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setgraphic(gradient_square_white_heavy_rot);
+    cc_setcolour($rgb4);
+    cc_sethflip(true);
+    cc_setonresize("script1057($string0, $int0, $string1, $string2, $string3, $string4, $string5)");
+    if (%toplevel_v2_mobile_interface = 0) {
+        cc_create(chat_v3_choice:choice_buttons_draw, ^iftype_text, if_getnextsubid(chat_v3_choice:choice_buttons_draw));
+        cc_setsize(15, $int2, ^setsize_abs, ^setsize_abs);
+        cc_setposition(2, calc($int6 + $int5 * $int1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext("<tostring(calc($int1 + 1))>.");
+        cc_setcolour(~script10495(0));
+        cc_settextfont(museo_sans_15pt_bold);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextshadow(true);
+    }
+    cc_create(chat_v3_choice:choice_buttons_draw, ^iftype_text, if_getnextsubid(chat_v3_choice:choice_buttons_draw));
+    cc_setsize(calc(60 + $int8), $int2, ^setsize_minus, ^setsize_abs);
+    cc_setposition(15, calc($int6 + $int5 * $int1), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext($string6);
+    cc_setcolour(^white);
+    ~script1025(chat_v3_choice:choice_buttons_draw, cc_getid, museo_sans_17pt_regular, museo_sans_15pt_regular, museo_sans_13pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_vspacings, cc_getfontmetrics));
+    cc_create(chat_v3_choice:choice_buttons_draw, ^iftype_graphic, if_getnextsubid(chat_v3_choice:choice_buttons_draw));
+    cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int8, calc($int6 + $int5 * $int1 + ($int2 - 18) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setgraphic(button_arrow_dialogue_select);
+    cc_settrans(50);
+    cc_create(chat_v3_choice:choice_buttons_click, ^iftype_text, if_getnextsubid(chat_v3_choice:choice_buttons_click));
+    cc_setsize($int8, $int2, ^setsize_minus, ^setsize_abs);
+    cc_setposition($int8, calc($int6 + $int5 * $int1), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setpausetext("Select");
+    $int1 = calc($int1 + 1);
+}

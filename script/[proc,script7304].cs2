@@ -1,0 +1,142 @@
+// 7304
+[proc,script7304]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+switch_int (%pop_crew_stat_captain_number) {
+    case 1 :
+        $int0 = %pop_captain_1_gender;
+        $int1 = %pop_captain_1_hair;
+        $int2 = %pop_captain_1_haircol;
+        $int3 = %pop_captain_1_skincol;
+    case 2 :
+        $int0 = %pop_captain_2_gender;
+        $int1 = %pop_captain_2_hair;
+        $int2 = %pop_captain_2_haircol;
+        $int3 = %pop_captain_2_skincol;
+    case 3 :
+        $int0 = %pop_captain_3_gender;
+        $int1 = %pop_captain_3_hair;
+        $int2 = %pop_captain_3_haircol;
+        $int3 = %pop_captain_3_skincol;
+    case 4 :
+        $int0 = %pop_captain_4_gender;
+        $int1 = %pop_captain_4_hair;
+        $int2 = %pop_captain_4_haircol;
+        $int3 = %pop_captain_4_skincol;
+    case 5 :
+        $int0 = %pop_captain_5_gender;
+        $int1 = %pop_captain_5_hair;
+        $int2 = %pop_captain_5_haircol;
+        $int3 = %pop_captain_5_skincol;
+    case 6 :
+        $int0 = %pop_captain_n_gender;
+        $int1 = %pop_captain_n_hair;
+        $int2 = %pop_captain_n_haircol;
+        $int3 = %pop_captain_n_skincol;
+}
+def_npc $npc4 = ~script2356($int0, $int1, $int3, $int2);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $string0 = "";
+if (enum_hasoutput(obj, pop_captain_list, %pop_crew_stat_obj) = true) {
+    if_setnpchead($npc4, pop_crew:face_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_crew:face_model);
+    if_setgraphic(null, pop_crew:face_icon);
+    if_settext("Level <tostring(%pop_crew_stat_level)>", pop_crew:selected_info);
+    $int5, $int6, $int7 = ~script3005(pop_crew, %pop_crew_selected);
+    $string0 = "<tostring($int6)>/<tostring($int7)>";
+    ~aif_progressbar_set($int5, pop_crew:xp_progress_value_layer, pop_crew:xp_progress_text);
+    if_setonmouserepeat("script8799($string0, event_com, -1)", pop_crew:xp_pogress_bar);
+    if_sethide(true, pop_crew:xp_progress_disabled_layer);
+} else {
+    if_setmodel(null, pop_crew:face_model);
+    if_setgraphic(oc_param(%pop_crew_stat_obj, pop_crew_graphic), pop_crew:face_icon);
+    if_settext("Level <tostring(%pop_crew_stat_level)>", pop_crew:selected_info);
+    $int5, $int6, $int7 = ~script3005(pop_crew, %pop_crew_selected);
+    $string0 = "<tostring($int6)>/<tostring($int7)>";
+    ~aif_progressbar_set($int5, pop_crew:xp_progress_value_layer, pop_crew:xp_progress_text);
+    if_setonmouserepeat("script8799($string0, event_com, -1)", pop_crew:xp_pogress_bar);
+    if_sethide(true, pop_crew:xp_progress_disabled_layer);
+}
+if_setmodelzoom(2900, pop_crew:face_model);
+def_string $string1 = %pop_crew_stat_name;
+if_settext($string1, pop_crew:name_text);
+if_sethide(true, pop_crew:dismiss_button_disabled);
+def_int $int8 = ~script7319(%pop_crew_selected);
+def_int $int9 = calc(($int8 & 57344) / 8192);
+def_int $int10 = calc(($int8 & 458752) / 65536);
+def_int $int11 = calc(($int8 & 3670016) / 524288);
+def_int $int12 = calc(($int8 & 29360128) / 4194304);
+def_int $int13 = 10;
+if (enum_hasoutput(obj, pop_captain_list, %pop_crew_stat_obj) = true) {
+    $int13 = 20;
+}
+$int9 = calc($int9 * $int13);
+$int10 = calc($int10 * $int13);
+$int11 = calc($int11 * $int13);
+$int12 = calc($int12 * $int13);
+def_int $int14 = ~script7317(pop_crew, %pop_crew_selected);
+def_int $int15 = calc(10 * $int14);
+def_int $int16 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_1);
+def_int $int17 = scale($int15, 100, $int16);
+def_int $int18 = calc(%pop_crew_stat_speed - $int16 - $int17 - $int9);
+def_string $string2 = "<col=C5BCAC>Base:</col> <tostring($int16)><br><col=C5BCAC>Level Boost:</col> <tostring($int17)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int9)><br><col=C5BCAC>Traits:</col> <tostring($int18)>";
+if_settext(tostring(%pop_crew_stat_speed), pop_crew:speed_text);
+if_setonmouserepeat("script8799($string2, event_com, -1)", pop_crew:speed_label);
+def_int $int19 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_2);
+def_int $int20 = scale($int15, 100, $int19);
+def_int $int21 = calc(%pop_crew_stat_graft - $int19 - $int20 - $int10);
+def_string $string3 = "<col=C5BCAC>Base:</col> <tostring($int19)><br><col=C5BCAC>Level Boost:</col> <tostring($int20)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int10)><br><col=C5BCAC>Traits:</col> <tostring($int21)>";
+if_settext(tostring(%pop_crew_stat_graft), pop_crew:graft_text);
+if_setonmouserepeat("script8799($string3, event_com, -1)", pop_crew:graft_label);
+def_int $int22 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_3);
+def_int $int23 = scale($int15, 100, $int22);
+def_int $int24 = calc(%pop_crew_stat_combat - $int22 - $int23 - $int11);
+def_string $string4 = "<col=C5BCAC>Base:</col> <tostring($int22)><br><col=C5BCAC>Level Boost:</col> <tostring($int23)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int11)><br><col=C5BCAC>Traits:</col> <tostring($int24)>";
+if_settext(tostring(%pop_crew_stat_combat), pop_crew:combat_text);
+if_setonmouserepeat("script8799($string4, event_com, -1)", pop_crew:combat_label);
+def_int $int25 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_4);
+def_int $int26 = scale($int15, 100, $int25);
+def_int $int27 = calc(%pop_crew_stat_seafaring - $int25 - $int26 - $int12);
+def_string $string5 = "<col=C5BCAC>Base:</col> <tostring($int25)><br><col=C5BCAC>Level Boost:</col> <tostring($int26)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int12)><br><col=C5BCAC>Traits:</col> <tostring($int27)>";
+if_settext(tostring(%pop_crew_stat_seafaring), pop_crew:seafaring_text);
+if_setonmouserepeat("script8799($string5, event_com, -1)", pop_crew:seafaring_label);
+def_string $string6 = %pop_crew_stat_trait;
+if (compare($string6, "") = 0) {
+    $string6 = "No Traits";
+}
+if_settext($string6, pop_crew:trait_text);
+if (compare(%pop_crew_stat_trait_tooltip, "") ! 0) {
+    if_setonmouserepeat("script8799(%pop_crew_stat_trait_tooltip, event_com, -1)", pop_crew:trait_text);
+    if_setonmouseover("text_colour_swapper(event_com, 16686339)", pop_crew:trait_text);
+} else {
+    if_setonmouserepeat(null, pop_crew:trait_text);
+    if_setonmouseover(null, pop_crew:trait_text);
+}
+if_setonmouseleave("script7305", pop_crew:trait_text);
+if (enum_hasoutput(obj, pop_item_list, %pop_crew_stat_obj) = true & %pop_crew_stat_obj ! pop_crew_item_ghost & %pop_crew_stat_obj ! pop_crew_item_zombie) {
+    if_settext("Useful supplies for a journey.", pop_crew:fluff_text);
+    if_settext("Ship Supplies", pop_crew:selected_info);
+    ~aif_progressbar_set(0, pop_crew:xp_progress_value_layer, pop_crew:xp_progress_text);
+    if_sethide(false, pop_crew:xp_progress_disabled_layer);
+} else {
+    if_settext(%pop_crew_stat_fluff, pop_crew:fluff_text);
+}
+if (%pop_crew_selected < inv_size(pop_crew)) {
+    if (~pop_crew_available(%pop_crew_selected) = 1) {
+        if_sethide(true, pop_crew:dismiss_button_disabled);
+    } else {
+        if_sethide(false, pop_crew:dismiss_button_disabled);
+    }
+    if (%pop_crew_stat_shipslot > 0 & %pop_crew_stat_shipslot < 5 & testbit(%pop_voyages_spaces, %pop_crew_selected) = ^true) {
+        if_settext(tostring(%pop_crew_stat_shipslot), pop_crew:ship_number);
+    } else {
+        if_settext("-", pop_crew:ship_number);
+    }
+}
+if (%pop_crew_stat_obj = null | compare("No crewman", %pop_crew_stat_name) = 0) {
+    if_sethide(false, pop_crew:dismiss_button_disabled);
+}

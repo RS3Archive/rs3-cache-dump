@@ -1,0 +1,108 @@
+// 7131
+[proc,makex2012_draw_ingredient](obj $obj0, int $int1, int $int2, int $int3, int $int4, obj $obj5, struct $struct6, int $int7, int $int8, int $int9, boolean $boolean10, component $component11, int $int12)(int, int)
+def_int $int13 = 0;
+def_int $int14 = calc(32 * $int3 / $int4);
+def_int $int15 = calc(36 * $int3 / $int4);
+def_int $int16 = $int12;
+$int12 = ~script7132($component11, $int12);
+def_string $string0 = null;
+def_graphic $graphic17 = null;
+def_obj $obj18 = null;
+$string0, $graphic17, $obj18 = ~script12103($obj5, $int7);
+if ($struct6 ! null) {
+    if (string_length(struct_param($struct6, recipe_multi_name_override)) > 1) {
+        $string0 = struct_param($struct6, recipe_multi_name_override);
+    }
+    if (struct_param($struct6, recipe_multi_object_override) ! null) {
+        $obj18 = struct_param($struct6, recipe_multi_object_override);
+        if ($obj18 ! null) {
+            $graphic17 = null;
+        }
+    }
+    if ($obj5 = null) {
+        $string0 = oc_name(struct_param($struct6, recipe_ingredient_type_1));
+    }
+    if ($graphic17 = null & $obj18 = null) {
+        $obj18 = struct_param($struct6, recipe_ingredient_type_1);
+    }
+}
+def_string $string1 = "";
+def_int $int19 = 1;
+if ($boolean10 = true) {
+    $string1 = tostring($int8);
+    $int19 = 3;
+} else {
+    $string1 = tostring($int8);
+    $int19 = 2;
+}
+~script7134($component11, $string0, 26, 1, $int2, calc($int1 + $int15 + 5), calc(if_getwidth($component11) - ($int1 + $int15 + 5) - (20 + 5 + stringwidth($string1, museo_sans_11pt_regular) + 5)), $int12);
+$int13 = max($int13, calc(cc_gety + cc_getheight));
+$int12 = calc($int12 + 1);
+.cc_create($component11, ^iftype_graphic, $int12);
+.cc_setsize($int15, $int14, ^setsize_abs, ^setsize_abs);
+.cc_setposition($int1, max($int2, calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2)), ^setpos_abs_left, ^setpos_abs_top);
+if ($graphic17 ! null) {
+    .cc_setgraphic($graphic17);
+    if ($obj5 = invent_dummy_dg_token) {
+        .cc_setcolour(0xc80000);
+    }
+} else if ($obj18 ! null) {
+    .cc_setobject_nonum($obj18, 0);
+    if ($struct6 ! null & struct_param($struct6, recipe_multi_object_override) = null) {
+        .cc_setontimer("script2577(event_com, event_comsubid, $struct6, 1)");
+    }
+}
+$int13 = max($int13, calc(.cc_gety + .cc_getheight));
+$int12 = calc($int12 + 1);
+~script7134($component11, $string1, 26, $int19, 0, 0, stringwidth($string1, museo_sans_11pt_regular), $int12);
+cc_setposition(calc(if_getwidth($component11) - 20 - 5 - cc_getwidth), max($int2, calc(.cc_gety + .cc_getheight / 2 - cc_getheight / 2)), ^setpos_abs_left, ^setpos_abs_top);
+$int13 = max($int13, calc(cc_gety + cc_getheight));
+$int12 = calc($int12 + 1);
+.cc_create($component11, ^iftype_graphic, $int12);
+.cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(if_getwidth($component11) - 20), max($int2, calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2)), ^setpos_abs_left, ^setpos_abs_top);
+if ($boolean10 = false) {
+    .cc_setgraphic("aif_tick_cross_icon,1");
+} else {
+    .cc_setgraphic("aif_tick_cross_icon,0");
+}
+$int13 = max($int13, calc(cc_gety + cc_getheight));
+$int12 = calc($int12 + 1);
+cc_create($component11, ^iftype_graphic, $int12);
+cc_setposition(0, calc($int2 - 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(if_getwidth($component11), calc($int13 - $int2 + 3), ^setsize_abs, ^setsize_abs);
+if ($int9 >= 0) {
+    $string1 = "Currently have: <col=ffffff><tostring_localised($int9, true)></col>";
+} else {
+    $string1 = "Currently have: <col=ffffff>Unlimited</col>";
+}
+if (oc_param($obj5, recipe_fully_charged) = 1) {
+    $string1 = "<$string1><br>This item must have no charges used.";
+}
+def_string $string2 = "";
+switch_category (oc_category($obj5)) {
+    case arch_soil :
+        $string2 = ~script14694($component11);
+    case arch_material :
+        $string2 = ~script14684($component11);
+    case arch_restoration_damaged :
+        $string2 = ~script1021($component11);
+}
+if (string_length($string2) > 0) {
+    $string1 = "<$string1><br><br><$string2>";
+}
+def_string $string3 = "";
+if ($obj5 = invent_material_dummy) {
+    $string3 = ~script12161($int7);
+    if (string_length($string3) > 0) {
+        $string1 = append($string1, "<br><br>To collect this material, disassemble:<br>");
+        $string1 = append($string1, "<col=ffffff><$string3></col>");
+    }
+}
+if ($struct6 ! null) {
+    $string1 = "<$string1><br><br>You can use any of the following:<~script12101($struct6, $obj0)>";
+}
+~script3537($string1);
+$int12 = calc($int12 + 1);
+~script7133(0, calc($int2 - 1), if_getwidth($component11), calc($int13 - $int2 + 3), $component11, $int16);
+return($int12, $int13);

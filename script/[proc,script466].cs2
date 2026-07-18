@@ -1,0 +1,15 @@
+// 466
+[proc,script466]()(boolean)
+def_obj $obj0 = inv_getobj(worn, 3);
+def_obj $obj1 = null;
+def_int $int2 = -1;
+if (oc_category(inv_getobj(worn, 2)) = alchemical_hydrix_amulet & oc_param(inv_getobj(worn, 2), item_degrade_broken_item) = 0) {
+    $int2 = inv_getvar(worn, 2, alchemical_hydrix_amulet_special_attack_id);
+    if ($int2 > 0) {
+        $obj1 = enum(int, obj, special_attack_id_to_obj, $int2);
+        if (oc_param($obj0, combatv2_melee_weapon) = 1 & oc_param($obj1, combatv2_melee_weapon) = 1 | oc_param($obj0, combatv2_magic_weapon) = 1 & oc_param($obj1, combatv2_magic_weapon) = 1 | oc_param($obj0, combatv2_ranged_weapon) = 1 & oc_param($obj1, combatv2_ranged_weapon) = 1 | oc_param($obj0, combatv2_necromancy_weapon) = 1 & oc_param($obj1, combatv2_necromancy_weapon) = 1) {
+            return(true);
+        }
+    }
+}
+return(false);

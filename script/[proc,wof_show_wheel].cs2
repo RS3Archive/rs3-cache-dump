@@ -1,0 +1,72 @@
+// 6974
+[proc,wof_show_wheel]
+~script3915;
+if_sethide(true, wheel_of_fortune:foreground_grey);
+if_sethide(true, wheel_of_fortune:reward_layer);
+if_sethide(true, wheel_of_fortune:play_again_layer);
+if_sethide(true, wheel_of_fortune:ticker_tooltip_layer);
+if_sethide(false, wheel_of_fortune:chest_layer_4);
+if_sethide(false, wheel_of_fortune:chest_layer_5);
+def_struct $struct0 = ~script16161;
+~script20040($struct0);
+switch_struct ($struct0) {
+    case trh87_promo :
+        if_sethide(true, wheel_of_fortune:chests_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_setgraphic(trh87_easter_background_leaf, wheel_of_fortune:background);
+    case trh93_promo, trh99_promo :
+        if_sethide(false, wheel_of_fortune:chests_layer);
+        if_sethide(false, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+    case trh102_promo :
+        if_sethide(false, wheel_of_fortune:chests_layer);
+        if_sethide(false, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+        if_setgraphic(th_background_stage_3, wheel_of_fortune:background);
+    case trh104_promo :
+        if_sethide(true, wheel_of_fortune:chests_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_setgraphic(trh104_background, wheel_of_fortune:background);
+        if_setgraphic(~trh104_get_map_graphic, trh104_overlay:background_map);
+    case trh119_promo, trh142_promo, trh157_promo, trh172_promo, trh198_promo :
+        ~script19019($struct0);
+    case trh124_promo :
+        if_sethide(false, wheel_of_fortune:chests_layer);
+        if_sethide(false, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:chest_layer_4);
+        if_sethide(true, wheel_of_fortune:chest_layer_5);
+        if_setgraphic(trh109_background, wheel_of_fortune:background);
+    case trh185_promo :
+        if_sethide(false, wheel_of_fortune:chests_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if (~script16682 = true) {
+            if_sethide(true, wheel_of_fortune:reward_layer);
+            if_sethide(true, trh_generic_jackpot_claim:prize_claim_overlay);
+        }
+    case default :
+        if_sethide(false, wheel_of_fortune:chests_layer);
+        if_sethide(false, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+        if_setgraphic(struct_param($struct0, trh_promo_background), wheel_of_fortune:background);
+}
+~script3904;
+if (%trh_promo_struct ! null) {
+    if_sethide(false, wheel_of_fortune:countdown_text);
+    if_sethide(false, wheel_of_fortune:info_icon);
+    if_sethide(false, wheel_of_fortune:info_icon_holder);
+}
+switch_struct ($struct0) {
+    case trh189_promo :
+        ~script19918;
+    case default :
+        ~script16198(true, 82116873);
+}
+%wof_trh_interface_state = 2;
+~script10877;
+if (~script18808 = false) {
+    ~wof_hotkey(1);
+}

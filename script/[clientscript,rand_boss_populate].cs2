@@ -1,0 +1,20 @@
+// 5519
+[clientscript,rand_boss_populate]
+if (%atdun_floor_theme = 0) {
+    return;
+}
+def_enum $enum0 = enum(int, enum, rand_theme_boss, %atdun_floor_theme);
+def_struct $struct1 = null;
+def_int $int2 = 1;
+while ($int2 <= 6) {
+    $struct1 = enum(int, struct, $enum0, $int2);
+    if_setobject_nonum(struct_param($struct1, skillguide_item), 1, enum(int, component, rand_bosses_gfx, $int2));
+    if_settext(struct_param($struct1, skillguide_name), enum(int, component, rand_bosses_text, $int2));
+    ~script8800("Requires <tostring(struct_param($struct1, skillguide_level))> Dungeoneering", enum(int, component, rand_bosses_layer, $int2), -1);
+    $int2 = calc($int2 + 1);
+}
+if (%atdun_daily_boss_client = 1) {
+    if_settext("Once per day you may choose the boss encountered in a dungeon.", rand_pick_boss:desc_text);
+} else {
+    if_settext("Your skillcape allows you to choose the next boss encountered in a dungeon.", rand_pick_boss:desc_text);
+}

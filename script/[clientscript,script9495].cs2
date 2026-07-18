@@ -1,0 +1,23 @@
+// 9495
+[clientscript,script9495](component $component0)
+if (%6awe2_pvp_warning_state < 0) {
+    ~script9494;
+    return;
+} else {
+    if_sethide(false, 6awe2_hud:popup_layer);
+    if (%6awe2_pvp_warning_state = 0) {
+        if (%6awe2_pvp_warning_type = 1) {
+        } else {
+            if_settext("PvP enabled", 6awe2_hud:popup_text);
+            if_setontimer("script9496", 6awe2_hud:popup_layer);
+        }
+    } else {
+        ~script9498;
+        if_setontimer("script9497", 6awe2_hud:popup_layer);
+        if (%6awe2_pvp_small_warnings = 1 | %6awe2_pvp_warning_type = 1) {
+            if_setsize(calc(24 + stringwidth(if_gettext(6awe2_hud:popup_text), if_getfontmetrics(6awe2_hud:popup_text))), 26, ^setsize_abs, ^setsize_abs, 6awe2_hud:popup_layer);
+        } else {
+            if_setsize(300, 100, ^setsize_abs, ^setsize_abs, $component0);
+        }
+    }
+}

@@ -1,0 +1,170 @@
+// 2267
+[clientscript,script2267]
+~script13972(wolf_shard_swap:tab_1, null, rs3tli_modal_tab, "Pouches", ~equal_int(0, %wolf_remember_tab));
+~script13972(wolf_shard_swap:tab_2, null, rs3tli_modal_tab, "Scrolls", ~equal_int(1, %wolf_remember_tab));
+def_int $int0 = 0;
+cc_deleteall(wolf_shard_swap:found_build);
+cc_deleteall(wolf_shard_swap:found_icon);
+cc_deleteall(wolf_shard_swap:found_click);
+cc_deleteall(wolf_shard_swap:not_build);
+cc_deleteall(wolf_shard_swap:not_icon);
+cc_deleteall(wolf_shard_swap:not_click);
+cc_deleteall(wolf_shard_swap:scrolling_layer);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_obj $obj8 = null;
+def_obj $obj9 = null;
+def_int $int10 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_enum $enum11 = null;
+def_int $int12 = 57;
+def_int $int13 = 52;
+def_int $int14 = 0;
+def_component $component15 = null;
+def_component $component16 = null;
+def_component $component17 = null;
+if (%wolf_remember_tab = 0) {
+    $enum11 = lore_active_enum;
+} else {
+    $enum11 = lore_spell_pouch_type_enum_bogrog;
+}
+def_int $int18 = enum_getoutputcount($enum11);
+while ($int0 < $int18) {
+    $obj9 = enum(int, obj, $enum11, $int0);
+    cc_create(wolf_shard_swap:found_icon, ^iftype_graphic, $int0);
+    .cc_create(wolf_shard_swap:not_icon, ^iftype_graphic, $int0);
+    if ($enum11 = lore_spell_pouch_type_enum_bogrog) {
+        cc_setobject_alwaysnum($obj9, max(oc_param($obj9, lore_cost_for_shard), 1));
+        .cc_setobject_alwaysnum($obj9, max(oc_param($obj9, lore_cost_for_shard), 1));
+    } else {
+        cc_setobject($obj9, 1);
+        .cc_setobject($obj9, 1);
+    }
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    .cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_sethide(true);
+    .cc_sethide(true);
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+while ($int0 < $int18) {
+    cc_create(wolf_shard_swap:found_click, ^iftype_text, $int0);
+    cc_create(wolf_shard_swap:not_click, ^iftype_text, $int0);
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+while ($int0 < $int18) {
+    if (oc_param(enum(int, obj, $enum11, $int0), lore_shards_returned) <= 0 & oc_param(enum(int, obj, $enum11, $int0), lore_cost_for_shard) <= 0) {
+        cc_create(wolf_shard_swap:found_click, ^iftype_text, $int0);
+        cc_create(wolf_shard_swap:not_click, ^iftype_text, $int0);
+    } else {
+        $obj9 = enum(int, obj, $enum11, $int0);
+        $obj8 = enum(int, obj, lore_active_enum, $int0);
+        $int10 = enum(obj, int, lore_levels_enum, oc_uncert($obj8));
+        $string0 = oc_name($obj9);
+        $int14 = oc_param($obj9, lore_shards_returned);
+        if (%wolf_elf_city_check = 1) {
+            $int14 = addpercent($int14, 10);
+        }
+        if (stat_base(summoning) >= enum(int, int, bogrog_swap_requirements_reverse, $int10) & (inv_total(inv, $obj9) > 0 | oc_cert($obj9) ! $obj9 & inv_total(inv, oc_cert($obj9)) > 0)) {
+            $int7 = 1;
+            $int5 = $int1;
+            $int6 = $int2;
+            $component15 = wolf_shard_swap:found_build;
+            $component16 = wolf_shard_swap:found_icon;
+            $component17 = wolf_shard_swap:found_click;
+        } else {
+            $int7 = 0;
+            $int5 = $int3;
+            $int6 = $int4;
+            $component15 = wolf_shard_swap:not_build;
+            $component16 = wolf_shard_swap:not_icon;
+            $component17 = wolf_shard_swap:not_click;
+        }
+        if (oc_param(oc_uncert($obj9), lore_requirement) > enum(int, int, bogrog_swap_requirements, stat_base(summoning))) {
+            $string1 = "<$string0> - You need a Summoning level of <tostring(enum(int, int, bogrog_swap_requirements_reverse, oc_param(oc_uncert($obj9), lore_requirement)))> to swap this";
+        } else if (~script6431 = false) {
+            $string1 = $string0;
+        } else {
+            $string1 = "";
+        }
+        if ($int5 >= 9) {
+            $int5 = 0;
+            $int6 = calc($int6 + 1);
+        }
+        ~script2682($component15, 45, 50, calc(2 + $int5 * $int13), calc(1 + $int6 * $int12), true, calc($int5 + $int6 * 9));
+        ~cc_add_rect_struct($component15, 45, 50, calc(2 + $int5 * $int13), calc(1 + $int6 * $int12), false, rs3_rect_outline);
+        if (cc_find($component16, $int0) = true) {
+            cc_setposition(calc(8 + $int5 * $int13), calc(5 + $int6 * $int12), ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+        }
+        cc_create($component17, ^iftype_text, $int0);
+        cc_setsize(45, 50, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc(2 + $int5 * $int13), calc(1 + $int6 * $int12), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setop(1, "Value");
+        cc_setopbase($string0);
+        if (string_length($string1) > 0) {
+            ~script14990(0, $string1);
+        }
+        if ($int7 = 1) {
+            cc_setop(2, "Swap-1");
+            cc_setop(3, "Swap-5");
+            cc_setop(4, "Swap-10");
+            cc_setop(5, "Swap-X");
+            cc_setop(6, "Swap-All");
+        }
+        cc_create($component15, ^iftype_text, if_getnextsubid($component15));
+        cc_setcolour(^white);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextshadow(true);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settext(~script940(max(1, $int14)));
+        cc_setsize(45, 20, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc(2 + $int5 * $int13), calc(35 + $int6 * $int12), ^setpos_abs_left, ^setpos_abs_top);
+        $int5 = calc($int5 + 1);
+        if ($int7 = 1) {
+            $int1 = $int5;
+            $int2 = $int6;
+        } else {
+            $int3 = $int5;
+            $int4 = $int6;
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+if_setposition(0, 25, ^setpos_abs_left, ^setpos_abs_top, wolf_shard_swap:not_found);
+if ($int1 > 0 | $int2 >= 1) {
+    if_setposition(0, calc($int2 * $int12 + $int12 + 40), ^setpos_abs_left, ^setpos_abs_top, wolf_shard_swap:not_found);
+    if_setposition(0, 20, ^setpos_abs_left, ^setpos_abs_top, wolf_shard_swap:found);
+    cc_create(wolf_shard_swap:scrolling_layer, ^iftype_text, if_getnextsubid(wolf_shard_swap:scrolling_layer));
+    cc_setcolour(~script10495(3));
+    cc_settextfont(cinzel_15pt_bold);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext("Able to swap for shards");
+    cc_setsize(0, 15, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, 1, ^setpos_abs_left, ^setpos_abs_top);
+    cc_create(wolf_shard_swap:scrolling_layer, ^iftype_text, if_getnextsubid(wolf_shard_swap:scrolling_layer));
+    cc_setcolour(~script10495(3));
+    cc_settextfont(cinzel_15pt_bold);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext("Not able to swap");
+    cc_setsize(0, 15, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, calc($int2 * $int12 + $int12 + 20), ^setpos_abs_left, ^setpos_abs_top);
+    if_setscrollsize(0, calc(($int2 + $int4) * $int12 + $int12 * 3 - 20), wolf_shard_swap:scrolling_layer);
+} else {
+    cc_create(wolf_shard_swap:scrolling_layer, ^iftype_text, if_getnextsubid(wolf_shard_swap:scrolling_layer));
+    cc_setcolour(~script10495(3));
+    cc_settextfont(cinzel_15pt_bold);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext("Not able to swap");
+    cc_setsize(0, 20, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setscrollsize(0, calc(($int2 + $int4) * $int12 + $int12 + 20), wolf_shard_swap:scrolling_layer);
+}
+~rs3_scrollbar_vertical(wolf_shard_swap:scroll_bar, wolf_shard_swap:scrolling_layer);

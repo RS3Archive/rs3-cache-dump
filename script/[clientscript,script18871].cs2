@@ -1,0 +1,45 @@
+// 18871
+[clientscript,script18871](dbrow $dbrow0, struct $struct1, string $string0, int $int2)
+sound_vorbis_volume(tli_click_01, 1, 0, 150);
+if_sethide(false, calendar_main:overlay_layer);
+cc_deleteall(calendar_main:entry_details_summary_layer);
+cc_deleteall(calendar_main:entry_details_footer_layer);
+~cc_add_graphic(calendar_main:entry_details_summary_layer, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 259, 105, ^setsize_abs, ^setsize_abs, ~script18875($dbrow0, $struct1, $int2));
+def_int $int3 = calc(cc_getheight + 5);
+def_int $int4 = paraheight($string0, 600, notosans_semibold_13);
+~script20480(calendar_main:entry_details_summary_layer, 2, 0, $int3, ^setpos_abs_centre, ^setpos_abs_top, 0, calc($int4 * 20), ^setsize_minus, ^setsize_abs, text_body_emphasis, $string0, -1, ^settextalign_centre, ^settextalign_centre);
+$int3 = calc($int3 + (5 + $int4 * 20));
+def_string $string1 = "";
+if ($dbrow0 ! null) {
+    $string1 = ~script18872($dbrow0, $int2);
+} else if ($struct1 ! null) {
+    $string1 = ~script18873($struct1, $int2);
+}
+~script20480(calendar_main:entry_details_summary_layer, 3, 0, $int3, ^setpos_abs_centre, ^setpos_abs_top, 100, 200, ^setsize_minus, ^setsize_abs, text_body_default, $string1, -1, ^settextalign_left, ^settextalign_top);
+$int4 = paraheight($string1, cc_getwidth, notosans_semibold_12);
+$int3 = calc($int3 + (5 + $int4 * 16));
+if_setscrollsize(0, $int3, calendar_main:entry_details_summary_layer);
+if_setscrollpos(0, 0, calendar_main:entry_details_summary_layer);
+~rs3_scrollbar_vertical(calendar_main:entry_details_scrollbar_layer, calendar_main:entry_details_summary_layer);
+~cc_add_line(calendar_main:entry_details_footer_layer, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 40, 0, ^setsize_minus, ^setsize_abs, ~script10495(8));
+~cc_add_line(calendar_main:entry_details_footer_layer, 2, 0, 1, ^setpos_abs_centre, ^setpos_abs_top, 40, 0, ^setsize_minus, ^setsize_abs, ~script10495(7));
+~cc_add_button(calendar_main:entry_details_footer_layer, 3, -104, 0, ^setpos_abs_centre, ^setpos_abs_centre, 176, 30, ^setsize_abs, ^setsize_abs, button_action_neutral, "Back");
+cc_setop(1, "Back");
+cc_setonop("script18880");
+def_string $string2 = ~script18877($int2, $dbrow0);
+def_int $int5 = db_getfield($dbrow0, calendar_entry:col0, 0);
+def_int $int6 = calc(4 + $int2 * 599 + $int5);
+~cc_add_button(calendar_main:entry_details_footer_layer, $int6, 104, 0, ^setpos_abs_centre, ^setpos_abs_centre, 176, 30, ^setsize_abs, ^setsize_abs, button_action_positive, $string2);
+cc_setop(1, $string2);
+def_boolean $boolean7 = ~script18876($dbrow0, $struct1, $int2);
+if ($boolean7 = false) {
+    cc_setenabled(false);
+    cc_sethide(true);
+    if (cc_find(calendar_main:entry_details_footer_layer, 3) = true) {
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    }
+}
+.cc_create(calendar_main:entry_details_open_listener, ^iftype_layer, $int6);
+.cc_setop(1, "Select");
+.cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+if_triggerop(calendar_main:entry_details_open_listener, $int6, 1);

@@ -1,0 +1,38 @@
+// 11028
+[proc,script11028](int $int0, component $component1)
+def_int $int2 = 0;
+if (%trh183_chests_frozen = 0) {
+    if_setontimer("script16715(clientclock, $int0, $component1, 250)", $component1);
+    if_setmodel(mtx_chest_basic, $component1);
+    return;
+}
+if_setmodel(mtx_chest_icicles, $component1);
+switch_int ($int0) {
+    case 1 :
+        if (%trh183_chests_frozen_claimed_1 = 1) {
+            $int2 = 1;
+        } else {
+            $int2 = 0;
+        }
+    case 2 :
+        if (%trh183_chests_frozen_claimed_2 = 1) {
+            $int2 = 1;
+        } else {
+            $int2 = 0;
+        }
+    case 3 :
+        if (%trh183_chests_frozen_claimed_3 = 1) {
+            $int2 = 1;
+        } else {
+            $int2 = 0;
+        }
+    case default :
+        ~error("Unknown chest index when setting up chests for trh183.");
+}
+if ($int2 = 1) {
+    if_setmodelanim(trh_chest_closed_idle, $component1);
+    if_setontimer(null, $component1);
+} else {
+    if_setmodelanim(trh_chest_open_state_level_one_a, $component1);
+    if_setontimer("script16715(clientclock, $int0, $component1, 250)", $component1);
+}

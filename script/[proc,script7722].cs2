@@ -1,0 +1,40 @@
+// 7722
+[proc,script7722](int $int0)
+def_int $int1 = 0;
+def_graphic $graphic2 = "loadingwheel,9";
+def_int $int3 = 0;
+~login_popup_close(0);
+if (unknown_command_20 = true) {
+    ~script15660;
+}
+~script15652;
+if (string_length(%loginscreen_recovery_username) > 0) {
+    ~script380(mobile_analytics_account_recovery);
+    $int1 = login_accountappeal(%loginscreen_recovery_username);
+    switch_int ($int1) {
+        case 2 :
+            ~login_popup(-1000, 0, "Account Recovery has opened in your default web browser.", "loadingwheel,13", "Back");
+        case 3 :
+            ~login_popup(-1000, 1, "Error connecting to server.", $graphic2, "Back");
+        case 4 :
+            ~login_popup(-1000, 1, "The part of the website you are trying to connect to is offline at the moment. Please try again later.", $graphic2, "Back");
+        case 5 :
+            ~login_popup(-1000, 1, "Sorry, there was an error trying to log you in to this part of the website. Please try again later.", $graphic2, "Back");
+        case 6 :
+            ~login_popup(-1000, 1, "Error connecting to server.", $graphic2, "Back");
+        case 7 :
+            ~login_popup(-1000, 1, "You must enter a valid login to proceed. For accounts created after 24th November 2010, please use your email address to login. Otherwise please login with your username, even if you have registered your email.", $graphic2, "Back");
+    }
+} else {
+    if ($int0 = 0) {
+        ~script10943("Please enter your Email / Username before trying to recover your password", loginscreen:recovery_text_entry);
+    } else if (%login_hide_user = 0) {
+        $int3 = string_length(%loginscreen_username);
+        if ($int3 > 0) {
+            %loginscreen_recovery_username = %loginscreen_username;
+        }
+        %login_caret = $int3;
+    }
+    ~loginscreen_setactivemenu_full(15, 1);
+    ~script15698(113);
+}

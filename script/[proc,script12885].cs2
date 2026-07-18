@@ -1,0 +1,292 @@
+// 12885
+[proc,script12885](struct $struct0)
+def_component $component1 = timed_event:information_left_layer;
+def_component $component2 = timed_event:information_right_layer;
+def_int $int3 = if_getnextsubid($component1);
+def_int $int4 = if_getnextsubid($component2);
+def_int $int5 = 6;
+def_int $int6 = 0;
+def_int $int7 = if_getwidth($component1);
+def_graphic $graphic8 = rs3_contextual_input_green_check_mark;
+def_int $int9 = 18694;
+def_int $int10 = 21748;
+def_int $int11 = 18695;
+def_int $int12 = 8;
+def_int $int13 = $int12;
+def_int $intarray0($int13);
+def_int $int14 = 0;
+def_int $int15 = 0;
+while ($int14 < $int13) {
+    switch_int ($int14) {
+        case 0 :
+            if (struct_param($struct0, timed_event_exclude_skilling) = 0) {
+                $intarray0($int15++) = $int14;
+            }
+        case 1 :
+            if (struct_param($struct0, timed_event_exclude_combat) = 0) {
+                $intarray0($int15++) = $int14;
+            }
+        case 2 :
+            if (struct_param($struct0, timed_event_exclude_challenge) = 0) {
+                $intarray0($int15++) = $int14;
+            }
+        case 3 :
+            if (struct_param($struct0, timed_event_exclude_treasure_trail) = 0) {
+                $intarray0($int15++) = $int14;
+            }
+        case 4 :
+            if (struct_param($struct0, timed_event_exclude_arch_collection_contribute) = 0) {
+                $intarray0($int15++) = $int14;
+            }
+        case 5 :
+            if (struct_param($struct0, timed_event_exclude_arch_collection_complete) = 0) {
+                $intarray0($int15++) = $int14;
+            }
+        case 6 :
+            if (struct_param($struct0, timed_event_exclude_host_task_complete) = 0) {
+                $intarray0($int15++) = $int14;
+            }
+        case default :
+            $int13 = $int15;
+    }
+    $int14 = calc($int14 + 1);
+}
+def_int $int16 = 4;
+def_int $intarray1($int16);
+def_int $intarray2($int16);
+def_int $int17 = 0;
+def_int $int18 = 0;
+$int14 = 0;
+$int15 = 0;
+while ($int14 < $int16) {
+    switch_int ($int14) {
+        case 0 :
+            $int15 = struct_param($struct0, timed_event_bonus_stat1);
+            $int17 = struct_param($struct0, timed_event_bonus_stat1_percent);
+        case 1 :
+            $int15 = struct_param($struct0, timed_event_bonus_stat2);
+            $int17 = struct_param($struct0, timed_event_bonus_stat2_percent);
+        case 2 :
+            $int15 = struct_param($struct0, timed_event_bonus_stat3);
+            $int17 = struct_param($struct0, timed_event_bonus_stat3_percent);
+        case 3 :
+            $int15 = struct_param($struct0, timed_event_bonus_stat4);
+            $int17 = struct_param($struct0, timed_event_bonus_stat4_percent);
+    }
+    if ($int15 = -1 | $int17 = -1) {
+        $int14 = $int16;
+    } else {
+        $intarray1($int14) = $int15;
+        $intarray2($int14) = $int17;
+        $int18 = calc($int18 + 1);
+        $int14 = calc($int14 + 1);
+    }
+}
+def_enum $enum19 = struct_param($struct0, timed_event_mystery_box_unique_prize_list);
+def_int $int20 = 0;
+if ($enum19 ! null) {
+    $int20 = min(21, enum_getoutputcount($enum19));
+}
+def_obj $obj21 = null;
+def_graphic $graphic22 = null;
+if ((struct_param($struct0, timed_event_type) = 0 | struct_param($struct0, timed_event_type) = 1) & struct_param($struct0, timed_event_currency) ! null) {
+    if ($int3 = 0) {
+        cc_create($component1, ^iftype_text, $int3++);
+        cc_settextfont(cinzel_18pt_bold);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settext("Progress");
+        cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+        cc_setcolour(~script10495(1));
+        $int6 = calc($int6 + (cc_getheight + 8));
+        cc_create($component1, ^iftype_text, $int3++);
+        cc_settextfont(notosans_12);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settext("You can increase your event progress by handing in any <struct_param($struct0, timed_event_currency_string)> that you find throughout your travels.");
+        cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+        cc_setcolour(^white);
+        $int6 = calc($int6 + (cc_getheight + 8));
+        cc_create($component1, ^iftype_text, $int3++);
+        cc_settextfont(notosans_12);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settext("As your progress increases throughout the event you will gain access to unique rewards. These rewards are only available whilst the event is active, so make sure to get them before they're gone!");
+        cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+        cc_setcolour(^white);
+        $int6 = calc($int6 + (cc_getheight + 8));
+        cc_create($component1, ^iftype_text, $int3++);
+        cc_settextfont(notosans_12);
+        cc_settext("Currency earning activities:");
+        cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+        cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setcolour(~script10495(3));
+        $int6 = calc($int6 + (cc_getheight + 4));
+        $int14 = 0;
+        while ($int14 < $int13) {
+            .cc_create($component1, ^iftype_graphic, $int3++);
+            .cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+            .cc_setgraphic($graphic8);
+            cc_create($component1, ^iftype_text, $int3++);
+            cc_settextfont(notosans_12);
+            cc_settext(enum(int, string, timed_event_activity_text, $intarray0($int14)));
+            cc_setposition(calc($int5 + .cc_getwidth + 4), $int6, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+            cc_setcolour(^white);
+            $int6 = calc($int6 + (max(cc_getheight, .cc_getheight) + 4));
+            if (++$int14 = calc($int12 / 2) & $int14 ! $int13) {
+                $int15 = $int5;
+                $int17 = $int6;
+                $int5 = calc($int5 + if_getwidth($component1) / 2);
+                $int6 = calc($int6 - (max(cc_getheight, .cc_getheight) + 4) * ($int12 / 2));
+            }
+        }
+        if ($int13 > calc($int12 / 2)) {
+            $int5 = $int15;
+            $int6 = $int17;
+        }
+        $int6 = calc($int6 + 6);
+        if (struct_param($struct0, timed_event_bonus_stat1) > -1) {
+            cc_create($component1, ^iftype_text, $int3++);
+            cc_settextfont(cinzel_18pt_bold);
+            cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+            cc_settext("Bonuses");
+            cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+            cc_setcolour(~script10495(1));
+            $int6 = calc($int6 + (cc_getheight + 8));
+            cc_create($component1, ^iftype_text, $int3++);
+            cc_settextfont(notosans_12);
+            cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+            cc_settext(struct_param($struct0, timed_event_bonus_string));
+            cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+            cc_setcolour(^white);
+            $int6 = calc($int6 + (cc_getheight + 8));
+            if (struct_param($struct0, timed_event_hide_stat_bonus) = false) {
+                cc_create($component1, ^iftype_text, $int3++);
+                cc_settextfont(notosans_12);
+                cc_settext("Bonus skills:");
+                cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+                cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+                cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+                cc_setcolour(~script10495(3));
+                $int6 = calc($int6 + (cc_getheight + 8));
+                if ($int18 = 0) {
+                    .cc_create($component1, ^iftype_graphic, $int3++);
+                    .cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+                    .cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+                    .cc_setgraphic(rs3_icon_slot_standard);
+                    cc_create($component1, ^iftype_text, $int3++);
+                    cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+                    cc_settext("NONE");
+                    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+                    cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+                    cc_settextfont(notosans_12);
+                    cc_setcolour(^white);
+                }
+                $int14 = 0;
+                while ($int14 < $int18) {
+                    .cc_create($component1, ^iftype_graphic, $int3++);
+                    .cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+                    .cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+                    .cc_setgraphic(rs3_icon_slot_standard);
+                    cc_create($component1, ^iftype_graphic, $int3++);
+                    cc_setposition($int5, calc($int6 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                    cc_setgraphic(enum(int, graphic, stat2icon_medium, $intarray1($int14)));
+                    cc_setonmouserepeat("script8799(enum(int, string, statstring, $intarray1($int14)), event_com, event_comsubid)");
+                    cc_create($component1, ^iftype_text, $int3++);
+                    cc_setposition($int5, calc($int6 + 35 + 2), ^setpos_abs_left, ^setpos_abs_top);
+                    cc_settext("+<tostring($intarray2($int14))>%");
+                    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+                    cc_setsize(36, enum(fontmetrics, int, toplevel_v2_font_heights, notosans_12), ^setsize_abs, ^setsize_abs);
+                    cc_settextfont(notosans_12);
+                    cc_setcolour(^white);
+                    $int14 = calc($int14 + 1);
+                    $int5 = calc($int5 + (.cc_getwidth + 6));
+                }
+            }
+        }
+    }
+    $int6 = 0;
+    $int5 = 6;
+    if ($int4 = 0 & struct_param($struct0, timed_event_mystery_box) ! null & struct_param($struct0, timed_event_mystery_box_big) ! null) {
+        cc_create($component2, ^iftype_text, $int4++);
+        cc_settextfont(cinzel_18pt_bold);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settext("Mystery Boxes");
+        cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+        cc_setcolour(~script10495(1));
+        $int6 = calc($int6 + (cc_getheight + 8));
+        cc_create($component2, ^iftype_text, $int4++);
+        cc_settextfont(notosans_12);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settext("If you have any extra or leftover currency from the event, you can exchange them for mystery boxes. A mystery box comes in two different sizes - both offering an assortment of mystery prizes.");
+        cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+        cc_setcolour(^white);
+        $int6 = calc($int6 + (cc_getheight + 12));
+        if (struct_param($struct0, timed_event_mystery_box_show_prize_list_button) = true) {
+            ~cc_add_child_button(1, 0, $int5, $int6, ^setpos_abs_centre, ^setpos_abs_top, 200, 30, ^setsize_abs, ^setsize_abs, button_action_positive, "View Prizes");
+            cc_setop(1, "View Prizes");
+            $int6 = calc($int6 + (cc_getheight + 30));
+        } else if (struct_param($struct0, timed_event_mystery_box_unique_prize_list) ! null) {
+            cc_create($component2, ^iftype_text, $int4++);
+            cc_settextfont(notosans_12);
+            cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+            cc_settext("Boxes that are opened during an event will also contain special themed prizes.");
+            cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+            cc_setcolour(^white);
+            $int6 = calc($int6 + (cc_getheight + 8));
+            cc_create($component2, ^iftype_text, $int4++);
+            cc_settextfont(notosans_12);
+            cc_settext("Special prizes:");
+            cc_setsize(cc_getx, ~script7593(cc_gettext, calc($int7 - cc_getx), cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+            cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+            cc_setcolour(~script10495(3));
+            $int6 = calc($int6 + (cc_getheight + 8));
+            $int14 = 0;
+            while ($int14 < $int20) {
+                $obj21 = enum(int, obj, $enum19, $int14);
+                $graphic22 = oc_param($obj21, timed_event_reward_graphic);
+                .cc_create($component2, ^iftype_graphic, $int4++);
+                .cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+                if ($graphic22 = null) {
+                    .cc_setgraphic(rs3_icon_slot_standard);
+                } else {
+                    .cc_setgraphic($graphic22);
+                }
+                cc_create($component2, ^iftype_graphic, $int4++);
+                cc_setposition(calc($int5 + 4), calc($int6 + 2), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                if ($graphic22 = null) {
+                    cc_setobject($obj21, -1);
+                }
+                cc_setoutline(1);
+                cc_setonmouserepeat("script9564($obj21, event_com, cc_getid)");
+                $int5 = calc($int5 + (.cc_getwidth + 6));
+                if (calc(($int14 + 1) % 6) = 0) {
+                    $int5 = 6;
+                    $int6 = calc($int6 + (.cc_getheight + 6));
+                }
+                $int14 = calc($int14 + 1);
+            }
+        }
+    }
+} else {
+    cc_create(timed_event:information_layer, ^iftype_text, if_getnextsubid(timed_event:information_layer));
+    cc_settextfont(cinzel_18pt_bold);
+    cc_setcolour(^white);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_settext("There is no information for this event.");
+}

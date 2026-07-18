@@ -1,0 +1,36 @@
+// 6183
+[clientscript,script6183]
+def_int $int0 = 0;
+def_int $int1 = %rcsiphonxp_esteem_client;
+if (%rcsiphonxp_shop_selected_item = 0) {
+    if_settext("0", rcsiphonxp_shop:cost_number);
+    return;
+}
+if (if_gethide(rcsiphonxp_shop:confirm_layer_layer) = false) {
+    return;
+}
+if (%rcsiphonxp_shop_tab = 1) {
+    while ($int1 < %rcsiphonxp_shop_selected_item) {
+        $int0 = calc($int0 + enum(int, int, rcsiphonxp_esteem_cost, $int1));
+        $int1 = calc($int1 + 1);
+    }
+    if_settext("Rank <tostring(calc(11 - %rcsiphonxp_shop_selected_item))> Esteem = <tostring($int0)> points", rcsiphonxp_shop:cost_number);
+    return;
+}
+if (%rcsiphonxp_shop_tab = 2) {
+    if_settext("Recolour = <tostring(2000)> points", rcsiphonxp_shop:cost_number);
+    return;
+}
+def_struct $struct2 = enum(int, struct, rcsiphonxp_item_iterator, calc(%rcsiphonxp_shop_selected_item - 1));
+if ($struct2 = null) {
+    return;
+}
+$int0 = struct_param($struct2, rcsiphonxp_price);
+$int0 = calc($int0 * %rcsiphonxp_shop_amount);
+if (struct_param($struct2, rcsiphonxp_has_name2) = 0) {
+    if_settext("<tostring(%rcsiphonxp_shop_amount)> x <struct_param($struct2, rcsiphonxp_name)> = <tostring($int0)>", rcsiphonxp_shop:cost_number);
+} else if (map_lang = 3 | map_lang = 2) {
+    if_settext("<tostring(%rcsiphonxp_shop_amount)> x <struct_param($struct2, rcsiphonxp_name2)> <struct_param($struct2, rcsiphonxp_name)> = <tostring($int0)>", rcsiphonxp_shop:cost_number);
+} else {
+    if_settext("<tostring(%rcsiphonxp_shop_amount)> x <struct_param($struct2, rcsiphonxp_name)> <struct_param($struct2, rcsiphonxp_name2)> = <tostring($int0)>", rcsiphonxp_shop:cost_number);
+}

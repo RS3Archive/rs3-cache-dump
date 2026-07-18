@@ -1,0 +1,24 @@
+// 2127
+[proc,script2127](quest $quest0)(int, string)
+def_int $int1 = -1;
+def_string $string0 = "";
+def_int $int2 = 0;
+if ($quest0 = null) {
+    ~error("null .quest.");
+    return(0, "");
+}
+def_string $string1 = "";
+def_quest $quest3 = null;
+def_int $int4 = quest_questreq_count($quest0);
+def_int $int5 = 1;
+while ($int5 <= $int4) {
+    $int1 = ~script2111($quest0, $int5);
+    if ($int1 > -1) {
+        $int2 = 1;
+        $quest3 = enum(int, quest, ql4_quests, $int1);
+        $string1 = ~quest_name($quest3);
+        $string0 = "<$string0><~script1164(~ql4_getprogress($quest3), 2, $string1)><br>";
+    }
+    $int5 = calc($int5 + 1);
+}
+return($int2, $string0);

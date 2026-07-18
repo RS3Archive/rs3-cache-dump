@@ -1,0 +1,50 @@
+// 12443
+[proc,machinima_onop](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+switch_int ($int0) {
+    case 1 :
+        $int1 = %machinima_livecamera_camera_pos_speed;
+    case 2 :
+        $int2 = calc(%machinima_livecamera_camera_pos_speed * -1);
+    case 3 :
+        $int1 = calc(%machinima_livecamera_camera_pos_speed * -1);
+    case 4 :
+        $int2 = %machinima_livecamera_camera_pos_speed;
+    case 5 :
+        $int3 = %machinima_livecamera_camera_pos_speed;
+    case 6 :
+        $int3 = calc(%machinima_livecamera_camera_pos_speed * -1);
+    case 7 :
+        $int5 = calc(2 * %machinima_livecamera_camera_rot_speed);
+    case 8 :
+        $int5 = calc(2 * (%machinima_livecamera_camera_rot_speed * -1));
+    case 9 :
+        $int4 = calc(2 * (%machinima_livecamera_camera_rot_speed * -1));
+    case 10 :
+        $int4 = calc(2 * %machinima_livecamera_camera_rot_speed);
+    case default :
+        return;
+}
+if (%machinima_livecamera_camera_type ! 1) {
+    if (%machinima_livecamera_camera_type = 0) {
+        if ($int1 ! 0) {
+            cam2_setlookatorientation_zmovement($int1);
+        }
+        if ($int2 ! 0) {
+            cam2_setlookatorientation_xmovement($int2);
+        }
+        if ($int3 ! 0) {
+            cam2_setpositionpoint_point(movecoord_fine(cam2_getpositionpoint_point, 0, 0, $int3, 0));
+        }
+    }
+    if ($int4 ! 0) {
+        cam2_setlookatorientation_xrotation($int4);
+    }
+    if ($int5 ! 0) {
+        cam2_setlookatorientation_yrotation($int5);
+    }
+}

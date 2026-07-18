@@ -1,0 +1,58 @@
+// 12061
+[proc,invent_blueprint_check_requirements](dbrow $dbrow0)(int, string)
+def_string $string0 = "";
+def_int $int1 = db_getfield($dbrow0, invent_blueprint_table:col9, 0);
+if (stat(invention) < $int1) {
+    return(0, "This blueprint requires <tostring($int1)> Invention.");
+}
+def_stat $stat2 = null;
+def_int $int3 = 0;
+if (%invent_tutorial_state < 105) {
+    switch_dbrow ($dbrow0) {
+        case invent_blueprint_charge_pack :
+            if (%invent_tutorial_state < 5) {
+                return(0, "");
+            }
+        case invent_blueprint_augmentor :
+            if (%invent_tutorial_state < 55) {
+                return(0, "");
+            }
+        case invent_blueprint_gizmo :
+            if (%invent_tutorial_state < 80) {
+                return(0, "");
+            }
+        case default :
+            return(0, "");
+    }
+}
+def_int $int4 = db_getfieldcount($dbrow0, invent_blueprint_table:col11);
+while ($int4-- > 0) {
+    $stat2, $int3 = db_getfield($dbrow0, invent_blueprint_table:col11, $int4);
+    if (stat($stat2) < $int3) {
+        return(0, "This blueprint requires <tostring($int3)> <enum(stat, string, stat_to_string, $stat2)>.");
+    }
+}
+$int4 = db_getfieldcount($dbrow0, invent_blueprint_table:col10);
+while ($int4-- > 0) {
+    $int3 = db_getfield($dbrow0, invent_blueprint_table:col10, $int4);
+    $string0 = ~script1525($int3);
+    if (~script7073($int3) ! 2) {
+        return(0, "This blueprint requires completion of the quest: '<$string0>'.");
+    }
+}
+$int4 = db_getfieldcount($dbrow0, invent_blueprint_table:col12);
+while ($int4-- > 0) {
+    $int3 = db_getfield($dbrow0, invent_blueprint_table:col12, $int4);
+    if (~invent_blueprint_unlocked($int3) ! 1) {
+        return(0, "This blueprint requires an understanding of the invention: '<db_getfield($dbrow0, invent_blueprint_table:col1, 0)>'");
+    }
+}
+$int4 = db_getfieldcount($dbrow0, invent_blueprint_table:col13);
+def_int $int5 = 0;
+while ($int4-- > 0) {
+    $int5, $int3 = db_getfield($dbrow0, invent_blueprint_table:col13, $int4);
+    if (~invent_techtree_unlocked($int5, $int3) ! 1) {
+        return(0, "This blueprint requires an understanding of: '<~script12051($dbrow0, 0)> Technology'.");
+    }
+}
+return(1, "");

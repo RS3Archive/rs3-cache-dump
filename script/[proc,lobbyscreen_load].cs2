@@ -1,0 +1,70 @@
+// 1299
+[proc,lobbyscreen_load]
+%toplevel_v2_chat_last_uid = -1;
+if (~is_mobile_client = true) {
+    ~script6543;
+}
+if_sendtoback(lobbyscreen:fader);
+if_setonvartransmit("script2354{email_validation}", lobbyscreen:base);
+if_setonvartransmit("lobbyscreen_launch_billing{lobbyscreen_lightbox_flag}", lobbyscreen:subscribe_timer);
+if_setonvartransmit("script6270{login_once_checks}", lobbyscreen:rebilling_listener);
+if_setonvarctransmit("script7732{player_coord}", lobbyscreen:player_coord_preload_listener);
+if_setonvartransmit("script11090{email_validation}", lobbyscreen:mute_message_listener);
+if_setonvartransmit("script11925{lobbyscreen_bonds_count}", lobbyscreen:bonds_listener);
+if_setonvartransmit("script11926{lobbyscreen_coins_count}", lobbyscreen:wealth_listener);
+if (%evalid_rewards < 1 & userdetail_quickchat = false & %login_via_social = 0) {
+    if_setonvartransmit("script5937{evalid_existing_account_validation_state}", lobbyscreen:email_validation_listener);
+}
+if_settrans(0, lobbyscreen:black_out_rect);
+if (~script11370 = 0) {
+    if_sethide(false, lobbyscreen:under_13);
+} else {
+    if_sethide(true, lobbyscreen:under_13);
+}
+if_sethide(false, lobbyscreen:main_bg);
+if_setonresize("lobby_resize", lobbyscreen:base);
+def_int $int0 = string_indexof_string(%loginscreen_username, "@", 0);
+if ($int0 = -1) {
+    %loginscreen_previous_login_type = 1;
+} else {
+    %loginscreen_previous_login_type = 2;
+}
+~lobby_popup_close;
+%lobby_current_tab = -1;
+~script15612;
+if (~is_mobile_client = false) {
+    ~script10031(2);
+    ~script10031(3);
+    ~script10031(4);
+    if_setonchattransmit("lobbyscreen_chat_handler(lobbyscreen_pane_friendslist:chat, lobbyscreen_pane_clanchat:chat, lobbyscreen_pane_friendschat:chat)", lobbyscreen:base);
+} else {
+    if_setonchattransmit("lobbyscreen_chat_handler(lobbyscreen_pane_mobile_social:chat, null, null)", lobbyscreen:base);
+}
+%lobby_pmchat_lastcount, %lobby_clanchat_lastcount, %lobby_friendschat_lastcount = ~lobbyscreen_chat_count;
+~lobbyscreen_tabswitch(0);
+~lobbyscreen_loginbutton_text(true);
+if (~is_mobile_client = true) {
+    if_setgraphic(rs3_icon_lobby_mobile_favouriteworlds, lobbyscreen:login_favs_icon);
+}
+%lobbyscreen_input = "";
+%loginscreen_pvp_warned = 0;
+mes("Welcome to RuneScape.");
+if (userdetail_quickchat = true) {
+    mes("Users restricted to quick-chat cannot send messages from the Lobby.");
+}
+~toplevel_minimenu_setup;
+if_setonkey("script1328(event_keycode)", lobbyscreen:base);
+if_setontimer("event_job(lobbyscreen:entry_checks_timer)", lobbyscreen:entry_checks_timer);
+if_setonmisctransmit("script1868(lobbyscreen:update_timer)", lobbyscreen:update_listener);
+~lobby_resize;
+if_setontimer("lobbyscreen_blackout_timer(lobbyscreen:black_out_rect)", lobbyscreen:blackout_timer);
+if (login_reply ! 0 & login_reply ! 2 & login_reply ! 15) {
+    ~script10210(lobbyscreen:login_button, map_world, clientoption_get(^clientoption_volume_main_effects), clientoption_get(^clientoption_volume_main_music), clientoption_get(^clientoption_volume_background_effects), clientoption_get(^clientoption_volume_speech), clientoption_get(^clientoption_volume_login_music), login_reply, 2);
+}
+if (lobby_entergamereply ! -2) {
+    if_sendtoback(lobbyscreen:fader);
+    ~script10210(lobbyscreen:tooltips_layer, map_world, clientoption_get(^clientoption_volume_main_effects), clientoption_get(^clientoption_volume_main_music), clientoption_get(^clientoption_volume_background_effects), clientoption_get(^clientoption_volume_speech), clientoption_get(^clientoption_volume_login_music), lobby_entergamereply, 1);
+    login_resetreply;
+    return;
+}
+~script16901(0);

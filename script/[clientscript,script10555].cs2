@@ -1,0 +1,44 @@
+// 10555
+[clientscript,script10555](component $component0)
+def_int $int1 = 5;
+def_int $int2 = if_getwidth($component0);
+def_int $int3 = calc($int2 / (36 + $int1));
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_boolean $boolean8 = ~is_mobile_client;
+while ($int4 < 20) {
+    $obj5 = enum(int, obj, runemach_int_to_rune, $int4);
+    $int6 = ~script10556($obj5);
+    cc_create($component0, ^iftype_graphic, $int4);
+    cc_setposition(calc($int4 % $int3 * (36 + $int1)), calc($int4 / $int3 * (32 + $int1)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setonmouserepeat("script8799(oc_name($obj5), event_com, event_comsubid)");
+    if ($int6 > 0) {
+        cc_setobject($obj5, $int6);
+        cc_setdraggable(runemach_dnd:mainmodal_window_content, -1);
+        if ($boolean8 = false) {
+            cc_setdragdeadzone(0);
+            cc_setdragdeadtime(0);
+        } else {
+            cc_setdragdeadzone(20);
+            cc_setdragdeadtime(5);
+        }
+        cc_setopbase(oc_name($obj5));
+        cc_setop(1, "Add");
+        cc_setop(2, "Slot 1");
+        cc_setop(3, "Slot 2");
+        cc_setop(4, "Slot 3");
+        cc_setonop("script10563(event_comsubid, event_op)");
+        cc_setondragcomplete("script10559(event_comsubid, event_com2)");
+        if (%runemach_selected_1 = $int4 | %runemach_selected_2 = $int4 | %runemach_selected_3 = $int4) {
+            cc_settrans(120);
+        }
+    } else {
+        cc_setobject($obj5, -1);
+        cc_settrans(120);
+    }
+    $int4 = calc($int4 + 1);
+}
+if_setscrollsize(0, max(calc($int4 / $int3 * (32 + $int1)), if_getheight($component0)), $component0);

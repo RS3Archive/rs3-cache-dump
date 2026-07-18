@@ -1,0 +1,22 @@
+// 11708
+[proc,script11708](category $category0, achievement $achievement1, achievement $achievement2)(string, int, int, achievement, achievement)
+def_int $int3 = achievement_findsubcat(atset, $category0);
+def_int $int4 = 0;
+def_achievement $achievement5 = achievement_findnext;
+while ($achievement5 ! null) {
+    switch_int (achievement_reqstate($achievement5)) {
+        case -2 :
+            $int4 = calc($int4 + 1);
+        case -1 :
+            if ($achievement2 = null) {
+                $achievement2 = $achievement5;
+            }
+        case default :
+            if ($achievement1 = null) {
+                $achievement1 = $achievement5;
+            }
+    }
+    $achievement5 = achievement_findnext;
+}
+def_string $string0 = "<tostring($int4)> / <tostring($int3)>";
+return($string0, $int4, $int3, $achievement1, $achievement2);

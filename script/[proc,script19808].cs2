@@ -1,0 +1,33 @@
+// 19808
+[proc,script19808]
+def_obj $obj0 = null;
+def_int $int1 = 0;
+def_struct $struct2 = null;
+def_graphic $graphic3 = null;
+~spinner_create(trh205_overlay:prize_select_preview_preview_load_1, 3, -1);
+~spinner_create(trh205_overlay:prize_select_preview_preview_load_2, 3, -1);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh205_overlay:prize_select_preview_movable_layer_1);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh205_overlay:prize_select_preview_movable_layer_2);
+if_sethide(true, trh205_overlay:joint_prize_option_1_content_layer);
+if_sethide(true, trh205_overlay:joint_prize_option_2_content_layer);
+$obj0, $int1, $struct2, $graphic3 = ~script19764(1);
+~script16663(trh205_prize_select_preview_1_components, $obj0, 1);
+if_settext("Keys to unlock: <tostring(~script19767(1))>", trh205_overlay:prize_select_preview_keys_1);
+$obj0, $int1, $struct2, $graphic3 = ~script19764(2);
+~script16663(trh205_prize_select_preview_2_components, $obj0, 1);
+if_settext("Keys to unlock: <tostring(~script19767(2))>", trh205_overlay:prize_select_preview_keys_2);
+def_int $int4 = 0;
+$int4, $obj0, $int1, $struct2, $graphic3 = ~script19766(1);
+if ($int4 = 1) {
+    if_sethide(false, trh205_overlay:joint_prize_option_1_content_layer);
+    if_setposition(-12, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh205_overlay:prize_select_preview_movable_layer_1);
+    ~script16663(trh205_prize_select_joint_preview_1_components, $obj0, 1);
+    if_settext(append(if_gettext(db_getfield(trh205_prize_select_preview_1_components, trh_prize_preview_components:col5, 0)), " & <oc_name($obj0)>"), db_getfield(trh205_prize_select_preview_1_components, trh_prize_preview_components:col5, 0));
+}
+$int4, $obj0, $int1, $struct2, $graphic3 = ~script19766(2);
+if ($int4 = 1) {
+    if_sethide(false, trh205_overlay:joint_prize_option_2_content_layer);
+    if_setposition(12, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh205_overlay:prize_select_preview_movable_layer_2);
+    ~script16663(trh205_prize_select_joint_preview_2_components, $obj0, 1);
+    if_settext(append(if_gettext(db_getfield(trh205_prize_select_preview_2_components, trh_prize_preview_components:col5, 0)), " & <oc_name($obj0)>"), db_getfield(trh205_prize_select_preview_2_components, trh_prize_preview_components:col5, 0));
+}

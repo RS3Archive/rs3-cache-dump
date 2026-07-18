@@ -1,0 +1,84 @@
+// 10327
+[proc,script10327](component $component0, component $component1)
+def_component $component2 = ~script10293($component0);
+def_component $component3 = ~script10294($component0);
+def_component $component4 = ~script10295($component0);
+def_component $component5 = ~script2937($component0);
+def_component $component6 = ~script10296($component0);
+def_component $component7 = ~script10297($component0);
+def_component $component8 = ~script10298($component0);
+def_component $component9 = ~script10299($component0);
+def_component $component10 = ~script10300($component0);
+def_component $component11 = ~script10301($component0);
+def_component $component12 = ~script10302($component0);
+def_component $component13 = ~script4074($component0);
+def_component $component14 = ~script10303($component0);
+if_sethide(true, $component6);
+if_sethide(true, $component7);
+if_sethide(true, $component8);
+if_sethide(true, $component9);
+if_sethide(true, $component10);
+if_sethide(true, $component11);
+if_sethide(true, $component12);
+if_sethide(true, $component14);
+if_sethide(true, $component13);
+def_int $int15 = 3;
+def_int $int16 = ~script10275;
+def_int $int17 = if_getwidth($component4);
+def_int $int18 = if_getwidth($component3);
+def_struct $struct19 = ~script10285(%group_type);
+if ($int16 ! -1) {
+    if ($int16 = player_group_get_owner_slot) {
+        $int15 = ~script10329($int15, $component0, $component7);
+        $int15 = ~script10329($int15, $component0, $component6);
+        $int15 = ~script10329($int15, $component0, $component13);
+        if (%group_type ! 999999) {
+            $int15 = ~script10329($int15, $component0, $component12);
+        }
+        if ($struct19 ! null) {
+            if (struct_param($struct19, group_in_world) = true & player_group_member_get_status($int16) = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, group_min_players)) {
+                $int15 = ~script10329($int15, $component0, $component9);
+            } else if (player_group_get_overall_status = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, group_min_players) & struct_param($struct19, group_tele_coord) ! null & %group_type ! 999999) {
+                $int15 = ~script10329($int15, $component0, $component9);
+            }
+        }
+    } else if (~script10281($int16) = true) {
+        $int15 = ~script10329($int15, $component0, $component7);
+        $int15 = ~script10329($int15, $component0, $component6);
+        $int15 = ~script10329($int15, $component0, $component13);
+    } else {
+        $int15 = ~script10329($int15, $component0, $component7);
+        $int15 = ~script10329($int15, $component0, $component13);
+        if ($struct19 ! null & struct_param($struct19, group_in_world) = true & player_group_member_get_status($int16) = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, group_min_players)) {
+            $int15 = ~script10329($int15, $component0, $component9);
+        }
+    }
+    if ($component0 = group_child_dropdown:content_layer) {
+        $int15 = ~script10329($int15, $component0, $component10);
+    } else if (calc($int15 + 27 + 40 + $int18) < $int17) {
+        ~script10329(calc($int17 - 40 - $int18 - 27), $component0, $component10);
+    } else if (calc($int15 + 27 + 30) < $int17) {
+        $int15 = ~script10329($int15, $component0, $component10);
+    } else {
+        $int15 = ~script10329($int15, $component0, $component10);
+    }
+}
+$int15 = calc($int15 + 3);
+if ($component0 = group_child_dropdown:content_layer) {
+    if ($component1 ! null) {
+        ~script8788(calc($int15 + 10), 40, $component1, -1, 2, -24, -6);
+    }
+} else {
+    if ($int17 < calc($int15 + 40 + $int18)) {
+        if_sethide(true, $component3);
+    } else {
+        if_sethide(false, $component3);
+    }
+    if ($int17 < calc($int15 + 30)) {
+        if_sethide(true, $component4);
+        if_sethide(false, $component5);
+    } else {
+        if_sethide(false, $component4);
+        if_sethide(true, $component5);
+    }
+}

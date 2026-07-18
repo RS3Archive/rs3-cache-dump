@@ -1,0 +1,19 @@
+// 6452
+[clientscript,script6452](component $component0, component $component1, int $int2, int $int3, int $int4)
+if ($int2 >= $int3) {
+    if_setontimer("script6449($component0, $component1, 0, $int4)", $component0);
+    if (cc_find($component1, 0) = true) {
+        if ($int4 = 1) {
+            cc_setmodelanim(human_actor_chathead_idle_standard);
+        } else if (%mtxmgt_category_drawn ! 5) {
+            if (%player_kit_torso_client ! null) {
+                cc_setmodelanim(bas_getanim_ready(%player_kit_torso_client));
+            } else {
+                cc_setmodelanim(bas_getanim_ready(default_human));
+            }
+            cc_setonvarctransmit("script1517(event_com, event_comsubid){player_kit_torso_client}");
+        }
+    }
+} else {
+    if_setontimer("script6452($component0, $component1, calc($int2 + 1), $int3, $int4)", $component0);
+}

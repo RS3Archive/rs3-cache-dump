@@ -1,0 +1,22 @@
+// 20249
+[clientscript,script20249](component $component0, int $int1, int $int2, int $int3)
+def_int $int4 = calc((clientclock - $int2) % 75);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int5, $int6, $int7 = ~hex_to_rgb($int3);
+if ($int4 < 25) {
+} else if ($int4 < 50) {
+    $int4 = calc(($int4 - 25) * 5);
+    $int5 = max(0, calc($int5 - $int4));
+    $int6 = min(255, calc($int6 + $int4));
+    $int7 = max(0, calc($int7 - $int4));
+} else {
+    $int4 = calc(($int4 - 50) * 5);
+    $int5 = min($int5, max(0, calc($int5 - (125 - $int4))));
+    $int6 = max($int6, min(255, calc($int6 + (125 - $int4))));
+    $int7 = min($int7, max(0, calc($int7 - (125 - $int4))));
+}
+if (cc_find($component0, $int1) = true) {
+    cc_setcolour(~rgb_to_hex($int5, $int6, $int7));
+}

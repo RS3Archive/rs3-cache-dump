@@ -1,0 +1,73 @@
+// 7860
+[clientscript,script7860](int $int0, idkit $idkit1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+def_struct $struct3 = null;
+def_int $int4 = -1;
+switch_int ($int2) {
+    case 0, 7 :
+        %playerdesign3_head = $idkit1;
+        baseidkit($int2, $idkit1);
+        sound_vorbis_rate(~script5925(playerdesign4_ui_haircut), 1, 0, 180, 255);
+    case 1, 8 :
+        %playerdesign3_jaw = $idkit1;
+        baseidkit($int2, $idkit1);
+        sound_vorbis_rate(~script5925(playerdesign4_ui_haircut), 1, 0, 180, 255);
+    case 2, 9, 3, 10, 4, 11 :
+        %playerdesign2_client_antilag = 0;
+        setobj(2, playerkit_dummy_shadow_necklace);
+        setobj(3, null);
+        setobj(5, null);
+        sound_vorbis_rate(~script5925(playerdesign4_ui_clothing_foley), 1, 0, 100, 350);
+        switch_int ($int2) {
+            case 2, 9 :
+                %playerdesign3_torso = $idkit1;
+                $int4 = 3;
+            case 3, 10 :
+                %playerdesign3_arms = $idkit1;
+                $int4 = 4;
+            case 4, 11 :
+                %playerdesign3_hands = $idkit1;
+                $int4 = 5;
+        }
+        $struct3 = ~script2793($idkit1, $int4);
+        if ($struct3 ! null) {
+            if (gender = 1) {
+                %playerdesign3_torso = struct_param($struct3, playerdesign4_outfit_torso);
+                baseidkit(9, %playerdesign3_torso);
+                %playerdesign3_arms = struct_param($struct3, playerdesign4_outfit_arms);
+                baseidkit(10, %playerdesign3_arms);
+                %playerdesign3_hands = struct_param($struct3, playerdesign4_outfit_hands);
+                baseidkit(11, %playerdesign3_hands);
+            } else {
+                %playerdesign3_torso = struct_param($struct3, playerdesign4_outfit_torso);
+                baseidkit(2, %playerdesign3_torso);
+                %playerdesign3_arms = struct_param($struct3, playerdesign4_outfit_arms);
+                baseidkit(3, %playerdesign3_arms);
+                %playerdesign3_hands = struct_param($struct3, playerdesign4_outfit_hands);
+                baseidkit(4, %playerdesign3_hands);
+            }
+        } else {
+            baseidkit($int2, $idkit1);
+        }
+    case 5, 12 :
+        %playerdesign2_client_antilag = 0;
+        setobj(2, playerkit_dummy_shadow_necklace);
+        setobj(3, null);
+        setobj(5, null);
+        baseidkit($int2, $idkit1);
+        %playerdesign3_legs = $idkit1;
+        sound_vorbis_rate(~script5925(playerdesign4_ui_clothing_foley), 1, 0, 100, 350);
+    case 6, 13 :
+        %playerdesign2_client_antilag = 0;
+        setobj(2, playerkit_dummy_shadow_necklace);
+        setobj(3, null);
+        setobj(5, null);
+        baseidkit($int2, $idkit1);
+        %playerdesign3_feet = $idkit1;
+        sound_vorbis_rate(~script5925(playerdesign4_ui_boots_foley), 1, 0, 150, 350);
+    case default :
+        return;
+}
+~script7867;

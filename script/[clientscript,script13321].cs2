@@ -1,0 +1,29 @@
+// 13321
+[clientscript,script13321](int $int0)
+def_int $int1 = 0;
+def_int $int2 = calc(clientclock - $int0);
+if ($int2 < 50) {
+    $int2 = scale(255, 50, $int2);
+    if_settrans($int2, cheevo_popup:flash_rect);
+} else if ($int2 >= 50 & $int2 < 150) {
+    if_sethide(true, cheevo_popup:flash_rect);
+} else if ($int2 >= 150 & $int2 < 200) {
+    $int2 = calc(255 - scale(255, 50, calc(200 - $int2)));
+    while ($int1 < if_getnextsubid(cheevo_popup:cheevo_popup_background)) {
+        if (cc_find(cheevo_popup:cheevo_popup_background, $int1) = true) {
+            cc_settrans($int2);
+        }
+        $int1 = calc($int1 + 1);
+    }
+    $int1 = 0;
+    while ($int1 < if_getnextsubid(cheevo_popup:cheevo_popup_border)) {
+        if (cc_find(cheevo_popup:cheevo_popup_border, $int1) = true) {
+            cc_settrans($int2);
+        }
+        $int1 = calc($int1 + 1);
+    }
+    if_settrans($int2, cheevo_popup:cheevo_heading);
+    if_settrans($int2, cheevo_popup:cheevo_icon);
+    if_settrans($int2, cheevo_popup:cheevo_title);
+    if_settrans($int2, cheevo_popup:cheevo_details);
+}

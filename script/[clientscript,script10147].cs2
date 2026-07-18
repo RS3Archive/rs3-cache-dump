@@ -1,0 +1,40 @@
+// 10147
+[clientscript,script10147](int $int0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int7 = -1;
+def_int $int8 = -1;
+if (%varclientbit_23070 = 1) {
+    mes("Please wait a moment.");
+    return;
+}
+$int6, $string0, $string1 = ttv_webcam_getdevice_byuniquename(%twitch_webcam_idname);
+if ($int6 = -1) {
+    ~script10145;
+    sound_vorbis_volume(omge_error, 1, 0, 150);
+    return;
+}
+$int7 = ttv_webcam_getcap_count($int6);
+$int8, $int1, $int2, $int3, $int4 = ttv_webcam_getcap_byuniqueid($int6, %twitch_webcam_options_id);
+$int8 = calc($int8 + $int0);
+if ($int8 < 0 | $int8 >= $int7) {
+    mes("No more options available.");
+    sound_vorbis_volume(omge_error, 1, 0, 150);
+    return;
+}
+$int8, $int1, $int2, $int3, $int4 = ttv_webcam_getcap_byindex($int6, $int8);
+if ($int8 = -1) {
+    ~script10145;
+    return;
+}
+sound_vorbis_volume(tli_click_01, 1, 0, 100);
+%varclientbit_23070 = 1;
+%twitch_webcam_options_id = $int1;
+~script10150(1);
+if_settext("<tostring($int2)> x <tostring($int3)>, framerate: <tostring($int4)>", toplevel_v2_parent_suboverlay_twitch:webcam_options);

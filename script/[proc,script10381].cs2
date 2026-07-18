@@ -1,0 +1,26 @@
+// 10381
+[proc,script10381](component $component0, component $component1, component $component2, component $component3)
+def_struct $struct4 = null;
+def_enum $enum5 = null;
+if (player_group_find = true) {
+    if_sethide(true, $component2);
+    if_setontimer(null, $component2);
+    if (%group_type = 999999) {
+        if_settext("Custom groups can not assign teams.", $component3);
+        return;
+    }
+    $struct4 = enum(int, struct, group_id_to_struct, %group_type);
+    if ($struct4 = null) {
+        if_settext("Your group can not assign teams.", $component3);
+        return;
+    }
+    $enum5 = struct_param($struct4, group_team_enum);
+    if ($enum5 = null) {
+        if_settext("Your group can not assign teams.", $component3);
+        return;
+    }
+    ~static_dropdown_create($component0, $component1, $enum5, -1, "Select a team.", 0);
+} else {
+    if_sethide(false, $component2);
+    if_setontimer("script10382($component0, $component1, $component2, $component3)", $component2);
+}

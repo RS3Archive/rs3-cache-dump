@@ -1,0 +1,19 @@
+// 7818
+[proc,snapshot_mutetoggle](component $component0)
+if (playermodlevel = 5 | playermodlevel = 6) {
+    if_settext("Suggest to temporarily mute this player", snapshot_main_v2:mutetoggle);
+    if_settext("Suggest to temporarily mute this player", snapshot_main_v2:mutetoggle_offence);
+} else {
+    if_settext("Temporarily mute this player", snapshot_main_v2:mutetoggle);
+    if_settext("Temporarily mute this player", snapshot_main_v2:mutetoggle_offence);
+}
+if (%snapshot_mute = true) {
+    %snapshot_mute = false;
+} else {
+    %snapshot_mute = true;
+}
+if ($component0 = snapshot_main_v2:offence_mute_checkbox_click) {
+    ~static_checkbox_create(snapshot_main_v2:name_list_mute_checkbox_build, snapshot_main_v2:name_list_mute_checkbox_click, "", "", "", ~bool_to_int(%snapshot_mute));
+} else if ($component0 = snapshot_main_v2:name_list_mute_checkbox_click) {
+    ~static_checkbox_create(snapshot_main_v2:offence_mute_checkbox_build, snapshot_main_v2:offence_mute_checkbox_click, "", "", "", ~bool_to_int(%snapshot_mute));
+}

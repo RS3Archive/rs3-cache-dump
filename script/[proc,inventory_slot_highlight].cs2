@@ -1,0 +1,56 @@
+// 3900
+[proc,inventory_slot_highlight](int $int0, component $component1, int $int2, component $component3, int $int4, int $int5)
+if ($int0 = -1 | $component1 = null | $component3 = null) {
+    return;
+}
+if ($int0 = 94 & %inv_obj_being_dragged ! null) {
+    $int2 = oc_wearpos(%inv_obj_being_dragged);
+    if ($int2 = 17) {
+        $int2 = 17;
+    }
+}
+%inv_highlight_component = $component3;
+%inv_slot_being_highlighted_1 = $int2;
+if (%inv_obj_being_dragged = null | %inv_inv_being_dragged = null | $int4 = 0) {
+    if (cc_find($component3, $int2) = true) {
+        cc_sethide(true);
+    }
+    %inv_slot_being_highlighted_1 = -1;
+    if_setonmouserepeat(null, $component1);
+    return;
+}
+def_obj $obj6 = null;
+def_int $rgb7 = 0xf0be79;
+if (cc_find($component1, $int2) = true) {
+    if ($int0 = 94) {
+        if (%inv_inv_being_dragged ! worn) {
+            $obj6 = cc_getinvobject;
+            if (oc_wearpos(%inv_obj_being_dragged) = -1 | $int5 = 1 & ~wearprevent(%inv_obj_being_dragged) ! 0 | $int5 = 0 & ~script3848(%inv_obj_being_dragged, null) ! 0) {
+                $rgb7 = ^red;
+            }
+        }
+    } else if (%inv_inv_being_dragged ! inv) {
+        $obj6 = cc_getinvobject;
+        if ($int5 = 1 & ~script9224(%inv_obj_being_dragged, $obj6) = 1 | $int5 = 0 & ~script3851(%inv_obj_being_dragged, $obj6) = 1) {
+            $rgb7 = ^red;
+        }
+    }
+} else {
+    if_setonmouserepeat(null, $component1);
+    %inv_slot_being_highlighted_1 = -1;
+    return;
+}
+if (cc_find($component3, $int2) = true) {
+    if ($rgb7 = ^red) {
+        if_setonmouserepeat("script3901($int0, $component1, $int2, $component3, calc(clientclock + 25), %inv_obj_being_dragged, %inv_inv_being_dragged)", $component1);
+    } else {
+        if_setonmouserepeat(null, $component1);
+    }
+    if (~script6431 = true) {
+        cc_setsize(44, 44, ^setsize_abs, ^setsize_abs);
+    } else {
+        cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+    }
+    cc_setcolour($rgb7);
+    cc_sethide(false);
+}

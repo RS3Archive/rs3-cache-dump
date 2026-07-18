@@ -1,0 +1,12 @@
+// 15623
+[clientscript,script15623]
+def_int $int0 = calc(0 - if_getwidth(lobbyscreen_mobile_side_menu:base));
+def_int $int1 = max($int0, calc(if_getx(lobbyscreen:mobile_sidemenu) - 10));
+def_int $int2 = min(255, calc(if_gettrans(lobbyscreen:mobile_sidemenu_blackout_bg) + 8));
+if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_bottom, lobbyscreen:mobile_sidemenu);
+if_settrans($int2, lobbyscreen:mobile_sidemenu_blackout_bg);
+if ($int1 <= $int0) {
+    if_setontimer(null, lobbyscreen:mobile_sidemenu_timer);
+    if_sethide(true, lobbyscreen:mobile_sidemenu_blackout);
+    if_settrans(255, lobbyscreen:mobile_sidemenu_blackout_bg);
+}

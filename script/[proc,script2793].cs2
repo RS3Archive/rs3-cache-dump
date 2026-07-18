@@ -1,0 +1,39 @@
+// 2793
+[proc,script2793](idkit $idkit0, int $int1)(struct)
+def_boolean $boolean2 = ~int_to_bool(gender);
+def_int $int3 = calc(enum_getoutputcount(playerdesign4_custom_roles) - 1);
+def_struct $struct4 = null;
+def_int $int5 = 0;
+def_struct $struct6 = null;
+while ($int3 >= 0) {
+    $struct4 = enum(int, struct, playerdesign4_custom_roles, $int3);
+    if ($struct4 ! null) {
+        $int5 = 0;
+        $struct6 = ~playerdesign4_getoutfit(0, $struct4, $boolean2);
+        while ($struct6 ! null) {
+            switch_int ($int1) {
+                case 3 :
+                    if (struct_param($struct6, playerdesign4_outfit_torso) = $idkit0) {
+                        return($struct6);
+                    }
+                case 4 :
+                    if (struct_param($struct6, playerdesign4_outfit_arms) = $idkit0) {
+                        return($struct6);
+                    }
+                case 5 :
+                    if (struct_param($struct6, playerdesign4_outfit_hands) = $idkit0) {
+                        return($struct6);
+                    }
+                case 6 :
+                    if (struct_param($struct6, playerdesign4_outfit_legs) = $idkit0) {
+                        return($struct6);
+                    }
+                case default :
+                    return(null);
+            }
+            $struct6 = ~playerdesign4_getoutfit(++$int5, $struct4, $boolean2);
+        }
+    }
+    $int3 = calc($int3 - 1);
+}
+return(null);

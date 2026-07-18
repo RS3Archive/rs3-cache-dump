@@ -1,0 +1,39 @@
+// 13395
+[proc,minimenu_draw_single](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, struct $struct6)
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $string0 = "0";
+def_int $int9 = 0;
+def_int $int10 = 0;
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, minimenu:menu_layer);
+def_int $int11 = calc($int2 + 2 * 31);
+def_int $int12 = calc($int3 + 2 * 31);
+def_int $int13 = calc($int0 - 31);
+def_int $int14 = calc($int1 - 31);
+if ($int0 < $int13) {
+    $int11 = calc($int11 - ($int13 - $int0));
+    $int13 = 0;
+}
+if ($int1 < $int14) {
+    $int12 = calc($int12 - ($int14 - $int1));
+    $int14 = 0;
+}
+if_sethide(false, minimenu:menu_blocking_layer);
+if_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top, minimenu:menu_blocking_layer);
+if_setsize($int11, $int12, ^setsize_abs, ^setsize_abs, minimenu:menu_blocking_layer);
+~minimenu_draw_container($int2, $int3, $int4, $struct6, minimenu:menu_build_layer, minimenu:menu_background_layer, enum(int, string, minimenu_chooseoption, map_lang));
+while ($int7 < $int5) {
+    $int8, $string0, $int9 = unknown_command_29(-1, $int7);
+    if (%minimenu_entity_filter_on = 0 | testbit(%minimenu_entity_filter, $int8) = ^false) {
+        ~minimenu_draw_entry($string0, 1, -1, $int7, $int10, $int2, $struct6, minimenu:menu_build_layer);
+        if (cc_find(minimenu:menu_build_layer, $int7) = true) {
+            cc_setparam(minimenu_size_width, $int2);
+            cc_setparam(minimenu_size_height, $int3);
+            cc_setparam(minimenu_position_x, $int0);
+            cc_setparam(minimenu_position_y, $int1);
+        }
+        $int10 = calc($int10 + 1);
+    }
+    $int7 = calc($int7 + 1);
+}
+~script2958(-1, 0, minimenu:menu_build_layer);

@@ -1,0 +1,40 @@
+// 11200
+[proc,trh_promo_info_countdown_time](int $int0, int $int1)(string)
+def_string $string0 = "Promo Over";
+def_int $int2 = calc($int0 / 60 / 24);
+def_int $int3 = calc($int0 / 60 - $int2 * 24);
+def_string $string1 = tostring($int2);
+def_string $string2 = tostring($int3);
+def_string $string3 = tostring(calc($int0 % 60));
+def_string $string4 = tostring(calc(59 - $int1));
+def_string $string5 = "<col=CDE1FF>";
+if ($int0 < 60) {
+    $string5 = "<col=DD0000>";
+} else if ($int0 < 1440) {
+    $string5 = "<col=DD4400>";
+}
+if (calc($int0 + 1) > 0) {
+    if ($int2 >= 1) {
+        if (string_length($string1) = 1) {
+            $string1 = append("0", $string1);
+        }
+        if (string_length($string2) = 1) {
+            $string2 = append("0", $string2);
+        }
+        $string0 = "<$string5><$string1>d <$string2>h";
+    } else if ($int3 >= 1) {
+        if (string_length($string2) = 1) {
+            $string2 = append("0", $string2);
+        }
+        if (string_length($string3) = 1) {
+            $string3 = append("0", $string3);
+        }
+        $string0 = "<$string5><$string2>h <$string3>m";
+    } else {
+        if (string_length($string4) = 1) {
+            $string4 = append("0", $string4);
+        }
+        $string0 = "<$string5><$string3>m <$string4>s";
+    }
+}
+return($string0);

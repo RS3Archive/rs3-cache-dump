@@ -1,0 +1,97 @@
+// 12749
+[proc,script12749]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 5;
+def_enum $enum4 = enum(int, enum, trh104_map_path_list, %trh104_current_map);
+def_enum $enum5 = null;
+def_enum $enum6 = null;
+switch_int (%trh104_current_map) {
+    case 0 :
+        $enum5 = trh104_map1x_data;
+        $enum6 = trh104_map1y_data;
+        $int3 = 5;
+    case 1 :
+        $enum5 = trh104_map2x_data;
+        $enum6 = trh104_map2y_data;
+        $int3 = 5;
+    case 2 :
+        $enum5 = trh104_map3x_data;
+        $enum6 = trh104_map3y_data;
+        $int3 = 6;
+    case 3 :
+        $enum5 = trh104_map4x_data;
+        $enum6 = trh104_map4y_data;
+        $int3 = 5;
+    case 4 :
+        $enum5 = trh104_map5x_data;
+        $enum6 = trh104_map5y_data;
+        $int3 = 7;
+    case 5 :
+        $enum5 = trh104_map6x_data;
+        $enum6 = trh104_map6y_data;
+        $int3 = 6;
+    case 6 :
+        $enum5 = trh104_map7x_data;
+        $enum6 = trh104_map7y_data;
+        $int3 = 5;
+    case 7 :
+        $enum5 = trh104_map8x_data;
+        $enum6 = trh104_map8y_data;
+        $int3 = 6;
+}
+while ($int0 < $int3) {
+    $int1 = enum(int, int, $enum5, $int0);
+    $int2 = enum(int, int, $enum6, $int0);
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, trh104_map_component, $int0));
+    $int0 = calc($int0 + 1);
+}
+if (%trh104_current_map ! 7) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int7 = 0;
+def_component $component8 = null;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_struct $struct11 = null;
+while ($int7 < $int3) {
+    $struct11 = enum(int, struct, $enum4, $int7);
+    $int1 = struct_param($struct11, trh104_x_pos);
+    $int2 = struct_param($struct11, trh104_y_pos);
+    $int9 = struct_param($struct11, trh104_width);
+    $int10 = struct_param($struct11, trh104_height);
+    $component8 = enum(int, component, trh104_path_component, $int7);
+    if (if_find($component8) = true) {
+        cc_setgraphic(struct_param($struct11, trh104_graphic));
+        cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+    }
+    $int7 = calc($int7 + 1);
+}
+if_sethide(false, trh104_overlay:node00_layer);
+if_sethide(false, trh104_overlay:node01_layer);
+if_sethide(false, trh104_overlay:node02_layer);
+if_sethide(false, trh104_overlay:node03_layer);
+if_sethide(false, trh104_overlay:node04_layer);
+def_int $int12 = enum(int, int, trh104_nodes_to_map, %trh104_current_map);
+if ($int12 = 5) {
+    if_sethide(true, trh104_overlay:node05_layer);
+    if_sethide(true, trh104_overlay:node06_layer);
+    if_sethide(true, trh104_overlay:path6);
+    if_sethide(true, trh104_overlay:path7);
+} else if ($int12 = 6) {
+    if_sethide(false, trh104_overlay:node05_layer);
+    if_sethide(true, trh104_overlay:node06_layer);
+    if (%trh104_current_map = 7) {
+        if_sethide(true, trh104_overlay:path6);
+    } else {
+        if_sethide(false, trh104_overlay:path6);
+    }
+    if_sethide(true, trh104_overlay:path7);
+} else if ($int12 = 7) {
+    if_sethide(false, trh104_overlay:node05_layer);
+    if_sethide(false, trh104_overlay:node06_layer);
+    if_sethide(false, trh104_overlay:path6);
+    if_sethide(false, trh104_overlay:path7);
+}

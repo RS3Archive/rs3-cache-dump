@@ -1,0 +1,119 @@
+// 12635
+[proc,script12635](int $int0, int $int1, int $setposh2, int $setposv3, int $int4, int $int5)
+def_int $int6 = cc_param(rs3tli_component_target_pos_x);
+def_int $int7 = cc_param(rs3tli_component_target_pos_y);
+if ($int6 = -1) {
+    $int6 = $int0;
+}
+if ($int7 = -1) {
+    $int7 = $int1;
+}
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = -1;
+def_int $int15 = -1;
+switch_int (cc_param(rs3tli_component_velocity_type)) {
+    case 0, 1 :
+        $int8 = cc_param(rs3tli_component_speed_x);
+        $int9 = cc_param(rs3tli_component_speed_y);
+        if (cc_param(rs3tli_component_velocity_type) = 1) {
+            $int10 = cc_param(rs3tli_component_acceleration_x);
+            $int11 = cc_param(rs3tli_component_acceleration_y);
+            if ($int10 ! 0 | $int11 ! 0) {
+                ~cc_setspeed(~script11882($int8, $int10), ~script11882($int9, $int11));
+                $int8 = ~script11882($int8, calc($int10 / 2));
+                $int9 = ~script11882($int9, calc($int11 / 2));
+            }
+        }
+        $int8 = ~script11882($int8, cc_param(rs3tli_component_mpixel_x));
+        $int9 = ~script11882($int9, cc_param(rs3tli_component_mpixel_y));
+        $int6 = calc($int6 * 1000);
+        $int7 = calc($int7 * 1000);
+        if ($setposh2 = ^setpos_abs_right) {
+            $int6 = calc($int6 - $int8);
+        } else {
+            $int6 = calc($int6 + $int8);
+        }
+        if ($setposv3 = ^setpos_abs_bottom) {
+            $int7 = calc($int7 - $int9);
+        } else {
+            $int7 = calc($int7 + $int9);
+        }
+        if (cc_param(rs3tli_component_collision_type) ! -1) {
+            $int4 = calc($int4 * 1000);
+            $int5 = calc($int5 * 1000);
+            switch_int ($setposh2) {
+                case ^setpos_abs_left, ^setpos_abs_right :
+                    if ($int6 < 0) {
+                        $int6 = ~invert($int6);
+                        $int12 = 1;
+                    } else {
+                        $int14 = calc($int6 + cc_getwidth * 1000);
+                        if ($int14 > $int4) {
+                            $int6 = calc(2 * $int4 - $int14 - cc_getwidth * 1000);
+                            $int12 = 1;
+                        }
+                    }
+                case ^setpos_abs_centre :
+                    $int14 = calc(cc_getwidth * 1000 / 2);
+                    $int15 = calc($int6 - $int14);
+                    $int14 = calc($int6 + $int14);
+                    $int4 = calc($int4 / 2);
+                    if ($int15 < calc(0 - $int4)) {
+                        $int6 = calc(-2 * $int4 - $int15 + cc_getwidth * 1000 / 2);
+                        $int12 = 1;
+                    } else if ($int14 > $int4) {
+                        $int6 = calc(2 * $int4 - $int14 - cc_getwidth * 1000 / 2);
+                        $int12 = 1;
+                    }
+            }
+            if ($int12 = 1) {
+                cc_setparam(rs3tli_component_speed_x, ~invert(cc_param(rs3tli_component_speed_x)));
+            }
+            $int12 = 0;
+            switch_int ($setposv3) {
+                case ^setpos_abs_top, ^setpos_abs_bottom :
+                    if ($int7 < 0) {
+                        $int7 = ~invert($int7);
+                        $int12 = 1;
+                    } else {
+                        $int14 = calc($int7 + cc_getheight * 1000);
+                        if ($int14 > $int5) {
+                            $int7 = calc(2 * $int5 - $int14 - cc_getheight * 1000);
+                            $int12 = 1;
+                            $int13 = 1;
+                        }
+                    }
+                case ^setpos_abs_centre :
+                    $int14 = calc(cc_getheight * 1000 / 2);
+                    $int15 = calc($int7 - $int14);
+                    $int14 = calc($int7 + $int14);
+                    $int5 = calc($int5 / 2);
+                    if ($int15 < calc(0 - $int5)) {
+                        $int7 = calc(-2 * $int5 - $int15 + cc_getheight * 1000 / 2);
+                        $int12 = 1;
+                    } else if ($int14 > $int5) {
+                        $int7 = calc(2 * $int5 - $int14 - cc_getheight * 1000 / 2);
+                        $int12 = 1;
+                        $int13 = 1;
+                    }
+            }
+            if ($int12 = 1) {
+                cc_setparam(rs3tli_component_speed_y, ~invert(cc_param(rs3tli_component_speed_y)));
+            }
+            if ($int13 = 1 & cc_param(rs3tli_component_collision_type) = 1) {
+                cc_setparam(rs3tli_component_speed_y, calc(cc_param(rs3tli_component_speed_y) / 2));
+                cc_setparam(rs3tli_component_speed_x, calc(cc_param(rs3tli_component_speed_x) / 2));
+            }
+        }
+        cc_setparam(rs3tli_component_mpixel_x, calc($int6 % 1000));
+        cc_setparam(rs3tli_component_mpixel_y, calc($int7 % 1000));
+        $int6 = calc($int6 / 1000);
+        $int7 = calc($int7 / 1000);
+        cc_setparam(rs3tli_component_target_pos_x, $int6);
+        cc_setparam(rs3tli_component_target_pos_y, $int7);
+}

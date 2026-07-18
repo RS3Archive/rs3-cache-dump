@@ -1,0 +1,79 @@
+// 95
+[proc,script95](enum $enum0, enum $enum1, int $int2)
+if ($enum0 = null | $enum1 = null) {
+    return;
+}
+def_component $component3 = postbag_parcel:parcel_contents_background_layer;
+def_component $component4 = postbag_parcel:parcel_contents_build_layer;
+def_component $component5 = postbag_parcel:parcel_contents_control_layer;
+def_component $component6 = postbag_parcel:parcel_contents_scrolling_layer;
+def_component $component7 = postbag_parcel:parcel_contents_scrollbar_layer;
+def_component $component8 = postbag_parcel:parcel_contents_back_button_layer;
+def_int $int9 = 33816584;
+def_int $int10 = -1;
+def_int $int11 = 8;
+def_int $int12 = 5;
+def_obj $obj13 = null;
+def_int $int14 = 0;
+def_int $int15 = enum_getoutputcount($enum0);
+cc_deleteall($component4);
+cc_deleteall($component5);
+cc_deleteall($component7);
+def_struct $struct16 = postbag_icon_slot;
+if ($int2 = 1) {
+    if_sethide(false, $component8);
+    if (if_find($component6) = true) {
+        cc_setsize(24, 44, ^setsize_minus, ^setsize_minus);
+    }
+    if (if_find($component7) = true) {
+        cc_setsize(16, 44, ^setsize_abs, ^setsize_minus);
+    }
+    if (if_find($component3) = true) {
+        cc_setsize(0, 38, ^setsize_minus, ^setsize_minus);
+    }
+} else {
+    if_sethide(true, $component8);
+    if (if_find($component6) = true) {
+        cc_setsize(24, 6, ^setsize_minus, ^setsize_minus);
+    }
+    if (if_find($component7) = true) {
+        cc_setsize(16, 6, ^setsize_abs, ^setsize_minus);
+    }
+    if (if_find($component3) = true) {
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    }
+}
+while (++$int10 < $int15) {
+    $obj13 = enum(int, obj, $enum0, $int10);
+    $int14 = ~script16349($enum1, $obj13, $int10);
+    $obj13, $int14 = ~script19885($obj13, $int14);
+    if ($obj13 ! null) {
+        $struct16 = oc_param($obj13, postbag_parcel_slot_graphic);
+        if (calc($int11 + 40) >= if_getwidth($component4)) {
+            $int11, $int12 = 8, calc($int12 + 36 + 2);
+        }
+        ~script10410($component4, null, $struct16, $int11, $int12, 40, 36, 0, false, "");
+        cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int11 + (40 - 36) / 2 + 2), calc($int12 + (36 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        if ($int14 > 0) {
+            cc_setobject($obj13, $int14);
+        } else {
+            cc_setobject_nonum($obj13, 1);
+        }
+        cc_setonmouserepeat("script9564($obj13, event_com, cc_getid)");
+        .cc_create($component5, ^iftype_text, $int10);
+        .cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+        .cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setpausetext("Examine <~script4033($obj13)><oc_name($obj13)>");
+        $int11 = calc($int11 + (40 + 2));
+    }
+}
+$int12 = calc($int12 + (36 + 2));
+if ($int12 > if_getheight($component6)) {
+    if_setscrollpos(0, if_getscrolly($component6), $component6);
+    if_setscrollsize(0, $int12, $component6);
+    ~rs3_scrollbar_vertical($component7, $component6);
+} else {
+    if_setposition(0, 3, ^setpos_abs_centre, ^setpos_abs_top, $component6);
+}

@@ -1,0 +1,54 @@
+// 19455
+[proc,script19455]
+def_component $component0 = group_ironman_parent:overview_details_panel;
+cc_deleteall($component0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = activeclansettings_getaffinedcount;
+def_string $string0 = "";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string1 = "";
+def_graphic $graphic6 = null;
+def_string $string2 = "";
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_graphic $graphic9 = null;
+def_string $string3 = "";
+def_string $string4 = "";
+def_int $int10 = -1;
+def_int $int11 = activeclansettings_getaffinedslot(removetags(chat_playername_unfiltered));
+def_int $int12 = activeclansettings_getcurrentowner_slot;
+def_int $int13 = -1;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_string $string5 = "";
+def_string $string6 = "";
+~script19458;
+while ($int1 < $int3) {
+    $string0 = activeclansettings_getaffineddisplayname($int1);
+    $int4 = activeclansettings_getaffinedrank($int1);
+    $int5 = ~script19391($string0);
+    if ($int4 >= 126) {
+        $string0 = "<$string0><nbsp><sprite=34560>";
+        $string1 = "<$string0> - Group Leader";
+    } else {
+        $string1 = $string0;
+    }
+    $int13 = ~script19413($int1);
+    $graphic6, $string2 = ~script19389($int1, $int3);
+    $int7, $string4, $int8, $string3, $graphic9 = ~script19392($int1, $string0, $int5);
+    $int10 = ~script19460($int11, $int1, $int13);
+    $int14 = ~script19331($int13, 0);
+    $int15 = ~script19331($int13, 1);
+    $int16 = calc($int16 + $int14);
+    $int17 = calc($int17 + $int15);
+    $string5 = tostring_localised($int14, true);
+    $string6 = tostring_localised($int15, true);
+    ~script19459($component0, $int1, $int12, $int11, $string0, $string1, $graphic6, $string2, $int5, $int7, $string4, $int8, $string3, $graphic9, $int10, $string5, $string6);
+    $int1 = calc($int1 + 1);
+}
+~script19457($component0, $int1);
+~script19461($component0, tostring_localised($int16, true), tostring_localised($int17, true));

@@ -1,0 +1,22 @@
+// 1363
+[clientscript,script1363](component $component0, int $int1, int $int2)
+def_component $component3 = toplevel_v2_combat_bar_mobile_buttons:bar_selection_layer;
+def_int $int4 = if_getheight($component3);
+def_int $int5 = max(1, scale(10, 50, $int4));
+def_int $int6 = 0;
+$int2 = calc($int2 + $int5);
+if ($int1 = 1) {
+    $int6 = min(0, calc(0 - $int4 + $int2));
+} else {
+    $int6 = max(calc(0 - $int4), calc(0 - $int2));
+}
+if_setposition(0, $int6, ^setpos_abs_centre, ^setpos_abs_bottom, $component3);
+if ($int2 >= $int4) {
+    if_setontimer(null, $component0);
+    if ($int1 = 0) {
+        if_sethide(true, $component3);
+    }
+    return;
+} else {
+    if_setontimer("script1363($component0, $int1, $int2)", $component0);
+}

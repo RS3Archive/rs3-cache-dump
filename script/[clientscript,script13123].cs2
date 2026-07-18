@@ -1,0 +1,50 @@
+// 13123
+[clientscript,script13123](component $component0, component $component1, component $component2, component $component3, struct $struct4, component $component5, component $component6, component $component7, component $component8, component $component9)
+def_string $string0 = "";
+def_string $string1 = "Enter text here.";
+def_string $string2 = "Clear";
+def_component $component10 = if_getlayer($component0);
+def_int $int11 = 1007;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $setsize14 = ^setsize_abs;
+def_int $setsize15 = ^setsize_abs;
+def_int $int16 = 496;
+def_int $int17 = 119;
+if (if_find($component5) = true & cc_param(p_dialog_id) ! %p_dialog_id) {
+    cc_deleteall($component9);
+    switch_int (%p_dialog_id) {
+        case 1 :
+            $string0 = "My Examine Settings";
+            $string1 = "Enter new personal message here.";
+            $string2 = "Clear personal message";
+        case 2, 3, 4, 5, 6, 7, 8, 9 :
+            $string0, $string1, $string2, $int17 = ~script13228($component9, %p_dialog_id);
+            $int17 = calc($int17 + 119);
+    }
+    if (if_find($component5) = true) {
+        cc_setparam_string(p_dialog_display_text, $string1);
+        cc_setparam(p_dialog_id, %p_dialog_id);
+    }
+    if_settext($string2, $component8);
+    ~script13125($component5, $component6, $component7);
+    $int12, $int13 = ~script11980($string0, $struct4);
+    if ($int12 < 0) {
+        $int12 = 0;
+    }
+    if ($int13 < 0) {
+        $int13 = 0;
+    }
+    $int12 = calc($int12 + $int16);
+    $int13 = calc($int13 + $int17);
+    if ($int12 >= 512) {
+        $int12 = 0;
+        $setsize14 = ^setsize_minus;
+    }
+    if ($int13 >= 334) {
+        $int13 = 0;
+        $setsize15 = ^setsize_minus;
+    }
+    if_setsize($int12, $int13, $setsize14, $setsize15, $component10);
+    ~script8421($component0, $component1, $component2, $component3, $string0, $struct4, $int11, 1, null, null);
+}

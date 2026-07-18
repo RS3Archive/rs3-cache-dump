@@ -1,0 +1,33 @@
+// 16878
+[clientscript,script16878]
+if_setonvartransmit("script16878{lobby_runeday, lobby_date_minutes, givexp_boost_8, givexp_boost_9, gamemode_seasonal_player_temp_1, gamemode_seasonal_player_temp_1}", lobbyscreen:fss_counter_next);
+if (~script3112 = false) {
+    return;
+}
+def_int $int0 = ~script16828(%lobby_runeday);
+def_int $int1 = ~script16829(%lobby_runeday);
+def_int $int2 = calc(date_minutes_fromruneday($int1) + 720 - 1);
+if_settext("Fresh Start Worlds: Week <tostring($int0)> Boosts (ACTIVE)", lobbyscreen_pane_playerinfo:fss_current_title);
+if_settext("Fresh Start Worlds: Next Week's Boosts", lobbyscreen_pane_playerinfo:fss_next_title);
+if_setontimer("script12275(lobbyscreen_pane_playerinfo:fss_next_countdown, lobbyscreen:fss_counter_next, $int2, %lobby_date_minutes, -1, 1, 1, 1)", lobbyscreen:fss_counter_next);
+if_setontimer("script12275(lobbyscreen_pane_playerinfo:fss_current_countdown, lobbyscreen:fss_counter_current, $int2, %lobby_date_minutes, -1, 1, 1, 1)", lobbyscreen:fss_counter_current);
+def_graphic $graphic3 = struct_param(gamemode_seasonal_lobby_banner_primary_current, motw_banner_en);
+def_graphic $graphic4 = struct_param(gamemode_seasonal_lobby_banner_primary_next, motw_banner_en);
+switch_int (map_lang) {
+    case 1 :
+        $graphic3 = struct_param(gamemode_seasonal_lobby_banner_primary_current, motw_banner_de);
+        $graphic4 = struct_param(gamemode_seasonal_lobby_banner_primary_next, motw_banner_de);
+    case 2 :
+        $graphic3 = struct_param(gamemode_seasonal_lobby_banner_primary_current, motw_banner_fr);
+        $graphic4 = struct_param(gamemode_seasonal_lobby_banner_primary_next, motw_banner_fr);
+    case 3 :
+        $graphic3 = struct_param(gamemode_seasonal_lobby_banner_primary_current, motw_banner_pt);
+        $graphic4 = struct_param(gamemode_seasonal_lobby_banner_primary_next, motw_banner_pt);
+}
+if_setgraphic($graphic3, lobbyscreen_pane_playerinfo:fss_current_graphic);
+if_setgraphic($graphic4, lobbyscreen_pane_playerinfo:fss_next_graphic);
+~script16904;
+~script16880(lobbyscreen_pane_playerinfo:fss_current_contents, $int0, 1);
+~script16880(lobbyscreen_pane_playerinfo:fss_next_contents, calc($int0 + 1), 0);
+if_setontimer("script16879(event_com, $int0, 1, 0)", lobbyscreen_pane_playerinfo:fss_current_contents);
+if_setontimer("script16879(event_com, calc($int0 + 1), 0, 0)", lobbyscreen_pane_playerinfo:fss_next_contents);

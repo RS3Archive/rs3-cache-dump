@@ -1,0 +1,40 @@
+// 4511
+[proc,script4511](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+def_int $int8 = 0;
+def_int $int9 = -1;
+def_int $int10 = 0;
+def_int $int11 = -1;
+def_int $int12 = -1;
+while (cc_find($component0, ++$int9) = true) {
+    if (cc_param(igc_date_runeday) = $int3) {
+        if (cc_param(igc_total_events_today) ! -1) {
+            $int8 = cc_param(igc_total_events_today);
+            cc_setparam(igc_total_events_today, calc($int8 + 1));
+        }
+        if (cc_param(igc_is_super_event_tab) = 1) {
+            $int10 = 1;
+        }
+    }
+}
+def_struct $struct13 = null;
+def_int $int14 = -1;
+def_int $int15 = -1;
+$struct13, $int14, $int15 = ~script6195($int2);
+if ($struct13 ! null) {
+    if ($int8 < 4) {
+        if ($int5 = -1 & $int14 ! -1) {
+            $int5 = $int14;
+        }
+        if ($int6 = -1 & $int15 ! -1) {
+            $int6 = $int15;
+        }
+        ~script4490($struct13, $int5, $int6, $int3, $int4, $int8, 0, $int2, $int7);
+    } else {
+        $int11, $int12 = ~script4492($int4);
+        if ($int10 = 1) {
+            ~script5155(igc_main:calendar_layer, $int11, calc($int8 - 1), 0);
+        } else {
+            ~script5155(igc_main:calendar_layer, $int11, calc($int8 - 2), 1);
+        }
+    }
+}

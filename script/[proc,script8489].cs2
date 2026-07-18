@@ -1,0 +1,231 @@
+// 8489
+[proc,script8489](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10)
+$component1 = toplevel_v2:tooltips_layer;
+cc_deleteall($component3);
+cc_deleteall($component4);
+cc_deleteall($component6);
+cc_deleteall($component7);
+cc_deleteall($component8);
+cc_deleteall($component9);
+cc_deleteall($component10);
+def_int $int11 = 0;
+if ($int0 = 102039552) {
+    $int11 = 1;
+}
+def_int $int12 = if_getheight($component10);
+if_setsize(0, $int12, ^setsize_minus, ^setsize_minus, $component2);
+def_int $int13 = enum_getoutputcount(toplevel_v2_stats_structs);
+def_int $int14 = 60;
+def_int $int15 = 27;
+def_int $int16 = 0;
+def_int $int17 = 0;
+if (~script6431 = true) {
+    if ($component2 = stats_inspect:list) {
+        $int16 = 5;
+        $int15 = calc($int15 + 5);
+    } else {
+        $int17 = 5;
+        $int16 = 5;
+        $int15 = calc($int15 + 5);
+        $int14 = calc($int14 + 5);
+    }
+}
+def_int $int18 = if_getwidth($component2);
+def_int $int19 = if_getheight($component2);
+def_int $int20 = 2;
+def_int $int21 = 2;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+$int24, $int22, $int23 = ~script9856($int18, $int14, $int20, $int21);
+def_int $int25 = calc($int13 / $int24);
+if (calc($int13 % $int24) > 0) {
+    $int25 = calc($int25 + 1);
+}
+def_int $int26 = calc($int15 * $int25 - $int16);
+def_int $int27 = 0;
+if ($int26 > $int19) {
+    $int27 = 1;
+    if_setsize(16, $int12, ^setsize_minus, ^setsize_minus, $component2);
+    $int18 = if_getwidth($component2);
+}
+if ($int27 = 1) {
+    $int20 = 0;
+    $int21 = 0;
+    $int24, $int22, $int23 = ~script9856($int18, $int14, $int20, $int21);
+    $int25 = calc($int13 / $int24);
+    if (calc($int13 % $int24) > 0) {
+        $int25 = calc($int25 + 1);
+    }
+    $int26 = calc($int15 * $int25 - $int16);
+} else {
+    cc_deleteall($component3);
+}
+def_int $intarray0($int24);
+def_int $int28 = 0;
+while ($int28 < $int24) {
+    $intarray0($int28) = ~script9857($int22, $int20, $int23, $int28);
+    $int28 = calc($int28 + 1);
+}
+$int28 = 0;
+def_int $int29 = 0;
+if ($int27 = 1) {
+    if_setscrollsize(0, $int26, $component2);
+    ~scrollbar_vertical($component3, $component2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setscrollsize(0, 0, $component2);
+}
+def_struct $struct30 = null;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 0;
+def_int $int34 = 0;
+def_int $int35 = 0;
+def_stat $stat36 = null;
+def_graphic $graphic37 = null;
+def_graphic $graphic38 = null;
+def_int $int39 = 16747520;
+def_int $int40 = -1;
+def_int $int41 = 0;
+def_int $int42 = 0;
+def_int $int43 = 0;
+def_int $int44 = 0;
+def_int $int45 = 0;
+def_int $int46 = 0;
+while ($int31 < $int13) {
+    $int33 = calc($int31 % $int24);
+    $int32 = calc($int31 / $int24);
+    $int34 = $intarray0($int33);
+    $int35 = calc($int32 * $int15 + $int17);
+    $struct30 = enum(int, struct, toplevel_v2_stats_structs, $int31);
+    $stat36 = struct_param($struct30, toplevel_v2_stats_stat);
+    $int40 = ~script3158($stat36);
+    if ($int11 = 1) {
+        $int44 = ~player_inspect_get_xp($stat36);
+        $int46 = ~script10782($stat36);
+        $int41 = ~player_inspect_get_stat($stat36);
+        $int42 = $int46;
+    } else {
+        $int44 = stat_visible_xp_actual($stat36);
+        $int46 = stat_base_actual($stat36);
+        $int41 = stat($stat36);
+        $int42 = stat_base($stat36);
+    }
+    $int45 = ~script11849($stat36, $int44, -1);
+    cc_create($component4, ^iftype_graphic, $int31);
+    cc_setsize(60, 27, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int34, $int35, ^setpos_abs_left, ^setpos_abs_top);
+    if (enum_hasoutput(stat, stat_elite_list, $stat36) = true) {
+        if ($int11 = 1 | ~stat_unlocked($stat36) = 1) {
+            $graphic37 = "stats_background_button_elite,0";
+            $graphic38 = "stats_background_button_elite,1";
+            $int39 = ~script10495(0);
+        } else {
+            $graphic37 = "stats_background_button_elite,6";
+            $graphic38 = "stats_background_button_elite,6";
+            $int39 = 7305340;
+        }
+    } else {
+        $graphic37 = "stats_background_button,0";
+        $graphic38 = "stats_background_button,1";
+        $int39 = ~script10495(0);
+    }
+    if (%option_stattrim = 1) {
+        if ($int45 >= $int40) {
+            if (enum_hasoutput(stat, stat_elite_list, $stat36) = true) {
+                $graphic37 = "stats_background_button_elite,4";
+                $graphic38 = "stats_background_button_elite,5";
+            } else {
+                $graphic37 = "stats_background_button,4";
+                $graphic38 = "stats_background_button,5";
+            }
+        } else if ($int11 = 1 & ~script10782($stat36) >= 99 | $int11 = 0 & stat_base_actual($stat36) >= 99) {
+            if (enum_hasoutput(stat, stat_elite_list, $stat36) = true) {
+                $graphic37 = "stats_background_button_elite,2";
+                $graphic38 = "stats_background_button_elite,3";
+            } else {
+                $graphic37 = "stats_background_button,2";
+                $graphic38 = "stats_background_button,3";
+            }
+        }
+    }
+    if (%option_hide_skillboost_highlight = 0) {
+        if ($int11 = 1) {
+            cc_setcolour(^black);
+        }
+        if ($int41 < $int42) {
+            cc_setcolour(^red);
+        } else if ($int41 > $int42) {
+            cc_setcolour(^green);
+        } else {
+            cc_setcolour(^black);
+        }
+    }
+    cc_setgraphic($graphic37);
+    cc_setonmouseover("cc_graphic_swapper(event_com, $int31, $graphic38)");
+    cc_setonmouseleave("cc_graphic_swapper(event_com, $int31, $graphic37)");
+    cc_create($component5, ^iftype_graphic, $int31);
+    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int34, $int35, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int11 = 1 | ~stat_unlocked($stat36) = 1) {
+        cc_setgraphic(struct_param($struct30, toplevel_v2_stats_graphic));
+    } else {
+        cc_setgraphic(struct_param($struct30, toplevel_v2_stats_graphic_disabled));
+    }
+    if ($int11 = 0) {
+        cc_setonvartransmit("script968($component5, $int31){lvl_active}");
+    }
+    cc_create($component6, ^iftype_text, $int31);
+    cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int34 + 24), calc($int35 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour($int39);
+    if ($int11 = 1) {
+        cc_settext(tostring(~script11865($stat36)));
+    } else {
+        cc_settext(tostring(~script11861($stat36)));
+        cc_setonstattransmit("stats_stat(event_com, cc_getid, $stat36){$stat36}");
+    }
+    cc_create($component7, ^iftype_text, $int31);
+    cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int34 + 39), calc($int35 + 14), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour($int39);
+    if ($int11 = 1) {
+        cc_settext(tostring(~script11864($stat36)));
+    } else {
+        cc_settext(tostring(~script11860($stat36)));
+        cc_setonstattransmit("stats_statbase(event_com, cc_getid, $stat36){$stat36}");
+    }
+    cc_create($component8, ^iftype_graphic, $int31);
+    cc_setsize(14, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int34 + 43), calc($int35 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    if ($int44 >= 200000000) {
+        if (%option_vanityicon_maxxp = 0) {
+            cc_setgraphic(enum(int, graphic, vtlvl_int_to_icon, %option_vanityicon_maxlvl));
+        } else {
+            cc_setgraphic(enum(int, graphic, vtlvl_int_to_icon2, %option_vanityicon_maxxp));
+        }
+    } else if ($int45 >= $int40) {
+        cc_setgraphic(enum(int, graphic, vtlvl_int_to_icon, %option_vanityicon_maxlvl));
+    }
+    cc_create($component9, ^iftype_text, $int31);
+    cc_setsize(60, 27, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int34, $int35, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int11 = 0) {
+        cc_setop(1, "View Skillguide");
+        cc_setop(2, "Set Level Target");
+        cc_setop(3, "Set XP Target");
+        cc_setop(4, "Clear Target");
+        cc_setonop("skillguide_setskill(struct_param($struct30, toplevel_v2_stats_statasint))");
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 3);
+        cc_setparam(toplevel_v2_tooltip_mobile_stat, $stat36);
+    }
+    cc_setonmouserepeat("stats_mouseover($component9, $int31, $stat36, $component1, $int11)");
+    cc_setonmouseleave("script546($component1)");
+    $int31 = calc($int31 + 1);
+}

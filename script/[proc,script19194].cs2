@@ -1,0 +1,23 @@
+// 19194
+[proc,script19194](dbrow $dbrow0, int $int1, component $component2, component $component3, component $component4, component $component5, int $int6)
+def_string $string0 = "";
+def_boolean $boolean7 = false;
+def_obj $obj8 = null;
+def_int $int9 = -1;
+def_int $int10 = 0;
+$obj8, $int9, $int10 = db_getfield($dbrow0, progression_track:col1, $int1);
+if ($int10 <= $int6) {
+    $boolean7 = true;
+} else {
+    $boolean7 = false;
+}
+if_sethide(~negate_bool($boolean7), $component5);
+if (oc_param($obj8, mtxmgt_item_struct) ! null) {
+    if_setobject_nonum($obj8, $int9, $component4);
+} else {
+    if_setobject_alwaysnum($obj8, $int9, $component4);
+}
+if (if_find($component2) = true) {
+    ~script19195($boolean7, $int10, $obj8, $int9);
+}
+if_settext("Level <tostring($int10)>", $component3);

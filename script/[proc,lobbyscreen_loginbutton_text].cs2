@@ -1,0 +1,36 @@
+// 3064
+[proc,lobbyscreen_loginbutton_text](boolean $boolean0)
+def_int $int1 = worldlist_specific_thisworld;
+if (testbit($int1, 24) = ^true) {
+    if_settext("Play League", lobbyscreen:login_button_text);
+    if_settextfont(cinzel_18pt_bold, lobbyscreen:login_button_text);
+    if_setcolour(^black, lobbyscreen:login_button_text);
+    if_sethide(true, lobbyscreen:login_button_mobile);
+    if_sethide(true, lobbyscreen:login_button_pc);
+    if_sethide(false, lobbyscreen:login_button_leagues);
+} else {
+    if_settext("Play Now", lobbyscreen:login_button_text);
+    if_settextfont(cinzel_18pt_bold, lobbyscreen:login_button_text);
+    if_setcolour(^black, lobbyscreen:login_button_text);
+    if_sethide(true, lobbyscreen:login_button_leagues);
+    if (~script6431 = true) {
+        if_sethide(false, lobbyscreen:login_button_mobile);
+        if_sethide(true, lobbyscreen:login_button_pc);
+    } else {
+        if_sethide(true, lobbyscreen:login_button_mobile);
+        if_sethide(false, lobbyscreen:login_button_pc);
+    }
+}
+if_sethide($boolean0, lobbyscreen:login_button_disabled);
+if ($boolean0 = true) {
+    if_setop(1, "Play Now", lobbyscreen:login_button);
+    if_setonop("lobbyscreen_entergame(event_com)", lobbyscreen:login_button);
+    if_setcolour(^white, lobbyscreen:login_button_small_1);
+    if_setcolour(^white, lobbyscreen:login_button_small_hover);
+} else {
+    if_clearops(lobbyscreen:login_button);
+    if_setonop(null, lobbyscreen:login_button);
+    if_setcolour(0x7d7d7d, lobbyscreen:login_button_small_1);
+    if_setcolour(0x7d7d7d, lobbyscreen:login_button_small_hover);
+}
+~script3065($boolean0);

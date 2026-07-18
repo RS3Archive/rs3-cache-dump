@@ -1,0 +1,34 @@
+// 4379
+[clientscript,clan_motto_text_input](component $component0, component $component1, char $char2, int $int3, component $component4)
+%motto_input_varc = if_gettext($component0);
+switch_int ($int3) {
+    case 84 :
+        ~clan_motto_return;
+    case 13 :
+        if (~cancel_targetmode = true) {
+            return;
+        }
+        ~clan_motto_abort;
+    case 96, 97, 98, 99, 102, 103 :
+        if (keyheld_shift = false) {
+            return;
+        }
+        ~script1553($int3, %motto_input_caret_varc, %motto_input_varc);
+    case 85 :
+        if (string_length(%motto_input_varc) > 0) {
+            %motto_input_varc = substring(%motto_input_varc, 0, calc(string_length(%motto_input_varc) - 1));
+        }
+    case default :
+        if (string_length(%motto_input_varc) < 80) {
+            %motto_input_varc = ~add_to_inputstring(%motto_input_varc, 0, $int3, $char2);
+        }
+}
+%motto_input_caret_varc = ~script1552(%motto_input_caret_varc, %motto_input_varc, museo_sans_11pt_regular, $component0, -1);
+if_setposition(%motto_input_caret_varc, if_gety($component4), ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_settext("<tostring(string_length(%motto_input_varc))>/80", $component1);
+if (string_length(%motto_input_varc) >= 70) {
+    if_setcolour(0xdd0000, $component1);
+} else {
+    if_setcolour(0x1f1d19, $component1);
+}
+if_settext(%motto_input_varc, $component0);

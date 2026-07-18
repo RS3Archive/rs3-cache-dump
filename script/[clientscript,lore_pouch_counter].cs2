@@ -1,0 +1,21 @@
+// 769
+[clientscript,lore_pouch_counter]
+if (%follower_obj = null) {
+    return;
+}
+def_obj $obj0 = enum(obj, obj, lore_pouch_count_enum, %follower_obj);
+def_int $int1 = 0;
+def_int $int2 = 0;
+if ($obj0 ! bones) {
+    $int1 = inv_total(inv, $obj0);
+}
+if (%combatv2_summoning_spell = $obj0) {
+    $int2 = %combatv2_summoning_scrollcount;
+}
+if_settext(~script361($int1, 0), lore_stats_side:lore_scroll_counter_inv);
+if_settext(~script361($int2, 0), lore_stats_side:lore_scroll_counter_familiar);
+def_string $string0 = ~script361(calc($int1 + $int2), 0);
+if_settext($string0, lore_stats_side:lore_scroll_counter_small);
+if_setsize(parawidth($string0, 1000, if_getfontmetrics(lore_stats_side:lore_scroll_counter_small)), if_getheight(lore_stats_side:lore_scroll_counter_small), ^setsize_abs, ^setsize_abs, lore_stats_side:lore_scroll_counter_small);
+~script11728;
+~lore_side_resize;

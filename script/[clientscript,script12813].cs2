@@ -1,0 +1,59 @@
+// 12813
+[clientscript,script12813](obj $obj0, int $int1, obj $obj2, int $int3, obj $obj4, int $int5, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11)
+def_int $int12 = 1;
+def_int $int13 = 0;
+if ($obj10 ! null) {
+    $int12 = 6;
+} else if ($obj8 ! null) {
+    $int12 = 5;
+} else if ($obj6 ! null) {
+    $int12 = 4;
+} else if ($obj4 ! null) {
+    $int12 = 3;
+} else if ($obj2 ! null) {
+    $int12 = 2;
+} else if ($obj0 ! null) {
+    $int12 = 1;
+} else {
+    return;
+}
+def_obj $obj14 = null;
+def_int $int15 = 0;
+def_int $int16 = 8;
+def_int $int17 = 0;
+while ($int13 < $int12) {
+    cc_create(cs_week_2016_clues_reward:trail_reward_box, ^iftype_graphic, $int13);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int16, $int17, ^setpos_abs_left, ^setpos_abs_centre);
+    $int16 = calc($int16 + 36 + 8);
+    switch_int ($int13) {
+        case default :
+            return;
+        case 0 :
+            $obj14 = $obj0;
+            $int15 = $int1;
+        case 1 :
+            $obj14 = $obj2;
+            $int15 = $int3;
+        case 2 :
+            $obj14 = $obj4;
+            $int15 = $int5;
+        case 3 :
+            $obj14 = $obj6;
+            $int15 = $int7;
+        case 4 :
+            $obj14 = $obj8;
+            $int15 = $int9;
+        case 5 :
+            $obj14 = $obj10;
+            $int15 = $int11;
+    }
+    cc_setobject($obj14, $int15);
+    cc_setopbase("<col=ff9040><oc_name($obj14)>");
+    cc_setop(1, "Examine");
+    cc_setoutline(1);
+    cc_setparam(toplevel_v2_tooltip_item, $obj14);
+    cc_setonmouserepeat("script9564($obj14, event_com, cc_getid)");
+    cc_setonmouseleave("script9300(event_com, event_comsubid)");
+    $int13 = calc($int13 + 1);
+}

@@ -1,0 +1,17 @@
+// 990
+[proc,script990](struct $struct0, int $int1, int $int2)
+def_enum $enum3 = struct_param($struct0, rsraffle_prize_list);
+def_struct $struct4 = enum(int, struct, $enum3, $int1);
+def_string $string0 = struct_param($struct4, rsraffle_prize_name);
+def_string $string1 = "";
+def_string $string2 = "";
+if ($int2 > 0) {
+    $string1, $string2 = "Congratulations!", "Category: <$string0><br>You've won a main prize!";
+    if_setontimer("script991(calc(clientclock + 108))", rsraffle:claim_window);
+} else {
+    $string1, $string2 = "Commiserations!", "Category: <$string0><br>Better luck next time!";
+}
+if_settext("<$string2><br><br>Your prizes are shown below, and must be claimed before entering another Lucky Dip.", rsraffle:claim_description);
+~script13969(rsraffle:claim_panel_title_background, null, rs3tli_title_holder_basic_background_redgold, $string1);
+~script13969(rsraffle:claim_button_build, rsraffle:claim_button_click, rs3tli_positive_button, "Claim");
+if_setonvartransmit("script992($struct0, $struct4, $int1){rsraffle_perm_7, rsraffle_perm_8, rsraffle_perm_9}", rsraffle:claim_window);

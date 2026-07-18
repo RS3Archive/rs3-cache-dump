@@ -1,0 +1,41 @@
+// 2117
+[proc,script2117](int $int0, int $int1)(int)
+def_int $int2 = ~script2120($int0);
+def_int $int3 = if_getnextsubid(qps:claim_layer_build);
+def_graphic $graphic4 = null;
+def_string $string0 = "";
+if ($int2 > 0) {
+    switch_int ($int0) {
+        case 1 :
+            $graphic4 = struct_param(qps_if_rewards_dice_t1, qps_if_graphic);
+            $string0 = struct_param(qps_if_rewards_dice_t1, qps_if_node_title);
+        case 2 :
+            $graphic4 = struct_param(qps_if_rewards_dice_t2, qps_if_graphic);
+            $string0 = struct_param(qps_if_rewards_dice_t2, qps_if_node_title);
+        case 3 :
+            $graphic4 = struct_param(qps_if_rewards_dice_t3, qps_if_graphic);
+            $string0 = struct_param(qps_if_rewards_dice_t3, qps_if_node_title);
+        case 4 :
+            $graphic4 = struct_param(qps_if_rewards_dice_t4, qps_if_graphic);
+            $string0 = struct_param(qps_if_rewards_dice_t4, qps_if_node_title);
+        case 5 :
+            $graphic4 = struct_param(qps_if_rewards_dice_t5, qps_if_graphic);
+            $string0 = struct_param(qps_if_rewards_dice_t5, qps_if_node_title);
+    }
+    cc_create(qps:claim_layer_build, ^iftype_graphic, $int3++);
+    cc_setsize(100, 100, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_setgraphic($graphic4);
+    cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+    if ($int2 > 1) {
+        cc_create(qps:claim_layer_build, ^iftype_text, $int3);
+        cc_setsize(calc(100 / 2), calc(100 / 2), ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int1 + 10), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settext(tostring($int2));
+        cc_setcolour(^white);
+    }
+    return(1);
+}
+return(0);

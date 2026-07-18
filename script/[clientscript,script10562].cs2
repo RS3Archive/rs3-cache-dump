@@ -1,0 +1,24 @@
+// 10562
+[clientscript,script10562](component $component0, int $int1)
+def_int $int2 = 0;
+switch_int ($int1) {
+    case 1 :
+        $int2 = %runemach_selected_1;
+    case 2 :
+        $int2 = %runemach_selected_2;
+    case 3 :
+        $int2 = %runemach_selected_3;
+    case default :
+        return;
+}
+if ($int2 = 20) {
+    ~script10558($component0);
+    return;
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setobject(enum(int, obj, runemach_int_to_rune, $int2), -1);
+cc_setop(1, "Remove");
+cc_setonop(null);

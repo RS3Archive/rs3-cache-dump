@@ -1,0 +1,71 @@
+// 17975
+[proc,script17975](int $int0, boolean $boolean1, boolean $boolean2, int $int3, int $int4, int $int5)
+def_component $component6 = bp3_track_tab:reward_info_panel_frame_background;
+cc_deleteall($component6);
+def_graphic $graphic7 = null;
+def_dbrow $dbrow8 = null;
+def_dbrow $dbrow9 = null;
+def_dbrow $dbrow10 = null;
+def_graphic $graphic11 = null;
+def_graphic $graphic12 = null;
+if ($boolean1 = true) {
+    $graphic11 = bp3_reward_selector_pip_prem_select;
+    $graphic12 = bp3_reward_selector_pip_prem;
+    $dbrow10 = bp3_info_panel_prem;
+    $dbrow8 = ~script17989(5);
+    $dbrow9 = ~script17989(6);
+    $graphic7 = bp3_reward_selector_background_prem;
+    if_sethide(false, bp3_track_tab:reward_panel_prem_filigree);
+} else {
+    $dbrow10 = bp3_info_panel;
+    $dbrow8 = bp3_reward_selector_arrow;
+    $dbrow9 = bp3_reward_selector_arrow_flipped;
+    $graphic7 = bp3_reward_selector_background;
+    $graphic11 = bp3_reward_selector_pip_select;
+    $graphic12 = bp3_reward_selector_pip;
+    if_sethide(true, bp3_track_tab:reward_panel_prem_filigree);
+}
+~script17946($component6, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow10);
+def_component $component13 = bp3_track_tab:reward_info_selector_holder;
+cc_deleteall($component13);
+def_int $int14 = 0;
+~cc_add_graphic($component13, $int14, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 130, 42, ^setsize_abs, ^setsize_abs, $graphic7);
+$int14 = calc($int14 + 1);
+def_int $int15 = 6;
+switch_int ($int4) {
+    case 1 :
+        ~cc_add_graphic($component13, $int14, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic11);
+        $int14 = calc($int14 + 1);
+    case 2 :
+        ~cc_add_graphic($component13, $int14, calc(0 - $int15), 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+        ~cc_add_graphic($component13, $int14, $int15, 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+    case 3 :
+        ~cc_add_graphic($component13, $int14, calc(0 - ($int15 + 6)), 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+        ~cc_add_graphic($component13, $int14, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+        ~cc_add_graphic($component13, $int14, calc($int15 + 6), 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+    case 4 :
+        ~cc_add_graphic($component13, $int14, calc(0 - ($int15 + 12)), 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+        ~cc_add_graphic($component13, $int14, calc(0 - $int15), 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+        ~cc_add_graphic($component13, $int14, $int15, 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+        ~cc_add_graphic($component13, $int14, calc($int15 + 12), 0, ^setpos_abs_centre, ^setpos_abs_bottom, 14, 10, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int14 = calc($int14 + 1);
+}
+if (cc_find($component13, calc($int5 + 1)) = true) {
+    cc_setgraphic($graphic11);
+}
+cc_deleteall(bp3_track_tab:next_reward_button);
+~cc_add_button(bp3_track_tab:next_reward_button, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow8, "");
+cc_setop(1, "Next Reward");
+cc_setonop("script18035");
+cc_deleteall(bp3_track_tab:previous_reward_button);
+~cc_add_button(bp3_track_tab:previous_reward_button, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow9, "");
+cc_setop(1, "Previous Reward");
+cc_setonop("script18034");

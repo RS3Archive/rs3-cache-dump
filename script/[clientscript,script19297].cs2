@@ -1,0 +1,29 @@
+// 19297
+[clientscript,script19297]
+def_component $component0 = null;
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_int $int3 = 1;
+def_int $int4 = 0;
+while (++$int4 <= 8) {
+    $obj1, $int2, $int3 = ~script19217($int4);
+    if (calc(($int4 - 1) / 2 % 2) = 0) {
+        $component0 = trh_dungeon_crawl_overlay:boss_left_reward_grid;
+    } else {
+        $component0 = trh_dungeon_crawl_overlay:boss_right_reward_grid;
+    }
+    if (cc_findbycategory($component0, $int4, 0) = 1 & %trh_dungeon_crawl_boss_lifepoints <= scale(calc(8 - $int4), 8, 100000) & if_exists($int4, 3, $component0) = 0) {
+        if (cc_findbycategory($component0, $int4, 1) = 1) {
+            cc_setontimer("cc_fadeout(cc_getlayer, cc_getid, calc(clientclock + scale(5, 6, 30)), null)");
+        }
+        if (cc_findbycategory($component0, $int4, 2) = 1) {
+            cc_setontimer("cc_fadein(cc_getlayer, cc_getid, calc(clientclock + scale(5, 6, 30)), null)");
+            ~script14420($obj1);
+            cc_setop(1, "Examine");
+            cc_setonop("script7774(~script17427($obj1), cc_getlayer, cc_getid, 0)");
+        }
+        ~cc_add_child_obj_full($int4, 3, 1, 34, ^setpos_abs_centre, ^setpos_abs_top, 36, 32, ^setsize_abs, ^setsize_abs, $obj1, $int2, 0, 1);
+        cc_settrans(255);
+        cc_setontimer("cc_fadein(cc_getlayer, cc_getid, calc(clientclock + scale(5, 6, 30)), null)");
+    }
+}

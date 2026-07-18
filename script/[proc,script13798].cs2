@@ -1,0 +1,82 @@
+// 13798
+[proc,script13798](string $string0, string $string1, obj $obj0, int $int1)
+if ($obj0 = null | $obj0 = bank_empty_slot) {
+    cc_setobject_nonum(bank_empty_slot, 0);
+    cc_clearops;
+    cc_setopbase("<col=B8D1D1>Empty slot");
+    cc_setop(10, "Examine");
+    cc_settrans(0);
+    return;
+}
+cc_setobject($obj0, $int1);
+~script14420($obj0);
+if ($int1 = 0) {
+    cc_clearops;
+    cc_setop(8, "Remove-Placeholder");
+    cc_setop(10, "Examine");
+    cc_settrans(128);
+    return;
+}
+cc_setop(10, "Examine");
+cc_settrans(0);
+if (%bank_current_inv = 2) {
+    if (oc_wearpos($obj0) = -1 | oc_param($obj0, bank_wear_prevented) = true | enum(obj, boolean, unequippable_items_with_a_wearpos, $obj0) = true) {
+        $string0 = "Withdraw";
+        if (%bank_filter ! 1) {
+            $string1 = ~script13687("Withdraw");
+            cc_setop(1, $string1);
+            cc_setop(2, "<$string0>-1");
+            cc_setop(3, "<$string0>-5");
+            cc_setop(4, "<$string0>-10");
+            cc_setop(5, "<$string0>-<tostring(%bank_move_x)>");
+            cc_setop(6, "<$string0>-X");
+            cc_setop(7, "<$string0>-All");
+            cc_setop(9, "");
+            cc_setop(8, "<$string0>-Placeholder");
+            cc_setop(%bank_customop, "");
+            return;
+        }
+        cc_setop(9, "");
+    } else {
+        cc_setop(9, "Withdraw-1");
+    }
+    if (oc_stackable($obj0) = true) {
+        cc_setop(1, $string1);
+        cc_setop(2, "<$string0>-1");
+        cc_setop(3, "<$string0>-5");
+        cc_setop(4, "<$string0>-10");
+        cc_setop(5, "<$string0>-<tostring(%bank_move_x)>");
+        cc_setop(6, "<$string0>-X");
+        cc_setop(7, "<$string0>-All");
+        cc_setop(8, "<$string0>-Placeholder");
+        cc_setop(%bank_customop, "");
+    } else {
+        if (%bank_filter = 1) {
+            cc_setop(1, $string1);
+        } else {
+            cc_setop(1, "");
+        }
+        cc_setop(2, "<$string0>-1");
+        cc_setop(3, "");
+        cc_setop(4, "");
+        cc_setop(5, "");
+        cc_setop(6, "");
+        cc_setop(7, "");
+        cc_setop(8, "<$string0>-Placeholder");
+    }
+} else {
+    cc_setop(1, $string1);
+    cc_setop(2, "<$string0>-1");
+    cc_setop(3, "<$string0>-5");
+    cc_setop(4, "<$string0>-10");
+    cc_setop(5, "<$string0>-<tostring(%bank_move_x)>");
+    cc_setop(6, "<$string0>-X");
+    cc_setop(7, "<$string0>-All");
+    cc_setop(8, "<$string0>-Placeholder");
+    cc_setop(%bank_customop, "");
+    if (oc_wearpos($obj0) ! -1 & oc_param($obj0, bank_wear_prevented) = false & enum(obj, boolean, unequippable_items_with_a_wearpos, $obj0) = false) {
+        cc_setop(9, "Wear");
+    } else {
+        cc_setop(9, "");
+    }
+}

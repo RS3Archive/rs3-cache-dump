@@ -1,0 +1,143 @@
+// 15645
+[proc,script15645](component $component0, component $component1, int $int2, int $int3)
+if ($component0 = null | $component1 = null) {
+    return;
+}
+if ($int2 < 0 | $int2 > 2) {
+    return;
+}
+cc_deleteall($component0);
+cc_deleteall($component1);
+def_int $intarray0(6);
+if ($int2 = 0) {
+    $int3 = 0;
+}
+def_int $int4 = ~script15211(intarray0, 0);
+def_int $int5 = if_getwidth($component0);
+def_int $int6 = if_getheight($component1);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+switch_int ($int2) {
+    case 0 :
+        $int7 = 40;
+        $int8 = 40;
+        $int9 = 5;
+        $int10 = 5;
+    case 1 :
+        $int7 = 200;
+        $int8 = 50;
+        $int9 = 5;
+        if ($int3 = 1) {
+            $int9 = 15;
+        }
+        $int10 = 5;
+    case 2 :
+        $int7 = 208;
+        $int8 = 44;
+        $int9 = calc(($int6 - $int4 * $int8) / ($int4 + 1));
+        if (calc($int9 % 2) = 1) {
+            $int9 = calc($int9 + 1);
+        }
+        $int10 = 4;
+}
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+switch_int ($int2) {
+    case 0 :
+        $int12 = max(1, calc(($int5 - $int10) / ($int7 + $int10)));
+        $int14 = max(1, min(calc(($int6 - $int9) / ($int8 + $int9)), ~divide_up($int4, $int12)));
+        $int13 = ~divide_up($int4, $int14);
+        $int16 = calc($int4 % $int14);
+    case 1, 2 :
+        $int11 = max(1, calc(($int6 - $int9) / ($int8 + $int9)));
+        $int13 = max(1, min(calc(($int5 - $int10) / ($int7 + $int10)), ~divide_up($int4, $int11)));
+        $int14 = ~divide_up($int4, $int13);
+        if ($int2 = 1 & calc($int11 * $int13) < $int4) {
+            $int15 = 1;
+        }
+        $int16 = calc($int4 % $int13);
+}
+def_int $int17 = calc($int7 * $int13 + $int10 * ($int13 - 1));
+def_int $int18 = min($int6, calc($int8 * $int14 + $int9 * ($int14 - 1)));
+def_int $int19 = calc(($int5 - $int17) / 2);
+def_int $int20 = -1;
+def_struct $struct21 = null;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_graphic $graphic27 = null;
+while ($int24 < $int4) {
+    $int20 = $intarray0($int24);
+    $struct21 = enum(int, struct, login_sso_button_data, $int20);
+    $int22 = calc($int24 % $int13);
+    $int23 = calc($int24 / $int13);
+    if ($int24 >= calc($int4 - $int16)) {
+        $int17 = calc($int7 * $int16 + $int10 * ($int16 - 1));
+        $int19 = calc(($int5 - 10 - $int17) / 2);
+    }
+    $int25 = calc(($int7 + $int10) * $int22 + $int19);
+    if ($int2 ! 2) {
+        if ($int15 = 1) {
+            $int26 = calc($int6 / $int14 * $int23);
+        } else {
+            $int26 = calc(($int8 + $int9) * $int23);
+        }
+    } else {
+        $int26 = calc(($int8 + 15) * $int23);
+    }
+    switch_int ($int2) {
+        case 0 :
+            ~script4512($component1, $int7, $int8, $int25, $int26, struct_param($struct21, rs3tli_icon_graphic_on));
+            cc_setonclick("script9061($int20)");
+            $int24 = calc($int24 + 1);
+        case 1 :
+            $int24 = ~script11624($component0, $component1, $struct21, $int25, $int26, $int24, 1);
+            if (cc_find($component1, calc($int24 - 1)) = true) {
+                cc_setonclick("script9061($int20)");
+            }
+        case 2 :
+            if (compare(struct_param($struct21, login_button_string), "") ! 0) {
+                ~script10410($component0, null, rs3tli_3x3_icon_button, $int25, $int26, $int7, $int8, -1, false, "");
+                ~script4512($component0, struct_param($struct21, rs3tli_icon_graphic_width), min($int8, struct_param($struct21, rs3tli_icon_graphic_height)), calc($int25 + 3), calc($int26 + 3), struct_param($struct21, rs3tli_icon_graphic_on));
+                ~cc_add_title_text($component0, calc($int7 - 40 - 10 - 10), $int8, calc($int25 + 40 + 10), $int26, museo_sans_13pt_regular, struct_param($struct21, login_button_string), 0);
+                cc_settextalign(^settextalign_centre, ^settextalign_centre, 14);
+                ~cc_add_colour_text($component1, $int7, $int8, $int25, $int26, museo_sans_11pt_regular, "", 0);
+            } else {
+                $graphic27 = struct_param($struct21, login_custom_button_default);
+                switch_int (map_lang) {
+                    case 1 :
+                        if (struct_param($struct21, login_custom_button_de) ! null) {
+                            $graphic27 = struct_param($struct21, login_custom_button_de);
+                        }
+                    case 2 :
+                        if (struct_param($struct21, login_custom_button_fr) ! null) {
+                            $graphic27 = struct_param($struct21, login_custom_button_fr);
+                        }
+                    case 3 :
+                        if (struct_param($struct21, login_custom_button_pt) ! null) {
+                            $graphic27 = struct_param($struct21, login_custom_button_pt);
+                        }
+                }
+                ~script4512($component1, $int7, $int8, $int25, $int26, $graphic27);
+            }
+            if (cc_find($component1, $int24) = true) {
+                cc_setonclick("script9061($int20)");
+            }
+            $int24 = calc($int24 + 1);
+    }
+}
+if_setsize(if_getwidth(loginscreen:oauth2_username_email_btn), $int8, ^setsize_abs, ^setsize_abs, loginscreen:oauth2_username_email_btn);
+~script10410(loginscreen:oauth2_username_email_btn_build, null, rs3tli_3x3_icon_button, 0, 0, $int7, $int8, -1, false, "");
+~script4512(loginscreen:oauth2_username_email_btn_build, struct_param(login_jagex_data, rs3tli_icon_graphic_width), min($int8, struct_param(login_jagex_data, rs3tli_icon_graphic_height)), calc(0 + 3), calc(0 + 3), struct_param(login_jagex_data, rs3tli_icon_graphic_on));
+~cc_add_title_text(loginscreen:oauth2_username_email_btn_build, calc($int7 - 40 - 10 - 10), $int8, calc(0 + 40 + 10), 0, museo_sans_13pt_regular, struct_param(login_jagex_data, login_button_string), 0);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 14);
+~cc_add_colour_text(loginscreen:oauth2_username_email_btn_click, $int7, $int8, 0, 0, museo_sans_11pt_regular, "", 0);
+if_setonclick("script9061(7)", loginscreen:oauth2_username_email_btn_click);

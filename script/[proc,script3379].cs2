@@ -1,0 +1,171 @@
+// 3379
+[proc,script3379](int $int0, int $int1, int $int2)
+if ($int2 = 1 & ~script8785 = true) {
+    return;
+}
+if (%toplevel_v2_mobile_interface = 1 & enum_getreversecount(int, toplevel_v2_non_mobile_windows, $int0) > 0) {
+    return;
+} else if (%toplevel_v2_legacy_interface = 1 & enum_getreversecount(int, toplevel_v2_non_legacy_windows, $int0) > 0) {
+    return;
+}
+if (%toplevel_v2_mobile_interface = 1) {
+    switch_int ($int0) {
+        case 32 :
+            if (%varclientbit_41275 = 1) {
+                return;
+            }
+            if (if_hassub(~script8875(4)) = true) {
+                return;
+            }
+            if (%varclientbit_44897 = 1) {
+                ~script8732(%varclientbit_44897);
+            }
+        case 5 :
+            $int0 = %varclientbit_52490;
+    }
+    if (~script15851($int0) = true) {
+        return;
+    }
+}
+def_struct $struct3 = null;
+def_component $component4 = null;
+def_int $int5 = -1;
+def_struct $struct6 = null;
+def_component $component7 = null;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = enum_getoutputcount(toplevel_v2_blocker_panel_id_listing);
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_boolean $boolean19 = false;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_dbrow $dbrow22 = null;
+~script8306;
+if (~script8314($int0) = -1 | %toplevel_v2_mobile_interface = 1 | %toplevel_v2_legacy_interface = 1) {
+    $struct3 = ~script10405($int0);
+    if ($struct3 = null) {
+        return;
+    }
+    $int20, $int21 = ~script20539(struct_param($struct3, toplevel_v2_window_size_struct));
+    $component4 = struct_param($struct3, toplevel_v2_window_layer);
+    if ($component4 = null) {
+        return;
+    }
+    if_sethide(false, $component4);
+    if (%toplevel_v2_mobile_interface = 1) {
+        ~script16576($struct3, $int0);
+        ~script2638;
+        ~script8390($int0);
+    } else if (%toplevel_v2_legacy_interface = 0) {
+        $int13, $int14, $int15, $int16, $int17, $int18 = ~script8725(%toplevel_v2_active_layout, $int0);
+        if (%toplevel_v2_active_layout = 8) {
+            $int13 = ~script8711($int13, $int15, $int17, if_getwidth(toplevel_v2:viewport));
+            $int14 = ~script8711($int14, $int16, $int18, if_getheight(toplevel_v2:viewport));
+        }
+        if (~script12612($struct3) = true) {
+            if_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top, $component4);
+            if_setsize($int17, $int18, ^setsize_abs, ^setsize_abs, $component4);
+            ~script8361($int0);
+            while ($int12 < $int11) {
+                $int5 = enum(int, int, toplevel_v2_blocker_panel_id_listing, $int12);
+                if ($int5 ! -1 & $int5 ! $int0) {
+                    $struct6 = ~script10405($int5);
+                    if (~script12612($struct6) = true) {
+                        $component7 = struct_param($struct6, toplevel_v2_window_layer);
+                        if ($component7 ! null & if_gethide($component7) = false) {
+                            $int9 = ~script8396($component4, $component7);
+                            if ($int9 > $int10 & if_getwidth($component7) >= $int20 & if_getheight($component7) >= $int21) {
+                                $int10 = $int9;
+                                $int8 = $int5;
+                            }
+                        }
+                    }
+                }
+                $int12 = calc($int12 + 1);
+            }
+        }
+        if ($int8 ! -1 & $int10 >= calc($int17 * $int18 / 3)) {
+            ~script8356($int8, $int0, 1000, $int1, 1);
+            if ($int1 = 0) {
+                ~script8390($int8);
+            }
+        } else {
+            $int13, $int14, $int17, $int18, $boolean19 = ~script8382($int13, $int14, $int17, $int18, $int0, 0, 1);
+            if ($boolean19 = true) {
+                ~script8387($int13, $int14, $int17, $int18, $int0);
+                ~script173($int0);
+            } else if (~script12612($struct3) = false) {
+                $int13, $int14, $int15, $int16, $int17, $int18 = ~script8725(1, $int0);
+                if (%toplevel_v2_active_layout = 8) {
+                    $int13 = ~script8711($int13, $int15, $int17, if_getwidth(toplevel_v2:viewport));
+                    $int14 = ~script8711($int14, $int16, $int18, if_getheight(toplevel_v2:viewport));
+                }
+                $int13, $int14, $int17, $int18, $boolean19 = ~script8382($int13, $int14, $int17, $int18, $int0, 0, 1);
+                ~script8387($int13, $int14, $int17, $int18, $int0);
+                ~script173($int0);
+            } else if ($int8 ! -1) {
+                ~script8356($int8, $int0, 1000, 0, 1);
+                ~script8390($int8);
+            } else {
+                ~script8786($int0, 1);
+            }
+        }
+    } else {
+        if (struct_param($struct3, toplevel_v2_window_primary_parent_id) ! -1 | $int0 = 9 | $int0 = 12 | $int0 = 17) {
+            $dbrow22 = ~script20117(-1);
+            if (struct_param($struct3, toplevel_v2_window_legacy_allow_in_tab2) = true & $dbrow22 = null) {
+                if (%varclientbit_60445 = 1) {
+                    if (%varclientbit_60444 = %varclientbit_22877) {
+                        %varclientbit_22877 = 0;
+                    }
+                    if (%varclientbit_60444 ! 0 & %varclientbit_60444 ! calc($int0 + 1)) {
+                        ~script8323(calc(%varclientbit_60444 - 1), 1);
+                    }
+                    %varclientbit_60444 = calc($int0 + 1);
+                    $int13, $int14 = ~script9950;
+                    if_setposition($int13, $int14, ^setpos_abs_right, ^setpos_abs_bottom, struct_param($struct3, toplevel_v2_window_layer));
+                    if (%varclientbit_22877 ! 0) {
+                        ~script10535(calc(%varclientbit_22877 - 1));
+                    }
+                } else {
+                    if (%varclientbit_22877 ! 0 & %varclientbit_22877 ! calc($int0 + 1)) {
+                        ~script8323(calc(%varclientbit_22877 - 1), 1);
+                    }
+                    %varclientbit_22877 = calc($int0 + 1);
+                    $int13, $int14 = ~script9950;
+                    if_setposition($int13, $int14, ^setpos_abs_right, ^setpos_abs_bottom, struct_param($struct3, toplevel_v2_window_layer));
+                }
+            } else {
+                $int13, $int14 = ~script9950;
+                if (%varclientbit_60445 = 1) {
+                    if (%varclientbit_60444 > 0) {
+                        $int13 = calc($int13 + 210);
+                    }
+                    if_setposition($int13, $int14, ^setpos_abs_right, ^setpos_abs_bottom, struct_param($struct3, toplevel_v2_window_layer));
+                }
+                if (%varclientbit_22877 ! 0 & %varclientbit_22877 ! calc($int0 + 1) & ~script1423($int0, $dbrow22) = false) {
+                    ~script8323(calc(%varclientbit_22877 - 1), 1);
+                }
+                if (~script1423($int0, $dbrow22) = false) {
+                    %varclientbit_22877 = calc($int0 + 1);
+                }
+            }
+        }
+        ~script8390($int0);
+        if ($int0 = 17) {
+            ~script8144;
+        }
+    }
+    ~script8705($int0);
+    ~script8157($int0);
+    ~script10161($int0);
+} else if ($int1 = 1) {
+    ~script8313($int0);
+}

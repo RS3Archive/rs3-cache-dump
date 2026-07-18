@@ -1,0 +1,138 @@
+// 7115
+[proc,script7115](obj $obj0, int $int1, obj $obj2, int $int3, boolean $boolean4)(int)
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_int $int7 = 0;
+switch_category (oc_category($obj2)) {
+    case arch_soil :
+        $int7 = ~script14693($obj2);
+    case arch_material :
+        $int7 = ~script14906($obj2);
+    case arch_restoration_damaged :
+        $int7 = ~script9821($obj2);
+    case necromancy_rune :
+        $int7 = ~script11567($obj2, 1);
+    case armour_spike :
+        $int7 = ~script8946($obj2, 1);
+    case default :
+        switch_obj ($obj2) {
+            case rand_airrune, rand_waterrune, rand_firerune, rand_earthrune, rand_mindrune, rand_bodyrune, rand_chaosrune, rand_deathrune, rand_bloodrune, rand_soulrune, rand_cosmicrune, rand_naturerune, rand_astralrune, rand_lawrune, airrune, waterrune, firerune, earthrune, dustrune, mudrune, smokerune, steamrune, mistrune, lavarune, mindrune, bodyrune, soulrune, bloodrune, cosmicrune, astralrune, deathrune, lawrune, chaosrune, naturerune, timerune, mah5_armadyl_rune :
+                $int7 = ~script17300($obj0, $obj2);
+            case watering_can_8, watering_can_7, watering_can_6, watering_can_5, watering_can_4, watering_can_3, watering_can_2, watering_can_1, watering_can_0, watering_can_dummy_with_category :
+                if (~check_tool(ft3_watering_can) = true) {
+                    $int7 = -1;
+                } else {
+                    $int7 = calc(8 * inv_total(inv, watering_can_8) + 7 * inv_total(inv, watering_can_7) + 6 * inv_total(inv, watering_can_6) + 5 * inv_total(inv, watering_can_5) + 4 * inv_total(inv, watering_can_4) + 3 * inv_total(inv, watering_can_3) + 2 * inv_total(inv, watering_can_2) + inv_total(inv, watering_can_1));
+                }
+            case sacred_oil1, sacred_oil2, sacred_oil3, sacred_oil4 :
+                $int7 = calc(inv_total(inv, sacred_oil1) + inv_total(inv, sacred_oil2) * 2 + inv_total(inv, sacred_oil3) * 3 + inv_total(inv, sacred_oil4) * 4);
+            case coins :
+                $int7 = ~script17401;
+            case watering_can_dummy :
+                $int7 = calc(inv_total(inv, watering_can_7) + inv_total(inv, watering_can_6) + inv_total(inv, watering_can_5) + inv_total(inv, watering_can_4) + inv_total(inv, watering_can_3) + inv_total(inv, watering_can_2) + inv_total(inv, watering_can_1) + inv_total(inv, watering_can_0));
+            case water_skin0, water_skin1, water_skin2, water_skin3 :
+                $int7 = calc(inv_total(inv, water_skin0) + inv_total(inv, water_skin1) + inv_total(inv, water_skin2) + inv_total(inv, water_skin3));
+            case pop_ancient_bones :
+                $int7 = max(0, %pop_reward_resource_1);
+            case pop_spice :
+                $int7 = max(0, %pop_reward_resource_3);
+            case pop_lacquer :
+                $int7 = max(0, %pop_reward_resource_4);
+            case pop_plate :
+                $int7 = max(0, %pop_reward_resource_2);
+            case pop_zen :
+                $int7 = max(0, %pop_reward_resource_5);
+            case pop_pearls :
+                $int7 = max(0, %pop_reward_resource_6);
+            case pop_koi :
+                $int7 = max(0, %pop_reward_resource_7);
+            case poh_trophydrop_basilisk_stuffed :
+                if (%makex2012_ingredient_basilisk_head > 0) {
+                    return(1);
+                }
+            case poh_trophydrop_abyssaldemon_stuffed :
+                if (%makex2012_ingredient_abyssaldemon_head > 0) {
+                    return(1);
+                }
+            case gnome_spice :
+                if (map_members = false & oc_members($obj2) = 1) {
+                    $int7 = 0;
+                } else if ($obj0 ! null & inv_total(inv, gnome_spice) > 0) {
+                    $int7 = -1;
+                } else if ($boolean4 = true) {
+                    $int7 = calc(inv_total(inv, $obj2) + inv_total(lore_bob, $obj2));
+                } else {
+                    $int7 = inv_total(inv, $obj2);
+                }
+            case invent_material_dummy :
+                $int7 = ~invent_material_count($int3);
+            case smithing_hopper_dummy :
+                if (%smelting_bypass_hopper = 0) {
+                    $int7 = ~script2548($int3);
+                }
+            case smithing_orebox_dummy :
+                $int7 = ~script18309(enum(int, obj, mining_orebox_id_to_obj, $int3));
+            case woodcutting_box_dummy :
+                $int7 = inv_total(woodcutting_woodbox, enum(int, obj, woodcutting_box_id_to_obj, $int3));
+            case cooking_potion4 :
+                if (map_members = false) {
+                    $int7 = 0;
+                } else {
+                    $int7 = ~script12420($boolean4);
+                }
+            case vial_enchanted, goldbowlbless_pure :
+                $int7 = max(0, calc(15 - %lq_bowl_water));
+            case invent_dummy_dg_token :
+                $int7 = %rand_reward_tokens;
+            case woodplank, plank_oak, plank_teak, plank_mahogany, plank_willow, plank_maple, plank_acadia, plank_yew, plank_magic, plank_elder, plank_eternal :
+                $int7 = calc($int7 + ~script15393($obj2));
+                if ($boolean4 = true) {
+                    $int7 = calc($int7 + inv_total(lore_bob, $obj2));
+                }
+            case trh_elite_fragments_gemstone :
+                $int7 = %currency_fragments_gemstone;
+            case trh_elite_fragments_ethereal :
+                $int7 = %currency_fragments_ethereal;
+            case trh_elite_fragments_shark :
+                $int7 = %currency_fragments_shark;
+            case trh_elite_fragments_camouflage :
+                $int7 = %currency_fragments_camouflage;
+            case trh_elite_fragments_divination :
+                $int7 = %currency_fragments_divination;
+            case trh_elite_fragments_dungeoneering :
+                $int7 = %currency_fragments_dungeoneering;
+            case trh_elite_fragments_trapper :
+                $int7 = %currency_fragments_trapper;
+            case pof_rewards_trh_elite_fragments_farming :
+                $int7 = %currency_fragments_farming;
+            case trh_elite_fragments_woodcutting :
+                $int7 = %currency_fragments_woodcutting;
+            case ectoplasm :
+                $int7 = ~script11567($obj2, 1);
+            case default :
+                if (map_members = false & oc_members($obj2) = 1) {
+                    $int7 = 0;
+                } else if (oc_param($obj2, recipe_fully_charged) = 1) {
+                    if (oc_param($obj2, item_degrade_use_alternate_var) = 1) {
+                        $int7 = 0;
+                    } else {
+                        $int5 = ~inv_find(inv, $obj2, 0);
+                        if ($int5 = -1) {
+                            $int7 = 0;
+                        } else if (inv_getvar(inv, $int5, item_degrade_state) ! 0) {
+                            $int7 = 0;
+                        } else {
+                            $int7 = 1;
+                        }
+                    }
+                } else if ($boolean4 = true) {
+                    $int7 = calc(inv_total(inv, $obj2) + inv_total(lore_bob, $obj2));
+                } else {
+                    $int7 = inv_total(inv, $obj2);
+                }
+        }
+}
+if ($obj0 ! null & $int7 ! -1) {
+    $int6 = ~script6589($obj0, $obj2, $int1);
+}
+return(calc($int7 + $int6));

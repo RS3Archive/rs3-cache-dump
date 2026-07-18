@@ -1,0 +1,71 @@
+// 11576
+[proc,script11576](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, int $int13, int $int14)
+def_graphic $graphic15 = "rs3_btn_checkbox,2";
+def_graphic $graphic16 = "rs3_btn_checkbox,0";
+def_string $string0 = enum(int, string, mtx91_challenge_skill, $int1);
+def_string $string1 = "";
+if (map_lang = 0) {
+    $string1 = enum(int, string, mtx91_challenge_entry_fee_string, $int2);
+} else if (map_lang = 2) {
+    $string1 = enum(int, string, mtx91_challenge_entry_fee_string_fr, $int2);
+} else {
+    $string1 = enum(int, string, mtx91_challenge_entry_fee_string_de, $int2);
+}
+def_string $string2 = enum(int, string, mtx91_challenge_time_limit, $int3);
+if_settext($string0, mtx91_entry:selected_skill);
+if_settext($string1, mtx91_entry:selected_entry_fee);
+if_settext($string2, mtx91_entry:selected_time_limit);
+if ($int4 > 4) {
+    if_settext("<tostring(calc($int4 / 4))> mins", mtx91_entry:selected_start_delay);
+} else if ($int4 > 0) {
+    if_settext("1 min", mtx91_entry:selected_start_delay);
+} else if ($int4 = 0) {
+    if_settext("Competition started", mtx91_entry:selected_start_delay);
+} else {
+    if_settext("Competition finished", mtx91_entry:selected_start_delay);
+}
+if_settext(tostring_localised($int13, true), mtx91_entry:total_pot);
+if ($int14 = 1) {
+    if_sethide(false, mtx91_entry:start_button_layer);
+} else {
+    if_sethide(true, mtx91_entry:start_button_layer);
+}
+if ($int0 = 0) {
+    if_settext("Challenge Gem - Skilling Competition", mtx91_entry:skilling_title);
+    if_settext("Skill", mtx91_entry:selected_skill_text);
+    if_settext("Skill level range", mtx91_entry:skilling_level_range);
+    if_settext(tostring($int5), mtx91_entry:display_min_level);
+    if_settext(tostring($int6), mtx91_entry:display_max_level);
+    if_setposition(32, 200, ^setpos_abs_left, ^setpos_abs_top, mtx91_entry:total_pot_text);
+    if_setposition(319, 200, ^setpos_abs_left, ^setpos_abs_top, mtx91_entry:total_pot);
+    if_sethide(true, mtx91_entry:mob_min_level);
+    if_sethide(true, mtx91_entry:mob_max_level);
+    if_sethide(true, mtx91_entry:combat_options);
+    if_sethide(true, mtx91_entry:info_holder_active_3);
+} else {
+    if_settext("Challenge Gem - Combat Competition", mtx91_entry:skilling_title);
+    if_settext("Enemy combat level range", mtx91_entry:selected_skill_text);
+    if_settext("Player combat level range", mtx91_entry:skilling_level_range);
+    if_settext("-", mtx91_entry:selected_skill);
+    if_settext(tostring($int7), mtx91_entry:display_min_level);
+    if_settext(tostring($int8), mtx91_entry:display_max_level);
+    if_settext(tostring($int9), mtx91_entry:display_mob_min_level);
+    if_settext(tostring($int10), mtx91_entry:display_mob_max_level);
+    if_setposition(32, 230, ^setpos_abs_left, ^setpos_abs_top, mtx91_entry:total_pot_text);
+    if_setposition(319, 230, ^setpos_abs_left, ^setpos_abs_top, mtx91_entry:total_pot);
+    if ($int11 = 1) {
+        if_setgraphic($graphic15, mtx91_entry:wilderness_checkbox);
+    } else {
+        if_setgraphic($graphic16, mtx91_entry:wilderness_checkbox);
+    }
+    if ($int12 = 1) {
+        if_setgraphic($graphic15, mtx91_entry:pvp_checkbox);
+    } else {
+        if_setgraphic($graphic16, mtx91_entry:pvp_checkbox);
+    }
+    if_sethide(false, mtx91_entry:mob_min_level);
+    if_sethide(false, mtx91_entry:mob_max_level);
+    if_sethide(false, mtx91_entry:combat_options);
+    if_sethide(false, mtx91_entry:info_holder_active_3);
+}
+if_settext("Challenge gems allow players to compete against each other, either for fun or as staked competition. All challenge details are shown on this interface.<br><br>Upon entering, your stake will be placed in the prize pool and at the end of the competition the winner will be rewarded with the full prize pool.<br><br>Once the competition begins you can begin to gain points. Only activities done on this world will count towards your score.<br><br>At the end of the competition the winner is the person who has the highest score greater than 0; in the case of a draw the money is split evenly between those players (up to 10).<br><br>You must be logged in and on this world at the end of the competition to be considered for the win.<br><br>For skilling competitions, points are awarded for the base XP gained.<br>For combat competitions, points are awarded for the amount of damage dealt.", mtx91_entry:details_text);

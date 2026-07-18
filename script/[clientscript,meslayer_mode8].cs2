@@ -1,0 +1,19 @@
+// 109
+[clientscript,meslayer_mode8](string $string0)
+if_sethide(false, meslayer:root);
+if_settext($string0, meslayer:mes_text);
+%meslayermode = 8;
+~meslayer_setupinput("");
+if_setonclick(null, meslayer:mes_layer);
+~script2026;
+if (%last_namedialog_init = true & string_length(%last_namedialog) > 0) {
+    cc_create(meslayer:mes_layer, ^iftype_text, 0);
+    ~meslayer_setupdynamicbutton;
+    cc_settext("Last name entered: <%last_namedialog> <~mobile_text_get(10)>");
+    cc_setop(1, "Use:");
+    cc_setopbase("<col=ff9040><removetags(%last_namedialog)></col>");
+    cc_setonop("meslayer_lastname(%meslayermode, event_op, event_com, event_comsubid, %last_namedialog)");
+} else {
+    %last_namedialog = "";
+    %last_namedialog_init = true;
+}

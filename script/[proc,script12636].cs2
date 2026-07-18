@@ -1,0 +1,29 @@
+// 12636
+[proc,script12636](int $int0, int $int1, int $setposh2, int $setposv3)(int, int, int, int)
+def_int $int4 = $int0;
+def_int $int5 = $int1;
+def_component $component6 = null;
+def_int $int7 = -1;
+switch_int (cc_param(rs3tli_component_repos_type)) {
+    case 0 :
+        $int4 = cc_param(rs3tli_component_target_pos_x);
+        $int5 = cc_param(rs3tli_component_target_pos_y);
+        cc_setposition($int4, $int5, $setposh2, $setposv3);
+    case 1 :
+        $int4 = ~script12327($int0, cc_param(rs3tli_component_target_pos_x));
+        $int5 = ~script12327($int1, cc_param(rs3tli_component_target_pos_y));
+        cc_setposition($int4, $int5, $setposh2, $setposv3);
+    case 2 :
+        $component6 = cc_getlayer;
+        if ($component6 ! null & $component6 = cc_param(rs3tli_component_anchor_com)) {
+            $int7 = cc_param(rs3tli_component_anchor_subid);
+            if (.cc_find($component6, $int7) = true | $int7 = -1 & .if_find($component6) = true) {
+                $int4 = .cc_getx;
+                $int5 = .cc_gety;
+                $setposh2 = ^setpos_abs_left;
+                $setposv3 = ^setpos_abs_top;
+                cc_setposition($int4, $int5, $setposh2, $setposv3);
+            }
+        }
+}
+return($int4, $int5, $setposh2, $setposv3);

@@ -1,0 +1,28 @@
+// 16614
+[proc,trh179_update_background]
+cc_deleteall(wheel_of_fortune:background_holder);
+if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+if_setgraphic(struct_param(trh179_promo, trh_promo_background), wheel_of_fortune:background);
+if_setposition(126, 60, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:wheel_spin_button_layer_1);
+if_setsize(200, 150, ^setsize_abs, ^setsize_abs, wheel_of_fortune:wheel_spin_button_layer_1);
+~script16615;
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0, $int1 = ~trh179_get_modifiers;
+db_find(trh179_modifier:col0, $int0);
+def_dbrow $dbrow2 = db_findnext;
+if ($dbrow2 = null) {
+    ~error("Unable to specifiy dbrow from modifier for current: <tostring($int0)>");
+    $dbrow2 = trh179_modifier_base;
+}
+~glo3_creation_avatar($dbrow2);
+db_find(trh179_modifier:col0, $int1);
+$dbrow2 = db_findnext;
+if ($dbrow2 = null) {
+    ~error("Unable to specifiy dbrow from modifier for next: <tostring($int0)>");
+    $dbrow2 = trh179_modifier_base;
+}
+~script16617;
+if (%trh_promo_time_minutes > ~script16626 & %trh_promo_time_minutes >= 0) {
+    ~script16618($dbrow2);
+}

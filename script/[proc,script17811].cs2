@@ -1,0 +1,26 @@
+// 17811
+[proc,script17811](dbrow $dbrow0, int $int1, component $component2)(int)
+def_int $int3 = %necro_ritual_recipe_selection_selected_recipe;
+if ($int3 = 0) {
+    $int3 = ~script17503($dbrow0, 0);
+}
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_int $int6 = -1;
+def_int $int7 = ~script17501($dbrow0);
+def_int $int8 = ~script17525($dbrow0, 0);
+def_int $int9 = ~script17524($dbrow0, $int3, 0);
+switch_int ($int7) {
+    case 1 :
+        if ($int9 > 0 & ~script14488(%necro_ritual_active_site) = true) {
+            $int4 = calc($int4 + ~script17812($component2, calc($int1 + $int4), text_body_default, null, null, "<tostring($int9)> <~text_plural($int9, "soul", "souls")> added to the Well of Souls", 2, "ui_necromancy_ritual_bullet_point,5"));
+        }
+    case 5 :
+        $obj5, $int6 = ~script17515($dbrow0, 0);
+        $int8 = calc($int8 + $int6);
+}
+$int4 = calc($int4 + ~script17812($component2, calc($int1 + $int4), text_body_default, null, ectoplasm, "<tostring($int8)> <oc_name(ectoplasm)>", 2, "ui_necromancy_ritual_bullet_point,5"));
+if ($int7 = 5) {
+    ~script3537("Includes <tostring(calc($int8 - $int6))> as ritual byproduct");
+}
+return($int4);

@@ -1,0 +1,67 @@
+// 5808
+[proc,script5808](component $component0, int $int1)
+def_component $component2 = toplevel_v2_parent_suboverlay_prayer:stats_info_title_layer;
+def_component $component3 = toplevel_v2_parent_suboverlay_prayer:stats_info_info_layer;
+def_component $component4 = toplevel_v2_parent_suboverlay_prayer:stats_no_info_layer;
+def_component $component5 = toplevel_v2_parent_suboverlay_prayer:stats_divider;
+if ($component0 = toplevel_v2_prayer:stats_layer) {
+    $component2 = toplevel_v2_prayer:stats_info_title_layer;
+    $component3 = toplevel_v2_prayer:stats_info_info_layer;
+    $component4 = toplevel_v2_prayer:stats_no_info_layer;
+    $component5 = toplevel_v2_prayer:stats_divider;
+}
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if (%combatv2_prayer_drain ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, tostring(%combatv2_prayer_drain), "Prayer Drain", $int7, $int8);
+}
+if (%combatv2_prayer_melee_attack_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6494(%combatv2_prayer_melee_attack_modifier), "Melee Accuracy", $int7, $int8);
+}
+if (%combatv2_prayer_melee_strength_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6493(%combatv2_prayer_melee_strength_modifier), "Melee Strength", $int7, $int8);
+}
+if (%combatv2_prayer_range_attack_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6494(%combatv2_prayer_range_attack_modifier), "Ranged Accuracy", $int7, $int8);
+}
+if (%combatv2_prayer_range_strength_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6493(%combatv2_prayer_range_strength_modifier), "Ranged Strength", $int7, $int8);
+}
+if (%combatv2_prayer_magic_attack_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6494(%combatv2_prayer_magic_attack_modifier), "Magic Accuracy", $int7, $int8);
+}
+if (%combatv2_prayer_magic_strength_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6493(%combatv2_prayer_magic_strength_modifier), "Magic Strength", $int7, $int8);
+}
+if (%combatv2_prayer_necromancy_attack_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6494(%combatv2_prayer_necromancy_attack_modifier), "Necromancy Accuracy", $int7, $int8);
+}
+if (%combatv2_prayer_necromancy_strength_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6493(%combatv2_prayer_necromancy_strength_modifier), "Necromancy Strength", $int7, $int8);
+}
+if (%combatv2_prayer_defence_modifier ! 0) {
+    $int7, $int8 = ~script5817($component2, $component3, ~script6494(%combatv2_prayer_defence_modifier), "Defence", $int7, $int8);
+}
+if ($int7 = 0) {
+    if_sethide(true, $component5);
+    cc_create($component4, ^iftype_text, $int8);
+    cc_setposition(0, $int7, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setsize(if_getwidth($component4), calc(14 * 6), ^setsize_abs, ^setsize_abs);
+    cc_setmaxlines(1);
+    cc_settextfont(notosans_bold_14);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~script2731($component4, $int8, 3);
+    cc_settext("No stat changes!");
+    $int7 = calc($int7 + cc_getheight);
+    $int8 = calc($int8 + 1);
+} else {
+    if_sethide(false, $component5);
+}
+$int7 = calc(14 * 6 + 1);
+if ($int1 = 1) {
+    ~script11991($component0, $int7, $int7);
+}

@@ -1,0 +1,83 @@
+// 7470
+[proc,diango_items](component $component0)
+cc_deleteall($component0);
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = enum_getoutputcount(diango_items);
+def_int $int3 = calc($int2 + enum_getoutputcount(trh_diango_recoverable_items));
+def_enum $enum4 = diango_items;
+if (%diango_interface_mode = 1) {
+    $enum4 = qps_storage_chest_items;
+    $int3 = enum_getoutputcount(qps_storage_chest_items);
+    $int2 = $int3;
+}
+def_int $int5 = 0;
+def_int $int6 = 8;
+def_int $int7 = 5;
+def_obj $obj8 = null;
+def_int $int9 = 1;
+def_int $int10 = 0;
+def_int $int11 = 36;
+def_int $int12 = 32;
+def_int $int13 = 44;
+if (~script6431 = true) {
+    $int11 = 44;
+    $int12 = 39;
+    $int13 = 64;
+}
+while ($int5 < $int3) {
+    if ($int5 < $int2) {
+        $obj8 = enum(int, obj, $enum4, $int5);
+    } else {
+        $int10 = 1;
+        $obj8 = enum(int, obj, trh_diango_recoverable_items, calc($int5 - $int2));
+    }
+    cc_create($component0, ^iftype_graphic, $int5);
+    if (~script14437($obj8, $int10) = true) {
+        cc_setsize($int11, $int12, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+        $obj8 = ~script13794($obj8);
+        $int9 = ~script16585($obj8);
+        cc_setobject($obj8, $int9);
+        cc_setop(1, "Retrieve");
+        switch_category (oc_category($obj8)) {
+            case wof_skill_set_item, trh19_blue_golem, trh19_green_golem, trh19_red_golem, trh19_magic_golem, trh33_ethereal_law, trh33_ethereal_blood, trh33_ethereal_death, trh33_ethereal_infinity, trh48_shark_normal, trh48_shark_tiger, trh48_shark_burnt, trh48_shark_fury, trh75_outfit_energy, trh75_outfit_chronicle, trh75_outfit_memory, trh75_outfit_elder, trh90_outfit_desert, trh90_outfit_keldagrim, trh90_outfit_prifddinas, trh90_outfit_master, trh103_outfit_frozen, trh103_outfit_furnished, trh103_outfit_abandoned, trh103_outfit_occult, trh103_outfit_warped, trh113_elite_woodcutting_v1_outfit, trh113_elite_woodcutting_v2_outfit, trh113_elite_woodcutting_v3_outfit, trh113_elite_woodcutting_v4_outfit, ramble_lumberjack_set, tt2_construction_set, golden_mining_set, black_ibis_set, master_runecrafter_set, trh127_desert_outfit, trh127_jungle_outfit, trh127_arctic_outfit, trh127_volcanic_outfit, pof_rewards_trh_outfit_animals, pof_rewards_trh_outfit_crops, pof_rewards_trh_outfit_trees, pof_rewards_trh_outfit_master, elr2_hunter_outfit, arch_skilling_outfit, arch_elite_skilling_outfit, con_elite_skilling_outfit, necro_skilling_outfit :
+                cc_setop(2, "Retrieve all outfit pieces");
+        }
+        cc_setop(10, "Examine");
+        cc_setonop("script1620(event_com, event_comsubid, 75, 0, 10)");
+        cc_setoutline(1);
+        cc_setonmouserepeat("script5495($obj8)");
+        cc_setonmouseleave("script5495(null)");
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 0);
+        cc_setparam(toplevel_v2_tooltip_mobile_item, $obj8);
+        ~script14420($obj8);
+        $int6 = calc($int6 + $int13);
+        if (calc($int6 + $int11) >= $int1) {
+            $int6 = 8;
+            $int7 = calc($int7 + $int13);
+        }
+    }
+    $int5 = calc($int5 + 1);
+}
+if ($int6 = 0 & $int7 = 0) {
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    cc_settextshadow(true);
+    cc_settext("Nothing to retrieve.");
+}
+if ($component0 = diango_items:holiday_items) {
+    if ($int6 > 8) {
+        $int7 = calc($int7 + $int13);
+    }
+    if ($int7 > if_getheight(diango_items:holiday_items)) {
+        if_setscrollsize(0, $int7, diango_items:holiday_items);
+        ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, if_getscrolly(diango_items:holiday_items));
+    } else {
+        if_setscrollsize(0, 0, diango_items:holiday_items);
+        ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, 0);
+    }
+}

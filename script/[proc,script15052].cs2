@@ -1,0 +1,18 @@
+// 15052
+[proc,script15052](obj $obj0)
+if (%p_dialog_listener ! stockmarket:search_input_listener) {
+    if_triggerop(stockmarket:search_obj_select_no_search_box_focus, -1, 1);
+    %stock_resend_obj_server_timer = 10;
+    if_setontimer("script15061($obj0)", stockmarket:makeofferbutton);
+}
+~script15054;
+if (%p_dialog_listener ! stockmarket:search_input_listener) {
+    ~script15060(%stock_search_save, $obj0, 0);
+} else {
+    ~script15060(%p_dialog_input, $obj0, 0);
+}
+if (%stock_offeritem ! $obj0) {
+    %stock_offeritem = $obj0;
+    ~script621;
+    ~script15036(0, 1, 1, 1, 1);
+}

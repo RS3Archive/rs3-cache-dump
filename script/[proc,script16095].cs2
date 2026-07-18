@@ -1,0 +1,22 @@
+// 16095
+[proc,script16095]()(string)
+if (%slayer_count = 0) {
+    return("");
+}
+if (%slayer_master = -1 | %smki_monster_struct_entry = -1) {
+    return("");
+}
+if (%slayc_current_challenge > 0 | %slayc_morvran_challenge = 1 | %slayc_laniakea_challenge = 1) {
+    return("");
+}
+def_enum $enum0 = enum(int, enum, slayer_master_enum, %slayer_master);
+if ($enum0 = null) {
+    return("");
+}
+def_struct $struct1 = enum(int, struct, $enum0, %smki_monster_struct_entry);
+def_npc $npc2 = null;
+if ($struct1 ! null) {
+    $npc2 = struct_param($struct1, slayer_example_npc);
+    return(~script16097($npc2));
+}
+return("");

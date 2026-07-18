@@ -1,0 +1,33 @@
+// 13189
+[proc,script13189](component $component0, inv $inv1, int $int2, obj $obj3, int $int4)
+if ($inv1 = null | $int2 < 0 | $int2 >= inv_size($inv1) | $obj3 = null | $int4 < 1) {
+    return;
+}
+def_int $int5 = -1;
+def_dbrow $dbrow6 = null;
+def_int $int7 = -1;
+def_int $int8 = -1;
+if (if_find($component0) = true) {
+    $dbrow6 = ~script15768(cc_param(mtxmgt_target_preview_subid));
+    if ($dbrow6 ! null & ~script18206($dbrow6) = true) {
+        $int8 = db_getfield($dbrow6, mtxmgt_cosmetic:col17, 0);
+        if ($int8 < inv_size(worn_custom_overrides)) {
+            if (inv_getobj(worn_custom_overrides, $int8) = null) {
+                if ($int8 = 0 | inv_getobj(worn_custom_overrides, calc($int8 - 1)) ! null) {
+                    cc_deleteall(mtxmgt_store:keepsake_layer);
+                    while (++$int7 < $int2) {
+                        cc_create(mtxmgt_store:keepsake_layer, ^iftype_graphic, $int7);
+                    }
+                    cc_create(mtxmgt_store:keepsake_layer, ^iftype_graphic, $int7);
+                    cc_setobject($obj3, $int4);
+                    if_triggerop(mtxmgt_store:keepsake_layer, $int7, 1);
+                    return;
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
+    }
+}

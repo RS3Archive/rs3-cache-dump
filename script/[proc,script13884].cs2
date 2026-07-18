@@ -1,0 +1,33 @@
+// 13884
+[proc,script13884](component $component0, int $int1, int $int2)(boolean)
+if ($component0 ! bank:tab_spacer_endrow & $component0 ! bank:tab_spacer_below) {
+    return(false);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+if ($int1 > 1) {
+    if (%bank_current_tab = 1) {
+        $int3 = ~script14372($int1);
+    } else {
+        $int3 = $int1;
+    }
+    $int5, $int4 = ~bank_get_tab_range($int3);
+} else {
+    $int4 = ~script14337;
+}
+$int4 = max(0, calc($int4 - 1));
+if (cc_find(bank:bank_inv, $int4) = true & .cc_find(bank:bank_inv_insert, $int4) = true) {
+    if ($int2 = 0) {
+        if (if_getx(bank:ondrag_highlight) = calc(cc_getx + cc_getwidth - 1) & if_gety(bank:ondrag_highlight) = calc(cc_gety - 1)) {
+            if_sethide(true, bank:ondrag_highlight);
+        }
+    } else {
+        if_setposition(calc(cc_getx + cc_getwidth - 1), calc(cc_gety - 1), ^setpos_abs_left, ^setpos_abs_top, bank:ondrag_highlight);
+        if_setsize(calc(.cc_getwidth + 2), calc(.cc_getheight + 2), ^setsize_abs, ^setsize_abs, bank:ondrag_highlight);
+        if_sethide(false, bank:ondrag_highlight);
+        if_sethide(true, bank:ondrag_insert_right_highlight);
+        if_sethide(true, bank:ondrag_insert_left_highlight);
+    }
+}
+return(true);

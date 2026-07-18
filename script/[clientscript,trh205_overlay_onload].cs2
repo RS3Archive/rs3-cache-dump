@@ -1,0 +1,41 @@
+// 19777
+[clientscript,trh205_overlay_onload]
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int0 = 0;
+while ($int0 < 9) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+def_int $int1 = db_getfieldcount(db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col5, 0), trh205_reward_path:col0);
+def_int $int2 = db_getfieldcount(db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col6, 0), trh205_reward_path:col0);
+def_int $int3 = calc(max($int1, $int2) + 1);
+while ($int0 < $int3) {
+    cc_create(trh205_overlay:prize_select_full_preview_fake_op, ^iftype_graphic, $int0);
+    $int0 = calc($int0 + 1);
+}
+cc_create(trh205_overlay:prize_select_full_preview_fake_op, ^iftype_graphic, calc($int3 + 1));
+if_setonvartransmit("script19782{trh205_parent, trh205_parent}", trh205_overlay:bonus_item_model_layer);
+if_setonvartransmit("script19780{trh205_bonus_var_1}", trh205_overlay:blackboard_item_list);
+if_setonvartransmit("script19807{trh205_parent2, trh205_parent3, trh205_parent3}", trh205_overlay:prize_select_layer);
+if_setonvartransmit("script19782{trh205_parent}", trh205_overlay:main_chest);
+db_listall(trh205_promo_bonus);
+def_dbrow $dbrow4 = db_findnext;
+def_component $component5 = null;
+def_material $material6 = null;
+while ($dbrow4 ! null) {
+    if (db_getfieldcount($dbrow4, trh205_promo_bonus:col10) > 0) {
+        $component5, $material6 = db_getfield($dbrow4, trh205_promo_bonus:col10, 0);
+        if (if_find($component5) = true) {
+            cc_setonop("script19781($dbrow4)");
+            cc_setop(1, "Examine");
+            cc_setopbase("<col=43BCBC><db_getfield($dbrow4, trh205_promo_bonus:col1, 0)></col>");
+            cc_setretex(0, mtx_parcel_sticker, $material6);
+            ~script19779($component5);
+        }
+    }
+    $dbrow4 = db_findnext;
+}
+~script13310(trh205_overlay:bonus_progress_bar, trh205_overlay:bonus_progress_mask_layer, 63, calc(8 * 1000));
+~script13310(trh205_overlay:prize_progress_bar, trh205_overlay:prize_progress_mask_layer, 64, calc(8 * 1000));
+~trh205_update_background;

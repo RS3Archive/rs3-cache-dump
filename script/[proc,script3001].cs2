@@ -1,0 +1,70 @@
+// 3001
+[proc,script3001]
+def_string $string0 = "Membership";
+def_string $string1 = "";
+def_string $string2 = "";
+def_boolean $boolean0 = false;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string3 = "";
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string4 = "";
+$int1, $int2, $boolean0 = userdetail_lobby_membership;
+if ($boolean0 = false) {
+    if (playermember = true) {
+        $string3 = format_datetime_from_minutes($int1);
+        $int3 = calc($int2 / 1440);
+        $int4 = calc($int2 % 1440 / 60);
+        $int5 = calc($int2 % 60);
+        if (calc($int3 + $int4 + $int5) ! 0) {
+            $string4 = " (in <~date_tostring($int3, $int4, $int5)>)";
+        }
+        $string1 = "Expires <$string3>";
+        $string2 = "Your membership will expire on <$string3><$string4>. Renew now to avoid losing member status. Use this button to renew.";
+        ~script10059($string0, $string1, $string2, lobbyscreen:button_membership);
+        if_settext("Member", lobbyscreen_mobile_billing_info:members_type);
+        if ($int3 = 0) {
+            if_settext("Expires in <~script11479(0, $int4, $int3)>", lobbyscreen_mobile_billing_info:members_time);
+        } else {
+            if_settext("Expires in <tostring($int3)> days", lobbyscreen_mobile_billing_info:members_time);
+        }
+        if_setgraphic(rs3_icon_members_102px, lobbyscreen_mobile_billing_info:members_icon);
+        ~script6865(lobbyscreen_mobile_billing_info:members_type, -1, 0);
+        ~script6865(lobbyscreen_mobile_billing_info:members_time, -1, 6);
+    } else {
+        if_settext("Non-Member", lobbyscreen_mobile_billing_info:members_type);
+        if_settext("", lobbyscreen_mobile_billing_info:members_time);
+        if_setgraphic(rs3_icon_non_members_102px, lobbyscreen_mobile_billing_info:members_icon);
+        ~script6865(lobbyscreen_mobile_billing_info:members_type, -1, 6);
+    }
+} else {
+    if_settext("Member", lobbyscreen_mobile_billing_info:members_type);
+    if_settext("", lobbyscreen_mobile_billing_info:members_time);
+    if_setgraphic(rs3_icon_members_102px, lobbyscreen_mobile_billing_info:members_icon);
+    ~script6865(lobbyscreen_mobile_billing_info:members_type, -1, 0);
+    ~script6865(lobbyscreen_mobile_billing_info:members_time, -1, 2);
+}
+if_settext(chat_playername, lobbyscreen_mobile_billing_info:player_name);
+def_int $int6 = userdetail_lobby_lastloginday;
+if ($int6 = 0) {
+    if_settext("Welcome to RuneScape!", lobbyscreen:login_address);
+    if_settext("Welcome to RuneScape!", lobbyscreen_mobile_billing_info:title_last);
+    if_settext("", lobbyscreen_mobile_billing_info:last_date);
+    return;
+}
+def_int $int7 = calc(date_runeday - $int6);
+if ($int7 < 1) {
+    if_settext("You last logged in earlier today.", lobbyscreen:login_address);
+    if_settext("earlier today", lobbyscreen_mobile_billing_info:last_date);
+} else if ($int7 = 1) {
+    if_settext("You last logged in yesterday.", lobbyscreen:login_address);
+    if_settext("yesterday", lobbyscreen_mobile_billing_info:last_date);
+} else {
+    if_settext("You last logged in <tostring($int7)> days ago.", lobbyscreen:login_address);
+    if_settext("<tostring($int7)> days ago", lobbyscreen_mobile_billing_info:last_date);
+}
+def_component $component8 = lobbyscreen_mobile_billing_info:title_last;
+def_int $int9 = parawidth(if_gettext($component8), if_getwidth($component8), if_getfontmetrics($component8));
+if_setposition($int9, 0, ^setpos_abs_left, ^setpos_abs_centre, lobbyscreen_mobile_billing_info:last_date);

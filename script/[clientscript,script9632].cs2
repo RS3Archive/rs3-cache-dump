@@ -1,0 +1,79 @@
+// 9632
+[clientscript,script9632](component $component0, component $component1, int $int2, int $int3)
+def_int $int4 = $int2;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (.cc_find($component0, calc($int2 + 2)) = true) {
+    if (.cc_getgraphic = rs3_btn_collapse_active) {
+        .cc_setgraphic(rs3_btn_expand_active);
+        $int7 = 0;
+    } else if (.cc_getgraphic = rs3_btn_expand_active) {
+        .cc_setgraphic(rs3_btn_collapse_active);
+        $int7 = 1;
+    }
+    ~script9641($int3);
+    if (cc_find($component0, $int2) = true) {
+        $int6 = cc_param(worldmap_category_type);
+        if ($int6 ! -1) {
+            while ($int5 = 0) {
+                $int4 = calc($int4 + 5);
+                if (cc_find($component0, $int4) = true) {
+                    if ($int9 = 1) {
+                        ~script9634($component0, $int4, $int8);
+                    } else if ($int7 = 0) {
+                        if (cc_param(worldmap_category_type) ! -1) {
+                            if (cc_param(worldmap_category_type) <= $int6) {
+                                $int9 = 1;
+                                ~script9634($component0, $int4, $int8);
+                            } else if (cc_gethide = false) {
+                                $int8 = ~script9633($component0, $int4, $int8, true);
+                            } else if (cc_getheight ! 0) {
+                                ~script9634($component0, $int4, $int8);
+                            }
+                        } else if (cc_gethide = false) {
+                            $int8 = ~script9633($component0, $int4, $int8, true);
+                        } else {
+                            ~script9634($component0, $int4, $int8);
+                        }
+                    } else if ($int7 = 1) {
+                        if (cc_param(worldmap_category_type) ! -1) {
+                            if (cc_param(worldmap_category_type) <= $int6) {
+                                $int9 = 1;
+                                ~script9634($component0, $int4, $int8);
+                            } else if (cc_getheight = 0) {
+                                $int10 = 0;
+                            } else if (cc_gethide = true) {
+                                $int8 = ~script9633($component0, $int4, $int8, false);
+                                if (cc_find($component0, calc($int4 + 2)) = true) {
+                                    if (cc_getgraphic = rs3_btn_expand_active) {
+                                        $int10 = 1;
+                                    } else {
+                                        $int10 = 0;
+                                    }
+                                }
+                            } else {
+                                ~script9634($component0, $int4, $int8);
+                            }
+                        } else if ($int10 = 0) {
+                            if (cc_gethide = true) {
+                                $int8 = ~script9633($component0, $int4, $int8, false);
+                            } else {
+                                ~script9634($component0, $int4, $int8);
+                            }
+                        } else {
+                            ~script9634($component0, $int4, $int8);
+                        }
+                    }
+                } else {
+                    $int5 = 1;
+                }
+            }
+        }
+    }
+}
+if_setscrollsize(0, calc(if_getscrollheight($component0) + $int8), $component0);
+~worldmap_key_build_scrollbar($component0, $component1);

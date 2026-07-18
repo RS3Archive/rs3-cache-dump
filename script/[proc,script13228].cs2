@@ -1,0 +1,60 @@
+// 13228
+[proc,script13228](component $component0, int $int1)(string, string, string, int)
+def_string $string0 = "Rename Preset";
+def_string $string1 = "Enter new name here.";
+def_string $string2 = "Clear name";
+def_int $int2 = 0;
+if ($int1 = -1) {
+    return($string0, $string1, $string2, $int2);
+}
+def_struct $struct3 = null;
+def_int $int4 = -1;
+def_int $int5 = enum_getoutputcount(mtxmgt_store_preset_outfit_structs);
+while (++$int4 < $int5) {
+    $struct3 = enum(int, struct, mtxmgt_store_preset_outfit_structs, $int4);
+    if ($struct3 ! null) {
+        if (struct_param($struct3, mtxmgt_preset_dialog_id) = $int1) {
+            $int4 = $int5;
+        } else {
+            $struct3 = null;
+        }
+    }
+}
+if ($struct3 ! null) {
+    $string0 = "Rename <struct_param($struct3, mtxmgt_name)>";
+} else {
+    return($string0, $string1, $string2, $int2);
+}
+def_int $int6 = 0;
+def_int $int7 = 4;
+$int2 = 4;
+def_int $int8 = calc(496 - 2 * $int7);
+def_fontmetrics $fontmetrics9 = museo_sans_13pt_bold;
+cc_create($component0, ^iftype_text, $int6++);
+cc_settextfont($fontmetrics9);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setposition($int7, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour(~script10495(1));
+cc_settext("Current Name:");
+cc_setsize(calc($int7 * 2), ~script7593(cc_gettext, $int8, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+$int2 = calc($int2 + (cc_getheight + $int7));
+def_fontmetrics $fontmetrics10 = museo_sans_11pt_regular;
+cc_create($component0, ^iftype_text, $int6++);
+cc_settextfont($fontmetrics10);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_setposition($int7, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour(^white);
+def_string $string3 = "A";
+def_int $int11 = 0;
+while (++$int11 < 2) {
+    $string3 = "<$string3><br>A";
+}
+cc_setsize(calc($int7 * 2), ~script7593($string3, $int8, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+$string3 = ~script13227($struct3);
+cc_settext(~script3930($string3, cc_getwidth, 2, cc_getfontmetrics));
+if (compare(cc_gettext, $string3) ! 0) {
+    ~script14990(2, $string3);
+}
+cc_setonvarcstrtransmit("script13229(event_com, event_comsubid, $struct3){mtxmgt_store_preset_1_name_varc, mtxmgt_store_preset_2_name_varc, mtxmgt_store_preset_3_name_varc, mtxmgt_store_preset_4_name_varc, mtxmgt_store_preset_5_name_varc, mtxmgt_store_preset_6_name_varc, mtxmgt_store_preset_7_name_varc, mtxmgt_store_preset_8_name_varc}");
+$int2 = calc($int2 + cc_getheight);
+return($string0, $string1, $string2, $int2);

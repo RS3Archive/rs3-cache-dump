@@ -1,0 +1,23 @@
+// 13470
+[clientscript,script13470](int $int0)
+if (cc_find(repmodal:faction_favourite_layer, 1) = true & .cc_find(repmodal:faction_favourite_layer, 2) = true) {
+    if ($int0 = %menaphos_currently_selected_faction) {
+        cc_setgraphic("menaphos_icon_faction_favorite,3");
+        .cc_settext("<col=FFFFFF>This is your current active faction.</col><br>Completing tasks will increase your reputation with this faction.");
+    } else {
+        cc_setgraphic("menaphos_icon_faction_favorite,0");
+        .cc_settext("Set this faction as the active faction.<br>Completing tasks will increase your reputation with this faction.");
+    }
+}
+def_component $component1 = null;
+switch_int ($int0) {
+    case 1 :
+        $component1 = repmodal:backlight_worker_secondary;
+    case 2 :
+        $component1 = repmodal:backlight_imperial_secondary;
+    case 3 :
+        $component1 = repmodal:backlight_merchant_secondary;
+    case 4 :
+        $component1 = repmodal:backlight_ports_secondary;
+}
+~script13489($component1, 0, $int0, 0);

@@ -1,0 +1,185 @@
+// 1558
+[proc,script1558](int $int0, int $int1)
+if ($int0 <= 0 | $int0 = 1019) {
+    return;
+}
+if ((%toplevel_v2_legacy_interface = 1 | %toplevel_v2_mobile_interface = 0 & %toplevel_v2_chat_style = 1) & $int0 ! 18) {
+    return;
+}
+def_component $component2 = ~script8557($int0);
+def_component $component3 = ~script8555($int0);
+def_component $component4 = ~script8556($int0);
+def_component $component5 = ~script8552($int0);
+def_component $component6 = ~script8553($int0);
+def_component $component7 = ~script8558($int0);
+def_component $component8 = ~script8554($int0);
+def_component $component9 = ~script19625($int0);
+def_int $int10 = ~script8550($int0);
+if_setcolour(^white, $component2);
+if_settextshadow(true, $component4);
+if_setcolour(^white, $component4);
+def_boolean $boolean11 = ~script6431;
+if (~script11370 = 0 & %tutorial = 1000 & $int0 ! 24) {
+    ~dob_entry_setup_window($int0);
+    if_settext("", $component4);
+    if_setonclick(null, $component4);
+    if_setontimer(null, $component4);
+    if_sethide(true, $component2);
+    if_sethide(true, $component8);
+    if ($component9 ! null) {
+        if_sethide(true, $component9);
+    }
+    if_sethide(true, $component4);
+    if_sethide(true, $component3);
+    if_setposition(0, 72, ^setpos_abs_left, ^setpos_abs_top, $component5);
+    if_setsize(488, 72, ^setsize_abs, ^setsize_minus, $component5);
+    if_setposition(0, 72, ^setpos_abs_right, ^setpos_abs_top, $component6);
+    if_setsize(16, 72, ^setsize_abs, ^setsize_minus, $component6);
+    if_sethide(true, $component4);
+    if_sethide(false, $component7);
+    return;
+}
+if_sethide(false, $component2);
+if (~script6431 = false) {
+    if_sethide(false, $component8);
+}
+if_sethide(false, $component4);
+if_sethide(false, $component3);
+if (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_mobile_interface = 0 & %toplevel_v2_chat_style = 1) {
+    if_sethide(true, ~script13539($int0));
+    if_sethide(true, ~script13540($int0));
+    if_setposition(0, 29, ^setpos_abs_left, ^setpos_abs_bottom, if_getparentlayer($component5));
+    if_setsize(0, 31, ^setsize_minus, ^setsize_minus, if_getparentlayer($component5));
+} else {
+    if_setsize(16, 0, ^setsize_abs, ^setsize_minus, $component6);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom, $component6);
+}
+if ($component7 ! null) {
+    if_sethide(true, $component7);
+}
+def_string $string0 = "<chat_playername><img=<3>>:";
+switch_int (~script19312) {
+    case 3 :
+        if (~script19320 = true) {
+            $string0 = "<img=<17>><$string0>";
+        } else {
+            $string0 = "<img=<16>><$string0>";
+        }
+    case 2 :
+        $string0 = "<img=<13>><$string0>";
+    case 1 :
+        $string0 = "<img=<11>><$string0>";
+}
+def_string $string1 = "";
+if (%toplevel_v2_legacy_interface = 0 & (%toplevel_v2_mobile_interface = 1 | %toplevel_v2_chat_style = 0)) {
+    switch_int ($int10) {
+        case 100 :
+            if (string_length(%friendtomessage) > 0) {
+                $string0 = "To <%friendtomessage>:";
+            }
+            $string1 = "Private Chat";
+        case 1 :
+            $string1 = "Friends Chat";
+        case 2 :
+            $string1 = "Clan Chat";
+        case 3 :
+            $string1 = "Guest Clan Chat";
+        case 6 :
+            $string1 = "Twitch Chat";
+        case 4 :
+            $string1 = "Group Chat";
+        case 5 :
+            $string1 = "Group Chat (Team)";
+        case 102 :
+            $string1 = "Group Ironman";
+        case default :
+            if (%chatbox_wiki_mode = true) {
+                $string0 = "Search Wiki<img=<3>>:";
+            } else {
+                $string1 = "Public Chat";
+            }
+    }
+} else {
+    switch_int (%chat_v2_legacy_filter) {
+        case 3 :
+            $string1 = "Private Chat";
+        case 4 :
+            $string1 = "Friends Chat";
+        case 5 :
+            $string1 = "Clan Chat";
+        case 6 :
+            $string1 = "Guest Clan Chat";
+        case 10 :
+            $string1 = "Group Chat";
+        case 11 :
+            $string1 = "Group Ironman";
+        case default :
+            if (%chatbox_wiki_mode = true) {
+                $string0 = "Search Wiki<img=<3>>:";
+            } else {
+                $string1 = "Public Chat";
+            }
+    }
+    if (string_length(%friendtomessage) > 0 & $int10 = 100) {
+        $string0 = "To <%friendtomessage>:";
+    }
+}
+if_settext($string0, $component8);
+if (string_length($string1) > 0) {
+    $string1 = "<$string1> - ";
+}
+if ($boolean11 = false) {
+    if_settextfont(museo_sans_11pt_regular, $component4);
+} else {
+    if_settextfont(museo_sans_15pt_regular, $component4);
+}
+if_setcolour(0x7fa9ff, $component4);
+if_settextfont(museo_sans_11pt_regular, $component8);
+if_setcolour(^white, $component8);
+if_settextshadow(true, $component8);
+if_setcolour(^white, $component2);
+if (string_length(~script8521($int0)) > 0 | %keyboard_manager_listening_input_subsystem = 8 & %chatbox_focus = $int0) {
+    if_settext(escape(~script8521($int0)), $component4);
+} else {
+    if (%chatbox_focus = $int0) {
+        if ($boolean11 = true) {
+            if_settext("<$string1>Enter Message", $component4);
+        } else {
+            if_settext("[<$string1>Press Enter to Chat]", $component4);
+        }
+    } else {
+        if_settext("[<$string1>Press Enter to Chat]", $component4);
+    }
+    if ($boolean11 = false) {
+        if_setcolour(0x969696, $component4);
+    } else {
+        if_setcolour(~rgb_to_hex(240, 240, 240), $component4);
+    }
+}
+~script7172($int0);
+def_int $setposv12 = ^setpos_abs_bottom;
+def_int $int13 = stringwidth(if_gettext($component8), museo_sans_11pt_regular);
+if ($boolean11 = true) {
+    $setposv12 = ^setpos_abs_centre;
+}
+if_setposition(5, 0, ^setpos_abs_left, $setposv12, $component8);
+if_setsize($int13, 2, ^setsize_abs, ^setsize_minus, $component8);
+if ($component9 ! null) {
+    if_sethide(~negate_bool(~script19316), $component9);
+    if_setposition(5, 0, ^setpos_abs_left, $setposv12, $component9);
+    if_setsize($int13, 2, ^setsize_abs, ^setsize_minus, $component9);
+}
+if ($boolean11 = false) {
+    if_setposition(calc(4 + if_getx($component8) + if_getwidth($component8)), 1, ^setpos_abs_left, ^setpos_abs_bottom, $component3);
+    if_setsize(calc(if_getwidth($component8) + 5), 4, ^setsize_minus, ^setsize_minus, $component3);
+}
+if_setonclick("script1554($int0, event_mousex, 0)", $component4);
+def_string $string2 = ~script8521($int0);
+%chat_caret = min(%chat_caret, string_length(escape($string2)));
+%chat_caret = max(%chat_caret, 0);
+~script1555($int0, 0);
+if (string_length(chat_playername) > 0) {
+    if_setontimer(null, $component5);
+} else {
+    if_setontimer("script4308($int0, $int1)", $component5);
+}

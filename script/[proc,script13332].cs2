@@ -1,0 +1,128 @@
+// 13332
+[proc,script13332](int $int0)
+def_component $component1 = enum(int, component, cheevo_category_btn_build, $int0);
+~script14001($component1, rs3tli_3x3_button, 0, false, 1, 0);
+if (cc_find(enum(int, component, cheevo_category_btn_text_index, $int0), 0) = true) {
+    cc_setvflip(true);
+}
+if (%cheevo_last_cat_varp > 0) {
+    $component1 = enum(int, component, cheevo_category_btn_build, calc(%cheevo_last_cat_varp - 1));
+    ~script14001($component1, rs3tli_3x3_button, 0, false, 0, 0);
+    if_setonop("script13331(event_com)", enum(int, component, cheevo_category_btn_active_index, calc(%cheevo_last_cat_varp - 1)));
+    if (cc_find(enum(int, component, cheevo_category_btn_text_index, calc(%cheevo_last_cat_varp - 1)), 0) = true) {
+        cc_setvflip(false);
+    }
+}
+%cheevo_last_cat_varp = calc($int0 + 1);
+def_struct $struct2 = null;
+def_enum $enum3 = null;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $string0 = "";
+cc_deleteall(achievements_sub:subcategory_container);
+if_sethide(true, achievements_sub:subcategory_container);
+if_sethide(true, achievements_sub:cheevo_details);
+$struct2 = enum(int, struct, cheevo_category_button_struct, $int0);
+if ($struct2 = null) {
+    return;
+}
+$enum3 = struct_param($struct2, cheevo_subcategory_list);
+def_struct $struct8 = null;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_enum $enum12 = null;
+$int0 = calc($int0 + 1);
+def_string $string1 = "";
+if ($enum3 ! null) {
+    if_sethide(false, achievements_sub:subcategory_container);
+    $int5 = enum_getoutputcount($enum3);
+    if_setsize(calc(5 * 2), calc(2 + $int5 * (32 + 2)), ^setsize_minus, ^setsize_abs, achievements_sub:subcategory_container);
+    if_setposition(5, calc(2 + (45 + 2) * $int0), ^setpos_abs_centre, ^setpos_abs_top, achievements_sub:subcategory_container);
+    while ($int6 < $int5) {
+        $struct8 = enum(int, struct, $enum3, $int6);
+        if (%cheevo_subcat_select = $int6) {
+            $enum12 = struct_param($struct8, cheevo_list);
+        }
+        cc_create(achievements_sub:subcategory_container, ^iftype_rectangle, calc($int6 * 3));
+        cc_setposition(1, calc($int6 * (32 + 2) + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(5, 32, ^setsize_minus, ^setsize_abs);
+        cc_setfill(true);
+        if (calc($int6 % 2) = 0) {
+            cc_setcolour(~script10495(12));
+            cc_setonmouseover("cc_text_colour_swapper(event_com, cc_getid, ~script10495(13))");
+            cc_setonmouseleave("cc_text_colour_swapper(event_com, cc_getid, ~script10495(12))");
+        } else {
+            cc_setcolour(~script10495(9));
+            cc_setonmouseover("cc_text_colour_swapper(event_com, cc_getid, ~script10495(10))");
+            cc_setonmouseleave("cc_text_colour_swapper(event_com, cc_getid, ~script10495(9))");
+        }
+        cc_setonop("cheevo_load_list(struct_param($struct8, cheevo_list), $int6, 1)");
+        cc_setop(1, "Select");
+        cc_create(achievements_sub:subcategory_container, ^iftype_text, calc($int6 * 3 + 1));
+        cc_setposition(calc(5 + 2 * 2), calc($int6 * (32 + 2) + 2), ^setpos_abs_right, ^setpos_abs_top);
+        $int9, $int10, $int11 = ~cheevo_tally_enum(struct_param($struct8, cheevo_pi_list));
+        cc_settext("<tostring_localised($int9, true)>/<tostring_localised($int10, true)>");
+        cc_settextshadow(true);
+        cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_setcolour(~script10495(3));
+        cc_setsize(50, calc(32 - 2), ^setsize_abs, ^setsize_abs);
+        cc_create(achievements_sub:subcategory_container, ^iftype_text, calc($int6 * 3 + 2));
+        cc_setposition(5, calc($int6 * (32 + 2) + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(85, 32, ^setsize_abs, ^setsize_abs);
+        cc_setcolour(~script10495(3));
+        cc_settextshadow(true);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_settextfont(museo_sans_11pt_regular);
+        $string0 = struct_param($struct8, cheevo_subcategory_name);
+        $string1 = "";
+        if (paraheight($string0, cc_getwidth, cc_getfontmetrics) > 1) {
+            $string1 = $string0;
+            if (compare(struct_param($struct8, cheevo_subcategory_name_short), "") ! 0) {
+                $string0 = struct_param($struct8, cheevo_subcategory_name_short);
+            }
+        }
+        cc_settext($string0);
+        if (compare($string1, "") ! 0 | compare(struct_param($struct8, task_information), "") ! 0 | compare(struct_param($struct8, task_information_mobile), "") ! 0) {
+            if (compare(struct_param($struct8, task_information), "") ! 0) {
+                if (compare($string1, "") ! 0) {
+                    $string1 = append($string1, "<br><struct_param($struct8, task_information)>");
+                } else {
+                    $string1 = struct_param($struct8, task_information);
+                }
+            }
+            if (compare(struct_param($struct8, task_information_mobile), "") ! 0) {
+                if (compare($string1, "") ! 0) {
+                    $string1 = append($string1, "<br><struct_param($struct8, task_information_mobile)>");
+                } else {
+                    $string1 = struct_param($struct8, task_information_mobile);
+                }
+            }
+            cc_setonmouserepeat("script8799($string1, achievements_sub:subcategory_container, cc_getid)");
+        }
+        $int6 = calc($int6 + 1);
+    }
+}
+$int6 = 0;
+def_int $int13 = enum_getoutputcount(cheevo_category_button_index);
+while ($int6 < $int13) {
+    $int7 = calc(2 + (45 + 2) * $int6);
+    if ($enum3 ! null & calc($int6 + 1) > $int0) {
+        $int7 = calc($int7 + (2 + $int5 * (32 + 2)));
+    }
+    if_setposition(0, $int7, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, cheevo_category_button_index, $int6));
+    $int6 = calc($int6 + 1);
+}
+~cheevo_populate_scrollbar($int0);
+%cheevo_current_list = struct_param($struct2, cheevo_list);
+if ($enum12 = null & %cheevo_current_list ! null) {
+    ~script13334(%cheevo_current_list, 1);
+} else if ($enum12 ! null) {
+    %cheevo_current_list = $enum12;
+    ~cheevo_load_list($enum12, %cheevo_subcat_select, 2);
+} else {
+    cc_deleteall(achievements_sub:build_layer);
+}

@@ -1,0 +1,29 @@
+// 17913
+[proc,script17913](dbrow $dbrow0)(boolean)
+if (~script17853 = null) {
+    return(false);
+}
+if (~script11939 = true) {
+    return(false);
+}
+def_int $int1 = 0;
+if (db_getrowtable($dbrow0) = bonds_package) {
+    if (db_getfieldcount($dbrow0, bonds_package:col19) = 0) {
+        ~error("Expecting a custom amount on bp3 package - <db_getfield($dbrow0, bonds_package:col0, 0)>");
+        return(false);
+    }
+    $int1 = db_getfield($dbrow0, bonds_package:col19, 0);
+}
+def_dbrow $dbrow2 = ~script17853;
+def_int $int3 = ~script17862($dbrow2);
+$int3 = calc($int3 + %bp3_levels_in_purchase_progress);
+if ($int3 >= ~script17890($dbrow2)) {
+    return(false);
+}
+if ($int1 = ~script17914) {
+    return(true);
+}
+if (calc($int3 + $int1 / 2) > ~script17890($dbrow2)) {
+    return(false);
+}
+return(true);

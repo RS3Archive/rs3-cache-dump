@@ -1,0 +1,57 @@
+// 5448
+[clientscript,script5448](int $int0)
+def_struct $struct1 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int2 = 0;
+def_string $string2 = "";
+%dom_free_current_thumbnail = $int0;
+~script5441;
+$int2 = calc((%dom_free_current_tab_client - 1) * 6 + $int0);
+if_setgraphic("aif_domtower_small_boss_border,0", dom_free:border_1);
+if_setgraphic("aif_domtower_small_boss_border,0", dom_free:border_2);
+if_setgraphic("aif_domtower_small_boss_border,0", dom_free:border_3);
+if_setgraphic("aif_domtower_small_boss_border,0", dom_free:border_4);
+if_setgraphic("aif_domtower_small_boss_border,0", dom_free:border_5);
+if_setgraphic("aif_domtower_small_boss_border,0", dom_free:border_6);
+if ($int0 = 1) {
+    if_setgraphic("aif_domtower_small_boss_border,3", dom_free:border_1);
+} else if ($int0 = 2) {
+    if_setgraphic("aif_domtower_small_boss_border,3", dom_free:border_2);
+} else if ($int0 = 3) {
+    if_setgraphic("aif_domtower_small_boss_border,3", dom_free:border_3);
+} else if ($int0 = 4) {
+    if_setgraphic("aif_domtower_small_boss_border,3", dom_free:border_4);
+} else if ($int0 = 5) {
+    if_setgraphic("aif_domtower_small_boss_border,3", dom_free:border_5);
+} else if ($int0 = 6) {
+    if_setgraphic("aif_domtower_small_boss_border,3", dom_free:border_6);
+}
+$struct1 = enum(int, struct, dom_boss_id_to_struct, $int2);
+$string0 = struct_param($struct1, dom_boss_name);
+$string1 = struct_param($struct1, dom_boss_desc);
+if (struct_param($struct1, dom_arena_type) = 1) {
+    $string2 = "<col=F5B241>Arena</col>: Single-way combat.";
+} else if (struct_param($struct1, dom_arena_type) = 2) {
+    $string2 = "<col=F5B241>Arena</col>: Multi-way combat.";
+} else if (struct_param($struct1, dom_arena_type) = 3) {
+    $string2 = "<col=F5B241>Arena</col>: Single-way combat with small blocking pillars.";
+} else if (struct_param($struct1, dom_arena_type) = 4) {
+    $string2 = "<col=F5B241>Arena</col>: Multi-way combat with large blocking pillars.";
+} else if (struct_param($struct1, dom_arena_type) = 5) {
+    $string2 = "<col=F5B241>Arena</col>: Multi-way combat with podiums";
+}
+if_settext($string0, dom_free:boss_name);
+sound_vorbis_volume(dom_arena_select_boss, 1, 0, 180);
+if (~script5451($int2) = 0) {
+    if ($int2 = 1) {
+        if_settext("You must win against this monster in Endurance or Special mode before you can fight it here.", dom_free:boss_info_text);
+    } else if ($int2 = 22 | $int2 = 10 | $int2 = 6 | $int2 = 34 | $int2 = 23 | $int2 = 11 | $int2 = 39) {
+        if_settext("You must win against this monster in Climber, Endurance or Special mode before you can fight it here.", dom_free:boss_info_text);
+    } else {
+        if_settext("You must win against this monster in Climber or Endurance mode before you can fight it here.", dom_free:boss_info_text);
+    }
+} else {
+    if_settext("<$string1><br><br><$string2>", dom_free:boss_info_text);
+}
+~script5475($string1, dom_free:boss_info_text, dom_free:boss_info_layer, dom_free:scroll_layer_boss_info);

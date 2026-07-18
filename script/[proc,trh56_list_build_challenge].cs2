@@ -1,0 +1,42 @@
+// 9135
+[proc,trh56_list_build_challenge](component $component0, int $int1)
+def_string $string0 = "";
+def_struct $struct2 = null;
+def_enum $enum3 = null;
+switch_int (%dndtracker_filter_selection) {
+    case 0, 1 :
+        $enum3 = uaui_minigames_all;
+    case 2 :
+        $enum3 = uaui_minigames_dnds;
+    case 3 :
+        $enum3 = uaui_minigames_all_minigames;
+    case 4 :
+        $enum3 = uaui_minigames_combat;
+    case 5 :
+        $enum3 = uaui_minigames_nocombat;
+}
+$struct2 = enum(int, struct, $enum3, calc(1 + $int1));
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int4, $int5 = ~script9132(struct_param($struct2, task_unique_id));
+switch_int ($int4) {
+    case 0 :
+        $string0 = "This activity is available to play";
+    case 1 :
+        $string0 = "This activity will reset in <~script9172($int5)>";
+    case 2 :
+        $string0 = "This activity begins in <~script9172($int5)>";
+    case 5 :
+        $string0 = "The lobby for this activity opens in <~script9172($int5)>";
+    case 3 :
+        $string0 = "You can play this activity again in <~script9172($int5)>";
+    case 4 :
+        $string0 = "This activity ends in <~script9172($int5)>";
+    case -1 :
+        $string0 = "You don't meet the requirements for this activity.";
+    case 6 :
+        $string0 = "There are currently no upcoming stars";
+    case 7 :
+        $string0 = "This activity will reset in <~script9172($int5)>";
+}
+~script8800($string0, $component0, $int1);

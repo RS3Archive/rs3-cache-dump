@@ -1,0 +1,60 @@
+// 16456
+[proc,script16456](component $component0, int $int1, int $int2, int $int3, struct $struct4, int $int5)(int)
+def_int $int6 = 8;
+def_int $intarray0($int6);
+def_int $intarray1($int6);
+def_int $int7 = 0;
+def_obj $obj8 = null;
+def_obj $obj9 = null;
+def_obj $obj10 = null;
+def_obj $obj11 = null;
+def_int $int12 = 0;
+def_int $int13 = 0;
+if ($struct4 ! null) {
+    while (++$int12 < $int6) {
+        $obj8, $int7 = ~script16455($struct4, $int12);
+        if ($obj8 ! null) {
+            switch_obj ($obj8) {
+                case tbwt_karambwan_vessel :
+                case default :
+                    $intarray0($int12) = $int12;
+                    $intarray1($int12) = $int7;
+            }
+        } else {
+            $int12 = $int6;
+        }
+    }
+    array_sort($int6, 1, 0);
+    $int12 = -1;
+    while (++$int12 < $int6) {
+        if ($intarray0($int12) ! 0) {
+            $obj8, $int7 = ~script16455($struct4, $intarray0($int12));
+            $int13 = 1;
+            $obj9 = null;
+            $obj10 = null;
+            $obj11 = null;
+            while ($int12 < calc($int6 - 1) & $int7 > 0 & $intarray1(calc($int12 + 1)) = $int7 & oc_param($obj8, cook_require) = 0 & oc_param($obj8, food_heal) > 0) {
+                $int12 = calc($int12 + 1);
+                $int13 = calc($int13 + 1);
+                if ($obj9 = null) {
+                    $obj9, $int7 = ~script16455($struct4, $intarray0($int12));
+                } else if ($obj10 = null) {
+                    $obj10, $int7 = ~script16455($struct4, $intarray0($int12));
+                } else if ($obj11 = null) {
+                    $obj11, $int7 = ~script16455($struct4, $intarray0($int12));
+                }
+            }
+            $int2 = ~script16457($component0, $int1, $int2, $int3, $int13, $int7, oc_name($obj8), $obj8, $obj9, $obj10, $obj11);
+        }
+    }
+} else {
+    switch_int ($int5) {
+        case 36 :
+            $int2 = ~script16457($component0, $int1, $int2, $int3, 0, 35, "Approval rating<br><br>No resource", null, null, null, null);
+        case 25 :
+            $int2 = ~script16457($component0, $int1, $int2, $int3, 0, 68, "Random fish<br><br>Random fish are caught here, including fish you do not have the fishing level for. You are most likely to catch fish with a level requirement close to your fishing level.", null, null, null, null);
+        case 42 :
+            $int2 = ~script16457($component0, $int1, $int2, $int3, 0, 94, "XP training method<br><br>No resource", null, null, null, null);
+    }
+}
+return($int2);

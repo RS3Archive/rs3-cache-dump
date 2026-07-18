@@ -1,0 +1,21 @@
+// 20644
+[proc,script20644](int $int0, boolean $boolean1)(dbfilter)
+def_dbfilter $dbfilter2 = db_filter_value(marketplace_store_item:col18, false, ^filterop_eq, 0);
+def_dbfilter $dbfilter3 = null;
+if ($int0 = 0) {
+    $dbfilter3 = db_filter_value(marketplace_store_item:col1, 0, ^filterop_gte, 0);
+} else {
+    $dbfilter3 = db_filter_value(marketplace_store_item:col1, $int0, ^filterop_eq, 0);
+}
+$dbfilter2 = db_filter_combine($dbfilter2, $dbfilter3);
+def_dbfilter $dbfilter4 = null;
+def_dbfilter $dbfilter5 = null;
+if (string_length(%marketplace_store_last_search) > 0) {
+    $dbfilter4 = db_filter_substring(marketplace_store_item:col3, %marketplace_store_last_search, 0);
+    $dbfilter5 = ~script20645;
+    $dbfilter4 = unknown_command_79($dbfilter4, $dbfilter5);
+    $dbfilter2 = db_filter_combine($dbfilter2, $dbfilter4);
+}
+def_dbfilter $dbfilter6 = db_filter_value(marketplace_store_item:col2, $boolean1, ^filterop_eq, 0);
+$dbfilter2 = db_filter_combine($dbfilter2, $dbfilter6);
+return($dbfilter2);

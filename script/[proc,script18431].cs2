@@ -1,0 +1,24 @@
+// 18431
+[proc,script18431](int $int0)(string)
+db_find(buff_select_event_buff:col0, $int0);
+def_dbrow $dbrow1 = db_findnext;
+def_string $string0 = "";
+if ($dbrow1 = null) {
+    return("");
+}
+$string0 = db_getfield($dbrow1, buff_select_event_buff:col3, 0);
+if (string_length($string0) = 0) {
+    $string0 = db_getfield($dbrow1, buff_select_event_buff:col2, 0);
+}
+$string0 = "<sprite=21341><$string0>";
+def_string $string1 = "";
+def_int $int2 = db_getfieldcount($dbrow1, buff_select_event_buff:col4);
+def_int $int3 = 0;
+while ($int3 < $int2) {
+    $string1 = db_getfield($dbrow1, buff_select_event_buff:col4, $int3);
+    if (string_length($string1) > 0) {
+        $string0 = "<$string0><br><sprite=21341><$string1>";
+    }
+    $int3 = calc($int3 + 1);
+}
+return($string0);

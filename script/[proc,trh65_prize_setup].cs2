@@ -1,0 +1,56 @@
+// 11751
+[proc,trh65_prize_setup]
+def_int $int0 = 0;
+if_settext("Prestige Level - <tostring(%trh65_prestige_level)>", trh65_ninja_training:prestige_title);
+while ($int0 <= %trh65_prestige_level_claimed) {
+    ~script11752($int0);
+    $int0 = calc($int0 + 1);
+}
+if (%trh65_prestige_level = 1) {
+    if (%trh65_prestige_level = %trh65_prestige_level_claimed) {
+        if_sethide(false, trh65_ninja_training:smoke_bomb_unlocked);
+    }
+    if_sethide(true, trh65_ninja_training:smoke_bomb_disabled);
+    if_sethide(false, trh65_ninja_training:sai_disabled);
+    if_sethide(false, trh65_ninja_training:glaive_disabled);
+    if_sethide(false, trh65_ninja_training:staff_disabled);
+}
+if (%trh65_prestige_level = 2) {
+    if_sethide(false, trh65_ninja_training:smoke_bomb_unlocked);
+    if_sethide(true, trh65_ninja_training:smoke_bomb_disabled);
+    if (%trh65_prestige_level = %trh65_prestige_level_claimed) {
+        if_sethide(false, trh65_ninja_training:sai_unlocked);
+    }
+    if_sethide(true, trh65_ninja_training:sai_disabled);
+    if_sethide(false, trh65_ninja_training:glaive_disabled);
+    if_sethide(false, trh65_ninja_training:staff_disabled);
+}
+if (%trh65_prestige_level = 3) {
+    if_sethide(false, trh65_ninja_training:smoke_bomb_unlocked);
+    if_sethide(true, trh65_ninja_training:smoke_bomb_disabled);
+    if_sethide(false, trh65_ninja_training:sai_unlocked);
+    if_sethide(true, trh65_ninja_training:sai_disabled);
+    if (%trh65_prestige_level = %trh65_prestige_level_claimed) {
+        if_sethide(false, trh65_ninja_training:glaive_unlocked);
+    }
+    if_sethide(true, trh65_ninja_training:glaive_disabled);
+    if_sethide(false, trh65_ninja_training:staff_disabled);
+}
+if (%trh65_prestige_level = 4) {
+    if_sethide(false, trh65_ninja_training:smoke_bomb_unlocked);
+    if_sethide(true, trh65_ninja_training:smoke_bomb_disabled);
+    if_sethide(false, trh65_ninja_training:sai_unlocked);
+    if_sethide(true, trh65_ninja_training:sai_disabled);
+    if_sethide(false, trh65_ninja_training:glaive_unlocked);
+    if_sethide(true, trh65_ninja_training:glaive_disabled);
+    if (%trh65_prestige_level = %trh65_prestige_level_claimed) {
+        if_sethide(false, trh65_ninja_training:staff_unlocked);
+    }
+    if_sethide(true, trh65_ninja_training:staff_disabled);
+}
+if (%trh65_prestige_level > %trh65_prestige_level_claimed) {
+    if_sethide(false, trh65_ninja_training:prize_layer);
+    if_sethide(false, trh65_ninja_training:confirm_button_disabled_layer);
+} else {
+    if_sethide(true, trh65_ninja_training:prize_layer);
+}

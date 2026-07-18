@@ -1,0 +1,32 @@
+// 8790
+[proc,script8790](int $int0, string $string0, graphic $graphic1)(int)
+def_int $int2 = 590;
+def_int $int3 = 60;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_fontmetrics $fontmetrics6 = museo_sans_13pt_regular;
+if ($graphic1 ! null) {
+    $int4 = 50;
+}
+$int5 = calc($int2 - $int4 - 20);
+def_int $int7 = paraheight($string0, $int5, $fontmetrics6);
+if ($int7 > 3 & ~script6431 = false) {
+    $fontmetrics6 = museo_sans_11pt_regular;
+}
+$int3 = max(calc(~script7593($string0, $int5, $fontmetrics6, 0) + 10), $int3);
+~rs3_background_panel_dynamic(skillguide:image_layer, rs3_content_container_active, 0, $int0, $int2, $int3, ^white);
+if ($graphic1 ! null) {
+    cc_create(skillguide:image_layer, ^iftype_graphic, if_getnextsubid(skillguide:image_layer));
+    cc_setsize($int4, $int4, ^setsize_abs, ^setsize_abs);
+    cc_setposition(5, calc($int0 + ($int3 - $int4) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic($graphic1);
+}
+cc_create(skillguide:image_layer, ^iftype_text, if_getnextsubid(skillguide:image_layer));
+cc_setposition(calc($int4 + 10), $int0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont($fontmetrics6);
+cc_settextshadow(false);
+cc_setcolour(0xe6be78);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 15);
+cc_setsize($int5, $int3, ^setsize_abs, ^setsize_abs);
+cc_settext($string0);
+return(calc($int0 + $int3 + 5));

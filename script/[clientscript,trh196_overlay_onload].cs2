@@ -1,0 +1,39 @@
+// 6765
+[clientscript,trh196_overlay_onload]
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int0 = 0;
+while ($int0 < 8) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+    $int0 = calc($int0 + 1);
+}
+if_setonvartransmit("script6775{trh196_parent, trh196_parent}", trh196_overlay:bonus_item_model_layer);
+if_setonvartransmit("script6773{trh196_bonus_var_1, trh196_bonus_var_2}", trh196_overlay:blackboard_item_list);
+if_setonvartransmit("script6769{trh196_currency}", trh196_overlay:currency_total);
+db_listall(trh196_promo_bonus);
+def_dbrow $dbrow1 = db_findnext;
+def_component $component2 = null;
+def_material $material3 = null;
+while ($dbrow1 ! null) {
+    if (db_getfieldcount($dbrow1, trh196_promo_bonus:col10) > 0) {
+        $component2, $material3 = db_getfield($dbrow1, trh196_promo_bonus:col10, 0);
+        if (if_find($component2) = true) {
+            cc_setonop("script6774($dbrow1)");
+            cc_setop(1, "Examine");
+            cc_setopbase("<col=43BCBC><db_getfield($dbrow1, trh196_promo_bonus:col1, 0)></col>");
+            cc_setretex(0, mtx_parcel_sticker, $material3);
+            ~script6772($component2);
+        }
+    }
+    $dbrow1 = db_findnext;
+}
+~cc_add_button(trh196_overlay:seasonal_oddments_skip_button, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_default, tostring(600));
+cc_setop(1, "Purchase with Fallen Leaves");
+cc_setonop("trh196_overlay_op(2, 1)");
+cc_setmouseovercursor(cursor_use);
+~cc_add_button(trh196_overlay:seasonal_oddments_store_button, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_default, "Seasons Store");
+cc_setop(1, "Open");
+cc_setonop("trh196_overlay_op(3, 1)");
+cc_setmouseovercursor(cursor_use);
+~script13310(trh196_overlay:bonus_progress_bar, trh196_overlay:bonus_progress_mask_layer, 61, calc(8 * 1000));
+~script6783;
+if_setontimer("script6784(0, 0)", trh196_overlay:splash_screen);

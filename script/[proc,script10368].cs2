@@ -1,0 +1,20 @@
+// 10368
+[proc,script10368]
+def_int $int0 = enum(int, int, group_list_order, %group_id_selected);
+def_int $int1 = -1;
+if (player_group_find = true) {
+    $int1 = ~script10275;
+    if ($int1 = -1 | $int1 ! player_group_get_owner_slot) {
+        if_sethide(false, group_parent:positive_button_disabled_layer);
+    } else {
+        if_sethide(true, group_parent:positive_button_disabled_layer);
+    }
+    if (%group_type = $int0) {
+        ~script10369("Rejoin the queue and combine your group with others that exist.", "Rejoin Queue");
+    } else {
+        ~script10369("Change the type of content your group has been set up for.", "Update Group");
+    }
+} else {
+    if_sethide(true, group_parent:positive_button_disabled_layer);
+    ~script10369("Join a group for this content. If no groups are available you will create a new group.", "Join Queue");
+}

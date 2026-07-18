@@ -1,0 +1,93 @@
+// 10776
+[proc,player_inspect_select_tab](int $int0)
+if ($int0 < 0 | calc(4 * 2) < $int0) {
+    $int0 = 0;
+}
+if_sethide(true, player_inspect:left_ragdoll_tab_selected_layer);
+if_sethide(true, player_inspect:left_combat_tab_selected_layer);
+if_sethide(true, player_inspect:left_stats_tab_selected_layer);
+if_sethide(true, player_inspect:left_social_tab_selected_layer);
+if_sethide(true, player_inspect:left_cheevo_tab_selected_layer);
+if_sethide(true, player_inspect:right_combat_tab_selected_layer);
+if_sethide(true, player_inspect:right_stats_tab_selected_layer);
+if_sethide(true, player_inspect:right_social_tab_selected_layer);
+if_sethide(true, player_inspect:right_cheevo_tab_selected_layer);
+if_sethide(true, player_inspect:ragdoll_layer);
+if_sethide(true, player_inspect:combat_layer);
+if_sethide(true, player_inspect:stats_layer);
+if_sethide(true, player_inspect:social_layer);
+if_sethide(true, player_inspect:cheevo_layer);
+if (%player_inspect_double_panel_mode = 1) {
+    if_sethide(false, player_inspect:left_ragdoll_tab_disabled_layer);
+    if_sethide(false, player_inspect:ragdoll_layer);
+    if ($int0 > 4) {
+        %player_inspect_active_tab = $int0;
+    } else if ($int0 ! 0) {
+        $int0 = calc(4 + $int0);
+        %player_inspect_active_tab = $int0;
+    } else if (%player_inspect_active_tab <= 0) {
+        $int0 = calc(4 + 1);
+        %player_inspect_active_tab = $int0;
+    } else {
+        $int0 = calc((%player_inspect_active_tab - 1) % 4 + 4 + 1);
+        %player_inspect_active_tab = $int0;
+    }
+    if (%player_inspect_target_privacy = 1) {
+        if_sethide(false, player_inspect:right_combat_tab_disabled_layer);
+        if_sethide(false, player_inspect:right_stats_tab_disabled_layer);
+        if_sethide(false, player_inspect:right_cheevo_tab_disabled_layer);
+        $int0 = 5;
+    } else {
+        if_sethide(true, player_inspect:right_combat_tab_disabled_layer);
+        if_sethide(true, player_inspect:right_stats_tab_disabled_layer);
+        if_sethide(true, player_inspect:right_cheevo_tab_disabled_layer);
+    }
+} else {
+    if_sethide(true, player_inspect:left_ragdoll_tab_disabled_layer);
+    if ($int0 > 4) {
+        $int0 = 0;
+    } else {
+        %player_inspect_active_tab = $int0;
+    }
+    if (%player_inspect_target_privacy = 1) {
+        if_sethide(false, player_inspect:left_combat_tab_disabled_layer);
+        if_sethide(false, player_inspect:left_stats_tab_disabled_layer);
+        if_sethide(false, player_inspect:left_cheevo_tab_disabled_layer);
+        if ($int0 > 1) {
+            $int0 = 0;
+        }
+    } else {
+        if_sethide(true, player_inspect:left_combat_tab_disabled_layer);
+        if_sethide(true, player_inspect:left_stats_tab_disabled_layer);
+        if_sethide(true, player_inspect:left_cheevo_tab_disabled_layer);
+    }
+}
+switch_int ($int0) {
+    case 0 :
+        if_sethide(false, player_inspect:left_ragdoll_tab_selected_layer);
+        if_sethide(false, player_inspect:ragdoll_layer);
+    case 2 :
+        if_sethide(false, player_inspect:left_combat_tab_selected_layer);
+        if_sethide(false, player_inspect:combat_layer);
+    case 3 :
+        if_sethide(false, player_inspect:left_stats_tab_selected_layer);
+        if_sethide(false, player_inspect:stats_layer);
+    case 1 :
+        if_sethide(false, player_inspect:left_social_tab_selected_layer);
+        if_sethide(false, player_inspect:social_layer);
+    case 4 :
+        if_sethide(false, player_inspect:left_cheevo_tab_selected_layer);
+        if_sethide(false, player_inspect:cheevo_layer);
+    case 6 :
+        if_sethide(false, player_inspect:right_combat_tab_selected_layer);
+        if_sethide(false, player_inspect:combat_layer);
+    case 7 :
+        if_sethide(false, player_inspect:right_stats_tab_selected_layer);
+        if_sethide(false, player_inspect:stats_layer);
+    case 5 :
+        if_sethide(false, player_inspect:right_social_tab_selected_layer);
+        if_sethide(false, player_inspect:social_layer);
+    case 8 :
+        if_sethide(false, player_inspect:right_cheevo_tab_selected_layer);
+        if_sethide(false, player_inspect:cheevo_layer);
+}

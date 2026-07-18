@@ -1,0 +1,10 @@
+// 19850
+[proc,script19850](achievement $achievement0)(int)
+def_int $int1 = 0;
+switch_achievement ($achievement0) {
+    case combat_mastery_easy :
+        $int1 = achievement_achievement_req_count($achievement0);
+    case combat_mastery_medium, combat_mastery_hard, combat_mastery_elite, combat_mastery_master, combat_mastery_grandmaster :
+        $int1 = calc(achievement_achievement_req_count($achievement0) - 1);
+}
+return(calc(enum(achievement, int, combat_mastery_task_set_combatscore, $achievement0) * $int1));

@@ -1,0 +1,19 @@
+// 12473
+[proc,script12473](int $int0)(boolean)
+db_find(mm16_task:col0, $int0);
+def_dbrow $dbrow1 = db_findnext;
+if ($dbrow1 = null) {
+    return(false);
+}
+def_int $int2 = db_getfieldcount($dbrow1, mm16_task:col11);
+if ($int2 = 0) {
+    return(true);
+}
+def_int $int3 = 0;
+while ($int3 < $int2) {
+    if (~script12475(db_getfield($dbrow1, mm16_task:col11, $int3)) = 0) {
+        return(false);
+    }
+    $int3 = calc($int3 + 1);
+}
+return(true);

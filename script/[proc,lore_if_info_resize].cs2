@@ -1,0 +1,28 @@
+// 13785
+[proc,lore_if_info_resize]
+def_component $component0 = lore_stats_side:info_popup;
+def_int $int1 = 0;
+def_int $int2 = 4;
+def_int $int3 = -1;
+def_int $int4 = calc(if_getheight(lore_stats_side:content_layer) - if_gety($component0) - $int2);
+~script15831;
+while (cc_find(lore_stats_side:info_popup_text, ++$int3) = true) {
+    if (compare(cc_gettext, "") ! 0) {
+        cc_setsize(calc(2 * $int2), calc(2 * $int2), ^setsize_minus, ^setsize_minus);
+        $int1 = calc(~script7593(cc_gettext, cc_getwidth, museo_sans_13pt_regular, 0) + 4 * $int2);
+        if ($int1 > $int4) {
+            if_setsize(28, $int4, ^setsize_minus, ^setsize_abs, $component0);
+            cc_setsize(calc(2 * $int2 + 16), calc(2 * $int2), ^setsize_minus, ^setsize_minus);
+            $int1 = calc(~script7593(cc_gettext, cc_getwidth, museo_sans_13pt_regular, 0) + 4 * $int2);
+            if_setsize(16, calc($int4 - $int2), ^setsize_abs, ^setsize_abs, lore_stats_side:info_popup_scrollbar);
+            if_setscrollsize(0, $int1, lore_stats_side:info_popup_text);
+            if_setscrollpos(0, 0, lore_stats_side:info_popup_text);
+            ~rs3_scrollbar_vertical(lore_stats_side:info_popup_scrollbar, lore_stats_side:info_popup_text);
+        } else {
+            if_setsize(28, $int1, ^setsize_minus, ^setsize_abs, $component0);
+            if_setscrollpos(0, 0, lore_stats_side:info_popup_text);
+            if_setscrollsize(0, 0, lore_stats_side:info_popup_text);
+            cc_deleteall(lore_stats_side:info_popup_scrollbar);
+        }
+    }
+}

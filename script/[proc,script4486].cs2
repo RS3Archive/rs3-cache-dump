@@ -1,0 +1,94 @@
+// 4486
+[proc,script4486](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+cc_deleteall(igc_main:calendar_layer);
+def_int $int7 = if_getnextsubid(igc_main:calendar_layer);
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $rgb11 = null;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = $int2;
+if ($int1 = 0) {
+    $int16 = 11;
+    $int17 = calc($int17 - 1);
+} else {
+    $int16 = calc($int1 - 1);
+}
+def_int $int18 = enum(int, int, days_in_month, $int16);
+if ($int16 = 1 & date_isleapyear($int2) = true) {
+    $int18 = 29;
+}
+while (++$int9 < 6) {
+    while (++$int8 < 7) {
+        $int12 = calc($int12 + 1);
+        if ($int9 = 0 & $int8 < $int0) {
+            $int10 = calc($int18 - $int0 + $int8 + 1);
+            if (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_active_skinset = 1) {
+                $rgb11 = 0x513b2e;
+            } else {
+                $rgb11 = 0x282c2f;
+            }
+            $int15 = 1;
+        } else if ($int12 > calc($int0 + $int3)) {
+            $int10 = calc($int12 - $int0 - $int3);
+            if (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_active_skinset = 1) {
+                $rgb11 = 0x513b2e;
+            } else {
+                $rgb11 = 0x282c2f;
+            }
+            $int15 = 3;
+        } else {
+            $int10 = calc($int12 - $int0);
+            if (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_active_skinset = 1) {
+                $rgb11 = 0x33251d;
+            } else {
+                $rgb11 = 0x1c2c34;
+            }
+            $int15 = 2;
+        }
+        $int13 = calc($int8 * 84 + $int8 * 4);
+        $int14 = calc($int9 * 58 + $int9 * 4);
+        cc_create(igc_main:calendar_layer, ^iftype_rectangle, $int7);
+        cc_setsize(84, 58, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setfill(true);
+        cc_setcolour($rgb11);
+        cc_setop(1, "Select");
+        cc_setparam(igc_date_type, $int15);
+        cc_setparam(igc_date_runeday, $int5);
+        cc_setparam(igc_is_tab_draw_layer, 1);
+        $int7 = calc($int7 + 1);
+        cc_create(igc_main:calendar_layer, ^iftype_text, $int7);
+        cc_setsize(84, 58, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int13 + 2), calc($int14 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        if (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_active_skinset = 1) {
+            cc_setcolour(^white);
+        } else {
+            cc_setcolour(0xe3d7cf);
+        }
+        cc_settextshadow(true);
+        cc_settext(tostring($int10));
+        $int7 = calc($int7 + 1);
+        cc_create(igc_main:calendar_layer, ^iftype_graphic, $int7);
+        cc_setsize(84, 58, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(rs3_calendar_day_highlight);
+        if ($int4 = calc($int12 - 1)) {
+            cc_sethide(false);
+        } else {
+            cc_sethide(true);
+        }
+        cc_setparam(igc_is_planner_tab_outline, 1);
+        $int7 = calc($int7 + 1);
+        $int5 = calc($int5 + 1);
+    }
+    $int8 = -1;
+}
+~script4584(igc_main:igc_currently_viewing, $int1, $int2);
+~script4487($int1, $int2, $int6);

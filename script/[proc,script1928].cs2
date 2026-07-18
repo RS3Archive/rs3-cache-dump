@@ -1,0 +1,61 @@
+// 1928
+[proc,script1928](component $component0, component $component1, int $int2, int $int3, struct $struct4)
+def_boolean $boolean5 = false;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = ~script1931($int2, $int3);
+def_string $string0 = "";
+cc_create($component0, ^iftype_graphic, $int6++);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(panel_shelf_qps);
+cc_create($component0, ^iftype_text, $int6++);
+cc_setsize(20, 55, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextfont(cinzel_18pt_bold);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settext(struct_param($struct4, qps_if_node_title));
+cc_setcolour(~script10495(0));
+cc_create($component0, ^iftype_text, $int6++);
+cc_setsize(20, 100, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 70, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextfont(museo_sans_13pt_regular);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+cc_settext(struct_param($struct4, qps_if_node_desc));
+cc_setcolour(^white);
+cc_create($component0, ^iftype_graphic, $int6++);
+cc_setsize(200, 200, ^setsize_abs, ^setsize_abs);
+cc_setposition(2, 179, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setgraphic(struct_param($struct4, qps_if_graphic));
+if (%qps_shop_last_tab = 1) {
+    cc_create($component0, ^iftype_text, $int6++);
+    cc_setsize(30, 50, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, 378, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settextfont(cinzel_13pt_bold);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 20);
+    cc_settext(~text_plural($int9, "Includes <tostring($int9)> unlock", "Includes <tostring($int9)> unlocks"));
+    cc_setcolour(^white);
+    if ($int9 > 0) {
+        cc_sethide(false);
+    } else {
+        cc_sethide(true);
+    }
+    $int8 = max(0, calc($int9 * 25));
+    if ($int8 = 0) {
+        $string0 = "Owned";
+    } else {
+        $string0 = tostring($int8);
+    }
+    if ($int9 <= 0 | $int8 > calc(%qp - %qps_shop_qp_spent)) {
+        $boolean5 = true;
+    }
+    ~script13980($component0, $component1, rs3tli_button_large, 22, 405, 187, 0, false, $string0);
+    cc_find($component1, 0);
+    cc_sethide($boolean5);
+    $int6 = if_getnextsubid($component0);
+    cc_create($component0, ^iftype_graphic, $int6++);
+    cc_setsize(187, 65, ^setsize_abs, ^setsize_abs);
+    cc_setposition(22, 405, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(button_large_qps_shine);
+}

@@ -1,0 +1,107 @@
+// 3961
+[proc,script3961](int $int0, string $string0, string $string1, string $string2, string $string3, string $string4, graphic $graphic1, graphic $graphic2, int $int3, int $int4, int $setposv5, int $int6)
+def_component $component7 = modal_confirm:mainmodal_window;
+def_component $component8 = modal_confirm:mainmodal_window_background;
+def_component $component9 = modal_confirm:mainmodal_window_border;
+def_component $component10 = modal_confirm:mainmodal_window_content;
+def_component $component11 = modal_confirm:info_text;
+def_component $component12 = modal_confirm:info_layer;
+def_component $component13 = modal_confirm:info_scrollbar;
+def_component $component14 = modal_confirm:info_text_container;
+def_component $component15 = modal_confirm:dont_ask_again_layer;
+def_component $component16 = modal_confirm:dont_ask_again_text;
+def_component $component17 = modal_confirm:yes_button_text;
+def_component $component18 = modal_confirm:no_button_text;
+def_component $component19 = modal_confirm:yes_button_layer;
+def_component $component20 = modal_confirm:no_button_layer;
+def_component $component21 = modal_confirm:image_graphic;
+def_component $component22 = modal_confirm:image2_graphic;
+def_component $component23 = modal_confirm:image_layer;
+def_component $component24 = modal_confirm:yes_button_checked_active_layer;
+def_component $component25 = modal_confirm:no_button_checked_active_layer;
+if ($int0 = 55574530) {
+    $component7 = modal_confirm_overlay:mainmodal_window;
+    $component8 = modal_confirm_overlay:mainmodal_window_background;
+    $component9 = modal_confirm_overlay:mainmodal_window_border;
+    $component10 = modal_confirm_overlay:mainmodal_window_content;
+    $component11 = modal_confirm_overlay:info_text;
+    $component12 = modal_confirm_overlay:info_layer;
+    $component13 = modal_confirm_overlay:info_scrollbar;
+    $component14 = modal_confirm_overlay:info_text_container;
+    $component15 = modal_confirm_overlay:dont_ask_again_layer;
+    $component16 = modal_confirm_overlay:dont_ask_again_text;
+    $component17 = modal_confirm_overlay:yes_button_text;
+    $component18 = modal_confirm_overlay:no_button_text;
+    $component19 = modal_confirm_overlay:yes_button_layer;
+    $component20 = modal_confirm_overlay:no_button_layer;
+    $component21 = modal_confirm_overlay:image_graphic;
+    $component23 = modal_confirm_overlay:image_layer;
+    $component24 = modal_confirm_overlay:yes_button_checked_active_layer;
+    $component25 = modal_confirm_overlay:no_button_checked_active_layer;
+    $int6 = 0;
+}
+if ($graphic1 ! null) {
+    if_setgraphic($graphic1, $component21);
+    if_setposition(if_getx($component21), 0, ^setpos_abs_centre, $setposv5, $component21);
+    if ($graphic2 ! null) {
+        if_setgraphic($graphic2, $component22);
+        if_setposition(if_getx($component22), 0, ^setpos_abs_centre, $setposv5, $component22);
+    }
+    if ($int3 = 0 & $int4 = 0) {
+        $int3, $int4 = if_getgraphicdimensions($component21);
+    }
+    if_setsize(calc(if_getwidth($component10) - $int3 - 30), if_getheight($component12), ^setsize_abs, ^setsize_abs, $component12);
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, $component23);
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, $component21);
+    if ($graphic2 ! null) {
+        if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, $component22);
+    }
+} else {
+    if_setsize(calc(if_getwidth($component10) - 20), if_getheight($component12), ^setsize_abs, ^setsize_abs, $component12);
+}
+def_int $int26 = if_getwidth($component11);
+def_int $int27 = min(200, calc(paraheight($string1, $int26, museo_sans_11pt_regular_multiline) * 13));
+if_setsize(if_getwidth($component14), $int27, ^setsize_abs, ^setsize_abs, $component14);
+if_settext($string1, $component11);
+$int27 = calc($int27 + 10);
+if ($int27 < $int4) {
+    $int27 = $int4;
+}
+if_setsize(if_getwidth($component12), $int27, ^setsize_abs, ^setsize_abs, $component12);
+if_setsize(if_getwidth($component23), $int27, ^setsize_abs, ^setsize_abs, $component23);
+$int27 = calc($int27 + 20);
+if (string_length($string4) > 0) {
+    if_sethide(false, $component15);
+    $int27 = calc($int27 + 24);
+    if_settext($string4, $component16);
+} else {
+    if_sethide(true, $component15);
+}
+if_sethide(true, $component24);
+if_sethide(true, $component25);
+~static_checkbox($component15, 0, false);
+if_settext($string2, $component17);
+if_settext($string3, $component18);
+if (string_length($string3) = 0) {
+    if_sethide(true, $component20);
+    if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, $component19);
+} else if (string_length($string2) = 0) {
+    if_sethide(true, $component19);
+    if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, $component20);
+}
+$int27 = calc($int27 + 37);
+~script9554($component8, $component9, $component10, $string0, toplevel_v2_default_main_modal_skin_data);
+if_setsize(if_getwidth($component7), calc($int27 + 45), ^setsize_abs, ^setsize_abs, $component7);
+if (if_getheight($component14) < 200) {
+    if_setscrollsize(0, 0, $component14);
+    if_setscrollpos(0, 0, $component14);
+    if_sethide(true, $component13);
+} else {
+    if_setsize(28, 8, ^setsize_minus, ^setsize_minus, $component14);
+    if_sethide(false, $component13);
+    if_setscrollsize(0, calc(paraheight($string1, if_getwidth($component11), museo_sans_11pt_regular_multiline) * 13 + 10), $component14);
+    ~rs3_scrollbar_vertical($component13, $component14);
+}
+if ($int6 ! 0) {
+    ~script8841($int6, 1);
+}

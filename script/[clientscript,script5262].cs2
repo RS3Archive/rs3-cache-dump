@@ -1,0 +1,32 @@
+// 5262
+[clientscript,script5262](int $int0, int $int1, component $component2)
+if ($int1 = 50) {
+    if ($int0 = 1) {
+        switch_component ($component2) {
+            case myq5_vanescula_combat:shriek_attack :
+                if_sethide(true, myq5_vanescula_combat:shriek_fade);
+                if_sethide(true, myq5_vanescula_combat:shriek_count);
+                if_setontimer(null, $component2);
+            case myq5_vanescula_combat:melee_attack :
+                if_sethide(true, myq5_vanescula_combat:melee_fade);
+                if_sethide(true, myq5_vanescula_combat:melee_count);
+                if_setontimer(null, $component2);
+        }
+    } else {
+        switch_component ($component2) {
+            case myq5_vanescula_combat:shriek_attack :
+                if_settext(tostring(calc($int0 - 1)), myq5_vanescula_combat:shriek_count);
+                if_setontimer("script5262(calc($int0 - 1), 0, $component2)", $component2);
+            case myq5_vanescula_combat:melee_attack :
+                if_settext(tostring(calc($int0 - 1)), myq5_vanescula_combat:melee_count);
+                if_setontimer("script5262(calc($int0 - 1), 0, $component2)", $component2);
+        }
+    }
+} else {
+    switch_component ($component2) {
+        case myq5_vanescula_combat:shriek_attack :
+            if_setontimer("script5262($int0, calc($int1 + 1), myq5_vanescula_combat:shriek_attack)", $component2);
+        case myq5_vanescula_combat:melee_attack :
+            if_setontimer("script5262($int0, calc($int1 + 1), myq5_vanescula_combat:melee_attack)", $component2);
+    }
+}

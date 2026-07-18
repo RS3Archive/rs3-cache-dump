@@ -1,0 +1,30 @@
+// 14281
+[proc,script14281](struct $struct0)(boolean, graphic, string)
+def_graphic $graphic1 = null;
+def_stat $stat2 = null;
+switch_int (struct_param($struct0, conq_requirement)) {
+    case 1, 4 :
+        $stat2 = struct_param($struct0, rewardshop_skill_stat);
+        $graphic1 = enum(stat, graphic, staticon_medium, $stat2);
+        if (stat_base($stat2) < 25) {
+            return(true, $graphic1, "<col=BA2D14>Level 25 <enum(stat, string, stat_to_string, $stat2)> required.");
+        }
+    case 2 :
+        if (~script14283 = false) {
+            return(true, null, "<col=BA2D14>Level requirements not met.");
+        }
+    case 3 :
+        if (~script14283 = false) {
+            return(true, null, "<col=BA2D14>Level requirements not met.");
+        } else if (%vkq3_quest < 40) {
+            return(true, null, "<col=BA2D14>Quest requirements not met.");
+        }
+}
+if (struct_param($struct0, spotlight_item_ironman_check) = 1 & ~ironman_mode = true) {
+    return(true, $graphic1, "<col=BA2D14>Not available in Ironman Mode.");
+}
+def_int $int3 = struct_param($struct0, rewardshop_cost);
+if (%pest_points < $int3) {
+    return(true, $graphic1, "<col=BA2D14>Cost: <tostring($int3)>");
+}
+return(false, $graphic1, "Cost: <col=ffffff><tostring($int3)>");

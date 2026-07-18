@@ -1,0 +1,27 @@
+// 6102
+[clientscript,script6102]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if_settext(~script940(%shop_last_viewed_buyamt), shop_main:selected_quantity);
+if (%shop_last_viewed_inventory ! null & %shop_last_viewed_slot ! -1) {
+    if (%shop_last_viewed_inventory = inv) {
+        $int0 = ~sellprice_total(%shop_last_viewed_item, %shop_last_viewed_buyamt, %shop);
+    } else {
+        $int0 = ~buyprice_total(%shop_last_viewed_item, %shop_last_viewed_buyamt);
+    }
+    if ($int0 = -1) {
+        if_settext("N/A", shop_main:total_value);
+        if_setgraphic("km_shopitems,0", shop_main:total_icon);
+    } else if (%shop_last_viewed_inventory = %shopfreebie) {
+        if_settext("Free!", shop_main:total_value);
+        if_setgraphic(null, shop_main:total_icon);
+    } else {
+        if_settext(~script940($int0), shop_main:total_value);
+        if_setgraphic(enum(int, graphic, currency_graphic, %currency), shop_main:total_icon);
+    }
+    $int1 = parawidth(if_gettext(shop_main:total_value), if_getwidth(shop_main:total_bounding_layer), museo_sans_11pt_regular);
+    if (%shop_last_viewed_inventory ! %shopfreebie) {
+        $int1 = calc($int1 + 2 + if_getwidth(shop_main:total_icon));
+    }
+    if_setsize($int1, 15, ^setsize_abs, ^setsize_abs, shop_main:total_layer);
+}

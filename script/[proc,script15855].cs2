@@ -1,0 +1,33 @@
+// 15855
+[proc,script15855](int $int0)
+if_sethide(true, mobile_chat_panel:tabs_layer);
+if_settext("", mobile_chat_panel:secondary_title);
+%mobile_chat_panel_current_tab = 0;
+db_find(mobile_social_panel_button_info:col0, $int0);
+def_dbrow $dbrow1 = db_findnext;
+def_struct $struct2 = ~script10405($int0);
+def_component $component3 = enum(int, component, mobile_chat_panel_button_graphic, $int0);
+if ($dbrow1 ! null) {
+    if_setgraphic(struct_param($struct2, toplevel_v2_window_tab_mobile_icon_selected), $component3);
+    if_settext(db_getfield($dbrow1, mobile_social_panel_button_info:col1, 0), mobile_chat_panel:main_title);
+    if (db_getfieldcount($dbrow1, mobile_social_panel_button_info:col2) > 0) {
+        if (if_find(mobile_chat_panel:tabs_layer) = true) {
+            cc_setparam(mobile_chat_panel_tab_channel_id, $dbrow1);
+        }
+        if_sethide(false, mobile_chat_panel:tabs_layer);
+        ~script15857($dbrow1);
+    } else if (if_find(mobile_chat_panel:tabs_layer) = true) {
+        cc_setparam(mobile_chat_panel_tab_channel_id, null);
+    }
+}
+def_int $int4 = ~script383($int0);
+if ($int4 ! 31) {
+    $struct2 = ~script10405(18);
+}
+if_sethide(false, struct_param($struct2, toplevel_v2_window_layer));
+%mobile_chat_panel_current_social_button_active = enum_getreverseindex(int, int, mobile_social_panel_chat_references, $int0, 0);
+if ($int4 ! 31) {
+    ~chat_v2_rebuildchatbox(18);
+    ~script8551(18, ~script257($int0));
+    ~script1558(18, 0);
+}

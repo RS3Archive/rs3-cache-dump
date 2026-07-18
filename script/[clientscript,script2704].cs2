@@ -1,0 +1,25 @@
+// 2704
+[clientscript,script2704]
+if (~script6431 = false) {
+    if_setontimer(null, chatdefault:mobile_listener);
+    return;
+}
+if (if_gethide(toplevel_v2_mobile:chat_panel) = false | %toplevel_v2_mobile_chat_hide_time = 0) {
+    return;
+}
+if (%varclientbit_41275 ! 0) {
+    %toplevel_v2_mobile_chat_hide_time = 0;
+    ~dynamic_chat_fade(0);
+}
+def_int $int0 = if_gettrans(chatdefault:mobile_listener_graphic);
+def_int $int1 = 0;
+if (%toplevel_v2_mobile_chat_hide_time < clientclock) {
+    $int1 = min(255, scale(255, 40, calc(clientclock - %toplevel_v2_mobile_chat_hide_time)));
+    ~dynamic_chat_fade($int1);
+    if ($int1 = 255) {
+        %toplevel_v2_mobile_chat_hide_time = 0;
+    }
+} else if ($int0 > 0) {
+    $int1 = max(0, calc($int0 - 255 / 10));
+    ~dynamic_chat_fade($int1);
+}

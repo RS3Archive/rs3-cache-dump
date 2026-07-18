@@ -1,0 +1,19 @@
+// 7145
+[clientscript,script7145]
+def_int $int0 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+if (%makex2012_active_recipe_list ! null) {
+    %makex2012_production_title = %makex2012_active_recipe_list;
+    $int0 = enum(enum, int, makex2012_table_to_stat, %makex2012_active_recipe_list);
+    $string1 = enum(int, string, makex2012_all_tables_make_title, $int0);
+    ~script9554(makex2012:mainmodal_window_background, makex2012:mainmodal_window_border, makex2012:mainmodal_window_content, $string1, toplevel_v2_default_main_modal_skin_data);
+    ~script9554(makex2012_progress_dialogue:modal_dialog_window_background, makex2012_progress_dialogue:modal_dialog_window_border, makex2012_progress_dialogue:modal_dialog_window_content, $string1, toplevel_v2_default_modal_dialogue_skin_data);
+    $string0 = enum(enum, string, makex2012_all_tables_make_string_override, %makex2012_active_recipe_list);
+    if (string_length($string0) = 0) {
+        $string0 = enum(int, string, makex2012_all_tables_make_string, $int0);
+    }
+    if (cc_find(makex2012:make_build, 3) = true) {
+        cc_settext($string0);
+    }
+}

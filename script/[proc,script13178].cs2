@@ -1,0 +1,41 @@
+// 13178
+[proc,script13178](dbrow $dbrow0)(struct, struct, graphic)
+def_struct $struct1 = rs3tli_3x3_unavailable_icon_button;
+def_graphic $graphic2 = rs3_ragdoll_glow_unavailable;
+def_struct $struct3 = mtxmgt_store_item_button_no_icons;
+if ($dbrow0 ! null) {
+    if (db_getfield($dbrow0, mtxmgt_cosmetic:col5, 0) = 2 & db_getfield($dbrow0, mtxmgt_cosmetic:col6, 0) = 19) {
+        $struct1 = rs3tli_3x3_available_icon_button;
+        $graphic2 = rs3_ragdoll_glow_available;
+        $struct3 = mtxmgt_store_item_button_keepsake_icons;
+    } else if (var_reference_get(db_getfield($dbrow0, mtxmgt_cosmetic:col26, 0)) >= db_getfield($dbrow0, mtxmgt_cosmetic:col27, 0)) {
+        $struct1 = rs3tli_3x3_available_icon_button;
+        $graphic2 = rs3_ragdoll_glow_available;
+        if (db_getfield($dbrow0, mtxmgt_cosmetic:col8, 0) = 12) {
+            $struct3 = mtxmgt_store_item_button_preset_icons;
+        } else if (db_getfield($dbrow0, mtxmgt_cosmetic:col28, 0) = 1 & playermember = false) {
+            $struct3 = mtxmgt_store_item_button_unavailable_icons;
+        }
+    } else {
+        switch_int (db_getfield($dbrow0, mtxmgt_cosmetic:col8, 0)) {
+            case 1, 2 :
+                $struct1 = rs3tli_3x3_buyable_icon_button;
+                $graphic2 = rs3_ragdoll_glow_buyable;
+            case 14 :
+                $struct1 = rs3tli_3x3_treasure_hunter_icon_button;
+                $graphic2 = rs3_ragdoll_glow_treasure_hunter;
+                $struct3 = mtxmgt_store_item_button_treasure_hunter_icons;
+            case 8, 9, 4 :
+                $struct1 = rs3tli_3x3_treasure_hunter_icon_button;
+                $graphic2 = rs3_ragdoll_glow_treasure_hunter;
+            case 12 :
+                $struct1 = rs3tli_3x3_available_icon_button;
+                $graphic2 = rs3_ragdoll_glow_available;
+                $struct3 = mtxmgt_store_item_button_preset_icons;
+        }
+        if ($struct3 = mtxmgt_store_item_button_no_icons & db_getfield($dbrow0, mtxmgt_cosmetic:col23, 0) > calc(~date_runeday - 14) & db_getfield($dbrow0, mtxmgt_cosmetic:col23, 0) <= ~date_runeday) {
+            $struct3 = mtxmgt_store_item_button_new_icons;
+        }
+    }
+}
+return($struct1, $struct3, $graphic2);

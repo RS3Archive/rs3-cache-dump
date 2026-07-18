@@ -1,0 +1,34 @@
+// 20317
+[clientscript,script20317](dbrow $dbrow0)
+if ($dbrow0 = null | db_getrowtable($dbrow0) ! league_task) {
+    return;
+}
+def_int $int1 = db_getfield($dbrow0, league_task:col0, 0);
+def_int $int2 = calc(3000 + $int1);
+def_int $int3 = calc(3000 * 4 + $int1);
+if (cc_findbycategory(league_child_tasks:task_panel, ~script20173($int2)) = 1) {
+    cc_setcolour(0x035b03);
+    ~cc_add_layer(league_child_tasks:animation_timer, $int1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setontimer("script20318(league_child_tasks:task_panel, league_child_tasks:task_scrolling, league_child_tasks:task_scrollbar, league_child_tasks:animation_timer, league_child_tasks:filter_deferred, $dbrow0, $int1, 0, 1)");
+    if (if_find(league_child_tasks:task_panel) = true) {
+        cc_setparam(league_task_fading_out, calc(cc_param(league_task_fading_out) + 1));
+    }
+}
+if (cc_findbycategory(league_child_tasks:task_panel, ~script20173($int3)) = 1) {
+    cc_setcolour(0x80e934);
+}
+if (cc_findbycategory(league_parent_tasks:task_panel, ~script20173($int2)) = 1) {
+    cc_setcolour(0x035b03);
+    ~cc_add_layer(league_parent_tasks:animation_timer, $int1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+    if (%varclientbit_58399 = 2) {
+        cc_setontimer("script20318(league_parent_tasks:task_panel, league_parent_tasks:task_scrolling, league_parent_tasks:task_scrollbar, league_parent_tasks:animation_timer, league_parent_tasks:filter_deferred, $dbrow0, $int1, 0, %varclientbit_58403)");
+        if (if_find(league_parent_tasks:task_panel) = true) {
+            cc_setparam(league_task_fading_out, calc(cc_param(league_task_fading_out) + 1));
+        }
+    } else {
+        cc_setontimer("script20318(league_parent_tasks:task_panel, league_parent_tasks:task_scrolling, league_parent_tasks:task_scrollbar, league_parent_tasks:animation_timer, league_parent_tasks:filter_deferred, $dbrow0, $int1, 350, %varclientbit_58403)");
+    }
+}
+if (cc_findbycategory(league_parent_tasks:task_panel, ~script20173($int3)) = 1) {
+    cc_setcolour(0x80e934);
+}

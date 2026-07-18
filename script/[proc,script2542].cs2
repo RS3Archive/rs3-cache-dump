@@ -1,0 +1,45 @@
+// 2542
+[proc,script2542](obj $obj0, int $int1)(obj)
+if ($obj0 = null) {
+    ~error("$item is null, no upgrade can be found.");
+    return(null);
+}
+if (oc_param($obj0, smithing_masterwork) = true) {
+    return($obj0);
+}
+if (oc_param($obj0, smithing_base_version) ! null) {
+    $obj0 = oc_param($obj0, smithing_base_version);
+}
+if ($int1 = 0) {
+    return($obj0);
+}
+def_int $int2 = oc_param($obj0, smithing_max_upgrades);
+def_int $int3 = 0;
+if ($int1 = 50) {
+    $int3 = 1;
+    $int1 = calc($int2 + 1);
+} else if ($int1 > $int2) {
+    $int1 = $int2;
+}
+def_int $int4 = 1;
+while ($int4 <= $int1) {
+    if (oc_param($obj0, smithing_next_upgrade) ! null) {
+        $obj0 = oc_param($obj0, smithing_next_upgrade);
+    } else {
+        return($obj0);
+    }
+    $int4 = calc($int4 + 1);
+}
+if ($int3 = 1) {
+    if (oc_param($obj0, smithing_creation_type) = 1) {
+        return($obj0);
+    } else {
+        ~error("We failed to find a burial item for item <oc_name($obj0)>");
+        return($obj0);
+    }
+} else if (oc_param($obj0, smithing_upgrade_version) = $int1) {
+    return($obj0);
+} else {
+    ~error("We've failed to find the correct upgrade for item <oc_name($obj0)>");
+    return($obj0);
+}

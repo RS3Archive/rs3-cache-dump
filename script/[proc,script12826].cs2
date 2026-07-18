@@ -1,0 +1,26 @@
+// 12826
+[proc,script12826](int $int0, int $int1, int $int2)
+def_component $component3 = null;
+switch_int ($int0) {
+    case 2 :
+        $component3 = elrc:collections_progress_bar;
+    case 1 :
+        $component3 = elrc:tasks_progress_bar;
+    case 3 :
+        $component3 = elrc:miniquests_progress_bar;
+}
+if ($component3 = null) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+if ($int1 = $int2) {
+    $int5 = 276;
+} else {
+    $int4 = calc(276 * 100 / $int1);
+    $int5 = min(276, calc($int4 * $int2 / 100));
+    if ($int0 = 2 & $int2 > calc($int1 / 2)) {
+        $int5 = min(276, calc($int5 + 1));
+    }
+}
+if_setsize($int5, 11, ^setsize_abs, ^setsize_abs, $component3);

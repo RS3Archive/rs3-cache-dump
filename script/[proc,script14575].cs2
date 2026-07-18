@@ -1,0 +1,24 @@
+// 14575
+[proc,script14575](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(0);
+}
+if (~script14568($dbrow0) = 0) {
+    return(0);
+}
+if (%collector_board_list = null) {
+    return(1);
+}
+def_enum $enum1 = enum(enum, enum, collector_board_filters, %collector_board_filter);
+def_int $int2 = enum(int, int, $enum1, %collector_board_filter_selected);
+if ($int2 = 0) {
+    return(1);
+}
+def_int $int3 = db_getfieldcount($dbrow0, collector:col6);
+def_int $int4 = -1;
+while (++$int4 < $int3) {
+    if (db_getfield($dbrow0, collector:col6, $int4) = $int2) {
+        return(1);
+    }
+}
+return(0);

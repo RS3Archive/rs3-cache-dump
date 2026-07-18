@@ -1,0 +1,25 @@
+// 1673
+[proc,script1673]
+cc_deleteall(champions2_bannerselect:build);
+cc_deleteall(champions2_bannerselect:click);
+def_int $int0 = if_getwidth(champions2_bannerselect:listbox);
+def_int $int1 = if_getheight(champions2_bannerselect:listbox);
+def_int $int2 = enum_getoutputcount(champions_banner_if_name);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_boolean $boolean5 = false;
+def_string $string0 = "";
+while ($int3 < $int2) {
+    $string0 = enum(int, string, champions_banner_if_name, $int3);
+    if ($int3 > 0) {
+        $boolean5 = ~script6427(testbit(%champions_defeated, calc($int3 - 1)));
+    }
+    ~script13998(champions2_bannerselect:build, champions2_bannerselect:click, rs3tli_3x3_button, 0, $int4, $int0, 18, $int3, $boolean5, $string0, ~equal_int($int3, %champions_reward_followerstate));
+    if (cc_find(champions2_bannerselect:click, $int3) = true) {
+        cc_setonop("champions_onop($int3)");
+    }
+    $int3 = calc($int3 + 1);
+    $int4 = calc($int4 + 21);
+}
+if_setscrollsize(0, $int4, champions2_bannerselect:listbox);
+~rs3_scrollbar_vertical(champions2_bannerselect:scrollbar, champions2_bannerselect:listbox);

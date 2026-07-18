@@ -1,0 +1,45 @@
+// 19190
+[clientscript,script19190](struct $struct0)
+def_component $component1 = trh_academy_shared_overlay:character_model;
+if (%trh_academy_shared_character_animation_occuring = 0 | if_getmodelzoom($component1) ! 400) {
+    ~script19191($struct0, $component1);
+    ~script19184($struct0, $component1);
+    if_setmodelangle(-55, 72, 0, -300, 0, 400, $component1);
+}
+if_setop(5, "Examine", trh_academy_shared_overlay:character_examine);
+if_setopbase("<col=FFFF00><~script19175($struct0)></col>", trh_academy_shared_overlay:character_examine);
+if_setonop("script19189($struct0)", trh_academy_shared_overlay:character_examine);
+if_settext("Level<br><tostring(~script19145($struct0))>", trh_academy_shared_overlay:character_level);
+~script19192($struct0);
+if_settext(~script19175($struct0), trh_academy_shared_overlay:character_name);
+def_dbrow $dbrow2 = ~script19148($struct0);
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = db_getfieldcount($dbrow2, progression_track:col1);
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = -1;
+def_int $int9 = 0;
+def_int $int10 = ~script19146($struct0);
+if ($int10 < db_getfield($dbrow2, progression_track:col0, 0)) {
+    while ($int6 < $int5 & $int4 = -1) {
+        $obj7, $int8, $int9 = db_getfield($dbrow2, progression_track:col1, $int6);
+        if ($int9 > $int10) {
+            if ($int3 = -1) {
+                $int3 = $int6;
+            } else if ($int4 = -1) {
+                $int4 = $int6;
+                $int6 = $int5;
+            }
+        }
+        $int6 = calc($int6 + 1);
+    }
+}
+if ($int3 = -1 | $int4 = -1) {
+    $int3 = calc($int5 - 2);
+    $int4 = calc($int5 - 1);
+}
+~script19194($dbrow2, $int3, trh_academy_shared_overlay:milestone_reward_0, trh_academy_shared_overlay:milestone_reward_text_0, trh_academy_shared_overlay:milestone_reward_object_0, trh_academy_shared_overlay:milestone_reward_tick_0, $int10);
+~script19194($dbrow2, $int4, trh_academy_shared_overlay:milestone_reward_1, trh_academy_shared_overlay:milestone_reward_text_1, trh_academy_shared_overlay:milestone_reward_object_1, trh_academy_shared_overlay:milestone_reward_tick_1, $int10);
+def_string $string0 = "Select this to see a full list of rewards";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", trh_academy_shared_overlay:milestone_reward_plus_button);

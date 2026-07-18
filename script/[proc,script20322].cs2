@@ -1,0 +1,18 @@
+// 20322
+[proc,script20322](int $int0, int $int1, string $string0, dbrow $dbrow2, var_int $var_int3)(int)
+if (cc_findbycategory(league_parent_tasks:filters, 1, $int0) = 1) {
+    if (cc_list_exists(var_reference_get($var_int3)) = true) {
+        cc_list_clearselection;
+        cc_list_setisselected(var_reference_get($var_int3), true, false);
+    }
+    return(-1);
+} else {
+    if (string_length($string0) > 0) {
+        ~cc_add_text(league_parent_tasks:filters, if_getnextsubid(league_parent_tasks:filters), 0, $int1, ^setpos_abs_left, ^setpos_abs_top, 0, 13, ^setsize_minus, ^setsize_abs, text_subtitle_body, $string0);
+        $int1 = calc($int1 + 16);
+    }
+    ~script8022(league_parent_tasks:filters, 1, $int0, 0, $int1, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, dropdown_default, 1, $dbrow2, var_reference_get($var_int3));
+    cc_setonselectionchanged("script20290($int0, event_mousex, event_mousey)");
+    $int1 = calc($int1 + 30);
+}
+return($int1);

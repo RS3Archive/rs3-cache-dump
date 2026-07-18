@@ -1,0 +1,20 @@
+// 5854
+[clientscript,script5854](component $component0)
+def_int $int1 = -1;
+switch_component ($component0) {
+    case 6awe3_rewards:icon_1 :
+        $int1 = %6awe3_passive_ability;
+    case 6awe3_rewards:icon_2 :
+        $int1 = %6awe3_active_ability1;
+    case 6awe3_rewards:icon_3 :
+        $int1 = %6awe3_active_ability2;
+}
+if ($int1 = -1) {
+    return;
+}
+def_struct $struct2 = enum(int, struct, 6awe3_ability_to_struct, $int1);
+if ($struct2 = null) {
+    if_setgraphic(combatv2_blank_ability, $component0);
+    return;
+}
+if_setgraphic(struct_param($struct2, 6awe3_ability_graphic), $component0);

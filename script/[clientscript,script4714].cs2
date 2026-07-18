@@ -1,0 +1,23 @@
+// 4714
+[clientscript,script4714](component $component0)
+switch_component ($component0) {
+    case trh116_valentines_shop:staff_of_devotion_button_disabled, trh116_valentines_shop:heart_balloon_button_disabled, trh116_valentines_shop:loved_up_rest_button_disabled, trh116_valentines_shop:loved_up_walk_button_disabled, trh116_valentines_shop:loved_up_loot_button_disabled, trh116_valentines_shop:bunch_of_flowers_button_disabled :
+        mes("You have already unlocked that reward.");
+        return;
+    case trh116_valentines_shop:prismatic_star_button_disabled :
+        mes("You need to unlock all of the other rewards before you can buy prismatic stars.");
+        return;
+}
+if (~script8106($component0) = 1) {
+    mes("You have already unlocked that reward.");
+    return;
+}
+def_int $int1 = enum(component, int, trh116_price_from_active_component, $component0);
+if (%trh116_reputation < $int1) {
+    mes("You don't have enough reputation to unlock that reward.");
+    return;
+}
+def_string $string0 = enum(component, string, trh116_text3_from_component, $component0);
+if_settext("Are you sure you want to unlock <$string0> for <tostring_localised($int1, true)> reputation?", trh116_valentines_shop:confirm_purchase_text);
+if_sethide(false, trh116_valentines_shop:darkness);
+if_sethide(false, trh116_valentines_shop:confirm_purchase);

@@ -1,0 +1,96 @@
+// 19948
+[proc,script19948](int $int0)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = null;
+def_int $int1 = 0;
+def_int $int2 = db_getfield(easter26_egg_hunt_world_week_3, easter_egg_hunt_hunt_table:col1, 0);
+def_int $int3 = db_getfield(easter26_egg_hunt_world_week_2, easter_egg_hunt_hunt_table:col1, 0);
+def_int $int4 = db_getfield(easter25_egg_hunt_community_week_1, easter_egg_hunt_hunt_table:col1, 0);
+def_int $int5 = db_getfield(easter25_egg_hunt_community_week_1, easter_egg_hunt_hunt_table:col2, 0);
+db_find(easter_egg_hunt_clue_table:col0, $int0);
+def_dbrow $dbrow6 = db_findnext;
+def_int $int7 = ~script19930($dbrow6);
+def_int $int8 = ~script19931($dbrow6);
+def_component $component9 = enum(int, component, easter_egg_hunt_clue_text_components, $int8);
+switch_int (%easter_egg_hunt_dropdown) {
+    case 0 :
+        if ($int7 ! 0) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "Speak to Nougat Bunny in the Blooming Burrow to unlock this clue.";
+        } else {
+            $string0 = "Gielinor Egg Hunt - Week 1<br>Clue <tostring(calc($int8 + 1))>";
+        }
+    case 1 :
+        if (~date_runeday < $int3) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "The week 2 Gielinor Egg Hunt will be available from <~script19936($int3, 0)>.";
+        } else if ($int7 ! 0) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "Speak to Nougat Bunny in the Blooming Burrow to unlock this clue.";
+        } else {
+            $string0 = "Gielinor Egg Hunt - Week 2<br>Clue <tostring(calc($int8 + 1))>";
+        }
+    case 2 :
+        if (~date_runeday < $int2) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "The week 3 Gielinor Egg Hunt will be available from <~script19936($int2, 0)>.";
+        } else if ($int7 ! 0) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "Speak to Nougat Bunny in the Blooming Burrow to unlock this clue.";
+        } else {
+            $string0 = "Gielinor Egg Hunt - Week 3<br>Clue <tostring(calc($int8 + 1))>";
+        }
+    case 3 :
+        if (~date_runeday < $int4 | ~date_runeday = $int4 & calc(%clock_time_date_minutes % 1440) < $int5) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "The week 1 Community Egg Hunt will be available from <~script19936($int4, $int5)>.";
+        } else if ($int7 = 3) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "Speak to Nougat Bunny in the Blooming Burrow to unlock this clue.";
+        } else if ($int7 = 4) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "Solve the previous community clue to unlock this clue.";
+        } else {
+            $string0 = "Community Egg Hunt - Week 1<br>Clue <tostring(calc($int8 + 1))>";
+        }
+    case 4 :
+        $int4 = db_getfield(easter25_egg_hunt_community_week_2, easter_egg_hunt_hunt_table:col1, 0);
+        $int5 = db_getfield(easter25_egg_hunt_community_week_2, easter_egg_hunt_hunt_table:col2, 0);
+        if (~date_runeday < $int4 | ~date_runeday = $int4 & calc(%clock_time_date_minutes % 1440) < $int5) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "The week 2 Community Egg Hunt will be available from <~script19936($int4, $int5)>.";
+        } else if ($int7 = 3) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "Speak to Nougat Bunny in the Blooming Burrow to unlock this clue.";
+        } else if ($int7 = 4) {
+            $component9 = easter_egg_hunt:clue_info_text;
+            $string2 = "Solve the previous community clue to unlock this clue.";
+        } else {
+            $string0 = "Community Egg Hunt - Week 2<br>Clue <tostring(calc($int8 + 1))>";
+        }
+}
+if (string_length($string0) > 0) {
+    if_setsize(if_getwidth(easter_egg_hunt:clue_info_text), 138, ^setsize_abs, ^setsize_abs, easter_egg_hunt:clue_info_text);
+} else {
+    if_setsize(if_getwidth(easter_egg_hunt:clue_info_text), calc(138 + if_getheight(easter_egg_hunt:clue_info_header_text) + 4), ^setsize_abs, ^setsize_abs, easter_egg_hunt:clue_info_text);
+}
+if_settext($string0, easter_egg_hunt:clue_info_header_text);
+~script19949;
+$int1 = calc(paraheight(if_gettext($component9), 276, notosans_12) * 16);
+if ($int1 > 138) {
+    if_sethide(false, easter_egg_hunt:clue_info_scrollbar_layer);
+    if_setsize(16, 138, ^setsize_abs, ^setsize_abs, easter_egg_hunt:clue_info_scrollbar_layer);
+    if_setscrollpos(0, 0, easter_egg_hunt:clue_info_layer);
+    if_setscrollsize(0, $int1, easter_egg_hunt:clue_info_layer);
+    ~rs3_scrollbar_vertical(easter_egg_hunt:clue_info_scrollbar_layer, easter_egg_hunt:clue_info_layer);
+} else {
+    if_sethide(true, easter_egg_hunt:clue_info_scrollbar_layer);
+    if_setscrollsize(0, 0, easter_egg_hunt:clue_info_layer);
+}
+if ($component9 ! easter_egg_hunt:clue_info_text) {
+    if_sethide(false, $component9);
+} else {
+    if_sethide(false, easter_egg_hunt:clue_info_text);
+    if_settext($string2, easter_egg_hunt:clue_info_text);
+}

@@ -1,0 +1,33 @@
+// 17726
+[proc,script17726](struct $struct0)(int)
+if ($struct0 = null) {
+    return(0);
+}
+def_int $int1 = ~script7241(inv_getobj(worn, 3));
+def_int $int2 = ~script7241(inv_getobj(worn, 5));
+def_int $int3 = 0;
+switch_int (struct_param($struct0, combatv2_ability_parent_stat)) {
+    case 1, 2 :
+        $int3 = 1;
+        if (struct_param($struct0, combatv2_ability_adrenaline_type) = 0 & $int1 = 0) {
+            $int3 = 0;
+        }
+    case 3 :
+        $int3 = 2;
+    case 4 :
+        $int3 = 3;
+    case 29 :
+        $int3 = 11;
+    case 6, 5 :
+        if ($int1 ! 0) {
+            $int3 = $int1;
+        }
+}
+def_int $int4 = 0;
+if ($int1 = $int3) {
+    $int4 = %combatv2_mainhand_strength_normalised;
+    if ($int2 = $int3) {
+        $int4 = calc($int4 + scale(%combatv2_offhand_strength_normalised, 100, 50));
+    }
+}
+return($int4);

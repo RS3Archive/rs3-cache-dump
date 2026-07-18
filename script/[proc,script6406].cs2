@@ -1,0 +1,94 @@
+// 6406
+[proc,script6406]
+if_settext("Current points: <tostring(%smki_slayer_points)>", ss_rework:current_points_title);
+if (%elfcity_fero_ring_upgraded = 0 & %smki_slayer_points < 100) {
+    ~ss_disable_button(85721220, 0);
+}
+if (stat_base(slayer) < 99 | %slayer_pod_tutorial_progress < 3) {
+    ~ss_disable_button(85721308, 0);
+}
+if (%slayer_pod_fourth_room_purchased = 1) {
+    ~ss_disable_button(85721325, 1);
+} else if (stat_base(slayer) < 99 | %slayer_pod_tutorial_progress < 3 | %smki_slayer_points < 3000 | %quest_desert_finale_main < 138) {
+    ~ss_disable_button(85721325, 0);
+}
+if (%njslay_bought_upgrade4 = 0 & %smki_slayer_points < 1000 | %njslay_bought_upgrade4 = 1 & %smki_slayer_points < 100) {
+    ~ss_disable_button(85721290, 0);
+    if (%njslay_bought_upgrade3 = 0 & %smki_slayer_points < 600 | %njslay_bought_upgrade3 = 1 & %smki_slayer_points < 60) {
+        ~ss_disable_button(85721272, 0);
+        if (%njslay_bought_upgrade2 = 0 & %smki_slayer_points < 400 | %njslay_bought_upgrade2 = 1 & %smki_slayer_points < 40) {
+            ~ss_disable_button(85721255, 0);
+            ~ss_disable_button(85721237, 0);
+            if (%njslay_bought_upgrade1 = 0 & %smki_slayer_points < 100 | %njslay_bought_upgrade1 = 1 & %smki_slayer_points < 10) {
+                ~ss_disable_button(85721202, 0);
+                if (%smki_slayer_points < 75) {
+                    ~ss_disable_button(85721185, 0);
+                    if (%smki_slayer_points < 35) {
+                        ~ss_disable_button(85721167, 0);
+                        ~ss_disable_button(85721150, 0);
+                        ~ss_disable_button(85721133, 0);
+                    }
+                    if (%smki_slayer_points < 20) {
+                        ~ss_disable_button(85721308, 0);
+                    }
+                }
+            } else if (~script6991 = 0) {
+                ~ss_disable_button(85721202, 1);
+            } else {
+                ~ss_enable_button(85721202);
+            }
+        } else {
+            if (~script9656 = 0) {
+                ~ss_disable_button(85721237, 1);
+            } else {
+                ~ss_enable_button(85721237);
+            }
+            if (~script6991 = 0) {
+                ~ss_disable_button(85721202, 1);
+            } else {
+                ~ss_enable_button(85721202);
+            }
+        }
+    } else {
+        if (~script9657 = 0 | stat_base(defence) < 70) {
+            ~ss_disable_button(85721272, 1);
+        } else {
+            ~ss_enable_button(85721272);
+        }
+        if (~script9656 = 0) {
+            ~ss_disable_button(85721237, 1);
+        } else {
+            ~ss_enable_button(85721237);
+        }
+        if (~script6991 = 0) {
+            ~ss_disable_button(85721202, 1);
+        } else {
+            ~ss_enable_button(85721202);
+        }
+    }
+} else {
+    if (~script13483 = 0 | stat_base(defence) < 70) {
+        ~ss_disable_button(85721290, 1);
+    } else {
+        ~ss_enable_button(85721290);
+    }
+    if (~script9657 = 0 | stat_base(defence) < 70) {
+        ~ss_disable_button(85721272, 1);
+    } else {
+        ~ss_enable_button(85721272);
+    }
+    if (~script9656 = 0 | stat_base(defence) < 50) {
+        ~ss_disable_button(85721237, 1);
+    } else {
+        ~ss_enable_button(85721237);
+    }
+    if (~script6991 = 0 | stat_base(defence) < 30) {
+        ~ss_disable_button(85721202, 1);
+    } else {
+        ~ss_enable_button(85721202);
+    }
+}
+if_sethide(false, ss_rework:scrollbar);
+~rs3_scrollbar_vertical(ss_rework:scrollbar, ss_rework:buy_window);
+if_setobject(rand_herb_burner, -1, ss_rework:herbicide_model);
+if_setobject(6awe3_seedicide, -1, ss_rework:seedicide_model);

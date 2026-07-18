@@ -1,0 +1,156 @@
+// 6093
+[proc,shop_redraw_stock](inv $inv0)
+def_component $component1 = shop_main:list_background;
+def_component $component2 = shop_main:list_icon;
+def_component $component3 = shop_main:list_price;
+def_component $component4 = shop_main:list_currency;
+if ($inv0 = %shopfreebie) {
+    $component1 = shop_main:free_background;
+    $component2 = shop_main:free_icon;
+    $component3 = shop_main:free_price;
+    $component4 = null;
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = 0;
+while ($int5 < inv_size($inv0)) {
+    $obj7 = inv_getobj($inv0, $int5);
+    $int8 = inv_getnum($inv0, $int5);
+    if ($obj7 ! null) {
+        if (cc_find($component1, $int5) = true) {
+            cc_setop(1, "Info");
+            if ($inv0 = %shopfreebie) {
+                cc_setonop("shop_item_info(%shopfreebie, $int5)");
+                if ($int8 > 0) {
+                    cc_setop(2, "Take 1");
+                }
+                if ($int8 >= 5) {
+                    cc_setop(3, "Take 5");
+                }
+                if ($obj7 = unlit_candle) {
+                    cc_setop(3, "Take 4");
+                }
+                if ($int8 >= 10) {
+                    cc_setop(4, "Take 10");
+                }
+                if ($int8 >= 50) {
+                    cc_setop(5, "Take 50");
+                }
+                if ($int8 >= 500) {
+                    cc_setop(6, "Take 500");
+                }
+                if ($int8 > 1) {
+                    cc_setop(7, "Take All");
+                }
+            } else if ($inv0 = inv) {
+                cc_setonop("shop_item_info(inv, $int5)");
+                if ($int8 > 0) {
+                    cc_setop(2, "Sell 1");
+                }
+                if ($int8 >= 5) {
+                    cc_setop(3, "Sell 5");
+                }
+                if ($obj7 = unlit_candle) {
+                    cc_setop(3, "Sell 4");
+                }
+                if ($int8 >= 10) {
+                    cc_setop(4, "Sell 10");
+                }
+                if ($int8 >= 50) {
+                    cc_setop(5, "Sell 50");
+                }
+                if ($int8 >= 500) {
+                    cc_setop(6, "Sell 500");
+                }
+                if ($int8 > 1) {
+                    cc_setop(7, "Sell All");
+                }
+            } else {
+                cc_setonop("shop_item_info(%shop, $int5)");
+                if ($int8 > 0) {
+                    cc_setop(2, "Buy 1");
+                }
+                if ($int8 >= 5) {
+                    cc_setop(3, "Buy 5");
+                }
+                if ($obj7 = unlit_candle) {
+                    cc_setop(3, "Buy 4");
+                }
+                if ($int8 >= 10) {
+                    cc_setop(4, "Buy 10");
+                }
+                if ($int8 >= 50) {
+                    cc_setop(5, "Buy 50");
+                }
+                if ($int8 >= 500) {
+                    cc_setop(6, "Buy 500");
+                }
+                if ($int8 > 1) {
+                    cc_setop(7, "Buy All");
+                }
+            }
+        }
+        if (cc_find($component2, $int5) = true & cc_getinvobject = $obj7) {
+            if (oc_uncert($obj7) = battlestaff) {
+                switch_inv ($inv0) {
+                    case naffstaffshop :
+                        cc_setobject_alwaysnum($obj7, ~battlestaff_number);
+                    case atelf_battlestaffstaffshop :
+                        if (~script12952 = true) {
+                            cc_setobject_alwaysnum($obj7, calc(31 - %atelf_staffs_sold));
+                        } else {
+                            cc_setobject_alwaysnum($obj7, calc(16 - %atelf_staffs_sold));
+                        }
+                    case elfcity_battlestaff_shop :
+                        if (~script12952 = true) {
+                            cc_setobject_alwaysnum($obj7, calc(31 - %haf_staffs_sold));
+                        } else {
+                            cc_setobject_alwaysnum($obj7, calc(16 - %haf_staffs_sold));
+                        }
+                    case lunar_runeshop, lunar_runeshop_compl :
+                        if (~script12952 = true) {
+                            cc_setobject_alwaysnum($obj7, calc(40 - %lunar_staffs_sold));
+                        } else {
+                            cc_setobject_alwaysnum($obj7, calc(20 - %lunar_staffs_sold));
+                        }
+                    case default :
+                        cc_setobject_alwaysnum($obj7, inv_getnum($inv0, $int5));
+                }
+            } else {
+                cc_setobject_alwaysnum($obj7, inv_getnum($inv0, $int5));
+            }
+        }
+        if (cc_find($component3, $int5) = true) {
+            $int6 = ~buyprice($obj7);
+            if (%shop_filter = 1) {
+                if (testbit(%shop_inventory_sell_status, $int5) = ^false) {
+                    $int6 = -1;
+                } else {
+                    $int6 = ~sellprice(%currency, $obj7, %shop);
+                }
+            }
+            if ($int6 = -1) {
+                cc_settext("N/A");
+            } else if ($inv0 = %shopfreebie) {
+                cc_settext("Free!");
+            } else {
+                cc_settext(~script940($int6));
+            }
+        }
+        if ($component4 ! null & cc_find($component4, $int5) = true) {
+            if (%shop_filter = 1 & $int6 = -1) {
+                cc_setgraphic("km_shopitems,0");
+            } else {
+                cc_setgraphic(enum(int, graphic, currency_graphic, %currency));
+            }
+        }
+    } else if (cc_find($component1, $int5) = true & cc_getgraphic ! null) {
+        ~shop_draw_list(%shop, %shopfreebie, %shop_filter, %shop_verbose_mode);
+        if (%shop_last_viewed_slot = $int5) {
+            ~shop_clear_item_info;
+        }
+        return;
+    }
+    $int5 = calc($int5 + 1);
+}

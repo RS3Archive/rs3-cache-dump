@@ -1,0 +1,65 @@
+// 7174
+[proc,display_cutscene_subtitle](int $int0, int $int1, string $string0, int $int2)
+if (compare($string0, "") = 0) {
+    return;
+}
+%cutscene_subtitle_timeout = $int2;
+def_component $component3 = ~script8875(4);
+if ($component3 = null) {
+    return;
+}
+def_int $int4 = if_getwidth($component3);
+def_int $int5 = if_getheight($component3);
+def_int $int6 = paraheight($string0, calc($int4 * 3 / 4), museo_sans_15pt_regular);
+def_int $int7 = parawidth($string0, calc($int4 * 3 / 4), museo_sans_15pt_regular);
+def_int $int8 = calc($int6 * 32);
+def_int $int9 = calc($int7 + 12);
+def_int $int10 = calc($int8 + 10);
+if_setsize(calc($int9 + 6), calc(6 + $int10), ^setsize_abs, ^setsize_abs, cutscene_subtitle_panel:main_layer);
+if_setsize($int9, $int10, ^setsize_abs, ^setsize_abs, cutscene_subtitle_panel:tint_rect);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, cutscene_subtitle_panel:tint_rect);
+if_setsize($int9, $int10, ^setsize_abs, ^setsize_abs, cutscene_subtitle_panel:frame_rect);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, cutscene_subtitle_panel:frame_rect);
+if_setsize($int7, $int8, ^setsize_abs, ^setsize_abs, cutscene_subtitle_panel:text);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, cutscene_subtitle_panel:text);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = calc($int5 / 20);
+switch_int ($int0) {
+    case 0 :
+        $int11 = 40;
+    case 1 :
+        $int11 = calc($int4 / 2 - $int9 / 2);
+    case 2 :
+        $int11 = calc($int4 - $int9 - 40);
+}
+switch_int ($int1) {
+    case 0 :
+        $int12 = $int13;
+    case 1 :
+        $int12 = calc($int5 / 2 - $int10 / 2);
+    case 2 :
+        $int12 = calc($int5 - $int10 - $int13);
+}
+if_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top, cutscene_subtitle_panel:main_layer);
+if_settext($string0, cutscene_subtitle_panel:text);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, cutscene_subtitle_panel:text);
+if_settextfont(museo_sans_15pt_regular, cutscene_subtitle_panel:text);
+if_sethide(false, cutscene_subtitle_panel:main_layer);
+def_int $int14 = max(0, calc(1 + string_indexof_char($string0, ':', 0)));
+switch_int (%cutscene_subtitle_show_effect) {
+    case default :
+        ~script7179;
+    case 1 :
+        ~script7179;
+    case 2 :
+        ~script7180($string0, $int14);
+    case 3 :
+        ~script7181($string0, $int14);
+    case 4 :
+        ~subtitles_fadein_init;
+    case 5 :
+        ~script7185;
+    case 6 :
+        ~script12784;
+}

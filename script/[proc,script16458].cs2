@@ -1,0 +1,50 @@
+// 16458
+[proc,script16458]
+def_component $component0 = text_tooltip:tooltip_dynamic_text;
+def_int $int1 = cc_param(toplevel_v2_tooltip_param_int0);
+db_find(woodcutting_site:col0, $int1);
+def_dbrow $dbrow2 = db_findnext;
+if ($dbrow2 = null) {
+    return;
+}
+def_int $int3 = 200;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+if (~script6431 = true) {
+    $int3 = 300;
+}
+def_int $int8 = db_getfieldcount($dbrow2, woodcutting_site:col2);
+if ($int8 <= 0) {
+    return;
+}
+def_struct $struct9 = db_getfield($dbrow2, woodcutting_site:col2, max(calc($int8 - 1), 0));
+if ($struct9 = null) {
+    return;
+}
+def_int $int10 = 0;
+def_string $string0 = "";
+def_int $int11 = 0;
+$int10, $string0, $int11 = ~script16461($struct9, ~bool_to_int(struct_param($struct9, skillguide_members)));
+def_string $string1 = db_getfield($dbrow2, woodcutting_site:col1, 0);
+if (string_length($string1) = 0) {
+    $string1 = struct_param($struct9, skillguide_name);
+}
+$int6 = ~script14747($component0, 0, $int6, $int3, $string1, $int11, 0);
+$int6 = ~script14748($component0, 0, $int6);
+if (string_length($string0) > 0) {
+    $int6 = ~script16462($component0, 0, $int6, $int3, $int10, $string0);
+    $int6 = ~script14748($component0, 0, $int6);
+}
+$int7 = -1;
+while (++$int7 < $int8) {
+    $struct9 = db_getfield($dbrow2, woodcutting_site:col2, $int7);
+    if ($struct9 ! null) {
+        if ($int7 = 0 & string_length($string1) = 0) {
+            $string1 = struct_param($struct9, skillguide_name);
+        }
+        $int6 = ~script16459($component0, $dbrow2, $int6, ++$int4, $int3, $struct9, $int8);
+    }
+}
+if_setsize($int3, calc($int6 - 2), ^setsize_abs, ^setsize_abs, $component0);

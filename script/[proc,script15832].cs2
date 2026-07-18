@@ -1,0 +1,20 @@
+// 15832
+[proc,script15832]()(seq)
+def_struct $struct0 = nc_param(oc_param(%follower_obj, follower_npc), mtxmgt_pet_struct);
+def_struct $struct1 = enum(struct, struct, mtxmgt_pets_struct_structinfo, $struct0);
+if (~script4157 = 5) {
+    switch_int (~script3204($struct0)) {
+        case 1 :
+            return(bas_getanim_ready(struct_param(enum(npc, struct, mtxmgt_pet_npc_to_override_struct, struct_param($struct1, mtxmgt_pet_baby_npc)), mtxmgt_pet_override_bas)));
+        case 2 :
+            return(bas_getanim_ready(struct_param(enum(npc, struct, mtxmgt_pet_npc_to_override_struct, struct_param($struct1, mtxmgt_pet_juvi_npc)), mtxmgt_pet_override_bas)));
+        case 3 :
+            return(bas_getanim_ready(struct_param(enum(npc, struct, mtxmgt_pet_npc_to_override_struct, struct_param($struct1, mtxmgt_pet_adult_npc)), mtxmgt_pet_override_bas)));
+    }
+}
+if (%lore_interface_boolean > 50) {
+    %lore_interface_boolean = calc(%lore_interface_boolean - 50);
+    return(enum(int, seq, lore_chathead_anim_sad, %lore_interface_boolean));
+} else {
+    return(enum(int, seq, lore_chathead_anim_idle, %lore_interface_boolean));
+}

@@ -1,0 +1,32 @@
+// 385
+[clientscript,script385](component $component0, int $int1, int $int2)
+def_string $string0 = "";
+switch_component ($component0) {
+    case div_converting:xp_click :
+        if (%task_omge_div_experience > 0 & map_members = false & stat_base(divination) >= 5) {
+            $string0 = "You need to be on a members' world to gain Divination experience.";
+        } else if (%div_has_memories = 1) {
+            $string0 = "Convert all your memories into Divination experience.<br><br>Keybind: 2";
+        } else {
+            $string0 = "To use a crater, you will need some memories. These can be gathered from nearby wisps.";
+        }
+    case div_converting:energy_click :
+        if (%div_has_memories = 1) {
+            $string0 = "Convert all your memories into divine energy. Divine energy can be traded or weaved to create beneficial objects.<br><br>Keybind: 1";
+        } else {
+            $string0 = "To use a crater, you will need some memories. These can be gathered from nearby wisps.";
+        }
+    case div_converting:enhanced_click :
+        if (%task_omge_div_enhanced > 0 & map_members = false & stat_base(divination) >= 5) {
+            $string0 = "You need to be on a members' world to gain Divination experience.";
+        } else if (%div_has_memories = 1) {
+            if (%div_enhanced_active = 1) {
+                $string0 = "Convert memories and energy of the same tier into higher Divination experience. This is beneficial if you wish to use up spare energy. You will convert as many memories as you can with the level of energy you are carrying.<br><br>Keybind: 3";
+            } else {
+                $string0 = "You do not have enough materials. To convert one memory you need 5 energy of the same tier, and converting one enriched memory requires 10 energy of the same tier.";
+            }
+        } else {
+            $string0 = "To use a crater, you will need some memories. These can be gathered from nearby wisps.";
+        }
+}
+~script8800($string0, $component0, -1);

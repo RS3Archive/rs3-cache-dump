@@ -1,0 +1,66 @@
+// 20598
+[proc,script20598](component $component0, dbrow $dbrow1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_graphic $graphic6 = marketplace_carousel_new_ribbon_en;
+switch_int (map_lang) {
+    case 1 :
+        $graphic6 = marketplace_carousel_new_ribbon_de;
+    case 2 :
+        $graphic6 = marketplace_carousel_new_ribbon_fr;
+    case 3 :
+        $graphic6 = marketplace_carousel_new_ribbon_pt;
+}
+cc_deleteall($component0);
+if (~script20612 = false) {
+    if_sethide(false, marketplace_featured:unavailable_layer);
+    ~script1106;
+    ~script1108;
+    return;
+} else {
+    if_sethide(true, marketplace_featured:unavailable_layer);
+}
+def_int $int7 = 536;
+def_int $int8 = 176;
+if ($component0 = marketplace_featured:carousel_static) {
+    $int7 = 738;
+    $int8 = 176;
+}
+~if_add_child_layer($component0, ui_getcategory(if_getnextsubid($component0)), ui_getdynid(if_getnextsubid($component0)), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+def_graphic $graphic9 = db_getfield($dbrow1, marketplace_featured_data:col3, 0);
+$graphic9 = ~script20600($graphic9, $dbrow1);
+~cc_add_child_graphic(ui_getcategory(if_getnextsubid($component0)), ui_getdynid(if_getnextsubid($component0)), 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $graphic9);
+cc_setop(1, "Select");
+def_graphic $graphic10 = marketplace_scroll_gradient_left;
+def_graphic $graphic11 = marketplace_scroll_gradient_right;
+if (~script6431 = true) {
+    $graphic10 = null;
+    $graphic11 = null;
+}
+if ($component0 = marketplace_featured:carousel_1) {
+    ~cc_add_child_graphic(ui_getcategory(if_getnextsubid($component0)), ui_getdynid(if_getnextsubid($component0)), 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $graphic10);
+}
+if ($component0 = marketplace_featured:carousel_2) {
+    ~script20599($dbrow1, marketplace_featured:carousel_price_layer, marketplace_featured:carousel_price_icon, marketplace_featured:carousel_price_text, $int7, $int8);
+}
+if ($component0 = marketplace_featured:carousel_static) {
+    ~script20599($dbrow1, marketplace_featured:carousel_price_static, marketplace_featured:carousel_price_icon_static, marketplace_featured:carousel_price_text_static, $int7, $int8);
+    if (~script6431 = false) {
+        $int4 = if_getnextsubid($component0);
+        ~cc_add_child_graphic(ui_getcategory(if_getnextsubid($component0)), ui_getdynid(if_getnextsubid($component0)), 0, 0, ^setpos_abs_right, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, marketplace_carousel_frame_default);
+        $int5 = if_getnextsubid($component0);
+        ~cc_add_child_graphic(ui_getcategory(if_getnextsubid($component0)), ui_getdynid(if_getnextsubid($component0)), 0, 0, ^setpos_abs_right, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, marketplace_carousel_frame_rollover);
+        cc_sethide(true);
+        if_setonmouseover("script20601(1, $int4, $int5)", $component0);
+        if_setonmouseleave("script20601(0, $int4, $int5)", $component0);
+    }
+    if (db_getfield($dbrow1, marketplace_featured_data:col18, 0) = false) {
+        if_getnextsubid($component0);
+        ~cc_add_child_graphic(ui_getcategory(if_getnextsubid($component0)), ui_getdynid(if_getnextsubid($component0)), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 128, 128, ^setsize_abs, ^setsize_abs, $graphic6);
+    }
+}
+if ($component0 = marketplace_featured:carousel_3) {
+    ~cc_add_child_graphic(ui_getcategory(if_getnextsubid($component0)), ui_getdynid(if_getnextsubid($component0)), 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $graphic11);
+}

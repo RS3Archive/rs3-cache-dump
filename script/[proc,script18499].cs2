@@ -1,0 +1,27 @@
+// 18499
+[proc,script18499](struct $struct0, int $int1)(int)
+if ($struct0 = null | $int1 = 0) {
+    return(0);
+}
+def_enum $enum2 = struct_param($struct0, trh_promo_dates);
+if ($enum2 = null) {
+    return(0);
+}
+def_int $int3 = enum_getoutputcount($enum2);
+if ($int3 = 0) {
+    return(0);
+}
+if (enum_hasoutput(int, $enum2, $int1) = false) {
+    return(0);
+}
+def_int $int4 = enum_getreverseindex(int, int, $enum2, $int1, 0);
+def_int $int5 = 0;
+while ($int4 < $int3) {
+    $int5 = enum(int, int, $enum2, $int4);
+    if (enum(int, int, $enum2, calc($int4 + 1)) ! calc($int5 - 1)) {
+        return(calc($int1 - $int5 + 1));
+    }
+    $int4 = calc($int4 + 1);
+}
+~error("Treasure Hunter Banner Reward Track failed to find the current promo day.");
+return(0);

@@ -1,0 +1,65 @@
+// 5308
+[proc,script5308]
+def_int $int0 = 0;
+def_int $int1 = 1;
+def_int $int2 = 1;
+def_string $string0 = "";
+def_struct $struct3 = null;
+def_int $int4 = 0;
+def_graphic $graphic5 = "clan_custom_object_backing_lrg,0";
+def_graphic $graphic6 = "clan_custom_object_backing_lrg,3";
+def_int $int7 = 7289;
+def_int $int8 = 2;
+def_int $int9 = 54;
+def_int $int10 = max(1, calc(if_getwidth(clan_keep_theatre_props:prop_backgrounds) / ($int9 + $int8)));
+def_int $int11 = 0;
+def_int $int12 = 0;
+cc_deleteall(clan_keep_theatre_props:prop_backgrounds);
+cc_deleteall(clan_keep_theatre_props:prop_gfx);
+while ($int0 < enum_getoutputcount(clan_theatre_prop_com2id)) {
+    $int4 = enum(int, int, clan_theatre_prop_com2id, $int0);
+    $struct3 = enum(int, struct, clan_theatre_prop_id2struct, $int4);
+    if ($struct3 = null) {
+        return;
+    }
+    $int11 = calc($int8 * $int2 + $int9 * ($int2 - 1));
+    $int12 = calc($int8 * $int1 + $int9 * ($int1 - 1));
+    $string0 = "<struct_param($struct3, clan_theatre_prop_name)><br><struct_param($struct3, clan_theatre_prop_desc)>";
+    cc_create(clan_keep_theatre_props:prop_backgrounds, ^iftype_graphic, $int0);
+    cc_setgraphic($graphic5);
+    cc_setsize($int9, $int9, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int4 = 0) {
+        cc_setop(1, struct_param($struct3, clan_theatre_prop_name));
+    } else {
+        cc_setontargetenter("script5309(event_comsubid)");
+        cc_setontargetleave("graphic_swapper(event_com, $graphic5)");
+        if ($int4 = 1) {
+            cc_settargetverb(struct_param($struct3, clan_theatre_prop_name));
+        } else if ($int4 = 2) {
+            cc_settargetverb(struct_param($struct3, clan_theatre_prop_name));
+        } else {
+            cc_settargetverb("Place <struct_param($struct3, clan_theatre_prop_name)>");
+        }
+        cc_settargetcursors(cursor_target, null);
+    }
+    cc_setonmouseover("graphic_swapper(event_com, $graphic6)");
+    cc_setonmouserepeat("script8799($string0, clan_keep_theatre_props:prop_backgrounds, -1)");
+    cc_setonmouseleave("script8806(event_com, event_comsubid, $graphic5)");
+    $int11 = calc($int11 + 2);
+    $int12 = calc($int12 + 2);
+    cc_create(clan_keep_theatre_props:prop_gfx, ^iftype_graphic, $int0);
+    cc_setgraphic(struct_param($struct3, clan_theatre_prop_gfx));
+    cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int2 >= $int10) {
+        $int1 = calc($int1 + 1);
+        $int2 = 1;
+    } else {
+        $int2 = calc($int2 + 1);
+    }
+    $int0 = calc($int0 + 1);
+}
+if_setscrollpos(0, 0, clan_keep_theatre_props:prop_list);
+if_setscrollsize(0, calc($int12 + 54), clan_keep_theatre_props:prop_list);
+~scrollbar_vertical(clan_keep_theatre_props:scroll_bar, clan_keep_theatre_props:prop_list, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");

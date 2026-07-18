@@ -1,0 +1,89 @@
+// 19521
+[proc,script19521](int $int0, int $int1)
+def_int $int2 = 44;
+if (~script6431 = true) {
+    $int2 = 52;
+}
+def_int $int3 = max(1, calc(if_getwidth(group_ironman_storage:clan_items_container) / $int2));
+def_int $int4 = 0;
+def_enum $enum5 = null;
+switch_int ($int0) {
+    case 4 :
+        $int4 = 19;
+        $enum5 = wornitems_slot_name;
+    case 1 :
+        $int4 = enum_getoutputcount(bank_filter_junk_names);
+        $enum5 = bank_filter_junk_names;
+    case default :
+        return;
+}
+def_int $intarray0($int4);
+def_int $int6 = 0;
+def_int $int7 = 0;
+switch_int ($int0) {
+    case 4 :
+        $int6 = ~script19505(intarray0, $int1);
+    case 1 :
+        $int6 = ~script19506(intarray0, $int1);
+    case default :
+        return;
+}
+if ($int6 = 0) {
+    if_sethide(false, group_ironman_storage:message_nofilter);
+    while ($int7 < 200) {
+        if (cc_find(group_ironman_storage:clan_inv, $int7) = true) {
+            cc_sethide(true);
+        }
+        $int7 = calc($int7 + 1);
+    }
+    if_setscrollpos(0, 0, group_ironman_storage:clan_items_container);
+    ~script19503(0);
+    return;
+}
+def_int $intarray1($int4);
+def_int $intarray2($int4);
+def_int $int8 = 0;
+def_int $int9 = 5;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_string $string0 = "";
+while ($int7 < $int4) {
+    $int11 = $intarray0($int7);
+    if ($int11 > 0) {
+        if ($enum5 ! null) {
+            $string0 = enum(int, string, $enum5, $int7);
+        }
+        ~script19522($int7, $int9, $string0);
+        $intarray2($int7) = calc($int9 + 20);
+        $int10 = calc($int11 / $int3);
+        if (calc($int11 % $int3) > 0) {
+            $int10 = calc($int10 + 1);
+        }
+        $int9 = calc($int9 + 15 + $int10 * $int2);
+    }
+    $int8 = $int9;
+    $int7 = calc($int7 + 1);
+}
+$int7 = 0;
+def_int $int13 = ~script19579;
+def_int $int14 = -1;
+def_int $int15 = 8;
+while ($int7 < $int13) {
+    if (cc_find(group_ironman_storage:clan_inv, $int7) = true) {
+        $int14 = cc_param(bank_filter_subcat);
+        if ($int14 ! -1) {
+            $int9 = calc($intarray2($int14) + $intarray1($int14) / $int3 * $int2);
+            $int15 = calc(8 + $intarray1($int14) % $int3 * $int2);
+            cc_setposition($int15, $int9, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+            $intarray1($int14) = calc($intarray1($int14) + 1);
+        } else {
+            cc_sethide(true);
+        }
+    }
+    $int7 = calc($int7 + 1);
+}
+~script19544($int8);
+if_sethide(true, group_ironman_storage:message_nofilter);
+~script19503($int6);

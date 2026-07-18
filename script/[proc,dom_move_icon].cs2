@@ -1,0 +1,60 @@
+// 5431
+[proc,dom_move_icon](int $int0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (cc_find(dom_handicap:slot_layer, $int0) = true) {
+    $int2 = cc_gety;
+    $int1 = calc($int2 + 10);
+    if ($int1 > 85 & $int1 < 105) {
+        if (%dom_next_icon = 1) {
+            %dom_current_icon = 21;
+        } else if (%dom_next_icon = 2) {
+            %dom_current_icon = 22;
+        } else {
+            %dom_current_icon = calc(%dom_next_icon - 2);
+        }
+        if_settext(enum(int, string, dom_handicap_types, %dom_current_icon), dom_handicap:current_icon);
+        sound_vorbis_volume(dom_interface_handicap_spin, 1, 0, 80);
+        if (%dom_start_slowdown = 1 & %dom_client_handicap = %dom_current_icon) {
+            if_setontimer(null, dom_handicap:slot_layer);
+            cc_setposition(0, 90, ^setpos_abs_centre, ^setpos_abs_top);
+            sound_vorbis_volume(dom_arena_handicap_spin_end, 1, 0, 200);
+            if ($int0 = 0) {
+                if (cc_find(dom_handicap:slot_layer, 2) = true) {
+                    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+                }
+                if (cc_find(dom_handicap:slot_layer, 1) = true) {
+                    cc_setposition(0, 180, ^setpos_abs_centre, ^setpos_abs_top);
+                }
+            } else if ($int0 = 1) {
+                if (cc_find(dom_handicap:slot_layer, 0) = true) {
+                    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+                }
+                if (cc_find(dom_handicap:slot_layer, 2) = true) {
+                    cc_setposition(0, 180, ^setpos_abs_centre, ^setpos_abs_top);
+                }
+            } else if ($int0 = 2) {
+                if (cc_find(dom_handicap:slot_layer, 1) = true) {
+                    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+                }
+                if (cc_find(dom_handicap:slot_layer, 0) = true) {
+                    cc_setposition(0, 180, ^setpos_abs_centre, ^setpos_abs_top);
+                }
+            }
+            if_sethide(false, dom_handicap:action_buttons_layer);
+            if_settext(tostring(%dom_handicap_lives), dom_handicap:lives);
+            if_sethide(true, dom_handicap:next_avail_slot_layer);
+            return(0);
+        }
+        if (%dom_client_handicap ! 0 & %dom_start_slowdown = 0) {
+            ~script5432;
+        }
+    }
+    if ($int1 > 0 & $int1 < 270) {
+        cc_setposition(0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+    } else if ($int1 >= 270) {
+        cc_delete;
+        ~dom_create_icon($int0, 0);
+    }
+}
+return(1);

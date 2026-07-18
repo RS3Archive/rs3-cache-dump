@@ -1,0 +1,99 @@
+// 1237
+[proc,prayer_load_buttons](component $component0, struct $struct1)
+cc_deleteall($component0);
+cc_deleteall(struct_param($struct1, prayer_child_glow));
+def_enum $enum2 = ~prayer_mode_enum($component0);
+def_int $int3 = 0;
+def_boolean $boolean4 = ~script6431;
+~script2715(struct_param($struct1, prayer_child_frame));
+~script12419($struct1, $enum2);
+def_int $int5 = 0;
+def_component $component6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($struct1 ! prayer_draw_prayers_quick_prayers) {
+    $component6 = toplevel_v2_prayer:prayer_header_icon;
+    if ($struct1 = prayer_draw_prayers_sub_overlay) {
+        $component6 = toplevel_v2_parent_suboverlay_prayer:prayer_header_icon;
+    }
+    $int3 = ~script11994($enum2, $component0);
+    if (if_find(struct_param($struct1, prayer_child_top)) = true) {
+        if (%toplevel_v2_legacy_interface = 1) {
+            cc_setsize(min(160, calc(if_getwidth(struct_param($struct1, prayer_child_bottom)) - 24 * 2 - 4 * 3)), 27, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc(4 - 2), calc(4 - 1), ^setpos_abs_left, ^setpos_abs_bottom);
+        } else if ($boolean4 = true) {
+            cc_setsize(calc(4 * 2), 32, ^setsize_minus, ^setsize_abs);
+            cc_setposition(4, 6, ^setpos_abs_left, ^setpos_abs_bottom);
+        } else {
+            $int9 = min(160, calc(if_getwidth(struct_param($struct1, prayer_child_bottom)) - 24 * 2 - 4 * 3));
+            cc_setsize($int9, 24, ^setsize_abs, ^setsize_abs);
+            cc_setposition(4, 4, ^setpos_abs_left, ^setpos_abs_bottom);
+        }
+    }
+    if (%prayer_client_current_filter < 0) {
+        %prayer_client_current_filter = 0;
+    }
+    if (%prayer_client_showing_active_summary < 0) {
+        %prayer_client_showing_active_summary = 0;
+    }
+    if (%prayer_client_showing_active_summary ! 1) {
+        if_sethide(true, struct_param($struct1, prayer_child_stats));
+    } else {
+        if_sethide(false, struct_param($struct1, prayer_child_stats));
+    }
+    if (if_find(struct_param($struct1, prayer_child_ticker)) = true) {
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+        cc_setsize(calc(32 + 4), 0, ^setsize_abs, ^setsize_minus);
+    }
+    if (if_find(struct_param($struct1, prayer_child_header_icon)) = true) {
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_setsize(calc(32 + 4), 0, ^setsize_abs, ^setsize_minus);
+        $int5 = calc(min(cc_getwidth, cc_getheight) - 4 * 2);
+        if_setsize($int5, $int5, ^setsize_abs, ^setsize_abs, $component6);
+        if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre, $component6);
+    }
+    ~script12234($struct1);
+    if (%prayer_client_showing_active_summary = 1) {
+        if_sethide(false, struct_param($struct1, prayer_child_active_only_layer));
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, struct_param($struct1, prayer_child_active_only_layer));
+        if ($boolean4 = true) {
+            if_setsize(0, calc(4 * 2 + 40), ^setsize_minus, ^setsize_abs, struct_param($struct1, prayer_child_active_only_layer));
+        } else {
+            if_setsize(0, calc(4 * 2 + 26), ^setsize_minus, ^setsize_abs, struct_param($struct1, prayer_child_active_only_layer));
+        }
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, struct_param($struct1, prayer_child_auxiliary_layer));
+        if_setsize(calc(4 * 2), calc(4 * 2), ^setsize_minus, ^setsize_minus, struct_param($struct1, prayer_child_auxiliary_layer));
+        if_setposition(0, if_getheight(struct_param($struct1, prayer_child_active_only_layer)), ^setpos_abs_centre, ^setpos_abs_top, struct_param($struct1, prayer_child_stats));
+        if_setsize(0, calc(14 * 6 + 5), ^setsize_minus, ^setsize_abs, struct_param($struct1, prayer_child_stats));
+        ~script5808(struct_param($struct1, prayer_child_stats), 0);
+        $int7 = if_getheight(struct_param($struct1, prayer_child_active_only_layer));
+        $int8 = if_getheight(struct_param($struct1, prayer_child_stats));
+        if ($int8 > 0) {
+            $int8 = calc($int8 + 4);
+        }
+    } else {
+        if_sethide(true, struct_param($struct1, prayer_child_active_only_layer));
+        if_sethide(true, struct_param($struct1, prayer_child_stats));
+    }
+    ~script12002($struct1, calc($int8 + $int7), $boolean4);
+} else {
+    $int3 = enum_getoutputcount($enum2);
+    ~script12001($boolean4);
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+$int10, $int11, $int12, $int13 = ~script12235($component0, $struct1, $int3);
+~prayer_draw_buttons($component0, $struct1, $int13, $int12, $int11, $int10, $int3);
+if ($struct1 ! prayer_draw_prayers_quick_prayers) {
+    if_setonvartransmit("prayer_redraw_buttons(event_com, $struct1){curse_perm2, prayer_base, curse_base, prayer_base2}", $component0);
+    ~script12241(struct_param($struct1, prayer_child_none_active), $struct1, $int3);
+}
+~script11989(prayer_draw_prayers_normal);
+~script11989(prayer_draw_prayers_sub_overlay);
+if (%prayer_client_showing_active_summary = 1) {
+    ~script5808(struct_param(prayer_draw_prayers_normal, prayer_child_stats), 0);
+    ~script5808(struct_param(prayer_draw_prayers_sub_overlay, prayer_child_stats), 0);
+}

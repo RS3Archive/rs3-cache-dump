@@ -1,0 +1,24 @@
+// 12715
+[clientscript,script12715]
+def_int $int0 = if_gettrans(trh54_guaranteed_quality:purple_gem_charge_glow);
+def_int $int1 = $int0;
+if (%varclientbit_33687 = 1) {
+    $int1 = calc($int1 + 10);
+    if ($int1 < 255) {
+        if_settrans($int1, trh54_guaranteed_quality:purple_gem_charge_glow);
+    } else {
+        if_setontimer(null, trh54_guaranteed_quality:purple_gem_glow_layer);
+        %varclientbit_33687 = 0;
+    }
+} else {
+    $int1 = calc($int1 - 10);
+    if ($int1 > 0) {
+        if_settrans($int1, trh54_guaranteed_quality:purple_gem_charge_glow);
+    } else if (%trh54_super_charge = 500) {
+        if_setontimer(null, trh54_guaranteed_quality:purple_gem_glow_layer);
+        %varclientbit_33687 = 1;
+    } else {
+        %varclientbit_33687 = 1;
+        sound_vorbis_rate(loy_supplies_twinkle, 1, 0, 80, 512);
+    }
+}

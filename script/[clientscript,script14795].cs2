@@ -1,0 +1,24 @@
+// 14795
+[clientscript,script14795](dbrow $dbrow0, int $int1)
+if ($int1 ! 1) {
+    return;
+}
+~script9554(arch_site_map:modal_dialog_window_background, arch_site_map:modal_dialog_window_border, arch_site_map:modal_dialog_window_content, db_getfield($dbrow0, arch_site:col2, 0), toplevel_v2_default_modal_dialogue_skin_data);
+if_sethide(false, arch_site_map:popup_window);
+def_string $string0 = "<db_getfield($dbrow0, arch_site:col3, 0)><br><br>Requires level <tostring(db_getfield($dbrow0, arch_site:col6, 0))> Archaeology.";
+def_string $string1 = "Fast travel";
+def_boolean $boolean2 = false;
+if (map_members = false & db_getfield($dbrow0, arch_site:col4, 0) = true) {
+    if (playermember = false) {
+        $string0 = "<$string0><br>Members' only dig site.";
+        $string1 = "Subscribe";
+    } else {
+        $string0 = "<$string0><br>This dig site is unavailable on free worlds.";
+        $boolean2 = true;
+    }
+} else if (~script6431 = false) {
+    $string0 = "<$string0><br>Keyboard Shortcut : <~script14802($dbrow0)>";
+}
+if_settext($string0, arch_site_map:site_info_text);
+sound_vorbis_volume(6awe2_drummers_small_drum_hit_5, 1, 0, 150);
+~script13971(arch_site_map:teleport_button_build_layer, arch_site_map:teleport_button_control_layer, rs3tli_positive_button, $string1, $boolean2);

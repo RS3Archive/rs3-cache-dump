@@ -1,0 +1,13 @@
+// 18166
+[proc,script18166]()(string)
+def_string $string0 = "00 : 00 : 00";
+def_int $int0 = calc(%doublexp_week_minutes_remaining + %doublexp_personal_buff_minutes_remaining);
+def_int $int1 = calc(%doublexp_week_seconds_remaining + %doublexp_personal_buff_seconds_remaining);
+if ($int1 > 59) {
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 - 60);
+}
+if (calc($int0 + 1) > 0) {
+    return("<col=CDE1FF><~time_to_string(calc($int0 / 60), calc($int0 % 60), $int1, true, true)>");
+}
+return($string0);

@@ -1,0 +1,30 @@
+// 10058
+[clientscript,script10058]
+if_settext(chat_playername, lobbyscreen:name_text);
+if (if_find(lobbyscreen:title_text) = true & .if_find(lobbyscreen:name_text) = true) {
+    cc_setsize(parawidth(cc_gettext, if_getwidth(cc_getlayer), cc_getfontmetrics), cc_getheight, ^setsize_abs, ^setsize_abs);
+    .cc_setsize(calc(cc_getwidth + 12), .cc_getheight, ^setsize_minus, ^setsize_abs);
+    if (paraheight(.cc_gettext, .cc_getwidth, .cc_getfontmetrics) > 1) {
+        .cc_sethide(true);
+    } else {
+        .cc_sethide(false);
+    }
+}
+def_boolean $boolean0 = ~is_mobile_client;
+if_sethide($boolean0, lobbyscreen:title_layer);
+if_sethide($boolean0, lobbyscreen:buttons_layer);
+if_sethide($boolean0, lobbyscreen:clock);
+if_sethide(~negate_bool($boolean0), lobbyscreen:mobile_billing_info);
+if ($boolean0 = false) {
+    ~script2601;
+    ~script2649;
+    ~script2670;
+    ~script2676;
+    if_setonvartransmit("script2691{hati2014_base}", lobbyscreen:authenticator_button_layer);
+    ~script2695;
+    if_setposition(calc(if_getx(lobbyscreen:buttons_layer) - 5 - if_getwidth(lobbyscreen:clock)), if_gety(lobbyscreen:clock), ^setpos_abs_left, ^setpos_abs_top, lobbyscreen:clock);
+} else {
+    if_setposition(20, if_gety(lobbyscreen:clock), ^setpos_abs_right, ^setpos_abs_top, lobbyscreen:clock);
+}
+~script16903;
+~script3001;

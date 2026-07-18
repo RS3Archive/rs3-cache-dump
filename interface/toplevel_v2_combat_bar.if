@@ -1,0 +1,3273 @@
+// 1430:0
+[combat_bar_root]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=script8109(1003)
+
+// 1430:1
+[actionbar_listeners]
+type=layer
+width=1
+height=1
+layer=combat_bar_root
+
+// 1430:2
+[previous_bar_listener]
+type=layer
+width=1
+height=1
+layer=actionbar_listeners
+noclickthrough=yes
+transmitop1=yes
+op1=Select
+opcursor0=cursor_use
+
+// 1430:3
+[next_bar_listener]
+type=layer
+width=1
+height=1
+layer=actionbar_listeners
+noclickthrough=yes
+transmitop1=yes
+op1=Select
+opcursor0=cursor_use
+
+// 1430:4
+[direct_targetting_listener]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=actionbar_listeners
+transmitop1=yes
+targetmask=npc,player
+op1=Target
+opcursor0=cursor_attack
+targetverb=Target
+targetcursor2=cursor_attack
+targetcursor3=cursor_cross
+
+// 1430:5
+[tab_targetting_listener]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=actionbar_listeners
+transmitop1=yes
+transmitop2=yes
+op1=Next-Target
+op2=Prev-Target
+
+// 1430:6
+[combat_bar_player_info]
+type=layer
+height=50
+widthmode=minus
+layer=combat_bar_root
+
+// 1430:7
+[player_health]
+type=layer
+width=143
+height=30
+layer=combat_bar_player_info
+
+// 1430:8
+[health_bg]
+type=graphic
+x=2
+y=2
+width=26
+height=26
+layer=player_health
+graphic="rs3_btn_combat_bar_health,0"
+colour=0xffffff
+clickmask=no
+
+// 1430:9
+[player_health_bar]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=player_health
+onvartransmit=script8118(event_com)
+onstattransmit=script8118(event_com)
+onvartransmitlist=area_ardougne_login,bonfire_temp,prayer_base,dmbh_reward_thremal_health_boost,bonfire_temp,arch_relic_temp_1,quest_desert_finale_basevar2
+onstattransmitlist=hitpoints
+
+// 1430:10
+[legacy_combat_listener]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=player_health
+onload=script11338(toplevel_v2_combat_bar:health_icon, toplevel_v2_combat_bar:health_button_layer)
+onvartransmit=script11338(toplevel_v2_combat_bar:health_icon, toplevel_v2_combat_bar:health_button_layer)
+onvartransmitlist=toplevel_v2_general_varp,easter09,arch_relic_1,arch_relic_2,arch_relic_3,arch_relic_4,arch_main_4
+
+// 1430:11
+[health_button_anim_layer]
+type=layer
+x=-1
+y=-1
+width=32
+height=32
+layer=player_health
+onload=script10584(event_com, 2, -1)
+
+// 1430:12
+[health_button_layer]
+type=layer
+x=2
+y=2
+width=26
+height=26
+layer=player_health
+noclickthrough=yes
+onmouseleave=script8805
+onvartransmit=script10590(toplevel_v2_combat_bar:health_button_anim_layer)
+onmouserepeat=script8799("Regenerate", event_com, event_comsubid)
+onvartransmitlist=easter09,easter09
+
+// 1430:13
+[health_icon]
+type=graphic
+width=26
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=health_button_layer
+graphic=rs3_hud_combat_bar_icon_health
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+transmitop2=yes
+op1=Regenerate
+op2=Cure Poison
+onmouseover=script73(event_com, rs3_hud_combat_bar_icon_health_over, rs3_hud_combat_bar_icon_poisoned_over, toplevel_v2_combat_bar:health_bg, "rs3_btn_combat_bar_health,0", "rs3_btn_combat_bar_poisoned,0")
+onmouseleave=script73(event_com, rs3_hud_combat_bar_icon_health, rs3_hud_combat_bar_icon_poisoned, toplevel_v2_combat_bar:health_bg, "rs3_btn_combat_bar_health,0", "rs3_btn_combat_bar_poisoned,0")
+onvartransmit=script73(event_com, rs3_hud_combat_bar_icon_health, rs3_hud_combat_bar_icon_poisoned, toplevel_v2_combat_bar:health_bg, "rs3_btn_combat_bar_health,0", "rs3_btn_combat_bar_poisoned,0")
+onvartransmitlist=combatv2_poisoned
+
+// 1430:14
+[player_prayer]
+type=layer
+x=26
+width=143
+height=30
+xmode=abs_right
+layer=combat_bar_player_info
+
+// 1430:15
+[prayer_bg]
+type=graphic
+x=2
+y=2
+width=26
+height=26
+layer=player_prayer
+graphic="rs3_btn_combat_bar_prayer,0"
+colour=0xffffff
+clickmask=no
+
+// 1430:16
+[player_prayer_bar]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=player_prayer
+onvartransmit=script8119(event_com)
+onstattransmit=script8119(event_com)
+onvartransmitlist=prayer_points_var
+onstattransmitlist=prayer
+
+// 1430:17
+[prayer_button_layer]
+type=layer
+x=2
+y=2
+width=26
+height=26
+layer=player_prayer
+noclickthrough=yes
+onmouseleave=script8805
+onvartransmit=script8050(toplevel_v2_combat_bar:prayer_globe_layer)
+onvartransmitlist=prayer_quick_system_0,prayer_quick_system_1,prayer_quick_system_2,prayer_quick_system_3
+
+// 1430:18
+[prayer_globe_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=prayer_button_layer
+transmitop1=yes
+transmitop2=yes
+op1=Turn Quick Prayers On
+op2=Select Quick Prayers
+onload=script8050(event_com)
+onvartransmit=topstat_prayer_custom(toplevel_v2_combat_bar:prayer_bg, event_com, "rs3_btn_combat_bar_prayer,1", "rs3_btn_combat_bar_prayer,0")
+onop=topstat_prayer_button_op(event_op, toplevel_v2_combat_bar:prayer_bg, event_com, "rs3_btn_combat_bar_prayer,1", "rs3_btn_combat_bar_prayer,0")
+onvarctransmit=topstat_prayer_custom(toplevel_v2_combat_bar:prayer_bg, event_com, "rs3_btn_combat_bar_prayer,1", "rs3_btn_combat_bar_prayer,0")
+onvartransmitlist=prayer_perm1,prayer_points_var,topstat_prayer_if
+onvarctransmitlist=prayer_custom_view_client
+
+// 1430:19
+[prayer_icon]
+type=graphic
+width=26
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=prayer_globe_layer
+graphic=rs3_hud_combat_bar_icon_prayer
+colour=0xffffff
+clickmask=no
+onmouseover=graphic_swapper(event_com, rs3_hud_combat_bar_icon_prayer_over)
+onmouseleave=graphic_swapper(event_com, rs3_hud_combat_bar_icon_prayer)
+
+// 1430:20
+[player_summoning]
+type=layer
+x=16
+width=143
+height=30
+ymode=abs_bottom
+layer=combat_bar_player_info
+
+// 1430:21
+[summoning_bg]
+type=graphic
+x=2
+y=2
+width=26
+height=26
+layer=player_summoning
+graphic="rs3_btn_combat_bar_summoning,0"
+colour=0xffffff
+clickmask=no
+
+// 1430:22
+[player_summoning_bar]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=player_summoning
+transmitop1=yes
+op1=Toggle Display
+onload=script4406(event_com, 1, cursor_use)
+onvartransmit=script8120(event_com)
+onstattransmit=script8120(event_com)
+onvartransmitlist=lore_points_var,lore_spell_points,notes_varp2
+onstattransmitlist=summoning
+
+// 1430:23
+[familiar_button]
+type=layer
+x=2
+y=2
+width=26
+height=26
+layer=player_summoning
+noclickthrough=yes
+onmouseleave=script8805
+onvartransmit=lore_head_update
+onmouserepeat=script8799("Familiar Options", event_com, event_comsubid)
+onvartransmitlist=lore_npc_head,follower_obj,hati2014_base
+
+// 1430:24
+[restore_points_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_button
+hide=yes
+transmitop1=yes
+op1=Restore Points
+
+// 1430:25
+[restore_points_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_button
+transmitop6=yes
+op6=Restore Points
+
+// 1430:26
+[summoning_icon]
+type=graphic
+width=26
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=familiar_button
+graphic=rs3_hud_combat_bar_icon_summoning
+colour=0xffffff
+clickmask=no
+onmouseover=graphic_swapper(event_com, rs3_hud_combat_bar_icon_summoning_over)
+onmouseleave=graphic_swapper(event_com, rs3_hud_combat_bar_icon_summoning)
+
+// 1430:27
+[select_leftclick_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=familiar_button
+transmitop10=yes
+op10=Settings
+onvartransmit=lore_head_update
+onvartransmitlist=lore_general_varp_1
+
+// 1430:28
+[main_ops]
+type=layer
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=familiar_button
+hide=yes
+
+// 1430:29
+[familiar_ops]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=main_ops
+
+// 1430:30
+[bob_take_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+transmitop6=yes
+op6=Take BoB
+
+// 1430:31
+[bob_give_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+transmitop6=yes
+op6=Give BoB
+
+// 1430:32
+[renew_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+transmitop6=yes
+op6=Renew Familiar
+
+// 1430:33
+[attack_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+targetmask=npc,player
+targetverb=Attack Target
+ontargetleave=magic_leavetargetmode(toplevel_v2_combat_bar:summoning_icon)
+ontargetenter=magic_entertargetmode(toplevel_v2_combat_bar:summoning_icon)
+
+// 1430:34
+[interact_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+transmitop6=yes
+op6=Interact
+
+// 1430:35
+[spell_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+
+// 1430:36
+[nullspell]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=spell_layer
+hide=yes
+
+// 1430:37
+[lore_nullspell]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=nullspell
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+opbase=Spell
+op1=Cast
+
+// 1430:38
+[spell_icon]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+onload=script211(null)
+onvartransmit=script211(null)
+onvarcstrtransmit=script211(null)
+onvartransmitlist=follower_obj
+onvarcstrtransmitlist=varclientstring_2517
+
+// 1430:39
+[spell_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+hide=yes
+transmitop1=yes
+op1=Cast
+
+// 1430:40
+[bob_take_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+hide=yes
+transmitop1=yes
+op1=Take BoB
+
+// 1430:41
+[bob_give_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+hide=yes
+transmitop1=yes
+op1=Give BoB
+
+// 1430:42
+[renew_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+hide=yes
+transmitop1=yes
+op1=Renew Familiar
+
+// 1430:43
+[attack_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+hide=yes
+targetmask=npc,player
+targetverb=Attack
+ontargetleave=magic_leavetargetmode(toplevel_v2_combat_bar:summoning_icon)
+ontargetenter=magic_entertargetmode(toplevel_v2_combat_bar:summoning_icon)
+
+// 1430:44
+[interact_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+hide=yes
+transmitop1=yes
+op1=Interact
+
+// 1430:45
+[details_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+transmitop6=yes
+op6=Follower Details
+onop=script1229
+
+// 1430:46
+[details_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=familiar_ops
+hide=yes
+transmitop1=yes
+op1=Follower Details
+onop=script1229
+
+// 1430:47
+[common_ops]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=main_ops
+
+// 1430:48
+[call_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=common_ops
+transmitop6=yes
+op6=Call Follower
+
+// 1430:49
+[dismiss_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=common_ops
+transmitop6=yes
+op6=Dismiss
+
+// 1430:50
+[call_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=common_ops
+hide=yes
+transmitop1=yes
+op1=Call Follower
+
+// 1430:51
+[dismiss_op1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=common_ops
+hide=yes
+transmitop1=yes
+op1=Dismiss
+
+// 1430:52
+[open_pet_interface]
+type=layer
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=familiar_button
+transmitop9=yes
+op9=Open Pet Interface
+
+// 1430:53
+[summon_pet]
+type=layer
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=familiar_button
+transmitop7=yes
+op7=Summon Pet
+
+// 1430:54
+[call_pet]
+type=layer
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=familiar_button
+hide=yes
+transmitop9=yes
+op9=Call Pet
+
+// 1430:55
+[player_adrenaline]
+type=layer
+width=143
+height=30
+xmode=abs_right
+ymode=abs_bottom
+layer=combat_bar_player_info
+
+// 1430:56
+[adrenaline_bg]
+type=graphic
+x=2
+y=2
+width=26
+height=26
+layer=player_adrenaline
+graphic="rs3_btn_combat_bar_adrenaline,0"
+colour=0xffffff
+clickmask=no
+onvartransmit=script8130(event_com)
+onvartransmitlist=option_nodef
+
+// 1430:57
+[player_adrenaline_bar]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=player_adrenaline
+noclickthrough=yes
+transmitop1=yes
+op1=Toggle Special Attack
+onload=script4406(event_com, 1, cursor_use)
+onvartransmit=script8121(event_com)
+onvartransmitlist=sa_energy
+
+// 1430:58
+[auto_retaliate_button_layer]
+type=layer
+x=2
+y=2
+width=26
+height=26
+layer=player_adrenaline
+noclickthrough=yes
+onmouseleave=script8805
+onmouserepeat=script8799("Toggle Auto-Retaliate", event_com, event_comsubid)
+
+// 1430:59
+[auto_retaliate_button]
+type=graphic
+width=26
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=auto_retaliate_button_layer
+graphic=rs3_hud_combat_bar_icon_adrenaline
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+op1=Toggle
+onmouseover=graphic_swapper(event_com, rs3_hud_combat_bar_icon_adrenaline_over)
+onmouseleave=graphic_swapper(event_com, rs3_hud_combat_bar_icon_adrenaline)
+onop=script8129(toplevel_v2_combat_bar:adrenaline_bg)
+
+// 1430:60
+[player_adrenaline_legacy]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=combat_bar_player_info
+
+// 1430:61
+[actionbar_layer]
+type=layer
+width=264
+height=72
+ymode=abs_bottom
+layer=combat_bar_root
+onload=script6986(1430)
+onvartransmit=script11810(1430)
+oninvtransmit=script11634(1430)
+onvartransmitlist=combatv2_actionbar_current_bar_base_var_1
+oninvtransmitlist=worn
+
+// 1430:62
+[button_holder_1]
+type=layer
+y=-17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:63
+[button_holder_bg_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_1
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:64
+[prayer_bg_1]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_1
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:65
+[button_1]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_1
+candrop=yes
+
+// 1430:66
+[graphic_1]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_1
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:67
+[cooldown_1]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_1
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:68
+[white_flash_rect_1]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_1
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:69
+[button_target_layer_1]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_1
+
+// 1430:70
+[queue_anim_holder_1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_1
+onvartransmit=script5899(1, 1003, toplevel_v2_combat_bar:queue_anim_1)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:71
+[queue_anim_1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_1
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:72
+[button_highlight_1]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_1
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:73
+[text_1]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_1
+textfont=notosans_11
+text=1
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:74
+[text_1_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_1
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:75
+[button_holder_2]
+type=layer
+x=38
+y=-17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:76
+[button_holder_bg_2]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_2
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:77
+[prayer_bg_2]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_2
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:78
+[button_2]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_2
+candrop=yes
+
+// 1430:79
+[graphic_2]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_2
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:80
+[cooldown_2]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_2
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:81
+[white_flash_rect_2]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_2
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:82
+[button_target_layer_2]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_2
+
+// 1430:83
+[queue_anim_holder_2]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_2
+onvartransmit=script5899(2, 1003, toplevel_v2_combat_bar:queue_anim_2)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:84
+[queue_anim_2]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_2
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:85
+[button_highlight_2]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_2
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:86
+[text_2]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_2
+textfont=notosans_11
+text=2
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:87
+[text_2_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_2
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:88
+[button_holder_3]
+type=layer
+x=76
+y=-17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:89
+[button_holder_bg_3]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_3
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:90
+[prayer_bg_3]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_3
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:91
+[button_3]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_3
+candrop=yes
+
+// 1430:92
+[graphic_3]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_3
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:93
+[cooldown_3]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_3
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:94
+[white_flash_rect_3]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_3
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:95
+[button_target_layer_3]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_3
+
+// 1430:96
+[queue_anim_holder_3]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_3
+onvartransmit=script5899(3, 1003, toplevel_v2_combat_bar:queue_anim_3)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:97
+[queue_anim_3]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_3
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:98
+[button_highlight_3]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_3
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:99
+[text_3]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_3
+textfont=notosans_11
+text=3
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:100
+[text_3_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_3
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:101
+[button_holder_4]
+type=layer
+x=114
+y=-17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:102
+[button_holder_bg_4]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_4
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:103
+[prayer_bg_4]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_4
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:104
+[button_4]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_4
+candrop=yes
+
+// 1430:105
+[graphic_4]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_4
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:106
+[cooldown_4]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_4
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:107
+[white_flash_rect_4]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_4
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:108
+[button_target_layer_4]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_4
+
+// 1430:109
+[queue_anim_holder_4]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_4
+onvartransmit=script5899(4, 1003, toplevel_v2_combat_bar:queue_anim_4)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:110
+[queue_anim_4]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_4
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:111
+[button_highlight_4]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_4
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:112
+[text_4]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_4
+textfont=notosans_11
+text=4
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:113
+[text_4_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_4
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:114
+[button_holder_5]
+type=layer
+x=152
+y=-17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:115
+[button_holder_bg_5]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_5
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:116
+[prayer_bg_5]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_5
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:117
+[button_5]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_5
+candrop=yes
+
+// 1430:118
+[graphic_5]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_5
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:119
+[cooldown_5]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_5
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:120
+[white_flash_rect_5]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_5
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:121
+[button_target_layer_5]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_5
+
+// 1430:122
+[queue_anim_holder_5]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_5
+onvartransmit=script5899(5, 1003, toplevel_v2_combat_bar:queue_anim_5)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:123
+[queue_anim_5]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_5
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:124
+[button_highlight_5]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_5
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:125
+[text_5]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_5
+textfont=notosans_11
+text=5
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:126
+[text_5_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_5
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:127
+[button_holder_6]
+type=layer
+x=190
+y=-17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:128
+[button_holder_bg_6]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_6
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:129
+[prayer_bg_6]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_6
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:130
+[button_6]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_6
+candrop=yes
+
+// 1430:131
+[graphic_6]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_6
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:132
+[cooldown_6]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_6
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:133
+[white_flash_rect_6]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_6
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:134
+[button_target_layer_6]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_6
+
+// 1430:135
+[queue_anim_holder_6]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_6
+onvartransmit=script5899(6, 1003, toplevel_v2_combat_bar:queue_anim_6)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:136
+[queue_anim_6]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_6
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:137
+[button_highlight_6]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_6
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:138
+[text_6]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_6
+textfont=notosans_11
+text=6
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:139
+[text_6_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_6
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:140
+[button_holder_7]
+type=layer
+x=228
+y=-17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:141
+[button_holder_bg_7]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_7
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:142
+[prayer_bg_7]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_7
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:143
+[button_7]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_7
+candrop=yes
+
+// 1430:144
+[graphic_7]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_7
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:145
+[cooldown_7]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_7
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:146
+[white_flash_rect_7]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_7
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:147
+[button_target_layer_7]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_7
+
+// 1430:148
+[queue_anim_holder_7]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_7
+onvartransmit=script5899(7, 1003, toplevel_v2_combat_bar:queue_anim_7)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:149
+[queue_anim_7]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_7
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:150
+[button_highlight_7]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_7
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:151
+[text_7]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_7
+textfont=notosans_11
+text=7
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:152
+[text_7_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_7
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:153
+[button_holder_8]
+type=layer
+y=17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:154
+[button_holder_bg_8]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_8
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:155
+[prayer_bg_8]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_8
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:156
+[button_8]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_8
+candrop=yes
+
+// 1430:157
+[graphic_8]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_8
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:158
+[cooldown_8]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_8
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:159
+[white_flash_rect_8]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_8
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:160
+[button_target_layer_8]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_8
+
+// 1430:161
+[queue_anim_holder_8]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_8
+onvartransmit=script5899(8, 1003, toplevel_v2_combat_bar:queue_anim_8)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:162
+[queue_anim_8]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_8
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:163
+[button_highlight_8]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_8
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:164
+[text_8]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_8
+textfont=notosans_11
+text=8
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:165
+[text_8_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_8
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:166
+[button_holder_9]
+type=layer
+x=38
+y=17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:167
+[button_holder_bg_9]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_9
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:168
+[prayer_bg_9]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_9
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:169
+[button_9]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_9
+candrop=yes
+
+// 1430:170
+[graphic_9]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_9
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:171
+[cooldown_9]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_9
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:172
+[white_flash_rect_9]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_9
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:173
+[button_target_layer_9]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_9
+
+// 1430:174
+[queue_anim_holder_9]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_9
+onvartransmit=script5899(9, 1003, toplevel_v2_combat_bar:queue_anim_9)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:175
+[queue_anim_9]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_9
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:176
+[button_highlight_9]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_9
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:177
+[text_9]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_9
+textfont=notosans_11
+text=9
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:178
+[text_9_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_9
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:179
+[button_holder_10]
+type=layer
+x=76
+y=17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:180
+[button_holder_bg_10]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_10
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:181
+[prayer_bg_10]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_10
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:182
+[button_10]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_10
+candrop=yes
+
+// 1430:183
+[graphic_10]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_10
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:184
+[cooldown_10]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_10
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:185
+[white_flash_rect_10]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_10
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:186
+[button_target_layer_10]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_10
+
+// 1430:187
+[queue_anim_holder_10]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_10
+onvartransmit=script5899(10, 1003, toplevel_v2_combat_bar:queue_anim_10)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:188
+[queue_anim_10]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_10
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:189
+[button_highlight_10]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_10
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:190
+[text_10]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_10
+textfont=notosans_11
+text=0
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:191
+[text_10_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_10
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:192
+[button_holder_11]
+type=layer
+x=114
+y=17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:193
+[button_holder_bg_11]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_11
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:194
+[prayer_bg_11]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_11
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:195
+[button_11]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_11
+candrop=yes
+
+// 1430:196
+[graphic_11]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_11
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:197
+[cooldown_11]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_11
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:198
+[white_flash_rect_11]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_11
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:199
+[button_target_layer_11]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_11
+
+// 1430:200
+[queue_anim_holder_11]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_11
+onvartransmit=script5899(11, 1003, toplevel_v2_combat_bar:queue_anim_11)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:201
+[queue_anim_11]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_11
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:202
+[button_highlight_11]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_11
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:203
+[text_11]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_11
+textfont=notosans_11
+text=-
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:204
+[text_11_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_11
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:205
+[button_holder_12]
+type=layer
+x=152
+y=17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:206
+[button_holder_bg_12]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_12
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:207
+[prayer_bg_12]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_12
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:208
+[button_12]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_12
+candrop=yes
+
+// 1430:209
+[graphic_12]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_12
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:210
+[cooldown_12]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_12
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:211
+[white_flash_rect_12]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_12
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:212
+[button_target_layer_12]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_12
+
+// 1430:213
+[queue_anim_holder_12]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_12
+onvartransmit=script5899(12, 1003, toplevel_v2_combat_bar:queue_anim_12)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:214
+[queue_anim_12]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_12
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:215
+[button_highlight_12]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_12
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:216
+[text_12]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_12
+textfont=notosans_11
+text==
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:217
+[text_12_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_12
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:218
+[button_holder_13]
+type=layer
+x=190
+y=17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:219
+[button_holder_bg_13]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_13
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:220
+[prayer_bg_13]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_13
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:221
+[button_13]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_13
+candrop=yes
+
+// 1430:222
+[graphic_13]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_13
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:223
+[cooldown_13]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_13
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:224
+[white_flash_rect_13]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_13
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:225
+[button_target_layer_13]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_13
+
+// 1430:226
+[queue_anim_holder_13]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_13
+onvartransmit=script5899(13, 1003, toplevel_v2_combat_bar:queue_anim_13)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:227
+[queue_anim_13]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_13
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:228
+[button_highlight_13]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_13
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:229
+[text_13]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_13
+textfont=notosans_11
+text=Z
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:230
+[text_13_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_13
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:231
+[button_holder_14]
+type=layer
+x=228
+y=17
+width=36
+height=36
+ymode=abs_centre
+layer=actionbar_layer
+
+// 1430:232
+[button_holder_bg_14]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_14
+onload=rs3_background_panel(event_com, rs3_icon_holder)
+
+// 1430:233
+[prayer_bg_14]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_14
+graphic=combatv2_prayerglow
+trans=255
+colour=0xffffff
+clickmask=no
+
+// 1430:234
+[button_14]
+type=layer
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_14
+candrop=yes
+
+// 1430:235
+[graphic_14]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_14
+graphic=combatv2_blank_ability
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+candrop=yes
+op1=Use
+opcursor0=cursor_use
+ondragcomplete=script7001(event_com, event_comsubid, event_com2)
+
+// 1430:236
+[cooldown_14]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=button_14
+hide=yes
+graphic="combatv2_cooldown_animation,0"
+trans=45
+colour=0x010101
+clickmask=no
+
+// 1430:237
+[white_flash_rect_14]
+type=rectangle
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=button_14
+colour=0xffffff
+fill=yes
+trans=255
+
+// 1430:238
+[button_target_layer_14]
+type=layer
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=button_14
+
+// 1430:239
+[queue_anim_holder_14]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=button_holder_14
+onvartransmit=script5899(14, 1003, toplevel_v2_combat_bar:queue_anim_14)
+onvartransmitlist=combatv2_queued_slot,combatv2_queued_bar
+
+// 1430:240
+[queue_anim_14]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=queue_anim_holder_14
+hide=yes
+onload=spinner_create(event_com, 2, -1)
+
+// 1430:241
+[button_highlight_14]
+type=rectangle
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_14
+colour=0xc8c8c8
+trans=255
+onmouseover=script7016(event_com, 1)
+onmouseleave=script7016(event_com, 0)
+
+// 1430:242
+[text_14]
+type=text
+width=6
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_holder_14
+textfont=notosans_11
+text=X
+textalignv=2
+textshadow=yes
+colour=0xa5a5a5
+trans=100
+
+// 1430:243
+[text_14_cooldown]
+type=text
+y=1
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=button_holder_14
+textfont=noto_sans_11pt_bold_outline
+fontmono=no
+textalignh=2
+
+// 1430:244
+[summoning_listener]
+type=layer
+width=1
+height=1
+layer=actionbar_layer
+onvartransmit=script9285
+onvartransmitlist=lore_general_varp_1
+
+// 1430:245
+[revolution_listener]
+type=layer
+width=1
+height=1
+layer=actionbar_layer
+onvartransmit=script164(toplevel_v2_combat_bar:revolutions_highlight)
+onvarctransmit=script5889
+onvartransmitlist=combatv2_generic_base_var_1
+onvarctransmitlist=combatv2_just_used_ability
+
+// 1430:246
+[revolutions_highlight]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=actionbar_layer
+
+// 1430:247
+[left_edge]
+type=rectangle
+width=2
+heightmode=minus
+layer=revolutions_highlight
+colour=0xffcb05
+fill=yes
+
+// 1430:248
+[bottom_edge]
+type=rectangle
+width=186
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=revolutions_highlight
+colour=0xffcb05
+fill=yes
+
+// 1430:249
+[right_edge]
+type=rectangle
+width=2
+height=37
+heightmode=minus
+xmode=abs_right
+layer=revolutions_highlight
+colour=0xffcb05
+fill=yes
+
+// 1430:250
+[mid_vert_edge]
+type=rectangle
+x=-55
+width=2
+height=36
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=revolutions_highlight
+colour=0xffcb05
+fill=yes
+
+// 1430:251
+[mid_hor_edge]
+type=rectangle
+width=76
+height=2
+widthmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=revolutions_highlight
+colour=0xffcb05
+fill=yes
+
+// 1430:252
+[top_edge]
+type=rectangle
+height=2
+widthmode=minus
+layer=revolutions_highlight
+colour=0xffcb05
+fill=yes
+
+// 1430:253
+[just_used_flash]
+type=layer
+x=-1
+y=-1
+width=38
+height=38
+layer=revolutions_highlight
+hide=yes
+onload=if_highlight_create(event_com, 0x0055ff)
+
+// 1430:254
+[actionbar_scroller]
+type=layer
+x=439
+y=250
+width=16
+height=36
+layer=combat_bar_root
+onload=script11387(toplevel_v2_combat_bar:actionbar_scroller_op_1_5, toplevel_v2_combat_bar:actionbar_scroller_op_6_10, toplevel_v2_combat_bar:actionbar_scroller_op_11_15, toplevel_v2_combat_bar:actionbar_scroller_op_16_20)
+onvartransmit=script11387(toplevel_v2_combat_bar:actionbar_scroller_op_1_5, toplevel_v2_combat_bar:actionbar_scroller_op_6_10, toplevel_v2_combat_bar:actionbar_scroller_op_11_15, toplevel_v2_combat_bar:actionbar_scroller_op_16_20)
+onvartransmitlist=combatv2_actionbar_current_bar_base_var_1,combatv2_actionbar_current_bar_base_var_1,combatv2_actionbar_current_bar_base_var_1,combatv2_actionbar_current_bar_base_var_1,combatv2_actionbar_name_base_var_1,combatv2_actionbar_name_base_var_2,combatv2_actionbar_name_base_var_3,combatv2_actionbar_name_base_var_4,combatv2_actionbar_name_base_var_5
+
+// 1430:255
+[fullscreen_settings_layer]
+type=layer
+width=16
+height=16
+xmode=abs_right
+ymode=abs_bottom
+layer=actionbar_scroller
+noclickthrough=yes
+
+// 1430:256
+[fullscreen_settings]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=fullscreen_settings_layer
+graphic=hud_combat_btn_settings
+colour=0xffffff
+transmitop1=yes
+transmitop2=yes
+transmitop3=yes
+transmitop4=yes
+transmitop5=yes
+transmitop6=yes
+transmitop7=yes
+transmitop8=yes
+transmitop9=yes
+candrop=yes
+op1=Action Bar Settings
+op2=Auto-setup Action Bar
+op3=Clear Action Bar
+op4=Share Action Bar
+op5=---
+op6=Combat Settings
+op7=Combat Mode: Full manual
+op8=Combat Mode: Revolution
+op9=Combat Mode: Classic
+onmouseover=graphic_swapper(event_com, hud_combat_btn_settings_over)
+onmouseleave=graphic_swapper(event_com, hud_combat_btn_settings)
+onmouserepeat=script8799("Action Bar Settings", event_com, event_comsubid)
+
+// 1430:257
+[bar_indicator]
+type=layer
+width=16
+height=16
+layer=actionbar_scroller
+noclickthrough=yes
+
+// 1430:258
+[actionbar_scroller_op_16_20]
+type=layer
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+transmitop6=yes
+transmitop7=yes
+transmitop8=yes
+op6=16
+op7=17
+op8=18
+
+// 1430:259
+[actionbar_scroller_op_11_15]
+type=layer
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+transmitop6=yes
+transmitop7=yes
+transmitop8=yes
+transmitop9=yes
+transmitop10=yes
+op6=11
+op7=12
+op8=13
+op9=14
+op10=15
+
+// 1430:260
+[actionbar_scroller_op_6_10]
+type=layer
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+transmitop6=yes
+transmitop7=yes
+transmitop8=yes
+transmitop9=yes
+transmitop10=yes
+op6=6
+op7=7
+op8=8
+op9=9
+op10=10
+
+// 1430:261
+[actionbar_scroller_op_1_5]
+type=layer
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+transmitop6=yes
+transmitop7=yes
+transmitop8=yes
+transmitop9=yes
+transmitop10=yes
+op6=1
+op7=2
+op8=3
+op9=4
+op10=5
+
+// 1430:262
+[fullscreen_arrow_bg]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+graphic=rs3_hud_combat_set_display_circle
+colour=0xffffff
+clickmask=no
+onmouseover=graphic_swapper(event_com, rs3_hud_combat_set_display_circle_over)
+onmouseleave=graphic_swapper(event_com, rs3_hud_combat_set_display_circle)
+onop=script7024(event_com, event_op)
+onmouserepeat=script8799("", event_com, event_comsubid)
+
+// 1430:263
+[fullscreen_arrow_bg_extension_tile]
+type=graphic
+y=7
+width=16
+height=14
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=bar_indicator
+hide=yes
+graphic=rs3_hud_combat_set_display_tile
+tiling=yes
+colour=0xffffff
+clickmask=no
+
+// 1430:264
+[fullscreen_arrow_bg_extension_bottom]
+type=graphic
+y=-1
+width=16
+height=8
+xmode=abs_centre
+ymode=abs_bottom
+layer=bar_indicator
+hide=yes
+graphic=rs3_hud_combat_set_display_bottom
+colour=0xffffff
+clickmask=no
+
+// 1430:265
+[fullscreen_arrow_text]
+type=text
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+textfont=notosans_11
+text=1
+textalignh=1
+textalignv=1
+textshadow=yes
+colour=0xf0be79
+onload=script7009(event_com)
+onvartransmit=script7009(event_com)
+onvartransmitlist=combatv2_actionbar_current_bar_base_var_1
+
+// 1430:266
+[fullscreen_down_arrow]
+type=graphic
+x=-13
+width=12
+height=12
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+hide=yes
+graphic="rs3_btn_set_selection,1"
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+op1=Previous
+onmouseover=graphic_swapper(event_com, "rs3_btn_set_selection,3")
+onmouseleave=graphic_swapper(event_com, "rs3_btn_set_selection,1")
+onmouserepeat=script8799("Switch to the previous action bar", event_com, event_comsubid)
+
+// 1430:267
+[fullscreen_up_arrow]
+type=graphic
+x=13
+width=12
+height=12
+xmode=abs_centre
+ymode=abs_centre
+layer=bar_indicator
+hide=yes
+graphic="rs3_btn_set_selection,1"
+hflip=yes
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+op1=Next
+onmouseover=graphic_swapper(event_com, "rs3_btn_set_selection,3")
+onmouseleave=graphic_swapper(event_com, "rs3_btn_set_selection,1")
+onmouserepeat=script8799("Switch to the next action bar", event_com, event_comsubid)
+
+// 1430:268
+[combatbar_buttons]
+type=layer
+width=16
+height=16
+xmode=abs_right
+ymode=abs_bottom
+layer=combat_bar_root
+
+// 1430:269
+[fullscreen_padlock_layer]
+type=layer
+width=16
+height=16
+xmode=abs_right
+ymode=abs_centre
+layer=combatbar_buttons
+noclickthrough=yes
+
+// 1430:270
+[fullscreen_padlock]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=fullscreen_padlock_layer
+graphic=hud_combat_btn_locked
+colour=0xffffff
+clickmask=no
+transmitop1=yes
+op1=Toggle
+onmouseover=script7035(1, event_com)
+onmouseleave=script7035(0, event_com)
+

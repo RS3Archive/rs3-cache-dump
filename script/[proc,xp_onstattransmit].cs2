@@ -1,0 +1,88 @@
+// 5662
+[proc,xp_onstattransmit](int $int0, int $int1)
+if (%xpdisplay_dont_show_popups = 1) {
+    if ($int1 = 1) {
+        ~xp_display_updatevars;
+    }
+    return;
+}
+if ($int0 = 0) {
+    if (~script12082 = 1) {
+        if_setonstattransmit("xp_onstattransmit(1)", xp_popup:xp_popup_listener_layer);
+        if_setonvarctransmit("xp_onstattransmit(1){new_pet_size}", xp_popup:xp_popup_listener_layer);
+    } else {
+        ~xp_display_onload;
+        return;
+    }
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_stat $stat4 = null;
+def_int $int5 = -1;
+def_int $int6 = 0;
+while ($int6 < enum_getoutputcount(int_to_stat)) {
+    $int6 = calc($int6 + 1);
+    $stat4 = enum(int, stat, int_to_stat, $int6);
+    if ($stat4 ! null) {
+        $int5 = calc(stat_visible_xp($stat4) - ~script5664($int6));
+        if ($int5 ! 0) {
+            $int2 = calc($int2 + 1);
+            if (~script11891($stat4, enum(stat, int, stat_to_statcap, $stat4)) = 0 | ~script10888($int6) = 0) {
+                ~script12083($int6);
+            }
+            $int3 = calc($int3 + $int5);
+        }
+    }
+}
+def_int $int7 = calc((%new_pet_size - %old_pet_size) / 10);
+if ($int7 ! 0) {
+    $int2 = calc($int2 + 1);
+    ~script12083(100);
+}
+if ($int2 = 0) {
+    return;
+}
+def_string $string0 = "";
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string1 = "0";
+if (if_gethide(toplevel_v2:xp_popup_text_window) = false) {
+    if (%xpdisplay_isbonus > 0 & ($int7 = 0 | $int2 > 1)) {
+        $int9 = calc(%xpdisplay_isbonus % 10);
+        if ($int9 > 0) {
+            $string0 = "(<tostring_localised(calc(%xpdisplay_isbonus / 10), true)><~script8002><tostring($int9)> bonus xp)";
+        } else {
+            $string0 = "(<tostring_localised(calc(%xpdisplay_isbonus / 10), true)> bonus xp)";
+        }
+    }
+    if ($int7 ! 0 & %mtx_pet_bonus_xp > 0 & $int2 = 1) {
+        $int9 = calc(%mtx_pet_bonus_xp % 10);
+        if ($int9 > 0) {
+            $string1 = "(<tostring_localised(calc(%mtx_pet_bonus_xp / 10), true)><~script8002><tostring($int9)> bonus)";
+        } else {
+            $string0 = "(<""> bonus)";
+        }
+    }
+    cc_create(toplevel_v2:xp_popup_text_window_content, ^iftype_text, if_getnextsubid(toplevel_v2:xp_popup_text_window_content));
+    if ($int7 ! 0 & $int2 = 1) {
+        if ($int7 = 1) {
+            cc_settext("+<tostring_localised(1, true)> pet point <$string0>");
+        } else {
+            cc_settext("+<tostring_localised($int7, true)> pet points <$string0>");
+        }
+    } else {
+        cc_settext("+<tostring_localised(calc($int3 + $int7), true)> xp <$string0>");
+    }
+    cc_setontimer("xp_display_text_ontimer(event_com, cc_getid, 0)");
+    cc_setsize(200, 25, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(notosans_17);
+    cc_setcolour(0xf5b241);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+} else {
+    cc_deleteall(toplevel_v2:xp_popup_text_window_content);
+}
+if ($int1 = 1) {
+    ~xp_display_updatevars;
+}

@@ -1,0 +1,54 @@
+// 4637
+[clientscript,script4637](int $int0)
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+if_sethide(false, fremsaga_storyselect:reward_button);
+if_settext("", fremsaga_storyselect:reward_text);
+sound_vorbis_volume(clans_interface_click, 1, 0, 150);
+~fremsaga_button_select($int0);
+switch_int ($int0) {
+    case 1 :
+        $string0 = "<col=FFFFFF><u=FFFFFF>Three's Company</u></col><br><br>";
+        if (~script4643(1) = 0) {
+            $string0 = append($string0, "<col=FFFFFF>Attack 30, Ranged 30, Magic 30 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Manage a party of adventurers in this saga. <br><br>+ Select 'Switch' to change to a target character. <br>+ Select 'Mark' on an enemy to focus your allies' attacks on that target.<br>+ Human enemies will focus their attacks on you, animals will attack your allies.<br><br><col=FFFFFF>All three characters must survive.</col>");
+    case 2 :
+        $string0 = "<col=FFFFFF><u=FFFFFF>Vengeance</u></col><br><br>";
+        if (~script4643(2) = 0) {
+            $string0 = append($string0, "<col=FFFFFF>Agility 55, Thieving 55 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "A tragic tale of grief, warped into furious vengeance.<br><br>+ At some point in this saga, you will become poisoned. Keep an eye on your health. You will not take poison damage whilst in a conversation.<br>+ Look for alternative methods of defeating your human foes. Your environment may offer more indirect solutions.<br>+ Hellhounds will drop antipoison elixirs that will lessen your suffering temporarily.<br>+ Spiders drop food, but their bites may negate the effect of an antipoison elixir.<br>+ Choices you make in the saga will lead you towards 'noble' or 'ruthless' vengeance.");
+    case 4 :
+        $string0 = "<col=FFFFFF><u=FFFFFF>Thok It To 'Em</u></col><br><br>";
+        if (~script4643(4) = 0) {
+            $string0 = append($string0, "<col=FFFFFF>Strength 70 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Control mighty Thok, Fremennik warrior.<br><br>+ Thok heals damage and recovers adrenaline by killing enemies. Bosses provide greater health and adrenaline boosts than normal enemies.<br>+ Thok can eat food raw. He likes the taste.");
+    case 3 :
+        $string0 = "<col=FFFFFF><u=FFFFFF>Nadir</u></col><br><br>";
+        if (~script4643(3) = 0) {
+            $string0 = append($string0, "<col=FFFFFF>Attack 60, Thieving 45 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Take command of the mysterious Moia.<br><br>+ Moia works best undetected. Find information in the minds of others to progress safely.<br>+ Avoid the suspicions of those around you to avoid later combat.<br>+ At some point in the saga, Moia will enter a special combat mode. Keep an eye on her ability meter.<br>+ There is a wealth of information to find. Stay a while, and listen to the people of Daemonheim.");
+    case 6 :
+        $string0 = "<col=FFFFFF><u=FFFFFF>Thok Your Block Off</u></col><br><br>";
+        $int1, $int2 = ~fremsaga_completed(4);
+        if ($int1 = 0 & $int2 = 0) {
+            $string0 = append($string0, "<col=FFFFFF>You must complete <u=FFFFFF>Thok It To 'Em</u> to play this saga.<br><br>");
+        } else if (~script4643(6) = 0) {
+            $string0 = append($string0, "<col=FFFFFF>Strength 75 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Mighty Thok returns with his brother Marmaros.<br><br>+ Kill far more enemies than your brother Marmaros to prove your dominance.<br>+ Thok heals damage and recovers adrenaline by killing enemies.<br>+ Thok can heal by eating raw fish.<br>+ Thok will upgrade his fists during the tale, dealing greater damage.<br>+ Thok can obtain a special item that will yield him many fish.");
+}
+if_sethide(true, fremsaga_storyselect:instructions);
+~script13971(fremsaga_storyselect:reward_button, null, rs3tli_neutral_button, "Show Rewards", false);
+~script13971(fremsaga_storyselect:play_button, null, rs3tli_positive_button, "Play Saga", false);
+if_settext($string0, fremsaga_storyselect:flavour_text);
+def_int $int3 = calc(paraheight($string0, if_getwidth(fremsaga_storyselect:flavour_text), museo_sans_11pt_regular) * ~script11432(museo_sans_11pt_regular));
+if ($int3 < if_getheight(fremsaga_storyselect:scroll_text_layer)) {
+    $int3 = 0;
+}
+if_setscrollsize(0, $int3, fremsaga_storyselect:scroll_text_layer);
+~rs3_scrollbar_vertical(fremsaga_storyselect:scrollbar_layer, fremsaga_storyselect:scroll_text_layer);

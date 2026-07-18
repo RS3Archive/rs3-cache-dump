@@ -1,0 +1,102 @@
+// 11720
+[clientscript,script11720]
+if_sethide(true, raid1rep:speech_bubble);
+if_setsize(scale(300, 5000, min(5000, %raid1_goebie_rep)), 5, ^setsize_abs, ^setsize_abs, raid1rep:overall_progress_front);
+def_int $int0 = 1;
+if (%raid1_goebie_rep >= 100) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_1);
+    $int0 = 2;
+}
+if (%raid1_goebie_rep >= 500) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_2);
+    $int0 = 3;
+}
+if (%raid1_goebie_rep >= 750) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_3);
+    $int0 = 4;
+}
+if (%raid1_goebie_rep >= 1000) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_4);
+    $int0 = 5;
+}
+if (%raid1_goebie_rep >= 1250) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_5);
+    $int0 = 6;
+}
+if (%raid1_goebie_rep >= 1500) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_6);
+    $int0 = 7;
+}
+if (%raid1_goebie_rep >= 1750) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_7);
+    $int0 = 8;
+}
+if (%raid1_goebie_rep >= 2000) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_8);
+    $int0 = 9;
+}
+if (%raid1_goebie_rep >= 2500) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_9);
+    $int0 = 10;
+}
+if (%raid1_goebie_rep >= 3000) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_10);
+    $int0 = 11;
+}
+if (%raid1_goebie_rep >= 5000) {
+    if_setgraphic("login_lobby_tickcross,0", raid1rep:reward_unlocked_11);
+    $int0 = 0;
+}
+def_int $int1 = 0;
+def_string $string0 = "Next unlock: Soon";
+switch_int ($int0) {
+    case 0 :
+        $int1 = 320;
+        $string0 = "All rewards unlocked!";
+    case 1 :
+        $int1 = scale(320, 100, %raid1_goebie_rep);
+        $string0 = "Next unlock: Supply Discount<br><tostring(%raid1_goebie_rep)>/100";
+    case 2 :
+        $int1 = scale(320, 400, calc(%raid1_goebie_rep - 100));
+        $string0 = "Next unlock: Bank access (Canal)<br><tostring(%raid1_goebie_rep)>/500";
+    case 3 :
+        $int1 = scale(320, 250, calc(%raid1_goebie_rep - 500));
+        $string0 = "Next unlock: Fast travel-1<br><tostring(%raid1_goebie_rep)>/750";
+    case 4 :
+        $int1 = scale(320, 250, calc(%raid1_goebie_rep - 750));
+        $string0 = "Next unlock: Supply Discount+<br><tostring(%raid1_goebie_rep)>/1000";
+    case 5 :
+        $int1 = scale(320, 250, calc(%raid1_goebie_rep - 1000));
+        $string0 = "Next unlock: 'The reputable'<br><tostring(%raid1_goebie_rep)>/1250";
+    case 6 :
+        $int1 = scale(320, 250, calc(%raid1_goebie_rep - 1250));
+        $string0 = "Next unlock: Bank access (Waterfall)<br><tostring(%raid1_goebie_rep)>/1500";
+    case 7 :
+        $int1 = scale(320, 250, calc(%raid1_goebie_rep - 1500));
+        $string0 = "Next unlock: POH location<br><tostring(%raid1_goebie_rep)>/1750";
+    case 8 :
+        $int1 = scale(320, 250, calc(%raid1_goebie_rep - 1750));
+        $string0 = "Next unlock: Fast travel-2<br><tostring(%raid1_goebie_rep)>/2000";
+    case 9 :
+        $int1 = scale(320, 500, calc(%raid1_goebie_rep - 2000));
+        $string0 = "Next unlock: Pet Goebie<br><tostring(%raid1_goebie_rep)>/2500";
+    case 10 :
+        $int1 = scale(320, 500, calc(%raid1_goebie_rep - 2500));
+        $string0 = "Next unlock: 'of the Goebies'<br><tostring(%raid1_goebie_rep)>/3000";
+    case 11 :
+        $int1 = scale(320, 2000, calc(%raid1_goebie_rep - 3000));
+        $string0 = "Next unlock: <tostring(10)>% Rare drop chance<br><tostring(%raid1_goebie_rep)>/5000";
+}
+if_setsize($int1, 25, ^setsize_abs, ^setsize_abs, raid1rep:progress_bar);
+if_settext("Current reputation: <tostring(min(5000, %raid1_goebie_rep))>/5000", raid1rep:rep_total_text);
+if_settext($string0, raid1rep:next_unlock_text);
+switch_int (map_lang) {
+    case 1 :
+        if_setgraphic("aif_make_x_rewards,1", raid1rep:reward_graphic);
+    case 2 :
+        if_setgraphic("aif_make_x_rewards,3", raid1rep:reward_graphic);
+    case 3 :
+        if_setgraphic("aif_make_x_rewards,2", raid1rep:reward_graphic);
+    case 6 :
+        if_setgraphic("aif_make_x_rewards,2", raid1rep:reward_graphic);
+}

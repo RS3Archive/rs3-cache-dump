@@ -1,0 +1,24 @@
+// 12356
+[proc,trail_puzzle_generation](component $component0, inv $inv1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+while ($int3 < inv_size($inv1)) {
+    cc_create($component0, ^iftype_graphic, $int3);
+    cc_setsize(49, 49, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(56 * $int4), calc(56 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+    if (inv_getobj($inv1, $int3) ! null) {
+        if (%slidepuzzle_anim_frame_enum ! null) {
+            cc_setgraphic(enum(obj, graphic, %slidepuzzle_anim_frame_enum, inv_getobj($inv1, $int3)));
+        }
+        if ($int2 = 0) {
+            cc_setopbase(oc_name(inv_getobj($inv1, $int3)));
+            cc_setop(1, "Move");
+            cc_setonop("trail_puzzle_click(event_com, $int3, event_op, $inv1)");
+        }
+    } else {
+        cc_sethide(true);
+    }
+    $int4 = calc(++$int3 % 5);
+    $int5 = calc($int3 / 5);
+}

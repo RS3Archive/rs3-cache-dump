@@ -1,0 +1,59 @@
+// 3437
+[clientscript,script3437]
+def_model $model0 = null;
+if (%csi_gather_evid_1 = 0 | %csi_active_case = 8 & %csi_gather_fing_fakeout = 1 & %csi_gather_evid_5 = 0) {
+    if (%csi_gather_fing_culp < 3) {
+        if (%csi_gather_fing_select = 1) {
+            $model0 = enum(int, model, csi_get_finger_model_culprit, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 2) {
+            $model0 = enum(int, model, csi_get_finger_model_alt1, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 3) {
+            $model0 = enum(int, model, csi_get_finger_model_alt2, %csi_gather_fing_culp);
+        }
+    } else if (%csi_gather_fing_culp < 6) {
+        if (%csi_gather_fing_select = 1) {
+            $model0 = enum(int, model, csi_get_finger_model_alt1, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 2) {
+            $model0 = enum(int, model, csi_get_finger_model_alt2, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 3) {
+            $model0 = enum(int, model, csi_get_finger_model_culprit, %csi_gather_fing_culp);
+        }
+    } else if (%csi_gather_fing_culp = 10) {
+        if (%csi_gather_fing_select = 3) {
+            $model0 = enum(int, model, csi_get_finger_model_alt1, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 2) {
+            $model0 = enum(int, model, csi_get_finger_model_alt2, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 1) {
+            $model0 = enum(int, model, csi_get_finger_model_culprit, %csi_gather_fing_culp);
+        }
+    } else {
+        if (%csi_gather_fing_select = 1) {
+            $model0 = enum(int, model, csi_get_finger_model_alt2, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 2) {
+            $model0 = enum(int, model, csi_get_finger_model_culprit, %csi_gather_fing_culp);
+        }
+        if (%csi_gather_fing_select = 3) {
+            $model0 = enum(int, model, csi_get_finger_model_alt1, %csi_gather_fing_culp);
+        }
+    }
+    if_setmodel($model0, csi_fingerprint:fingerprint_magnified);
+    if (%csi_gather_fing_select ! 0) {
+        if_sethide(false, csi_fingerprint:selected);
+    }
+    if (%csi_gather_fing_select = 1) {
+        if_setposition(30, 205, ^setpos_abs_left, ^setpos_abs_top, csi_fingerprint:selected);
+    } else if (%csi_gather_fing_select = 2) {
+        if_setposition(112, 205, ^setpos_abs_left, ^setpos_abs_top, csi_fingerprint:selected);
+    } else if (%csi_gather_fing_select = 3) {
+        if_setposition(196, 205, ^setpos_abs_left, ^setpos_abs_top, csi_fingerprint:selected);
+    } else {
+        if_sethide(true, csi_fingerprint:selected);
+    }
+}

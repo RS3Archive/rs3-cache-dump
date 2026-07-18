@@ -1,0 +1,25 @@
+// 10346
+[proc,script10346]
+~script8841(53, 0);
+def_int $int0 = 0;
+def_int $int1 = string_length(%group_create_input_varc);
+def_string $string0 = "";
+def_int $int2 = 0;
+if ($int1 ! 0) {
+    while ($int0 < $int1) {
+        $string0 = substring(%group_create_input_varc, $int0, calc($int0 + 1));
+        if (compare($string0, "_") ! 0 & compare($string0, " ") ! 0 & compare($string0, "-") ! 0) {
+            $int2, $int0 = 1, $int1;
+        }
+        $int0 = calc($int0 + 1);
+    }
+    if ($int2 = 1) {
+        resume_stringdialog(%group_create_input_varc);
+        return;
+    } else {
+        ~group_mes("<%group_create_input_varc> is not a valid name.");
+    }
+}
+abort_dialog;
+~script675;
+%group_create_input_varc = "";

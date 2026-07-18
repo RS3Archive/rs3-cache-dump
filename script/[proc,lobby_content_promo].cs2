@@ -1,0 +1,179 @@
+// 10044
+[proc,lobby_content_promo](component $component0, component $component1, component $component2, component $component3, int $int4)
+def_string $string0 = "";
+if_sethide(false, $component3);
+if_clearops($component0);
+if_setonop(null, $component0);
+if_setonclick(null, $component0);
+if_setonmouserepeat(null, $component0);
+~script13264(-1, 0, $int4);
+def_int $int5 = enum_getoutputcount(motw_banners_primary_2);
+def_struct $structarray0($int5);
+def_struct $struct6 = null;
+def_quest $quest7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+while ($int8 < $int5) {
+    $struct6 = enum(int, struct, motw_banners_primary_2, $int8);
+    if (~script17266($struct6) = true) {
+        $structarray0($int9) = $struct6;
+        $int9 = calc($int9 + 1);
+    }
+    $int8 = calc($int8 + 1);
+}
+if ($int9 = 0) {
+    $struct6 = enum(int, struct, motw_banners_primary_2, -1);
+} else {
+    $struct6 = $structarray0(random($int9));
+}
+if ($struct6 = uaui_latest_content) {
+    $struct6 = ~script6341;
+}
+switch_int (map_lang) {
+    case 1 :
+        $string2 = struct_param($struct6, motw_link_page_de);
+        $string3 = struct_param($struct6, motw_link_raw_de);
+        $string1 = struct_param($struct6, motw_link_module_de);
+    case 2 :
+        $string2 = struct_param($struct6, motw_link_page_fr);
+        $string3 = struct_param($struct6, motw_link_raw_fr);
+        $string1 = struct_param($struct6, motw_link_module_fr);
+    case 3 :
+        $string2 = struct_param($struct6, motw_link_page_pt);
+        $string3 = struct_param($struct6, motw_link_raw_pt);
+        $string1 = struct_param($struct6, motw_link_module_pt);
+}
+if (string_length($string2) = 0) {
+    $string2 = struct_param($struct6, motw_link_page);
+}
+if (string_length($string3) = 0) {
+    $string3 = struct_param($struct6, motw_link_raw);
+}
+if (string_length($string1) = 0) {
+    $string1 = struct_param($struct6, motw_link_module);
+}
+$string0 = struct_param($struct6, motw_title);
+if_setgraphic(~script19254($struct6, map_lang), $component0);
+switch_int (struct_param($struct6, motw_onclick)) {
+    case 1 :
+        if (string_length($string0) = 0) {
+            $string0 = "Treasure Hunter";
+        }
+        ~script13264(1, 1, $int4);
+    case 2, 18 :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        if_setop(1, "Select", $component0);
+        if_setonop("script13252", $component0);
+    case 3 :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        if_setop(1, "Select", $component0);
+        if_setonop("script12374($string1, $string2, $string2, struct_param($struct6, motw_link_secure))", $component0);
+        if_setonclick("script9036", $component0);
+    case 9 :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        if_setop(1, "Select", $component0);
+        if_setonop("script2827($string3, 0)", $component0);
+        if_setonclick("script9036", $component0);
+    case 4 :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        if_setop(1, "Select", $component0);
+        if_setonop("script13252", $component0);
+    case 5 :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        ~script13264(5, 1, $int4);
+    case 8 :
+        if (string_length($string0) = 0) {
+            $string0 = "Runecoins";
+        }
+        ~script13264(8, 1, $int4);
+    case 10 :
+        if (string_length($string0) = 0) {
+            $string0 = "Bonds";
+        }
+        ~script13264(10, 1, $int4);
+    case 11 :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        ~script13264(11, 1, $int4);
+        if (struct_param($struct6, quest_id) > 0) {
+            $quest7 = enum(int, quest, ql4_quests, struct_param($struct6, quest_id));
+        }
+        if ($quest7 ! null) {
+            $string5 = quest_param($quest7, quest_description);
+        } else {
+            $string5 = struct_param($struct6, task_details);
+        }
+    case 12 :
+        if (string_length($string0) = 0) {
+            $string0 = "Hero Pass";
+        }
+        ~script13264(12, 1, $int4);
+    case 13 :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        if (platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex) {
+            ~script13264(14, 1, $int4);
+        } else {
+            if_setop(1, "Select", $component0);
+            if_setonop("script15228(19)", $component0);
+        }
+        if_setonclick("script9036", $component0);
+    case 14 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        ~script13264(14, 1, $int4);
+    case 15 :
+        if (string_length($string0) = 0) {
+            $string0 = "Treasure Hunter";
+        }
+        ~script13264(15, 1, $int4);
+    case 19 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        ~script13264(19, 1, $int4);
+    case default :
+        if (string_length($string0) = 0) {
+            $string0 = "New Content";
+        }
+        if_setop(1, "Select", $component0);
+        if_setonop("script13252", $component0);
+}
+if (string_length($string0) > 0) {
+    if_settext($string0, $component1);
+}
+if (compare($string5, "") ! 0) {
+    if_setonmouserepeat("script10070($string5, 400, event_com, event_comsubid)", $component0);
+}
+cc_deleteall($component2);
+if (compare($string4, "") = 0) {
+    return;
+}
+def_int $int10 = 0;
+~script10047($component2, $int10++);
+cc_create($component2, ^iftype_text, $int10);
+cc_settext($string4);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(0, 32, ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_13pt_regular);
+cc_setcolour(0xf0be79);
+cc_settextshadow(true);

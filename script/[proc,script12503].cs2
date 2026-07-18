@@ -1,0 +1,32 @@
+// 12503
+[proc,script12503]
+def_int $int0 = enum_getoutputcount(bslay_int_to_struct);
+def_int $int1 = 1;
+def_struct $struct2 = null;
+def_boolean $boolean3 = false;
+def_int $int4 = 10;
+def_int $int5 = 10;
+while ($int1 <= $int0) {
+    $struct2 = enum(int, struct, bslay_int_to_struct, $int1);
+    $boolean3 = false;
+    if ($struct2 ! null) {
+        if (struct_param($struct2, bslay_assignable) = false) {
+            cc_create(bslay_choose_task:click_layer, ^iftype_graphic, if_getnextsubid(bslay_choose_task:click_layer));
+        } else {
+            if (struct_param($struct2, bslay_combat_req) > ~comlevel) {
+                $boolean3 = true;
+            }
+            if (~script16088($struct2) = 0) {
+                $boolean3 = true;
+            }
+            ~script12501(bslay_choose_task:build_layer, bslay_choose_task:click_layer, rs3tli_3x3_button, calc(8 + if_getwidth(bslay_choose_task:build_layer) / 2 * (($int1 - 1) % 2)), $int4, calc((if_getwidth(bslay_choose_task:build_layer) - 20) / 2), 20, if_getnextsubid(bslay_choose_task:click_layer), $boolean3, struct_param($struct2, bslay_name));
+            $int4 = calc($int4 + 23 * (($int1 - 1) % 2));
+        }
+        $int5 = calc($int5 + 23 * (($int1 - 1) % 2));
+    }
+    $int1 = calc($int1 + 1);
+}
+if (if_getheight(bslay_choose_task:content_layer) < calc($int5 + 27)) {
+    if_setscrollsize(0, $int5, bslay_choose_task:content_layer);
+    ~rs3_scrollbar_vertical(bslay_choose_task:scrollbar_layer, bslay_choose_task:content_layer);
+}

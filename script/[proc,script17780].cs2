@@ -1,0 +1,31 @@
+// 17780
+[proc,script17780](int $int0, int $int1, int $int2, component $component3)(int)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_obj $obj6 = null;
+def_int $int7 = -1;
+def_int $int8 = ~script17501(%necro_ritual_active_recipe);
+def_int $int9 = ~script17525(%necro_ritual_active_recipe, 1);
+def_int $int10 = ~script17524(%necro_ritual_active_recipe, ~script17542(~script17497(%necro_ritual_active_site)), 1);
+switch_int ($int8) {
+    case 1 :
+        if (~script14488(%necro_ritual_active_site) = true) {
+            $int4 = calc($int1 * paraheight(" <tostring($int10)> <~text_plural($int10, "soul", "souls")> added to the Well of Souls", $int2, notosans_12));
+            ~cc_add_text($component3, if_getnextsubid($component3), 0, calc($int0 + $int5), ^setpos_abs_left, ^setpos_abs_top, $int2, $int4, ^setsize_abs, ^setsize_abs, text_body_default, " <tostring($int10)> <~text_plural($int10, "soul", "souls")> added to the Well of Souls");
+            ~script2731($component3, cc_getid, 2);
+            $int5 = calc($int5 + cc_getheight);
+        }
+    case 5 :
+        $obj6, $int7 = ~script17515(%necro_ritual_active_recipe, 0);
+        $int7 = ~script17832($obj6, $int7);
+        $int9 = calc($int9 + $int7);
+}
+$int4 = calc($int1 * paraheight(" <tostring($int9)> <oc_name(ectoplasm)>", calc($int2 - 18), notosans_12));
+~cc_add_obj($component3, if_getnextsubid($component3), 0, calc($int0 + $int5), ^setpos_abs_left, ^setpos_abs_top, 18, 18, ^setsize_abs, ^setsize_abs, ectoplasm, 1);
+~cc_add_text($component3, if_getnextsubid($component3), 18, calc($int0 + $int5), ^setpos_abs_left, ^setpos_abs_top, calc($int2 - 18), $int4, ^setsize_abs, ^setsize_abs, text_body_default, " <tostring($int9)> <oc_name(ectoplasm)>");
+~script2731($component3, cc_getid, 2);
+if ($int8 = 5) {
+    ~script3537("Includes <tostring(calc($int9 - $int7))> as ritual byproduct");
+}
+$int5 = calc($int5 + cc_getheight);
+return($int5);

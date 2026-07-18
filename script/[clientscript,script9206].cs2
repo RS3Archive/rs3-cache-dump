@@ -1,0 +1,22 @@
+// 9206
+[clientscript,script9206](component $component0, component $component1, int $int2, int $int3, int $int4)
+~script8841(35, 1);
+if_setonkey(null, chatdefault:input);
+%friends_edit_note_list = $int3;
+%friends_edit_note_id = $int4;
+def_string $string0 = "";
+if ($int3 = 0) {
+    $string0 = friend_getnotes($int4);
+} else {
+    $string0 = ignore_getnotes($int4);
+}
+if_settext($string0, friends_edit_note:input_text);
+%friends_caret_position = string_length($string0);
+~script1566(0, $string0, 50);
+def_int $int5 = stringwidth(substring($string0, 0, %friends_caret_position), if_getfontmetrics($component0));
+def_int $int6 = 4;
+if (calc($int5 + 4) > if_getwidth(if_getlayer($component0))) {
+    $int6 = calc(-4 - ($int5 - if_getwidth(if_getlayer($component0))));
+}
+if_setposition($int6, if_gety($component0), ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setposition(~script1551(%friends_caret_position, $string0, if_getfontmetrics($component0), $int6), 5, ^setpos_abs_left, ^setpos_abs_top, $component1);

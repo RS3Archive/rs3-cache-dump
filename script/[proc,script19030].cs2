@@ -1,0 +1,38 @@
+// 19030
+[proc,script19030]()(int)
+def_dbrow $dbrow0 = null;
+def_var_int $var_int1 = null;
+def_int $int2 = -1;
+def_int $int3 = db_filter_find(db_filter_combine(db_filter_value(runecrafting_altars:col6, stat_base(runecraft), ^filterop_lte, 0), db_filter_value(runecrafting_altars:col4, 0, ^filterop_eq, 0)), runecrafting_altars:col6, true, -1, 0);
+def_int $int4 = 0;
+def_int $int5 = random($int3);
+def_int $int6 = -1;
+def_int $int7 = calc((%elidinis_boss_skilling_offhand_runecrafting_attuned_altar_streak + 20 - 1) / 20);
+def_int $int8 = 0;
+while ($int8 < $int7) {
+    if (random(20) < calc(%elidinis_boss_skilling_offhand_runecrafting_attuned_altar_streak - 20 * $int8)) {
+        $int4 = calc($int4 + 1);
+    }
+    $int8 = calc($int8 + 1);
+}
+while ($int4 > 0) {
+    $int6 = random($int3);
+    if ($int6 > $int5) {
+        $int5 = $int6;
+    }
+    $int4 = calc($int4 - 1);
+}
+unknown_command_81($int5);
+$dbrow0 = db_findnext;
+while ($dbrow0 ! null) {
+    $var_int1, $int2 = db_getfield($dbrow0, runecrafting_altars:col7, 0);
+    if ($var_int1 = null) {
+        return(db_getfield($dbrow0, runecrafting_altars:col0, 0));
+    } else if (var_reference_get($var_int1) >= $int2) {
+        return(db_getfield($dbrow0, runecrafting_altars:col0, 0));
+    }
+    $int3 = db_filter_find(db_filter_combine(db_filter_value(runecrafting_altars:col6, calc(db_getfield($dbrow0, runecrafting_altars:col6, 0) - 1), ^filterop_lte, 0), db_filter_value(runecrafting_altars:col4, 0, ^filterop_eq, 0)), runecrafting_altars:col0, true, -1, 0);
+    unknown_command_81(random($int3));
+    $dbrow0 = db_findnext;
+}
+~error("No valid altars found. This should be impossible!");

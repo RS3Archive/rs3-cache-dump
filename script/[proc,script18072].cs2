@@ -1,0 +1,18 @@
+// 18072
+[proc,script18072](dbrow $dbrow0)(string, string)
+def_dbrow $dbrow1 = db_getfield($dbrow0, bp3_mission:col2, 0);
+def_string $string0 = "";
+if (db_getfieldcount($dbrow1, bp3_task:col0) > 0) {
+    $string0 = db_getfield($dbrow1, bp3_task:col0, 0);
+} else if (db_getfieldcount($dbrow1, bp3_task:col3) > 0) {
+    $string0 = "Get # Hero points via %";
+    $string0 = ~script2332($string0, "%", enum(stat, string, stat_to_string, db_getfield($dbrow1, bp3_task:col3, 0)));
+}
+$string0 = ~script2332($string0, "#", tostring(db_getfield($dbrow0, bp3_mission:col5, 0)));
+def_string $string1 = "";
+if (db_getfieldcount($dbrow1, bp3_task:col1) > 0) {
+    $string1 = db_getfield($dbrow1, bp3_task:col1, 0);
+} else {
+    ~script17927;
+}
+return($string0, $string1);

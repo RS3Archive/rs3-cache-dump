@@ -1,0 +1,40 @@
+// 9643
+[clientscript,script9643](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+def_component $component8 = ~script8101;
+if (worldmap_isloaded = false) {
+    return;
+}
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+$int9, $int10 = worldmap_getsize;
+if ($int5 = $int9 & $int6 = $int10 & $int7 = 1) {
+    if_setontimer(null, $component0);
+    return;
+} else if ($int5 = $int9 & $int6 = $int10) {
+    if_setontimer("script9643($component0, $int1, $int2, $int3, $int4, $int9, $int10, 1)", $component0);
+    return;
+} else {
+    if_setontimer("script9643($component0, $int1, $int2, $int3, $int4, $int9, $int10, 0)", $component0);
+}
+$int15, $int16 = if_getwidth($component8), if_getheight($component8);
+if ($int9 > 0 & $int10 > 0) {
+    $int11, $int12 = worldmap_getdisplayposition;
+    $int17, $int18 = scale($int9, $int15, $int1), scale($int10, $int16, $int2);
+    $int13 = calc($int3 - $int17);
+    $int14 = calc($int4 + $int18);
+    if ($int13 < 0) {
+        $int13 = 0;
+    }
+    if ($int14 < 0) {
+        $int14 = 0;
+    }
+    worldmap_jumptodisplaycoord(movecoord(0_0_0_0_0, $int13, 0, $int14));
+}

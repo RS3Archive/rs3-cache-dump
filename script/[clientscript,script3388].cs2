@@ -1,0 +1,50 @@
+// 3388
+[clientscript,script3388](int $int0, int $int1)
+def_component $component2 = null;
+switch_int ($int1) {
+    case 1 :
+        $component2 = null;
+    case 2 :
+        $component2 = lobbyscreen_windowmode_confirm:text;
+    case default :
+        $component2 = loginscreen:windowmode_confirm_text;
+}
+if ($component2 ! null) {
+    if_settext("Your display has been changed. Do you want to keep this setting?", $component2);
+}
+def_int $int3 = ~script18960;
+def_boolean $boolean4 = false;
+if ($int3 ! $int0) {
+    switch_int ($int0) {
+        case 1 :
+            autosetup_setmin;
+        case 2 :
+            autosetup_setlow;
+        case 3 :
+            autosetup_setmedium;
+        case 4 :
+            autosetup_sethigh;
+        case 5 :
+            autosetup_setultra(0);
+        case 6 :
+            if ($int3 ! 5) {
+                autosetup_setultra(0);
+                $boolean4 = true;
+            }
+            $boolean4 = ~script18961(graphics_options_nxt_reflections, 4, $boolean4);
+            $boolean4 = ~script18961(graphics_options_nxt_ambient_occlusion, 3, $boolean4);
+            $boolean4 = ~script18961(graphics_options_nxt_shadows_quality, 4, $boolean4);
+            $boolean4 = ~script18961(graphics_options_nxt_volumetric_lighting, 5, $boolean4);
+            if ($boolean4 = false) {
+                return;
+            }
+        case 0 :
+            autosetup_setcustom;
+        case -1 :
+            ~autosetup($int1);
+    }
+} else {
+    return;
+}
+~script2593;
+~graphics_options_rebuild(getwindowmode, ~graphics_options_reviewoptions, $int1);

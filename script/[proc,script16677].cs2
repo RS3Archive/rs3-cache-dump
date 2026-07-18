@@ -1,0 +1,37 @@
+// 16677
+[proc,script16677]
+~script16679;
+~cc_add_layer(wheel_of_fortune:foreground_wrapper, 2, 0, 78, ^setpos_abs_centre, ^setpos_abs_top, 0, 192, ^setsize_minus, ^setsize_minus);
+cc_setnoclickthrough(true);
+~cc_add_layer(wheel_of_fortune:foreground_wrapper, 3, 0, -20, ^setpos_abs_centre, ^setpos_abs_centre, 235, 253, ^setsize_abs, ^setsize_abs);
+~script7920(wheel_of_fortune:foreground_wrapper, 3, 0, 0, 3, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, trh185_progress_claim_bg);
+~script15939(wheel_of_fortune:foreground_wrapper, 3, 1, 0, 3, 0, 58, ^setpos_abs_centre, ^setpos_abs_top, 50, 85, ^setsize_minus, ^setsize_minus);
+~script7920(wheel_of_fortune:foreground_wrapper, 3, 2, 3, 1, 0, -30, ^setpos_abs_centre, ^setpos_abs_centre, 294, 294, ^setsize_abs, ^setsize_abs, trh185_progress_claim_image_glow);
+~script7920(wheel_of_fortune:foreground_wrapper, 3, 3, 3, 1, 0, -30, ^setpos_abs_centre, ^setpos_abs_centre, 294, 294, ^setsize_abs, ^setsize_abs, trh185_progress_claim_image_light);
+~script10507(wheel_of_fortune:foreground_wrapper, 3, 4, 0, 3, 0, 20, ^setpos_abs_centre, ^setpos_abs_top, 8, 34, ^setsize_minus, ^setsize_abs, big_window_title_text, "Bonus reward");
+cc_setcolour(^white);
+def_obj $obj0 = null;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$obj0, $int1 = ~script16653(%trh185_progress_track_reward_id);
+~script7920(wheel_of_fortune:foreground_wrapper, 3, 5, 0, 3, 0, -17, ^setpos_abs_centre, ^setpos_abs_centre, 75, 75, ^setsize_abs, ^setsize_abs, null);
+if (oc_param($obj0, mtxmgt_category) = 2) {
+    cc_setgraphic(enum(int, graphic, trh185_progress_prize_graphic, %trh185_progress_track_reward_id));
+    $int2, $int3 = cc_getgraphicdimensions;
+    cc_setaspect($int2, $int3);
+    if ($int2 > $int3) {
+        cc_setsize(75, 1, ^setsize_abs, ^setsize_aspect);
+    } else {
+        cc_setsize(1, 75, ^setsize_aspect, ^setsize_abs);
+    }
+} else {
+    cc_setobject_nonum($obj0, $int1);
+    cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, -12, ^setpos_abs_centre, ^setpos_abs_centre);
+}
+~script10507(wheel_of_fortune:foreground_wrapper, 3, 6, 0, 3, 0, 70, ^setpos_abs_centre, ^setpos_abs_bottom, 50, 32, ^setsize_minus, ^setsize_abs, big_window_desc_text, ~script16655);
+~script7863(wheel_of_fortune:foreground_wrapper, 3, 7, 0, 3, 0, 30, ^setpos_abs_centre, ^setpos_abs_bottom, 130, 32, ^setsize_abs, ^setsize_abs, button_action_positive, "Claim");
+cc_setonop("trh185_progress_claim");
+cc_setop(1, "Claim");
+~wof_hotkey(1);

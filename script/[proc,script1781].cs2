@@ -1,0 +1,18 @@
+// 1781
+[proc,script1781]
+def_int $int0 = 0;
+def_boolean $boolean1 = false;
+while ($int0 <= 4) {
+    if (cc_find(clanwars_setup:arena_layer, calc($int0 * 3)) = true) {
+        $boolean1 = false;
+        if (map_members = false & struct_param(enum(int, struct, clanwars_arena_options, $int0), clanwars_arena_membersonly) = true) {
+            $boolean1 = true;
+        }
+        ~static_checkbox_focus(~equal_int($int0, %clanwars_rulevarc_arenachoice), $boolean1, 0);
+        if (%clanwars_rulevarc_arenachoice = $int0) {
+            ~clanwars_focuslayer(clanwars_setup:arena_layer, clanwars_setup:arena_scrollbar, clanwars_setup:arena_layer, calc($int0 * 3 + 2));
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+~clanwars_updateside;

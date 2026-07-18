@@ -1,0 +1,34 @@
+// 19593
+[proc,script19593](inv $inv0, obj $obj1, int $int2, int $int3)(int)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_component $component6 = ~script19567($inv0);
+if (oc_uncert($obj1) = $obj1 & oc_stackable($obj1) = false | ~script3802($obj1) = true) {
+    while ($int5 < $int3) {
+        if (.cc_find($component6, $int5) = true & .cc_getinvobject = null & --$int2 = 0) {
+            return(0);
+        }
+        $int5 = calc($int5 + 1);
+    }
+    return($int2);
+}
+def_obj $obj7 = null;
+while ($int5 < $int3) {
+    if (.cc_find($component6, $int5) = true) {
+        $obj7 = .cc_getinvobject;
+        if ($obj7 = $obj1) {
+            $int4 = calc(^max_32bit_int - .cc_getinvcount - $int2);
+            if ($int4 < 0) {
+                return(calc(0 - $int4));
+            }
+            return(0);
+        } else if ($obj7 = null) {
+            $int4 = 1;
+        }
+    }
+    $int5 = calc($int5 + 1);
+}
+if ($int4 = 1) {
+    return(0);
+}
+return($int2);

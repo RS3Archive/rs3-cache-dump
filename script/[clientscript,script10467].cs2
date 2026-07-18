@@ -1,0 +1,56 @@
+// 10467
+[clientscript,script10467](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, int $int7, int $int8)
+def_int $int9 = -1;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = -1;
+def_int $int14 = 0;
+if ($component2 ! null) {
+    $int14 = if_getheight($component2);
+}
+if (if_find($component1) = true) {
+    $int9 = cc_param(panel_expand_type);
+    $int10 = cc_param(panel_iterations);
+    if (cc_param(panel_direction) <= 0) {
+        $int10 = calc($int10 - 1);
+        if ($int9 = 1) {
+            $int13 = 21770;
+        } else if ($int9 = 0) {
+            $int13 = 21722;
+        }
+    } else {
+        $int10 = calc($int10 + 1);
+        if ($int9 = 0) {
+            $int13 = 21770;
+        } else if ($int9 = 1) {
+            $int13 = 21722;
+        }
+    }
+    if ($int10 < 0) {
+        ~script10461($component0, $component1, $component2, $component4);
+    } else if ($int10 > min($int8, $int7)) {
+        cc_setparam(panel_opened, true);
+        if_setontimer(null, $component0);
+        ~script10468($component0, 1);
+    } else {
+        cc_setparam(panel_iterations, $int10);
+        $int12 = scale($int7, min($int8, $int7), $int10);
+        $int11 = calc($int7 - $int12);
+        switch_int ($int9) {
+            case 0, 1 :
+                $int7 = calc(if_getheight($component0) - $int7);
+                $int11 = calc($int7 + $int11 - $int14);
+                if_setsize(if_getwidth($component1), $int12, ^setsize_abs, ^setsize_abs, $component1);
+                if_setposition(0, $int11, ^setpos_abs_left, ^setpos_abs_top, $component1);
+            case 2, 3 :
+                $int7 = calc(if_getwidth($component0) - $int7);
+                $int11 = calc($int7 + $int11 - $int14);
+                if_setsize($int12, if_getheight($component1), ^setsize_abs, ^setsize_abs, $component1);
+                if_setposition($int11, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
+        }
+        if ($component4 ! null) {
+            ~scrollbar_resize($component4, $component3, 0);
+        }
+    }
+}

@@ -1,0 +1,34 @@
+// 19565
+[proc,script19565](int $int0)
+~script19507;
+if ($int0 = 1) {
+    ~script19535;
+}
+if (%bank_filter = 0) {
+    if (%bank_searchmode_client = false) {
+        if (cc_find(group_ironman_storage:border_layer, 14) = true) {
+            cc_settext("<%group_ironman_cache_clan_name_client> Storage");
+        }
+        ~script19504;
+        if_sethide(true, group_ironman_storage:bottom_panel_cancel);
+    }
+    if_sethide(true, group_ironman_storage:message_nofilter);
+    if ($int0 = 1) {
+        ~script19526;
+        ~script19518(1);
+    }
+    return;
+}
+if (cc_find(group_ironman_storage:border_layer, 14) = true) {
+    cc_settext("<%group_ironman_cache_clan_name_client> Storage (<enum(int, string, bank_filter_title, %bank_filter)>)");
+} else {
+    if_setontimer("script19566", group_ironman_storage:content);
+}
+if ($int0 = 1) {
+    ~script19526;
+    ~script19518(1);
+}
+if_sethide(false, group_ironman_storage:bottom_panel_cancel);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, group_ironman_storage:bottom_panel_cancel);
+~script13993(group_ironman_storage:bottom_panel_cancel, null, rs3tli_30px_button_3x3, "Clear Filter");
+if_setonop("script19560", group_ironman_storage:bottom_panel_cancel_button);

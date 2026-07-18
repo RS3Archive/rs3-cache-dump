@@ -1,0 +1,183 @@
+// 3568
+[proc,script3568](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = calc($int2 - date_minutes);
+def_int $int12 = $int11;
+def_int $int13 = 4538;
+def_int $int14 = 1087;
+def_int $int15 = 9741;
+cc_deleteall($component0);
+if ($int11 < 0) {
+    $int12 = 0;
+    $int11 = 0;
+    $int4 = 0;
+    if_setontimer(null, $component1);
+}
+$int8 = calc($int11 / 1440);
+$int9 = calc($int11 / 60);
+$int11 = calc($int11 % 60);
+$int10 = $int11;
+def_int $int16 = calc($int9 / 100);
+def_int $int17 = calc($int9 % 100 / 10);
+def_int $int18 = calc($int9 % 10);
+def_int $int19 = calc($int10 / 10);
+def_int $int20 = calc($int10 % 10);
+def_int $int21 = 0;
+def_int $int22 = 0;
+if ($int5 ! 0 & $component0 = lobbyscreen_pane_playerinfo:message_of_the_week_dynamic) {
+    switch_int (map_lang) {
+        case 0 :
+            if_setgraphic(rs3_lobby_primary_dxp_countdown_en, lobbyscreen_pane_playerinfo:special_gfx);
+        case 1 :
+            if_setgraphic(rs3_lobby_primary_dxp_countdown_de, lobbyscreen_pane_playerinfo:special_gfx);
+        case 2 :
+            if_setgraphic(rs3_lobby_primary_dxp_countdown_fr, lobbyscreen_pane_playerinfo:special_gfx);
+        case 3 :
+            if_setgraphic(rs3_lobby_primary_dxp_countdown_pt, lobbyscreen_pane_playerinfo:special_gfx);
+    }
+    if_settext("Double XP", lobbyscreen_pane_playerinfo:main_banner_title_text);
+    $int5 = 0;
+}
+def_string $string0 = "Hours";
+def_string $string1 = "Minutes";
+def_string $string2 = "Seconds";
+def_int $int23 = 4;
+if ($int5 = 1 & $int8 >= $int23) {
+    $string0 = "Days";
+    $int16 = calc($int8 / 100);
+    $int17 = calc($int8 % 100 / 10);
+    $int18 = calc($int8 % 10);
+    $string1 = "Hours";
+    $int19 = calc($int9 % 24 / 10);
+    $int20 = calc($int9 % 24 % 10);
+    $string2 = "Minutes";
+    $int21 = calc($int10 / 10);
+    $int22 = calc($int10 % 10);
+    $int4 = 0;
+}
+if ($int3 < date_minutes) {
+    $int4 = 5998;
+}
+if ($int4 < 0) {
+    switch_int ($int4) {
+        case -1 :
+            if (calc(clientclock % 50) = 0) {
+                $int4 = calc($int4 - 1);
+            }
+            if ($int16 >= 1) {
+                $int16 = random(2);
+            }
+            $int17 = random(10);
+            $int18 = random(10);
+            $int19 = random(6);
+            $int20 = random(10);
+            $int21 = random(6);
+            $int22 = random(10);
+        case -2 :
+            if (calc(clientclock % 50) = 0) {
+                $int4 = calc($int4 - 1);
+            }
+            $int17 = random(10);
+            $int18 = random(10);
+            $int19 = random(6);
+            $int20 = random(10);
+            $int21 = random(6);
+            $int22 = random(10);
+        case -3 :
+            if (calc(clientclock % 100) = 0) {
+                $int4 = calc($int4 - 1);
+            }
+            $int18 = random(10);
+            $int19 = random(6);
+            $int20 = random(10);
+            $int21 = random(6);
+            $int22 = random(10);
+        case -4 :
+            if (calc(clientclock % 200) = 0) {
+                $int4 = calc($int4 - 1);
+            }
+            $int19 = random(6);
+            $int20 = random(10);
+            $int21 = random(6);
+            $int22 = random(10);
+        case -5 :
+            if (calc(clientclock % 400) = 0) {
+                $int4 = calc($int4 - 1);
+            }
+            $int20 = random(10);
+            $int21 = random(6);
+            $int22 = random(10);
+        case -6 :
+            if (calc(clientclock % 800) = 0) {
+                $int4 = calc($int4 - 1);
+            }
+            $int21 = random(6);
+            $int22 = random(10);
+        case default :
+            $int22 = random(10);
+    }
+} else if ($int4 > 0 & ($int5 ! 1 | $int8 < $int23)) {
+    $int4 = calc($int4 - 2);
+    $int21 = calc($int4 / 1000);
+    $int22 = calc($int4 % 1000 / 100);
+}
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize($int14, $int13, ^setsize_rel, ^setsize_rel);
+cc_setposition(11114, $int15, ^setpos_rel_left, ^setpos_rel_top);
+cc_setgraphic(~script12276($int22, $int7));
+cc_create($component0, ^iftype_graphic, 1);
+cc_setsize($int14, $int13, ^setsize_rel, ^setsize_rel);
+cc_setposition(9924, $int15, ^setpos_rel_left, ^setpos_rel_top);
+cc_setgraphic(~script12276($int21, $int7));
+cc_create($component0, ^iftype_graphic, 2);
+cc_setsize($int14, $int13, ^setsize_rel, ^setsize_rel);
+cc_setposition(8225, $int15, ^setpos_rel_left, ^setpos_rel_top);
+cc_setgraphic(~script12276($int20, $int7));
+cc_create($component0, ^iftype_graphic, 3);
+cc_setsize($int14, $int13, ^setsize_rel, ^setsize_rel);
+cc_setposition(7035, $int15, ^setpos_rel_left, ^setpos_rel_top);
+cc_setgraphic(~script12276($int19, $int7));
+cc_create($component0, ^iftype_graphic, 4);
+cc_setsize($int14, $int13, ^setsize_rel, ^setsize_rel);
+cc_setposition(5404, $int15, ^setpos_rel_left, ^setpos_rel_top);
+cc_setgraphic(~script12276($int18, $int7));
+cc_create($component0, ^iftype_graphic, 5);
+cc_setsize($int14, $int13, ^setsize_rel, ^setsize_rel);
+cc_setposition(4214, $int15, ^setpos_rel_left, ^setpos_rel_top);
+cc_setgraphic(~script12276($int17, $int7));
+if ($int16 > 0) {
+    cc_create($component0, ^iftype_graphic, 6);
+    cc_setsize($int14, $int13, ^setsize_rel, ^setsize_rel);
+    cc_setposition(3025, $int15, ^setpos_rel_left, ^setpos_rel_top);
+    cc_setgraphic(~script12276($int16, $int7));
+}
+def_int $int24 = 2243;
+def_int $int25 = 1660;
+if ($int6 = 1) {
+    cc_create($component0, ^iftype_text, 7);
+    cc_setsize($int24, $int25, ^setsize_rel, ^setsize_rel);
+    cc_setposition(4214, calc($int15 + $int13), ^setpos_rel_left, ^setpos_rel_top);
+    cc_settext($string0);
+    cc_setcolour(0x505967);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~script15888(1, 66, 15, 0, fonts_notosans_bold, 11);
+    cc_create($component0, ^iftype_text, 8);
+    cc_setsize($int24, $int25, ^setsize_rel, ^setsize_rel);
+    cc_setposition(7035, calc($int15 + $int13), ^setpos_rel_left, ^setpos_rel_top);
+    cc_settext($string1);
+    cc_setcolour(0x505967);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~script15888(1, 66, 15, 0, fonts_notosans_bold, 11);
+    cc_create($component0, ^iftype_text, 9);
+    cc_setsize($int24, $int25, ^setsize_rel, ^setsize_rel);
+    cc_setposition(9924, calc($int15 + $int13), ^setpos_rel_left, ^setpos_rel_top);
+    cc_settext($string2);
+    cc_setcolour(0x505967);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~script15888(1, 66, 15, 0, fonts_notosans_bold, 11);
+}
+if ($int12 > 0) {
+    if_setontimer("script12275($component0, $component1, $int2, date_minutes, $int4, $int5, $int6, $int7)", $component1);
+}

@@ -1,0 +1,22 @@
+// 13568
+[proc,script13568]()(int)
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(int_to_stat);
+def_stat $stat2 = null;
+def_int $int3 = 0;
+while ($int0 < $int1) {
+    $stat2 = enum(int, stat, int_to_stat, calc($int0 + 1));
+    if ($stat2 ! null) {
+        if (stat_base_actual($stat2) >= enum(stat, int, stat_to_statcap, $stat2)) {
+            $int3 = setbit($int3, $int0);
+        }
+        if (date_runeday <= 6725 & ($stat2 = farming | $stat2 = herblore) & stat_base_actual($stat2) >= 99) {
+            $int3 = setbit($int3, $int0);
+        }
+        if (date_runeday <= 6790 & $stat2 = archaeology & stat_base_actual($stat2) >= 99) {
+            $int3 = setbit($int3, $int0);
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+return($int3);

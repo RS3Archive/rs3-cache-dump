@@ -1,0 +1,25 @@
+// 16297
+[proc,script16297]
+def_struct $struct0 = ~script9942(%construction_house_furniture_portal_nexus_active_default);
+db_find(construction_house_portal_nexus_teleport_destinations:col0, %construction_house_furniture_portal_nexus_active_default);
+def_dbrow $dbrow1 = db_findnext;
+if ($struct0 = null) {
+    if (~script6431 = true) {
+        if_settext("Tap option", construction_house_furniture_portal_nexus_configure:destination_header);
+    } else {
+        if_settext("Left-click option", construction_house_furniture_portal_nexus_configure:destination_header);
+    }
+    if_settext("Open destination selection", construction_house_furniture_portal_nexus_configure:destination_name);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, construction_house_furniture_portal_nexus_configure:destination_name);
+    if_setgraphic(null, construction_house_furniture_portal_nexus_configure:destination_icon);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, construction_house_furniture_portal_nexus_configure:destination_name);
+} else {
+    if ($dbrow1 ! null) {
+        if_settext(db_getfield($dbrow1, construction_house_portal_nexus_teleport_destinations:col1, 0), construction_house_furniture_portal_nexus_configure:destination_name);
+    } else {
+        if_settext(struct_param($struct0, combatv2_ability_name), construction_house_furniture_portal_nexus_configure:destination_name);
+    }
+    if_settextalign(^settextalign_left, ^settextalign_centre, 0, construction_house_furniture_portal_nexus_configure:destination_name);
+    if_setgraphic(struct_param($struct0, combatv2_ability_icon), construction_house_furniture_portal_nexus_configure:destination_icon);
+    if_setsize(34, 0, ^setsize_minus, ^setsize_minus, construction_house_furniture_portal_nexus_configure:destination_name);
+}

@@ -1,0 +1,35 @@
+// 11997
+[proc,script11997](component $component0, component $component1, component $component2, struct $struct3)
+def_int $int4 = if_getwidth(if_getlayer($component0));
+def_int $int5 = if_getheight(if_getlayer($component0));
+def_boolean $boolean6 = ~script6431;
+if ($component0 = struct_param($struct3, prayer_child_quick_prayers) | $component0 = struct_param($struct3, prayer_child_filter)) {
+    if ($boolean6 = true) {
+        if_sethide(true, $component0);
+    } else {
+        if_sethide(false, $component0);
+        if ($component0 = struct_param($struct3, prayer_child_quick_prayers)) {
+            if_setsize(24, 24, ^setsize_abs, ^setsize_abs, $component0);
+            if_setposition(calc(24 + scale(3, 2, 4)), 4, ^setpos_abs_right, ^setpos_abs_bottom, $component0);
+        } else {
+            if_setsize(24, 24, ^setsize_abs, ^setsize_abs, $component0);
+            if_setposition(4, 4, ^setpos_abs_right, ^setpos_abs_bottom, $component0);
+        }
+    }
+}
+cc_deleteall($component1);
+cc_deleteall($component2);
+$int4 = if_getwidth($component0);
+$int5 = if_getheight($component0);
+def_int $int7 = -1;
+if ($struct3 ! prayer_draw_prayers_quick_prayers) {
+    if ($boolean6 = false & %toplevel_v2_legacy_interface = 1) {
+        if ($component0 = struct_param($struct3, prayer_child_quick_prayers) | $component0 = struct_param($struct3, prayer_child_filter)) {
+            ~script11624($component1, $component2, rs3tli_24px_icon_button, 0, 0, 0, 1);
+        } else {
+            ~script13980($component1, $component2, rs3tli_neutral_button, 0, 0, $int4, 0, false, "");
+        }
+    } else {
+        ~script10410($component1, $component2, rs3tli_3x3_icon_button, 0, 0, $int4, $int5, 0, false, "");
+    }
+}

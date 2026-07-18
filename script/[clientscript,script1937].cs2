@@ -1,0 +1,22 @@
+// 1937
+[clientscript,script1937](int $int0, int $int1, int $int2, int $int3)
+sound_vorbis_volume(qps_shop_ui_confirm_popup, 1, 0, 250);
+def_int $int4 = ~script1931($int0, $int1);
+def_int $int5 = calc($int4 * 25);
+def_string $string0 = null;
+if ($int2 = 0) {
+    if ($int3 > 0) {
+        $string0 = ~text_plural($int3, "You have to wait <tostring($int3)> day before you can reset your unlocks again.", "You have to wait <tostring($int3)> days before you can reset your unlocks again.");
+        ~script13971(qps:confirmation_accept_build, qps:confirmation_accept_click, rs3tli_positive_button, "Accept", true);
+    } else {
+        $string0 = "This will reset all unlocks. You will have to allocate your quest points again and wait <tostring(7)> days before resetting again.";
+    }
+    if_settext($string0, qps:confirmation_text);
+} else if ($int2 = 1) {
+    if ($int5 <= 0) {
+        return;
+    }
+    if_settext("Do you wish to allocate <tostring($int5)> points to this track?", qps:confirmation_text);
+}
+if_sethide(false, qps:confirmation_window);
+if_sethide(false, qps:confirmation_mask);

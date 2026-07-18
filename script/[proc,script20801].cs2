@@ -1,0 +1,115 @@
+// 20801
+[proc,script20801](component $component0, int $int1, int $int2, component $component3, component $component4, component $component5, component $component6, component $component7, int $int8)
+cc_deleteall($component0);
+def_int $int9 = 0;
+def_int $int10 = calc(63 + 1);
+def_int $int11 = 0;
+def_int $int12 = calc(40 - 4);
+def_int $int13 = calc(36 - 4);
+def_int $int14 = calc(4 / 2);
+def_string $string0 = "";
+def_boolean $boolean15 = true;
+if (string_length(%construction_house_furniture_search) >= 2) {
+    $boolean15 = false;
+}
+if ($int1 = 63 | $int1 = 62 | $int2 = 126) {
+    if ($component0 = house_furniture_catalogue:categories) {
+        ~cc_add_button_full($component0, 62, 0, $int11, ^setpos_abs_left, ^setpos_abs_top, 40, 36, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "", $boolean15, true, true, ~equal_int_bool(62, $int1));
+        cc_setop(1, "Select");
+        cc_setonop("script20805(event_com, event_comsubid, $component3, $component4, $component5, $component6, $component7, $int8)");
+        $string0 = "Room shapes";
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+        ~cc_add_graphic($component0, $int10, $int14, calc($int11 + $int14), ^setpos_abs_left, ^setpos_abs_top, $int12, $int13, ^setsize_abs, ^setsize_abs, construction_house_square_8x8);
+        $int11 = calc($int11 + 36);
+        $int11 = calc($int11 + 4);
+        $int10 = calc($int10 + 1);
+        ~cc_add_line($component0, $int10, $int14, calc($int11 + $int14), ^setpos_abs_left, ^setpos_abs_top, $int12, 0, ^setsize_abs, ^setsize_abs, ~script10495(8));
+        $int10 = calc($int10 + 1);
+        ~cc_add_line($component0, $int10, $int14, calc($int11 + $int14 + 1), ^setpos_abs_left, ^setpos_abs_top, $int12, 0, ^setsize_abs, ^setsize_abs, ~script10495(7));
+        $int10 = calc($int10 + 1);
+        $int11 = calc($int11 + 4 * 3);
+    }
+    ~cc_add_button_full($component0, 63, 0, $int11, ^setpos_abs_left, ^setpos_abs_top, 40, 36, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "", $boolean15, true, true, ~equal_int_bool(63, $int1));
+    cc_setop(1, "Select");
+    cc_setonop("script20805(event_com, event_comsubid, $component3, $component4, $component5, $component6, $component7, $int8)");
+    $string0 = "All Furniture";
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    ~cc_add_graphic($component0, $int10, $int14, calc($int11 + $int14), ^setpos_abs_left, ^setpos_abs_top, $int12, $int13, ^setsize_abs, ^setsize_abs, rs3_icon_poh_trunk_all);
+    $int11 = calc($int11 + 36);
+    $int11 = calc($int11 + 4);
+    $int10 = calc($int10 + 1);
+    while ($int9 <= 7) {
+        ~cc_add_button_full($component0, $int9, 0, $int11, ^setpos_abs_left, ^setpos_abs_top, 40, 36, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "", $boolean15, true, true, ~equal_int_bool($int9, $int1));
+        cc_setop(1, "Select");
+        cc_setonop("script20805(event_com, event_comsubid, $component3, $component4, $component5, $component6, $component7, $int8)");
+        $string0 = enum(int, string, construction_house_furniture_categories, $int9);
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+        ~cc_add_graphic($component0, $int10, $int14, calc($int11 + $int14), ^setpos_abs_left, ^setpos_abs_top, $int12, $int13, ^setsize_abs, ^setsize_abs, enum(int, graphic, construction_house_furniture_categories_graphics, $int9));
+        $int11 = calc($int11 + 36);
+        $int11 = calc($int11 + 4);
+        $int9 = calc($int9 + 1);
+        $int10 = calc($int10 + 1);
+    }
+    return;
+}
+~cc_add_button_full($component0, $int1, 0, $int11, ^setpos_abs_left, ^setpos_abs_top, 40, 36, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "", $boolean15, true, true, true);
+cc_setop(1, "Select");
+cc_setonop("script20805(event_com, event_comsubid, $component3, $component4, $component5, $component6, $component7, $int8)");
+$string0 = enum(int, string, construction_house_furniture_categories, $int9);
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+~cc_add_graphic($component0, $int10, $int14, calc($int11 + $int14), ^setpos_abs_left, ^setpos_abs_top, $int12, $int13, ^setsize_abs, ^setsize_abs, "rs3_icon_back_32px,0");
+$int11 = calc($int11 + 36);
+$int11 = calc($int11 + 4);
+def_enum $enum16 = enum(int, enum, construction_house_furniture_categories_subcategories, $int1);
+if ($enum16 = null) {
+    return;
+}
+def_int $int17 = enum_getoutputcount($enum16);
+def_int $int18 = calc(if_getheight($component0) - $int11);
+def_int $int19 = 0;
+def_int $int20 = 20;
+if (~script6431 = true) {
+    $int20 = calc($int20 * 2);
+}
+if ($int17 > calc($int18 / (40 + 4))) {
+    $int18 = calc($int18 - $int20 * 2 - 4 * 2);
+    ~if_add_child_button_full($component0, 2, 1, 0, $int11, ^setpos_abs_centre, ^setpos_abs_top, 40, $int20, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "", $boolean15, true, false, false);
+    cc_setonbuttonpressed("script20803($component0, 1, 0)");
+    cc_setonhold("script20803($component0, 1, 1)");
+    ~if_add_child_graphic($component0, 2, 2, 0, calc($int11 + 4), ^setpos_abs_centre, ^setpos_abs_top, 18, 11, ^setsize_abs, ^setsize_abs, "bank_arrow_up,0");
+    ~if_add_child_button_full($component0, 2, 3, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, 40, $int20, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "", $boolean15, true, false, false);
+    cc_setonbuttonpressed("script20803($component0, 0, 0)");
+    cc_setonhold("script20803($component0, 0, 1)");
+    ~if_add_child_graphic($component0, 2, 4, 0, 4, ^setpos_abs_centre, ^setpos_abs_bottom, 18, 11, ^setsize_abs, ^setsize_abs, "bank_arrow_up,0");
+    cc_setvflip(true);
+    $int19 = 1;
+    $int11 = calc($int11 + $int20 + 4);
+}
+~if_add_child_layer($component0, 2, 0, 0, $int11, ^setpos_abs_centre, ^setpos_abs_top, 0, $int18, ^setsize_minus, ^setsize_abs);
+$int11 = 0;
+$int13 = scale($int12, 36, 32);
+$int14 = calc($int14 + ($int12 - $int13) / 2);
+def_int $int21 = 0;
+def_obj $obj22 = null;
+while ($int9 < $int17) {
+    $int21 = enum(int, int, $enum16, $int9);
+    ~cc_add_child_button_full(1, $int21, 0, $int11, ^setpos_abs_left, ^setpos_abs_top, 40, 36, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "", $boolean15, true, true, ~equal_int_bool($int21, $int2));
+    cc_setop(1, "Select");
+    cc_setonop("script20805(event_com, event_comsubid, $component3, $component4, $component5, $component6, $component7, $int8)");
+    $string0 = enum(int, string, house_furniture_subcategories, $int21);
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    $obj22 = ~script20802($enum16, $int21);
+    ~cc_add_child_obj(3, $int9, $int14, calc($int11 + $int14), ^setpos_abs_left, ^setpos_abs_top, $int12, $int13, ^setsize_abs, ^setsize_abs, $obj22, 1);
+    $int11 = calc($int11 + 36);
+    $int11 = calc($int11 + 4);
+    $int9 = calc($int9 + 1);
+}
+if ($int19 = 1) {
+    ~cc_add_child_layer(2, 5, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setonscrollwheel("script20804($component0, event_mousey)");
+    ~script19632(20, 10, 8, 12);
+    cc_setonswipevertical("script20804($component0, event_mousey)");
+    if (cc_findbycategory($component0, 2, 0) = 1) {
+        cc_setscrollsize(0, $int11);
+    }
+}

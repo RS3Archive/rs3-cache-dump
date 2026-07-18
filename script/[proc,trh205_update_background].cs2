@@ -1,0 +1,16 @@
+// 19800
+[proc,trh205_update_background]
+def_graphic $graphic0 = null;
+switch_int (%trh205_prize_option_chosen) {
+    case 1 :
+        $graphic0 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col2, 0);
+    case 2 :
+        $graphic0 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col3, 0);
+    case default :
+        $graphic0 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col4, 0);
+}
+if ($graphic0 = null) {
+    ~error("No background graphic set when trying to update trh205 background.");
+    return;
+}
+if_setgraphic($graphic0, wheel_of_fortune:background);

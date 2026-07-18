@@ -1,0 +1,56 @@
+// 18998
+[proc,script18998]
+def_int $int0 = if_getnextsubid(trh119_buried_treasure_overlay:grid_chest_layer);
+def_int $int1 = -1;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (.cc_find(trh119_buried_treasure_overlay:grid_chest_layer, 12) = true) {
+    while (++$int1 < $int0) {
+        if ($int1 ! 12 & cc_find(trh119_buried_treasure_overlay:grid_chest_layer, $int1) = true) {
+            $int2 = calc(abs(calc(cc_getx - (.cc_getx - (.cc_getwidth - cc_getwidth)))) / cc_getwidth);
+            $int3 = calc(abs(calc(cc_gety - (.cc_gety + (.cc_getheight - cc_getheight)))) / cc_getheight);
+            $int4 = min($int2, $int3);
+            $int5 = max($int2, $int3);
+            switch_int ($int4) {
+                case 0 :
+                    switch_int ($int5) {
+                        case 0 :
+                            $int6 = 0;
+                        case 1 :
+                            $int6 = 10;
+                        case 2 :
+                            $int6 = 20;
+                        case 3 :
+                            $int6 = 30;
+                    }
+                case 1 :
+                    switch_int ($int5) {
+                        case 1 :
+                            $int6 = 14;
+                        case 2 :
+                            $int6 = 22;
+                        case 3 :
+                            $int6 = 36;
+                    }
+                case 2 :
+                    switch_int ($int5) {
+                        case 2 :
+                            $int6 = 28;
+                        case 3 :
+                            $int6 = 36;
+                    }
+                case 3 :
+                    $int6 = 42;
+            }
+            cc_setparam(rs3tli_component_transparency_type, 1);
+            cc_setparam(rs3tli_component_transparency_min, 0);
+            cc_setparam(rs3tli_component_transparency_max, 150);
+            cc_setparam(rs3tli_component_transparency_playback_rate, 600);
+            cc_setparam(rs3tli_component_transparency_offset, $int6);
+            cc_setontimer("script12631(event_com, event_comsubid)");
+        }
+    }
+}

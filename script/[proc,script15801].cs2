@@ -1,0 +1,41 @@
+// 15801
+[proc,script15801](component $component0, component $component1, int $int2, int $int3, int $int4)
+def_int $int5 = %tut7_sandbox_goal;
+def_boolean $boolean6 = false;
+if ($int5 <= -1) {
+    $boolean6 = true;
+} else if (%tut7_main < 60) {
+    $int5 = 0;
+} else if (%tut7_main > 60) {
+    $int5 = 100;
+}
+if (cc_find($component0, $int3) = true) {
+    cc_settext(~script15799);
+    ~script3403;
+}
+def_int $int7 = calc($int4 + 3);
+def_int $int8 = $int4;
+def_int $int9 = 0;
+while ($int8 < $int7) {
+    if (cc_find($component0, $int8) = true) {
+        if ($int8 = calc($int4 + 2)) {
+            $int9 = calc(cc_getx + cc_getwidth - 10);
+        }
+        cc_sethide($boolean6);
+    }
+    $int8 = calc($int8 + 1);
+}
+if ($boolean6 = false) {
+    $int5 = ~clamp($int5, 0, 100);
+    $int5 = calc($int5 * $int9 / 100);
+    if (cc_find($component0, calc($int4 + 3)) = true) {
+        cc_setsize(calc($int5 - 4), calc(24 - 4), ^setsize_abs, ^setsize_abs);
+    }
+}
+if (cc_find($component1, $int2) = true) {
+    if (%tut7_sandbox_goal >= 100) {
+        ~script3400($component1, $int2, 50);
+    } else {
+        cc_settext(~script15798);
+    }
+}

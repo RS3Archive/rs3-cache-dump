@@ -1,0 +1,353 @@
+// 9022
+[proc,crs_refresh](int $int0)
+def_boolean $boolean1 = ~is_mobile_client;
+def_boolean $boolean2 = ~script7754;
+if ($int0 = 0 | $int0 = 1) {
+    ~crs_fadein(featured_main:crs_content1_header, featured_main:crs_content1_centre, featured_main:crs_content1_footer, featured_main:crs_reroll1_button_layer, $boolean2, featured_main:crs_frame1_layer);
+}
+if ($int0 = 0 | $int0 = 2) {
+    ~crs_fadein(featured_main:crs_content2_header, featured_main:crs_content2_centre, featured_main:crs_content2_footer, featured_main:crs_reroll2_button_layer, $boolean2, featured_main:crs_frame2_layer);
+}
+if ($int0 = 0 | $int0 = 3) {
+    ~crs_fadein(featured_main:crs_content3_header, featured_main:crs_content3_centre, featured_main:crs_content3_footer, featured_main:crs_reroll3_button_layer, $boolean2, featured_main:crs_frame3_layer);
+}
+if ($int0 = 0 | $int0 = 4) {
+    ~crs_fadein(featured_main:crs_content4_header, featured_main:crs_content4_centre, featured_main:crs_content4_footer, featured_main:crs_reroll4_button_layer, $boolean2, featured_main:crs_frame4_layer);
+}
+if ($boolean2 = true) {
+    if_sethide(false, featured_main:crs_reroll_button_layer);
+    ~script3536("Shuffle the deck of recommended content and deal another hand of cards.", featured_main:crs_reroll_button_layer, -1);
+    if_sethide(false, featured_main:crs_reroll1_button_layer);
+    ~script3536("Shuffle this deck of recommended content.", featured_main:crs_reroll1_button_layer, -1);
+    if_sethide(false, featured_main:crs_reroll2_button_layer);
+    ~script3536("Shuffle this deck of recommended content.", featured_main:crs_reroll2_button_layer, -1);
+    if_sethide(false, featured_main:crs_reroll3_button_layer);
+    ~script3536("Shuffle this deck of recommended content.", featured_main:crs_reroll3_button_layer, -1);
+    if_sethide(false, featured_main:crs_reroll4_button_layer);
+    ~script3536("Shuffle this deck of recommended content.", featured_main:crs_reroll4_button_layer, -1);
+} else {
+    if_sethide(true, featured_main:crs_reroll_button_layer);
+    if_sethide(true, featured_main:crs_reroll1_button_layer);
+    if_sethide(true, featured_main:crs_reroll2_button_layer);
+    if_sethide(true, featured_main:crs_reroll3_button_layer);
+    if_sethide(true, featured_main:crs_reroll4_button_layer);
+}
+~script3536("Next Page", featured_main:toggle_button_layer, -1);
+~script13990(featured_main:crs_button1_build, featured_main:crs_button1_click, rs3tli_3x3_button);
+~script13990(featured_main:crs_button2_build, featured_main:crs_button2_click, rs3tli_3x3_button);
+~script13990(featured_main:crs_button3_build, featured_main:crs_button3_click, rs3tli_3x3_button);
+~script13990(featured_main:crs_button4_build, featured_main:crs_button4_click, rs3tli_3x3_button);
+~script13992(~script9024, rs3tli_3x3_button, 1);
+~script9025(%crs_struct1, %crs_quest1, %crs_achievement1, %crs_dbrow1, %crs_latest1, %crs_image_id1, featured_main:crs_content1_type, featured_main:crs_content1_icon, featured_main:crs_content1_image);
+~script9025(%crs_struct2, %crs_quest2, %crs_achievement2, %crs_dbrow2, %crs_latest2, %crs_image_id2, featured_main:crs_content2_type, featured_main:crs_content2_icon, featured_main:crs_content2_image);
+~script9025(%crs_struct3, %crs_quest3, %crs_achievement3, %crs_dbrow3, %crs_latest3, %crs_image_id3, featured_main:crs_content3_type, featured_main:crs_content3_icon, featured_main:crs_content3_image);
+~script9025(%crs_struct4, %crs_quest4, %crs_achievement4, %crs_dbrow4, %crs_latest4, %crs_image_id4, featured_main:crs_content4_type, featured_main:crs_content4_icon, featured_main:crs_content4_image);
+~script9026(%crs_struct1, %crs_quest1, %crs_achievement1, featured_main:crs_content1_name);
+~script9026(%crs_struct2, %crs_quest2, %crs_achievement2, featured_main:crs_content2_name);
+~script9026(%crs_struct3, %crs_quest3, %crs_achievement3, featured_main:crs_content3_name);
+~script9026(%crs_struct4, %crs_quest4, %crs_achievement4, featured_main:crs_content4_name);
+def_struct $struct3 = null;
+def_quest $quest4 = null;
+def_achievement $achievement5 = null;
+$struct3, $quest4, $achievement5 = ~crs_selected_data;
+def_component $component6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int12 = -1;
+def_enum $enum13 = null;
+def_int $int14 = -1;
+def_string $string3 = "Track";
+def_boolean $boolean15 = false;
+def_boolean $boolean16 = false;
+def_boolean $boolean17 = false;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_struct $struct20 = null;
+def_int $int21 = 0;
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_struct $struct25 = $struct3;
+if ($struct3 ! null & struct_param($struct3, task_struct) ! null) {
+    $struct25 = struct_param($struct3, task_struct);
+}
+def_quest $quest26 = $quest4;
+def_achievement $achievement27 = $achievement5;
+def_string $string6 = "";
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_string $string7 = "";
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_string $string8 = "";
+def_int $int33 = 1;
+if ($struct3 ! null | $quest4 ! null | $achievement5 ! null) {
+    $int11, $string0 = ~crs_reqs($struct3, $quest4, $achievement5);
+    if (compare($string0, "None.") = 0) {
+        $string0 = "";
+    }
+    if (string_length($string0) > 0) {
+        if_settext($string0, featured_main:crs_req);
+        if_setscrollpos(0, 0, featured_main:crs_req_parent_layer);
+        $int18 = calc(~script7593(if_gettext(featured_main:crs_req), if_getwidth(featured_main:crs_req), if_getfontmetrics(featured_main:crs_req), 0) + 5);
+        if_setscrollsize(0, $int18, featured_main:crs_req_parent_layer);
+        if ($int18 > if_getheight(featured_main:crs_req_parent_layer)) {
+            if_sethide(false, featured_main:crs_req_scroll_layer);
+            ~rs3_scrollbar_vertical(featured_main:crs_req_scroll_layer, featured_main:crs_req_parent_layer);
+        } else {
+            if_sethide(true, featured_main:crs_req_scroll_layer);
+        }
+        ~script13959(featured_main:crs_reqs_met_button, rs3tli_32px_icon_button, false);
+        $string8 = "Display list of additional requirements.";
+    } else {
+        if_settext("No additional requirements", featured_main:crs_req);
+        if_sethide(true, featured_main:crs_req_layer);
+        ~script13959(featured_main:crs_reqs_met_button, rs3tli_32px_icon_button, true);
+        $string8 = "This content does not have any additional requirements.";
+    }
+    ~script3536($string8, featured_main:crs_reqs_met_button_layer, -1);
+    if (if_gethide(featured_main:crs_req_layer) = true) {
+        if_setgraphic("rs3_icon_info_21px,0", featured_main:crs_reqs_met_icon);
+    } else {
+        if_setgraphic("rs3_icon_info_21px,1", featured_main:crs_reqs_met_icon);
+    }
+    switch_int ($int11) {
+        case -1 :
+            ~script3536("Requirements not met.", featured_main:crs_reqs_met_cross, -1);
+            if_sethide(false, featured_main:crs_reqs_met_cross);
+            if_sethide(true, featured_main:crs_reqs_met_tick);
+            if_sethide(true, featured_main:crs_reqs_met_complete);
+        case 0 :
+            ~script3536("Requirements met.", featured_main:crs_reqs_met_tick, -1);
+            if_sethide(false, featured_main:crs_reqs_met_tick);
+            if_sethide(true, featured_main:crs_reqs_met_cross);
+            if_sethide(true, featured_main:crs_reqs_met_complete);
+        case -2 :
+            ~script3536("You have completed this content.", featured_main:crs_reqs_met_complete, -1);
+            if_sethide(false, featured_main:crs_reqs_met_complete);
+            if_sethide(true, featured_main:crs_reqs_met_cross);
+            if_sethide(true, featured_main:crs_reqs_met_tick);
+        case default :
+            ~script3536("No requirements.", featured_main:crs_reqs_met_tick, -1);
+            if_sethide(false, featured_main:crs_reqs_met_tick);
+            if_sethide(true, featured_main:crs_reqs_met_cross);
+            if_sethide(true, featured_main:crs_reqs_met_complete);
+    }
+    if (~crs_members($struct3, $quest4, $achievement5) = true) {
+        ~script3536("Requires membership.", featured_main:crs_reqs_met_p2p, -1);
+        if_sethide(false, featured_main:crs_reqs_met_p2p);
+        if_sethide(true, featured_main:crs_reqs_met_f2p);
+    } else {
+        ~script3536("Does not require membership.", featured_main:crs_reqs_met_f2p, -1);
+        if_sethide(false, featured_main:crs_reqs_met_f2p);
+        if_sethide(true, featured_main:crs_reqs_met_p2p);
+    }
+    $component6 = featured_main:crs_desc_layer;
+    $int10 = if_getwidth($component6);
+    cc_deleteall($component6);
+    $int12 = ~script7663($struct3, $quest4, $achievement5);
+    switch_int ($int12) {
+        case 7 :
+            $struct20 = ~script16091;
+            $int28, $int29, $string7, $int30, $int31 = ~script11608;
+            if ($int28 = 1) {
+                if ($int31 > 0) {
+                    $string7 = append($string7, " (<tostring($int30)>/<tostring($int31)>)");
+                }
+            } else if ($struct20 ! null) {
+                $int9 = calc($int9 + 5);
+                $int9 = calc($int9 + 5);
+                $int29 = ~script9031;
+                if ($int29 > 0) {
+                    $string1 = "<tostring($int29)>x ";
+                }
+                $string1 = "<$string1><~crs_name($struct3, $quest4, $achievement5)>.";
+                $int7, $int32 = ~script12086($component6, $int7, $int8, $int9, $int10, "Target:", rs3tli_default_font_general_information);
+                $int7, $int9 = ~script12086($component6, $int7, calc($int8 + 160), $int9, calc($int10 - 160), $string1, rs3tli_default_font_secondary);
+                if (struct_param($struct20, slayer_example_npc) ! null & %slayer_count > 0 & %slayc_current_challenge = 0) {
+                    $int21 = nc_param(struct_param($struct20, slayer_example_npc), combatv2_weakness);
+                    if (string_length($string1) > 0) {
+                        $int9 = calc($int9 + 5);
+                    }
+                    if ($int21 = 21) {
+                        $string1 = "<enum(int, string, combatv2_damage_type, $int21)>.";
+                    } else {
+                        $string1 = "<enum(int, string, combatv2_attack_types, $int21)>.";
+                    }
+                    $int7, $int32 = ~script12086($component6, $int7, $int8, $int9, $int10, "Weakness:", rs3tli_default_font_general_information);
+                    $int7, $int9 = ~script12086($component6, $int7, calc($int8 + 160), $int9, calc($int10 - 160), $string1, rs3tli_default_font_secondary);
+                    $int9 = calc($int9 + 5);
+                }
+            }
+        case 3 :
+            $int19, $struct20 = ~script6301($struct3, 0, -1);
+        case 8 :
+            $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, "Recommended:", rs3tli_default_font_general_information);
+            $int9 = calc($int9 + 5);
+            $int7, $int32 = ~script12086($component6, $int7, $int8, $int9, $int10, "<img=<7>> Combat Level:", rs3tli_default_font_general_information);
+            $int7, $int9 = ~script12086($component6, $int7, calc($int8 + 160), $int9, calc($int10 - 160), "<tostring(struct_param($struct3, bslay_combat_req))> (Your Level: <tostring(~comlevel)>)", rs3tli_default_font_secondary);
+            $int9 = calc($int9 + 5);
+            $int7, $int32 = ~script12086($component6, $int7, $int8, $int9, $int10, "<img=<7>> Group Size:", rs3tli_default_font_general_information);
+            $int7, $int9 = ~script12086($component6, $int7, calc($int8 + 160), $int9, calc($int10 - 160), tostring(struct_param($struct3, bslay_group_size)), rs3tli_default_font_secondary);
+            $int9 = calc($int9 + 5);
+    }
+    $string1 = ~crs_details($struct3, $quest4, $achievement5);
+    if (string_length($string1) > 0) {
+        $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, "Description:", rs3tli_default_font_general_information);
+        $int9 = calc($int9 + 5);
+        $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, $string1, rs3tli_default_font_secondary);
+    }
+    $string2 = ~script9029($struct3, $quest4, $achievement5);
+    if (string_length($string2) > 0) {
+        $int9 = calc($int9 + 5);
+        $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, "Instructions:", rs3tli_default_font_general_information);
+        $int9 = calc($int9 + 5);
+        if ($int28 = 1) {
+            $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, $string7, rs3tli_default_font_secondary);
+        } else {
+            $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, $string2, rs3tli_default_font_secondary);
+        }
+    }
+    if ($int12 = 3 & $struct20 ! null) {
+        $string4 = ~cheevo_name($struct20);
+        $string5 = ~cheevo_details($struct20, 0);
+        $string2 = "'<$string4>' - <$string5>";
+        $int9 = calc($int9 + 5);
+        $int22, $int23, $int24 = ~cheevo_tally_enum(struct_param($struct3, cheevo_path_enum));
+        $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, "Next Achievement (<tostring(calc($int22 + 1))>/<tostring($int23)>):", rs3tli_default_font_general_information);
+        $int9 = calc($int9 + 5);
+        $int7, $int9 = ~script12086($component6, $int7, $int8, $int9, $int10, $string2, rs3tli_default_font_secondary);
+    }
+    if_setscrollpos(0, 0, featured_main:crs_details_desc_layer);
+    $int18 = calc(if_getheight(featured_main:crs_details_reqs_met_layer) + $int9 + 5);
+    if_setscrollsize(0, $int18, featured_main:crs_details_desc_layer);
+    if ($int18 > if_getheight(featured_main:crs_details_desc_layer)) {
+        if_sethide(false, featured_main:crs_details_scroll_layer);
+        ~rs3_scrollbar_vertical(featured_main:crs_details_scroll_layer, featured_main:crs_details_desc_layer);
+    } else {
+        if_sethide(true, featured_main:crs_details_scroll_layer);
+    }
+    if ($struct3 ! null & struct_param($struct3, task_struct) ! null) {
+        $struct3 = struct_param($struct3, task_struct);
+    }
+    switch_int ($int12) {
+        case 1 :
+            $int14 = quest_param($quest26, quest_id);
+        case 2 :
+        case 6 :
+            $enum13 = uaui_minigames_all;
+        case 3 :
+            if ($struct20 ! null) {
+                $int14 = struct_param($struct20, cheevo_unique_id);
+                $struct25 = $struct20;
+            }
+        case 4 :
+            if ($struct3 = ~script16319(1)) {
+                $int14 = 1;
+            } else if ($struct3 = ~script16319(2)) {
+                $int14 = 2;
+            } else if ($struct3 = ~script16319(3)) {
+                $int14 = 3;
+            } else if ($struct3 = ~script16319(4)) {
+                $int14 = 4;
+            } else if ($struct3 = ~script16319(5)) {
+                $int14 = 5;
+            }
+        case 7 :
+            $int14 = 1;
+        case 8 :
+        case 0 :
+    }
+    if ($int12 = 2 | $enum13 ! null | $int14 ! -1) {
+        $string6 = ~crs_name($struct25, $quest26, $achievement27);
+        if ($boolean1 = true) {
+            $string8 = "Tracked: <$string6>";
+        } else {
+            $string8 = "Add this content to your activity tracker.";
+        }
+        if (~script8227($int12) > -1) {
+            if ($int12 = 2) {
+                if (~script15325($achievement27) > -1) {
+                    $int33 = 0;
+                }
+            } else if ($enum13 ! null & ~script8229($int12, enum_getreverseindex(struct, int, $enum13, $struct25, 0)) > -1) {
+                $int33 = 0;
+            } else if ($int14 > 0 & ~script8229($int12, $int14) > -1) {
+                $int33 = 0;
+            }
+            if ($int33 = 0) {
+                $string3 = "Untrack";
+                if ($boolean1 = true) {
+                    $string8 = "Removed: <$string6>";
+                } else {
+                    $string8 = "Remove this content from your activity tracker.";
+                }
+            }
+        } else if (~script8230 = false) {
+            $boolean15 = true;
+            $string8 = "Your activity tracker is full.";
+        }
+        ~script3536($string8, featured_main:crs_button_track_layer, -1);
+        if ($int33 = 1) {
+            if_setgraphic("achievement_tab_icon_tracker,0", featured_main:crs_icon_track);
+        } else {
+            if_setgraphic("achievement_tab_icon_tracker,1", featured_main:crs_icon_track);
+        }
+        $boolean15 = false;
+        if ($int12 = 7) {
+            if ($int28 = 1) {
+                ~script3536("Additional information is not available for this special challenge.", featured_main:crs_button_jump_layer, -1);
+                $boolean17 = true;
+            } else if (~script16091 = null | %slayer_count = 0) {
+                ~script3536("You do not currently have a Slayer task.", featured_main:crs_button_jump_layer, -1);
+                $boolean17 = true;
+            } else if ($struct20 ! null & struct_param($struct20, slayer_example_npc) ! null) {
+                if (enum_hasoutput(npc, bslayer_slayer_list_enum, struct_param($struct20, slayer_example_npc)) = true) {
+                    ~script3536("Jump to this content's parent tab to learn more.", featured_main:crs_button_jump_layer, -1);
+                    $boolean17 = false;
+                } else {
+                    ~script3536("Additional information is not available for this monster.", featured_main:crs_button_jump_layer, -1);
+                    $boolean17 = true;
+                }
+            } else {
+                ~script3536("Additional information is not available for this Slayer content.", featured_main:crs_button_jump_layer, -1);
+                $boolean17 = true;
+            }
+        } else {
+            ~script3536("Jump to this content's parent tab to learn more.", featured_main:crs_button_jump_layer, -1);
+            $boolean17 = false;
+        }
+    } else {
+        switch_int ($int12) {
+            case 8 :
+            case default :
+                ~script3536("This type of content is not supported by the activity tracker.", featured_main:crs_button_track_layer, -1);
+                $boolean15 = true;
+                ~script3536("Additional information is not available for this content.", featured_main:crs_button_jump_layer, -1);
+                $boolean17 = true;
+        }
+    }
+    if (~crs_teleport_coord($struct3, $quest4, $achievement5) ! null) {
+        if ($int12 = 7) {
+            ~script3536("Teleport to the nearest lodestone to your Slayer master.", featured_main:crs_button_tele_layer, -1);
+        } else {
+            ~script3536("Teleport to the nearest lodestone to this content.", featured_main:crs_button_tele_layer, -1);
+        }
+        $boolean16 = false;
+    } else {
+        ~script3536("Teleport to the nearest lodestone to this content is not available.", featured_main:crs_button_tele_layer, -1);
+        $boolean16 = true;
+    }
+    ~script13971(featured_main:crs_button_track, null, rs3tli_neutral_button, $string3, $boolean15);
+    ~script13971(featured_main:crs_button_tele, null, rs3tli_neutral_button, "Teleport", $boolean16);
+    ~script13971(featured_main:crs_button_jump, null, rs3tli_neutral_button, "More Info", $boolean17);
+}

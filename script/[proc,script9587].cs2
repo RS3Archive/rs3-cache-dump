@@ -1,0 +1,91 @@
+// 9587
+[proc,script9587](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if ($int5 ! 2 & cc_find(bank:tabs_spacers, $int0) = true) {
+    if (%bank_tab_vertical = 1) {
+        cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        cc_setsize(12, 0, ^setsize_abs, ^setsize_minus);
+        cc_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    cc_sethide(false);
+}
+if ($int5 = 1) {
+    return;
+}
+def_string $string0 = "View tab <tostring($int0)>";
+def_int $int6 = ~script5883($int1);
+if ($int6 ! 0) {
+    $string0 = "<$string0> - <enum(int, string, share_preset_enum_int_string, $int6)>";
+}
+def_int $int7 = -1;
+if ($int5 ! 2) {
+    $int7 = ~equal_int($int1, %bank_current_tab);
+}
+if (%bank_tab_vertical = 1) {
+    ~script14408(bank:tabs_click, bank_tab_vertical, 0, $int4, $int0, 0, $int7);
+} else {
+    ~script14408(bank:tabs_click, bank_tab_horizontal, $int4, 0, $int0, 0, $int7);
+}
+if (cc_find(bank:tabs_click, $int0) = true) {
+    if ($int5 = 2) {
+        cc_setop(1, "Add tab");
+        cc_clearscripthooks;
+    } else {
+        cc_setop(1, "View tab <tostring($int0)>");
+        cc_setop(2, "Delete tab <tostring($int0)>");
+        cc_setop(3, "Customise tab <tostring($int0)>");
+        cc_setonop("bank_tab_onop(event_op, event_comsubid)");
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    }
+}
+def_int $int8 = ~script5869($int1);
+def_graphic $graphic9 = enum(int, graphic, bank_custom_tab_id_to_sprite, $int8);
+def_obj $obj10 = null;
+def_int $int11 = 0;
+if ($int5 ! 2 & $graphic9 = null) {
+    $obj10, $int11 = ~bank_get_tab_display($int1, $int2, $int3);
+}
+if (cc_find(bank:tabs_icons, $int0) = true) {
+    if ($int5 = 2) {
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        if (%bank_tab_vertical = 1) {
+            cc_setposition(2, calc($int4 + 8), ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setposition(calc($int4 + 6), 2, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        cc_setgraphic("bank_misc_graphics,1");
+        cc_setdraggable(null, -1);
+        cc_setondrag("script14377");
+        cc_setondragcomplete(null);
+        cc_setdragdeadtime(255);
+        cc_setdragdeadzone(255);
+    } else {
+        if ($graphic9 ! null) {
+            cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+            if (%bank_tab_vertical = 1) {
+                cc_setposition(4, calc($int4 + 7), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(calc($int4 + 4), 2, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            cc_setobject(null, 0);
+            cc_setgraphic($graphic9);
+        } else {
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            if (%bank_tab_vertical = 1) {
+                cc_setposition(4, calc($int4 + 12), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(calc($int4 + 6), 2, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            cc_setgraphic(null);
+            cc_setobject_nonum($obj10, $int11);
+        }
+        cc_setoutline(1);
+        cc_setdraggable(bank:tabs, -1);
+        cc_setondrag("bank_banktabdrag(event_comsubid)");
+        cc_setondragcomplete("bank_tab_drag_complete(event_com2, event_comsubid, event_comsubid2)");
+        cc_setdragdeadtime(5);
+        cc_setdragdeadzone(5);
+    }
+    cc_sethide(false);
+}

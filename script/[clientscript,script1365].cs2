@@ -1,0 +1,112 @@
+// 1365
+[clientscript,script1365](struct $struct0)
+def_component $component1 = rewardshop:item_description;
+def_component $component2 = rewardshop:item_cost;
+def_string $string0 = ~script17844(%rewardshop_struct, 3);
+def_string $string1 = ~script17844(%rewardshop_struct, 4);
+if_sethide(false, rewardshop:information_panel);
+if_settext(~script13337($struct0), rewardshop:item_name);
+if_settext(struct_param($struct0, rewardshop_tooltip), $component1);
+if_settext("Cost: <~script12658(%rewardshop_struct, $struct0, ~script9095($struct0, ~script13501($struct0)), struct_param($struct0, rewardshop_cost2), true, 0)>", $component2);
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3, $int4 = ~script19888($struct0, $struct0);
+~script19890(%rewardshop_struct, -1, $struct0, null, null, $int3, $int4, 0, 0, 1);
+def_component $component5 = rewardshop:information_frame;
+def_component $component6 = rewardshop:item_preview_spinner_layer;
+def_component $component7 = rewardshop:item_preview_drag_layer;
+def_component $component8 = rewardshop:item_preview_layer;
+def_component $component9 = rewardshop:item_preview_outfit_layer;
+def_component $component10 = rewardshop:item_preview_pet_layer;
+def_component $component11 = rewardshop:item_preview_anim_layer;
+def_component $component12 = rewardshop:item_preview_title_layer;
+def_component $component13 = rewardshop:item_graphic;
+def_component $component14 = rewardshop:item_model;
+def_component $component15 = rewardshop:item_background;
+def_component $component16 = rewardshop:info_panel_scrolling_layer;
+def_component $component17 = rewardshop:info_panel_scrollbar_layer;
+def_struct $struct18 = null;
+def_struct $struct19 = null;
+def_npc $npc20 = null;
+def_obj $obj21 = struct_param($struct0, rewardshop_obj);
+def_int $int22 = 0;
+$struct18, $struct19, $int22 = ~script326($struct0);
+def_dbrow $dbrow23 = null;
+if ($obj21 ! null) {
+    $dbrow23 = oc_param($obj21, mtxmgt_interface_positioning);
+}
+if ($struct18 ! null) {
+    $dbrow23 = struct_param($struct18, mtxmgt_interface_positioning);
+}
+if (~script6431 = true) {
+    if_setsize(300, 208, ^setsize_abs, ^setsize_abs, $component5);
+} else {
+    if_setsize(300, 400, ^setsize_abs, ^setsize_abs, $component5);
+}
+if_setsize(280, 234, ^setsize_abs, ^setsize_abs, $component8);
+if_sethide(false, $component8);
+if_sethide(true, $component9);
+if_sethide(true, $component10);
+if_sethide(true, $component11);
+if_sethide(true, $component12);
+if_sethide(true, $component13);
+if_sethide(true, $component14);
+if_sethide(true, $component15);
+if_setmodel(null, $component9);
+if_setmodel(null, $component10);
+cc_deleteall($component11);
+def_int $int24 = if_getheight($component8);
+def_enum $enum25 = struct_param($struct0, mtxmgt_object_outfit_enum);
+if (struct_param($struct0, mtxmgt_object_outfit_gender_variants) = true) {
+    $enum25 = enum(int, enum, $enum25, gender);
+}
+~spinner_create($component6, 3, -1);
+switch_int ($int22) {
+    case 2 :
+        ~script17960($struct18, $obj21, $enum25, $component6, $component7, $component9, $component8, $component6, $dbrow23);
+    case 5 :
+        $npc20 = ~script17962($struct19);
+        ~script17958($struct18, $npc20, ~script17961($npc20, $struct18), $component6, $component7, $component10, $component8, $component6, 50, $dbrow23);
+    case 4 :
+        ~script17956($struct18, $component6, $component7, $component11, $component8, $component6, 50, $dbrow23);
+    case default :
+        if_sethide(true, $component8);
+        if_setsize(0, 0, ^setsize_abs, ^setsize_abs, $component8);
+        if_setsize(300, 208, ^setsize_abs, ^setsize_abs, $component5);
+        if_sethide(false, $component15);
+        if ($int22 = 3) {
+            if_sethide(false, $component12);
+            if_setsize(32, 40, ^setsize_minus, ^setsize_abs, $component15);
+            if_settext(~player_title_get(struct_param($struct18, mtxmgt_title_id), gender), $component12);
+        } else if (struct_param($struct0, rewardshop_icon) ! null) {
+            if_sethide(false, $component13);
+            if_setsize(40, 40, ^setsize_abs, ^setsize_abs, $component15);
+            if_setgraphic(struct_param($struct0, rewardshop_icon), $component13);
+        } else {
+            if_sethide(false, $component14);
+            if_setsize(40, 40, ^setsize_abs, ^setsize_abs, $component15);
+            if_setobject(~script14453($struct0, $obj21), struct_param($struct0, rewardshop_obj_count), $component14);
+        }
+        $int24 = if_getheight($component15);
+}
+def_int $int26 = ~script7593(if_gettext($component1), if_getwidth($component1), if_getfontmetrics($component1), 0);
+def_int $int27 = 28;
+if ($int26 > $int27) {
+    $int27 = $int26;
+}
+if_setsize(0, $int27, ^setsize_minus, ^setsize_abs, $component1);
+def_int $int28 = ~script7593(if_gettext($component2), if_getwidth($component2), if_getfontmetrics($component2), 0);
+def_int $int29 = 16;
+if ($int28 > $int29) {
+    $int29 = $int28;
+}
+if_setsize(0, $int29, ^setsize_minus, ^setsize_abs, $component2);
+if_setposition(0, calc(if_getheight($component2) + 2), ^setpos_abs_right, ^setpos_abs_bottom, $component1);
+def_int $int30 = calc($int24 + $int26 + $int28 + 8 * 2);
+cc_deleteall($component17);
+if_setscrollsize(0, 0, $component16);
+if_setscrollpos(0, 0, $component16);
+if ($int30 > if_getheight($component16)) {
+    if_setscrollsize(0, $int30, $component16);
+    ~rs3_scrollbar_vertical($component17, $component16);
+}

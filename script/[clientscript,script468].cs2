@@ -1,0 +1,30 @@
+// 468
+[clientscript,script468]
+if (activeclansettings_find_affined(0) = true) {
+    ~static_checkbox_create(clan_broadcasts:guest_broadcasts_build_withlabel, clan_broadcasts:guest_broadcasts_click_withlabel, "Show broadcasts to guests", "Hide broadcasts to guests", "Show broadcasts to guests", calc(1 - %clan_broadcast_hide_guest_broadcasts));
+    if (%clan_broadcast_type = 0) {
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_1_deselected);
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_1_selected);
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_2_deselected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_2_selected);
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_3_deselected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_3_selected);
+    } else if (%clan_broadcast_type = 1) {
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_1_deselected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_1_selected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_2_deselected);
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_2_selected);
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_3_deselected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_3_selected);
+    } else {
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_1_deselected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_1_selected);
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_2_deselected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_2_selected);
+        if_sethide(true, clan_broadcasts:broadcast_vis_radio_3_deselected);
+        if_sethide(false, clan_broadcasts:broadcast_vis_radio_3_selected);
+    }
+} else {
+    mes("You're not in a clan so can't access this.");
+    return;
+}

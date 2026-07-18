@@ -1,0 +1,86 @@
+// 8380
+[proc,script8380](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int)
+def_int $int6 = 0;
+def_component $component7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = calc(16 + 1);
+def_int $int20 = $int19;
+def_int $int21 = 0;
+switch_int ($int5) {
+    case default :
+        return($int0, $int1, $int2, $int3);
+    case 3 :
+        $int12 = $int0;
+        $int13 = $int1;
+        $int14 = calc($int1 + $int3);
+    case 4 :
+        $int12 = calc($int0 + $int2);
+        $int13 = $int1;
+        $int14 = calc($int1 + $int3);
+    case 1 :
+        $int12 = $int1;
+        $int13 = $int0;
+        $int14 = calc($int0 + $int2);
+    case 6 :
+        $int12 = calc($int1 + $int3);
+        $int13 = $int0;
+        $int14 = calc($int0 + $int2);
+}
+def_int $int22 = enum_getoutputcount(toplevel_v2_blocker_panel_id_listing);
+def_int $int23 = 0;
+while ($int23 < $int22) {
+    $int6 = enum(int, int, toplevel_v2_blocker_panel_id_listing, $int23);
+    $component7 = struct_param(~script10405($int6), toplevel_v2_window_layer);
+    if (if_gethide($component7) = false & $int6 ! $int4 & struct_param(~script10405($int6), toplevel_v2_window_allow_snapping) = true) {
+        $int8 = if_getx($component7);
+        $int9 = if_gety($component7);
+        $int10 = if_getwidth($component7);
+        $int11 = if_getheight($component7);
+        switch_int ($int5) {
+            case 3, 4 :
+                $int15 = $int8;
+                $int16 = calc($int8 + $int10);
+                $int17 = $int9;
+                $int18 = calc($int9 + $int11);
+            case 1, 6 :
+                $int15 = $int9;
+                $int16 = calc($int9 + $int11);
+                $int17 = $int8;
+                $int18 = calc($int8 + $int10);
+        }
+        $int21 = max($int19, calc(0 - $int19));
+        if ($int12 < calc($int15 + $int21) & $int12 > calc($int15 - $int21)) {
+            if ($int13 > calc($int17 - $int20) & $int13 < calc($int18 + $int20) | $int14 > calc($int17 - $int20) & $int14 < calc($int18 + $int20) | $int17 > $int13 & $int17 < $int14) {
+                $int19 = calc($int12 - $int15);
+            }
+        } else if ($int12 < calc($int16 + $int21) & $int12 > calc($int16 - $int21) & ($int13 > calc($int17 - $int20) & $int13 < calc($int18 + $int20) | $int14 > calc($int17 - $int20) & $int14 < calc($int18 + $int20) | $int17 > $int13 & $int17 < $int14)) {
+            $int19 = calc($int12 - $int16);
+        }
+    }
+    $int23 = calc($int23 + 1);
+}
+if (max($int19, calc(0 - $int19)) < 16) {
+    switch_int ($int5) {
+        case 3 :
+            $int0 = calc($int0 - $int19);
+            $int2 = calc($int2 + $int19);
+        case 1 :
+            $int1 = calc($int1 - $int19);
+            $int3 = calc($int3 + $int19);
+        case 4 :
+            $int2 = calc($int2 - $int19);
+        case 6 :
+            $int3 = calc($int3 - $int19);
+    }
+}
+return($int0, $int1, $int2, $int3);

@@ -1,0 +1,211 @@
+// 5690
+[proc,skillguide_initialise]
+if (%skillguide_skill_clicked <= 0) {
+    if (%lvl_setting > 0) {
+        %skillguide_skill_clicked = %lvl_setting;
+    } else {
+        %skillguide_skill_clicked = 8;
+    }
+}
+if_sethide(false, skillguide:members_filter_wrapper);
+cc_deleteall(skillguide:content_layer);
+cc_deleteall(skillguide:image_layer);
+cc_deleteall(skillguide:background_layer);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_string $string0 = "";
+def_int $int2 = -1;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_enum $enum5 = enum(int, enum, skillguide_skills, %skillguide_skill_clicked);
+def_int $int6 = enum_getoutputcount($enum5);
+def_dbfilter $dbfilter7 = null;
+def_int $int8 = 0;
+def_dbrow $dbrow9 = null;
+switch_int (%skillguide_skill_clicked) {
+    case 22 :
+        $dbfilter7 = ~script20816;
+        $int8 = ~script20818($dbfilter7);
+}
+def_int $int10 = calc($int6 + $int8);
+def_int $intarray0(calc($int10 + 1));
+def_int $int11 = 0;
+def_int $int12 = 1;
+switch_int (%skillguide_skill_clicked) {
+    case 1 :
+        $int12 = %lvl_attack_before_levelup_varc;
+    case 2 :
+        $int12 = %lvl_strength_before_levelup_varc;
+    case 5 :
+        $int12 = %lvl_defence_before_levelup_varc;
+    case 3 :
+        $int12 = %lvl_ranged_before_levelup_varc;
+    case 7 :
+        $int12 = %lvl_prayer_before_levelup_varc;
+    case 4 :
+        $int12 = %lvl_magic_before_levelup_varc;
+    case 6 :
+        $int12 = %lvl_hitpoints_before_levelup_varc;
+    case 8 :
+        $int12 = %lvl_agility_before_levelup_varc;
+    case 9 :
+        $int12 = %lvl_herblore_before_levelup_varc;
+    case 10 :
+        $int12 = %lvl_thieving_before_levelup_varc;
+    case 11 :
+        $int12 = %lvl_crafting_before_levelup_varc;
+    case 19 :
+        $int12 = %lvl_fletching_before_levelup_varc;
+    case 13 :
+        $int12 = %lvl_mining_before_levelup_varc;
+    case 14 :
+        $int12 = %lvl_smithing_before_levelup_varc;
+    case 15 :
+        $int12 = %lvl_fishing_before_levelup_varc;
+    case 16 :
+        $int12 = %lvl_cooking_before_levelup_varc;
+    case 17 :
+        $int12 = %lvl_firemaking_before_levelup_varc;
+    case 18 :
+        $int12 = %lvl_woodcutting_before_levelup_varc;
+    case 12 :
+        $int12 = %lvl_runecraft_before_levelup_varc;
+    case 20 :
+        $int12 = %lvl_slayer_before_levelup_varc;
+    case 21 :
+        $int12 = %lvl_farming_before_levelup_varc;
+    case 22 :
+        $int12 = %lvl_construction_before_levelup_varc;
+    case 23 :
+        $int12 = %lvl_hunter_before_levelup_varc;
+    case 24 :
+        $int12 = %lvl_summoning_before_levelup_varc;
+    case 25 :
+        $int12 = %lvl_dungeoneering_before_levelup_varc;
+    case 26 :
+        $int12 = %lvl_divination_before_levelup_varc;
+    case 27 :
+        $int12 = %lvl_invention_before_levelup_varc;
+    case 28 :
+        $int12 = %lvl_archaeology_before_levelup_varc;
+    case 29 :
+        $int12 = %lvl_necromancy_before_levelup_varc;
+}
+~script5712(%skillguide_skill_clicked);
+def_int $int13 = stat_base(enum(int, stat, int_to_stat, %skillguide_skill_clicked));
+def_int $int14 = -1;
+def_int $int15 = 0;
+def_int $int16 = -1;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_stat $stat19 = enum(int, stat, int_to_stat, %skillguide_skill_clicked);
+def_quest $quest20 = null;
+def_boolean $boolean21 = false;
+def_int $int22 = 36;
+def_int $int23 = 0;
+def_graphic $graphic24 = null;
+def_int $int25 = ~quest_max;
+if ($int13 > $int12) {
+    while ($int1 <= $int25) {
+        $quest20 = enum(int, quest, ql4_quests, $int1);
+        if ($quest20 ! null) {
+            $int18 = calc($int18 + 1);
+            $string0, $int0 = ~script8584($stat19, $int12, $quest20);
+            if ($int0 = 1) {
+                if (quest_param($quest20, quest_icon_big) = null) {
+                    $graphic24 = "quest_rating_icon,5";
+                } else {
+                    $graphic24 = ~quest_icon($quest20);
+                }
+                $int3 = ~script8790($int3, $string0, $graphic24);
+            }
+        }
+        $int1 = calc($int1 + 1);
+    }
+    $int1 = 0;
+    while ($int11 < $int6) {
+        $int3, $boolean21 = ~script16268($int11, $int10, $int3, $boolean21, enum(int, struct, $enum5, $int11), null, $int12, $int13, 0);
+        $int11 = calc($int11 + 1);
+    }
+    if ($dbfilter7 ! null & $int8 > 0) {
+        switch_int (%skillguide_skill_clicked) {
+            case 22 :
+                unknown_command_77($dbfilter7, construction_house_furniture:col0, true);
+                $dbrow9 = db_findnext;
+                while ($dbrow9 ! null) {
+                    $int3, $boolean21 = ~script16268($int11, $int10, $int3, $boolean21, null, $dbrow9, $int12, $int13, 0);
+                    $int11 = calc($int11 + 1);
+                    $dbrow9 = db_findnext;
+                }
+        }
+    }
+    if ($int3 > 0) {
+        if_sethide(true, skillguide:members_filter_wrapper);
+        if_sethide(true, skillguide:sort_by_dropdown);
+        if_sethide(true, skillguide:filter_by_dropdown);
+        if_sethide(false, skillguide:new_unlocks_layer);
+        if_sethide(true, skillguide:loading_text);
+        if ($int3 < if_getheight(skillguide:main_content_scrollbar_layer)) {
+            if_setscrollsize(0, 0, skillguide:main_content_layer);
+        } else {
+            if_setscrollsize(0, $int3, skillguide:main_content_layer);
+        }
+        if_setscrollpos(0, 0, skillguide:main_content_layer);
+        if_setsize(590, $int3, ^setsize_abs, ^setsize_abs, skillguide:content_layer);
+        if_setsize(590, $int3, ^setsize_abs, ^setsize_abs, skillguide:image_layer);
+        ~rs3_scrollbar_vertical(skillguide:main_content_scrollbar_layer, skillguide:main_content_layer);
+        return;
+    }
+}
+if_sethide(false, skillguide:main_content_scrollbar_layer);
+$int11 = 0;
+$int3 = ~script6346(%skillguide_skill_clicked, %skillguide_filter_clicked, $int3);
+if_sethide(true, skillguide:new_unlocks_layer);
+while ($int11 < $int6) {
+    $int3, $boolean21 = ~script16268($int11, $int10, $int3, $boolean21, enum(int, struct, $enum5, $int11), null, 0, 120, %skill_guide_hide_members_entrys);
+    $intarray0($int11) = $int11;
+    $int11 = calc($int11 + 1);
+}
+if ($dbfilter7 ! null & $int8 > 0) {
+    switch_int (%skillguide_skill_clicked) {
+        case 22 :
+            unknown_command_77($dbfilter7, construction_house_furniture:col0, true);
+            $dbrow9 = db_findnext;
+            while ($dbrow9 ! null) {
+                $int3, $boolean21 = ~script16268($int11, $int10, $int3, $boolean21, null, $dbrow9, 0, 120, %skill_guide_hide_members_entrys);
+                $intarray0($int11) = $int11;
+                $int11 = calc($int11 + 1);
+                $dbrow9 = db_findnext;
+            }
+    }
+}
+%skillguide_filter_clicked = ~script12842(%skillguide_skill_clicked);
+$intarray0($int10) = -1;
+~script17567(intarray0, skillguide:content_layer, 0, calc($int10 - 1));
+$int11 = 0;
+if_setparam_int(skillguide_sort_atoz, $intarray0($int11), skillguide:content_layer);
+if_setparam_int(skillguide_sort_ztoa, $intarray0(calc($int10 - 1)), skillguide:content_layer);
+while ($int11 < $int10) {
+    if (cc_find(skillguide:content_layer, $intarray0($int11)) = true) {
+        cc_setparam_int(skillguide_sort_atoz, $intarray0(calc($int11 + 1)));
+        if ($int11 > 0) {
+            cc_setparam_int(skillguide_sort_ztoa, $intarray0(calc($int11 - 1)));
+        }
+    }
+    $int11 = calc($int11 + 1);
+}
+$int11 = 0;
+~script17568(intarray0, skillguide:content_layer, 0, calc($int10 - 1));
+if_setparam_int(skillguide_sort_inc, $intarray0(calc($int10 - 1)), skillguide:content_layer);
+if_setparam_int(skillguide_sort_dec, $intarray0($int11), skillguide:content_layer);
+while ($int11 < $int10) {
+    if (cc_find(skillguide:content_layer, $intarray0($int11)) = true) {
+        cc_setparam_int(skillguide_sort_dec, $intarray0(calc($int11 + 1)));
+        if ($int11 > 0) {
+            cc_setparam_int(skillguide_sort_inc, $intarray0(calc($int11 - 1)));
+        }
+    }
+    $int11 = calc($int11 + 1);
+}
+if_setscrollpos(0, 0, skillguide:main_content_layer);
+~skillguide_skill_refresh(%skillguide_skill_clicked);

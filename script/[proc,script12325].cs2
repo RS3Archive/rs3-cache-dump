@@ -1,0 +1,129 @@
+// 12325
+[proc,script12325](struct $struct0, int $int1, int $int2)
+if ($struct0 = null) {
+    return;
+}
+def_component $component3 = struct_param($struct0, graph_display_layer);
+if ($component3 = null) {
+    return;
+}
+def_component $component4 = if_getlayer($component3);
+if ($component4 = null) {
+    return;
+}
+def_int $int5 = 0;
+def_int $int6 = 1;
+def_int $int7 = 0;
+if (if_find($component3) = true) {
+    $int5 = cc_param(telemetry_graph_component_offset);
+    $int6 = cc_param(telemetry_graph_value_max);
+    $int7 = cc_param(telemetry_graph_value_min);
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+$int8, $int9, $int10 = ~script12324($int6, $int7);
+def_int $int11 = -1;
+def_int $int12 = if_getnextsubid($component3);
+def_int $int13 = if_getheight($component3);
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = scale($int13, -100, $int10);
+def_int $int18 = calc($int13 - $int17);
+def_int $int19 = 2;
+if (%varclientbit_30621 = 1) {
+    $int19 = calc(16 - 1 * %varclientbit_30622);
+}
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+while (++$int11 < $int12) {
+    if (cc_find($component3, $int11) = true) {
+        cc_settrans(127);
+        $int21, $int22 = ~script12312($int21, $int22, cc_param(rs3tli_component_param_int0));
+        if ($int1 = 1) {
+            cc_setparam(rs3tli_component_target_height, scale($int13, 100, scale(cc_param(rs3tli_component_param_int0), $int8, 50)));
+        }
+        $int14 = cc_getheight;
+        if (cc_param(rs3tli_component_target_align_y) = 0) {
+            $int14 = calc($int14 * -1);
+        }
+        if ($int2 = 1) {
+            $int14 = cc_param(rs3tli_component_target_height);
+        } else {
+            $int14 = ~script12327($int14, cc_param(rs3tli_component_target_height));
+        }
+        if ($int14 < 0) {
+            $int14 = calc($int14 * -1);
+            cc_setparam(rs3tli_component_target_align_y, 0);
+            $int16 = $int18;
+            cc_setcolour(%telemetry_graph_colour_negative);
+        } else {
+            cc_setparam(rs3tli_component_target_align_y, 2);
+            $int16 = $int17;
+            cc_setcolour(%telemetry_graph_colour_positive);
+        }
+        $int15 = cc_getx;
+        if (%varclientbit_30621 = 1) {
+            cc_setparam(rs3tli_component_target_pos_x, calc(($int12 - $int5 + $int11) % $int12 * $int19));
+            if ($int2 = 1) {
+                $int15 = cc_param(rs3tli_component_target_pos_x);
+            } else {
+                $int15 = ~script12327($int15, cc_param(rs3tli_component_target_pos_x));
+            }
+        } else {
+            $int15 = calc(($int12 - $int5 + $int11) % $int12 * $int19);
+        }
+        cc_setsize(cc_getwidth, $int14, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int15, $int16, ^setpos_abs_left, cc_param(rs3tli_component_target_align_y));
+        $int20 = calc($int20 + cc_param(rs3tli_component_target_height));
+    }
+}
+if ($int1 = 1 & cc_find($component4, 1) = true) {
+    cc_setposition(0, calc($int17 - 1), ^setpos_abs_left, ^setpos_abs_bottom);
+}
+def_int $int23 = 0;
+if (%varclientbit_30628 = 1 & cc_find($component4, 0) = true) {
+    cc_setparam(rs3tli_component_target_pos_y, calc($int17 + $int20 / $int12));
+    if ($int2 = 1) {
+        $int23 = cc_param(rs3tli_component_target_pos_y);
+    } else {
+        $int23 = ~script12327(calc($int13 - (cc_gety + cc_getheight)), cc_param(rs3tli_component_target_pos_y));
+    }
+    cc_setposition(0, $int23, ^setpos_abs_left, ^setpos_abs_bottom);
+}
+def_component $component24 = struct_param($struct0, graph_info_layer);
+def_int $int25 = 1;
+def_int $int26 = 0;
+def_int $int27 = 0;
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_string $string0 = "";
+if ($component24 ! null & cc_find($component24, 1) = true) {
+    $int25 = ~script12303;
+    $int26, $int27 = ~script12299(%varclientbit_30618);
+    if (%varclientbit_30621 = 1 & .if_find($component3) = true) {
+        $string0 = "~";
+        $int28 = calc((clientclock - .cc_param(telemetry_graph_last_update_offset) - %telemetry_graph_data_initial_modulo) % (%telemetry_graph_data_divisor * $int25));
+        $int28 = calc(%telemetry_graph_data_divisor * $int25 - $int28 / %telemetry_graph_data_divisor_fine * %telemetry_graph_data_divisor_fine);
+    }
+    $string0 = "Based on data recorded over the current time window (<$string0><~script12291(cc_param(toplevel_v2_tooltip_param_int0))>)";
+    cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+    $int29 = ~script12311($int21, $int22);
+    $int29 = scale($int29, calc($int12 * %telemetry_graph_data_divisor * $int25 - $int28), $int27);
+    $int29 = ~script11853($int29, %varclientbit_30620);
+    cc_settext(~telemetry_get_text($int29, %varclientbit_30619, $int26, cc_param(rs3tli_component_param_int0)));
+}
+def_component $component30 = struct_param($struct0, graph_guide_values_layer);
+def_component $component31 = struct_param($struct0, graph_guide_values_overlay_layer);
+if ($int1 = 1) {
+    if ($component30 ! null & cc_find($component30, 0) = true & .cc_find($component30, 1) = true) {
+        cc_settext(~telemetry_get_text(~script11853($int7, %varclientbit_30620), %varclientbit_30619, %varclientbit_30620, 0));
+        .cc_settext(~telemetry_get_text(~script11853($int6, %varclientbit_30620), %varclientbit_30619, %varclientbit_30620, 0));
+    }
+    if ($component31 ! null & cc_find($component31, 0) = true & .cc_find($component31, 1) = true) {
+        cc_settext(~telemetry_get_text(~script11853($int7, %varclientbit_30620), %varclientbit_30619, %varclientbit_30620, 0));
+        .cc_settext(~telemetry_get_text(~script11853($int6, %varclientbit_30620), %varclientbit_30619, %varclientbit_30620, 0));
+    }
+}

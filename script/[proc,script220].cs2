@@ -1,0 +1,22 @@
+// 220
+[proc,script220]
+~script217;
+if (compare(%snapshot_name, "") = 0) {
+    if_settext("No Player Selected", snapshot_main_v2:selected_name);
+    ~message_player("You need to select a player to report!", 0, 1);
+    return;
+}
+if (compare(%player_inspect_target_name, %snapshot_name) ! 0) {
+    ~script13994(snapshot_main_v2:offensive_examine_info, snapshot_main_v2:offensive_examine_info_click, rs3tli_3x3_button, "Offensive examine<br>information", true);
+    ~script13994(snapshot_main_v2:offensive_clan_name, snapshot_main_v2:offensive_clan_name_click, rs3tli_3x3_button, "Offensive clan name", true);
+    ~script13994(snapshot_main_v2:offensive_group_name, snapshot_main_v2:offensive_group_name_click, rs3tli_3x3_button, "Offensive group name", true);
+}
+%snapshot_mode = 2;
+if_sethide(true, snapshot_main_v2:name_list_layer);
+if_sethide(true, snapshot_main_v2:namelist_help_layer);
+if_sethide(true, snapshot_main_v2:offence_help_layer);
+if_sethide(true, snapshot_main_v2:ignore_help_layer);
+if_sethide(false, snapshot_main_v2:offence_layer);
+if_sethide(true, snapshot_main_v2:ignore_layer);
+if_setscrollsize(if_getwidth(snapshot_main_v2:offence_scroll_layer), 195, snapshot_main_v2:offence_scroll_layer);
+~scrollbar_vertical(snapshot_main_v2:offence_scrollbar_layer, snapshot_main_v2:offence_scroll_layer, null, null, null, null, null, null);

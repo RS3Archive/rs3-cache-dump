@@ -1,0 +1,19 @@
+// 12380
+[proc,script12380]
+def_string $string0 = "";
+def_string $string1 = "";
+if (%gwd2_rep_task_faction_for = 0) {
+    $string0 = "No bounty active.";
+    $string1 = "Bounty: <col=FF0000>None</col>";
+    if_setcolour(^white, gwd2_overlay:task_text);
+} else if (%gwd2_rep_task_progress = 1000) {
+    $string0 = "Bounty complete.";
+    $string1 = "Bounty: <col=00FF00>Complete</col>";
+    if_setcolour(^green, gwd2_overlay:task_text);
+} else {
+    $string0 = "Bounty progress: <tostring(calc(%gwd2_rep_task_progress / 10))>/100";
+    $string1 = "Bounty: <tostring(calc(%gwd2_rep_task_progress / 10))>/100";
+    if_setcolour(^white, gwd2_overlay:task_text);
+}
+if_settext($string0, gwd2_overlay:task_text);
+if_settext($string1, gwd2_overlay:task_text_1);

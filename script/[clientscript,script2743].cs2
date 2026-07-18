@@ -1,0 +1,15 @@
+// 2743
+[clientscript,script2743]
+if_setdraggable(owen1_suspicion_overlay:container, -1, owen1_suspicion_overlay:main_layer);
+if_setondrag("script2744(event_mousex, event_mousey, owen1_suspicion_overlay:container, event_com)", owen1_suspicion_overlay:main_layer);
+if_setondragcomplete("script2744(event_mousex, event_mousey, owen1_suspicion_overlay:container, event_com)", owen1_suspicion_overlay:main_layer);
+if_setdragrenderbehaviour(1, owen1_suspicion_overlay:main_layer);
+def_int $int0 = max(1, if_getwidth(owen1_suspicion_overlay:container));
+def_int $int1 = max(1, if_getheight(owen1_suspicion_overlay:container));
+def_int $int2 = max(1, calc($int0 - if_getwidth(owen1_suspicion_overlay:main_layer)));
+def_int $int3 = max(1, calc($int1 - if_getheight(owen1_suspicion_overlay:main_layer)));
+if (%owen1_overlay_x <= 0 | %owen1_overlay_y <= 0 | %owen1_overlay_x > $int2 | %owen1_overlay_y > $int3) {
+    %owen1_overlay_x = 1;
+    %owen1_overlay_y = 1;
+}
+if_setposition(scale(%owen1_overlay_x, $int0, 16384), scale(%owen1_overlay_y, $int1, 16384), ^setpos_rel_left, ^setpos_rel_top, owen1_suspicion_overlay:main_layer);

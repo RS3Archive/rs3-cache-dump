@@ -1,0 +1,20 @@
+// 12099
+[proc,skillguide_item_graphic](struct $struct0, dbrow $dbrow1)(graphic)
+def_graphic $graphic2 = null;
+def_struct $struct3 = null;
+if ($struct0 ! null) {
+    $graphic2 = struct_param($struct0, skillguide_item_graphic);
+    $dbrow1 = struct_param($struct0, skillguide_data);
+    $struct3 = struct_param($struct0, skillguide_struct);
+}
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case invent_blueprint_table :
+            $graphic2 = db_getfield($dbrow1, invent_blueprint_table:col5, 0);
+        case default :
+            $graphic2 = struct_param($struct0, skillguide_item_graphic);
+    }
+} else if ($struct3 ! null & (struct_param($struct3, combatv2_ability_id) > 0 | struct_param($struct3, combatv2_ability_adrenaline_type) = 6)) {
+    $graphic2 = struct_param($struct3, combatv2_ability_icon);
+}
+return($graphic2);

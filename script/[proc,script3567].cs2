@@ -1,0 +1,67 @@
+// 3567
+[proc,script3567](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+$int4, $int5, $int6 = ~script7295(%pop_ship_selected_var);
+def_int $int7 = 1;
+if ($int0 >= $int4 & $int0 <= $int5) {
+    if (testbit($int6, calc($int0 - $int4)) = ^false & $int3 = 1) {
+        $int7 = 0;
+    }
+} else {
+    $int7 = 1;
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_graphic $graphic8 = null;
+if_sethide(false, pop_ship:crew_compare_hover);
+if_sethide(true, pop_ship:hover_crew_dragable_hint);
+def_obj $obj9 = inv_getobj(pop_crew, $int0);
+def_boolean $boolean10 = false;
+def_boolean $boolean11 = false;
+if ($obj9 = null | $int7 = 0) {
+    if_setgraphic(null, pop_ship:hover_crew_icon);
+    if_settext("Empty slot", pop_ship:hover_crew_name);
+    if_settext("", pop_ship:hover_crew_level);
+    if_settext("", pop_ship:hover_crew_speed);
+    if_settext("", pop_ship:hover_crew_graft);
+    if_settext("", pop_ship:hover_crew_combat);
+    if_settext("", pop_ship:hover_crew_seafaring);
+    if_settext("", pop_ship:hover_crew_trait);
+    return;
+} else {
+    $boolean11 = enum_hasoutput(obj, pop_captain_list, $obj9);
+}
+if (%pop_crew_stat_obj ! null) {
+    $boolean10 = enum_hasoutput(obj, pop_captain_list, %pop_crew_stat_obj);
+}
+$string0, $string1, $string2, $string3, $string4, $string5, $string6, $graphic8 = ~script7318(pop_crew, $int0);
+if ($int2 = 1) {
+    if_setgraphic(oc_param(%pop_crew_stat_obj, pop_crew_graphic), pop_ship:hover_crew_icon);
+    if_settext(%pop_crew_stat_name, pop_ship:hover_crew_name);
+    if_settext(tostring(%pop_crew_stat_speed), pop_ship:hover_crew_speed);
+    if_settext(tostring(%pop_crew_stat_graft), pop_ship:hover_crew_graft);
+    if_settext(tostring(%pop_crew_stat_combat), pop_ship:hover_crew_combat);
+    if_settext(tostring(%pop_crew_stat_seafaring), pop_ship:hover_crew_seafaring);
+    if_settext("Level <tostring(%pop_crew_stat_level)>", pop_ship:hover_crew_level);
+    if_settext(%pop_crew_stat_trait, pop_ship:hover_crew_trait);
+    return;
+} else {
+    if ($boolean10 = true & $boolean11 = false | $boolean10 = false & $boolean11 = true) {
+        $int1 = 0;
+    }
+    if_setgraphic($graphic8, pop_ship:hover_crew_icon);
+    if_settext($string0, pop_ship:hover_crew_name);
+    if_settext($string1, pop_ship:hover_crew_speed);
+    if_settext($string2, pop_ship:hover_crew_graft);
+    if_settext($string3, pop_ship:hover_crew_combat);
+    if_settext($string4, pop_ship:hover_crew_seafaring);
+    if_settext($string5, pop_ship:hover_crew_level);
+    if_settext($string6, pop_ship:hover_crew_trait);
+}

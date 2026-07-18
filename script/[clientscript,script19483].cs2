@@ -1,0 +1,29 @@
+// 19483
+[clientscript,script19483](obj $obj0, int $int1, string $string0, string $string1, string $string2)
+if (if_hassubmodal(toplevel_v2:bank_window, group_ironman_storage) = false) {
+    if_resume_pausebutton(group_ironman_storage:cancel_drop_button);
+    if_sethide(true, group_ironman_storage:confirm_drop_item_layer);
+    return;
+}
+if_sethide(false, group_ironman_storage:confirm_drop_item_layer);
+if_sethide(false, group_ironman_storage:confirm_drop_button);
+if_sethide(false, group_ironman_storage:cancel_drop_button);
+if_sethide(false, group_ironman_storage:confirm_drop_graphic);
+if_setonclick("script19484", group_ironman_storage:confirm_back_rect);
+if ($obj0 ! null) {
+    if_setonclick("script19484", group_ironman_storage:confirm_drop_button);
+    if_setobject_nonum($obj0, 100, group_ironman_storage:confirm_drop_graphic);
+    if_sethide(false, group_ironman_storage:confirm_drop_bg);
+    if_setposition(calc(5 + if_getwidth(group_ironman_storage:confirm_drop_bg)), if_gety(group_ironman_storage:confirm_drop_text), ^setpos_abs_left, ^setpos_abs_top, group_ironman_storage:confirm_drop_text);
+} else {
+    if_setobject(null, 0, group_ironman_storage:confirm_drop_graphic);
+    if_sethide(true, group_ironman_storage:confirm_drop_bg);
+    if_setposition(0, if_gety(group_ironman_storage:confirm_drop_text), ^setpos_abs_centre, ^setpos_abs_top, group_ironman_storage:confirm_drop_text);
+}
+~script13979(group_ironman_storage:confirm_drop_button, null, rs3tli_positive_button, false, $string2, $string2);
+if_settext($string0, group_ironman_storage:confirm_panel_title);
+if_settext($string1, group_ironman_storage:confirm_drop_text);
+def_int $int2 = ~script7593($string1, if_getwidth(group_ironman_storage:confirm_drop_text), if_getfontmetrics(group_ironman_storage:confirm_drop_text), 0);
+$int2 = max($int2, if_getheight(group_ironman_storage:confirm_drop_bg));
+if_setsize(0, $int2, ^setsize_minus, ^setsize_abs, group_ironman_storage:confirm_drop_info);
+if_setsize(if_getwidth(group_ironman_storage:confirm_panel_container), calc($int2 + 48 + 37), ^setsize_abs, ^setsize_abs, group_ironman_storage:confirm_panel_container);

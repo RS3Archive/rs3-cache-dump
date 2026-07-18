@@ -1,0 +1,101 @@
+// 13946
+[proc,script13946]
+cc_deleteall(bank:preset_list_back);
+cc_deleteall(bank:preset_list_build);
+cc_deleteall(bank:preset_list_click);
+cc_deleteall(bank:preset_list_locked);
+cc_deleteall(bank:preset_list_status_inv);
+cc_deleteall(bank:preset_list_status_worn);
+cc_deleteall(bank:preset_list_status_bob);
+cc_create(bank:preset_list_back, ^iftype_text, 0);
+cc_create(bank:preset_list_click, ^iftype_text, 0);
+cc_create(bank:preset_list_locked, ^iftype_text, 0);
+cc_create(bank:preset_list_status_inv, ^iftype_text, 0);
+cc_create(bank:preset_list_status_worn, ^iftype_text, 0);
+cc_create(bank:preset_list_status_bob, ^iftype_text, 0);
+if_sethide(true, bank:preset_highlight_mouseover);
+def_int $int0 = 1;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "Displays whether this preset will load: Backpack | Worn | Beast of Burden";
+def_graphic $graphic5 = null;
+while ($int0 <= 19) {
+    switch_int (~script6963($int0)) {
+        case default :
+            $string0 = ~script15897($int0);
+            $string1 = "";
+            $graphic5 = null;
+        case 1 :
+            $string0 = "Locked";
+            $string1 = "This preset is only available to members.";
+            $graphic5 = "rs3_bonds_icons_medium,0";
+        case 2 :
+            $string0 = "Locked";
+            $string1 = "This preset will be unlocked on members worlds.";
+            $graphic5 = "rs3_bonds_icons_medium,0";
+        case 3 :
+            $string0 = "Locked";
+            $string1 = "This preset is only available after purchase.";
+            $graphic5 = rs3_icon_child_window_lock;
+    }
+    $int2 = calc(1 - ~script15900($int0));
+    $int3 = calc(1 - ~script15902($int0));
+    $int4 = ~script15904($int0);
+    ~script14400(bank:preset_list_back, 0, 30, 0, $int1, true, $int0);
+    cc_setonmouseover("script14390(1, event_com, event_comsubid)");
+    cc_setonmouseleave("script14390(0, event_com, event_comsubid)");
+    cc_setdragdeadtime(5);
+    cc_setdragdeadzone(5);
+    if ($int0 ! 19) {
+        ~cc_add_title_text(bank:preset_list_build, 24, 30, 0, $int1, museo_sans_13pt_bold, tostring($int0), 0);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_setdraggable(bank:preset_list_settings, -1);
+    } else {
+        ~script4512(bank:preset_list_build, 24, 24, 3, calc($int1 + 3), ~script15934(child_tab_summon_familiar, icon_mobile_familiar));
+    }
+    ~script14402(bank:preset_list_click, $int0, 0, 30, 0, $int1);
+    if ($graphic5 = null) {
+        cc_setop(2, "Load");
+        cc_setop(3, "Reset");
+    }
+    cc_setonop("script13938(event_comsubid)");
+    cc_create(bank:preset_list_locked, ^iftype_graphic, $int0);
+    cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, $int1, ^setpos_abs_right, ^setpos_abs_top);
+    cc_setgraphic($graphic5);
+    ~cc_add_text(bank:preset_list_build, if_getnextsubid(bank:preset_list_build), 15, $int1, ^setpos_abs_left, ^setpos_abs_top, 80, 30, ^setsize_minus, ^setsize_abs, text_body_default, $string0);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~script6888(2);
+    if ($graphic5 = null) {
+        if ($int0 ! 19) {
+            ~script14397(bank:preset_list_status_inv, 24, 24, 0, calc($int1 + 3), ^setpos_abs_left, ^setpos_abs_top, ~script14389(93, $int2));
+            cc_setop(1, "Toggle");
+            ~script14397(bank:preset_list_status_worn, 24, 24, 0, calc($int1 + 3), ^setpos_abs_left, ^setpos_abs_top, ~script14389(94, $int3));
+            cc_setop(1, "Toggle");
+            ~script14397(bank:preset_list_status_bob, 24, 24, 0, calc($int1 + 3), ^setpos_abs_left, ^setpos_abs_top, ~script14389(530, $int4));
+            cc_setop(1, "Toggle");
+        } else {
+            cc_create(bank:preset_list_status_inv, ^iftype_text, $int0);
+            cc_create(bank:preset_list_status_worn, ^iftype_text, $int0);
+            ~script14397(bank:preset_list_status_bob, 24, 24, 0, calc($int1 + 3), ^setpos_abs_left, ^setpos_abs_top, ~script14389(530, 1));
+            cc_setop(1, "Toggle");
+        }
+        cc_create(bank:preset_list_build, ^iftype_text, if_getnextsubid(bank:preset_list_build));
+        cc_setsize(50, 30, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, $int1, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setonmouserepeat("script8799($string2, event_com, event_comsubid)");
+    } else {
+        cc_create(bank:preset_list_status_inv, ^iftype_text, $int0);
+        cc_create(bank:preset_list_status_worn, ^iftype_text, $int0);
+        cc_create(bank:preset_list_status_bob, ^iftype_text, $int0);
+        ~script15929(bank:preset_list_build, if_getnextsubid(bank:preset_list_build), 0, $int1, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, $int0);
+    }
+    $int1 = calc($int1 + (30 + 2));
+    $int0 = calc($int0 + 1);
+}
+$string1 = "If your preset has an augmented item this will only load the item with matching perks.<br><br>If the augmented item isn't loading, re-save your preset";
+~static_checkbox_create(bank:preset_exact_build, bank:preset_exact_click, "Exact Matching", $string1, $string1, %share_preset_exact_match_only);

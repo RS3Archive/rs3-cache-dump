@@ -1,0 +1,53 @@
+// 8358
+[proc,script8358](int $int0, int $int1)
+def_struct $struct2 = ~script10405($int0);
+def_component $component3 = struct_param($struct2, toplevel_v2_window_tabs_layer);
+def_component $component4 = struct_param($struct2, toplevel_v2_window_tabs_background_layer);
+def_int $int5 = ~script8374($component3);
+def_int $int6 = ~script8373($int1);
+if (cc_find($component3, $int6) = true & cc_param(toplevel_v2_window_tab_id) = $int0) {
+    return;
+}
+def_string $string0 = null;
+while (.cc_find($component3, calc($int6 + 4)) = true) {
+    if (cc_find($component3, $int6) = true) {
+        cc_setparam_int(toplevel_v2_window_tab_id, .cc_param(toplevel_v2_window_tab_id));
+        cc_setonclick("end_drag_generic_pop($int0, cc_param(toplevel_v2_window_tab_id))");
+        if (%toplevel_v2_legacy_interface = 0) {
+            $string0 = struct_param(~script10405(cc_param(toplevel_v2_window_tab_id)), toplevel_v2_window_name);
+        } else if (compare(struct_param(~script10405(cc_param(toplevel_v2_window_tab_id)), toplevel_v2_window_name_legacy), "") = 0) {
+            if (~script6431 = true & compare(struct_param(~script10405(cc_param(toplevel_v2_window_tab_id)), toplevel_v2_window_name_mobile), "") ! 0) {
+                $string0 = struct_param(~script10405(cc_param(toplevel_v2_window_tab_id)), toplevel_v2_window_name_mobile);
+            } else {
+                $string0 = struct_param(~script10405(cc_param(toplevel_v2_window_tab_id)), toplevel_v2_window_name);
+            }
+        } else {
+            $string0 = struct_param(~script10405(cc_param(toplevel_v2_window_tab_id)), toplevel_v2_window_name_legacy);
+        }
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    }
+    if (cc_find($component3, calc($int6 + 1)) = true & .cc_find($component3, calc($int6 + 4 + 1)) = true) {
+        cc_setgraphic(.cc_getgraphic);
+    }
+    $int6 = calc($int6 + 4);
+}
+if (cc_find($component3, calc($int6 + 1)) = true) {
+    cc_delete;
+}
+if (cc_find($component3, $int6) = true) {
+    cc_delete;
+}
+def_int $int7 = -1;
+$int7 = ~script8371($component3, calc($int1 - 1));
+if ($int7 ! -1) {
+    ~script8355($int0, $int7);
+    ~script8705($int7);
+}
+$int7 = ~script8371($component3, $int1);
+if ($int7 ! -1) {
+    ~script8355($int0, $int7);
+    ~script8705($int7);
+}
+if (calc($int5 - 1) = 1) {
+    ~script8378(1, $int0);
+}

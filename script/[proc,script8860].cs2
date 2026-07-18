@@ -1,0 +1,19 @@
+// 8860
+[proc,script8860]
+def_int $int0 = 0;
+if (%wishing_well_player_donate_obj = coins) {
+    if (%wishing_well_player_donate_count = 1) {
+        if_settext("Total Donation Value: <tostring_localised(%wishing_well_player_donate_count, true)> coin", donation:total_donation_of_item);
+    } else {
+        if_settext("Total Donation Value: <tostring_localised(%wishing_well_player_donate_count, true)> coins", donation:total_donation_of_item);
+    }
+} else if (%wishing_well_player_donate_obj = rs_bond | %wishing_well_player_donate_obj = rs_bond_untradeable) {
+    if_settext("Total Bonds Donated: <tostring_localised(%wishing_well_player_donate_count, true)>", donation:total_donation_of_item);
+} else {
+    $int0 = calc(%wishing_well_player_donate_count * %wishing_well_ge_value);
+    if ($int0 = 1) {
+        if_settext("Total Donation Value: <tostring_localised($int0, true)> coin", donation:total_donation_of_item);
+    } else {
+        if_settext("Total Donation Value: <tostring_localised($int0, true)> coins", donation:total_donation_of_item);
+    }
+}

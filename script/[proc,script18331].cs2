@@ -1,0 +1,37 @@
+// 18331
+[proc,script18331]
+def_component $component0 = timed_event:variety_task_events_buttons;
+def_int $int1 = ~script17343;
+if ($int1 = -1) {
+    return;
+}
+def_int $int2 = calc($int1 * 46);
+if_setsize(180, $int2, ^setsize_abs, ^setsize_abs, $component0);
+~cc_add_grid($component0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int2, ^setsize_minus, ^setsize_abs, false, 1, calc($int1 + 1), 4);
+def_int $int3 = 0;
+def_struct $struct4 = null;
+def_string $string0 = "";
+def_graphic $graphic5 = null;
+def_graphic $graphic6 = null;
+def_boolean $boolean7 = false;
+while ($int3 <= $int1) {
+    if_createnested(^iftype_layer, calc($int3 + 1), 0, 0, 0, $component0);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    if ($int3 = 0) {
+        $string0 = "Info";
+        $graphic5 = "rs3_icon_info_24px,0";
+        $graphic6 = null;
+        $boolean7 = true;
+    } else {
+        $struct4 = ~script17347($int3);
+        $string0 = ~script18332($struct4);
+        $graphic5 = ~script18333($struct4);
+        $graphic6 = ~script18334($struct4, $int3);
+        $boolean7 = false;
+    }
+    ~cc_add_child_button_full($int3, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 36, ^setsize_minus, ^setsize_abs, button_default, $string0, true, true, true, $boolean7);
+    cc_setonbuttonpressed("script18335($struct4, $int3)");
+    ~cc_add_child_graphic($int3, 2, 6, 6, ^setpos_abs_left, ^setpos_abs_top, 24, 24, ^setsize_abs, ^setsize_abs, $graphic5);
+    ~cc_add_child_graphic($int3, 3, 6, 6, ^setpos_abs_right, ^setpos_abs_top, 24, 24, ^setsize_abs, ^setsize_abs, $graphic6);
+    $int3 = calc($int3 + 1);
+}

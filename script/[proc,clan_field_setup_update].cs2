@@ -1,0 +1,37 @@
+// 5080
+[proc,clan_field_setup_update](component $component0)
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(clan_field_rules);
+def_enum $enum3 = null;
+while ($int1 < $int2) {
+    $enum3 = enum(int, enum, clan_field_rules, $int1);
+    if ($enum3 ! null & cc_find($component0, calc($int1 * 10 + 9)) = true) {
+        cc_settext(enum(int, string, $enum3, ~script5089($enum3)));
+    }
+    $int1 = calc($int1 + 1);
+}
+switch_int (%clan_field_limbo) {
+    case 1 :
+        if (%demomode_create = true) {
+            if_settext("Press 'Confirm' when you've made your choices.", clan_field_setup:status);
+        } else {
+            if_settext("Waiting for the battle's initiator to choose the rules...", clan_field_setup:status);
+        }
+    case 2 :
+        if (%demomode_create = true) {
+            if_settext("Press 'Confirm' when you've made your choices.", clan_field_setup:status);
+        } else {
+            if_settext("Waiting for <%clan_field_setup_name> to choose the rules...", clan_field_setup:status);
+        }
+    case 3 :
+        if_settext("Loading elements...", clan_field_setup:status);
+    case 4 :
+        if_settext("Building elements...", clan_field_setup:status);
+    case 5 :
+        if_settext("Failed to build battlefield.", clan_field_setup:status);
+    case 6 :
+        if_settext("Initialising build mode.", clan_field_setup:status);
+    case default :
+        if_settext("Loading...", clan_field_setup:status);
+}
+~clan_field_setup_closedropdown($component0);

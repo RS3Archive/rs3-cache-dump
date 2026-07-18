@@ -1,0 +1,46 @@
+// 9424
+[clientscript,6awe2_shop_tier](int $int0)
+if ($int0 > ~6awe2_tier_available) {
+    switch_int ($int0) {
+        case 2 :
+            mes("This tier is not available until phase 3 of the event.");
+        case 3 :
+            mes("This tier is not available until phase 5 of the event.");
+        case default :
+            mes("This tier is not yet available.");
+    }
+    sound_vorbis_volume(omge_error, 1, 0, 200);
+    return;
+}
+if ($int0 >= 2) {
+    if_sethide(true, 6awe2_rewards:tier2_locked);
+}
+if ($int0 >= 3) {
+    if_sethide(true, 6awe2_rewards:tier3_locked);
+}
+if_setgraphic("rs3_parent_content_tileable_tab,3", 6awe2_rewards:counter_1_tab_graphic_left);
+if_setgraphic("rs3_parent_content_tileable_tab,4", 6awe2_rewards:counter_1_tab_graphic_mid);
+if_setgraphic("rs3_parent_content_tileable_tab,5", 6awe2_rewards:counter_1_tab_graphic_right);
+if_setgraphic("rs3_parent_content_tileable_tab,3", 6awe2_rewards:counter_2_tab_graphic_left);
+if_setgraphic("rs3_parent_content_tileable_tab,4", 6awe2_rewards:counter_2_tab_graphic_mid);
+if_setgraphic("rs3_parent_content_tileable_tab,5", 6awe2_rewards:counter_2_tab_graphic_right);
+if_setgraphic("rs3_parent_content_tileable_tab,3", 6awe2_rewards:counter_3_tab_graphic_left);
+if_setgraphic("rs3_parent_content_tileable_tab,4", 6awe2_rewards:counter_3_tab_graphic_mid);
+if_setgraphic("rs3_parent_content_tileable_tab,5", 6awe2_rewards:counter_3_tab_graphic_right);
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic("rs3_parent_content_tileable_tab,0", 6awe2_rewards:counter_1_tab_graphic_left);
+        if_setgraphic("rs3_parent_content_tileable_tab,1", 6awe2_rewards:counter_1_tab_graphic_mid);
+        if_setgraphic("rs3_parent_content_tileable_tab,2", 6awe2_rewards:counter_1_tab_graphic_right);
+    case 2 :
+        if_setgraphic("rs3_parent_content_tileable_tab,0", 6awe2_rewards:counter_2_tab_graphic_left);
+        if_setgraphic("rs3_parent_content_tileable_tab,1", 6awe2_rewards:counter_2_tab_graphic_mid);
+        if_setgraphic("rs3_parent_content_tileable_tab,2", 6awe2_rewards:counter_2_tab_graphic_right);
+    case 3 :
+        if_setgraphic("rs3_parent_content_tileable_tab,0", 6awe2_rewards:counter_3_tab_graphic_left);
+        if_setgraphic("rs3_parent_content_tileable_tab,1", 6awe2_rewards:counter_3_tab_graphic_mid);
+        if_setgraphic("rs3_parent_content_tileable_tab,2", 6awe2_rewards:counter_3_tab_graphic_right);
+}
+%6awe2_shop_tier = $int0;
+sound_vorbis_volume(tli_select_tab_01, 1, 0, 200);
+~script9426(%6awe2_reward_category);

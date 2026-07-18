@@ -1,0 +1,15 @@
+// 16748
+[proc,get_stylesheet](dbrow $dbrow0)(stylesheet, int)
+if ($dbrow0 = null) {
+    ~error("Skin data is NULL");
+    return(null, -1);
+}
+if (db_getrowtable($dbrow0) ! interface_skin) {
+    ~error("NOT an interface_skin dbrow");
+    return(null, -1);
+}
+def_int $int1 = %toplevel_v2_active_skinset;
+if (db_getfieldcount($dbrow0, interface_skin:col0) <= $int1) {
+    $int1 = 0;
+}
+return(db_getfield($dbrow0, interface_skin:col0, $int1), $int1);

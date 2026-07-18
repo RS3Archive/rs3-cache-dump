@@ -1,0 +1,28 @@
+// 1446
+[clientscript,6awe3_side_tooltip](component $component0, int $int1)
+def_string $string0 = "";
+def_struct $struct2 = null;
+switch_component ($component0) {
+    case 6awe3_side:passive_ability :
+        if (%6awe3_passive_ability = 0) {
+            $string0 = "You do not have a passive ability set.";
+        } else {
+            $struct2 = enum(int, struct, 6awe3_ability_to_struct, %6awe3_passive_ability);
+        }
+    case 6awe3_side:ability_button_1 :
+        if (%6awe3_active_ability1 = 0) {
+            $string0 = "You do not have an ability set in slot 1.";
+        } else {
+            $struct2 = enum(int, struct, 6awe3_ability_to_struct, %6awe3_active_ability1);
+        }
+    case 6awe3_side:ability_button_2 :
+        if (%6awe3_active_ability2 = 0) {
+            $string0 = "You do not have an ability set in slot 2.";
+        } else {
+            $struct2 = enum(int, struct, 6awe3_ability_to_struct, %6awe3_active_ability2);
+        }
+}
+if ($struct2 ! null) {
+    $string0 = struct_param($struct2, 6awe3_ability_desc);
+}
+~script8800($string0, $component0, $int1);

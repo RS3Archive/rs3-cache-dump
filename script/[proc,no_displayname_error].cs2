@@ -1,0 +1,25 @@
+// 1247
+[proc,no_displayname_error](int $int0, int $int1, string $string0)
+if (compare($string0, "This name is already taken.") = 0 & string_length(%create_displayname) = 0) {
+    $string0 = "Please enter a displayname.";
+}
+if ($int0 = 1) {
+    ~script7845($int1, $string0);
+} else {
+    if_settext($string0, no_displayname_v2:information_text);
+    switch_int ($int1) {
+        case default :
+            if_setgraphic("rs3_character_interface_register_ticks,2", no_displayname_v2:name_input_status_icon);
+            if_sethide(false, no_displayname_v2:information_layer);
+        case 1 :
+            if_setgraphic("rs3_character_interface_register_ticks,1", no_displayname_v2:name_input_status_icon);
+            if_sethide(true, no_displayname_v2:information_layer);
+        case 2 :
+            if_setgraphic(hud_combat_btn_locked, no_displayname_v2:name_input_status_icon);
+            if_sethide(true, no_displayname_v2:information_layer);
+        case 3 :
+            if_setgraphic("rs3_character_interface_register_ticks,3", no_displayname_v2:name_input_status_icon);
+            if_sethide(true, no_displayname_v2:information_layer);
+    }
+    if_sethide(false, no_displayname_v2:name_icon_layer);
+}

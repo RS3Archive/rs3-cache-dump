@@ -1,0 +1,54 @@
+// 2595
+[proc,graphics_options_init](int $int0)
+def_boolean $boolean1 = ~is_mobile_client;
+if_setcolour(~script10495(0), graphics_options_v2_client:manual_setup_title_text);
+if_setcolour(~script10495(0), graphics_options_v2_client:auto_setup_title_text);
+if_setcolour(~script10495(0), graphics_options_v2_client:screen_sizing_title_text);
+if_setcolour(~script10495(0), graphics_options_v2_client:advanced_title_text);
+if_setcolour(~script10495(3), graphics_options_v2_client:advanced_desc_text);
+if_setcolour(~script10495(3), graphics_options_v2_client:screen_sizing_desc_text);
+if_setcolour(~script10495(3), graphics_options_v2_client:auto_setup_desc_text);
+if_setcolour(~script10495(3), graphics_options_v2_client:messages);
+switch_int ($int0) {
+    case 0, 4 :
+        if ($boolean1 = false) {
+            if_opensubclient(loginscreen_graphics_options:options_client_if, graphics_options_v2_client);
+        } else {
+            if_opensubclient(loginscreen_graphics_options:options_client_if, graphics_options_v2_client_mobile);
+            ~script10410(graphics_options_v2_client_mobile:content_panel, null, rs3tli_content_panel_blue, 0, 0, 280, 160, 0, false, "");
+            ~spinner_create(graphics_options_v2_client_mobile:spinner, 1, -1);
+            if_setcolour(~script10495(0), graphics_options_v2_client_mobile:auto_setup_title_text);
+        }
+        if ($int0 = 4) {
+            if_setonclick("script7926", loginscreen_graphics_options:mainmodal_window_close_button);
+        } else {
+            if_setonresize("script2919(1, $int0)", loginscreen:options);
+        }
+        ~script8421(loginscreen_graphics_options:mainmodal_window_background, loginscreen_graphics_options:mainmodal_window_border, loginscreen_graphics_options:mainmodal_window_content, loginscreen_graphics_options:mainmodal_window_close_button, "Graphics Options", toplevel_v2_default_main_modal_skin_data, -1, 1, null, null);
+        if ($int0 = 4) {
+            if_sethide(false, acc_create:graphics_options);
+        }
+    case 1 :
+        if ($boolean1 = false) {
+            if_opensubclient(graphics_options:options, graphics_options_v2_client);
+        } else {
+            if_opensubclient(graphics_options:options, graphics_options_v2_client_mobile);
+            ~script10410(graphics_options_v2_client_mobile:content_panel, null, rs3tli_content_panel_blue, 0, 0, 280, 160, 0, false, "");
+            ~spinner_create(graphics_options_v2_client_mobile:spinner, 1, -1);
+            if_setcolour(~script10495(0), graphics_options_v2_client_mobile:auto_setup_title_text);
+        }
+    case 2 :
+        if ($boolean1 = false) {
+            if_opensubclient(lobbyscreen_pane_options:options_client_if, graphics_options_v2_client);
+            if_sethide(true, lobbyscreen_pane_options:title);
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen_pane_options:audio_layer);
+            if_setsize(0, if_getheight(lobbyscreen_pane_options:audio_layer), ^setsize_minus, ^setsize_minus, lobbyscreen_pane_options:options_client_if);
+            if_setsize(0, 0, ^setsize_minus, ^setsize_minus, graphics_options_v2_client:main);
+        } else {
+            if_opensubclient(lobbyscreen_pane_options:options_client_if, graphics_options_v2_client_mobile);
+            if_sethide(false, lobbyscreen_pane_options:title);
+            if_setsize(0, calc(if_gety(lobbyscreen_pane_options:audio_layer) + if_getheight(lobbyscreen_pane_options:audio_layer)), ^setsize_minus, ^setsize_minus, lobbyscreen_pane_options:options_client_if);
+        }
+        ~lobby_resize;
+}
+~script15590($int0);

@@ -1,0 +1,37 @@
+// 3870
+[proc,bslay_req_add](int $int0, obj $obj1, graphic $graphic2, string $string0, int $int3, int $int4)(int, int)
+def_component $component5 = bslay_boss_info:boss_req_build_layer;
+if ($int0 = 0) {
+    $string0 = append($string0, "<br><br>You do not meet this requirement.");
+} else if ($int0 = -1) {
+    $string0 = append($string0, "<br><br>Currently you do not meet this condition.");
+}
+if (calc($int3 + 36) > if_getwidth($component5)) {
+    $int3 = 0;
+    $int4 = calc($int4 + 36);
+}
+if ($graphic2 ! "aif_omge_quest_icons_05,8") {
+    cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+    cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(rs3_inventory_slot);
+    ~rs3_background_panel_dynamic($component5, rs3_icon_holder, $int3, $int4, 36, 36, null);
+}
+cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+if ($obj1 ! null) {
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject_nonum($obj1, 1);
+    cc_setposition(calc($int3 + (36 - 36) / 2 + 1), calc($int4 + (36 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic($graphic2);
+    cc_setposition(calc($int3 + (36 - 32) / 2), calc($int4 + (36 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+}
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+if ($int0 ! 1) {
+    cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+    cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int3 + 36 - 15), calc($int4 + 36 - 15), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_tick_cross_icon,1");
+}
+return(calc($int3 + 36 + 4), $int4);

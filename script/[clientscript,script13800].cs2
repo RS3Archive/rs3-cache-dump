@@ -1,0 +1,40 @@
+// 13800
+[clientscript,script13800](component $component0, int $int1)
+if (%uaui_dnd_favs_1 = 0 & %uaui_dnd_favs_2 = 0 & %uaui_dnd_favs_3 = 0) {
+    if_setontimer(null, $component0);
+    return;
+}
+def_enum $enum2 = uaui_minigames_all;
+def_int $int3 = 1;
+def_int $int4 = enum_getoutputcount($enum2);
+def_struct $struct5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if ($int1 ! calc(date_minutes % 60)) {
+    while ($int3 <= $int4) {
+        $struct5 = enum(int, struct, $enum2, $int3);
+        $int6, $int7 = 0, 0;
+        if ($struct5 ! null & ~script9178(struct_param($struct5, task_unique_id)) = 1) {
+            $int6, $int7 = ~script9132(struct_param($struct5, task_unique_id));
+            switch_int ($int6) {
+                case 1, 2, 3, 5 :
+                    if ($int7 = 5) {
+                        mes("<col=ee7600>Activity: <struct_param($struct5, task_name)> will be available again in 5 minutes.</col>");
+                        $int8 = calc($int8 + 1);
+                    }
+            }
+        }
+        $int3 = calc($int3 + 1);
+    }
+    if ($int8 > 0) {
+        if (%toplevel_v2_minigame_toggle_alarm = 1) {
+            sound_synth_volume(devcom_minigame_alert, 1, 0, 255);
+        }
+        if (if_gethide(clock_wrapper:fav_icon) = false) {
+            ~script8054(clock_wrapper:fav_icon, -1, 0, 200);
+        }
+    }
+    $int1 = calc(date_minutes % 60);
+}
+if_setontimer("script13800($component0, $int1)", $component0);

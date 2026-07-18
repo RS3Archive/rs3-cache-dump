@@ -1,0 +1,38 @@
+// 7937
+[clientscript,script7937]
+if_sethide(false, acc_create:fade_layer);
+if_setonresize("script7931", acc_create:base);
+%acc_create_gender = gender;
+%create_displayname = "";
+%create_username = "";
+%create_password1 = "";
+%create_send_me_news = true;
+%loginscreen_focus = -1;
+%acc_create_anim_y_shift = 0;
+%acc_create_impatient_time = calc(clientclock + 600);
+%acc_create_dizzy = 0;
+%acc_create_head_rotation = 0;
+~script7932;
+~script7849;
+if_setplayermodel_self(acc_create:avatar_paperdoll);
+if_setplayerhead_self(acc_create:avatar_head);
+if_setmodelzoom(950, acc_create:avatar_head);
+if_setmodelangle(0, 130, 0, 0, 0, 160, acc_create:avatar_paperdoll);
+if_setmodelangle(-70, 0, 0, 0, 0, 950, acc_create:avatar_head);
+~script8154;
+if_setonkey("script7833(event_keycode, event_keychar)", acc_create:keyboard_listener);
+if (~is_mobile_client = true) {
+    if_sethide(true, acc_create:valley_bg);
+    if_sethide(false, acc_create:village_bg);
+    if_sethide(true, acc_create:play_now_button_pc);
+    if_sethide(false, acc_create:play_now_button);
+} else {
+    if_sethide(false, acc_create:play_now_button_pc);
+    if_sethide(true, acc_create:play_now_button);
+}
+if_setdraggable(acc_create:base, -1, acc_create:rotate_layer);
+%acc_create_rotation = 0;
+if (map_lang ! 0) {
+    if_sethide(true, acc_create_name:suggestions);
+}
+if_setontimer("script7938(calc(clientclock + 25))", acc_create:fade_listener);

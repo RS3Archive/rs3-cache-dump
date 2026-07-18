@@ -1,0 +1,104 @@
+// 9214
+[proc,wearobj](obj $obj0, inv $inv1, int $int2, int $int3)
+if (enum(obj, boolean, unequippable_items_with_a_wearpos, $obj0) = true) {
+    mes("You can't wear this item.");
+    return;
+}
+if (~script3848($obj0, $inv1) ! 0) {
+    return;
+}
+if (~script925($obj0) = false) {
+    return;
+}
+def_int $int4 = oc_wearpos($obj0);
+if ($int4 = -1) {
+    mes("You can't wear this item.");
+    return;
+}
+if ($int4 = 17) {
+    $int4 = 17;
+}
+def_obj $obj5 = inv_getobj(worn, $int4);
+if ($obj5 = $obj0) {
+    if (oc_stackable($obj0) = false) {
+        return;
+    } else {
+        $obj5 = null;
+    }
+}
+if ($obj5 ! null) {
+    if ($obj5 = $obj0) {
+        if (oc_stackable($obj0) = false) {
+            return;
+        } else {
+            $obj5 = null;
+        }
+    } else if (~script9224($obj5, $obj0) = 1) {
+        return;
+    }
+}
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if ($obj0 ! null) {
+    $int8 = min(calc(^max_32bit_int - inv_total(worn, $obj0)), inv_total($inv1, $obj0));
+}
+if ($obj5 ! null) {
+    $int9 = min(calc(^max_32bit_int - inv_total($inv1, $obj5)), inv_total(worn, $obj5));
+    if ($int9 < inv_total(worn, $obj5)) {
+        return;
+    }
+}
+if (oc_wearpos($obj0) = 5) {
+    $obj7 = inv_getobj(worn, 3);
+    if ($obj7 ! null) {
+        if (oc_wearpos2($obj7) = 5) {
+            $int10 = min(calc(^max_32bit_int - inv_total($inv1, $obj7)), inv_total(worn, $obj7));
+            $int6 = 3;
+        } else {
+            $obj7 = null;
+        }
+    }
+} else if (oc_wearpos2($obj0) = 5) {
+    $obj7 = inv_getobj(worn, 5);
+    if ($obj7 ! null) {
+        $int10 = min(calc(^max_32bit_int - inv_total($inv1, $obj7)), inv_total(worn, $obj7));
+        if ($obj7 = $obj0) {
+            if ($int10 < inv_total(worn, $obj7)) {
+                return;
+            }
+            $obj7 = null;
+        } else {
+            $int6 = 5;
+        }
+    }
+}
+if (~script3847($obj5, $obj7, $obj0, $inv1) = false) {
+    return;
+}
+if ($inv1 = inv) {
+    ~script9215($int4, $int2);
+} else if ($inv1 = bank) {
+    ~script3968($obj0, inv_total($inv1, $obj0), $int2, worn, $int4);
+}
+def_int $int11 = -1;
+def_int $int12 = -1;
+if ($int6 > 0) {
+    if ($inv1 = inv) {
+        if ($obj5 ! null) {
+            $int11 = ~script9249(inv);
+        } else {
+            $int11 = $int2;
+        }
+        ~script9215($int6, $int11);
+    } else if ($inv1 = bank) {
+        if (%bank_current_tab <= 1) {
+            $int11 = ~script14295;
+        } else {
+            $int12, $int11 = ~bank_get_tab_range(~script14372(%bank_current_tab));
+        }
+        ~bank_deposit_generic(worn, $obj7, inv_getnum(worn, $int6), $int6, 1, 1);
+    }
+}

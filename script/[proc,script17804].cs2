@@ -1,0 +1,63 @@
+// 17804
+[proc,script17804](dbrow $dbrow0)
+def_int $int1 = 0;
+def_component $component2 = necro_ritual_recipe_selection:input_scroll_layer;
+def_component $component3 = necro_ritual_recipe_selection:input_scrollbar_layer;
+def_int $int4 = if_getwidth($component2);
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_int $int7 = ~script17505($dbrow0);
+def_int $int8 = 0;
+def_int $int9 = 2;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = -1;
+cc_deleteall($component2);
+if ($int7 <= 1) {
+    if_settext("Input", necro_ritual_recipe_selection:input_header_text);
+    $obj5, $int6 = ~script17504($dbrow0, -1, 0);
+    $int10 = inv_total(necro_ritual_focus_inv, $obj5);
+    $int11 = ~script2515(inv, $obj5);
+    if ($int10 < $int6 & $int11 < $int6) {
+        $int9 = 5;
+    }
+    $int1 = calc($int1 + ~script17812($component2, $int1, text_body_default, null, $obj5, "<tostring($int6)> <oc_name($obj5)>", $int9, "ui_necromancy_ritual_bullet_point,5"));
+    ~script3537("<tostring($int10)> in focus storage<br><tostring($int11)> in backpack");
+} else {
+    if_settext("Input (select an option)", necro_ritual_recipe_selection:input_header_text);
+    ~script17634($component2, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 18, calc($int7 * (18 + 4)), ^setsize_abs, ^setsize_abs, radio_default);
+    cc_setonvartransmit("script17805($dbrow0){necro_ritual_recipe_selection_selected_recipe}");
+    while (++$int12 < $int7) {
+        $obj5, $int6 = ~script17504($dbrow0, -1, $int12);
+        $int8 = ~script17503($dbrow0, $int12);
+        $int10 = inv_total(necro_ritual_focus_inv, $obj5);
+        $int11 = ~script2515(inv, $obj5);
+        $int9 = 2;
+        if ($int10 < $int6 & $int11 < $int6) {
+            $int9 = 5;
+        }
+        ~cc_add_obj($component2, if_getnextsubid($component2), calc(18 + 4), $int1, ^setpos_abs_left, ^setpos_abs_top, 18, 18, ^setsize_abs, ^setsize_abs, $obj5, -1);
+        ~cc_add_text($component2, if_getnextsubid($component2), calc(18 + 18 + 4), $int1, ^setpos_abs_left, ^setpos_abs_top, calc($int4 - 18 - 18), 18, ^setsize_abs, ^setsize_abs, text_body_default, ~script3930(" <tostring($int6)> <oc_name($obj5)>", calc($int4 - 18 - 18 - 4), 1, notosans_12));
+        cc_settextfont(notosans_12);
+        ~script2731($component2, cc_getid, $int9);
+        ~script3537("<tostring($int10)> in focus storage<br><tostring($int11)> in backpack");
+        $int1 = calc($int1 + (cc_getheight + 4));
+        if (cc_find($component2, 0) = true) {
+            cc_radiogroup_addoption($int8, "");
+            if ($int8 = %necro_ritual_recipe_selection_selected_recipe) {
+                cc_radiogroup_setoptionselected($int8, 1, 1);
+            } else {
+                cc_radiogroup_setoptionselected($int8, 0, 1);
+            }
+        }
+    }
+}
+$int12 = -1;
+if (if_getheight($component2) < $int1) {
+    if_sethide(false, $component3);
+    if_setscrollsize(0, $int1, $component2);
+    ~rs3_scrollbar_vertical($component3, $component2);
+} else {
+    if_sethide(true, $component3);
+    if_setscrollsize(0, 0, $component2);
+}

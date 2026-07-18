@@ -1,0 +1,175 @@
+// 13099
+[proc,script13099](struct $struct0)(string)
+if ($struct0 = null) {
+    return("");
+}
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = -1;
+def_int $int3 = 0;
+def_struct $struct4 = null;
+def_int $int5 = %qp;
+def_int $int6 = %qp_total;
+def_quest $quest7 = null;
+def_achievement $achievement8 = null;
+if (~script6488($struct0) = 0) {
+    $int2 = struct_param($struct0, mtxmgt_source);
+    $struct4 = struct_param($struct0, mtxmgt_parent_struct);
+    $string0 = struct_param($struct0, mtxmgt_source_custom);
+    $int1 = string_length($string0);
+    $quest7 = struct_param($struct0, mtxmgt_quest_unlock);
+    $achievement8 = struct_param($struct0, mtxmgt_source_achievement);
+    if (~script6214($struct0) = 1) {
+        $string0 = "You need to be a member to activate this customisation.";
+    } else if ($struct4 ! null & (~script6488($struct4) = 1 | $int1 > 0)) {
+        if ($int1 = 0) {
+            $string0 = "You don't meet the requirements for this item.";
+        } else {
+            switch_struct ($struct4) {
+                case mtx75_nex_pack :
+                    $string0 = append($string0, " (<tostring(%mtx75_nex_kills)>/5)");
+                case mtx75_kbd_pack :
+                    $string0 = append($string0, " (<tostring(%mtx75_kbd_kills)>/5)");
+                case trh80_grotesque_pack2_struct :
+                    $string0 = append($string0, " (<tostring_localised(%trh80_upgrade_progress, true)>/<tostring_localised(7000, true)>)");
+                case trh80_grotesque_pack3_struct :
+                    $string0 = append($string0, " (<tostring_localised(%trh80_upgrade_progress, true)>/<tostring_localised(35000, true)>)");
+                case trh106_sunfury_pack_struct_upgraded :
+                    $string0 = append($string0, " (<tostring_localised(%trh106_upgrade_points, true)>/<tostring_localised(35000, true)>)");
+                case trh118_lunarfury_pack_struct_upgraded :
+                    $string0 = append($string0, " (<tostring_localised(%trh118_upgrade_points, true)>/<tostring_localised(35000, true)>)");
+            }
+        }
+    } else if ($int1 = 0 & ($int2 = 1 & struct_param($struct0, mtxmgt_subcat) ! 19 | $int2 = 2)) {
+        if ($struct4 ! null & struct_param($struct4, release_date) = %atlum_day_tracker | $struct4 = null & struct_param($struct0, release_date) = %atlum_day_tracker) {
+            $string0 = "This item is not available yet. Check back later.";
+        } else {
+            $string0 = "This item is not available right now.";
+        }
+    } else if ($int1 > 0) {
+        switch_struct ($struct0) {
+            case pop_title_bosun :
+                $string0 = append($string0, " (<tostring_localised(%cheevo_pop_log_score, true)>/<tostring_localised(400, true)>)");
+            case pop_title_1stofficer :
+                $string0 = append($string0, " (<tostring_localised(%cheevo_pop_log_score, true)>/<tostring_localised(800, true)>)");
+            case pop_title_capn :
+                $string0 = append($string0, " (<tostring_localised(%cheevo_pop_log_score, true)>/<tostring_localised(1200, true)>)");
+            case pop_title_commodore :
+                $string0 = append($string0, " (<tostring_localised(%cheevo_pop_log_score, true)>/<tostring_localised(1600, true)>)");
+            case pop_title_admiral :
+                $string0 = append($string0, " (<tostring_localised(%cheevo_pop_log_score, true)>/<tostring_localised(2000, true)>)");
+            case pop2_title_fleet_admiral :
+                $string0 = append($string0, " (<tostring_localised(%cheevo_pop_log_score, true)>/<tostring_localised(3500, true)>)");
+            case pop3_title_portmaster :
+                $string0 = append($string0, " (<tostring_localised(%cheevo_pop_log_score, true)>/<tostring_localised(4500, true)>)");
+            case atdun_title_of_daemonheim :
+                $string0 = append($string0, " (<tostring(~script13115)>/60)");
+            case elfcity_title_trahaearn :
+                $string0 = append($string0, " (<tostring(%elfcity_title_trahaearn_ore)>/100)");
+            case elfcity_title_iorwerth :
+                $string0 = append($string0, " (<tostring(%elfcity_title_iorwerth_challenges)>/8)");
+            case elfcity_title_cadarn :
+                $string0 = append($string0, " (<tostring(%elfcity_title_cadarn_defeated)>/1,000)");
+            case elfcity_title_ithell :
+                $string0 = append($string0, " (<tostring(%elfcity_ithell_flasks_crafted)>/100)");
+            case elfcity_title_hefin :
+                $string0 = append($string0, " (<tostring(%elfcity_hefin_course_laps)>/<tostring(200)>)");
+            case elfcity_title_meilyr :
+                $string0 = append($string0, " (<tostring(%elfcity_bole_harvested)>/50)");
+            case elfcity_title_elven :
+                $string0 = append($string0, " (<tostring(calc(testbit(%elfcity_title_capesbought, 0) + testbit(%elfcity_title_capesbought, 1) + testbit(%elfcity_title_capesbought, 2) + testbit(%elfcity_title_capesbought, 3) + testbit(%elfcity_title_capesbought, 4) + testbit(%elfcity_title_capesbought, 5) + testbit(%elfcity_title_capesbought, 6) + testbit(%elfcity_title_capesbought, 7)))>/8)");
+            case qp_title :
+                $string0 = append($string0, " (<tostring($int5)>/<tostring($int6)> Quest Points)");
+            case champions_title :
+                $string0 = append($string0, " (<tostring(%champions_defeated_count)>/15 Champions)");
+            case courts_title :
+                $string0 = append($string0, " (<tostring(~script11502)>/16 cases)");
+            case distracted_title :
+                $int3 = calc(24 - 5);
+                $string0 = append($string0, " (<tostring(~script13114)>/<tostring($int3)> D&Ds)");
+            case mtx91_title_contender :
+                $string0 = append($string0, " (<tostring(%mtx91_total_entered)>/10)");
+            case mtx91_title_loser :
+                $string0 = append($string0, " (<tostring(calc(%mtx91_total_entered - %mtx91_total_wins))>/10)");
+            case mtx91_title_loser_2 :
+                $string0 = append($string0, " (<tostring(calc(%mtx91_total_entered - %mtx91_total_wins))>/25)");
+            case mtx91_title_loser_3 :
+                $string0 = append($string0, " (<tostring(calc(%mtx91_total_entered - %mtx91_total_wins))>/100)");
+            case mtx91_title_winner :
+                $string0 = append($string0, " (<tostring(%mtx91_total_wins)>/10)");
+            case mtx91_title_winner_2 :
+                $string0 = append($string0, " (<tostring(%mtx91_total_wins)>/25)");
+            case mtx91_title_winner_3 :
+                $string0 = append($string0, " (<tostring(%mtx91_total_wins)>/100)");
+            case carni_wolf_pet_red_struct :
+                $string0 = append($string0, " (<tostring(%qp)>/200)");
+            case carni_wolf_pet_black_struct :
+                $string0 = append($string0, " (<tostring(%qp)>/400)");
+            case boss_practice_mode_pet :
+                $string0 = append($string0, " (<tostring(%boss_instance_noobs_trained)>/500)");
+            case raid1_goebie_pet :
+                $string0 = append($string0, " (<tostring_localised(%raid1_goebie_rep, true)>/2,500)");
+            case bslay_death_pet :
+                $string0 = append($string0, " (<tostring(%bslay_task_streak)>/<tostring(200)>)");
+            case peng_spy_spymaster_title :
+                $string0 = append($string0, " (<tostring(%peng_spy_total_peng)>/<tostring(70)>)");
+            case peng_spy_birdwatcher_title :
+                $string0 = append($string0, " (<tostring(%peng_spy_total_peng)>/<tostring(20)>)");
+            case peng_spy_sheldon_pet :
+                $string0 = append($string0, " (<tostring(%peng_spy_total_peng)>/<tostring(80)>)");
+            case pet_richie :
+                $string0 = append($string0, " (<~script14034(%pet_richie_wealth_millions, %pet_richie_wealth_remainder, true)>/<~script14034(100, 0, true)>)");
+            case pet_zez :
+                $string0 = append($string0, " (<tostring_localised(achievement_total_runescore, true)>/<tostring_localised(5000, true)>)");
+            case raid_rebirth1_devourer_aura :
+                $string0 = append($string0, " (<tostring_localised(calc(%bslay_kills_raid_rebirth1_slayer_master_boss_hardmode + %bslay_prestige_raid_rebirth1_slayer_master_boss_hardmode * 60000), true)>/<tostring_localised(100, true)>)");
+        }
+    } else {
+        switch_int ($int2) {
+            case default :
+                $string0 = "You don't have this customisation yet.";
+            case 13 :
+                if (~script9964($struct0) = null) {
+                    $string0 = "You don't have anything in this slot.";
+                } else {
+                    $string0 = "You don't meet the requirements for this item.";
+                }
+            case 5 :
+                if ($quest7 ! null) {
+                    $string0 = "You can unlock this customisation by completing the '";
+                    $string0 = append($string0, ~quest_name($quest7));
+                    $string0 = append($string0, "' quest.");
+                } else if ($achievement8 ! null) {
+                    $string0 = "You can unlock this customisation by completing the '";
+                    $string0 = append($string0, achievement_getname($achievement8));
+                    $string0 = append($string0, "' achievement.");
+                } else {
+                    $string0 = "You can unlock this customisation by playing the game.";
+                }
+            case 6 :
+                $string0 = "You can unlock this customisation by joining a clan of 5 people or more.";
+            case 8 :
+                $string0 = "This item is unlocked by playing a limited-time holiday event.";
+            case 10 :
+                $string0 = "This pet can be captured from around the world.";
+            case 7 :
+                $string0 = "This item can be gained through the seasonal hiscores.";
+            case 11 :
+                $string0 = "This pet can be earned by completing content.";
+            case 14 :
+                $string0 = "This customisation can be obtained from Treasure Hunter.";
+            case 3 :
+                $string0 = "This customisation can be obtained from tokens available on the Grand Exchange.";
+        }
+    }
+} else if (~script12779($struct0, null, -1) = 0) {
+    switch_struct ($struct0) {
+        case god_book_regular_book_o_struct, god_book_regular_shield_struct :
+            $string0 = "Complete god books to unlock their colours. Additional colours are unlocked by completing all god books.";
+        case god_book_illuminated_book_o_struct, god_book_illuminated_shield_struct :
+            $string0 = "Illuminate god books to unlock their colours. Additional colours are unlocked by illuminating all god books.";
+        case default :
+            $string0 = "You don't have this recolour unlocked.";
+    }
+}
+return($string0);

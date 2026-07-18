@@ -1,0 +1,69 @@
+// 5679
+[clientscript,script5679](int $int0)
+def_int $int1 = 0;
+def_graphic $graphic2 = null;
+switch_int ($int0) {
+    case 103809097 :
+        $int1 = 0;
+        $graphic2 = "aif_valentine_shop_icons,2";
+    case 103809153 :
+        $int1 = 1;
+        $graphic2 = "aif_valentine_shop_icons,5";
+    case 103809121 :
+        $int1 = 2;
+        $graphic2 = "aif_valentine_shop_icons,3";
+    case 103809169 :
+        $int1 = 3;
+        $graphic2 = "aif_valentine_shop_icons,4";
+    case 103809089 :
+        $int1 = 4;
+        $graphic2 = "aif_valentine_shop_icons,0";
+    case 103809137 :
+        $int1 = 5;
+        $graphic2 = "aif_valentine_shop_icons,1";
+    case 103809113 :
+        $int1 = 6;
+        $graphic2 = "aif_valentine_shop_icons_2014,6";
+    case 103809161 :
+        $int1 = 7;
+        $graphic2 = "aif_valentine_shop_icons_2014,7";
+    case 103809129 :
+        $int1 = 8;
+        $graphic2 = "aif_valentine_shop_icons_2014,9";
+    case 103809177 :
+        $int1 = 9;
+        $graphic2 = "aif_valentine_shop_icons_2014,8";
+    case 103809105 :
+        $int1 = 10;
+        $graphic2 = "aif_valentine_shop_icons_2014,11";
+    case 103809145 :
+        $int1 = 11;
+        $graphic2 = "aif_valentine_shop_icons_2014,10";
+    case 103809138, 103809146, 103809090, 103809106, 103809154, 103809162, 103809098, 103809114, 103809170, 103809178, 103809122, 103809130 :
+        mes("You have already unlocked that reward.");
+        return;
+}
+if (~script10949($int1) = 1) {
+    mes("You have already unlocked that reward.");
+    return;
+}
+if (~ironman_mode = true & ($int1 = 0 | $int1 = 1 | $int1 = 6 | $int1 = 7)) {
+    mes("Ironman players cannot unlock that reward as it has combat stats.");
+    return;
+}
+def_obj $obj3 = enum(int, obj, trh44_valentines15_retro_items, $int1);
+if (oc_members($obj3) = 1 & playermember = false) {
+    mes("Only members can unlock that reward.");
+    return;
+}
+if (inv_total(inv, trh44_valentines15_currency) < enum(int, int, trh44_valentines15_retro_amount, $int1)) {
+    mes("You don't have enough rose petals to unlock that reward.");
+    return;
+}
+if_setgraphic($graphic2, trh44_valentines15_shop:popup_icon);
+def_int $int4 = enum(int, int, trh44_valentines15_retro_amount, $int1);
+def_string $string0 = enum(int, string, trh44_valentines15_retro_string, $int1);
+if_settext("Are you sure you want to unlock <$string0> for <tostring_localised($int4, true)> rose petals?", trh44_valentines15_shop:popup_description);
+if_sethide(false, trh44_valentines15_shop:darkness);
+if_sethide(false, trh44_valentines15_shop:popup_layer);
+return;

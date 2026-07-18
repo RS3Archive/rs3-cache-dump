@@ -1,0 +1,33 @@
+// 9220
+[proc,script9220](inv $inv0, int $int1, obj $obj2, int $int3, int $int4, int $int5)
+if ($inv0 ! inv & $inv0 ! bank) {
+    return;
+}
+if (~script9224($obj2, null) = 1) {
+    return;
+}
+if (inv_freespace($inv0) = 0 & (oc_stackable($obj2) = false | inv_total($inv0, $obj2) > 0 & calc(^max_32bit_int - inv_getnum(worn, $int3)) < inv_getnum($inv0, ~script9250($inv0, $obj2)))) {
+    if ($int1 = 1) {
+        mes("You don't have enough space in your inventory to do that.");
+    }
+    return;
+}
+def_obj $obj6 = oc_uncert($obj2);
+if ($inv0 = inv) {
+    if ($int4 = -1) {
+        ~script9215($int3, ~script9249(inv));
+    } else if ($int4 >= 0 & $int4 < inv_size($inv0)) {
+        if (inv_getobj($inv0, $int4) = null) {
+            ~script9215($int3, $int4);
+        }
+    } else {
+        return;
+    }
+} else if ($inv0 = bank) {
+    if ($int4 ! -1) {
+        ~script2347($obj2, $obj6, ~bank_get_item_slot(worn, $obj6), inv_getnum(worn, $int3), $int4, -1, worn, $int3, 1, 1);
+    } else {
+        ~bank_deposit_generic(worn, $obj2, inv_getnum(worn, $int3), $int3, 1, 1);
+    }
+    return;
+}

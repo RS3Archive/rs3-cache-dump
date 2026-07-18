@@ -1,0 +1,79 @@
+// 13666
+[clientscript,script13666](component $component0, component $component1, component $component2, int $int3)
+if (%invent_machine_id = 0) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 131;
+db_find(invent_machine_table:col0, %invent_machine_id);
+def_dbrow $dbrow8 = db_findnext;
+def_int $int9 = db_getfield($dbrow8, invent_machine_table:col10, 0);
+def_obj $obj10 = null;
+def_int $int11 = 0;
+def_int $int12 = if_getx($component2);
+def_int $int13 = if_getwidth($component2);
+def_int $int14 = -1;
+def_int $int15 = db_getfield($dbrow8, invent_machine_table:col17, 0);
+def_int $int16 = 0;
+if ($int9 = 2 & %invent_machine_batches_stored > 0) {
+    $int16 = scale(%invent_machine_batches_stored, $int15, 100);
+} else {
+    $int16 = scale(%invent_machine_amount_stored, $int15, 100);
+}
+if (calc($int16 % 100) > 0) {
+    $int16 = calc($int16 + 100);
+}
+$int16 = calc($int16 / 100);
+$int16 = calc($int16 * db_getfield($dbrow8, invent_machine_table:col22, 0));
+if (if_find($component0) = true) {
+    $int7 = ~script12422($int7, 1000, cc_param(rs3tli_component_playback_rate));
+    $int6 = cc_param(rs3tli_progress_current);
+    $int5 = cc_param(rs3tli_progress_target);
+    $int4 = ~clamp(calc($int6 + ~clamp(calc($int5 - $int6), calc(0 - $int7), $int7)), 0, 65536);
+    cc_setparam(rs3tli_progress_current, $int4);
+    cc_setposition(scale($int4, 65536, if_getwidth($component1)), 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int14 = cc_getx;
+    if ($int3 ! -1 & db_getfieldcount($dbrow8, invent_machine_table:col19) > $int3) {
+        $obj10, $int11 = db_getfield($dbrow8, invent_machine_table:col19, $int3);
+        if ($int3 = 0) {
+            if (%invent_machine_secondary_1 >= calc(%invent_machine_amount_stored * $int11)) {
+                if ($int14 <= calc($int12 + $int13)) {
+                    cc_setcolour(^green);
+                } else {
+                    cc_setcolour(^red);
+                }
+            } else if ($int14 >= calc($int12 + $int13)) {
+                cc_setcolour(^red);
+            } else {
+                cc_setcolour(^green);
+            }
+        } else if ($int3 = 1) {
+            if (%invent_machine_secondary_2 >= calc(%invent_machine_amount_stored * $int11)) {
+                if ($int14 <= calc($int12 + $int13)) {
+                    cc_setcolour(^green);
+                } else {
+                    cc_setcolour(^red);
+                }
+            } else if ($int14 >= calc($int12 + $int13)) {
+                cc_setcolour(^red);
+            } else {
+                cc_setcolour(^green);
+            }
+        }
+    } else if ($int3 = -1) {
+        $int11 = db_getfield($dbrow8, invent_machine_table:col22, 0);
+        if (%invent_machine_charge_stored >= $int16) {
+            if ($int14 <= calc($int12 + $int13)) {
+                cc_setcolour(^green);
+            } else {
+                cc_setcolour(^red);
+            }
+        } else if ($int14 >= calc($int12 + $int13)) {
+            cc_setcolour(^red);
+        } else {
+            cc_setcolour(^green);
+        }
+    }
+}

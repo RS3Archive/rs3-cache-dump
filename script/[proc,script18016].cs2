@@ -1,0 +1,62 @@
+// 18016
+[proc,script18016](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int)
+def_component $component6 = bp3_track_tab:reward_track_tile_layer;
+def_component $component7 = bp3_track_tab:reward_track_level_layer;
+def_int $int8 = 1;
+def_int $int9 = ~script17969(%bp3_current_viewed_pass, 0, 0, $int0);
+def_int $int10 = ~script18018($int0);
+def_boolean $boolean11 = false;
+def_boolean $boolean12 = false;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+switch_int ($int0) {
+    case 1 :
+        $boolean11 = false;
+        $boolean12 = false;
+        $int13 = 0;
+    case 2 :
+        $boolean11 = false;
+        $boolean12 = false;
+        if (~script17862(%bp3_current_viewed_pass) < ~script17892(%bp3_current_viewed_pass)) {
+            $int13 = 0;
+        } else {
+            $int13 = 1;
+        }
+}
+~script18041($component6, $int10, $int9);
+~script18041($component7, $int10, $int9);
+$int5 = calc($int5 + $int9);
+$int1, $int2 = ~script17978($int8, $component7, $int9, 1, -1, $boolean11, $int10, $boolean12, $int13, $int1, $int2, $int0);
+if (cc_findbycategory($component6, 2, $int10) = 1) {
+    $int3, $int4 = ~script17970($int3, $int4);
+    switch_int ($int0) {
+        case 1 :
+            $int3, $int4 = ~script17970($int3, $int4);
+            cc_setparam(category_id, $int3);
+            cc_setparam(dynamic_id, $int4);
+            ~script17947($int3, $int4, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, ~script17986($boolean11, $boolean12, -1));
+            cc_find_parent;
+            $int4 = calc($int4 + 1);
+            $int14, $int15 = ~script17895($int10, 0);
+            ~cc_add_child_text($int14, $int15, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 10, 5, ^setsize_minus, ^setsize_minus, text_body_default, "Levels after 99 are Heroic Levels. They require <tostring_localised(db_getfield(%bp3_current_viewed_pass, bp3_table:col6, 0), true)> hero points per level but contain Heroic rewards.");
+            cc_setcolour(^white);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            cc_sendtofront;
+            cc_setop(1, "Heroic Levels Info");
+            cc_setonop("script18000(null, $boolean11, $int10, event_com, event_comsubid, 0, 0, 1)");
+        case 2 :
+            cc_setparam(category_id, $int3);
+            cc_setparam(dynamic_id, $int4);
+            ~script17947($int3, $int4, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, ~script17986($boolean11, $boolean12, -1));
+            cc_find_parent;
+            $int4 = calc($int4 + 1);
+            ~cc_add_child_text($int3, $int4, 100, 0, ^setpos_abs_left, ^setpos_abs_top, calc(200 - 15), 0, ^setsize_abs, ^setsize_minus, text_body_default, ~script17971(%bp3_current_viewed_pass));
+            cc_setcolour(^white);
+            $int4 = calc($int4 + 1);
+            ~cc_add_child_layer($int3, $int4, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 100, 0, ^setsize_abs, ^setsize_minus);
+            $int4 = calc($int4 + 1);
+            ~script18025($int3, $int4, cc_getlayer, ~script17892(%bp3_current_viewed_pass), $boolean12, 100, 2);
+    }
+}
+return($int1, $int2, $int3, $int4, $int5);

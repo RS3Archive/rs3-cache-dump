@@ -1,0 +1,18 @@
+// 3583
+[clientscript,script3583](component $component0, int $int1)
+def_int $int2 = min(~script13431($int1), ~script13434($int1));
+def_int $int3 = ~reputation_get_current_reputation_tier($int1);
+def_int $int4 = -1;
+def_struct $struct5 = ~reputation_get_reputation_struct($int1);
+def_int $int6 = enum_getoutputcount(struct_param($struct5, reputation_tiers));
+if ($int3 = calc($int6 - 1)) {
+    $int4 = enum(int, int, struct_param($struct5, reputation_tiers), $int3);
+} else {
+    $int4 = enum(int, int, struct_param($struct5, reputation_tiers), calc($int3 + 1));
+}
+def_int $int7 = calc($int2 % 10);
+if ($int7 > 0) {
+    ~script8800("<tostring(calc($int2 / 10))>.<tostring(calc($int2 % 10))>/<tostring(calc($int4 / 10))>", $component0, -1);
+} else {
+    ~script8800("<tostring(calc($int2 / 10))>/<tostring(calc($int4 / 10))>", $component0, -1);
+}

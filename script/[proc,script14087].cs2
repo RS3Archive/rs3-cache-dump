@@ -1,0 +1,36 @@
+// 14087
+[proc,script14087](int $int0, int $int1, int $int2)(int, int)
+def_dbrow $dbrow3 = ~script11651($int0);
+def_obj $obj4 = null;
+def_int $int5 = 0;
+def_boolean $boolean6 = false;
+if ($dbrow3 ! null) {
+    $obj4 = db_getfield($dbrow3, construction_house_furniture:col4, 0);
+    if (($int1 = 63 | $int1 = db_getfield($dbrow3, construction_house_furniture:col5, 0)) & ($int2 = 127 | $int2 = 126 | $int2 = db_getfield($dbrow3, construction_house_furniture:col6, 0)) & ~script7105($obj4) = true) {
+        $int5 = ~script7108($obj4);
+        if ($int5 > 0) {
+            return(db_getfield($dbrow3, construction_house_furniture:col0, 0), $int5);
+        }
+    }
+}
+def_dbfilter $dbfilter7 = ~script13406($int1, $int2, stat(construction), 0, 0, 0, 1, 0, 1);
+unknown_command_77($dbfilter7, construction_house_furniture:col9, false);
+def_dbrow $dbrow8 = db_findnext;
+if (~script14088 = true) {
+    $dbrow3 = $dbrow8;
+    while ($dbrow3 ! null) {
+        $obj4 = db_getfield($dbrow3, construction_house_furniture:col4, 0);
+        $boolean6 = ~script7105($obj4);
+        if ($boolean6 = true) {
+            $int5 = ~script7108($obj4);
+            if ($int5 > 0) {
+                return(db_getfield($dbrow3, construction_house_furniture:col0, 0), $int5);
+            }
+        }
+        $dbrow3 = db_findnext;
+    }
+}
+if ($dbrow8 ! null) {
+    return(db_getfield($dbrow8, construction_house_furniture:col0, 0), 0);
+}
+return(0, 0);

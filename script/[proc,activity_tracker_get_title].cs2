@@ -1,0 +1,41 @@
+// 9407
+[proc,activity_tracker_get_title](int $int0, int $int1, achievement $achievement2)(string)
+def_struct $struct3 = null;
+def_string $string0 = "";
+switch_int ($int0) {
+    case 2 :
+        return(achievement_getname($achievement2));
+    case 1 :
+        return(~quest_name(enum(int, quest, ql4_quests, $int1)));
+    case 3 :
+        return(~cheevo_name(enum(int, struct, cheevo_id_to_struct, $int1)));
+    case 4 :
+        $struct3 = ~script16319($int1);
+        if ($struct3 ! null) {
+            return(~challenge_name($struct3));
+        } else {
+            return("No Challenge in Slot <tostring($int1)>");
+        }
+    case 5 :
+        return(enum(int, string, statstring, $int1));
+    case 6 :
+        $struct3 = enum(int, struct, uaui_minigames_all, $int1);
+        if ($struct3 ! null) {
+            return(struct_param($struct3, task_name));
+        } else {
+            return("");
+        }
+    case 7 :
+        return(~script16090);
+    case 8 :
+        return(~script14060);
+    case 9 :
+        if ($int1 = 0) {
+            return("Task A: <db_getfield(%runepass_cached_task_dbrow_0, runepass_task:col0, 0)>");
+        }
+        return("Task B: <db_getfield(%runepass_cached_task_dbrow_1, runepass_task:col0, 0)>");
+    case 10 :
+        return(db_getfield(~script17905($int1), bp3_mission:col0, 0));
+    case default :
+        return("");
+}

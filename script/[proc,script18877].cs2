@@ -1,0 +1,34 @@
+// 18877
+[proc,script18877](int $int0, dbrow $dbrow1)(string)
+def_string $string0 = ~script18921($dbrow1, 24);
+if (string_length($string0) > 0) {
+    return($string0);
+}
+def_int $int2 = ~script18920($dbrow1, 23);
+switch_int ($int2) {
+    case 1 :
+        return("Open Website");
+    case 2 :
+        return("Read News");
+    case 3 :
+        return("Open Interface");
+    case 4 :
+        return("Teleport");
+    case 5 :
+        return("Open Settings");
+    case 6 :
+        return("Advent Calendar");
+}
+if (~script18925($dbrow1, 16) ! null) {
+    return("View Quest");
+}
+def_struct $struct3 = ~script18924($dbrow1, 15);
+if (struct_param($struct3, bslay_id) > 0) {
+    return("View Boss");
+}
+db_find(calendar_category:col0, $int0);
+def_dbrow $dbrow4 = db_findnext;
+if ($dbrow4 ! null) {
+    return(db_getfield($dbrow4, calendar_category:col6, 0));
+}
+return("Continue");

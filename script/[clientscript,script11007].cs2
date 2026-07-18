@@ -1,0 +1,47 @@
+// 11007
+[clientscript,script11007](struct $struct0)
+cc_deleteall(mtxmgt:pet_growth_progress);
+def_int $int1 = 78;
+def_int $int2 = 0;
+def_int $int3 = ~script11005($struct0);
+def_int $int4 = 0;
+cc_create(mtxmgt:pet_growth_progress, ^iftype_graphic, 0);
+cc_setsize(2, 6, ^setsize_abs, ^setsize_abs);
+cc_setposition(4, 3, ^setpos_abs_left, ^setpos_abs_top);
+if ($int3 > 0) {
+    cc_setgraphic(quest_progress_bar_green_end);
+} else {
+    cc_setgraphic(quest_progress_bar_yellow_end);
+}
+if ($int3 = 0 | $int3 = 9000) {
+    $int2 = 0;
+} else if ($int3 < 9000) {
+    $int2 = calc($int1 * 1000 / 9000 * $int3 / 1000);
+} else if ($int3 > 9000 & $int3 < 24000) {
+    $int2 = calc($int1 * 1000 / (24000 - 9000) * ($int3 - 9000) / 1000);
+} else if ($int3 = 24000) {
+    $int2 = $int1;
+}
+$int4 = calc($int2 * 100 / $int1);
+if ($int3 < 9000) {
+    if_settext("Growth until Adolescence: <col=FFFFFF><tostring($int4)>%</col>", mtxmgt:pet_growth_text);
+} else if ($int3 >= 9000 & $int3 < 24000) {
+    if_settext("Growth until Adult: <col=FFFFFF><tostring($int4)>%</col>", mtxmgt:pet_growth_text);
+} else {
+    if_settext("Adult", mtxmgt:pet_growth_text);
+}
+cc_create(mtxmgt:pet_growth_progress, ^iftype_graphic, 1);
+cc_setsize(2, 6, ^setsize_abs, ^setsize_abs);
+cc_sethflip(true);
+cc_setposition(calc($int2 + cc_getwidth + 4), 3, ^setpos_abs_left, ^setpos_abs_top);
+if ($int3 > 0) {
+    cc_setgraphic(quest_progress_bar_green_end);
+} else {
+    cc_setgraphic(quest_progress_bar_yellow_end);
+}
+if ($int2 ! 0) {
+    cc_create(mtxmgt:pet_growth_progress, ^iftype_graphic, 2);
+    cc_setsize($int2, 6, ^setsize_abs, ^setsize_abs);
+    cc_setposition(6, 3, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(quest_progress_bar_green_tile);
+}

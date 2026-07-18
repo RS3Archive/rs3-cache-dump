@@ -1,0 +1,41 @@
+// 1331
+[proc,worldmap_button](component $component0)
+def_string $string0 = "World Map";
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+$graphic1, $graphic2 = ~script789(%worldmap_modifier);
+if (if_find($component0) = true) {
+    cc_clearops;
+    if (%worldmap_modifier = 2) {
+        cc_setop(1, "Citadel Information");
+        $string0 = "Citadel Information";
+        cc_setop(4, "Skybox and Filter Settings");
+        cc_setop(5, "Toggle High Contrast Mode");
+    } else if (%worldmap_modifier = 1) {
+        if (%rden2_minutes_left > 0) {
+            cc_setop(1, "Factory Layout");
+            $string0 = "Factory Layout";
+            cc_setop(4, "Skybox and Filter Settings");
+        } else if (%rand_dnd_in_sinkhole = 1) {
+            cc_setop(1, "Sinkhole Map");
+            $string0 = "Sinkhole Map";
+        } else {
+            cc_setop(1, "Daemonheim Map");
+            $string0 = "Daemonheim Map";
+            cc_setop(4, "Skybox and Filter Settings");
+            cc_setop(5, "Toggle High Contrast Mode");
+        }
+    } else {
+        cc_setop(1, "World Map");
+        if (%playerdesign2_col ! null & %playerdesign2_col ! 0_0_0_0_0) {
+            cc_setop(2, "Clear Marker");
+        }
+        cc_setop(3, "World Select");
+        cc_setop(4, "Skybox and Filter Settings");
+        cc_setop(5, "Toggle High Contrast Mode");
+    }
+    cc_setgraphic($graphic1);
+    cc_setonmouseover("graphic_swapper(event_com, $graphic2)");
+    cc_setonmouseleave("graphic_swapper(event_com, $graphic1)");
+    cc_setonmouserepeat("script8799($string0, event_com, -1)");
+}

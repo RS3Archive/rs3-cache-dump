@@ -1,0 +1,25 @@
+// 6325
+[proc,script6325]
+def_string $string0 = "<col=c8c8c8>";
+def_graphic $graphic0 = "aif_treasure_chest_key,0";
+if (%carni_treasurechest_transmit_reqs = 2) {
+    ~script6326(1, carni_treasurechest:use_pin, carni_treasurechest:use_pin_hover);
+    ~script6326(0, carni_treasurechest:use_both, carni_treasurechest:use_both_hover);
+    ~script6326(0, carni_treasurechest:use_key, carni_treasurechest:use_key_hover);
+    $graphic0 = "aif_treasure_chest_key,1";
+} else if (%carni_treasurechest_transmit_reqs = 1) {
+    ~script6326(0, carni_treasurechest:use_pin, carni_treasurechest:use_pin_hover);
+    ~script6326(1, carni_treasurechest:use_both, carni_treasurechest:use_both_hover);
+    ~script6326(0, carni_treasurechest:use_key, carni_treasurechest:use_key_hover);
+} else {
+    ~script6326(0, carni_treasurechest:use_pin, carni_treasurechest:use_pin_hover);
+    ~script6326(0, carni_treasurechest:use_both, carni_treasurechest:use_both_hover);
+    ~script6326(1, carni_treasurechest:use_key, carni_treasurechest:use_key_hover);
+    $string0 = "<col=787878>";
+}
+if_setgraphic($graphic0, carni_treasurechest:key);
+if (%carni_treasurechest_transmit_pin > 0) {
+    if_settext("<$string0><tostring(min(%carni_treasurechest_transmit_pin, 999999999))></col>", carni_treasurechest:pin);
+} else {
+    if_settext("<$string0>None</col>", carni_treasurechest:pin);
+}

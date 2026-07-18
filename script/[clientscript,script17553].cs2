@@ -1,0 +1,68 @@
+// 17553
+[clientscript,script17553]
+def_component $component0 = activity_progress_bar_extension:info_box_2_text;
+def_int $int1 = -1;
+switch_struct (%activity_progress_bar_active_struct) {
+    case dino_boss_healthbar :
+        switch_int (%activity_progress_bar_extension_info_box_2_value) {
+            case 1 :
+                if_settext("Solo", $component0);
+            case 2 :
+                if_settext("Duo", $component0);
+            case 3 :
+                if_settext("Trio", $component0);
+        }
+    case spiderboss1_info, spiderboss2_info :
+        if_settext("Enrage: <tostring(%activity_progress_bar_extension_info_box_2_value)>%", $component0);
+    case egwd_wen_boss_healthbar :
+        switch_int (%activity_progress_bar_extension_info_box_2_value) {
+            case 0 :
+                if_settext("Normal", $component0);
+            case 1 :
+                if_settext("Enrage: <tostring(%egwd_wen_boss_current_enrage)>%", $component0);
+        }
+    case egwd_zamorak_boss_healthbar :
+        switch_int (%activity_progress_bar_extension_info_box_2_value) {
+            case 0 :
+                if_settext("Normal", $component0);
+            case 1 :
+                if_settext("Story", $component0);
+            case default :
+                if_settext("Enrage:<br> <tostring(%activity_progress_bar_extension_info_box_2_value)>%", $component0);
+        }
+    case hermod_boss_healthbar, rasial_boss_healthbar :
+        switch_int (%activity_progress_bar_extension_info_box_2_value) {
+            case 1 :
+                if_settext("Normal", $component0);
+            case default :
+                if_settext("<tostring(%activity_progress_bar_extension_info_box_2_value)> player", $component0);
+        }
+    case raid_rebirth1_wyrm_boss_healthbar, raid_rebirth1_beast_boss_healthbar, raid_rebirth1_slayer_master_boss_healthbar :
+        switch_int (%activity_progress_bar_extension_info_box_2_value) {
+            case 0 :
+                if_settext("Normal", $component0);
+            case 1 :
+                if_settext("Hard", $component0);
+        }
+    case elidinis_boss_healthbar :
+        if_settext("Barrier strength:<br> <tostring(%activity_progress_bar_extension_info_box_2_value)>%", $component0);
+    case amascut_boss_encounter_healthbar :
+        switch_int (%activity_progress_bar_extension_info_box_2_value) {
+            case 0 :
+                if_settext("Normal", $component0);
+            case default :
+                if_settext("Enrage:<br> <tostring(%activity_progress_bar_extension_info_box_2_value)>%", $component0);
+        }
+    case default :
+        switch_int (%activity_progress_bar_extension_info_box_2_value) {
+            case 1 :
+                if_settext("Normal", $component0);
+            case 2 :
+                if_settext("Hard", $component0);
+            case 3 :
+                if_settext("Challenge", $component0);
+        }
+}
+if (%activity_progress_bar_extension_info_box_2_value = -1) {
+    if_settext("Story", $component0);
+}

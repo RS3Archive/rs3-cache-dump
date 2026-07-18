@@ -1,0 +1,22 @@
+// 19767
+[proc,script19767](int $int0)(int)
+if ($int0 = 0) {
+    $int0 = %trh205_prize_option_chosen;
+}
+def_dbrow $dbrow1 = null;
+def_dbrow $dbrow2 = null;
+def_int $int3 = 0;
+if ($int0 = 1) {
+    $dbrow1 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col5, 0);
+    $int3 = %trh205_reward_path_1_prizes_claimed;
+} else {
+    $dbrow1 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col6, 0);
+    $int3 = %trh205_reward_path_2_prizes_claimed;
+}
+def_int $int4 = db_getfieldcount($dbrow1, trh205_reward_path:col0);
+if ($int3 >= $int4) {
+    $dbrow2 = db_getfield($dbrow1, trh205_reward_path:col1, 0);
+} else {
+    $dbrow2 = db_getfield($dbrow1, trh205_reward_path:col0, $int3);
+}
+return(db_getfield($dbrow2, trh205_path_reward:col0, 0));

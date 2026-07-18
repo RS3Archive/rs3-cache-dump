@@ -1,0 +1,19 @@
+// 18490
+[proc,script18490](string $string0, component $component0, component $component1)
+if ($component0 ! null) {
+    if_settext($string0, $component0);
+    if (map_lang ! 0 | string_length($string0) > 30) {
+        if_settextfont(cinzel_15pt_bold, $component0);
+    } else {
+        if_settextfont(cinzel_18pt_bold, $component0);
+    }
+}
+def_string $string1 = "";
+if ($component1 ! null) {
+    $string1 = "<$string0>/Quick guide";
+    if_setonbuttonpressed("wiki($string1)", $component1);
+} else if ($component0 = quest_journal:title) {
+    if_sethide(true, quest_journal:journal_wiki_layer);
+    if_sethide(true, quest_journal:quest_overview);
+    if_sethide(true, quest_journal:history_1);
+}

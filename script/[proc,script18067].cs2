@@ -1,0 +1,146 @@
+// 18067
+[proc,script18067](int $int0, component $component1, int $int2)(component, int, int)
+def_dbrow $dbrow3 = ~script17905($int0);
+def_int $int4 = ~script17903($int0);
+def_int $int5 = 0;
+def_int $int6 = ~script17902($int0);
+if ($dbrow3 = null) {
+    ~error("No cached mission found at slot <tostring($int0)>");
+    return(null, -1, $int2);
+}
+def_int $int7 = db_getfield($dbrow3, bp3_mission:col1, 0);
+if ($int7 > 4095) {
+    ~error("We need to change how we're drawing missions, we've got too many ID's");
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_stat $stat11 = null;
+def_int $int12 = 0;
+def_int $int13 = 1;
+def_int $int14 = db_getfieldcount($dbrow3, bp3_mission:col10);
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_obj $obj17 = null;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_boolean $boolean20 = ~ironman_mode;
+def_component $component21 = null;
+def_int $int22 = -1;
+def_int $int23 = ~script17898(db_getfield(~script17905($int0), bp3_mission:col14, 0));
+def_int $int24 = ~script17907($int0);
+if (cc_findbycategory($component1, calc($int23 + 40), 0) = 1) {
+    $int2 = cc_param(bp3_accordion_content_height);
+    cc_setparam(bp3_accordion_content_height, calc($int2 + 105));
+    cc_setparam(bp3_accordion_mission_amount, calc(cc_param(bp3_accordion_mission_amount) + 1));
+    ~cc_add_child_layer($int0, $int13, 0, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+    $int13 = calc($int13 + 1);
+    ~cc_add_child_graphic($int0, $int13, 15, 10, ^setpos_abs_left, ^setpos_abs_top, 80, 80, ^setsize_abs, ^setsize_abs, db_getfield($dbrow3, bp3_mission:col16, 0));
+    $int13 = calc($int13 + 1);
+    ~cc_add_child_text($int0, $int13, 110, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_gold_cinzel_bold_16pt, db_getfield($dbrow3, bp3_mission:col0, 0));
+    $int13 = calc($int13 + 1);
+    ~cc_add_child_text($int0, $int13, 110, 16, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_white_notosans_12pt, ~script18073($dbrow3));
+    $int13 = calc($int13 + 1);
+    ~cc_add_child_text($int0, $int13, calc(if_getwidth($component1) / 2 - 60), 60, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth($component1) / 3), 30, ^setsize_abs, ^setsize_abs, bp3_text_gold_cinzel_bold_16pt, "Rewards:");
+    $int13 = calc($int13 + 1);
+    $int9 = calc($int9 + 25);
+    $int8 = db_getfield($dbrow3, bp3_mission:col12, 0);
+    if ($int8 > 0) {
+        ~cc_add_child_graphic($int0, $int13, calc(if_getwidth($component1) / 2 + $int9), 60, ^setpos_abs_left, ^setpos_abs_top, 32, 32, ^setsize_abs, ^setsize_abs, bp3_icon_hero_points_50);
+        ~script17954("<tostring($int8)> x Hero points", 1);
+        $int9 = calc($int9 + 36);
+        $int13 = calc($int13 + 1);
+        $int16 = calc($int16 + 1);
+    }
+    if ($boolean20 = false) {
+        $int10 = db_getfield($dbrow3, bp3_mission:col11, 0);
+        if ($int10 > 0 & playermember = true) {
+            ~script17927;
+            ~script17950($int0, $int13, calc(if_getwidth($component1) / 2 + $int9), 60, ^setpos_abs_left, ^setpos_abs_top, 36, 32, ^setsize_abs, ^setsize_abs, bp3_mission_reward_keys_dummy, $int10);
+            ~script17954("<tostring($int10)> x Treasure Hunter Keys", 1);
+            $int9 = calc($int9 + 36);
+            $int13 = calc($int13 + 1);
+            $int16 = calc($int16 + 1);
+        }
+        $stat11, $int12 = db_getfield($dbrow3, bp3_mission:col13, 0);
+        if ($stat11 ! null & $int12 > 0) {
+            ~cc_add_child_graphic($int0, $int13, calc(if_getwidth($component1) / 2 + $int9), 60, ^setpos_abs_left, ^setpos_abs_top, 36, 32, ^setsize_abs, ^setsize_abs, ~script8894($stat11));
+            ~script17954("<tostring(calc($int12 / 10))> x <enum(stat, string, stat_to_string, $stat11)> XP", 1);
+            $int9 = calc($int9 + 36);
+            $int13 = calc($int13 + 1);
+            $int16 = calc($int16 + 1);
+        }
+    }
+    $int14 = db_getfieldcount($dbrow3, bp3_mission:col10);
+    if ($int14 > 0) {
+        while ($int15 < $int14 & $int16 < 5) {
+            if ($int16 = 4 & $int14 ! calc($int15 + 1)) {
+                ~cc_add_child_graphic($int0, $int13, calc(if_getwidth($component1) / 2 + $int9), 60, ^setpos_abs_left, ^setpos_abs_top, 36, 32, ^setsize_abs, ^setsize_abs, bp3_mission_plus_icon);
+                ~script17954("Plus more rewards!", 1);
+                $int9 = calc($int9 + 36);
+                $int16 = calc($int16 + 1);
+                $int13 = calc($int13 + 1);
+            } else {
+                $obj17, $int18, $int19 = db_getfield($dbrow3, bp3_mission:col10, $int15);
+                if ($boolean20 = false | $boolean20 = true & $int19 = 1) {
+                    ~script17950($int0, $int13, calc(if_getwidth($component1) / 2 + $int9), 60, ^setpos_abs_left, ^setpos_abs_top, 36, 32, ^setsize_abs, ^setsize_abs, oc_uncert($obj17), 1);
+                    ~script17954("<tostring($int18)> x <oc_name($obj17)>", 1);
+                    $int9 = calc($int9 + 36);
+                    $int16 = calc($int16 + 1);
+                    $int13 = calc($int13 + 1);
+                }
+            }
+            $int15 = calc($int15 + 1);
+        }
+    }
+    $int13 = calc($int13 + 1);
+    $string0, $string1 = ~script18072($dbrow3);
+    $int5 = db_getfield($dbrow3, bp3_mission:col5, 0);
+    if ($int4 < $int5) {
+        ~cc_add_child_graphic($int0, $int13, 110, 62, ^setpos_abs_left, ^setpos_abs_top, 160, 26, ^setsize_abs, ^setsize_abs, container_progress_fill_runepass_task_1);
+        $int13 = calc($int13 + 1);
+        ~cc_add_child_graphic($int0, $int13, 112, 64, ^setpos_abs_left, ^setpos_abs_top, scale($int4, $int5, 156), 22, ^setsize_abs, ^setsize_abs, container_progress_fill_runepass_task_runepass_2);
+        $int13 = calc($int13 + 1);
+        ~cc_add_child_text($int0, $int13, 110, 62, ^setpos_abs_left, ^setpos_abs_top, 160, 26, ^setsize_abs, ^setsize_abs, bp3_text_white_notosans_12pt, "<col=000000>Progress: </col><col=2EF8FF><tostring($int4)></col> / <col=2EF8FF><tostring($int5)></col>");
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    } else {
+        ~cc_add_child_button(101, $int0, 110, 62, ^setpos_abs_left, ^setpos_abs_top, 160, 26, ^setsize_abs, ^setsize_abs, ~script17989(22), "Claim");
+        ~script17954("Complete Mission", 0);
+        ~script7872(true, true, false, false);
+        cc_setop(1, "Complete Mission");
+        cc_setonop("script18086");
+    }
+    $int13 = calc($int13 + 1);
+    ~cc_add_child_text($int0, $int13, calc(if_getwidth($component1) - 110), 60, ^setpos_abs_left, ^setpos_abs_top, 40, 30, ^setsize_abs, ^setsize_abs, bp3_text_white_notosans_centre_14pt, ~script18087($int6, 0, 1));
+    $int13 = calc($int13 + 1);
+    ~cc_add_child_graphic($int0, $int13, calc(if_getwidth($component1) - 115), 5, ^setpos_abs_left, ^setpos_abs_top, 50, 50, ^setsize_abs, ^setsize_abs, bp3_mission_timer_icon);
+    if ($int6 = calc(date_runeday + 1)) {
+        cc_setcolour(0xfc1c03);
+    } else if ($int6 <= calc(date_runeday + 2)) {
+        cc_setcolour(0xe8b210);
+    } else {
+        cc_setcolour(0xc3e2f7);
+    }
+    $int13 = calc($int13 + 1);
+    if (db_getfield($dbrow3, bp3_mission:col6, 0) ! null) {
+        if (~script6431 = true) {
+            ~cc_add_child_graphic($int0, $int13, calc(if_getwidth($component1) - 40), 60, ^setpos_abs_left, ^setpos_abs_top, 24, 24, ^setsize_abs, ^setsize_abs, bp3_mission_chain_icon_24px);
+        } else {
+            ~cc_add_child_graphic($int0, $int13, calc(if_getwidth($component1) - 55), 10, ^setpos_abs_left, ^setpos_abs_top, 12, 12, ^setsize_abs, ^setsize_abs, bp3_mission_chain_icon_24px);
+        }
+        ~script17954("This mission is part of a chain. Claiming on completion unlocks the next mission.", 1);
+        $int13 = calc($int13 + 1);
+    }
+    ~script18069($int0, $component1);
+    $int13 = calc($int13 + 1);
+    ~cc_add_child_button_full(0, calc($int0 + 50), 8, 0, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth($component1) - 16), 100, ^setsize_abs, ^setsize_abs, bp3_button_secondary, "", true, true, false, false);
+    cc_setop(3, "Mission Information");
+    cc_setonop("script18070($int0, event_com, event_comsubid, cc_getlayer)");
+    $component21 = cc_getlayer;
+    $int22 = cc_getid;
+    $int13 = calc($int13 + 1);
+    return($component21, $int22, calc($int2 + 110));
+}
+return(null, -1, $int2);

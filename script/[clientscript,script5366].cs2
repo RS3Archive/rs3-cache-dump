@@ -1,0 +1,26 @@
+// 5366
+[clientscript,script5366]
+def_int $int0 = calc(100 / 8);
+def_int $int1 = calc(%agidad_ifcv_timer_perc / $int0);
+if (calc(%agidad_ifcv_timer_perc % $int0) = 0) {
+    $int1 = calc($int1 - 1);
+}
+def_int $int2 = 0;
+while ($int2 < 8) {
+    if ($int2 > $int1) {
+        ~script5367(calc($int2 * 6 + 3), 0);
+        ~script5367(calc($int2 * 6 + 4), 0);
+        ~script5367(calc($int2 * 6 + 5), 0);
+    } else if ($int2 < $int1) {
+        ~script5367(calc($int2 * 6 + 3), 2);
+        ~script5367(calc($int2 * 6 + 4), 2);
+        ~script5367(calc($int2 * 6 + 5), 2);
+    } else if ($int2 = $int1 & $int2 ! %agidad_ifcv_last_fade_segment) {
+        %agidad_ifcv_fade_elapsed = 0;
+        %agidad_ifcv_last_fade_segment = $int2;
+        ~script5367(calc($int2 * 6 + 3), 1);
+        ~script5367(calc($int2 * 6 + 4), 1);
+        ~script5367(calc($int2 * 6 + 5), 1);
+    }
+    $int2 = calc($int2 + 1);
+}

@@ -1,0 +1,65 @@
+// 6997
+[proc,script6997](component $component0, int $int1, obj $obj2, int $int3, component $component4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12)
+def_obj $obj13 = null;
+def_int $int14 = -1;
+def_int $int15 = -1;
+def_int $int16 = -1;
+if (if_find($component0) = true) {
+    if ($int9 = 14) {
+        $obj2 = inv_getobj(worn, $int10);
+        $int3 = 94;
+        cc_setgraphic(null);
+        cc_setobject($obj2, -1);
+        if ($int12 = 1 & $obj2 = null) {
+            ~script6995($int11, $int1, 0, 0, 0, -1);
+            return;
+        } else {
+            cc_setcolour(^white);
+            ~script7968($component4, 1);
+            ~script9380($obj2, 0, 94);
+        }
+    } else {
+        $obj13, $int15, $int16 = ~script947($obj2);
+        if ($int15 ! -1) {
+            cc_setcolour(^white);
+            ~script7968($component4, 1);
+            if ($int10 > 0) {
+                cc_setobject_alwaysnum($obj13, $int10);
+            } else {
+                cc_setobject($obj13, -1);
+            }
+            ~script9380($obj2, $int10, $int3);
+        } else {
+            cc_setcolour(0x333333);
+            ~script7968($component4, 0);
+            if ($int10 > 0) {
+                cc_setobject_alwaysnum($obj2, $int10);
+            } else {
+                cc_setobject($obj2, -1);
+            }
+            ~script9380($obj2, $int10, $int3);
+        }
+    }
+    if ($int5 = 1) {
+        cc_setop(10, "Customise keybind");
+        cc_setonop("script7023($int11, $int1, event_com, event_op)");
+    }
+    ~script7033;
+    if ($int6 = 0 & ~script792 = false) {
+        $int14 = ~script7000($obj2, $int3, $int10);
+        if (oc_param($obj2, combatv2_item_has_actionbar_use) = 1 & ($int14 > 3 | ~script16476 = true)) {
+            cc_setoptkey($int7, $int8);
+            cc_setoptkeyrate(6, 50);
+        } else {
+            cc_setopkey($int14, $int7, $int8, null, 0, null, 0, null, 0, null, 0);
+            cc_setopkeyrate($int14, 6, 50);
+        }
+    }
+    if (%combatv2_actionbar_locked = 0 & %toplevel_v2_mobile_interface = 0) {
+        cc_setonmouserepeat("script5495($obj2)");
+        cc_setonmouseleave("script5495(null)");
+    } else {
+        cc_setonmouserepeat(null);
+        cc_setonmouseleave(null);
+    }
+}

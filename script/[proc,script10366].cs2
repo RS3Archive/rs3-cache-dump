@@ -1,0 +1,51 @@
+// 10366
+[proc,script10366](struct $struct0)(int)
+def_enum $enum1 = struct_param($struct0, group_team_enum);
+def_enum $enum2 = struct_param($struct0, group_criteria_enum);
+def_enum $enum3 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = calc(if_getwidth(group_parent:settings_build_area) - 10);
+def_int $int11 = 0;
+cc_deleteall(group_parent:settings_build_area);
+cc_deleteall(group_parent:settings_click_area);
+if (struct_param($struct0, group_combat_check) = true & ~comlevel > %group_min_combat) {
+    $int9 = ~script10367(group_parent:settings_build_area, "Minimum combat level required to join the group.", $int9);
+    if_sethide(false, group_parent:combat_setting_area);
+    if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, group_parent:combat_setting_area);
+    ~static_slider(group_parent:combat_slider_build, group_parent:combat_slider_click, rs3tli_slider_bar, max(3, %group_min_combat), %group_max_combat, %group_combat_player);
+    $int9 = calc($int9 + if_getheight(group_parent:combat_setting_area) + 5);
+} else {
+    if_sethide(true, group_parent:combat_setting_area);
+}
+if ($enum2 ! null) {
+    $int7 = enum_getoutputcount($enum2);
+    while ($int6 < $int7) {
+        $int11 = ~group_get_check_var(calc($int6 + 1));
+        $int5 = enum(int, int, $enum2, $int6);
+        $int4, $enum3 = ~script10270($int5);
+        $string2, $string0, $string1 = ~group_get_text($int5);
+        if ($int4 = 1) {
+            $int9, $int8 = ~dynamic_checkbox_create_full(group_parent:settings_build_area, group_parent:settings_click_area, 5, $int9, $int10, $int8, $string2, $string0, $string1, "", $int11, ~script10393($int5, $int6), 1, rs3tli_checkbox_master);
+        } else if ($int4 = 0) {
+            if ($enum3 ! null) {
+                $int9 = ~script10367(group_parent:settings_build_area, $string2, $int9);
+                $int9, $int8 = ~dynamic_dropdown_create(group_parent:settings_build_area, group_parent:settings_click_area, 5, $int9, $int10, $int8, $enum3, null, $string2, $int11, 0);
+            }
+        } else if ($int4 = 2) {
+            $int9 = ~script10367(group_parent:settings_build_area, $string2, $int9);
+        }
+        $int6 = calc($int6 + 1);
+    }
+}
+if ($int9 = 0) {
+    $int9 = ~script10367(group_parent:settings_build_area, "This content does not have any settings available.", $int9);
+}
+return(max($int9, 40));

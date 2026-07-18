@@ -1,0 +1,32 @@
+// 11242
+[clientscript,jmod_build_chat](component $component0, component $component1, component $component2)
+def_int $int3 = 0;
+def_int $int4 = 15;
+cc_deleteall($component0);
+cc_deleteall($component1);
+while ($int3 < enum_getoutputcount(jmod_phrases)) {
+    cc_create($component1, ^iftype_rectangle, $int3);
+    cc_setsize(0, $int4, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, calc(5 + $int3 * $int4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    if (calc($int3 % 2) = 0) {
+        cc_setcolour(0x1c2c34);
+    } else {
+        cc_setcolour(0x071820);
+    }
+    cc_create($component0, ^iftype_text, $int3);
+    cc_setsize(10, $int4, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, calc(5 + $int3 * $int4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(~script10495(3));
+    cc_settext(~script11243(enum(int, string, jmod_phrases, $int3), cc_getwidth));
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 16777215)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(3))");
+    cc_setop(1, "Select");
+    cc_setonop("script11244($component0, $int3)");
+    $int3 = calc($int3 + 1);
+}
+if (if_getheight($component0) < calc(5 * 2 + $int3 * $int4)) {
+    if_setscrollsize(0, calc(5 * 2 + $int3 * $int4), $component0);
+    ~rs3_scrollbar_vertical($component2, $component0);
+}

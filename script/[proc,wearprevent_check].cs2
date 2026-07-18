@@ -1,0 +1,158 @@
+// 3849
+[proc,wearprevent_check](obj $obj0)(int, string)
+if (oc_members($obj0) = 1 & map_members = false) {
+    return(2, "");
+}
+if (%tutorial_version = 1 & %tutorial < 400) {
+    return(2, "0");
+}
+switch_obj ($obj0) {
+    case pest_void_knight_top, pest_void_knight_robes, pest_void_knight_gloves, game_pest_mage_helm, game_pest_archer_helm, game_pest_melee_helm, pc14_void_knight_top_upgraded, pc14_void_knight_robes_upgraded, pc14_void_knight_gloves_upgraded, pc14_mage_helm_upgraded, pc14_archer_helm_upgraded, pc14_melee_helm_upgraded, pest_void_knight_mace, pc14_reward_torso_black_upgraded, pc14_reward_legs_black_upgraded, pc14_reward_torso_grey_upgraded, pc14_reward_legs_grey_upgraded, pc14_reward_torso_white_upgraded, pc14_reward_legs_white_upgraded, vkq3_reward_torso_black, vkq3_reward_legs_black, vkq3_reward_torso_grey, vkq3_reward_legs_grey, vkq3_reward_torso_white, vkq3_reward_legs_white :
+        if (~script11500 = 0) {
+            return(1, "You need Constitution, Attack, Defence, Strength, Ranged and Magic levels of 42 as well as Prayer level of 22 to wear this.");
+        }
+    case mourning_paint_gun :
+        if (%mourning_gun_ammo < 1) {
+            return(1, "You need to load ammo into the device before you can use it.");
+        }
+    case njcapes_gatherer_cape :
+        if (~script11501(1) = 0) {
+            return(1, "You do not meet the requirements to wear this cape.");
+        }
+    case njcapes_combat_cape :
+        if (~script11501(2) = 0) {
+            return(1, "You do not meet the requirements to wear this cape.");
+        }
+    case njcapes_artisan_cape :
+        if (~script11501(3) = 0) {
+            return(1, "You do not meet the requirements to wear this cape.");
+        }
+    case njcapes_support_cape :
+        if (~script11501(4) = 0) {
+            return(1, "You do not meet the requirements to wear this cape.");
+        }
+    case njcapes_gatherer_hood :
+        if (~script11501(1) = 0) {
+            return(1, "You do not meet the requirements to wear this hood.");
+        }
+    case njcapes_combat_hood :
+        if (~script11501(2) = 0) {
+            return(1, "You do not meet the requirements to wear this hood.");
+        }
+    case njcapes_artisan_hood :
+        if (~script11501(3) = 0) {
+            return(1, "You do not meet the requirements to wear this helmet.");
+        }
+    case njcapes_support_hood :
+        if (~script11501(4) = 0) {
+            return(1, "You do not meet the requirements to wear this hood.");
+        }
+    case skillcape_qp, skillcape_qp_hooded, skillcape_inverted_qp_hooded :
+        if (achievement_reqstate(cheevo_all_quests) ! -2) {
+            return(1, "You need to have completed all of the quests to wear this cape.");
+        }
+    case skillcape_qp_hood :
+        if (achievement_reqstate(cheevo_all_quests) ! -2) {
+            return(1, "You need to have completed all of the quests to wear this hood.");
+        }
+    case death_spikedboots :
+        if (~inzone(0_44_59_0_0, 3_44_59_63_63, coord) = false) {
+            return(1, "Trying to walk in these would be difficult. I'll carry them for now.");
+        }
+    case death_climbingboots, death_climbingboots_quest :
+        if (%death_equiproom < 80) {
+            return(1, "The sherpa's feet must be very small. I can't get them on.");
+        }
+    case zogre_bow :
+        if (%thzfe_makecompozogrebow = 0) {
+            return(1, "This bow looks quite powerful. You should talk to Grish to find out more about it before trying to use it.");
+        }
+    case warguild_shield :
+        if (inv_getnum(worn, 3) ! 0) {
+            return(1, "You will need to make sure your sword hand is free to equip this shield.");
+        }
+    case hundred_pirate_crab_shell_gauntlet :
+        if (inv_totalcat(worn, weapon_claw) > 0) {
+            return(1, "You need to remove your claws first.");
+        }
+    case poh_boxing_gloves_red, poh_boxing_gloves_blue :
+        if (inv_getobj(worn, 9) ! null) {
+            return(1, "You cannot wear the boxing gloves over other gloves.");
+        }
+    case enchanted_onyx_ring :
+        if (%peng_transmog = 1) {
+            return(1, "You can't turn into a stone while controlling the penguin suit.");
+        }
+    case event7_ring :
+        if (%peng_transmog = 1) {
+            return(1, "You can't turn into a pile of sand while controlling the penguin suit.");
+        }
+    case peng_pow_rock_costume1, peng_pow_rock_costume2 :
+        if (%peng_transmog = 0) {
+            return(1, "You can only wear that while in the penguin suit.");
+        }
+    case lotg_4dosegoblin, lotg_3dosegoblin, lotg_2dosegoblin, lotg_1dosegoblin :
+        return(2, "");
+}
+switch_category (oc_category($obj0)) {
+    case ammo_ogrearrow :
+        if ($obj0 ! ogre_arrow & %thzfe_makebrutalarrow = 0) {
+            return(1, "This arrow type looks very powerful. You're not sure how you should use it yet.");
+        }
+    case war_strength_shot, war_strength_keg :
+        return(1, "You can't equip that.");
+    case weapon_claw :
+        if (inv_total(worn, hundred_pirate_crab_shell_gauntlet) > 0) {
+            return(1, "You need to remove your claw first.");
+        }
+    case penguin_disguise :
+        if (%peng_transmog = 0) {
+            return(1, "You need someone to shrink you before you can control the penguin suit.");
+        }
+    case weapon_xbow :
+        if (stat_base(ranged) < oc_param($obj0, levelrequire)) {
+            return(1, "You need at least level <tostring(oc_param($obj0, levelrequire))> Ranged to wield this crossbow.");
+        }
+    case ammo_bolt :
+        if (stat_base(ranged) < oc_param($obj0, levelrequire)) {
+            return(1, "You need at least level <tostring(oc_param($obj0, levelrequire))> Ranged to wield these bolts.");
+        }
+}
+switch_int (oc_wearpos($obj0)) {
+    case 9 :
+        switch_obj (inv_getobj(worn, 3)) {
+            case poh_boxing_gloves_red, poh_boxing_gloves_blue :
+                return(1, "You cannot wear any other gloves under boxing gloves.");
+            case falcon_gloves, falcon_on_gloves :
+                return(1, "You can't wear those on top of a falconry glove.");
+        }
+        if (inv_getobj(worn, 4) = plague_jacket) {
+            return(1, "You can't wear those on top of this protective jacket.");
+        }
+    case 3 :
+        switch_obj (inv_getobj(worn, 3)) {
+            case falcon_gloves, falcon_on_gloves :
+                return(1, "You need both hands free when you are wearing a falconry glove.");
+        }
+    case 5 :
+        switch_obj (inv_getobj(worn, 3)) {
+            case falcon_gloves, falcon_on_gloves :
+                return(1, "You need both hands free when you are wearing a falconry glove.");
+        }
+}
+if (%acs_player_disguised_as_barrelchest = 1) {
+    return(1, "There's not enough room inside the Barrelchest disguise to mess around with your equipment!");
+}
+if (%tpr_world_gate_controls_active = 1) {
+    return(2, "You should step away from the controls before equipping anything.");
+}
+if (oc_param($obj0, rand_item) = 1) {
+    return(2, "");
+}
+if (oc_param($obj0, item_degrade_broken_item) = 1 & oc_param($obj0, invent_base_object) = null) {
+    return(1, "You can't equip that. It's Broken.");
+}
+if (enum(obj, boolean, unequippable_items_with_a_wearpos, $obj0) = true) {
+    return(1, "You can't equip that.");
+}
+return(0, "");

@@ -1,0 +1,20 @@
+// 18873
+[proc,script18873](struct $struct0, int $int1)(string)
+def_string $string0 = "";
+def_dbrow $dbrow2 = struct_param($struct0, trh_promo_info_dbrow);
+if ($dbrow2 ! null) {
+    if ($struct0 ! ~script19968) {
+        $string0 = "<col=FA3232>This promotion is not currently active.<br><br></col>";
+    }
+    $string0 = append($string0, db_getfield($dbrow2, trh_promo_info:col1, 0));
+    $string0 = append($string0, "<br><br><db_getfield($dbrow2, trh_promo_info:col5, 0)>");
+    return($string0);
+}
+if (string_length(struct_param($struct0, timed_event_desc)) > 0) {
+    $string0 = struct_param($struct0, timed_event_desc);
+    return($string0);
+}
+if (struct_param($struct0, bslay_id) > 0) {
+    return(struct_param($struct0, cheevo_details));
+}
+return("");

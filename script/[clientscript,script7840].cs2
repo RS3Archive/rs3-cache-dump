@@ -1,0 +1,21 @@
+// 7840
+[clientscript,script7840]
+def_int $int0 = 0;
+def_string $string0 = "";
+$int0, $string0 = create_suggest_name_reply;
+switch_int ($int0) {
+    case -3 :
+        return;
+    case 2 :
+        %create_displayname = $string0;
+        if_settext(%create_displayname, acc_create_name:name_input_text);
+        ~create_focus(111, 1);
+        ~create_validate_displayname(0, 1);
+    case -2 :
+        ~create_error("Unexpected error.");
+    case 3 :
+        ~create_error("Unexpected server error.");
+    case 4 :
+        ~create_error("There were no suggestions available.");
+}
+if_setontimer(null, acc_create:random_name_listener);

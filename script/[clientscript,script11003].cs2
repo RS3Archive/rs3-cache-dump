@@ -1,0 +1,99 @@
+// 11003
+[clientscript,script11003](int $int0, struct $struct1, int $int2, int $int3, int $int4, int $int5)
+if ($int0 = 22) {
+    $int0 = struct_param($struct1, mtxmgt_subcat);
+}
+if_sethide(false, mtxmgt:pet_options);
+if_sethide(false, mtxmgt:menagerie_layer);
+if_sethide(false, mtxmgt:familiar_override_layer);
+if_sethide(false, mtxmgt:pet_panel);
+if_sethide(true, mtxmgt:appearance_buttons);
+if_sethide(true, mtxmgt:multi_appearance_buttons);
+if_sethide(true, mtxmgt:modular_pet_buttons_armour_sets);
+if_sethide(true, mtxmgt:modular_pet_slot_arrows);
+if ($int0 ! 1) {
+    if_sethide(true, mtxmgt:pet_age_layer);
+    if_sethide(true, mtxmgt:pet_stage);
+    if_sethide(true, mtxmgt:dash_component);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, mtxmgt:pet_name);
+    if_sethide(false, mtxmgt:pet_cycle_layer);
+} else {
+    if_sethide(false, mtxmgt:pet_stage);
+    if_sethide(false, mtxmgt:dash_component);
+    if_sethide(false, mtxmgt:pet_age_layer);
+    if_setposition(calc(if_getx(mtxmgt:dash_component) + if_getwidth(mtxmgt:dash_component) + 5), 0, ^setpos_abs_left, ^setpos_abs_top, mtxmgt:pet_name);
+    if_sethide(true, mtxmgt:pet_cycle_layer);
+}
+if ($int0 ! 3 & (struct_param($struct1, mtx_no_recolour) = 0 | struct_param($struct1, mtx_no_recolour) = -1)) {
+    if_sethide(false, mtxmgt:recolour_layer);
+} else {
+    if_sethide(true, mtxmgt:recolour_layer);
+}
+if_sethide(false, mtxmgt:disabled_dropdown_layer);
+if (struct_param($struct1, mtxmgt_renameable) = 0 | ~script6488($struct1) = 0) {
+    if_sethide(false, mtxmgt:disabled_rename);
+} else {
+    if_sethide(true, mtxmgt:disabled_rename);
+}
+def_int $int6 = 0;
+def_int $int7 = -1;
+def_int $int8 = 0;
+def_int $int9 = 1;
+def_int $int10 = 0;
+def_enum $enum11 = null;
+def_enum $enum12 = null;
+if ($struct1 = trh162_pet_cat_struct & $int5 = 0) {
+    if_sethide(false, mtxmgt:felix_claim_layer);
+} else {
+    if_sethide(true, mtxmgt:felix_claim_layer);
+}
+if (struct_param($struct1, mtxmgt_pet_is_modular) = 1) {
+    if_sethide(false, mtxmgt:modular_pet_buttons_slots);
+    if_sethide(false, mtxmgt:modular_pet_buttons_texture);
+} else {
+    if_sethide(true, mtxmgt:modular_pet_buttons_slots);
+    if_sethide(true, mtxmgt:modular_pet_buttons_texture);
+}
+if ($int0 = 2 | $int0 = 3 | $int0 = 5 | $int0 = 4) {
+    if_sethide(true, mtxmgt:appearance_buttons);
+    if_sethide(false, mtxmgt:disabled_food);
+    if (struct_param($struct1, mtxmgt_pet_multi_appearance) = 1) {
+        $enum11 = struct_param($struct1, mtxmgt_pet_appearance_graphic_enum);
+        $enum12 = struct_param($struct1, mtxmgt_pet_appearance_tooltip_enum);
+        if ($enum12 = null) {
+            return;
+        }
+        if_sethide(false, mtxmgt:multi_appearance_buttons);
+        cc_deleteall(mtxmgt:multi_appearance_build);
+        cc_deleteall(mtxmgt:multi_appearance_control);
+        $int10 = enum_getoutputcount(struct_param($struct1, mtxmgt_pet_appearance_npc_enum));
+        while (++$int7 < $int10) {
+            ~script11605(mtxmgt:multi_appearance_build, mtxmgt:multi_appearance_control, rs3tli_24px_icon_button, 0, calc((24 + 5) * $int7), $int7, 1, "Select", "Unselect", enum(int, string, $enum12, $int7));
+            if (cc_find(mtxmgt:multi_appearance_control, $int7) = true) {
+                cc_setopcursor(1, cursor_use);
+            }
+            if ($enum11 ! null) {
+                ~script4512(mtxmgt:multi_appearance_build, 24, 24, 0, calc((24 + 5) * $int7), enum(int, graphic, $enum11, $int7));
+            } else {
+                ~cc_add_colour_text(mtxmgt:multi_appearance_build, 24, 24, 0, calc((24 + 5) * $int7), museo_sans_11pt_regular, tostring(calc($int7 + 1)), 16777215);
+                cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            }
+        }
+    } else if (struct_param($struct1, mtxmgt_pet_is_modular) = 1) {
+        ~script3836($struct1, $int2, $int3, $int4);
+    }
+} else if ($int0 = 1) {
+    if (struct_param($struct1, mtxmgt_pet_legendary_single_stage) = false) {
+        if_sethide(false, mtxmgt:appearance_buttons);
+    }
+    if (~script6488($struct1) = 0 | ~script11005($struct1) = 24000) {
+        if_sethide(false, mtxmgt:disabled_food);
+    } else {
+        if_sethide(true, mtxmgt:disabled_food);
+    }
+    if (~script6488($struct1) = 1) {
+        if_sethide(false, mtxmgt:pet_age_layer);
+    } else {
+        if_sethide(true, mtxmgt:pet_age_layer);
+    }
+}

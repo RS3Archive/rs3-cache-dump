@@ -1,0 +1,30 @@
+// 4555
+[clientscript,script4555](component $component0, component $component1, int $int2, char $char3)
+if (clan_getchatcount <= 0 | userdetail_quickchat = true | ~script5280 = true) {
+    return;
+}
+switch_int ($int2) {
+    case 84 :
+        if (clan_getchatcount > 0) {
+            if (string_length(%lobbyscreen_input_friendschat) > 0) {
+                chat_setmode(1);
+                chat_sendpublic(%lobbyscreen_input_friendschat);
+                ~script1594;
+            }
+        } else {
+            mes_typed(^chattype_friendschatnotification, 0, "You are not in a Friends Chat Channel.");
+        }
+        %lobbyscreen_input_friendschat = "";
+        if_settext(escape(%lobbyscreen_input_friendschat), $component0);
+        %lobby_caret_friendschat = string_length(%lobbyscreen_input_friendschat);
+        ~script4571($component0, $component1, %lobbyscreen_input_friendschat);
+    case 96, 97, 98, 99, 102, 103 :
+        %lobby_caret_friendschat = ~script1553($int2, %lobby_caret_friendschat, %lobbyscreen_input_friendschat);
+        ~script4571($component0, $component1, %lobbyscreen_input_friendschat);
+    case default :
+        if (char_isprintable($char3) = true | $int2 = 85 | $int2 = 101) {
+            %lobbyscreen_input_friendschat, %lobby_caret_friendschat = ~script802(%lobby_caret_friendschat, %lobbyscreen_input_friendschat, 0, $int2, $char3);
+            if_settext(escape(%lobbyscreen_input_friendschat), $component0);
+            ~script4571($component0, $component1, %lobbyscreen_input_friendschat);
+        }
+}

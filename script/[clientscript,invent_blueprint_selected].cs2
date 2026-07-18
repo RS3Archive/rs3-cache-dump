@@ -1,0 +1,18 @@
+// 12534
+[clientscript,invent_blueprint_selected](string $string0, string $string1, int $int0, component $component1)
+if_settext($string0, invent_techtree:selected_name);
+if_settext($string1, invent_techtree:selected_desc);
+if_settext(tostring($int0), invent_techtree:selected_price);
+if (if_find($component1) = true) {
+    if_sethide(false, invent_techtree:selected_buy_disabled_layer);
+    switch_int (cc_param(invent_client_techtree_unlocked)) {
+        case default :
+            if_settext("Locked", invent_techtree:selected_buy_text);
+        case 1 :
+            if_settext("Purchase", invent_techtree:selected_buy_text);
+            if_sethide(true, invent_techtree:selected_buy_disabled_layer);
+        case 2 :
+            if_settext("Unlocked", invent_techtree:selected_buy_text);
+    }
+}
+if_sethide(false, invent_techtree:techtree_selected);

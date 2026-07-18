@@ -1,0 +1,21 @@
+// 10838
+[clientscript,script10838](component $component0, component $component1, component $component2)
+def_int $int3 = calc(%misc_approval * 100 / 127);
+def_int $int4 = calc(date_minutes - %misc_last_collection);
+if ($int4 < 0) {
+    $int4 = 0;
+}
+if_settext("<tostring($int3)>%", $component0);
+if ($int3 >= 75) {
+    if_setcolour(^green, $component0);
+} else if ($int3 <= 25) {
+    if_setcolour(^red, $component0);
+} else {
+    if_setcolour(0xff7e00, $component0);
+}
+if (%misc_last_collection = -1) {
+    if_settext("Never", $component1);
+} else {
+    if_settext("<~script13405(~script11025($int4))> ago", $component1);
+}
+if_settext(tostring_localised(%misc_coffers, true), $component2);

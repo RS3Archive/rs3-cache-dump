@@ -1,0 +1,41 @@
+// 16064
+[clientscript,script16064](component $component0, component $component1, component $component2, component $component3)
+def_int $int4 = if_getwidth($component0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 10;
+def_int $int8 = 0;
+if (%varclientbit_50191 > 0) {
+    if (cc_find($component0, %varclientbit_50192) = true) {
+        $int5 = cc_getx;
+    }
+    $int7 = ~script16060($int7, %varclientbit_50191, $int5);
+    if ($int7 < 1) {
+        if_sethide(true, egwd_wen_boss_loot:difficulty_continue_button_disabled_layer);
+        if_set2dangle(0, $component2);
+        if_set2dangle(0, $component3);
+        return;
+    }
+    %varclientbit_50191 = calc(%varclientbit_50191 + 1);
+}
+while (cc_find($component1, $int6) = true & .cc_find($component0, $int6) = true) {
+    $int6 = calc($int6 + 1);
+    $int5 = calc(cc_getx + $int7);
+    if ($int5 > $int4) {
+        $int5 = calc(-150 + $int5 - $int4);
+        if (%egwd_wen_boss_loot_enrage_increase ! 0 & %varclientbit_50192 = 0 & $int6 ! 1) {
+            .cc_settext(tostring(%egwd_wen_boss_loot_enrage_increase));
+            ~script16057(%egwd_wen_boss_loot_enrage_increase);
+            %varclientbit_50192 = calc($int6 - 1);
+            %varclientbit_50191 = 1;
+        } else {
+            $int8 = calc(5 + randominc(15));
+            .cc_settext(tostring($int8));
+            ~script16057($int8);
+        }
+    }
+    cc_setposition($int5, cc_gety, ^setpos_abs_left, ^setpos_rel_centre);
+    .cc_setposition($int5, cc_gety, ^setpos_abs_left, ^setpos_rel_centre);
+}
+~script16061($component2, $component3);
+sound_vorbis_volume(agidad_hi_lo_click, 1, 0, 30);

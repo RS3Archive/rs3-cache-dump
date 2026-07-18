@@ -1,0 +1,49 @@
+// 19028
+[proc,script19028]
+def_graphic $graphic0 = null;
+def_graphic $graphic1 = null;
+def_string $string0 = "";
+if (%trh189_health_remaining_left > 0 & %trh189_health_remaining_right > 0) {
+    if_sethide(false, trh189_overlay:left_modifier_plus);
+}
+switch_int (%trh189_left_chest) {
+    case 61 :
+        $graphic0 = "trh181_all_gem_shine,0";
+        $string0 = "<col=FFFFFF>White or Above";
+    case 62 :
+        $graphic0 = "trh181_all_gem_shine,1";
+        $string0 = "<col=FFFF00>Yellow or Above";
+    case 63 :
+        $graphic0 = "trh181_all_gem_shine,2";
+        $string0 = "<col=FF6600>Orange or Above";
+    case 64 :
+        $graphic0 = "trh181_all_gem_shine,3";
+        $string0 = "<col=FE3939>Red or Above";
+    case 65 :
+        $graphic0 = "trh181_all_gem_shine,4";
+        $string0 = "<col=DE7FE1>Purple";
+        if_sethide(true, trh189_overlay:left_modifier_plus);
+    case default :
+        ~error("Unexpected chest left  chest for rarity graphic");
+}
+switch_int (%trh189_right_chest) {
+    case 0 :
+        $graphic1 = trh_multiplier_x1;
+    case 5 :
+        $graphic1 = trh_multiplier_x2;
+    case 6 :
+        $graphic1 = trh_multiplier_x3;
+    case 7 :
+        $graphic1 = trh_multiplier_x4;
+    case 8 :
+        $graphic1 = trh_multiplier_x5;
+    case 10 :
+        $graphic1 = trh_multiplier_x6;
+    case default :
+        ~error("Unexpected chest right chest for multiplier graphic <tostring(%trh189_right_chest)>");
+}
+if_setgraphic($graphic0, trh189_overlay:left_modifier);
+if_setgraphic($graphic1, trh189_overlay:right_modifier);
+~script19029($string0, trh189_overlay:left_modifier);
+~script11158;
+~script11159;

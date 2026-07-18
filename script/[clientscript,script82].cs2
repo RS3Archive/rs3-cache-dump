@@ -1,0 +1,76 @@
+// 82
+[clientscript,script82](int $int0, graphic $graphic1, int $int2, int $int3, int $int4, string $string0)
+if ($graphic1 = null | $int2 = -1 | $int3 = -1) {
+    return;
+}
+$string0 = removetags($string0);
+if (string_indexof_char($string0, '*', 0) = 0) {
+    $string0 = substring($string0, 1, string_length($string0));
+}
+if_settext($string0, toplevel_v2_target_info:name);
+def_int $int5 = 0;
+if ($int0 > 0) {
+    if_settext(tostring($int0), toplevel_v2_target_info:level);
+    $int5 = calc(comlevel_active - $int0);
+} else {
+    if_settext("-", toplevel_v2_target_info:level);
+}
+if ($int5 >= 0) {
+    if_setcolour(~rgb_to_hex(calc(255 - scale($int5, comlevel_active, 255)), 255, 0), toplevel_v2_target_info:level);
+} else {
+    if_setcolour(~rgb_to_hex(255, calc(255 + max(scale($int5, max($int0, 200), 255), -255)), 0), toplevel_v2_target_info:level);
+}
+if_setgraphic($graphic1, toplevel_v2_target_info:weakness);
+def_string $string1 = "Weakness: ";
+switch_graphic ($graphic1) {
+    case "staticons,0" :
+        $string1 = append($string1, "Melee");
+    case "staticons,5" :
+        $string1 = append($string1, "Magic");
+    case "staticons,3" :
+        $string1 = append($string1, "Ranged");
+    case aif_combat_icon :
+        $string1 = append($string1, "None");
+    case "aif_magic_standard_icons,32" :
+        $string1 = append($string1, "Air Spells");
+    case "aif_magic_standard_icons,33" :
+        $string1 = append($string1, "Water Spells");
+    case "aif_magic_standard_icons,34" :
+        $string1 = append($string1, "Earth Spells");
+    case "aif_magic_standard_icons,35" :
+        $string1 = append($string1, "Fire Spells");
+    case "combaticons,7" :
+        $string1 = append($string1, "Stab");
+    case "combaticons,1" :
+        $string1 = append($string1, "Slash");
+    case "combaticons2,3" :
+        $string1 = append($string1, "Crush");
+    case "aif_magic_lunar_icons,3" :
+        $string1 = append($string1, "Arrows");
+    case "aif_magic_standard_icons,38" :
+        $string1 = append($string1, "Bolts");
+    case "combaticons,18" :
+        $string1 = append($string1, "Thrown");
+    case "challenge_skill_icons_35px,8" :
+        $string1 = append($string1, "Thieving");
+    case "challenge_skill_icons_35px,21" :
+        $string1 = append($string1, "Slayer");
+    case "challenge_skill_icons_35px,9" :
+        $string1 = append($string1, "Hunter");
+    case "challenge_skill_icons_35px,24" :
+        $string1 = append($string1, "Agility");
+    case "challenge_skill_icons_35px,22" :
+        $string1 = append($string1, "Dungeoneering");
+    case skill_icon_archaeology_35px :
+        $string1 = append($string1, "Archaeology");
+    case "skill_icon_necromancy_25px,0" :
+        $string1 = append($string1, "Necromancy");
+}
+if_setparam_string(toplevel_v2_tooltip_mobile_string, $string1, toplevel_v2_target_info:ops);
+if_setparam_int(toplevel_v2_tooltip_mobile_tooltip_type, 2, toplevel_v2_target_info:ops);
+if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", toplevel_v2_target_info:weakness);
+%toplevel_v2_target_hitchance = -1;
+if_settext("-", toplevel_v2_target_info:hitchance_text);
+if_setcolour(^white, toplevel_v2_target_info:hitchance_text);
+~script3536("Last known hit chance", toplevel_v2_target_info:hitchance_text, -1);
+~script91;

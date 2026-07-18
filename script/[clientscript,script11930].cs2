@@ -1,0 +1,63 @@
+// 11930
+[clientscript,script11930](int $int0)
+def_int $int1 = enum_getoutputcount(arch_orthen_site_map_list);
+def_string $string0 = "";
+def_string $string1 = "";
+def_struct $struct2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = -1;
+def_int $int6 = 1;
+def_int $int7 = 1;
+def_int $int8 = 30;
+while (++$int5 < $int1) {
+    if (enum(int, coord, arch_orthen_site_map_list, $int5) ! null) {
+        $string0 = enum(int, string, arch_orthen_site_name_list, $int5);
+        $string1 = "Requires level <tostring(enum(int, int, arch_orthen_site_level_list, $int5))> Archaeology.";
+        $int3, $int4 = ~script12959($int5);
+        if ($int3 ! -1 & $int4 ! -1) {
+            if (~script11107($int5) = 0) {
+                $int7 = 0;
+            } else {
+                $int7 = 1;
+            }
+            if ($int7 = 0) {
+                $int6 = 5;
+            } else {
+                $int8 = parawidth(enum(int, string, arch_orthen_site_name_list_short, $int5), 94, museo_sans_11pt_regular);
+                if_sethide(false, enum(int, component, arch_orthen_site_map_layers, $int5));
+                if_setposition(calc($int3 + 25), calc($int4 + 19), ^setpos_abs_left, ^setpos_abs_top, enum(int, component, arch_orthen_site_map_layers, $int5));
+                if_settext(enum(int, string, arch_orthen_site_name_list_short, $int5), enum(int, component, arch_orthen_site_map_text, $int5));
+                if_setsize(calc($int8 + 14), 17, ^setsize_abs, ^setsize_abs, enum(int, component, arch_orthen_site_map_layers, $int5));
+                $int6 = 1;
+            }
+            if (map_members = false) {
+                $struct2 = rs3tli_members_upsell;
+                if (playermember = false) {
+                    $string1 = "Members' only location.<br>Select to subscribe.";
+                } else {
+                    $string1 = "This location is unavailable on free worlds.";
+                }
+            } else {
+                $struct2 = db_getfield(arch_site_orthen, arch_site:col9, 0);
+                $string1 = "<$string1><br>Keyboard Shortcut : <~script13398($int5)>";
+            }
+            ~script11624(arch_orthen_site_map:icon_build_layer, arch_orthen_site_map:icon_control_layer, $struct2, $int3, $int4, $int5, $int6);
+            if (cc_find(arch_orthen_site_map:icon_control_layer, $int5) = true & $int7 = 1) {
+                cc_setopbase($string0);
+                cc_setop(1, "Info");
+                cc_setop(2, "Fast travel");
+                cc_setopcursor(1, cursor_info);
+                cc_setonop("script11931($int5, event_op)");
+                cc_setonmouserepeat("script14732($string0, $string1, event_com, event_comsubid)");
+            }
+            if ($int5 = $int0) {
+                if_setposition(calc($int3 - 90), calc($int4 + 8), ^setpos_abs_left, ^setpos_abs_top, arch_orthen_site_map:current_location_layer);
+            }
+        } else {
+            cc_create(arch_orthen_site_map:icon_control_layer, ^iftype_text, $int5);
+        }
+    }
+}
+~script8841(93, 1);
+sound_vorbis_volume(take_paper, 1, 0, 140);

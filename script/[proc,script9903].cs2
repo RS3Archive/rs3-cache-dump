@@ -1,0 +1,106 @@
+// 9903
+[proc,script9903]
+def_boolean $boolean0 = false;
+def_struct $struct1 = toplevel_v2_window_data_minimap;
+def_component $component2 = struct_param($struct1, toplevel_v2_window_layer);
+def_int $int3 = 0;
+if_sethide(false, toplevel_v2_minimap:world_map_layer);
+if_sethide(false, toplevel_v2_minimap:home_teleport_layer);
+if_sethide(false, toplevel_v2_minimap:run_layer);
+if_sethide(false, toplevel_v2_minimap:clock_layer);
+if_sethide(false, toplevel_v2_minimap:minimap_graphic_footer);
+if_sethide(true, toplevel_v2_minimap:minimap_circle_move_layer);
+if_sethide(true, toplevel_v2_minimap:telemetry);
+if (~script6431 = true) {
+    setminimapmask(0);
+    if_sethide(true, toplevel_v2_minimap:minimap_hud_legacy);
+    if_sethide(true, toplevel_v2_minimap:minimap_hud_nis);
+    if_sethide(true, toplevel_v2_minimap:minimap_hud_mixed);
+    if_sethide(true, toplevel_v2_minimap:minimap_graphic_footer);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, toplevel_v2_minimap:minimap);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, toplevel_v2_minimap:minimap);
+} else if (%toplevel_v2_minimap_shape = 1) {
+    if (%toplevel_v2_legacy_interface = 0) {
+        if_setsize(275, 275, ^setsize_abs, ^setsize_abs, $component2);
+        if (calc(if_getx($component2) + 275) > if_getwidth(toplevel_v2:background_colour)) {
+            if_setposition(0, if_gety($component2), ^setpos_abs_right, ^setpos_abs_top, $component2);
+        }
+    }
+    setminimapmask(1);
+    if_sethide(false, toplevel_v2_minimap:minimap_circle_move_layer);
+    if_sethide(true, toplevel_v2_minimap:minimap_hud_nis);
+    if_sethide(false, toplevel_v2_minimap:minimap_hud_legacy);
+    if_sethide(true, toplevel_v2_minimap:minimap_graphic_footer);
+    if_setsize(220, 220, ^setsize_abs, ^setsize_abs, toplevel_v2_minimap:minimap);
+    if_setposition(6, 6, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:minimap);
+    if_setposition(184, 14, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_compass:compass_layer);
+    if_setposition(182, 11, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:compass_layer);
+    if_setposition(206, 141, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:run_layer);
+    if_setposition(182, 181, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:home_teleport_layer);
+    if_setposition(14, 181, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:world_map_layer);
+    if_setposition(69, 212, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:clock_layer);
+    if (%toplevel_v2_legacy_interface = 0 & %toplevel_v2_clock_options ! 1 | %toplevel_v2_legacy_interface = 1 & %toplevel_v2_clock_options = 0) {
+        if_sethide(true, toplevel_v2_minimap:clock_layer);
+    } else {
+        if_sethide(false, toplevel_v2_minimap:clock_layer);
+    }
+    if (%toplevel_v2_legacy_interface = 1) {
+        if_sethide(false, toplevel_v2_minimap:telemetry);
+        if_setposition(0, 148, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:telemetry);
+    } else {
+        if_sethide(true, toplevel_v2_minimap:telemetry);
+    }
+    if (%doublexp_setupflag = 1) {
+        if (map_lang = 1) {
+            if_setgraphic("xp_token_with_plus,2", toplevel_v2_minimap_legacy:xpx2smallbutton);
+        } else {
+            if_setgraphic("xp_token_with_plus,0", toplevel_v2_minimap_legacy:xpx2smallbutton);
+        }
+    }
+    ~script8705(1004);
+} else {
+    if (%toplevel_v2_legacy_interface = 1) {
+        if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, $component2);
+        if_setsize(275, 248, ^setsize_abs, ^setsize_abs, $component2);
+        if_setsize(0, 39, ^setsize_minus, ^setsize_minus, toplevel_v2_minimap:minimap);
+        if_sethide(false, toplevel_v2_minimap:minimap_graphic_footer);
+        if_setsize(0, 39, ^setsize_minus, ^setsize_abs, toplevel_v2_minimap:minimap_graphic_footer);
+        if_setposition(0, 39, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_v2_minimap:graphic_botleft);
+        if_setposition(0, 39, ^setpos_abs_right, ^setpos_abs_bottom, toplevel_v2_minimap:graphic_botright);
+        if_setposition(0, 40, ^setpos_abs_right, ^setpos_abs_bottom, toplevel_v2_minimap:world_map_layer);
+        if_setposition(0, 40, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_v2_minimap:home_teleport_layer);
+        if_setposition(0, 2, ^setpos_abs_centre, ^setpos_abs_bottom, toplevel_v2_minimap:clock_layer);
+        if_sethide(false, toplevel_v2_minimap:telemetry);
+        if_setposition(4, 1, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_v2_minimap:telemetry);
+    } else {
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, toplevel_v2_minimap:minimap);
+        if_sethide(true, toplevel_v2_minimap:minimap_graphic_footer);
+        if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_v2_minimap:graphic_botleft);
+        if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom, toplevel_v2_minimap:graphic_botright);
+        if_setposition(0, 1, ^setpos_abs_right, ^setpos_abs_bottom, toplevel_v2_minimap:world_map_layer);
+        if_setposition(0, 1, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_v2_minimap:home_teleport_layer);
+        if_setposition(0, -2, ^setpos_abs_centre, ^setpos_abs_bottom, toplevel_v2_minimap:clock_layer);
+    }
+    setminimapmask(0);
+    if_sethide(true, toplevel_v2_minimap:minimap_hud_legacy);
+    if_sethide(false, toplevel_v2_minimap:minimap_hud_nis);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:minimap);
+    if_setposition(3, 3, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2_compass:compass_layer);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2_minimap:compass_layer);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_minimap:run_layer);
+    if_setposition(44, 1, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_v2_minimap:slayer_counter);
+    $int3 = if_getwidth($component2);
+    if ($int3 >= 219 & %toplevel_v2_clock_options = 1 | %toplevel_v2_legacy_interface = 1 & %toplevel_v2_clock_options ! 0) {
+        if_sethide(false, toplevel_v2_minimap:clock_layer);
+    } else {
+        if_sethide(true, toplevel_v2_minimap:clock_layer);
+    }
+    if (%toplevel_v2_active_skinset = 1) {
+        $boolean0 = true;
+    }
+    if_sethide($boolean0, toplevel_v2_minimap:graphic_topleft);
+    if_sethide($boolean0, toplevel_v2_minimap:graphic_topright);
+    if_sethide($boolean0, toplevel_v2_minimap:graphic_botleft);
+    if_sethide($boolean0, toplevel_v2_minimap:graphic_botright);
+    ~script8705(1004);
+}

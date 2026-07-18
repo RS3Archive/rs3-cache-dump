@@ -1,0 +1,44 @@
+// 13760
+[clientscript,script13760](int $int0, int $int1, int $int2, graphic $graphic3, int $int4, string $string0)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_string $string1 = "This question requires <tostring($int4)>% to pass";
+if ($int2 ! 0) {
+    $int5 = scale($int1, $int2, 100);
+    $int6 = $int5;
+}
+cc_create(polls:polls_survey_results_option_text, ^iftype_text, if_getnextsubid(polls:polls_survey_results_option_text));
+cc_settext($string0);
+cc_setsize(640, 30, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setposition(55, $int0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(museo_sans_13pt_regular);
+cc_setcolour(^white);
+cc_setonmouserepeat("script13761($graphic3, calc(if_getnextsubid(polls:polls_survey_results_option_text) - 1), polls:polls_survey_results_option_text)");
+cc_setonmouseleave("script13762(calc(if_getnextsubid(polls:polls_survey_results_option_text) - 1), polls:polls_survey_results_option_text)");
+cc_create(polls:polls_survey_results_option_text, ^iftype_text, if_getnextsubid(polls:polls_survey_results_option_text));
+cc_settext("<tostring($int5)>%");
+cc_setsize(100, 70, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setposition(5, $int0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(museo_sans_13pt_regular);
+cc_setcolour(^white);
+cc_create(polls:polls_survey_results_bars, ^iftype_rectangle, if_getnextsubid(polls:polls_survey_results_bars));
+cc_setgraphic(quest_progress_bar_green_tile);
+cc_setcolour(0x2c6f0a);
+cc_setfill(true);
+cc_setsize(calc(6 * $int6), 15, ^setsize_abs, ^setsize_abs);
+cc_setposition(55, calc($int0 + 27), ^setpos_abs_left, ^setpos_abs_top);
+if (string_indexof_string($string0, "No", 0) ! 0 & $int4 ! 0) {
+    cc_create(polls:polls_survey_results_bars, ^iftype_rectangle, if_getnextsubid(polls:polls_survey_results_bars));
+    cc_setcolour(^white);
+    cc_setsize(2, 15, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(55 + 6 * $int4), calc($int0 + 27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setonmouserepeat("script8799($string1, polls:polls_survey_results_bars, if_getnextsubid(polls:polls_survey_results_bars))");
+}
+cc_create(polls:polls_survey_results_bars, ^iftype_rectangle, if_getnextsubid(polls:polls_survey_results_bars));
+cc_setcolour(~script10495(7));
+cc_setsize(600, 15, ^setsize_abs, ^setsize_abs);
+cc_setposition(55, calc($int0 + 27), ^setpos_abs_left, ^setpos_abs_top);
+cc_setonmouserepeat("script13761($graphic3, 0, null)");
+cc_setonmouseleave("script13762(0, null)");

@@ -1,0 +1,51 @@
+// 2991
+[proc,settings_checkbox_update](int $int0, int $int1, int $int2)
+def_dbrow $dbrow3 = enum(int, dbrow, settings_all_categories, $int0);
+if ($dbrow3 = null | $int1 > db_getfieldcount($dbrow3, settings_category:col2)) {
+    return;
+}
+def_struct $struct4 = db_getfield($dbrow3, settings_category:col2, $int1);
+if (struct_param($struct4, settings_server_delay) = false & struct_param($struct4, settings_clan_system) = -1) {
+    switch_struct ($struct4) {
+        case settings_tap_highlights :
+            if ($int2 = 1) {
+                %toplevel_v2_forced_highlight = 3;
+                clientoption_set(^clientoption_entity_highlights, 1);
+                if (~is_mobile_client = true) {
+                    unknown_command_48(true);
+                }
+            } else {
+                %toplevel_v2_forced_highlight = 2;
+                unknown_command_48(false);
+            }
+        case settings_steam_rich_presence :
+            clientoption_set(^clientoption_rich_presence, $int2);
+        case settings_mobile_toggle_haptic_feedback :
+            clientoption_set(^clientoption_haptic_feedback, $int2);
+        case settings_local_notification_ports_1 :
+            ~script11756(local_notification_event_ports_1, $int2);
+        case settings_local_notification_ports_2 :
+            ~script11756(local_notification_event_ports_2, $int2);
+        case settings_local_notification_ports_3 :
+            ~script11756(local_notification_event_ports_3, $int2);
+        case settings_local_notification_ports_4 :
+            ~script11756(local_notification_event_ports_4, $int2);
+        case settings_local_notification_pof_trapper :
+            ~script11756(local_notification_event_farm_collector, $int2);
+        case settings_local_notification_arch_research :
+            ~script11756(local_notification_event_arch_research_contract_1, $int2);
+        case settings_local_notification_giant_oyster :
+            ~script11756(local_notification_event_giant_oyster, $int2);
+        case settings_local_notification_troll_invasion :
+            ~script11756(local_notification_event_troll_invasion, $int2);
+        case settings_local_notification_god_statues :
+            ~script11756(local_notification_event_god_statues, $int2);
+        case settings_local_notification_herby_werby :
+            ~script11756(local_notification_event_herby_werby, $int2);
+        case settings_local_notification_tears_of_guthix :
+            ~script11756(local_notification_event_tears_of_guthix, $int2);
+    }
+    return;
+}
+if_sethide(false, settings:loading);
+~spinner_create(settings:spinner, 1, -1);

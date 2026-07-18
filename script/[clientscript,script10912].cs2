@@ -1,0 +1,17 @@
+// 10912
+[clientscript,script10912](int $int0, int $int1, string $string0)
+def_int $int2 = calc($int1 - clientclock);
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($int2 >= 0) {
+    $int3 = calc($int2 / 50);
+    $int4 = min(99, calc($int2 % 50 * 2));
+    if ($int4 < 10) {
+        if_settext("<$string0>: <tostring($int3)>.0<tostring($int4)>", thedrop:thedrop_timer);
+    } else {
+        if_settext("<$string0>: <tostring($int3)>.<tostring($int4)>", thedrop:thedrop_timer);
+    }
+} else {
+    if_settext("<$string0>: 0.00", thedrop:thedrop_timer);
+    if_setontimer(null, thedrop:thedrop_timer);
+}

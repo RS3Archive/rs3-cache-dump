@@ -1,0 +1,26 @@
+// 17798
+[proc,script17798](dbrow $dbrow0, int $int1, component $component2)(int)
+def_string $string0 = "Must be performed at one of the following sites: ";
+def_int $int3 = db_getfieldcount($dbrow0, necro_ritual_recipe:col8);
+def_dbrow $dbrow4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_graphic $graphic7 = "rs3_character_interface_register_ticks,1";
+def_int $int8 = -1;
+if ($int3 > 0) {
+    while (++$int8 < $int3) {
+        $dbrow4 = ~script17508($dbrow0, $int8);
+        $string0 = append($string0, ~script17496($dbrow4));
+        if ($dbrow4 = %necro_ritual_active_site) {
+            $int5 = 1;
+        }
+        if ($int8 < calc($int3 - 1)) {
+            $string0 = append($string0, ", ");
+        }
+    }
+    if ($int5 = 0) {
+        $graphic7 = "rs3_character_interface_register_ticks,2";
+    }
+    $int6 = calc($int6 + ~script17812($component2, calc($int1 + $int6), text_body_default, null, null, $string0, 2, $graphic7));
+}
+return($int6);

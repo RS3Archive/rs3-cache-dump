@@ -1,0 +1,17 @@
+// 13603
+[clientscript,script13603](component $component0)
+def_int $int1 = enum_getreverseindex(component, int, cheevo_pi_cat_buttons, if_getparentlayer($component0), 0);
+if ($int1 < 0 | $int1 > calc(enum_getoutputcount(cheevo_pi_cat_buttons) - 1)) {
+    return;
+}
+def_component $component2 = null;
+if (if_gethide(enum(int, component, cheevo_pi_selected_cat_list, $int1)) = false) {
+    ~script13604;
+    if_sethide(true, enum(int, component, cheevo_pi_selected_cat_list, $int1));
+    $component2 = enum(int, component, cheevo_pi_text_layers, calc($int1 + 1));
+    if ($component2 ! null & cc_find($component2, 0) = true) {
+        cc_setvflip(false);
+    }
+} else {
+    ~script13605($int1);
+}

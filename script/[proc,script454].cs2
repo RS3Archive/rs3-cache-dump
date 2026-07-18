@@ -1,0 +1,47 @@
+// 454
+[proc,script454](string $string0, string $string1, int $int0, int $int1, int $int2, int $int3)
+def_string $string2 = "";
+cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+if (~script6431 = false) {
+    cc_setsize($int0, 19, ^setsize_abs, ^setsize_abs);
+} else {
+    cc_setsize($int0, 27, ^setsize_abs, ^setsize_abs);
+}
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+if (compare($string0, $string1) ! 0) {
+    cc_setopbase($string0);
+    cc_clearops;
+    if (friend_test($string0) = true) {
+        cc_setop(1, "Message");
+        cc_setop(7, "Remove friend");
+    } else if (ignore_test($string0) = true) {
+        cc_setop(8, "Remove ignore");
+    } else {
+        cc_setop(5, "Add friend");
+        cc_setop(6, "Add ignore");
+    }
+    if ($int3 = 1) {
+        cc_setop(9, "Temp-ban");
+    }
+    if ($int2 = 1) {
+        cc_setop(4, "Invite to group");
+    }
+    cc_setop(10, "Join");
+    cc_setonop("clan_chat_list_op($string0, event_op, event_comsubid)");
+} else {
+    cc_clearops;
+    cc_setonop(null);
+}
+$string2 = "   <$string0>";
+if (stringwidth($string2, museo_sans_11pt_regular) > $int0) {
+    while (stringwidth("<$string2>...", museo_sans_11pt_regular) > $int0 & string_length($string2) > 0) {
+        $string2 = substring($string2, 0, calc(string_length($string2) - 1));
+    }
+    $string2 = "<$string2>...";
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    cc_setonmouseleave("script8805");
+}
+cc_settext($string2);
+cc_settextshadow(true);
+cc_setlinkactiveclanchannel(cc_getid);
+cc_sethide(false);

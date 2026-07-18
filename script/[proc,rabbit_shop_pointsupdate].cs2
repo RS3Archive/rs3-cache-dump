@@ -1,0 +1,90 @@
+// 2003
+[proc,rabbit_shop_pointsupdate]
+def_int $int0 = 0;
+if (stat_base(farming) >= 40) {
+    $int0 = %rabbit_score;
+} else {
+    $int0 = calc(%rabbit_score * enum(int, int, rabbit_xp_scaler, stat_base(farming)) / 100);
+}
+if (%rabbit_score = 1) {
+    if_settext("Trade one point for <tostring_localised($int0, true)> XP?", rabbit_shop:xp_message);
+} else {
+    if_settext("Trade <tostring_localised(%rabbit_score, true)> points for <tostring_localised($int0, true)> Farming XP?", rabbit_shop:xp_message);
+}
+cc_deleteall(rabbit_shop:build);
+cc_deleteall(rabbit_shop:click);
+def_int $int1 = enum_getoutputcount(rabbit_seed_items);
+def_int $int2 = 0;
+def_obj $obj3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = if_getwidth(rabbit_shop:items_container);
+def_int $int8 = 0;
+def_string $string0 = "Farming experience";
+def_string $string1 = "";
+def_struct $struct9 = rs3_rect_light;
+def_graphic $graphic10 = "xp_token,0";
+if (map_lang = 1) {
+    $graphic10 = "xp_token,2";
+}
+while ($int2 < $int1) {
+    $obj3 = enum(int, obj, rabbit_seed_items, $int2);
+    $int4 = enum(obj, int, rabbit_seed_prices, $obj3);
+    if ($int4 = -1) {
+        $int8 = 2;
+        $string1 = "N/A";
+    } else {
+        if ($int4 < %rabbit_score) {
+            $int8 = 2;
+        } else {
+            $int8 = 6;
+        }
+        $string0 = "";
+        $string1 = tostring_localised($int4, true);
+    }
+    if (calc($int2 % 2) = 0) {
+        $struct9 = rs3_rect_light;
+    } else {
+        $struct9 = rs3_rect_dark;
+    }
+    if (calc($int5 + 49) >= $int7) {
+        $int5 = 0;
+        $int6 = calc($int6 + 53);
+    }
+    ~cc_add_rect_struct(rabbit_shop:build, 48, 52, $int5, $int6, true, $struct9);
+    if ($obj3 = grim_turnip_countview_5) {
+        ~script4512(rabbit_shop:build, 34, 34, calc($int5 + 7), calc($int6 + 1), $graphic10);
+    } else {
+        ~cc_add_object_count(rabbit_shop:build, 36, 32, calc($int5 + 6), calc($int6 + 2), $obj3, 5);
+        cc_setoutline(1);
+    }
+    ~script6203(rabbit_shop:build, 44, 14, calc($int5 + 2), calc($int6 + 36), museo_sans_11pt_regular, $string1, $int8);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~cc_add_rect_struct(rabbit_shop:click, 48, 52, $int5, $int6, false, rs3_rect_outline);
+    if ($obj3 = grim_turnip_countview_5) {
+        cc_setop(1, "Trade points for XP");
+        cc_setonop("comp_sethide(false, rabbit_shop:xp_container)");
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    } else {
+        cc_setopbase("<col=FF981F><oc_name($obj3)></col>");
+        cc_setop(1, "Value");
+        cc_setop(2, "Buy 1");
+        cc_setop(3, "Buy 5");
+        cc_setop(4, "Buy 10");
+        if ($obj3 ! rabbit_flag) {
+            cc_setop(5, "Buy X");
+        }
+        cc_setop(10, "Examine");
+        cc_setonmouserepeat("script9564($obj3, event_com, event_comsubid)");
+    }
+    $int5 = calc($int5 + 49);
+    $int2 = calc($int2 + 1);
+}
+if ($int5 > 0) {
+    $int6 = calc($int6 + 53);
+}
+if ($int6 > if_getheight(rabbit_shop:items_container)) {
+    if_setscrollsize(0, $int6, rabbit_shop:items_container);
+    ~rs3_scrollbar_vertical(rabbit_shop:items_scrollbar, rabbit_shop:items_container);
+}

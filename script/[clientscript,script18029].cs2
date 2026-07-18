@@ -1,0 +1,33 @@
+// 18029
+[clientscript,script18029]
+def_string $string0 = "";
+def_string $string1 = "";
+def_dbrow $dbrow0 = ~script17989(27);
+if (%bp3_current_viewed_pass = ~script17854) {
+    $dbrow0 = bp3_purchase_button_desat;
+}
+cc_deleteall(bp3_track_tab:purchase_button);
+if (~script17912 = true) {
+    $string0 = "Purchase Premier Hero Pass";
+    $string1 = "Purchase Premier Hero Pass";
+} else if (~script17862(dbrow_7906) < ~script17890(%bp3_current_viewed_pass)) {
+    $string0 = "Purchase<br>Levels";
+    $string1 = "Purchase Levels";
+    if (~script11939 = true) {
+        $dbrow0 = bp3_purchase_button_desat;
+    }
+} else {
+    $string0 = "Purchase<br>Emblems";
+    $string1 = "Purchase Emblems";
+    if (~script11939 = true) {
+        $dbrow0 = bp3_purchase_button_desat;
+    }
+}
+~script17927;
+~cc_add_button(bp3_track_tab:purchase_button, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow0, "");
+cc_setop(1, $string1);
+~cc_add_text(bp3_track_tab:purchase_button, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom, 0, 80, ^setsize_minus, ^setsize_abs, text_title_section, $string0);
+cc_settextfont(cinzel_15pt_bold);
+cc_setcolour(0xe0d471);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+cc_settextshadow(true);

@@ -1,0 +1,19 @@
+// 15567
+[proc,script15567](component $component0, component $component1, int $int2, int $int3)
+if ($int2 ! 0 & $int2 >= if_getx($component1) & $int2 <= calc(if_getx($component1) + if_getwidth($component1))) {
+    return;
+}
+def_int $int4 = calc(if_getwidth($component0) - if_getwidth($component1));
+def_int $int5 = calc(if_getwidth($component1) / 2);
+if ($int2 = -1) {
+    $int2 = if_getwidth($component0);
+}
+$int2 = max(calc($int2 - $int5), 0);
+$int2 = min($int2, $int4);
+switch_int ($int3) {
+    case 23 :
+        clientoption_set(^clientoption_volume_main_music, scale($int2, $int4, 255));
+        if_setdraggable($component0, -1, $component1);
+        if_setposition(scale(clientoption_get(^clientoption_volume_main_music), 255, $int4), 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
+        ~script15571(clientoption_get(^clientoption_volume_main_music));
+}

@@ -1,0 +1,66 @@
+// 577
+[proc,objdialog_dosearch](string $string0)
+def_int $int0 = oc_find($string0, true);
+def_int $int1 = if_getwidth(objdialog:resultlist);
+def_int $int2 = calc($int1 - 8);
+if ($int0 = -1) {
+    cc_create(objdialog:resultlist, ^iftype_text, 0);
+    cc_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int1, 16, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(m11_full);
+    cc_settext("Too many results. Please refine your search.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~script6888(3);
+    cc_settextshadow(true);
+    if_setscrollsize(0, 0, objdialog:resultlist);
+    ~objdialog_doscrollbar;
+    return;
+}
+if ($int0 = 0) {
+    cc_create(objdialog:resultlist, ^iftype_text, 0);
+    cc_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int1, 16, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(m11_full);
+    cc_settext("No matching items found.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    ~script6888(3);
+    cc_settextshadow(true);
+    if_setscrollsize(0, 0, objdialog:resultlist);
+    ~objdialog_doscrollbar;
+    return;
+}
+def_int $int3 = 1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_obj $obj6 = oc_findnext;
+cc_create(objdialog:resultlist, ^iftype_rectangle, 0);
+while ($obj6 ! null) {
+    $int4 = 0;
+    $int5 = 0;
+    if (oc_param($obj6, original_release_date) ! 0) {
+        $int5 = oc_param($obj6, original_release_date);
+    } else if (oc_param($obj6, trh_release_promo) ! null) {
+        $int5 = ~trh_promo_start_runeday(oc_param($obj6, trh_release_promo));
+    } else {
+        $int5 = oc_param($obj6, release_date);
+    }
+    if (%atlum_day_tracker < $int5) {
+        $obj6 = oc_findnext;
+        $int4 = 1;
+    }
+    if ($int4 = 0) {
+        cc_create(objdialog:resultlist, ^iftype_text, $int3);
+        cc_setposition(4, calc(15 * ($int3 - 1)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int2, 15, ^setsize_abs, ^setsize_abs);
+        ~script6888(3);
+        cc_settext(oc_name($obj6));
+        cc_settextfont(museo_sans_11pt_regular_multiline);
+        cc_settextshadow(true);
+        cc_setonmouseover("objdialog_highlight($int3, $obj6)");
+        cc_setonclick("objdialog_select($obj6)");
+        $obj6 = oc_findnext;
+        $int3 = calc($int3 + 1);
+    }
+}
+if_setscrollsize(0, calc(15 * ($int3 - 1)), objdialog:resultlist);
+~objdialog_doscrollbar;

@@ -1,0 +1,21 @@
+// 2111
+[proc,script2111](quest $quest0, int $int1)(int)
+if ($quest0 = null) {
+    ~error("Null .quest.");
+    return(-1);
+}
+if (quest_questreq_count($quest0) < $int1) {
+    return(-1);
+}
+def_quest $quest2 = quest_questreq($quest0, calc($int1 - 1));
+if ($quest2 = null) {
+    return(-1);
+}
+def_int $int3 = 0;
+def_string $string0 = ~quest_name($quest0);
+$int3 = quest_param($quest2, quest_id);
+if ($int3 <= 0) {
+    ~error("<$string0>'s .quest is missing quest_id param.");
+    return(-1);
+}
+return($int3);

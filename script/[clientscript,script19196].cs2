@@ -1,0 +1,30 @@
+// 19196
+[clientscript,script19196](struct $struct0)
+def_dbrow $dbrow1 = null;
+def_stat $stat2 = null;
+def_string $string0 = "";
+def_cursor $cursor3 = null;
+def_component $component4 = trh_academy_shared_overlay:generic_interaction_button_click_layer;
+def_component $component5 = trh_academy_shared_overlay:generic_interaction_button_text;
+switch_struct ($struct0) {
+    case trh203_promo :
+        $dbrow1 = ~script19150($struct0);
+        $string0 = db_getfield($dbrow1, trh203_nodes:col18, 0);
+        $cursor3 = db_getfield($dbrow1, trh203_nodes:col19, 0);
+        $stat2 = db_getfield($dbrow1, trh203_nodes:col1, 0);
+    case trh207_promo :
+        $dbrow1 = ~script19150($struct0);
+        $string0 = db_getfield($dbrow1, trh207_nodes:col19, 0);
+        $cursor3 = db_getfield($dbrow1, trh207_nodes:col20, 0);
+        $stat2 = db_getfield($dbrow1, trh207_nodes:col1, 0);
+    case default :
+        ~error("Missed plugin point for promo ID <tostring(struct_param($struct0, trh_promo_id))>");
+        return;
+}
+if (string_length($string0) > 0) {
+    if_settext($string0, $component5);
+    if_setop(1, $string0, $component4);
+}
+if ($cursor3 ! null) {
+    if_setopcursor(1, $cursor3, $component4);
+}

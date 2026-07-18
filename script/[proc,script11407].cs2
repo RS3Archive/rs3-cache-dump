@@ -1,0 +1,63 @@
+// 11407
+[proc,script11407](component $component0)
+if_sethide(false, toplevel_v2:loot_inventory_window);
+cc_deleteall($component0);
+cc_deleteall(toplevel_v2_loot:scrolling_layer);
+cc_deleteall(toplevel_v2_loot:scrollbar_layer);
+cc_deleteall(toplevel_v2_loot:slot_layer);
+cc_deleteall(toplevel_v2_loot:highlight_layer);
+cc_deleteall(toplevel_v2_loot:item_layer);
+cc_deleteall(toplevel_v2_loot:fixed_layer);
+def_int $int1 = 52;
+if (if_find(toplevel_v2_loot:fixed_layer) = true) {
+    if_sethide(false, toplevel_v2_loot:fixed_layer);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    cc_setsize(0, $int1, ^setsize_minus, ^setsize_abs);
+}
+if (if_find(toplevel_v2_loot:scrollbar_layer) = true) {
+    cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+    cc_setsize(16, $int1, ^setsize_abs, ^setsize_minus);
+}
+if (if_find(toplevel_v2_loot:scrolling_layer) = true) {
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, $int1, ^setsize_minus, ^setsize_minus);
+}
+def_int $int2 = inv_size(loot);
+def_int $int3 = 0;
+def_int $int4 = 40;
+def_int $int5 = 36;
+def_int $int6 = 10;
+def_int $int7 = 10;
+if (~script6431 = true) {
+    $int4 = 54;
+    $int5 = 48;
+    $int6 = 8;
+    $int7 = 4;
+}
+while ($int3 < $int2) {
+    cc_create(toplevel_v2_loot:slot_layer, ^iftype_graphic, $int3);
+    cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(rs3_inventory_slot);
+    cc_setonmouseover("inventory_slot_highlight(773, event_com, event_comsubid, toplevel_v2_loot:highlight_layer, 1)");
+    cc_setonmouseleave("inventory_slot_highlight(773, event_com, event_comsubid, toplevel_v2_loot:highlight_layer, 0)");
+    ~script9229(toplevel_v2_loot:highlight_layer, $int3, $int4, $int5);
+    cc_create(toplevel_v2_loot:item_layer, ^iftype_graphic, $int3);
+    cc_setsize(calc($int4 - 4), calc($int5 - 4), ^setsize_abs, ^setsize_abs);
+    cc_setontargetenter("inventory_targetmode(1, event_com, event_comsubid)");
+    cc_setontargetleave("inventory_targetmode(0, event_com, event_comsubid)");
+    $int3 = calc($int3 + 1);
+}
+if (%toplevel_v2_active_skinset ! 1) {
+    if_sethide(false, toplevel_v2_loot:slot_layer);
+} else {
+    if_sethide(true, toplevel_v2_loot:slot_layer);
+}
+if (playermember = false | %loot_by_monetary = 0 & %loot_armour_weapons = 0 & %loot_ammo = 0 & %loot_combat_consumables = 0 & %loot_construction = 0 & %loot_runes = 0 & %loot_prayer = 0 & %loot_mining_smithing = 0 & %loot_farming = 0 & %loot_herblore = 0 & %loot_crafting = 0) {
+    if_sethide(true, toplevel_v2_loot:loot_custom_button_layer);
+} else {
+    if_sethide(false, toplevel_v2_loot:loot_custom_button_layer);
+}
+if_setonresize("script11408(event_com)", $component0);
+if_setoninvtransmit("script11408(event_com){loot}", $component0);
+if_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2_loot:loot_settings_button_layer);
+~script11409($component0);

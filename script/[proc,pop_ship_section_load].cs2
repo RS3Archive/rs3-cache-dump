@@ -1,0 +1,87 @@
+// 5524
+[proc,pop_ship_section_load](int $int0, int $int1)
+def_enum $enum2 = null;
+def_enum $enum3 = null;
+def_enum $enum4 = null;
+$enum2, $enum3, $enum4 = ~script7386;
+def_enum $enum5 = null;
+def_enum $enum6 = null;
+def_enum $enum7 = null;
+def_enum $enum8 = null;
+$enum5, $enum6, $enum7, $enum8 = ~script7387;
+cc_deleteall(pop_ship_names:names_layer);
+if_sethide(true, pop_ship_names:name_selected);
+def_enum $enum9 = null;
+def_enum $enum10 = null;
+def_enum $enum11 = null;
+def_int $int12 = 0;
+~script13992(pop_ship_names:prefix_button, null, rs3tli_3x3_button, 0);
+~script13992(pop_ship_names:name_button_1, null, rs3tli_3x3_button, 0);
+~script13992(pop_ship_names:name_button_2, null, rs3tli_3x3_button, 0);
+switch_int ($int0) {
+    case 1 :
+        if_sethide(true, pop_ship_names:static_dropdown);
+        ~script13992(pop_ship_names:prefix_button, null, rs3tli_3x3_button, 1);
+        $enum9 = $enum2;
+        $int12 = %pop_ship_name_temp_prefix;
+    case 2 :
+        if_sethide(false, pop_ship_names:static_dropdown);
+        ~script13992(pop_ship_names:name_button_1, null, rs3tli_3x3_button, 1);
+        $enum9 = $enum3;
+        $enum10 = $enum5;
+        $enum11 = $enum6;
+        $int12 = %pop_ship_name_temp_name1;
+        ~script10428(pop_ship_names:dropdown_build, pop_ship_names:dropdown_click, $enum11, -1, "", %pop_ship_name_filter_selected, 0);
+    case 3 :
+        if_sethide(false, pop_ship_names:static_dropdown);
+        ~script13992(pop_ship_names:name_button_2, null, rs3tli_3x3_button, 1);
+        $enum9 = $enum4;
+        $enum10 = $enum7;
+        $enum11 = $enum8;
+        $int12 = %pop_ship_name_temp_name2;
+        ~script10428(pop_ship_names:dropdown_build, pop_ship_names:dropdown_click, $enum11, -1, "", %pop_ship_name_filter_selected, 0);
+}
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_string $string0 = "";
+def_int $int16 = enum_getoutputcount($enum9);
+while ($int13 < $int16) {
+    cc_create(pop_ship_names:names_layer, ^iftype_text, $int13);
+    if ($enum10 ! null) {
+        $int15 = enum(int, int, $enum10, $int13);
+    } else {
+        $int15 = %pop_ship_name_filter_selected;
+    }
+    if ($int15 = %pop_ship_name_filter_selected) {
+        $string0 = enum(int, string, $enum9, $int13);
+        if (compare($string0, "") = 0) {
+            $string0 = "(None)";
+        }
+        cc_sethide(false);
+        cc_settext($string0);
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_setcolour(0xfaf2d6);
+        cc_setsize(151, 20, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc(cc_getwidth * ($int14 % 3)), calc(3 + (cc_getheight + 2) * ($int14 / 3)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+        cc_setop(1, "Select");
+        if ($int13 = $int12) {
+            cc_setcolour(0xf7ca30);
+            cc_setonmouseover("script5645($int13, 1, 1)");
+            cc_setonmouseleave("script5645($int13, 0, 1)");
+            if_sethide(false, pop_ship_names:name_selected);
+            if_setposition(cc_getx, calc(cc_gety - 2), ^setpos_abs_left, ^setpos_abs_top, pop_ship_names:name_selected);
+        } else {
+            cc_setonmouseover("script5645($int13, 1, 0)");
+            cc_setonmouseleave("script5645($int13, 0, 0)");
+        }
+        $int14 = calc($int14 + 1);
+    } else {
+        cc_sethide(true);
+    }
+    $int13 = calc($int13 + 1);
+}
+def_int $int17 = max(if_getheight(pop_ship_names:names_layer), calc(3 + 22 * ($int14 / 3 + 1)));
+if_setscrollsize(0, $int17, pop_ship_names:names_layer);
+~scrollbar_vertical(pop_ship_names:names_scroll, pop_ship_names:names_layer, "aif_scrollbar_dragger_5,3", "aif_scrollbar_dragger_5,0", "aif_scrollbar_dragger_5,1", "aif_scrollbar_dragger_5,2", "aif_scrollbar_arrow_5,1", "aif_scrollbar_arrow_5,0");

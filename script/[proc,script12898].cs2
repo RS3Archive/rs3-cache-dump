@@ -1,0 +1,47 @@
+// 12898
+[proc,script12898]
+if (~elr1_berry_get_state(1) ! 0 | ~elr1_berry_get_state(2) ! 0) {
+    if_sethide(false, elrc:planter_layer);
+    if (%elr1_berry_type_1 ! 0) {
+        if_settext(oc_name(enum(int, obj, elr1_berry_seeds, calc(%elr1_berry_type_1 - 1))), elrc:planter_seed1);
+        switch_int (~elr1_berry_get_state(1)) {
+            case 0 :
+                if_settext("Unplanted", elrc:planter_seed1_desc);
+            case 1 :
+                if_settext("Planted", elrc:planter_seed1_desc);
+            case 2 :
+                if_settext("Sprouted", elrc:planter_seed1_desc);
+            case 3 :
+                if_settext("Growing", elrc:planter_seed1_desc);
+            case 4 :
+                if_settext("Ready", elrc:planter_seed1_desc);
+        }
+        if_settext(~script12896(calc(%elr1_berry_time_1 + 2520 - date_minutes)), elrc:planter_seed1_time);
+    } else {
+        if_settext("Empty", elrc:planter_seed1);
+        if_settext("", elrc:planter_seed1_desc);
+        if_settext("", elrc:planter_seed1_time);
+    }
+    if (%elr1_berry_type_2 ! 0) {
+        if_settext(oc_name(enum(int, obj, elr1_berry_seeds, calc(%elr1_berry_type_2 - 1))), elrc:planter_seed2);
+        switch_int (~elr1_berry_get_state(2)) {
+            case 0 :
+                if_settext("Unplanted", elrc:planter_seed2_desc);
+            case 1 :
+                if_settext("Planted", elrc:planter_seed2_desc);
+            case 2 :
+                if_settext("Sprouted", elrc:planter_seed2_desc);
+            case 3 :
+                if_settext("Growing", elrc:planter_seed2_desc);
+            case 4 :
+                if_settext("Ready", elrc:planter_seed2_desc);
+        }
+        if_settext(~script12896(calc(%elr1_berry_time_2 + 2520 - date_minutes)), elrc:planter_seed2_time);
+    } else {
+        if_settext("Empty", elrc:planter_seed2);
+        if_settext("", elrc:planter_seed2_desc);
+        if_settext("", elrc:planter_seed2_time);
+    }
+} else {
+    if_sethide(true, elrc:planter_layer);
+}

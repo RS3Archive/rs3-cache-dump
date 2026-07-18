@@ -1,0 +1,50 @@
+// 13961
+[proc,script13961](component $component0, struct $struct1, boolean $boolean2, int $int3)
+def_struct $struct4 = struct_param($struct1, rs3tli_button_layer_master_struct);
+if ($struct4 ! null) {
+    $struct1 = $struct4;
+}
+def_struct $struct5 = ~script9984($struct1, 1);
+def_struct $struct6 = ~script9984($struct1, 2);
+def_struct $struct7 = ~script9984($struct1, 3);
+def_struct $struct8 = $struct5;
+def_int $int9 = 1;
+if ($int3 = 1) {
+    $struct8 = ~script9984($struct1, 4);
+    $int9 = 4;
+    $struct5 = $struct8;
+} else if ($boolean2 = true) {
+    $struct8 = ~script9984($struct1, 5);
+    $int9 = 5;
+} else if ($struct6 ! null & ~script11903($component0) = true) {
+    $struct8 = $struct6;
+    $int9 = 2;
+}
+if ($struct8 = null) {
+    if (struct_param($struct1, rs3tli_icon_graphic_width) > 0) {
+        $struct8 = $struct1;
+    } else {
+        return;
+    }
+}
+if (if_find($component0) = true) {
+    cc_setgraphic(~script9795($struct8, $int9));
+    cc_setcolour(struct_param($struct8, rs3tli_button_content_colour));
+    cc_setonvartransmit("script13958(event_com, $struct1, $boolean2, $int3){toplevel_v2_skins_varp}");
+    if ($boolean2 = true) {
+        cc_setonmouseover(null);
+        cc_setonmouseleave(null);
+        cc_setonclick(null);
+        cc_setonrelease(null);
+    } else if (struct_param($struct1, rs3tli_icon_graphic_width) > 0) {
+        cc_setonmouseover("script13915(event_com, $struct1, 2, $int3)");
+        cc_setonmouseleave("script13915(event_com, $struct1, 1, $int3)");
+    } else if ($struct5 ! null & $struct6 ! null) {
+        cc_setonmouseover("script13915(event_com, $struct6, 2, $int3)");
+        cc_setonmouseleave("script13915(event_com, $struct5, 1, $int3)");
+        if ($struct7 ! null) {
+            cc_setonclick("script13962(event_com, $struct7, $int3)");
+            cc_setonrelease("script13916(event_com, $struct1, $int3)");
+        }
+    }
+}

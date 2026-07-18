@@ -1,0 +1,27 @@
+// 14901
+[proc,script14901](int $int0)
+cc_deleteall(arch_research_management:contract_team_build_layer);
+cc_deleteall(arch_research_management:contract_team_control_layer);
+~script14875(arch_research_management:contract_team_build_layer, arch_research_management:contract_team_control_layer, $int0, 0, 0, if_getwidth(arch_research_management:contract_team_build_layer), if_getheight(arch_research_management:contract_team_build_layer), 0);
+def_int $int1 = ~script14662;
+def_dbrow $dbrow2 = null;
+def_int $int3 = -1;
+while (++$int3 < 5) {
+    if (cc_find(arch_research_management:contract_team_control_layer, $int3) = true) {
+        $dbrow2 = ~script14655($int0, calc($int3 + 1));
+        if ($dbrow2 ! null) {
+            cc_setopbase(db_getfield($dbrow2, arch_researcher:col2, 0));
+            cc_setopcursor(1, cursor_info);
+            cc_setop(1, "Info");
+            cc_setop(2, "Unassign");
+            cc_setonop("script14888(event_op, $int0, calc($int3 + 1))");
+        } else if ($int3 < $int1) {
+            cc_setopcursor(1, cursor_use);
+            cc_setop(1, "Select");
+            cc_setonop("script14888(event_op, $int0, calc($int3 + 1))");
+        } else {
+            cc_clearops;
+            cc_clearscripthooks;
+        }
+    }
+}

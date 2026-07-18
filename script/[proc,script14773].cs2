@@ -1,0 +1,68 @@
+// 14773
+[proc,script14773](int $int0)
+cc_deleteall(collection_log:info_header_background_layer);
+cc_deleteall(collection_log:info_header_build_layer);
+cc_deleteall(collection_log:info_contents_background_layer);
+cc_deleteall(collection_log:info_contents_build_layer);
+cc_deleteall(collection_log:info_contents_control_layer);
+cc_deleteall(collection_log:info_footer_background_layer);
+cc_deleteall(collection_log:info_footer_build_layer);
+cc_deleteall(collection_log:info_footer_control_layer);
+def_dbrow $dbrow1 = db_getfield(%collection_log_data, collection_log:col7, %collection_log_selected);
+def_int $int2 = ~script14510($dbrow1);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $string0 = "";
+if (db_getfield(%collection_log_data, collection_log:col3, 0) = true) {
+    $int3 = 20;
+}
+if (db_getfield($dbrow1, collection:col8, 0) = true) {
+    $int4 = 20;
+    if_sethide(false, collection_log:options_graphic);
+} else {
+    if_sethide(true, collection_log:options_graphic);
+}
+$int5 = ~script14766(collection_log:info_header_background_layer, collection_log:info_header_build_layer, $dbrow1, 0, 0, if_getwidth(collection_log:info_header_layer), $int3, $int4);
+if (if_find(collection_log:info_header_layer) = true) {
+    cc_setsize(0, $int5, ^setsize_minus, ^setsize_abs);
+}
+if ($int2 = 1) {
+    if (~script14501($dbrow1) = 1) {
+        $string0 = "Claim";
+    } else {
+        $string0 = "Contribute All";
+    }
+}
+$int6 = ~script14768(collection_log:info_footer_background_layer, collection_log:info_footer_build_layer, collection_log:info_footer_control_layer, $dbrow1, 0, 0, if_getwidth(collection_log:info_footer_layer), 0, $string0);
+if (if_find(collection_log:info_footer_layer) = true) {
+    cc_setsize(0, $int6, ^setsize_minus, ^setsize_abs);
+}
+if (if_find(collection_log:info_contents_layer) = true) {
+    cc_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, calc($int5 + $int6), ^setsize_minus, ^setsize_minus);
+}
+$int7 = ~script14767(collection_log:info_contents_background_layer, collection_log:info_contents_build_layer, collection_log:info_contents_control_layer, $dbrow1, 0, 0, if_getwidth(collection_log:info_contents_layer), if_getheight(collection_log:info_contents_layer), calc(if_getwidth(collection_log:info_contents_layer) - 19), 0);
+def_int $int8 = db_getfieldcount($dbrow1, collection:col13);
+def_int $int9 = -1;
+while (++$int9 < $int8) {
+    if (cc_find(collection_log:info_contents_control_layer, $int9) = true) {
+        if (db_getfield($dbrow1, collection:col8, 0) = true) {
+            cc_setopcursor(1, cursor_talkto);
+            cc_setop(1, "Share");
+        }
+        if ($int2 = 1) {
+            cc_setopcursor(2, cursor_hand);
+            cc_setop(2, "Contribute");
+        }
+        cc_setop(10, "Examine");
+    }
+}
+if_setscrollsize(0, max(if_getheight(collection_log:info_contents_scrolling_layer), $int7), collection_log:info_contents_scrolling_layer);
+if ($int0 = 1) {
+    if_setscrollpos(0, 0, collection_log:info_contents_scrolling_layer);
+}
+~rs3_scrollbar_vertical(collection_log:info_contents_scrollbar_layer, collection_log:info_contents_scrolling_layer);
+~script14775;

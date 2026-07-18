@@ -1,0 +1,44 @@
+// 18088
+[clientscript,script18088](int $int0, int $int1, int $int2)
+def_component $component3 = bp3_missions_tab:skill_selection_panel_holder;
+if_settext("This will cost <col=2EF8FF><tostring_localised($int1, true)></col> x vis wax.", bp3_missions_tab:skill_selection_desc);
+def_string $string0 = "";
+if ($int2 = 1) {
+    $string0 = "";
+} else {
+    $string0 = "Warning: You will lose any progress already gained towards this mission.";
+}
+if_settext($string0, bp3_missions_tab:skill_selection_warning_text);
+cc_deleteall($component3);
+def_enum $enum4 = int_to_stat;
+def_int $int5 = enum_getoutputcount($enum4);
+def_int $int6 = 486;
+if (if_find($component3) = true) {
+    ~cc_add_child_panel(1, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, true, 0);
+    ~cc_add_child_panel(1, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int6, 0, ^setsize_abs, ^setsize_minus, false, 4);
+    cc_find_parent;
+    ~cc_add_child_panel(1, 2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int6, 0, ^setsize_abs, ^setsize_minus, false, 4);
+    cc_find_parent;
+    ~cc_add_child_panel(1, 3, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int6, 0, ^setsize_abs, ^setsize_minus, false, 4);
+    cc_find_parent;
+    $int6 = 108;
+    ~cc_add_child_panel(1, 4, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int6, 0, ^setsize_abs, ^setsize_minus, false, 4);
+    cc_find_parent;
+}
+def_int $int7 = 9;
+def_int $int8 = 1;
+def_int $int9 = 2;
+def_int $int10 = 0;
+$int10, $int8 = ~script18092(1, $int8, $int10, $int0);
+$int10, $int8 = ~script18092(2, $int8, $int10, $int0);
+$int10, $int8 = ~script18092(3, $int8, $int10, $int0);
+$int10, $int8 = ~script18092(4, $int8, $int10, $int0);
+cc_deleteall(bp3_missions_tab:skill_selection_confirmation);
+~cc_add_button(bp3_missions_tab:skill_selection_confirmation, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, bp3_button_primary_desat, "Confirm");
+cc_setop(1, "Confirm");
+cc_setonop("script18089");
+cc_deleteall(bp3_missions_tab:skill_selection_close);
+~cc_add_button(bp3_missions_tab:skill_selection_close, $int8, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, bp3_button_secondary, "Back");
+cc_setop(1, "Back");
+cc_setonop("script18090");
+if_sethide(false, bp3_missions_tab:skill_selection_holder);

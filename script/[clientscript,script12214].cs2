@@ -1,0 +1,12 @@
+// 12214
+[clientscript,script12214]
+if_settext(tostring(%trh82_currency), trh82_valentines:text_total);
+def_int $int0 = if_getheight(trh82_valentines:progress_bar_graphic);
+def_int $int1 = if_getheight(trh82_valentines:progress_bar_layer);
+def_int $int2 = calc($int0 * 100 / 2500);
+def_int $int3 = max(1, calc($int2 * %trh82_progress_bar_client / 100));
+if (%trh82_progress_bar_client = 2500) {
+    $int3 = $int0;
+}
+if_setsize(if_getwidth(trh82_valentines:progress_bar_graphic), $int3, ^setsize_abs, ^setsize_abs, trh82_valentines:progress_bar_layer);
+if_setontimer("trh82_update_progress_bar", trh82_valentines:progress_bar_layer);

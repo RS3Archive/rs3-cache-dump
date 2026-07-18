@@ -1,0 +1,127 @@
+// 8538
+[proc,script8538](int $int0, int $int1, int $int2, string $string0, int $int3, int $int4)
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_int $int7 = enum_getoutputcount(chat_v2_full_windows);
+def_int $int8 = -1;
+if (%toplevel_v2_legacy_interface = 0) {
+    while ($int6 < $int7) {
+        $int8 = enum(int, int, chat_v2_full_windows, $int6);
+        if (~script8507($int8, $int1, 0, $int4) = 1 & ~script8508($int8, $int1, $int2, $string0, $int3, $int4) = 1) {
+            if (if_gethide(struct_param(~script10405($int8), toplevel_v2_window_layer)) = false) {
+                return;
+            } else if ($int5 = -1) {
+                $int5 = $int8;
+            }
+        }
+        $int6 = calc($int6 + 1);
+    }
+} else if (~script8507(18, $int1, 1, $int4) = 1 | $int1 = 1) {
+    if ($int1 = 1) {
+        if (%chat_v2_legacy_filter ! 2 & %chat_v2_legacy_filter ! 0) {
+            $int5 = 18;
+        } else {
+            return;
+        }
+    } else if (%chat_v2_legacy_filter ! 0 & ~script9918($int1) = 1) {
+        $int5 = 18;
+    } else {
+        return;
+    }
+}
+def_int $int9 = -1;
+def_int $int10 = -1;
+switch_int ($int5) {
+    case 18 :
+        if (%chat_alert_game > 0) {
+            return;
+        }
+        if (%toplevel_v2_legacy_interface = 0) {
+            %chat_alert_game = 100;
+        } else {
+            switch_int (~script9919($int1, $int4)) {
+                case 0 :
+                    %chat_alert_game = 225;
+                case 1 :
+                    %chat_alert_public = 225;
+                case 2 :
+                    %chat_alert_private = 225;
+                case 3 :
+                    %chat_alert_friendschat = 225;
+                case 4 :
+                    %chat_alert_clan = 225;
+                case 5 :
+                    %chat_alert_otherclan = 225;
+                case 6 :
+                    %chat_alert_trade = 225;
+                case 15 :
+                    %chat_alert_group = 225;
+                case 16 :
+                    %chat_alert_group_ironman = 225;
+            }
+        }
+        $int9 = 18;
+        $int10 = 8;
+    case 19 :
+        if (%chat_alert_private > 0) {
+            return;
+        }
+        %chat_alert_private = 100;
+        $int9 = 19;
+        $int10 = 9;
+    case 20 :
+        if (%chat_alert_friendschat > 0) {
+            return;
+        }
+        %chat_alert_friendschat = 100;
+        $int9 = 20;
+        $int10 = 10;
+    case 21 :
+        if (%chat_alert_clan > 0) {
+            return;
+        }
+        %chat_alert_clan = 100;
+        $int9 = 21;
+        $int10 = 11;
+    case 22 :
+        if (%chat_alert_public > 0) {
+            return;
+        }
+        %chat_alert_public = 100;
+        $int9 = 22;
+        $int10 = 12;
+    case 23 :
+        if (%chat_alert_public > 0) {
+            return;
+        }
+        %chat_alert_public = 100;
+        $int9 = 23;
+        $int10 = 8;
+    case 24 :
+        if (%chat_alert_twitchchat > 0) {
+            return;
+        }
+        %chat_alert_twitchchat = 100;
+        $int9 = 24;
+        $int10 = 8;
+    case 25 :
+        if (%chat_alert_group > 0) {
+            return;
+        }
+        %chat_alert_group = 100;
+        $int9 = 25;
+        $int10 = 8;
+    case 46 :
+        if (%chat_alert_group_ironman > 0) {
+            return;
+        }
+        %chat_alert_group_ironman = 100;
+        $int9 = 46;
+        $int10 = 8;
+    case default :
+        return;
+}
+if (%toplevel_v2_legacy_interface = 0) {
+    ~script8057($int9, null, $int10);
+}
+if_setontimer("script8539", toplevel_v2:chat_controller);

@@ -1,0 +1,15 @@
+// 8298
+[clientscript,script8298]
+if (calc(clientclock % 10) ! 0) {
+    return;
+}
+if (map_loadingscreen_isopen = true & %loading_screen_disabled_override_until <= clientclock) {
+    %loading_screen_cycles = 0;
+    if_setontimer("script13879", toplevel_v2:map_loaded_tracker);
+}
+if (%loading_screen_disabled_override_until ! 0 & %loading_screen_disabled_override_until < clientclock) {
+    %loading_screen_disabled_override_until = 0;
+    if (%loadingscreen_on = 1) {
+        map_loadingscreen_settriggerpercent(20, 90);
+    }
+}

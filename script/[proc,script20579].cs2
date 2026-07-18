@@ -1,0 +1,27 @@
+// 20579
+[proc,script20579]
+if_sethide(true, marketplace_bonus_xp_redeem:preview_popup);
+if (%marketplace_bonus_xp_boosters_to_use = 0) {
+    return;
+}
+switch_int (random(6)) {
+    case 0 :
+        sound_vorbis_rate(market26_general_click_01, 1, 0, 150, random_sound_pitch(15, 15));
+    case 1 :
+        sound_vorbis_rate(market26_general_click_02, 1, 0, 150, random_sound_pitch(15, 15));
+    case 2 :
+        sound_vorbis_rate(market26_general_click_03, 1, 0, 150, random_sound_pitch(15, 15));
+    case 3 :
+        sound_vorbis_rate(market26_general_click_04, 1, 0, 150, random_sound_pitch(15, 15));
+    case 4 :
+        sound_vorbis_rate(market26_general_click_05, 1, 0, 150, random_sound_pitch(15, 15));
+    case 5 :
+        sound_vorbis_rate(market26_general_click_06, 1, 0, 150, random_sound_pitch(15, 15));
+}
+sound_vorbis_volume(loyalty_shop_purchase, 1, 20, 180);
+def_int $int0 = ~script20577;
+if_createchild(^iftype_text, ui_getcategory($int0), ui_getdynid($int0), marketplace_bonus_xp_redeem:trigger_op);
+if_triggerop(marketplace_bonus_xp_redeem:trigger_op, $int0, 1);
+if (cc_findbycategory(marketplace_bonus_xp_redeem:trigger_op, ui_getcategory($int0), ui_getdynid($int0)) = 1) {
+    cc_delete;
+}

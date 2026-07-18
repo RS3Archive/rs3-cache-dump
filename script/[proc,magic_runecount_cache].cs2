@@ -1,0 +1,171 @@
+// 12916
+[proc,magic_runecount_cache](obj $obj0)(int)
+if (oc_members($obj0) = 1 & map_members = false) {
+    return(0);
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_obj ($obj0) {
+    case airrune :
+        if (inv_totalparam(worn, magic_supplies_air_runes) > 0) {
+            return(99999999);
+        }
+        if (%dom_staff_effect = 1) {
+            return(99999999);
+        }
+        $int1 = inv_total(inv, airrune);
+        $int1 = ~script11882($int1, ~inv_total_available(inv, smokerune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, mistrune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, dustrune));
+        $int1 = ~script11882($int1, calc(inv_total(inv, rand_airrune) + inv_total(inv, rand_airrune_b) + inv_total(inv, fremsaga_airrune)));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_elemental_rune));
+        }
+    case waterrune :
+        if (inv_totalparam(worn, magic_supplies_water_runes) > 0) {
+            return(99999999);
+        }
+        if (%dom_staff_effect = 1) {
+            return(99999999);
+        }
+        $int1 = inv_total(inv, waterrune);
+        $int1 = ~script11882($int1, ~inv_total_available(inv, steamrune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, mistrune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, mudrune));
+        $int1 = ~script11882($int1, calc(inv_total(inv, rand_waterrune) + inv_total(inv, rand_waterrune_b) + inv_total(inv, fremsaga_waterrune)));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_elemental_rune));
+        }
+    case earthrune :
+        if (inv_totalparam(worn, magic_supplies_earth_runes) > 0) {
+            return(99999999);
+        }
+        if (%dom_staff_effect = 1) {
+            return(99999999);
+        }
+        $int1 = inv_total(inv, earthrune);
+        $int1 = ~script11882($int1, ~inv_total_available(inv, dustrune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, lavarune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, mudrune));
+        $int1 = ~script11882($int1, calc(inv_total(inv, rand_earthrune) + inv_total(inv, rand_earthrune_b) + inv_total(inv, fremsaga_earthrune)));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_elemental_rune));
+        }
+    case firerune :
+        if (inv_totalparam(worn, magic_supplies_fire_runes) > 0) {
+            return(99999999);
+        }
+        if (%dom_staff_effect = 1) {
+            return(99999999);
+        }
+        $int1 = inv_total(inv, firerune);
+        $int1 = ~script11882($int1, ~inv_total_available(inv, steamrune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, smokerune));
+        $int1 = ~script11882($int1, ~inv_total_available(inv, lavarune));
+        $int1 = ~script11882($int1, calc(inv_total(inv, rand_firerune) + inv_total(inv, rand_firerune_b) + inv_total(inv, fremsaga_firerune)));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_elemental_rune));
+        }
+    case bodyrune :
+        if (inv_totalparam(worn, magic_supplies_body_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, bodyrune) + inv_total(inv, rand_bodyrune) + inv_total(inv, rand_bodyrune_b) + inv_total(inv, fremsaga_bodyrune));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case mindrune :
+        if (inv_totalparam(worn, magic_supplies_mind_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, mindrune) + inv_total(inv, rand_mindrune) + inv_total(inv, rand_mindrune_b) + inv_total(inv, fremsaga_mindrune));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case cosmicrune :
+        if (inv_totalparam(worn, magic_supplies_cosmic_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, cosmicrune) + inv_total(inv, rand_cosmicrune) + inv_total(inv, rand_cosmicrune_b));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case chaosrune :
+        if (inv_totalparam(worn, magic_supplies_chaos_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, chaosrune) + inv_total(inv, rand_chaosrune) + inv_total(inv, rand_chaosrune_b) + inv_total(inv, fremsaga_chaosrune));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case naturerune :
+        if (inv_totalparam(worn, magic_supplies_nature_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, naturerune) + inv_total(inv, rand_naturerune) + inv_total(inv, rand_naturerune_b) + inv_total(inv, fremsaga_naturerune));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+        if (inv_getobj(worn, 3) = rand_reward_nature_staff & %rand_reward_nature_staff_charges > 0) {
+            $int1 = calc($int1 + %rand_reward_nature_staff_charges);
+        }
+    case deathrune :
+        if (inv_totalparam(worn, magic_supplies_death_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, deathrune) + inv_total(inv, rand_deathrune) + inv_total(inv, rand_deathrune_b) + inv_total(inv, fremsaga_deathrune));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case lawrune :
+        if (inv_totalparam(worn, magic_supplies_law_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, lawrune) + inv_total(inv, rand_lawrune) + inv_total(inv, rand_lawrune_b) + inv_total(inv, fremsaga_lawrune));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+        if (inv_getobj(worn, 3) = rand_reward_law_staff & %rand_reward_law_staff_charges > 0) {
+            $int1 = calc($int1 + %rand_reward_law_staff_charges);
+        }
+    case soulrune :
+        if (inv_totalparam(worn, magic_supplies_soul_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, soulrune) + inv_total(inv, rand_soulrune) + inv_total(inv, rand_soulrune_b));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case bloodrune :
+        if (inv_totalparam(worn, magic_supplies_blood_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, bloodrune) + inv_total(inv, rand_bloodrune) + inv_total(inv, rand_bloodrune_b));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case astralrune :
+        if (inv_totalparam(worn, magic_supplies_astral_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = calc(inv_total(inv, astralrune) + inv_total(inv, rand_astralrune) + inv_total(inv, rand_astralrune_b));
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case timerune :
+        if (inv_totalparam(worn, magic_supplies_time_runes) > 0) {
+            return(99999999);
+        }
+        $int1 = inv_total(inv, timerune);
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+    case mah5_armadyl_rune :
+        $int1 = inv_total(inv, mah5_armadyl_rune);
+        if (~script5481 = true) {
+            $int1 = ~script11882($int1, inv_total(inv, hvh_catalytic_rune));
+        }
+}
+$int1 = ~script11882($int1, ~script12787($obj0, 0));
+$int1 = ~script11882($int1, ~script5686($obj0));
+return($int1);

@@ -1,0 +1,36 @@
+// 11738
+[clientscript,script11738]
+def_int $int0 = 0;
+def_struct $struct1 = null;
+def_int $int2 = 0;
+while ($int0 < enum_getoutputcount(comscenario_faction_objectives_auto)) {
+    $int2 = enum(int, int, comscenario_faction_objectives_auto, $int0);
+    $struct1 = enum(int, struct, comscenario_faction_objectives, $int2);
+    if ($struct1 = null) {
+        $struct1 = comscenario_faction_objective_null;
+    }
+    ~script10410(comscenario_faction_objectives:button, null, rs3tli_3x3_button, 0, calc($int0 * 60), if_getwidth(comscenario_faction_objectives:button), 60, $int0, false, "");
+    cc_create(comscenario_faction_objectives:title, ^iftype_text, $int0);
+    cc_settext(struct_param($struct1, comscenario_faction_objective_title));
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(~script10495(0));
+    cc_setposition(10, calc($int0 * 60 + 10), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(20, 10, ^setsize_minus, ^setsize_abs);
+    cc_create(comscenario_faction_objectives:description, ^iftype_text, $int0);
+    cc_settext(struct_param($struct1, comscenario_faction_objective_description));
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(~script10495(3));
+    cc_setposition(10, calc($int0 * 60 + 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(20, 30, ^setsize_minus, ^setsize_abs);
+    cc_create(comscenario_faction_objectives:button_click, ^iftype_text, $int0);
+    cc_setposition(10, calc($int0 * 60), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 60, ^setsize_minus, ^setsize_abs);
+    cc_setop(1, "Select");
+    $int0 = calc($int0 + 1);
+}
+if (calc($int0 * 60) > if_getheight(comscenario_faction_objectives:scroll_layer)) {
+    if_setscrollsize(0, calc($int0 * 60), comscenario_faction_objectives:scroll_layer);
+    ~rs3_scrollbar_vertical(comscenario_faction_objectives:scrollbar_layer, comscenario_faction_objectives:scroll_layer);
+}

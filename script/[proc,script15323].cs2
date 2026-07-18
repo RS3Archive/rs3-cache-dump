@@ -1,0 +1,47 @@
+// 15323
+[proc,script15323]()(achievement, achievement)
+def_int $int0 = enum_getoutputcount(cheevo_categories);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+while ($int1 < $int0) {
+    $int3 = achievement_getcategorycount(enum(int, category, cheevo_categories, $int1));
+    $int2 = calc($int2 + $int3);
+    $int1 = calc($int1 + 1);
+}
+$int1 = 0;
+def_int $intarray0($int2);
+def_achievement $achievementarray1($int2);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_achievement $achievement6 = null;
+def_category $category7 = null;
+while ($int1 < $int0) {
+    $category7 = enum(int, category, cheevo_categories, $int1);
+    if (~script2457($category7) = false) {
+        achievement_findcategory($category7);
+        $achievement6 = achievement_findnext;
+        while ($achievement6 ! null) {
+            $int5 = achievement_reqstate($achievement6);
+            if ($int5 >= 7000) {
+                $intarray0($int4) = $int5;
+                $achievementarray1($int4) = $achievement6;
+                $int4 = calc($int4 + 1);
+            }
+            $achievement6 = achievement_findnext;
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($int4 = 0) {
+    return(null, null);
+}
+if ($int4 > 1) {
+    array_sort($int4, 0, 1);
+}
+def_achievement $achievement8 = $achievementarray1(0);
+def_achievement $achievement9 = null;
+if ($int4 > 1) {
+    $achievement9 = $achievementarray1(1);
+}
+return($achievement8, $achievement9);

@@ -1,0 +1,33 @@
+// 15739
+[clientscript,script15739](string $string0, dbrow $dbrow0, string $string1, int $int1, int $int2)
+if ($dbrow0 = null) {
+    return;
+}
+def_string $string2 = "";
+def_string $string3 = "";
+if (db_getrowtable($dbrow0) = mobile_shop_feature_information) {
+    $string2 = ~script20546($dbrow0);
+    $string3 = ~script14145($string3, ~script20660($dbrow0), ~script11623(~script20661($dbrow0), shop_getcategorydescription($int1)));
+    $string3 = ~script14145($string3, ~script20662($dbrow0), ~script20663($dbrow0));
+    $string3 = ~script14145($string3, "You currently own:", ~script14241(db_getfield($dbrow0, mobile_shop_feature_information:col14, 0)));
+}
+switch_int (random(6)) {
+    case 0 :
+        sound_vorbis_rate(market26_product_open_01, 1, 0, 150, random_sound_pitch(15, 15));
+    case 1 :
+        sound_vorbis_rate(market26_product_open_02, 1, 0, 150, random_sound_pitch(15, 15));
+    case 2 :
+        sound_vorbis_rate(market26_product_open_03, 1, 0, 150, random_sound_pitch(15, 15));
+    case 3 :
+        sound_vorbis_rate(market26_product_open_04, 1, 0, 150, random_sound_pitch(15, 15));
+    case 4 :
+        sound_vorbis_rate(market26_product_open_05, 1, 0, 150, random_sound_pitch(15, 15));
+    case 5 :
+        sound_vorbis_rate(market26_product_open_06, 1, 0, 150, random_sound_pitch(15, 15));
+}
+~script18696(db_getfield($dbrow0, mobile_shop_feature_information:col0, 0));
+~script20547($string2, $string0, 1, $string3, db_getfield($dbrow0, mobile_shop_feature_information:col5, 0), $int2, db_getfield($dbrow0, mobile_shop_feature_information:col21, 0));
+if_setonop("script20548", marketplace_preview:preview_window_close_button);
+if_setonop("script20548", marketplace_preview:background);
+if_setonop("script15743($string1)", marketplace_preview:purchase_button);
+if_sethide(false, mobile_shop_hard_currency:confirm_buy_container);

@@ -1,0 +1,19 @@
+// 19606
+[proc,script19606](int $int0, int $int1)
+def_obj $obj2 = null;
+def_int $int3 = -1;
+if (cc_find(group_ironman_storage:clan_inv, $int0) = true) {
+    $obj2 = cc_getinvobject;
+    $int3 = cc_getinvcount;
+    if (.cc_find(group_ironman_storage:clan_inv, $int1) = true) {
+        ~script19539(.cc_getinvobject, .cc_getinvcount);
+    }
+}
+if (cc_find(group_ironman_storage:clan_inv, $int1) = true) {
+    ~script19539($obj2, $int3);
+}
+if ($obj2 = bank_empty_slot & ($int0 < %group_ironman_storage_first_freeslot | %group_ironman_storage_first_freeslot = -1)) {
+    %group_ironman_storage_first_freeslot = $int0;
+} else if ($int1 = %group_ironman_storage_first_freeslot) {
+    %group_ironman_storage_first_freeslot = ~script19595($int1, %group_ironman_storage_used_slots);
+}

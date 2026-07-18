@@ -1,0 +1,149 @@
+// 3911
+[proc,script3911](struct $struct0, int $int1)(boolean)
+if ($struct0 ! null) {
+    if (%atlum_day_tracker < struct_param($struct0, marketplace_spotlight_start_date) | struct_param($struct0, marketplace_spotlight_end_date) ! -1 & %atlum_day_tracker > struct_param($struct0, marketplace_spotlight_end_date)) {
+        return(false);
+    }
+    switch_int (struct_param($struct0, mtxmgt_category)) {
+        case 1, 2, 3, 4, 5 :
+            if (~script6488($struct0) = 1) {
+                return(false);
+            }
+    }
+    switch_struct ($struct0) {
+        case mtx_spotlight_ccrm :
+            if (%crm_braze_hotfix_disable_marketplace = 1) {
+                return(false);
+            }
+            if (%crm_braze_marketplace_spotlight_active = true) {
+                return(true);
+            } else {
+                return(false);
+            }
+        case mtx_front_end_solomon :
+            if (platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex | %atlum_day_tracker >= struct_param(mtx_front_end_sale, marketplace_spotlight_start_date) & %atlum_day_tracker <= struct_param(mtx_front_end_sale, marketplace_spotlight_end_date)) {
+                return(false);
+            }
+        case mtx_front_end_sale :
+            if (platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex) {
+                return(false);
+            }
+        case mtx_front_end_th :
+            return(~script4221($struct0, $int1));
+        case mtx_spotlight_desktop_trial :
+            if (~script6431 = true | %mtx_spotlight_desktop_trial_billing_flag = 0) {
+                return(false);
+            }
+        case mhaw_may23_power_bundle :
+            if (~ironman_mode = true) {
+                return(false);
+            }
+        case returner_pack_free :
+            return(~script11459);
+        case mtx_spotlight_necro_release_bundle :
+            if (platformtype = ^platformtype_steam | %mtx140_necro_release_bundle_purchased = 1) {
+                return(false);
+            }
+            if (playermember = false & ~script18311 = true) {
+                return(false);
+            }
+        case mtx_spotlight_necro_release_bundle_sale :
+            if (platformtype = ^platformtype_steam | %mtx140_necro_release_bundle_purchased = 1) {
+                return(false);
+            }
+            if (playermember = true) {
+                return(false);
+            }
+            if (~script18311 = false) {
+                return(false);
+            }
+        case dxp_bundles_bundle_upsell :
+            if (%ironman_enabled = 1) {
+                return(false);
+            }
+            if (%dxp_bundles_daily_bundle_purchased = 1 & ~script18945 = 1 & %dxp_bundles_nov25_protean_bond_purchased = 1) {
+                return(false);
+            }
+        case dxp_bundles_daily_bundle :
+            if (%ironman_enabled = 1) {
+                return(false);
+            }
+            if (%dxp_bundles_daily_bundle_purchased = 0) {
+                return(false);
+            }
+        case mtx_spotlight_bank_booster_sale :
+            if (%mtx54_bank_space_unlocked15 = 1 & %bond_package_bank_booster_bundle_unlocked = 1) {
+                return(false);
+            }
+        case mtx_spotlight_premier_benefits_package :
+            if (platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex | ~script18319 = 0) {
+                return(false);
+            }
+        case mtx_spotlight_xmas23_packages :
+            if (%xmas24_package_double_wrapping_paper_unlocked = 1) {
+                return(false);
+            }
+        case mtx_spotlight_otp_dec23_packages :
+            if (~script18317 = false) {
+                return(false);
+            }
+        case mtx_spotlight_mobile_ultimtate_currency_pack :
+            if (~script18318 = 0 | ~is_mobile_client = false) {
+                return(false);
+            }
+        case easter24_bond_bundles_upsell :
+            if (%easter24_currency_booster_unlocked = 0) {
+                return(true);
+            }
+            return(~script18801);
+        case mtx_spotlight_black_primal_pack :
+            if (platformtype = ^platformtype_steam | %mtx145_primal_bundle_unlocked = 1) {
+                return(false);
+            }
+            return(true);
+        case mtx_spotlight_xmas24_daily_keys_bundle_upsell :
+            if (%xmas24_12_days_bundle_enabled = 0) {
+                return(false);
+            }
+            if (%ironman_enabled = 1) {
+                return(false);
+            } else if (%xmas24_daily_keys_purchased = 1) {
+                return(false);
+            }
+        case mtx_spotlight_dxp_protean_pack :
+            if (%ironman_enabled = 1) {
+                return(false);
+            }
+            if (%dxp_bundles_nov25_protean_direct_purchased = 1) {
+                return(false);
+            }
+        case mtx_spotlight_dxp_protean_bond_pack :
+            if (%ironman_enabled = 1) {
+                return(false);
+            }
+            if (%dxp_bundles_nov25_protean_bond_purchased = 1) {
+                return(false);
+            }
+        case mtx_spotlight_celestial_pack :
+            if (platformtype = ^platformtype_steam | %mtx146_celestial_outfit_unlocked = 1) {
+                return(false);
+            }
+        case mtx_spotlight_desert_wanderer_bundle :
+            if (platformtype = ^platformtype_steam | %mtx147_desert_bundle_unlocked = 1) {
+                return(false);
+            }
+        case mtx_spotlight_jan25_golden_bundle :
+            if (~script649 = false) {
+                return(false);
+            }
+            return(true);
+        case mtx_spotlight_large_star_bundle_small, mtx_spotlight_large_star_bundle_medium, mtx_spotlight_large_star_bundle_large, mtx_spotlight_small_xpbomb_bundle_small, mtx_spotlight_small_xpbomb_bundle_medium, mtx_spotlight_small_xpbomb_bundle_large :
+            if (~ironman_mode = true) {
+                return(false);
+            }
+    }
+}
+if (testbit(%mtx_spotlight_hotfix_disable, $int1) = ^true) {
+    return(false);
+}
+return(true);

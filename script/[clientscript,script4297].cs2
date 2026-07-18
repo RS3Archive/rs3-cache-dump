@@ -1,0 +1,44 @@
+// 4297
+[clientscript,script4297](int $int0, int $int1)
+def_int $int2 = if_getwidth(nature_boss_healthbar_second_bar:health_bar_red);
+def_int $int3 = calc(30 + scale(195, 100, calc(100 - $int1)));
+def_int $int4 = calc(225 - scale(195, 100, calc(100 - $int1)));
+def_int $int5 = 0;
+def_int $int6 = 1;
+switch_int (%nature_boss_healthbar_state) {
+    case 0 :
+    case 2 :
+        $int3 = 179;
+        $int4 = 36;
+        $int5 = 0;
+        if_setcolour(~rgb_to_hex($int3, $int4, $int5), nature_boss_healthbar_second_bar:health_bar_fill);
+    case 3 :
+        $int3 = 255;
+        $int4 = 51;
+        $int5 = 153;
+        if_setcolour(~rgb_to_hex($int3, $int4, $int5), nature_boss_healthbar_second_bar:health_bar_fill);
+    case 1 :
+        $int3 = 163;
+        $int4 = 0;
+        $int5 = 200;
+        if_setcolour(~rgb_to_hex($int3, $int4, $int5), nature_boss_healthbar_second_bar:health_bar_fill);
+}
+if ($int2 < $int0) {
+    if ($int2 < calc($int0 - 10)) {
+        $int6 = 5;
+    }
+    if_setsize(calc($int2 + $int6), 19, ^setsize_abs, ^setsize_abs, nature_boss_healthbar_second_bar:health_bar_red);
+    if_setsize(calc($int2 + $int6), 19, ^setsize_abs, ^setsize_abs, nature_boss_healthbar_second_bar:red_wave_effect);
+    if_setcolour(~rgb_to_hex($int3, $int4, 0), nature_boss_healthbar_second_bar:health_diamond_left);
+    if_setcolour(~rgb_to_hex($int3, $int4, 0), nature_boss_healthbar_second_bar:health_diamond_right);
+} else if ($int2 > $int0) {
+    if ($int2 > calc($int0 + 10)) {
+        $int6 = 5;
+    }
+    if_setsize(calc($int2 - $int6), 19, ^setsize_abs, ^setsize_abs, nature_boss_healthbar_second_bar:health_bar_red);
+    if_setsize(calc($int2 - $int6), 19, ^setsize_abs, ^setsize_abs, nature_boss_healthbar_second_bar:red_wave_effect);
+    if_setcolour(~rgb_to_hex($int3, $int4, $int3), nature_boss_healthbar_second_bar:health_diamond_left);
+    if_setcolour(~rgb_to_hex($int3, $int4, $int5), nature_boss_healthbar_second_bar:health_diamond_right);
+} else {
+    if_setontimer(null, nature_boss_healthbar_second_bar:health_diamond_left);
+}

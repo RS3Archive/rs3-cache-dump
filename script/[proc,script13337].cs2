@@ -1,0 +1,29 @@
+// 13337
+[proc,script13337](struct $struct0)(string)
+def_struct $struct1 = null;
+def_dbrow $dbrow2 = null;
+switch_struct ($struct0) {
+    case package_timed_event_bond_to_currency_buy_5, package_timed_event_bond_to_currency_buy_10, package_timed_event_bond_to_currency_buy_20, event_currency_package_small, event_currency_package_medium, event_currency_package_large :
+        $struct1 = ~script14441;
+        if ($struct1 ! null & struct_param($struct0, rewardshop_obj_count) > 0) {
+            return("<struct_param($struct1, timed_event_currency_string)> x <tostring_localised(struct_param($struct0, rewardshop_obj_count), true)>");
+        }
+        $dbrow2 = ~script15143;
+        if ($dbrow2 ! null & ~script15145($dbrow2) ! null) {
+            return("<oc_name(~script15145($dbrow2))> x <tostring_localised(struct_param($struct0, rewardshop_obj_count), true)>");
+        }
+    case trh30_dxp_shop_trade_1hr_for_credits :
+        return("<tostring(~script18944)> Credits");
+    case dxp_tokens_trade_1hr_for_credits :
+        return("<tostring(~script18942)> <oc_name(dxp_tokens_currency)>");
+}
+def_string $string0 = struct_param($struct0, rewardshop_item_name);
+def_obj $obj3 = struct_param($struct0, rewardshop_obj);
+if (string_length($string0) = 0) {
+    if ($obj3 ! null) {
+        $string0 = oc_name($obj3);
+    } else {
+        $string0 = null;
+    }
+}
+return($string0);

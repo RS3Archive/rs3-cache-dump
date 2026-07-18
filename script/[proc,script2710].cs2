@@ -1,0 +1,36 @@
+// 2710
+[proc,script2710]
+~script2707;
+cc_deleteall(graphics_options_v2_client_mobile:adv_options_build);
+cc_deleteall(graphics_options_v2_client_mobile:adv_options_click);
+cc_deleteall(graphics_options_v2_client_mobile:adv_options_value);
+if_sethide(true, graphics_options_v2_client_mobile:adv_options);
+def_component $component0 = null;
+def_int $int1 = 0;
+if (%mobile_graphics_adv_toggle = 1) {
+    if_setposition(0, calc(5 + if_gety(graphics_options_v2_client_mobile:advanced_toggle_layer) + if_getheight(graphics_options_v2_client_mobile:advanced_toggle_layer)), ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client_mobile:adv_options);
+    $component0 = graphics_options_v2_client_mobile:warning_text;
+    $int1 = ~script7593(if_gettext($component0), if_getwidth($component0), if_getfontmetrics($component0), -1);
+    if_setsize(0, calc(3 + $int1), ^setsize_minus, ^setsize_abs, graphics_options_v2_client_mobile:warning_layer);
+    if_setposition(0, calc(5 + if_getheight(graphics_options_v2_client_mobile:warning_layer)), ^setpos_abs_left, ^setpos_abs_top, graphics_options_v2_client_mobile:warning_controls);
+    $int1 = ~script2970(graphics_options_v2_client_mobile:adv_options_build, graphics_options_v2_client_mobile:adv_options_click, graphics_options_v2_client_mobile:adv_options_value, graphics_options_advance, 0, 0, if_getwidth(graphics_options_v2_client_mobile:adv_options));
+    if_setsize(0, $int1, ^setsize_minus, ^setsize_abs, graphics_options_v2_client_mobile:warning_controls);
+    if_setsize(16, calc(if_gety(graphics_options_v2_client_mobile:warning_controls) + if_getheight(graphics_options_v2_client_mobile:warning_controls)), ^setsize_minus, ^setsize_abs, graphics_options_v2_client_mobile:adv_options);
+    $int1 = calc(if_gety(graphics_options_v2_client_mobile:adv_options) + if_getheight(graphics_options_v2_client_mobile:adv_options));
+    if_setscrollsize(0, $int1, graphics_options_v2_client_mobile:scrolling_layer);
+    ~rs3_scrollbar_vertical(graphics_options_v2_client_mobile:scrollbar_layer, graphics_options_v2_client_mobile:scrolling_layer);
+    if_sethide(false, graphics_options_v2_client_mobile:adv_options);
+    if_sethide(false, graphics_options_v2_client_mobile:scrollbar_layer);
+} else {
+    $component0 = graphics_options_v2_client_mobile:advanced_toggle_layer;
+    $int1 = calc(5 + if_gety($component0) + if_getheight($component0));
+    if_setscrollpos(0, max(0, min($int1, if_getscrolly(graphics_options_v2_client_mobile:scrolling_layer))), graphics_options_v2_client_mobile:scrolling_layer);
+    if ($int1 > if_getheight(graphics_options_v2_client_mobile:scrolling_layer)) {
+        if_sethide(false, graphics_options_v2_client_mobile:scrollbar_layer);
+        if_setscrollsize(0, $int1, graphics_options_v2_client_mobile:scrolling_layer);
+        ~rs3_scrollbar_vertical(graphics_options_v2_client_mobile:scrollbar_layer, graphics_options_v2_client_mobile:scrolling_layer);
+    } else {
+        if_sethide(true, graphics_options_v2_client_mobile:scrollbar_layer);
+        if_setscrollsize(0, 0, graphics_options_v2_client_mobile:scrolling_layer);
+    }
+}

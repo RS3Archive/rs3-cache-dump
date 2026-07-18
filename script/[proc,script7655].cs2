@@ -1,0 +1,15 @@
+// 7655
+[proc,script7655]
+def_fontmetrics $fontmetrics0 = if_getfontmetrics(modal_choice_details:desc_text);
+def_int $int1 = calc(~script11432($fontmetrics0) * paraheight(if_gettext(modal_choice_details:desc_text), if_getwidth(modal_choice_details:desc), $fontmetrics0));
+if ($int1 > if_getheight(modal_choice_details:desc)) {
+    if_setsize(calc(if_getwidth(modal_choice_details:desc_text_holder) - 18), if_getheight(modal_choice_details:desc_text_holder), ^setsize_abs, ^setsize_abs, modal_choice_details:desc);
+    if_setscrollsize(0, calc($int1 + 4), modal_choice_details:desc);
+    if_setscrollpos(0, 0, modal_choice_details:desc);
+    ~rs3_scrollbar_vertical(modal_choice_details:desc_scrollbar, modal_choice_details:desc);
+} else {
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, modal_choice_details:desc);
+    if_setscrollpos(0, 0, modal_choice_details:desc);
+    if_setscrollsize(0, 0, modal_choice_details:desc);
+    cc_deleteall(modal_choice_details:desc_scrollbar);
+}

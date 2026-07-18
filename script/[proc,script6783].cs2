@@ -1,0 +1,34 @@
+// 6783
+[proc,script6783]
+def_int $int0 = -1;
+def_int $int1 = db_getfieldcount(trh_prize_generation_jackpot_highlighted_trh196, trh_category_prizes:col0);
+def_int $int2 = 0;
+def_obj $obj3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+while (++$int0 < $int1) {
+    $obj3, $int2, $int2, $int2, $int2, $int2, $int2, $int2 = db_getfield(trh_prize_generation_jackpot_highlighted_trh196, trh_category_prizes:col0, $int0);
+    if ($obj3 ! null) {
+        cc_create(trh196_overlay:ultra_rare_list, ^iftype_graphic, $int4);
+        $int4 = calc($int4 + 1);
+        cc_setsize(36, 34, ^setsize_abs, ^setsize_abs);
+        cc_setobject_nonum($obj3, 1);
+        cc_sethide(false);
+        cc_create(trh196_overlay:ultra_rare_list, ^iftype_text, $int4);
+        $int4 = calc($int4 + 1);
+        cc_setposition(36, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(322, 34, ^setsize_abs, ^setsize_abs);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_settext(oc_name($obj3));
+        cc_settextfont(notosans_12);
+        $int5 = calc($int5 + 34);
+    }
+}
+if ($int5 > 0) {
+    cc_create(trh196_overlay:ultra_rare_list, ^iftype_graphic, $int4);
+    $int4 = calc($int4 + 1);
+    cc_setgraphic(trh177_spacer);
+    cc_setposition(23, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(17, calc($int5 + 10), ^setsize_abs, ^setsize_abs);
+    if_sethide(false, trh196_overlay:ultra_rare_list);
+}

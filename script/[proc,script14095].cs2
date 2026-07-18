@@ -1,0 +1,25 @@
+// 14095
+[proc,script14095](component $component0, int $int1, int $int2, int $setsize3, int $int4, int $setsize5, int $int6, int $int7, int $int8)
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+if (cc_find($component0, $int1) = true | if_find($component0) = true) {
+    $int11 = cc_getwidth;
+    if ($setsize3 = ^setsize_minus) {
+        $int11 = calc(if_getwidth(if_getparentlayer($component0)) - $int11);
+    }
+    $int12 = cc_getheight;
+    if ($setsize5 = ^setsize_minus) {
+        $int12 = calc(if_getheight(if_getparentlayer($component0)) - $int12);
+    }
+    $int9 = calc($int2 - $int11);
+    $int10 = calc($int4 - $int12);
+    if ($int9 = 0 & $int10 = 0 | $int6 = 0 & $int7 = 0) {
+        return;
+    }
+    if ($int7 > 0) {
+        $int6 = max(1, calc(max(abs($int9), abs($int10)) / $int7));
+    }
+    cc_setontimer("script14096($component0, $int1, 0, calc($int6 - 1), $int11, $int9, $setsize3, $int12, $int10, $setsize5, $int8)");
+}

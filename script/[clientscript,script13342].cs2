@@ -1,0 +1,116 @@
+// 13342
+[clientscript,script13342](int $int0, struct $struct1)
+def_enum $enum2 = struct_param($struct1, cheevo_meta_list);
+def_int $int3 = struct_param($struct1, cheevo_meta_list_type);
+if ($enum2 = null) {
+    return;
+}
+def_string $string0 = "";
+def_int $int4 = 0;
+~script13334(%cheevo_current_list, 1);
+cc_deleteall(achievements_sub:cheevo_details);
+if (cc_find(achievements_sub:build_layer, $int0) = true) {
+    cc_setonop("cheevo_load_list(%cheevo_current_list, -1, 0)");
+    cc_setop(5, "Close");
+}
+if (cc_find(achievements_sub:build_layer, calc($int0 + 7)) = true) {
+    cc_setvflip(true);
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find(achievements_sub:build_layer, $int0) = true) {
+    $int5 = cc_gety;
+    $int6 = cc_getheight;
+}
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_struct $struct12 = null;
+switch_int ($int3) {
+    case 0 :
+        $int10 = enum_getoutputcount($enum2);
+        while ($int9 < $int10) {
+            $struct12 = enum(int, struct, $enum2, $int9);
+            $string0 = ~cheevo_name($struct12);
+            switch_int (~cheevo_obtain_progress($struct12)) {
+                case -2 :
+                    $int4 = 16777215;
+                case -1 :
+                    $int4 = ~script10495(6);
+                case -3 :
+                    $int4 = 16355874;
+                case default :
+                    if (~date_runeday < struct_param($struct12, cheevo_gracedate)) {
+                        $int4 = 16355874;
+                    } else {
+                        $int4 = 7829367;
+                    }
+            }
+            $int11 = ~script13343($int9, $int11, $int4, $string0, $struct12);
+            $int9 = calc($int9 + 1);
+        }
+    case default :
+        $int7 = ~cheevo_get_progress($struct1);
+        if (struct_param($struct1, cheevo_check_type) = 1) {
+            $int8 = bitcount(~cheevo_get_check_var_total($struct1));
+            while ($int9 < $int8) {
+                if (testbit($int7, $int9) = ^true) {
+                    $int4 = 16777215;
+                } else {
+                    $int4 = 7829367;
+                }
+                if ($int3 = 1) {
+                    $string0 = oc_name(enum(int, obj, $enum2, $int9));
+                } else if ($enum2 = cheevo_pvm_order_of_slayers_list) {
+                    if ($int9 = 0) {
+                        if (%luc2_hero_part_1_vis = 0) {
+                            $string0 = "Turael";
+                        } else {
+                            $string0 = "Spria";
+                        }
+                    } else if ($int9 = 6) {
+                        if (%luc2_hero_part_1_vis = 0) {
+                            $string0 = "Duradel";
+                        } else {
+                            $string0 = "Lapalok";
+                        }
+                    } else {
+                        $string0 = enum(int, string, $enum2, $int9);
+                    }
+                } else if (struct_param($struct1, cheevo_meta_list_hidden) = 1 & testbit($int7, $int9) = ^false) {
+                    $string0 = "???";
+                } else {
+                    $string0 = enum(int, string, $enum2, $int9);
+                }
+                $int11 = ~script13343($int9, $int11, $int4, $string0, null);
+                $int9 = calc($int9 + 1);
+            }
+        } else if (struct_param($struct1, cheevo_check_type) = 2) {
+            $int8 = ~cheevo_get_check_var_total($struct1);
+            while ($int9 < $int8) {
+                $string0 = enum(int, string, $enum2, $int9);
+                if ($int9 < $int7) {
+                    $int4 = 16777215;
+                } else if (~date_runeday < struct_param($struct1, cheevo_gracedate)) {
+                    $int4 = 16355874;
+                } else {
+                    $int4 = 7829367;
+                }
+                $int11 = ~script13343($int9, $int11, $int4, $string0, null);
+                $int9 = calc($int9 + 1);
+            }
+        }
+}
+if (calc($int9 % 2) = 1 & cc_find(achievements_sub:cheevo_details, calc(if_getnextsubid(achievements_sub:cheevo_details) - 1)) = true) {
+    $int11 = calc($int11 + cc_getheight);
+}
+$int11 = calc($int11 + 2);
+if_sethide(false, achievements_sub:cheevo_details);
+if_setsize(0, $int11, ^setsize_minus, ^setsize_abs, achievements_sub:cheevo_details);
+if_setposition(0, calc($int5 + $int6), ^setpos_abs_left, ^setpos_abs_top, achievements_sub:cheevo_details);
+~script13344(calc($int5 + $int6), $int11);
+if_setscrollsize(0, calc(if_getscrollheight(achievements_sub:build_layer) + $int11), achievements_sub:build_layer);
+if_setscrollpos(0, $int5, achievements_sub:build_layer);
+~rs3_scrollbar_vertical(achievements_sub:cheevo_scrollbar, achievements_sub:build_layer);

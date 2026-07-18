@@ -1,0 +1,23 @@
+// 11822
+[clientscript,script11822](int $int0)
+if ($int0 = 1) {
+    if (%telemetry_stopwatch_active = 0) {
+        if_setontimer("script12595", toplevel_v2:telemetry_stopwatch_timer);
+    } else {
+        if_setontimer(null, toplevel_v2:telemetry_stopwatch_timer);
+    }
+    return;
+}
+if (%telemetry_interval_type ! telemetryinterval_1) {
+    if_sethide(true, telemetry:stopwatch_time);
+    if_sethide(true, telemetry:play_button_layer);
+    if_sethide(true, telemetry:pause_button_layer);
+    if_sethide(true, telemetry:reset_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:stopwatch_time);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:play_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:pause_button_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:reset_button_layer);
+    return;
+}
+%telemetry_stopwatch_time = 0;
+if_setontimer(null, toplevel_v2:telemetry_stopwatch_timer);

@@ -1,0 +1,158 @@
+// 15627
+[proc,lobby_main_background](component $component0, component $component1, component $component2, component $component3, string $string0, struct $struct4, int $int5, component $component6, component $component7, component $component8, component $component9, int $int10, component $component11, component $component12)
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = enum_getoutputcount(lobby_tab_headers);
+def_int $int17 = 20;
+if (~is_mobile_client = false) {
+    if_setposition(0, 32, ^setpos_abs_centre, ^setpos_abs_top, $component2);
+    if_setsize(16, 40, ^setsize_minus, ^setsize_minus, $component2);
+    if_setposition(0, 52, ^setpos_abs_centre, ^setpos_abs_top, $component8);
+    if_setsize(0, 45, ^setsize_minus, ^setsize_minus, $component9);
+    if_setposition(0, 45, ^setpos_abs_left, ^setpos_abs_top, $component9);
+    ~script8421($component0, $component1, $component2, $component3, $string0, $struct4, $int5, 1, null, null);
+    $int13, $int14 = ~script8405($component8);
+    $int14 = calc($int14 - if_gety(if_getparentlayer($component0)));
+    if_setsize(0, 60, ^setsize_minus, ^setsize_abs, $component6);
+    if_setposition(0, -5, ^setpos_abs_left, ^setpos_abs_top, $component6);
+    if_setsize(16, 52, ^setsize_minus, ^setsize_abs, $component11);
+    if_setposition(0, calc($int14 - 52), ^setpos_abs_centre, ^setpos_abs_top, $component11);
+    while ($int15 < $int16) {
+        if_setsize(128, 0, ^setsize_abs, ^setsize_minus, enum(int, component, lobby_tab_headers, $int15));
+        if_setposition(calc(128 * $int15), 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, lobby_tab_headers, $int15));
+        $int15 = calc($int15 + 1);
+    }
+    if_setsize($int17, $int17, ^setsize_minus, ^setsize_minus, lobbyscreen:content_container);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen_pane_worldselect:mobile_extra_offset);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen_pane_playerinfo:mobile_extra_offset);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:options_panel);
+    ~script15612;
+    if_sethide(true, lobbyscreen:mobile_sidemenu);
+    if_sethide(true, lobbyscreen:mobile_sidemenu_blackout);
+    if (%league_lobby_select_league_worlds = 1) {
+        if_sethide(true, lobbyscreen:login_button_mobile);
+        if_sethide(true, lobbyscreen:login_button_pc);
+        if_sethide(false, lobbyscreen:login_button_leagues);
+    } else {
+        if_sethide(true, lobbyscreen:login_button_mobile);
+        if_sethide(false, lobbyscreen:login_button_pc);
+        if_sethide(true, lobbyscreen:login_button_leagues);
+    }
+    if_setsize(288, 39, ^setsize_abs, ^setsize_abs, lobbyscreen:login_button_graphic);
+    return;
+}
+def_int $int18 = 72;
+def_int $int19 = 60;
+def_int $int20 = 240;
+def_int $int21 = 7;
+def_int $int22 = 6;
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component3);
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+$int23, $int24, $int25, $int26 = window_getinsets;
+$int25 = max($int25, 5);
+def_int $int27 = calc($int19 + $int24);
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = calc($int19 + $int25);
+def_component $component31 = if_getparentlayer($component0);
+if ($component31 ! null) {
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component31);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component31);
+}
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component1);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component1);
+cc_create($component1, ^iftype_graphic, $int28++);
+cc_setsize(100, calc($int27 - 4), ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(lobby_header_background_left_edge);
+cc_settiling(true);
+cc_create($component1, ^iftype_graphic, $int28++);
+cc_setsize(100, calc($int27 - 4), ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_setgraphic(lobby_header_background_right_edge);
+cc_settiling(true);
+cc_create($component1, ^iftype_graphic, $int28++);
+cc_setsize(0, 4, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, calc($int27 - 4), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(lobby_header_details_bottomline);
+cc_settiling(true);
+cc_create($component1, ^iftype_graphic, $int28++);
+cc_setsize(54, 70, ^setsize_abs, ^setsize_abs);
+cc_setposition(-22, calc($int24 - 4), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(lobby_header_details_left_edge);
+cc_create($component1, ^iftype_graphic, $int28++);
+cc_setsize(96, 37, ^setsize_abs, ^setsize_abs);
+cc_setposition(-22, calc($int24 + 27), ^setpos_abs_right, ^setpos_abs_top);
+cc_setgraphic(lobby_header_details_right_edge);
+cc_create($component1, ^iftype_graphic, $int28++);
+cc_setsize(63, 63, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int23 - 3), calc($int24 - 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("rs3_info_button_base,0");
+cc_setonclick("script15620");
+cc_create($component1, ^iftype_graphic, $int28++);
+cc_setsize(35, 34, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int23 + 11), calc($int24 + 12), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(lobby_button_menu_icon);
+if_setsize(calc($int23 + $int19 + $int30), $int19, ^setsize_minus, ^setsize_abs, $component11);
+if_setposition($int30, $int24, ^setpos_abs_right, ^setpos_abs_top, $component11);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, $component8);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component0);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component0);
+cc_create($component0, ^iftype_graphic, $int29++);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(rs3_parent_content_tile);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, $int29++);
+cc_setsize(0, $int27, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(rs3_child_content_tile);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, $int29++);
+cc_setsize($int21, calc($int19 + $int24), ^setsize_abs, ^setsize_minus);
+cc_setposition($int30, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_setgraphic(rs3_character_interface_tab_strip_vertical);
+cc_settiling(true);
+if_setsize($int18, calc($int19 + $int24 + $int26), ^setsize_abs, ^setsize_minus, $component7);
+if_setposition(calc($int25 - 6), calc($int19 + $int24), ^setpos_abs_right, ^setpos_abs_top, $component7);
+if_setsize(calc($int20 + $int23), 0, ^setsize_abs, ^setsize_minus, $component12);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:mobile_sidemenu_blackout);
+if_setsize($int20, calc($int24 + $int26), ^setsize_abs, ^setsize_minus, lobbyscreen_mobile_side_menu:contents);
+~script15619(calc($int20 + $int23));
+if_setonclick("script6508", lobbyscreen:mobile_sidemenu_blackout);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component9);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component9);
+~script15612;
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:content_container);
+if_setsize(calc($int30 + $int23 + $int17 * 2), calc($int19 + $int26), ^setsize_minus, ^setsize_minus, $component2);
+if_setposition(calc($int23 + $int17), calc($int19 + $int24), ^setpos_abs_left, ^setpos_abs_top, $component2);
+if_setsize(400, 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:title_wrapper);
+if_setposition(60, 4, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:title_offset);
+if_sethide(false, lobbyscreen:mobile_sidemenu);
+if_sethide(true, lobbyscreen:top_bar_bg);
+if_sethide(true, lobbyscreen:background);
+if_sethide(true, lobbyscreen:login_bg);
+if_sethide(true, $component3);
+def_int $int32 = worldlist_specific_thisworld;
+if (testbit($int32, 24) = ^true) {
+    if_sethide(true, lobbyscreen:login_button_mobile);
+    if_sethide(true, lobbyscreen:login_button_pc);
+    if_sethide(false, lobbyscreen:login_button_leagues);
+    if_settext("Play League", lobbyscreen:login_button_text);
+    if_settextfont(cinzel_18pt_bold, lobbyscreen:login_button_text);
+    if_setcolour(^black, lobbyscreen:login_button_text);
+} else {
+    if_sethide(false, lobbyscreen:login_button_mobile);
+    if_sethide(true, lobbyscreen:login_button_pc);
+    if_sethide(true, lobbyscreen:login_button_leagues);
+    if_settext("Play Now", lobbyscreen:login_button_text);
+    if_settextfont(cinzel_18pt_bold, lobbyscreen:login_button_text);
+    if_setcolour(^black, lobbyscreen:login_button_text);
+}
+if_setsize(300, 0, ^setsize_abs, ^setsize_minus, lobbyscreen:login_button_graphic);

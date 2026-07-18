@@ -1,0 +1,34 @@
+// 20205
+[proc,script20205]
+if_settext(enum(int, string, league_locality_name, %league_locality_selected), league_parent_areas:tab_title);
+if (~script20135(%league_locality_selected) = true) {
+    if_setenabled(true, league_parent_areas:unlock);
+    if_setcolour(^white, league_parent_areas:unlock_icon);
+} else {
+    if_setenabled(false, league_parent_areas:unlock);
+    if_setcolour(0x323232, league_parent_areas:unlock_icon);
+}
+if_setgraphic(rs3_parent_side_tab_unselected, league_parent_areas:tab_bg_1);
+if_setgraphic(rs3_parent_side_tab_unselected, league_parent_areas:tab_bg_2);
+if_setgraphic(rs3_parent_side_tab_unselected, league_parent_areas:tab_bg_3);
+if_setgraphic(rs3_parent_side_tab_unselected, league_parent_areas:tab_bg_4);
+if_sethide(true, league_parent_areas:tab_contents_1);
+if_sethide(true, league_parent_areas:tab_contents_2);
+if_sethide(true, league_parent_areas:tab_contents_3);
+if_sethide(true, league_parent_areas:tab_contents_4);
+switch_int (%league_locality_overview_tab) {
+    case 1 :
+        if_setgraphic(rs3_parent_side_tab_current, league_parent_areas:tab_bg_1);
+        if_sethide(false, league_parent_areas:tab_contents_1);
+    case 2 :
+        if_setgraphic(rs3_parent_side_tab_current, league_parent_areas:tab_bg_2);
+        if_sethide(false, league_parent_areas:tab_contents_2);
+    case 3 :
+        if_setgraphic(rs3_parent_side_tab_current, league_parent_areas:tab_bg_3);
+        if_sethide(false, league_parent_areas:tab_contents_3);
+    case 4 :
+        if_setgraphic(rs3_parent_side_tab_current, league_parent_areas:tab_bg_4);
+        if_sethide(false, league_parent_areas:tab_contents_4);
+    case default :
+        return;
+}

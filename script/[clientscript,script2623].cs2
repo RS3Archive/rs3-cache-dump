@@ -1,0 +1,21 @@
+// 2623
+[clientscript,script2623](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = $int4;
+def_int $int7 = calc($int1 + 1);
+if ($int7 < 210) {
+    if_setontimer("script2623($component0, $int7, $int2, $int3, $int4, $int5)", $component0);
+}
+if (if_find($component0) = true) {
+    if ($int5 > 0) {
+        $int6 = min(max($int4, ~tween(calc($int1 - 210), calc($int2 - 210), $int4, $int5, $int3)), calc($int4 + $int5));
+    } else if ($int5 < 0) {
+        $int6 = max(min($int4, ~tween(calc($int1 - 210), calc($int2 - 210), $int4, $int5, $int3)), calc($int4 + $int5));
+    }
+    if_setposition($int6, 0, ^setpos_abs_right, ^setpos_abs_centre, $component0);
+    if ($int7 <= $int2) {
+        if_setontimer("script2623($component0, $int7, $int2, $int3, $int4, $int5)", $component0);
+    } else {
+        if_setposition(-229, 0, ^setpos_abs_right, ^setpos_abs_centre, $component0);
+        ~script2622($component0, -229, 333, 260, 0);
+    }
+}

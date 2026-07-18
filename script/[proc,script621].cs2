@@ -1,0 +1,56 @@
+// 621
+[proc,script621]
+def_string $string0 = "";
+~script622;
+if (%stock_offerslot = -1 | stockmarket_isofferempty(%stock_offerslot, 0) = true & %stock_offertype = -1) {
+    if_sethide(false, stockmarket:summarylayer);
+    ~script628;
+    if_setoninvtransmit(null, stockmarket:runninglayer);
+    %stock_offerprice_timer = 0;
+    %stock_offercount_timer = 0;
+    return;
+}
+if (stockmarket_isofferempty(%stock_offerslot, 0) = false) {
+    if_sethide(false, stockmarket:offerlayer);
+    if_sethide(false, stockmarket:runninglayer);
+    ~script594(stockmarket_getoffertype(%stock_offerslot, 0), stockmarket_getofferitem(%stock_offerslot, 0), stockmarket_getoffercount(%stock_offerslot, 0), stockmarket_getofferprice(%stock_offerslot, 0));
+    ~script593(%stock_offerslot);
+    if (stockmarket_isofferfinished(%stock_offerslot, 0) = true | %stock_buyscreen_viewmode = 1) {
+        if_sethide(true, stockmarket:editmode_buysell_screen);
+    } else {
+        if_sethide(false, stockmarket:editmode_buysell_screen);
+    }
+    ~script15021;
+} else {
+    if (%stock_offeritem = null) {
+        %stock_search_height = 0;
+        %stock_search_scroll_pos = 0;
+        if_sethide(true, stockmarket:favourite_holder);
+    } else {
+        ~script15021;
+    }
+    if_sethide(false, stockmarket:offerlayer);
+    if_sethide(false, stockmarket:newofferlayer);
+    ~script13971(stockmarket:makeofferbutton_build, stockmarket:makeofferbutton_click, rs3tli_positive_button, "Confirm Offer", true);
+    if_sethide(false, stockmarket:quantity_buttons);
+    if_sethide(false, stockmarket:price_buttons);
+    switch_int (%stock_buyscreen_viewmode) {
+        case 0 :
+            if_sethide(true, stockmarket:editmode_buysell_screen);
+        case 1 :
+            if_sethide(true, stockmarket:editmode_buysell_screen);
+    }
+    if (%stock_offertype = 0) {
+        if (%stock_buyscreen_viewmode = 0) {
+            if_sethide(false, stockmarket:search_layer);
+        }
+        $string0 = "Maximum total cost of purchase";
+    } else {
+        $string0 = "Minimum total value of sale";
+    }
+    if (%stock_offerprice_timer > 0 | %stock_offercount_timer > 0) {
+        ~script15038(%stock_offercount_visible, %stock_offerprice_visible, 0);
+    } else {
+        ~script15038(%stock_offercount, %stock_offerprice, 0);
+    }
+}

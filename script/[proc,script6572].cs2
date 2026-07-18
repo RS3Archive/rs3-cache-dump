@@ -1,0 +1,26 @@
+// 6572
+[proc,script6572](struct $struct0)(int)
+if (inv_getobj(worn, 13) ! mtx52_runepouch) {
+    return(0);
+}
+if (struct_param($struct0, combatv2_spell_uses_makex) = 1) {
+    return(0);
+}
+if (%wilderness > 0 & ~script16792 = true) {
+    return(0);
+}
+if ($struct0 = magic_armadyl_storm) {
+    return(0);
+}
+def_int $int1 = ~script6579($struct0);
+if (%mtx52_runepouch_energy_client > 0) {
+    if (%mtx52_runepouch_energy_client >= $int1) {
+        return(1);
+    } else if (%mtx52_runepouch_capacity_client < calc($int1 - %mtx52_runepouch_energy_client)) {
+        return(1);
+    } else {
+        return(0);
+    }
+} else {
+    return(0);
+}

@@ -1,0 +1,16 @@
+// 18542
+[proc,script18542](obj $obj0)(int)
+def_int $int1 = ~script18543($obj0);
+if (map_members = true) {
+    if (%quest_egw_finale_ring_of_vigor_upgrade_unlocked = 1 | inv_getobj(worn, 12) = rand_reward_ring_of_vigor) {
+        $int1 = scale(oc_param($obj0, combatv2_special_attack_adren_req), 100, 90);
+    }
+    switch_obj ($obj0) {
+        case egwd_wen_boss_melee_weapon_hm_new :
+            $int1 = max(0, calc($int1 - 120 * %combatv2_buff_primordial_ice_stacks));
+    }
+}
+if (%league_relic_free_special_attack_cooldown > 0 & %league_relic_free_special_attack_on_cooldown = 0) {
+    return(0);
+}
+return($int1);

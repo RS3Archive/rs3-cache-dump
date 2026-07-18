@@ -1,0 +1,55 @@
+// 9750
+[proc,script9750]
+def_string $string0 = "";
+if (%rand_temp_max_complex < 2 | %rand_player_enabled_hardmode = 1) {
+    if_sethide(false, rand_entrance:dung_size_small_layer_disabled);
+    if (if_getgraphic(rand_entrance:small_dung_op) = rs3_btn_radio_on) {
+        if_setgraphic(rs3_btn_radio_on_disabled, rand_entrance:small_dung_op_disabled);
+    } else {
+        if_setgraphic(rs3_btn_radio_off_disabled, rand_entrance:small_dung_op_disabled);
+    }
+    if_sethide(false, rand_entrance:dung_size_med_layer_disabled);
+    if (if_getgraphic(rand_entrance:medium_dung_op) = rs3_btn_radio_on) {
+        if_setgraphic(rs3_btn_radio_on_disabled, rand_entrance:medium_dung_op_disabled);
+    } else {
+        if_setgraphic(rs3_btn_radio_off_disabled, rand_entrance:medium_dung_op_disabled);
+    }
+    if_sethide(false, rand_entrance:dung_size_large_layer_disabled);
+    if (if_getgraphic(rand_entrance:large_dung_op) = rs3_btn_radio_on) {
+        if_setgraphic(rs3_btn_radio_on_disabled, rand_entrance:large_dung_op_disabled);
+    } else {
+        if_setgraphic(rs3_btn_radio_off_disabled, rand_entrance:large_dung_op_disabled);
+    }
+    if_setcolour(~rgb_to_hex(125, 125, 125), rand_entrance:small_dung_text);
+    if_setcolour(~rgb_to_hex(125, 125, 125), rand_entrance:med_dung_text);
+    if_setcolour(~rgb_to_hex(125, 125, 125), rand_entrance:lrg_dung_text);
+    if (%rand_player_enabled_hardmode = 1) {
+        if (%rand_temp_party_size < 3) {
+            if_setgraphic(rs3_btn_radio_off_disabled, rand_entrance:small_dung_op_disabled);
+            if_setgraphic(rs3_btn_radio_on_disabled, rand_entrance:medium_dung_op_disabled);
+            if_setgraphic(rs3_btn_radio_off_disabled, rand_entrance:large_dung_op_disabled);
+            $string0 = "Party sizes of 1 to 2 are restricted to medium dungeons in Hard Mode.";
+        } else {
+            if_setgraphic(rs3_btn_radio_off_disabled, rand_entrance:small_dung_op_disabled);
+            if_setgraphic(rs3_btn_radio_off_disabled, rand_entrance:medium_dung_op_disabled);
+            if_setgraphic(rs3_btn_radio_on_disabled, rand_entrance:large_dung_op_disabled);
+            $string0 = "Party sizes of 3 to 5 are restricted to large dungeons in Hard Mode.";
+        }
+        if_setonmouserepeat("script8799($string0, rand_entrance:dung_size_small_layer_disabled, -1)", rand_entrance:dung_size_small_layer_disabled);
+        if_setonmouserepeat("script8799($string0, rand_entrance:dung_size_med_layer_disabled, -1)", rand_entrance:dung_size_med_layer_disabled);
+        if_setonmouserepeat("script8799($string0, rand_entrance:dung_size_large_layer_disabled, -1)", rand_entrance:dung_size_large_layer_disabled);
+    }
+} else {
+    if_sethide(true, rand_entrance:dung_size_small_layer_disabled);
+    if_sethide(true, rand_entrance:dung_size_med_layer_disabled);
+    if_sethide(true, rand_entrance:dung_size_large_layer_disabled);
+    if_setcolour(~rgb_to_hex(255, 255, 255), rand_entrance:small_dung_text);
+    if_setcolour(~rgb_to_hex(255, 255, 255), rand_entrance:med_dung_text);
+    if_setcolour(~rgb_to_hex(255, 255, 255), rand_entrance:lrg_dung_text);
+}
+if (%rand_debug = 1) {
+    if_sethide(true, rand_entrance:dung_size_small_layer_disabled);
+    if_sethide(true, rand_entrance:dung_size_med_layer_disabled);
+    if_sethide(true, rand_entrance:dung_size_large_layer_disabled);
+    if_sethide(false, rand_entrance:rand_debug);
+}

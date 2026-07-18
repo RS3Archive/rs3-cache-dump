@@ -1,0 +1,77 @@
+// 9535
+[proc,script9535](int $int0, int $int1, achievement $achievement2)(int)
+def_struct $struct3 = null;
+def_int $intbool4 = ^false;
+def_int $int5 = 0;
+def_stat $stat6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $string0 = "";
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+switch_int ($int0) {
+    case default :
+        return(0);
+    case 5 :
+        $intbool4, $int8, $int5 = ~script4037($int1);
+        $stat6 = enum(int, stat, int_to_stat, $int1);
+        if ($intbool4 = ^true) {
+            $int8 = enum(int, int, ~script12289($stat6), $int8);
+            $int5 = enum(int, int, ~script12289($stat6), $int5);
+        }
+        $int7 = calc(stat_visible_xp_actual($stat6) - $int5);
+        $int8 = calc($int8 - $int5);
+    case 4 :
+        $struct3 = ~script16319($int1);
+        if ($struct3 ! null) {
+            $int7 = ~script16442($int1);
+            $int8 = struct_param($struct3, challenge_target);
+            if (~script16501($int1) = 1) {
+                $int7 = min(calc($int8 + $int7), calc($int8 * 2));
+            }
+            if (~script16500($int1) = 1) {
+                $int8 = calc($int8 * 2);
+            }
+        }
+    case 2 :
+        $int7, $int8 = ~achievement_tally($achievement2);
+        if ($int7 < 0) {
+            $int7 = 0;
+        }
+        if ($int8 < 0) {
+            $int8 = 0;
+        }
+        if ($int8 <= 0 & achievement_reqstate($achievement2) > 0) {
+            return(calc(achievement_reqstate($achievement2) / 100));
+        }
+    case 3 :
+        $struct3 = enum(int, struct, cheevo_id_to_struct, $int1);
+        if ($struct3 ! null & struct_param($struct3, cheevo_counter) = true) {
+            $int7 = ~cheevo_get_progress($struct3);
+            $int8 = ~cheevo_get_check_var_total($struct3);
+        }
+    case 7 :
+        $int9, $int10, $string0, $int11, $int12 = ~script11608;
+        if ($int9 = 1) {
+            $int7 = $int11;
+            $int8 = $int12;
+        } else {
+            $int7 = calc(%ss_original_count - %slayer_count);
+            $int8 = %ss_original_count;
+        }
+    case 8 :
+        $int7 = calc(%bslay_kills_left_original - %bslay_kills_left);
+        $int8 = %bslay_kills_left_original;
+    case 9 :
+        $int7 = ~script3604($int1);
+        $int8 = ~script3605($int1);
+    case 10 :
+        $int7 = ~script17903($int1);
+        $int8 = db_getfield(~script17905($int1), bp3_mission:col5, 0);
+}
+if ($int8 = 0) {
+    return(-1);
+}
+return(scale($int7, $int8, 100));

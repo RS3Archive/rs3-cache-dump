@@ -1,0 +1,248 @@
+// 8454
+[proc,script8454](component $component0)
+def_int $int1 = 0;
+if ($component0 = toplevel_v2_inspect_worn_stats:main_layer) {
+    $int1 = 1;
+}
+if (%combatv2_equip_screen_vs_level < 0) {
+    %combatv2_equip_screen_vs_level = calc(comlevel_active - 2);
+}
+if ($int1 = 1) {
+    if_setsize(if_getwidth(toplevel_v2_inspect_worn_stats:health_bar_bounds_layer), if_getheight(toplevel_v2_inspect_worn_stats:health_bar_graphic), ^setsize_abs, ^setsize_abs, toplevel_v2_inspect_worn_stats:health_bar_graphic);
+    if_setsize(if_getwidth(toplevel_v2_inspect_worn_stats:prayer_bar_bounds_layer), if_getheight(toplevel_v2_inspect_worn_stats:prayer_bar_graphic), ^setsize_abs, ^setsize_abs, toplevel_v2_inspect_worn_stats:prayer_bar_graphic);
+    ~script8467($component0, %player_inspect_combatv2_equip_screen_weapon_tab);
+} else {
+    if (%combatv2_equip_screen_vs_level_tab < 0) {
+        ~script8459($component0, 0);
+    }
+    ~script8467($component0, %combatv2_equip_screen_weapon_tab);
+}
+if ($int1 = 1) {
+    if_settext("", toplevel_v2_inspect_worn_stats:health_title_text);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, toplevel_v2_inspect_worn_stats:health_value_text);
+    if_settext("", toplevel_v2_inspect_worn_stats:prayer_title_text);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, toplevel_v2_inspect_worn_stats:prayer_value_text);
+}
+~script8461($component0);
+~script8463($component0);
+~script8465($component0);
+def_string $string0 = "";
+def_component $component2 = null;
+if (if_getheight(toplevel_v2_inspect_worn_stats:main_weapon_button_text) >= if_getheight(toplevel_v2_inspect_worn_stats:main_weapon_button_text_layer) & $int1 = 1) {
+    if_settext("MH", toplevel_v2_inspect_worn_stats:main_weapon_button_text);
+    $string0 = "Main Hand";
+    $component2 = toplevel_v2_inspect_worn_stats:main_weapon_button_text_layer;
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+    if_setonmouseleave("script8805", $component2);
+    if_settext("OH", toplevel_v2_inspect_worn_stats:off_weapon_button_text);
+    $string0 = "Off Hand";
+    $component2 = toplevel_v2_inspect_worn_stats:off_weapon_button_text_layer;
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+    if_setonmouseleave("script8805", $component2);
+    if_settext("A", toplevel_v2_inspect_worn_stats:abilities_weapon_button_text);
+    $string0 = "Abilities";
+    $component2 = toplevel_v2_inspect_worn_stats:abilities_weapon_button_text_layer;
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+    if_setonmouseleave("script8805", $component2);
+}
+$string0 = "<col=F3B13F>Attack type</col> determines the style of weapon or spell you're using. Some enemies are weak to specific attack styles. Exploit your enemies' weaknesses to hit more often.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:main_type_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:main_type_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:off_type_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:off_type_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:ab_type_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:ab_type_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Attack speed</col> determines how quickly you strike with your main-hand/off-hand weapon or spell.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:main_speed_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:main_speed_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:off_speed_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:off_speed_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Damage</col> determines the maximum amount of life points you can remove from an enemy in a single strike with your main-hand/off-hand weapon or spell. Using abilities can modify your damage.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:main_damage_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:main_damage_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:off_damage_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:off_damage_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Damage</col> determines the maximum amount of life points you can remove from an enemy with a single ability. This is a modification of your normal damage.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:ab_damage_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:ab_damage_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Accuracy</col> affects how likely you are to damage your opponent with your main-hand/off-hand weapon or spell. The higher the accuracy, the more likely you are to damage an enemy.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:main_accuracy_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:main_accuracy_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:off_accuracy_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:off_accuracy_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Accuracy</col> affects how likely you are to damage your opponent with your abilities. The higher the accuracy, the more likely you are to damage an enemy.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:ab_accuracy_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:ab_accuracy_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Lifepoints</col> determine how many points of damage you can take before you die.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:life_bonus_icon_1;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:life_bonus_icon_1;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Prayer Points</col> determine how long prayers can run for.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:prayer_bonus_icon_1;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:prayer_bonus_icon_1;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Prayer Bonus</col> affects how quickly your prayers drain your prayer points. Having a higher prayer modifier means your prayer points will drain slower.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:prayer_bonus_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:prayer_bonus_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Armour</col> affects how likely an enemy is to hit you. The higher your armour rating, the more likely you are to block an enemy hit. The class of your armour also affects how likely you are to block.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:armour_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:armour_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Style Bonus</col> is your ability to damage certain enemy types. This is affected by your equipped armour and weapons. The higher the number, the more damage you do.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:effective_armour_box;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:effective_armour_box;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Damage Reduction (PvE)</col> is the amount by which incoming damage from enemy NPC attacks is reduced.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:damage_reduction_pve_layer;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pve_layer;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+$string0 = "<col=F3B13F>Damage Reduction (PvP)</col> is the amount by which incoming damage from enemy player attacks is reduced.";
+if ($int1 = 1) {
+    $component2 = toplevel_v2_inspect_worn_stats:damage_reduction_pvp_layer;
+} else {
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pvp_layer;
+}
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+if_setonmouseleave("script8805", $component2);
+if ($int1 = 0) {
+    $string0 = "<col=F3B13F>Critical Strike Chance</col> is the likelihood of an attack critically striking.";
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:critical_strike_chance_label_text;
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+    if_setonmouseleave("script8805", $component2);
+    $string0 = "<col=F3B13F>Critical Strike Damage</col> is the amount by which damage will be increased when an attack critically strikes.";
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:critical_strike_damage_label_text;
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+    if_setonmouseleave("script8805", $component2);
+    $string0 = "The hit and block chances shown are as a guide. Values will not be accurate for all opponents.";
+    $component2 = toplevel_v2_parent_suboverlay_worn_stats:vs_stats_text;
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component2);
+    if_setonmouseleave("script8805", $component2);
+    if_settext(tostring(%combatv2_equip_screen_vs_level), toplevel_v2_parent_suboverlay_worn_stats:vs_level_value);
+}
+def_string $string1 = "";
+def_int $int3 = 0;
+if ($int1 = 1) {
+    if (%toplevel_v2_legacy_combat = 0) {
+        $string1 = "<tostring(%player_inspect_lifepoints)>/<tostring(~script10825)>";
+    } else {
+        $string1 = "<tostring(calc(%player_inspect_lifepoints / 10))>/<tostring(calc(~script10825 / 10))>";
+    }
+    if_settext($string1, toplevel_v2_inspect_worn_stats:health_value_text);
+    if (if_find(toplevel_v2_inspect_worn_stats:health_bar_layer) = true & .if_find(cc_getparentlayer) = true) {
+        $int3 = ~scale_round(%player_inspect_lifepoints, ~script10825, .cc_getwidth);
+        cc_setsize($int3, cc_getheight, ^setsize_abs, ^setsize_abs);
+    }
+    $string1 = "<tostring(~script10827)>/<tostring(~script10826)>";
+    if_settext($string1, toplevel_v2_inspect_worn_stats:prayer_value_text);
+    if (if_find(toplevel_v2_inspect_worn_stats:prayer_bar_layer) = true & .if_find(cc_getparentlayer) = true) {
+        $int3 = ~scale_round(~script10827, ~script10826, .cc_getwidth);
+        cc_setsize($int3, cc_getheight, ^setsize_abs, ^setsize_abs);
+    }
+} else {
+    if (%toplevel_v2_legacy_combat = 0) {
+        $string1 = "<tostring(%lifepoints)>/<tostring(~script2915)>";
+    } else {
+        $string1 = "<tostring(calc(%lifepoints / 10))>/<tostring(calc(~script2915 / 10))>";
+    }
+    if_settext($string1, toplevel_v2_parent_suboverlay_worn_stats:health_value_text);
+    if (string_length($string1) >= 8) {
+        if_settext("LP", toplevel_v2_parent_suboverlay_worn_stats:health_title_text);
+    } else {
+        if_settext("Life Points", toplevel_v2_parent_suboverlay_worn_stats:health_title_text);
+    }
+    if (if_find(toplevel_v2_parent_suboverlay_worn_stats:health_bar_layer) = true & .if_find(cc_getparentlayer) = true) {
+        $int3 = ~scale_round(%lifepoints, ~script2915, .cc_getwidth);
+        cc_setsize($int3, cc_getheight, ^setsize_abs, ^setsize_abs);
+    }
+    $string1 = "<tostring(~prayer_points_level)>/<tostring(~script7081)>";
+    if_settext($string1, toplevel_v2_parent_suboverlay_worn_stats:prayer_value_text);
+    if (string_length($string1) >= 8) {
+        if_settext("PP", toplevel_v2_parent_suboverlay_worn_stats:prayer_title_text);
+    } else {
+        if_settext("Prayer Points", toplevel_v2_parent_suboverlay_worn_stats:prayer_title_text);
+    }
+    if (if_find(toplevel_v2_parent_suboverlay_worn_stats:prayer_bar_layer) = true & .if_find(cc_getparentlayer) = true) {
+        $int3 = ~scale_round(~prayer_points_level, ~script7081, .cc_getwidth);
+        cc_setsize($int3, cc_getheight, ^setsize_abs, ^setsize_abs);
+    }
+}

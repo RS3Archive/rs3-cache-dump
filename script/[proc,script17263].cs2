@@ -1,0 +1,22 @@
+// 17263
+[proc,script17263](dbrow $dbrow0)
+if (~is_mobile_client = false | $dbrow0 = null) {
+    return;
+}
+def_string $string0 = db_getfield($dbrow0, mobile_analytics_platform:col0, 0);
+def_int $int1 = 0;
+def_int $int2 = deeplink_count;
+def_int $int3 = -1;
+def_string $string1 = "";
+while ($int1 < $int2) {
+    $int3 = deeplink_get($int1);
+    if ($int3 ! -1) {
+        if (db_getfield($dbrow0, mobile_analytics_platform:col2, 0) = true) {
+            marketing_sendanalyticsevent("<$string0>_<string>");
+        }
+        if (db_getfield($dbrow0, mobile_analytics_platform:col1, 0) = true) {
+            marketing_sendattributionevent("<$string0>_<string>");
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

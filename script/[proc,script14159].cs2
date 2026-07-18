@@ -1,0 +1,46 @@
+// 14159
+[proc,script14159]
+def_boolean $boolean0 = false;
+if (%combatv2_mobile_globes_hidden = 1) {
+    $boolean0 = true;
+}
+if_sethide($boolean0, toplevel_v2_combat_bar_mobile:stat_globes);
+def_struct $struct1 = ~script10405(1043);
+def_component $component2 = struct_param($struct1, toplevel_v2_window_layer);
+def_int $int3 = 0;
+if (clienttype = enhanced_ios) {
+    $int3 = 5;
+}
+def_int $int4 = calc(5 + $int3);
+if (~script5918 = 1 & %mobile_interface_mode = 1) {
+    $int4 = calc(50 + $int3);
+}
+if_setposition(-6, $int4, ^setpos_abs_centre, ^setpos_abs_bottom, toplevel_v2_combat_bar_mobile:stat_globes);
+if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_bottom, $component2);
+def_int $int5 = $int3;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $setposv9 = ^setpos_abs_top;
+if ($boolean0 = true) {
+    if (if_gethide($component2) = false) {
+        $int5 = ~script8408(toplevel_v2_combat_bar_mobile_revo:combat_bar_root);
+    } else {
+        $setposv9 = ^setpos_abs_bottom;
+        $int6 = calc($int5 + (if_getheight(toplevel_v2:combat_status_window) + 4));
+        $int7 = calc($int5 + (if_getheight(toplevel_v2:combat_status_window) + 4));
+        $int8 = calc($int8 - (if_getwidth(toplevel_v2:channel_bar_window) + 4));
+    }
+} else {
+    $int5 = ~script8408(toplevel_v2_combat_bar_mobile:stat_globes);
+}
+if ($setposv9 = ^setpos_abs_top) {
+    $int5 = calc($int5 - (if_getheight(toplevel_v2:combat_status_window) + 4));
+    $int6 = calc($int5 - struct_param(toplevel_v2_layout_default_channel_bar, toplevel_v2_default_window_height) - 4);
+    $int7 = calc($int5 - struct_param(toplevel_v2_layout_default_extra_action_button, toplevel_v2_default_window_height) - 4);
+    $int8 = calc($int8 - (if_getwidth(toplevel_v2:channel_bar_window) + 4));
+}
+if_setposition(if_getx(toplevel_v2:combat_status_window), $int5, ^setpos_abs_left, $setposv9, toplevel_v2:combat_status_window);
+if_setposition(if_getx(toplevel_v2:debuffs_window), $int5, ^setpos_abs_left, $setposv9, toplevel_v2:debuffs_window);
+if_setposition(0, $int6, ^setpos_abs_centre, $setposv9, toplevel_v2:channel_bar_window);
+if_setposition($int8, $int7, ^setpos_abs_centre, $setposv9, toplevel_v2:extra_action_button_window);

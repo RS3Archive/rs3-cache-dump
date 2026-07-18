@@ -1,0 +1,101 @@
+// 1063
+[proc,quickchat_response_add](component $component0, chatphrase $chatphrase1, int $int2)
+def_component $component3 = enum(int, component, ~script8602($int2), 0);
+def_component $component4 = enum(int, component, ~script8603($int2), 0);
+cc_deleteall($component3);
+cc_deleteall($component4);
+cc_create($component0, ^iftype_text, 0);
+cc_setcolour(^white);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+def_string $string0 = chatphrase_gettext($chatphrase1);
+if (~script8613($int2) = 1) {
+    $string0 = "From <~script8605($int2)>: <col=10F010><$string0>";
+} else if (~script8613($int2) = 2) {
+    $string0 = "[<col=6464A0><clan_getchatdisplayname><col=FFFFFF>] <~script8605($int2)>: <col=10F010><$string0>";
+} else if (~script8613($int2) = 8) {
+    if (activeclanchannel_find_affined(0) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>] <~script8605($int2)>: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>] <~script8605($int2)>: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 13) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0><player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 15) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0>(Team)<player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 17) {
+    if (activeclanchannel_find_affined(1) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>] <~script8605($int2)>: <col=10F010><$string0>";
+    }
+} else {
+    $string0 = "<~script8605($int2)>: <col=10F010><$string0>";
+}
+cc_settext($string0);
+cc_settextshadow(true);
+cc_setsize(parawidth($string0, if_getwidth($component0), museo_sans_11pt_regular), if_getheight($component0), ^setsize_abs, ^setsize_abs);
+if_sethide(false, $component3);
+def_int $int5 = chatphrase_getautoresponsecount($chatphrase1);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_chatphrase $chatphrase10 = null;
+def_int $int11 = 0;
+while ($int6 < $int5) {
+    cc_create($component3, ^iftype_text, $int7);
+    cc_setcolour(^white);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $chatphrase10 = chatphrase_getautoresponse($chatphrase1, $int6);
+    $string0 = chatphrase_gettext($chatphrase10);
+    cc_setonop("quickchat_phrase($component0, $chatphrase10, 0, $int2)");
+    cc_setopbase($string0);
+    cc_setop(1, "Send: ");
+    cc_setonmouseover("script1082(0, $component4, $int7, $int2)");
+    cc_setonmouseleave("script1083(0, $component4, $int7, $int2)");
+    if ($int6 < 10) {
+        $string0 = "<col=F01010><tostring(calc(($int6 + 1) % 10))>. <col=FFFFFF><$string0>";
+    }
+    cc_settext($string0);
+    cc_settextshadow(true);
+    $int8 = parawidth($string0, if_getwidth($component0), museo_sans_11pt_regular);
+    if ($int8 > $int9) {
+        $int9 = $int8;
+    }
+    $int6 = calc($int6 + 1);
+    $int7 = calc($int7 + 1);
+}
+if (if_find($component3) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_rootcat, null);
+    cc_setparam(toplevel_v2_chat_quickchat_rootphrase, $chatphrase1);
+}
+$int6 = 0;
+def_int $int12 = 0;
+while (cc_find($component3, $int6) = true) {
+    if (calc($int11 * 14 + 14) > if_getheight($component3)) {
+        $int12 = calc($int12 + $int9 + 4);
+        $int11 = 0;
+    }
+    cc_setsize($int9, 14, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int12 + 2), calc($int11 * 14), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_create($component4, ^iftype_rectangle, $int6);
+    .cc_setsize(calc(cc_getwidth + 4), cc_getheight, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(calc(cc_getx - 2), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setcolour(0x577e45);
+    .cc_setfill(true);
+    .cc_sethide(true);
+    $int6 = calc($int6 + 1);
+    $int11 = calc($int11 + 1);
+}
+$int12 = calc($int12 + $int9 + 4);
+def_component $component13 = if_getlayer($component3);
+if_setsize($int12, 0, ^setsize_abs, ^setsize_minus, $component3);
+if_setsize($int12, 0, ^setsize_abs, ^setsize_minus, $component4);
+~quickchat_return($component0, 0, $int2);

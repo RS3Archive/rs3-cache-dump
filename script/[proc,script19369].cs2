@@ -1,0 +1,83 @@
+// 19369
+[proc,script19369](obj $obj0, int $int1, int $int2, inv $inv3, int $int4, int $int5, boolean $boolean6)(boolean)
+$int1 = min($int5, $int1);
+if ($obj0 = null | $int1 < 1) {
+    return(false);
+}
+if ($inv3 ! group_ironman_storage_player_inv_temp) {
+    ~error("Attempted to withdraw from group storage to unexpected inv");
+    return(false);
+}
+if (~map_members = false & oc_members($obj0) = 1) {
+    ~bank_mes("You need to be on a members' world to withdraw that item.");
+    return(false);
+}
+switch_obj ($obj0) {
+    case invent_augmentor, invent_weapon_gizmo, invent_incomplete_weapon_gizmo, flowers_waterfall_quest_augmented :
+        if (~script13692 = 0) {
+            ~bank_mes("You need to complete the invention tutorial to withdraw that item.");
+            return(false);
+        }
+    case skilling_offhand_measure :
+        if (calc(%skilling_offhand_sapphire + %skilling_offhand_emerald + %skilling_offhand_ruby + %skilling_offhand_diamond + %skilling_offhand_dragon) ! 0) {
+            ~error("Player has artificers measure vars set but no measure.");
+            ~bank_mes("You can only have one of those at a time.");
+            return(false);
+        }
+        if (~script11197(skilling_offhand_measure, clearbit(-1, 0)) = true | ~inv_find(group_ironman_storage_player_inv_temp, skilling_offhand_measure, 0) ! -1) {
+            ~bank_mes("You can only have one of those at a time.");
+            return(false);
+        }
+}
+def_boolean $boolean7 = false;
+if (%bankcert = 1) {
+    if (oc_cert($obj0) = $obj0) {
+        ~bank_mes_spam("This item cannot be withdrawn as a note.");
+    } else {
+        $boolean7 = true;
+    }
+}
+$boolean6 = ~script19356($boolean6, $obj0);
+def_int $int8 = 0;
+if ($boolean7 = true) {
+    $int8 = ~script19593($inv3, oc_cert($obj0), $int1, inv_size($inv3));
+} else {
+    $int8 = ~script19593($inv3, $obj0, $int1, inv_size($inv3));
+}
+if ($int8 >= $int1) {
+    ~script19569;
+    ~bank_error_sound;
+    ~bank_mes("You don't have enough inventory space.");
+    return(false);
+}
+def_int $int9 = $int2;
+def_int $int10 = $int1;
+$int1 = calc($int1 - $int8);
+if (oc_hasvarobj($obj0) = false) {
+    ~script19602($int2, $int5, $obj0, $int1, $inv3, $int4, $boolean7, $boolean6);
+    if ($int1 = $int5) {
+        ~script19371($int2, $obj0, $boolean6);
+    }
+} else {
+    if ($int2 = -1) {
+        $int2 = ~script19584($obj0, 0, 0);
+        if ($int2 = -1) {
+            return(false);
+        }
+    }
+    ~script19602($int2, 1, $obj0, 1, $inv3, $int4, false, $boolean6);
+    if (--$int1 > 0) {
+        $int2 = ~script19584($obj0, $int2, 0);
+        ~script19370($int2, $obj0, $inv3, $int1, $boolean6);
+    } else {
+        ~script19371($int2, $obj0, $boolean6);
+    }
+}
+if ($int8 > 0) {
+    ~bank_error_sound;
+    ~bank_mes_spam("You don't have enough inventory space to withdraw that many.");
+} else {
+    ~bank_swap_sound;
+}
+%group_ironman_storage_edited = 1;
+return(true);

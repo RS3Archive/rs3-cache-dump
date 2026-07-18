@@ -1,0 +1,20 @@
+// 19056
+[proc,script19056]
+def_graphic $graphic0 = null;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = db_getfieldcount(trh183_blizzard_effect_data, trh183_blizzard_effect_table:col0);
+def_int $int7 = -1;
+while (++$int7 < $int6) {
+    if (if_find(trh183_overlay:blizzard_layer) = true) {
+        $graphic0, $int2, $int1, $int3, $int4, $int5 = db_getfield(trh183_blizzard_effect_data, trh183_blizzard_effect_table:col0, $int7);
+        cc_createchild(^iftype_graphic, 0, $int7);
+        cc_setgraphic($graphic0);
+        cc_setsize($int2, $int1, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, $int4, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setontimer("script19057(0, $int7, $int5)");
+    }
+}

@@ -1,0 +1,43 @@
+// 15915
+[proc,script15915]
+if_setopcursor(1, cursor_use, instance_timer:collection_log_button_layer);
+%boss_instance_timer_seconds = calc(%boss_instance_timer_seconds % 3000);
+def_int $int0 = calc(%boss_instance_expiry_time_timer - date_minutes - 1);
+def_int $int1 = 0;
+def_string $string0 = "";
+def_int $int2 = calc(%boss_instance_timer_seconds + %boss_instance_timer_second_offset % 50);
+if (%boss_instance_client_timer_seconds_elapsed > 50 & calc($int2 % 50) ! calc(%boss_instance_client_timer_seconds_elapsed % 50)) {
+    %boss_instance_timer_second_offset = calc(%boss_instance_timer_second_offset + (%boss_instance_client_timer_seconds_elapsed % 50 - $int2 % 50));
+}
+$int2 = calc(%boss_instance_timer_seconds + %boss_instance_timer_second_offset % 50);
+$int2 = calc((3000 - $int2) / 50);
+if ($int0 >= 60) {
+    $int1, $int0 = ~script15907($int0, 60);
+}
+def_string $string1 = tostring($int2);
+if ($int2 < 10) {
+    $string1 = "0<$string1>";
+} else if ($int2 = 60) {
+    $string1 = "00";
+}
+def_string $string2 = tostring($int0);
+if ($int0 < 10) {
+    $string2 = "0<$string2>";
+}
+def_string $string3 = tostring($int1);
+if ($int1 > 0) {
+    if ($int0 = 60) {
+        $string2 = "00";
+    }
+    if ($int1 < 10) {
+        $string3 = "0<$string3>";
+    }
+    $string0 = "<$string3>:<$string2>:<$string1>";
+} else if ($int0 < 0) {
+    $string0 = "00:00";
+    ~script3536("This instance has expired.", instance_timer:timer_tooltip_layer, -1);
+} else {
+    $string0 = "<$string2>:<$string1>";
+}
+if_settext($string0, instance_timer:time_text);
+%boss_instance_timer_seconds = calc(%boss_instance_timer_seconds + 1);

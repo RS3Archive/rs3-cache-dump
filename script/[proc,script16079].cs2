@@ -1,0 +1,36 @@
+// 16079
+[proc,script16079](int $int0, int $int1, dbrow $dbrow2)(boolean)
+if (%ironman_enabled = 1) {
+    return(false);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($dbrow2 = null) {
+    return(false);
+}
+if (db_getfieldcount($dbrow2, bonds_package:col27) = 0) {
+    ~error("$bundle_data does not have a start_date attached, assume is out of bounds");
+    return(false);
+}
+if (db_getfieldcount($dbrow2, bonds_package:col28) = 0) {
+    ~error("$bundle_data does not have a end_date attached, assume is out of bounds");
+    return(false);
+}
+$int3 = db_getfield($dbrow2, bonds_package:col27, 0);
+$int4 = db_getfield($dbrow2, bonds_package:col28, 0);
+if (%atlum_day_tracker < $int3 | %atlum_day_tracker > $int4) {
+    return(false);
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int5, $int6, $int7 = date_runeday_todate($int0);
+$int5, $int8, $int9 = date_runeday_todate(%atlum_day_tracker);
+def_int $int10 = db_getfield($dbrow2, bonds_package:col29, 0);
+if ($int6 = $int8 & $int7 = $int9 & $int10 <= $int1) {
+    return(false);
+} else {
+    return(true);
+}

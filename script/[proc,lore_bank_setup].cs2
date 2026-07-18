@@ -1,0 +1,24 @@
+// 9254
+[proc,lore_bank_setup](int $int0, boolean $boolean1)
+if_setsize($int0, if_getheight(lore_bank:mainmodal_window), ^setsize_abs, ^setsize_abs, lore_bank:mainmodal_window);
+if_sethide($boolean1, lore_bank:player_inv_holder);
+def_int $int2 = calc(inv_size(lore_bob) - 1);
+if (%lore_npc_head ! null) {
+    $int2 = calc(nc_param(%lore_npc_head, lore_storage_space) - 1);
+    switch_npc (%lore_npc_head) {
+        case lore_pig_attack, lore_pig_attack_combat, lore_pig_bob, lore_pig_bob_combat, lore_pig_chat_combat, lore_pig_chat_other, lore_pig_pet, lore_pig_prayer, lore_pig_prayer_combat :
+            switch_int (%quest_bacon_tunnel_state) {
+                case 12, 13, 14 :
+                    $int2 = calc($int2 + 4);
+                case 15, 16, 17 :
+                    $int2 = calc($int2 + 18);
+            }
+    }
+}
+~script9233(lore_bank:lore_bob_inv_slotlayer, lore_bank:lore_bob_layer, lore_bank:lore_bob_inv_oplayer, lore_bank:lore_bob_inv_scrollbar, lore_bob, false, 0, $int2, 1);
+if ($boolean1 = false) {
+    ~script9233(lore_bank:inv_slotlayer, lore_bank:inv_invlayer, lore_bank:inv_oplayer, lore_bank:inv_scrollbar, inv, false, 0, calc(inv_size(inv) - 1), 1);
+}
+if (~script6431 = true) {
+    if_setposition(15, 5, ^setpos_abs_right, ^setpos_abs_top, lore_bank:bob_icon_layer);
+}

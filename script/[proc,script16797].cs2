@@ -1,0 +1,13 @@
+// 16797
+[proc,script16797](obj $obj0)(boolean)
+def_string $string0 = "Withdrawing this item will opt you into PvP immediately, until you leave the Wilderness.<br><br>If you opt into PvP, you can be attacked by other players!<br><br>If you are killed, your belongings will drop to the ground for others to take.<br><br>Are you sure you want to withdraw this item and opt into PvP?";
+if (~bank_in_wilderness = 1 & ~script16792 = false & ~script16796($obj0) = true) {
+    if ($obj0 = abyss_kill_me) {
+        $string0 = "Withdrawing this item will skull you immediately, until you leave the Wilderness.<br><br>If you are skulled you can attack and be attacked by other players!<br><br>If you are killed, your belongings will drop to the ground for others to take.<br><br>Are you sure you want to withdraw this item?";
+    }
+    if (~bank_confirm_withdraw($string0) = false) {
+        return(false);
+    }
+    ~script16806($obj0);
+}
+return(true);

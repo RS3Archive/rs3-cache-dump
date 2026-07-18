@@ -1,0 +1,51 @@
+// 13630
+[proc,script13630](struct $struct0, int $int1, int $int2, int $int3)
+$int1 = calc($int1 + 1);
+cc_deleteall(mtxmgt:modular_pet_set_build);
+cc_deleteall(mtxmgt:modular_pet_set_control);
+def_int $int4 = calc(~script13282($struct0) + 1);
+def_enum $enum5 = enum(struct, enum, mtx_modular_pet_model_enums, $struct0);
+def_enum $enum6 = null;
+def_enum $enum7 = enum(struct, enum, mtx_modular_pet_outfit_icon_enums, $struct0);
+def_enum $enum8 = enum(struct, enum, mtx_modular_pet_outfit_tooltip_enums, $struct0);
+if ($enum5 = null | $enum7 = null | $enum8 = null) {
+    return;
+}
+def_int $int9 = 0;
+def_int $int10 = 1;
+def_int $int11 = 1;
+def_int $int12 = 0;
+if ($int1 = %mtx_modular_pet_slot_selected) {
+    if_sethide(true, mtxmgt:modular_pet_buttons_armour_sets);
+    if_sethide(true, mtxmgt:modular_pet_slot_arrows);
+    %mtx_modular_pet_slot_selected = 0;
+    ~script13325($struct0, -1, $int3);
+} else {
+    %mtx_modular_pet_slot_selected = $int1;
+    if_sethide(false, mtxmgt:modular_pet_buttons_armour_sets);
+    if_sethide(false, mtxmgt:modular_pet_slot_arrows);
+    while ($int11 <= $int4) {
+        $enum6 = enum(int, enum, $enum5, $int11);
+        if ($enum6 = null) {
+            return;
+        }
+        if ($int11 = 1 | enum(int, model, $enum6, $int1) ! null & enum(int, model, $enum6, $int1) ! 6awe1_invis_dummy_loc) {
+            if (calc(getbit_range($int2, calc(($int1 - 1) * 4), calc(($int1 - 1) * 4 + (4 - 1))) + 1) = $int11) {
+                $int10 = 4;
+            } else {
+                $int10 = 1;
+            }
+            $int9 = ~script11606(mtxmgt:modular_pet_set_build, mtxmgt:modular_pet_set_control, rs3tli_30px_button, 4, calc(5 + (30 + 4) * $int12), $int9, $int10, "Select", "Unselect", enum(int, string, $enum8, calc($int11 - 1)));
+            if (cc_find(mtxmgt:modular_pet_set_control, $int12) = true) {
+                cc_setopcursor(1, cursor_use);
+            }
+            ~script4512(mtxmgt:modular_pet_set_build, calc(30 - 1 * 2), calc(30 - 1 * 2), 5, calc(4 + (30 + 4) * $int12 + 1 * 2), enum(int, graphic, $enum7, calc($int11 - 1)));
+            if (~script1528($struct0, calc($int11 - 1), $int1) = 0) {
+                ~script4512(mtxmgt:modular_pet_set_build, 14, 18, 22, calc(5 + (30 + 4) * $int12 + 15), icon_padlock_new_trh_catwalk);
+            }
+            $int12 = calc($int12 + 1);
+        }
+        $int11 = calc($int11 + 1);
+    }
+    ~script13325($struct0, $int1, $int3);
+}

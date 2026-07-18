@@ -1,0 +1,28 @@
+// 17525
+[proc,script17525](dbrow $dbrow0, int $int1)(int)
+if ($dbrow0 = null) {
+    return(0);
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = ~script17507($dbrow0);
+switch_int ($int4) {
+    case default :
+        ~error("necro_ritual_information_build_output_other - $recipe has no size req specified! $recipe_size_req is <tostring($int4)>");
+    case 0 :
+        $int2 = 3;
+    case 1 :
+        $int2 = 7;
+    case 2 :
+        $int2 = 15;
+}
+if ($int1 = 1) {
+    $int3 = calc($int3 + ~script17831 / 10);
+    if (~script18411(5) = true) {
+        $int3 = calc($int3 + 50);
+    }
+    if (~script19657 = true & ~ironman_mode = false) {
+        $int3 = calc($int3 + 20);
+    }
+}
+return(scale($int2, 100, calc(100 + $int3)));

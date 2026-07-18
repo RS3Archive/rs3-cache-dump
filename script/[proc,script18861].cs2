@@ -1,0 +1,20 @@
+// 18861
+[proc,script18861](int $int0, int $int1)(dbfilter)
+if ($int1 = -1) {
+    $int1 = ~script18854;
+}
+def_int $int2 = ~script18855($int1);
+def_dbfilter $dbfilter3 = db_filter_combine(db_filter_value(calendar_entry:col2, %calendar_current_monday_shown, ^filterop_lt, 0), db_filter_value(calendar_entry:col3, %calendar_current_monday_shown, ^filterop_lt, 0));
+def_dbfilter $dbfilter4 = db_filter_combine(db_filter_value(calendar_entry:col2, $int2, ^filterop_gt, 0), db_filter_value(calendar_entry:col3, $int2, ^filterop_gt, 0));
+def_dbfilter $dbfilter5 = db_filter_combine(db_filter_unknown($dbfilter3), db_filter_unknown($dbfilter4));
+def_dbfilter $dbfilter6 = db_filter_combine($dbfilter5, db_filter_value(calendar_entry:col1, $int0, ^filterop_eq, 0));
+def_dbfilter $dbfilter7 = null;
+def_dbfilter $dbfilter8 = null;
+def_dbfilter $dbfilter9 = null;
+if ($int0 = 5) {
+    $dbfilter7 = db_filter_value(calendar_entry:col25, 100, ^filterop_eq, 0);
+    $dbfilter8 = db_filter_value(calendar_entry:col25, map_lang, ^filterop_eq, 0);
+    $dbfilter9 = db_filter_combine(db_filter_unknown($dbfilter7), db_filter_unknown($dbfilter8));
+    $dbfilter6 = db_filter_combine($dbfilter6, db_filter_unknown($dbfilter9));
+}
+return($dbfilter6);

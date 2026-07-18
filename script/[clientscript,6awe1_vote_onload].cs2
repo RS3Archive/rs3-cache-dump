@@ -1,0 +1,55 @@
+// 8992
+[clientscript,6awe1_vote_onload]
+if_settext(tostring(%6awe1_votes), 6awe1_vote:votes_amount);
+if_settext(tostring(max(0, %6awe1_totalvote_1)), 6awe1_vote:choice1_totalvotesofar_score);
+if_settext(tostring(max(0, %6awe1_totalvote_2)), 6awe1_vote:choice2_totalvotesofar_score);
+if (%6awe1_vote_selected = 0 | ~script1305 = 1) {
+    switch_int (~script8983) {
+        case default :
+            %6awe1_vote_selected = 1;
+        case 1 :
+            if_settext(tostring(%6awe1_microchange_1_choice_1), 6awe1_vote:choice1_myvotesofar_score);
+            if_settext(tostring(%6awe1_microchange_1_choice_2), 6awe1_vote:choice2_myvotesofar_score);
+        case 3 :
+            if_settext(tostring(%6awe1_microchange_2_choice_1), 6awe1_vote:choice1_myvotesofar_score);
+            if_settext(tostring(%6awe1_microchange_2_choice_2), 6awe1_vote:choice2_myvotesofar_score);
+        case 5 :
+            if_settext(tostring(%6awe1_microchange_3_choice_1), 6awe1_vote:choice1_myvotesofar_score);
+            if_settext(tostring(%6awe1_microchange_3_choice_2), 6awe1_vote:choice2_myvotesofar_score);
+        case 7 :
+            if_settext(tostring(%6awe1_microchange_4_choice_1), 6awe1_vote:choice1_myvotesofar_score);
+            if_settext(tostring(%6awe1_microchange_4_choice_2), 6awe1_vote:choice2_myvotesofar_score);
+    }
+    if (~script8984 ! 1 & ~script8984 ! 3) {
+        if_sethide(true, 6awe1_vote:escalation);
+    }
+} else {
+    switch_int (~script8984) {
+        case 1 :
+            if_settext(tostring(%6awe1_escalation_1_choice_1), 6awe1_vote:choice1_myvotesofar_score);
+            if_settext(tostring(%6awe1_escalation_1_choice_2), 6awe1_vote:choice2_myvotesofar_score);
+        case 3 :
+            if_settext(tostring(%6awe1_escalation_2_choice_1), 6awe1_vote:choice1_myvotesofar_score);
+            if_settext(tostring(%6awe1_escalation_2_choice_2), 6awe1_vote:choice2_myvotesofar_score);
+    }
+    if (~script8983 ! 1 & ~script8983 ! 3 & ~script8983 ! 5 & ~script8983 ! 7) {
+        if_sethide(true, 6awe1_vote:microchange);
+    }
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+if (%6awe1_vote_selected = 0 | ~script1305 = 1) {
+    $string1, $string2, $string0 = ~script8988;
+    ~script8990;
+}
+if (%6awe1_vote_selected = 1) {
+    $string0, $string1, $string2 = ~script8989;
+    ~script8991;
+}
+if_settext($string1, 6awe1_vote:choice1_text);
+if_settext($string2, 6awe1_vote:choice2_text);
+if_settext($string0, 6awe1_vote:vote_description_text);
+if (~script8984 = 0) {
+    if_sethide(true, 6awe1_vote:escalation);
+}

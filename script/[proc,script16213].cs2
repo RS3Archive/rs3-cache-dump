@@ -1,0 +1,94 @@
+// 16213
+[proc,script16213](struct $struct0, component $component1, int $int2, int $int3, int $int4)
+def_graphic $graphic5 = null;
+def_int $int6 = 0;
+def_long $long0 = 0;
+if ($struct0 = null | $struct0 = big_window_currency_null) {
+    return;
+}
+$graphic5 = struct_param($struct0, big_window_currency_icon);
+def_string $string0 = "<~script17940($struct0)> - <~script17941($struct0)>";
+def_obj $obj7 = null;
+def_struct $struct8 = null;
+def_string $string1 = "";
+def_int $int9 = 0;
+if (cc_find($component1, $int3) = true) {
+    switch_struct ($struct0) {
+        case big_window_currency_bonds :
+            $int6 = ~script11434;
+            cc_setonvartransmit("script16212($struct0, $component1, $int2, $int3, 0){bonds_count_total_untradable_across_all_inv, bonds_count_total_tradable_across_all_inv}");
+        case big_window_currency_runecoins :
+            $int6 = %mtxmgt_total_runecoins;
+            cc_setonvarctransmit("script16212($struct0, $component1, $int2, $int3, 0){mtxmgt_total_runecoins}");
+        case big_window_currency_th_keys :
+            $int6 = ~script6950;
+            cc_setonvartransmit("script16212($struct0, $component1, $int2, $int3, 0){wof_main_5, wof_main_5, wof_main_5}");
+            cc_setonvarctransmit("script16212($struct0, $component1, $int2, $int3, 0){wof_rsspintoken_balance}");
+        case big_window_currency_gold :
+            $long0 = ~script17400;
+            cc_setoninvtransmit("script16212($struct0, $component1, $int2, $int3, 0){money_pouch}");
+        case big_window_currency_oddments :
+            $int9 = 1;
+            $long0 = ~script18491(trh125_currency, 1, 1);
+            cc_setoninvtransmit("script16212($struct0, $component1, $int2, $int3, 0){inv, premium_currency_inv}");
+        case big_window_currency_seasonal_oddments, big_window_currency_seasonal_oddments_halloween :
+            $struct8 = ~script11212;
+            if ($struct8 ! null) {
+                $obj7 = struct_param($struct8, rewardshop_currency_obj);
+                if ($obj7 ! null) {
+                    $long0 = ~script18491($obj7, 1, 1);
+                    $int9 = 1;
+                }
+            }
+            cc_setoninvtransmit("script16212($struct0, $component1, $int2, $int3, 0){inv, premium_currency_inv}");
+        case big_window_currency_yak_coin :
+            $int6 = calc(inv_total(inv, runepass_yak_coin) + inv_total(premium_currency_inv, runepass_yak_coin));
+            cc_setoninvtransmit("script16212($struct0, $component1, $int2, $int3, 0){inv, premium_currency_inv}");
+        case big_window_currency_bp3_emblems :
+            ~script17927;
+            $string1 = ~script17929(%bp3_current_viewed_pass);
+            $int6 = ~script17928(%bp3_current_viewed_pass);
+            if (%bp3_current_viewed_pass = ~script17853) {
+                if (~is_mobile_client = true) {
+                    $string0 = "<$string1> - You can earn <$string1> via <~script17888(%bp3_current_viewed_pass)>, or via Bond / In-app purchase. You spend them within the Hero Store.";
+                } else {
+                    $string0 = "<$string1> - You can earn <$string1> via <~script17888(%bp3_current_viewed_pass)>, or via Bond purchase. You spend them within the Hero Store.";
+                }
+            } else {
+                $string0 = "You can no longer earn <$string1> as <~script17888(%bp3_current_viewed_pass)> has ended. You can still spend any you've got remaining in the Hero Store.";
+            }
+            cc_setonvartransmit("script16212($struct0, $component1, $int2, $int3, 0){bp3_viewed_pass_currency}");
+    }
+    cc_setgraphic($graphic5);
+    cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+    ~script3537($string0);
+}
+def_int $int10 = 1;
+def_int $int11 = 0;
+if (cc_findbycategory($component1, $int2, 0) = 1 & $long0 = 0) {
+    $int11 = cc_param(rs3tli_progress_current);
+    if ($int4 = 1 | $int6 < $int11) {
+        cc_setparam(rs3tli_progress_current, $int6);
+        cc_setparam(rs3tli_progress_target, $int6);
+        cc_setparam(rs3tli_component_last_update, 0);
+    } else if (cc_param(rs3tli_progress_current) < $int6) {
+        ~script17927;
+        if (calc($int6 - $int11) > 15) {
+            $int10 = max(2, calc(($int6 - $int11) / 15));
+        }
+        cc_setparam(rs3tli_progress_target, $int6);
+        cc_setontimer("script16214(event_com, event_comsubid, $graphic5, calc($int3 + 1), $int10, 0, 1)");
+        return;
+    }
+}
+if (cc_find($component1, calc($int3 + 1)) = true) {
+    if ($long0 > 0) {
+        if ($int9 = 1) {
+            cc_settext(~script12971($long0));
+        } else {
+            cc_settext(~script17372($long0, 3, 1));
+        }
+    } else {
+        cc_settext(~script361($int6, 0));
+    }
+}

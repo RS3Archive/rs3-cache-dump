@@ -1,0 +1,42 @@
+// 2605
+[proc,script2605](obj $obj0)
+if ($obj0 = null) {
+    if_sethide(true, ms_smithing_makex:info_scrollbar);
+    return;
+} else {
+    if_sethide(false, ms_smithing_makex:info_scrollbar);
+}
+def_obj $obj1 = oc_param($obj0, recipe_non_dummy_obj);
+if ($obj1 = null) {
+    $obj1 = $obj0;
+}
+if_setsize(0, 50, ^setsize_minus, ^setsize_abs, ms_smithing_makex:info_requirements);
+if_setsize(0, 90, ^setsize_minus, ^setsize_abs, ms_smithing_makex:info_materials);
+~script7126(ms_smithing_makex:info_value, $obj0);
+def_int $int2 = calc(if_gety(ms_smithing_makex:info_value) + if_getheight(ms_smithing_makex:info_value) + 2);
+def_int $int3 = 0;
+def_int $int4 = calc(if_gety(ms_smithing_makex:info_requirements_header) + if_getheight(ms_smithing_makex:info_requirements_header) + 2);
+if_setposition(if_getx(ms_smithing_makex:info_requirements), $int2, ^setpos_abs_left, ^setpos_abs_top, ms_smithing_makex:info_requirements);
+$int3 = ~script7127($obj0, $int4, ms_smithing_makex:info_requirements);
+if ($int3 > $int4) {
+    if_sethide(false, ms_smithing_makex:info_requirements);
+    $int2 = calc($int2 + $int3 + 2);
+} else {
+    if_sethide(true, ms_smithing_makex:info_requirements);
+}
+if_setposition(if_getx(ms_smithing_makex:info_materials), $int2, ^setpos_abs_left, ^setpos_abs_top, ms_smithing_makex:info_materials);
+$int4 = calc(if_gety(ms_smithing_makex:info_materials_header) + if_getheight(ms_smithing_makex:info_materials_header) + 2);
+$int3 = ~script7129($obj0, $int4, ms_smithing_makex:info_materials);
+if ($int3 > $int4) {
+    if_sethide(false, ms_smithing_makex:info_materials);
+    $int2 = calc($int2 + $int3);
+} else {
+    if_sethide(true, ms_smithing_makex:info_materials);
+}
+if (if_getheight(ms_smithing_makex:info_ingredients_layer) < $int2) {
+    if_setscrollsize(if_getwidth(ms_smithing_makex:info_ingredients_layer), $int2, ms_smithing_makex:info_ingredients_layer);
+} else {
+    if_setscrollsize(0, 0, ms_smithing_makex:info_ingredients_layer);
+}
+if_setscrollpos(0, 0, ms_smithing_makex:info_ingredients_layer);
+~scrollbar_vertical(ms_smithing_makex:info_scrollbar, ms_smithing_makex:info_ingredients_layer, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");

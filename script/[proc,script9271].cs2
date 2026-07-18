@@ -1,0 +1,103 @@
+// 9271
+[proc,script9271](component $component0, inv $inv1, int $int2, component $component3, int $int4, int $int5)(boolean)
+def_obj $obj6 = inv_getobj($inv1, $int2);
+if ($obj6 = null) {
+    return(false);
+}
+def_int $int7 = inv_getnum($inv1, $int2);
+def_int $int8 = ~script7781($obj6, $int7, $inv1, 0, $int5);
+if ($int8 = 1) {
+    return(true);
+} else if ($int8 = 2) {
+    return(false);
+}
+if (cc_find($component3, $int4) = true & cc_getinvobject ! null) {
+    $int4 = -1;
+}
+def_obj $obj9 = $obj6;
+def_int $int10 = 300;
+def_int $int11 = 0;
+if ($int5 = 1) {
+    $obj9 = oc_cert($obj6);
+    if ($obj9 = $obj6) {
+        $int5 = 0;
+    }
+}
+def_int $int12 = 0;
+def_long $long0 = 0;
+def_long $long1 = 0;
+if ($obj6 = coins) {
+    $int5 = 0;
+    $long1 = ~script17402($inv1, null);
+    $long0 = calc($long1 - ~pouch_itemspace2($long1));
+    if ($long1 = $long0) {
+        return(false);
+    }
+} else {
+    if (oc_stackable($obj9) = true) {
+        if (inv_total(inv, $obj9) > 0) {
+            $int12 = max(0, calc($int7 - (^max_32bit_int - inv_total(inv, $obj9))));
+        } else if (inv_freespace(inv) = 0) {
+            $int12 = $int7;
+        }
+    } else {
+        $int12 = max(0, calc($int7 - inv_freespace(inv)));
+    }
+    $int7 = calc($int7 - $int12);
+    if ($int7 <= 0) {
+        return(false);
+    }
+}
+def_int $int13 = 0;
+if (if_find($component0) = true) {
+    if (~script17378($obj6) = true) {
+        if ($long0 <= 0) {
+            cc_setobject(null, 0);
+        } else {
+            cc_setobject_long(cc_getinvobject, $long0);
+        }
+    } else if (calc(cc_getinvcount - $int7) > 0) {
+        cc_setobject(cc_getinvobject, calc(cc_getinvcount - $int7));
+    } else {
+        cc_setobject(null, 0);
+    }
+}
+if ($int5 = 1) {
+    if (.cc_find($component3, ~script9250(inv, $obj9)) = true) {
+        .cc_setobject(.cc_getinvobject, calc(.cc_getinvcount + $int7));
+    } else if ($int4 = -1 & .cc_find($component3, ~script9249(inv)) = true) {
+        .cc_setobject($obj9, $int7);
+    } else if (.cc_find($component3, $int4) = true) {
+        .cc_setobject($obj9, $int7);
+    }
+} else {
+    switch_obj ($obj6) {
+        case coins, coins_b :
+            ~money_pouch_update_amount(calc(~pouch_total + ~script17402($inv1, null)));
+        case default :
+            if (oc_stackable($obj6) = true) {
+                if (.cc_find($component3, ~script9250(inv, $obj9)) = true) {
+                    .cc_setobject(.cc_getinvobject, calc(.cc_getinvcount + $int7));
+                } else if ($int4 = -1 & .cc_find($component3, ~script9249(inv)) = true) {
+                    .cc_setobject($obj9, $int7);
+                } else if (.cc_find($component3, $int4) = true) {
+                    .cc_setobject($obj9, $int7);
+                }
+            } else if ($int7 = 1) {
+                if ($int4 = -1 & .cc_find($component3, ~script9249(inv)) = true) {
+                    .cc_setobject($obj9, $int7);
+                } else if (.cc_find($component3, $int4) = true) {
+                    .cc_setobject($obj9, $int7);
+                }
+            } else {
+                $int13 = ~script9249(inv);
+                while ($int13 ! -1 & $int7 > 0) {
+                    if (.cc_find($component3, $int13) = true) {
+                        .cc_setobject($obj9, 1);
+                    }
+                    $int13 = ~script9251(inv, null, calc($int13 + 1));
+                }
+            }
+    }
+}
+return(true);

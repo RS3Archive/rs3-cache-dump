@@ -1,0 +1,26 @@
+// 12069
+[proc,invent_charge_string](int $int0, int $int1)(string)
+def_int $int2 = calc($int0 / 3000);
+if ($int1 = 0) {
+    return(tostring_localised($int2, true));
+}
+def_string $string0 = "";
+def_int $int3 = calc($int0 % 3000 / 3);
+switch_int ($int1) {
+    case default :
+        return(tostring_localised($int2, true));
+    case 1 :
+        $int3 = calc($int3 / 100);
+    case 2 :
+        $int3 = calc($int3 / 10);
+        if ($int3 < 10) {
+            $string0 = "0";
+        }
+    case 3 :
+        if ($int3 < 10) {
+            $string0 = "00";
+        } else if ($int3 < 100) {
+            $string0 = "0";
+        }
+}
+return("<tostring_localised($int2, true)><~script8002><$string0><tostring($int3)>");

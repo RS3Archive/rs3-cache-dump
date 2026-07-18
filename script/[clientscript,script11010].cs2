@@ -1,0 +1,45 @@
+// 11010
+[clientscript,script11010](int $int0)
+def_struct $struct1 = ~script11011(%mtxmgt_selected_category, %mtxmgt_selected_subcat, %mtxmgt_selected_item);
+switch_int ($int0) {
+    case 3 :
+        if (%mtxmgt_selected_item ! 1023) {
+            if (struct_param($struct1, mtxmgt_subcat) ! 1) {
+                if_sethide(false, mtxmgt:appearance_buttons);
+            }
+        } else {
+            if_sethide(false, mtxmgt:pet_options);
+            if_sethide(false, mtxmgt:appearance_buttons);
+            if_sethide(true, mtxmgt:manager_options);
+            if_sethide(true, mtxmgt:disabled_dropdown_layer);
+        }
+    case 4 :
+        if (%mtxmgt_selected_item ! 1023) {
+            if (struct_param($struct1, mtxmgt_subcat) ! 1) {
+                if_sethide(true, mtxmgt:appearance_buttons);
+            }
+        } else {
+            if_sethide(false, mtxmgt:manager_options);
+            if_sethide(false, mtxmgt:disabled_dropdown_layer);
+            if_sethide(false, mtxmgt:pet_panel);
+            if_sethide(true, mtxmgt:pet_options);
+            if_sethide(true, mtxmgt:appearance_buttons);
+            if_sethide(true, mtxmgt:accept_decline_change);
+            if_sethide(true, mtxmgt:pet_food_bonus);
+            if_sethide(true, mtxmgt:legendary_pet_info_button);
+            if_sethide(true, mtxmgt:pet_benefits);
+            if_sethide(false, mtxmgt:accept_button);
+        }
+    case 5 :
+        if (%mtxmgt_selected_item ! 1023) {
+        } else {
+            if_sethide(false, mtxmgt:accept_button);
+            if_sethide(false, mtxmgt:accept_decline_change);
+            if_sethide(false, mtxmgt:pet_food_bonus);
+            if_sethide(false, mtxmgt:legendary_pet_info_button);
+            if_sethide(false, mtxmgt:pet_benefits);
+            if_sethide(true, mtxmgt:pet_panel);
+        }
+    case default :
+        return;
+}

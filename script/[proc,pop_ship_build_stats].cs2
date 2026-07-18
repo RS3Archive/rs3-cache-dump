@@ -1,0 +1,344 @@
+// 6184
+[proc,pop_ship_build_stats]
+if (%pop_ship_selected_var > ~script4186) {
+    if_settext("No Ship", pop_ship:name_text);
+    if_settext("0", pop_ship:speed_text);
+    if_settext("0", pop_ship:graft_text);
+    if_settext("0", pop_ship:combat_text);
+    if_settext("0", pop_ship:seafaring_text);
+    if_settext(tostring(%pop_ship_selected_var), pop_ship:ship_number);
+    if_sethide(true, pop_ship:hull_layer);
+    if_sethide(true, pop_ship:deck1_layer);
+    if_sethide(true, pop_ship:deck2_layer);
+    if_sethide(true, pop_ship:rudder_layer);
+    if_sethide(true, pop_ship:ram_layer);
+    if_sethide(true, pop_ship:crew_manager_layer);
+    if_sethide(true, pop_ship:crew_compare_layer);
+    ~script13971(pop_ship:crew_roster_open, null, rs3tli_neutral_button, "Edit Crew", true);
+    if_sethide(true, pop_ship:no_voyage_layer);
+    if_sethide(true, pop_ship:active_voyage_layer);
+    if_sethide(true, pop_ship:obsolete_layer);
+    if_sethide(true, pop_ship:no_voyage_layer);
+    return;
+}
+if_settext(%pop_ship_stat_name, pop_ship:name_text);
+def_string $string0 = tostring(%pop_ship_stat_speed);
+if_settext($string0, pop_ship:speed_text);
+def_string $string1 = tostring(%pop_ship_stat_graft);
+if_settext($string1, pop_ship:graft_text);
+def_string $string2 = tostring(%pop_ship_stat_combat);
+if_settext($string2, pop_ship:combat_text);
+def_string $string3 = tostring(%pop_ship_stat_seafaring);
+if_settext($string3, pop_ship:seafaring_text);
+def_string $string4 = "";
+$string4 = struct_param(enum(int, struct, pop_ship_hulls, ~script1161(%pop_ship_selected_var, 1)), pop_ship_upgrade_name_multiline);
+if (compare($string4, "") = 0) {
+    $string4 = struct_param(enum(int, struct, pop_ship_hulls, ~script1161(%pop_ship_selected_var, 1)), pop_ship_upgrade_name);
+}
+if_settext($string4, pop_ship:hull_text);
+$string4 = struct_param(enum(int, struct, pop_ship_decks, ~script1161(%pop_ship_selected_var, 2)), pop_ship_upgrade_name_multiline);
+if (compare($string4, "") = 0) {
+    $string4 = struct_param(enum(int, struct, pop_ship_decks, ~script1161(%pop_ship_selected_var, 2)), pop_ship_upgrade_name);
+}
+if_settext($string4, pop_ship:deck1_text);
+$string4 = struct_param(enum(int, struct, pop_ship_decks, ~script1161(%pop_ship_selected_var, 3)), pop_ship_upgrade_name_multiline);
+if (compare($string4, "") = 0) {
+    $string4 = struct_param(enum(int, struct, pop_ship_decks, ~script1161(%pop_ship_selected_var, 3)), pop_ship_upgrade_name);
+}
+if_settext($string4, pop_ship:deck2_text);
+$string4 = struct_param(enum(int, struct, pop_ship_rudders, ~script1161(%pop_ship_selected_var, 4)), pop_ship_upgrade_name_multiline);
+if (compare($string4, "") = 0) {
+    $string4 = struct_param(enum(int, struct, pop_ship_rudders, ~script1161(%pop_ship_selected_var, 4)), pop_ship_upgrade_name);
+}
+if_settext($string4, pop_ship:rudder_text);
+$string4 = struct_param(enum(int, struct, pop_ship_rams, ~script1161(%pop_ship_selected_var, 5)), pop_ship_upgrade_name_multiline);
+if (compare($string4, "") = 0) {
+    $string4 = struct_param(enum(int, struct, pop_ship_rams, ~script1161(%pop_ship_selected_var, 5)), pop_ship_upgrade_name);
+}
+if_settext($string4, pop_ship:ram_text);
+~script7252(%pop_ship_selected_var);
+if_settext(tostring(%pop_ship_selected_var), pop_ship:ship_number);
+if_sethide(true, pop_ship:hull_layer);
+if_sethide(true, pop_ship:deck1_layer);
+if_sethide(true, pop_ship:deck2_layer);
+if_sethide(true, pop_ship:rudder_layer);
+if_sethide(true, pop_ship:ram_layer);
+~script13971(pop_ship:crew_roster_open, null, rs3tli_neutral_button, "Edit Crew", true);
+if_sethide(false, pop_ship:obscure_layer);
+if_sethide(false, pop_ship:underway_layer);
+if_sethide(false, pop_ship:complete_layer);
+if_sethide(false, pop_ship:success_layer);
+if_sethide(false, pop_ship:failure_layer);
+def_struct $struct0 = null;
+def_int $int1 = ~script2047;
+switch_int (%pop_ship_selected_var) {
+    case 1 :
+        if (~pop_ship_available(1) = 0) {
+            $int1 = %pop_voyage_1_id;
+        }
+    case 2 :
+        if (~pop_ship_available(2) = 0) {
+            $int1 = %pop_voyage_2_id;
+        }
+    case 3 :
+        if (~pop_ship_available(3) = 0) {
+            $int1 = %pop_voyage_3_id;
+        }
+    case 4 :
+        if (~pop_ship_available(4) = 0) {
+            $int1 = %pop_voyage_4_id;
+        }
+}
+$struct0 = enum(int, struct, pop_voyage_list, $int1);
+if ($struct0 = null) {
+    return;
+}
+if (%pop_voyage_list_selected > 0 & $struct0 ! pop_voyage_0) {
+    if_sethide(false, pop_ship:active_voyage_layer);
+    if_sethide(false, pop_ship:obsolete_layer);
+    if_sethide(true, pop_ship:no_voyage_layer);
+    ~script7254($struct0);
+} else {
+    if_sethide(true, pop_ship:active_voyage_layer);
+    if_sethide(false, pop_ship:obsolete_layer);
+    if_sethide(false, pop_ship:no_voyage_layer);
+}
+if (%pop_tutorial_progress >= 24 & %pop_tutorial_progress < 26) {
+    %pop_ship_voyage_state = 1;
+} else if (%pop_tutorial_progress = 26) {
+    %pop_ship_voyage_state = 2;
+} else if (%pop_tutorial_progress = 50) {
+    %pop_ship_voyage_state = 1;
+} else if (%pop_tutorial_progress = 52) {
+    %pop_ship_voyage_state = 2;
+}
+def_string $string5 = "";
+def_int $int2 = struct_param($struct0, pop_voyage_reward1type);
+def_int $int3 = struct_param($struct0, pop_voyage_reward2type);
+def_int $int4 = struct_param($struct0, pop_voyage_reward3type);
+if_setgraphic(null, pop_ship:reward_1_icon);
+if_setgraphic(null, pop_ship:reward_2_icon);
+if_setgraphic(null, pop_ship:reward_3_icon);
+if_settext("", pop_ship:reward_1_text);
+if_settext("", pop_ship:reward_2_text);
+if_settext("", pop_ship:reward_3_text);
+def_string $string6 = "";
+def_string $string7 = "";
+def_int $int5 = 0;
+def_obj $obj6 = null;
+def_int $int7 = -1;
+if (%pop_ship_voyage_state > 0) {
+    if_sethide(true, pop_ship:list_layer);
+    switch_int (%pop_ship_selected_var) {
+        case 1 :
+            $int1 = %pop_voyage_1_id;
+        case 2 :
+            $int1 = %pop_voyage_2_id;
+        case 3 :
+            $int1 = %pop_voyage_3_id;
+        case 4 :
+            $int1 = %pop_voyage_4_id;
+    }
+    if (%pop_tutorial_progress >= 24 & %pop_tutorial_progress <= 28) {
+        $int1 = 415;
+    } else if (%pop_tutorial_progress >= 50 & %pop_tutorial_progress <= 54) {
+        $int1 = 417;
+    }
+    $struct0 = enum(int, struct, pop_voyage_list, $int1);
+    if ($struct0 ! null & $struct0 ! pop_voyage_0) {
+        $int7 = struct_param($struct0, pop_voyage_type);
+        $string5 = ~script2057($struct0, 0);
+        if_settext($string5, pop_ship:voyage_flavour);
+        if ($int7 = 13 & ($struct0 = pop_voyage_repairs | $struct0 = pop_voyage_repairs_mild | $struct0 = pop_voyage_repairs_heavy)) {
+            if_sethide(false, pop_ship:ports_complete_damage_btn_layer);
+            if (~script17401 < calc(%pop_voyage_drydock_hours * 20000)) {
+                ~script13994(pop_ship:ports_complete_damage_btn_active_layer, null, rs3tli_3x3_button, "Finish repairs for <tostring(calc(%pop_voyage_drydock_hours * 20))>k", true);
+            } else {
+                ~script13993(pop_ship:ports_complete_damage_btn_active_layer, null, rs3tli_3x3_button, "Finish repairs for <tostring(calc(%pop_voyage_drydock_hours * 20))>k");
+            }
+        } else {
+            if_sethide(true, pop_ship:ports_complete_damage_btn_layer);
+        }
+        if (struct_param($struct0, pop_voyage_reward1type) = 20) {
+            if_setgraphic(enum(int, graphic, pop_voyage_scroll_icons, %pop_scroll_focus), pop_ship:reward_1_icon);
+        } else {
+            if_setgraphic(enum(int, graphic, pop_voyage_reward_icons, struct_param($struct0, pop_voyage_reward1type)), pop_ship:reward_1_icon);
+        }
+        if (struct_param($struct0, pop_voyage_reward2type) = 20) {
+            if_setgraphic(enum(int, graphic, pop_voyage_scroll_icons, %pop_scroll_focus), pop_ship:reward_2_icon);
+        } else {
+            if_setgraphic(enum(int, graphic, pop_voyage_reward_icons, struct_param($struct0, pop_voyage_reward2type)), pop_ship:reward_2_icon);
+        }
+        if (struct_param($struct0, pop_voyage_reward3type) = 20) {
+            if_setgraphic(enum(int, graphic, pop_voyage_scroll_icons, %pop_scroll_focus), pop_ship:reward_3_icon);
+        } else {
+            if_setgraphic(enum(int, graphic, pop_voyage_reward_icons, struct_param($struct0, pop_voyage_reward3type)), pop_ship:reward_3_icon);
+        }
+        $int5 = struct_param($struct0, pop_voyage_reward1value);
+        $string6 = tostring($int5);
+        if ($int7 = 2) {
+            $string6 = enum(int, string, pop_unlockable_island_names, $int5);
+            switch_int ($int5) {
+                case 0 :
+                    $obj6 = pop_crew_sailor_cyclops;
+                case 2 :
+                    $obj6 = pop_crew_sailor_siren;
+                case 3 :
+                    $obj6 = pop_crew_sailor_chimera;
+                case 4 :
+                    $obj6 = pop_crew_sailor_witch;
+                case 5 :
+                    $obj6 = pop_crew_sailor_judge_of_dice;
+                case 6 :
+                    $obj6 = pop_crew_sailor_oxhead;
+                case 13 :
+                    $obj6 = pop_crew_sailor_wisp;
+                case 14 :
+                    $obj6 = pop_crew_sailor_kharidian_exile;
+            }
+        } else if ($int7 = 6 | $int7 = 10) {
+            switch_int ($int5) {
+                case 1 :
+                    $string6 = "Whaler";
+                case 2 :
+                    $string6 = "Biologist";
+                case 3 :
+                    $string6 = "Occultist";
+                case 4 :
+                    $string6 = "Assassin";
+                case 5 :
+                    $string6 = "Convict";
+                case 6 :
+                    $string6 = "Missionary";
+                case 7 :
+                    $string6 = "Trapper";
+                case 8 :
+                    $string6 = "Chef";
+                case 9 :
+                    $string6 = "Architect";
+                case 10 :
+                    $string6 = "Exile";
+                case 11 :
+                    $string6 = "Memory";
+                case 12 :
+                    $string6 = "Tengu";
+            }
+        } else if ($int7 = 7) {
+            $string6 = "Trait+";
+        } else if ($int7 = 4) {
+            if ($int5 <= 12) {
+                $string6 = "XP";
+            } else {
+                $string6 = "XP x2";
+            }
+        } else if (struct_param($struct0, pop_voyage_reward1type) = 32) {
+            $string6 = "Trait-";
+        }
+        if (compare($string6, "") ! 0 & compare($string6, "0") ! 0 & compare($string6, "-1") ! 0) {
+            if_settext($string6, pop_ship:reward_1_text);
+            $string7 = enum(int, string, pop_voyage_reward_names, $int2);
+            if ($int7 = 2) {
+                $string7 = "Unlock island: <enum(int, string, pop_unlockable_island_names, $int5)>";
+            } else if ($int7 = 7) {
+                $string7 = "Captain gains a trait: <struct_param(enum(int, struct, pop_trait_list, $int5), pop_crew_trait_name)>";
+            } else if ($int7 = 4) {
+                switch_int ($int5) {
+                    case 1 :
+                        $string7 = "Slayer";
+                    case 2 :
+                        $string7 = "Runecrafting";
+                    case 3 :
+                        $string7 = "Fishing";
+                    case 4 :
+                        $string7 = "Thieving";
+                    case 5 :
+                        $string7 = "Herblore";
+                    case 6 :
+                        $string7 = "Prayer";
+                    case 7 :
+                        $string7 = "Hunter";
+                    case 8 :
+                        $string7 = "Cooking";
+                    case 9 :
+                        $string7 = "Construction";
+                    case 10 :
+                        $string7 = "Agility";
+                    case 11 :
+                        $string7 = "Divination";
+                    case 12 :
+                        $string7 = "Dungeoneering";
+                    case 13 :
+                        $string7 = "Slayer and Thieving";
+                    case 14 :
+                        $string7 = "Runecrafting and Prayer";
+                    case 15 :
+                        $string7 = "Fishing and Herblore";
+                    case 16 :
+                        $string7 = "Slayer and Hunter";
+                    case 17 :
+                        $string7 = "Herblore and Cooking";
+                    case 18 :
+                        $string7 = "Prayer and Construction";
+                    case 21 :
+                        $string7 = "Dungeoneering and Fishing";
+                    case 20 :
+                        $string7 = "Divination and Runecrafting";
+                    case 19 :
+                        $string7 = "Agility and Thieving";
+                }
+                $string7 = "Experience in <$string7>";
+            }
+            if_setonmouserepeat("script8799($string7, event_com, -1)", pop_ship:reward_1_icon);
+        }
+        $int5 = struct_param($struct0, pop_voyage_reward2value);
+        $string6 = tostring($int5);
+        if ($int7 = 2 & $obj6 ! null) {
+            if_setgraphic(oc_param($obj6, pop_crew_graphic), pop_ship:reward_2_icon);
+            $string7 = "Unlock crewman: <oc_name($obj6)>";
+            if_setonmouserepeat("script8799($string7, event_com, -1)", pop_ship:reward_2_icon);
+            $string6 = "";
+        }
+        if (compare($string6, "") ! 0 & compare($string6, "0") ! 0 & compare($string6, "-1") ! 0) {
+            if_settext($string6, pop_ship:reward_2_text);
+            $string7 = enum(int, string, pop_voyage_reward_names, $int3);
+            if_setonmouserepeat("script8799($string7, event_com, -1)", pop_ship:reward_2_icon);
+        }
+        $int5 = struct_param($struct0, pop_voyage_reward3value);
+        $string6 = tostring($int5);
+        if (compare($string6, "") ! 0 & compare($string6, "0") ! 0 & compare($string6, "-1") ! 0) {
+            if_settext($string6, pop_ship:reward_3_text);
+            $string7 = enum(int, string, pop_voyage_reward_names, $int4);
+            if_setonmouserepeat("script8799($string7, event_com, -1)", pop_ship:reward_3_icon);
+        }
+    }
+}
+switch_int (%pop_ship_voyage_state) {
+    case 0 :
+        if_sethide(false, pop_ship:hull_layer);
+        if_sethide(false, pop_ship:deck1_layer);
+        if_sethide(false, pop_ship:deck2_layer);
+        if_sethide(false, pop_ship:rudder_layer);
+        if_sethide(false, pop_ship:ram_layer);
+        ~script13971(pop_ship:crew_roster_open, null, rs3tli_neutral_button, "Edit Crew", false);
+        if_sethide(true, pop_ship:obscure_layer);
+    case 1 :
+        if_sethide(true, pop_ship:active_voyage_layer);
+        if_sethide(true, pop_ship:no_voyage_layer);
+        if_sethide(true, pop_ship:obsolete_layer);
+        if_sethide(false, pop_ship:obscure_layer);
+        if_sethide(false, pop_ship:underway_layer);
+        if_sethide(true, pop_ship:complete_layer);
+        if_sethide(true, pop_ship:success_layer);
+        if_sethide(true, pop_ship:failure_layer);
+        if_sethide(true, pop_ship:crew_levels);
+    case 2 :
+        if_sethide(true, pop_ship:active_voyage_layer);
+        if_sethide(true, pop_ship:no_voyage_layer);
+        if_sethide(true, pop_ship:obsolete_layer);
+        if_sethide(false, pop_ship:obscure_layer);
+        if_sethide(true, pop_ship:underway_layer);
+        if_sethide(false, pop_ship:complete_layer);
+        if_sethide(true, pop_ship:success_layer);
+        if_sethide(true, pop_ship:failure_layer);
+        if_sethide(true, pop_ship:crew_levels);
+}

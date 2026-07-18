@@ -1,0 +1,70 @@
+// 13151
+[clientscript,script13151]
+~script13249;
+if (if_find(mtxmgt_store:items_layer) = true) {
+    cc_setparam(mtxmgt_next_filtered_subid, -1);
+    cc_setparam(mtxmgt_prev_filtered_subid, -1);
+    cc_setparam(mtxmgt_first_visible_subid, -1);
+    cc_setparam(mtxmgt_first_visible_index, -1);
+    cc_setparam(mtxmgt_store_filter_bitmask_0, 0);
+    cc_setparam(mtxmgt_store_filter_bitmask_1_category_avatar, 0);
+    cc_setparam(mtxmgt_store_filter_bitmask_1_category_outfit, 0);
+    cc_setparam(mtxmgt_store_filter_bitmask_1_category_title, 0);
+    cc_setparam(mtxmgt_store_filter_bitmask_1_category_anim, 0);
+    cc_setparam(mtxmgt_store_filter_bitmask_1_category_pets, 0);
+    cc_setparam(mtxmgt_store_filter_bitmask_1_category_services, 0);
+    cc_setparam(mtxmgt_store_filter_bitmask_2, 0);
+    if (%varclientbit_35136 = 0) {
+        cc_setparam(mtxmgt_store_filter_bitmask_3, ~script13250);
+        cc_setparam(mtxmgt_store_filter_bitmask_4, 12858);
+    } else {
+        cc_setparam(mtxmgt_store_filter_bitmask_3, calc(%mtxmgt_store_filter_bitmask_3 & ~script13250));
+        cc_setparam(mtxmgt_store_filter_bitmask_4, calc(%mtxmgt_store_filter_bitmask_4 & 12858));
+        if (cc_param(mtxmgt_store_filter_bitmask_3) = ~script13250 & cc_param(mtxmgt_store_filter_bitmask_4) = 12858) {
+            %varclientbit_35136 = 0;
+        }
+    }
+}
+def_string $string0 = "Recolour Outfit<br><br>SHIFT+Click to recolour individual slots";
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", mtxmgt_store:recolour_button_active_layer);
+$string0 = "This outfit is not recolourable";
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", mtxmgt_store:recolour_button_disabled_layer);
+$string0 = "Undo All Changes<br><br>CTRL+Click to undo individual slots";
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", mtxmgt_store:deselect_button_active_layer);
+$string0 = "Clear All Customisations<br><br>Right click to clear individual slots";
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", mtxmgt_store:clear_button_active_layer);
+$string0 = "Hide All Equipment<br><br>This will show your base clothing.<br>Right click to hide individual slots.";
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", mtxmgt_store:hide_button_active_layer);
+$string0 = "Save as preset";
+if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", mtxmgt_store:save_preset_button_active_layer);
+def_int $int0 = -1;
+cc_deleteall(mtxmgt_store:command_layer);
+while (++$int0 < 19) {
+    cc_create(mtxmgt_store:command_layer, ^iftype_graphic, $int0);
+}
+%mtxmgt_player_preview_chathead = 0;
+~script13163;
+~script13182;
+if (if_find(mtxmgt_store:ragdolls_layer) = true) {
+    cc_setparam(rs3tli_component_last_update, -1);
+    cc_setontimer("script13183");
+}
+if_setcolour(~script10495(3), mtxmgt_store:text_input_display);
+if (if_find(mtxmgt_store:items_layer) = true) {
+    cc_setparam_string(quicksort_string, "");
+}
+%mtxmgt_store_tab = ~script441(1);
+%mtxmgt_store_tab = max(min(%mtxmgt_store_tab, 2), 2);
+%mtxmgt_store_keepsake_slots_used = calc(inv_size(worn_custom_overrides) - inv_freespace(worn_custom_overrides));
+if (%mtxmgt_store_tab = 2) {
+    if_setoninvtransmit("script13158(28519){worn_custom_overrides}", mtxmgt_store:item_buttons_layer);
+    if_setonvarcstrtransmit("script13158(35654){mtxmgt_store_preset_1_name_varc, mtxmgt_store_preset_2_name_varc, mtxmgt_store_preset_3_name_varc, mtxmgt_store_preset_4_name_varc, mtxmgt_store_preset_5_name_varc, mtxmgt_store_preset_6_name_varc, mtxmgt_store_preset_7_name_varc, mtxmgt_store_preset_8_name_varc}", mtxmgt_store:item_buttons_layer);
+    if_setonvartransmit("script13158(-1){mtx_batch11_customiser_consumable}", mtxmgt_store:item_buttons_layer);
+}
+if_setontimer("script13157(event_com)", mtxmgt_store:item_buttons_layer);
+~script13166(-1);
+def_int $int1 = ~script13165(~script13160);
+if (~script13169(null, $int1) = false & if_find(mtxmgt_store:main_layer) = true) {
+    cc_setparam(rs3tli_component_last_update, clientclock);
+    cc_setontimer("script13152($int1)");
+}

@@ -1,0 +1,57 @@
+// 3563
+[proc,activity_tracker_get_status_icon](int $int0, int $int1, achievement $achievement2)(graphic)
+def_struct $struct3 = null;
+def_quest $quest4 = null;
+switch_int ($int0) {
+    case default :
+        return(null);
+    case 2 :
+        return(~cheevo_status_icon(achievement_reqstate($achievement2)));
+    case 1 :
+        $quest4 = enum(int, quest, ql4_quests, $int1);
+        if ($quest4 ! null) {
+            if (~ql4_getprogress($quest4) = 2) {
+                return(~cheevo_status_icon(-2));
+            } else if (~script2125($quest4) = false) {
+                return(~cheevo_status_icon(-1));
+            } else {
+                return(null);
+            }
+        } else {
+            return(null);
+        }
+    case 3 :
+        $struct3 = enum(int, struct, cheevo_id_to_struct, $int1);
+        if ($struct3 ! null) {
+            return(~cheevo_status_icon(~cheevo_obtain_progress($struct3)));
+        } else {
+            return(null);
+        }
+    case 4 :
+        $struct3 = ~script16319($int1);
+        if ($struct3 ! null & ~script16442($int1) >= struct_param($struct3, challenge_target) & ~script18262(~script16500($int1)) = 1) {
+            return(~cheevo_status_icon(-2));
+        }
+        return(null);
+    case 5 :
+        return(enum(int, graphic, stat2icon_medium, $int1));
+    case 6 :
+        $struct3 = enum(int, struct, uaui_minigames_all, $int1);
+        if ($struct3 ! null) {
+            return(struct_param($struct3, task_icon));
+        } else {
+            return(null);
+        }
+    case 7 :
+        if (%slayer_target > 0 & %slayer_count = 0) {
+            return(~cheevo_status_icon(-2));
+        } else {
+            return(null);
+        }
+    case 8 :
+        if (%bslay_target > 0 & %bslay_kills_left = 0) {
+            return(~cheevo_status_icon(-2));
+        } else {
+            return(null);
+        }
+}

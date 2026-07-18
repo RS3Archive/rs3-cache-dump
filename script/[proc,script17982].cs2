@@ -1,0 +1,55 @@
+// 17982
+[proc,script17982](int $int0)
+def_component $component1 = null;
+switch_int ($int0) {
+    case 0 :
+        $component1 = bp3_track_tab:main_layer_background;
+    case 1 :
+        $component1 = bp3_missions_tab:main_layer_background;
+    case 3 :
+        $component1 = bp3_buffs_tab:main_layer_background;
+    case 2 :
+        $component1 = mtx_front_end_oddments:main_layer_background;
+        if_sethide(true, mtx_front_end_oddments:main_layer_static_background);
+    case 100 :
+        $component1 = bp3_track_tab:claim_all_background;
+    case default :
+        ~error("Missing plugin for index <tostring($int0)>");
+        return;
+}
+cc_deleteall($component1);
+~cc_add_graphic($component1, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, ~script17991);
+~script17927;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int2 = 529;
+$int3 = 1920;
+~script4264($component1, 2, 2);
+~script1636($component1, bp3_vfx_cloud_layer_middle_purple, $int2, $int3, 2, 25, ^setpos_abs_centre, 0);
+if ($int0 ! 0) {
+    return;
+}
+def_component $component4 = bp3_track_tab:main_layer_vfx;
+def_int $int5 = 15;
+def_int $int6 = 0;
+def_int $int7 = 1;
+~cc_add_graphic($component4, $int7, $int5, $int6, ^setpos_abs_centre, ^setpos_abs_centre, 650, 650, ^setsize_abs, ^setsize_abs, bp3_vfx_spiral_purple);
+cc_anim_play(partial_fade_in_out, 5000, 0, ^max_32bit_int, 0, false);
+cc_setontimer("script17942($component4, $int7, -2000)");
+$int7 = calc($int7 + 1);
+~cc_add_graphic($component4, $int7, $int5, $int6, ^setpos_abs_centre, ^setpos_abs_centre, 650, 650, ^setsize_abs, ^setsize_abs, bp3_vfx_spiral_purple);
+cc_set2dangle(32768);
+cc_settrans(128);
+cc_anim_play(partial_fade_out_in, 5000, 0, ^max_32bit_int, 0, false);
+cc_setontimer("script17942($component4, $int7, -2000)");
+$int7 = calc($int7 + 1);
+~cc_add_graphic($component4, 6000, $int5, $int6, ^setpos_abs_centre, ^setpos_abs_centre, 700, 700, ^setsize_abs, ^setsize_abs, bp3_vfx_spiral_gold);
+cc_setontimer("script17942($component4, 6000, -1500)");
+cc_settrans(255);
+cc_set2dangle(16384);
+~cc_add_graphic($component4, 6001, $int5, $int6, ^setpos_abs_centre, ^setpos_abs_centre, 700, 700, ^setsize_abs, ^setsize_abs, bp3_vfx_spiral_gold);
+cc_setontimer("script17942($component4, 6001, -1500)");
+cc_settrans(255);
+cc_set2dangle(49152);
+~cc_add_graphic($component4, 6002, $int5, $int6, ^setpos_abs_centre, ^setpos_abs_centre, 550, 550, ^setsize_abs, ^setsize_abs, bp3_vfx_gold_pulse);
+cc_settrans(255);

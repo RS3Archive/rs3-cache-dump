@@ -1,0 +1,29 @@
+// 12530
+[clientscript,invent_techtree_update_onload]
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int0 = 0;
+switch_int (%invent_tasks_opened) {
+    case 1 :
+        $string0 = "Dwarven Technology";
+        $string1 = "Dwarven Currency:";
+        $int0 = %invent_dwarven_currency;
+    case 2 :
+        $string0 = "Goblin Technology";
+        $string1 = "Goblin Currency:";
+        $int0 = %invent_goblin_currency;
+}
+~script9554(invent_techtree:techtree_window_background, invent_techtree:techtree_window_border, invent_techtree:techtree_window_content, $string0, toplevel_v2_default_main_modal_skin_data);
+if_settext($string1, invent_techtree:faction_currency_name);
+if_setsize(stringwidth($string1, if_getfontmetrics(invent_techtree:faction_currency_name)), if_getheight(invent_techtree:faction_currency_name), ^setsize_abs, ^setsize_abs, invent_techtree:faction_currency_name);
+if_settext(tostring($int0), invent_techtree:faction_currency);
+def_int $int1 = calc(if_getx(invent_techtree:faction_currency_name) + if_getwidth(invent_techtree:faction_currency_name) + 5);
+if_setposition($int1, if_gety(invent_techtree:faction_currency), ^setpos_abs_left, ^setpos_abs_top, invent_techtree:faction_currency);
+if_setonvartransmit("invent_techtree_currency{invent_faction_currency}", invent_techtree:faction_currency);
+if_setsize(stringwidth(if_gettext(invent_techtree:price_text), if_getfontmetrics(invent_techtree:price_text)), if_getheight(invent_techtree:price_text), ^setsize_abs, ^setsize_abs, invent_techtree:price_text);
+$int1 = calc(if_getx(invent_techtree:price_text) + if_getwidth(invent_techtree:price_text) + 5);
+if_setposition($int1, if_gety(invent_techtree:blueprint_price), ^setpos_abs_left, ^setpos_abs_top, invent_techtree:blueprint_price);
+if (%invent_tasks_opened = 2) {
+    if_setposition(128, if_gety(invent_techtree:sixth_node_btn_layer), ^setpos_abs_left, ^setpos_abs_top, invent_techtree:sixth_node_btn_layer);
+    if_setposition(224, if_gety(invent_techtree:seventh_node_btn_layer), ^setpos_abs_left, ^setpos_abs_top, invent_techtree:seventh_node_btn_layer);
+}

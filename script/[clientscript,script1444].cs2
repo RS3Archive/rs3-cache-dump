@@ -1,0 +1,19 @@
+// 1444
+[clientscript,script1444](component $component0)
+def_struct $struct1 = null;
+def_string $string0 = "-";
+def_int $int2 = 0;
+def_int $int3 = 0;
+switch_component ($component0) {
+    case 6awe3_side:ability_2_uses :
+        $int2, $int3 = %6awe3_active_ability1, %6awe3_activate_count1;
+    case 6awe3_side:ability_3_uses :
+        $int2, $int3 = %6awe3_active_ability2, %6awe3_activate_count2;
+}
+if ($int2 ! 0) {
+    $struct1 = enum(int, struct, 6awe3_ability_to_struct, $int2);
+    if ($struct1 ! null & struct_param($struct1, 6awe3_ability_round_cap) ! 0) {
+        $string0 = tostring(max(0, calc(struct_param($struct1, 6awe3_ability_round_cap) - $int3)));
+    }
+}
+if_settext($string0, $component0);

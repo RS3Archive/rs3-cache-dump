@@ -1,0 +1,12 @@
+// 17113
+[proc,gravestone_timer_update]
+if (%gravestone_timer_server_cycles > 0 & %gravestone_countdown > 0) {
+    %gravestone_countdown = calc(%gravestone_countdown - 1);
+    ~gravestone_timer_build_gravestone;
+} else if (%gravestone_timer_inv_slots > 0 | %gravestone_timer_worn_slots > 0 | %gravestone_timer_overflow_slots > 0) {
+    ~gravestone_stop_timer(0);
+    ~script17115;
+} else {
+    if_sethide(true, gravestone_timer:bespoke_window);
+    ~gravestone_stop_timer(1);
+}

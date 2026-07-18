@@ -1,0 +1,98 @@
+// 1044
+[proc,script1044](chatphrase $chatphrase0, int $int1)
+~quickchat_focus($int1);
+~script8618($int1, -1);
+def_string $string0 = chatphrase_gettext($chatphrase0);
+if (~script8613($int1) = 1) {
+    $string0 = "To <~script8605($int1)>: <col=10F010><$string0>";
+} else if (~script8613($int1) = 2) {
+    $string0 = "[<col=6464A0><clan_getchatdisplayname><col=FFFFFF>]: <col=10F010><$string0>";
+} else if (~script8613($int1) = 8) {
+    if (activeclanchannel_find_affined(0) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 13) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0><player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 15) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0>(Team)<player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 17) {
+    if (activeclanchannel_find_affined(1) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else {
+    $string0 = $string0;
+}
+if_sethide(true, ~script8585($int1));
+if_setonkey(null, ~script8556($int1));
+if_sethide(false, ~script8586($int1));
+if_sethide(true, ~script8588($int1));
+if_sethide(false, ~script8590($int1));
+if_sethide(true, ~script8594($int1));
+if_sethide(true, ~script8598($int1));
+if_sethide(true, ~script8599($int1));
+if_sethide(false, ~script8600($int1));
+if_setcolour(^white, ~script8600($int1));
+if_settextfont(museo_sans_11pt_regular, ~script8600($int1));
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, ~script8600($int1));
+if_settext($string0, ~script8600($int1));
+if_settextshadow(true, ~script8600($int1));
+if_setcolour(0xf01010, ~script8591($int1));
+if_settextshadow(true, ~script8591($int1));
+cc_deleteall(~script8592($int1));
+def_enum $enum2 = chatphrase_getdynamiccommandparam_enum($chatphrase0, ~script8631($int1), 0);
+cc_create(~script8592($int1), ^iftype_rectangle, 0);
+def_int $int3 = if_getwidth(~script8592($int1));
+def_int $int4 = calc($int3 - 8);
+def_int $int5 = 1;
+def_int $int6 = 0;
+def_int $intarray0(250);
+def_int $int7 = 0;
+$string0 = enum(int, string, $enum2, 0);
+while (compare("", $string0) ! 0 & $int5 < 250) {
+    cc_create(~script8592($int1), ^iftype_text, $int5);
+    cc_setposition(4, calc(14 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int4, 14, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(^white);
+    cc_settext($string0);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setonmouseover("script1045($int5, ~script8592($int1), $int6, $int1)");
+    cc_setonclick("quickchat_phrase_int(~script8599($int1), $chatphrase0, calc($int5 - 1), $int1)");
+    $intarray0($int6) = $int6;
+    $string0 = enum(int, string, $enum2, $int5);
+    $int5 = calc($int5 + 1);
+    $int6 = calc($int6 + 1);
+}
+$int7 = calc($int6 - 1);
+if (compare(enum(int, string, $enum2, 1000), "non-alpha") ! 0) {
+    ~script520(intarray0, 0, $int7, $enum2);
+    $int6 = 0;
+    while ($int6 <= $int7) {
+        if (cc_find(~script8592($int1), calc($intarray0($int6) + 1)) = true) {
+            cc_setposition(4, calc(14 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setonmouseover("script1045(calc($intarray0($int6) + 1), ~script8592($int1), $int6, $int1)");
+        }
+        $int6 = calc($int6 + 1);
+    }
+}
+$int6 = 0;
+while ($int6 < 250) {
+    ~script1384($int6, $intarray0($int6));
+    $int6 = calc($int6 + 1);
+}
+if_setscrollsize(0, calc(14 * ($int5 - 1)), ~script8592($int1));
+~script8541(~script8592($int1), ~script8593($int1));
+if (if_find(~script8592($int1)) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_rootphrase, $chatphrase0);
+}
+if (if_find(~script8586($int1)) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_mode, 4);
+}

@@ -1,0 +1,108 @@
+// 86
+[clientscript,chat_op](int $int0, int $int1, int $int2)
+def_int $int3 = -1;
+def_component $component4 = ~script8552($int0);
+if (cc_find($component4, $int2) = true) {
+    $int3 = cc_param(toplevel_v2_chat_line_uid);
+} else {
+    return;
+}
+def_int $chattype5 = ^chattype_gamemessage;
+def_int $int6 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_chatphrase $chatphrase7 = null;
+def_string $string5 = "";
+def_int $int8 = -1;
+def_int $int9 = -1;
+$chattype5, $string0, $int6, $string1, $string2, $string3, $string4, $chatphrase7, $string5, $int8, $int9 = chat_gethistory_byuid($int3);
+if ($chattype5 = null) {
+    return;
+}
+switch_int ($int1) {
+    case 1 :
+        opplayer(4, $string3);
+    case 2 :
+        if ($chattype5 = ^chattype_duel_any_request) {
+            opplayer(5, $string3);
+        } else {
+            opplayer(1, $string3);
+        }
+    case 3 :
+        opplayer(7, $string3);
+    case 4 :
+        switch_int ($chattype5) {
+            case ^chattype_latest_newspost :
+                ~script822;
+            case ^chattype_system_broadcast, 127, ^chattype_broadcast, ^chattype_motd, ^chattype_general_linkable :
+                ~script15232(1, $int6);
+            case ^chattype_interface_open, ^chattype_interface_open_filtered :
+                if_triggerop(toplevel_v2:chat_open_interface_listener, $int6, 1);
+            case 141 :
+                if_triggerop(toplevel_v2:chat_open_interface_listener, 5, 1);
+            case 146 :
+                if_triggerop(toplevel_v2:chat_worldhop_listener, $int6, 1);
+        }
+    case 6 :
+        if (~script11370 = 0) {
+            mes("You cannot add a friend until you have entered your date of birth");
+            return;
+        }
+        if (friend_test($string3) = true) {
+            if (map_quickchat = false & userdetail_quickchat = false) {
+                if (~script6431 = true & %varclientbit_41275 ! 1) {
+                    %varclientbit_41275 = 1;
+                    ~script9292;
+                }
+                ~script8512($int0, $string3);
+                return;
+            }
+        } else {
+            friend_add($string3);
+        }
+    case 7 :
+        ignore_add($string3);
+    case 8 :
+        %snapshot_name = $string3;
+    case 9 :
+        switch_int ($chattype5) {
+            case ^chattype_quickchat_public :
+                ~quickchat_respond(4, $string3, $chatphrase7, $int0);
+            case ^chattype_quickchat_private_incoming :
+                ~quickchat_respond(5, $string3, $chatphrase7, $int0);
+            case ^chattype_quickchat_friend_chat :
+                ~quickchat_respond(6, $string3, $chatphrase7, $int0);
+            case ^chattype_quickchat_clanchat :
+                switch_int ($int9) {
+                    case 0 :
+                        ~quickchat_respond(9, $string3, $chatphrase7, $int0);
+                    case 1 :
+                        ~quickchat_respond(18, $string3, $chatphrase7, $int0);
+                    case default :
+                        ~error("Missing plug-in");
+                }
+            case ^chattype_quickchat_clanguestchat :
+                ~quickchat_respond(11, $string3, $chatphrase7, $int0);
+            case ^chattype_quickchat_group_all :
+                ~quickchat_respond(14, $string3, $chatphrase7, $int0);
+            case ^chattype_quickchat_group_same_team :
+                ~quickchat_respond(16, $string3, $chatphrase7, $int0);
+            case ^chattype_publicchat, ^chattype_modchat :
+                opplayer(10, $string3);
+        }
+    case 10 :
+        switch_int ($chattype5) {
+            case ^chattype_clanchat, ^chattype_quickchat_clanchat :
+                if ($int9 = 0) {
+                    ~clan_chat_kick_find($string3);
+                }
+            case ^chattype_friendschat, ^chattype_quickchat_friend_chat :
+                ~friendschat_kick($string3);
+            case ^chattype_group_all, ^chattype_quickchat_group_all, ^chattype_group_same_team, ^chattype_quickchat_group_same_team :
+            case default :
+                opplayer(5, $string3);
+        }
+}

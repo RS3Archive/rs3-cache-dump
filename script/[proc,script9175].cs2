@@ -1,0 +1,33 @@
+// 9175
+[proc,script9175]
+def_enum $enum0 = null;
+def_int $int1 = 1;
+def_int $int2 = 0;
+def_struct $struct3 = null;
+def_int $int4 = 0;
+switch_int (%dndtracker_filter_selection) {
+    case 0 :
+        $enum0 = uaui_minigames_all;
+    case 1 :
+        $enum0 = uaui_minigames_all;
+        $int2 = 1;
+    case 2 :
+        $enum0 = uaui_minigames_dnds;
+    case 3 :
+        $enum0 = uaui_minigames_all_minigames;
+    case 4 :
+        $enum0 = uaui_minigames_combat;
+    case 5 :
+        $enum0 = uaui_minigames_nocombat;
+}
+def_int $int5 = enum_getoutputcount($enum0);
+cc_deleteall(minigames_main:button_tracker_icons);
+cc_deleteall(minigames_main:button_tracker_labels);
+def_int $int6 = 0;
+while ($int4 < $int5) {
+    $struct3 = enum(int, struct, $enum0, calc(1 + $int4));
+    ~script9179($struct3, $int4, $int2);
+    $int4 = calc($int4 + 1);
+}
+$int4 = 0;
+~script9177($enum0, $int2, $int6);

@@ -1,0 +1,39 @@
+// 5202
+[proc,script5202](int $int0)
+if ($int0 = 1) {
+    %hcape_local_hsl_back = %hcape_cs_if_back_hsl;
+    %hcape_local_hsl_icon = %hcape_cs_if_icon_hsl;
+    %hcape_local_hsl_trim = %hcape_cs_if_trim_hsl;
+    %hcape_local_tier = %hcape_cs_if_tier;
+    %hcape_local_crest = %hcape_cs_if_crest;
+}
+switch_int (%hcape_local_tier) {
+    case 0 :
+        if_setmodel(hcape_city_capes_male_t1, hcape_interface:cape_model);
+    case 1 :
+        if_setmodel(hcape_city_capes_male_t2, hcape_interface:cape_model);
+    case 2 :
+        if_setmodel(hcape_city_capes_male_t3, hcape_interface:cape_model);
+    case 3 :
+        if_setmodel(hcape_city_capes_male_t4, hcape_interface:cape_model);
+    case 4 :
+        if_setmodel(hcape_city_capes_male_t5, hcape_interface:cape_model);
+}
+switch_int (%hcape_p_city) {
+    case 1 :
+        if_setretex(2, aif_herald_symbol_bear, aif_herald_symbol_owl, hcape_interface:cape_model);
+    case 2 :
+        if_setretex(2, aif_herald_symbol_bear, aif_herald_symbol_bear, hcape_interface:cape_model);
+    case 3 :
+        if_setretex(2, aif_herald_symbol_bear, aif_herald_symbol_lion, hcape_interface:cape_model);
+}
+def_struct $struct1 = enum(int, struct, hcape_enum_crest_id_to_struct, %hcape_local_crest);
+if ($struct1 = null) {
+    if_setretex(1, aif_herald_crest_01, aif_herald_crest_00, hcape_interface:cape_model);
+} else {
+    if_setretex(1, aif_herald_crest_01, struct_param($struct1, hcape_crest_texture), hcape_interface:cape_model);
+}
+if_setrecol(0, 41506, %hcape_local_hsl_back, hcape_interface:cape_model);
+if_setrecol(1, 41497, ~script5183(%hcape_local_hsl_back, 0, 0, -9), hcape_interface:cape_model);
+if_setrecol(2, 13434, %hcape_local_hsl_icon, hcape_interface:cape_model);
+if_setrecol(3, 7102, %hcape_local_hsl_trim, hcape_interface:cape_model);

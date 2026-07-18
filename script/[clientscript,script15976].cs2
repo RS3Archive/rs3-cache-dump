@@ -1,0 +1,19 @@
+// 15976
+[clientscript,script15976](component $component0, int $int1, int $int2)
+def_int $int3 = calc($int2 - $int1);
+def_int $int4 = calc(clientclock - $int1);
+def_int $int5 = 0;
+def_component $component6 = toplevel_v2_extra_action_button:white_flash_rec;
+def_graphic $graphic7 = null;
+if ($int4 >= $int3) {
+    $graphic7 = "combatv2_cooldown_animation,138";
+    if_setontimer(null, $component0);
+    if_sethide(true, $component0);
+    if_setfill(true, $component6);
+    if_setontimer("combatv2_cooldown_flash_dynamic($component6, -1, 1, clientclock)", $component6);
+} else {
+    $int5 = ~clamp(scale($int4, $int3, 138), 138, 0);
+    $graphic7 = ~script7988($int5);
+}
+if_setgraphic($graphic7, $component0);
+if_setontimer("script15976($component0, $int1, $int2)", $component0);

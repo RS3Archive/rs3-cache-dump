@@ -1,0 +1,31 @@
+// 13059
+[proc,script13059](component $component0, component $component1, component $component2)
+cc_deleteall($component0);
+if (enum(int, stat, int_to_stat, %xp_reward_currentchoice) = null & enum(int, stat, int_to_stat, %xp_reward_secondchoice) = null) {
+    if_sethide(false, $component1);
+    ~xp_reward_textbox("Choose a skill...", $component2, 50);
+    return;
+}
+if (enum(int, stat, int_to_stat, %xp_reward_secondchoice) = null) {
+    if_sethide(false, $component1);
+    ~xp_reward_textbox("Choose a second skill...", $component2, 50);
+    return;
+} else if (enum(int, stat, int_to_stat, %xp_reward_currentchoice) = null) {
+    if_sethide(false, $component1);
+    ~xp_reward_textbox("Choose a second skill...", $component2, 50);
+    return;
+}
+if_sethide(true, $component1);
+def_int $int3 = 0;
+while ($int3 < %xp_reward_currentchoice) {
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_sethide(true);
+    $int3 = calc($int3 + 1);
+}
+cc_create($component0, ^iftype_rectangle, $int3);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settrans(255);
+cc_setpausetext("Confirm: <enum(int, string, statstring, %xp_reward_currentchoice)> & <enum(int, string, statstring, %xp_reward_secondchoice)>");
+def_string $string0 = ~script13050(enum(int, stat, int_to_stat, %xp_reward_currentchoice), enum(int, stat, int_to_stat, %xp_reward_secondchoice));
+~xp_reward_textbox($string0, $component2, 50);

@@ -1,0 +1,68 @@
+// 11602
+[clientscript,script11602](component $component0, component $component1)
+def_int $int2 = 0;
+def_obj $obj3 = null;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_long $long0 = -1;
+def_int $int6 = 5;
+def_int $int7 = 0;
+def_int $int8 = if_getwidth($component0);
+def_string $string0 = "";
+cc_deleteall($component0);
+cc_deleteall($component1);
+$obj3, $int4, $int5, $long0 = ~script11603($int2);
+while ($obj3 ! null) {
+    ~script10410($component0, $component1, rs3tli_content_container, 0, $int7, $int8, 39, $int2, false, "");
+    if (cc_find($component1, $int2) = true) {
+        cc_setopbase("<~script4033($obj3)><~script18300($obj3)>");
+        cc_setop(1, "Detailed repeat");
+        cc_setop(2, "Immediate repeat");
+    }
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(45, 39, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setmaxlines(1);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    switch_int ($int4) {
+        case 0 :
+            cc_settext("Bought");
+        case 1 :
+            cc_settext("Sold");
+    }
+    ~script2731($component0, cc_getid, 3);
+    $int6 = calc($int6 + 45);
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(225, 39, ^setsize_minus, ^setsize_abs);
+    cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setmaxlines(2);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(~script18300($obj3));
+    ~script2731($component0, cc_getid, 3);
+    $int6 = calc($int8 - (125 + 50));
+    cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int6 + 3), calc($int7 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject_alwaysnum($obj3, $int5);
+    cc_setonmouserepeat("script9564($obj3, event_com, event_comsubid)");
+    $int6 = calc($int6 + 50);
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(125, 39, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int6, calc($int7 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setmaxlines(2);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    $string0 = ~script17372($long0, 9, 1);
+    if ($int5 > 1) {
+        $string0 = "<$string0><br><~script17372(calc($long0 / int_to_long($int5)), 9, 1)> each";
+    }
+    cc_settext($string0);
+    ~script2731($component0, cc_getid, 3);
+    $int6 = 5;
+    $int7 = calc($int7 + (39 + 5));
+    $obj3, $int4, $int5, $long0 = ~script11603(++$int2);
+}
+if_setscrollsize($int8, max(if_getheight(exchange_history_v2:list_layer), $int7), exchange_history_v2:list_layer);
+~rs3_scrollbar_vertical(exchange_history_v2:scrollbar_layer, exchange_history_v2:list_layer);

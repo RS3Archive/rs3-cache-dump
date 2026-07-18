@@ -1,0 +1,59 @@
+// 10873
+[proc,makex2012_get_item_xp](obj $obj0, int $int1, int $int2, int $int3)(int)
+switch_obj ($obj0) {
+    case trh43_protean_leather_recipe, trh43_protean_hard_leather_recipe, trh43_protean_snakehide_recipe, trh43_protean_dragonhide_recipe :
+        return(calc($int2 * %makex2012_xp_override));
+    case trh_protean_lesser_leather_recipe, trh_protean_lesser_hard_leather_recipe, trh_protean_lesser_snakehide_recipe, trh_protean_lesser_dragonhide_recipe :
+        return(calc($int2 * %makex2012_xp_override + scale(calc($int2 * %makex2012_xp_override), 100, 10)));
+    case trh52_protean_logs_recipe_fletch :
+        return(~script11154(0, 0));
+    case trh52_protean_logs_recipe_fletch_firemake :
+        if ($int3 = 1) {
+            return(~script11154(1, 0));
+        } else {
+            return(~script11153(0));
+        }
+    case trh_protean_lesser_logs_recipe_fletch :
+        return(~script11154(0, 1));
+    case trh_protean_lesser_logs_recipe_fletch_firemake :
+        if ($int3 = 1) {
+            return(~script11154(1, 1));
+        } else {
+            return(~script11153(1));
+        }
+    case trh126_protean_cog_level1_recipe, trh126_protean_cog_level21_recipe, trh126_protean_cog_level41_recipe, trh126_protean_cog_level61_recipe, trh126_protean_cog_level81_recipe, trh126_protean_cog_level101_recipe :
+        return(~script13556);
+    case trh126_farming_recipe :
+        return(~script13557);
+    case trh126_invention_recipe :
+        return(~script13558);
+    case trh126_farming_invention_recipe :
+        if ($int3 = 1) {
+            return(~script13559);
+        } else {
+            return(~script13560);
+        }
+    case trh126_protean_cog_recipe :
+        return(~script13561);
+    case dinarrow_bik, dinarrow_ful, dinarrow_jas_demonbane, dinarrow_jas_dragonbane, dinarrow_wen :
+        return(~script17422($obj0, $int1));
+}
+switch_category (oc_category($obj0)) {
+    case arch_screening_dummy :
+        return(~script14692($obj0));
+    case arch_magic_screening_dummy :
+        if ($int3 = 1) {
+            return(~script14692($obj0));
+        } else {
+            return($int1);
+        }
+}
+if (~script10744($obj0) = true & inv_total(inv, trh38_summoning_focus) > 0) {
+    $int1 = scale(12, 10, $int1);
+    return(calc($int2 * $int1));
+}
+if (~script7166($obj0) = true) {
+    return(calc($int2 * $int1 / 10000));
+} else {
+    return(calc($int2 * $int1));
+}

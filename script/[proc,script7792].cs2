@@ -1,0 +1,37 @@
+// 7792
+[proc,script7792](inv $inv0, obj $obj1, int $int2)
+def_component $component3 = null;
+def_int $int4 = -1;
+def_int $int5 = ~script9249($inv0);
+def_int $int6 = $int5;
+if ($inv0 = inv) {
+    $component3 = stockside:inventory_layer;
+} else {
+    $int4 = enum_getreverseindex(inv, int, stockmarket_collectinv, $inv0, 0);
+    if ($int4 ! -1) {
+        $component3 = enum(int, component, stockcollect_box, $int4);
+    }
+}
+if (oc_stackable($obj1) = true) {
+    if (.cc_find($component3, ~script9250($inv0, $obj1)) = true) {
+        .cc_setobject(.cc_getinvobject, calc(.cc_getinvcount + $int2));
+    } else if ($int5 = -1 & .cc_find($component3, ~script9249($inv0)) = true) {
+        .cc_setobject($obj1, $int2);
+    } else if (.cc_find($component3, $int5) = true) {
+        .cc_setobject($obj1, $int2);
+    }
+} else if ($int2 = 1) {
+    if ($int5 = -1 & .cc_find($component3, ~script9249($inv0)) = true) {
+        .cc_setobject($obj1, $int2);
+    } else if (.cc_find($component3, $int5) = true) {
+        .cc_setobject($obj1, $int2);
+    }
+} else {
+    $int6 = ~script9249($inv0);
+    while ($int6 ! -1 & $int2 > 0) {
+        if (.cc_find($component3, $int6) = true) {
+            .cc_setobject($obj1, 1);
+        }
+        $int6 = ~script9251($inv0, null, calc($int6 + 1));
+    }
+}

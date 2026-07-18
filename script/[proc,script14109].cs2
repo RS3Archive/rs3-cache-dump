@@ -1,0 +1,29 @@
+// 14109
+[proc,script14109](int $int0, int $int1, int $int2, struct $struct3)(int, int)
+def_struct $struct4 = ~script9952(rs3tli_ring_button);
+def_struct $struct5 = struct_param($struct4, rs3tli_button_struct_on);
+def_struct $struct6 = struct_param($struct4, rs3tli_button_struct_over);
+def_int $int7 = struct_param($struct5, rs3tli_button_graphic_width);
+$int1 = calc($int1 - 1);
+def_int $int8 = calc($int7 * $int1);
+cc_create(toolbelt_v2:categories, ^iftype_graphic, if_getnextsubid(toolbelt_v2:categories));
+cc_setposition(calc($int0 * $int7 - $int8 / 2), 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(struct_param($struct5, rs3tli_button_graphic_width), struct_param($struct5, rs3tli_button_graphic_height), ^setsize_abs, ^setsize_abs);
+.cc_create(toolbelt_v2:categories, ^iftype_graphic, if_getnextsubid(toolbelt_v2:categories));
+.cc_setposition(calc($int0 * $int7 - $int8 / 2), 0, ^setpos_abs_centre, ^setpos_abs_centre);
+.cc_setsize(struct_param($struct3, toolbelt_category_icon_width), struct_param($struct3, toolbelt_category_icon_height), ^setsize_abs, ^setsize_abs);
+~toolbelt_button_off(toolbelt_v2:categories, cc_getid, .cc_getid, $struct3, $struct5);
+cc_setonmouseover("toolbelt_button_mouseover(toolbelt_v2:categories, cc_getid, .cc_getid, $struct3, $struct6)");
+cc_setonmouseleave("toolbelt_button_mouseleave(toolbelt_v2:categories, cc_getid, .cc_getid, $struct3, $struct5)");
+cc_setonmouserepeat("script8799(struct_param($struct3, toolbelt_category_name), event_com, event_comsubid)");
+cc_setonvartransmit("toolbelt_button_update(toolbelt_v2:categories, cc_getid, .cc_getid, $struct3){toplevel_v2_skins_varp}");
+cc_setop(1, "Show <struct_param($struct3, toolbelt_category_name)>");
+cc_setonop("toolbelt_button_onop($int2)");
+$int2 = calc($int2 + 14);
+cc_create(toolbelt_v2:toolbelt_build_layer, ^iftype_text, if_getnextsubid(toolbelt_v2:toolbelt_build_layer));
+cc_setposition(5, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(500, 30, ^setsize_abs, ^setsize_abs);
+cc_settextfont(museo_sans_13pt_regular);
+cc_settextshadow(true);
+~script11024(1);
+return($int2, cc_getid);

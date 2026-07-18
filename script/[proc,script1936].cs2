@@ -1,0 +1,20 @@
+// 1936
+[proc,script1936](int $int0)
+if ($int0 >= 0) {
+    if_setontimer("script1935(calc($int0 - 1))", qps:info_panel_close);
+    return;
+} else {
+    if (if_getwidth(qps:info_panel) > 1) {
+        if_setsize(1, 0, ^setsize_abs, ^setsize_minus, qps:info_panel);
+    }
+    if_setontimer(null, qps:info_panel_close);
+    if_sethide(true, qps:info_panel);
+    cc_deleteall(qps:info_panel_build);
+    cc_deleteall(qps:info_panel_click);
+    if (%qps_shop_last_tab = 1) {
+        if_setsize(calc(84 + 180 * 6), 0, ^setsize_abs, ^setsize_minus, qps:tab2_track_layer_build);
+        if_setsize(calc(84 + 180 * 6), 0, ^setsize_abs, ^setsize_minus, qps:tab2_track_layer_click);
+        if_setscrollsize(calc(84 + 180 * 6), 0, qps:tab2_track_layer);
+        ~scrollbar_resize_horizontal(qps:tab2_track_scrollbar, qps:tab2_track_layer, if_getscrollx(qps:tab2_track_layer));
+    }
+}

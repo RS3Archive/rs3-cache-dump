@@ -1,0 +1,37 @@
+// 16262
+[clientscript,script16262](dbrow $dbrow0)
+def_component $component1 = teleport_list:button_layer;
+def_component $component2 = teleport_list:category_title_layer;
+def_component $component3 = teleport_list:category_obj_layer;
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int4 = db_getfieldcount($dbrow0, teleport_list:col0);
+def_int $int5 = -1;
+def_dbrow $dbrow6 = null;
+def_obj $obj7 = null;
+def_int $int8 = 10;
+def_int $int9 = 5;
+while (++$int5 < $int4) {
+    $dbrow6 = db_getfield($dbrow0, teleport_list:col0, $int5);
+    if ($dbrow6 ! null) {
+        $obj7 = db_getfield($dbrow6, teleport_list_category:col1, 0);
+        if ($int4 > 1) {
+            if ($int5 > 0) {
+                $int9 = calc($int9 + 30);
+            }
+            if ($obj7 ! null) {
+                ~cc_add_obj_full($component3, $int5, $int8, $int9, ^setpos_abs_left, ^setpos_abs_top, 36, 32, ^setsize_abs, ^setsize_abs, $obj7, 1, 1, 0);
+                $int8 = calc($int8 + (36 + 2));
+            }
+            ~cc_add_text($component2, $int5, $int8, $int9, ^setpos_abs_left, ^setpos_abs_top, 0, 25, ^setsize_minus, ^setsize_abs, text_label_button, db_getfield($dbrow6, teleport_list_category:col0, 0));
+            $int9 = calc($int9 + 25);
+            $int8 = 10;
+        }
+        $int9 = ~script16263($dbrow6, $component1, $int9);
+    }
+}
+~script8841(109, 1);
+if_setscrollsize(0, calc($int9 + 29), $component1);
+if_setscrollpos(0, 0, $component1);
+~rs3_scrollbar_vertical(teleport_list:scrollbar_layer, $component1);

@@ -1,0 +1,56 @@
+// 6316
+[proc,script6316](int $int0, int $int1)(boolean)
+if ($int0 < 2 | $int0 > 15) {
+    return(false);
+}
+def_int $int2 = calc(~bank_get_tab_size($int0) + $int1);
+if ($int2 < 0) {
+    $int2 = 0;
+    ~error("BANK V2 : Attempt to shrink tab <tostring($int0)> to negative value.");
+}
+switch_int ($int0) {
+    case 2 :
+        %bank_tab2 = $int2;
+    case 3 :
+        %bank_tab3 = $int2;
+    case 4 :
+        %bank_tab4 = $int2;
+    case 5 :
+        %bank_tab5 = $int2;
+    case 6 :
+        %bank_tab6 = $int2;
+    case 7 :
+        %bank_tab7 = $int2;
+    case 8 :
+        %bank_tab8 = $int2;
+    case 9 :
+        %bank_tab9 = $int2;
+    case 10 :
+        %bank_tab10 = $int2;
+    case 11 :
+        %bank_tab11 = $int2;
+    case 12 :
+        %bank_tab12 = $int2;
+    case 13 :
+        %bank_tab13 = $int2;
+    case 14 :
+        %bank_tab14 = $int2;
+    case 15 :
+        %bank_tab15 = $int2;
+    case default :
+        ~error("Unhandled tab: <tostring($int0)>");
+        return(false);
+}
+if ($int2 > 0) {
+    return(false);
+}
+~bank_collapse_tab($int0);
+~script6749(~script14374($int0), $int0);
+if (%bank_current_tab > 1) {
+    if (%bank_current_tab = $int0) {
+        %bank_current_tab = 1;
+    } else if (%bank_current_tab > $int0) {
+        %bank_current_tab = calc(%bank_current_tab - 1);
+    }
+}
+return(true);

@@ -1,0 +1,31 @@
+// 5633
+[proc,script5633](int $int0)(int)
+if (~is_mobile_client = true) {
+    switch_int ($int0) {
+        case -1 :
+            return(%audio_options_mobile_global_mute_server);
+        case 0 :
+            return(%audio_options_mobile_music_mute_server);
+        case 1 :
+            return(%audio_options_mobile_soundfx_mute_server);
+        case 2 :
+            return(%audio_options_mobile_bgsound_mute_server);
+        case 3 :
+            return(%audio_options_mobile_speech_mute_server);
+    }
+}
+switch_int ($int0) {
+    case -1 :
+        return(%audio_options_global_mute_server);
+    case 0 :
+        return(%audio_options_music_mute_server);
+    case 1 :
+        return(%audio_options_soundfx_mute_server);
+    case 2 :
+        return(%audio_options_bgsound_mute_server);
+    case 3 :
+        return(%audio_options_speech_mute_server);
+    case default :
+        ~error("Attempting to get invalid music option mode: <tostring($int0)>");
+        return(0);
+}

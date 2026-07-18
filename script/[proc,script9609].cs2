@@ -1,0 +1,31 @@
+// 9609
+[proc,script9609](obj $obj0)
+def_boolean $boolean1 = true;
+def_boolean $boolean2 = true;
+def_string $string0 = "-";
+def_string $string1 = "-";
+def_obj $obj3 = null;
+def_obj $obj4 = null;
+def_string $string2 = "-";
+def_string $string3 = "-";
+if ($obj0 ! null) {
+    $obj3 = oc_param($obj0, patchy_item_1);
+    $obj4 = oc_param($obj0, patchy_item_2);
+    $string0 = oc_name($obj3);
+    $string1 = oc_name($obj4);
+    $string2 = tostring_localised(oc_param($obj0, patchy_cost), true);
+    $string3 = tostring_localised(oc_param($obj0, patchy_cost_separate), true);
+    if (inv_total(inv, $obj3) > 0 & inv_total(inv, $obj4) > 0) {
+        $boolean1 = false;
+    }
+    if (inv_total(inv, $obj0) > 0) {
+        $boolean2 = false;
+    }
+}
+if_settext($string0, patchy_interface:item_1);
+if_settext($string1, patchy_interface:item_2);
+if_settext($string2, patchy_interface:cost_1);
+if_settext($string3, patchy_interface:cost_2);
+~script13971(patchy_interface:create_button, null, rs3tli_positive_button, "Create", $boolean1);
+~script13971(patchy_interface:separate_button, null, rs3tli_positive_button, "Separate", $boolean2);
+if_setontimer(null, patchy_interface:item_list);

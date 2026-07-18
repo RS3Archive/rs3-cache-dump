@@ -1,0 +1,55 @@
+// 14794
+[clientscript,arch_site_map_onload](dbrow $dbrow0)
+def_int $int1 = enum_getoutputcount(arch_site_map_list);
+def_dbrow $dbrow2 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_struct $struct3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = -1;
+while (++$int6 < $int1) {
+    $dbrow2 = enum(int, dbrow, arch_site_map_list, $int6);
+    if ($dbrow2 ! null) {
+        $string0 = db_getfield($dbrow2, arch_site:col2, 0);
+        $string1 = "Requires level <tostring(db_getfield($dbrow2, arch_site:col6, 0))> Archaeology.";
+        $int4, $int5 = ~script14800($dbrow2);
+        if ($int4 ! -1 & $int5 ! -1) {
+            if (map_members = false & db_getfield($dbrow2, arch_site:col4, 0) = true) {
+                $struct3 = rs3tli_members_upsell;
+                if (playermember = false) {
+                    $string1 = "Members' only dig site.<br>Select to subscribe.";
+                } else {
+                    $string1 = "This dig site is unavailable on free worlds.";
+                }
+            } else {
+                $struct3 = db_getfield($dbrow2, arch_site:col9, 0);
+                $string1 = "<$string1><br>Keyboard Shortcut : <~script14802($dbrow2)>";
+            }
+            ~script11624(arch_site_map:icon_build_layer, arch_site_map:icon_control_layer, $struct3, $int4, $int5, $int6, 1);
+            if (cc_find(arch_site_map:icon_control_layer, $int6) = true) {
+                cc_setopbase(db_getfield($dbrow2, arch_site:col2, 0));
+                cc_setop(1, "Info");
+                cc_setop(2, "Fast travel");
+                cc_setopcursor(1, cursor_info);
+                cc_setonop("script14795($dbrow2, event_op)");
+                cc_setonmouserepeat("script14732($string0, $string1, event_com, event_comsubid)");
+            }
+            if ($dbrow2 = $dbrow0) {
+                if_setposition(calc($int4 - 90), calc($int5 + 10), ^setpos_abs_left, ^setpos_abs_top, arch_site_map:current_location_layer);
+            }
+        } else {
+            cc_create(arch_site_map:icon_control_layer, ^iftype_text, $int6);
+        }
+    }
+}
+$string0 = "Archaeology Guild";
+$string1 = "";
+if (if_find(arch_site_map:guild_icon_graphic) = true) {
+    ~script14741($string0, $string1);
+    if ($dbrow2 = null) {
+        if_setposition(calc(cc_getx - 90), calc(cc_gety + 4), ^setpos_abs_left, ^setpos_abs_top, arch_site_map:current_location_layer);
+    }
+}
+~script8841(91, 1);
+sound_vorbis_volume(take_paper, 1, 0, 140);

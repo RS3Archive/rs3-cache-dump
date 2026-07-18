@@ -1,0 +1,79 @@
+// 13609
+[clientscript,cheevo_draw_cheevo](int $int0, graphic $graphic1, int $int2, int $int3, int $int4, string $string0, string $string1)
+def_int $int5 = calc($int3 * (60 + 2));
+def_int $int6 = ~script10495(5);
+def_int $int7 = ~script10495(5);
+switch_int ($int2) {
+    case -2 :
+        $int7 = 16777215;
+        $int6 = ~script10495(0);
+        %cheevo_pi_completed_cheevos_inspected = calc(%cheevo_pi_completed_cheevos_inspected + 1);
+    case -1 :
+        $int7 = ~script10495(6);
+        $int6 = ~script10495(6);
+}
+%cheevo_pi_total_cheevos_inspected = calc(%cheevo_pi_total_cheevos_inspected + 1);
+if_settext("<tostring_localised(%cheevo_pi_completed_cheevos_inspected, true)>/<tostring_localised(%cheevo_pi_total_cheevos_inspected, true)>", cheevo_player_inspect_full:inspector_totals);
+def_int $int8 = 60;
+def_int $int9 = 28;
+def_int $int10 = 2;
+def_component $component11 = cheevo_player_inspect_full:inspectors_cheevos;
+cc_create($component11, ^iftype_rectangle, if_getnextsubid($component11));
+cc_setsize(0, $int8, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setfill(true);
+cc_setcolour(~script10495(12));
+cc_create($component11, ^iftype_text, if_getnextsubid($component11));
+cc_setposition(calc($int9 + 5), $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int9 + 30), 15, ^setsize_minus, ^setsize_abs);
+cc_settext($string0);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextfont(cinzel_12pt_bold);
+cc_setcolour($int6);
+cc_create($component11, ^iftype_text, if_getnextsubid($component11));
+cc_setposition(calc($int9 + 5), calc($int5 + 15), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int9 + 34), calc($int8 - 15), ^setsize_minus, ^setsize_abs);
+cc_setcolour($int7);
+cc_settext($string1);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settextfont(museo_sans_11pt_regular);
+~script13610($component11, $int5, $graphic1, $int2);
+def_int $int12 = 15;
+def_int $int13 = calc($int10 + ($int9 - $int12));
+if ($int4 ! 0) {
+    cc_create($component11, ^iftype_rectangle, if_getnextsubid($component11));
+    cc_setposition($int13, calc($int5 + $int13), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(^black);
+    cc_settrans(196);
+    cc_setfill(true);
+    cc_create($component11, ^iftype_text, if_getnextsubid($component11));
+    cc_setposition($int13, calc($int5 + $int13), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(^white);
+    cc_settext(tostring_localised($int4, true));
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settextfont(museo_sans_11pt_regular);
+}
+$int2 = ~cheevo_obtain_progress(enum(int, struct, cheevo_id_to_struct, $int0));
+%cheevo_pi_total_cheevos_inspector = calc(%cheevo_pi_total_cheevos_inspector + 1);
+switch_int ($int2) {
+    case -2 :
+        $int7 = ~script10495(5);
+        $int6 = ~script10495(5);
+        %cheevo_pi_completed_cheevos_inspector = calc(%cheevo_pi_completed_cheevos_inspector + 1);
+    case -1 :
+        $int7 = ~script10495(6);
+        $int6 = ~script10495(6);
+    case default :
+        $int6 = ~script10495(0);
+        $int7 = 16777215;
+}
+$component11 = cheevo_player_inspect_full:player_cheevos;
+~script13610($component11, $int5, $graphic1, $int2);
+if_settext("<tostring_localised(%cheevo_pi_completed_cheevos_inspector, true)>/<tostring_localised(%cheevo_pi_total_cheevos_inspector, true)>", cheevo_player_inspect_full:you_totals);
+~script13611;

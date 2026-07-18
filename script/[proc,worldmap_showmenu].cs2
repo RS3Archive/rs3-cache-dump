@@ -1,0 +1,73 @@
+// 291
+[proc,worldmap_showmenu](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_settext(worldmap_getmapname(worldmap_getcurrentmap), worldmap_v2_ui:mapname);
+cc_deleteall($component2);
+cc_deleteall($component3);
+if ($int0 = 0) {
+    if_sethide(true, $component1);
+    if_setgraphic("scrollbar_v2,0", worldmap_v2_ui:map_menu_arrow);
+    if_setonclick("worldmap_showmenu(1, $component1, $component2, $component3, $component4, $component5)", worldmap_v2_ui:map_menu_button_section);
+    return;
+}
+if_sethide(false, $component1);
+if_setgraphic("scrollbar_v2,1", worldmap_v2_ui:map_menu_arrow);
+if_setonclick("worldmap_showmenu(0, $component1, $component2, $component3, $component4, $component5)", worldmap_v2_ui:map_menu_button_section);
+def_int $int6 = enum_getoutputcount(worldmap_maps);
+def_int $intarray0(calc($int6 + 1));
+$intarray0(0) = 0;
+def_int $int7 = 1;
+def_int $int8 = 1;
+def_wma $wma9 = null;
+def_int $int10 = max(20, ~script10082);
+while ($int7 <= $int6) {
+    $wma9 = enum(int, wma, worldmap_maps, $int7);
+    if ($wma9 ! null) {
+        $intarray0($int8) = $int7;
+        $int8 = calc($int8 + 1);
+    }
+    $int7 = calc($int7 + 1);
+}
+~worldmap_quicksort_menu(intarray0, 1, calc($int8 - 1));
+cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(0, $int10, ^setsize_minus, ^setsize_abs);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(~script10495(3));
+cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(4))");
+cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(3))");
+$wma9 = enum(int, wma, worldmap_maps, $intarray0(0));
+cc_settext(worldmap_getmapname($wma9));
+cc_setop(1, "Select");
+cc_setonop("worldmap_choosemap($wma9, $component1, $component2, $component3, $component4, $component5)");
+~script309($wma9, $component2, 0);
+def_int $int11 = cc_getheight;
+def_int $int12 = 0;
+$int7 = 1;
+while ($int7 < $int8) {
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setposition(0, $int11, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setsize(0, $int10, ^setsize_minus, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(~script10495(3));
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(4))");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(3))");
+    $wma9 = enum(int, wma, worldmap_maps, $intarray0($int7));
+    cc_settext(worldmap_getmapname($wma9));
+    cc_setop(1, "Select");
+    cc_setonop("worldmap_choosemap($wma9, $component1, $component2, $component3, $component4, $component5)");
+    if ($wma9 = worldmap_getcurrentmap) {
+        $int12 = $int11;
+    }
+    ~script309($wma9, $component2, $int11);
+    $int11 = calc($int11 + cc_getheight);
+    $int7 = calc($int7 + 1);
+}
+if_setscrollsize(0, $int11, $component2);
+$int11 = max($int11, $int10);
+$int11 = calc($int11 + 3);
+$int11 = min($int11, 150);
+if_setsize(if_getwidth($component1), $int11, ^setsize_abs, ^setsize_abs, $component1);
+~rs3_scrollbar_vertical($component3, $component2);
+~scrollbar_ondrag_doscroll($component3, $component2, $int12, 1);

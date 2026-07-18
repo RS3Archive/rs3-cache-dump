@@ -1,0 +1,28 @@
+// 19929
+[proc,script19929](int $int0)(string)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int4, $int3, $int1 = date_runeday_todate($int0);
+$int3 = calc($int3 + 1);
+if (calc($int1 % 4) = 0) {
+    $int2 = 1;
+}
+if ($int1 < 2100) {
+    $int5 = 6;
+    $int1 = calc($int1 - 2000);
+} else if ($int1 < 2200) {
+    $int5 = 4;
+    $int1 = calc($int1 - 2100);
+}
+$int5 = calc($int5 + $int1);
+$int1 = calc($int1 / 4);
+$int5 = calc($int5 + $int1);
+if (($int3 = 1 | $int3 = 2) & $int2 = 1) {
+    $int3 = calc($int3 + 12);
+}
+$int5 = calc($int5 + enum(int, int, runeday_week_months, $int3));
+$int5 = calc($int5 + $int4);
+return(enum(int, string, runeday_week_days, calc($int5 % 7)));

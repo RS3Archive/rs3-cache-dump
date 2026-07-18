@@ -1,0 +1,49 @@
+// 9374
+[proc,script9374]
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+if (%clan_noticeboard_broadcast_date = 1) {
+    $string0 = "<if_gettext(clan_noticeboard_broadcast:date_text)>. ";
+}
+if (%clan_noticeboard_broadcast_reltime = 1) {
+    $string0 = "<$string0><if_gettext(clan_noticeboard_broadcast:reltime_text)>until event starts. ";
+}
+if (%clan_noticeboard_broadcast_gametime = 1) {
+    $string0 = "<$string0><if_gettext(clan_noticeboard_broadcast:gametime_text)> Game Time. ";
+}
+if (%clan_noticeboard_broadcast_world = 1) {
+    $string1 = "<$string1>World <if_gettext(clan_noticeboard_broadcast:world_text)> ";
+}
+if (%clan_noticeboard_broadcast_place = 1) {
+    $string1 = "<$string1>- <if_gettext(clan_noticeboard_broadcast:place_text)>. ";
+}
+if (%clan_noticeboard_broadcast_type = 1) {
+    $string2 = "<$string2><if_gettext(clan_noticeboard_broadcast:type_text)>. ";
+}
+if (%clan_noticeboard_broadcast_subtype = 1) {
+    $string2 = "<$string2><if_gettext(clan_noticeboard_broadcast:subtype_text)>. ";
+}
+if (%clan_noticeboard_broadcast_attendees = 1) {
+    $string3 = "<$string3>Open to <if_gettext(clan_noticeboard_broadcast:attendees_text)>. ";
+}
+if (%clan_noticeboard_broadcast_mandatory = 1) {
+    $string3 = "<$string3><if_gettext(clan_noticeboard_broadcast:mandatory_text)> ";
+}
+if (%clan_noticeboard_broadcast_moreinfo = 1) {
+    $string3 = "<$string3><if_gettext(clan_noticeboard_broadcast:moreinfo_text)>";
+}
+if_settext("<$string0><br><$string1><br><$string2><br><$string3>", clan_noticeboard_broadcast:broadcast_text);
+if_settext("<$string0><br><$string1><br><$string2><br><$string3>", clan_noticeboard_broadcast:phrase);
+if (calc(11 + 11 * paraheight("<$string0><br><$string1><br><$string2><br><$string3>", calc(if_getwidth(clan_noticeboard_broadcast:phrase_text_layer) - 20), museo_sans_11pt_regular_multiline)) > if_getheight(clan_noticeboard_broadcast:phrase_text_layer)) {
+    if_setsize(20, 10, ^setsize_minus, ^setsize_minus, clan_noticeboard_broadcast:phrase_text_layer);
+    if_setscrollsize(0, calc(51 + 11 * paraheight("<$string0><br><$string1><br><$string2><br><$string3>", calc(if_getwidth(clan_noticeboard_broadcast:phrase_text_layer) - 20), museo_sans_11pt_regular_multiline)), clan_noticeboard_broadcast:phrase_text_layer);
+    if_sethide(false, clan_noticeboard_broadcast:phrase_scrollbar);
+    cc_deleteall(clan_noticeboard_broadcast:phrase_scrollbar);
+    ~rs3_scrollbar_vertical(clan_noticeboard_broadcast:phrase_scrollbar, clan_noticeboard_broadcast:phrase_text_layer);
+} else {
+    if_setsize(10, 10, ^setsize_minus, ^setsize_minus, clan_noticeboard_broadcast:phrase_text_layer);
+    if_setscrollsize(0, 0, clan_noticeboard_broadcast:phrase_text_layer);
+    if_sethide(true, clan_noticeboard_broadcast:phrase_scrollbar);
+}

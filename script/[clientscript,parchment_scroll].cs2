@@ -1,0 +1,22 @@
+// 6943
+[clientscript,parchment_scroll](component $component0, component $component1)
+def_component $component2 = if_getlayer($component0);
+def_int $int3 = calc(paraheight(%parchment_text, if_getwidth($component2), if_getfontmetrics($component0)) * %parchment_vspace + %parchment_vpadding);
+if ($int3 <= if_getheight($component2)) {
+    cc_deleteall($component1);
+    if_sethide(true, $component1);
+    if_setscrollsize(0, 0, $component2);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component0);
+    if_settextalign(%parchment_halign, ^settextalign_centre, %parchment_vspace, $component0);
+} else {
+    cc_deleteall($component1);
+    if_sethide(false, $component1);
+    if_setscrollsize(0, $int3, $component2);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component2);
+    if_setsize(0, $int3, ^setsize_minus, ^setsize_abs, $component0);
+    if_settextalign(%parchment_halign, ^settextalign_top, %parchment_vspace, $component0);
+    ~rs3_scrollbar_vertical($component1, $component2);
+}
+if_setscrollpos(0, 0, $component2);
+if_settext(%parchment_text, $component0);

@@ -1,0 +1,41 @@
+// 2879
+[proc,script2879](component $component0, int $int1, int $int2, int $int3)(int)
+def_string $string0 = "Remove from Playlist";
+if (cc_find($component0, $int1) = true & .cc_find($component0, calc($int1 + 100)) = true) {
+    if ($int2 = 32767) {
+        cc_sethide(true);
+        .cc_sethide(true);
+        return($int3);
+    }
+    cc_setposition(15, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    if (%currentsong_id = $int2 & %playlist_mode = 1) {
+        cc_setcolour(0xffff66);
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 16777062)");
+    } else {
+        cc_setcolour(^cyan);
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 65535)");
+    }
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 16777215)");
+    cc_settext(enum_string(music_id_to_display_name, $int2));
+    cc_setsize(150, 15, ^setsize_abs, ^setsize_abs);
+    cc_setop(1, "Play");
+    cc_setop(2, "Remove");
+    ~script1480($component0, $int1, $int2);
+    cc_setonvartransmit("script1462($component0, $int1, $int2){musicloop, musicloop}");
+    cc_setopbase(enum_string(music_id_to_display_name, $int2));
+    .cc_setopbase(enum_string(music_id_to_display_name, $int2));
+    cc_settextshadow(false);
+    cc_settextfont(p11_full);
+    cc_setdraggable($component0, -1);
+    .cc_setdraggable(null, -1);
+    cc_setdragrenderbehaviour(2);
+    .cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(2, calc($int3 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setop(2, "Remove");
+    .cc_setgraphic("music_icons_new,1");
+    .cc_setonmouserepeat("script8799($string0, $component0, event_comsubid)");
+    .cc_setonmouseleave("script8805");
+    .cc_setonclick("script8805");
+}
+return(calc($int3 + 15));

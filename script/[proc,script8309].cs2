@@ -1,0 +1,95 @@
+// 8309
+[proc,script8309](int $int0)(int)
+def_struct $struct1 = ~script10405($int0);
+def_struct $struct2 = ~script8418($struct1, 0);
+def_struct $struct3 = null;
+def_component $component4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = 1;
+def_int $int10 = 0;
+def_int $int11 = 1;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_struct $struct19 = null;
+def_struct $struct20 = null;
+def_struct $struct21 = struct_param($struct1, toplevel_v2_window_size_struct);
+def_component $component22 = struct_param($struct1, toplevel_v2_window_layer);
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = if_getx($component22);
+def_int $int28 = if_gety($component22);
+def_int $int29 = if_getwidth($component22);
+def_int $int30 = if_getheight($component22);
+if (%toplevel_v2_last_window_bar_over ! $int0) {
+    $struct3 = ~script10405(%toplevel_v2_last_window_bar_over);
+    $component4 = struct_param($struct3, toplevel_v2_window_border_layer);
+    if ($component4 ! null) {
+        $int5 = ~script8403($component4);
+        $int6 = ~script8404($component4);
+        if ($int5 > 0 & $int5 < if_getwidth($component4) & $int6 > 0 & $int6 < if_getheight($component4)) {
+            switch_int ($int0) {
+                case 17, 1001, 2000 :
+                case default :
+                    if (~script6213($int0) = true & struct_param($struct3, toplevel_v2_window_is_recycle_bin) = true) {
+                        return(3);
+                    }
+            }
+            if (~script12612($struct3) = true & ~script12612($struct1) = true & (~script20475 = true | %toplevel_v2_edit_mode = true & ~script20518 = 0)) {
+                $int12 = struct_param($struct2, toplevel_v2_window_titled_tab_height);
+                $int14 = 0;
+                $int16 = if_getwidth($component4);
+                if (struct_param($struct2, toplevel_v2_window_titled_tab_mode) = 2) {
+                    $int15 = 0;
+                    $int17 = if_getheight($component4);
+                } else {
+                    $int15 = 0;
+                    $int17 = calc(struct_param($struct2, toplevel_v2_window_titled_top_height) + $int12 + struct_param($struct2, toplevel_v2_window_titled_background_top_height));
+                }
+                if ($int5 >= $int14 & $int5 <= $int16 & $int6 >= $int15 & $int6 <= $int17) {
+                    return(1);
+                }
+            }
+            if (struct_param($struct3, toplevel_v2_window_allow_swap) = true & struct_param($struct1, toplevel_v2_window_allow_swap) = true) {
+                $int14, $int15, $int18, $int18, $int16, $int17, $int7, $int8, $int9, $int10, $int11 = ~script8701(9, $int0);
+                $struct19 = struct_param($struct3, toplevel_v2_window_size_struct);
+                $struct20 = struct_param($struct1, toplevel_v2_window_size_struct);
+                if ($int9 = 1) {
+                    if (~script12612($struct1) = true & ($int7 ! -1 | $int8 ! -1)) {
+                        if ($int7 ! -1) {
+                            $int7, $int8 = ~script8718($int7);
+                        } else if ($int8 ! -1) {
+                            $int7, $int8 = ~script8718($int8);
+                        }
+                        if ($int7 ! $int0 & $int8 ! $int0) {
+                            return(-1);
+                        }
+                    }
+                    if (~script20540($struct19) <= $int16 & ~script20541($struct19) <= $int17 & ~script20540($struct20) <= if_getwidth($component4) & ~script20541($struct20) <= if_getheight($component4)) {
+                        $int23, $int24, $int25, $int26 = ~script8717($int0);
+                        $int27, $int28, $int29, $int30 = ~script8717(%toplevel_v2_last_window_bar_over);
+                        if (($struct21 = null | $int29 >= ~script20540($struct21) & $int30 >= ~script20541($struct21)) & $int25 >= ~script20540($struct19) & $int26 >= ~script20541($struct19) & calc($int29 * $int30) >= struct_param($struct21, toplevel_v2_window_size_min_area) & calc($int25 * $int26) >= struct_param($struct19, toplevel_v2_window_size_min_area)) {
+                            return(2);
+                        } else {
+                            return(-1);
+                        }
+                    } else {
+                        return(-1);
+                    }
+                } else {
+                    return(-1);
+                }
+            }
+        }
+    }
+}
+return(0);

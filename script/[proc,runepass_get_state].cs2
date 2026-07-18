@@ -1,0 +1,15 @@
+// 246
+[proc,runepass_get_state](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(0);
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = db_getfield($dbrow0, runepass_table:col2, 0);
+if (date_runeday <= $int2) {
+    return(1);
+} else if (date_runeday <= db_getfield($dbrow0, runepass_table:col3, 0)) {
+    return(2);
+} else {
+    return(0);
+}

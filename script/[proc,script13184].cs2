@@ -1,0 +1,32 @@
+// 13184
+[proc,script13184]
+if (if_find(mtxmgt_store:ragdolls_layer) = true & calc(cc_param(rs3tli_component_last_update) + 50) > clientclock) {
+    return;
+}
+def_int $int0 = -1;
+def_int $int1 = 0;
+def_int $int2 = -1;
+def_struct $struct3 = null;
+def_component $component4 = null;
+while (++$int2 < 8) {
+    $struct3 = enum(int, struct, mtxmgt_store_grid_ragdoll_structs, $int2);
+    if ($struct3 ! null) {
+        $component4 = struct_param($struct3, toplevel_v2_ragdoll_suboverlay_layer);
+        if ($component4 ! null & if_find($component4) = true) {
+            $int0 = cc_param(mtxmgt_target_preview_subid);
+            if ($int0 ! cc_param(mtxmgt_current_preview_subid) & calc(cc_param(rs3tli_component_last_update) + 250) <= clientclock) {
+                $int1 = 1;
+                ~script18205($int0, calc(2 + $int2));
+            } else if ($int0 = -1) {
+                $int2 = 8;
+            }
+        } else {
+            $int2 = 8;
+        }
+    } else {
+        $int2 = 8;
+    }
+}
+if ($int1 = 1 & if_find(mtxmgt_store:ragdolls_layer) = true) {
+    cc_setparam(rs3tli_component_last_update, clientclock);
+}

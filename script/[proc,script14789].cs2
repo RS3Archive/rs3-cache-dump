@@ -1,0 +1,80 @@
+// 14789
+[proc,script14789](dbrow $dbrow0)(string)
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int1 = db_getfieldcount($dbrow0, arch_excavation:col15);
+def_int $int2 = db_getfieldcount($dbrow0, arch_excavation:col17);
+def_obj $obj3 = null;
+def_dbrow $dbrow4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+while (++$int7 < $int1) {
+    $obj3, $int5 = db_getfield($dbrow0, arch_excavation:col15, $int7);
+    if ($obj3 ! null) {
+        if ($int6 > 0) {
+            $string0 = "<$string0><br>";
+        }
+        $string0 = "<$string0>- <oc_name($obj3)>";
+        $int6 = calc($int6 + 1);
+    }
+}
+$int6 = 0;
+$int7 = -1;
+while (++$int7 < $int2) {
+    $dbrow4, $int5 = db_getfield($dbrow0, arch_excavation:col17, $int7);
+    if ($dbrow4 ! null) {
+        switch_dbtable (db_getrowtable($dbrow4)) {
+            case arch_restoration :
+                $obj3 = db_getfield($dbrow4, arch_restoration:col6, 0);
+            case default :
+                $obj3 = null;
+        }
+        if ($obj3 ! null) {
+            if ($int6 > 0) {
+                $string1 = "<$string1><br>";
+            }
+            $string1 = "<$string1>- <oc_name($obj3)>";
+            $int6 = calc($int6 + 1);
+        }
+    }
+}
+$int6 = 0;
+$int7 = -1;
+def_string $string2 = "";
+def_int $int8 = db_find_with_count(arch_site:col17, $dbrow0);
+def_dbrow $dbrow9 = null;
+while (++$int7 < $int8) {
+    $dbrow9 = db_findnext;
+    if ($dbrow9 ! null) {
+        if ($int6 > 0) {
+            $string2 = "<$string2><br>";
+        }
+        $string2 = "<$string2>- <db_getfield($dbrow9, arch_site:col2, 0)>";
+        $int6 = calc($int6 + 1);
+    }
+}
+def_string $string3 = "";
+switch_int (db_getfield($dbrow0, arch_excavation:col1, 0)) {
+    case 1 :
+        if (string_length($string0) > 0) {
+            $string3 = "<$string3>Materials:<br><$string0>";
+        }
+        if (string_length($string1) > 0) {
+            if (string_length($string3) > 0) {
+                $string3 = "<$string3><br><br>";
+            }
+            $string3 = "<$string3>Artefacts:<br><$string1>";
+        }
+        if (string_length($string2) > 0) {
+            if (string_length($string3) > 0) {
+                $string3 = "<$string3><br><br>";
+            }
+            $string3 = "<$string3>Locations:<br><$string2>";
+        }
+    case 2 :
+        if (string_length($string2) > 0) {
+            $string3 = "<$string3>Material cache locations:<br><$string2>";
+        }
+}
+return($string3);

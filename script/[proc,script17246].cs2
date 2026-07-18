@@ -1,0 +1,18 @@
+// 17246
+[proc,script17246](dbrow $dbrow0)(int, string)
+def_int $int1 = 0;
+def_int $int2 = db_getfieldcount($dbrow0, requirements:col8);
+def_achievement $achievement3 = null;
+def_int $int4 = 0;
+def_string $string0 = "";
+while ($int1 < $int2) {
+    $achievement3 = db_getfield($dbrow0, requirements:col8, $int1);
+    if (achievement_reqstate($achievement3) ! -2) {
+        $int4 = calc($int4 + 1);
+        $string0 = ~script17238($string0, "Complete achievement: <achievement_getname($achievement3)>");
+    } else {
+        $string0 = ~script17238($string0, "<str=FFFFFE>Complete achievement: <achievement_getname($achievement3)>");
+    }
+    $int1 = calc($int1 + 1);
+}
+return($int4, $string0);

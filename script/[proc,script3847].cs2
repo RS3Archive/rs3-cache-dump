@@ -1,0 +1,53 @@
+// 3847
+[proc,script3847](obj $obj0, obj $obj1, obj $obj2, inv $inv3)(boolean)
+def_int $int4 = 2;
+def_int $int5 = 0;
+if ($inv3 = bank) {
+    $int5 = ~bank_freespace;
+} else {
+    $int5 = inv_freespace($inv3);
+}
+def_int $int6 = 0;
+if ($obj0 ! null) {
+    $int6 = inv_total($inv3, $obj0);
+    if (calc(^max_32bit_int - $int6) < inv_total(worn, $obj0)) {
+        return(false);
+    }
+    if (($inv3 = bank & ~script3802($obj0) = false | $inv3 ! bank & oc_stackable($obj0) = true) & $int6 > 0) {
+        $int4 = calc($int4 - 1);
+    }
+} else {
+    $int4 = calc($int4 - 1);
+}
+if ($obj1 ! null) {
+    $int6 = inv_total($inv3, $obj1);
+    if (calc(^max_32bit_int - $int6) < inv_total(worn, $obj1)) {
+        return(false);
+    }
+    if (($inv3 = bank & ~script3802($obj1) = false | $inv3 ! bank & oc_stackable($obj1) = true) & $int6 > 0) {
+        $int4 = calc($int4 - 1);
+    }
+} else {
+    $int4 = calc($int4 - 1);
+}
+if ($int4 > 0) {
+    if ($obj2 ! null) {
+        $int6 = inv_total($inv3, $obj2);
+        if (oc_stackable($obj2) = true) {
+            if (inv_total(worn, $obj2) > 0) {
+                $int4 = calc($int4 - 1);
+            }
+            if (calc(^max_32bit_int - $int6) >= inv_total(worn, $obj2)) {
+                $int5 = calc($int5 + 1);
+            }
+        } else if ($inv3 ! bank | $int6 = 1 | ~script3802($obj2) = true) {
+            $int5 = calc($int5 + 1);
+        }
+    } else {
+        $int4 = calc($int4 - 1);
+    }
+    if ($int4 > $int5) {
+        return(false);
+    }
+}
+return(true);

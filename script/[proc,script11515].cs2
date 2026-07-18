@@ -1,0 +1,62 @@
+// 11515
+[proc,script11515](component $component0, component $component1, int $int2, struct $struct3, int $int4, int $int5, int $int6, int $int7)(int)
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+def_int $int8 = if_getwidth($component0);
+def_int $int9 = calc($int8 / $int5);
+def_int $int10 = calc($int8 % $int5 / 2);
+def_int $int11 = calc($int10 + $int6 + $int5 * ($int2 % $int9));
+def_int $int12 = calc(10 + $int4 * ($int2 / $int9));
+cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+def_int $int13 = if_getnextsubid($component1);
+def_int $int14 = struct_param($struct3, mtxrecol_colour_id);
+if ($int14 = 0) {
+    $int14 = cc_getid;
+}
+def_int $int15 = 0;
+def_struct $struct16 = rs3_icon_holder;
+def_string $string0 = "";
+if ($struct3 ! null & struct_param($struct3, mtxmgt_dummy_recol) = 0) {
+    cc_setop(1, "Select");
+    if ($int14 = %mtxmgt_colour_last_selected) {
+        $int15 = 1;
+        $struct16 = rs3_icon_holder_selected;
+    } else {
+        cc_setonmouserepeat("script11516($component1, $int13, $int14, rs3_icon_holder_over)");
+        cc_setonmouseleave("script11516($component1, $int13, $int14, rs3_icon_holder)");
+    }
+    cc_setonvarctransmit("script11518($component0, cc_getid, $component1, $int13, $int14, $int15, 0){mtxmgt_colour_last_selected}");
+    $int2 = calc($int2 + 1);
+    ~rs3_background_panel_dynamic($component1, $struct16, calc($int11 - 4), calc($int12 - 4), 28, 28, null);
+    $int13 = if_getnextsubid($component1);
+    if (struct_param($struct3, mtxrecol_recolour_is_a_graphic) = 1) {
+        cc_create($component1, ^iftype_graphic, $int13);
+        cc_setgraphic(struct_param($struct3, mtxrecol_recolour_graphic));
+        cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+    } else {
+        cc_create($component1, ^iftype_rectangle, $int13);
+        cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+        cc_setcolour(struct_param($struct3, mtxrecol_recolour_rgb));
+        cc_setfill(true);
+    }
+    $string0 = struct_param($struct3, mtxmgt_recol_name);
+    if (string_length($string0) > 0) {
+        ~script14990(0, $string0);
+    }
+    $int13 = calc($int13 + 1);
+    if ($int7 >= 0) {
+        cc_create($component1, ^iftype_text, $int13);
+        cc_settext(tostring($int7));
+        ~script2731($component1, $int13, 16777215);
+        cc_setposition(calc($int11 - 5), calc($int12 + 25), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(30, 15, ^setsize_abs, ^setsize_abs);
+        cc_settextfont(museo_sans_11pt_regular_multiline);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 12);
+        $int13 = calc($int13 + 1);
+    }
+} else {
+    cc_sethide(true);
+}
+return($int2);

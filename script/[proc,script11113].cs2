@@ -1,0 +1,35 @@
+// 11113
+[proc,script11113](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12)
+if (if_find(easter15_combine_overlay:egg_content_layer) = true) {
+    cc_setparam(easter15_overlay_state, $int12);
+}
+~script11114(1, $int0, $int6, $int12, easter15_combine_overlay:stat_1, easter15_combine_overlay:row_1, easter15_combine_overlay:result_1);
+~script11114(2, $int1, $int7, $int12, easter15_combine_overlay:stat_2, easter15_combine_overlay:row_2, easter15_combine_overlay:result_2);
+~script11114(3, $int2, $int8, $int12, easter15_combine_overlay:stat_3, easter15_combine_overlay:row_3, easter15_combine_overlay:result_3);
+~script11114(4, $int3, $int9, $int12, easter15_combine_overlay:stat_4, easter15_combine_overlay:row_4, easter15_combine_overlay:result_4);
+~script11114(5, $int4, $int10, $int12, easter15_combine_overlay:stat_5, easter15_combine_overlay:row_5, easter15_combine_overlay:result_5);
+~script11114(6, $int5, $int11, $int12, easter15_combine_overlay:stat_6, easter15_combine_overlay:row_6, easter15_combine_overlay:result_6);
+~script11116($int12);
+switch_int ($int12) {
+    case 1, 2 :
+        if_settext("Calibrating", easter15_combine_overlay:state_title);
+        if_sethide(true, easter15_combine_overlay:notebook_button_layer);
+        if_sethide(true, easter15_combine_overlay:notebook_label);
+    case 3 :
+        if_settext("Machine is empty", easter15_combine_overlay:state_title);
+        if_sethide(false, easter15_combine_overlay:notebook_button_layer);
+        if_sethide(false, easter15_combine_overlay:notebook_label);
+        if_sethide(false, easter15_combine_overlay:empty_button_disabled_layer);
+    case 4 :
+        if_settext("Current attributes", easter15_combine_overlay:state_title);
+        if_sethide(false, easter15_combine_overlay:notebook_button_layer);
+        if_sethide(false, easter15_combine_overlay:notebook_label);
+        if_sethide(true, easter15_combine_overlay:empty_button_disabled_layer);
+}
+if ($int12 = 2 | $int12 = 4) {
+    if_sethide(true, easter15_combine_overlay:empty_button_disabled_layer);
+    if_settrans(0, easter15_combine_overlay:empty_button_graphic);
+} else {
+    if_sethide(false, easter15_combine_overlay:empty_button_disabled_layer);
+    if_settrans(196, easter15_combine_overlay:empty_button_graphic);
+}

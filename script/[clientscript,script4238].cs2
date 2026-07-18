@@ -1,0 +1,25 @@
+// 4238
+[clientscript,script4238](int $int0, component $component1, component $component2)
+def_int $int3 = 0;
+if (%acs_cooldown_varc ! 0) {
+    $int3 = max(0, calc(120 - (clientclock - %acs_cooldown_varc)));
+}
+if ($int3 >= 60 & $int3 <= 120) {
+    if_sethide(false, $component1);
+    if_sethide(false, $component2);
+    if_set2dangle(min(calc($int3 * 545), 65353), $component2);
+    if_set2dangle(0, $component1);
+} else if ($int3 > 0 & $int3 < 60) {
+    if_sethide(true, $component2);
+    if_sethide(false, $component1);
+    if_set2dangle(32768, $component2);
+    if_set2dangle(min(calc(32768 + $int3 * 545), 65353), $component1);
+} else {
+    if_sethide(true, $component1);
+    if_sethide(true, $component2);
+    if_set2dangle(32768, $component2);
+    if_set2dangle(32768, $component1);
+    if (%acs_cooldown_varc ! 0) {
+        %acs_cooldown_varc = 0;
+    }
+}

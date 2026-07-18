@@ -1,0 +1,27 @@
+// 17817
+[proc,script17817](dbrow $dbrow0)(string)
+def_string $string0 = "Requirements:";
+$string0 = "<$string0><br>- Ritual site (<~script17498(~script17507($dbrow0))>)";
+if (db_getfieldcount($dbrow0, necro_ritual_recipe:col10) = 1) {
+    $string0 = "<$string0><br>- <~script17510($dbrow0)>";
+}
+$string0 = "<$string0><br>- <tostring(~script17513($dbrow0))> component durability";
+def_npc $npc1 = null;
+def_int $int2 = 0;
+def_int $int3 = ~script17512($dbrow0);
+def_int $int4 = -1;
+while (++$int4 < $int3) {
+    $npc1, $int2 = ~script17511($dbrow0, $int4);
+    $string0 = "<$string0><br>- <tostring($int2)> x <~script17522($npc1)>";
+}
+$string0 = "<$string0><br>- <tostring(~script17527($dbrow0))> light sources";
+$string0 = "<$string0><br><br>Focus:";
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_int $int7 = ~script17505($dbrow0);
+$int4 = -1;
+while (++$int4 < $int7) {
+    $obj5, $int6 = ~script17504($dbrow0, -1, $int4);
+    $string0 = "<$string0><br>- <tostring($int6)> x <oc_name($obj5)>";
+}
+return($string0);

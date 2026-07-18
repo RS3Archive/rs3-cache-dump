@@ -1,0 +1,58 @@
+// 19197
+[clientscript,script19197](struct $struct0)
+def_dbrow $dbrow1 = null;
+def_stat $stat2 = null;
+def_int $int3 = -1;
+def_component $component4 = trh_academy_shared_overlay:interaction_icon;
+def_component $component5 = trh_academy_shared_overlay:interaction_icon_holder;
+def_graphic $graphic6 = null;
+def_int $int7 = 0;
+def_int $int8 = 25;
+switch_struct ($struct0) {
+    case trh203_promo :
+        $dbrow1 = ~script19150($struct0);
+        if (db_getfieldcount($dbrow1, trh203_nodes:col1) > 0) {
+            $stat2 = db_getfield($dbrow1, trh203_nodes:col1, 0);
+            $int3 = enum(stat, int, stat_to_int, $stat2);
+            $graphic6 = enum(int, graphic, stat2icon, $int3);
+            switch_stat ($stat2) {
+                case mining :
+                    $int7 = 3;
+                    $int8 = 27;
+                case runecraft :
+                    $int7 = 1;
+                    $int8 = 24;
+                case divination :
+                    $int7 = 1;
+                    $int8 = 26;
+            }
+        }
+    case trh207_promo :
+        $dbrow1 = ~script19150($struct0);
+        if (db_getfieldcount($dbrow1, trh207_nodes:col1) > 0) {
+            $stat2 = db_getfield($dbrow1, trh207_nodes:col1, 0);
+            $int3 = enum(stat, int, stat_to_int, $stat2);
+            $graphic6 = enum(int, graphic, stat2icon, $int3);
+            switch_stat ($stat2) {
+                case magic :
+                    $int7 = 1;
+                    $int8 = 24;
+                case runecraft :
+                    $int7 = 1;
+                    $int8 = 24;
+                case prayer :
+                    $int7 = 1;
+                    $int8 = 24;
+            }
+        }
+    case default :
+        ~error("Missed plugin point for promo ID <tostring(struct_param($struct0, trh_promo_id))>");
+        return;
+}
+if ($graphic6 ! null) {
+    if_setgraphic($graphic6, $component4);
+    if_setposition($int7, $int8, ^setpos_abs_centre, ^setpos_abs_bottom, $component4);
+    if_sethide(false, $component5);
+} else {
+    if_sethide(true, $component5);
+}

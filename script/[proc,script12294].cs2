@@ -1,0 +1,15 @@
+// 12294
+[proc,script12294](stat $stat0)(int)
+if (%option_virtuallvl = 0) {
+    return(stat_base_actual($stat0));
+}
+def_int $int1 = enum(stat, int, stat_to_statcap, $stat0);
+if (stat_base_actual($stat0) < $int1) {
+    return(stat_base_actual($stat0));
+}
+def_int $int2 = enum(stat, int, vtlvl_stat_to_statcap, $stat0);
+if ($int1 < $int2) {
+    return(~script11849($stat0, stat_visible_xp_actual($stat0), calc($int1 + 1)));
+} else {
+    return(stat_base_actual($stat0));
+}

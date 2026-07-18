@@ -1,0 +1,24 @@
+// 14387
+[proc,script14387](inv $inv0, int $int1, obj $obj2, int $int3, int $int4)
+def_inv $inv5 = null;
+def_inv $inv6 = null;
+def_inv $inv7 = null;
+$inv5, $inv6, $inv7 = ~script15906(%share_preset_last_preset);
+if ($inv5 = null | $int4 >= inv_size($inv5)) {
+    return;
+}
+def_obj $obj8 = ~script3504($obj2);
+if ($inv5 = share_preset_bob & (~script9257(share_preset_bob, $obj8, 1) = true | ~lore_check($obj8, 1) = true)) {
+    return;
+}
+def_int $int9 = -1;
+if (oc_stackable($obj8) = true | $obj8 ! oc_uncert($obj8)) {
+    $int9 = ~inv_find($inv5, $obj8, 0);
+    if ($int9 ! -1) {
+        $int4 = $int9;
+        $int3 = ~script11882($int3, inv_getnum($inv5, $int4));
+    }
+}
+if (cc_find(bank:preset_inventory_layer, $int4) = true) {
+    cc_setobject($obj8, $int3);
+}

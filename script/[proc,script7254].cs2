@@ -1,0 +1,48 @@
+// 7254
+[proc,script7254](struct $struct0)
+if_settext(struct_param($struct0, pop_voyage_name), pop_ship:voyage_name);
+~script7280;
+if (struct_param($struct0, pop_voyage_graftdiff) = 0) {
+    if_sethide(true, pop_ship:graft_chance_layer);
+    if_sethide(true, pop_ship:graft_chance_label);
+} else {
+    if_sethide(false, pop_ship:graft_chance_layer);
+    if_sethide(false, pop_ship:graft_chance_label);
+}
+if (struct_param($struct0, pop_voyage_combatdiff) = 0) {
+    if_sethide(true, pop_ship:combat_chance_layer);
+    if_sethide(true, pop_ship:combat_chance_label);
+} else {
+    if_sethide(false, pop_ship:combat_chance_layer);
+    if_sethide(false, pop_ship:combat_chance_label);
+}
+if (struct_param($struct0, pop_voyage_seafaringdiff) = 0) {
+    if_sethide(true, pop_ship:seafaring_chance_layer);
+    if_sethide(true, pop_ship:seafaring_chance_label);
+} else {
+    if_sethide(false, pop_ship:seafaring_chance_layer);
+    if_sethide(false, pop_ship:seafaring_chance_label);
+}
+if (struct_param($struct0, pop_voyage_type) = 7 & ~script1121(%pop_ship_selected_var) = 1) {
+    if_sethide(false, pop_ship:low_chance_warning);
+    if_settext("Your captain already has four traits and cannot gain any more.", pop_ship:low_chance_warning);
+    if_sethide(true, pop_ship:confirm_send);
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = struct_param($struct0, pop_voyage_duration);
+def_int $int5 = max(100, struct_param($struct0, pop_voyage_speeddiff));
+def_int $int6 = scale(125, 100, $int5);
+def_int $int7 = scale(75, 100, $int5);
+def_int $int8 = max(min($int6, ~script1124(%pop_ship_selected_var)), $int7);
+$int4 = scale($int5, $int8, $int4);
+$int4 = ~script6668($int4);
+$int4 = max(1500, $int4);
+$int1, $int2, $int3 = ~script4705($int4);
+def_string $string0 = tostring($int2);
+if ($int2 < 10) {
+    $string0 = append("0", $string0);
+}
+def_string $string1 = "<tostring($int1)>:<$string0>";
+if_settext($string1, pop_ship:voyage_time);

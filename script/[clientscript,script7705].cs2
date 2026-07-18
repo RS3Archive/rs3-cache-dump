@@ -1,0 +1,76 @@
+// 7705
+[clientscript,script7705]
+def_string $string0 = "Select a task on the left for more information";
+def_int $int0 = 0;
+def_int $int1 = 0;
+switch_int (%mm14_temp_task_clicked) {
+    case 0 :
+        $string0 = "Select a task on the left for more information.";
+    case 1 :
+        $string0 = "Complete a Dungeoneering floor (High Complexity).";
+    case 2 :
+        $string0 = "Complete a Slayer assignment.";
+    case 3 :
+        $string0 = "Complete a Treasure Trail (any difficulty).";
+    case 4 :
+        $string0 = "Equip a full outfit that has no stats.";
+    case 5 :
+        $string0 = "Do a dance on every bridge over the River Lum.";
+    case 6 :
+        $string0 = "Fletch 100 unfinished bows.";
+    case 7 :
+        $string0 = "Smith 100 bars into items.";
+    case 8 :
+        $string0 = "Turn 100 pieces of rune essence into runes.";
+    case 9 :
+        $string0 = "Complete a quest<br>(or Tears of Guthix)";
+    case 10 :
+        $string0 = "Take a minute out to rest.";
+    case 11 :
+        $string0 = "Complete a full round of Heist!";
+    case 12 :
+        $string0 = "Complete a full game of Castle Wars.";
+    case 13 :
+        $string0 = "Burn 100 logs<br>(any type).";
+    case 14 :
+        $string0 = "Run from Shantay Pass to Sophanem Gate with no water source.";
+    case 15 :
+        $string0 = "Bury 100 bones in the Salve Temple graveyard.";
+    case 16 :
+        $string0 = "Kill a demon or goblin flash mob (or goblin raid boss).";
+    case 17 :
+        $string0 = "Survive the Wilderness for 10 minutes without leaving.";
+    case 18 :
+        $string0 = "Complete a round of the Cabbage Facepunch Bonanza.";
+    case 19 :
+        $string0 = "Feed 10 breadcrumbs to a duck in less than 20 seconds.";
+    case 20 :
+        $string0 = "Gather your daily limit from divine locations.";
+}
+if (~script7719(%mm14_temp_task_clicked) > 0) {
+    if_sethide(false, mm_tasklist:task_complete_layer);
+    if_sethide(true, mm_tasklist:task_buttons);
+} else if (%mm14_temp_task_clicked = 0) {
+    if_sethide(true, mm_tasklist:task_complete_layer);
+    if_sethide(true, mm_tasklist:task_buttons);
+} else {
+    if_sethide(true, mm_tasklist:task_complete_layer);
+    if_sethide(false, mm_tasklist:task_buttons);
+    if (%mm14_current_tracker > 0) {
+        if (%mm14_current_tracker = %mm14_temp_task_clicked) {
+            if_sethide(true, mm_tasklist:set_active_task);
+            $string0 = append($string0, "<br><col=00C800>This is your active task.");
+        } else {
+            if_sethide(false, mm_tasklist:set_active_task);
+        }
+    }
+    if (%mm14_current_tracker_jmod > 0) {
+        if (%mm14_current_tracker_jmod = %mm14_temp_task_clicked) {
+            if_sethide(true, mm_tasklist:jmod_support);
+            $string0 = append($string0, "<br><col=00C800>A JMod can help with this task.");
+        } else {
+            if_sethide(false, mm_tasklist:jmod_support);
+        }
+    }
+}
+if_settext($string0, mm_tasklist:right_panel_text);

@@ -1,0 +1,60 @@
+// 12154
+[proc,invent_discovery_swap_components](component $component0, component $component1)
+def_graphic $graphic2 = if_getgraphic($component0);
+if_setgraphic(if_getgraphic($component1), $component0);
+if_setgraphic($graphic2, $component1);
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (if_find($component0) = true) {
+    $int3 = cc_param(invent_client_slot);
+}
+if (if_find($component1) = true) {
+    $int4 = cc_param(invent_client_slot);
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+switch_int ($int3) {
+    case 0 :
+        $int5 = %varclientbit_30264;
+    case 1 :
+        $int5 = %varclientbit_30265;
+    case 2 :
+        $int5 = %varclientbit_30266;
+    case 3 :
+        $int5 = %varclientbit_30267;
+    case 4 :
+        $int5 = %varclientbit_30268;
+}
+switch_int ($int4) {
+    case 0 :
+        $int6 = %varclientbit_30264;
+        %varclientbit_30264 = $int5;
+    case 1 :
+        $int6 = %varclientbit_30265;
+        %varclientbit_30265 = $int5;
+    case 2 :
+        $int6 = %varclientbit_30266;
+        %varclientbit_30266 = $int5;
+    case 3 :
+        $int6 = %varclientbit_30267;
+        %varclientbit_30267 = $int5;
+    case 4 :
+        $int6 = %varclientbit_30268;
+        %varclientbit_30268 = $int5;
+}
+switch_int ($int3) {
+    case 0 :
+        %varclientbit_30264 = $int6;
+    case 1 :
+        %varclientbit_30265 = $int6;
+    case 2 :
+        %varclientbit_30266 = $int6;
+    case 3 :
+        %varclientbit_30267 = $int6;
+    case 4 :
+        %varclientbit_30268 = $int6;
+}
+~invent_discovery_track_clear_selected;
+sound_vorbis_rate(sliske1_page_turn_02, 1, 0, 120, 350);
+~invent_discovery_register_move;
+~invent_discovery_update_score;

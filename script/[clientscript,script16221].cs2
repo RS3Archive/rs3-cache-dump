@@ -1,0 +1,23 @@
+// 16221
+[clientscript,script16221](component $component0, component $component1, int $int2, int $int3, int $int4)
+def_int $int5 = if_getscrollx($component0);
+def_int $int6 = calc($int5 - $int2);
+if ($int6 = 0 | $int2 < 0 | $int2 > calc(if_getscrollwidth($component0) - $int3)) {
+    if_setontimer(null, $component0);
+    return;
+}
+def_int $int7 = 0;
+if ($int4 > 0) {
+    $int7 = calc(abs($int6) / $int4);
+} else {
+    $int7 = abs($int6);
+}
+def_int $int8 = 0;
+if ($int6 < 0) {
+    $int8 = calc($int5 + min($int7, abs($int6)));
+} else {
+    $int8 = calc($int5 - min($int7, abs($int6)));
+}
+if_setscrollpos($int8, 0, $component0);
+~scrollbar_resize_horizontal($component1, $component0, $int8);
+if_setontimer("script16221($component0, $component1, $int2, $int3, --$int4)", $component0);

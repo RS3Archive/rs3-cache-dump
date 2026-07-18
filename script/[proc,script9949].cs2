@@ -1,0 +1,53 @@
+// 9949
+[proc,script9949](int $int0, int $int1)
+def_struct $struct2 = ~script10405(18);
+def_struct $struct3 = ~script10405(1019);
+def_struct $struct4 = ~script10405(1003);
+def_struct $struct5 = ~script10405(1032);
+def_struct $struct6 = ~script10405(1033);
+$int0 = calc(if_getheight(toplevel_v2:viewport) - $int0);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int7 = if_getheight(struct_param($struct4, toplevel_v2_window_layer));
+if (~script20655 = 1 | %toplevel_v2_legacy_combat = 1) {
+    $int8 = 0;
+    $int9 = 0;
+} else {
+    if (%combatv2_actionbar_current_bar2 > 0) {
+        $int8 = if_getheight(struct_param($struct5, toplevel_v2_window_layer));
+    }
+    if (%combatv2_actionbar_current_bar3 > 0) {
+        $int9 = if_getheight(struct_param($struct6, toplevel_v2_window_layer));
+    }
+}
+if (%toplevel_v2_splitpm = 1) {
+    $int0 = max($int0, calc(if_getheight(struct_param($struct3, toplevel_v2_window_layer)) + $int7 + $int8 + $int9));
+} else {
+    $int0 = max($int0, calc($int7 + $int8 + $int9));
+}
+if_setsize(552, $int0, ^setsize_abs, ^setsize_minus, struct_param($struct2, toplevel_v2_window_layer));
+$int0 = if_getheight(struct_param($struct2, toplevel_v2_window_layer));
+def_int $int10 = 2;
+$int10 = ~script8503(chatdefault:scrollarea, 0, $int10);
+~script8504(18, $int10);
+~script8390(18);
+if ($int1 = 1) {
+    if_setsize(0, 24, ^setsize_minus, ^setsize_minus, chatdefault:quickchat);
+    ~chat_v2_rebuildchatbox(18);
+}
+def_int $int11 = if_getwidth(toplevel_v2:background_colour);
+if ($int11 <= calc(552 * 2 + ~script19630(0))) {
+    if_setposition(0, calc($int0 + $int8 + $int9), ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct4, toplevel_v2_window_layer));
+    if_setposition(0, calc($int0 + $int9), ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct5, toplevel_v2_window_layer));
+    if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct6, toplevel_v2_window_layer));
+}
+if (%toplevel_v2_splitpm = 1) {
+    if ($int11 > calc(552 * 2 + ~script19630(0))) {
+        if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct3, toplevel_v2_window_layer));
+    } else {
+        if_setposition(0, calc($int0 + $int7 + $int8 + $int9), ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct3, toplevel_v2_window_layer));
+    }
+    if_setsize(552, 103, ^setsize_abs, ^setsize_abs, struct_param($struct3, toplevel_v2_window_layer));
+    if_sethide(false, struct_param($struct3, toplevel_v2_window_layer));
+}

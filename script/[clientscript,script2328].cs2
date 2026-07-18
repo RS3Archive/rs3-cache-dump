@@ -1,0 +1,42 @@
+// 2328
+[clientscript,script2328](component $component0)
+if (%easter09_nuts_bar = 1) {
+    if (if_gety($component0) > 100) {
+        if_setposition(if_getx($component0), calc(if_gety($component0) - 2), ^setpos_abs_left, ^setpos_abs_top, $component0);
+        sound_synth(easter09_nut_int_push, 1, 0);
+        if (if_gety($component0) < 170) {
+            switch_int (%easter09_nuts_tagged) {
+                case 1 :
+                    if_setposition(if_getx(easter09_nuts:model1), calc(if_gety(easter09_nuts:model1) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model1);
+                case 2 :
+                    if_setposition(if_getx(easter09_nuts:model2), calc(if_gety(easter09_nuts:model2) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model2);
+                case 3 :
+                    if_setposition(if_getx(easter09_nuts:model3), calc(if_gety(easter09_nuts:model3) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model3);
+                case 4 :
+                    if_setposition(if_getx(easter09_nuts:model4), calc(if_gety(easter09_nuts:model4) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model4);
+            }
+        }
+    } else {
+        if_setposition(if_getx($component0), 100, ^setpos_abs_left, ^setpos_abs_top, $component0);
+        %easter09_nuts_bar = 2;
+        switch_int (%easter09_nuts_tagged) {
+            case 1 :
+                ~script1411;
+            case 2 :
+                ~script2056;
+            case 3 :
+                ~script2322;
+            case 4 :
+                ~script2324;
+        }
+    }
+} else if (%easter09_nuts_bar = 2) {
+    if (if_gety($component0) < 200) {
+        if_setposition(if_getx($component0), calc(if_gety($component0) + 2), ^setpos_abs_left, ^setpos_abs_top, $component0);
+    } else {
+        if_setposition(if_getx($component0), 200, ^setpos_abs_left, ^setpos_abs_top, $component0);
+        %easter09_nuts_bar = 0;
+        %easter09_nuts_tagged = 0;
+        if_setontimer(null, $component0);
+    }
+}

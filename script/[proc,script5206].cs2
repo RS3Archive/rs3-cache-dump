@@ -1,0 +1,67 @@
+// 5206
+[proc,script5206]
+def_int $int0 = calc(if_getwidth(hcape_interface:crest_content_layer) - 240);
+def_int $int1 = calc($int0 / 5);
+def_int $int2 = calc($int1 + ($int0 - $int1 * 5) / 2);
+def_int $int3 = if_getscrolly(hcape_interface:crest_content_layer);
+def_int $int4 = enum_getoutputcount(hcape_enum_crest_id_to_struct);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = calc($int1 + 60);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_struct $struct12 = null;
+def_struct $struct13 = null;
+def_boolean $boolean14 = false;
+cc_deleteall(hcape_interface:crest_content_build);
+cc_deleteall(hcape_interface:crest_content_click);
+while ($int11 < $int4) {
+    $struct12 = enum(int, struct, hcape_enum_crest_id_to_struct, $int11);
+    if ($int11 ! 0 & $struct12 = null) {
+        return;
+    }
+    $int10 = struct_param($struct12, hcape_crest_goal_id);
+    $struct13 = enum(int, struct, hcape_enum_goal_id_to_struct, $int10);
+    $int8 = ~script5200($int10);
+    if ($struct13 ! null & struct_param($struct13, hcape_goal_hide_if_incomplete) = 1 & $int8 = 0) {
+        cc_create(hcape_interface:crest_content_click, ^iftype_rectangle, $int11);
+        cc_sethide(true);
+    } else {
+        if (%hcape_cs_if_crest = $int11) {
+            $int7 = 1;
+        } else {
+            $int7 = 0;
+        }
+        if ($int10 = 0 | $int8 = 1) {
+            $boolean14 = false;
+        } else {
+            $boolean14 = true;
+        }
+        $int5 = calc($int2 + $int11 % 4 * $int9);
+        $int6 = calc($int1 + $int11 / 4 * $int9);
+        ~script13998(hcape_interface:crest_content_build, hcape_interface:crest_content_click, rs3tli_3x3_button, $int5, $int6, 60, 60, $int11, $boolean14, "", $int7);
+        cc_create(hcape_interface:crest_content_build, ^iftype_graphic, if_getnextsubid(hcape_interface:crest_content_build));
+        cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(60, 60, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(struct_param($struct12, hcape_crest_graphic));
+        if ($int8 = 1 & cc_find(hcape_interface:crest_content_click, $int11) = true) {
+            cc_setonop("script5207(event_com, event_comsubid)");
+        }
+    }
+    $int11 = calc($int11 + 1);
+}
+def_int $int15 = calc($int4 / 4);
+if (calc($int4 % 4) ! 0) {
+    $int15 = calc($int15 + 1);
+}
+def_int $int16 = calc($int15 * $int9 + $int1);
+if ($int16 > if_getheight(hcape_interface:crest_content_layer)) {
+    if_setscrollsize(0, $int16, hcape_interface:crest_content_layer);
+    if_setscrollpos(0, $int3, hcape_interface:crest_content_layer);
+} else {
+    if_setscrollsize(0, 0, hcape_interface:crest_content_layer);
+    if_setscrollpos(0, 0, hcape_interface:crest_content_layer);
+}
+~rs3_scrollbar_vertical(hcape_interface:crest_content_scrollbar, hcape_interface:crest_content_layer);

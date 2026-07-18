@@ -1,0 +1,41 @@
+// 16280
+[clientscript,script16280]
+def_component $component0 = construction_house_furniture_music_box:tracklist_titles;
+def_component $component1 = construction_house_furniture_music_box:scrollbar;
+cc_deleteall($component0);
+def_int $int2 = 0;
+def_string $string0 = "";
+def_int $int3 = if_getwidth($component0);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 5;
+def_int $int8 = 1624;
+def_int $intarray0(calc($int8 + 1));
+while ($int2 <= $int8) {
+    $intarray0($int2) = $int2;
+    $int2 = calc($int2 + 1);
+}
+~script520(intarray0, 0, $int8, music_id_to_sortname);
+$int2 = 0;
+def_int $int9 = 0;
+while ($int9 < $int8) {
+    $int2 = $intarray0($int9);
+    $string0 = enum(int, string, music_id_to_display_name, $int2);
+    if (string_length($string0) > 0 & ~music_getvar($int2) = ^true) {
+        $int4 = calc($int7 + ~script15891($string0, $int3, p11_full, 0));
+        ~cc_add_text($component0, $int2, $int6, $int5, ^setpos_abs_left, ^setpos_abs_top, $int3, $int4, ^setsize_abs, ^setsize_abs, text_body_default, $string0);
+        cc_setcolour(^green);
+        cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 16777215)");
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 65280)");
+        cc_setop(1, "Play");
+        cc_setonop("script16281($int2)");
+        if ($int9 < $int8) {
+            cc_setparam_int(nextcomid, $intarray0(calc($int9 + 1)));
+        }
+    }
+    $int9 = calc($int9 + 1);
+}
+if_setscrollsize(0, if_getheight($component0), $component0);
+if_setscrollpos(0, 0, $component0);
+~rs3_scrollbar_vertical($component1, $component0);

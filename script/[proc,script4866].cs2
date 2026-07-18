@@ -1,0 +1,75 @@
+// 4866
+[proc,script4866](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_component $component6 = ~script4867($int0);
+def_component $component7 = ~script4868($int0);
+def_component $component8 = ~script4869($int0);
+def_component $component9 = ~script4870($int0);
+def_component $component10 = if_getparentlayer($component7);
+def_component $component11 = if_getparentlayer($component10);
+def_component $component12 = if_getparentlayer($component11);
+def_int $int13 = 1;
+if (clanprofile_find = true) {
+    $int13 = %clan_stronghold_storehouse_tier;
+}
+def_int $int14 = ~script5215($int0);
+def_int $int15 = if_getwidth(if_getparentlayer($component7));
+$int1 = calc($int1 / 100);
+$int5 = max($int5, $int14);
+def_int $int16 = calc($int1 * $int15 / $int5);
+def_int $int17 = calc($int14 * $int15 / $int5);
+def_int $int18 = calc($int2 * $int15 / $int5);
+def_int $int19 = calc($int3 * $int15 / $int5);
+def_int $int20 = calc($int1 - ($int2 + $int3));
+def_int $int21 = calc($int20 * $int15 / $int5);
+if_settext(tostring($int1), $component6);
+def_int $int22 = 0;
+if_setsize(min(calc($int18 - 2), $int16), 9, ^setsize_abs, ^setsize_abs, $component7);
+if_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_top, $component7);
+if_setsize(min($int19, calc($int16 - $int18)), 9, ^setsize_abs, ^setsize_abs, $component8);
+if_setposition($int18, 0, ^setpos_abs_left, ^setpos_abs_top, $component8);
+if_setsize(min(calc($int21 - 2), calc($int16 - ($int18 + $int19))), 9, ^setsize_abs, ^setsize_abs, $component9);
+if_setposition(calc($int18 + $int19 + 1), 0, ^setpos_abs_left, ^setpos_abs_top, $component9);
+def_component $component23 = null;
+def_component $component24 = null;
+def_graphic $graphic25 = "aif_resource_target_icons,3";
+def_graphic $graphic26 = "aif_resource_target_icons,0";
+$component23, $component24 = ~script5223($int0);
+if ($component23 ! null & $component24 ! null) {
+    $int17 = calc($int17 + 82);
+    $int17 = calc($int17 - if_getwidth($component24) / 2);
+    if (%clan_stronghold_primary_goal = $int0) {
+        $graphic25 = "aif_resource_target_icons,2";
+        $graphic26 = "aif_resource_target_icons,1";
+    }
+    if_sethide(true, $component23);
+    if_sethide(true, $component24);
+    if ($int14 > 0) {
+        if_setgraphic($graphic25, $component23);
+        if_setgraphic($graphic26, $component24);
+        if_sethide(false, $component23);
+        if_sethide(false, $component24);
+        if_setposition($int17, 0, ^setpos_abs_left, ^setpos_abs_centre, $component24);
+    }
+}
+if (~script5956($int0) = 3 | ~script5956($int0) = 2) {
+    if_sethide(false, ~script5967($int0));
+    if_setgraphic("aif_clan_loyalty_lock,0", ~script5967($int0));
+} else if (~script5956($int0) = 1) {
+    if_sethide(false, ~script5967($int0));
+    if_setgraphic("aif_clan_loyalty_lock,1", ~script5967($int0));
+} else {
+    if_sethide(true, ~script5967($int0));
+}
+def_string $string0 = enum(int, string, clan_resources_int2string, $int0);
+def_string $string1 = "<$string0><br>Total : <tostring($int1)><br>Upkeep : <tostring($int2)><br>Upgrades : <tostring($int3)><br>(Upgrades part-paid : <tostring($int4)>)<br>Surplus : <tostring($int20)>";
+if ($int14 > 0) {
+    $string1 = append($string1, "<br>Goal: <tostring($int14)>");
+}
+if (%clan_stronghold_primary_goal = $int0) {
+    $string1 = append($string1, " (Primary)");
+}
+def_int $int27 = 2;
+if (if_gety($component12) > calc(if_getheight(if_getparentlayer($component12)) / 2 - 10)) {
+    $int27 = 0;
+}
+if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", $component12);

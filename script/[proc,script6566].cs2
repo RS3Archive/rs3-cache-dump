@@ -1,0 +1,174 @@
+// 6566
+[proc,script6566]
+~script3915;
+if (%wof_mode = 1 | %trh_multispin_continue = 1) {
+    ~script6567;
+    return;
+}
+if (%wof_result_slot_client <= 0 | %wof_result_slot_client > 5) {
+    if (if_gethide(wheel_of_fortune:chests_layer) = true) {
+        if (~trh_state(trh87_promo) = 1 | ~trh_state(trh104_promo) = 1) {
+            return;
+        }
+        %wof_reward_slot = 0;
+        ~script6978;
+    }
+    return;
+}
+~wof_refresh_text;
+~wof_reward_clear;
+if (%wof_reward_slot <= 0) {
+    return;
+}
+~script16198(false, 82116873);
+if (%wof_trh_interface_state = 3) {
+    return;
+}
+%wof_trh_interface_state = 3;
+def_component $component0 = null;
+def_component $component1 = null;
+def_struct $struct2 = null;
+def_seq $seq3 = null;
+def_int $int4 = 0;
+switch_int (%wof_result_slot_client) {
+    case 1 :
+        $component0 = wheel_of_fortune:chest_model_1;
+        $component1 = wheel_of_fortune:wheel_spin_button_active_layer_1;
+    case 2 :
+        $component0 = wheel_of_fortune:chest_model_2;
+        $component1 = wheel_of_fortune:wheel_spin_button_active_layer_2;
+    case 3 :
+        $component0 = wheel_of_fortune:chest_model_3;
+        $component1 = wheel_of_fortune:wheel_spin_button_active_layer_3;
+    case 4 :
+        $component0 = wheel_of_fortune:chest_model_4;
+        $component1 = wheel_of_fortune:wheel_spin_button_active_layer_4;
+    case 5 :
+        $component0 = wheel_of_fortune:chest_model_5;
+        $component1 = wheel_of_fortune:wheel_spin_button_active_layer_5;
+    case default :
+        $component0 = wheel_of_fortune:chest_model_1;
+        $component1 = wheel_of_fortune:wheel_spin_button_active_layer_1;
+}
+switch_int (%wof_trh_reward_rarity) {
+    case 1 :
+        $seq3 = trh_chest_open_level_one_b;
+    case 2 :
+        $seq3 = trh_chest_open_level_two_a;
+    case 3 :
+        $seq3 = trh_chest_open_level_two_b;
+    case 4 :
+        $seq3 = trh_chest_open_level_three_a;
+    case 5 :
+        $seq3 = trh_chest_open_level_three_b;
+    case 6 :
+        $seq3 = trh_chest_open_level_three_b;
+    case 7 :
+        $seq3 = trh_chest_open_level_three_b;
+    case default :
+        $seq3 = trh_chest_open_level_one_b;
+}
+$int4 = calc(300 - seqlength($seq3));
+switch_int (%wof_paintover) {
+    case 6 :
+        switch_int (%wof_result_slot_client) {
+            case 1 :
+                $component0 = trh45_overlay:chest_model_1;
+                $component1 = trh45_overlay:wheel_spin_button_active_layer_1;
+            case 2 :
+                $component0 = trh45_overlay:chest_model_2;
+                $component1 = trh45_overlay:wheel_spin_button_active_layer_2;
+            case 3 :
+                $component0 = trh45_overlay:chest_model_3;
+                $component1 = trh45_overlay:wheel_spin_button_active_layer_3;
+            case 4 :
+                $component0 = trh45_overlay:chest_model_4;
+                $component1 = trh45_overlay:wheel_spin_button_active_layer_4;
+            case 5 :
+                $component0 = trh45_overlay:chest_model_5;
+                $component1 = trh45_overlay:wheel_spin_button_active_layer_5;
+            case 6 :
+                $component0 = trh45_overlay:chest_model_6;
+                $component1 = trh45_overlay:wheel_spin_button_active_layer_6;
+            case default :
+                $component0 = trh45_overlay:chest_model_1;
+                $component1 = trh45_overlay:wheel_spin_button_active_layer_1;
+        }
+    case 34 :
+        switch_int (%trh153_chest_clicked) {
+            case 1 :
+                $component0 = trh153_overlay:chest_1_model;
+                $struct2 = enum(int, struct, trh153_chests, %trh153_chest_1);
+            case 2 :
+                $component0 = trh153_overlay:chest_2_model;
+                $struct2 = enum(int, struct, trh153_chests, %trh153_chest_2);
+            case 3 :
+                $component0 = trh153_overlay:chest_3_model;
+                $struct2 = enum(int, struct, trh153_chests, %trh153_chest_3);
+            case 4 :
+                $component0 = trh153_overlay:chest_4_model;
+                $struct2 = enum(int, struct, trh153_chests, %trh153_chest_4);
+            case default :
+                if_setontimer("script5898(event_com, 300)", wheel_of_fortune:main_layer);
+                return;
+        }
+        $component1 = $component0;
+        $seq3 = struct_param($struct2, trh153_chest_click);
+        $int4 = calc(300 - seqlength($seq3));
+    case 36 :
+        switch_int (%trh154_chest_clicked) {
+            case 1 :
+                $component0 = trh154_overlay:chest_1_model;
+                $component1 = trh154_overlay:chest_1_click;
+            case 2 :
+                $component0 = trh154_overlay:chest_2_model;
+                $component1 = trh154_overlay:chest_2_click;
+            case 3 :
+                $component0 = trh154_overlay:chest_3_model;
+                $component1 = trh154_overlay:chest_3_click;
+            case default :
+                $component0 = trh154_overlay:chest_2_model;
+                $component1 = trh154_overlay:chest_2_click;
+        }
+    case 54 :
+        if (%trh169_slay_clicked = 1) {
+            $seq3 = mtxmay20_king_slime_death;
+            $component0 = trh169_overlay:trh169_slime_model;
+            $int4 = 60;
+        } else {
+            $int4 = 300;
+        }
+    case 56, 60 :
+        $int4 = 300;
+}
+if_setmodelanim(trh_chest_closed_idle, wheel_of_fortune:chest_model_1);
+if_setmodelanim(trh_chest_closed_idle, wheel_of_fortune:chest_model_2);
+if_setmodelanim(trh_chest_closed_idle, wheel_of_fortune:chest_model_3);
+if_setmodelanim(trh_chest_closed_idle, wheel_of_fortune:chest_model_4);
+if_setmodelanim(trh_chest_closed_idle, wheel_of_fortune:chest_model_5);
+if_setmodelanim(trh_chest_closed_idle, trh45_overlay:chest_model_1);
+if_setmodelanim(trh_chest_closed_idle, trh45_overlay:chest_model_2);
+if_setmodelanim(trh_chest_closed_idle, trh45_overlay:chest_model_3);
+if_setmodelanim(trh_chest_closed_idle, trh45_overlay:chest_model_4);
+if_setmodelanim(trh_chest_closed_idle, trh45_overlay:chest_model_5);
+if_setmodelanim(trh_chest_closed_idle, trh45_overlay:chest_model_6);
+if_setontimer(null, wheel_of_fortune:chest_model_1);
+if_setontimer(null, wheel_of_fortune:chest_model_2);
+if_setontimer(null, wheel_of_fortune:chest_model_3);
+if_setontimer(null, wheel_of_fortune:chest_model_4);
+if_setontimer(null, wheel_of_fortune:chest_model_5);
+if_setontimer(null, trh45_overlay:chest_model_1);
+if_setontimer(null, trh45_overlay:chest_model_2);
+if_setontimer(null, trh45_overlay:chest_model_3);
+if_setontimer(null, trh45_overlay:chest_model_4);
+if_setontimer(null, trh45_overlay:chest_model_5);
+if_setontimer(null, trh45_overlay:chest_model_6);
+if_setonmouseover(null, $component1);
+if_setonmouseleave(null, $component1);
+if_setmodelanim($seq3, $component0);
+def_struct $struct5 = ~script16161;
+if ($struct5 ! null & struct_param($struct5, trh_promo_uses_custom_reward_delay) = true) {
+    ~trh_reward_screen_delay(~script16774($struct5));
+} else {
+    if_setontimer("script5898(event_com, $int4)", wheel_of_fortune:main_layer);
+}

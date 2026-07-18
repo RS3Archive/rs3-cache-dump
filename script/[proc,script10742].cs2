@@ -1,0 +1,50 @@
+// 10742
+[proc,script10742](int $int0)
+if ($int0 = -1) {
+    ~script10743("Select an enhancer from the list to view effects.");
+    return;
+}
+def_obj $obj1 = enum(int, obj, elfcity_all_increasers, $int0);
+if ($obj1 = null) {
+    ~script10743("Select an enhancer from the list to view effects.");
+    return;
+}
+def_int $int2 = oc_param($obj1, elfcity_increaser_type);
+if ($int2 = -1) {
+    ~script10743("Select an enhancer from the list to view effects.");
+    return;
+}
+def_int $int3 = max(1, calc(oc_param($obj1, elfcity_increaser_max_charge) / 2));
+def_string $string0 = oc_name($obj1);
+def_string $string1 = enum(obj, string, elfcity_mawshop_description, $obj1);
+def_int $int4 = ~script6561(elfcity_maw_damage_blank);
+def_int $int5 = ~script6561(elfcity_maw_increase_blank);
+if_settext($string0, elfcity_meilyr_maw_swap:name_text);
+if ($int2 = 1) {
+    if ($int4 = 0) {
+        if_sethide(false, elfcity_meilyr_maw_swap:buy_button_disabled_layer);
+    } else {
+        if_sethide(true, elfcity_meilyr_maw_swap:buy_button_disabled_layer);
+    }
+    $string1 = append($string1, "<br><br>You need an unfocused damage enhancer to exchange for this.<br><br>You have:<br><tostring($int4)> unfocused damage enhancers.");
+} else if ($int2 = 2) {
+    if ($int5 = 0) {
+        if_sethide(false, elfcity_meilyr_maw_swap:buy_button_disabled_layer);
+    } else {
+        if_sethide(true, elfcity_meilyr_maw_swap:buy_button_disabled_layer);
+    }
+    $string1 = append($string1, "<br><br>You need an unfocused reward enhancer to exchange for this.<br><br>You have:<br><tostring($int5)> unfocused reward enhancers.");
+}
+$string1 = append($string1, "<br><br>Enhancers from here will have half the charges of enhancers obtained from the Motherlode Maw or trading in shards.");
+cc_deleteall(elfcity_meilyr_maw_swap:use_bonus);
+cc_create(elfcity_meilyr_maw_swap:use_bonus, ^iftype_text, 0);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_settext($string1);
+cc_setcolour(~script10495(3));
+cc_settextfont(museo_sans_11pt_regular);
+if ($int3 ! -1) {
+    if_settext("You will receive <tostring_localised($int3, true)> <~text_plural($int3, "charge", "charges")>.", elfcity_meilyr_maw_swap:unlock_text);
+} else {
+    if_settext("-", elfcity_meilyr_maw_swap:unlock_text);
+}

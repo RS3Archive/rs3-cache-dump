@@ -1,0 +1,30 @@
+// 16170
+[proc,script16170](dbrow $dbrow0, int $int1, struct $struct2)(obj, int, int, int, int)
+def_int $int3 = db_getfieldcount($dbrow0, trh_category_prizes:col0);
+def_int $int4 = 0;
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_boolean $boolean15 = db_getfield($dbrow0, trh_category_prizes:col2, 0);
+def_boolean $boolean16 = db_getfield($dbrow0, trh_category_prizes:col3, 0);
+if ($boolean15 = false) {
+    $int14 = ~script16174($struct2);
+}
+switch_dbrow ($dbrow0) {
+    case trh_prize_generation_promo_trh168_yellow, trh_prize_generation_promo_trh168_orange, trh_prize_generation_promo_trh168_red, trh_prize_generation_promo_trh168_purple, trh_prize_generation_promo_trh168_black :
+        return(~script4733($dbrow0, $int1));
+}
+while (++$int1 < $int3) {
+    $obj7, $int8, $int9, $int10, $int12, $int13, $int11, $int6 = db_getfield($dbrow0, trh_category_prizes:col0, $int1);
+    if (~script16175($obj7, $int11, $int12, $int13, $int9, $int14, $boolean16) = true) {
+        return($obj7, $int8, $int9, $int10, $int1);
+    }
+}
+return(null, -1, -1, -1, $int1);

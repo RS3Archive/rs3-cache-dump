@@ -1,0 +1,32 @@
+// 4741
+[proc,script4741]
+def_int $int0 = 0;
+def_obj $obj1 = null;
+def_inv $inv2 = null;
+def_string $string0 = "Store";
+def_string $string1 = "store";
+if (%wom2_varbit_last_comsubid < 99999 & %wom2_varbit_invtype ! 0) {
+    $inv2 = enum(int, inv, int_to_invtype, %wom2_varbit_invtype);
+    if (cc_find(wom2_inventory_display:items, %wom2_varbit_last_comsubid) = true) {
+        $int0 = inv_getnum($inv2, %wom2_varbit_last_comsubid);
+        if ($int0 > 0 | $inv2 = bank) {
+            $obj1 = inv_getobj($inv2, %wom2_varbit_last_comsubid);
+            if ($obj1 ! null) {
+                if (~diango_storable($obj1) = false) {
+                    $string0 = "Delete";
+                    $string1 = "delete";
+                }
+                if_sethide(false, wom2_inventory_display:confirm_buy);
+                if ($int0 <= 1) {
+                    if_settext("Are you sure you want to <$string1> <oc_name($obj1)>?", wom2_inventory_display:wom2_confirm_msg);
+                } else {
+                    if_settext("Are you sure you want to <$string1> <oc_name($obj1)></col> (<col=FFFFFF><tostring($int0)> items</col>)?", wom2_inventory_display:wom2_confirm_msg);
+                }
+                if_setobject($obj1, $int0, wom2_inventory_display:confirm_delete_model);
+                if_settext(oc_name($obj1), wom2_inventory_display:wom2_item_name);
+                if_settext($string0, wom2_inventory_display:wom2_delete_button_text);
+            }
+        }
+    }
+}
+return;

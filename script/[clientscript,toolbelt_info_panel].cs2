@@ -1,0 +1,46 @@
+// 14099
+[clientscript,toolbelt_info_panel](struct $struct0, obj $obj1, boolean $boolean2, int $int3, int $int4, int $int5)
+if ($int5 ! 1) {
+    return;
+}
+if ($boolean2 = false) {
+    if_settext("<oc_name($obj1)> - Not stored", toolbelt_v2:info_name);
+} else {
+    if_settext(oc_name($obj1), toolbelt_v2:info_name);
+}
+if_settext("Loading...", toolbelt_v2:info_desc);
+if (if_find(toolbelt_v2:icon) = true) {
+    cc_setobject_nonum($obj1, -1);
+    if ($boolean2 = false | map_members = false & oc_members($obj1) = 1) {
+        cc_setcolour(0x545454);
+    } else {
+        cc_setcolour(^white);
+    }
+    if (cc_param(toolbelt_object) = $obj1) {
+        cc_setparam(toolbelt_object, null);
+        cc_setparam(toolbelt_category_icon_height, 0);
+        ~script14101(toolbelt_v2:info_layer, toolbelt_v2:arrowdown, 0, $int5);
+    } else {
+        cc_setparam(toolbelt_object, $obj1);
+        cc_setparam(toolbelt_category_icon_height, $int3);
+        ~script14101(toolbelt_v2:info_layer, toolbelt_v2:arrowdown, 1, $int5);
+    }
+    if ($boolean2 = true & compare(struct_param($struct0, toolbelt_special_op), "") ! 0 & (map_members = true | map_members = false & oc_members($obj1) = 0)) {
+        if_setonop(null, toolbelt_v2:icon_background);
+        if_setop(1, struct_param($struct0, toolbelt_special_op), toolbelt_v2:icon_background);
+        if_setonmouseover("rs3_background_panel(event_com, rs3_icon_holder_over)", toolbelt_v2:icon_background);
+        if_setonmouseleave("rs3_background_panel(event_com, rs3_icon_holder)", toolbelt_v2:icon_background);
+    } else {
+        ~rs3_background_panel(toolbelt_v2:icon_background, rs3_icon_holder);
+        if_setonop(null, toolbelt_v2:icon_background);
+        if_clearops(toolbelt_v2:icon_background);
+        if_setonmouseover(null, toolbelt_v2:icon_background);
+        if_setonmouseleave(null, toolbelt_v2:icon_background);
+    }
+    if ($boolean2 = false | map_members = false & oc_members($obj1) = 1) {
+        ~rs3_background_panel(toolbelt_v2:info_layer_background, rs3_content_container_inactive);
+    } else {
+        ~rs3_background_panel(toolbelt_v2:info_layer_background, rs3_content_container_active);
+    }
+}
+~scrollbar_vertical_doscroll(toolbelt_v2:scroll_bar, toolbelt_v2:toolbelt_scroll_layer, $int4, 1);

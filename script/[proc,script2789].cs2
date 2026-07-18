@@ -1,0 +1,42 @@
+// 2789
+[proc,script2789](dbrow $dbrow0, int $int1, int $int2)
+if ($dbrow0 = null) {
+    return;
+}
+if ($int1 > db_getfieldcount($dbrow0, settings_category:col2)) {
+    return;
+}
+def_struct $struct3 = db_getfield($dbrow0, settings_category:col2, $int1);
+def_int $int4 = 1;
+sound_vorbis_volume(tli_click_01, 1, 0, 120);
+switch_struct ($struct3) {
+    case graphics_options_nxt_loading :
+        %loadingscreen_on = $int2;
+        $int4 = 0;
+    case graphics_options_textures :
+        clientoption_set(^clientoption_texturing, $int2);
+        ~script15671;
+    case graphics_options_grounddecoration :
+        clientoption_set(^clientoption_ground_decor, $int2);
+    case graphics_options_groundblending :
+        clientoption_set(^clientoption_ground_blending, $int2);
+    case graphics_options_nxt_shadows :
+        clientoption_set(^clientoption_shadows, $int2);
+    case graphics_options_nxt_bloom :
+        clientoption_set(^clientoption_bloom, $int2);
+    case graphics_options_depth_of_field :
+        clientoption_set(^clientoption_dof, $int2);
+    case graphics_options_camera_smooth_fade :
+        clientoption_set(^clientoption_smooth_clip_fade, $int2);
+    case graphics_options_mouseover_highlights :
+        clientoption_set(^clientoption_entity_highlights, $int2);
+    case graphics_options_tree_canopy_fade :
+        clientoption_set(^clientoption_canopy_cutout, $int2);
+    case graphics_options_fps_display :
+        clientoption_set(^clientoption_diagnostics, $int2);
+}
+if ($int4 = 1) {
+    %using_autosetup = 0;
+    autosetup_setcustom;
+    ~script2707;
+}

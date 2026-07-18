@@ -1,0 +1,44 @@
+// 19604
+[proc,script19604](int $int0, int $int1)
+def_int $int2 = 1;
+if ($int1 > $int0) {
+    $int2 = -1;
+    $int1 = calc($int1 - 1);
+    if (%group_ironman_storage_first_freeslot <= $int1 & %group_ironman_storage_first_freeslot >= $int0) {
+        %group_ironman_storage_first_freeslot = calc(%group_ironman_storage_first_freeslot - 1);
+    }
+} else if (%group_ironman_storage_first_freeslot >= $int1 & %group_ironman_storage_first_freeslot <= $int0) {
+    %group_ironman_storage_first_freeslot = calc(%group_ironman_storage_first_freeslot + 1);
+}
+def_obj $obj3 = null;
+def_int $int4 = 0;
+if (cc_find(group_ironman_storage:clan_inv, $int0) = true) {
+    $obj3 = cc_getinvobject;
+    $int4 = cc_getinvcount;
+}
+def_obj $obj5 = bank_empty_slot;
+def_int $int6 = 0;
+def_string $string0 = "Withdraw";
+def_string $string1 = ~script19536;
+while ($int1 ! $int0) {
+    if (cc_find(group_ironman_storage:clan_inv, $int1) = true) {
+        $obj5 = cc_getinvobject;
+        $int6 = cc_getinvcount;
+        if ($obj3 = bank_empty_slot) {
+            cc_setobject_nonum($obj3, $int4);
+        } else {
+            cc_setobject($obj3, $int4);
+        }
+        $obj3 = $obj5;
+        $int4 = $int6;
+    }
+    $int1 = calc($int1 + $int2);
+}
+if (cc_find(group_ironman_storage:clan_inv, $int1) = true) {
+    if ($obj3 = bank_empty_slot) {
+        cc_setobject_nonum($obj3, $int4);
+    } else {
+        cc_setobject($obj3, $int4);
+    }
+}
+if_setontimer("script19597", group_ironman_storage:clan_items_container);

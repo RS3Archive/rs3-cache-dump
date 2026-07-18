@@ -1,0 +1,34 @@
+// 7717
+[clientscript,script7717](int $int0, char $char1, component $component2, component $component3, component $component4, int $int5, component $component6)
+if (if_gethide($component3) = true) {
+    return;
+}
+if (cc_find(clantool_profile:variables, $int5) = true) {
+    switch_int ($int0) {
+        case 84 :
+            if (string_length(%p_dialog_input) > 0) {
+                ~script7716($component3, $component4, $int5, $component6, %p_dialog_input);
+                ~script7208(%p_dialog_input, $component3);
+                return;
+            } else if (%p_dialog_mode = 7) {
+                ~script7715($component2, $component3, $component4, $int5, $component6);
+                return;
+            }
+        case 13 :
+            if (%p_dialog_mode = 7) {
+                ~script7715($component2, $component3, $component4, $int5, $component6);
+            }
+            return;
+        case 96, 97, 98, 99, 102, 103 :
+            if (keyheld_shift = false) {
+                return;
+            }
+            %meslayer_caret = ~script1553($int0, %meslayer_caret, %p_dialog_input);
+        case default :
+            if (%p_dialog_mode = 7) {
+                %p_dialog_input, %meslayer_caret = ~script7170(%meslayer_caret, %p_dialog_input, 6, $int0, $char1, %p_dialog_maxchar);
+            }
+    }
+    if_settext(escape(%p_dialog_input), $component3);
+    ~script7213($component3, $component4);
+}

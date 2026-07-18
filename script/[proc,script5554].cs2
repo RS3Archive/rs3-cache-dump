@@ -1,0 +1,18 @@
+// 5554
+[proc,script5554](obj $obj0)(string)
+db_find(lore:col5, $obj0);
+def_dbrow $dbrow1 = db_findnext;
+def_string $string0 = "This familiar has no special ability.";
+if ($dbrow1 = null) {
+    return($string0);
+}
+def_obj $obj2 = db_getfield($dbrow1, lore:col6, 0);
+if ($obj2 ! null) {
+    $string0 = oc_name($obj2);
+    $string0 = append($string0, "<br>");
+    $string0 = append($string0, "Familiar spell points");
+    $string0 = append($string0, ": <tostring(~lore_get_cost($obj2))>");
+    $string0 = append($string0, "<br><db_getfield($dbrow1, lore:col7, 0)>");
+    $string0 = append($string0, "<br><~script14945(db_getfield($dbrow1, lore:col13, 0), 1)> cooldown.</col>");
+}
+return($string0);

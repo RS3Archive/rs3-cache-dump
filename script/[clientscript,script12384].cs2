@@ -1,0 +1,25 @@
+// 12384
+[clientscript,script12384](int $int0, int $int1)
+def_int $int2 = if_getwidth(gwd2_overlay:buff_timer_layer_1);
+if (clientclock >= $int1) {
+    if_setsize($int2, 6, ^setsize_abs, ^setsize_abs, gwd2_overlay:buff_timer_progress_1);
+} else {
+    if_setsize(calc($int2 - scale($int2, calc($int1 - $int0), calc(clientclock - $int0))), 6, ^setsize_abs, ^setsize_abs, gwd2_overlay:buff_timer_progress_1);
+}
+$int2 = if_getwidth(gwd2_overlay:buff_timer_layer);
+if (clientclock >= $int1) {
+    if_setsize($int2, 6, ^setsize_abs, ^setsize_abs, gwd2_overlay:buff_timer_progress);
+} else {
+    if_setsize(calc($int2 - scale($int2, calc($int1 - $int0), calc(clientclock - $int0))), 6, ^setsize_abs, ^setsize_abs, gwd2_overlay:buff_timer_progress);
+}
+if (%gwd2_slim_kc_interface = true) {
+    if (clientclock >= $int1) {
+        if_setontimer(null, gwd2_overlay:main);
+    } else {
+        if_setontimer("script12384($int0, $int1)", gwd2_overlay:main);
+    }
+} else if (clientclock >= $int1) {
+    if_setontimer(null, gwd2_overlay:main);
+} else {
+    if_setontimer("script12384($int0, $int1)", gwd2_overlay:main);
+}

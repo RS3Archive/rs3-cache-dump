@@ -1,0 +1,17 @@
+// 3623
+[proc,runepass_claim_screen](int $int0, int $int1, int $int2, string $string0, int $int3)
+~script3648($int0);
+~script3645($int0, 0, runepass:task_reward_pic_claim, runepass:task_reward_obj_claim, runepass:task_reward_name_claim, runepass:task_reward_premium_only_claim, runepass:task_reward_left_arrow_claim, runepass:task_reward_right_arrow_claim, 1, runepass:task_reward_number_claim, 1);
+if_settext("Task <tostring(calc($int0 + 1))>", runepass:reward_task_title);
+if (db_getfield(~runepass_get_current, runepass_table:col29, 0) = 1 & calc($int0 + 1) = 71) {
+    if_settext("¶", runepass:task_num_claim);
+} else {
+    if_settext(tostring(calc($int0 + 1)), runepass:task_num_claim);
+}
+def_int $int4 = calc($int1 + 1 - %runepass_reward_start_index);
+if ($int4 = 1) {
+    if_settext("Claim Rewards", runepass:reward_title);
+} else {
+    if_settext("Claim Rewards <tostring(calc($int0 + 1 - %runepass_reward_start_index))>/<tostring($int4)>", runepass:reward_title);
+}
+~script3624($int0, $int1, $int2, $string0, $int3);

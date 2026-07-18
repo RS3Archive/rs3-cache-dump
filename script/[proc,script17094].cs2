@@ -1,0 +1,43 @@
+// 17094
+[proc,script17094](int $int0, long $long0, long $long1, long $long2, long $long3, long $long4, long $long5, long $long6)
+cc_deleteall(death:cost_info);
+def_int $int1 = stringwidth(tostring_localised(^max_32bit_int, true), notosans_bold_13);
+def_int $int2 = if_getwidth(death:cost_info);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = ~script15891("Carried wealth:", 1000, museo_sans_13pt_regular, 0);
+def_string $string0 = "Values shown here are a summary of the combined items being carried.";
+def_string $string1 = "Items will be reclaimed to your backpack or worn equipment.";
+if ($int0 ! 0) {
+    $string1 = "";
+}
+$int3, $int4 = ~script17385($int3, $int4, $int1, $int5, "Coins available:", ~script17372(~script17400, 9, 1));
+if (%death_last_tab = 2) {
+    $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Used slots:", 0, int_to_long(calc(50 - inv_freespace(death_overflow))));
+    $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Max slots:", 0, int_to_long(50));
+    $string0 = "Reclaim items from Death's overflow storage. When the storage is full, the cheapest items will be replaced.<br><br>You can destroy items from storage, or reclaim for 10x the normal reclaim cost.";
+    $string1 = "Items will be reclaimed to your bank.";
+}
+$int4 = max(60, calc($int4 + 5));
+def_int $int6 = ~script15891($string0, $int2, museo_sans_13pt_regular, 0);
+~cc_add_text(death:cost_info, $int3++, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, $int6, ^setsize_minus, ^setsize_abs, text_body_default, $string0);
+$int4 = calc($int4 + $int6 + 5);
+if (%death_last_tab ! 2) {
+    ~cc_add_text(death:cost_info, $int3++, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, $int5, ^setsize_minus, ^setsize_abs, text_body_emphasis, "Coins:");
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    $int4 = calc($int4 + $int5 + 5);
+    $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Carried wealth:", 1, $long0);
+    $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Carried wealth at risk:", 1, $long1);
+    if ($int0 = 0) {
+        $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Base reclaim cost:", 1, $long2);
+        $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Death's deal:", 1, calc(0 - $long3));
+        $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Gravestone:", 1, calc(0 - $long4));
+        if (%death_free_deaths_transmit = 3) {
+            $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Free death discount:", 1, calc(0 - $long5));
+        }
+        $int3, $int4 = ~script17095($int3, $int4, $int1, $int5, "Final reclaim cost:", 1, $long6);
+    }
+}
+$int4 = calc($int4 + 5);
+$int6 = ~script15891($string1, $int2, museo_sans_13pt_regular, 0);
+~cc_add_text(death:cost_info, $int3++, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, $int6, ^setsize_minus, ^setsize_abs, text_body_default, $string1);

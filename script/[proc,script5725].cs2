@@ -1,0 +1,20 @@
+// 5725
+[proc,script5725](dbrow $dbrow0)(boolean)
+if ($dbrow0 = null) {
+    return(false);
+}
+def_int $int1 = db_getfieldcount($dbrow0, bonds_package:col4);
+def_int $int2 = 0;
+def_dbrow $dbrow3 = null;
+if ($int1 > 0) {
+    while ($int2 < $int1) {
+        $dbrow3 = db_getfield($dbrow0, bonds_package:col4, $int2);
+        if ($dbrow3 ! null & ~script12115($dbrow3) = true) {
+            return(true);
+        }
+        $int2 = calc($int2 + 1);
+    }
+    return(false);
+} else {
+    return(~script12115($dbrow0));
+}

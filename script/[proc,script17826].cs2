@@ -1,0 +1,33 @@
+// 17826
+[proc,script17826](int $int0)(int)
+if (map_members = false) {
+    return(0);
+}
+if ($int0 = 1) {
+    switch_obj (inv_getobj(worn, 17)) {
+        case atum_reward_easy :
+            return(1);
+        case atum_reward_med :
+            return(2);
+        case atum_reward_hard :
+            return(3);
+        case atum_reward_elite :
+            if (achievement_reqstate(cheevo_atum_elite_reward) <= -2) {
+                return(4);
+            } else {
+                return(3);
+            }
+        case default :
+            return(0);
+    }
+} else if (%atum_reward_elite = 2 & achievement_reqstate(cheevo_atum_elite_reward) <= -2) {
+    return(4);
+} else if (%atum_reward_hard = 2) {
+    return(3);
+} else if (%atum_reward_medium = 2) {
+    return(2);
+} else if (%atum_reward_easy = 2) {
+    return(1);
+} else {
+    return(0);
+}

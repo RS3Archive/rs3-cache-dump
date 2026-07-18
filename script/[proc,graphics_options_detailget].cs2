@@ -1,0 +1,43 @@
+// 2581
+[proc,graphics_options_detailget](struct $struct0)(int)
+def_int $clientoption1 = struct_param($struct0, graphics_options_id);
+def_int $int2 = 0;
+if (clientoption_exists($clientoption1) = false) {
+    switch_struct ($struct0) {
+        case graphics_options_fullscreenresolutions :
+            return(%selectedresolution);
+        case graphics_options_nxt_loading :
+            return(%loadingscreen_on);
+    }
+    return(-1);
+}
+if (clientoption_canmod($clientoption1) = false) {
+    return(-1);
+}
+switch_int ($clientoption1) {
+    case ^clientoption_antialiasing_quality :
+        if (clientoption_canmod(^clientoption_antialiasing_mode) = false | clientoption_get(^clientoption_antialiasing_mode) = 0) {
+            return(-1);
+        }
+    case ^clientoption_max_foreground_fps :
+        return(calc(clientoption_get(^clientoption_max_foreground_fps) / 5 - 1));
+    case ^clientoption_max_background_fps :
+        return(calc(clientoption_get(^clientoption_max_background_fps) / 5 - 1));
+    case ^clientoption_interface_scale :
+        if (enum_hasoutput(int, ogl_nxt_interface_scaling_value, clientoption_get(^clientoption_interface_scale)) = false) {
+            $int2 = enum(int, int, ogl_nxt_interface_scaling_value, -1);
+            return(enum_getreverseindex(int, int, ogl_nxt_interface_scaling_value, $int2, 0));
+        }
+        return(enum_getreverseindex(int, int, ogl_nxt_interface_scaling_value, clientoption_get(^clientoption_interface_scale), 0));
+    case ^clientoption_game_render_scale :
+        return(calc((clientoption_get(^clientoption_game_render_scale) - 50) / 10));
+    case ^clientoption_texturing :
+        if (clientoption_canmod(^clientoption_ground_blending) = false | clientoption_get(^clientoption_ground_blending) = 0) {
+            return(-1);
+        }
+    case ^clientoption_dof :
+        if (clientoption_canmod(^clientoption_draw_distance) = false | clientoption_get(^clientoption_draw_distance) = 0) {
+            return(-1);
+        }
+}
+return(clientoption_get($clientoption1));

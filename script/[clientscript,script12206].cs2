@@ -1,0 +1,41 @@
+// 12206
+[clientscript,script12206](int $int0)
+def_obj $obj1 = null;
+switch_int ($int0) {
+    case 112394298 :
+        $obj1 = trh80_grotesque_head;
+    case 112394320 :
+        $obj1 = trh80_grotesque_torso;
+    case 112394309 :
+        $obj1 = trh80_grotesque_legs;
+    case 112394278 :
+        $obj1 = trh80_grotesque_hands;
+    case 112394288 :
+        $obj1 = trh80_grotesque_feet;
+    case 112394351 :
+        $obj1 = trh80_grotesque_back;
+    case 112394331 :
+        $obj1 = trh80_grotesque_wings;
+    case 112394341 :
+        $obj1 = trh80_soul_gem;
+    case 112394279, 112394289, 112394299, 112394310, 112394321, 112394352, 112394332 :
+        mes("You have already unlocked that reward.");
+        return;
+}
+if (~script12207($obj1) >= 1) {
+    mes("You have already unlocked that item.");
+    return;
+}
+def_int $int2 = enum(obj, int, trh80_item_cost, $obj1);
+if (inv_total(inv, trh80_corrupted_soul) < $int2) {
+    mes("You don't have enough grotesque souls to create that item.");
+    return;
+}
+def_string $string0 = enum(obj, string, trh80_name_from_obj, $obj1);
+if ($int0 = 112394341) {
+    if_settext("Are you sure you want to create a <$string0> for <tostring_localised($int2, true)> grotesque souls?", trh80_corrupt:confirm_purchase_text);
+} else {
+    if_settext("Are you sure you want to create the <$string0> for <tostring_localised($int2, true)> grotesque souls? You will receive <tostring(calc(3 * $int2))> Slayer XP.", trh80_corrupt:confirm_purchase_text);
+}
+if_sethide(false, trh80_corrupt:darkness);
+if_sethide(false, trh80_corrupt:confirm_purchase);

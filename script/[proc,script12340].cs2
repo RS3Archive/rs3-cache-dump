@@ -1,0 +1,240 @@
+// 12340
+[proc,script12340](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5, component $component6, component $component7, component $component8, int $int9)
+cc_deleteall($component0);
+def_int $int10 = 0;
+def_int $int11 = if_getnextsubid($component0);
+def_int $int12 = if_getwidth($component0);
+cc_create($component0, ^iftype_graphic, $int11++);
+cc_setgraphic(rs3_runemetrics_pro_logo);
+cc_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(223, 35, ^setsize_abs, ^setsize_abs);
+$int10 = calc($int10 + cc_getheight);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext("Status:");
+cc_setsize(0, 20, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(~script10495(3));
+$int10 = calc($int10 + (cc_getheight + 2));
+def_string $string0 = "Inactive";
+def_string $string1 = "Enhanced XP tracker";
+def_string $string2 = "XP/h and ETA to target";
+def_string $string3 = "Wealth change & combat tracking";
+def_string $string4 = "Real-time graphs";
+def_string $string5 = "Drop log";
+def_string $string6 = "Limited web app access";
+def_string $string7 = "";
+def_int $int13 = 16;
+def_graphic $graphic14 = rs3_contextual_input_green_check_mark;
+def_int $int15 = 21748;
+def_graphic $graphic16 = rs3_contextual_input_error;
+def_graphic $graphic17 = rs3_contextual_input_warning;
+def_graphic $graphic18 = rs3_contextual_input_error;
+if (%telemetry_member = 1) {
+    $string6 = "Full web app access";
+    $string7 = "Historical data is being recorded";
+    $int15 = 21747;
+    $graphic16 = rs3_contextual_input_green_check_mark;
+    $graphic17 = rs3_contextual_input_green_check_mark;
+    $graphic18 = rs3_contextual_input_green_check_mark;
+}
+def_int $int19 = 0;
+if (~script20115 = true) {
+    if_settext("-", $component1);
+    if_settext("-", $component3);
+    if_sethide(false, $component2);
+    if_sethide(false, $component4);
+    $string0 = "Unlocked on this world";
+    $string6 = "No web app access";
+    $string7 = "";
+    $graphic16 = rs3_contextual_input_green_check_mark;
+    $graphic17 = rs3_contextual_input_error;
+    $graphic18 = rs3_contextual_input_error;
+} else if (%telemetry_is_subscriber = true) {
+    if_settext("Manage Subscription", $component1);
+    if_settext("Top up with Bonds", $component3);
+    if_sethide(true, $component2);
+    if_sethide(false, $component4);
+    if (~telemetry_member = 1) {
+        $string0 = "Subscribed";
+    } else {
+        $string0 = "Pending, please relog";
+        $string6 = "Full web app access";
+        $string7 = "Historical data is being recorded";
+        $graphic16 = rs3_contextual_input_warning;
+        $graphic17 = rs3_contextual_input_green_check_mark;
+        $graphic18 = rs3_contextual_input_green_check_mark;
+    }
+} else if (%telemetry_member_expires > %telemetry_current_minute) {
+    $int19 = 1;
+    if_settext("Subscribe", $component1);
+    if_settext("Top up with Bonds", $component3);
+    if_sethide(true, $component2);
+    if_sethide(true, $component4);
+    if (~telemetry_member = 1) {
+        $string0 = "Active";
+    } else {
+        $string0 = "Pending, please relog";
+        $string6 = "Full web app access";
+        $string7 = "Historical data is being recorded";
+        $graphic16 = rs3_contextual_input_warning;
+        $graphic17 = rs3_contextual_input_green_check_mark;
+        $graphic18 = rs3_contextual_input_green_check_mark;
+    }
+} else {
+    if_settext("Upgrade", $component1);
+    if_settext("Upgrade with Bonds", $component3);
+    if_sethide(true, $component2);
+    if_sethide(true, $component4);
+    if (~telemetry_member = 1) {
+        $int19 = 2;
+        $string0 = "Expired!";
+        $string6 = "Limited web app access";
+        $string7 = "";
+        $int15 = 21748;
+        $graphic16 = rs3_contextual_input_warning;
+        $graphic17 = rs3_contextual_input_warning;
+        $graphic18 = rs3_contextual_input_error;
+    }
+}
+if (~script20116 = false & ~script20115 = false) {
+    $string6 = "Web access disabled";
+    $string7 = "";
+    $graphic18 = rs3_contextual_input_green_check_mark;
+}
+.cc_create($component0, ^iftype_graphic, $int11++);
+.cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic16);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string0);
+cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+$int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+.cc_create($component0, ^iftype_graphic, $int11++);
+.cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic14);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string1);
+cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+$int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+.cc_create($component0, ^iftype_graphic, $int11++);
+.cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic16);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string2);
+cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+$int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+.cc_create($component0, ^iftype_graphic, $int11++);
+.cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic16);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string3);
+cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+$int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+.cc_create($component0, ^iftype_graphic, $int11++);
+.cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic16);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string4);
+cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+$int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+.cc_create($component0, ^iftype_graphic, $int11++);
+.cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic14);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string5);
+cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+$int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+.cc_create($component0, ^iftype_graphic, $int11++);
+.cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+.cc_setgraphic($graphic17);
+cc_create($component0, ^iftype_text, $int11++);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext($string6);
+cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+$int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+if ($graphic18 = rs3_contextual_input_green_check_mark) {
+    .cc_create($component0, ^iftype_graphic, $int11++);
+    .cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setsize($int13, $int13, ^setsize_abs, ^setsize_abs);
+    .cc_setgraphic($graphic18);
+    cc_create($component0, ^iftype_text, $int11++);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext($string7);
+    cc_setposition(calc(.cc_getwidth + 2), $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(cc_getx, max(.cc_getheight, ~script7593(cc_gettext, calc($int12 - cc_getx), cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    $int10 = calc($int10 + (max(cc_getheight, .cc_getheight) + 2));
+}
+def_string $string8 = "";
+def_string $string9 = "";
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+if ($int19 > 0) {
+    cc_create($component0, ^iftype_text, $int11++);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext("Expiry:");
+    cc_setsize(0, 20, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(~script10495(3));
+    $int10 = calc($int10 + (cc_getheight + 2));
+    if ($int19 = 2) {
+        $string0 = "RuneMetrics Pro will deactivate on logout.";
+    } else {
+        $string8 = format_datetime_from_minutes(calc(%telemetry_member_expires + date_minutes_fromruneday(0)));
+        $int20 = max(0, calc(%telemetry_member_expires - %telemetry_current_minute));
+        $int21 = calc($int20 / 1440);
+        $int22 = calc($int20 % 1440 / 60);
+        $int23 = calc($int20 % 60);
+        if (calc($int21 + $int22 + $int23) ! 0) {
+            $string9 = "<br>(in <~date_tostring($int21, $int22, $int23)>)";
+        }
+        $string0 = "Your RuneMetrics Pro will expire on<br><$string8><$string9>.";
+    }
+    cc_create($component0, ^iftype_text, $int11++);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext($string0);
+    cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, ~script7593(cc_gettext, $int12, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    $int10 = calc($int10 + cc_getheight);
+}

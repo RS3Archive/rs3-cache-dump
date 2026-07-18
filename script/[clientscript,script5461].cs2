@@ -1,0 +1,139 @@
+// 5461
+[clientscript,script5461]
+def_struct $struct0 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = chat_playername;
+def_int $int1 = 0;
+$struct0 = enum(int, struct, dom_special_boss_id_to_struct, %dom_special_match);
+if ($struct0 = null) {
+    $struct0 = enum(int, struct, dom_boss_id_to_struct, %dom_boss_assigned);
+}
+%dom_battle_infobox_state = 0;
+$string0 = struct_param($struct0, dom_boss_name);
+if (%dom_special_match = 7) {
+    if_sethide(false, dom_battle_overlay:timer_layer);
+} else {
+    if_sethide(true, dom_battle_overlay:timer_layer);
+}
+%dom_battle_current_x = 0;
+%dom_battle_current_z = 0;
+if_settext($string0, dom_battle_overlay:boss_name);
+if_settext($string2, dom_battle_overlay:player_name);
+def_boolean $boolean2 = ~script6431;
+if_sethide($boolean2, dom_battle_overlay:player_health_layer);
+if_sethide($boolean2, dom_battle_overlay:boss_health_layer);
+if_sethide($boolean2, dom_battle_overlay:player_name);
+if_sethide($boolean2, dom_battle_overlay:boss_name);
+if_sethide($boolean2, dom_battle_overlay:splat_player);
+if_sethide($boolean2, dom_battle_overlay:splat_boss);
+if (%dom_climber_prog > 0) {
+    $string1 = "Climber. Floor <tostring(%dom_climber_prog)>";
+} else if (%dom_endurance_prog > 0) {
+    $string1 = "Endurance. Floor <tostring(%dom_endurance_prog)>";
+} else if (%dom_special_match > 0) {
+    $string1 = "Special. Fight: <$string0>";
+} else if (%dom_boss_assigned ! 0) {
+    $string1 = "Freestyle. Fight: <$string0>";
+} else {
+    $string1 = "Unknown";
+}
+if_settext($string1, dom_battle_overlay:status_text);
+if_setsize(if_getwidth(dom_battle_overlay:stats_layer), 37, ^setsize_abs, ^setsize_abs, dom_battle_overlay:stats_layer);
+if_setsize(if_getwidth(dom_battle_overlay:handicap_icons_layer), 1, ^setsize_abs, ^setsize_abs, dom_battle_overlay:handicap_icons_layer);
+if_setsize(calc(if_getwidth(dom_battle_overlay:player_health_layer) - 10), if_getheight(dom_battle_overlay:player_healthbar), ^setsize_abs, ^setsize_abs, dom_battle_overlay:player_healthbar);
+if_setsize(calc(if_getwidth(dom_battle_overlay:boss_health_layer) - 10), if_getheight(dom_battle_overlay:boss_healthbar), ^setsize_abs, ^setsize_abs, dom_battle_overlay:boss_healthbar);
+sound_vorbis_volume(dom_arena_fight_button, 1, 60, 255);
+if (%dom_handicap_reduce_melee_att = 1) {
+    ~script5462(1, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_shield = 1) {
+    ~script5462(2, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_food = 1) {
+    ~script5462(3, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_reduce_melee_def = 1) {
+    ~script5462(4, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_random_freeze = 1) {
+    ~script5462(5, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_halved_hp = 1) {
+    ~script5462(6, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_body_armour = 1) {
+    ~script5462(7, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_reduce_range_att = 1) {
+    ~script5462(8, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_familiar = 1) {
+    ~script5462(9, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_monster_stun = 1) {
+    ~script5462(10, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_prayers = 1) {
+    ~script5462(11, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_slip_fingers = 1) {
+    ~script5462(12, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_reduce_mage_att = 1) {
+    ~script5462(13, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_diseased = 1) {
+    ~script5462(14, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_special_attacks = 1) {
+    ~script5462(15, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_reduce_mage_def = 1) {
+    ~script5462(16, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_random_daze = 1) {
+    ~script5462(17, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_poisoned = 1) {
+    ~script5462(18, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_reduce_range_def = 1) {
+    ~script5462(19, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_powerups = 1) {
+    ~script5462(20, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_no_potions = 1) {
+    ~script5462(21, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%dom_handicap_life_saver = 1) {
+    ~script5462(22, $int1);
+    $int1 = calc($int1 + 1);
+}
+if_setontimer("script5467", dom_battle_overlay:global_layer);
+%dom_battle_topinfo_pos = -45;
+%dom_battle_bottominfo_pos = -75;
+if_setposition(0, %dom_battle_topinfo_pos, ^setpos_abs_centre, ^setpos_abs_top, dom_battle_overlay:health_bars_layer);
+if_setposition(3, %dom_battle_bottominfo_pos, ^setpos_abs_right, ^setpos_abs_bottom, dom_battle_overlay:stats_layer);

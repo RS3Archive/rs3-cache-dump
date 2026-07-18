@@ -1,0 +1,80 @@
+// 1009
+[clientscript,script1009](npc $npc0, inv $inv1, int $int2, string $string0, string $string1, int $int3, int $int4, int $int5, int $int6, boolean $boolean7)
+def_string $string2 = "You can only remove this animal from the 'Check Animals' tab while it has produce to gather.";
+if ($int6 > 1) {
+    if (compare(if_gettext(pof_animal:showstats_name), $string0) = 0) {
+        if_sethide(true, pof_animal:showstats_layer);
+    }
+    return;
+}
+if ($boolean7 = true) {
+    ~script426($string2, pof_animal:paddock_click_layer, $int2, 0);
+    mes($string2);
+    return;
+}
+def_obj $obj8 = inv_getobj($inv1, $int2);
+if ($obj8 = null) {
+    return;
+}
+def_dbrow $dbrow9 = oc_param($obj8, pof_animal_db);
+if ($dbrow9 = null) {
+    return;
+}
+def_string $string3 = oc_name($obj8);
+def_string $string4 = "Gender: Female";
+if ($int3 = 0) {
+    $string4 = "Gender: Male";
+}
+def_struct $struct10 = null;
+def_struct $struct11 = null;
+def_struct $struct12 = null;
+def_string $string5 = "";
+def_string $string6 = "";
+def_string $string7 = "";
+$struct10 = enum(int, struct, pof_animal_traits_slot_1, inv_getvar($inv1, $int2, pof_obj_animal_trait_1));
+if (inv_getvar($inv1, $int2, pof_obj_animal_trait_2) > 0) {
+    $struct11 = enum(int, struct, pof_animal_traits_slot_2, inv_getvar($inv1, $int2, pof_obj_animal_trait_2));
+}
+if (inv_getvar($inv1, $int2, pof_obj_animal_trait_3) > 0) {
+    $struct12 = enum(int, struct, pof_animal_traits_slot_3, inv_getvar($inv1, $int2, pof_obj_animal_trait_3));
+}
+$struct10, $struct11, $struct12 = ~script2640($struct10, $struct11, $struct12, $dbrow9);
+if ($struct10 ! null) {
+    $string5 = struct_param($struct10, pof_trait_name);
+}
+if ($struct11 ! null) {
+    $string6 = struct_param($struct11, pof_trait_name);
+}
+if ($struct12 ! null) {
+    $string7 = struct_param($struct12, pof_trait_name);
+}
+if_sethide(false, pof_animal:showstats_layer);
+if_setnpcmodel($npc0, pof_animal:showstats_model);
+if_setmodelanim(bas_getanim_ready(nc_param($npc0, client_bas)), pof_animal:showstats_model);
+if_setmodelzoom($int4, pof_animal:showstats_model);
+if_setmodelangle(0, 0, nc_param($npc0, pof_animal_anglex), nc_param($npc0, pof_animal_angley), 0, $int4, pof_animal:showstats_model);
+if_settext($string0, pof_animal:showstats_name);
+if_settext($string1, pof_animal:showstats_growthstage);
+if_settext($string3, pof_animal:showstats_breed);
+if_settext($string4, pof_animal:showstats_gender);
+if_settext($string5, pof_animal:showstats_trait1);
+if_settext($string6, pof_animal:showstats_trait2);
+if_settext($string7, pof_animal:showstats_trait3);
+if (inv_getvar($inv1, $int2, pof_obj_animal_favourite) = 1) {
+    if_setgraphic("stat_star,0", pof_animal:showstats_favourite_pen_icon);
+    if_setgraphic("stat_star,0", pof_animal:showstats_favourite_inv_icon);
+} else {
+    if_setgraphic("stat_star,1", pof_animal:showstats_favourite_pen_icon);
+    if_setgraphic("stat_star,1", pof_animal:showstats_favourite_inv_icon);
+}
+if ($int5 = 1) {
+    if_sethide(false, pof_animal:showstats_add_button);
+    if_sethide(true, pof_animal:showstats_remove_button);
+    if_sethide(true, pof_animal:showstats_favourite_pen_layer);
+    if_sethide(false, pof_animal:showstats_favourite_inv_layer);
+} else {
+    if_sethide(true, pof_animal:showstats_add_button);
+    if_sethide(false, pof_animal:showstats_remove_button);
+    if_sethide(false, pof_animal:showstats_favourite_pen_layer);
+    if_sethide(true, pof_animal:showstats_favourite_inv_layer);
+}

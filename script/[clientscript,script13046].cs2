@@ -1,0 +1,40 @@
+// 13046
+[clientscript,script13046](int $int0, int $int1)
+if ($int1 ! 1) {
+    return;
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_boolean $boolean2 = false;
+def_graphic $graphic3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+switch_int ($int0) {
+    case 119603208 :
+        $int4 = 1;
+    case 119603215 :
+        $int4 = 2;
+    case 119603222 :
+        $int4 = 3;
+    case default :
+        if_close;
+        return;
+}
+$int5, $boolean2, $string1, $int6 = ~script477($int4);
+if ($int5 = 0) {
+    mes("There is nothing stored in this slot.");
+    return;
+}
+if (enum(int, boolean, skillcape_perks_non_passive_perks, $int5) = true | $int6 = 1 & enum(int, boolean, skillcape_perks_non_passive_perks_master, $int5) = true) {
+    $boolean2 = true;
+}
+$string1 = enum(int, string, statstring, $int5);
+if ($int6 = 1) {
+    $string1 = "<$string1> master";
+}
+$graphic3 = enum(int, graphic, stat2icon_medium, $int5);
+if_sethide(false, skillcape_perks:main_panel_blockclick);
+if_settext("What would you like to do with the <$string1> perk?", skillcape_perks:perk_confirm_text);
+if_setgraphic($graphic3, skillcape_perks:perk_confirm_icon);
+if_sethide($boolean2, skillcape_perks:positive_button_disabled_layer);

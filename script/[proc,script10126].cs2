@@ -1,0 +1,19 @@
+// 10126
+[proc,script10126]
+if (%varclientbit_23079 = 1) {
+    if_setgraphic("rs3_btn_twitch_stop,0", twitch_stream:stream_status);
+} else {
+    if_sethide(true, twitch_stream:live_status);
+    if_setgraphic("rs3_btn_twitch_play,0", twitch_stream:stream_status);
+}
+def_int $int0 = if_getwidth(twitch_stream:webcam_buttons);
+if (parawidth(chat_playername, 2000, museo_sans_13pt_regular) > calc($int0 - (95 + parawidth(if_gettext(twitch_stream:viewer_count), 2000, museo_sans_13pt_regular)))) {
+    if (if_gethide(twitch_stream:twitch_player_name) = false & %varclientbit_23071 = 0) {
+        if_settrans(0, twitch_stream:twitch_player_name);
+        if_setontimer("twitch_fade_text(twitch_stream:twitch_player_name, 1)", twitch_stream:twitch_player_name);
+    }
+} else if (if_gethide(twitch_stream:twitch_player_name) = true) {
+    if_settrans(255, twitch_stream:twitch_player_name);
+    if_sethide(false, twitch_stream:twitch_player_name);
+    if_setontimer("twitch_fade_text(twitch_stream:twitch_player_name, 0)", twitch_stream:twitch_player_name);
+}

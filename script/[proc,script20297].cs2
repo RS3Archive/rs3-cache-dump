@@ -1,0 +1,30 @@
+// 20297
+[proc,script20297](achievement $achievement0)(int)
+def_quest $quest1 = ~script20302($achievement0);
+if ($quest1 ! null & compare(~quest_requirements_string($quest1), "None.") ! 0 & ~ql4_getquestcomplete($quest1) = false) {
+    return(1);
+}
+if (achievement_category($achievement0) = league) {
+    if (achievement_largest_prereq($achievement0) > 0) {
+        if (achievement_allprereqmet($achievement0) = true) {
+            return(-1);
+        } else if (achievement_quest_prereq_count($achievement0, 0) > 0) {
+            return(1);
+        } else if (~script20298($achievement0) = true) {
+            return(2);
+        } else {
+            return(0);
+        }
+    }
+    return(-1);
+}
+if (achievement_achievement_prereq_count($achievement0, 0) > 0 | achievement_achievement_req_count($achievement0) > 0) {
+    return(2);
+}
+if (achievement_varbit_testbit_req_count($achievement0) > 1 | achievement_varp_testbit_req_count($achievement0) > 1 | achievement_varbit_req_count($achievement0) > 1 | achievement_varp_req_count($achievement0) > 1) {
+    return(2);
+}
+if (achievement_largest_prereq($achievement0) > 0 & achievement_allprereqmet($achievement0) = false) {
+    return(0);
+}
+return(-1);

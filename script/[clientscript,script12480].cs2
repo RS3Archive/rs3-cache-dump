@@ -1,0 +1,13 @@
+// 12480
+[clientscript,script12480]
+db_find(mm16_task:col9, ~date_runeday);
+def_dbrow $dbrow0 = db_findnext;
+def_string $string0 = "Today's case: Speak to Meg for information.";
+if ($dbrow0 ! null) {
+    if (~script12475(db_getfield($dbrow0, mm16_task:col0, 0)) = 1) {
+        $string0 = "Today's case: Complete!";
+    } else {
+        $string0 = "Today's case: <db_getfield($dbrow0, mm16_task:col2, 0)>";
+    }
+}
+if_settext($string0, mm16_summary:meg_cases_desc);

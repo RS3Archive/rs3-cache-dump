@@ -1,0 +1,30 @@
+// 12726
+[proc,trh104_overlay_onload]
+def_int $int0 = calc(if_getwidth(trh104_overlay:progress_bar_outer) - 2);
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = ~trh104_get_progress;
+if ($int1 = 0) {
+    if_setsize(1, 0, ^setsize_abs, ^setsize_minus, trh104_overlay:progress_bar);
+} else {
+    if_setsize(scale($int0, $int2, $int1), 0, ^setsize_abs, ^setsize_minus, trh104_overlay:progress_bar);
+}
+if_sethide(true, wheel_of_fortune:chests_layer);
+if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+if_sethide(true, wheel_of_fortune:foreground_layer);
+if_setgraphic(trh104_background, wheel_of_fortune:background);
+if_setgraphic(~trh104_get_map_graphic, trh104_overlay:background_map);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int3, $int4, $int5 = ~script12705(%trh104_current_node);
+if ($int5 = 1) {
+    $int3 = min(calc($int3 + 1), 8);
+}
+if_settext(tostring($int1), trh104_overlay:num);
+if_settext("/ <tostring($int2)>", trh104_overlay:total);
+if_settext(tostring(%trh104_tokens), trh104_overlay:tokens);
+~script12736;
+~script12733;
+~script12738;
+~script12749;

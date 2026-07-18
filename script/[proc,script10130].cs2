@@ -1,0 +1,86 @@
+// 10130
+[proc,script10130]
+def_int $int0 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+if (string_length(%twitch_stream_name) < 1) {
+    %twitch_stream_name = "Broadcast Title";
+}
+if_settext(%twitch_stream_name, toplevel_v2_parent_suboverlay_twitch:stream_name);
+%twitch_stream_name_caret = string_length(%twitch_stream_name);
+~script10121(toplevel_v2_parent_suboverlay_twitch:stream_name, null, -1, toplevel_v2_parent_suboverlay_twitch:text_input_caret_2);
+~script10132;
+if (%varclientbit_23068 > 0) {
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_layer_1);
+    if (%varclientbit_23079 > 0) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_disabled_layer);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_disabled_layer);
+    }
+} else {
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_layer_1);
+    if (%varclientbit_23079 > 0) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_deselected_disabled_layer);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_deselected_disabled_layer);
+    }
+}
+if (%varclientbit_23249 > 0) {
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_vertical);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_flip_vertical);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_flip_vertical);
+} else {
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_vertical);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_flip_vertical);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_disabled_flip_vertical);
+}
+if (%varclientbit_23250 > 0) {
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_horizontal);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_flip_horizontal);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_flip_horizontal);
+} else {
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_horizontal);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_flip_horizontal);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_disabled_flip_horizontal);
+}
+if (string_length(%twitch_webcam_idname) > 0) {
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_layer);
+    $int0, $string0, $string1 = ttv_webcam_getdevice_byuniquename(%twitch_webcam_idname);
+    if ($int0 ! -1) {
+        $int3, $int4, $int5, $int6, $int7 = ttv_webcam_getcap_byuniqueid($int0, %twitch_webcam_options_id);
+        if_settext($string1, toplevel_v2_parent_suboverlay_twitch:webcam_name);
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_layer);
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_list_layer);
+        if_settext("<tostring($int5)> x <tostring($int6)>, framerate: <tostring($int7)>", toplevel_v2_parent_suboverlay_twitch:webcam_options);
+        $int2 = ttv_webcam_getdevice_count;
+        if ($int2 > 1) {
+            if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_name_right);
+            if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_name_left);
+        } else {
+            if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_name_right);
+            if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_name_left);
+        }
+    }
+}
+if (%varclientbit_23069 > 0) {
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_list_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_layer);
+} else {
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_list_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:checkbox_deselected_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_layer);
+}
+if (%varclientbit_23079 > 0) {
+    if_settext("Stop Broadcast", toplevel_v2_parent_suboverlay_twitch:start_broadcast_button);
+}
+~script7698;

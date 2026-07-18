@@ -1,0 +1,43 @@
+// 12183
+[clientscript,invent_gizmo_material_add](obj $obj0, component $component1, int $int2)
+def_dbrow $dbrow3 = enum(int, dbrow, invent_material_list, $int2);
+if ($dbrow3 = null) {
+    return;
+}
+if (~invent_material_unlocked($dbrow3) = 0) {
+    return;
+}
+if (~invent_gizmo_validate_material($obj0, $dbrow3) = 0) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+while ($int5 < 9) {
+    switch_int ($int5) {
+        case 0 :
+            $int4 = 4;
+        case 1 :
+            $int4 = 1;
+        case 2 :
+            $int4 = 3;
+        case 3 :
+            $int4 = 5;
+        case 4 :
+            $int4 = 7;
+        case 5 :
+            $int4 = 0;
+        case 6 :
+            $int4 = 2;
+        case 7 :
+            $int4 = 6;
+        case 8 :
+            $int4 = 8;
+    }
+    if (~script12064($obj0, $int4) = 1 & cc_find(invent_gizmo:work_layer, $int4) = true & cc_param(invent_client_material) = null) {
+        ~invent_gizmo_update_slot($dbrow3, 1);
+        ~invent_gizmo_register_move;
+        return;
+    }
+    $int5 = calc($int5 + 1);
+}
+~invent_gizmo_register_move;

@@ -1,0 +1,38 @@
+// 1058
+[proc,script1058]
+if (%toplevel_v2_hide_title_on_lock = 1 & ~script1186 = true | %toplevel_v2_legacy_interface = 1 | %toplevel_v2_minimap_shape = 1 | %toplevel_v2_mobile_interface = 1) {
+    if_sethide(true, toplevel_v2:minimap_window_close_button);
+    return;
+}
+def_string $string0 = "Logout";
+def_struct $struct0 = toplevel_v2_default_skin_data;
+if (%toplevel_v2_slim_mode = 1) {
+    $struct0 = toplevel_v2_default_slim_skin_data;
+}
+if_sethide(false, toplevel_v2:minimap_window_close_button);
+if_setsize(32, 32, ^setsize_abs, ^setsize_abs, toplevel_v2:minimap_window_close_button);
+if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2:minimap_window_close_button);
+if_setmouseovercursor(cursor_default, toplevel_v2:minimap_window_close_button);
+if (cc_find(toplevel_v2:minimap_window_close_button, 0) = true) {
+    cc_setposition(struct_param($struct0, toplevel_v2_window_titled_close_button_bg_offset_x), struct_param($struct0, toplevel_v2_window_titled_close_button_bg_offset_y), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setsize(struct_param($struct0, toplevel_v2_window_titled_close_bg_width), struct_param($struct0, toplevel_v2_window_titled_close_bg_height), ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(struct_param($struct0, toplevel_v2_window_close_button_background_graphic));
+    cc_setonmouserepeat("script8799($string0, event_com, -1)");
+    cc_setonmouseleave("script8805");
+}
+if (cc_find(toplevel_v2:minimap_window_close_button, 1) = true) {
+    cc_setposition(struct_param($struct0, toplevel_v2_window_titled_close_button_offset_x), struct_param($struct0, toplevel_v2_window_titled_close_button_offset_y), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setsize(struct_param($struct0, toplevel_v2_window_titled_close_width), struct_param($struct0, toplevel_v2_window_titled_close_height), ^setsize_abs, ^setsize_abs);
+    if (%toplevel_v2_slim_mode = 0) {
+        cc_setgraphic(rs3_button_logout_child_active);
+        cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, rs3_button_logout_child_over)");
+        cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, rs3_button_logout_child_active)");
+        cc_setop(1, "Logout");
+    } else {
+        cc_setgraphic(rs3_btn_compact_logout);
+        cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, rs3_btn_compact_logout_over)");
+        cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, rs3_btn_compact_logout)");
+        cc_setop(1, "Logout");
+    }
+    cc_setnoclickthrough(true);
+}

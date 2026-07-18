@@ -1,0 +1,15 @@
+// 5521
+[proc,lore_scroll_tooltip](dbrow $dbrow0)(string)
+def_string $string0 = "";
+def_obj $obj1 = db_getfield($dbrow0, lore:col5, 0);
+if (oc_members($obj1) = 1) {
+    $string0 = append($string0, "Familiar: <col=F8D56B><oc_name($obj1)></col>");
+} else {
+    $string0 = append($string0, "Familiar: <col=B8D1D1><oc_name($obj1)></col>");
+}
+$string0 = append($string0, "<br>");
+$string0 = append($string0, "Familiar spell points");
+$string0 = append($string0, ": <tostring(~lore_get_cost(db_getfield($dbrow0, lore:col6, 0)))>");
+$string0 = append($string0, "<br><db_getfield($dbrow0, lore:col7, 0)>");
+$string0 = append($string0, "<br><~script14945(db_getfield($dbrow0, lore:col13, 0), 1)> cooldown.</col>");
+return($string0);

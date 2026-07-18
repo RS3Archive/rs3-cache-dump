@@ -1,0 +1,43 @@
+// 14782
+[proc,script14782](int $int0)
+if (%collector_board_list = null) {
+    return;
+}
+cc_deleteall(collector_board:collector_build_layer);
+cc_deleteall(collector_board:collector_control_layer);
+cc_deleteall(collector_board:collector_scrollbar_layer);
+def_int $int1 = enum_getoutputcount(%collector_board_list);
+def_dbrow $dbrow2 = null;
+def_string $string0 = "";
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = 25;
+if (~script6431 = true) {
+    $int5 = 38;
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = -1;
+while (++$int8 < $int1) {
+    $dbrow2 = enum(int, dbrow, %collector_board_list, $int8);
+    if (~script14575($dbrow2) = 1) {
+        $string0 = db_getfield($dbrow2, collector:col1, 0);
+        $int6 = max($int5, calc(2 * ~script7593($string0, calc(if_getwidth(collector_board:collector_scrolling_layer) - 2 * 1), museo_sans_11pt_regular, 0)));
+        ~script13998(collector_board:collector_build_layer, collector_board:collector_control_layer, rs3tli_3x3_button, 1, calc($int7 + 1), calc(if_getwidth(collector_board:collector_scrolling_layer) - 2 * 1), $int6, $int8, false, $string0, ~equal_int($int8, %collector_board_selected));
+        if (cc_find(collector_board:collector_control_layer, $int8) = true) {
+            cc_setonop("script14781($int8)");
+        }
+        $int7 = calc($int7 + $int6);
+    } else {
+        cc_create(collector_board:collector_control_layer, ^iftype_text, $int8);
+    }
+}
+if_setscrollsize(0, max(if_getheight(collector_board:collector_scrolling_layer), calc($int7 + 1)), collector_board:collector_scrolling_layer);
+~rs3_scrollbar_vertical(collector_board:collector_scrollbar_layer, collector_board:collector_scrolling_layer);
+~script10428(collector_board:filter_dropdown_build_layer, collector_board:filter_dropdown_control_layer, %collector_board_filter, calc(enum_getoutputcount(%collector_board_filter) - 1), "Select a filter", %collector_board_filter_selected, 1);
+~script14783(%collector_board_selected);
+~script14784(%collector_board_selected);
+if ($int0 = 1) {
+    if_setscrollpos(0, 0, collector_board:collection_info_scrolling_layer);
+}
+~rs3_scrollbar_vertical(collector_board:collection_info_scrollbar_layer, collector_board:collection_info_scrolling_layer);

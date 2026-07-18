@@ -1,0 +1,48 @@
+// 8907
+[proc,script8907](int $int0)
+cc_deleteall(bank:custom_tab_build);
+cc_deleteall(bank:custom_tab_click);
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(bank_custom_tab_sprite_order);
+def_int $int3 = 0;
+def_int $int4 = 5;
+def_int $int5 = 0;
+def_int $int6 = ~script5869($int0);
+def_int $int7 = ~script5883($int0);
+def_int $int8 = if_getwidth(bank:custom_tab_contents);
+def_graphic $graphic9 = null;
+def_string $string0 = "Choose a name";
+if ($int7 > 0) {
+    $string0 = "";
+}
+while ($int1 < $int2) {
+    $graphic9 = enum(int, graphic, bank_custom_tab_sprite_order, $int1);
+    ~script4512(bank:custom_tab_click, 35, 35, $int4, $int5, $graphic9);
+    if (cc_find(bank:custom_tab_click, $int1) = true) {
+        cc_setop(1, "Select");
+        cc_setonop("script8908($int0, event_comsubid)");
+    }
+    $int4 = calc($int4 + 45);
+    if (calc($int4 + 45) > $int8) {
+        $int4 = 5;
+        $int5 = calc($int5 + 45);
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($int4 ! 5) {
+    $int5 = calc($int5 + 45);
+}
+$int5 = calc($int5 + 88);
+if_setsize(345, min($int5, 400), ^setsize_abs, ^setsize_abs, bank:custom_tab_panel);
+~script14141(bank:custom_tab_drop_build, bank:custom_tab_drop_click, share_preset_enum_int_string, enum_getoutputcount(share_preset_enum_int_string), "", $int7, 0, false, $string0);
+if ($int5 > 400) {
+    if_setscrollsize(0, calc($int5 - 88), bank:custom_tab_contents);
+    ~rs3_scrollbar_vertical(bank:custom_tab_scrollbar, bank:custom_tab_contents);
+}
+if_sethide(false, bank:custom_tab_panel);
+if_setonop("script8908($int0, -1)", bank:custom_tab_default);
+if (%bank_tab_vertical = 1) {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, bank:custom_tab_panel);
+} else {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, bank:custom_tab_panel);
+}

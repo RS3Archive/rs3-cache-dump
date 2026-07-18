@@ -1,0 +1,17 @@
+// 18898
+[proc,script18898](int $int0, int $int1)
+def_int $int2 = 0;
+cc_deleteall(calendar_main:rows_scrollbar);
+if ($int1 <= if_getheight(calendar_main:rows_container)) {
+    if_sethide(true, calendar_main:rows_scrollbar);
+    if_setscrollsize(0, 0, calendar_main:rows_container);
+    if_setscrollpos(0, 0, calendar_main:rows_container_scroll_layer);
+} else {
+    if ($int0 = 0) {
+        $int2 = min($int1, if_getscrolly(calendar_main:rows_container_scroll_layer));
+    }
+    if_sethide(false, calendar_main:rows_scrollbar);
+    if_setscrollsize(0, $int1, calendar_main:rows_container);
+    if_setscrollpos(0, $int2, calendar_main:rows_container_scroll_layer);
+    ~rs3_scrollbar_vertical(calendar_main:rows_scrollbar, calendar_main:rows_container);
+}

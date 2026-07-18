@@ -1,0 +1,43 @@
+// 10774
+[proc,script10774]
+def_int $int0 = if_getwidth(player_inspect:content_layer);
+def_int $int1 = if_getheight(player_inspect:content_layer);
+def_string $string0 = "";
+if ($int0 < calc(2 * 224)) {
+    if_setsize(0, 28, ^setsize_minus, ^setsize_minus, player_inspect:ragdoll_layer);
+    if_setsize(0, 28, ^setsize_minus, ^setsize_minus, player_inspect:combat_layer);
+    if_setsize(0, 28, ^setsize_minus, ^setsize_minus, player_inspect:stats_layer);
+    if_setsize(0, 28, ^setsize_minus, ^setsize_minus, player_inspect:social_layer);
+    if_setsize(0, 28, ^setsize_minus, ^setsize_minus, player_inspect:cheevo_layer);
+    if_setsize(0, 28, ^setsize_minus, ^setsize_abs, player_inspect:left_panel_tabs_layer);
+    if_setsize(0, calc(28 - 1), ^setsize_minus, ^setsize_minus, player_inspect:left_panel_bg_layer);
+    if_sethide(false, player_inspect:left_combat_tab_layer);
+    if_sethide(false, player_inspect:left_stats_tab_layer);
+    if_sethide(false, player_inspect:left_social_tab_layer);
+    if_sethide(false, player_inspect:left_cheevo_tab_layer);
+    if_sethide(true, player_inspect:right_panel_tabs_layer);
+    if_sethide(true, player_inspect:right_panel_bg_layer);
+    %player_inspect_double_panel_mode = 0;
+    $string0 = "Expand";
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", player_inspect:expand_button_active_layer);
+} else {
+    if_setsize(224, 28, ^setsize_abs, ^setsize_minus, player_inspect:ragdoll_layer);
+    if_setsize(224, 28, ^setsize_minus, ^setsize_minus, player_inspect:combat_layer);
+    if_setsize(224, 28, ^setsize_minus, ^setsize_minus, player_inspect:stats_layer);
+    if_setsize(224, 28, ^setsize_minus, ^setsize_minus, player_inspect:social_layer);
+    if_setsize(224, 28, ^setsize_minus, ^setsize_minus, player_inspect:cheevo_layer);
+    if_setsize(224, 28, ^setsize_abs, ^setsize_abs, player_inspect:left_panel_tabs_layer);
+    if_setsize(224, calc(28 - 1), ^setsize_abs, ^setsize_minus, player_inspect:left_panel_bg_layer);
+    if_sethide(true, player_inspect:left_combat_tab_layer);
+    if_sethide(true, player_inspect:left_stats_tab_layer);
+    if_sethide(true, player_inspect:left_social_tab_layer);
+    if_sethide(true, player_inspect:left_cheevo_tab_layer);
+    if_setsize(224, 28, ^setsize_minus, ^setsize_abs, player_inspect:right_panel_tabs_layer);
+    if_sethide(false, player_inspect:right_panel_tabs_layer);
+    if_setsize(224, calc(28 - 1), ^setsize_minus, ^setsize_minus, player_inspect:right_panel_bg_layer);
+    if_sethide(false, player_inspect:right_panel_bg_layer);
+    %player_inspect_double_panel_mode = 1;
+    $string0 = "Collapse";
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", player_inspect:expand_button_active_layer);
+}
+~player_inspect_select_tab(%player_inspect_active_tab);

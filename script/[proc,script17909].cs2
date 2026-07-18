@@ -1,0 +1,14 @@
+// 17909
+[proc,script17909](dbrow $dbrow0)(int)
+def_int $int1 = db_getfieldcount($dbrow0, bp3_progression_type:col3);
+def_int $int2 = db_getfieldcount($dbrow0, bp3_progression_type:col4);
+def_int $int3 = db_getfieldcount($dbrow0, bp3_progression_type:col5);
+def_int $int4 = db_getfieldcount($dbrow0, bp3_progression_type:col6);
+def_int $int5 = db_getfieldcount($dbrow0, bp3_progression_type:col7);
+def_int $int6 = db_getfieldcount($dbrow0, bp3_progression_type:col8);
+def_int $int7 = calc($int1 + $int2 + $int3 + $int4 + $int5 + $int6);
+if ($int1 > 0 & $int1 ! $int7 | $int2 > 0 & $int2 ! $int7 | $int3 > 0 & $int3 ! $int7 | $int4 > 0 & $int4 ! $int7 | $int5 > 0 & $int5 ! $int7 | $int6 > 0 & $int6 ! $int7) {
+    ~error("Invalid dbrow setup - <db_getfield($dbrow0, bp3_progression_type:col0, 0)>. Progression dbrows CANNOT contian multiple types of data.");
+    return(-1);
+}
+return($int7);

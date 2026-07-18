@@ -1,0 +1,86 @@
+// 12947
+[clientscript,script12947]
+def_struct $struct0 = ~script14441;
+if_settext(struct_param($struct0, event_community_title), event_community:community_info_title);
+if_settext(struct_param($struct0, event_community_desc), event_community:community_info_description);
+def_dbrow $dbrow1 = null;
+def_int $int2 = 5;
+def_int $int3 = 0;
+def_int $int4 = 4;
+def_int $int5 = 0;
+def_struct $struct6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int3 < $int4) {
+    db_find(event_community:col0, $int3);
+    $dbrow1 = db_findnext;
+    if ($dbrow1 ! null & (date_runeday >= db_getfield($dbrow1, event_community:col1, 0) & date_runeday <= db_getfield($dbrow1, event_community:col2, 0) | compare(db_getfield($dbrow1, event_community:col9, 0), "") ! 0)) {
+        $int5 = calc($int5 + 1);
+    }
+    $int3 = calc($int3 + 1);
+}
+$int3 = 0;
+$int7 = calc(($int5 - 1) / 2 + 1);
+def_string $string0 = "";
+$int8 = ~divide_up($int5, $int7);
+def_int $int9 = calc((if_getheight(event_community:community_container) - $int2 * ($int7 - 1)) / $int7);
+def_int $int10 = calc((if_getwidth(event_community:community_container) - $int2 * ($int8 - 1)) / $int8);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_boolean $boolean13 = false;
+def_component $component14 = null;
+while ($int3 < $int4) {
+    db_find(event_community:col0, $int3);
+    $dbrow1 = db_findnext;
+    if ($dbrow1 ! null) {
+        $struct6 = enum(int, struct, event_community_box, $int3);
+        $component14 = struct_param($struct6, event_scroll_layer);
+        if (date_runeday >= db_getfield($dbrow1, event_community:col1, 0) & date_runeday <= db_getfield($dbrow1, event_community:col2, 0) | compare(db_getfield($dbrow1, event_community:col9, 0), "") ! 0) {
+            if_sethide(false, struct_param($struct6, event_container));
+            if_setsize($int10, $int9, ^setsize_abs, ^setsize_abs, struct_param($struct6, event_container));
+            $int11 = calc($int12 / $int8);
+            if (calc($int12 % 2) = 0) {
+                if_setposition(0, calc($int11 * $int9 + $int11 * $int2), ^setpos_abs_left, ^setpos_abs_top, struct_param($struct6, event_container));
+            } else {
+                if_setposition(0, calc($int11 * $int9 + $int11 * $int2), ^setpos_abs_right, ^setpos_abs_top, struct_param($struct6, event_container));
+            }
+            if (date_runeday >= db_getfield($dbrow1, event_community:col1, 0) & date_runeday <= db_getfield($dbrow1, event_community:col2, 0)) {
+                if_settext(db_getfield($dbrow1, event_community:col3, 0), struct_param($struct6, event_title));
+                $string3 = db_getfield($dbrow1, event_community:col4, 0);
+                switch_int (map_lang) {
+                    case 1 :
+                        $string1, $string2, $boolean13 = db_getfield($dbrow1, event_community:col6, 0);
+                    case 2 :
+                        $string1, $string2, $boolean13 = db_getfield($dbrow1, event_community:col7, 0);
+                    case 3 :
+                        $string1, $string2, $boolean13 = db_getfield($dbrow1, event_community:col8, 0);
+                }
+                if (compare($string1, "") = 0) {
+                    $string1, $string2, $boolean13 = db_getfield($dbrow1, event_community:col5, 0);
+                }
+                if (compare($string1, "") = 0) {
+                    if_sethide(true, struct_param($struct6, rs3tli_button_layer));
+                    if_setsize(if_getwidth($component14), 35, ^setsize_abs, ^setsize_minus, $component14);
+                } else {
+                    if_setop(1, "Open in Browser", struct_param($struct6, rs3tli_button_layer));
+                }
+            } else {
+                $string3 = db_getfield($dbrow1, event_community:col9, 0);
+                if_sethide(true, struct_param($struct6, rs3tli_button_layer));
+                if_setsize(if_getwidth($component14), 35, ^setsize_abs, ^setsize_minus, $component14);
+            }
+            if_settext($string3, struct_param($struct6, event_desc));
+            if (calc(~script7593($string3, if_getwidth(struct_param($struct6, event_desc)), if_getfontmetrics(struct_param($struct6, event_desc)), 0) + 10) > if_getheight($component14)) {
+                if_setsize(35, if_getheight($component14), ^setsize_minus, ^setsize_abs, $component14);
+                if_sethide(false, struct_param($struct6, event_scrollbar_layer));
+                if_setscrollsize(if_getwidth($component14), calc(~script7593($string3, if_getwidth(struct_param($struct6, event_desc)), if_getfontmetrics(struct_param($struct6, event_desc)), 0) + 10), struct_param($struct6, event_scroll_layer));
+                ~rs3_scrollbar_vertical(struct_param($struct6, event_scrollbar_layer), $component14);
+            }
+            $int12 = calc($int12 + 1);
+        }
+    }
+    $int3 = calc($int3 + 1);
+}

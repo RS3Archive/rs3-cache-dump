@@ -1,0 +1,12 @@
+// 18779
+[proc,script18779](dbrow $dbrow0)(dbrow)
+if (db_getfieldcount($dbrow0, headicons_emote:col6) <= 0) {
+    return($dbrow0);
+}
+def_enum $enum1 = db_getfield($dbrow0, headicons_emote:col6, 0);
+def_var_int $var_int2 = db_getfield($dbrow0, headicons_emote:col7, 0);
+if ($enum1 = null | $var_int2 = null) {
+    ~error("Attempting to get an emote variant that doesn't exist!");
+    return($dbrow0);
+}
+return(enum(int, dbrow, $enum1, var_reference_get($var_int2)));

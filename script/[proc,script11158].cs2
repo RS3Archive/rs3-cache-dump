@@ -1,0 +1,23 @@
+// 11158
+[proc,script11158]
+def_dbrow $dbrow0 = ~trh189_get_modifiers(2);
+def_int $int1 = db_getfieldcount($dbrow0, dbtable_35:col0);
+def_int $int2 = -1;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_graphic $graphic5 = null;
+if_grid_setlayoutparams(false, $int1, 1, trh189_overlay:right_modifier_grid);
+cc_deleteall(trh189_overlay:right_modifier_grid);
+while (++$int2 < $int1) {
+    $int3, $int4 = db_getfield($dbrow0, dbtable_35:col0, $int2);
+    $graphic5 = ~script11160($int3);
+    if ($graphic5 ! null) {
+        cc_create(trh189_overlay:right_modifier_grid, ^iftype_graphic, $int2);
+        cc_setgraphic($graphic5);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+        if (%trh189_right_chest ! $int3) {
+            cc_settrans(140);
+        }
+    }
+}

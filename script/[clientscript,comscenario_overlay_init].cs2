@@ -1,0 +1,25 @@
+// 11239
+[clientscript,comscenario_overlay_init]
+def_struct $struct0 = %comscenario_struct;
+if ($struct0 = null) {
+    return;
+}
+def_enum $enum1 = struct_param($struct0, comscenario_buttons);
+if ($enum1 = null) {
+    $enum1 = comscenario_default_buttons;
+}
+def_int $int2 = enum_getoutputcount($enum1);
+if ($int2 = 0) {
+    return;
+}
+def_int $int3 = 0;
+if_settext(struct_param($struct0, comscenario_title), comscenario_overlay:title);
+def_int $int4 = 0;
+def_int $int5 = 0;
+if ($int2 <= 7) {
+    while ($int4 < $int2) {
+        $int5 = calc(if_getwidth(comscenario_overlay:button_draw) / $int2);
+        $int3 = ~script11240($enum1, $int4, calc($int4 * $int5), 10, $int5, calc(if_getheight(comscenario_overlay:button_draw) - 10), $int3);
+        $int4 = calc($int4 + 1);
+    }
+}

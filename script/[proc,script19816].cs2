@@ -1,0 +1,118 @@
+// 19816
+[proc,script19816]()(int)
+def_int $int0 = 25;
+def_int $int1 = -1;
+def_dbrow $dbrow2 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col5, 0);
+def_dbrow $dbrow3 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col6, 0);
+def_int $int4 = db_getfieldcount($dbrow2, trh205_reward_path:col0);
+def_int $int5 = db_getfieldcount($dbrow3, trh205_reward_path:col0);
+def_int $int6 = max($int4, $int5);
+def_int $int7 = 0;
+def_dbrow $dbrow8 = null;
+def_obj $obj9 = null;
+def_graphic $graphic10 = null;
+def_int $int11 = 0;
+~cc_add_child_graphic(13, $int7++, $int0, 5, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_category_button_light);
+~cc_add_child_graphic(13, $int7++, $int0, 130, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_category_button_dark);
+$int0 = calc($int0 + 150);
+def_int $int12 = 0;
+while (++$int1 < $int6) {
+    if ($int1 < $int4) {
+        if ($int12 = 0) {
+            ~cc_add_child_graphic(13, $int7++, calc($int0 - 55), calc(5 + 25), ^setpos_abs_left, ^setpos_abs_top, 89, 50, ^setsize_abs, ^setsize_abs, trh205_preview_arrow_straight_top);
+        }
+        ~cc_add_child_graphic(10, $int1, $int0, 5, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_button_default);
+        ~script19798(10, $int1, trh205_preview_button_default, trh205_preview_button_rollover);
+        cc_setop(1, "Select");
+        cc_setonop("script19817(1, $int1)");
+        $dbrow8 = db_getfield($dbrow2, trh205_reward_path:col0, $int1);
+        $graphic10 = db_getfield($dbrow8, trh205_path_reward:col2:1, 0);
+        $obj9 = db_getfield($dbrow8, trh205_path_reward:col1:0, 0);
+        if ($graphic10 ! null) {
+            ~cc_add_child_graphic(13, $int7++, calc($int0 + 25), calc(5 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $graphic10);
+        } else if ($obj9 ! null) {
+            ~script17950(13, $int7++, calc($int0 + 25), calc(5 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $obj9, 0);
+        }
+        if (%trh205_reward_path_1_prizes_claimed >= calc($int1 + 1)) {
+            ~cc_add_child_graphic(13, $int7++, $int0, 5, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_claimed_tick_plus);
+        }
+    }
+    if ($int1 < $int5) {
+        if ($int12 = 0) {
+            ~cc_add_child_graphic(13, $int7++, calc($int0 - 55), calc(130 + 45), ^setpos_abs_left, ^setpos_abs_top, 89, 50, ^setsize_abs, ^setsize_abs, trh205_preview_arrow_straight_bot);
+        }
+        ~cc_add_child_graphic(11, $int1, $int0, 130, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_button_default);
+        ~script19798(11, $int1, trh205_preview_button_default, trh205_preview_button_rollover);
+        cc_setop(1, "Select");
+        cc_setonop("script19817(2, $int1)");
+        $dbrow8 = db_getfield($dbrow3, trh205_reward_path:col0, $int1);
+        $graphic10 = db_getfield($dbrow8, trh205_path_reward:col2:1, 0);
+        $obj9 = db_getfield($dbrow8, trh205_path_reward:col1:0, 0);
+        if ($graphic10 ! null) {
+            ~cc_add_child_graphic(13, $int7++, calc($int0 + 25), calc(130 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $graphic10);
+        } else if ($obj9 ! null) {
+            ~script17950(13, $int7++, calc($int0 + 25), calc(130 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $obj9, 0);
+        }
+        if (%trh205_reward_path_2_prizes_claimed >= calc($int1 + 1)) {
+            ~cc_add_child_graphic(13, $int7++, $int0, 130, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_claimed_tick_plus);
+        }
+        $int12 = 0;
+    }
+    if (db_getfieldcount(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0) > $int11 & $int1 = calc(db_getfield(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0:0, $int11) - 1)) {
+        $int0 = calc($int0 + 150);
+        ~cc_add_child_graphic(13, $int7++, calc($int0 - 55), calc(5 + 45), ^setpos_abs_left, ^setpos_abs_top, 117, 138, ^setsize_abs, ^setsize_abs, trh205_preview_arrows_to_joint_node);
+        ~cc_add_child_graphic(12, $int1, $int0, 60, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_button_default);
+        ~script19798(12, $int1, trh205_preview_button_default, trh205_preview_button_rollover);
+        cc_setop(1, "Select");
+        cc_setonop("script19817(3, $int11)");
+        db_getfield(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0, $int11);
+        $graphic10 = db_getfield(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0:4, $int11);
+        $obj9 = db_getfield(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0:1, $int11);
+        if ($graphic10 ! null) {
+            ~cc_add_child_graphic(13, $int7++, calc($int0 + 25), calc(60 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $graphic10);
+        } else if ($obj9 ! null) {
+            ~script17950(13, $int7++, calc($int0 + 25), calc(60 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $obj9, 0);
+        }
+        if (testbit(%trh205_reward_path_joint_prizes_claimed, $int11) = ^true) {
+            ~cc_add_child_graphic(13, $int7++, $int0, 60, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_claimed_tick_plus);
+        }
+        ~cc_add_child_graphic(13, $int7++, calc($int0 + 62), calc(5 + 45), ^setpos_abs_left, ^setpos_abs_top, 117, 138, ^setsize_abs, ^setsize_abs, trh205_preview_arrows_from_joint_node);
+        $int12 = 1;
+        $int11 = calc($int11 + 1);
+    }
+    $int0 = calc($int0 + 150);
+}
+if ($int12 = 0) {
+    ~cc_add_child_graphic(13, $int7++, calc($int0 - 55), calc(5 + 25), ^setpos_abs_left, ^setpos_abs_top, 89, 50, ^setsize_abs, ^setsize_abs, trh205_preview_arrow_straight_top);
+}
+~cc_add_child_graphic(10, $int6, $int0, 5, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_button_default);
+~script19798(10, $int1, trh205_preview_button_default, trh205_preview_button_rollover);
+cc_setop(1, "Select");
+cc_setonop("script19817(1, $int6)");
+$dbrow8 = db_getfield($dbrow2, trh205_reward_path:col1, 0);
+$graphic10 = db_getfield($dbrow8, trh205_path_reward:col2:1, 0);
+$obj9 = db_getfield($dbrow8, trh205_path_reward:col1:0, 0);
+if ($graphic10 ! null) {
+    ~cc_add_child_graphic(13, $int7++, calc($int0 + 25), calc(5 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $graphic10);
+} else if ($obj9 ! null) {
+    ~script17950(13, $int7++, calc($int0 + 25), calc(5 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $obj9, 0);
+}
+~cc_add_child_graphic(13, $int7++, calc($int0 + 30), 5, ^setpos_abs_left, ^setpos_abs_top, 25, 15, ^setsize_abs, ^setsize_abs, bp3_infinity_icon);
+if ($int12 = 0) {
+    ~cc_add_child_graphic(13, $int7++, calc($int0 - 55), calc(130 + 45), ^setpos_abs_left, ^setpos_abs_top, 89, 50, ^setsize_abs, ^setsize_abs, trh205_preview_arrow_straight_bot);
+}
+~cc_add_child_graphic(11, $int6, $int0, 130, ^setpos_abs_left, ^setpos_abs_top, 120, 120, ^setsize_abs, ^setsize_abs, trh205_preview_button_default);
+~script19798(11, $int1, trh205_preview_button_default, trh205_preview_button_rollover);
+cc_setop(1, "Select");
+cc_setonop("script19817(2, $int6)");
+$dbrow8 = db_getfield($dbrow3, trh205_reward_path:col1, 0);
+$graphic10 = db_getfield($dbrow8, trh205_path_reward:col2:1, 0);
+$obj9 = db_getfield($dbrow8, trh205_path_reward:col1:0, 0);
+if ($graphic10 ! null) {
+    ~cc_add_child_graphic(13, $int7++, calc($int0 + 25), calc(130 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $graphic10);
+} else if ($obj9 ! null) {
+    ~script17950(13, $int7++, calc($int0 + 25), calc(130 + 22), ^setpos_abs_left, ^setpos_abs_top, 70, 70, ^setsize_abs, ^setsize_abs, $obj9, 0);
+}
+~cc_add_child_graphic(13, $int7++, calc($int0 + 30), 130, ^setpos_abs_left, ^setpos_abs_top, 25, 15, ^setsize_abs, ^setsize_abs, bp3_infinity_icon);
+$int0 = calc($int0 + 180);
+return($int0);

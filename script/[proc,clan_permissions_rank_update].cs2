@@ -1,0 +1,353 @@
+// 5133
+[proc,clan_permissions_rank_update]
+def_int $int0 = 0;
+def_int $int1 = ~script4293;
+if (~script5131 = 1) {
+    if_sethide(true, clansettings:rank_button_recruit_selected_layer);
+    if_sethide(true, clansettings:rank_button_corporal_selected_layer);
+    if_sethide(true, clansettings:rank_button_sergeant_selected_layer);
+    if_sethide(true, clansettings:rank_button_lieutenant_selected_layer);
+    if_sethide(true, clansettings:rank_button_captain_selected_layer);
+    if_sethide(true, clansettings:rank_button_general_selected_layer);
+    if_sethide(true, clansettings:rank_button_admin_selected_layer);
+    if_sethide(true, clansettings:rank_button_organiser_selected_layer);
+    if_sethide(true, clansettings:rank_button_coordinator_selected_layer);
+    if_sethide(true, clansettings:rank_button_overseer_selected_layer);
+    if_sethide(true, clansettings:rank_button_deputy_owner_selected_layer);
+    switch_int (%clan_permissions_rank_varc) {
+        case 0 :
+            if_sethide(false, clansettings:rank_button_recruit_selected_layer);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 1 :
+            if_sethide(false, clansettings:rank_button_corporal_selected_layer);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 2 :
+            if_sethide(false, clansettings:rank_button_sergeant_selected_layer);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 3 :
+            if_sethide(false, clansettings:rank_button_lieutenant_selected_layer);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 4 :
+            if_sethide(false, clansettings:rank_button_captain_selected_layer);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 5 :
+            if_sethide(false, clansettings:rank_button_general_selected_layer);
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+        case 100 :
+            if_sethide(false, clansettings:rank_button_admin_selected_layer);
+            if ($int1 > %clan_permissions_rank_varc) {
+                $int0 = 1;
+            }
+        case 101 :
+            if_sethide(false, clansettings:rank_button_organiser_selected_layer);
+            if ($int1 > %clan_permissions_rank_varc) {
+                $int0 = 1;
+            }
+        case 102 :
+            if_sethide(false, clansettings:rank_button_coordinator_selected_layer);
+            if ($int1 > %clan_permissions_rank_varc) {
+                $int0 = 1;
+            }
+        case 103 :
+            if_sethide(false, clansettings:rank_button_overseer_selected_layer);
+            if ($int1 > %clan_permissions_rank_varc) {
+                $int0 = 1;
+            }
+        case 125 :
+            if_sethide(false, clansettings:rank_button_deputy_owner_selected_layer);
+            if ($int1 > %clan_permissions_rank_varc) {
+                $int0 = 1;
+            }
+        case 126 :
+            $int0 = 0;
+        case 127 :
+            $int0 = 0;
+        case default :
+            if ($int1 >= 100) {
+                $int0 = 1;
+            }
+    }
+}
+def_string $string0 = "";
+if_sethide(false, clansettings:cantalk_blackout);
+if_sethide(false, clansettings:cankick_blackout);
+if_sethide(false, clansettings:canupgrade_blackout);
+if_sethide(false, clansettings:candowngrade_blackout);
+if_sethide(false, clansettings:recruit_blackout);
+if_sethide(false, clansettings:addnotice_blackout);
+if_sethide(false, clansettings:addsign_blackout);
+if_sethide(false, clansettings:editfield_blackout);
+if_sethide(false, clansettings:lockwalls_blackout);
+if_sethide(false, clansettings:lockkeep_blackout);
+if_sethide(false, clansettings:accesswalls_blackout);
+if_sethide(false, clansettings:accesskeep_blackout);
+if_sethide(false, clansettings:startbattle_blackout);
+if_sethide(false, clansettings:leadrcw_blackout);
+if_sethide(false, clansettings:startvote_blackout);
+if_sethide(false, clansettings:startmeeting_blackout);
+if_sethide(false, clansettings:partytech_blackout);
+if_sethide(false, clansettings:theatretech_blackout);
+if_sethide(false, clansettings:canlockplots_blackout);
+if_sethide(false, clansettings:cancheckresources_blackout);
+if_sethide(false, clansettings:cangather_blackout);
+if_sethide(false, clansettings:language_blackout);
+if_sethide(false, clansettings:removehabitat_blackout);
+if_sethide(false, clansettings:customiseavatar_blackout);
+if_sethide(false, clansettings:fillbuffslot_blackout);
+if_sethide(false, clansettings:settick_blackout);
+if_sethide(false, clansettings:broadcastevent_blackout);
+if_sethide(false, clansettings:changebroadcastsettings_blackout);
+if_sethide(false, clansettings:kickmember_blackout);
+if ($int0 = 1) {
+    if_sethide(true, clansettings:cantalk_blackout);
+    if_sethide(true, clansettings:cankick_blackout);
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may upgrade the citadel.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:canupgrade_blackout);
+    } else if (~script5145($int1) = 0) {
+        $string0 = "You may only allow upgrades to the citadel if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:canupgrade_blackout);
+    } else {
+        if_sethide(true, clansettings:canupgrade_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may downgrade the citadel.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:candowngrade_blackout);
+    } else if (~script5147($int1) = 0) {
+        $string0 = "You may only allow downgrades to the citadel if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:candowngrade_blackout);
+    } else {
+        if_sethide(true, clansettings:candowngrade_blackout);
+    }
+    if (~script6012($int1) = 0) {
+        $string0 = "You may only allow recruiting if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:recruit_blackout);
+    } else {
+        if_sethide(true, clansettings:recruit_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may change the noticeboard.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:addnotice_blackout);
+    } else if (~script6006($int1) = false) {
+        $string0 = "You may only allow adding of notices if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:addnotice_blackout);
+    } else {
+        if_sethide(true, clansettings:addnotice_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may change the signpost.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:addsign_blackout);
+    } else if (~script6008($int1) = false) {
+        $string0 = "You may only allow adding to the signpost if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:addsign_blackout);
+    } else {
+        if_sethide(true, clansettings:addsign_blackout);
+    }
+    if (~script6010($int1) = 0) {
+        $string0 = "You may only allow editing of the clan battlefield if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:editfield_blackout);
+    } else {
+        if_sethide(true, clansettings:editfield_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may change who may lock the citadel.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:lockwalls_blackout);
+    } else if (~script5149($int1) = 0) {
+        $string0 = "You may only allow locking of the citadel if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:lockwalls_blackout);
+    } else {
+        if_sethide(true, clansettings:lockwalls_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may change who may lock the keep.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:lockkeep_blackout);
+    } else if (~script5148($int1) = 0) {
+        $string0 = "You may only allow locking of the keep if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:lockkeep_blackout);
+    } else {
+        if_sethide(true, clansettings:lockkeep_blackout);
+    }
+    if (~script5149($int1) = 0) {
+        $string0 = "You may only allow entry to the citadel if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:accesswalls_blackout);
+    } else {
+        if_sethide(true, clansettings:accesswalls_blackout);
+    }
+    if (~script5148($int1) = 0) {
+        $string0 = "You may only allow entry to the keep if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:accesskeep_blackout);
+    } else {
+        if_sethide(true, clansettings:accesskeep_blackout);
+    }
+    if (~script6014($int1) = 0) {
+        $string0 = "You may only allow starting of battles if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:startbattle_blackout);
+    } else {
+        if_sethide(true, clansettings:startbattle_blackout);
+    }
+    if (~script6016($int1) = 0) {
+        $string0 = "You may only allow a rank to lead Rated Clan Wars if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:leadrcw_blackout);
+    } else {
+        if_sethide(true, clansettings:leadrcw_blackout);
+    }
+    if (~script6018($int1) = 0) {
+        $string0 = "You may only allow a rank to call a vote if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:startvote_blackout);
+    } else {
+        if_sethide(true, clansettings:startvote_blackout);
+    }
+    if (~script6020($int1) = 0) {
+        $string0 = "You may only allow a rank to begin a meeting if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:startmeeting_blackout);
+    } else {
+        if_sethide(true, clansettings:startmeeting_blackout);
+    }
+    if (~script6022($int1) = 0) {
+        $string0 = "You may only set a rank as a party tech if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:partytech_blackout);
+    } else {
+        if_sethide(true, clansettings:partytech_blackout);
+    }
+    if (~script6024($int1) = 0) {
+        $string0 = "You may only set a rank as a theatre tech if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:theatretech_blackout);
+    } else {
+        if_sethide(true, clansettings:theatretech_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may set skill plot locks.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:canlockplots_blackout);
+    } else if (~script5962($int1) = 0) {
+        $string0 = "You may only allow a rank to lock plots if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:canlockplots_blackout);
+    } else {
+        if_sethide(true, clansettings:canlockplots_blackout);
+    }
+    if (~script5964($int1) = 0) {
+        $string0 = "You may only allow a rank to checkresources if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:cancheckresources_blackout);
+    } else {
+        if_sethide(true, clansettings:cancheckresources_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may set gathering goals.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:cangather_blackout);
+    } else if (~script5225($int1) = 0) {
+        $string0 = "You may only allow a rank to gather resources if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:cangather_blackout);
+    } else {
+        if_sethide(true, clansettings:cangather_blackout);
+    }
+    if (%clan_permissions_rank_varc < 103) {
+        $string0 = "Only overseers and above may set the citadel's language.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:language_blackout);
+    } else if (~script6028($int1) = 0) {
+        $string0 = "You may only allow a rank to change the stronghold's language if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:language_blackout);
+    } else {
+        if_sethide(true, clansettings:language_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admin ranks and above may remove the avatar habitat.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:removehabitat_blackout);
+    } else if (~script6631($int1) = false) {
+        $string0 = "You may only allow another rank to remove the avatar habitat if your rank has permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:removehabitat_blackout);
+    } else {
+        if_sethide(true, clansettings:removehabitat_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admin ranks and above may customise the clan avatar.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:customiseavatar_blackout);
+    } else if (~script6633($int1) = false) {
+        $string0 = "You may only allow another rank to customise the clan avatar if your rank has permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:customiseavatar_blackout);
+    } else {
+        if_sethide(true, clansettings:customiseavatar_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may decide which resource your clan avatars can gather for.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:fillbuffslot_blackout);
+    } else if (~script6635($int1) = false) {
+        $string0 = "You may only allow a rank to decide which resource your clan avatars can gather if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:fillbuffslot_blackout);
+    } else {
+        if_sethide(true, clansettings:fillbuffslot_blackout);
+    }
+    if (%clan_permissions_rank_varc < 103) {
+        $string0 = "Only overseers and above may move the build tick.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:settick_blackout);
+    } else if (~script6030($int1) = 0) {
+        $string0 = "You may only allow a rank to change the stronghold's build time if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:settick_blackout);
+    } else {
+        if_sethide(true, clansettings:settick_blackout);
+    }
+    if (~script9357($int1) = 0) {
+        $string0 = "You may only allow a rank to broadcast a noticeboard event if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:broadcastevent_blackout);
+    } else {
+        if_sethide(true, clansettings:broadcastevent_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admins and above may change clan broadcast settings.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:changebroadcastsettings_blackout);
+    } else if (~script3733($int1) = false) {
+        $string0 = "You may only allow a rank to change clan broadcast settings if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:changebroadcastsettings_blackout);
+    } else {
+        if_sethide(true, clansettings:changebroadcastsettings_blackout);
+    }
+    if (%clan_permissions_rank_varc < 100) {
+        $string0 = "Only admin+ may kick clan members.";
+        if_setonmouserepeat("script5139($string0, event_com)", clansettings:kickmember_blackout);
+    } else if (~script391($int1) = 0) {
+        $string0 = "You may only allow a rank to kick a clan member if your rank has this permission.";
+        if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:kickmember_blackout);
+    } else {
+        if_sethide(true, clansettings:kickmember_blackout);
+    }
+} else {
+    $string0 = "Your rank is not high enough to alter this permission. You must be logged in to your clan's chat to adjust this.";
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:canupgrade_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:candowngrade_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:recruit_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:addnotice_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:addsign_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:editfield_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:lockwalls_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:lockkeep_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:accesswalls_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:accesskeep_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:startbattle_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:leadrcw_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:startvote_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:startmeeting_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:partytech_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:theatretech_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:canlockplots_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:cancheckresources_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:cangather_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:language_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:removehabitat_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:customiseavatar_blackout);
+    if_setonmouserepeat("script5139($string0, event_com)", clansettings:fillbuffslot_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:settick_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:broadcastevent_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:changebroadcastsettings_blackout);
+    if_setonmouserepeat("clan_permissions_tooltip($string0, event_com)", clansettings:kickmember_blackout);
+}
+~clan_permissions_update_status;

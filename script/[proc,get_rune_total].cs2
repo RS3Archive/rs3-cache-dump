@@ -1,0 +1,53 @@
+// 7165
+[proc,get_rune_total](obj $obj0)(int)
+if (oc_category($obj0) ! magic_rune) {
+    ~error("tried to get total runes of a non-rune object");
+    return(0);
+}
+switch_obj ($obj0) {
+    case rand_airrune :
+        if (inv_totalparam(worn, magic_supplies_air_runes) > 0) {
+            return(-1);
+        }
+        return(calc(inv_total(inv, rand_airrune) + inv_total(inv, rand_airrune_b)));
+    case rand_waterrune :
+        if (inv_totalparam(worn, magic_supplies_water_runes) > 0) {
+            return(-1);
+        }
+        return(calc(inv_total(inv, rand_waterrune) + inv_total(inv, rand_waterrune_b)));
+    case rand_firerune :
+        if (inv_totalparam(worn, magic_supplies_fire_runes) > 0) {
+            return(-1);
+        }
+        return(calc(inv_total(inv, rand_firerune) + inv_total(inv, rand_firerune_b)));
+    case rand_earthrune :
+        if (inv_totalparam(worn, magic_supplies_earth_runes) > 0) {
+            return(-1);
+        }
+        return(calc(inv_total(inv, rand_earthrune) + inv_total(inv, rand_earthrune_b)));
+    case rand_mindrune :
+        return(calc(inv_total(inv, rand_mindrune) + inv_total(inv, rand_mindrune_b)));
+    case rand_bodyrune :
+        return(calc(inv_total(inv, rand_bodyrune) + inv_total(inv, rand_bodyrune_b)));
+    case rand_chaosrune :
+        return(calc(inv_total(inv, rand_chaosrune) + inv_total(inv, rand_chaosrune_b)));
+    case rand_deathrune :
+        return(calc(inv_total(inv, rand_deathrune) + inv_total(inv, rand_deathrune_b)));
+    case rand_bloodrune :
+        return(calc(inv_total(inv, rand_bloodrune) + inv_total(inv, rand_bloodrune_b)));
+    case rand_soulrune :
+        return(calc(inv_total(inv, rand_soulrune) + inv_total(inv, rand_soulrune_b)));
+    case rand_cosmicrune :
+        return(calc(inv_total(inv, rand_cosmicrune) + inv_total(inv, rand_cosmicrune_b)));
+    case rand_naturerune :
+        return(calc(inv_total(inv, rand_naturerune) + inv_total(inv, rand_naturerune_b)));
+    case rand_astralrune :
+        return(calc(inv_total(inv, rand_astralrune) + inv_total(inv, rand_astralrune_b)));
+    case rand_lawrune :
+        return(calc(inv_total(inv, rand_lawrune) + inv_total(inv, rand_lawrune_b)));
+    case airrune, waterrune, firerune, earthrune, dustrune, mudrune, smokerune, steamrune, mistrune, lavarune, mindrune, bodyrune, soulrune, bloodrune, cosmicrune, astralrune, deathrune, lawrune, chaosrune, naturerune, timerune, mah5_armadyl_rune :
+        return(~script18406($obj0));
+    case default :
+        ~error("unrecognised type of rune when checking rune total in makex2012 - <oc_name($obj0)>");
+        return(inv_total(inv, $obj0));
+}

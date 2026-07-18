@@ -1,0 +1,136 @@
+// 10786
+[clientscript,script10786]
+cc_deleteall(player_inspect:social_layer);
+def_int $int0 = ~script10495(1);
+def_int $int1 = ~script10495(2);
+def_int $rgb2 = ^white;
+def_int $int3 = ~script10495(7);
+def_int $int4 = 5;
+def_string $string0 = ~player_title_get_specific(%player_inspect_target_title_id, %player_inspect_target_gender, %player_inspect_target_name, %player_inspect_target_name);
+cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+cc_settextfont(museo_sans_17pt_bold);
+cc_setcolour($int0);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 54, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 18);
+cc_settext($string0);
+$int4 = calc($int4 + (54 + 5));
+cc_create(player_inspect:social_layer, ^iftype_line, if_getnextsubid(player_inspect:social_layer));
+cc_setcolour($int3);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 10), 0, ^setsize_abs, ^setsize_abs);
+$int4 = calc($int4 + 5);
+cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+cc_settextfont(museo_sans_13pt_bold);
+cc_setcolour($int1);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 16, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+cc_settext("Clan");
+$int4 = calc($int4 + (16 + 5));
+cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_setcolour($rgb2);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 16, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if (%player_inspect_target_privacy = 0 & string_length(%player_inspect_target_clanname) > 0) {
+    cc_settext(%player_inspect_target_clanname);
+    cc_setmouseovercursor(cursor_goto);
+    cc_setop(1, "View Clan Information");
+    cc_setonop("script15228(28)");
+    cc_create(player_inspect:social_layer, ^iftype_graphic, if_getnextsubid(player_inspect:social_layer));
+    cc_setgraphic("rs3_icon_external_link_24px,0");
+    cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+    cc_setposition(5, calc($int4 - 4), ^setpos_abs_right, ^setpos_abs_top);
+} else {
+    cc_settext("N/A");
+}
+$int4 = calc($int4 + (16 + 5));
+if (string_length(%player_inspect_target_groupname) > 0) {
+    cc_create(player_inspect:social_layer, ^iftype_line, if_getnextsubid(player_inspect:social_layer));
+    cc_setcolour($int3);
+    cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 10), 0, ^setsize_abs, ^setsize_abs);
+    $int4 = calc($int4 + 5);
+    cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+    cc_settextfont(museo_sans_13pt_bold);
+    cc_setcolour($int1);
+    cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 16, ^setsize_abs, ^setsize_abs);
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    cc_settext("Ironman Group");
+    $int4 = calc($int4 + (16 + 5));
+    cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    cc_setcolour($rgb2);
+    cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 16, ^setsize_abs, ^setsize_abs);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    if (%player_inspect_target_privacy = 0 & string_length(%player_inspect_target_groupname) > 0) {
+        cc_settext(%player_inspect_target_groupname);
+        if (%player_inspect_target_hiscore_ineligible = 0) {
+            cc_setmouseovercursor(cursor_goto);
+            cc_setop(1, "View Group Information");
+            cc_setonop("script15228(27)");
+            cc_create(player_inspect:social_layer, ^iftype_graphic, if_getnextsubid(player_inspect:social_layer));
+            cc_setgraphic("rs3_icon_external_link_24px,0");
+            cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+            cc_setposition(5, calc($int4 - 4), ^setpos_abs_right, ^setpos_abs_top);
+        }
+    } else {
+        cc_settext("N/A");
+    }
+    $int4 = calc($int4 + (16 + 5));
+}
+cc_create(player_inspect:social_layer, ^iftype_line, if_getnextsubid(player_inspect:social_layer));
+cc_setcolour($int3);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 10), 0, ^setsize_abs, ^setsize_abs);
+$int4 = calc($int4 + 5);
+cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+cc_settextfont(museo_sans_13pt_bold);
+cc_setcolour($int1);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 16, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+cc_settext("Status");
+$int4 = calc($int4 + (16 + 5));
+cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_setcolour($rgb2);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 28, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+def_string $string1 = enum(int, string, player_inspect_status_options, %player_inspect_target_status_id);
+cc_settext($string1);
+$int4 = calc($int4 + (28 + 5));
+cc_create(player_inspect:social_layer, ^iftype_line, if_getnextsubid(player_inspect:social_layer));
+cc_setcolour($int3);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 10), 0, ^setsize_abs, ^setsize_abs);
+$int4 = calc($int4 + 5);
+cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+cc_settextfont(museo_sans_13pt_bold);
+cc_setcolour($int1);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 16, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+cc_settext("Personal Message");
+$int4 = calc($int4 + (16 + 5));
+cc_create(player_inspect:social_layer, ^iftype_text, if_getnextsubid(player_inspect:social_layer));
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_setcolour($rgb2);
+cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(calc(if_getwidth(player_inspect:social_layer) - 20), 48, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+if (string_length(%player_inspect_target_personal_message) > 0) {
+    cc_settext(removetags(%player_inspect_target_personal_message));
+} else {
+    cc_settext("None");
+}
+if (%player_inspect_target_block_share = 1 | ~script6431 = true) {
+    if_sethide(true, player_inspect:interface_sharing_button);
+} else {
+    if_sethide(false, player_inspect:interface_sharing_button);
+}

@@ -1,0 +1,44 @@
+// 6525
+[clientscript,script6525](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, graphic $graphic6, string $string0, vorbis $vorbis7, boolean $boolean8, boolean $boolean9, boolean $boolean10, boolean $boolean11)
+def_int $int12 = ~script5843(toplevel_v2:gameview_window, 1024, 780);
+if_setsize(calc(1024 * $int12 / 100), calc(576 * $int12 / 100), ^setsize_abs, ^setsize_abs, image_sequence:graphic);
+if_setsize(calc(1024 * $int12 / 100), calc(160 * $int12 / 100), ^setsize_abs, ^setsize_abs, image_sequence:text);
+if_setposition(0, calc(-38 * $int12 / 100), ^setpos_abs_centre, ^setpos_abs_centre, image_sequence:graphic);
+if (if_find(image_sequence:text) = true & (cc_param(rs3tli_component_initial_width) ! if_getwidth(image_sequence:text) | cc_param(rs3tli_component_initial_height) ! if_getheight(image_sequence:text))) {
+    ~script15883;
+}
+if ($int0 = 0) {
+    $int1 = 0;
+    $int2 = 0;
+    clientoption_set(^clientoption_volume_background_effects, 0);
+    $int5 = db_getfieldcount(%image_sequence, image_sequence:col3);
+}
+if ($int2 = 0) {
+    $graphic6, $string0, $vorbis7, $int3, $boolean8, $boolean9, $boolean10, $boolean11 = db_getfield(%image_sequence, image_sequence:col3, $int1);
+}
+if ($int2 < $int3) {
+    if ($int2 = 0) {
+        ~script6526($graphic6, $string0, $vorbis7, $boolean8, $boolean10);
+    } else if ($int2 < 60) {
+        if ($boolean8 = true) {
+            if_settrans(max(0, calc(if_gettrans(image_sequence:graphic) - 5)), image_sequence:graphic);
+        }
+        if ($boolean10 = true) {
+            if_settrans(max(0, calc(if_gettrans(image_sequence:text) - 5)), image_sequence:text);
+        }
+    } else if ($int2 >= calc($int3 - 60)) {
+        if ($boolean9 = true) {
+            if_settrans(min(255, calc(if_gettrans(image_sequence:graphic) + 5)), image_sequence:graphic);
+        }
+        if ($boolean11 = true) {
+            if_settrans(min(255, calc(if_gettrans(image_sequence:text) + 5)), image_sequence:text);
+        }
+    }
+    $int2 = calc($int2 + 1);
+} else {
+    $int1 = calc($int1 + 1);
+    $int2 = 0;
+}
+if ($int1 < $int5 & %image_sequence ! null) {
+    if_setontimer("script6525(calc($int0 + 1), $int1, $int2, $int3, $int4, $int5, $graphic6, $string0, $vorbis7, $boolean8, $boolean9, $boolean10, $boolean11)", image_sequence:universe);
+}

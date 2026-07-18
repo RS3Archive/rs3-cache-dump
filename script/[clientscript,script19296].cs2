@@ -1,0 +1,28 @@
+// 19296
+[clientscript,script19296](int $int0, int $int1)
+def_int $int2 = if_getwidth(trh_dungeon_crawl_overlay:boss_healthbar_background_layer);
+if ($int2 = $int0) {
+    if_setontimer(null, trh_dungeon_crawl_overlay:boss_healthbar_progress_layer);
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int3, $int4, $int5 = ~hex_to_rgb(2023680);
+$int3 = max(1, calc($int3 - scale($int3, 100, calc(100 - $int1))));
+$int4 = max(1, calc($int4 - scale($int4, 100, calc(100 - $int1))));
+$int5 = max(1, calc($int5 - scale($int5, 100, calc(100 - $int1))));
+if_setcolour(~rgb_to_hex($int3, $int4, $int5), trh_dungeon_crawl_overlay:boss_healthbar_left_end_graphic);
+if_setcolour(~rgb_to_hex($int3, $int4, $int5), trh_dungeon_crawl_overlay:boss_healthbar_right_end_graphic);
+def_int $int6 = 1;
+if ($int2 < $int0) {
+    if ($int2 < calc($int0 - 10)) {
+        $int6 = 5;
+    }
+    if_setsize(calc($int2 + $int6), 17, ^setsize_abs, ^setsize_abs, trh_dungeon_crawl_overlay:boss_healthbar_background_layer);
+} else if ($int2 > $int0) {
+    if ($int2 > calc($int0 + 10)) {
+        $int6 = 5;
+    }
+    if_setsize(calc($int2 - $int6), 17, ^setsize_abs, ^setsize_abs, trh_dungeon_crawl_overlay:boss_healthbar_background_layer);
+}

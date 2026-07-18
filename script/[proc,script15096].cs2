@@ -1,0 +1,15 @@
+// 15096
+[proc,script15096](inv $inv0, int $int1)(string, string, int)
+def_int $int2 = 0;
+def_obj $obj3 = null;
+if (oc_category(inv_getobj($inv0, $int1)) = alchemical_hydrix_amulet & oc_hasvarobj(inv_getobj($inv0, $int1)) = true) {
+    $int2 = inv_getvar($inv0, $int1, alchemical_hydrix_amulet_special_attack_id);
+    if ($int2 > 0) {
+        $obj3 = enum(int, obj, special_attack_id_to_obj, $int2);
+        if (oc_param($obj3, combatv2_special_attack_base_item) ! null) {
+            $obj3 = oc_param($obj3, combatv2_special_attack_base_item);
+        }
+        return(~script17461($obj3), ~script17732(11748, $obj3), oc_param($obj3, combatv2_special_attack_adren_req));
+    }
+}
+return("None", "", 0);

@@ -1,0 +1,23 @@
+// 19932
+[proc,script19932](dbrow $dbrow0)(int)
+def_int $int1 = db_getfield($dbrow0, easter_egg_hunt_hunt_table:col1, 0);
+def_int $int2 = db_getfield($dbrow0, easter_egg_hunt_hunt_table:col3, 0);
+def_var_int $var_int3 = null;
+def_int $int4 = -1;
+$var_int3, $int4 = db_getfield($dbrow0, easter_egg_hunt_hunt_table:col0, 0);
+if (~date_runeday < $int1) {
+    return(1);
+}
+if (~date_runeday = $int1 & ~script19938 < db_getfield($dbrow0, easter_egg_hunt_hunt_table:col2, 0)) {
+    return(1);
+}
+if (~date_runeday > $int2) {
+    return(2);
+}
+if (~date_runeday = $int2 & ~script19938 >= db_getfield($dbrow0, easter_egg_hunt_hunt_table:col4, 0)) {
+    return(2);
+}
+if ($var_int3 ! null & var_reference_get($var_int3) < $int4) {
+    return(3);
+}
+return(0);

@@ -1,0 +1,87 @@
+// 9578
+[proc,script9578](component $component0, struct $struct1)
+if ($component0 = null | $struct1 = null) {
+    return;
+}
+if_setonvartransmit("script9987($component0, $struct1){toplevel_v2_skins_varp}", $component0);
+def_int $int2 = struct_param($struct1, rs3tli_button_layer_type);
+def_struct $struct3 = struct_param($struct1, rs3tli_button_layer_master_struct);
+if ($struct3 ! null) {
+    $struct1 = $struct3;
+}
+$struct1 = ~script9984($struct1, $int2);
+def_int $int4 = struct_param($struct1, rs3tli_button_graphic_width);
+def_int $int5 = struct_param($struct1, rs3tli_button_graphic_height);
+def_boolean $boolean6 = false;
+def_boolean $boolean7 = false;
+def_graphic $graphic8 = struct_param($struct1, rs3tli_button_graphic_left);
+def_graphic $graphic9 = struct_param($struct1, rs3tli_button_graphic_middle);
+def_graphic $graphic10 = struct_param($struct1, rs3tli_button_graphic_right);
+def_graphic $graphic11 = struct_param($struct1, rs3tli_button_graphic_left_selected);
+def_graphic $graphic12 = struct_param($struct1, rs3tli_button_graphic_middle_selected);
+def_graphic $graphic13 = struct_param($struct1, rs3tli_button_graphic_right_selected);
+def_graphic $graphic14 = $graphic8;
+def_graphic $graphic15 = $graphic9;
+def_graphic $graphic16 = $graphic10;
+if (if_find(if_getparentlayer($component0)) = true & .if_find(if_getparentlayer(if_getparentlayer($component0))) = true) {
+    if (cc_param(rs3tli_button_selected_layer) ! null & if_gethide(cc_param(rs3tli_button_selected_layer)) = false) {
+        $graphic14 = $graphic11;
+        $graphic15 = $graphic12;
+        $graphic16 = $graphic13;
+    }
+    switch_int ($int2) {
+        case 1 :
+            cc_setparam(rs3tli_button_on_layer, $component0);
+        case 2 :
+            if_setonmouseover("script8087(false, event_com)", $component0);
+            if_setonmouseleave("script8087(true, event_com)", $component0);
+            $boolean6 = true;
+            cc_setparam(rs3tli_button_over_layer, $component0);
+        case 3 :
+            if_setonclick("script10016(event_com)", $component0);
+            if_setonrelease("script8087(true, event_com)", $component0);
+            if_setonmouseleave("script8087(true, event_com)", $component0);
+            $boolean6 = true;
+            cc_setparam(rs3tli_button_hit_layer, $component0);
+        case 4 :
+            $boolean7 = true;
+            cc_setparam(rs3tli_button_selected_layer, $component0);
+            .cc_setparam(rs3tli_button_selected_layer, $component0);
+            .cc_setparam(rs3tli_accordion_button_height, if_getheight($component0));
+            cc_deleteall($component0);
+            if_sethide($boolean7, $component0);
+            return;
+        case 5 :
+            if_setnoclickthrough(true, $component0);
+            $graphic8 = null;
+            $graphic9 = null;
+            $graphic10 = null;
+            $graphic11 = null;
+            $graphic12 = null;
+            $graphic13 = null;
+    }
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(calc(2 * $int4), 0, ^setsize_minus, ^setsize_minus);
+cc_setgraphic($graphic15);
+cc_sethide($boolean6);
+cc_settiling(true);
+cc_setparam(rs3tli_cc_graphic, $graphic9);
+cc_setparam(rs3tli_cc_graphic_selected, $graphic12);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic14);
+cc_sethide($boolean6);
+cc_setparam(rs3tli_cc_graphic, $graphic8);
+cc_setparam(rs3tli_cc_graphic_selected, $graphic11);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic16);
+cc_sethide($boolean6);
+cc_setparam(rs3tli_cc_graphic, $graphic10);
+cc_setparam(rs3tli_cc_graphic_selected, $graphic13);
+if_sethide($boolean7, $component0);

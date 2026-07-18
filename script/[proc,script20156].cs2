@@ -1,0 +1,20 @@
+// 20156
+[proc,script20156](dbrow $dbrow0, boolean $boolean1, string $string0)(boolean, string)
+def_int $int2 = 0;
+def_int $int3 = db_getfieldcount($dbrow0, league_teleport_destinations:col4);
+while ($int2 < $int3) {
+    switch_int (db_getfield($dbrow0, league_teleport_destinations:col4, $int2)) {
+        case 2 :
+            if (%glo3_main < 30 & %mourning_quest < 2) {
+                $string0 = append($string0, "<br>- Access to Lletya");
+                $boolean1 = false;
+            }
+        case 3 :
+            if (stat(strength) < 60 & stat(agility) < 60) {
+                $string0 = append($string0, "<br>- 60 Strength or 60 Agility");
+                $boolean1 = false;
+            }
+    }
+    $int2 = calc($int2 + 1);
+}
+return($boolean1, $string0);

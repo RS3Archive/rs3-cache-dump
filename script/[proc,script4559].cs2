@@ -1,0 +1,122 @@
+// 4559
+[proc,script4559](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9)
+if (minimenuopen($component3, -1) = true) {
+    if_setontimer("script4558($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8, $component9)", $component4);
+    return;
+} else {
+    if_setontimer(null, $component4);
+}
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int10 = 0;
+def_int $int11 = clan_getchatcount;
+def_int $int12 = 0;
+def_string $string0 = "";
+def_int $int13 = 20;
+def_int $int14 = 17;
+def_int $rgb15 = ^black;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int21 = 0;
+def_boolean $boolean22 = ~is_mobile_client;
+if ($boolean22 = true) {
+    $int13 = 40;
+} else {
+    if_setsize(0, $int13, ^setsize_minus, ^setsize_abs, lobbyscreen_pane_friendschat:friendschat_active_bg);
+}
+$int21 = calc($int13 / 2 - 4);
+if ($int11 <= 0) {
+    if ($boolean22 = false) {
+        if_settext("Not in chat", lobbyscreen_pane_friendschat:friendschat_detail_name_text);
+        if_settext("None", lobbyscreen_pane_friendschat:friendschat_detail_owner_text);
+        if_sethide(false, $component6);
+        ~script13991($component6, null, rs3tli_content_panel_blue, true);
+        if_setsize(if_getwidth($component7), 0, ^setsize_abs, ^setsize_abs, $component7);
+        ~script4560("You are not currently in a Friends Chat channel.<br><br>Use the button below if you wish to join a chat channel.", $component3);
+    } else {
+        if_settext("(Not in chat)", lobbyscreen_pane_mobile_social:friends_chat_list_title);
+        ~script4560("You are not currently in a Friends Chat channel.<br><br>Use the 'Join Channel' button if you wish to join a chat channel.", $component3);
+    }
+    if_settext("Join Channel", $component8);
+    if_setop(1, "Join chat channel", $component8);
+    if_sethide(true, $component5);
+    if_setscrollsize(0, 0, $component4);
+    if_setscrollpos(0, 0, $component4);
+} else {
+    if ($boolean22 = false) {
+        if_settext(clan_getchatdisplayname, lobbyscreen_pane_friendschat:friendschat_detail_name_text);
+        if_settext(clan_getchatownername, lobbyscreen_pane_friendschat:friendschat_detail_owner_text);
+        if_sethide(true, $component6);
+        if_setsize(if_getwidth($component7), 0, ^setsize_abs, ^setsize_minus, $component7);
+    } else {
+        if_settext("<clan_getchatdisplayname><br>(<clan_getchatownername>)", lobbyscreen_pane_mobile_social:friends_chat_list_title);
+    }
+    if_settext("Leave Channel", $component8);
+    if_setop(1, "Leave chat channel", $component8);
+    if_sethide(false, $component5);
+    while ($int12 < $int11) {
+        $int20 = clan_getchatuserrank($int12);
+        $string2 = clan_getchatusername_unfiltered($int12);
+        $string0 = clan_getchatusername($int12);
+        $int17 = clan_getchatuserworld($int12);
+        ~script14400($component3, 0, $int13, 0, $int16, true, $int12);
+        if (cc_find($component3, $int12) = true) {
+            if ($boolean22 = false) {
+                ~script11558($int20, $component3, $int12);
+            }
+            if (clan_isself($int12) = false) {
+                cc_setopbase($string2);
+                if ($boolean22 = true) {
+                    if ($int17 > 0) {
+                        cc_setop(1, "Select");
+                    }
+                    ~script17124($int12);
+                }
+                if (friend_test(removetags($string2)) = true) {
+                    cc_setop(8, "Remove friend");
+                } else if (ignore_test(removetags($string2)) = true) {
+                    cc_setop(9, "Remove ignore");
+                } else {
+                    cc_setop(6, "Add friend");
+                    cc_setop(7, "Add ignore");
+                }
+                cc_setonop("script4564($string2, event_op, $int12)");
+            }
+            if (clan_getchatrank >= clan_getchatminkick & clan_getchatrank > $int20) {
+                cc_setop(10, "Kick/ban");
+            }
+        }
+        ~cc_add_graphic($component1, $int12, 5, calc($int16 + $int21), ^setpos_abs_left, ^setpos_abs_top, 9, 9, ^setsize_abs, ^setsize_abs, ~script1599($int20));
+        ~cc_add_text($component0, $int12, $int14, $int16, ^setpos_abs_left, ^setpos_abs_top, $int14, $int13, ^setsize_minus, ^setsize_abs, text_body_small_print, $string0);
+        cc_setcolour(^white);
+        cc_settextshadow(true);
+        cc_setmaxlines(1);
+        $rgb15, $string0 = ~script17129($int17);
+        ~cc_add_text($component2, $int12, 5, $int16, ^setpos_abs_left, ^setpos_abs_top, 5, $int13, ^setsize_minus, ^setsize_abs, text_body_small_print, $string0);
+        cc_setcolour($rgb15);
+        cc_settextshadow(true);
+        cc_setmaxlines(1);
+        $int16 = calc($int16 + $int13);
+        $int12 = calc($int12 + 1);
+    }
+    $int18 = calc(if_getheight($component4) / $int13 + 1);
+    if ($int18 > $int11) {
+        while ($int12 < $int18) {
+            ~script14400($component3, 0, $int13, 0, $int16, true, $int12);
+            $int16 = calc($int16 + $int13);
+            $int12 = calc($int12 + 1);
+        }
+        $int19 = if_getheight($component4);
+    } else {
+        $int19 = $int16;
+    }
+    ~script17128($component4, $component5, $int18, $int11, $int19);
+}
+~script4573($component9);

@@ -1,0 +1,22 @@
+// 17388
+[proc,script17388](int $int0, int $int1)
+def_int $int2 = 0;
+if (%stock_offertype = 1) {
+    if (oc_cert(%stock_offeritem) ! %stock_offeritem) {
+        $int2 = ~script11882(inv_total(inv, %stock_offeritem), inv_total(inv, oc_cert(%stock_offeritem)));
+    } else {
+        $int2 = inv_total(inv, %stock_offeritem);
+    }
+    if ($int0 = 1000) {
+        %stock_offercount_visible = $int2;
+    } else if ($int1 = 1) {
+        %stock_offercount_visible = min($int2, $int0);
+    } else {
+        %stock_offercount_visible = min($int2, calc(%stock_offercount_visible + $int0));
+    }
+} else if (%stock_offercount_visible <= calc(^max_32bit_int - $int0)) {
+    %stock_offercount_visible = calc(%stock_offercount_visible + $int0);
+} else {
+    %stock_offercount_visible = ^max_32bit_int;
+}
+~script15038(%stock_offercount_visible, %stock_offerprice_visible, 1);

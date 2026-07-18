@@ -1,0 +1,37 @@
+// 12806
+[clientscript,script12806]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_obj $obj2 = null;
+def_int $int3 = 10;
+def_int $int4 = 7;
+while ($int0 < 15) {
+    cc_create(cs_week_2016_seasonal:clue_scroll_reward_icon_container, ^iftype_graphic, $int1);
+    $int1 = calc($int1 + 1);
+    cc_setgraphic(rs3_inventory_slot);
+    cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_create(cs_week_2016_seasonal:clue_scroll_reward_icon_container, ^iftype_graphic, $int1);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int3 + 4), calc($int4 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    $int3 = calc($int3 + 36 + 10);
+    if ($int0 = 4 | $int0 = 9) {
+        $int4 = calc($int4 + 36 + 7);
+        $int3 = 10;
+    }
+    $obj2 = cabbage;
+    if (map_members = true) {
+        $obj2 = enum(int, obj, cs_week_2016_clue_rewardshowoff_members, $int0);
+    } else {
+        $obj2 = enum(int, obj, cs_week_2016_clue_rewardshowoff_free, $int0);
+    }
+    cc_setobject($obj2, 1);
+    cc_setopbase("<col=ff9040><oc_name($obj2)>");
+    cc_setop(1, "Examine");
+    cc_setoutline(1);
+    cc_setparam(toplevel_v2_tooltip_item, $obj2);
+    cc_setonmouserepeat("script9564($obj2, event_com, cc_getid)");
+    cc_setonmouseleave("script9300(event_com, event_comsubid)");
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}

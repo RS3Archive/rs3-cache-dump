@@ -1,0 +1,42 @@
+// 1612
+[clientscript,wornitems_slot](component $component0, int $int1)
+def_obj $obj2 = inv_getobj(worn, $int1);
+if ($obj2 = null) {
+    if_setobject(null, 0, $component0);
+    if_setsize(32, 32, ^setsize_abs, ^setsize_abs, $component0);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component0);
+    if_setgraphic(enum(int, graphic, wornitems_emptyslot, $int1), $component0);
+    if_setoutline(0, $component0);
+    if_setgraphicshadow(^black, $component0);
+    if_setonop(null, $component0);
+    if_clearops($component0);
+    return;
+}
+if_setsize(36, 32, ^setsize_abs, ^setsize_abs, $component0);
+if_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre, $component0);
+if_setobject($obj2, inv_getnum(worn, $int1), $component0);
+if_setoutline(1, $component0);
+if_setgraphicshadow(0x302020, $component0);
+if_setonop("script1620(event_com, -1, 100, 0, 8)", $component0);
+if_clearops($component0);
+if (oc_param($obj2, hide_remove_op) = true) {
+} else {
+    if_setop(1, "Remove", $component0);
+}
+def_int $int3 = 1;
+def_boolean $boolean4 = false;
+def_string $string0 = "";
+while ($int3 <= 8) {
+    $boolean4, $string0 = ~script3290($obj2, $int3, 0, -1);
+    if ($int3 = 1 & has_nxt = true & $obj2 = machinima_camera) {
+        $boolean4 = false;
+    }
+    if ($boolean4 = true) {
+        if_setop(calc($int3 + 1), $string0, $component0);
+    }
+    $int3 = calc($int3 + 1);
+}
+if_setop(10, "Examine", $component0);
+if_setopbase("<col=ff9040><oc_name($obj2)>", $component0);
+if_setonmouserepeat("script12093($obj2, worn, $int1)", $component0);
+if_setonmouseleave("script5495(null)", $component0);

@@ -1,0 +1,36 @@
+// 18902
+[proc,script18902]
+def_int $int0 = ~script18854;
+def_int $int1 = ~script15113;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_string $string0 = "";
+~script18899(true, $int6);
+while ($int6 < $int0) {
+    $int2 = calc(%calendar_current_monday_shown + $int6);
+    if (cc_findbycategory(calendar_main:weekdays_container_scroll_layer, 0, $int6) = 1) {
+        if ($int2 ! $int1) {
+            ~cc_set_stylesheet_rect(rect_medium);
+        } else {
+            ~cc_set_stylesheet_rect(rect_highlight);
+            ~script18899(false, $int6);
+        }
+    }
+    if (cc_findbycategory(calendar_main:weekdays_container_scroll_layer, 1, $int6) = 1) {
+        $int3, $int4, $int5 = date_runeday_todate($int2);
+        $string0 = "<enum(int, string, days_of_week, calc($int6 % 7))><br><tostring($int3)>";
+        if (stringwidth($string0, ~script20491(text_subtitle_body)) > cc_getwidth) {
+            $string0 = "<enum(int, string, days_of_week_short, calc($int6 % 7))><br><tostring($int3)>";
+        }
+        cc_settext($string0);
+        ~cc_set_stylesheet_text(text_subtitle_body, 1, 0);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        if ($int2 = $int1) {
+            cc_setcolour(~script10495(4));
+        }
+    }
+    $int6 = calc($int6 + 1);
+}

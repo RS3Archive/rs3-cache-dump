@@ -1,0 +1,72 @@
+// 19193
+[clientscript,script19193]
+sound_vorbis_volume(tli_click_01, 1, 0, 180);
+def_struct $struct0 = ~script16161;
+if_sethide(false, trh_academy_shared_overlay:milestone_reward_layer);
+if_settext("Level - <tostring(~script19145($struct0))>", trh_academy_shared_overlay:milestone_reward_level_text);
+def_dbrow $dbrow1 = ~script19148($struct0);
+def_obj $obj2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_boolean $boolean5 = false;
+def_int $int6 = 0;
+def_int $int7 = db_getfieldcount($dbrow1, progression_track:col1);
+def_int $int8 = 50;
+def_component $component9 = trh_academy_shared_overlay:milestone_rewards_scroll_layer;
+cc_deleteall($component9);
+def_string $string0 = "";
+def_int $int10 = 1;
+def_int $int11 = ~script19146($struct0);
+def_string $string1 = "";
+def_struct $struct12 = null;
+def_dbrow $dbrow13 = null;
+def_graphic $graphic14 = null;
+def_int $int15 = -1;
+$dbrow13, $graphic14 = ~script19198($struct0);
+while ($int6 < $int7) {
+    $obj2, $int3, $int4 = db_getfield($dbrow1, progression_track:col1, $int6);
+    if ($int4 <= $int11) {
+        $boolean5 = true;
+    } else {
+        $boolean5 = false;
+        if ($int15 = -1) {
+            $int15 = $int6;
+        }
+    }
+    ~cc_add_layer($component9, $int6, 0, calc($int6 * $int8), ^setpos_abs_left, ^setpos_abs_top, 0, $int8, ^setsize_minus, ^setsize_abs);
+    if (calc($int6 % 2) = 0) {
+        ~script15958($component9, calc($int6 + 1), $int10, 0, $int6, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow13, $boolean5);
+    }
+    $int10 = calc($int10 + 1);
+    ~script10507($component9, calc($int6 + 1), $int10, 0, $int6, 5, 0, ^setpos_abs_left, ^setpos_abs_top, 45, 32, ^setsize_minus, ^setsize_minus, text_body_emphasis, "<col=FFFFFF>Level <tostring($int4)></col>");
+    cc_settextshadow(true);
+    $int10 = calc($int10 + 1);
+    $struct12 = oc_param($obj2, mtxmgt_item_struct);
+    if ($struct12 ! null) {
+        $string1 = ~script19200($struct12);
+    } else {
+        $string1 = "<tostring($int3)> x <oc_name($obj2)>";
+    }
+    ~script10507($component9, calc($int6 + 1), $int10, 0, $int6, 5, 16, ^setpos_abs_left, ^setpos_abs_top, 45, 16, ^setsize_minus, ^setsize_minus, text_body_paragraph, "<col=FFFFFF><$string1></col>");
+    $int10 = calc($int10 + 1);
+    ~script7920($component9, calc($int6 + 1), $int10, 0, $int6, 3, 0, ^setpos_abs_right, ^setpos_abs_centre, 34, 34, ^setsize_abs, ^setsize_abs, $graphic14);
+    ~script19195($boolean5, $int4, $obj2, $int3);
+    $int10 = calc($int10 + 1);
+    ~script10024($component9, calc($int6 + 1), $int10, 0, $int6, 4, 0, ^setpos_abs_right, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs, $obj2, $int3, 1, 0);
+    $int10 = calc($int10 + 1);
+    if ($boolean5 = true) {
+        ~script7920($component9, calc($int6 + 1), $int10, 0, $int6, 4, 0, ^setpos_abs_right, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs, rs3_icon_tick);
+        $int10 = calc($int10 + 1);
+    }
+    $int6 = calc($int6 + 1);
+}
+def_int $int16 = calc($int7 * $int8);
+def_int $int17 = 0;
+if ($int15 = -1) {
+    $int17 = $int16;
+} else {
+    $int17 = calc($int15 * $int8);
+}
+if_setscrollsize(if_getwidth($component9), $int16, $component9);
+if_setscrollpos(0, $int17, $component9);
+~rs3_scrollbar_vertical(trh_academy_shared_overlay:milestone_rewards_scroll_bar, $component9);

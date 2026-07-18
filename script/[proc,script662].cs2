@@ -1,0 +1,118 @@
+// 662
+[proc,script662](int $int0)
+def_component $component1 = enum(int, component, stockcollect_box, $int0);
+def_inv $inv2 = enum(int, inv, stockmarket_collectinv, $int0);
+cc_deleteall($component1);
+def_int $int3 = if_getwidth($component1);
+def_int $int4 = if_getheight($component1);
+def_int $int5 = calc($int3 / 2 - 40);
+def_int $int6 = calc($int4 - 47);
+def_obj $obj7 = inv_getobj($inv2, 0);
+def_obj $obj8 = inv_getobj($inv2, 1);
+def_obj $obj9 = inv_getobj($inv2, 2);
+$obj7, $obj8 = ~script17386($obj7, $obj8, $obj9);
+def_component $component10 = enum(int, component, stockcollect_hide, $int0);
+def_int $int11 = if_getnextsubid($component1);
+if ($component10 ! null) {
+    if (playermember = true | stockmarket_isofferempty($int0, 0) = false) {
+        if_sethide(true, $component10);
+    } else {
+        if_sethide(false, $component10);
+    }
+}
+~cc_add_graphic_tile($component1, rs3_inventory_slot, calc($int5 - 2), calc($int6 - 2), 40, 36);
+def_graphic $graphic12 = "bank_slot,3";
+if (($component10 = null | if_gethide($component10) = true) & cc_find($component1, $int11) = true) {
+    cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic12)");
+    $graphic12 = rs3_inventory_slot;
+    cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic12)");
+    if ($obj7 ! null) {
+        if (oc_cert($obj7) ! $obj7) {
+            if (inv_getnum($inv2, 0) > 1) {
+                cc_setop(1, "Collect-notes");
+                cc_setop(2, "Collect-items");
+            } else {
+                cc_setop(1, "Collect-items");
+                cc_setop(2, "Collect-notes");
+            }
+        } else {
+            cc_setop(1, "Collect");
+        }
+        cc_setopbase(oc_name($obj7));
+    }
+}
+cc_create($component1, ^iftype_graphic, ++$int11);
+cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+if (~script17378($obj7) = true) {
+    cc_setobject_long(coins, ~script17402($inv2, null));
+} else {
+    cc_setobject($obj7, inv_getnum($inv2, 0));
+}
+$int5 = calc($int3 / 2 + 4);
+~cc_add_graphic_tile($component1, rs3_inventory_slot, calc($int5 - 2), calc($int6 - 2), 40, 36);
+if (($component10 = null | if_gethide($component10) = true) & cc_find($component1, ++$int11) = true) {
+    $graphic12 = "bank_slot,3";
+    cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic12)");
+    $graphic12 = rs3_inventory_slot;
+    cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic12)");
+    if ($obj8 ! null) {
+        if (oc_cert($obj8) ! $obj8) {
+            if (inv_getnum($inv2, 1) > 1) {
+                cc_setop(1, "Collect-notes");
+                cc_setop(2, "Collect-items");
+            } else {
+                cc_setop(1, "Collect-items");
+                cc_setop(2, "Collect-notes");
+            }
+        } else {
+            cc_setop(1, "Collect");
+        }
+        cc_setopbase(oc_name($obj8));
+    }
+}
+cc_create($component1, ^iftype_graphic, ++$int11);
+cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+if (~script17378($obj8) = true) {
+    cc_setobject_long(coins, ~script17402($inv2, null));
+} else {
+    cc_setobject($obj8, inv_getnum($inv2, 1));
+}
+$int11 = ~script652(11, 11, calc($int3 - 65), 16, $int0, $component1, ++$int11, 1, 0, 0);
+cc_create($component1, ^iftype_rectangle, $int11);
+$int5 = calc($int3 - 30);
+cc_setposition($int5, 11, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(18, 16, ^setsize_abs, ^setsize_abs);
+cc_setcolour(^black);
+cc_settrans(160);
+cc_setfill(true);
+cc_create($component1, ^iftype_graphic, ++$int11);
+def_obj $obj13 = stockmarket_getofferitem($int0, 0);
+if (stockmarket_isofferempty($int0, 0) = false) {
+    cc_setposition($int5, 11, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(18, 16, ^setsize_abs, ^setsize_abs);
+    cc_setobject($obj13, -1);
+    ~script3537(~script18300($obj13));
+}
+cc_create($component1, ^iftype_rectangle, ++$int11);
+$int5 = calc($int3 - 50);
+cc_setposition($int5, 11, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(18, 16, ^setsize_abs, ^setsize_abs);
+cc_setcolour(^black);
+cc_settrans(160);
+cc_setfill(true);
+cc_create($component1, ^iftype_graphic, ++$int11);
+def_string $string0 = null;
+if (stockmarket_isofferempty($int0, 0) = false) {
+    cc_setposition($int5, 12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(16, 14, ^setsize_abs, ^setsize_abs);
+    if (stockmarket_getoffertype($int0, 0) = 0) {
+        cc_setgraphic("grand_exchange_misc_graphics,7");
+        $string0 = "Buy at <tostring_localised_long(stockmarket_getofferprice($int0, 0), true)> coins each";
+    } else {
+        cc_setgraphic("grand_exchange_misc_graphics,6");
+        $string0 = "Sell at <tostring_localised_long(stockmarket_getofferprice($int0, 0), true)> coins each";
+    }
+    ~script3537($string0);
+}

@@ -1,0 +1,32 @@
+// 1702
+[proc,scrollbar_horizontal_doscroll](component $component0, component $component1, int $int2, int $int3)
+def_int $int4 = max(1, calc(if_getscrollwidth($component1) - if_getwidth($component1)));
+$int2 = min(max(0, $int2), $int4);
+def_int $int5 = if_getscrollx($component1);
+if_setscrollpos($int2, if_getscrolly($component1), $component1);
+switch_component ($component1) {
+    case telemetry:scroll_layer, toplevel_v2_parent_suboverlay_telemetry:scroll_layer :
+        ~telemetry_set_scroll_horizontal($component1, $int2, $int3);
+    case mtxmgt_store:ragdolls_scrollsize_layer :
+        ~script13174($int5, $int2);
+    case mtx_front_end_bonds:main_layer, mtx_front_end_spotlight:main_layer, mtx_front_end_oddments:main_layer :
+        ~script16220($component1, $int2);
+    case bp3_track_tab:reward_track_scroll_section :
+        ~script18026($component1, $int2, $int4);
+}
+def_int $int6 = 0;
+if (cc_find($component0, 1) = true) {
+    if (%toplevel_v2_active_skinset = 2 | cc_param(rs3tli_scrollbar_skin) = 2) {
+        $int6 = calc(if_getwidth($component0) - cc_getwidth);
+        cc_setposition(scale($int2, $int4, $int6), 4, ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        $int6 = calc(if_getwidth($component0) - 32 - cc_getwidth - 10);
+        cc_setposition(calc(21 + scale($int2, $int4, $int6)), 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (.cc_find($component0, 2) = true) {
+        .cc_setposition(calc(cc_getx - 5), 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (.cc_find($component0, 3) = true) {
+        .cc_setposition(calc(cc_getx + cc_getwidth), 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

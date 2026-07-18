@@ -1,0 +1,22 @@
+// 7053
+[clientscript,script7053](component $component0, int $int1, int $int2, int $int3)
+if (cc_find($component0, $int1) = true) {
+    cc_setfill(false);
+    if ($int3 = 1) {
+        cc_setcolour(^yellow);
+    } else {
+        cc_setcolour(^red);
+    }
+    if ($int2 = 1) {
+        cc_settrans(min(calc(cc_gettrans + 5), 255));
+        if (cc_gettrans >= 255) {
+            $int2 = 0;
+        }
+    } else {
+        cc_settrans(max(calc(cc_gettrans - 5), 0));
+        if (cc_gettrans <= 0) {
+            $int2 = 1;
+        }
+    }
+    cc_setontimer("script7053($component0, $int1, $int2, $int3)");
+}

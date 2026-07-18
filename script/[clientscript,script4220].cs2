@@ -1,0 +1,21 @@
+// 4220
+[clientscript,script4220]
+~script6575;
+def_int $int0 = -1;
+def_int $int1 = 0;
+if (cc_find(area_task_sub:dropdown_layer, 0) = true) {
+    ~script7909(true, area_tasks_area_names, -1, %cheevo_area_task_set_selected);
+    $int0 = enum_getoutputcount(area_tasks_area_intern_notes_states);
+    if ($int0 ! enum_getoutputcount(area_tasks_area_names)) {
+        ~error("Couldn't set area task dropdown red dot notifications in interface area_task_sub. Enums area_tasks_area_names and area_tasks_area_intern_notes_states are out of synch!");
+        return;
+    }
+    while ($int1 < $int0) {
+        if (var_reference_get(enum(int, var_int, area_tasks_area_intern_notes_states, $int1)) = 1) {
+            cc_list_setentryicon($int1, icon_notification);
+        } else {
+            cc_list_setentryicon($int1, null);
+        }
+        $int1 = calc($int1 + 1);
+    }
+}

@@ -1,0 +1,19 @@
+// 3022
+[clientscript,lobbyscreen_input_keyboard](int $int0, char $char1, component $component2, int $int3, int $int4, string $string0)
+switch_int ($int0) {
+    case 84 :
+        ~lobbyscreen_input_ok($int4, $string0);
+    case 13 :
+        ~lobbyscreen_input_close;
+    case 96, 97, 98, 99, 102, 103 :
+        if ($int4 ! -1 & $int4 ! 6) {
+            %lobby_caret = ~script1553($int0, %lobby_caret, %lobbyscreen_input);
+            ~script1875(lobbyscreen_input:text, lobbyscreen_input:caret, %lobbyscreen_input);
+        }
+    case default :
+        if ($int4 ! -1 & $int4 ! 6 & (char_isprintable($char1) = true | $int0 = 85 | $int0 = 101)) {
+            %lobbyscreen_input, %lobby_caret = ~script802(%lobby_caret, %lobbyscreen_input, $int3, $int0, $char1);
+            if_settext(escape(%lobbyscreen_input), $component2);
+            ~script1875(lobbyscreen_input:text, lobbyscreen_input:caret, %lobbyscreen_input);
+        }
+}

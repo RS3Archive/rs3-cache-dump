@@ -1,0 +1,61 @@
+// 354
+[clientscript,script354](int $int0)
+def_obj $obj1 = null;
+switch_int ($int0) {
+    case 109772852 :
+        $obj1 = trh69_melee_hands_starfire_1;
+    case 109772862 :
+        $obj1 = trh69_melee_feet_starfire_1;
+    case 109772892 :
+        $obj1 = trh69_melee_head_starfire_1;
+    case 109772903 :
+        $obj1 = trh69_melee_legs_starfire_1;
+    case 109772914 :
+        $obj1 = trh69_melee_body_starfire_1;
+    case 109772925 :
+        $obj1 = wof39_starfire_sword_1;
+    case 109772872 :
+        $obj1 = trh69_range_hands_starfire_1;
+    case 109772882 :
+        $obj1 = trh69_range_feet_starfire_1;
+    case 109772935 :
+        $obj1 = trh69_range_head_starfire_1;
+    case 109772946 :
+        $obj1 = trh69_range_legs_starfire_1;
+    case 109772957 :
+        $obj1 = trh69_range_body_starfire_1;
+    case 109772968 :
+        $obj1 = wof39_starfire_bow_1;
+    case 109772978 :
+        $obj1 = trh69_magic_hands_starfire_1;
+    case 109772988 :
+        $obj1 = trh69_magic_feet_starfire_1;
+    case 109772998 :
+        $obj1 = trh69_magic_head_starfire_1;
+    case 109773009 :
+        $obj1 = trh69_magic_legs_starfire_1;
+    case 109773020 :
+        $obj1 = trh69_magic_body_starfire_1;
+    case 109773031 :
+        $obj1 = wof39_starfire_staff_1;
+    case 109773051 :
+        $obj1 = trh69_cape_starfire_1;
+    case 109773041 :
+        $obj1 = wof39_diamond;
+    case 109772853, 109772863, 109772893, 109772904, 109772915, 109772926, 109772873, 109772883, 109772936, 109772947, 109772958, 109772969, 109772979, 109772989, 109772999, 109773010, 109773021, 109773032, 109773052 :
+        mes("You have already unlocked that reward.");
+        return;
+}
+if (~script355($obj1) >= 1) {
+    mes("You have already unlocked that item.");
+    return;
+}
+def_int $int2 = enum(obj, int, trh69_item_cost, $obj1);
+if (inv_total(inv, wof39_ore) < $int2) {
+    mes("You don't have enough starlight ore to create that item.");
+    return;
+}
+def_string $string0 = enum(obj, string, trh69_name_from_obj, $obj1);
+if_settext("Are you sure you want to create <$string0> for <tostring_localised($int2, true)> starlight ore?", trh69_starfury:confirm_purchase_text);
+if_sethide(false, trh69_starfury:darkness);
+if_sethide(false, trh69_starfury:confirm_purchase);

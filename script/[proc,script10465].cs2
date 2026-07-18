@@ -1,0 +1,66 @@
+// 10465
+[proc,script10465](component $component0, component $component1, component $component2, component $component3, int $int4, string $string0, string $string1, obj $obj5, int $int6, int $int7, int $int8, int $int9)
+if_setsize(20, 39, ^setsize_minus, ^setsize_abs, $component0);
+if_setposition(10, calc(10 + $int4 * 40), ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_sethide(false, $component0);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component1);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_sethide(false, $component1);
+cc_deleteall($component1);
+def_int $int10 = 0;
+cc_create($component1, ^iftype_rectangle, $int10);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setfill(true);
+if (calc($int4 % 2) = 1) {
+    ~script10010(rs3_rect_dark);
+} else {
+    ~script10010(rs3_rect_light);
+}
+$int10 = calc($int10 + 1);
+def_int $int11 = 46;
+def_string $string2 = "";
+if ($obj5 ! null) {
+    cc_create($component1, ^iftype_graphic, $int10);
+    cc_setposition(5, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject($obj5, -1);
+    cc_sethide(false);
+    $string2 = oc_param($obj5, trh_extended_desc);
+    if (string_length($string2) ! 0) {
+        cc_setonmouserepeat("script8799($string2, $component1, $int10)");
+    }
+    $int10 = calc($int10 + 1);
+}
+if ($int6 = 0) {
+    if_sethide(false, $component3);
+} else {
+    if_sethide(true, $component3);
+}
+cc_create($component1, ^iftype_text, $int10);
+cc_settext($string0);
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_setcolour(^white);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+cc_setsize(calc(if_getwidth($component2) + $int11 + 20), 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(calc($int11 + 5), 0, ^setpos_abs_left, ^setpos_abs_centre);
+$int10 = calc($int10 + 1);
+if ($int9 = 1 & calc($int4 % 2) = 1) {
+    switch_int ($int4) {
+        case 1 :
+            if_sethide(true, trh_dialog_select:select_button_2);
+            if_sethide(true, trh_dialog_select_overlay:select_button_2);
+        case 3 :
+            if_sethide(true, trh_dialog_select:select_button_4);
+            if_sethide(true, trh_dialog_select_overlay:select_button_4);
+        case 5 :
+            if_sethide(true, trh_dialog_select_overlay:select_button_6);
+        case 7 :
+            if_sethide(true, trh_dialog_select_overlay:select_button_8);
+    }
+    cc_setsize(5, 3, ^setsize_minus, ^setsize_minus);
+    cc_setposition(5, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+} else {
+    if_settext($string1, $component2);
+}

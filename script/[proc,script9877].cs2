@@ -1,0 +1,18 @@
+// 9877
+[proc,script9877]
+def_string $string0 = "Auto-retaliate disabled";
+def_string $string1 = "Auto-retaliate<br>(off)";
+def_graphic $graphic0 = "combatboxes_very_large,0";
+def_graphic $graphic1 = "combatboxes_very_large,2";
+if (%option_nodef ! 1) {
+    $string0 = "Auto-retaliate enabled";
+    $string1 = "Auto-retaliate<br>(on)";
+    $graphic0 = "combatboxes_very_large,1";
+    $graphic1 = "combatboxes_very_large,3";
+}
+if_settext($string1, combatv2_legacy_side:auto_text);
+if_setgraphic($graphic0, combatv2_legacy_side:optnodef);
+if_setonmouseover("graphic_swapper(event_com, $graphic1)", combatv2_legacy_side:optnodef);
+if_setonmouseleave("graphic_swapper(event_com, $graphic0)", combatv2_legacy_side:optnodef);
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", combatv2_legacy_side:auto_retaliate);
+~script8808;

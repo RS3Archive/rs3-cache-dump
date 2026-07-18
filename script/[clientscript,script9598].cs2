@@ -1,0 +1,31 @@
+// 9598
+[clientscript,script9598](int $int0)
+if ($int0 = 1 & %polls_gold_disabled = 1) {
+    return;
+}
+if ($int0 = 2 & %polls_silver_disabled = 1) {
+    return;
+}
+if ($int0 = 3 & %polls_bronze_disabled = 1) {
+    return;
+}
+if_sethide(true, polls:polls_title_layer);
+if_sethide(true, polls:polls_content_layer);
+if_sethide(true, polls:polls_featured_layer);
+if_sethide(false, polls:polls_loading_layer);
+if_settext("retrieving poll information...", polls:polls_desc_title_2);
+switch_int ($int0) {
+    case 0 :
+    case 1 :
+        if (%polls_gold_disabled = 0) {
+            %polls_selected_poll = 0;
+        }
+    case 2 :
+        if (%polls_silver_disabled = 0) {
+            %polls_selected_poll = 1;
+        }
+    case 3 :
+        if (%polls_bronze_disabled = 0) {
+            %polls_selected_poll = 2;
+        }
+}

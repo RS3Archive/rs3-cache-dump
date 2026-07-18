@@ -1,0 +1,19 @@
+// 13662
+[proc,script13662]
+if (%invent_machine_id = 0) {
+    return;
+}
+def_string $string0 = "";
+db_find(invent_machine_table:col0, %invent_machine_id);
+def_dbrow $dbrow0 = db_findnext;
+def_int $int1 = db_getfield($dbrow0, invent_machine_table:col11, 0);
+if (if_find(invent_machine_management:machine_capacity) = true) {
+    $string0 = "Capacity: <tostring_localised(%invent_machine_amount_stored, true)>";
+    if ($int1 ! -1) {
+        $string0 = "<$string0>/<tostring_localised($int1, true)>";
+    } else {
+        $string0 = "<$string0>/Lots!";
+    }
+    cc_settext($string0);
+}
+~script13664;

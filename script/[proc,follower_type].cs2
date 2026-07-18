@@ -1,0 +1,30 @@
+// 8085
+[proc,follower_type]()(int)
+def_dbrow $dbrow0 = null;
+if (%follower_obj = null) {
+    return(0);
+}
+if (oc_category(%follower_obj) = follower_kitten | oc_category(%follower_obj) = follower_growncat | oc_category(%follower_obj) = follower_overgrowncat | oc_category(%follower_obj) = follower_wileycat | oc_category(%follower_obj) = follower_lazycat) {
+    return(3);
+}
+if (map_members = true) {
+    switch_obj (%follower_obj) {
+        case poh_toy_cat :
+            return(3);
+        case clav_summoned1, clav_summoned2, clav_summoned3 :
+            return(4);
+        case default :
+            if (oc_param(%follower_obj, lore_requirement) > 0) {
+                db_find(lore:col5, %follower_obj);
+                $dbrow0 = db_findnext;
+                if ($dbrow0 ! null & db_getfield($dbrow0, lore:col2, 0) > 0) {
+                    return(1);
+                } else {
+                    return(2);
+                }
+            } else {
+                return(5);
+            }
+    }
+}
+return(5);

@@ -1,0 +1,53 @@
+// 12030
+[clientscript,ignore_info](component $component0, int $int1)
+def_component $component2 = ~script12023($component0);
+def_component $component3 = ~script12024($component0);
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int4 = 0;
+$string0, $string1 = ignore_getname($int1);
+if (compare($string1, "") ! 0) {
+    $int4 = 1;
+}
+if (cc_find($component2, $int1) = true) {
+    cc_setontimer(null);
+    cc_setopbase("<col=ffffff><$string0>");
+    if ($int4 = 1) {
+        $string0 = "      <$string0>";
+        $string2 = "Last known as:<br><$string1>";
+    } else {
+        $string2 = $string0;
+    }
+    cc_setcolour(0xa4997d);
+    if (~script6431 = false) {
+        cc_settextfont(museo_sans_11pt_regular);
+    } else {
+        cc_settextfont(museo_sans_17pt_bold);
+    }
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settext($string0);
+    if (compare(ignore_getnotes($int1), "") ! 0) {
+        cc_setop(1, "Edit Note");
+        $string2 = "<$string2><br><ignore_getnotes($int1)>";
+    } else {
+        cc_setop(1, "Add Note");
+    }
+    cc_setop(2, "Remove");
+    cc_setonop("ignore_op(event_op, ignore_getname_unfiltered($int1))");
+    cc_setonmouserepeat("script3876($string2, event_com, event_comsubid)");
+    cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 2);
+    cc_setparam_string(toplevel_v2_tooltip_mobile_string, $string2);
+    cc_sethide(false);
+}
+if (cc_find($component3, $int1) = true) {
+    cc_sethide(false);
+    cc_setgraphic(friends_changed_name);
+    if ($int4 = 0) {
+        cc_setparam(friends_old_name, 0);
+        cc_sethide(true);
+    } else {
+        cc_setparam(friends_old_name, 1);
+    }
+}

@@ -1,0 +1,49 @@
+// 762
+[clientscript,trh169_interface_init]
+def_int $int0 = calc(%trh169_keys_fed + %trh169_heart_level);
+if_setmodelangle(0, 0, 4, 4, 0, calc(3900 - $int0 * 100), trh169_overlay:trh169_slime_model);
+if_setposition(0, 60, ^setpos_abs_centre, ^setpos_abs_centre, trh169_overlay:trh169_slime_model);
+if_resetmodellighting(trh169_overlay:trh169_slime_model);
+if_setmodellighting(1024, 179, 0, 255, 255, 255, -50, -60, -50, reflec_small, trh169_overlay:trh169_slime_model);
+if_setonop("script1308(1)", trh169_overlay:trh169_slime_slay_button_click);
+if_setonop("script1308(1)", trh169_overlay:trh169_keybind_slay);
+if_setonop("script1308(2)", trh169_overlay:trh169_feed_key_click);
+if_setonop("script1308(2)", trh169_overlay:trh169_keybind_key);
+if_setonop("script1308(3)", trh169_overlay:trh169_feed_hearts_click);
+if_setonop("script1308(4)", trh169_overlay:heart_warning_confirm_click);
+if_setonop("script1308(5)", trh169_overlay:key_warning_confirm_click);
+if_setonop("script1308(6)", trh169_overlay:first_heart_warning_confirm_click);
+if_setonop("script1308(7)", trh169_overlay:slay_warning_confirm_click);
+if_setop(1, "Unlock", trh169_overlay:trh169_feed_key_click);
+if_setopcursor(1, wof_trh_key_cursor, trh169_overlay:trh169_feed_key_click);
+if_setop(1, "Feed", trh169_overlay:trh169_feed_hearts_click);
+if_setopcursor(1, wof_trh_freeze_cursor, trh169_overlay:trh169_feed_hearts_click);
+if_setop(1, "Slay", trh169_overlay:trh169_slime_slay_button_click);
+if_setopcursor(1, cursor_attack, trh169_overlay:trh169_slime_slay_button_click);
+def_int $int1 = enum(int, int, trh169_level_to_hearts, calc(%trh169_heart_level + 1));
+if (%trh169_keys_fed < 6 & ~script6950 > 0) {
+    if_setgraphic("rs3_btn_main_positive_mobile,0", trh169_overlay:trh169_feed_key_graphic_1);
+    if_setgraphic("rs3_btn_main_positive_mobile,2", trh169_overlay:trh169_feed_key_graphic_2);
+    if_setgraphic("rs3_btn_main_positive_mobile,1", trh169_overlay:trh169_feed_key_graphic_3);
+    if_settext("Feed a Key", trh169_overlay:trh169_feed_key_text);
+} else {
+    if_setgraphic("rs3_btn_main_positive_mobile,12", trh169_overlay:trh169_feed_key_graphic_1);
+    if_setgraphic("rs3_btn_main_positive_mobile,14", trh169_overlay:trh169_feed_key_graphic_2);
+    if_setgraphic("rs3_btn_main_positive_mobile,13", trh169_overlay:trh169_feed_key_graphic_3);
+    if (~script6950 = 0) {
+        if_settext("No Keys", trh169_overlay:trh169_feed_key_text);
+    } else {
+        if_settext("Full", trh169_overlay:trh169_feed_key_text);
+    }
+}
+if (%trh169_keys_fed > 1) {
+    if_settext("x<tostring(enum(int, int, trh169_keys_to_mult, calc(%trh169_keys_fed - 1)))>", trh169_overlay:trh169_multiplier_slot_1);
+} else {
+    if_settext("", trh169_overlay:trh169_multiplier_slot_1);
+}
+if_settext("x<tostring(enum(int, int, trh169_keys_to_mult, %trh169_keys_fed))>", trh169_overlay:trh169_multiplier_slot_2);
+if (%trh169_keys_fed < 6) {
+    if_settext("x<tostring(enum(int, int, trh169_keys_to_mult, calc(%trh169_keys_fed + 1)))>", trh169_overlay:trh169_multiplier_slot_3);
+} else {
+    if_settext("", trh169_overlay:trh169_multiplier_slot_3);
+}

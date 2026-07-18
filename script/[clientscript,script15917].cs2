@@ -1,0 +1,25 @@
+// 15917
+[clientscript,script15917]
+def_int $int0 = calc(%timed_kill_target * 3 / 5);
+def_int $int1 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+switch_int (%boss_instance_current_boss_client) {
+    case 999, 2017, 1000, 1001 :
+        $string1 = "The time remaining until you must leave this place.";
+    case 500, 501 :
+        $string1 = "Your current time in this heist.";
+    case default :
+        $string1 = "Your current boss kill time.";
+}
+if (%timed_kill_target > 0) {
+    if ($int0 >= 60) {
+        $int1 = calc($int0 / 60);
+        $string0 = " <tostring($int1)> <~text_plural($int1, "minute", "minutes")> and";
+    }
+    $int0 = calc($int0 % 60);
+    $string0 = "<$string0> <tostring($int0)> <~text_plural($int0, "second", "seconds")>";
+    ~script3536("<$string1><br>Personal best:<$string0>.", timed_kill:content_layer, -1);
+} else {
+    ~script3536($string1, timed_kill:content_layer, -1);
+}

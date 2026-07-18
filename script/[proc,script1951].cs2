@@ -1,0 +1,59 @@
+// 1951
+[proc,script1951](struct $struct0)
+def_string $string0 = "You have no voyage selected.";
+if ($struct0 = null | $struct0 = pop_voyage_0) {
+    if_sethide(false, pop_voyage_list:voyage_send_no);
+    if_setonmouserepeat("script8799($string0, event_com, -1)", pop_voyage_list:voyage_send_no);
+    if_settext("You have no voyage selected.", pop_voyage_list:voyage_flavour);
+    if_settext("No Voyage Selected", pop_voyage_list:voyage_name);
+    if_sethide(true, pop_voyage_list:graft_chance_layer);
+    if_sethide(true, pop_voyage_list:combat_chance_layer);
+    if_sethide(true, pop_voyage_list:seafaring_chance_layer);
+    if_settext("-", pop_voyage_list:voyage_time);
+    return;
+}
+~script2020;
+~script2059;
+def_string $string1 = ~script2057($struct0, 0);
+if_settext($string1, pop_voyage_list:voyage_flavour);
+if_settext(struct_param($struct0, pop_voyage_name), pop_voyage_list:voyage_name);
+~script2025;
+~script2022;
+if (struct_param($struct0, pop_voyage_graftdiff) = 0) {
+    if_sethide(true, pop_voyage_list:graft_chance_layer);
+} else {
+    if_sethide(false, pop_voyage_list:graft_chance_layer);
+}
+if (struct_param($struct0, pop_voyage_combatdiff) = 0) {
+    if_sethide(true, pop_voyage_list:combat_chance_layer);
+} else {
+    if_sethide(false, pop_voyage_list:combat_chance_layer);
+}
+if (struct_param($struct0, pop_voyage_seafaringdiff) = 0) {
+    if_sethide(true, pop_voyage_list:seafaring_chance_layer);
+} else {
+    if_sethide(false, pop_voyage_list:seafaring_chance_layer);
+}
+if (struct_param($struct0, pop_voyage_type) = 7 & ~script1121(%pop_voyage_list_ship) = 1) {
+    if_sethide(false, pop_voyage_list:low_chance_warning);
+    if_settext("Your captain already has four traits and cannot gain any more.", pop_voyage_list:low_chance_warning);
+    if_sethide(true, pop_voyage_list:confirm_send);
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = struct_param($struct0, pop_voyage_duration);
+def_int $int5 = max(1, struct_param($struct0, pop_voyage_speeddiff));
+def_int $int6 = scale(125, 100, $int5);
+def_int $int7 = scale(75, 100, $int5);
+def_int $int8 = max(min($int6, ~script1124(%pop_voyage_list_ship)), $int7);
+$int4 = scale($int5, $int8, $int4);
+$int4 = ~script6668($int4);
+$int4 = max(1500, $int4);
+$int1, $int2, $int3 = ~script4705($int4);
+def_string $string2 = tostring($int2);
+if ($int2 < 10) {
+    $string2 = append("0", $string2);
+}
+def_string $string3 = "<tostring($int1)>:<$string2>";
+if_settext($string3, pop_voyage_list:voyage_time);

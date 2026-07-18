@@ -1,0 +1,26 @@
+// 7216
+[proc,crs_name](struct $struct0, quest $quest1, achievement $achievement2)(string)
+if ($struct0 = null & $quest1 = null & $achievement2 = null) {
+    return("");
+}
+def_string $string0 = "";
+if ($quest1 ! null) {
+    return(~quest_name($quest1));
+} else if ($achievement2 ! null) {
+    return(achievement_getname($achievement2));
+} else if ($struct0 ! null) {
+    if (struct_param($struct0, task_struct) ! null) {
+        $struct0 = struct_param($struct0, task_struct);
+    }
+    if ($struct0 = crs_slayer_assignment) {
+        return(~script16090);
+    }
+    if (struct_param($struct0, challenge_target) > 0) {
+        return(~challenge_name($struct0));
+    }
+    $string0 = ~cheevo_name($struct0);
+    if (string_length($string0) = 0 & string_length(struct_param($struct0, task_name)) > 0) {
+        $string0 = struct_param($struct0, task_name);
+    }
+}
+return($string0);

@@ -1,0 +1,27 @@
+// 7527
+[clientscript,script7527](int $int0)
+def_int $int1 = calc(%rand_dnd_current_card - $int0);
+def_int $int2 = 0;
+if (%rand_dnd_interface_scrolling = true) {
+    return;
+}
+if ($int1 < 0) {
+    $int2 = calc($int0 - %rand_dnd_current_card);
+} else if ($int1 > 0) {
+    $int2 = $int1;
+}
+if ($int2 > 0) {
+    sound_vorbis_volume(megagames_athletics_card_mouseover, 1, 0, 50);
+    if ($int1 > 0) {
+        if_setgraphic(~script7504(~script7529(--%rand_dnd_current_card)), rand_dnd_card_preview:rand_dnd_chosen_card);
+        if_settext(~script7505(~script7529(%rand_dnd_current_card)), rand_dnd_card_preview:rand_dnd_card_name_text);
+        if_settext(~script7515(~script7529(%rand_dnd_current_card)), rand_dnd_card_preview:info_text);
+        if_setontimer("script7528(100, 0, $int2)", rand_dnd_card_preview:rand_dnd_cards_perm_layer);
+    } else {
+        if_setgraphic(~script7504(~script7529(++%rand_dnd_current_card)), rand_dnd_card_preview:rand_dnd_chosen_card);
+        if_settext(~script7505(~script7529(%rand_dnd_current_card)), rand_dnd_card_preview:rand_dnd_card_name_text);
+        if_settext(~script7515(~script7529(%rand_dnd_current_card)), rand_dnd_card_preview:info_text);
+        if_setontimer("script7528(-100, 1, $int2)", rand_dnd_card_preview:rand_dnd_cards_perm_layer);
+    }
+    %rand_dnd_interface_scrolling = true;
+}

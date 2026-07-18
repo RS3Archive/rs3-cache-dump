@@ -1,0 +1,31 @@
+// 9806
+[clientscript,script9806]
+if (%daily_rewards_system_cached = null) {
+    return;
+}
+if_settext(db_getfield(%daily_rewards_system_cached, daily_rewards_system:col0, 0), daily_rewards:daily_rewards_title);
+if_settext(db_getfield(%daily_rewards_system_cached, daily_rewards_system:col1, 0), daily_rewards:daily_rewards_desc);
+def_int $int0 = db_getfield(%daily_rewards_system_cached, daily_rewards_system:col5, 0);
+def_int $int1 = db_getfieldcount(%daily_rewards_system_cached, daily_rewards_system:col4);
+def_int $int2 = calc($int0 - %daily_rewards_claim_count);
+def_int $int3 = ~script3505(%atlum_day_tracker);
+def_int $int4 = -1;
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_boolean $boolean8 = false;
+def_int $int9 = 0;
+%daily_rewards_missed_ironman_count = 0;
+def_component $component10 = daily_rewards:content_layer;
+cc_deleteall($component10);
+while ($int9 < $int1) {
+    $int7, $obj5, $int6, $boolean8 = db_getfield(%daily_rewards_system_cached, daily_rewards_system:col4, $int9);
+    if ($int7 >= $int3 & $int4 = -1) {
+        if ($int7 = $int3) {
+            $int2 = calc($int2 + ~script9961($int9));
+        }
+        $int4 = $int9;
+    }
+    ~script9855($component10, $int1, $int7, $int2, $obj5, $int6, $int9, $int4, $int0, $boolean8);
+    $int9 = calc($int9 + 1);
+}

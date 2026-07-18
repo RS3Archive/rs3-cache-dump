@@ -1,0 +1,49 @@
+// 15163
+[proc,script15163](dbrow $dbrow0, dbrow $dbrow1, int $int2, int $int3)
+if (db_getrowtable($dbrow0) ! accordian_builder) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = min(10, db_getfieldcount($dbrow0, accordian_builder:col0));
+def_component $component6 = null;
+while ($int4 < 10) {
+    $component6 = ~script15130($int4);
+    if_sethide(true, $component6);
+    if_setposition(0, calc(($int4 + 1) * 50 - 50), ^setpos_abs_left, ^setpos_abs_top, $component6);
+    if_setsize(0, 50, ^setsize_minus, ^setsize_abs, $component6);
+    if_setparam_int(rs3tli_accordion_content_fix_height, 0, $component6);
+    $int4 = calc($int4 + 1);
+}
+$component6 = null;
+$int4 = 0;
+def_string $string0 = "";
+def_enum $enum7 = null;
+def_component $component8 = null;
+def_component $component9 = null;
+def_component $component10 = null;
+def_int $int11 = 0;
+def_int $int12 = 1;
+def_int $int13 = 0;
+if (.cc_find(event_crafting:accordion_content_layer, 1) = true) {
+    $int12 = 0;
+}
+while ($int4 < $int5) {
+    $string0, $enum7 = db_getfield($dbrow0, accordian_builder:col0, $int4);
+    $component6, $component8, $component9, $component10 = ~script15136($int4);
+    cc_deleteall($component8);
+    cc_deleteall($component10);
+    if_sethide(false, $component6);
+    if_settext($string0, $component9);
+    if ($int4 = $int2) {
+        $int13 = 1;
+    } else {
+        $int13 = 0;
+    }
+    $int11 = ~script15164($dbrow1, $component8, $component10, $enum7, $int13, $int3);
+    if_setparam_int(rs3tli_accordion_content_fix_height, $int11, $component6);
+    if ($int12 = 1) {
+        ~script9582($component6, 0, 0);
+    }
+    $int4 = calc($int4 + 1);
+}
+~script9581(event_crafting:accordion_main_layer);

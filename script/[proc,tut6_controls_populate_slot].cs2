@@ -1,0 +1,36 @@
+// 15785
+[proc,tut6_controls_populate_slot](component $component0, component $component1, int $int2)
+cc_deleteall($component0);
+if ($int2 = 0) {
+    if_sethide(true, $component1);
+    return;
+} else {
+    if_sethide(false, $component1);
+}
+def_string $string0 = "eg Talk to target";
+switch_int ($int2) {
+    case 1 :
+        ~script15382($component0, "<col=FFCB05>Pinch</col> to zoom camera", "<col=FFCB05>Use Scroll-wheel</col> to zoom camera");
+        ~script15383($component0, icon_tutorial_mobile_pinch, icon_tutorial_desktop_mouse_scrollwheel_both);
+    case 2 :
+        ~script15382($component0, "<col=FFCB05>Touch and Drag</col> to rotate camera", "<col=FFCB05>Press Scroll-wheel</col><br><col=FFCB05>and Drag</col> to rotate camera");
+        ~script15383($component0, icon_tutorial_mobile_drag, icon_tutorial_desktop_mouse_scrollwheel);
+    case 3 :
+        ~script15382($component0, "<col=FFCB05>Tap</col> the floor to move there", "<col=FFCB05>Left-click</col> the floor to move there");
+        ~script15383($component0, icon_tutorial_mobile_tap, icon_tutorial_desktop_mouse_left);
+    case 4 :
+        ~script15382($component0, "<col=FFCB05>Tap</col> minimap to move there", "<col=FFCB05>Left-click</col> minimap to move there");
+        ~script15383($component0, icon_tutorial_mobile_tap, icon_tutorial_desktop_mouse_left);
+    case 5 :
+        ~script15382($component0, "<col=FFCB05>Tap</col> the floor or minimap to move there", "<col=FFCB05>Left-click</col> the floor or minimap to move there");
+        ~script15383($component0, icon_tutorial_mobile_tap, icon_tutorial_desktop_mouse_left);
+    case 6 :
+        ~script15382($component0, "<col=FFCB05>Tap</col> target for default action<br><$string0>", "<col=FFCB05>Left-click</col> target for default action<br><$string0>");
+        ~script15383($component0, icon_tutorial_mobile_tap, icon_tutorial_desktop_mouse_left);
+    case 7 :
+        ~script15382($component0, "<col=FFCB05>Touch and Hold</col> target for action menu<br>eg Examine target", "<col=FFCB05>Right-click</col> target for action menu<br>eg Examine target");
+        ~script15383($component0, icon_tutorial_mobile_hold, icon_tutorial_desktop_mouse_right);
+    case default :
+        ~error("Unhandled control ID: #<tostring($int2)>");
+        return;
+}

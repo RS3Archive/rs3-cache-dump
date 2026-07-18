@@ -1,0 +1,14 @@
+// 18187
+[proc,script18187](dbfilter $dbfilter0, int $int1)(dbfilter)
+def_int $int2 = 0;
+def_dbfilter $dbfilter3 = null;
+def_int $int4 = calc($int1 & 12858);
+mes_typed(^chattype_console, 0, "Source: <tostring($int1)> <tostring($int4)>");
+while ($int2 <= 13) {
+    if (testbit($int4, enum(int, int, mtxmgt_source_show_as, $int2)) = ^false) {
+        $dbfilter3 = db_filter_unknown(db_filter_value(mtxmgt_cosmetic:col8, $int2, ^filterop_eq, 0));
+    }
+    $dbfilter0 = ~script18180($dbfilter0, $dbfilter3);
+    $int2 = calc($int2 + 1);
+}
+return($dbfilter0);

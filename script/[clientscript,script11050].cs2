@@ -1,0 +1,42 @@
+// 11050
+[clientscript,script11050](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_component $component3 = null;
+switch_int (%trh55_active_faction) {
+    case 1 :
+        $component3 = trh55_world_event:saradomin_progress_graphic;
+        $int1 = if_getwidth($component3);
+        $int2 = %trh55_saradomin_currency;
+    case 2 :
+        $component3 = trh55_world_event:zamorak_progress_graphic;
+        $int1 = if_getwidth($component3);
+        $int2 = %trh55_zamorak_currency;
+    case 3 :
+        $component3 = trh55_world_event:armadyl_progress_graphic;
+        $int1 = if_getwidth($component3);
+        $int2 = %trh55_armadyl_currency;
+    case 4 :
+        $component3 = trh55_world_event:godless_progress_graphic;
+        $int1 = if_getwidth($component3);
+        $int2 = %trh55_godless_currency;
+    case default :
+        return;
+}
+if ($component0 ! $component3) {
+    if_setontimer(null, $component0);
+    return;
+}
+def_int $int4 = calc($int2 / 10);
+def_int $int5 = calc($int4 + 133);
+if ($int2 >= 750) {
+    $int5 = calc($int5 + 4);
+}
+def_int $int6 = 0;
+if ($int1 < $int5) {
+    $int6 = min(calc($int1 + 1), $int5);
+} else if ($int1 = $int5) {
+    if_setontimer(null, $component3);
+    return;
+}
+if_setsize($int6, $int6, ^setsize_abs, ^setsize_abs, $component3);

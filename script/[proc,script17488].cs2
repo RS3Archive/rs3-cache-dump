@@ -1,0 +1,10 @@
+// 17488
+[proc,script17488](dbrow $dbrow0)(boolean)
+if ($dbrow0 = null | db_getrowtable($dbrow0) ! skill_tree_node) {
+    return(false);
+}
+switch_int (db_getfield($dbrow0, skill_tree_node:col2, 0)) {
+    case 1 :
+        return(~int_to_bool(struct_param(db_getfield($dbrow0, skill_tree_node:col8, 0), combatv2_ability_is_members)));
+}
+return(db_getfield($dbrow0, skill_tree_node:col3, 0));

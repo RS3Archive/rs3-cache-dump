@@ -1,0 +1,27 @@
+// 15059
+[proc,script15059](component $component0)
+switch_component ($component0) {
+    case stockmarket:search_layer :
+        if (compare(%stock_search_save, "") ! 0 & compare(%stock_search_save, %p_dialog_input) ! 0) {
+            ~script15060(%stock_search_save, %stock_offeritem, 1);
+        } else {
+            ~script15060(%p_dialog_input, %stock_offeritem, 1);
+        }
+    case lore_stats_side:fixed_area :
+        ~lore_side_resize;
+    case lore_stats_side:info_popup :
+        if (if_getheight($component0) = 4) {
+            cc_deleteall($component0);
+            cc_deleteall(lore_stats_side:info_popup_bg);
+            cc_deleteall(lore_stats_side:info_popup_text);
+            if_setscrollpos(0, 0, lore_stats_side:info_popup_text);
+            if_setscrollsize(0, 0, lore_stats_side:info_popup_text);
+            cc_deleteall(lore_stats_side:info_popup_scrollbar);
+        } else {
+            ~lore_if_info_resize;
+        }
+    case bank:more_storage_container :
+        if (if_getwidth(bank:more_storage_container) <= 1) {
+            if_sethide(true, bank:more_storage_container);
+        }
+}

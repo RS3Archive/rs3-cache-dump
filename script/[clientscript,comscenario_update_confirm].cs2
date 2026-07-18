@@ -1,0 +1,63 @@
+// 11224
+[clientscript,comscenario_update_confirm](struct $struct0)
+if_settext(struct_param($struct0, comscenario_title), comscenario:confirm_title);
+if_settext(struct_param($struct0, comscenario_description), comscenario:confirm_desc);
+def_string $string0 = "general";
+switch_int (struct_param($struct0, comscenario_type)) {
+    case 0 :
+        $string0 = "General";
+    case 1 :
+        $string0 = "Combat";
+    case 2 :
+        $string0 = "Gathering";
+    case 3 :
+        $string0 = "Crafting";
+    case 4 :
+        $string0 = "Lore";
+    case 5 :
+        $string0 = "Puzzle";
+    case 6 :
+        $string0 = "Race";
+    case 7 :
+        $string0 = "Skilling";
+    case 8 :
+        $string0 = "Cryptic Clue";
+    case 9 :
+        $string0 = "Celebration";
+}
+if_settext("Type: <$string0>", comscenario:confirm_type);
+switch_int (struct_param($struct0, comscenario_difficulty)) {
+    case 0 :
+        $string0 = "Novice";
+    case 1 :
+        $string0 = "Intermediate";
+    case 2 :
+        $string0 = "Master";
+    case 3 :
+        $string0 = "Grandmaster";
+}
+if_settext("Difficulty: <$string0>", comscenario:confirm_difficulty);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string1 = "";
+$int1 = struct_param($struct0, comscenario_time_limit);
+if ($int1 > 0) {
+    $int2 = calc($int1 / 100);
+    if ($int2 = 1) {
+        $string1 = "Time limit: 1 minute";
+    } else {
+        $string1 = "Time limit: <tostring($int2)> minutes";
+    }
+    $int3 = calc($int1 % 100);
+    if ($int3 > 0) {
+        $int3 = scale(60, 100, $int3);
+        if ($int3 = 1) {
+            $string1 = append($string1, " 1 second");
+        } else {
+            $string1 = append($string1, " <tostring($int3)> seconds");
+        }
+    }
+    if_settext($string1, comscenario:confirm_timelimit);
+}
+if_settext(append("Rewards: ", struct_param($struct0, comscenario_rewards)), comscenario:confirm_rewards);

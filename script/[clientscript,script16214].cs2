@@ -1,0 +1,35 @@
+// 16214
+[clientscript,script16214](component $component0, int $int1, graphic $graphic2, int $int3, int $int4, int $int5, int $int6)
+if (calc(clientclock % 8) ! 0) {
+    return;
+}
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = ui_getcategory($int1);
+if (cc_find($component0, $int1) = true) {
+    $int7 = cc_param(rs3tli_progress_current);
+    $int8 = cc_param(rs3tli_progress_target);
+    $int9 = cc_param(rs3tli_component_last_update);
+    if ($int7 < $int8) {
+        cc_setparam(rs3tli_progress_current, calc($int7 + $int4));
+        if ($int6 ! -1 & $int6 <= 255) {
+            cc_setparam(rs3tli_component_last_update, calc($int9 + 1));
+            cc_setontimer("script16214(event_com, event_comsubid, $graphic2, $int3, $int4, $int5, calc($int6 + 1))");
+            ~cc_add_child_graphic($int10, $int6, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, 45, 45, ^setsize_abs, ^setsize_abs, $graphic2);
+            cc_setontimer("script16215(event_com, $int10, event_comsubid, $int3, $int4)");
+            cc_setparam(rs3tli_progress_current, $int7);
+        }
+    } else if ($int9 = 0 & .cc_find($component0, $int3) = true) {
+        cc_setparam(rs3tli_progress_current, $int8);
+        cc_setparam(rs3tli_progress_target, $int8);
+        cc_setparam(rs3tli_component_last_update, 0);
+        cc_setontimer(null);
+        cc_deleteallnested;
+        .cc_settext(~script361($int8, 0));
+    } else if ($int5 < 5) {
+        cc_setontimer("script16214(event_com, event_comsubid, $graphic2, $int3, $int4, calc($int5 + 1), $int6)");
+    } else {
+        cc_setparam(rs3tli_component_last_update, 0);
+    }
+}

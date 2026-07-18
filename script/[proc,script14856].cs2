@@ -1,0 +1,25 @@
+// 14856
+[proc,script14856](int $int0)
+sound_vorbis_volume(arch_powers_interface_select_power, 1, 0, 200);
+%arch_relic_management_relic_selected_client = $int0;
+~script14857($int0);
+if_sethide(true, arch_relic_management:relic_info_selected_members_layer);
+def_int $int1 = 0;
+def_dbrow $dbrow2 = enum(int, dbrow, arch_relic_list, $int0);
+if ($dbrow2 ! null) {
+    $int1 = ~script14606(%arch_relic_management_loadout_selected, db_getfield($dbrow2, arch_relic:col0, 0));
+    if (map_members = false & db_getfield($dbrow2, arch_relic:col3, 0) = true) {
+        if_sethide(false, arch_relic_management:relic_info_selected_members_layer);
+    }
+}
+switch_int ($int1) {
+    case 0 :
+        ~script13971(arch_relic_management:relic_info_button_build_layer, arch_relic_management:relic_info_button_control_layer, rs3tli_positive_button, "Unavailable", true);
+    case 1 :
+        ~script13969(arch_relic_management:relic_info_button_build_layer, arch_relic_management:relic_info_button_control_layer, rs3tli_positive_button, "Harness Power");
+    case 2 :
+        ~script13969(arch_relic_management:relic_info_button_build_layer, arch_relic_management:relic_info_button_control_layer, rs3tli_neutral_button, "Unharness Power");
+}
+~arch_relic_update_info(arch_relic_management:relic_info_selected_icon_graphic, null, null, arch_relic_management:relic_info_selected_name, arch_relic_management:relic_info_selected_description, enum(int, dbrow, arch_relic_list, $int0));
+if_settext(tostring_localised(~script14612($dbrow2), true), arch_relic_management:relic_info_monolith_text);
+if_settext(tostring_localised(~script14611($dbrow2), true), arch_relic_management:relic_info_currency_text);

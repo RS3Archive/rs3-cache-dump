@@ -1,0 +1,25 @@
+// 8511
+[proc,script8511](int $int0)
+def_int $int1 = 0;
+if (string_length(%last_pm_received_sender) <= 0) {
+    if (string_length(%friendtomessage) <= 0) {
+        if (%loginscreen_res_counter > calc(clientclock - 100)) {
+            return;
+        }
+        mes_typed(~script8526($int0), 0, "You have no messages to reply to.");
+        %loginscreen_res_counter = clientclock;
+        return;
+    }
+    %last_pm_received_sender = %friendtomessage;
+}
+$int1 = friend_getslotfromname(%last_pm_received_sender);
+if ($int1 ! -1) {
+    if (map_quickchat = false & userdetail_quickchat = false) {
+        ~script8512($int0, %last_pm_received_sender);
+        if ($int0 = 18) {
+            ~script1566(0, "", 255);
+        }
+    } else {
+        ~quickchat_open_private($int1, %last_pm_received_sender, $int0);
+    }
+}

@@ -1,0 +1,25 @@
+// 5894
+[proc,script5894]
+def_string $string0 = "";
+def_graphic $graphic0 = null;
+if (%group_loot_pending = 1) {
+    $graphic0, $string0 = "rs3_icon_loot_share,2", "Changes to lootshare settings are pending.";
+    switch_int (%group_lootshare) {
+        case default :
+            $string0 = append($string0, "<br>Lootshare and Coinshare are currently disabled.");
+        case 1 :
+            $string0 = append($string0, "<br>Lootshare is currently active.");
+        case 2 :
+            $string0 = append($string0, "<br>Coinshare is currently active.");
+    }
+} else {
+    switch_int (%group_lootshare) {
+        case default :
+            $graphic0, $string0 = "rs3_icon_loot_share,1", "Lootshare and Coinshare are disabled.";
+        case 1 :
+            $graphic0, $string0 = "rs3_icon_loot_share,0", "Lootshare is active.";
+        case 2 :
+            $graphic0, $string0 = "rs3_icon_loot_share,3", "Coinshare is active.";
+    }
+}
+~script5895($graphic0, $string0);

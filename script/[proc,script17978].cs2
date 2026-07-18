@@ -1,0 +1,119 @@
+// 17978
+[proc,script17978](int $int0, component $component1, int $int2, int $int3, int $int4, boolean $boolean5, int $int6, boolean $boolean7, int $int8, int $int9, int $int10, int $int11)(int, int)
+def_int $int12 = 0;
+def_dbrow $dbrow13 = null;
+def_dbrow $dbrow14 = null;
+def_int $int15 = 1;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 100;
+def_int $int19 = if_getheight($component1);
+def_int $int20 = -1;
+def_int $int21 = -1;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_string $string0 = "";
+switch_int ($int11) {
+    case 1 :
+        $int8 = 0;
+        $boolean7 = false;
+    case 2 :
+        if (~script17862(%bp3_current_viewed_pass) < ~script17892(%bp3_current_viewed_pass)) {
+            $int8 = 1;
+        } else {
+            $int8 = 0;
+        }
+}
+if ($int11 > 0) {
+    $int6 = ~script18018($int11);
+}
+~script18041($component1, $int6, $int2);
+def_graphic $graphic24 = null;
+if (cc_findbycategory($component1, 2, $int6) = 1) {
+    if ($int9 = -1 | $int10 = -1) {
+        $int9 = cc_param(category_id);
+        $int10 = cc_param(dynamic_id);
+    }
+    $int9, $int10 = ~script17970($int9, $int10);
+    cc_setparam(category_id, $int9);
+    cc_setparam(dynamic_id, $int10);
+    $dbrow13, $dbrow14 = ~script17981($boolean5, $boolean7, $int4, $int11);
+    if ($int4 ! -1) {
+        $dbrow13 = $dbrow14;
+    }
+    if ($dbrow13 = null) {
+        ~error("Null background.");
+    }
+    ~script17947($int9, $int10, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow13);
+    cc_find_parent;
+    $int10 = calc($int10 + 1);
+    if ($int4 ! -1) {
+        $int17 = calc($int4 * $int18);
+        if ($int11 > 0) {
+            $int18 = $int2;
+        }
+    }
+    if ($int8 = 1) {
+        $int16 = calc($int16 + 7);
+        $int22 = calc($int19 - 14);
+        $int23 = calc($int19 - 10);
+        switch_int ($int11) {
+            case 2 :
+                $string0 = "This item is currently locked, you'll unlock it at level <tostring_localised(~script17892(%bp3_current_viewed_pass), true)>.";
+            case default :
+                $string0 = "This item is currently locked, you'll unlock it at level <tostring_localised($int6, true)>.";
+        }
+        ~script17948($int9, $int10, $int16, 0, ^setpos_abs_right, ^setpos_abs_centre, $int22, $int23, ^setsize_abs, ^setsize_abs, ~script17977($boolean5), $string0, 0);
+        $int10 = calc($int10 + 1);
+        $int16 = calc($int16 + ($int22 + 2));
+    } else if ($boolean7 = true) {
+        $int16 = calc($int16 + 2);
+        $int22 = $int19;
+        $int23 = $int19;
+        ~script17948($int9, $int10, $int16, 0, ^setpos_abs_right, ^setpos_abs_centre, $int22, $int23, ^setsize_abs, ^setsize_abs, rs3_icon_tick, "You've already claimed this reward.", 0);
+        $int16 = calc($int16 + ($int22 - 2));
+        $int10 = calc($int10 + 1);
+    }
+    if (~script14335(%bp3_current_viewed_pass) = true & $int6 > ~script18019(1) & $int11 ! 1) {
+        if ($int16 = 0) {
+            $int16 = 3;
+        }
+        $int22 = calc($int19 - 8);
+        $int23 = calc($int19 - 8);
+        ~script17948($int9, $int10, $int16, 0, ^setpos_abs_right, ^setpos_abs_centre, $int22, $int23, ^setsize_abs, ^setsize_abs, bp3_icon_heroic_levels_30, "This is a Heroic level, requiring 3,000 Hero Points to complete", 0);
+        $int16 = calc($int16 + $int22);
+        $int10 = calc($int10 + 1);
+    }
+    switch_int ($int11) {
+        case default :
+            if ($int16 = 0) {
+                $int16 = calc($int16 + 4);
+            }
+            $int16 = calc($int16 + 2);
+            ~cc_add_child_text($int9, $int10, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 40, 0, ^setsize_abs, ^setsize_minus, text_body_default, tostring_localised($int6, true));
+            cc_setcolour(^white);
+            cc_settextfont(cinzel_15pt_bold);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            $int10 = calc($int10 + 1);
+        case 2 :
+            $int16 = calc($int16 + 4);
+            ~cc_add_child_graphic($int9, $int10, 3, 0, ^setpos_abs_left, ^setpos_abs_centre, 34, 18, ^setsize_abs, ^setsize_abs, ~script17979(2));
+            $int10 = calc($int10 + 1);
+        case 1 :
+            $graphic24 = bp3_icon_heroic_levels_30;
+            ~cc_add_child_graphic($int9, $int10, -50, 5, ^setpos_abs_centre, ^setpos_abs_top, 20, 20, ^setsize_abs, ^setsize_abs, $graphic24);
+            $int10 = calc($int10 + 1);
+            ~cc_add_child_graphic($int9, $int10, -25, 5, ^setpos_abs_centre, ^setpos_abs_top, 20, 20, ^setsize_abs, ^setsize_abs, $graphic24);
+            $int10 = calc($int10 + 1);
+            ~cc_add_child_graphic($int9, $int10, 0, 5, ^setpos_abs_centre, ^setpos_abs_top, 20, 20, ^setsize_abs, ^setsize_abs, $graphic24);
+            $int10 = calc($int10 + 1);
+            ~cc_add_child_graphic($int9, $int10, 25, 5, ^setpos_abs_centre, ^setpos_abs_top, 20, 20, ^setsize_abs, ^setsize_abs, $graphic24);
+            $int10 = calc($int10 + 1);
+            ~cc_add_child_graphic($int9, $int10, 50, 5, ^setpos_abs_centre, ^setpos_abs_top, 20, 20, ^setsize_abs, ^setsize_abs, $graphic24);
+            $int10 = calc($int10 + 1);
+    }
+} else {
+    ~error("Cannot find level track layer supplied.");
+}
+$int10 = calc($int10 + 5);
+return($int9, $int10);

@@ -1,0 +1,44 @@
+// 17217
+[clientscript,script17217](component $component0)
+def_int $int1 = 0;
+def_string $string0 = "View";
+def_string $string1 = "";
+def_component $component2 = null;
+def_graphic $graphic3 = "arch_journal_tab_bookmark_research,1";
+def_graphic $graphic4 = "arch_journal_tab_bookmark_research,0";
+switch_component ($component0) {
+    case quest_fort_casefile:tab_suspects_layer :
+        if (%quest_fort_casefile_link_npc ! null | %quest_fort_casefile_link_loc ! null) {
+            if_sethide(true, $component0);
+            return;
+        }
+        $int1 = 0;
+        $string0 = "View suspects";
+        $string1 = "Notes on possible suspects.";
+        $component2 = quest_fort_casefile:tab_suspects_graphic;
+        $graphic3 = "arch_journal_tab_bookmark_restoration_log,1";
+        $graphic4 = "arch_journal_tab_bookmark_restoration_log,0";
+    case quest_fort_casefile:tab_evidence_part1_layer :
+        $int1 = 1;
+        $string0 = "View Duke's evidence";
+        $string1 = "Notes on the murder of Duke Hoarse.";
+        $component2 = quest_fort_casefile:tab_evidence_part1_graphic;
+    case quest_fort_casefile:tab_evidence_part2_layer :
+        if (~script17214 = false) {
+            if_sethide(true, $component0);
+            return;
+        }
+        $int1 = 2;
+        $string0 = "View Alchemist's evidence";
+        $string1 = "Notes on the murder of Simon Bullace.";
+        $component2 = quest_fort_casefile:tab_evidence_part2_graphic;
+}
+if_setop(1, $string0, $component0);
+if_setopcursor(1, cursor_use, $component0);
+if_setonop("script17218($int1)", $component0);
+if_setonmouserepeat("script3876($string1, $component0, -1)", $component0);
+if ($component2 ! null) {
+    if_setgraphic($graphic3, $component2);
+    if_setonmouseleave("graphic_swapper($component2, $graphic3)", $component2);
+    if_setonmouserepeat("graphic_swapper($component2, $graphic4)", $component2);
+}

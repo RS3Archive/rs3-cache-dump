@@ -1,0 +1,28 @@
+// 9310
+[clientscript,script9310](component $component0, int $int1, int $int2)
+if (calc(clientclock % 2) = 0 & cc_find($component0, $int1) = true) {
+    if (if_getwidth($component0) > cc_getwidth) {
+        cc_setposition(0, cc_gety, ^setpos_abs_centre, ^setpos_abs_top);
+    } else {
+        switch_int ($int2) {
+            case 0 :
+                if (calc(cc_getx + cc_getwidth) > if_getwidth($component0)) {
+                    cc_setposition(calc(cc_getx - 1), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                } else {
+                    cc_setontimer("script9310($component0, $int1, 2)");
+                }
+            case 1 :
+                if (cc_getx < 0) {
+                    cc_setposition(calc(cc_getx + 1), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                } else {
+                    cc_setontimer("script9310($component0, $int1, 6)");
+                }
+            case 5 :
+                cc_setontimer("script9310($component0, $int1, 1)");
+            case 9 :
+                cc_setontimer("script9310($component0, $int1, 0)");
+            case default :
+                cc_setontimer("script9310($component0, $int1, calc($int2 + 1))");
+        }
+    }
+}

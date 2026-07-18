@@ -1,0 +1,13 @@
+// 10835
+[clientscript,script10835](component $component0, seq $seq1, seq $seq2, int $int3, int $int4, seq $seq5, int $int6)
+def_seq $seq7 = $seq1;
+if (clientclock >= $int6 & $int3 = 0) {
+    if (random(2) = 0) {
+        $seq7 = $seq2;
+    }
+    if_setmodelanim($seq7, $component0);
+    if_setontimer("script10835($component0, $seq1, $seq2, 1, calc(clientclock + seqlength($seq7)), $seq5, 0)", $component0);
+} else if ($int3 = 1 & clientclock >= $int4) {
+    if_setmodelanim($seq5, $component0);
+    if_setontimer("script10835($component0, $seq1, $seq2, 0, 0, $seq5, calc(clientclock + 500 + randominc(500)))", $component0);
+}

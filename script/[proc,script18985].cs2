@@ -1,0 +1,36 @@
+// 18985
+[proc,script18985](int $int0)(int)
+def_int $int1 = 0;
+if (%necro_ritual_active_state = 1) {
+    $int1 = %trh_necro_ritual_glyph_box_active;
+} else if (inv_total(inv, trh_consumable_necro_ritual_glyph_box) = 0) {
+    $int1 = 0;
+} else {
+    $int1 = %trh_necro_ritual_glyph_box_choice;
+}
+if ($int1 = 0) {
+    return(0);
+}
+def_dbrow $dbrow2 = ~script17518($int1);
+if ($dbrow2 = null) {
+    return(0);
+}
+switch_int ($int0) {
+    case 5 :
+        if (db_getfieldcount($dbrow2, necro_ritual_component:col7) > 0) {
+            return(db_getfield($dbrow2, necro_ritual_component:col7, 0));
+        }
+    case 6 :
+        if (db_getfieldcount($dbrow2, necro_ritual_component:col8) > 0) {
+            return(db_getfield($dbrow2, necro_ritual_component:col8, 0));
+        }
+    case 8 :
+        if (db_getfieldcount($dbrow2, necro_ritual_component:col9) > 0) {
+            return(db_getfield($dbrow2, necro_ritual_component:col9, 0));
+        }
+    case 7 :
+        if (db_getfieldcount($dbrow2, necro_ritual_component:col10) > 0) {
+            return(db_getfield($dbrow2, necro_ritual_component:col10, 0));
+        }
+}
+return(0);

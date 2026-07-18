@@ -1,0 +1,88 @@
+// 13982
+[proc,script13982](component $component0, component $component1, struct $struct2, string $string0, boolean $boolean3, int $int4, int $int5)
+if ($component0 = null | $struct2 = null) {
+    return;
+}
+def_struct $struct6 = struct_param($struct2, rs3tli_button_layer_master_struct);
+if ($struct6 ! null) {
+    $struct2 = $struct6;
+}
+def_struct $struct7 = ~script9984($struct2, 1);
+def_struct $struct8 = ~script9984($struct2, 2);
+def_struct $struct9 = ~script9984($struct2, 3);
+def_struct $struct10 = ~script9984($struct2, 4);
+def_struct $struct11 = ~script9984($struct2, 6);
+if ($boolean3 = true & ~script9984($struct2, 8) ! null) {
+    $struct11 = ~script9984($struct2, 8);
+}
+def_struct $struct12 = $struct7;
+if ($int4 = 1) {
+    $struct7 = $struct10;
+    $struct8 = $struct10;
+    $struct12 = $struct7;
+} else if ($boolean3 = true) {
+    $struct12 = ~script9984($struct2, 5);
+} else if ($struct8 ! null & ~script11903($component0) = true) {
+    $struct12 = $struct8;
+}
+if ($struct12 = null) {
+    return;
+}
+def_int $int13 = struct_param($struct12, rs3tli_button_graphic_width);
+def_int $int14 = struct_param($struct12, rs3tli_button_graphic_height);
+def_boolean $boolean15 = struct_param($struct12, rs3tli_button_graphic_tile);
+def_int $rgb16 = struct_param($struct12, rs3tli_button_content_colour);
+def_int $int17 = 0;
+cc_create($component0, ^iftype_graphic, $int17++);
+cc_setsize($int13, $int14, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(struct_param($struct12, rs3tli_button_graphic_left));
+cc_setcolour($rgb16);
+cc_create($component0, ^iftype_graphic, $int17++);
+cc_setsize(calc($int13 * 2), $int14, ^setsize_minus, ^setsize_abs);
+cc_setposition($int13, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(struct_param($struct12, rs3tli_button_graphic_middle));
+cc_setcolour($rgb16);
+cc_settiling($boolean15);
+cc_create($component0, ^iftype_graphic, $int17++);
+cc_setsize($int13, $int14, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_setgraphic(struct_param($struct12, rs3tli_button_graphic_right));
+cc_setcolour($rgb16);
+if (struct_param($struct12, rs3tli_button_graphic_right_flipped) = true) {
+    cc_sethflip(true);
+}
+cc_create($component0, ^iftype_text, $int17++);
+if (string_length($string0) > 0) {
+    if (struct_param($struct11, rs3tli_button_text_offset) = true) {
+        cc_setsize(struct_param($struct11, rs3tli_button_text_minus_w), struct_param($struct11, rs3tli_button_text_minus_h), ^setsize_minus, ^setsize_minus);
+        cc_setposition(struct_param($struct11, rs3tli_button_text_offset_x), struct_param($struct11, rs3tli_button_text_offset_y), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        cc_setsize(calc($int13 * 2), 0, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    }
+    cc_settextfont(struct_param($struct11, rs3tli_button_text_font));
+    cc_setcolour(struct_param($struct11, rs3tli_button_text_colour));
+    cc_settextalign(struct_param($struct11, rs3tli_button_text_halign), struct_param($struct11, rs3tli_button_text_valign), struct_param($struct11, rs3tli_button_text_vspacing));
+    cc_settext($string0);
+    cc_settextshadow(struct_param($struct11, rs3tli_button_text_shadow));
+    cc_setmaxlines(struct_param($struct11, rs3tli_button_text_maxlines));
+}
+cc_create($component0, ^iftype_text, $int17++);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+if ($int5 = 0) {
+    cc_setonvartransmit("script13984(event_com, event_comsubid, $struct2, $boolean3, 0, $int4){toplevel_v2_skins_varp}");
+}
+if ($boolean3 = false & $struct7 ! null & $struct8 ! null) {
+    cc_setonmouseover("script13985(event_com, $struct8, 0, true)");
+    cc_setonmouseleave("script13985(event_com, $struct7, 0, false)");
+    if ($struct9 ! null) {
+        cc_setonclick("script13987(event_com, $struct9, $struct2, 0, 1, $int4, $int5)");
+        cc_setonrelease("script13986(event_com, $struct7, $struct8, 0)");
+    }
+}
+if ($component1 ! null) {
+    ~script4408($component1);
+    if_sethide($boolean3, $component1);
+}

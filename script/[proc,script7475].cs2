@@ -1,0 +1,21 @@
+// 7475
+[proc,script7475](int $int0, struct $struct1, int $int2)(int)
+def_string $string0 = "";
+def_int $int3 = struct_param($struct1, combatv2_ability_level_req);
+def_int $int4 = struct_param($struct1, combatv2_ability_parent_stat);
+def_int $int5 = 1;
+if ($int3 > 1 | ~stat_struct(enum(int, stat, int_to_stat, $int4)) ! null) {
+    switch_int ($int4) {
+        case 1, 2, 4, 3, 29, 8 :
+            $int5 = stat_base(enum(int, stat, int_to_stat, $int4));
+        case default :
+            $int5 = stat(enum(int, stat, int_to_stat, $int4));
+    }
+    if ($int5 < $int3) {
+        $string0 = "<col=ff0000>";
+    } else {
+        $string0 = "<col=00ff00>";
+    }
+    return(~script7482("<$string0><tostring($int3)>", enum(int, graphic, stat2icon_small, $int4), null, "<tostring($int3)> <enum(int, string, statstring, $int4)>", ~script7484($int0, $int2)));
+}
+return($int0);

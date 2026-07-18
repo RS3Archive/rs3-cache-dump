@@ -1,0 +1,34 @@
+// 18256
+[proc,script18256](struct $struct0, int $int1, component $component2, component $component3)
+def_int $int4 = 1;
+def_string $string0 = "";
+def_int $int5 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+switch_component ($component2) {
+    case jobs_main:reroll_button :
+        $int4, $string0 = ~script18132($struct0, $int1);
+        if_settext("<tostring(10)> vis wax", $component3);
+    case jobs_main:extend_button :
+        $int4, $string0 = ~script18133($struct0, $int1);
+        if_settext("<tostring(25)> vis wax", $component3);
+    case jobs_main:currency_button :
+        $int4, $string0, $int5, $string1 = ~script18134($struct0, $int1);
+        if_settext($string1, $component3);
+        if_setobject(challenge_currency, $int5, jobs_main:currency_object);
+    case default :
+        return;
+}
+def_boolean $boolean6 = false;
+if ($int4 = 1) {
+    $boolean6 = true;
+}
+if_clearops($component2);
+if_setenabled($boolean6, $component2);
+if_setop(1, if_gettext($component2), $component2);
+~script16248($string0, $component3, -1);
+~script16247($component2, -1);
+def_boolean $boolean7 = ~script6431;
+if (($boolean7 = true & $boolean6 = false | $boolean7 = false) & string_length($string0) > 0) {
+    ~script3536($string0, $component2, -1);
+}

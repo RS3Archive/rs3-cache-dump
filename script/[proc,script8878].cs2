@@ -1,0 +1,35 @@
+// 8878
+[proc,script8878]()(int, int, int)
+if (~script15532(0) = true) {
+    return(-1, 0, 0);
+}
+def_boolean $boolean0 = false;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$boolean0, $int1, $int3, $int2, $int3 = get_entity_bounding_box;
+if ($boolean0 = false) {
+    return(-1, 0, 0);
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+$int3, $int4, $int3 = get_entity_screen_position(0);
+$int6, $int5, $int3 = get_entity_screen_position(get_entity_overlay_height);
+$int5 = calc($int5 - 62);
+def_int $int7 = calc($int4 - $int5);
+if_setparam_int(toplevel_v2_hover_info_timeout, 5, toplevel_v2_targeting:hover_info);
+if (if_hassub(toplevel_v2_targeting:hover_info) = false) {
+    if_opensubclient(toplevel_v2_targeting:hover_info, toplevel_v2_hover_target);
+    if (if_find(toplevel_v2_hover_target:contents) = true & cc_param(toplevel_v2_hover_info_lastbuild) ! 1) {
+        cc_setparam_int(toplevel_v2_hover_info_lastbuild, 1);
+        cc_setonvartransmit("script957{toplevel_v2_skins_varp}");
+        ~script8411(2006, 0);
+        ~rs3_background_panel(toplevel_v2_hover_target:info_holder_active, rs3_content_container_active);
+        ~rs3_background_panel(toplevel_v2_hover_target:info_holder_active_1, rs3_content_container_active);
+    }
+    if_setonmouserepeat("script8879", toplevel_v2_targeting:hover_info);
+    if_sethide(true, toplevel_v2_hover_target:universe);
+    if_setontimer("script9165", toplevel_v2_targeting:hover_info);
+}
+return($int6, $int7, $int5);

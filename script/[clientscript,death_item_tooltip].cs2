@@ -1,0 +1,74 @@
+// 11465
+[clientscript,death_item_tooltip](component $component0, int $int1, obj $obj2, int $int3, int $int4, int $int5)
+if (%death_component_dragged ! null & %death_slot_dragged ! -1) {
+    return;
+}
+if ($obj2 = null) {
+    return;
+}
+def_long $long0 = ~script11472($int3);
+def_inv $inv6 = grave_gravestone_contents;
+if (%death_last_tab = 2) {
+    $inv6 = death_overflow;
+}
+~script12094($obj2, $inv6, $int3);
+switch_int (~script17138($long0)) {
+    case -4 :
+        ~script11600($component0, $int1, $obj2, "<col=00FF00>Always free to protect, unless in a dangerous situation!");
+        return;
+    case -6 :
+        ~script11600($component0, $int1, $obj2, "<col=00FF00>Always free to protect!");
+        return;
+    case -3 :
+        ~script11600($component0, $int1, $obj2, "<col=FF0000>This is a members-only item. As you died on a members' world you must be on a members' world to save this item.");
+        return;
+    case -5 :
+        if (%death_open_inv_server = 2) {
+            ~script11600($component0, $int1, $obj2, "<col=00FF00>This is a members-only item. If you died on a free world, it would be free to reclaim.");
+            return;
+        } else {
+            ~script11600($component0, $int1, $obj2, "<col=00FF00>This is a members-only item. As you died on a free world, it is free to reclaim.");
+            return;
+        }
+    case -2 :
+        ~script11600($component0, $int1, $obj2, "<col=FF0000>This item is always lost on death.");
+        return;
+    case -7 :
+        return;
+    case default :
+        if ($int3 >= 47 & %death_last_tab ! 2) {
+            if ($int4 ! -1 & $int3 = 47) {
+                ~script11600($component0, $int1, $obj2, "<col=FF0000>In dangerous PvP, individual items are protected, so you will lose some of this item stack.");
+                $long0 = ~script11472($int4);
+                ~script12094($obj2, $inv6, $int4);
+            } else {
+                ~script11600($component0, $int1, $obj2, "<col=FF0000>Your beast of burden is carrying this item. It will be lost on death.");
+                return;
+            }
+        }
+}
+def_int $int7 = inv_getnum($inv6, $int3);
+if (cc_find($component0, $int1) = true) {
+    $int7 = cc_getinvcount;
+}
+def_long $long1 = ~script11466($obj2, $long0, $int7, 1);
+def_long $long2 = 0;
+def_int $int8 = 0;
+def_long $long3 = 0;
+def_string $string0 = "<col=00FF00>Item value: <tostring_localised_long($long0, true)>";
+if ($long1 > $long0) {
+    $string0 = append($string0, "<col=00FF00> (<tostring_localised_long($long1, true)>)");
+}
+if (%death_last_tab = 2) {
+    $long2, $int8, $long3 = ~script11467($obj2, $long0, $int7, 7);
+    $string0 = append($string0, "<br><col=00FF00>Overflow reclaim cost: <tostring_localised_long($long2, true)>");
+} else if ($int5 = 0) {
+    $long2, $int8, $long3 = ~script11467($obj2, $long0, $int7, 2);
+    $string0 = append($string0, "<br><col=00FF00>Cost to save: <tostring_localised_long($long2, true)>");
+    if ($int3 < %death_protected_items) {
+        $string0 = append($string0, " (Protected for free)");
+    } else if ($int8 = 1) {
+        $string0 = append($string0, "<br><col=00FF00>Death's Deal saves: <tostring_localised_long($long3, true)>");
+    }
+}
+~script11600($component0, $int1, $obj2, $string0);

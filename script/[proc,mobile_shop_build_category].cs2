@@ -1,0 +1,29 @@
+// 15729
+[proc,mobile_shop_build_category](int $int0)
+cc_deleteall(mobile_shop_hard_currency:packages);
+cc_deleteall(mobile_shop_hard_currency:scrollbar);
+cc_deleteall(mobile_shop_hard_currency:right_build_panel);
+if_setsize(if_getwidth(mobile_shop_hard_currency:scrollbar), -8, ^setsize_minus, ^setsize_minus, mobile_shop_hard_currency:packages);
+def_int $int1 = 0;
+def_int $int2 = shop_getindexforcategoryid($int0);
+def_int $int3 = shop_getproductcount($int2);
+def_int $int4 = 0;
+if (~mobile_shop_block_category($int0) = 0) {
+    while ($int1 < $int3) {
+        $int4 = calc($int4 + ~script15731($int2, $int1++));
+    }
+}
+if ($int4 = 0) {
+    ~cc_add_text(mobile_shop_hard_currency:right_build_panel, if_getnextsubid(mobile_shop_hard_currency:right_build_panel), 0, 0, ^setpos_abs_left, ^setpos_abs_top, if_getwidth(mobile_shop_hard_currency:right_build_panel), if_getheight(mobile_shop_hard_currency:right_build_panel), ^setsize_abs, ^setsize_abs, text_body_large, "No packages available.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
+}
+if_setscrollpos(0, 0, mobile_shop_hard_currency:packages);
+def_int $int5 = ~divide_up($int4, 3);
+def_int $int6 = calc($int5 * 176 + ($int5 + 1) * 8);
+if ($int6 > if_getheight(mobile_shop_hard_currency:packages)) {
+    if_setscrollsize(0, $int6, mobile_shop_hard_currency:packages);
+    ~rs3_scrollbar_vertical(mobile_shop_hard_currency:scrollbar, mobile_shop_hard_currency:packages);
+} else {
+    if_setscrollsize(0, 0, mobile_shop_hard_currency:packages);
+    if_setsize(if_getwidth(mobile_shop_hard_currency:scrollbar), $int6, ^setsize_minus, ^setsize_abs, mobile_shop_hard_currency:packages);
+}

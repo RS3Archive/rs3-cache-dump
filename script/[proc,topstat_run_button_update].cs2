@@ -1,0 +1,30 @@
+// 1741
+[proc,topstat_run_button_update](component $component0)
+def_graphic $graphic1 = navigation_icon_energy_off;
+def_graphic $graphic2 = navigation_icon_energy_on;
+def_graphic $graphic3 = navigation_icon_energy_rest;
+def_graphic $graphic4 = navigation_icon_energy_music;
+def_graphic $graphic5 = navigation_backing_energy;
+def_graphic $graphic6 = navigation_highlight_energy;
+if_setgraphic(navigation_backing_energy, $component0);
+def_component $component7 = toplevel_v2_minimap:run_graphic;
+def_component $component8 = toplevel_v2_minimap:run_circle;
+def_int $int9 = 1;
+if (~is_mobile_client = true) {
+    $int9 = 6;
+    $component7 = toplevel_v2_run_energy:run_graphic;
+    $component8 = toplevel_v2_run_energy:run_circle;
+}
+if (%option_run_status_varc = 1) {
+    if_setgraphic($graphic2, $component7);
+    if_setgraphic($graphic6, $component8);
+    if_setop($int9, "Toggle Run", $component0);
+} else if (%option_run_status_varc = 0) {
+    if_setgraphic($graphic1, $component7);
+    if_setgraphic($graphic5, $component8);
+    if_setop($int9, "Toggle Run", $component0);
+} else if (%option_run_status_varc = 3) {
+    if_setgraphic($graphic3, $component7);
+} else if (%option_run_status_varc = 4) {
+    if_setgraphic($graphic4, $component7);
+}

@@ -1,0 +1,145 @@
+// 13845
+[proc,script13845](component $component0, component $component1, enum $enum2, int $int3, int $int4, int $int5)
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = 0;
+def_int $int9 = 32;
+def_int $int10 = -1;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_boolean $boolean13 = false;
+def_struct $struct14 = null;
+def_struct $struct15 = null;
+def_struct $struct16 = null;
+def_struct $struct17 = ~script14441;
+def_string $string0 = "";
+def_boolean $boolean18 = ~script6431;
+while ($int4 <= $int5) {
+    $int6 = enum(int, int, $enum2, $int4);
+    $int7 = ~script13857($int6);
+    $boolean13 = ~script13856($int6);
+    $int8 = ~script13859($int6, $boolean13, $int7, $int3);
+    $struct15 = ~script13415($int7);
+    if ($struct15 ! null) {
+        $struct16 = struct_param($struct15, toplevel_v2_window_parent_button);
+    }
+    if (%toplevel_v2_active_skinset = 0) {
+        $int9 = 24;
+    } else if (%toplevel_v2_active_skinset = 1) {
+        $int9 = 22;
+    } else if (%toplevel_v2_active_skinset = 2 & $boolean18 = true) {
+        $int9 = 50;
+    }
+    if ($boolean13 = false) {
+        $struct14 = ~script10405($int6);
+        if ($int3 ! 3 & %toplevel_v2_active_skinset = 0) {
+            $int12 = ~script8314($int6);
+            if ($int12 = -1 | $int12 ! $int6) {
+                $int11 = 1;
+            } else {
+                $int11 = 0;
+            }
+        } else {
+            $int11 = 1;
+        }
+    } else {
+        $struct14 = $struct15;
+        if ($int7 = 4 & $struct17 ! null & struct_param($struct17, timed_event_btn_bg) ! null) {
+            $struct16 = struct_param($struct17, timed_event_btn_bg);
+        }
+        $int11 = ~script8285($int7);
+    }
+    $string0 = struct_param($struct14, toplevel_v2_window_name);
+    if (%toplevel_v2_legacy_interface = 1 & compare(struct_param($struct14, toplevel_v2_window_name_legacy), "") ! 0) {
+        $string0 = struct_param($struct14, toplevel_v2_window_name_legacy);
+    }
+    if ($boolean18 = false) {
+        if (cc_find($component0, $int4) = true) {
+            ~script723($component0, $struct16, $int8, $int4);
+        } else {
+            ~script11625($component0, null, $struct16, 0, 0, $int4, $int8);
+        }
+    } else {
+        if (cc_find($component0, $int4) = true) {
+            cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+        } else {
+            cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+            cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+        }
+        if (compare(struct_param($struct14, toplevel_v2_window_name_mobile), "") ! 0) {
+            $string0 = struct_param($struct14, toplevel_v2_window_name_mobile);
+        }
+    }
+    if (%league_active_player > 0 & $struct14 = toplevel_v2_window_data_cheevo_tracker) {
+        $string0 = ~script20128;
+    }
+    if (cc_find($component0, $int4) = true) {
+        cc_setparam(toplevel_v2_window_tab_id, $int6);
+        cc_setopbase($string0);
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+        switch_int ($int3) {
+            case 0, 1, 2, 4 :
+                cc_setnoclickthrough(true);
+                if ($boolean13 = false) {
+                    cc_setonop("script8146($int6)");
+                    if ($int6 = 17 | $int8 = 1 | %option_highlight_tabs_instead_of_close = 1 & $boolean18 = false) {
+                        cc_setop(1, "Open");
+                    } else {
+                        cc_setop(1, "Close");
+                    }
+                    if (%toplevel_v2_legacy_interface = 1) {
+                        cc_setmouseovercursor(cursor_open);
+                    } else {
+                        cc_setmouseovercursor(toplevel_v2_move);
+                    }
+                } else {
+                    cc_setonop("script8146($int6)");
+                    if ($int8 = 1) {
+                        cc_setop(1, "Open");
+                    } else {
+                        cc_setop(1, "Close");
+                    }
+                    if (%toplevel_v2_mobile_interface = 0 & %toplevel_v2_legacy_interface = 0 & $int3 ! 2 & $int3 ! 1) {
+                        cc_setonmouserepeat("script15978(event_com, event_comsubid, $struct15, $int3, $string0)");
+                    }
+                }
+            case 3 :
+                cc_setonop("script2396($int6, event_com, event_comsubid)");
+                if (.cc_find($component1, $int4) = true) {
+                    .cc_setondragcomplete("script2395($int6, event_com, event_comsubid, event_com2)");
+                    .cc_setmouseovercursor(toplevel_v2_move);
+                    .cc_setdraggable(toplevel_v2_ribbon_select:showing_list, -1);
+                    if (~is_mobile_client = false) {
+                        .cc_setdragdeadzone(5);
+                        .cc_setdragdeadtime(5);
+                    } else {
+                        .cc_setdragdeadzone(20);
+                        .cc_setdragdeadtime(5);
+                    }
+                    .cc_setdragrenderbehaviour(2);
+                }
+                $int10 = ~script2385($int6, 1);
+                if ($int10 = -1) {
+                    cc_setop(1, "Add");
+                } else {
+                    cc_setop(1, "Remove");
+                }
+        }
+    }
+    if (cc_find($component1, $int4) = false) {
+        cc_create($component1, ^iftype_graphic, $int4);
+    }
+    if (cc_find($component1, $int4) = true) {
+        cc_setsize($int9, $int9, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(~script13858($struct14, $int11, 0, $int8, 0));
+        if ($int8 = 1) {
+            cc_settrans(0);
+        } else {
+            cc_settrans(0);
+        }
+        if ($struct14 = toplevel_v2_parent_my_mtx & ~runepass_get_current ! null) {
+            cc_setonvartransmit("script13833(toplevel_v2_ribbon:window_build, toplevel_v2_ribbon:window_click){runepass_availability, runepass_task_sets_completed, runepass_rewards_claimed_base_ironman, runepass_rewards_claimed_base_f2p, runepass_rewards_claimed_base_members}");
+        }
+    }
+    $int4 = calc($int4 + 1);
+}

@@ -1,0 +1,24 @@
+// 16443
+[clientscript,script16443](int $int0)
+if (if_getwidth(wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer) >= if_getwidth(wheel_of_fortune:reward_layer_bonus_prizes_content)) {
+    return;
+}
+def_int $int1 = if_getscrollx(wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer);
+def_int $int2 = calc(if_getscrollwidth(wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer) - if_getwidth(wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer));
+switch_int ($int0) {
+    case 1 :
+        $int1 = min(calc($int1 + 80), $int2);
+    case -1 :
+        $int1 = max(calc($int1 - 80), 0);
+}
+if_setscrollpos($int1, 0, wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer);
+if ($int1 = 0) {
+    ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_left_btn, rs3tli_icon_scroll_horizontal, true);
+    ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_right_btn, rs3tli_icon_scroll_horizontal, false);
+} else if ($int1 = $int2) {
+    ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_left_btn, rs3tli_icon_scroll_horizontal, false);
+    ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_right_btn, rs3tli_icon_scroll_horizontal, true);
+} else {
+    ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_left_btn, rs3tli_icon_scroll_horizontal, false);
+    ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_right_btn, rs3tli_icon_scroll_horizontal, false);
+}

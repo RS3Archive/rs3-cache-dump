@@ -1,0 +1,55 @@
+// 13308
+[proc,script13308](component $component0, component $component1, component $component2, component $component3, component $component4, graphic $graphic5, int $int6, int $int7, int $int8)
+if ($component0 = null | $component1 = null | $component2 = null | $component3 = null | $component4 = null) {
+    return;
+}
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+def_int $int9 = calc(2 * $int6);
+def_int $int10 = calc(2 * $int9);
+if_setsize($int10, $int10, ^setsize_abs, ^setsize_abs, $component0);
+if_setsize($int9, $int9, ^setsize_abs, ^setsize_abs, $component1);
+if_setsize($int9, $int9, ^setsize_abs, ^setsize_abs, $component2);
+if_setsize($int9, $int9, ^setsize_abs, ^setsize_abs, $component3);
+if_setsize($int9, $int9, ^setsize_abs, ^setsize_abs, $component4);
+def_int $int11 = -1;
+def_component $component12 = null;
+def_int $setposh13 = ^setpos_abs_centre;
+def_int $setposv14 = ^setpos_abs_centre;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+while (++$int11 < 4) {
+    switch_int ($int11) {
+        case 0 :
+            $component12 = $component1;
+            $int15 = $int6;
+            $int16 = calc(0 - $int6);
+            $int17 = 0;
+        case 1 :
+            $component12 = $component2;
+            $int15 = $int6;
+            $int16 = $int6;
+            $int17 = 49152;
+        case 2 :
+            $component12 = $component3;
+            $int15 = calc(0 - $int6);
+            $int16 = $int6;
+            $int17 = 32768;
+        case 3 :
+            $component12 = $component4;
+            $int15 = calc(0 - $int6);
+            $int16 = calc(0 - $int6);
+            $int17 = 16384;
+    }
+    if_setposition($int15, $int16, $setposh13, $setposv14, $component12);
+    cc_create($component12, ^iftype_graphic, 0);
+    cc_setposition(calc(0 - $int15), calc(0 - $int16), $setposh13, $setposv14);
+    cc_setsize($int10, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic($graphic5);
+    cc_set2dangle($int17);
+}
+~script13311($component0, $int7, $int8, 0);
+if_setontimer("script13314($component0, $component1, $component2, $component3, $component4)", $component0);

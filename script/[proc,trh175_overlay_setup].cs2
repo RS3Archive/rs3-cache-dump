@@ -1,0 +1,16 @@
+// 11762
+[proc,trh175_overlay_setup]
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int0 = -1;
+while (++$int0 < 6) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+}
+~script17021;
+def_obj $obj1 = struct_param(trh175_promo, trh_featured_prize);
+if (struct_param(trh175_promo, trh_promo_has_f2p_restrictions) = true & playermember = false) {
+    $obj1 = struct_param(trh175_promo, trh_featured_prize_f2p);
+}
+if (oc_param($obj1, trh_preview_outfit_struct) = null) {
+    ~script16663(trh175_prize_preview_components, $obj1, 1);
+}
+~script13310(trh175_overlay:bonus_progress_layer, trh175_overlay:bonus_progress_mask_layer, 51, calc(8 * 1000));

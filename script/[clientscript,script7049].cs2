@@ -1,0 +1,34 @@
+// 7049
+[clientscript,script7049](component $component0, int $int1)
+def_enum $enum2 = null;
+switch_component ($component0) {
+    case toplevel_v2_window_ability_book_melee:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_melee:abilities_layer :
+        $enum2 = combatv2_abilities_melee;
+    case toplevel_v2_window_ability_book_ranged:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_ranged:abilities_layer :
+        $enum2 = combatv2_abilities_ranged;
+    case toplevel_v2_window_ability_book_magic:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_magic:abilities_layer, toplevel_v2_window_ability_book_magic_ability:abilities_layer, toplevel_v2_window_ability_book_magic_combat:abilities_layer, toplevel_v2_window_ability_book_magic_teleport:abilities_layer, toplevel_v2_window_ability_book_magic_skilling:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_magic_ability:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_magic_combat:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_magic_teleport:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_magic_skilling:abilities_layer :
+        $enum2 = combatv2_abilities_magic;
+    case toplevel_v2_window_ability_book_necromancy:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_necromancy:abilities_layer, toplevel_v2_window_ability_book_necromancy_abilities:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_necromancy_abilities:abilities_layer, toplevel_v2_window_ability_book_necromancy_spells:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_necromancy_spells:abilities_layer :
+        $enum2 = combatv2_abilities_necromancy;
+    case toplevel_v2_window_ability_book_defcon:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_defcon:abilities_layer :
+        if (%ability_book_window_defcon_category = 0) {
+            $enum2 = combatv2_abilities_defence;
+        } else {
+            $enum2 = combatv2_abilities_constitution;
+        }
+    case toplevel_v2_window_ability_book_defence:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_defence:abilities_layer :
+        $enum2 = combatv2_abilities_defence;
+    case toplevel_v2_window_ability_book_constitution:abilities_layer, toplevel_v2_parent_suboverlay_ability_book_constitution:abilities_layer :
+        $enum2 = combatv2_abilities_constitution;
+}
+def_struct $struct3 = enum(int, struct, $enum2, $int1);
+if ($struct3 = null) {
+    return;
+}
+if (cc_find($component0, $int1) = true) {
+    cc_setoutline(2);
+}
+if (struct_param($struct3, combatv2_switch_to_inv_on_target_enter) = 1 | $struct3 = magic_borrowed_power & (%lunarfm_borrowed_power_spell_struct = magic_high_alch | %lunarfm_borrowed_power_spell_struct = magic_invent_analyse | %lunarfm_borrowed_power_spell_struct = magic_invent_disassemble)) {
+    ~script8311(2);
+}
+~script8808;

@@ -1,0 +1,73 @@
+// 6793
+[proc,bank_withdraw_op](int $int0, int $int1)
+def_obj $obj2 = ~bank_get_object($int1);
+def_int $int3 = ~bank_get_num($int1);
+if ($obj2 = null) {
+    return;
+}
+if ($int3 = 0) {
+    if ($int0 = 8) {
+        ~bank_delete_placeholder($int1, $obj2);
+    }
+    return;
+}
+~script14186;
+def_int $int4 = 0;
+def_inv $inv5 = ~bank_get_side_inv;
+def_boolean $boolean6 = false;
+def_boolean $boolean7 = false;
+def_string $string0 = "";
+if ($int0 = 1) {
+    if (%bank_filter = 1) {
+        if (~script8232($obj2) ! -1) {
+            $boolean7, $string0 = ~bank_get_destroy_mes($obj2, bank, $int1);
+            if ($boolean7 = true | ~bank_confirm_drop($obj2, 95, "Destroy Item", $string0, "Destroy") = true) {
+                ~script14289($obj2, $int3, $int1);
+            }
+        }
+        return;
+    }
+    $int0 = %bank_customop;
+}
+if (~script16797($obj2) = false) {
+    return;
+}
+if (oc_hasvarobj($obj2) = true) {
+    $int3 = ~bank_total($obj2);
+}
+switch_int ($int0) {
+    case 0, 2 :
+        $int4 = 1;
+    case 3 :
+        $int4 = 5;
+    case 4 :
+        $int4 = 10;
+    case 5 :
+        $int4 = %bank_move_x;
+    case 6 :
+        $int4 = ~bank_get_custom_amount;
+    case 7 :
+        if (oc_hasvarobj($obj2) = true) {
+            $int4 = ~bank_total($obj2);
+        } else {
+            $int4 = $int3;
+        }
+    case 8 :
+        $int4 = $int3;
+        $boolean6 = true;
+    case 9 :
+        if (%bank_current_inv = 2) {
+            $inv5 = inv;
+            $int4 = 1;
+        } else {
+            $inv5 = worn;
+            if (oc_stackable($obj2) = true) {
+                $int4 = max(1, calc($int3 - 1));
+            } else {
+                $int4 = 1;
+            }
+        }
+    case default :
+        return;
+}
+~bank_withdraw($obj2, $int4, $int1, $inv5, -1, $int3, $boolean6);

@@ -1,0 +1,60 @@
+// 13664
+[proc,script13664]
+if (%invent_machine_id = 0) {
+    return;
+}
+db_find(invent_machine_table:col0, %invent_machine_id);
+def_dbrow $dbrow0 = db_findnext;
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = db_getfield($dbrow0, invent_machine_table:col11, 0);
+def_int $int5 = db_getfieldcount($dbrow0, invent_machine_table:col19);
+def_int $int6 = db_getfield($dbrow0, invent_machine_table:col10, 0);
+def_int $int7 = if_getwidth(invent_machine_management:input_secondary_1_bar);
+def_int $int8 = if_getwidth(invent_machine_management:input_secondary_2_bar);
+def_int $int9 = db_getfield($dbrow0, invent_machine_table:col17, 0);
+def_int $int10 = 0;
+if ($int6 = 2 & %invent_machine_batches_stored > 0) {
+    $int10 = calc(%invent_machine_batches_stored / $int9);
+    if (calc(%invent_machine_batches_stored % $int9) > 0) {
+        $int10 = calc($int10 + 1);
+    }
+} else {
+    $int10 = calc(%invent_machine_amount_stored / $int9);
+    if (calc(%invent_machine_amount_stored % $int9) > 0) {
+        $int10 = calc($int10 + 1);
+    }
+}
+if ($int5 > 0) {
+    $obj1, $int2 = db_getfield($dbrow0, invent_machine_table:col19, 0);
+    $int3 = calc(if_getx(invent_machine_management:input_secondary_1_bar) + scale($int7, calc($int2 * $int4), calc(%invent_machine_amount_stored * $int2)) - if_getwidth(invent_machine_management:input_secondary_1_required) / 2);
+    if (if_find(invent_machine_management:input_secondary_1_required) = true) {
+        cc_setparam(rs3tli_progress_current, ~script12422(cc_getx, $int7, 65536));
+        cc_setparam(rs3tli_progress_target, ~script12422($int3, $int7, 65536));
+    }
+}
+if ($int5 > 1) {
+    $obj1, $int2 = db_getfield($dbrow0, invent_machine_table:col19, 1);
+    $int3 = calc(if_getx(invent_machine_management:input_secondary_2_bar) + scale($int8, calc($int2 * $int4), calc(%invent_machine_amount_stored * $int2)) - if_getwidth(invent_machine_management:input_secondary_2_required) / 2);
+    if (if_find(invent_machine_management:input_secondary_2_required) = true) {
+        cc_setparam(rs3tli_progress_current, ~script12422(cc_getx, $int8, 65536));
+        cc_setparam(rs3tli_progress_target, ~script12422($int3, $int8, 65536));
+    }
+}
+$int2 = db_getfield($dbrow0, invent_machine_table:col22, 0);
+def_int $int11 = 0;
+def_int $int12 = calc($int10 * $int2);
+switch_int (%invent_machine_hotspot_guild_generator_built) {
+    case 1 :
+        $int11 = 175000;
+    case 2 :
+        $int11 = 350000;
+    case 3 :
+        $int11 = 500000;
+}
+$int3 = calc(if_getx(invent_machine_management:input_generator_charge_bar) + scale($int12, $int11, $int8) - if_getwidth(invent_machine_management:input_generator_charge_required) / 2);
+if (if_find(invent_machine_management:input_generator_charge_required) = true) {
+    cc_setparam(rs3tli_progress_current, ~script12422(cc_getx, $int8, 65536));
+    cc_setparam(rs3tli_progress_target, ~script12422($int3, $int8, 65536));
+}

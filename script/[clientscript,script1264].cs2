@@ -1,0 +1,38 @@
+// 1264
+[clientscript,script1264](int $int0, string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, string $string6, string $string7, string $string8)
+def_string $string9 = "<$string0><br><col=FFA500>When: </col><$string1>";
+if (string_length($string2) > 0) {
+    $string9 = "<$string9><br><col=FFA500>What: </col><$string2>";
+}
+if (string_length($string3) > 0) {
+    $string9 = "<$string9><br><$string3>";
+}
+if (string_length($string6) > 0) {
+    $string9 = "<$string9><br><col=FFA500>Who: </col><$string6>";
+}
+if (string_length($string4) > 0) {
+    $string9 = "<$string9><br><col=FFA500>Where: </col><$string4>";
+}
+if (string_length($string5) > 0) {
+    $string9 = "<$string9><br><col=FFA500>World: </col><$string5>";
+}
+if (string_length($string7) > 0) {
+    $string9 = "<$string9><br><col=FFA500>FC: </col><$string7>";
+}
+if (string_length($string8) > 0) {
+    $string9 = "<$string9><br><col=FFA500>Link: </col><$string8>";
+}
+def_component $component1 = clock_wrapper:alert_text;
+if (%toplevel_v2_clock_options = 1 | %toplevel_v2_legacy_interface = 1) {
+    $component1 = toplevel_v2_minimap:alert_text;
+}
+if (compare($string9, if_gettext($component1)) = 0) {
+    return;
+}
+if_settext($string9, $component1);
+if_sethide(false, clock_wrapper:event_alert_layer);
+if_sethide(false, toplevel_v2_minimap:event_alert_layer);
+if_setontimer(null, clock_wrapper:event_alert_layer);
+if_setontimer(null, toplevel_v2_minimap:event_alert_layer);
+if_setontimer("script1269(0, $int0, event_com)", clock_wrapper:event_alert_layer);
+if_setontimer("script1269(0, $int0, event_com)", toplevel_v2_minimap:event_alert_layer);

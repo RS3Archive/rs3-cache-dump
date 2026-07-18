@@ -1,0 +1,26 @@
+// 9616
+[proc,script9616]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string0 = "";
+def_model $model3 = null;
+cc_deleteall(ecosystem_wardcreature:build);
+cc_deleteall(ecosystem_wardcreature:click);
+while ($int0 < 7) {
+    $int2, $string0, $model3 = ~script9775(calc($int0 + 1));
+    if ($int2 = 0) {
+        $string0 = "?";
+        $model3 = null;
+    }
+    ~script13998(ecosystem_wardcreature:build, ecosystem_wardcreature:click, rs3tli_3x3_button, 0, $int1, 180, 24, $int0, ~equal_int_bool(0, $int2), $string0, ~equal_int(calc($int0 + 1), %ecosystem_selected_ward));
+    if (cc_find(ecosystem_wardcreature:click, $int0) = true) {
+        cc_setop(1, "Select");
+        cc_setonop("script9776(event_comsubid)");
+        cc_setonmouseover("script9777(event_comsubid)");
+        cc_setonmouseleave("script9778");
+    }
+    $int1 = calc($int1 + 28);
+    $int0 = calc($int0 + 1);
+}
+~script9779(%ecosystem_selected_ward);

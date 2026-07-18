@@ -1,0 +1,155 @@
+// 12409
+[proc,script12409](component $component0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_int $int3 = -1;
+def_component $component4 = null;
+def_component $component5 = null;
+$component1, $component2, $int3, $component4, $component5 = ~script12406($component0);
+def_int $int6 = ~script3510;
+~script14980($component1, $int6);
+if_setsize(16, 84, ^setsize_minus, ^setsize_abs, $component0);
+if_setsize(0, 16, ^setsize_minus, ^setsize_minus, $component4);
+if (%toplevel_v2_active_skinset ! 1) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}
+def_int $int7 = if_getwidth($component0);
+def_int $int8 = if_getheight($component0);
+def_int $int9 = calc(2 + 2);
+def_int $int10 = calc(36 + 2);
+def_int $int11 = calc(32 + 2 + 2);
+def_int $int12 = calc($int8 - (2 + 2));
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+$int16, $int15, $int13, $int14 = ~script14981($int6, calc($int7 - 2), $int10, $int9, 2);
+if (calc($int16 * $int11) > $int12) {
+    if_setsize(16, 84, ^setsize_minus, ^setsize_abs, $component0);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom, $component4);
+    if_setsize(16, calc(if_getheight($component0) - 16), ^setsize_abs, ^setsize_abs, $component4);
+    $int7 = if_getwidth($component0);
+    $int8 = if_getheight($component0);
+    $int16, $int15, $int13, $int14 = ~script14981($int6, calc($int7 - 2), $int10, $int9, 2);
+}
+if_setscrollsize(0, max(calc(if_getheight($component0) + 10), calc($int16 * $int11 + (2 + 2) - $int8)), $component0);
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_obj $obj19 = null;
+def_int $int20 = 0;
+def_dbrow $dbrow21 = null;
+def_int $int22 = 0;
+def_int $intarray0($int15);
+def_int $int23 = 0;
+while ($int23 < $int15) {
+    $intarray0($int23) = ~script9857($int13, 2, $int14, $int23);
+    $int23 = calc($int23 + 1);
+}
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_obj $obj26 = null;
+def_graphic $graphic27 = null;
+while ($int17 < $int6) {
+    if (.cc_find($component1, $int17) = true & cc_find($component2, $int17) = true) {
+        if ($int17 = 0) {
+            $obj19 = rs_bond;
+            $int20 = %bonds_pouch_tradeable_total;
+        } else if ($int17 = 1) {
+            $obj19 = rs_bond_untradeable;
+            $int20 = %bonds_pouch_untradeable_total;
+        } else if ($int17 < calc(8 + 2)) {
+            $obj19 = null;
+            while ($obj19 = null & $int25 < 8) {
+                $obj19 = inv_getobj(premium_currency_inv, $int25);
+                $int20 = inv_getnum(premium_currency_inv, $int25);
+                $int25 = calc($int25 + 1);
+            }
+        } else {
+            $obj19 = null;
+            $dbrow21 = null;
+            while ($dbrow21 = null & $int22 < 8) {
+                $dbrow21 = ~script14968(calc($int22 + 1));
+                $int22 = calc($int22 + 1);
+            }
+        }
+        if ($dbrow21 ! null) {
+            $obj26 = db_getfield($dbrow21, currency_table:col4, 0);
+            $graphic27 = db_getfield($dbrow21, currency_table:col3, 0);
+            $int20 = ~currency_pouch_total($dbrow21);
+            if ($dbrow21 = currency_livid_points) {
+                $int20 = calc($int20 * 10);
+            }
+            if ($obj26 ! null) {
+                cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                $graphic27 = null;
+            } else {
+                $obj26 = currency_pouch_dummy;
+            }
+            ~script14982($obj26, $int20, $intarray0(calc($int18 % $int15)), calc($int18 / $int15 * $int11));
+            cc_setonmouseover("script3519($dbrow21, event_com, event_comsubid)");
+            if (.cc_find($component5, $int17) = true) {
+                .cc_setgraphic($graphic27);
+                if ($graphic27 ! null) {
+                    .cc_setposition(calc($intarray0(calc($int18 % $int15)) + 3), calc($int18 / $int15 * $int11 + 2 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                    .cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+                }
+            }
+            $string0 = db_getfield($dbrow21, currency_table:col8, 0);
+            $string1 = db_getfield($dbrow21, currency_table:col9, 0);
+            if ($obj26 ! null & $obj26 ! currency_pouch_dummy) {
+                cc_setopbase("<~script4033($obj26)><oc_name($obj26)>");
+            }
+            if (string_length($string0) ! 0 | string_length($string1) ! 0) {
+                if (string_length($string0) ! 0) {
+                    cc_setop(1, $string0);
+                }
+                if (string_length($string1) ! 0) {
+                    cc_setop(2, $string1);
+                }
+                ~script10407;
+            }
+            if (db_getfield($dbrow21, currency_table:col1, 0) = 1) {
+                cc_setop(3, "Withdraw");
+                cc_setop(10, "Examine");
+                ~script10407;
+            }
+            $int18 = calc($int18 + 1);
+        } else if ($obj19 ! null) {
+            ~script14982($obj19, $int20, $intarray0(calc($int18 % $int15)), calc($int18 / $int15 * $int11));
+            ~script12410($obj19);
+            cc_setonmouserepeat("script12093($obj19, premium_currency_inv, $int17)");
+            if (.cc_find($component5, $int17) = true) {
+                .cc_setgraphic(null);
+            }
+            $int18 = calc($int18 + 1);
+        } else {
+            .cc_setgraphic(null);
+            cc_clearops;
+            cc_setobject_nonum(null, 0);
+            cc_setgraphic(null);
+            cc_setonmouserepeat(null);
+            cc_setonmouseover(null);
+            if (.cc_find($component1, $int17) = true) {
+                .cc_setgraphic(null);
+            }
+            if (.cc_find($component5, $int17) = true) {
+                .cc_setgraphic(null);
+            }
+        }
+    }
+    $int17 = calc($int17 + 1);
+}
+if ($int18 > 0) {
+    $int16, $int15, $int13, $int14 = ~script14981($int18, calc($int7 - 2), $int10, $int9, 2);
+    ~script14983($component0, $int16);
+}
+def_int $int28 = max(if_getheight($component0), calc($int16 * $int11 + 2 + 2));
+cc_deleteall($component4);
+if_setscrollsize(0, $int28, $component0);
+if ($int28 > if_getheight($component0)) {
+    ~rs3_scrollbar_vertical($component4, $component0);
+}

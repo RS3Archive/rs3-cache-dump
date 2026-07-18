@@ -1,0 +1,24 @@
+// 12787
+[proc,script12787](obj $obj0, int $int1)(int)
+if (map_members = false) {
+    return(0);
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (oc_category(inv_getobj(worn, 13)) = pvpwild_runepouch & ~script2144(inv_getobj(worn, 13)) = true) {
+    $int2 = calc($int2 + ~script12785(worn, 13, $obj0));
+    if ($int1 = 0) {
+        $int2 = calc($int2 + ~script377(worn, 13, $obj0));
+    }
+}
+$int3 = ~inv_findcat(inv, pvpwild_runepouch, $int3);
+while ($int3 ! -1) {
+    if (~script2144(inv_getobj(inv, $int3)) = true) {
+        $int2 = calc($int2 + ~script12785(inv, $int3, $obj0));
+        if ($int1 = 0) {
+            $int2 = calc($int2 + ~script377(inv, $int3, $obj0));
+        }
+    }
+    $int3 = ~inv_findcat(inv, pvpwild_runepouch, calc($int3 + 1));
+}
+return($int2);

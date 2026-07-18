@@ -1,0 +1,33 @@
+// 9611
+[proc,script9611]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_model $model3 = null;
+while ($int0 < 8) {
+    $int2, $string0, $string2, $model3 = ~script9613($int0);
+    if ($int2 > 0) {
+        $string1 = "Level <tostring_localised($int2, true)> Construction required.";
+        if (stat(construction) < $int2) {
+            $string2 = "<$string2><br><br><col=ffffff>You can pay Papa Mambo to build this for you.";
+        }
+    } else {
+        $string1 = "";
+    }
+    ~script13998(ecosystem_environmental_feature:build, ecosystem_environmental_feature:click, rs3tli_3x3_button, 5, $int1, 145, 24, $int0, false, $string0, ~equal_int($int0, %ecosystem_other));
+    if (cc_find(ecosystem_environmental_feature:click, $int0) = true) {
+        cc_setop(1, "Select");
+        cc_setonop("script9612(event_comsubid)");
+    }
+    if ($int0 = %ecosystem_other) {
+        if_settext($string0, ecosystem_environmental_feature:feature_name);
+        if_settext($string1, ecosystem_environmental_feature:build_requirements);
+        if_settext($string2, ecosystem_environmental_feature:description_text);
+        if_setmodel($model3, ecosystem_environmental_feature:feature_model);
+    }
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 28);
+}

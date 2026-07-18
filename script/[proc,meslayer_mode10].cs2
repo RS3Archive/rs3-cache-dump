@@ -1,0 +1,26 @@
+// 111
+[proc,meslayer_mode10]
+if_sethide(false, meslayer:root);
+if (%has_displayname_client = false) {
+    return;
+}
+if (%snapshot_open = true) {
+    ~script675;
+}
+if_settext("Enter the player name whose channel you wish to join:", meslayer:mes_text);
+%meslayermode = 10;
+~meslayer_setupinput("");
+if_setonclick(null, meslayer:mes_layer);
+~script2026;
+cc_create(meslayer:mes_layer, ^iftype_text, 0);
+~meslayer_setupdynamicbutton;
+if (%last_clanchannelowner_init = true & string_length(%last_clanchannelowner) > 0) {
+    cc_settext("Last name entered: <%last_clanchannelowner> <~mobile_text_get(10)>");
+} else {
+    %last_clanchannelowner = removetags(chat_playername);
+    %last_clanchannelowner_init = true;
+    cc_settext("Your name: <%last_clanchannelowner>");
+}
+cc_setop(1, "Use:");
+cc_setopbase("<col=ff9040><removetags(%last_clanchannelowner)></col>");
+cc_setonop("meslayer_lastname(%meslayermode, event_op, event_com, event_comsubid, %last_clanchannelowner)");

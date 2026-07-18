@@ -1,0 +1,29 @@
+// 16779
+[clientscript,script16779](int $int0)
+if (%trh187_kill_monster = true) {
+    return;
+}
+%trh187_kill_monster = true;
+def_int $int1 = 0;
+def_dbrow $dbrow2 = null;
+def_component $component3 = null;
+def_int $int4 = -1;
+switch_int ($int0) {
+    case 0 :
+        %trh187_spacebar_used = 1;
+    case 1 :
+        $int1 = %trh187_monster_1;
+        $component3 = trh187_overlay:monster_model_1;
+    case 2 :
+        $int1 = %trh187_monster_2;
+        $component3 = trh187_overlay:monster_model_2;
+    case 3 :
+        $int1 = %trh187_monster_3;
+        $component3 = trh187_overlay:monster_model_3;
+}
+if (%trh187_spacebar_used = 0) {
+    $dbrow2 = ~trh_get_monster($int1);
+    if_setmodelanim(db_getfield($dbrow2, trh_monster:col4, 0), $component3);
+    sound_vorbis_volume(combat_2012_auto_attack_melee_crush_maul_whoosh_ab_01, 1, 0, 190);
+    sound_vorbis_volume(pof_yak_death_bodyfall_2, 1, 40, 150);
+}

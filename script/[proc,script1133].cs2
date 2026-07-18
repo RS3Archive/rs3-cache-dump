@@ -1,0 +1,28 @@
+// 1133
+[proc,script1133](component $component0, int $int1, struct $struct2)
+def_string $string0 = "";
+def_string $string1 = "this colour";
+def_int $int3 = 0;
+if (struct_param($struct2, mtxmgt_dummy_recol) = 0) {
+    if_sethide(false, $component0);
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_setposition(2, 2, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(2, 2, ^setsize_minus, ^setsize_minus);
+    cc_setcolour(struct_param($struct2, mtxrecol_recolour_rgb));
+    cc_setfill(true);
+    $int3 = calc($int3 + 1);
+    cc_create($component0, ^iftype_graphic, $int3);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+    $int3 = calc($int3 + 1);
+    if (%mtxmgt_last_recol_button = $int1) {
+        cc_setgraphic("km_colourpickerbox,1");
+    } else {
+        cc_setgraphic("km_colourpickerbox,0");
+    }
+    $string1 = struct_param($struct2, mtxmgt_recol_name);
+    $string0 = "Recolour this item to <$string1>.";
+    ~script14990(0, $string0);
+} else {
+    if_sethide(true, $component0);
+}

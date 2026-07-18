@@ -1,0 +1,20 @@
+// 10953
+[clientscript,script10953]
+if (~ironman_mode = true) {
+    mes("Ironman players cannot make love potions.");
+    return;
+}
+if (inv_freespace(inv) = 0 & inv_total(inv, trh44_valentines15_potion) = 0) {
+    mes("You don't have enough free inventory space to make any love potions.");
+    return;
+}
+if (inv_total(inv, trh44_valentines15_currency) >= 10) {
+    if_setgraphic("rs3_valentines15_icons,3", trh44_valentines15_shop:popup_icon_amount);
+    if_settext("How many love potions would you like to make? (<tostring(10)> rose petals each)", trh44_valentines15_shop:popup_description_amount);
+    if_settext("0", trh44_valentines15_shop:text_input_display);
+    if_sethide(false, trh44_valentines15_shop:resizable_3x3_button_disabled_layer_accept_amount);
+    if_sethide(false, trh44_valentines15_shop:darkness);
+    if_sethide(false, trh44_valentines15_shop:popup_layer_amount);
+} else {
+    mes("You don't have enough rose petals to make a love potion.");
+}

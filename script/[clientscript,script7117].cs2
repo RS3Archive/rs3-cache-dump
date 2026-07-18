@@ -1,0 +1,18 @@
+// 7117
+[clientscript,script7117]
+def_int $int0 = -1;
+if (~script15532(0) = false & %makex2012_available_recipe_lists ! null & %makex2012_available_recipe_list_names ! null & %makex2012_active_recipe_list ! null & enum_hasoutput(enum, %makex2012_available_recipe_lists, %makex2012_active_recipe_list) = true) {
+    if_sethide(false, makex2012_controls:static_dropdown);
+    if_sethide(true, makex2012_controls:dropdown_string_sub_master);
+    $int0 = enum_getreverseindex(enum, int, %makex2012_available_recipe_lists, %makex2012_active_recipe_list, 0);
+    ~script10428(makex2012_controls:dropdown_build, makex2012_controls:dropdown_click, %makex2012_available_recipe_list_names, -1, "Select a category", $int0, 0);
+    return;
+}
+if_sethide(true, makex2012_controls:static_dropdown);
+if_sethide(false, makex2012_controls:dropdown_string_sub_master);
+if (compare(%makex2012_single_recipe_list_name, "") ! 0 & compare(%makex2012_single_recipe_list_name, null) ! 0) {
+    ~script13969(makex2012_controls:dropdown_string_sub_master_build, null, rs3_dropdown_stillbutton, %makex2012_single_recipe_list_name);
+} else {
+    ~script13969(makex2012_controls:dropdown_string_sub_master_build, null, rs3_dropdown_stillbutton, "Create Item");
+}
+return;

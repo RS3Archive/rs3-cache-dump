@@ -1,0 +1,49 @@
+// 16459
+[proc,script16459](component $component0, dbrow $dbrow1, int $int2, int $int3, int $int4, struct $struct5, int $int6)(int)
+def_int $int7 = 0;
+if ($dbrow1 = woodcutting_site_fort_grove) {
+    switch_struct ($struct5) {
+        case skillguide_woodcutting_basic_tree, skillguide_woodcutting_oak_tree :
+            $int7 = 1;
+        case skillguide_woodcutting_willow_tree, skillguide_woodcutting_yew_tree, skillguide_woodcutting_ivy :
+            $int7 = 2;
+        case skillguide_woodcutting_elder_tree :
+            $int7 = 3;
+    }
+}
+def_int $int8 = -1;
+$int8, $int2 = ~script14749($component0, 0, $int2, $int3, 0);
+def_int $int9 = $int2;
+def_int $int10 = calc(4 + 4 + (35 + 2) + 2 * 4);
+def_int $int11 = calc($int4 - 2 * 4 - 4 - (35 + 2) - 2 * 4);
+def_int $int12 = 16777215;
+if (stat_base(~int_to_stat(18)) < struct_param($struct5, skillguide_level)) {
+    $int12 = ~script10495(6);
+} else if ($int7 > 0 & %player_fort_building_grove < $int7) {
+    $int12 = ~script10495(6);
+}
+if ($int6 > 1) {
+    $int2 = ~script14757($component0, $int10, $int2, $int11, struct_param($struct5, skillguide_name), $int12);
+}
+def_obj $obj13 = struct_param($struct5, skillguide_item);
+def_string $string0 = "";
+if ($int7 > 0 & %player_fort_building_grove < $int7) {
+    $int2 = ~script14758($component0, $int10, $int2, $int11, "Requires tier <tostring($int7)> Grove Cabin.", $int12);
+} else if ($obj13 ! null) {
+    $string0 = oc_name($obj13);
+    if (string_length($string0) = 0) {
+        $int2 = ~script14758($component0, $int10, $int2, $int11, "XP training method<br><br>No resource", $int12);
+    } else if ($obj13 = misc_logs_dummy) {
+        $int2 = ~script14758($component0, $int10, $int2, $int11, "Approval rating<br><br>No resource", $int12);
+    } else {
+        $int2 = ~script14759($component0, $int10, $int2, $int11, $obj13, $string0, $int12);
+    }
+}
+def_int $int14 = calc($int2 - $int9);
+$int10 = calc(4 + 4);
+def_int $int15 = calc(35 + 2 + 2 + enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular));
+$int14 = max($int14, $int15);
+$int2 = calc($int9 + ($int14 - (35 + 2) - enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular) - 2 * 2) / 2);
+~script14761($component0, $int10, $int2, 35, 18, struct_param($struct5, skillguide_level), $int12);
+$int2 = ~script14750($component0, $int8, calc($int9 + $int14), 0);
+return($int2);

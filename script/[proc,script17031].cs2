@@ -1,0 +1,43 @@
+// 17031
+[proc,script17031](dbrow $dbrow0)(int, int)
+if (~script5759($dbrow0) = false) {
+    return(0, 0);
+}
+def_int $int1 = 0;
+switch_dbrow ($dbrow0) {
+    case intern_notes_parent_adventure_calendar :
+        return(%intern_notes_calendar, 0);
+    case intern_notes_parent_adventure_challenge :
+        if (%intern_notes_new_daily_challenges > 0) {
+            $int1 = max(0, calc(%intern_notes_new_daily_challenges - %intern_notes_daily_challenges_complete));
+        }
+        return(calc($int1 + %intern_notes_daily_challenges_complete + %intern_notes_daily_challenge_weekly_rewards), 0);
+    case intern_notes_challenge_claim_button :
+        return(%intern_notes_daily_challenges_complete, 0);
+    case intern_notes_challenge_weekly_rewards_collect_button :
+        return(%intern_notes_daily_challenge_weekly_rewards, 0);
+    case intern_notes_parent_upgrades_and_extras :
+        return(%intern_notes_marketplace_featured, 0);
+    case intern_notes_parent_upgrades_and_extras_bp3_button :
+        if (platformtype = ^platformtype_apple | platformtype = ^platformtype_android) {
+            $int1 = 0;
+        } else {
+            $int1 = calc($int1 + bitcount(%intern_notes_bp3_perm_1));
+        }
+        return($int1, 0);
+    case intern_notes_mobile_ribbon_bp3_button :
+        if (platformtype = ^platformtype_apple | platformtype = ^platformtype_android) {
+            $int1 = calc($int1 + bitcount(%intern_notes_bp3_perm_1));
+        } else {
+            $int1 = 0;
+        }
+        return($int1, 0);
+    case intern_notes_mobile_ribbon_calendar_button :
+        return(%intern_notes_calendar, 0);
+    case intern_notes_parent_community_events :
+        return(%intern_notes_new_community_event, 0);
+    case intern_notes_achievements_area_dropdown :
+        return(bitcount(%intern_notes_highlighted_area_task_sets), 0);
+    case default :
+        return(0, 0);
+}

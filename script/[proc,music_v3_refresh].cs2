@@ -1,0 +1,95 @@
+// 3680
+[proc,music_v3_refresh](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+switch_graphic (if_getgraphic($component6)) {
+    case "aif_shuffle_button,1", "aif_shuffle_button,3" :
+    case default :
+        ~script8808;
+        %tooltip_time = 0;
+}
+if_setontimer(null, $component0);
+def_int $int7 = -1;
+if (if_find($component2) = true) {
+    $int7 = cc_param(nextcomid);
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_int $int10 = string_length(%music_searchstring);
+if ($int10 <= 0 & %meslayermode ! 14 & if_getgraphic($component0) ! "aif_music_header_buttons,14" & if_getgraphic($component0) ! "aif_music_header_buttons,12") {
+    if_setgraphic("aif_music_header_buttons,11", $component0);
+}
+def_int $int11 = 5;
+while ($int7 ! -1) {
+    if (cc_find($component3, calc($int7 * 2)) = true & .cc_find($component3, calc($int7 * 2 + 1)) = true) {
+        cc_clearops;
+        .cc_clearops;
+        $string0 = lowercase(cc_gettext);
+        if (string_length($string0) > 0) {
+            if (~music_getvar($int7) = ^true) {
+                if ($int10 = 0 | string_indexof_string($string0, %music_searchstring, 0) ! -1) {
+                    $int8 = calc($int8 + 1);
+                    if (%music_filter_toggle_varc ! 2) {
+                        cc_setop(2, "Unlock hint");
+                        cc_setontimer("script5258($int7, $component3)");
+                        cc_sethide(false);
+                        .cc_sethide(false);
+                        cc_setposition(15, $int11, ^setpos_abs_left, ^setpos_abs_top);
+                        .cc_setposition(2, calc($int11 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                        $int11 = calc($int11 + 15);
+                    } else {
+                        cc_sethide(true);
+                        .cc_sethide(true);
+                    }
+                } else {
+                    cc_sethide(true);
+                    .cc_sethide(true);
+                }
+            } else {
+                if ($int10 = 0 | string_indexof_string($string0, %music_searchstring, 0) ! -1) {
+                    $int9 = calc($int9 + 1);
+                    if (%music_filter_toggle_varc ! 1) {
+                        cc_setop(2, "Unlock hint");
+                        cc_setcolour(^red);
+                        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 16711680)");
+                        .cc_setonop(null);
+                        cc_sethide(false);
+                        cc_setposition(15, $int11, ^setpos_abs_left, ^setpos_abs_top);
+                        .cc_setposition(2, calc($int11 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                        $int11 = calc($int11 + 15);
+                    } else {
+                        cc_sethide(true);
+                    }
+                } else {
+                    cc_sethide(true);
+                }
+                .cc_sethide(true);
+            }
+        }
+        $int7 = cc_param(nextcomid);
+    } else {
+        $int7 = -1;
+    }
+}
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+while ($int12 < 100 & %music_playlist_toggle_varc = true) {
+    $int13 = ~script3079($int12);
+    if ($int13 ! 32767 & $int14 < 100) {
+        $int14 = calc($int14 + 1);
+    }
+    $int12 = calc($int12 + 1);
+}
+$int9 = calc($int9 + $int8);
+if_setscrollsize(167, calc(5 + $int11), $component3);
+~scrollbar_resize($component4, $component3, %playerdesign2_client_jaw);
+if (%music_playlist_toggle_varc = true) {
+    if_settext("Playlist: <tostring($int14)> / <tostring(100)>", $component5);
+} else {
+    if_settext("Unlocked: <tostring_localised($int8, true)> / <tostring_localised($int9, true)>", $component5);
+}
+if ($int11 = 5) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}

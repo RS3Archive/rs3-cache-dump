@@ -1,0 +1,57 @@
+// 14829
+[proc,script14829](string $string0)
+cc_deleteall(arch_journal:restoration_contents_build_layer);
+cc_deleteall(arch_journal:restoration_contents_control_layer);
+def_int $int0 = db_find_with_count(arch_restoration:col9, true);
+def_dbrow $dbrow1 = null;
+def_obj $obj2 = null;
+def_struct $struct3 = rs3tli_inv_icon_slot;
+def_int $int4 = 40;
+def_int $int5 = 36;
+def_int $int6 = 36;
+def_int $int7 = 32;
+if (~script6431 = true) {
+    $struct3 = rs3tli_inv_icon_slot_large;
+    $int4 = 44;
+    $int5 = 44;
+    $int6 = 44;
+    $int7 = 39;
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+$int8, $int9, $int10 = ~script12087(if_getwidth(arch_journal:restoration_contents_build_layer), $int4, 1, 2);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = -1;
+def_int $int14 = 0;
+while (++$int13 < $int0) {
+    $dbrow1 = db_findnext;
+    if ($dbrow1 ! null) {
+        $obj2 = db_getfield($dbrow1, arch_restoration:col6, 0);
+        if (string_indexof_string(lowercase(oc_name($obj2)), lowercase($string0), 0) ! -1) {
+            $int11 = calc($int10 + $int14 % $int8 * $int9);
+            $int12 = calc($int14 / $int8 * ($int5 + 2));
+            ~script14764(arch_journal:restoration_contents_build_layer, arch_journal:restoration_contents_control_layer, $obj2, ~script14500($obj2), $int11, $int12, $struct3, $int4, $int5, $int6, $int7, $int14);
+            if (cc_find(arch_journal:restoration_contents_control_layer, $int14) = true) {
+                cc_setopcursor(1, cursor_info);
+                cc_setop(1, "Info");
+                cc_setonop("script14830($dbrow1)");
+            }
+            $int14 = calc($int14 + 1);
+        }
+    }
+}
+if ($int14 = 0) {
+    cc_create(arch_journal:restoration_contents_build_layer, ^iftype_text, 0);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext("No match found, try refining your search.");
+    cc_setcolour(^black);
+    cc_settrans(50);
+}
+if_setscrollsize(0, max(if_getheight(arch_journal:restoration_contents_scrolling_layer), calc($int12 + 36)), arch_journal:restoration_contents_scrolling_layer);
+if_setscrollpos(0, 0, arch_journal:restoration_contents_scrolling_layer);
+~rs3_scrollbar_vertical(arch_journal:restoration_contents_scrollbar_layer, arch_journal:restoration_contents_scrolling_layer);

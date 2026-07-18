@@ -1,0 +1,20 @@
+// 5855
+[clientscript,script5855](component $component0)
+def_int $int1 = -1;
+switch_component ($component0) {
+    case 6awe3_rewards:icon_1 :
+        $int1 = %6awe3_passive_ability;
+    case 6awe3_rewards:icon_2 :
+        $int1 = %6awe3_active_ability1;
+    case 6awe3_rewards:icon_3 :
+        $int1 = %6awe3_active_ability2;
+}
+if ($int1 = -1) {
+    return;
+}
+def_struct $struct2 = enum(int, struct, 6awe3_ability_to_struct, $int1);
+if ($struct2 = null) {
+    ~script8800("No ability active - drag an icon from the list on to this slot to use within the game.", $component0, -1);
+} else {
+    ~script8800(append(append(struct_param($struct2, 6awe3_ability_name), "<br>"), struct_param($struct2, 6awe3_ability_desc)), $component0, -1);
+}

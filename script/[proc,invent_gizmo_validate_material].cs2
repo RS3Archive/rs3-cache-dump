@@ -1,0 +1,19 @@
+// 14706
+[proc,invent_gizmo_validate_material](obj $obj0, dbrow $dbrow1)(int)
+if ($dbrow1 = null) {
+    return(0);
+}
+def_enum $enum2 = null;
+if ($obj0 ! null) {
+    $enum2 = oc_param($obj0, invent_gizmo_material_whitelist);
+    if ($enum2 ! null & enum_hasoutput(dbrow, $enum2, $dbrow1) = false) {
+        return(0);
+    }
+    switch_int (db_getfield($dbrow1, invent_material_table:col7, 0)) {
+        case 5 :
+            if (oc_param($obj0, invent_gizmo_class) ! 1) {
+                return(0);
+            }
+    }
+}
+return(1);

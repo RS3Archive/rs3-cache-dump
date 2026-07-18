@@ -1,0 +1,22 @@
+// 3585
+[clientscript,script3585]
+switch_int (map_lang) {
+    case 1 :
+        if_setgraphic("aif_make_x_rewards,1", farming_rep:reward_graphic);
+    case 2 :
+        if_setgraphic("aif_make_x_rewards,3", farming_rep:reward_graphic);
+    case 3 :
+        if_setgraphic("aif_make_x_rewards,2", farming_rep:reward_graphic);
+    case 6 :
+        if_setgraphic("aif_make_x_rewards,2", farming_rep:reward_graphic);
+}
+if_sethide(true, farming_rep:info_layer);
+def_int $int0 = ~script13431(6);
+def_int $int1 = ~reputation_get_current_reputation_tier(6);
+~script3592($int1);
+def_int $int2 = ~script3586($int1, $int0);
+def_int $int3 = calc($int1 * 64);
+if_setsize(max(1, $int3), 9, ^setsize_abs, ^setsize_abs, farming_rep:overall_progress_front);
+if_setsize(max(1, scale($int2, 100, 320)), 25, ^setsize_abs, ^setsize_abs, farming_rep:progress_bar);
+if_settext("Current reputation: <tostring_localised(calc($int0 / 10), true)>/<tostring_localised(calc(~script13434(6) / 10), true)>", farming_rep:rep_total_text);
+if_settext("Current rank:<br><enum(int, string, reputation_farming_tier_names, $int1)>", farming_rep:next_unlock_text);

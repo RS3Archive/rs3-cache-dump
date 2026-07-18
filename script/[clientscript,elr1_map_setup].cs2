@@ -1,0 +1,30 @@
+// 12655
+[clientscript,elr1_map_setup]
+~script12656;
+if_sethide(false, elr1_map:map_contents);
+if_sethide(true, elr1_map:map_uncharted);
+if_sethide(true, elr1_map:supplies_layer);
+if (%elr1_map_toggle = 1) {
+    if_sethide(false, elr1_map:map_uncharted);
+    if_sethide(false, elr1_map:supplies_layer);
+}
+if_sethide(true, elr1_map:cyclosis);
+if_sethide(true, elr1_map:name_cyclosis);
+if (~pop_island_unlocked(0) = ^true) {
+    if_sethide(false, elr1_map:cyclosis);
+    if_sethide(false, elr1_map:name_cyclosis);
+}
+if (%islands_claimed_island <= 0) {
+    if_sethide(true, elr1_map:voyage_claimed_button);
+}
+if_settext("<tostring(~elr1_supplies)> supplies", elr1_map:elr1_supplies);
+def_string $string0 = "Nearby islands with 0-1 rare resources (5 supplies)";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", elr1_map:voyage_short_button);
+$string0 = "Distant islands with 2-3 rare resources (12 supplies)";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", elr1_map:voyage_median_button);
+$string0 = "Remote islands with 3-5 rare resources (20 supplies)";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", elr1_map:voyage_long_button);
+$string0 = "Return to your claimed island (3 supplies)";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", elr1_map:voyage_claimed_button);
+$string0 = "Show named islands.";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", elr1_map:back_button);

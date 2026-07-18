@@ -1,0 +1,67 @@
+// 20031
+[proc,script20031](int $int0, dbrow $dbrow1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+switch_int ($int0) {
+    case 1 :
+        $component2 = trh210_overlay:bonus_option_1_title_text;
+        $component3 = trh210_overlay:bonus_option_1_info_text;
+        $component4 = trh210_overlay:bonus_option_1_build_layer;
+    case 2 :
+        $component2 = trh210_overlay:bonus_option_2_title_text;
+        $component3 = trh210_overlay:bonus_option_2_info_text;
+        $component4 = trh210_overlay:bonus_option_2_build_layer;
+}
+cc_deleteall($component4);
+if ($dbrow1 = null) {
+    return;
+}
+def_string $string0 = "";
+def_int $int5 = db_getfield($dbrow1, trh210_bonus:col1, 0);
+def_int $int6 = db_getfield($dbrow1, trh210_bonus:col2, 0);
+def_int $int7 = db_getfield($dbrow1, trh210_bonus:col5, 0);
+def_int $int8 = db_getfield($dbrow1, trh210_bonus:col6, 0);
+def_obj $obj9 = null;
+def_int $int10 = 0;
+def_graphic $graphic11 = null;
+def_int $int12 = 0;
+def_int $int13 = 0;
+$graphic11, $int12, $int13 = db_getfield($dbrow1, trh210_bonus:col4, 0);
+$obj9, $int10 = db_getfield($dbrow1, trh210_bonus:col3, 0);
+if ($int5 > 1 | $int6 > 0 | $int7 > 1 | $int8 > 0) {
+    if_sethide(false, trh210_overlay:bonus_option_2_empty_gem);
+    if_settext("Bonus", $component2);
+    if ($int5 > 1) {
+        if_settext("Minimum Multipliers", $component2);
+        $string0 = "Increase all multipliers on the trail to <col=FF00>x<tostring($int5)></col>!";
+    } else if ($int6 > 0) {
+        if_settext("Increase Multipliers", $component2);
+        $string0 = "Increase all multipliers on the trail by <col=FF00><tostring($int6)></col>!";
+    } else if ($int7 > 1) {
+        if_settext("Set Rarity", $component2);
+        $string0 = "Increase all rarities on the trail to <col=<tostring(~script10925($int7), 16)>><~script10876($int7)></col> rarity</col>!";
+    } else if ($int8 > 0) {
+        if_settext("Increase Rarity", $component2);
+        $string0 = "Increase all rarities on the trail by <col=89CFF0><tostring($int8)></col> <~text_plural($int8, "tier!", "tiers!")>";
+    }
+    ~if_add_child_graphic($component4, 0, if_getnextsubid($component4), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int12, $int13, ^setsize_abs, ^setsize_abs, $graphic11);
+} else if ($obj9 ! null & $int10 > 0) {
+    if_settext("Loot", $component2);
+    if ($int0 = 2) {
+        if_sethide(true, trh210_overlay:bonus_option_2_empty_gem);
+    }
+    if ($int10 > 1) {
+        $string0 = "<tostring($int10)> x <oc_name($obj9)>";
+    } else {
+        $string0 = oc_name($obj9);
+    }
+    if ($graphic11 ! null) {
+        ~if_add_child_graphic($component4, 0, if_getnextsubid($component4), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int12, $int13, ^setsize_abs, ^setsize_abs, $graphic11);
+    } else {
+        ~if_add_child_model($component4, 0, if_getnextsubid($component4), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 100, 100, ^setsize_abs, ^setsize_abs);
+        cc_setobject_nonum($obj9, $int10);
+        cc_setmodellighting(2048, 0, 0, 255, 255, 255, 0, 0, 0, reflec_small);
+    }
+}
+if_settext($string0, $component3);

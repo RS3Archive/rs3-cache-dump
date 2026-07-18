@@ -1,0 +1,27 @@
+// 7663
+[proc,script7663](struct $struct0, quest $quest1, achievement $achievement2)(int)
+if ($struct0 = null & $quest1 = null & $achievement2 = null) {
+    return(-1);
+}
+if ($quest1 ! null | struct_param($struct0, quest_id) > 0) {
+    return(1);
+} else if ($achievement2 ! null) {
+    return(2);
+} else if ($struct0 ! null) {
+    if (struct_param($struct0, bslay_id) > 0) {
+        return(8);
+    }
+    if ($struct0 = crs_slayer_assignment) {
+        return(7);
+    }
+    if (struct_param($struct0, challenge_target) > 0) {
+        return(4);
+    }
+    if (struct_param($struct0, cheevo_path_enum) ! null) {
+        return(3);
+    }
+    if (enum_hasoutput(struct, uaui_minigames_all, $struct0) = true) {
+        return(6);
+    }
+}
+return(0);

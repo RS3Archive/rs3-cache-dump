@@ -1,0 +1,13 @@
+// 19236
+[proc,script19236](int $int0)(int)
+db_find(halloween_hub_gauntlet_sections:col0, $int0);
+def_dbrow $dbrow1 = db_findnext;
+def_enum $enum2 = null;
+if ($dbrow1 ! null) {
+    $enum2 = db_getfield($dbrow1, halloween_hub_gauntlet_sections:col2, 0);
+    if ($enum2 ! null) {
+        return(enum(int, int, $enum2, ~script15113));
+    }
+}
+~error("Couldn't get an active boss for Halloween gauntlet section <tostring($int0)> because either the dbrow for this section couldn't be found or the dbrow had no schedule attached.");
+return(0);

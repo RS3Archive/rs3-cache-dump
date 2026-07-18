@@ -1,0 +1,76 @@
+// 9533
+[proc,activity_tracker_get_desc](int $int0, int $int1, int $int2, achievement $achievement3)(string)
+def_struct $struct4 = null;
+def_quest $quest5 = null;
+def_string $string0 = "";
+def_int $int6 = 0;
+def_int $intbool7 = ^false;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_stat $stat10 = null;
+def_int $int11 = 0;
+def_dbrow $dbrow12 = null;
+def_string $string1 = "";
+switch_int ($int0) {
+    case default :
+        return("");
+    case 2 :
+        return(~achievement_description($achievement3));
+    case 3 :
+        return(~cheevo_details(enum(int, struct, cheevo_id_to_struct, $int1), 1));
+    case 1 :
+        $quest5 = enum(int, quest, ql4_quests, $int1);
+        if ($quest5 ! null) {
+            return(~script8220($quest5));
+        } else {
+            return("");
+        }
+    case 4 :
+        $struct4 = ~script16319($int1);
+        if ($struct4 ! null) {
+            if (~script16442($int1) >= struct_param($struct4, challenge_target) & ~script18262(~script16500($int1)) = 1) {
+                return("Claim your reward in the Challenges tab of Adventures");
+            } else {
+                return(~challenge_details($struct4, ~script16500($int1)));
+            }
+        } else {
+            return(~challenge_blank_string(~challenge_blank_status));
+        }
+    case 5 :
+        $intbool7, $int8, $int9 = ~script4037($int1);
+        $stat10 = enum(int, stat, int_to_stat, $int1);
+        if ($stat10 = null) {
+            return("");
+        }
+        if ($intbool7 = ^true) {
+            $int8 = enum(int, int, ~script12289($stat10), $int8);
+        }
+        $int11 = max(0, calc($int8 - stat_visible_xp_actual($stat10)));
+        return("<tostring_localised($int11, true)> XP Remaining");
+    case 6 :
+        $struct4 = enum(int, struct, uaui_minigames_all, $int1);
+        if ($struct4 ! null) {
+            return(struct_param($struct4, task_details));
+        } else {
+            return("");
+        }
+    case 7 :
+        return(~slayer_window_description(0));
+    case 8 :
+        return(~bslay_window_description(0));
+    case 9 :
+        if ($int2 = 1) {
+            return("<~script3188($int1)><br><br><tostring(~script3603($int1))>/<tostring(~script3605($int1))>");
+        } else {
+            return("<tostring(~script3603($int1))>/<tostring(~script3605($int1))>");
+        }
+    case 10 :
+        $dbrow12 = ~script17905($int1);
+        $string0 = db_getfield(db_getfield($dbrow12, bp3_mission:col2:0, 0), bp3_task:col1, 0);
+        $string1 = ~script18073($dbrow12);
+        if (string_length($string1) > 0) {
+            $string0 = append($string0, "<br><$string1>");
+        }
+        $string0 = append($string0, "<br><br><tostring(~script17903($int1))>/<tostring(db_getfield($dbrow12, bp3_mission:col5, 0))>");
+        return($string0);
+}

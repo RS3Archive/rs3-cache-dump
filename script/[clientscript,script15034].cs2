@@ -1,0 +1,18 @@
+// 15034
+[clientscript,script15034]
+if (%stock_offeritem = null) {
+    return;
+}
+if (%stock_buyscreen_viewmode = 0 & stockmarket_isofferempty(%stock_offerslot, 0) = false) {
+    return;
+}
+~script15030(1);
+%p_dialog_input = "";
+%p_dialog_listener = stockmarket:price_input_listener;
+%p_dialog_mode = 7;
+%p_dialog_maxchar = 20;
+%meslayer_caret = ~script1553(103, %meslayer_caret, %p_dialog_input);
+if (%sm_tut_lockif = 0) {
+    ~script9833(stockmarket:price_input_listener, stockmarket:price_input_listen, stockmarket:price_input_caret, stockmarket:price_input_display, stockmarket:price_input_clickout, 0, 0);
+}
+if_setondialogabort(null, stockmarket:price_input_listen);

@@ -1,0 +1,20 @@
+// 18449
+[clientscript,script18449]
+if (%buff_select_event_interface_button_selected = 0 | ~script18409(0) ! 0 | ~script18413(0) = true) {
+    return;
+}
+def_int $int0 = ~script18428(%buff_select_event_interface_button_selected, null);
+def_string $string0 = ~script18429($int0);
+def_string $string1 = ~script18431($int0);
+def_graphic $graphic1 = ~script18433($int0);
+if_sethide(false, buff_select_event:popup_layer);
+if_sethide(false, buff_select_event:buff_confirm_window_layer);
+if_sethide(true, buff_select_event:tutorial_window_layer);
+if_settext($string0, buff_select_event:buff_confirm_name);
+if_setgraphic($graphic1, buff_select_event:buff_confirm_icon);
+def_string $string2 = "Once activated, this buff cannot be changed and will be applied for 2 hours or until you log out after the day ends.";
+$string1 = "<$string1><br><sprite=21341><$string2>";
+if (~script18410 = true) {
+    $string1 = append($string1, "<br><sprite=21341><col=FA3232>You already have a buff active. This will overwrite your existing buff.</col>");
+}
+if_settext($string1, buff_select_event:buff_confirm_desc);

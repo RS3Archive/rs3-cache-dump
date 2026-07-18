@@ -1,0 +1,114 @@
+// 6039
+[proc,xp_reward_update](stat $stat0, component $component1, component $component2, component $component3)
+def_int $int4 = enum(stat, int, stat_to_int, $stat0);
+def_string $string0 = enum(stat, string, stat_to_string, $stat0);
+def_string $string1 = "";
+def_boolean $boolean5 = ~xp_reward_checkskill($stat0, %xp_reward_minlevel, %xp_reward_item, 0);
+def_enum $enum6 = stat2icon_small_off;
+if ($boolean5 = true) {
+    $enum6 = stat2icon_small;
+}
+cc_deleteall($component1);
+def_struct $struct7 = rs3_icon_holder;
+def_struct $struct8 = rs3_icon_holder_selected;
+def_struct $struct9 = rs3_icon_holder_over;
+if ((oc_param(%xp_reward_item, trh35_meteor_direct_item) = 1 | oc_param(%xp_reward_item, trh35_meteor_bonus_item) = 1) & ~script9121($stat0) = true) {
+    $struct7 = rs3_icon_holder_action_on;
+    $struct8 = rs3_icon_holder_action_selected;
+    $struct9 = rs3_icon_holder_action_over;
+}
+if (oc_param(%xp_reward_item, trh159_boosts_lowest_skills) = 1) {
+    if (~script473($stat0, 5, 1) = true) {
+        $struct7 = rs3_icon_holder_action_on;
+        $struct8 = rs3_icon_holder_action_selected;
+        $struct9 = rs3_icon_holder_action_over;
+    }
+} else if (oc_param(%xp_reward_item, trh159_boosts_highest_skills) = 1) {
+    if (~script473($stat0, 5, 2) = true) {
+        $struct7 = rs3_icon_holder_action_on;
+        $struct8 = rs3_icon_holder_action_selected;
+        $struct9 = rs3_icon_holder_action_over;
+    }
+} else if (%xp_reward_item = trh30_roaming_store_credit_dummy) {
+    if (%trh30_special_credit_stat = $int4) {
+        $struct7 = rs3_icon_holder_action_on;
+        $struct8 = rs3_icon_holder_action_selected;
+        $struct9 = rs3_icon_holder_action_over;
+        $string1 = "<br><col=EECC00>Highly sought after</col>";
+    }
+} else if (%xp_reward_item = psr_xpblock_dummy) {
+    if (~script17262($int4) = ^false) {
+        $struct7 = rs3_icon_holder_action_on;
+        $struct8 = rs3_icon_holder_action_selected;
+        $struct9 = rs3_icon_holder_action_over;
+    }
+} else if (~trh_state(trh16_promo) = 1) {
+    switch_int (date_runeday) {
+        case 4000 :
+            if (oc_param(%xp_reward_item, wof_lamp) = 1 | oc_category(%xp_reward_item) = xpboosterstar) {
+                switch_stat ($stat0) {
+                    case cooking, construction, crafting, firemaking, fletching, herblore, runecraft, smithing :
+                        $struct7 = rs3_icon_holder_action_on;
+                        $struct8 = rs3_icon_holder_action_selected;
+                        $struct9 = rs3_icon_holder_action_over;
+                }
+            }
+        case 4001 :
+            if (oc_param(%xp_reward_item, wof_lamp) = 1 | oc_category(%xp_reward_item) = xpboosterstar) {
+                switch_stat ($stat0) {
+                    case attack, hitpoints, defence, magic, prayer, ranged, strength, summoning :
+                        $struct7 = rs3_icon_holder_action_on;
+                        $struct8 = rs3_icon_holder_action_selected;
+                        $struct9 = rs3_icon_holder_action_over;
+                }
+            }
+        case 4002 :
+            if (oc_param(%xp_reward_item, wof_lamp) = 1 | oc_category(%xp_reward_item) = xpboosterstar) {
+                switch_stat ($stat0) {
+                    case divination, farming, fishing, hunter, mining, woodcutting :
+                        $struct7 = rs3_icon_holder_action_on;
+                        $struct8 = rs3_icon_holder_action_selected;
+                        $struct9 = rs3_icon_holder_action_over;
+                }
+            }
+        case 4003 :
+            if (oc_param(%xp_reward_item, wof_lamp) = 1 | oc_category(%xp_reward_item) = xpboosterstar) {
+                switch_stat ($stat0) {
+                    case agility, dungeoneering, slayer, thieving :
+                        $struct7 = rs3_icon_holder_action_on;
+                        $struct8 = rs3_icon_holder_action_selected;
+                        $struct9 = rs3_icon_holder_action_over;
+                }
+            }
+        case 4004, 5690 :
+    }
+}
+if ($int4 = %xp_reward_currentchoice) {
+    ~rs3_background_panel($component2, $struct8);
+    if_setonmouseover(null, $component2);
+    if_setonmouseleave(null, $component2);
+} else {
+    ~rs3_background_panel($component2, $struct7);
+    if ($boolean5 = true) {
+        if_setonmouseover("rs3_background_panel(event_com, $struct9)", $component2);
+        if_setonmouseleave("rs3_background_panel(event_com, $struct7)", $component2);
+    } else {
+        if_setonmouseover(null, $component2);
+        if_setonmouseleave(null, $component2);
+    }
+}
+def_int $int10 = 0;
+cc_create($component1, ^iftype_graphic, $int10);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(enum(int, graphic, $enum6, $int4));
+if ($boolean5 = false) {
+    $string0 = "<$string0> - Unavailable";
+    cc_settrans(150);
+} else if (%xp_reward_item = trh30_store_credit_dummy | %xp_reward_item = trh30_roaming_store_credit_dummy | %xp_reward_item = trh_consumable_bxp_exchanger) {
+    $string0 = "<$string0> - <tostring_localised(calc(~script11151($stat0) / 10), true)> Bonus XP<$string1>";
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component1);
+if_setop(1, "Choose", $component1);
+if_setopbase(enum(stat, string, stat_to_string, $stat0), $component1);
+if_setonop("xp_reward_choose($stat0, $int4, $component1, $component3)", $component1);

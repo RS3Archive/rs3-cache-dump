@@ -1,0 +1,60 @@
+// 856
+[proc,trh149_bar_update]
+if (if_getwidth(trh149:progress_bar_4) = 147) {
+    return;
+}
+def_int $int0 = 1;
+def_int $int1 = 2;
+def_int $int2 = 0;
+def_int $int3 = %trh149_milestone_progress;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_component $component6 = trh149:progress_bar_1;
+switch_int (%trh149_milestone_progress) {
+    case 30 :
+        $int5 = 147;
+        $component6 = trh149:progress_bar_4;
+        $int2 = 147;
+    case 15 :
+        $int5 = 126;
+        $component6 = trh149:progress_bar_3;
+        $int2 = 126;
+    case 5 :
+        $int5 = 87;
+        $component6 = trh149:progress_bar_2;
+        $int2 = 87;
+    case 2 :
+        $int5 = 74;
+        $component6 = trh149:progress_bar_1;
+        $int2 = 74;
+    case default :
+        if (%trh149_milestone_progress > 15) {
+            $int0 = 4;
+        } else if (%trh149_milestone_progress > 5) {
+            $int0 = 3;
+        } else if (%trh149_milestone_progress > 2) {
+            $int0 = 2;
+        }
+        switch_int ($int0) {
+            case 1 :
+                $int2 = 74;
+            case 2 :
+                $int2 = 87;
+                $int1 = calc(5 - 2);
+                $int3 = calc(%trh149_milestone_progress - 2);
+                $component6 = trh149:progress_bar_2;
+            case 3 :
+                $int2 = 126;
+                $int1 = calc(15 - 5);
+                $int3 = calc(%trh149_milestone_progress - 5);
+                $component6 = trh149:progress_bar_3;
+            case 4 :
+                $int2 = 147;
+                $int1 = calc(30 - 15);
+                $int3 = calc(%trh149_milestone_progress - 15);
+                $component6 = trh149:progress_bar_4;
+        }
+        $int4 = calc($int2 * 100 / $int1);
+        $int5 = min(calc($int4 * $int3 / 100), $int2);
+}
+if_setontimer("trh149_bar_timer($component6, $int5, $int2)", trh149:progress_layer);

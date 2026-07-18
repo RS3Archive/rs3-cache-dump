@@ -1,0 +1,59 @@
+// 17744
+[proc,script17744](component $component0, int $int1, int $int2, component $component3, int $int4, int $int5, int $int6, dbrow $dbrow7, int $int8, boolean $boolean9, int $int10, int $int11, int $setposh12, int $setposv13, int $int14, int $int15, int $setsize16, int $setsize17)(boolean)
+def_dbrow $dbrow18 = db_getfield($dbrow7, skill_tree_level:col1, $int8);
+def_boolean $boolean19 = true;
+def_int $int20 = 0;
+def_boolean $boolean21 = ~script17492($dbrow18);
+def_int $int22 = 1;
+def_graphic $graphic23 = null;
+if (cc_findbycategory($component0, $int1, $int2) = 1) {
+    if (~script17491($dbrow18) = false) {
+        $boolean19 = false;
+    }
+    if ($int6 = %skill_tree_level_index_selected_client & $int8 = %skill_tree_node_index_selected_client) {
+        $int20 = 1;
+    }
+    if ($boolean21 = true) {
+        $int22 = 0;
+        $int14 = scale($int14, 100, 110);
+        $int15 = scale($int15, 100, 110);
+    }
+    ~cc_add_child_graphic_full($int1, if_getnextcategorysubid($int1, $component0), $int10, $int11, $setposh12, $setposv13, $int14, $int15, $setsize16, $setsize17, skill_tree_ui_node_normal, false, false, false, 0);
+    if ($int20 = 1) {
+        cc_setgraphic(skill_tree_ui_node_active);
+        cc_setcolour(0xf0be79);
+        cc_clearops;
+        cc_clearscripthooks;
+    } else if ($boolean21 = true) {
+        cc_setgraphic(skill_tree_ui_node_active);
+        cc_setcolour(0x57ddff);
+        cc_setonmouseover("cc_setcolour(cc_getparentlayer, cc_getid, 0x9bebff)");
+    } else {
+        cc_setcolour(0x808080);
+        if ($boolean9 = true & $boolean19 = true) {
+            cc_setonmouseover("cc_setcolour(cc_getparentlayer, cc_getid, 0x57ddff)");
+        } else {
+            cc_setonmouseover("cc_setcolour(cc_getparentlayer, cc_getid, 0xa8a8a8)");
+        }
+    }
+    cc_setonmouseleave("cc_setcolour(cc_getparentlayer, cc_getid, cc_getcolour)");
+    $graphic23 = ~script17489($dbrow18, $int22, 0);
+    if ($graphic23 ! null) {
+        ~cc_add_child_graphic_full($int1, if_getnextcategorysubid($int1, $component0), $int10, $int11, $setposh12, $setposv13, scale($int14, 100, 80), scale($int15, 100, 80), $setsize16, $setsize17, $graphic23, false, false, false, 0);
+    }
+    if ($boolean21 = false & ($boolean9 = false | $boolean19 = false)) {
+        ~cc_add_child_graphic_full($int1, if_getnextcategorysubid($int1, $component0), $int10, $int11, $setposh12, $setposv13, calc($int14 - 4), calc($int15 - 4), $setsize16, $setsize17, skill_tree_ui_node_normal, false, false, false, 0);
+        cc_setcolour(0x1e2025);
+        cc_settrans(96);
+    }
+}
+~script10507($component3, $int4, calc(0 + 1 + $int8), $int4, $int5, $int10, $int11, $setposh12, $setposv13, $int14, $int15, $setsize16, $setsize17, null, "");
+if (~script17488($dbrow18) = true) {
+    cc_setopbase("<col=F8D56B><~script17486($dbrow18)>");
+} else {
+    cc_setopbase("<col=B8D1D1><~script17486($dbrow18)>");
+}
+cc_setop(1, "Select");
+cc_setopcursor(1, cursor_use);
+cc_setonop("script17745($int6, $int8)");
+return($boolean19);

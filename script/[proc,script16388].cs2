@@ -1,0 +1,36 @@
+// 16388
+[proc,script16388](int $int0, int $int1)
+def_int $int2 = if_getwidth(uitutorial:main_container);
+def_int $int3 = if_getheight(uitutorial:main_container);
+def_int $int4 = 0;
+if ($int0 < 0) {
+    $int4 = 1;
+} else if ($int0 > $int2) {
+    $int4 = 2;
+} else if ($int1 < 0) {
+    $int4 = 3;
+} else {
+    $int4 = 4;
+}
+if (%tut5_offscreen_built ! 0 & $int4 = %tut5_offscreen_built) {
+    return;
+}
+cc_create(uitutorial:arrow_layer, ^iftype_graphic, 0);
+cc_setgraphic(rs3_info_display_pointer);
+cc_setsize(41, 54, ^setsize_abs, ^setsize_abs);
+cc_setontimer("script773(0, 0, uitutorial:arrow_layer)");
+switch_int ($int4) {
+    case default :
+        cc_setposition(0, calc($int3 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_set2dangle(49152);
+    case 2 :
+        cc_setposition(calc($int2 - cc_getwidth), calc($int3 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_set2dangle(16384);
+    case 3 :
+        cc_setposition(calc($int2 / 2 - cc_getwidth / 2), 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_set2dangle(32768);
+    case 4 :
+        cc_setposition(calc($int2 / 2 - cc_getwidth / 2), calc($int3 - cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
+        cc_set2dangle(0);
+}
+%tut5_offscreen_built = $int4;

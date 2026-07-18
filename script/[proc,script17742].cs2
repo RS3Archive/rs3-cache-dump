@@ -1,0 +1,61 @@
+// 17742
+[proc,script17742](component $component0, component $component1, dbrow $dbrow2, int $int3, int $int4, int $int5, int $int6, int $setposh7, int $setposv8, int $int9, int $int10, int $setsize11, int $setsize12)(boolean)
+def_dbrow $dbrow13 = db_getfield($dbrow2, skill_tree:col6, $int3);
+def_boolean $boolean14 = true;
+if ($int4 = 0 | ~script17483($dbrow13) = false) {
+    $boolean14 = false;
+}
+~if_add_child_layer($component0, $int3, 0, $int5, $int6, $setposh7, $setposv8, $int9, $int10, $setsize11, $setsize12);
+~cc_add_child_line($int3, 4, calc(4 + 28 / 2), 0, ^setpos_abs_left, ^setpos_abs_centre, 0, 0, ^setsize_abs, ^setsize_abs, ^white);
+if ($boolean14 = true) {
+    cc_setcolour(0x57ddff);
+} else {
+    cc_setcolour(0x1e2025);
+}
+~cc_add_child_graphic($int3, 1, 4, 0, ^setpos_abs_left, ^setpos_abs_centre, 28, 28, ^setsize_abs, ^setsize_abs, skill_tree_button_node_base);
+if ($boolean14 = true) {
+    cc_setcolour(0x634b70);
+    cc_setonmouseover("cc_setcolour(cc_getparentlayer, cc_getid, 0x7e497b)");
+    cc_setonmouseleave("cc_setcolour(cc_getparentlayer, cc_getid, cc_getcolour)");
+} else {
+    cc_setcolour(0x353545);
+    cc_setonmouseover("cc_setcolour(cc_getparentlayer, cc_getid, 0x3f364d)");
+    cc_setonmouseleave("cc_setcolour(cc_getparentlayer, cc_getid, cc_getcolour)");
+}
+~cc_add_child_graphic($int3, 2, 4, 0, ^setpos_abs_left, ^setpos_abs_centre, 28, 28, ^setsize_abs, ^setsize_abs, skill_tree_button_node_ring);
+if ($boolean14 = true) {
+    cc_setcolour(0x57ddff);
+    cc_setonmouseover("cc_setcolour(cc_getparentlayer, cc_getid, 0x9bebff)");
+    cc_setonmouseleave("cc_setcolour(cc_getparentlayer, cc_getid, cc_getcolour)");
+} else {
+    cc_setcolour(0x1e2025);
+    cc_setonmouseover("cc_setcolour(cc_getparentlayer, cc_getid, 0x272632)");
+    cc_setonmouseleave("cc_setcolour(cc_getparentlayer, cc_getid, cc_getcolour)");
+}
+~cc_add_child_text($int3, 3, 4, 0, ^setpos_abs_left, ^setpos_abs_centre, 28, 28, ^setsize_abs, ^setsize_abs, text_label_button, db_getfield($dbrow13, skill_tree_level:col0, 0));
+cc_settextfont(notosans_bold_12);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextshadow(true);
+cc_setop(1, "Info");
+cc_setopcursor(1, cursor_info);
+cc_setonop("script17743($dbrow13)");
+def_int $int15 = db_getfieldcount($dbrow13, skill_tree_level:col1);
+if ($int15 > 6) {
+    ~error("Skill tree level exceeds max node count - count: <tostring($int15)> (max: <tostring(6)>)");
+    $int15 = 6;
+}
+~if_add_child_layer($component1, $int3, 0, $int5, $int6, $setposh7, $setposv8, $int9, $int10, $setsize11, $setsize12);
+def_boolean $boolean16 = true;
+def_int $int17 = -1;
+while (++$int17 < $int15) {
+    $boolean16 = ~script17744($component0, $int3, 0, $component1, $int3, 0, $int3, $dbrow13, $int17, $boolean14, calc((4 + 28) / 2 + (0 - (50 + 12) / 2) * ($int15 - 1) + (50 + 12) * $int17), 0, ^setpos_abs_centre, ^setpos_abs_centre, 50, 50, ^setsize_abs, ^setsize_abs);
+}
+def_int $int18 = cc_getx;
+def_int $int19 = cc_getwidth;
+if (cc_findbycategory($component0, $int3, 4) = 1) {
+    cc_setsize(calc($int18 + $int19 / 2 - cc_getx), 0, ^setsize_abs, ^setsize_abs);
+    cc_setlinewid(2);
+    cc_settrans(32);
+    cc_sendtoback;
+}
+return($boolean14);

@@ -1,0 +1,92 @@
+// 8391
+[proc,script8391](int $int0, int $int1)
+if (%accessibility_full_screen_interfaces_enabled = 1) {
+    ~script20393(0, 2);
+}
+def_struct $struct2 = ~script10405($int0);
+if ($struct2 = null) {
+    return;
+}
+def_struct $struct3 = null;
+if ($int0 = 1007) {
+    $struct3 = enum(int, struct, toplevel_v2_modal_id_to_data, %toplevel_v2_active_modal_id);
+    if ($struct3 ! null) {
+        if_setsize(struct_param($struct3, toplevel_v2_modal_size_width), struct_param($struct3, toplevel_v2_modal_size_height), ^setsize_abs, ^setsize_abs, struct_param($struct2, toplevel_v2_window_content_layer));
+    } else {
+        if_setsize(512, 334, ^setsize_abs, ^setsize_abs, struct_param($struct2, toplevel_v2_window_content_layer));
+    }
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, struct_param($struct2, toplevel_v2_window_content_layer));
+    return;
+} else if ($int0 = 1001) {
+    return;
+}
+def_struct $struct4 = ~script8418($struct2, $int1);
+def_component $component5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+def_component $component9 = null;
+struct_param($struct2, toplevel_v2_window_tabs_background_layer);
+def_component $component10 = null;
+if ($int1 = 0) {
+    $component5 = struct_param($struct2, toplevel_v2_window_layer);
+    $component6 = struct_param($struct2, toplevel_v2_window_content_layer);
+    $component7 = struct_param($struct2, toplevel_v2_window_border_layer);
+    $component8 = struct_param($struct2, toplevel_v2_window_tabs_layer);
+    $component9 = struct_param($struct2, toplevel_v2_window_tabs_background_layer);
+    $component10 = struct_param($struct2, toplevel_v2_window_scroll_layer);
+} else {
+    $component5 = struct_param($struct2, toplevel_v2_window_embedded_layer);
+    $component6 = struct_param($struct2, toplevel_v2_window_embedded_content_layer);
+    $component7 = struct_param($struct2, toplevel_v2_window_embedded_border_layer);
+}
+if ($component5 = null | $component6 = null | $component7 = null) {
+    return;
+}
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+$int11, $int12, $int13, $int14 = ~script20543($struct2, $int1);
+if ($component8 ! null & if_gethide($component8) = false & struct_param($struct4, toplevel_v2_window_titled_tab_mode) = 2 & %toplevel_v2_window_being_dragged ! $int0) {
+    ~script8378(0, $int0);
+}
+if ($component10 ! null) {
+    if_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top, $component10);
+    if_setsize($int13, $int14, ^setsize_minus, ^setsize_minus, $component10);
+    ~script8332($int0);
+}
+if ($component6 ! null) {
+    if (~script8341($component6, 1) = 1) {
+        $int14 = calc($int14 + 10);
+    }
+    if (~script8341($component6, 2) = 1) {
+        $int13 = calc($int13 + 10);
+    }
+    if_setsize($int13, $int14, ^setsize_minus, ^setsize_minus, $component6);
+    if ($int1 = 0 & %toplevel_v2_edit_mode = true & struct_param($struct2, toplevel_v2_window_hide_borders) = true) {
+        if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component6);
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component6);
+    } else if ($struct2 = toplevel_v2_window_data_chat & ~script20503($struct2) = true) {
+        ~script20504(toplevel_v2_window_data_chat);
+    } else {
+        if_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top, $component6);
+    }
+    if ($component10 ! null) {
+        ~script8332($int0);
+    }
+    ~script8392($int0);
+} else {
+    ~script8392($int0);
+    return;
+}
+if (%accessibility_full_screen_interfaces_enabled = 1) {
+    if ($int0 = 1001) {
+        ~script20393(1, 2);
+    }
+    if ($int0 = 1007) {
+        ~script20393(1, 3);
+    }
+}
+if_setonresize("script2141($int0, $int1, event_com, if_getwidth($component6), if_getheight($component6))", $component6);
+if_callonresize($component6);

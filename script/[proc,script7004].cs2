@@ -1,0 +1,65 @@
+// 7004
+[proc,script7004](component $component0, int $int1, int $int2, struct $struct3, component $component4, int $int5)
+def_struct $struct6 = $struct3;
+$struct3 = ~script8247($struct3);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_obj $obj9 = inv_getobj(worn, 3);
+def_obj $obj10 = inv_getobj(worn, 5);
+def_obj $obj11 = ~script15098($obj9, $struct3);
+if (($int1 ! -1 & cc_find($component0, $int1) = true | if_find($component0) = true) & struct_param($struct6, combatv2_ability_can_be_overridden) = true & $struct3 ! $struct6) {
+    ~script6995(~script11799(~script11786($component0)), ~script7980($component0), 0, 0, 1, -1);
+}
+if ($int1 ! -1 & cc_find($component0, $int1) = true | if_find($component0) = true) {
+    if (cc_getgraphic ! ~script11778($struct3, $int5)) {
+        return;
+    }
+    switch_int ($int2) {
+        case 4 :
+            $int7 = ~script2936($struct3);
+        case 3 :
+            if (%combatv2_menaphos_limitless_end_effect_client < clientclock) {
+                $int7 = 500;
+            } else {
+                $int7 = 150;
+            }
+        case 5 :
+            $int7 = ~script9868(~script15098($obj9, $struct3));
+        case 2 :
+            $int7 = ~script17445($struct3);
+    }
+    if (%sa_energy < $int7) {
+        $int8 = 0;
+    } else if ($struct3 = combatv2_ability_constitution_special_attack) {
+        if (~script9865($obj9, $obj10) > 0) {
+            $int8 = 1;
+        } else {
+            $int8 = 0;
+        }
+    } else if ($struct3 = combatv2_ability_constitution_alchemical_hydrix_amulet) {
+        if (oc_category(inv_getobj(worn, 2)) = alchemical_hydrix_amulet & oc_param(inv_getobj(worn, 2), item_degrade_broken_item) = 0) {
+            if (oc_hasvarobj(inv_getobj(worn, 2)) = true & inv_getvar(worn, 2, alchemical_hydrix_amulet_special_attack_id) > 0 & (oc_param($obj9, combatv2_melee_weapon) = 1 & oc_param($obj11, combatv2_melee_weapon) = 1 | oc_param($obj9, combatv2_magic_weapon) = 1 & oc_param($obj11, combatv2_magic_weapon) = 1 | oc_param($obj9, combatv2_ranged_weapon) = 1 & oc_param($obj11, combatv2_ranged_weapon) = 1 | oc_param($obj9, combatv2_necromancy_weapon) = 1 & oc_param($obj11, combatv2_necromancy_weapon) = 1)) {
+                $int8 = 1;
+            } else {
+                $int8 = 0;
+            }
+        } else {
+            $int8 = 0;
+        }
+    } else if ($struct3 = combatv2_ability_eat_food) {
+        if (~script17692 = 1) {
+            $int8 = 1;
+        }
+    } else if (~script690($struct3) ! 0 & ~script690($struct3) ! 3) {
+        $int8 = 0;
+    } else {
+        $int8 = ~script2660($struct3);
+    }
+    if ($int8 = 1) {
+        cc_setcolour(^white);
+        ~script7968($component4, 1);
+    } else {
+        cc_setcolour(0x333333);
+        ~script7968($component4, 0);
+    }
+}

@@ -1,0 +1,62 @@
+// 20435
+[proc,script20435]
+def_component $component0 = timed_event:anniversary_skillcapes_skill_list_buttons;
+def_int $int1 = 0;
+def_string $string0 = "";
+def_graphic $graphic2 = null;
+def_boolean $boolean3 = false;
+def_boolean $boolean4 = true;
+def_string $string1 = "";
+def_stat $stat5 = null;
+def_int $int6 = 0;
+def_dbrow $dbrow7 = button_panel;
+def_int $int8 = 16777215;
+def_int $int9 = ~script20447;
+def_int $int10 = db_listall(anniversary_skillcapes_skills);
+def_int $int11 = calc($int10 / 3 + min(1, calc($int10 % 3)));
+def_int $int12 = calc(36 * $int11 + 8 * ($int11 - 2));
+def_dbrow $dbrow13 = db_findnext;
+if_setsize(492, $int12, ^setsize_abs, ^setsize_abs, $component0);
+~cc_add_grid($component0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int12, ^setsize_minus, ^setsize_abs, false, 3, $int11, 8);
+while ($dbrow13 ! null) {
+    $int1 = 1;
+    $stat5 = db_getfield($dbrow13, anniversary_skillcapes_skills:col1, 0);
+    $int6 = db_getfield($dbrow13, anniversary_skillcapes_skills:col2, 0);
+    $string0 = db_getfield($dbrow13, anniversary_skillcapes_skills:col0, 0);
+    $graphic2 = enum(int, graphic, stat2icon, $int6);
+    $boolean4, $boolean3, $string1 = ~script20436($dbrow13, $string0);
+    if ($int9 = 1) {
+        $dbrow7 = button_panel_inactive;
+        $int8 = ~script10495(5);
+    } else if (%anniversary_skillcapes_current_focus = $int6) {
+        $dbrow7 = button_panel;
+        $boolean3 = true;
+        $int8 = ~script10495(0);
+    } else if (%anniversary_skillcapes_new_focus = $int6) {
+        $dbrow7 = button_panel_inactive;
+        $boolean3 = true;
+        $int8 = ~script10495(21);
+    } else {
+        $dbrow7 = button_panel_inactive;
+        if ($boolean4 = false) {
+            $int8 = ~script10495(5);
+        } else {
+            $int8 = ~script10495(19);
+        }
+    }
+    if_createnested(^iftype_layer, $int6, 0, 0, 0, $component0);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    ~cc_add_child_button_full($int6, $int1++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow7, "", $boolean4, true, $boolean4, $boolean3);
+    if (string_length($string1) > 0) {
+        cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+    }
+    cc_setonbuttonpressed("script20437($dbrow13, $int6)");
+    cc_setop(1, "Select <$string0>");
+    ~cc_add_child_graphic($int6, $int1++, 2, 0, ^setpos_abs_left, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs, $graphic2);
+    ~cc_add_child_text($int6, $int1++, 4, 0, ^setpos_abs_right, ^setpos_abs_centre, 40, 0, ^setsize_minus, ^setsize_minus, text_label_standard, $string0);
+    cc_setcolour($int8);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $dbrow13 = db_findnext;
+}
+if_setscrollsize(0, calc($int12 + 4), timed_event:anniversary_skillcapes_skill_list_layer);
+~rs3_scrollbar_vertical(timed_event:anniversary_skillcapes_skill_list_scrollbar, timed_event:anniversary_skillcapes_skill_list_layer);

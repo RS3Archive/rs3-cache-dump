@@ -1,0 +1,30 @@
+// 16892
+[proc,script16892]
+if_settext("Fresh Start Worlds Event", gamemode_seasonal_fss_registration:title_fresh);
+if_settext("Standard Game", gamemode_seasonal_fss_registration:title_default);
+if_settext("Recommended for returning & current players", gamemode_seasonal_fss_registration:text_fresh);
+if_settext("Recommended for new & current players", gamemode_seasonal_fss_registration:text_default);
+def_int $rgb0 = 0xb4a092;
+def_int $rgb1 = 0xf0be79;
+def_int $rgb2 = $rgb1;
+def_int $rgb3 = $rgb0;
+def_graphic $graphic4 = rs_fsw_ui_signup_bullet_primary;
+def_graphic $graphic5 = rs_fsw_ui_signup_bullet_secondary;
+def_string $string0 = "The Fresh Start Worlds Event";
+def_string $string1 = "Press continue to start the Fresh Start Worlds event.<br><br>You may speak to Gale Freshman near the Burthorpe lodestone to return to the Standard Game at a later date.";
+if (%gamemode_seasonal_fss_registration_selected_mode ! 0) {
+    $rgb2 = $rgb0;
+    $rgb3 = $rgb1;
+    $graphic4 = rs_fsw_ui_signup_bullet_secondary;
+    $graphic5 = rs_fsw_ui_signup_bullet_primary;
+    $string1 = "Press continue to start the Standard Game.<br><br>There are no downsides to joining the Fresh Start Worlds Event if you wish to change your mind.";
+    $string0 = "The Standard Game";
+}
+if_setcolour($rgb2, gamemode_seasonal_fss_registration:highlight_fresh_1);
+if_setcolour($rgb2, gamemode_seasonal_fss_registration:highlight_fresh_2);
+if_setcolour($rgb3, gamemode_seasonal_fss_registration:highlight_standard_1);
+if_setcolour($rgb3, gamemode_seasonal_fss_registration:highlight_standard_2);
+if_settext($string0, gamemode_seasonal_fss_registration:confirm_game_name);
+if_settext($string1, gamemode_seasonal_fss_registration:confirm_body);
+~script16896(gamemode_seasonal_fss_registration:list_fresh, gamemode_seasonal_fss_registration_bullet_points_fresh, $graphic4);
+~script16896(gamemode_seasonal_fss_registration:list_default, gamemode_seasonal_fss_registration_bullet_points_default, $graphic5);

@@ -1,0 +1,16 @@
+// 14957
+[proc,script14957](obj $obj0)(string)
+def_string $string0 = "";
+$string0 = "<tostring_localised(inv_total(arch_material_storage, $obj0), true)> x <oc_name($obj0)>";
+def_dbrow $dbrow1 = oc_param($obj0, arch_excavation_data);
+if ($dbrow1 ! null) {
+    if (stat_base(archaeology) < db_getfield($dbrow1, arch_excavation:col4, 0)) {
+        $string0 = "<$string0><br><br><col=FF0000>Requires: <tostring_localised(db_getfield($dbrow1, arch_excavation:col4, 0), true)> Archaeology</col>";
+    } else {
+        $string0 = "<$string0><br><br>Requires: <tostring_localised(db_getfield($dbrow1, arch_excavation:col4, 0), true)> Archaeology";
+    }
+    if (db_getfield($dbrow1, arch_excavation:col1, 0) = 2) {
+        $string0 = "<$string0><br><br><~script14789($dbrow1)>";
+    }
+}
+return($string0);

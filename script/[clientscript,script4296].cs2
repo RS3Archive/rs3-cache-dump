@@ -1,0 +1,34 @@
+// 4296
+[clientscript,script4296]
+def_int $int0 = 1000000;
+switch_int (%nature_boss_healthbar_state) {
+    case default :
+        $int0 = enum(int, int, nature_boss_scaling_core_lifepoint_values, %nature_boss_start_player_count_player);
+    case 1 :
+        $int0 = 200000;
+    case 3 :
+        $int0 = enum(int, int, nature_boss_phase_3_lifepoint_values, %nature_boss_start_player_count_player);
+    case 2 :
+        $int0 = 100000;
+}
+def_int $int1 = scale(%nature_boss_second_health_bar_boss_player, $int0, 100);
+def_int $int2 = scale(350, 100, $int1);
+if (if_getwidth(nature_boss_healthbar_second_bar:health_bar) ! $int2) {
+    if_setsize($int2, 33, ^setsize_abs, ^setsize_abs, nature_boss_healthbar_second_bar:health_bar);
+    if_setontimer("script4297($int2, $int1)", nature_boss_healthbar_second_bar:health_diamond_left);
+}
+def_int $int3 = %nature_boss_second_health_bar_boss_player;
+if (%toplevel_v2_legacy_combat = 1 & %nature_boss_healthbar_state = 0 | %toplevel_v2_legacy_combat = 1 & %nature_boss_healthbar_state = 2 | %toplevel_v2_legacy_combat = 1 & %nature_boss_healthbar_state = 3) {
+    $int3 = calc(%nature_boss_second_health_bar_boss_player / 10);
+}
+def_string $string0 = ~tostring_spacer($int3, ",");
+if (%nature_boss_second_health_bar_boss_player > 0) {
+    if (%nature_boss_healthbar_state = 1) {
+        $string0 = tostring(scale($int3, 20000, 10));
+        if_settext("<$string0>%", nature_boss_healthbar_second_bar:tooltip_healthamount);
+    } else {
+        if_settext($string0, nature_boss_healthbar_second_bar:tooltip_healthamount);
+    }
+} else {
+    if_settext("", nature_boss_healthbar_second_bar:tooltip_healthamount);
+}

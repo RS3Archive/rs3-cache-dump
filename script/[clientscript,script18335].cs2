@@ -1,0 +1,56 @@
+// 18335
+[clientscript,script18335](struct $struct0, int $int1)
+if (%variety_task_events_active_event = null) {
+    return;
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_var_int $var_int4 = null;
+def_var_int $var_int5 = null;
+def_int $int6 = 0;
+def_component $component7 = timed_event:variety_task_events_info_scrollbar;
+def_component $component8 = timed_event:variety_task_events_specific_info_layer;
+if ($struct0 = null) {
+    $string0 = "Information";
+    $string1 = struct_param(%variety_task_events_active_event, timed_event_desc);
+} else {
+    $string0 = struct_param($struct0, variety_task_events_task_title);
+    $string1 = struct_param($struct0, variety_task_events_task_description);
+    $string2 = struct_param($struct0, variety_task_events_task_description_continued);
+    $string3 = struct_param($struct0, variety_task_events_task_progress_title);
+    $int2 = ~script17260($struct0);
+    $var_int4 = struct_param($struct0, variety_task_events_repeatable_task_completions_var);
+    $var_int5 = struct_param($struct0, variety_task_events_task_progress_var);
+    if (string_length($string1) > 0) {
+        $string1 = "<$string1> <col=FF00><tostring(struct_param($struct0, variety_task_events_task_value))> x <oc_name(variety_task_events_sanctum_shard)></col>";
+        if ($var_int4 ! null) {
+            $int3 = var_reference_get($var_int4);
+            $string1 = "<$string1><br><br>This is a <col=00ffff>repeatable task</col>.<br>Task completed: <tostring_localised($int3, true)> <~script985($int3, "times", "time", "times")>";
+        }
+        if (string_length($string2) > 0) {
+            $string1 = "<$string1><br><br><$string2>";
+        }
+        if (~script17259 = false & ($var_int4 ! null | ~script17349($struct0) = 0) & $var_int5 ! null & $int2 ! -1) {
+            $string1 = "<$string1><br><br><$string3>: <tostring_localised(var_reference_get($var_int5), true)>/<tostring_localised($int2, true)>";
+        }
+    }
+}
+$int6 = ~script17359($string1);
+if ($int6 > if_getheight($component8)) {
+    if_sethide(false, $component7);
+    if_setscrollpos(0, 0, $component8);
+    if_setscrollsize(0, calc($int6 + 4), $component8);
+    ~rs3_scrollbar_vertical($component7, $component8);
+} else {
+    if_sethide(true, $component7);
+    if_setscrollsize(0, 0, $component8);
+}
+if_settext($string0, timed_event:variety_task_events_specific_title);
+if_settext($string1, timed_event:variety_task_events_specific_info);
+~script18336($int1);
+~script17358($struct0);
+sound_vorbis_volume(tli_click_01, 1, 0, 180);

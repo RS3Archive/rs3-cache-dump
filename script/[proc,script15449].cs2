@@ -1,0 +1,43 @@
+// 15449
+[proc,script15449](dbrow $dbrow0, inv $inv1, int $int2, int $int3, int $int4, int $int5, int $int6)(npc, string, string, int)
+def_npc $npc7 = enum(int, npc, pof_animal_int_to_npc, db_getfield($dbrow0, pof_animal_table:col1, 0));
+def_int $int8 = 0;
+def_enum $enum9 = null;
+def_enum $enum10 = null;
+def_string $string0 = "";
+def_string $string1 = "Elder";
+if (db_getfield($dbrow0, pof_animal_table:col2, 0) ! -1 & $int4 = 0) {
+    $npc7 = enum(int, npc, pof_animal_int_to_npc, db_getfield($dbrow0, pof_animal_table:col2, 0));
+}
+if ($int6 = 1) {
+    if (db_getfield($dbrow0, pof_animal_table:col4, 0) ! -1 & $int4 = 0) {
+        $npc7 = enum(int, npc, pof_animal_int_to_npc, db_getfield($dbrow0, pof_animal_table:col4, 0));
+    } else {
+        $npc7 = enum(int, npc, pof_animal_int_to_npc, db_getfield($dbrow0, pof_animal_table:col3, 0));
+    }
+}
+if ($int3 < db_getfield($dbrow0, pof_animal_table:col8, 0)) {
+    $string1 = "Egg";
+    $npc7 = enum(int, npc, pof_animal_int_to_npc, db_getfield($dbrow0, pof_animal_table:col11, 0));
+} else if ($int3 < db_getfield($dbrow0, pof_animal_table:col9, 0)) {
+    $string1 = "Child";
+    $npc7 = enum(int, npc, pof_animal_int_to_npc, db_getfield($dbrow0, pof_animal_table:col12, 0));
+} else if ($int3 < db_getfield($dbrow0, pof_animal_table:col10, 0)) {
+    $string1 = "Adolescent";
+} else if ($int3 < db_getfield($dbrow0, pof_animal_table:col7, 0)) {
+    $string1 = "Adult";
+}
+$enum9, $enum10 = db_getfield($dbrow0, pof_animal_table:col42, 0);
+if ($int4 = 0) {
+    $string0 = enum(int, string, $enum9, $int5);
+} else {
+    $string0 = enum(int, string, $enum10, $int5);
+}
+switch_npc ($npc7) {
+    case default :
+        $int8 = scale(75, 100, nc_param($npc7, pof_animal_zoom));
+    case pof_animal_dragon_shiny :
+        $npc7 = pof_animal_dragon_baby_royal;
+        $int8 = scale(45, 100, nc_param($npc7, pof_animal_zoom));
+}
+return($npc7, $string0, $string1, $int8);

@@ -1,0 +1,28 @@
+// 18116
+[proc,script18116](struct $struct0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+if (%mtxmgt_category_drawn = 0) {
+    return;
+}
+def_enum $enum8 = struct_param($struct0, mtxmgt_preview_npc_list);
+def_npc $npc9 = enum(int, npc, $enum8, $int1);
+def_int $int10 = 0;
+if (cc_find(mtxmgt:preview_pane, 0) = true & $int6 = 0) {
+    $int5 = cc_getmodelangle_y;
+    $int10 = cc_getmodelzoom;
+    $int3 = cc_getmodelyof;
+} else {
+    $int10 = calc(300 + $int2);
+    $int3 = calc(100 + $int3);
+}
+if ($int7 = 1) {
+    cc_deleteall(mtxmgt:preview_pane);
+}
+cc_create(mtxmgt:preview_pane, ^iftype_model, if_getnextsubid(mtxmgt:preview_pane));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setnpcmodel($npc9);
+cc_setmodelangle(0, $int3, $int4, $int5, 10, $int10);
+cc_setmodelanim(struct_param($struct0, mtxmgt_preview_npc_anim));
+if_sethide(true, mtxmgt:name_pane);
+def_enum $enum11 = struct_param($struct0, mtxmgt_conjure_override_dbrow_list);
+~script18117(enum_getoutputcount($enum11), $int1);

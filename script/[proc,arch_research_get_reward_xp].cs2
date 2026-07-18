@@ -1,0 +1,16 @@
+// 14634
+[proc,arch_research_get_reward_xp](dbrow $dbrow0, int $int1, int $int2)(int)
+if ($dbrow0 = null) {
+    return(0);
+}
+def_int $int3 = ~script14637($dbrow0, $int1);
+if (db_getfieldcount($dbrow0, arch_research:col13) > 0) {
+    return(calc(db_getfield($dbrow0, arch_research:col13, 0) * $int3));
+}
+def_int $int4 = enum(int, int, arch_research_xp_per_hour, $int2);
+if (db_getfield($dbrow0, arch_research:col1, 0) = 2) {
+    $int4 = calc($int4 * 10);
+}
+$int4 = scale(db_getfield($dbrow0, arch_research:col11, 0), 100, $int4);
+def_int $int5 = ~script14639($dbrow0, $int1);
+return(scale($int5, 6000, $int4));

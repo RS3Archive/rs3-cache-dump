@@ -1,0 +1,40 @@
+// 2707
+[proc,script2707]
+cc_deleteall(graphics_options_v2_client_mobile:min_button_build);
+cc_deleteall(graphics_options_v2_client_mobile:rec_button_build);
+if_sethide(false, graphics_options_v2_client_mobile:rec_button_click);
+if_sethide(true, graphics_options_v2_client_mobile:prevent_click_through_layer);
+if_sethide(true, graphics_options_v2_client_mobile:auto_setup_in_progress);
+def_component $component0 = graphics_options_v2_client_mobile:topbar_bg_layer;
+~cc_add_rect_struct($component0, if_getwidth($component0), if_getheight($component0), 0, 0, true, rs3_rect_dark);
+$component0 = graphics_options_v2_client_mobile:topbar_desc_bg_layer;
+~cc_add_rect_struct($component0, if_getwidth($component0), if_getheight($component0), 0, 0, true, rs3_rect_dark);
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (autosetup_getlevel = 2) {
+    $int1 = 1;
+} else if (%using_autosetup = 0 & autosetup_getlevel = 0) {
+    $int2 = 1;
+}
+~script13972(graphics_options_v2_client_mobile:min_button_build, null, rs3tli_3x1_graphics_options_button, "POWER SAVE", $int1);
+~script13972(graphics_options_v2_client_mobile:rec_button_build, null, rs3tli_3x1_graphics_options_button, "BALANCED", %using_autosetup);
+if ($int1 = 0) {
+    if_settrans(128, graphics_options_v2_client_mobile:min_desc_graphic);
+    if_settrans(128, graphics_options_v2_client_mobile:min_desc_text);
+} else {
+    if_settrans(0, graphics_options_v2_client_mobile:min_desc_graphic);
+    if_settrans(0, graphics_options_v2_client_mobile:min_desc_text);
+}
+if (%using_autosetup = 0) {
+    if_settrans(128, graphics_options_v2_client_mobile:rec_desc_graphic);
+    if_settrans(128, graphics_options_v2_client_mobile:rec_desc_text);
+} else {
+    if_settrans(0, graphics_options_v2_client_mobile:rec_desc_graphic);
+    if_settrans(0, graphics_options_v2_client_mobile:rec_desc_text);
+}
+if ($int2 = 0) {
+    if_settext("Your settings have not been customised", graphics_options_v2_client_mobile:adv_desc_text);
+} else {
+    if_settext("Your settings have been customised", graphics_options_v2_client_mobile:adv_desc_text);
+}
+~static_checkbox(graphics_options_v2_client_mobile:checkbox, $int2, true);

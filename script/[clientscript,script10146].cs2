@@ -1,0 +1,50 @@
+// 10146
+[clientscript,script10146](int $int0)
+def_int $int1 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+$int1, $string0, $string1 = ttv_webcam_getdevice_byuniquename(%twitch_webcam_idname);
+if ($int1 = -1) {
+    ~script10145;
+    sound_vorbis_volume(omge_error, 1, 0, 150);
+    return;
+} else {
+    $int3 = ttv_webcam_getdevice_count;
+    $int1 = calc($int1 + $int0);
+    if ($int3 > 1) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_name_right);
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_name_left);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_name_right);
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_name_left);
+    }
+    if ($int1 < 0 | $int1 >= $int3) {
+        mes("No more cameras available.");
+        sound_vorbis_volume(omge_error, 1, 0, 150);
+        return;
+    } else {
+        $int1, $string0, $string1 = ttv_webcam_getdevice_byindex($int1);
+        if ($int1 ! -1) {
+            if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_layer);
+            if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_list_layer);
+            if_settext($string1, toplevel_v2_parent_suboverlay_twitch:webcam_name);
+            %twitch_webcam_idname = $string0;
+            sound_vorbis_volume(tli_click_01, 1, 0, 100);
+            %twitch_webcam_options_id = 0;
+            $int4, $int5, $int6, $int7, $int8 = ttv_webcam_getcap_byindex($int1, %twitch_webcam_options_id);
+            if ($int4 = -1) {
+                ~script10145;
+                return;
+            }
+            ~script10150(1);
+            if_settext("<tostring($int6)> x <tostring($int7)>, framerate: <tostring($int8)>", toplevel_v2_parent_suboverlay_twitch:webcam_options);
+        }
+    }
+}

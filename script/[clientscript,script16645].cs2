@@ -1,0 +1,21 @@
+// 16645
+[clientscript,script16645](component $component0)
+~cc_add_grid($component0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, true, 60, 60, 10);
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = -1;
+def_int $int4 = -1;
+$int3 = calc(($int1 - 10) / (60 + 10));
+def_enum $enum5 = int_to_letter;
+def_int $int6 = enum_getoutputcount($enum5);
+$int4 = calc($int6 / $int3);
+if (calc($int6 % $int3) ! 0) {
+    $int4 = calc($int4 + 1);
+}
+def_int $int7 = calc(10 + $int4 * (60 + 10));
+if_setscrollsize(0, $int7, $component0);
+def_int $int8 = 0;
+while ($int8++ < $int6) {
+    ~script16646($component0, $int8, $enum5);
+}
+~rs3_scrollbar_vertical(add_rune:scrollbar_layer, $component0);

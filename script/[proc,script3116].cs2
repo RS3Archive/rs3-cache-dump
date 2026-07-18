@@ -1,0 +1,38 @@
+// 3116
+[proc,script3116]
+if (map_world = -1) {
+    worldlist_autoworld;
+    ~script16919;
+    return;
+}
+def_int $int0 = worldlist_specific_thisworld;
+def_int $int1 = ~bool_to_int(~script16823);
+if (~script20334($int0, 30, 1, $int1, 0) = true) {
+    return;
+}
+if (~script20334($int0, 30, 0, $int1, 1) = true) {
+    return;
+}
+if (~script20334($int0, 24, 1, %league_lobby_select_league_worlds, 0) = true) {
+    return;
+}
+if (~script20334($int0, 24, 0, %league_lobby_select_league_worlds, 1) = true) {
+    return;
+}
+$int0 = worldlist_specific_thisworld;
+if (testbit($int0, 24) = ^true) {
+    if_setgraphic(rs3_icon_menu_leagues_active, lobbyscreen:current_icon);
+    if_setcolour(0xf0be79, lobbyscreen:current_text);
+} else if (testbit($int0, 0) = ^true) {
+    if_setgraphic("rs3_icon_members_32px,0", lobbyscreen:current_icon);
+    if_setcolour(0xf0be79, lobbyscreen:current_text);
+} else {
+    if_setgraphic("rs3_icon_non_members_32px,0", lobbyscreen:current_icon);
+    if_setcolour(^white, lobbyscreen:current_text);
+}
+if_sethide(false, lobbyscreen:current_icon);
+def_string $string0 = "World <tostring(map_world)>";
+if_settext($string0, lobbyscreen:current_text);
+if_settextalign(^settextalign_centre, ^settextalign_centre, 0, lobbyscreen:current_text);
+if_setonmouserepeat("script10072(map_world, event_com, -1)", lobbyscreen:current_text);
+~lobbyscreen_loginbutton_text(true);

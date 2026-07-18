@@ -1,0 +1,24 @@
+// 18112
+[clientscript,script18112](dbrow $dbrow0, int $int1, int $int2, dbrow $dbrow3)
+def_string $string0 = ~script17916($dbrow0);
+$string0 = append($string0, "<br><br>You have <col=2EF8FF><tostring_localised($int1, true)></col> <~text_plural($int1, "charge", "charges")> remaining of this buff.");
+$string0 = append($string0, "<br><~script17917($dbrow0)>");
+def_string $string1 = ~script18113($dbrow0, $dbrow3);
+if (string_length($string1) > 0) {
+    $string0 = append($string0, "<br><br><$string1>");
+}
+if (db_getfieldcount($dbrow0, bp3_buff:col3) > 0) {
+    $string0 = append($string0, "<br><br><~script17918($dbrow0)>");
+}
+$string0 = append($string0, "<br><br>");
+$string0 = append($string0, "Expires at the end of this pass.");
+def_int $int4 = 0;
+if (if_find(bp3_buffs_tab:buff_info_desc) = true) {
+    cc_settext($string0);
+    $int4 = ~script15891($string0, cc_getwidth, notosans_14, 0);
+}
+if (if_find(bp3_buffs_tab:buff_info_window) = true) {
+    cc_setsize(cc_getwidth, min(420, calc($int4 + 42)), ^setsize_abs, ^setsize_abs);
+}
+~script16226(bp3_buffs_tab:buff_info_bg, bp3_buffs_tab:buff_info_close, bp3_buffs_tab:buff_info_content, ~script17915($dbrow0));
+if_sethide(false, bp3_buffs_tab:buff_info_layer);

@@ -1,0 +1,81 @@
+// 5494
+[proc,pop_ship_names_load](int $int0)
+def_enum $enum1 = null;
+def_enum $enum2 = null;
+def_enum $enum3 = null;
+$enum1, $enum2, $enum3 = ~script7386;
+def_enum $enum4 = null;
+def_enum $enum5 = null;
+def_enum $enum6 = null;
+def_enum $enum7 = null;
+$enum4, $enum5, $enum6, $enum7 = ~script7387;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_string $string0 = enum(int, string, $enum1, %pop_ship_name_temp_prefix);
+def_string $string1 = enum(int, string, $enum2, %pop_ship_name_temp_name1);
+def_string $string2 = enum(int, string, $enum3, %pop_ship_name_temp_name2);
+if (compare($string0, "") = 0) {
+    $string0 = "    ";
+}
+$string0 = append(" ", $string0);
+if_settext($string0, pop_ship_names:ship_prefix);
+if (compare($string1, "") = 0) {
+    $string1 = "    ";
+}
+$string1 = append(" ", $string1);
+if_settext($string1, pop_ship_names:ship_name1);
+$string2 = append(" ", append($string2, " "));
+if_settext($string2, pop_ship_names:ship_name2);
+def_int $int11 = 0;
+def_int $int12 = 0;
+switch_int (%pop_ship_name_section_selected) {
+    case 1 :
+        $int11 = %pop_ship_name_temp_prefix;
+        $int12 = %pop_ship_name_filter_selected;
+    case 2 :
+        $int11 = %pop_ship_name_temp_name1;
+        $int12 = enum(int, int, $enum4, $int11);
+    case 3 :
+        $int11 = %pop_ship_name_temp_name2;
+        $int12 = enum(int, int, $enum6, $int11);
+}
+if ($int12 = %pop_ship_name_filter_selected & cc_find(pop_ship_names:names_layer, $int11) = true & cc_gethide = false) {
+    cc_setcolour(0xf7ca30);
+    cc_setonmouseover("script5645($int11, 1, 1)");
+    cc_setonmouseleave("script5645($int11, 0, 1)");
+    if_sethide(false, pop_ship_names:name_selected);
+    if_setposition(cc_getx, calc(cc_gety - 2), ^setpos_abs_left, ^setpos_abs_top, pop_ship_names:name_selected);
+}
+~script13971(pop_ship_names:ok_button, null, rs3tli_positive_button, "Save", true);
+~script13971(pop_ship_names:cancel_button, null, rs3tli_neutral_button, "Revert", true);
+if_settext(tostring(%pop_ship_name_ship_selected), pop_ship_names:ship_number);
+switch_int (%pop_ship_name_ship_selected) {
+    case 1 :
+        if (%pop_ship_name_temp ! %pop_ship_name_1) {
+            ~script13971(pop_ship_names:ok_button, null, rs3tli_positive_button, "Save", false);
+            ~script13971(pop_ship_names:cancel_button, null, rs3tli_neutral_button, "Revert", false);
+        }
+    case 2 :
+        if (%pop_ship_name_temp ! %pop_ship_name_2) {
+            ~script13971(pop_ship_names:ok_button, null, rs3tli_positive_button, "Save", false);
+            ~script13971(pop_ship_names:cancel_button, null, rs3tli_neutral_button, "Revert", false);
+        }
+    case 3 :
+        if (%pop_ship_name_temp ! %pop_ship_name_3) {
+            ~script13971(pop_ship_names:ok_button, null, rs3tli_positive_button, "Save", false);
+            ~script13971(pop_ship_names:cancel_button, null, rs3tli_neutral_button, "Revert", false);
+        }
+    case 4 :
+        if (%pop_ship_name_temp ! %pop_ship_name_4) {
+            ~script13971(pop_ship_names:ok_button, null, rs3tli_positive_button, "Save", false);
+            ~script13971(pop_ship_names:cancel_button, null, rs3tli_neutral_button, "Revert", false);
+        }
+}
+if (~script4186 < 2) {
+    if_sethide(true, pop_ship_names:next_ship);
+    if_sethide(true, pop_ship_names:prev_ship);
+} else {
+    if_sethide(false, pop_ship_names:next_ship);
+    if_sethide(false, pop_ship_names:prev_ship);
+}

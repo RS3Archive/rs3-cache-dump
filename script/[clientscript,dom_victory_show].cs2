@@ -1,0 +1,32 @@
+// 5406
+[clientscript,dom_victory_show](int $int0, int $int1)
+if_sethide(true, dom_taunt_overlay:boss_name_layer);
+if_sethide(true, dom_taunt_overlay:player_name_layer);
+if_sethide(false, dom_taunt_overlay:win_lose_layer);
+if ($int0 = 1) {
+    if_settext("Yeah! You won!", dom_taunt_overlay:win_lose);
+    switch_int (random(2)) {
+        case 0 :
+            sound_vorbis_volume(dom_face_you_win, 1, 0, 255);
+        case 1 :
+            sound_vorbis_volume(dom_face_victorious, 1, 0, 255);
+    }
+    if (%dom_climber_prog > 0 | %dom_endurance_prog > 0 | %dom_special_match ! 0) {
+        if_settext("You now have a dominion factor of: <~tostring_spacer($int1, ",")>", dom_taunt_overlay:points_result);
+    } else {
+        if_settext("", dom_taunt_overlay:points_result);
+    }
+} else {
+    if_settext("Unlucky, you lost!", dom_taunt_overlay:win_lose);
+    switch_int (random(2)) {
+        case 0 :
+            sound_vorbis_volume(dom_face_you_lose, 1, 0, 255);
+        case 1 :
+            sound_vorbis_volume(dom_face_defeated, 1, 0, 255);
+    }
+    if (%dom_climber_prog > 0 | %dom_endurance_prog > 0 | %dom_special_match ! 0) {
+        if_settext("You leave with a dominion factor of: <~tostring_spacer($int1, ",")>", dom_taunt_overlay:points_result);
+    } else {
+        if_settext("", dom_taunt_overlay:points_result);
+    }
+}

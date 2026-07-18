@@ -1,0 +1,81 @@
+// 10118
+[proc,script10118]
+def_int $int0 = ttv_library_getstate;
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:start_here);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_login);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_setup);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:logging_in);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:api_check);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:autosetup);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:install_text_layer);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:stream_list_layer);
+if (has_nxt = true) {
+    if_settext("Twitch integration won't work in NXT.", toplevel_v2_parent_suboverlay_twitch:install_text_body);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:install_text_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:install_text_body);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:windows_install_text);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:mac_install_text);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:start_here);
+    return;
+}
+if (userdetail_quickchat = true) {
+    if_settext("You can't access this feature.", toplevel_v2_parent_suboverlay_twitch:install_text_body);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:install_text_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:install_text_body);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:windows_install_text);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:mac_install_text);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:start_here);
+    return;
+}
+if (ttv_hasprerequisites = false & %varclientbit_23076 = 0) {
+    if (os_iswindows = true) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:windows_install_text);
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:mac_install_text);
+        if_settext("Before you can use Twitch features you must install additional software. Once you have done this, please restart your browser/client.", toplevel_v2_parent_suboverlay_twitch:install_text_body);
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:start_here);
+    } else if (os_ismac = true) {
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:windows_install_text);
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:mac_install_text);
+        if_settext("Before you can use Twitch features you must install additional software. Once you have done this, please restart your browser/client.", toplevel_v2_parent_suboverlay_twitch:install_text_body);
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:start_here);
+    } else if (os_islinux = true) {
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:windows_install_text);
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:mac_install_text);
+        if_settext("Twitch integration requires additional software that is not available on Linux.", toplevel_v2_parent_suboverlay_twitch:install_text_body);
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:start_here);
+        return;
+    }
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:start_here);
+    if_settext("Before you begin:", toplevel_v2_parent_suboverlay_twitch:right_panel_title);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:install_text_layer);
+    return;
+}
+if ($int0 ! 2) {
+    if_setontimer("script3106", toplevel_v2_parent_suboverlay_twitch:main_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:api_check);
+    return;
+}
+if_settext("Watch current broadcasts", toplevel_v2_parent_suboverlay_twitch:right_panel_title);
+if_sethide(true, toplevel_v2_parent_suboverlay_twitch:install_text_layer);
+if_sethide(false, toplevel_v2_parent_suboverlay_twitch:stream_list_layer);
+def_int $int1 = ttv_login_getstate;
+def_int $int2 = 0;
+if ($int1 = 0) {
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_setup);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:twitch_login);
+    if (string_length(%twitch_login_username) > 0) {
+        if_settext(%twitch_login_username, toplevel_v2_parent_suboverlay_twitch:login_username);
+    }
+    %twitch_login_password = "";
+    ~script10121(toplevel_v2_parent_suboverlay_twitch:login_username, null, -1, toplevel_v2_parent_suboverlay_twitch:text_input_caret);
+    if_settext("", toplevel_v2_parent_suboverlay_twitch:login_password);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:logout_btn_disable);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:logout_btn);
+} else {
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:twitch_setup);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_login);
+    ~script10130;
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:logout_btn_disable);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:logout_btn);
+}
+$int2 = ttv_livestreams_update;

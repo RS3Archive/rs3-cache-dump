@@ -1,0 +1,34 @@
+// 14823
+[proc,script14823]
+def_component $component0 = arch_journal:contract_research_build_layer;
+cc_deleteall($component0);
+def_string $string0 = "";
+if (%arch_research_tutorial = 0) {
+    if (~arch_qualification_check_rank(arch_qualification_assistant) = false) {
+        $string0 = "You need to earn the Assistant qualification before you can manage a research team.";
+    } else {
+        $string0 = "You can start managing a research team by interacting with the research notes in the exam centre at the Archaeology campus.";
+    }
+    ~script10629($component0, if_getnextsubid($component0), if_getwidth($component0), if_getheight($component0), 0, 0, $string0, 0, museo_sans_11pt_regular, ^settextalign_centre, ^settextalign_centre, 0, false);
+    return;
+}
+def_int $int1 = 1;
+def_dbrow $dbrow2 = null;
+$string0 = "No Active Research";
+def_string $string1 = "";
+if (%arch_research_tutorial > 0) {
+    $dbrow2 = ~script14650($int1);
+    if ($dbrow2 ! null) {
+        $string0 = db_getfield($dbrow2, arch_research:col3, 0);
+    }
+    switch_int (~script14649($int1)) {
+        case 1 :
+            $string1 = "<col=000000>Report ETA: <~script14664($int1)></col>";
+        case 2 :
+            $string1 = "<col=000000>Report available</col>";
+    }
+    ~script10629($component0, if_getnextsubid($component0), if_getwidth($component0), calc(if_getheight($component0) / 2), 0, 0, $string0, 0, museo_sans_11pt_regular, ^settextalign_centre, ^settextalign_centre, 0, false);
+    ~script14874($component0, 0, calc(if_getheight($component0) / 2), if_getwidth($component0), calc(if_getheight($component0) / 2), $string1, "", false);
+    cc_deleteall(arch_journal:contract_research_team_build_layer);
+    ~script14875(arch_journal:contract_research_team_build_layer, null, 1, 0, 0, if_getwidth(arch_journal:contract_research_team_build_layer), if_getheight(arch_journal:contract_research_team_build_layer), 0);
+}

@@ -1,0 +1,40 @@
+// 14037
+[proc,script14037](int $int0)
+def_component $component1 = escape_menu:csat_positive;
+def_component $component2 = escape_menu:csat_negative;
+def_graphic $graphic3 = "csat_rating_postive,0";
+def_graphic $graphic4 = "csat_rating_postive,2";
+def_graphic $graphic5 = "csat_rating_negative,0";
+def_graphic $graphic6 = "csat_rating_negative,2";
+def_boolean $boolean7 = ~script6431;
+if ($boolean7 = true) {
+    $component1 = escape_menu_mobile:csat_positive;
+    $component2 = escape_menu_mobile:csat_negative;
+    $graphic3 = homescreen_icon_voteyes_active;
+    $graphic4 = homescreen_icon_voteyes_inactive;
+    $graphic5 = homescreen_icon_voteno_active;
+    $graphic6 = homescreen_icon_voteno_inactive;
+}
+switch_int ($int0) {
+    case 0 :
+        ~if_setgraphic($component1, $graphic4);
+        ~if_setgraphic($component2, $graphic6);
+        if ($boolean7 = true) {
+            ~if_setgraphic(escape_menu_mobile:csat_positive_bg, homescreen_btn_csat_bg_inactive);
+            ~if_setgraphic(escape_menu_mobile:csat_negative_bg, homescreen_btn_csat_bg_inactive);
+        }
+    case 1 :
+        ~if_setgraphic($component1, $graphic4);
+        ~if_setgraphic($component2, $graphic5);
+        if ($boolean7 = true) {
+            ~if_setgraphic(escape_menu_mobile:csat_positive_bg, homescreen_btn_csat_bg_inactive);
+            ~if_setgraphic(escape_menu_mobile:csat_negative_bg, homescreen_btn_csat_bg_active);
+        }
+    case 2 :
+        ~if_setgraphic($component1, $graphic3);
+        ~if_setgraphic($component2, $graphic6);
+        if ($boolean7 = true) {
+            ~if_setgraphic(escape_menu_mobile:csat_positive_bg, homescreen_btn_csat_bg_active);
+            ~if_setgraphic(escape_menu_mobile:csat_negative_bg, homescreen_btn_csat_bg_inactive);
+        }
+}

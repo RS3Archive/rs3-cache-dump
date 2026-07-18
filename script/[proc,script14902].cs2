@@ -1,0 +1,72 @@
+// 14902
+[proc,script14902]
+def_component $component0 = null;
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = enum_getoutputcount(arch_researcher_category_list);
+def_enum $enum5 = null;
+def_int $int6 = 0;
+def_dbrow $dbrow7 = null;
+def_int $int8 = 1;
+def_int $int9 = 2;
+def_int $int10 = $int8;
+def_int $int11 = $int9;
+def_int $int12 = 0;
+def_int $int13 = -1;
+def_int $int14 = -1;
+while (++$int13 < $int4) {
+    $enum5 = enum(int, enum, arch_researcher_category_list, $int13);
+    $int6 = enum_getoutputcount($enum5);
+    switch_enum ($enum5) {
+        case arch_researcher_intern_list :
+            $component1 = arch_research_management:accordion_intern_button_selected_layer;
+            $component2 = arch_research_management:accordion_intern_build_layer;
+            $component3 = arch_research_management:accordion_intern_control_layer;
+        case arch_researcher_assistant_list :
+            $component1 = arch_research_management:accordion_assistant_button_selected_layer;
+            $component2 = arch_research_management:accordion_assistant_build_layer;
+            $component3 = arch_research_management:accordion_assistant_control_layer;
+        case arch_researcher_associate_list :
+            $component1 = arch_research_management:accordion_associate_button_selected_layer;
+            $component2 = arch_research_management:accordion_associate_build_layer;
+            $component3 = arch_research_management:accordion_associate_control_layer;
+        case arch_researcher_professor_list :
+            $component1 = arch_research_management:accordion_professor_button_selected_layer;
+            $component2 = arch_research_management:accordion_professor_build_layer;
+            $component3 = arch_research_management:accordion_professor_control_layer;
+        case arch_researcher_consultant_list :
+            $component1 = arch_research_management:accordion_consultant_button_selected_layer;
+            $component2 = arch_research_management:accordion_consultant_build_layer;
+            $component3 = arch_research_management:accordion_consultant_control_layer;
+    }
+    cc_deleteall($component2);
+    cc_deleteall($component3);
+    $component0 = if_getparentlayer(if_getparentlayer($component2));
+    $int10 = $int8;
+    $int11 = $int9;
+    $int14 = -1;
+    while (++$int14 < $int6) {
+        $dbrow7 = enum(int, dbrow, $enum5, $int14);
+        if (calc($int10 - $int8 + 60 + 8) > if_getwidth($component2)) {
+            $int10, $int11 = $int8, calc($int11 + 90 + 2);
+        }
+        if ($enum5 = %arch_research_management_researcher_list_selected & $int14 = %arch_research_management_researcher_selected) {
+            $int12 = 1;
+        } else {
+            $int12 = 0;
+        }
+        ~script14903($component2, $component3, $enum5, $dbrow7, $int10, $int11, $int14, $int12);
+        $int10 = calc($int10 + (60 + 8 + 2));
+    }
+    $int11 = calc($int11 + (90 + $int9));
+    if (if_find($component0) = true) {
+        if (cc_param(rs3tli_accordion_content_fix_height) = -1 & cc_param(rs3tli_accordion_content_default_height) = -1) {
+            ~script9582($component0, $int11, $int11);
+        }
+        if ($enum5 = %arch_research_management_researcher_list_selected) {
+            ~script341($component1, 0);
+        }
+    }
+}
+~script9581(arch_research_management:researcher_accordion_holder);

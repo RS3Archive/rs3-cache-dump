@@ -1,0 +1,17 @@
+// 17864
+[proc,script17864](dbrow $dbrow0, int $int1)(int)
+if (db_getrowtable($dbrow0) ! bp3_table) {
+    ~error("Invalid dbtable.");
+    return(0);
+}
+if ($int1 <= 0) {
+    return(0);
+}
+def_int $int2 = db_getfield($dbrow0, bp3_table:col5, 0);
+def_int $int3 = db_getfield($dbrow0, bp3_table:col6, 0);
+def_int $int4 = db_getfield($dbrow0, bp3_table:col3, 0);
+if ($int1 <= $int4) {
+    return(calc($int2 * $int1));
+} else {
+    return(calc($int2 * $int4 + $int3 * ($int1 - $int4)));
+}

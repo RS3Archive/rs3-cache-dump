@@ -1,0 +1,27 @@
+// 9131
+[proc,activity_tracker_update_progress_bar](component $component0, int $int1, int $int2, int $int3, achievement $achievement4)
+def_int $int5 = ~script9535($int2, $int3, $achievement4);
+def_int $int6 = calc($int1 + 3);
+def_boolean $boolean7 = false;
+if ($int5 = -1) {
+    $boolean7 = true;
+}
+def_int $int8 = $int1;
+def_int $int9 = 0;
+while ($int8 < $int6) {
+    if (cc_find($component0, $int8) = true) {
+        if ($int8 = calc($int1 + 2)) {
+            $int9 = calc(cc_getx + 4);
+        }
+        cc_sethide($boolean7);
+    }
+    $int8 = calc($int8 + 1);
+}
+if ($boolean7 = true) {
+    return;
+}
+$int5 = ~clamp($int5, 0, 100);
+$int5 = calc($int5 * $int9 / 100);
+if (cc_find($component0, calc($int1 + 3)) = true) {
+    cc_setsize($int5, calc(5 - 2), ^setsize_abs, ^setsize_abs);
+}

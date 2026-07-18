@@ -1,0 +1,12 @@
+// 15489
+[proc,trh_get_bonus_prize_obj_data](struct $struct0)(obj, int, obj, int, obj, int, obj, int, obj, int, obj, int, obj, int)
+def_int $int1 = struct_param($struct0, trh_promo_id);
+if ($int1 = 0) {
+    ~error("trh_get_bonus_prize_obj_data called with a promo which doesn't have a trh_promo_id param set.");
+    return(null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0);
+}
+if ($int1 ! %trh_bonus_prize_current_promo_id) {
+    ~error("trh_get_bonus_prize_obj_data called on an old promo. We're promo <tostring($int1)>, but we're looking at promo <tostring(%trh_bonus_prize_current_promo_id)>'s variables.");
+    return(null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0);
+}
+return(%trh_bonus_prize_obj_1, %trh_bonus_prize_amount_1, %trh_bonus_prize_obj_2, %trh_bonus_prize_amount_2, %trh_bonus_prize_obj_3, %trh_bonus_prize_amount_3, %trh_bonus_prize_obj_4, %trh_bonus_prize_amount_4, %trh_bonus_prize_obj_5, %trh_bonus_prize_amount_5, %trh_bonus_prize_obj_6, %trh_bonus_prize_amount_6, %trh_bonus_prize_obj_7, %trh_bonus_prize_amount_7);

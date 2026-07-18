@@ -1,0 +1,36 @@
+// 4607
+[proc,script4607]
+def_int $int0 = ~script4606;
+def_component $component1 = timed_event:event16_progress_value_graphic_layer;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if ($int0 > 1) {
+    $int2 = 139;
+} else if ($int0 = 1) {
+    $int2 = calc(139 * (date_minutes - date_minutes_fromruneday(6326)) / (date_minutes_fromruneday(6329) - date_minutes_fromruneday(6326)));
+}
+if ($int0 > 2) {
+    $int3 = 161;
+} else if ($int0 = 2) {
+    $int3 = calc(161 * (date_minutes - date_minutes_fromruneday(6329)) / (date_minutes_fromruneday(6331) - date_minutes_fromruneday(6329)));
+}
+if ($int0 > 3) {
+    $int4 = 159;
+} else if ($int0 = 3) {
+    $int4 = calc(159 * (date_minutes - date_minutes_fromruneday(6331)) / (date_minutes_fromruneday(6336) - date_minutes_fromruneday(6331)));
+}
+if ($int0 > 4) {
+    $int5 = 143;
+} else if ($int0 = 4) {
+    $int5 = calc(143 * (date_minutes - date_minutes_fromruneday(6336)) / (date_minutes_fromruneday(6340) - date_minutes_fromruneday(6336)));
+}
+$int6 = calc($int2 + $int3 + $int4 + $int5);
+cc_deleteall($component1);
+if (if_find($component1) = true) {
+    cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+    cc_setgraphic(trh72_progress_bar_green);
+    cc_setsize($int6, 19, ^setsize_abs, ^setsize_abs);
+}

@@ -1,0 +1,158 @@
+// 7329
+[proc,script7329]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string0 = "";
+def_int $int3 = ~script4186;
+if ($int3 < 1) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_1);
+    if_sethide(true, pop_hud_side:ship_icon_1);
+    if_setgraphic("aif_pop_ship_icons,11", pop_hud_side:ship_gone_icon_1);
+    if_sethide(true, pop_hud_side:ship_rename_button_1);
+    if_settext("No Ship", pop_hud_side:ship_status_1);
+} else if (%pop_tutorial_progress = 24 | %pop_tutorial_progress = 25 | %pop_tutorial_progress = 50) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_1);
+    if_sethide(false, pop_hud_side:ship_icon_1);
+    if_setgraphic("aif_pop_ship_icons,7", pop_hud_side:ship_gone_icon_1);
+    if (%pop_voyage_1_id = 32723 | %pop_voyage_1_id = 32724 | %pop_voyage_1_id = 32722) {
+        if_settext("Damaged", pop_hud_side:ship_status_1);
+    } else {
+        if_settext("Sailing", pop_hud_side:ship_status_1);
+    }
+} else if (%pop_tutorial_progress = 26 | %pop_tutorial_progress = 52) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_1);
+    if_sethide(false, pop_hud_side:ship_icon_1);
+    if_setgraphic("aif_pop_ship_icons,3", pop_hud_side:ship_gone_icon_1);
+    if_settext("Returned", pop_hud_side:ship_status_1);
+} else if (%pop_voyage_1_done > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_1);
+    if_sethide(false, pop_hud_side:ship_icon_1);
+    if_setgraphic("aif_pop_ship_icons,3", pop_hud_side:ship_gone_icon_1);
+    if_settext("Returned", pop_hud_side:ship_status_1);
+} else if (%pop_voyage_1_asynch > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_1);
+    if_sethide(false, pop_hud_side:ship_icon_1);
+    if_setgraphic("aif_pop_ship_icons,7", pop_hud_side:ship_gone_icon_1);
+    if (%pop_voyage_1_id = 32723 | %pop_voyage_1_id = 32724 | %pop_voyage_1_id = 32722) {
+        if_settext("Damaged", pop_hud_side:ship_status_1);
+    } else {
+        $int0 = calc(~script7632(%pop_voyage_1_asynch) - date_minutes);
+        $int1 = calc($int0 / 60);
+        $int2 = calc($int0 % 60);
+        $string0 = tostring($int2);
+        if ($int2 < 10) {
+            $string0 = append("0", $string0);
+        }
+        if_settext("Sailing ETA: <tostring($int1)>:<$string0>", pop_hud_side:ship_status_1);
+    }
+} else {
+    if_sethide(true, pop_hud_side:ship_gone_icon_1);
+    if_sethide(false, pop_hud_side:ship_icon_1);
+    if_settext("Ready", pop_hud_side:ship_status_1);
+}
+if ($int3 < 2) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_2);
+    if_sethide(true, pop_hud_side:ship_icon_2);
+    if_setgraphic("aif_pop_ship_icons,11", pop_hud_side:ship_gone_icon_2);
+    if_sethide(true, pop_hud_side:ship_rename_button_2);
+    if_settext("No Ship", pop_hud_side:ship_status_2);
+} else if (%pop_voyage_2_done > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_2);
+    if_sethide(false, pop_hud_side:ship_icon_2);
+    if_setgraphic("aif_pop_ship_icons,3", pop_hud_side:ship_gone_icon_2);
+    if_sethide(false, pop_hud_side:ship_rename_button_2);
+    if_settext("Returned", pop_hud_side:ship_status_2);
+} else if (%pop_voyage_2_asynch > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_2);
+    if_sethide(false, pop_hud_side:ship_icon_2);
+    if_setgraphic("aif_pop_ship_icons,7", pop_hud_side:ship_gone_icon_2);
+    if_sethide(false, pop_hud_side:ship_rename_button_2);
+    if (%pop_voyage_2_id = 32723 | %pop_voyage_2_id = 32724 | %pop_voyage_2_id = 32722) {
+        if_settext("Damaged", pop_hud_side:ship_status_2);
+    } else {
+        $int0 = calc(~script7632(%pop_voyage_2_asynch) - date_minutes);
+        $int1 = calc($int0 / 60);
+        $int2 = calc($int0 % 60);
+        $string0 = tostring($int2);
+        if ($int2 < 10) {
+            $string0 = append("0", $string0);
+        }
+        if_settext("Sailing ETA: <tostring($int1)>:<$string0>", pop_hud_side:ship_status_2);
+    }
+} else {
+    if_sethide(true, pop_hud_side:ship_gone_icon_2);
+    if_sethide(false, pop_hud_side:ship_icon_2);
+    if_sethide(false, pop_hud_side:ship_rename_button_2);
+    if_settext("Ready", pop_hud_side:ship_status_2);
+}
+if ($int3 < 3) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_3);
+    if_sethide(true, pop_hud_side:ship_icon_3);
+    if_setgraphic("aif_pop_ship_icons,11", pop_hud_side:ship_gone_icon_3);
+    if_sethide(true, pop_hud_side:ship_rename_button_3);
+    if_settext("No Ship", pop_hud_side:ship_status_3);
+} else if (%pop_voyage_3_done > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_3);
+    if_sethide(false, pop_hud_side:ship_icon_3);
+    if_setgraphic("aif_pop_ship_icons,3", pop_hud_side:ship_gone_icon_3);
+    if_sethide(false, pop_hud_side:ship_rename_button_3);
+    if_settext("Returned", pop_hud_side:ship_status_3);
+} else if (%pop_voyage_3_asynch > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_3);
+    if_sethide(false, pop_hud_side:ship_icon_3);
+    if_setgraphic("aif_pop_ship_icons,7", pop_hud_side:ship_gone_icon_3);
+    if_sethide(false, pop_hud_side:ship_rename_button_3);
+    if (%pop_voyage_3_id = 32723 | %pop_voyage_3_id = 32724 | %pop_voyage_3_id = 32722) {
+        if_settext("Damaged", pop_hud_side:ship_status_3);
+    } else {
+        $int0 = calc(~script7632(%pop_voyage_3_asynch) - date_minutes);
+        $int1 = calc($int0 / 60);
+        $int2 = calc($int0 % 60);
+        $string0 = tostring($int2);
+        if ($int2 < 10) {
+            $string0 = append("0", $string0);
+        }
+        if_settext("Sailing ETA: <tostring($int1)>:<$string0>", pop_hud_side:ship_status_3);
+    }
+} else {
+    if_sethide(true, pop_hud_side:ship_gone_icon_3);
+    if_sethide(false, pop_hud_side:ship_icon_3);
+    if_sethide(false, pop_hud_side:ship_rename_button_3);
+    if_settext("Ready", pop_hud_side:ship_status_3);
+}
+if ($int3 < 4) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_4);
+    if_sethide(true, pop_hud_side:ship_icon_4);
+    if_setgraphic("aif_pop_ship_icons,11", pop_hud_side:ship_gone_icon_4);
+    if_sethide(true, pop_hud_side:ship_rename_button_4);
+    if_settext("No Ship", pop_hud_side:ship_status_4);
+} else if (%pop_voyage_4_done > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_4);
+    if_sethide(false, pop_hud_side:ship_icon_4);
+    if_setgraphic("aif_pop_ship_icons,3", pop_hud_side:ship_gone_icon_4);
+    if_sethide(false, pop_hud_side:ship_rename_button_4);
+    if_settext("Returned", pop_hud_side:ship_status_4);
+} else if (%pop_voyage_4_asynch > 0) {
+    if_sethide(false, pop_hud_side:ship_gone_icon_4);
+    if_sethide(false, pop_hud_side:ship_icon_4);
+    if_setgraphic("aif_pop_ship_icons,7", pop_hud_side:ship_gone_icon_4);
+    if_sethide(false, pop_hud_side:ship_rename_button_4);
+    if (%pop_voyage_4_id = 32723 | %pop_voyage_4_id = 32724 | %pop_voyage_4_id = 32722) {
+        if_settext("Damaged", pop_hud_side:ship_status_4);
+    } else {
+        $int0 = calc(~script7632(%pop_voyage_4_asynch) - date_minutes);
+        $int1 = calc($int0 / 60);
+        $int2 = calc($int0 % 60);
+        $string0 = tostring($int2);
+        if ($int2 < 10) {
+            $string0 = append("0", $string0);
+        }
+        if_settext("Sailing ETA: <tostring($int1)>:<$string0>", pop_hud_side:ship_status_4);
+    }
+} else {
+    if_sethide(true, pop_hud_side:ship_gone_icon_4);
+    if_sethide(false, pop_hud_side:ship_icon_4);
+    if_sethide(false, pop_hud_side:ship_rename_button_4);
+    if_settext("Ready", pop_hud_side:ship_status_4);
+}

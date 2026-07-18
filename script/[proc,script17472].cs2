@@ -1,0 +1,14 @@
+// 17472
+[proc,script17472](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(0);
+}
+def_int $int1 = db_getfieldcount($dbrow0, skill_tree:col6);
+def_dbrow $dbrow2 = null;
+def_int $int3 = 0;
+def_int $int4 = -1;
+while (++$int4 < $int1) {
+    $dbrow2 = db_getfield($dbrow0, skill_tree:col6, $int4);
+    $int3 = calc($int3 + db_getfieldcount($dbrow2, skill_tree_level:col1));
+}
+return($int3);

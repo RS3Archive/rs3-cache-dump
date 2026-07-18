@@ -1,0 +1,51 @@
+// 11839
+[proc,script11839](enum $enum0, int $int1)(string, string, int, boolean, string)
+if ($enum0 = null) {
+    return("", "", 0, true, "");
+}
+def_boolean $boolean2 = false;
+if (~telemetry_member = 0) {
+    $boolean2 = true;
+}
+def_string $string0 = "* (Pro only)";
+def_string $string1 = "These features are limited to RuneMetrics Pro users.";
+switch_int (enum(int, int, $enum0, $int1)) {
+    case 0 :
+        return("Show precise values", "Show full (not abbreviated) values for XP gains, combat and wealth statistics.", %telemetry_show_precise_values, false, "");
+    case 1 :
+        return("Give ping notifications", "Play a sound when your character finishes performing a skilling action.", %telemetry_give_ping_notifications, $boolean2, $string0);
+    case 2 :
+        return("Show health warning", "Show a red health overlay when your health falls below 20%.", %telemetry_show_health_warning, false, "");
+    case 3 :
+        return("Only update XP/h on XP gain", "Show more stable values for XP/h by only updating XP/h on XP gaining events.", calc(1 - %telemetry_nonsticky_xphr), $boolean2, $string0);
+    case 11 :
+        return("Display toolbar", "Display toolbar in the pulled out Metrics window.", calc(1 - %varclientbit_32703), false, "");
+    case 12 :
+        if (%toplevel_v2_legacy_interface = 1) {
+            return("Lightweight mode", "Turn the Metrics window almost fully transparent. Lightweight windows cannot be tabbed together.", 1, true, "*<br>Note: This setting is always enabled in Classic Interface mode.");
+        } else {
+            return("Lightweight mode", "Turn the Metrics window almost fully transparent. Lightweight windows cannot be tabbed together.<br>To see the borders of a lightweight window press and hold ALT and move your mouse pointer over it.", ~script12608(28), false, "");
+        }
+    case 14 :
+        return("Show XP change value", "Show the XP change value over the skill rows if you have the XP column visible.", %varclientbit_2053, false, "");
+    case 4 :
+        return("Show average field", "Show XP/h, GP/h or DPM. The value is based on the data recorded in the time window. To adjust the time window resize the graph or change the zoom level.", %varclientbit_30624, $boolean2, $string1);
+    case 6 :
+        return("Show min/max values", "", %varclientbit_30626, $boolean2, $string1);
+    case 7 :
+        return("Show guide lines", "", %varclientbit_30627, $boolean2, $string1);
+    case 8 :
+        return("Show average value line over graph", "", %varclientbit_30628, $boolean2, $string1);
+    case 9 :
+        return("Display toolbar", "Display toolbar in the pulled out Graph window.", %varclientbit_30629, $boolean2, $string1);
+    case 10 :
+        return("Vary graph colour by skill", "", %varclientbit_30630, $boolean2, $string1);
+    case 13 :
+        if (%toplevel_v2_legacy_interface = 1) {
+            return("Lightweight mode", "Turn the Graph window almost fully transparent. Lightweight windows cannot be tabbed together.", 0, true, "*<br>Note: This setting is not available in Classic Interface mode.");
+        } else {
+            return("Lightweight mode", "Turn the Graph window almost fully transparent. Lightweight windows cannot be tabbed together.<br>To see the borders of a lightweight window press and hold ALT and move your mouse pointer over it.", ~script12608(30), $boolean2, $string1);
+        }
+    case default :
+        return("", "", 0, true, "");
+}

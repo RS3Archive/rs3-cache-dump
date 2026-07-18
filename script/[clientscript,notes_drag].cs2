@@ -1,0 +1,33 @@
+// 2450
+[clientscript,notes_drag](int $int0, component $component1, int $int2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int3 = calc($int3 - ~script8408($component1));
+def_component $component6 = ~script7799($int0, notes:main);
+def_component $component7 = ~script7799($int0, notes:dragger);
+def_component $component8 = ~script7799($int0, notes:scrollbar);
+def_component $component9 = ~script7799($int0, notes:selected);
+if (cc_find($component1, $int2) = true) {
+    if_sethide(true, $component9);
+    if_sethide(false, $component7);
+    $int5 = cc_getheight;
+    if_setposition(cc_getx, $int3, ^setpos_abs_left, ^setpos_abs_top, $component7);
+    if_setsize(cc_getwidth, $int5, ^setsize_abs, ^setsize_abs, $component7);
+    $int4 = calc($int3 + $int5 / 2);
+}
+def_int $int10 = 0;
+def_int $int11 = if_gety($component6);
+def_int $int12 = calc($int11 + $int5);
+def_int $int13 = calc($int11 + if_getheight($component6));
+def_int $int14 = calc($int13 - $int5);
+if ($int4 >= $int11 & $int4 <= $int12) {
+    $int10 = -4;
+} else if ($int4 >= $int14 & $int4 <= $int13) {
+    $int10 = 4;
+} else {
+    %notes_scrolldelay = 0;
+    return;
+}
+if (++%notes_scrolldelay > 5) {
+    ~scrollbar_ondrag_doscroll($component8, $component6, calc(if_getscrolly($component6) + $int10), 1);
+}

@@ -1,0 +1,132 @@
+// 19366
+[proc,script19366](int $int0, inv $inv1, int $int2, int $int3, boolean $boolean4)(boolean)
+if ($inv1 = null) {
+    ~error("Inventory param $inv was null!");
+    return(false);
+}
+def_int $int5 = inv_size($inv1);
+if ($int2 < 0 | $int2 >= $int5 | $int3 < 0 | $int3 >= $int5) {
+    ~error("Integer param $slot was out of expected bounds!");
+    return(false);
+}
+if ($int0 < 0 | $int0 >= 200) {
+    ~error("Integer param $clan_slot was out of expected bounds!");
+    return(false);
+}
+def_obj $obj6 = ~script19586($int0);
+def_int $int7 = ~script19587($int0);
+def_obj $obj8 = ~script19588($inv1, $int3);
+def_int $int9 = ~script19589($inv1, $int3);
+def_int $int10 = $int7;
+def_obj $obj11 = oc_uncert($obj8);
+if ($obj6 = null | $obj8 = null | $int7 < 1 | $int9 < 1 | ~script3994($obj11) = true) {
+    return(false);
+}
+if (~script19362($obj11) = true) {
+    return(false);
+}
+if (~map_members = false & oc_members($obj6) = 1) {
+    return(false);
+}
+def_int $int12 = %bankcert;
+def_obj $obj13 = oc_cert($obj6);
+if ($obj13 = $obj6) {
+    $int12 = 0;
+}
+def_boolean $boolean14 = ~script3802($obj11);
+def_int $int15 = ~script19581($inv1, $obj11);
+def_int $int16 = 0;
+if ($int15 ! -1) {
+    $int16 = inv_getnum(group_ironman_storage_clan_temp, $int15);
+}
+def_int $int17 = -1;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 1;
+def_int $int21 = 0;
+$boolean4 = ~script19356($boolean4, $obj6);
+if ($int12 = 1 | oc_stackable($obj6) = true) {
+    $int17 = ~script19585($inv1, $obj13, 0);
+    if ($int17 ! -1) {
+        $int19 = ~script19589($inv1, $int17);
+        $int18 = calc(^max_32bit_int - $int19);
+    }
+    if ($int7 = $int10 & $boolean4 = false) {
+        if ($int17 = -1) {
+            $int20 = 0;
+        } else if ($int18 >= $int10) {
+            $int20 = 0;
+        }
+    }
+} else if ($int7 = 1 & $boolean4 = false) {
+    $int20 = 0;
+}
+if ($int20 = 0) {
+    if ($int17 ! -1) {
+        ~script19602($int0, $int7, $obj6, $int7, $inv1, $int17, ~int_to_bool($int12), $boolean4);
+        ~script19603($inv1, $int3, $obj8, $obj11, $int9, $int0);
+        ~script19572($obj8, $int9);
+        return(true);
+    } else if ($int9 = 1 | $boolean14 = false) {
+        if ($int15 = -1) {
+            ~script19605($int0, $obj6, $obj13, $int7, $inv1, $int2, $int3, $obj8, $obj11, $int9, $int12);
+            ~script19572($obj8, $int9);
+            return(true);
+        }
+        if (calc(^max_32bit_int - $int16 - $int9) < 0) {
+            if ($obj11 = $obj6) {
+                ~script19345($obj8, $obj11, $int15, $int9, $int15, $inv1, $int3, 1, 1);
+            }
+            return(false);
+        }
+        %bank_deposit_all_or_swap_inprogress = 1;
+        $int21 = ~script19345($obj8, $obj11, $int15, $int9, $int15, $inv1, $int3, 1, 1);
+        %bank_deposit_all_or_swap_inprogress = 0;
+        if ($int21 = 0) {
+            return(false);
+        }
+        if (~script19588($inv1, $int3) ! null) {
+            return(false);
+        }
+        $int7 = ~script19587($int0);
+        ~script19602($int0, $int7, $obj6, $int10, $inv1, $int2, ~int_to_bool($int12), $boolean4);
+        ~script19371($int0, $obj6, $boolean4);
+        return(true);
+    }
+    ~error("<oc_debugname> x <tostring($int9)> couldn't swap with <oc_debugname> x <tostring($int7)>. An inventory object shouldn't need multiple bank slots.");
+    return(false);
+}
+if (~script19590($obj8, $int9) = 0) {
+    if ($obj8 = $obj6 & oc_stackable($obj8) = true) {
+        ~script19345($obj8, $obj11, $int15, $int9, $int15, $inv1, $int3, 1, 1);
+    }
+    return(false);
+}
+if (%group_ironman_storage_first_freeslot ! -1 & ~script19579 >= ~script19359) {
+    $int15 = calc($int15 - ~script19577(0, $int15));
+    $int0 = calc($int0 - ~script19577(0, $int0));
+    ~script19596;
+}
+%bank_deposit_all_or_swap_inprogress = 1;
+$int21 = ~script19345($obj8, $obj11, $int15, $int9, calc($int0 + 1), $inv1, $int3, 1, 1);
+%bank_deposit_all_or_swap_inprogress = 0;
+if ($int21 = 0) {
+    return(false);
+}
+if ($int17 ! -1) {
+    if ($int18 > 0 & $int18 >= $int10) {
+        return(true);
+    } else {
+        $int10 = min($int10, $int18);
+    }
+    $int2 = $int17;
+} else if (~script19588($inv1, $int3) ! null) {
+    return(false);
+}
+$int7 = ~script19587($int0);
+if (oc_stackable($obj6) = false & $int12 = 0) {
+    ~script19602($int0, $int7, $obj6, 1, $inv1, $int2, ~int_to_bool($int12), $boolean4);
+} else {
+    ~script19602($int0, $int7, $obj6, $int10, $inv1, $int2, ~int_to_bool($int12), $boolean4);
+}
+return(true);

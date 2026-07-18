@@ -1,0 +1,25 @@
+// 11841
+[clientscript,trh70_overlay_onload]
+def_int $int0 = if_getwidth(trh70_overlay:progress_bar_foreground_layer);
+if (%trh70_corrupted_charge >= 200) {
+    if_setgraphic("trh70_corrupt_chargebar_marker_01,1", trh70_overlay:reward_1);
+}
+if (%trh70_corrupted_charge >= 500) {
+    if_setgraphic("trh70_corrupt_chargebar_marker_02,1", trh70_overlay:reward_2);
+}
+if (%trh70_corrupted_charge >= 1000) {
+    if_setgraphic("trh70_corrupt_chargebar_marker_03,1", trh70_overlay:red_gem);
+}
+def_string $string0 = "Unlock the ability to win the scrimshaw of aggression.<br>Dark lamps and stars will grant 20% more XP than standard prismatics.";
+def_string $string1 = "Unlock the ability to win the scrimshaw of sacrifice and a greater chance to win the scrimshaw of aggression.<br>Dark lamps and stars will grant 30% more XP than standard prismatics.";
+def_string $string2 = "Unlock the ability to win the scrimshaw of corruption, the helm of corruption and a greater chance to win the previous scrimshaws.<br>Dark lamps and stars will grant 40% more XP than standard prismatics.";
+if_setonmouserepeat("script8799($string0, event_com, -1)", trh70_overlay:reward_1);
+if_setonmouserepeat("script8799($string1, event_com, -1)", trh70_overlay:reward_2);
+if_setonmouserepeat("script8799($string2, event_com, -1)", trh70_overlay:red_gem);
+if_setsize(1, 0, ^setsize_abs, ^setsize_minus, trh70_overlay:progress_bar);
+if (%trh70_corrupted_charge = 0) {
+    if_setsize(1, 0, ^setsize_abs, ^setsize_minus, trh70_overlay:progress_bar);
+} else {
+    if_setsize(scale($int0, 1000, %trh70_corrupted_charge), 0, ^setsize_abs, ^setsize_minus, trh70_overlay:progress_bar);
+}
+if_setonvartransmit("trh70_update_progress_bar{trh50_varp}", trh70_overlay:progress_bar);

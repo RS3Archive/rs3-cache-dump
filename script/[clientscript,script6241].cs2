@@ -1,0 +1,17 @@
+// 6241
+[clientscript,script6241]
+def_int $int0 = if_getwidth(qbd2_energybar:layer_bar_green);
+def_int $int1 = max(1, calc(100 - scale(%qbd2_phase_damage, 25000, 100)));
+~aif_progressbar_set($int1, qbd2_energybar:layer_bar_green, null);
+if_settext(tostring_localised(calc(25000 - %qbd2_phase_damage), true), qbd2_energybar:layer_bar_text);
+def_int $int2 = if_getwidth(qbd2_energybar:layer_bar_green);
+def_int $int3 = calc($int0 - $int2);
+if ($int3 > 0) {
+    if_setsize($int3, if_getheight(qbd2_energybar:layer_bar_red), ^setsize_abs, ^setsize_abs, qbd2_energybar:layer_bar_red);
+    if_settrans(0, qbd2_energybar:red_left);
+    if_settrans(0, qbd2_energybar:red_middle);
+    if_settrans(0, qbd2_energybar:red_right);
+    if_setposition(if_getwidth(qbd2_energybar:layer_bar_green), if_gety(qbd2_energybar:layer_bar_red), ^setpos_abs_left, ^setpos_abs_top, qbd2_energybar:layer_bar_red);
+    if_sethide(false, qbd2_energybar:layer_bar_red);
+    if_setontimer("script6242", qbd2_energybar:layer_bar_green);
+}

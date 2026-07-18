@@ -1,0 +1,31 @@
+// 20201
+[proc,script20201](int $int0)
+def_enum $enum1 = ~script20130;
+if ($enum1 = null) {
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = enum_getoutputcount(league_locality_list);
+def_component $component4 = null;
+def_int $int5 = 0;
+while ($int2 < $int3) {
+    $int5 = enum(int, int, league_locality_list, $int2);
+    $component4 = enum(int, component, league_locality_id_to_unlocked, $int5);
+    if ($component4 ! null) {
+        if ($int5 = $int0) {
+            if_sethide(false, $component4);
+            if_setcolour(^yellow, $component4);
+        } else if ($int5 = %league_locality_selected) {
+            if_sethide(false, $component4);
+            if_setcolour(^cyan, $component4);
+        } else if (~script20133($enum1, $int5) = true) {
+            if_sethide(false, $component4);
+            if_setcolour(^white, $component4);
+        } else {
+            if_sethide(true, $component4);
+            if_setcolour(^white, $component4);
+        }
+    }
+    $int2 = calc($int2 + 1);
+}
+if_setparam_int(league_area_last_mouserepeat, $int0, league_parent_areas:locality_highlight);

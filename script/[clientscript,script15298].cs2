@@ -1,0 +1,66 @@
+// 15298
+[clientscript,script15298]
+def_obj $obj0 = ~trh171_get_prize;
+def_string $string0 = "Random!";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int1 = 0;
+def_obj $obj2 = null;
+def_int $int3 = 0;
+def_int $int4 = ~trh171_get_modifier(%trh171_active_slot);
+~script16706(trh171_overlay:reward_current_prize_layer, $obj0, %trh171_current_prize_count, ~script14580, ~script15290, 0);
+if ($obj0 ! null) {
+    $string0 = oc_name($obj0);
+}
+if_settext($string0, trh171_overlay:prize_name);
+if ($int4 = 0) {
+    if_sethide(true, trh171_overlay:modifier_icon_wrapper);
+} else {
+    if_sethide(false, trh171_overlay:modifier_icon_wrapper);
+}
+if_setgraphic(trh171_modifier_icon_blank, trh171_overlay:modifier_icon_gfx);
+if_setobject(null, -1, trh171_overlay:modifier_icon_obj);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh171_overlay:modifier_icon_text);
+$string1, $string2, $int1, $obj2, $int3 = db_getfield(trh171_modifiers, trh171_modifier_data:col0, $int4);
+if ($int3 = 1) {
+    $int3 = -1;
+}
+if_settextfont(cinzel_25pt_bold_multiline, trh171_overlay:modifier_icon_text);
+if_sethide(true, trh171_overlay:current_item_random);
+if_sethide(false, trh171_overlay:reward_current_prize_layer);
+switch_int ($int4) {
+    case 1 :
+        if_setgraphic(trh171_modifier_icon_reroll, trh171_overlay:modifier_icon_gfx);
+        if_settext("", trh171_overlay:modifier_icon_text);
+        if_sethide(false, trh171_overlay:current_item_random);
+        if_sethide(true, trh171_overlay:reward_current_prize_layer);
+    case 2 :
+        if_settext("X2", trh171_overlay:modifier_icon_text);
+    case 3 :
+        if_settext("X3", trh171_overlay:modifier_icon_text);
+    case 4 :
+        if_settext("X4", trh171_overlay:modifier_icon_text);
+    case 5 :
+        if_settext("X5", trh171_overlay:modifier_icon_text);
+    case 6 :
+        if_settext("X6", trh171_overlay:modifier_icon_text);
+    case 7 :
+        if_settext("X7", trh171_overlay:modifier_icon_text);
+    case 8 :
+        if_settext("X8", trh171_overlay:modifier_icon_text);
+    case 9 :
+        if_settext("X9", trh171_overlay:modifier_icon_text);
+    case 10 :
+        if_settext("X10", trh171_overlay:modifier_icon_text);
+    case 11 :
+        if_setgraphic(trh171_modifier_icon_upgraderarity, trh171_overlay:modifier_icon_gfx);
+        if_settext("", trh171_overlay:modifier_icon_text);
+    case 12 :
+        if_setgraphic(trh171_modifier_icon_upgraderarity, trh171_overlay:modifier_icon_gfx);
+        if_settext("", trh171_overlay:modifier_icon_text);
+    case default :
+        if_setobject($obj2, $int3, trh171_overlay:modifier_icon_obj);
+        if_settext("+", trh171_overlay:modifier_icon_text);
+        if_settextfont(cinzel_35pt_bold, trh171_overlay:modifier_icon_text);
+        if_setposition(-20, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh171_overlay:modifier_icon_text);
+}

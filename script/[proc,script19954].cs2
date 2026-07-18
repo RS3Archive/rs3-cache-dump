@@ -1,0 +1,22 @@
+// 19954
+[proc,script19954]
+if (%easter_hub_beekeeping_emotions_masked = 1) {
+    return;
+}
+def_component $component0 = easter_hub_beekeeping_emotion_bar:emotion_bar;
+def_component $component1 = easter_hub_beekeeping_emotion_bar:current_emotion;
+if (%easter_hub_beekeeping_emotional_state < 300) {
+    if_setgraphic(easter25_ui_happiness_bee_sad, $component1);
+    ~script3536("Sad", $component1, -1);
+    ~script3536("The bees are currently: Sad", $component0, -1);
+} else if (%easter_hub_beekeeping_emotional_state > 800) {
+    if_setgraphic(easter25_ui_happiness_bee_angry, $component1);
+    ~script3536("Angry", $component1, -1);
+    ~script3536("The bees are currently: Angry", $component0, -1);
+} else {
+    if_setgraphic(easter25_ui_happiness_bee_happy, $component1);
+    ~script3536("Happy", $component1, -1);
+    ~script3536("The bees are currently: Happy", $component0, -1);
+}
+def_int $int2 = if_getwidth($component0);
+if_setposition(calc(%easter_hub_beekeeping_emotional_state / (1000 / $int2)), if_gety($component1), ^setpos_abs_left, ^setpos_abs_top, $component1);

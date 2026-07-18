@@ -1,0 +1,38 @@
+// 3237
+[proc,script3237](component $component0, component $component1, component $component2, string $string0, int $int3, fontmetrics $fontmetrics4)
+def_int $int5 = calc(if_getwidth(if_getparentlayer($component1)) - 6);
+def_int $int6 = string_length($string0);
+def_int $int7 = stringwidth($string0, $fontmetrics4);
+def_string $string1 = "";
+def_int $int8 = 0;
+%login_caret = min($int6, max(0, %login_caret));
+if_setposition(~script1551(%login_caret, $string0, $fontmetrics4, if_getx($component0)), 0, ^setpos_abs_left, ^setpos_abs_centre, $component2);
+if ($int7 <= $int5) {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component1);
+    if_setsize(6, 0, ^setsize_minus, ^setsize_minus, $component1);
+} else {
+    if ($int6 > 0) {
+        if (%login_caret > 0) {
+            $string1 = substring($string0, 0, %login_caret);
+        }
+        $int8 = calc(stringwidth($string1, $fontmetrics4) - $int5);
+    }
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component1);
+    if_setsize(max($int7, $int5), 0, ^setsize_abs, ^setsize_minus, $component1);
+    if ($int8 > 0) {
+        if_setposition(calc(if_getx($component1) - $int8), 0, ^setpos_abs_left, ^setpos_abs_centre, $component1);
+        if_setposition(calc(if_getx($component2) - $int8), 0, ^setpos_abs_left, ^setpos_abs_centre, $component2);
+    }
+}
+if (applet_hasfocus = true) {
+    if_sethide(false, $component2);
+    if_setontimer("script3238(clientclock, $component2, $int3)", $component0);
+} else {
+    if_sethide(true, $component2);
+    if_setontimer(null, $component0);
+}
+if ($int3 = 100 | $int3 = 101) {
+    ~script15696;
+} else if ($int3 = 114) {
+    ~script15697;
+}

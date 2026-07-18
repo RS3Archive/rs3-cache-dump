@@ -1,0 +1,42 @@
+// 7476
+[proc,script7476](int $int0, struct $struct1, int $int2)(int)
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+while (++$int3 < 4) {
+    $int4 = 0;
+    $int5 = 0;
+    switch_int ($int3) {
+        case 0 :
+            if (struct_param($struct1, combatv2_skill_requirement_1) ! null) {
+                $int4 = struct_param($struct1, combatv2_skill_requirement_level_1);
+                $int5 = enum(stat, int, stat_to_int, struct_param($struct1, combatv2_skill_requirement_1));
+            }
+        case 1 :
+            if (struct_param($struct1, combatv2_skill_requirement_2) ! null) {
+                $int4 = struct_param($struct1, combatv2_skill_requirement_level_2);
+                $int5 = enum(stat, int, stat_to_int, struct_param($struct1, combatv2_skill_requirement_2));
+            }
+        case 2 :
+            if (struct_param($struct1, combatv2_skill_requirement_3) ! null) {
+                $int4 = struct_param($struct1, combatv2_skill_requirement_level_3);
+                $int5 = enum(stat, int, stat_to_int, struct_param($struct1, combatv2_skill_requirement_3));
+            }
+        case 3 :
+            if (struct_param($struct1, combatv2_skill_requirement_4) ! null) {
+                $int4 = struct_param($struct1, combatv2_skill_requirement_level_4);
+                $int5 = enum(stat, int, stat_to_int, struct_param($struct1, combatv2_skill_requirement_4));
+            }
+    }
+    if ($int5 > 0 & $int4 > 1) {
+        if (stat(enum(int, stat, int_to_stat, $int5)) < $int4) {
+            $string0 = "<col=ff0000>";
+        } else {
+            $string0 = "<col=00ff00>";
+        }
+        $int0 = ~script7482("<$string0><tostring($int4)>", enum(int, graphic, stat2icon_small, $int5), null, "<tostring($int4)> <enum(int, string, statstring, $int5)>", ~script7484($int0, $int2));
+    }
+}
+return($int0);

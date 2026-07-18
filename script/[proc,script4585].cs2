@@ -1,0 +1,91 @@
+// 4585
+[proc,script4585](component $component0, int $int1, int $int2, int $int3, int $rgb4, int $int5, graphic $graphic6, graphic $graphic7, int $int8, int $int9, int $int10)
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = if_getnextsubid($component0);
+if (cc_find($component0, $int1) = true) {
+    $int18 = cc_getheight;
+    $int17 = cc_getwidth;
+    $int11 = cc_getx;
+    if (calc($int2 % 2) = 1) {
+        $int13 = calc($int11 + $int17 / 2 + 1);
+    } else {
+        $int13 = calc($int11 + 2);
+    }
+    $int12 = cc_gety;
+    if (calc($int2 / 2) = 0) {
+        $int14 = calc($int12 + 2);
+    } else {
+        $int14 = calc($int12 + $int18 / 2 + 1);
+    }
+    $int15 = calc($int17 / 2 - 3);
+    $int16 = calc($int18 / 2 - 3);
+    if ($int8 = 1) {
+        cc_create($component0, ^iftype_graphic, $int19);
+        cc_setposition(calc($int11 + 2), calc($int12 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(84, 58, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic($graphic6);
+        cc_setparam(clock_events_id, $int9);
+        cc_setparam(igc_date_runeday, $int10);
+        cc_setparam(igc_is_event_tab, 1);
+        cc_setparam(igc_is_super_event_tab, 1);
+        $int19 = calc($int19 + 1);
+        $int18 = calc(cc_getheight / 4 - 1);
+        cc_create($component0, ^iftype_text, $int19);
+        cc_setsize($int17, $int18, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int11 + 2), calc($int12 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_setcolour(~script10495(20));
+        cc_settextshadow(true);
+        cc_settext(tostring($int3));
+        cc_setparam(clock_events_id, $int9);
+        return;
+    }
+    cc_create($component0, ^iftype_rectangle, $int19);
+    cc_setsize($int15, $int16, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    cc_sethide(false);
+    cc_setcolour($rgb4);
+    cc_settrans($int5);
+    cc_setparam(clock_events_id, $int9);
+    cc_setparam(igc_date_runeday, $int10);
+    cc_setparam(igc_is_event_tab, 1);
+    if ($int2 = 0) {
+        $int19 = calc($int19 + 1);
+        cc_create($component0, ^iftype_text, $int19);
+        cc_setsize($int17, $int18, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int11 + 2), calc($int12 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        if (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_active_skinset = 1) {
+            cc_setcolour(^white);
+        } else {
+            cc_setcolour(~script10495(20));
+        }
+        cc_settextshadow(true);
+        cc_settext(tostring($int3));
+        cc_setparam(clock_events_id, $int9);
+    }
+    $int19 = calc($int19 + 1);
+    cc_create($component0, ^iftype_graphic, $int19);
+    cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic($graphic6);
+    cc_setposition(calc($int13 + $int15 / 2 - 14 / 2), calc($int14 + $int16 / 2 - 14 / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setparam(clock_events_id, $int9);
+    if ($graphic7 ! null) {
+        $int19 = calc($int19 + 1);
+        cc_create($component0, ^iftype_graphic, $int19);
+        cc_setposition(calc($int13 + 3 * $int15 / 4 - 14 / 2 + 3), calc($int14 + $int16 / 4 - 14 / 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic($graphic7);
+        cc_setparam(clock_events_id, $int9);
+    }
+}

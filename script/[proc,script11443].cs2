@@ -1,0 +1,87 @@
+// 11443
+[proc,script11443]
+def_component $component0 = rcguild_rewards:content_layer;
+def_component $component1 = rcguild_rewards:content_build_layer;
+def_component $component2 = rcguild_rewards:content_click_layer;
+cc_deleteall($component1);
+~script11440;
+if_sethide(true, rcguild_rewards:scroll_bar_layer);
+if_settext("", rcguild_rewards:rc_guild_confirm);
+if_setscrollsize(0, 0, rcguild_rewards:content_builder_wrapper);
+if_setscrollpos(0, 0, rcguild_rewards:content_builder_wrapper);
+switch_enum (%rcguild_reward_tab_selected) {
+    case rcguild_reward_shop_talismans :
+        if_sethide(false, rcguild_rewards:rcguild_rewards_talismans_selected_layer);
+    case rcguild_reward_shop_outfits :
+        if_sethide(false, rcguild_rewards:rcguild_rewards_outfits_selected_layer);
+    case rcguild_reward_shop_teles :
+        if_sethide(false, rcguild_rewards:rcguild_rewards_teles_selected_layer);
+    case rcguild_reward_shop_misc :
+        if_sethide(false, rcguild_rewards:rcguild_rewards_misc_selected_layer);
+}
+def_int $int3 = enum_getoutputcount(%rcguild_reward_tab_selected);
+def_int $int4 = calc($int3 / 2);
+if (calc($int3 % 2) ! 0) {
+    $int4 = calc($int4 + 1);
+}
+def_int $int5 = calc($int4 * (43 + 5));
+def_int $int6 = if_getwidth($component0);
+if ($int5 >= if_getheight($component0)) {
+    $int6 = calc($int6 - 16);
+    if_setscrollsize(0, $int5, rcguild_rewards:content_builder_wrapper);
+    ~rs3_scrollbar_vertical(rcguild_rewards:scroll_bar_layer, rcguild_rewards:content_builder_wrapper);
+    if_sethide(false, rcguild_rewards:scroll_bar_layer);
+}
+def_int $int7 = calc($int6 / 2);
+def_int $int8 = 5;
+def_int $int9 = 5;
+def_int $int10 = calc($int7 - 5 * 2);
+def_int $int11 = 43;
+def_obj $obj12 = null;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_boolean $boolean17 = false;
+def_int $int18 = %currency_rc_guild_token;
+while ($int13 < $int3) {
+    $obj12 = enum(int, obj, %rcguild_reward_tab_selected, $int13);
+    if ($obj12 = null) {
+        return;
+    }
+    ~rs3_background_panel_dynamic($component1, rs3_content_container_active, $int8, $int9, $int10, $int11, null);
+    cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+    cc_setposition(calc($int8 + 5), calc($int9 + ($int11 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject_nonum($obj12, 5);
+    $int14 = calc(cc_getx + cc_getwidth + 5);
+    $int15 = cc_getwidth;
+    cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+    cc_setposition($int14, calc($int9 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int10 - $int15 - 5 - 50), 20, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    cc_setcolour(~rgb_to_hex(255, 203, 5));
+    cc_settext(oc_name($obj12));
+    cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+    cc_setposition($int14, calc($int9 + ($int11 - 10 - 5)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int10 - $int15 - 5 - 50), 10, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour(~rgb_to_hex(255, 255, 255));
+    cc_settext(append(tostring(enum(obj, int, rcguild_reward_shop, $obj12)), " tokens"));
+    if (enum(obj, int, rcguild_reward_shop, $obj12) > $int18 | oc_members($obj12) = 1 & map_members = false | ~ironman_mode = true & ~script10907($obj12) = false) {
+        $boolean17 = true;
+    } else {
+        $boolean17 = false;
+    }
+    $int16 = ~script10410($component1, $component2, rs3tli_3x3_button, calc($int8 + ($int10 - 80 - 5 * 2)), calc($int9 + ($int11 - 20 - 5)), 80, 20, $int16, $boolean17, "Buy");
+    if (cc_find($component2, calc($int16 - 1)) = true) {
+        cc_setop(1, "Buy 1");
+        cc_setop(2, "Buy X");
+    }
+    if (calc(++$int13 % 2) = 0) {
+        $int9 = calc($int9 + $int11 + 5);
+        $int8 = 5;
+    } else {
+        $int8 = calc($int7 + 5);
+    }
+}

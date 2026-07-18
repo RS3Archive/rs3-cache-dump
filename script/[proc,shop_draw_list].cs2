@@ -1,0 +1,107 @@
+// 6087
+[proc,shop_draw_list](inv $inv0, inv $inv1, int $int2, int $int3)
+if (~script4550(shop_main) = false) {
+    return;
+}
+~shop_clear_list;
+if ($int2 = -1) {
+    $int2 = 0;
+}
+%shop_filter = $int2;
+def_int $int4 = 82903052;
+def_int $int5 = 82903051;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_obj $obj14 = null;
+$int12, $int13 = ~shop_item_size($int3);
+def_int $int15 = calc(if_getwidth(shop_main:shop_items_content) / $int12);
+if ($int2 = 1) {
+    $inv0 = inv;
+    $inv1 = null;
+    if_setoninvtransmit(null, shop_main:stock_free_listener);
+} else if ($inv1 ! null) {
+    $int6 = 0;
+    $int7 = inv_size($inv1);
+    $int8 = 0;
+    while ($int6 < $int7) {
+        $obj14 = inv_getobj($inv1, $int6);
+        if (map_members = false & oc_members($obj14) = 1) {
+            ~shop_blank_item($int6, 1);
+        } else if ($obj14 = null) {
+            ~shop_blank_item($int6, 1);
+        } else {
+            ~shop_draw_item($inv1, $int6, $int8, $int3);
+            $int8 = calc($int8 + 1);
+        }
+        $int6 = calc($int6 + 1);
+    }
+    $int9 = calc($int8 / $int15);
+    if (calc($int8 % $int15) ! 0) {
+        $int9 = calc($int9 + 1);
+    }
+    $int11 = calc($int9 * $int13);
+    if_setoninvtransmit("shop_redraw_stock(%shopfreebie){$inv1}", shop_main:stock_free_listener);
+}
+$int9 = 0;
+$int6 = 0;
+$int8 = 0;
+if ($inv0 ! null) {
+    $int7 = inv_size($inv0);
+    while ($int6 < $int7) {
+        $obj14 = inv_getobj($inv0, $int6);
+        if (map_members = false & oc_members($obj14) = 1) {
+            ~shop_blank_item($int6, 0);
+        } else if ($obj14 = null) {
+            ~shop_blank_item($int6, 0);
+        } else if (~script16928($obj14) = true) {
+            ~shop_blank_item($int6, 0);
+        } else if (~elr1_currency(%currency) = true & %shop_filter = 0 & oc_param(oc_uncert($obj14), elr1_resource) = 0 & oc_param(oc_uncert($obj14), elr1_commodity) = 0) {
+            ~shop_blank_item($int6, 0);
+        } else if (~elr1_currency(%currency) = true & %shop_filter = 1 & oc_param(oc_uncert($obj14), elr1_resource) = 0 & oc_param(oc_uncert($obj14), elr1_commodity) = 0) {
+            ~shop_blank_item($int6, 0);
+        } else {
+            ~shop_draw_item($inv0, $int6, $int8, $int3);
+            $int8 = calc($int8 + 1);
+        }
+        $int6 = calc($int6 + 1);
+    }
+}
+if (enum(inv, int, is_generalshop, %shop) = 1) {
+    if_sethide(false, shop_main:is_general_store);
+} else {
+    if_sethide(true, shop_main:is_general_store);
+}
+~script17395;
+$int9 = calc($int8 / $int15);
+if (calc($int8 % $int15) ! 0) {
+    $int9 = calc($int9 + 1);
+}
+$int10 = calc($int9 * $int13);
+if_setsize(0, $int11, ^setsize_minus, ^setsize_abs, shop_main:free_list);
+if_setposition(0, $int11, ^setpos_abs_centre, ^setpos_abs_top, shop_main:main_list);
+if_setsize(0, $int10, ^setsize_minus, ^setsize_abs, shop_main:main_list);
+def_int $int16 = calc($int11 + $int10);
+if ($int16 > if_getheight(shop_main:shop_items_content)) {
+    if_setscrollsize(0, $int16, shop_main:shop_items_content);
+} else {
+    if_setscrollsize(0, if_getheight(shop_main:shop_items_content), shop_main:shop_items_content);
+}
+~scrollbar_vertical(shop_main:shop_items_scrollbar, shop_main:shop_items_content, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if ($int2 = 1) {
+    if_setoninvtransmit("shop_redraw_stock(inv){inv}", shop_main:stock_listener);
+    ~shop_redraw_stock(inv);
+    ~shop_mode_button_setup(1);
+} else {
+    if_setoninvtransmit("shop_redraw_stock(%shop){$inv0}", shop_main:stock_listener);
+    ~shop_redraw_stock(%shop);
+    ~shop_mode_button_setup(0);
+}
+if ($inv1 = null) {
+    if_setoninvtransmit(null, shop_main:stock_free_listener);
+}

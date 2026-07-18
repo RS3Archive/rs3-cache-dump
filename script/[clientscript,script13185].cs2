@@ -1,0 +1,40 @@
+// 13185
+[clientscript,script13185](struct $struct0)
+if ($struct0 = null) {
+    return;
+}
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_struct $struct4 = enum(int, struct, mtxmgt_store_grid_ragdoll_structs, ++$int3);
+def_component $component5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_dbrow $dbrow8 = null;
+while ($struct4 ! null) {
+    $component5 = struct_param($struct4, toplevel_v2_ragdoll_suboverlay_layer);
+    if ($component5 ! null & if_find($component5) = true) {
+        $int2 = cc_param(mtxmgt_target_preview_subid);
+        if ($int2 < 0) {
+            $struct4 = null;
+        } else {
+            $dbrow8 = ~script15768($int2);
+            if ($dbrow8 ! null & ~script15770($dbrow8) = $struct0) {
+                cc_setparam(mtxmgt_current_preview_subid, -1);
+                cc_setparam(rs3tli_component_last_update, -1);
+                $component6 = struct_param($struct4, toplevel_v2_ragdoll_model_component);
+                if ($component6 ! null) {
+                    if_sethide(true, $component6);
+                    if_setmodel(null, $component6);
+                    $component7 = struct_param($struct4, toplevel_v2_ragdoll_loading_layer);
+                    ~script9531($component7, 255);
+                    ~spinner_show($component7);
+                    ~script13146($component6, ~script13186($struct0), $dbrow8);
+                }
+            }
+            $struct4 = enum(int, struct, mtxmgt_store_grid_ragdoll_structs, ++$int3);
+        }
+    } else {
+        $struct4 = null;
+    }
+}

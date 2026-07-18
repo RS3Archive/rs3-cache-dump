@@ -1,0 +1,74 @@
+// 11649
+[clientscript,script11649]
+def_int $int0 = -1;
+def_int $int1 = 0;
+def_int $int2 = 22;
+if (%elr2_bonecrusher_upgrade_unlocked = 0) {
+    if_settext("Bone collector<col=ff0000> - Purchased from Boni on Waiko</col>", rand_bonecrusher:bone_collector_title);
+    if_sethide(true, rand_bonecrusher:bone_pickup_toggle_text);
+} else {
+    if_settext("Bone collector", rand_bonecrusher:bone_collector_title);
+    if_sethide(false, rand_bonecrusher:bone_pickup_toggle_text);
+}
+while (++$int0 < $int2) {
+    switch_int ($int0) {
+        case 0 :
+            $int1 = %rand_bonecrusher_bones;
+        case 1 :
+            $int1 = %rand_bonecrusher_bigbones;
+        case 2 :
+            $int1 = %rand_bonecrusher_jogre;
+        case 3 :
+            $int1 = %rand_bonecrusher_zogre;
+        case 4 :
+            $int1 = %rand_bonecrusher_ourg;
+        case 5 :
+            $int1 = %rand_bonecrusher_airut;
+        case 6 :
+            $int1 = %rand_bonecrusher_bat;
+        case 7 :
+            $int1 = %rand_bonecrusher_wolf;
+        case 8 :
+            $int1 = %rand_bonecrusher_monkey;
+        case 9 :
+            $int1 = %rand_bonecrusher_dagannoth;
+        case 10 :
+            $int1 = %rand_bonecrusher_dino;
+        case 11 :
+            $int1 = %rand_bonecrusher_babydragon;
+        case 12 :
+            $int1 = %rand_bonecrusher_dragon;
+        case 13 :
+            $int1 = %rand_bonecrusher_frost;
+        case 14 :
+            $int1 = %rand_bonecrusher_wyvern;
+        case 15 :
+            $int1 = %rand_bonecrusher_rune;
+        case 16 :
+            $int1 = %rand_bonecrusher_addy;
+        case 17 :
+            $int1 = %rand_bonecrusher_dragonkin;
+        case 18 :
+            if (%rand_bonecrusher_normal = 63) {
+                $int1 = 1;
+            } else {
+                $int1 = 0;
+            }
+        case 19 :
+            if (%rand_bonecrusher_animals = 15 & %rand_bonecrusher_dino = 1) {
+                $int1 = 1;
+            } else {
+                $int1 = 0;
+            }
+        case 20 :
+            if (%rand_bonecrusher_dragons_all = 127) {
+                $int1 = 1;
+            } else {
+                $int1 = 0;
+            }
+        case 21 :
+            ~static_checkbox_create_disable(enum(int, component, rand_bonecrusher_checkbox_component_build, $int0), enum(int, component, rand_bonecrusher_checkbox_component_click, $int0), "", "", "", %rand_bonecrusher_collector, ~script6427(%elr2_bonecrusher_upgrade_unlocked));
+            return;
+    }
+    ~static_checkbox_create(enum(int, component, rand_bonecrusher_checkbox_component_build, $int0), enum(int, component, rand_bonecrusher_checkbox_component_click, $int0), "", "", "", $int1);
+}

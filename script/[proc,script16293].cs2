@@ -1,0 +1,19 @@
+// 16293
+[proc,script16293]
+def_boolean $boolean0 = ~int_to_bool(%construction_house_furniture_portal_nexus_changes_pending);
+if_setenabled($boolean0, construction_house_furniture_portal_nexus_configure:save);
+if_setenabled($boolean0, construction_house_furniture_portal_nexus_configure:cancel);
+switch_int (%construction_house_furniture_portal_nexus_tier) {
+    case 4 :
+        if_setobject_highres(construction_house_furniture_portal_nexus_t4, construction_house_furniture_portal_nexus_configure:portal);
+    case 3 :
+        if_setobject_highres(construction_house_furniture_portal_nexus_t3, construction_house_furniture_portal_nexus_configure:portal);
+    case 2 :
+        if_setobject_highres(construction_house_furniture_portal_nexus_t2, construction_house_furniture_portal_nexus_configure:portal);
+    case default :
+        if_setobject_highres(construction_house_furniture_portal_nexus_t1, construction_house_furniture_portal_nexus_configure:portal);
+}
+if (%construction_house_furniture_portal_nexus_tier > 0) {
+    cc_deleteall(construction_house_furniture_portal_nexus_configure:active_scrolling);
+    ~script17837;
+}

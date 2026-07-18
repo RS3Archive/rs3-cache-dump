@@ -1,0 +1,70 @@
+// 2697
+[clientscript,script2697]
+def_component $component0 = group_inspect_stats:background;
+def_component $component1 = group_inspect_stats:icon;
+def_component $component2 = group_inspect_stats:stat;
+def_component $component3 = group_inspect_stats:stat_base;
+def_int $int4 = enum_getoutputcount(toplevel_v2_stats_structs);
+def_int $int5 = 0;
+def_struct $struct6 = null;
+def_int $rgb7 = 0xff8c00;
+while ($int5 < $int4) {
+    $struct6 = enum(int, struct, toplevel_v2_stats_structs, $int5);
+    cc_create($component0, ^iftype_graphic, $int5);
+    cc_setsize(60, 27, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic("stats_background_button,0");
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(struct_param($struct6, toplevel_v2_stats_graphic));
+    cc_create($component2, ^iftype_text, $int5);
+    cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour($rgb7);
+    cc_create($component3, ^iftype_text, $int5);
+    cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour($rgb7);
+    $int5 = calc($int5 + 1);
+}
+if (%toplevel_v2_legacy_interface = 1 | ~script6431 = true) {
+    if_sethide(false, group_inspect_stats:close_button);
+}
+def_component $component8 = group_inspect_stats:skilltotal;
+def_component $component9 = group_inspect_stats:combat_level;
+if_setsize(16384, 0, ^setsize_rel, ^setsize_minus, $component8);
+cc_create($component8, ^iftype_graphic, 0);
+cc_setgraphic(rs3_icon_tab_skills);
+cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre);
+def_string $string0 = "The total number of levels gained across all skills.";
+cc_setonmouserepeat("script8801($string0, event_com, event_comsubid, ^settextalign_left, ^settextalign_centre, 12)");
+cc_setonmouseleave("script8805");
+cc_create($component8, ^iftype_text, 1);
+cc_setsize(40, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(30, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^white);
+if_sethide(true, $component9);
+if (if_getwidth(group_inspect_stats:fixed_area) >= 120) {
+    if_setsize(calc(16384 / 2), 0, ^setsize_rel, ^setsize_minus, $component8);
+    if_setsize(calc(16384 / 2), 0, ^setsize_rel, ^setsize_minus, $component9);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, $component9);
+    if_sethide(false, $component9);
+    cc_create($component9, ^iftype_graphic, 0);
+    cc_setgraphic(aif_combat_icon);
+    cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+    cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $string0 = "Combat level is calculated from levels achieved in combat related skills.";
+    cc_setonmouserepeat("script8801($string0, event_com, event_comsubid, ^settextalign_left, ^settextalign_centre, 12)");
+    cc_setonmouseleave("script8805");
+    cc_create($component9, ^iftype_text, 1);
+    cc_setsize(40, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(30, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+}
+~script6098;

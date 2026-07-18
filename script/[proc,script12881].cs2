@@ -1,0 +1,55 @@
+// 12881
+[proc,script12881](struct $struct0)
+def_enum $enum1 = null;
+def_enum $enum2 = struct_param(timed_event_shop_struct, rewardshop_item_list);
+if ($enum2 ! null) {
+    $enum1 = enum(int, enum, $enum2, struct_param($struct0, timed_event_id));
+}
+def_int $int3 = 7;
+def_int $int4 = 0;
+if ($enum1 ! null) {
+    $int4 = enum_getoutputcount($enum1);
+}
+def_int $int5 = -1;
+def_component $component6 = timed_event:shop_layer;
+def_component $component7 = timed_event:item_build_layer;
+def_component $component8 = timed_event:item_info_control_layer;
+def_component $component9 = timed_event:item_control_layer;
+def_component $component10 = timed_event:currency_bond_text;
+def_component $component11 = timed_event:currency_runecoin_text;
+def_component $component12 = timed_event:currency_layer;
+cc_deleteall($component6);
+if ($struct0 = timed_event10 | $struct0 = timed_event11) {
+    $component6 = timed_event_tasks:shop_layer;
+    $component7 = timed_event_tasks:item_build_layer;
+    $component8 = timed_event_tasks:item_info_control_layer;
+    $component9 = timed_event_tasks:item_control_layer;
+    $component10 = timed_event_tasks:currency_bond_text;
+    $component11 = timed_event_tasks:currency_runecoin_text;
+    $component12 = timed_event_tasks:currency_layer;
+}
+if_setonvartransmit("script12880($struct0){bonds_count_total_tradable_across_all_inv, bonds_count_total_untradable_across_all_inv}", $component12);
+if_setonvarctransmit("script12880($struct0){mtxmgt_total_runecoins}", $component12);
+def_int $int13 = ~script11434;
+def_int $int14 = %mtxmgt_total_runecoins;
+if_settext(tostring_localised($int13, true), $component10);
+if_settext(tostring_localised($int14, true), $component11);
+cc_deleteall($component7);
+cc_deleteall($component9);
+if ($int4 = 0) {
+    cc_create($component6, ^iftype_text, if_getnextsubid($component6));
+    cc_settextfont(cinzel_18pt_bold);
+    cc_setcolour(^white);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_settext("There are no purchaseable items for this event.");
+    return;
+}
+def_struct $struct15 = null;
+def_int $int16 = -1;
+$int5 = -1;
+while (++$int5 < $int4) {
+    $struct15 = enum(int, struct, $enum1, $int5);
+    ~script3412(timed_event_shop_struct, $struct15, $component7, $component8, $component9, 5, $int5);
+}

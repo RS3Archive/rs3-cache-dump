@@ -1,0 +1,30 @@
+// 2971
+[proc,script2971](dbrow $dbrow0, int $int1, int $int2, int $int3, int $int4)(int)
+def_int $int5 = enum_getreverseindex(dbrow, int, settings_all_categories, $dbrow0, 0);
+if (~script18934($dbrow0) = false) {
+    cc_create(settings:cat_click, ^iftype_text, $int5);
+    cc_sethide(true);
+    return($int2);
+}
+def_string $string0 = db_getfield($dbrow0, settings_category:col0, 0);
+def_string $string1 = db_getfield($dbrow0, settings_category:col1, 0);
+def_dbrow $dbrow6 = button_accordion_20px;
+def_boolean $boolean7 = true;
+def_int $int8 = 20;
+switch_int ($int4) {
+    case default :
+        $int4 = ~equal_int($int5, $int4);
+        $dbrow6 = button_cornered_neutral;
+        $int8 = 24;
+    case -1 :
+        $int4 = 0;
+    case -2 :
+        $int4 = 1;
+    case -3 :
+        $int4 = 0;
+        $boolean7 = false;
+}
+~cc_add_button_full(settings:cat_click, $int5, $int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $int3, $int8, ^setsize_abs, ^setsize_abs, $dbrow6, $string0, $boolean7, true, true, ~int_to_bool($int4));
+cc_setop(1, "Select");
+cc_setonop("script2930($int5)");
+return(calc($int2 + $int8 + 4));

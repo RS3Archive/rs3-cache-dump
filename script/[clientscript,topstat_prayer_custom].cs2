@@ -1,0 +1,30 @@
+// 2299
+[clientscript,topstat_prayer_custom](component $component0, component $component1, graphic $graphic2, graphic $graphic3)
+if (%prayer_custom_view_client = true) {
+    if (%prayer_mode = 1) {
+        if_clearops($component1);
+        if_setop(2, "Finish quick curse selection", $component1);
+    } else {
+        if_clearops($component1);
+        if_setop(2, "Finish quick prayer selection", $component1);
+    }
+    if (%topstat_prayer_button = 1) {
+        if (%prayer_mode = 1) {
+            if_setop(1, "Turn curses off", $component1);
+        } else {
+            if_setop(1, "Turn prayers off", $component1);
+        }
+    } else if (%prayer_mode = 1) {
+        if_setop(1, "Turn quick curses on", $component1);
+    } else {
+        if_setop(1, "Turn quick prayers on", $component1);
+    }
+} else {
+    ~script8051($component1);
+    if (%prayer_mode = 1) {
+        if_setop(2, "Select quick curses", $component1);
+    } else {
+        if_setop(2, "Select quick prayers", $component1);
+    }
+}
+~topstat_prayer_button_update($component0, $component1, $graphic2, $graphic3);

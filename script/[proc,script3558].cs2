@@ -1,0 +1,26 @@
+// 3558
+[proc,script3558](component $component0)(boolean)
+def_int $int1 = 0;
+def_component $component2 = null;
+if (if_find($component0) = true & cc_param(combatv2_buff_head) = true) {
+    $component2 = cc_param(combatv2_buff_inactive_head);
+    while (.if_find($component2) = true) {
+        if (++$int1 > 50) {
+            mes_typed(^chattype_console, 0, "CIRCULAR LOOP FOUND IN IN-ACTIVE LIST!!");
+            ~script3560($component0);
+            return(true);
+        }
+        $component2 = .cc_param(combatv2_buff_next_container);
+    }
+    $int1 = 0;
+    $component2 = cc_param(combatv2_buff_active_head);
+    while (.if_find($component2) = true) {
+        if (++$int1 > 50) {
+            mes_typed(^chattype_console, 0, "CIRCULAR LOOP FOUND IN ACTIVE LIST!!");
+            ~script3560($component0);
+            return(true);
+        }
+        $component2 = .cc_param(combatv2_buff_next_container);
+    }
+}
+return(false);

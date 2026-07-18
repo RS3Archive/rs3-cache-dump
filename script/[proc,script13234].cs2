@@ -1,0 +1,63 @@
+// 13234
+[proc,script13234](component $component0)
+if_sethide(true, mtxmgt_store_checkout:apply_button_disabled_layer);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_struct $struct10 = null;
+def_int $int11 = if_getscrolly(mtxmgt_store_checkout:checkout_layer);
+def_component $component12 = mtxmgt_store_checkout:checkout_text_layer;
+cc_deleteall($component0);
+cc_deleteall(mtxmgt_store_checkout:checkout_layer);
+cc_deleteall(mtxmgt_store_checkout:checkout_scrollbar_layer);
+cc_deleteall($component12);
+cc_deleteall(mtxmgt_store_checkout:checkout_checkmark_layer);
+while ($int1 < 11) {
+    ~script13235($int1, true, 0, true, $int8);
+    ~script13237($int1, true, -1, $int8);
+    $int1 = calc($int1 + 1);
+}
+def_int $int13 = -1;
+def_int $int14 = 0;
+$int1 = 0;
+while ($int1 < 11 & $int7 = 0) {
+    $struct10, $int3, $int4 = ~script13113($int1);
+    if ($struct10 = null) {
+        $int7 = 1;
+    }
+    if ($int7 = 0) {
+        ~script13237($int1, false, 0, $int8);
+        ~script13238($int1, false);
+        $int8, $int9 = ~script13239($int1, $struct10, $component0, $component12, $int8, $int3, $int9, 0, 0);
+        $int2 = calc($int2 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+def_int $int15 = -1;
+if ($int8 < if_getheight(mtxmgt_store_checkout:checkout_layer)) {
+    if_setscrollsize(0, 0, mtxmgt_store_checkout:checkout_layer);
+    if_setscrollpos(0, 0, mtxmgt_store_checkout:checkout_layer);
+    if_setposition(0, if_gety(mtxmgt_store_checkout:checkout_checkmark_layer), ^setpos_abs_right, ^setpos_abs_top, mtxmgt_store_checkout:checkout_checkmark_layer);
+    $int15 = 0;
+} else {
+    if_setscrollsize(0, $int8, mtxmgt_store_checkout:checkout_layer);
+    if_setscrollpos(0, $int11, mtxmgt_store_checkout:checkout_layer);
+    ~rs3_scrollbar_vertical(mtxmgt_store_checkout:checkout_scrollbar_layer, mtxmgt_store_checkout:checkout_layer);
+    if_setposition(18, if_gety(mtxmgt_store_checkout:checkout_checkmark_layer), ^setpos_abs_right, ^setpos_abs_top, mtxmgt_store_checkout:checkout_checkmark_layer);
+    $int15 = 1;
+}
+while ($int2 < 11) {
+    $int8, $int9 = ~script13239($int1, $struct10, $component0, $component12, $int8, $int3, $int9, 1, $int4);
+    $int2 = calc($int2 + 1);
+}
+$int1 = 0;
+while ($int1 < 11) {
+    ~script13236($int1, $int15);
+    $int1 = calc($int1 + 1);
+}

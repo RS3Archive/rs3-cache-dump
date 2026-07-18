@@ -1,0 +1,16 @@
+// 2512
+[proc,settings_validate_master](dbrow $dbrow0, dbrow $dbrow1, int $int2)(int)
+if ($dbrow0 = null) {
+    return(~settings_find_master($dbrow1));
+}
+def_int $int3 = 0;
+def_int $int4 = db_getfieldcount($dbrow0, settings_category:col3);
+def_dbrow $dbrow5 = null;
+while ($int3 < $int4) {
+    $dbrow5 = db_getfield($dbrow0, settings_category:col3, $int3);
+    if ($dbrow5 = $dbrow1) {
+        return($int2);
+    }
+    $int3 = calc($int3 + 1);
+}
+return(~settings_find_master($dbrow1));

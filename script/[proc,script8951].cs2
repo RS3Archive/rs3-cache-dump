@@ -1,0 +1,42 @@
+// 8951
+[proc,script8951](struct $struct0, boolean $boolean1)(string, string, cursor)
+def_string $string0 = "";
+def_string $string1 = "";
+def_cursor $cursor2 = null;
+def_coord $coord3 = struct_param($struct0, task_step_1_arrow);
+if (%cheevo_path_guidance_id > 0 & %cheevo_path_guidance_id = struct_param($struct0, cheevo_unique_id)) {
+    if ($coord3 ! null) {
+        $string0 = "Clear Guidance";
+        if ($boolean1 = true) {
+            $string1 = "Tap to Clear Guidance";
+        } else {
+            $string1 = "Click to Clear Guidance";
+        }
+        $cursor2 = cursor_cross;
+    } else {
+        $string0 = "Clear Selection";
+        if ($boolean1 = true) {
+            $string1 = "Tap to Clear Selection";
+        } else {
+            $string1 = "Click to Clear Selection";
+        }
+        $cursor2 = cursor_cross;
+    }
+} else if ($coord3 ! null) {
+    $string0 = "View Guidance";
+    if ($boolean1 = true) {
+        $string1 = "Tap for Guidance";
+    } else {
+        $string1 = "Click for Guidance";
+    }
+    $cursor2 = cursor_info;
+} else {
+    $string0 = "View Select";
+    if ($boolean1 = true) {
+        $string1 = "Tap to Select";
+    } else {
+        $string1 = "Click to Select";
+    }
+    $cursor2 = cursor_use;
+}
+return($string0, $string1, $cursor2);

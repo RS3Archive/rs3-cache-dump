@@ -1,0 +1,32 @@
+// 2958
+[proc,script2958](int $int0, int $int1, component $component2)
+if (~is_mobile_client = false) {
+    return;
+}
+if (.unknown_command_34($int0, $int1) = true) {
+    switch_component (.cc_getlayer) {
+        case bank:bank_inv :
+            ~mobile_tooltip_object(.cc_getinvobject, bank, .cc_getid, $component2, $int1);
+            return;
+        case trademain:your_offer_layer, trademain:other_offer_layer :
+            ~mobile_tooltip_object(.cc_getinvobject, tradeoffer, .cc_getid, $component2, $int1);
+            return;
+        case thas_lodestone_map:world_locations :
+            ~script14999(.cc_param(toplevel_v2_tooltip_mobile_com), $component2, $int1);
+            return;
+    }
+    switch_int (.cc_param(toplevel_v2_tooltip_mobile_tooltip_type)) {
+        case 0 :
+            ~mobile_tooltip_object(.cc_param(toplevel_v2_tooltip_mobile_item), .cc_param(toplevel_v2_tooltip_mobile_inv), .cc_param(toplevel_v2_tooltip_mobile_item_slot), $component2, $int1);
+        case 5 :
+            ~mobile_tooltip_mtx_object(.cc_getlayer, .cc_getid);
+        case 1 :
+            ~mobile_tooltip_ability(.cc_param(toplevel_v2_tooltip_mobile_struct), $component2, $int1);
+        case 2 :
+            ~mobile_tooltip_text(.cc_param(toplevel_v2_tooltip_mobile_string), $component2, $int1);
+        case 3 :
+            ~script3349(.cc_param(toplevel_v2_tooltip_mobile_stat), $component2, $int1);
+        case 4 :
+            ~script5577(.cc_param(toplevel_v2_tooltip_mobile_struct), $component2, $int1);
+    }
+}

@@ -1,0 +1,73 @@
+// 19176
+[clientscript,script19176](obj $obj0, int $int1, int $int2, obj $obj3, int $int4, int $int5, obj $obj6, int $int7, int $int8, int $int9, int $int10)
+if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_bottom, trh_academy_shared_overlay:bonus_claim_button);
+if_sethide(true, trh_academy_shared_overlay:parchment_layer);
+def_string $string0 = "";
+if ($int9 = 1) {
+    $string0 = "Milestone Level Reward";
+    switch_int ($int10) {
+        case 50263 :
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh_academy_shared_overlay:claim_window);
+        case 2951 :
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh_academy_shared_overlay:claim_window);
+        case default :
+            if_setposition(-15, 0, ^setpos_abs_right, ^setpos_abs_centre, trh_academy_shared_overlay:claim_window);
+    }
+} else {
+    $string0 = ~script19177($int10);
+    switch_int ($int10) {
+        case 50263 :
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh_academy_shared_overlay:claim_window);
+        case 2951 :
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh_academy_shared_overlay:claim_window);
+        case default :
+            if_setposition(-15, 0, ^setpos_abs_left, ^setpos_abs_centre, trh_academy_shared_overlay:claim_window);
+    }
+}
+if_settext($string0, trh_academy_shared_overlay:claim_title);
+def_int $int11 = 0;
+if (~script19178(1, $obj0, $int1, $int2) = true) {
+    $int11 = calc($int11 + 1);
+}
+if (~script19178(2, $obj3, $int4, $int5) = true) {
+    $int11 = calc($int11 + 1);
+}
+if (~script19178(3, $obj6, $int7, $int8) = true) {
+    $int11 = calc($int11 + 1);
+}
+def_int $int12 = -5;
+def_component $component13 = null;
+def_component $component14 = null;
+def_component $component15 = null;
+def_component $component16 = null;
+switch_int ($int11) {
+    case 0 :
+        if_sethide(true, trh_academy_shared_overlay:claim_layer);
+        ~wof_hotkey(1);
+        return;
+    case 1 :
+        $component13, $component14, $component15, $component16 = ~script19179(1);
+        switch_int ($int10) {
+            case 32986 :
+                if ($int9 = 1 & %trh182_character_level >= 138) {
+                    ~script17136($component16);
+                } else {
+                    if_setposition(0, $int12, ^setpos_abs_centre, ^setpos_abs_centre, $component16);
+                }
+            case default :
+                if_setposition(0, $int12, ^setpos_abs_centre, ^setpos_abs_centre, $component16);
+        }
+    case 2 :
+        $component13, $component14, $component15, $component16 = ~script19179(1);
+        if_setposition(-90, $int12, ^setpos_abs_centre, ^setpos_abs_centre, $component16);
+        $component13, $component14, $component15, $component16 = ~script19179(2);
+        if_setposition(90, $int12, ^setpos_abs_centre, ^setpos_abs_centre, $component16);
+    case 3 :
+        $component13, $component14, $component15, $component16 = ~script19179(1);
+        if_setposition(30, $int12, ^setpos_abs_left, ^setpos_abs_centre, $component16);
+        $component13, $component14, $component15, $component16 = ~script19179(2);
+        if_setposition(0, $int12, ^setpos_abs_centre, ^setpos_abs_centre, $component16);
+        $component13, $component14, $component15, $component16 = ~script19179(3);
+        if_setposition(30, $int12, ^setpos_abs_right, ^setpos_abs_centre, $component16);
+}
+if_sethide(false, trh_academy_shared_overlay:claim_layer);

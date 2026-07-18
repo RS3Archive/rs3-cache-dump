@@ -1,0 +1,68 @@
+// 18444
+[proc,script18444]
+def_int $int0 = 0;
+def_dbrow $dbrow1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_int $int8 = 0;
+def_boolean $boolean9 = ~script18410;
+def_boolean $boolean10 = ~script18416;
+def_boolean $boolean11 = ~script18413(1);
+def_dbrow $dbrow12 = ~script18427;
+def_string $string0 = "";
+def_string $string1 = "";
+def_graphic $graphic13 = null;
+def_boolean $boolean14 = false;
+def_boolean $boolean15 = false;
+def_int $int16 = db_listall(buff_select_interface_components);
+while (++$int0 <= $int16) {
+    $dbrow1 = ~script18445($int0);
+    $component2 = db_getfield($dbrow1, buff_select_interface_components:col1, 0);
+    $component3 = db_getfield($dbrow1, buff_select_interface_components:col2, 0);
+    $component4 = db_getfield($dbrow1, buff_select_interface_components:col3, 0);
+    $component5 = db_getfield($dbrow1, buff_select_interface_components:col4, 0);
+    $component6 = db_getfield($dbrow1, buff_select_interface_components:col5, 0);
+    $component7 = db_getfield($dbrow1, buff_select_interface_components:col6, 0);
+    $int8 = ~script18428($int0, $dbrow12);
+    $boolean14 = ~script18446($int8, $boolean9, $boolean10, $boolean11);
+    $boolean15 = ~script18447($int0, $int8, $boolean9, $boolean10);
+    $string0 = ~script18429($int8);
+    $string1 = ~script18430($int8);
+    $graphic13 = ~script18433($int8);
+    if (if_find($component2) = true) {
+        ~script7872($boolean14, true, true, $boolean15);
+        if ($boolean14 = true) {
+            cc_setmouseovercursor(cursor_info);
+        }
+    }
+    if (if_find($component3) = true) {
+        cc_settext($string0);
+    }
+    if (if_find($component4) = true) {
+        cc_settext($string1);
+        ~script16926(fonts_notosans_regular, 6, 13, 11);
+    }
+    if (if_find($component5) = true) {
+        cc_setgraphic($graphic13);
+        cc_setsize(100, 100, ^setsize_abs, ^setsize_abs);
+    }
+    if (if_find($component6) = true) {
+        cc_sethide($boolean14);
+    }
+    if ($boolean11 = true) {
+        if_sethide(false, $component7);
+    } else {
+        if_sethide(true, $component7);
+    }
+}
+if (if_find(buff_select_event:buff_select_button) = true) {
+    if ($boolean11 = false) {
+        cc_setenabled(true);
+    } else {
+        cc_setenabled(false);
+    }
+}

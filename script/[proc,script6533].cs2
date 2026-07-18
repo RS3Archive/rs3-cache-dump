@@ -1,0 +1,42 @@
+// 6533
+[proc,script6533](struct $struct0, int $int1, int $int2, int $int3)
+if ($int3 ! 1) {
+    return;
+}
+def_enum $enum4 = ~script5675($struct0, $int1, $int2);
+if ($enum4 = null) {
+    return;
+}
+~script5671;
+cc_deleteall(investigate:information);
+if_sethide(false, investigate:keywords_title);
+def_string $string0 = ~script5688($struct0, $int1, $int2);
+if (~script5647($struct0, $int1, $int2) = 1) {
+    if (string_length($string0) > 0) {
+        if_settext($string0, investigate:section_title);
+    }
+    if_sethide(false, investigate:replay_button);
+} else {
+    if_settext("???", investigate:section_title);
+    if_sethide(true, investigate:replay_button);
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_string $string1 = "";
+def_int $int7 = 0;
+def_int $int8 = enum_getoutputcount($enum4);
+while ($int5 < $int8) {
+    $int6 = enum(int, int, $enum4, $int5);
+    if (~script5648($struct0, $int1, $int6) >= 1) {
+        $string1 = ~script5684($struct0, $int1, $int6);
+        if (string_length($string1) > 0) {
+            ~script5674(investigate:information, $int7);
+            ~script5673(investigate:information, $int7, $string1);
+        }
+    } else {
+        ~script5674(investigate:information, $int7);
+        ~script5673(investigate:information, $int7, "???");
+    }
+    $int5 = calc($int5 + 1);
+    $int7 = calc($int7 + 12);
+}

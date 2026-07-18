@@ -1,0 +1,16 @@
+// 14334
+[proc,script14334](obj $obj0, component $component1, component $component2)
+def_int $int3 = inv_total(inv, $obj0);
+if ($obj0 = huntcharm_stave_enhanced | $obj0 = huntcharm_stave) {
+    $int3 = calc($int3 + inv_total(worn, $obj0));
+}
+def_int $int4 = enum(obj, int, hunter_charms_exchange_capacity, $obj0);
+if ($int3 = 0) {
+    if_setobject_alwaysnum($obj0, $int3, $component2);
+    if_settrans(128, $component2);
+} else {
+    if_setobject($obj0, $int3, $component2);
+    if_settrans(0, $component2);
+}
+if_setopbase("<col=ff9040><oc_name($obj0)>", $component1);
+if_setonmouserepeat("script9564($obj0, $component1, -1)", $component1);

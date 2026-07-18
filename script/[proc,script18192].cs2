@@ -1,0 +1,54 @@
+// 18192
+[proc,script18192](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, string $string0)
+def_int $int6 = 0;
+if (testbit(calc($int5 & 12858), 13) = ^true) {
+    $int6 = 1;
+}
+def_dbrow $dbrow7 = null;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_struct $struct11 = null;
+def_int $int12 = if_getscrolly(mtxmgt_store:items_layer);
+def_string $string1 = "";
+def_boolean $boolean13 = false;
+def_struct $struct14 = null;
+def_component $component15 = null;
+def_int $int16 = 0;
+if (if_find(mtxmgt_store:item_buttons_layer) = true) {
+    cc_setparam(rs3tli_component_param_int0, -1);
+}
+if (if_find(mtxmgt_store:items_layer) = true) {
+    $int8 = max(0, cc_param(mtxmgt_first_visible_index));
+    $dbrow7, $int0 = ~script18193($dbrow7, $int8, $int0, $int6, $string0, $int2, $int3, $int4);
+    $int9 = cc_getwidth;
+    $struct11 = enum(int, struct, mtxmgt_store_item_button_structs, ++$int10);
+    while ($dbrow7 ! null & $struct11 ! null) {
+        ~script18196($struct11, $dbrow7, $int8, $int12, $int4, $int9);
+        $boolean13 = ~script18197($struct11, $dbrow7);
+        $struct14 = ~script18198($struct11, $dbrow7);
+        ~script18201($struct11, $dbrow7);
+        $component15 = struct_param($struct11, rs3tli_button_content_layer);
+        cc_deleteall($component15);
+        if ($boolean13 = true) {
+            ~script13179($component15, $dbrow7);
+            $boolean13 = false;
+        }
+        $int8 = calc($int8 + 1);
+        $dbrow7, $int0 = ~script18193($dbrow7, $int8, $int0, $int6, $string0, $int2, $int3, $int4);
+        $struct11 = enum(int, struct, mtxmgt_store_item_button_structs, ++$int10);
+    }
+    while ($struct11 ! null & .if_find(if_getlayer(struct_param($struct11, rs3tli_button_on_layer))) = true) {
+        .cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+        $struct11 = enum(int, struct, mtxmgt_store_item_button_structs, ++$int10);
+    }
+}
+$int0 = calc($int0 + ~script18194($dbrow7, $int6, $string0, $int2, $int3, $int4));
+def_int $int17 = max(0, calc($int0 * (20 + 4)));
+if (%varclientbit_35137 = 1 & %mtxmgt_store_keepsake_slots_used < inv_size(worn_custom_overrides)) {
+    $int17 = calc($int17 - 20 + 155);
+}
+if (if_find(mtxmgt_store:filter_error_message_layer) = true) {
+    ~script13248($int0, $string0, mtxmgt_store:filter_error_message_layer);
+}
+~script13171($int17, 0);

@@ -1,0 +1,76 @@
+// 15979
+[proc,script15979](component $component0, int $int1, struct $struct2, int $int3)
+if (if_gethide(toplevel_v2:context_menu_layer) = false & ~script6354(toplevel_v2_parents_quickchildren:border_layer) = true) {
+    return;
+}
+if (~script15532(0) = true | %toplevel_v2_legacy_interface = 1) {
+    return;
+}
+if (%toplevel_v2_window_being_dragged ! -1) {
+    return;
+}
+if ($struct2 = null | $component0 = null) {
+    return;
+}
+def_enum $enum4 = struct_param($struct2, toplevel_v2_parent_quick_children);
+if ($enum4 = null) {
+    return;
+}
+def_int $int5 = enum_getoutputcount($enum4);
+if ($int5 = 0) {
+    return;
+}
+def_int $int6 = 1;
+if ($enum4 = toplevel_v2_parent_social_children) {
+    $int6 = 2;
+    if (~script19316 = false) {
+        $int5 = calc($int5 - 2);
+    }
+    if (%toplevel_v2_chat_style = 1) {
+        $int5 = calc($int5 - 6);
+    }
+}
+def_int $int7 = calc($int5 / $int6);
+if (calc($int5 % $int6) > 0) {
+    $int7 = calc($int7 + 1);
+}
+def_int $int8 = calc($int7 * 32 + ($int7 - 1) * 4 + 16);
+def_int $int9 = calc($int6 * 32 + ($int6 - 1) * 4 + 16);
+def_int $int10 = 0;
+def_int $int11 = -8;
+def_int $int12 = 2;
+def_component $component13 = toplevel_v2_ribbon:ribbon_root;
+if ($int3 = 1) {
+    $component13 = toplevel_v2_ribbon_extra:all;
+}
+if (if_getwidth($component13) < if_getheight($component13)) {
+    $int10 = 3;
+}
+if (%toplevel_v2_active_skinset = 1) {
+    if ($int10 = 0) {
+        $int8 = calc($int7 * 32 + 8);
+        $int9 = calc(32 * $int6 + 8);
+    } else {
+        $int8 = calc($int7 * 32 + 8);
+        $int9 = calc(32 * $int6 + 8);
+    }
+    $int11 = -11;
+    $int12 = 2;
+}
+if (cc_find($component0, $int1) = true) {
+    if ($int10 = 0) {
+        $int10 = ~script8788($int9, $int8, $component0, $int1, $int10, $int11, $int12);
+    } else {
+        $int10 = ~script8788($int8, $int9, $component0, $int1, $int10, $int12, $int11);
+    }
+} else {
+    return;
+}
+if_opensubclient(toplevel_v2:context_menu_content_layer, toplevel_v2_parents_quickchildren);
+~script8421(toplevel_v2_parents_quickchildren:background_layer, toplevel_v2_parents_quickchildren:border_layer, toplevel_v2_parents_quickchildren:content_layer, null, "", toplevel_v2_bespoke_window_skin_data, -1, 0, null, toplevel_v2_window_data_ribbon);
+if (if_find(toplevel_v2_parents_quickchildren:quickchild) = true) {
+    cc_setparam(toplevel_v2_quickchildren_current, $enum4);
+    cc_setparam(toplevel_v2_quickchildren_direction, $int10);
+}
+~script8153($enum4, $int10);
+%varclientbit_50046 = $int10;

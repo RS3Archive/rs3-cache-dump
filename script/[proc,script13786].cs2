@@ -1,0 +1,56 @@
+// 13786
+[proc,script13786]
+if (%follower_obj = null | ~script4157 ! 5) {
+    return;
+}
+def_struct $struct0 = nc_param(oc_param(%follower_obj, follower_npc), mtxmgt_pet_struct);
+def_struct $struct1 = enum(struct, struct, mtxmgt_pets_struct_structinfo, $struct0);
+def_struct $struct2 = struct_param(mtxmgt_recolours, mtxrecol_recolsource);
+def_int $int3 = ~script3204($struct0);
+def_npc $npc4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+switch_int ($int3) {
+    case 1 :
+        $npc4 = struct_param($struct1, mtxmgt_pet_baby_npc);
+        $int5 = struct_param($struct1, mtxmgt_pet_interface_zoom_baby);
+        $int7 = struct_param($struct1, mtxmgt_pet_interface_y_offset_baby);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_rel_centre, lore_stats_side:lore_chathead);
+    case 2 :
+        $npc4 = struct_param($struct1, mtxmgt_pet_juvi_npc);
+        $int5 = struct_param($struct1, mtxmgt_pet_interface_zoom_juvi);
+        $int7 = struct_param($struct1, mtxmgt_pet_interface_y_offset_juvi);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_rel_centre, lore_stats_side:lore_chathead);
+    case 3 :
+        $npc4 = struct_param($struct1, mtxmgt_pet_adult_npc);
+        $int5 = struct_param($struct1, mtxmgt_pet_interface_zoom_adult);
+        $int7 = struct_param($struct1, mtxmgt_pet_interface_y_offset_adult);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_rel_centre, lore_stats_side:lore_chathead);
+}
+if_setnpcmodel($npc4, lore_stats_side:lore_chathead);
+if_setmodelzoom($int5, lore_stats_side:lore_chathead);
+if_setposition(0, ~script13787($int7), ^setpos_abs_centre, ^setpos_rel_centre, lore_stats_side:lore_chathead);
+if ($struct2 ! null & $npc4 ! null) {
+    if_npc_setcustomrecol(1, struct_param($struct2, mtxrecol_recolour_colour1), lore_stats_side:lore_chathead);
+    if_npc_setcustomrecol(2, struct_param($struct2, mtxrecol_recolour_colour2), lore_stats_side:lore_chathead);
+    if_npc_setcustomrecol(3, struct_param($struct2, mtxrecol_recolour_colour3), lore_stats_side:lore_chathead);
+    if_npc_setcustomrecol(4, struct_param($struct2, mtxrecol_recolour_colour4), lore_stats_side:lore_chathead);
+}
+if_sethide(false, lore_stats_side:lore_pets);
+if_sethide(true, lore_stats_side:lore_pet_hunger_button);
+if (%lore_animal_size_percent = 101) {
+    if_sethide(true, lore_stats_side:lore_pet_growth_button);
+}
+if (%mtx_pet_bob_ability = 0) {
+    if_sethide(true, lore_stats_side:time);
+} else {
+    if_sethide(false, lore_stats_side:time);
+}
+if_sethide(true, lore_stats_side:lore_renew_button);
+if_sethide(true, lore_stats_side:lore_spell_points_holder);
+~script11727(0);
+if_setposition(10, 44, ^setpos_abs_left, ^setpos_abs_top, lore_stats_side:call_animal_button);
+~script15829(0);
+~script15833;
+~script14446(~int_to_bool(%mtx_pet_bob_ability));

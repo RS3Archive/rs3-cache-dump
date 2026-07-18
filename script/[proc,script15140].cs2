@@ -1,0 +1,43 @@
+// 15140
+[proc,script15140](dbrow $dbrow0)(boolean)
+if ($dbrow0 = null) {
+    return(true);
+}
+def_graphic $graphic1 = null;
+def_obj $obj2 = null;
+$obj2, $graphic1 = db_getfield($dbrow0, event_crafting_core_recipe:col1, 0);
+def_struct $struct3 = null;
+if ($obj2 ! null) {
+    $struct3 = oc_param($obj2, mtxmgt_item_struct);
+}
+if ($struct3 = null) {
+    $struct3 = oc_param($obj2, mtxmgt_pet_struct);
+}
+if ($struct3 ! null & struct_param($struct3, mtxmgt_parent_id) > 0) {
+    switch_struct ($struct3) {
+        case event8_outfit_struct :
+            if (%event8_head_unlocked = 1 & %event8_body_unlocked = 1 & %event8_legs_unlocked = 1 & %event8_hand_unlocked = 1 & %event8_feet_unlocked = 1 & %event8_staff_unlocked = 1 & %event8_cape_unlocked = 1 & %event8_outfit_unlocked = 1) {
+                return(true);
+            } else {
+                return(false);
+            }
+        case event5_outfit_struct :
+            if (%event5_head_unlocked = 1 & %event5_body_unlocked = 1 & %event5_legs_unlocked = 1 & %event5_hand_unlocked = 1 & %event5_feet_unlocked = 1 & %event5_shield_unlocked = 1 & %event5_cape_unlocked = 1 & %event19_wings_unlocked = 1 & %event5_outfit_unlocked = 1) {
+                return(true);
+            } else {
+                return(false);
+            }
+        case default :
+            return(~int_to_bool(~script10881($struct3)));
+    }
+}
+switch_dbrow ($dbrow0) {
+    case event_crafting_event19_plushie :
+        return(~int_to_bool(%event19_plushie_unlocked));
+    case default :
+        if (db_getfield($dbrow0, event_crafting_core_recipe:col5, 0) = false) {
+            ~error("Missing a plugin for recipe ID - <tostring(db_getfield($dbrow0, event_crafting_core_recipe:col0, 0))>");
+            return(true);
+        }
+}
+return(false);

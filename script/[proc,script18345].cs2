@@ -1,0 +1,76 @@
+// 18345
+[proc,script18345]
+def_dbrow $dbrow0 = null;
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = -1;
+def_component $component5 = null;
+def_component $component6 = null;
+def_graphic $graphic7 = null;
+def_graphic $graphic8 = null;
+def_graphic $graphic9 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int10 = 0;
+def_int $int11 = 0;
+while (++$int11 <= 3) {
+    switch_int ($int11) {
+        case 1 :
+            $dbrow0 = ~script17355(%trh195_potion_1);
+            $component2 = trh195:potion_graphic_1;
+            $component1 = trh195:potion_name_1;
+            $component3 = trh195:potion_gem_1;
+            $int4 = 83296279;
+            $component5 = trh195:gem_plus_1;
+            $component6 = trh195:potion_name_1;
+        case 2 :
+            $dbrow0 = ~script17355(%trh195_potion_2);
+            $component2 = trh195:potion_graphic_2;
+            $component1 = trh195:potion_name_2;
+            $component3 = trh195:potion_gem_2;
+            $int4 = 83296288;
+            $component5 = trh195:gem_plus_2;
+            $component6 = trh195:potion_name_2;
+        case 3 :
+            $dbrow0 = ~script17355(%trh195_potion_3);
+            $component2 = trh195:potion_graphic_3;
+            $component1 = trh195:potion_name_3;
+            $component3 = trh195:potion_gem_3;
+            $int4 = 83296297;
+            $component5 = trh195:gem_plus_3;
+            $component6 = trh195:potion_name_3;
+        case default :
+            ~error("Attempting to generate potion in incorrect position: <tsotring>. Setting up default potion.");
+            $dbrow0 = ~script17355(1);
+            $component2 = trh195:potion_graphic_2;
+            $component1 = trh195:potion_name_2;
+            $component3 = trh195:potion_gem_2;
+            $int4 = 83296288;
+            $component5 = trh195:gem_plus_2;
+            $component6 = trh195:potion_name_2;
+    }
+    if ($dbrow0 = null) {
+        ~error("Null potion option with potions: <tostring(%trh195_potion_1)>,<tostring(%trh195_potion_2)>,<tostring(%trh195_potion_3)>, using default potion.");
+        $dbrow0 = trh195_potion_yellow;
+    }
+    $int10 = db_getfield($dbrow0, trh195_potions:col5, 0);
+    $graphic7 = db_getfield($dbrow0, trh195_potions:col3, 0);
+    $graphic8 = db_getfield($dbrow0, trh195_potions:col4, 0);
+    $string0 = db_getfield($dbrow0, trh195_potions:col1, 0);
+    $string1 = db_getfield($dbrow0, trh195_potions:col2, 0);
+    $graphic9 = ~script8948($int10);
+    if_setgraphic($graphic7, $component2);
+    if_setgraphic($graphic9, $component3);
+    if_setonmouseover("script18361($component2, $graphic8)", $component2);
+    if_setonmouseleave("script18361($component2, $graphic7)", $component2);
+    if_settext("<~script18341($int10)><~script10876($int10)> Potion</col>", $component6);
+    ~script18351($string1, $component1);
+    ~script18349($component2, $string0);
+    ~script18346;
+    if ($int10 = 5) {
+        if_sethide(true, $component5);
+    } else {
+        if_sethide(false, $component5);
+    }
+}

@@ -1,0 +1,36 @@
+// 5940
+[proc,script5940]
+%create_send_me_news = true;
+%evalid_input_1 = "";
+%evalid_input_2 = "";
+%evalid_received_rewards = 0;
+if_sethide(false, lobbyscreen:email_validation);
+if_sethide(false, lobbyscreen_evalid:request_email);
+if (%lobbyscreen_account_creation_runeday >= 4163) {
+    if (calc(date_runeday - %lobbyscreen_account_creation_runeday) >= 5 & %email_validation_validated = 2) {
+        if_sethide(true, lobbyscreen_evalid:skip);
+    }
+} else {
+    if_sethide(false, lobbyscreen_evalid:skip);
+    if_settext("", lobbyscreen_evalid:body_text);
+}
+if (%evalid_existing_account_validation_state = 1 | %evalid_existing_account_validation_state = 5) {
+    if_sethide(true, lobbyscreen_evalid:evalid_resend_layer);
+}
+if (%evalid_existing_account_validation_state = 3 | %evalid_existing_account_validation_state = 6) {
+    if_settext("To continue your adventure, you need to validate your account using the email address you entered at login.", lobbyscreen_evalid:body_text);
+    if_settext("No email?", lobbyscreen_evalid:evalid_resend_title);
+    if_settext("Please use the button below to request an email so we can validate your account.<br>If you can't find the email, make sure to check your junk or spam folder.", lobbyscreen_evalid:evalid_resend_body);
+    if_settext("Need a change?", lobbyscreen_evalid:evalid_email_title);
+    if_settext("If you need to update your email address, please use the button to access your account settings.", lobbyscreen_evalid:evalid_email_body);
+    if_settext("Account Settings", lobbyscreen_evalid:account_settings);
+    if_setop(1, "Account Settings", lobbyscreen_evalid:account_settings);
+} else {
+    if_settext("To continue your adventure, you need to validate your account using an email address.", lobbyscreen_evalid:body_text);
+    if_settext("No email?", lobbyscreen_evalid:evalid_resend_title);
+    if_settext("Please use the button below to request an email so we can validate your account.<br>If you can't find the email, make sure to check your junk or spam folder.", lobbyscreen_evalid:evalid_resend_body);
+    if_settext("Enter your email", lobbyscreen_evalid:evalid_email_title);
+    if_settext("Validate your email address on our website by using the button below.", lobbyscreen_evalid:evalid_email_body);
+    if_settext("Validate Email", lobbyscreen_evalid:account_settings);
+    if_setop(1, "Validate Email", lobbyscreen_evalid:account_settings);
+}

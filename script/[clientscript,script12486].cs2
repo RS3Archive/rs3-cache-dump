@@ -1,0 +1,15 @@
+// 12486
+[clientscript,script12486](string $string0)
+if (compare("", %mm16_task_steps) ! 0) {
+    if_settext("<$string0><br><%mm16_task_steps>", mm16_cases:task_popup_info);
+} else {
+    if_settext($string0, mm16_cases:task_popup_info);
+}
+def_int $int0 = calc(12 * paraheight(if_gettext(mm16_cases:task_popup_info), if_getwidth(mm16_cases:text_layer), if_getfontmetrics(mm16_cases:task_popup_info)));
+if ($int0 > if_getheight(mm16_cases:text_layer)) {
+    if_setscrollsize(0, $int0, mm16_cases:text_layer);
+} else {
+    if_setscrollsize(0, 0, mm16_cases:text_layer);
+    if_setscrollpos(0, 0, mm16_cases:text_layer);
+}
+~rs3_scrollbar_vertical(mm16_cases:scrollbar, mm16_cases:text_layer);

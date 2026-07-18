@@ -1,0 +1,19 @@
+// 9084
+[proc,script9084](int $int0)
+if ($int0 = 1) {
+    %keyboard_manager_listening_input_subsystem = 17;
+    if (%bugreport_input_focus = 1) {
+        if_setonkey("bugreport_input_keyboard(event_keycode, event_keychar, event_com, 0)", bugreport_interface:input_text);
+        if_setonkey(null, bugreport_interface:input_repro);
+    } else {
+        if_setonkey("bugreport_input_keyboard(event_keycode, event_keychar, event_com, 0)", bugreport_interface:input_repro);
+        if_setonkey(null, bugreport_interface:input_text);
+    }
+} else {
+    if (%keyboard_manager_listening_input_subsystem = 17) {
+        %keyboard_manager_listening_input_subsystem = 0;
+    }
+    if_setonkey(null, bugreport_interface:input_text);
+    if_setonkey(null, bugreport_interface:input_repro);
+    ~script1594;
+}

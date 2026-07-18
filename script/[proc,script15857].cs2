@@ -1,0 +1,31 @@
+// 15857
+[proc,script15857](dbrow $dbrow0)
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+$graphic1, $graphic2, $graphic3, $graphic4 = db_getfield($dbrow0, mobile_social_panel_button_info:col3, 0);
+if ($graphic1 = null | $graphic2 = null | $graphic3 = null | $graphic4 = null) {
+    if_sethide(true, mobile_chat_panel:tabs_layer);
+    return;
+}
+if_setgraphic(tab_mobile_chat_top_default, mobile_chat_panel:tab1_bg);
+if_setgraphic(null, mobile_chat_panel:tab1_icon);
+if_setgraphic(tab_mobile_chat_top_default, mobile_chat_panel:tab2_bg);
+if_setgraphic(null, mobile_chat_panel:tab2_icon);
+def_string $string0 = if_gettext(mobile_chat_panel:main_title);
+if_setopbase($string0, mobile_chat_panel:tab_1);
+if_setopbase(append($string0, " List"), mobile_chat_panel:tab_2);
+if (%mobile_chat_panel_current_tab = 0) {
+    if_setgraphic(tab_mobile_chat_top_active, mobile_chat_panel:tab1_bg);
+    if_setgraphic($graphic2, mobile_chat_panel:tab1_icon);
+    if_settext("Channel", mobile_chat_panel:secondary_title);
+    if_setgraphic($graphic3, mobile_chat_panel:tab2_icon);
+    if_sendtofront(mobile_chat_panel:tab_1);
+} else {
+    if_setgraphic(tab_mobile_chat_top_active, mobile_chat_panel:tab2_bg);
+    if_setgraphic($graphic4, mobile_chat_panel:tab2_icon);
+    if_settext("List", mobile_chat_panel:secondary_title);
+    if_setgraphic($graphic1, mobile_chat_panel:tab1_icon);
+    if_sendtofront(mobile_chat_panel:tab_2);
+}

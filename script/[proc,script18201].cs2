@@ -1,0 +1,21 @@
+// 18201
+[proc,script18201](struct $struct0, dbrow $dbrow1)
+if ($dbrow1 = null) {
+    return;
+}
+def_string $string0 = ~script18200($dbrow1);
+def_obj $obj2 = null;
+if (db_getfieldcount($dbrow1, mtxmgt_cosmetic:col17) > 0) {
+    $obj2 = ~script15764($dbrow1);
+}
+if (if_find(struct_param($struct0, rs3tli_button_text_component)) = true) {
+    cc_settext(~script3930($string0, cc_getwidth, 1, cc_getfontmetrics));
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    if (.if_find(if_getlayer(cc_getlayer)) = true) {
+        if ($obj2 ! null) {
+            .cc_setonmouserepeat("script13180(event_com, event_comsubid, $dbrow1, 1)");
+        } else {
+            .cc_setonmouserepeat("script13180(event_com, event_comsubid, $dbrow1, 0)");
+        }
+    }
+}

@@ -1,0 +1,22 @@
+// 9927
+[proc,script9927](int $int0)(dbrow)
+def_int $int1 = ~script9743(calc($int0 / 4));
+if ($int1 = -1) {
+    return(null);
+}
+def_int $int2 = 0;
+switch_int (calc($int0 % 4)) {
+    case 0 :
+        $int2 = getbit_range($int1, 0, 7);
+    case 1 :
+        $int2 = getbit_range($int1, 8, 15);
+    case 2 :
+        $int2 = getbit_range($int1, 16, 23);
+    case 3 :
+        $int2 = getbit_range($int1, 24, 31);
+}
+if ($int2 <= 0) {
+    return(null);
+}
+db_find(construction_house_portal_nexus_teleport_destinations:col0, $int2);
+return(db_findnext);

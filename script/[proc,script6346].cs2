@@ -1,0 +1,32 @@
+// 6346
+[proc,script6346](int $int0, int $int1, int $int2)(int)
+def_string $string0 = "";
+def_graphic $graphic3 = null;
+switch_int ($int0) {
+    case 27 :
+        if (%invent_tutorial_state < 105 & stat_base(crafting) >= 80 & stat_base(divination) >= 80 & stat_base(smithing) >= 80) {
+            $graphic3 = "skill_icon_invention_52px,0";
+            $string0 = "Visit the <col=FFFFFF>Invention Guild</col> north-east of the <col=FFFFFF>Falador lodestone</col> to get started.";
+            return(~script8790($int2, $string0, $graphic3));
+        }
+    case 17 :
+        if ($int1 = 4) {
+            $string0 = "Potency of an incense affects how powerful its effect is. Potency starts at 1 when incense is lit and will increase every 10 minutes, capping at 4, as long as the incense doesn't run out. Overloading incense means it starts at full potency, but uses 6 incense sticks in the process.";
+            return(~script8790($int2, $string0, $graphic3));
+        }
+    case 28 :
+        if (%arch_tutorial < 100) {
+            $graphic3 = "skill_icon_archaeology_52px,0";
+            $string0 = "Visit the <col=FFFFFF>Archaeology campus</col> east of the <col=FFFFFF>Varrock lodestone</col> to get started.";
+            return(~script8790($int2, $string0, $graphic3));
+        } else {
+            switch_int ($int1) {
+                case 4, 5, 6, 7, 8, 9, 10 :
+                case 11 :
+                case 12 :
+                    $string0 = "Relics are objects of immense power which can be found on your archaeological journey.<br>The power that is contained within these relics can be harnessed by offering them to the <col=FFFFFF>Monolith</col> at the <col=FFFFFF>Archaeology campus</col>.";
+                    return(~script8790($int2, $string0, $graphic3));
+            }
+        }
+}
+return($int2);

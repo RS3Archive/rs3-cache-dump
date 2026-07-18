@@ -1,0 +1,49 @@
+// 18299
+[proc,script18299]
+def_struct $struct0 = null;
+def_struct $struct1 = null;
+def_struct $struct2 = null;
+def_struct $struct3 = null;
+$struct0, $struct1, $struct2, $struct3 = ~script18289;
+def_int $int4 = enum_getoutputcount(combatv2_ability_necromancy_conjure_undead_army_ability_struct_list);
+def_int $int5 = 6;
+def_int $int6 = max(1, calc($int4 / $int5 + ~clamp(calc($int4 % $int5), 0, 1)));
+def_struct $struct7 = null;
+def_graphic $graphic8 = null;
+def_graphic $graphic9 = null;
+def_int $int10 = 0;
+while (++$int10 <= $int4) {
+    $struct7 = enum(int, struct, combatv2_ability_necromancy_conjure_undead_army_ability_struct_list, $int10);
+    ~if_add_child_layer(combatv2_ability_necromancy_conjure_undead_army_customisation:ability_list_grid, $int10, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+    ~cc_add_child_button($int10, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_default, "");
+    if (~script18291($struct7) = false) {
+        $graphic9 = ~script11657(rs3_icon_lock_ability_book);
+    } else {
+        $graphic9 = null;
+    }
+    if ($graphic9 ! null | $struct7 = $struct0 | $struct7 = $struct1 | $struct7 = $struct2 | $struct7 = $struct3) {
+        cc_setenabled(false);
+        cc_setopcursor(1, null);
+        $graphic8 = struct_param($struct7, combatv2_ability_icon_locked);
+    } else {
+        cc_setenabled(true);
+        cc_setop(1, "Select");
+        cc_setopcursor(1, cursor_tick);
+        $graphic8 = struct_param($struct7, combatv2_ability_icon);
+    }
+    if (struct_param($struct7, combatv2_ability_is_members) = 1) {
+        cc_setopbase("<col=F8D56B><struct_param($struct7, combatv2_ability_name)>");
+    } else {
+        cc_setopbase("<col=B8D1D1><struct_param($struct7, combatv2_ability_name)>");
+    }
+    ~cc_add_child_graphic($int10, 3, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 6, 6, ^setsize_minus, ^setsize_minus, $graphic8);
+    ~cc_add_child_graphic($int10, 4, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 6, 6, ^setsize_minus, ^setsize_minus, $graphic9);
+}
+def_int $int11 = 0;
+def_int $int12 = 0;
+if (if_find(combatv2_ability_necromancy_conjure_undead_army_customisation:ability_list_grid) = true) {
+    $int11, $int12 = unknown_command_60(cc_grid_getcellwidth, cc_grid_getcellheight, $int5, $int6, cc_getchildspacing);
+    cc_setsize(0, $int12, ^setsize_minus, ^setsize_abs);
+    if_setscrollsize(0, $int12, combatv2_ability_necromancy_conjure_undead_army_customisation:ability_list_scroll_layer);
+}
+~rs3_scrollbar_vertical(combatv2_ability_necromancy_conjure_undead_army_customisation:ability_list_scrollbar_layer, combatv2_ability_necromancy_conjure_undead_army_customisation:ability_list_scroll_layer);

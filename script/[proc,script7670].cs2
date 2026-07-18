@@ -1,0 +1,22 @@
+// 7670
+[proc,script7670](int $int0, int $int1, component $component2, component $component3)
+if ($component2 = bugreport_interface:input_text) {
+    %bugreport_input_focus = 1;
+    if (~is_mobile_client = true) {
+        %bugreport_caret = string_length(if_gettext($component2));
+    } else {
+        %bugreport_caret = if_getcharindexatpos($int0, $int1, $component2);
+    }
+    ~script7671($component2, $component3, %bugreport_input);
+    ~script1566(0, %bugreport_input, 500);
+} else if ($component2 = bugreport_interface:input_repro) {
+    %bugreport_input_focus = 2;
+    if (~is_mobile_client = true) {
+        %bugreport_caret_repro = string_length(if_gettext($component2));
+    } else {
+        %bugreport_caret_repro = if_getcharindexatpos($int0, $int1, $component2);
+    }
+    ~script7671($component2, $component3, %bugreport_repro);
+    ~script1566(0, %bugreport_repro, 500);
+}
+~script8841(17, 1);

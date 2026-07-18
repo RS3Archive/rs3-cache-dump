@@ -1,0 +1,14 @@
+// 20148
+[clientscript,script20148](int $int0)
+def_dbrow $dbrow1 = ~script20117(%league_active_player);
+if (~script20132($dbrow1) = false) {
+    return;
+}
+def_dbrow $dbrow2 = db_getfield($dbrow1, league:col8, 0);
+def_dbrow $dbrow3 = db_getfield($dbrow2, league_relic_list:col0, %league_relic_selected_tier);
+def_int $int4 = db_getfieldcount($dbrow3, league_relic_tier:col1);
+if (%league_relic_selected_id = 0 & $int0 = -1) {
+    %league_relic_selected_id = calc($int4 - 1);
+} else {
+    %league_relic_selected_id = calc((%league_relic_selected_id + $int0) % $int4);
+}

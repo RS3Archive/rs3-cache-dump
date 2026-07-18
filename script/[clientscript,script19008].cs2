@@ -1,0 +1,92 @@
+// 19008
+[clientscript,script19008]
+def_int $int0 = 40;
+def_int $int1 = 6;
+def_int $int2 = 6;
+def_graphic $graphic3 = "trh119_icon_checkmarks,1";
+def_graphic $graphic4 = "trh119_icon_checkmarks,0";
+def_enum $enum5 = null;
+def_struct $struct6 = ~script16161;
+def_int $int7 = 190;
+def_int $int8 = 52;
+switch_struct ($struct6) {
+    case trh119_promo :
+        $graphic3 = "trh119_icon_checkmarks,1";
+        $graphic4 = "trh119_icon_checkmarks,0";
+        $int1 = 6;
+        $int2 = 6;
+        $int7 = 230;
+        $int8 = 52;
+    case trh142_promo :
+        $int7 = 134;
+        $int8 = 47;
+        $graphic3 = treasurehunter_trh142_icon_crossbones;
+        $graphic4 = treasurehunter_trh142_container_grid;
+        $int1 = 6;
+        $int2 = 6;
+    case trh157_promo :
+        $int7 = 318;
+        $int8 = 47;
+        $graphic3 = "trh119_icon_checkmarks,1";
+        $graphic4 = treasurehunter_trh157_container_grid;
+        $int1 = 10;
+        $int2 = 6;
+        $enum5 = trh157_promo_grid_offsets;
+    case trh172_promo :
+        $int7 = 318;
+        $int8 = 47;
+        $graphic3 = trh172_icon_digsite_cross_highlight;
+        $graphic4 = trh172_grid_digsite_normal;
+        $int1 = 10;
+        $int2 = 6;
+        $enum5 = trh172_promo_grid_offsets;
+    case trh198_promo :
+        $int7 = 413;
+        $int8 = 25;
+        if_setonvartransmit("script18996{trh198_var_2}", trh119_buried_treasure_overlay:grid_rect_layer);
+        $int1 = 7;
+        $int2 = 7;
+        $enum5 = trh198_promo_grid_offsets;
+        $int0 = 43;
+    case default :
+        ~error("Unexpected promo trying to draw buried treasure grid <~script16345($struct6)>");
+}
+if_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top, trh119_buried_treasure_overlay:grid_rect_layer);
+if_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top, trh119_buried_treasure_overlay:grid_chest_layer);
+if_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top, trh119_buried_treasure_overlay:grid_hover_layer);
+if_setsize(calc($int1 * $int0), calc($int2 * $int0), ^setsize_abs, ^setsize_abs, trh119_buried_treasure_overlay:grid_rect_layer);
+if_setsize(calc($int1 * $int0), calc($int2 * $int0), ^setsize_abs, ^setsize_abs, trh119_buried_treasure_overlay:grid_chest_layer);
+if_setsize(calc($int1 * $int0), calc($int2 * $int0), ^setsize_abs, ^setsize_abs, trh119_buried_treasure_overlay:grid_hover_layer);
+def_int $int9 = calc(0 - $int0);
+def_int $int10 = 0;
+def_int $int11 = $int9;
+def_int $int12 = $int10;
+def_int $int13 = 0;
+cc_deleteall(trh119_buried_treasure_overlay:grid_rect_layer);
+cc_deleteall(trh119_buried_treasure_overlay:grid_chest_layer);
+cc_deleteall(trh119_buried_treasure_overlay:grid_hover_layer);
+cc_deleteall(trh119_buried_treasure_overlay:chest_info_layer);
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int14 = 0;
+def_int $int15 = ~script18992($struct6);
+def_int $int16 = calc($int9 + $int1 * $int0);
+while ($int14 < $int15) {
+    if ($enum5 ! null) {
+        $int11 = calc($int11 + $int0 * (enum(int, int, $enum5, $int14) + 1));
+    }
+    if ($int11 > $int16) {
+        $int11 = calc($int9 + $int11 % $int16);
+        $int12 = calc($int12 + $int0);
+    }
+    ~script19009($struct6, $int14, $int0, $int11, $int12, $graphic4, $graphic3);
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int14);
+    $int14 = calc($int14 + 1);
+}
+cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int14);
+if_setonop("script19007($int14, 1)", trh119_buried_treasure_overlay:keybind_layer);
+switch_struct ($struct6) {
+    case trh119_promo :
+        ~script18995;
+    case trh142_promo, trh157_promo, trh172_promo, trh198_promo :
+        ~script19010($struct6);
+}

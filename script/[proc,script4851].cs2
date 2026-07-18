@@ -1,0 +1,111 @@
+// 4851
+[proc,script4851](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_sethide(true, clan_stronghold_main_decor:custom_list_highlight);
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_int $int10 = 28;
+def_enum $enum11 = null;
+def_enum $enum12 = null;
+def_enum $enum13 = null;
+def_int $int14 = 0;
+def_int $int15 = 0;
+switch_int (%clan_custom_stronghold_current_slot_varp) {
+    case 1 :
+        $int14 = %clan_custom_slot_1_type_varp;
+        $int15 = %clan_custom_slot_1_resource_id_varp;
+    case 2 :
+        $int14 = %clan_custom_slot_2_type_varp;
+        $int15 = %clan_custom_slot_2_resource_id_varp;
+    case 3 :
+        $int14 = %clan_custom_slot_3_type_varp;
+        $int15 = %clan_custom_slot_3_resource_id_varp;
+}
+cc_create($component4, ^iftype_rectangle, 0);
+cc_sethide(true);
+cc_create($component2, ^iftype_text, 0);
+cc_sethide(true);
+cc_create($component3, ^iftype_graphic, 0);
+cc_sethide(true);
+if ($int15 = 0) {
+    $enum11 = ~script4819(%clan_custom_stronghold_current_slot_varp);
+    $enum12 = ~script4822(%clan_custom_stronghold_current_slot_varp);
+    $enum13 = ~script4825(%clan_custom_stronghold_current_slot_varp);
+    if ($enum11 = null | $enum12 = null | $enum13 = null) {
+        return;
+    }
+    $int6 = min(min(enum_getoutputcount($enum11), enum_getoutputcount($enum13)), enum_getoutputcount($enum12));
+    while ($int8 <= $int6) {
+        $int7 = enum(int, int, $enum11, $int8);
+        cc_create($component4, ^iftype_rectangle, $int8);
+        cc_setsize(0, $int10, ^setsize_minus, ^setsize_abs);
+        cc_setfill(true);
+        if (calc($int8 % 2) = 0) {
+            cc_setcolour(0x201f1a);
+            cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 2105114)");
+        } else {
+            cc_setcolour(0x1a1712);
+            cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 1709842)");
+        }
+        cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        if (~script4828(%clan_custom_stronghold_current_slot_varp) = false) {
+            cc_setonop("script4803($int8)");
+            cc_setop(1, "Select");
+            cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 4537648)");
+        }
+        if ($int14 = $int7) {
+            if_sethide(false, clan_stronghold_main_decor:custom_list_highlight);
+            if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, clan_stronghold_main_decor:custom_list_highlight);
+        }
+        cc_create($component2, ^iftype_text, $int8);
+        cc_setsize(30, $int10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(30, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext(enum(int, string, $enum12, $int7));
+        cc_setcolour(0xe5e1bb);
+        cc_settextfont(p11_full);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_create($component3, ^iftype_graphic, $int8);
+        cc_setsize(22, 22, ^setsize_abs, ^setsize_abs);
+        cc_setposition(5, calc(4 + $int9), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(enum(int, graphic, $enum13, $int7));
+        $int9 = calc($int10 * $int8);
+        $int8 = calc($int8 + 1);
+    }
+} else {
+    cc_create($component4, ^iftype_rectangle, $int8);
+    cc_setsize(0, $int10, ^setsize_minus, ^setsize_abs);
+    cc_setfill(true);
+    if (calc($int8 % 2) = 0) {
+        cc_setcolour(0x201f1a);
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 2105114)");
+    } else {
+        cc_setcolour(0x1a1712);
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 1709842)");
+    }
+    cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setonop("script4803($int8)");
+    cc_setop(1, "Select");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 4537648)");
+    if_sethide(false, clan_stronghold_main_decor:custom_list_highlight);
+    if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, clan_stronghold_main_decor:custom_list_highlight);
+    cc_create($component2, ^iftype_text, $int8);
+    cc_setsize(30, $int10, ^setsize_minus, ^setsize_abs);
+    cc_setposition(30, $int9, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext("Reset hotspot");
+    cc_setcolour(0xe5e1bb);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_create($component3, ^iftype_graphic, $int8);
+    cc_setsize(22, 22, ^setsize_abs, ^setsize_abs);
+    cc_setposition(5, calc(4 + $int9), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_loyalty_icon_2,0");
+    cc_set2dangle(49149);
+    $int9 = calc($int10 * $int8);
+}
+if_setscrollpos(0, 0, $component0);
+if_setscrollsize(0, $int9, $component0);
+~scrollbar_vertical($component1, $component0, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

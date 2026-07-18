@@ -1,0 +1,28 @@
+// 14897
+[proc,script14897](dbrow $dbrow0, int $int1)
+def_component $component2 = arch_research_management:research_info_contract_variant_build_layer;
+def_component $component3 = arch_research_management:research_info_contract_variant_control_layer;
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int4 = min(5, db_getfieldcount($dbrow0, arch_research:col10));
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+if ($int4 > 0) {
+    $int5 = calc((if_getwidth($component2) - ((1 + $int4) * 40 + $int4 * 5)) / 2);
+    $int6 = calc((if_getheight($component2) - 26) / 2);
+    ~script13998($component2, $component3, rs3tli_3x3_button, $int5, $int6, 40, 26, 0, false, ~script14641($dbrow0, 0), ~equal_int($int1, 0));
+    if (cc_find($component3, calc($int7 + 1)) = true) {
+        cc_setonop("script14898(0)");
+    }
+    while (++$int7 < $int4) {
+        $int5 = calc($int5 + 45);
+        ~script13998($component2, $component3, rs3tli_3x3_button, $int5, $int6, 40, 26, calc($int7 + 1), false, ~script14641($dbrow0, calc($int7 + 1)), ~equal_int($int1, calc($int7 + 1)));
+        if (cc_find($component3, calc($int7 + 1)) = true) {
+            cc_setonop("script14898(calc($int7 + 1))");
+        }
+    }
+    if_setsize(8, calc(8 + if_getheight($component2)), ^setsize_minus, ^setsize_minus, arch_research_management:research_info_contract_summary_build_layer);
+} else {
+    if_setsize(8, 8, ^setsize_minus, ^setsize_minus, arch_research_management:research_info_contract_summary_build_layer);
+}

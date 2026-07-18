@@ -1,0 +1,20 @@
+// 8300
+[clientscript,script8300](int $int0)
+def_int $int1 = map_loadedpercent;
+if ($int1 >= 90 | %loading_screen_disabled_override_until > clientclock) {
+    ~script14987(true);
+    if (~zoom_enabled = true) {
+        ~interface_zoom_reset_check;
+    }
+    if_closesubclient(toplevel_v2:map_loaded_tracker);
+    if_setontimer("script8298", toplevel_v2:map_loaded_tracker);
+    return;
+}
+def_int $int2 = min(400, $int0);
+def_int $int3 = 1;
+if ($int2 < calc($int1 * 4)) {
+    $int3 = max(1, calc(($int1 * 4 - $int2) / 5));
+    $int2 = min(400, calc($int2 + $int3));
+    if_setsize($int2, 15, ^setsize_abs, ^setsize_abs, loading_screen:map_loading_bar);
+}
+if_setontimer("script8300($int2)", toplevel_v2:map_loaded_tracker);

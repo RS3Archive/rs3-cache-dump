@@ -1,0 +1,68 @@
+// 10354
+[proc,script10354](enum $enum0, int $int1, int $int2, int $int3)(int, int)
+if ($enum0 = null) {
+    return($int1, $int3);
+}
+$int1 = calc($int1 + 10);
+def_int $int4 = 13;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = enum_getoutputcount($enum0);
+def_struct $struct8 = null;
+def_int $int9 = 0;
+def_int $int10 = struct_param(enum(int, struct, minigame_spotlight_enum, %spotlight_minigame_current), task_unique_id);
+def_int $int11 = calc(date_runeday % 3 + 49 - 1);
+def_int $int12 = 0;
+def_string $string0 = "This minigame is currently in the Spotlight and will give thaler at 500% of the normal rate.<br>Find Stanley Limelight near the minigame to learn about thaler.";
+def_string $string1 = "This Elite Dungeon is currently in the Spotlight:<br><br>+25% Dungeoneering experience.<br>An additional miniboss will spawn.<br>20% reduction of death reclaim costs.";
+while ($int5 < $int7) {
+    $int6 = enum(int, int, $enum0, $int5);
+    $struct8 = enum(int, struct, group_id_to_struct, $int6);
+    if ($int6 ! -1) {
+        $int6 = enum_getreverseindex(int, int, group_list_order, $int6, 0);
+    }
+    if ($struct8 ! null & $int6 ! -1 & .cc_find(group_parent:sys_click, $int6) = true) {
+        $int12 = struct_param($struct8, task_unique_id);
+        if ($int5 ! 0) {
+            if (calc($int4 + 210) >= $int2) {
+                $int4, $int1 = 13, calc($int1 + 55);
+            } else {
+                $int4 = calc($int4 + 115);
+            }
+        }
+        ~script10410(group_parent:sys_build, null, rs3tli_3x3_icon_button, $int4, $int1, 110, 40, 0, false, struct_param($struct8, task_name));
+        if ($int12 ! -1) {
+            if ($int12 = $int10) {
+                cc_create(group_parent:sys_build, ^iftype_graphic, if_getnextsubid(group_parent:sys_build));
+                cc_setgraphic(rs3_minigame_currency_icon);
+                cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+                cc_setposition(calc($int4 + 96), calc($int1 - 4), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+            }
+            if ($int6 = $int11) {
+                cc_create(group_parent:sys_build, ^iftype_graphic, if_getnextsubid(group_parent:sys_build));
+                cc_setgraphic(rs3_icon_worldmap_key_demon_raid_site);
+                cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+                cc_setposition(calc($int4 + 96), calc($int1 - 4), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+            }
+        }
+        if ($int6 = %group_id_selected) {
+            cc_create(group_parent:sys_build, ^iftype_rectangle, if_getnextsubid(group_parent:sys_build));
+            cc_setsize(110, 40, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int4, $int1, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setfill(false);
+            cc_setcolour(0xf0be79);
+            $int3 = $int1;
+        }
+        .cc_setposition($int4, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setsize(110, 40, ^setsize_abs, ^setsize_abs);
+        .cc_sethide(false);
+        $int9 = 1;
+    }
+    $int5 = calc($int5 + 1);
+}
+if ($int9 = 1) {
+    $int1 = calc($int1 + 55);
+}
+return($int1, $int3);

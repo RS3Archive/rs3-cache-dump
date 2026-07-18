@@ -1,0 +1,30 @@
+// 2940
+[proc,login_open](int $int0)
+def_int $int1 = ~login_getreply;
+if ($int1 = -3 & $int0 ! 10 | $int1 = 21 | $int1 = 1) {
+    return;
+}
+if_settext(~script1346(%loginscreen_username), loginscreen:username);
+if_settext(~script2949(%loginscreen_password), loginscreen:password);
+if (if_gethide(loginscreen:recovery_layer) = false) {
+    ~login_setfocus(113);
+    %login_caret = string_length(%loginscreen_recovery_username);
+    ~script3237(loginscreen:recovery_text_entry_layer, loginscreen:recovery_text, loginscreen:recovery_caret, %loginscreen_recovery_username, 113, notosans_17);
+} else if (if_gethide(loginscreen:auth_layer) = false) {
+    ~login_setfocus(114);
+    %login_caret = string_length(%loginscreen_totp_auth);
+    ~script3237(loginscreen:auth_input_layer, loginscreen:auth_input_text, loginscreen:auth_input_caret, %loginscreen_totp_auth, 114, notosans_17);
+} else if (if_gethide(loginscreen:login) = false) {
+    if (string_length(%loginscreen_username) > 0) {
+        ~login_setfocus(101);
+    } else {
+        ~login_setfocus(100);
+    }
+    if (%loginscreen_focus = 100) {
+        %login_caret = string_length(%loginscreen_username);
+        ~script3237(loginscreen:username_layer, loginscreen:username, loginscreen:username_caret, %loginscreen_username, 100, notosans_17);
+    } else {
+        %login_caret = string_length(~script2949(%loginscreen_password));
+        ~script3237(loginscreen:password_layer, loginscreen:password, loginscreen:password_caret, ~script2949(%loginscreen_password), 101, notosans_17);
+    }
+}

@@ -1,0 +1,73 @@
+// 14826
+[proc,arch_mystery_build_info](component $component0, component $component1, dbrow $dbrow2, int $int3, int $int4, int $int5, int $int6, int $int7)(int)
+def_int $int8 = calc(($int6 - 64) / 2);
+def_int $int9 = $int3;
+def_int $int10 = $int4;
+def_int $int11 = calc($int5 - 64 - 2 * $int8);
+def_dbrow $dbrow12 = db_getfield($dbrow2, arch_mystery:col3, 0);
+def_struct $struct13 = db_getfield($dbrow12, arch_site:col9, 0);
+def_graphic $graphic14 = struct_param(~script9984($struct13, 1), rs3tli_button_graphic);
+def_graphic $graphic15 = enum(int, graphic, arch_journal_mysteries_background_graphic, db_getfield($dbrow2, arch_mystery:col2, 0));
+def_graphic $graphic16 = ~arch_mystery_get_state_graphic($dbrow2);
+def_string $string0 = ~arch_mystery_get_state_string($dbrow2);
+~script7924($component0, if_getnextsubid($component0), 64, 64, calc($int9 + $int8), $int10, $graphic15, false, false, false, 0);
+~script7924($component0, if_getnextsubid($component0), 64, 64, calc($int9 + $int8), $int10, $graphic16, false, false, false, 0);
+$int9 = calc($int9 + (64 + 2 * $int8));
+if ($dbrow12 ! null) {
+    ~script7924($component0, if_getnextsubid($component0), 20, 20, $int9, calc($int10 - 2), $graphic14, false, false, false, 0);
+    ~cc_add_text_custom($component0, if_getnextsubid($component0), calc($int11 - 20 - 2), 16, ^setsize_abs, ^setsize_abs, calc($int9 + 20 + 2), $int10, ^setpos_abs_left, ^setpos_abs_top, db_getfield($dbrow2, arch_mystery:col1, 0), ^black, museo_sans_13pt_bold, ^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_vspacings, museo_sans_13pt_bold), false);
+} else {
+    ~cc_add_text_custom($component0, if_getnextsubid($component0), $int11, 16, ^setsize_abs, ^setsize_abs, $int9, $int10, ^setpos_abs_left, ^setpos_abs_top, db_getfield($dbrow2, arch_mystery:col1, 0), ^black, museo_sans_13pt_bold, ^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_vspacings, museo_sans_13pt_bold), false);
+}
+~cc_add_text_custom($component0, if_getnextsubid($component0), $int11, 28, ^setsize_abs, ^setsize_abs, $int9, calc($int10 + 16), ^setpos_abs_left, ^setpos_abs_top, $string0, ^black, museo_sans_11pt_regular, ^settextalign_left, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_vspacings, museo_sans_11pt_regular), false);
+$int10 = calc($int10 + (16 + 28));
+def_int $int17 = db_getfieldcount($dbrow2, arch_mystery:col4);
+def_int $int18 = db_getfieldcount($dbrow2, arch_mystery:col5);
+def_dbrow $dbrow19 = null;
+def_obj $obj20 = null;
+def_int $int21 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_graphic $graphic22 = null;
+def_int $int23 = -1;
+while (++$int23 < calc($int17 + $int18)) {
+    if ($int23 < $int17) {
+        $dbrow19 = db_getfield($dbrow2, arch_mystery:col4, $int23);
+        $obj20 = ~script18962($dbrow19);
+        $string1 = ~book_get_title($dbrow19);
+        $int21 = ~script13022($dbrow19);
+        $string4 = "Read";
+        $graphic22 = "arch_icon_mysteries_lore,1";
+    } else {
+        $dbrow19 = db_getfield($dbrow2, arch_mystery:col5, calc($int23 - $int17));
+        $obj20 = ~script18968($dbrow19);
+        $string1 = ~script18967($dbrow19);
+        $int21 = ~script18965($dbrow19);
+        $string4 = "Play";
+        $graphic22 = "arch_icon_mysteries_lore,2";
+    }
+    $string2 = ~script18977($dbrow19);
+    if (string_length($string2) = 0) {
+        $string3 = $string1;
+    } else {
+        $string3 = "<$string1><br><br><$string2>";
+    }
+    ~script7924($component0, if_getnextsubid($component0), 20, 20, $int9, $int10, "arch_icon_mysteries_lore,0", false, false, false, 0);
+    cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+    .cc_create($component1, ^iftype_text, calc($int7 + $int23));
+    .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int21 = 1) {
+        .cc_setopbase($string1);
+        cc_setgraphic($graphic22);
+        cc_setonmouserepeat("script3876($string3, event_com, event_comsubid)");
+        .cc_setop(1, $string4);
+        .cc_setopcursor(1, cursor_read);
+    } else {
+        ~script3537($string3);
+        .cc_clearops;
+    }
+    $int9 = calc($int9 + (20 + 1));
+}

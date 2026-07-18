@@ -1,0 +1,69 @@
+// 9394
+[proc,script9394](component $component0, int $int1, enum $enum2)
+def_string $string0 = lowercase(if_gettext($component0));
+def_int $int3 = -1;
+def_int $int4 = enum_getoutputcount($enum2);
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_int $int7 = -1;
+def_int $int8 = 0;
+def_dbrow $dbrow9 = null;
+def_dbrow $dbrow10 = null;
+def_struct $struct11 = null;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_int $int12 = 0;
+def_boolean $boolean13 = false;
+def_int $int14 = 0;
+def_int $int15 = if_getwidth(settings:set_scrolling);
+def_int $int16 = 0;
+def_int $int17 = 20;
+def_int $int18 = 0;
+while (++$int3 < $int4) {
+    $dbrow9 = enum(int, dbrow, $enum2, $int3);
+    $int5 = -1;
+    $int6 = db_getfieldcount($dbrow9, settings_category:col3);
+    $string3 = db_getfield($dbrow9, settings_category:col0, 0);
+    if (~script18934($dbrow9) = true) {
+        while (++$int5 < $int6) {
+            $dbrow10 = db_getfield($dbrow9, settings_category:col3, $int5);
+            if (~script18934($dbrow10) = true) {
+                $int7 = -1;
+                $int8 = db_getfieldcount($dbrow10, settings_category:col2);
+                $string4 = db_getfield($dbrow10, settings_category:col0, 0);
+                $int12 = 0;
+                $int14 = enum_getreverseindex(dbrow, int, settings_all_categories, $dbrow10, 0);
+                while (++$int7 < $int8) {
+                    $struct11 = db_getfield($dbrow10, settings_category:col2, $int7);
+                    $string1 = lowercase(struct_param($struct11, settings_label));
+                    $string5 = lowercase("<$string3> <$string4>");
+                    if (string_length($string1) > 0) {
+                        $string2 = lowercase(struct_param($struct11, settings_desc));
+                        if (string_indexof_string($string1, $string0, 0) > -1 | string_indexof_string($string2, $string0, 0) > -1 | string_indexof_string($string5, $string0, 0) > -1) {
+                            $boolean13 = ~script9395($struct11);
+                            if (~script16146($struct11, $boolean13) = true & .cc_findbycategory(settings:set_click, $int14, $int7) = 0) {
+                                if ($int12 = 0) {
+                                    $string6 = "<$string3><col=ffffff> > </col><$string4>";
+                                    $int16 = ~script20478($string6, $int15, text_title_section, 0);
+                                    ~cc_add_text(settings:set_link, $int14, 0, $int17, ^setpos_abs_left, ^setpos_abs_top, $int15, $int16, ^setsize_abs, ^setsize_abs, text_title_section, $string6);
+                                    cc_setop(10, "Go to <$string6>");
+                                    $int17 = calc($int17 + ($int16 + 5));
+                                    $int12 = 1;
+                                }
+                                $int17 = ~script18933(settings:set_build, settings:set_click, settings:set_value, $struct11, $int14, $int7, $int18, $int17, $int15, $boolean13);
+                                $int18 = calc($int18 + 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+%settings_last_search = $string0;
+~script2681(settings:set_build, $int15, 18, 0, 0, museo_sans_13pt_regular, "Displaying <tostring($int18)> <~text_plural($int18, "result", "results")> containing '<$string0>'.", 0);
+~script5713($int1, $int17);

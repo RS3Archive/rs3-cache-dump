@@ -1,0 +1,33 @@
+// 6710
+[proc,script6710](component $component0, component $component1)
+def_int $int2 = 1;
+def_int $int3 = 120;
+def_int $int4 = 3;
+def_int $int5 = 0;
+def_dbrow $dbrow6 = null;
+def_string $string0 = "";
+while ($int2 <= 6) {
+    db_find(dino_base_camp_resource:col0, $int2);
+    $dbrow6 = db_findnext;
+    ~script10410($component1, null, rs3tli_content_panel_blue, $int3, $int4, 100, 34, $int2, false, "");
+    cc_create($component0, ^iftype_graphic, $int5++);
+    cc_setgraphic(db_getfield($dbrow6, dino_base_camp_resource:col4, 0));
+    cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int3 + 2), calc($int4 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    $string0 = "<db_getfield($dbrow6, dino_base_camp_resource:col1, 0)> (<tostring_localised(~script6642($int2), true)>/<tostring_localised(~script6641, true)>)";
+    cc_setonmouserepeat("script8799($string0, $component0, calc($int5 - 1))");
+    cc_setop(1, "Information");
+    cc_setonop("script7774($string0, $component0, $int5, 2)");
+    cc_create($component0, ^iftype_text, $int5++);
+    cc_setsize(62, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int3 + 32), $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_13pt_regular);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    ~script2733($component0, cc_getid, 3);
+    cc_settext(tostring_localised(~script6642($int2), true));
+    cc_setonmouserepeat("script8799($string0, $component0, calc($int5 - 2))");
+    cc_setop(1, "Information");
+    cc_setonop("script7774($string0, $component0, calc($int5 - 1), 2)");
+    $int3 = calc($int3 + 110);
+    $int2 = calc($int2 + 1);
+}

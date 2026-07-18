@@ -1,0 +1,39 @@
+// 8893
+[proc,script8893](component $component0, obj $obj1, int $int2, int $int3, int $int4, int $int5)(int, int)
+def_int $int6 = if_getwidth($component0);
+def_string $string0 = tostring($int2);
+def_string $string1 = oc_name($obj1);
+switch_obj ($obj1) {
+    case coins_2, coins_3, coins_4, coins_5, coins_25, coins_100, coins_250, coins_1000, coins_10000 :
+        $string1 = "Coins";
+    case tzhaar_token_2, tzhaar_token_3, tzhaar_token_4, tzhaar_token_5, tzhaar_token_25 :
+        $string1 = "Tokkul";
+}
+if ($obj1 = wof_earned_spin_token) {
+    $string0 = "<tostring($int2)> keys";
+    $string1 = "Treasure Hunter key";
+}
+if ($int2 > 1) {
+    $string1 = append($string1, " (<tostring($int2)>)");
+}
+if (calc($int3 + 45) > $int6) {
+    $int3 = $int5;
+    if (compare($string0, "") ! 0) {
+        $int4 = calc($int4 + 55);
+    } else {
+        $int4 = calc($int4 + 40);
+    }
+}
+~script10456($component0, $obj1, null, $string1, $int3, $int4, 40);
+if ($int2 ! -1) {
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(40, 15, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int3, calc($int4 + 40), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext($string0);
+    cc_setmaxlines(1);
+    cc_setcolour(^white);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+}
+$int3 = calc($int3 + 40);
+return($int3, $int4);

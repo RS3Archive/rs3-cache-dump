@@ -1,0 +1,69 @@
+// 15825
+[proc,script15825](component $component0, int $int1, int $int2)
+if ($component0 = null | $int1 = -1 | $int2 < 1) {
+    return;
+}
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = calc(65536 / 720);
+def_int $int10 = calc(65536 / 360);
+def_int $int11 = 0;
+def_int $int12 = 2000;
+def_int $int13 = 0;
+def_int $int14 = -1;
+if (cc_find($component0, $int1) = true & .if_find($component0) = true) {
+    $int6 = cc_gettrans;
+    if ($int6 >= 127) {
+        return;
+    }
+    $int4 = calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2);
+    $int5 = calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2);
+    $int7 = cc_get2dangle;
+    $int8, $int14 = ~script10253(~script12722(-1, 1));
+    $int8 = calc($int8 - $int7);
+    if ($int8 ! 0) {
+        if (abs($int8) > 32768) {
+            if ($int8 < 0) {
+                $int8 = calc(65536 + $int8);
+            } else {
+                $int8 = calc($int8 - 65536);
+            }
+        }
+        $int8 = max(min($int8, $int10), calc(0 - $int10));
+    }
+    cc_clearops;
+    cc_settrans(255);
+    cc_setparam(rs3tli_component_rotation_type, -1);
+    cc_setparam(rs3tli_component_transparency_type, -1);
+    while (++$int3 < $int2 & .cc_find($component0, calc($int1 + $int3 + 1)) = true) {
+        .cc_setposition($int4, $int5, ^setpos_abs_centre, ^setpos_abs_centre);
+        .cc_set2dangle($int7);
+        .cc_settrans($int6);
+        .cc_sethide(false);
+        .cc_sendtofront;
+        .cc_setparam(rs3tli_component_rotation_step, $int8);
+        .cc_setparam(rs3tli_component_anchor_pos_x, ^min_32bit_int);
+        .cc_setparam(rs3tli_component_anchor_pos_y, ^min_32bit_int);
+        .cc_setparam(rs3tli_component_target_pos_x, -1);
+        .cc_setparam(rs3tli_component_target_pos_y, -1);
+        .cc_setparam(rs3tli_component_mpixel_x, 0);
+        .cc_setparam(rs3tli_component_mpixel_y, 0);
+        ~script12707(~script12641($int12, calc(360 - scale(calc((.cc_param(rs3tli_component_target_2dangle) + $int7) % 65536), 65536, 360))));
+        if (abs(.cc_param(rs3tli_component_rotation_step)) < $int9) {
+            if (.cc_param(rs3tli_component_speed_x) < 0) {
+                .cc_setparam(rs3tli_component_rotation_step, $int9);
+            } else if (.cc_param(rs3tli_component_speed_x) > 0) {
+                .cc_setparam(rs3tli_component_rotation_step, calc(0 - $int9));
+            } else if (.cc_param(rs3tli_component_target_2dangle) < $int9) {
+                .cc_setparam(rs3tli_component_rotation_step, $int9);
+            } else {
+                .cc_setparam(rs3tli_component_rotation_step, calc(0 - $int9));
+            }
+        }
+        ~script12632($component0, .cc_getid);
+    }
+}

@@ -1,0 +1,128 @@
+// 16400
+[clientscript,script16400](int $int0, int $int1, int $int2, int $int3, component $component4, int $int5)
+if ($component4 = null) {
+    if_setontimer(null, uitutorial:timer_layer);
+    return;
+}
+if ($component4 = toplevel_v2_ribbon:window_click & cc_find($component4, $int5) = true & cc_gethide = true) {
+    $component4 = toplevel_v2_ribbon:mode_button;
+    $int5 = -1;
+}
+if_sethide(true, uitutorial:main_container);
+if_sethide(true, uitutorial:arrow_above);
+if_sethide(true, uitutorial:arrow_below);
+if_sethide(true, uitutorial:arrow_left);
+if_sethide(true, uitutorial:arrow_right);
+if (%uitutorial_current_parent = uitutorial_tracker & (if_hassubmodal(~script8072, wof_login_popup) = true | if_gethide(toplevel_v2:big_window) = false | if_hassubmodal(~script8072, modal_confirm) = true) & ~script6431 = true) {
+    if_sethide(true, tut5_spotlight:content_layer);
+    return;
+}
+if_sethide(false, tut5_spotlight:content_layer);
+if (~script3725($component4) = true) {
+    if_sethide(true, tut5_spotlight:content_layer);
+    return;
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int6, $int7, $int8, $int9 = ~script14244;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+if ($int5 = -1 & if_find($component4) = true | cc_find($component4, $int5) = true) {
+    if (~script6353 = false | ~script6375 = false) {
+        if_sethide(false, uitutorial:main_container);
+        if_setposition(0, calc($int7 + 33), ^setpos_abs_centre, ^setpos_abs_top, uitutorial:box_container);
+        return;
+    }
+    $int10, $int11, $int13, $int12 = ~script13137;
+} else {
+    if_sethide(false, uitutorial:main_container);
+    if_setposition(0, calc($int7 + 33), ^setpos_abs_centre, ^setpos_abs_top, uitutorial:box_container);
+    return;
+}
+if_sethide(false, uitutorial:main_container);
+def_component $component14 = null;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+if (%uitutorial_built_direction ! 0 & $int2 = 0) {
+    $int2 = max(0, %uitutorial_built_direction);
+}
+while ($int21 = 0 & $int22 <= 4) {
+    if ($int21 = 0 | $int2 = 1) {
+        $int15 = $int10;
+        $int16 = $int11;
+        if (calc($int16 - $int1 - 73) >= $int7) {
+            $component14 = uitutorial:arrow_below;
+            $int20 = calc($int16 - $int1 - 73);
+            $int18 = calc($int16 - 85);
+            $int17 = calc($int10 + $int13 / 2 - if_getwidth($component14) / 2);
+            $int19 = calc($int15 + $int13 / 2 - $int0 / 2);
+            $int21 = 1;
+        }
+    }
+    if ($int21 = 0 | $int2 = 2) {
+        $int15 = $int10;
+        $int16 = calc($int11 + $int12);
+        if (calc($int16 + $int1 + 63) <= $int9) {
+            $component14 = uitutorial:arrow_above;
+            $int20 = calc($int16 + 63);
+            $int18 = $int16;
+            $int17 = calc($int10 + $int13 / 2 - if_getwidth($component14) / 2);
+            $int19 = calc($int15 + $int13 / 2 - $int0 / 2);
+            $int21 = 1;
+        }
+    }
+    if ($int21 = 0 | $int2 = 4 | $int2 = 3) {
+        if ($int2 = 4 & calc($int15 + $int13 + $int0 + 85) <= $int8) {
+            $int15 = $int10;
+            $int16 = $int11;
+            $component14 = uitutorial:arrow_right;
+            $int19 = calc($int15 + $int13 + 85);
+            $int20 = calc($int16 + $int12 / 2 - $int1 / 2);
+            $int17 = calc($int15 + $int13);
+            $int18 = calc($int11 + $int12 / 2 - if_getheight($component14) / 2);
+            $int21 = 1;
+        } else {
+            $int2 = 3;
+        }
+        if ($int2 = 3 & calc($int15 - $int0 - 85) >= $int6) {
+            $int15 = $int10;
+            $int16 = $int11;
+            $component14 = uitutorial:arrow_left;
+            $int19 = calc($int15 - $int0 - 85);
+            $int20 = calc($int16 + $int12 / 2 - $int1 / 2);
+            $int17 = calc($int15 - 85);
+            $int18 = calc($int11 + $int12 / 2 - if_getheight($component14) / 2);
+            $int21 = 1;
+        } else {
+            $int2 = 4;
+        }
+    }
+    $int22 = calc($int22 + 1);
+}
+if ($int21 = 0) {
+    ~script8056($component4, $int5, 1);
+    ~script16401($component4, $int5);
+    %uitutorial_built_direction = 0;
+    return;
+}
+if ($int3 = 0) {
+    if_sethide(false, $component14);
+    ~script16405($component14);
+}
+~script16406($component14);
+if_setposition(min(max($int6, $int19), calc($int8 - $int0)), min(max($int7, $int20), calc($int9 - $int1)), ^setpos_abs_left, ^setpos_abs_top, uitutorial:box_container);
+if ($component14 = uitutorial:arrow_left | $component14 = uitutorial:arrow_right) {
+    if_setposition($int17, min(max($int7, $int18), calc($int9 - if_getwidth($component14) / 2)), ^setpos_abs_left, ^setpos_abs_top, $component14);
+} else {
+    if_setposition(min(max($int6, $int17), calc($int8 - if_getwidth($component14) / 2)), $int18, ^setpos_abs_left, ^setpos_abs_top, $component14);
+}

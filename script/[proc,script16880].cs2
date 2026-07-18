@@ -1,0 +1,73 @@
+// 16880
+[proc,script16880](component $component0, int $int1, int $int2)
+def_int $int3 = enum(int, int, gamemode_seasonal_fss_week_to_event_id, $int1);
+def_dbrow $dbrow4 = ~script16023($int3);
+if ($dbrow4 = null) {
+    return;
+}
+def_int $int5 = db_getfieldcount($dbrow4, weekend_events:col10);
+if ($int5 = 0) {
+    return;
+}
+def_int $intarray0($int5);
+def_int $intarray1($int5);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+while ($int6 < $int5) {
+    $int9 = random(1073741823);
+    $int8 = db_getfield($dbrow4, weekend_events:col10, $int6);
+    while ($int7 < 3) {
+        if (cc_findbycategory($component0, $int7, 0) = 1 & cc_param(lobbyscreen_playerinfo_page_active) = $int8) {
+            $int9 = calc(1073741823 + $int6);
+            $int7 = 3;
+        }
+        $int7 = calc($int7 + 1);
+    }
+    if (string_length(~script16830($int1, $int8, $int2)) > 0) {
+        $intarray1($int10) = $int9;
+        $intarray0($int10) = $int8;
+        $int10 = calc($int10 + 1);
+    }
+    $int6 = calc($int6 + 1);
+    $int7 = 0;
+}
+def_int $int11 = 3;
+if ($int10 <= $int11) {
+    if_setontimer(null, $component0);
+} else {
+    array_sort($int10, 1, 0);
+}
+$int6 = 0;
+def_string $string0 = "";
+if_setposition(0, 550, ^setpos_abs_centre, ^setpos_rel_top, $component0);
+if_setsize(10650, 8192, ^setsize_rel, ^setsize_rel, $component0);
+def_graphic $graphic12 = null;
+while ($int6 < $int11) {
+    if ($int6 >= $int10) {
+        $int8 = -1;
+        $string0 = "";
+        $graphic12 = null;
+    } else {
+        $int8 = $intarray0($int6);
+        $string0 = ~script16830($int1, $int8, $int2);
+        $graphic12 = rs_fsw_icon_event_weekly_active;
+    }
+    ~if_add_child_layer($component0, $int6, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setparam(lobbyscreen_playerinfo_page_active, $int8);
+    if ($int2 = 1) {
+        ~cc_add_child_graphic($int6, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, 1, 8, ^setsize_aspect, ^setsize_minus, $graphic12);
+        cc_setaspect(16, 16);
+    }
+    ~cc_add_child_text($int6, 2, 0, 0, ^setpos_abs_right, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, $string0);
+    if (calc($int6 % 2) = 0) {
+        cc_setcolour(0xfff7d6);
+    } else {
+        cc_setcolour(^white);
+    }
+    cc_setmaxlines(1);
+    $int6 = calc($int6 + 1);
+}
+~script16881($component0);

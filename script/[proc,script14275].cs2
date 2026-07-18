@@ -1,0 +1,27 @@
+// 14275
+[proc,script14275](int $int0)
+def_int $int1 = ~script14274($int0);
+def_struct $struct2 = ~script488($int1);
+if_sethide(true, conq_buy_army:no_ability_selected_layer);
+if_sethide(false, conq_buy_army:replacement_abilities_layer);
+if_sethide(false, conq_buy_army:active_ability_layer);
+if ($struct2 = null) {
+    if_sethide(false, conq_buy_army:no_ability_text);
+    if_sethide(true, conq_buy_army:command_details_icon);
+    if_sethide(true, conq_buy_army:command_details_name);
+    if_sethide(true, conq_buy_army:command_details_desc);
+    if_sethide(true, conq_buy_army:command_details_cooldown);
+    if_sethide(true, conq_buy_army:command_details_cost);
+} else {
+    if_sethide(true, conq_buy_army:no_ability_text);
+    if_sethide(false, conq_buy_army:command_details_icon);
+    if_sethide(false, conq_buy_army:command_details_name);
+    if_sethide(false, conq_buy_army:command_details_desc);
+    if_sethide(false, conq_buy_army:command_details_cooldown);
+    if_sethide(false, conq_buy_army:command_details_cost);
+    if_settext(struct_param($struct2, conq_command_name), conq_buy_army:command_details_name);
+    if_setgraphic(struct_param($struct2, conq_command_icon), conq_buy_army:command_details_icon);
+    if_settext(struct_param($struct2, conq_command_desc), conq_buy_army:command_details_desc);
+    if_settext("Cooldown: <col=ffffff><tostring(struct_param($struct2, conq_command_cooldown))>", conq_buy_army:command_details_cooldown);
+    if_settext("Cost: <col=ffffff><tostring(struct_param($struct2, conq_command_cost))>", conq_buy_army:command_details_cost);
+}

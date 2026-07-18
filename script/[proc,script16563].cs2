@@ -1,0 +1,44 @@
+// 16563
+[proc,script16563](dbrow $dbrow0)
+def_int $int1 = db_getfieldcount($dbrow0, child_options:col4);
+def_int $int2 = 0;
+def_boolean $boolean3 = false;
+def_string $string0 = "";
+while ($int2 < $int1) {
+    $boolean3, $string0 = db_getfield($dbrow0, child_options:col4, $int2);
+    if ($boolean3 = true | %toplevel_v2_mobile_interface = 0) {
+        switch_dbrow ($dbrow0) {
+            case inv_currency_pouch :
+                cc_setonop("script5154(event_op, 1)");
+            case worn_toolbelt :
+                switch_int (calc($int2 + 1)) {
+                    case 2 :
+                        if (%toolbelt_keyring = 0) {
+                            $string0 = "";
+                        }
+                    case 3 :
+                        if (%toolbelt_herbicide = 0) {
+                            $string0 = "";
+                        }
+                    case 4 :
+                        if (%toolbelt_seedicide = 0) {
+                            $string0 = "";
+                        }
+                    case 5 :
+                        if (%toolbelt_charming_imp = 0) {
+                            $string0 = "";
+                        }
+                    case 6 :
+                        if (%toolbelt_bonecrusher = 0) {
+                            $string0 = "";
+                        }
+                    case 7 :
+                        if (%toolbelt_gold_acc = 0) {
+                            $string0 = "";
+                        }
+                }
+        }
+        cc_setop(calc($int2 + 1), $string0);
+    }
+    $int2 = calc($int2 + 1);
+}

@@ -1,0 +1,31 @@
+// 9441
+[proc,script9441](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_component ($component0) {
+    case 6awe2_golem_construction:progress_1 :
+        $int1 = %6awe2_golem_progress_1_client;
+    case 6awe2_golem_construction:progress_2 :
+        $int1 = %6awe2_golem_progress_2_client;
+    case 6awe2_golem_construction:progress_3 :
+        $int1 = %6awe2_golem_progress_3_client;
+    case default :
+        return;
+}
+if ($int1 <= 0) {
+    if_sethide(true, $component0);
+} else {
+    if ($int1 >= %6awe2_golem_resource_required_client) {
+        $int2 = 80;
+    } else {
+        $int2 = calc(scale($int1, %6awe2_golem_resource_required_client, 73) + 7);
+    }
+    if_sethide(false, $component0);
+    if ($int2 > 80) {
+        $int2 = 80;
+    }
+    if ($int2 < 7) {
+        $int2 = 7;
+    }
+    if_setsize($int2, if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+}

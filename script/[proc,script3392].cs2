@@ -1,0 +1,22 @@
+// 3392
+[proc,script3392]()(boolean)
+if (~script16276 = true) {
+    return(false);
+}
+if (~ironman_mode = true) {
+    return(false);
+}
+def_int $int0 = ~get_hour(%atlum_day_tracker);
+def_int $int1 = db_getfield(daily_rewards_dxp, daily_rewards_system:col2, 0);
+def_int $int2 = db_getfield(daily_rewards_dxp, daily_rewards_system:col3, 0);
+def_int $int3 = date_runeday_fromdate(db_getfield(weekends_doublexp, weekend_events:col5, 0));
+if (%atlum_day_tracker >= $int1 & %atlum_day_tracker <= $int2) {
+    if (%atlum_day_tracker = $int1 & $int0 < 12) {
+        return(false);
+    } else if ($int3 = $int2 & %atlum_day_tracker = $int2 & $int0 >= 12) {
+        return(false);
+    } else {
+        return(true);
+    }
+}
+return(false);

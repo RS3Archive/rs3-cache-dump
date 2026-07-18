@@ -1,0 +1,39 @@
+// 15402
+[clientscript,script15402]
+def_dbrow $dbrow0 = ~script15392(%con_contracts_current_id);
+def_string $string0 = db_getfield($dbrow0, con_contracts:col2, 0);
+def_string $string1 = enum(int, string, con_contracts_areas, %con_contracts_current_location);
+def_graphic $graphic1 = null;
+def_component $component2 = null;
+def_int $int3 = db_getfield($dbrow0, con_contracts:col6, 0);
+def_int $int4 = -1;
+def_loc $loc5 = null;
+def_obj $obj6 = null;
+def_int $int7 = -1;
+while (++$int7 < $int3) {
+    switch_int ($int7) {
+        case 0 :
+            $int4 = %con_contracts_spot_1;
+            $component2 = con_contracts_minigame_child:furniture_state_1;
+        case 1 :
+            $int4 = %con_contracts_spot_2;
+            $component2 = con_contracts_minigame_child:furniture_state_2;
+        case 2 :
+            $int4 = %con_contracts_spot_3;
+            $component2 = con_contracts_minigame_child:furniture_state_3;
+        case 3 :
+            $int4 = %con_contracts_spot_4;
+            $component2 = con_contracts_minigame_child:furniture_state_4;
+        case 4 :
+            $int4 = %con_contracts_spot_5;
+            $component2 = con_contracts_minigame_child:furniture_state_5;
+    }
+    $loc5, $obj6 = db_getfield($dbrow0, con_contracts:col5, $int4);
+    switch_int (~script15391($loc5)) {
+        case 0 :
+            $graphic1 = "aif_tick_cross_icon,0";
+        case 1 :
+            $graphic1 = "aif_tick_cross_icon,1";
+    }
+    if_setgraphic($graphic1, $component2);
+}

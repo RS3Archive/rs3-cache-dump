@@ -1,0 +1,55 @@
+// 13076
+[clientscript,script13076]
+cc_deleteall(peng_bttf_mastermind:selection);
+cc_deleteall(peng_bttf_mastermind:answer);
+cc_deleteall(peng_bttf_mastermind:board);
+cc_deleteall(peng_bttf_mastermind:hints);
+cc_create(peng_bttf_mastermind:selection, ^iftype_graphic, if_getnextsubid(peng_bttf_mastermind:selection));
+cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+cc_setobject(div_energy2, -1);
+cc_setposition(10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setop(1, "Select");
+cc_setonop("script13077(event_comsubid)");
+cc_setonmouserepeat("script3876(oc_name(div_energy2), peng_bttf_mastermind:selection, event_comsubid)");
+cc_create(peng_bttf_mastermind:selection, ^iftype_graphic, if_getnextsubid(peng_bttf_mastermind:selection));
+cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+cc_setobject(div_energy3, -1);
+cc_setposition(35, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setop(1, "Select");
+cc_setonop("script13077(event_comsubid)");
+cc_setonmouserepeat("script3876(oc_name(div_energy3), peng_bttf_mastermind:selection, event_comsubid)");
+cc_create(peng_bttf_mastermind:selection, ^iftype_graphic, if_getnextsubid(peng_bttf_mastermind:selection));
+cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+cc_setobject(div_energy5, -1);
+cc_setposition(60, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setop(1, "Select");
+cc_setonop("script13077(event_comsubid)");
+cc_setonmouserepeat("script3876(oc_name(div_energy5), peng_bttf_mastermind:selection, event_comsubid)");
+cc_create(peng_bttf_mastermind:selection, ^iftype_graphic, if_getnextsubid(peng_bttf_mastermind:selection));
+cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+cc_setobject(div_energy6, -1);
+cc_setposition(85, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setop(1, "Select");
+cc_setonop("script13077(event_comsubid)");
+cc_setonmouserepeat("script3876(oc_name(div_energy6), peng_bttf_mastermind:selection, event_comsubid)");
+def_int $int0 = 0;
+def_int $int1 = 0;
+while ($int0 < 10) {
+    while ($int1 < 4) {
+        cc_create(peng_bttf_mastermind:answer, ^iftype_graphic, if_getnextsubid(peng_bttf_mastermind:answer));
+        cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic("aif_help_btn,0");
+        cc_setposition(calc($int1 * 25 + 15), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_create(peng_bttf_mastermind:board, ^iftype_graphic, if_getnextsubid(peng_bttf_mastermind:board));
+        cc_setobject(elr1_div_light, -1);
+        cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int1 * 25 + 10), calc($int0 * 23), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_setop(1, "Place Energy");
+        cc_setonop("script13078(event_comsubid)");
+        $int1 = calc($int1 + 1);
+    }
+    $int1 = 0;
+    $int0 = calc($int0 + 1);
+}
+def_string $string0 = "To configure the power supply, select from the divine energy shown at the bottom of the console. Place them in the numbered rows on the grid, starting in row one. Once you've filled a row, check your answer.<br><br>If you guess correctly, you're done! Otherwise, you'll be given hints on how accurate your guess was.<br><br>White square: Your guess included a correct type of divine energy, but it wasn't in the right place.<br><br>Grey square:Your guess included a correct type of divine energy, and it was in the right place.<br><br>Resetting the puzzle will generate a new answer.";
+if_setonmouserepeat("script3876($string0, peng_bttf_mastermind:help_button_layer, -1)", peng_bttf_mastermind:help_button_layer);

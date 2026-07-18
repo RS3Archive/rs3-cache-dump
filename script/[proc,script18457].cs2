@@ -1,0 +1,33 @@
+// 18457
+[proc,script18457](struct $struct0)
+if ($struct0 = null) {
+    return;
+}
+if_sethide(false, buff_select_event:popup_layer);
+if_sethide(false, buff_select_event:tutorial_window_layer);
+if_sethide(true, buff_select_event:buff_confirm_window_layer);
+def_string $string0 = "";
+if (if_find(buff_select_event:tutorial_title_text) = true) {
+    cc_settext(struct_param($struct0, timed_event_name));
+}
+def_int $int1 = 0;
+def_component $component2 = buff_select_event:tutorial_scroll_layer;
+def_component $component3 = buff_select_event:tutorial_scrollbar_layer;
+if (if_find(buff_select_event:tutorial_body_text) = true) {
+    $string0 = struct_param($struct0, timed_event_desc);
+    if (~script18412 = true) {
+        $string0 = "<$string0><br><br>Ironman accounts cannot gain buffs from this event, but can log in each day to make progress toward unlocking the reward.";
+    } else if (~script1526 = true) {
+        $string0 = "<$string0><br><br>Free players cannot gain buffs from this event, but can log in each day to make progress toward unlocking the reward.";
+    }
+    cc_settext($string0);
+    $int1 = ~script7593($string0, cc_getwidth, notosans_12, 0);
+    if ($int1 > if_getheight($component2)) {
+        if_sethide(false, $component3);
+        if_setscrollsize(0, max(if_getheight($component2), $int1), $component2);
+        if_setscrollpos(0, 0, $component2);
+        ~rs3_scrollbar_vertical($component3, $component2);
+    } else {
+        if_sethide(true, $component3);
+    }
+}

@@ -1,0 +1,32 @@
+// 3043
+[proc,script3043](component $component0, component $component1)
+def_int $int2 = calc(parawidth(if_gettext($component1), if_getwidth($component1), if_getfontmetrics($component1)) + 10);
+if_setsize(calc($int2 + 2 * if_getx($component1)), 0, ^setsize_minus, ^setsize_minus, $component0);
+cc_deleteall($component0);
+def_int $int3 = 0;
+def_int $int4 = 2;
+def_int $int5 = 2;
+def_int $int6 = calc(if_getwidth($component0) / 3);
+while ($int3 < 3) {
+    cc_create($component0, ^iftype_graphic, calc($int3 * $int5));
+    cc_setgraphic(rs3_btn_radio_off);
+    cc_setposition(calc($int3 * $int6), 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);
+    cc_create($component0, ^iftype_text, calc($int3 * $int5 + 1));
+    cc_setposition(calc($int3 * $int6 + 18 + $int4), 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_setsize(calc($int6 - 18 - $int4 * 2), 0, ^setsize_abs, ^setsize_minus);
+    cc_setcolour(0xaed0e0);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    switch_int ($int3) {
+        case 0 :
+            cc_settext("Everybody");
+        case 1 :
+            cc_settext("Friends");
+        case 2 :
+            cc_settext("Nobody");
+    }
+    $int3 = calc($int3 + 1);
+}
+if_setontimer("script3044($component0)", $component0);
+~script3045;

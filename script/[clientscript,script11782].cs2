@@ -1,0 +1,17 @@
+// 11782
+[clientscript,script11782](component $component0)
+def_int $int1 = if_getheight(seren_coeden:eyelids);
+def_int $int2 = calc($int1 / 2);
+def_int $int3 = max(1, scale($int2, 100, %seren_coeden_awakeness));
+if (%seren_coeden_awakeness = 100) {
+    if (if_getheight(seren_coeden:dream) < 310) {
+        if_settextfont(museo_sans_15pt_bold, seren_coeden:dream);
+    }
+    $int3 = calc($int2 + 1);
+}
+if (if_getheight($component0) < $int3) {
+    if_setsize(0, min(calc(if_getheight($component0) + 1), $int3), ^setsize_minus, ^setsize_abs, $component0);
+} else {
+    if_setsize(0, max(calc(if_getheight($component0) - 1), $int3), ^setsize_minus, ^setsize_abs, $component0);
+}
+if_setontimer("script11782($component0)", $component0);

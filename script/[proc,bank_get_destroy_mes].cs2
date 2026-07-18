@@ -1,0 +1,23 @@
+// 4009
+[proc,bank_get_destroy_mes](obj $obj0, inv $inv1, int $int2)(boolean, string)
+switch_obj ($obj0) {
+    case trh5_pegasus_boots_1 :
+        return(false, "<oc_name($obj0)> will lose all of its charges. Do you wish to continue?");
+    case trh5_pegasus_boots_2, trh5_pegasus_boots_3, trh5_pegasus_boots_4, trh5_pegasus_boots_5 :
+        return(false, "<oc_name($obj0)> will lose all of its charges and costs <tostring_localised(oc_param($obj0, diango_return_fee), true)> to reclaim from Diango. Do you wish to continue?");
+}
+if (~diango_retrievable($obj0) = true) {
+    if (oc_param($obj0, diango_return_fee) > 0) {
+        return(false, "<oc_name($obj0)> costs <tostring_localised(oc_param($obj0, diango_return_fee), true)> to reclaim from Diango. Do you wish to continue?");
+    } else if (oc_param($obj0, rand_brokenstate) ! null) {
+        return(false, "<oc_name($obj0)> will be returned in a broken state from Diango and will cost up to <tostring_localised(oc_param($obj0, rand_reward_rechargecost), true)> coins to repair. Do you wish to continue?");
+    } else if (oc_param($obj0, godwars2_nextstate) ! null & oc_param($obj0, item_degrade_broken_item) = 0) {
+        return(false, "<oc_name($obj0)> will be returned in a broken state from Diango and will cost up to <tostring_localised(oc_param($obj0, godwars2_rechargecost), true)> coins to repair. Do you wish to continue?");
+    } else if (oc_param($obj0, item_degrade_nextstate) ! null & enum(obj, boolean, unequippable_items_with_a_wearpos, $obj0) = false) {
+        return(false, "<oc_name($obj0)> will be returned in a broken state from Diango and will cost up to <tostring_localised(oc_param($obj0, item_degrade_rechargecost), true)> coins to repair. Do you wish to continue?");
+    } else {
+        return(true, "<oc_name($obj0)> (x<tostring(inv_getnum($inv1, $int2))>) will be <col=ffcb05>destroyed</col> and can be reclaimed at Diango.<br><br>Do you wish to continue?");
+    }
+} else {
+    return(true, "<oc_name($obj0)> (x<tostring(inv_getnum($inv1, $int2))>) will be <col=ffcb05>destroyed</col> and will need to be re-obtained if you want another in future.<br><br>Do you wish to continue?");
+}

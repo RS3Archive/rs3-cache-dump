@@ -1,0 +1,59 @@
+// 17225
+[proc,script17225](int $int0, dbrow $dbrow1)
+cc_deleteall(quest_fort_casefile:entries_build_layer);
+cc_deleteall(quest_fort_casefile:entries_discuss_button_layer);
+cc_deleteall(quest_fort_casefile:entries_replay_button_layer);
+cc_deleteall(quest_fort_casefile:entries_link_button_layer);
+if ($dbrow1 = null) {
+    return;
+}
+if_setscrollpos(0, 0, quest_fort_casefile:entries_scrolling_layer);
+~script17222(quest_fort_casefile:entries_scrolling_layer, if_getscrollheight(quest_fort_casefile:entries_scrolling_layer), -1, quest_fort_casefile:entries_page_num_left, quest_fort_casefile:entries_page_num_right);
+def_int $int2 = -1;
+def_int $int3 = db_getfieldcount($dbrow1, quest_fort_casefile_chapter:col0);
+def_dbrow $dbrow4 = null;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_dbrow $dbrow8 = null;
+def_int $int9 = 0;
+def_int $int10 = 50;
+def_int $int11 = $int10;
+def_int $int12 = 0;
+def_int $int13 = if_getheight(quest_fort_casefile:entries_scrolling_layer);
+def_int $int14 = $int13;
+while (++$int2 < $int3) {
+    $dbrow4 = db_getfield($dbrow1, quest_fort_casefile_chapter:col0, $int2);
+    if ($dbrow4 ! null) {
+        $int5 = -1;
+        $int6 = db_getfieldcount($dbrow4, quest_fort_casefile_page:col0);
+        if (calc($int2 % 2) = 0) {
+            $int9 = 0;
+            $int12 = $int11;
+        } else {
+            $int9 = calc(if_getwidth(quest_fort_casefile:entries_build_layer) - 326);
+            $int11 = $int12;
+        }
+        while (++$int5 < $int6) {
+            $dbrow8 = db_getfield($dbrow4, quest_fort_casefile_page:col0, $int5);
+            if ($dbrow8 ! null) {
+                $int7 = db_getfieldcount($dbrow8, quest_fort_casefile_entry:col1);
+                if ($int7 > 0 & $int5 > 0) {
+                    $int11 = calc($int11 + 16);
+                }
+                $int11 = ~script17226(quest_fort_casefile:entries_build_layer, quest_fort_casefile:entries_discuss_button_layer, quest_fort_casefile:entries_replay_button_layer, quest_fort_casefile:entries_link_button_layer, $int0, $dbrow8, $int9, $int11, 326, 70);
+            }
+        }
+        if (calc($int2 % 2) ! 0 & calc($int2 + 1) < $int3) {
+            $int11 = calc($int12 + $int13);
+            $int14 = calc($int14 + $int13);
+        }
+    }
+}
+if_setscrollsize(0, $int14, quest_fort_casefile:entries_scrolling_layer);
+if ($int14 > $int13) {
+    if_sethide(false, quest_fort_casefile:entries_navigation_layer);
+    ~script17220(quest_fort_casefile:entries_scrolling_layer, $int13, quest_fort_casefile:entries_navigate_left, quest_fort_casefile:entries_page_num_left, quest_fort_casefile:entries_navigate_right, quest_fort_casefile:entries_page_num_right);
+} else {
+    if_sethide(true, quest_fort_casefile:entries_navigation_layer);
+}

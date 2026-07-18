@@ -1,0 +1,103 @@
+// 2347
+[proc,script2347](obj $obj0, obj $obj1, int $int2, int $int3, int $int4, int $int5, inv $inv6, int $int7, int $int8, int $int9)(int)
+def_obj $obj10 = $obj1;
+def_obj $obj11 = null;
+if ($inv6 = worn) {
+    $obj10 = ~script8156($obj1);
+}
+if (~script3994($obj10) = true) {
+    return(0);
+}
+def_int $int12 = ~script14337;
+def_int $int13 = ~script3999($obj10);
+def_int $int14 = ~bank_itemspace2_range($obj10, $int3, $int13);
+if ($int14 >= $int3) {
+    if ($int8 = 1) {
+        if ($int2 ! -1 & oc_stackable($obj1) = true & ~bank_get_num($int2) > 0) {
+            ~bank_full_message($int13, true, $obj1);
+        } else {
+            ~bank_full_message($int13, false, $obj1);
+        }
+    }
+    return(0);
+}
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_boolean $boolean17 = ~script3802($obj0);
+if ($inv6 = worn) {
+    switch_int (~bank_deposit_worn_check($obj10, $int7, $obj0, $obj1, $int8)) {
+        case 0 :
+        case 3 :
+            $obj11 = $obj0;
+            $obj0 = $obj10;
+            $obj1 = $obj10;
+        case default :
+            ~script14187;
+            return(0);
+    }
+}
+def_int $int18 = calc($int3 - $int14);
+def_int $int19 = 0;
+if ($boolean17 = false | $int18 = 1) {
+    if ($int2 ! -1) {
+        $int4 = $int2;
+        $int5 = ~bank_get_tab($int2);
+        if (~script6058 = true) {
+            %bank_current_tab = $int5;
+        }
+    } else {
+        $int4, $int5 = ~script2592($int4, $int5, $int13, 1);
+    }
+    if ($int9 = 1) {
+        ~script14363($inv6, $int7, $obj0, $obj1, $int18, $int4);
+    } else {
+        ~script14363($inv6, -1, $obj0, $obj1, $int18, $int4);
+    }
+} else {
+    $int18 = ~script2483($inv6, $int2, $obj0, $int18);
+    if ($int18 > 0) {
+        $int4, $int5 = ~script2592($int4, $int5, $int13, $int18);
+        while ($int18 > 0) {
+            ~script14363($inv6, -1, $obj0, $obj1, 1, $int4);
+            $int4 = calc($int4 + 1);
+            $int18 = calc($int18 - 1);
+        }
+    }
+}
+if ($int8 = 1 & %bank_current_tab ! 1 & $int5 > 1 & ~script6058 = true) {
+    %bank_current_tab = $int5;
+}
+if (%bank_first_freeslot ! -1) {
+    %bank_first_freeslot = ~script14353(%bank_first_freeslot, $int13);
+    if (%bank_first_freeslot > $int13 | %bank_first_freeslot >= ~script14337) {
+        %bank_first_freeslot = -1;
+    }
+} else if ($int4 > $int12) {
+    %bank_first_freeslot = ~script14353($int12, $int13);
+    if (%bank_first_freeslot > $int13 | %bank_first_freeslot >= ~script14337) {
+        %bank_first_freeslot = -1;
+    }
+}
+if ($int14 > 0) {
+    if ($int8 = 1) {
+        ~bank_full_message($int13, ~negate_bool($boolean17), $obj1);
+    }
+} else {
+    ~bank_deposit_sound($obj0, $obj1);
+}
+if ($inv6 = worn) {
+    ~script13016($inv6, $obj11, $obj0);
+    if ($int8 = 1) {
+        ~script14192($obj0, $int7, 1);
+    } else {
+        ~script14192($obj0, $int7, 0);
+    }
+}
+if (oc_category($obj0) = mining_orebox) {
+    ~script14203;
+} else if (oc_category($obj0) = woodcutting_woodbox) {
+    ~script590($obj0);
+} else if ($obj0 = oct18_adrenaline_urn) {
+    ~script374;
+}
+return(1);

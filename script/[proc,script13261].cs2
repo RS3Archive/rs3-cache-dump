@@ -1,0 +1,27 @@
+// 13261
+[proc,script13261](component $component0)
+if (if_find($component0) = true & calc(cc_param(rs3tli_component_last_update) + 50) > clientclock) {
+    return;
+}
+def_int $int1 = -1;
+def_obj $obj2 = null;
+def_int $int3 = -1;
+def_struct $struct4 = toplevel_v2_ragdoll_store_tooltip;
+def_component $component5 = struct_param($struct4, toplevel_v2_ragdoll_suboverlay_layer);
+if ($component5 ! null & if_find($component5) = true) {
+    $int1 = cc_param(mtxmgt_target_preview_subid);
+    $obj2 = cc_param(toplevel_v2_tooltip_display_item);
+    if ($int1 = -1 | $obj2 = null) {
+        return;
+    }
+    if ($int1 ! cc_param(mtxmgt_current_preview_subid) & calc(cc_param(rs3tli_component_last_update) + 50) <= clientclock) {
+        cc_deleteall($component0);
+        cc_create($component0, ^iftype_graphic, 0);
+        cc_setobject($obj2, 1);
+        cc_setonop("script13263(10)");
+        cc_triggerop(1);
+        if (if_find($component0) = true) {
+            cc_setparam(rs3tli_component_last_update, clientclock);
+        }
+    }
+}

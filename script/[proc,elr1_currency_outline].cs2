@@ -1,0 +1,93 @@
+// 11060
+[proc,elr1_currency_outline]
+def_enum $enum0 = struct_param(%bslay_monster_struct, bslay_boss_tactics);
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "";
+def_int $int5 = 0;
+def_string $string1 = "Show attack";
+if (compare(if_gettext(bslay_boss_info:learn_button_text), "Learn") = 0) {
+    if_sethide(true, bslay_boss_info:static_dropdown);
+    if_settext("Hide", bslay_boss_info:learn_button_text);
+    if_sethide(true, bslay_boss_info:boss_requirements_wrapper);
+    if_sethide(true, bslay_boss_info:bos_name_wrapper);
+    if_setsize(744, 0, ^setsize_abs, ^setsize_minus, bslay_boss_info:boss_info_wrapper);
+    if_setsize(20, 185, ^setsize_minus, ^setsize_abs, bslay_boss_info:boss_desc_wrapper);
+    if (~wiki_allowed = true) {
+        if_sethide(false, bslay_boss_info:wiki_button_wrapper);
+        if_setsize(8192, 25, ^setsize_rel, ^setsize_abs, bslay_boss_info:boss_combat_level_wrapper);
+        if_setsize(8192, 25, ^setsize_rel, ^setsize_abs, bslay_boss_info:group_size_layer);
+        if_setsize(8192, 25, ^setsize_rel, ^setsize_abs, bslay_boss_info:nearest_lodestone_layer);
+    }
+    if_settext("", bslay_boss_info:boss_desc_text);
+    cc_deleteall(bslay_boss_info:boss_desc_wrapper);
+    cc_deleteall(bslay_boss_info:boss_model_wrapper);
+    cc_deleteall(bslay_boss_info:boss_desc_build_layer);
+    cc_deleteall(bslay_boss_info:boss_desc_scrollbar_layer);
+    if ($enum0 ! null) {
+        cc_create(bslay_boss_info:boss_model_wrapper, ^iftype_model, 0);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setmodelangle(0, if_getmodelyof(bslay_boss_info:boss_model), if_getmodelangle_x(bslay_boss_info:boss_model), if_getmodelangle_y(bslay_boss_info:boss_model), if_getmodelangle_z(bslay_boss_info:boss_model), if_getmodelzoom(bslay_boss_info:boss_model));
+        cc_setonmouseover("script1165(event_com, event_comsubid)");
+        cc_sethide(true);
+        while ($int2 < enum_getoutputcount($enum0)) {
+            $struct1 = enum(int, struct, $enum0, $int2);
+            if ($struct1 ! null) {
+                $string0 = struct_param($struct1, bslay_tactic_title);
+                cc_create(bslay_boss_info:boss_desc_wrapper, ^iftype_text, if_getnextsubid(bslay_boss_info:boss_desc_wrapper));
+                cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+                cc_settextfont(cinzel_12pt_bold);
+                cc_settextshadow(true);
+                cc_setcolour(^white);
+                cc_settext($string0);
+                cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+                cc_setsize(5, 20, ^setsize_minus, ^setsize_abs);
+                $int3 = calc($int3 + 20);
+                $string0 = struct_param($struct1, bslay_tactic_text);
+                if (struct_param($struct1, bslay_tactic_animation) ! null) {
+                    $int5 = 50;
+                } else {
+                    $int5 = 25;
+                }
+                $int4 = calc(15 * paraheight($string0, calc(479 - $int5), museo_sans_11pt_regular));
+                cc_create(bslay_boss_info:boss_desc_wrapper, ^iftype_text, if_getnextsubid(bslay_boss_info:boss_desc_wrapper));
+                cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+                cc_settextfont(museo_sans_11pt_regular);
+                cc_settextshadow(true);
+                cc_setcolour(~script10495(3));
+                cc_settext($string0);
+                cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+                cc_setsize($int5, $int4, ^setsize_minus, ^setsize_abs);
+                $int3 = calc($int3 + $int4 + 5);
+                if (struct_param($struct1, bslay_tactic_animation) ! null) {
+                    cc_create(bslay_boss_info:boss_desc_wrapper, ^iftype_graphic, if_getnextsubid(bslay_boss_info:boss_desc_wrapper));
+                    cc_setgraphic("aif_button_eye_view,0");
+                    cc_setsize(45, 30, ^setsize_abs, ^setsize_abs);
+                    cc_setposition(10, calc($int3 - $int4), ^setpos_abs_right, ^setpos_abs_top);
+                    cc_setonmouseover("script11061(1, event_comsubid, null, null, null, null)");
+                    cc_setonmouseleave("script11061(0, event_comsubid, null, null, null, null)");
+                    cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+                    cc_setop(1, "Show Attack");
+                    if (struct_param($struct1, bslay_tactic_spotanim) ! null) {
+                        cc_setonop("script11061(2, event_comsubid, struct_param($struct1, bslay_tactic_animation), struct_param($struct1, bslay_tactic_spotanim), struct_param($struct1, bslay_tactic_spotanim_model), struct_param($struct1, bslay_tactic_new_npc))");
+                    } else {
+                        cc_setonop("script11061(2, event_comsubid, struct_param($struct1, bslay_tactic_animation), null, null, struct_param($struct1, bslay_tactic_new_npc))");
+                    }
+                }
+            }
+            $int2 = calc($int2 + 1);
+        }
+        if ($int3 > if_getheight(bslay_boss_info:boss_desc_wrapper)) {
+            if_setscrollsize(479, $int3, bslay_boss_info:boss_desc_wrapper);
+            if_sethide(false, bslay_boss_info:boss_tactics_scrollbar_layer);
+            ~rs3_scrollbar_vertical(bslay_boss_info:boss_tactics_scrollbar_layer, bslay_boss_info:boss_desc_wrapper);
+        }
+    }
+} else {
+    ~script11081;
+}
+cc_deleteall(bslay_boss_info:boss_loot_build_layer);
+~bslay_rewards_build(bslay_boss_info:boss_loot_build_layer, bslay_boss_info:boss_loot_scrollbar_layer, bslay_boss_info:boss_loot_wrapper, %bslay_monster_struct, 0, 0, 0);

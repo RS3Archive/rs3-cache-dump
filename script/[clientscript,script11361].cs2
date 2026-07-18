@@ -1,0 +1,28 @@
+// 11361
+[clientscript,script11361](int $int0, int $int1, component $component2, int $int3, int $int4)
+def_struct $struct5 = enum(int, struct, mtxmgt_pet_ability_id_to_struct, $int1);
+def_struct $struct6 = null;
+if ($int3 > 0) {
+    $struct6 = enum(int, struct, mtxmgt_pet_ability_id_to_struct, ~mtx_pet_ability_get_active(calc($int3 - 9 + 1)));
+}
+if (~script11359($struct5) = 1 | ~script11359($struct6) = 1) {
+    return;
+}
+def_int $int7 = ~script11357;
+if ($int4 = 1) {
+    if ($int3 <= 0 & $int7 = -1) {
+        return;
+    } else if (%mtx_pet_ability_1 = $int1 | %mtx_pet_ability_2 = $int1 | %mtx_pet_ability_3 = $int1) {
+        return;
+    } else if (~mtx_pet_ability_ironman_check($int1) = 0) {
+        return;
+    } else if (cc_find(mtxmgt:pet_abilities_content, calc(9 + $int7)) = true) {
+        if ($component2 = null) {
+            cc_setgraphic(struct_param($struct5, mtx_graphic_on));
+        } else if (cc_find($component2, $int3) = true) {
+            cc_setgraphic(struct_param($struct5, mtx_graphic_on));
+        }
+    }
+} else if (cc_find(mtxmgt:pet_abilities_content, $int0) = true & cc_getgraphic ! rs3_icon_slot_standard) {
+    cc_setgraphic(rs3_icon_slot_standard);
+}

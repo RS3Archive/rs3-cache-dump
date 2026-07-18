@@ -1,0 +1,110 @@
+// 5999
+[clientscript,script5999](int $int0, int $int1, int $int2, int $int3, string $string0)
+if ($int0 = -1 | $int1 = -1) {
+    return;
+}
+def_int $int4 = calc($int0 % 8 + $int1 * 8);
+def_graphic $graphic5 = null;
+def_obj $obj6 = null;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_string $string1 = "";
+def_int $int9 = 32;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+switch_int ($int2) {
+    case 0 :
+        $graphic5 = "rand_map_room_special,0";
+        $string1 = "Starting room";
+    case 1 :
+        $graphic5 = "rand_map_room_special,2";
+        $string1 = "Boss room";
+    case 2 :
+        $obj6 = enum(int, obj, rand_keys, $int3);
+        $int9 = 24;
+        $int10 = 5;
+        $int11 = 2;
+        $string1 = oc_name($obj6);
+        if (~script8152($obj6) = 1) {
+            $int12 = 1;
+        }
+    case 3 :
+        $graphic5 = enum(int, graphic, stat2icon_small, $int3);
+        $string1 = enum(int, string, statstring, $int3);
+        $int9 = 16;
+        $int10 = 8;
+        $int11 = 8;
+    case 5 :
+        $int9 = 20;
+        $obj6 = rand_gate_stone;
+        $string1 = $string0;
+        $string0 = "";
+        $int10 = 6;
+        $int11 = 5;
+        $int4 = 64;
+    case 6 :
+        $int9 = 20;
+        $obj6 = atdun_gatestone;
+        $string1 = $string0;
+        $string0 = "";
+        $int10 = 6;
+        $int11 = 5;
+        $int4 = 65;
+    case 7 :
+        $int9 = 20;
+        $obj6 = rand_group_gatestone;
+        $string1 = $string0;
+        $string0 = "";
+        $int10 = 6;
+        $int11 = 5;
+        $int4 = 66;
+    case 4 :
+        $int9 = 11;
+        $string1 = $string0;
+        $string0 = "";
+        $int4 = calc(67 + $int3);
+        switch_int ($int3) {
+            case 1 :
+                $graphic5 = "rand_map_player_pips,0";
+                $int10 = 6;
+                $int11 = 20;
+            case 2 :
+                $graphic5 = "rand_map_player_pips,1";
+                $int10 = 20;
+                $int11 = 20;
+            case 3 :
+                $graphic5 = "rand_map_player_pips,2";
+                $int10 = 13;
+                $int11 = 13;
+            case 4 :
+                $graphic5 = "rand_map_player_pips,3";
+                $int10 = 6;
+                $int11 = 6;
+            case 5 :
+                $graphic5 = "rand_map_player_pips,4";
+                $int10 = 20;
+                $int11 = 6;
+        }
+}
+~if_add_child_graphic(rand_dungeon_map:draw_layer, $int4, 1, calc($int0 * 32 + $int10), calc($int1 * 32 + $int11), ^setpos_abs_left, ^setpos_abs_bottom, $int9, $int9, ^setsize_abs, ^setsize_abs, $graphic5);
+if ($obj6 ! null) {
+    cc_setobject_nonum($obj6, 1);
+    if ($int12 = 1) {
+        cc_setoutline(2);
+    }
+}
+if (~script6431 = true) {
+    cc_settrans(130);
+}
+if (compare($string0, "") ! 0) {
+    ~if_add_child_text(rand_dungeon_map:draw_layer, $int4, 2, calc($int0 * 32 + 4), calc($int1 * 32 + 14), ^setpos_abs_left, ^setpos_abs_bottom, 24, 14, ^setsize_abs, ^setsize_abs, text_title_body, $string0);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settextshadow(true);
+    cc_setcolour(^white);
+    $string0 = "<enum(int, string, statstring, $int3)> <$string0>";
+}
+if (compare($string1, "") ! 0) {
+    cc_setonmouserepeat("rand_map_tooltip(event_com, event_comsubid, 61734922, $string1)");
+    cc_setonmouseleave("deltooltip(rand_dungeon_map:tooltip_layer)");
+}

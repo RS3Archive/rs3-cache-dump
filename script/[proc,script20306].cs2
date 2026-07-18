@@ -1,0 +1,35 @@
+// 20306
+[proc,script20306](component $component0, achievement $achievement1, string $string0)(boolean)
+def_int $int2 = %varclientbit_58401;
+if ($component0 ! league_parent_tasks:task_panel) {
+    switch_int (%league_task_child_filter_depth) {
+        case 5, 8 :
+            $int2 = 0;
+        case default :
+            $int2 = 1;
+    }
+} else if (string_length(%league_task_search_client) > 0 & string_indexof_string(lowercase($string0), %league_task_search_client, 0) = -1) {
+    return(false);
+}
+switch_int ($int2) {
+    case 0 :
+        return(true);
+    case 1 :
+        if (~script20300($achievement1) = 0) {
+            return(false);
+        }
+        if (achievement_reqstate($achievement1) ! -1) {
+            return(true);
+        }
+        return(false);
+    case 2 :
+        if (~script20300($achievement1) = 1) {
+            return(false);
+        }
+        if (achievement_reqstate($achievement1) = -1) {
+            return(true);
+        }
+        return(false);
+    case default :
+        return(true);
+}

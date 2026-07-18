@@ -1,0 +1,52 @@
+// 15515
+[clientscript,fairyrings_log_build](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+cc_deleteall($component5);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_dbrow $dbrow8 = null;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_int $intarray0(67);
+def_int $int10 = 0;
+while ($int7 = 0) {
+    cc_create($component0, ^iftype_graphic, $int6);
+    cc_create($component1, ^iftype_text, $int6);
+    cc_create($component2, ^iftype_rectangle, $int6);
+    cc_create($component5, ^iftype_text, $int6);
+    cc_create($component3, ^iftype_text, $int6);
+    cc_create($component4, ^iftype_text, $int6);
+    db_find(fairyrings:col0, $int6);
+    $dbrow8 = db_findnext;
+    if ($dbrow8 = null) {
+        $int7 = 1;
+    } else {
+        $intarray0($int6) = $int6;
+        switch_int (%fairyrings_log_order) {
+            case 0, 1 :
+                if (db_getfield($dbrow8, fairyrings:col5, 0) ! null) {
+                    $dbrow8 = db_getfield($dbrow8, fairyrings:col5, 0);
+                }
+                $string0 = db_getfield($dbrow8, fairyrings:col2, 0);
+            case 2 :
+                $string0 = db_getfield($dbrow8, fairyrings:col3, 0);
+        }
+        if (cc_find($component5, $int6) = true) {
+            cc_setparam_string(quicksort_string, lowercase($string0));
+        }
+        db_find(fairyrings:col0, $int6);
+        $int10 = db_getfield(db_findnext, fairyrings:col1, 0);
+        if (~script3101(db_getfield($dbrow8, fairyrings:col1, 0)) = 1 & ~script15320($int10) = true & ~script3104($int10) = true) {
+            $int9 = calc($int9 + 1);
+        }
+    }
+    $int6 = calc($int6 + 1);
+}
+~script17567(intarray0, $component5, 0, calc(67 - 1));
+~script15516(intarray0, $component0, $component1, $component2, $component3, $component4, $component5);
+if_settext("<tostring($int9)>/<tostring(58)>", fairyrings:log_found_total);
+~script8841(86, 1);

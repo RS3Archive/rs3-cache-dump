@@ -1,0 +1,30 @@
+// 9936
+[clientscript,script9936](component $component0, component $component1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (cc_find($component1, 0) = true) {
+    cc_settrans(50);
+    cc_create($component0, ^iftype_text, 0);
+    cc_setposition(2, 2, ^setpos_abs_left, ^setpos_abs_top);
+    if (%toplevel_v2_mobile_interface = 1) {
+        cc_settext("Unavailable on Mobile");
+    } else {
+        cc_settext("Unavailable in Classic Mode");
+    }
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    $int2 = parawidth(cc_gettext, calc(if_getwidth($component0) - 4), cc_getfontmetrics);
+    $int3 = calc(13 * paraheight(cc_gettext, calc(if_getwidth($component0) - 4), cc_getfontmetrics));
+    cc_setsize(2, $int3, ^setsize_minus, ^setsize_abs);
+    .cc_create($component0, ^iftype_graphic, 1);
+    .cc_setsize(64, 64, ^setsize_abs, ^setsize_abs);
+    .cc_setgraphic(rs3_icon_child_window_lock);
+    if (if_getwidth($component0) < 64 | if_getheight($component0) < calc(66 + $int3 + cc_gety)) {
+        .cc_sethide(true);
+    } else {
+        .cc_setposition(0, calc($int3 + 2), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+} else {
+    if_setontimer("script9936($component0, $component1)", $component0);
+}

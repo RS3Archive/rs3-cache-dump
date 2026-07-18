@@ -1,0 +1,132 @@
+// 4301
+[proc,clansettings_list_build]
+def_component $component0 = clansettings:list_name_layer;
+def_component $component1 = clansettings:list_job_layer;
+def_component $component2 = clansettings:list_rank_layer;
+def_component $component3 = clansettings:list_button_layer;
+def_int $int4 = 71827476;
+def_component $component5 = clansettings:list_scrolling_layer;
+def_component $component6 = clansettings:mute_icon_layer;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int7 = 15;
+def_int $int8 = 15;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = activeclansettings_getaffinedcount;
+def_int $int14 = 25;
+def_int $int15 = 4;
+def_int $int16 = 4;
+def_int $int17 = 4;
+def_int $int18 = 9;
+def_int $int19 = -1;
+def_int $int20 = -1;
+def_int $int21 = -1;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 23;
+def_int $int25 = 23;
+def_int $int26 = calc(16384 / 2);
+def_int $int27 = calc(if_getwidth($component5) / 2);
+def_int $int28 = calc($int27 - $int18 - 4);
+def_int $int29 = 5;
+def_int $int30 = calc($int27 - $int7 - 20);
+def_int $int31 = calc(if_getheight($component0) / $int25);
+def_int $int32 = calc($int31 * 2);
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component6);
+while ($int12 < $int13) {
+    $string0 = activeclansettings_getaffineddisplayname($int12);
+    $int20 = activeclansettings_getaffinedrank($int12);
+    $int22 = activeclansettings_getaffinedextrainfo($int12, 10, 10);
+    $int21 = activeclansettings_getaffinedjoinruneday($int12);
+    if (calc(%clansettings_clanmate_filter_rank_plus_1 - 1) ! $int20) {
+        $int23 = 1;
+        if (%clansettings_clanmate_filter_rank_plus_1 = 0 | %clansettings_clanmate_filter_rank_plus_1 = -1) {
+            $int23 = 0;
+        }
+    } else {
+        $int23 = 0;
+    }
+    cc_create($component0, ^iftype_text, $int12);
+    if ($int23 = 0) {
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_setsize($int26, $int25, ^setsize_rel, ^setsize_abs);
+        $int19 = -1;
+        if ($int21 = 0) {
+            $int21 = 3331;
+        }
+        $string1 = "Joined: <~fromdate_long($int21)>";
+        cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+        $int19 = -1;
+        if (activeclanchannel_find_affined(0) = true & activeclanchannel_getuserslot($string0) > -1) {
+            $int19 = activeclanchannel_getuserworld(activeclanchannel_getuserslot($string0));
+        }
+        if ($int19 = map_world) {
+            cc_setcolour(0x3cb71e);
+        } else if ($int19 > 0) {
+            cc_setcolour(0xffff64);
+        } else {
+            cc_setcolour(0xbeb28c);
+        }
+        cc_settextshadow(true);
+        cc_settext($string0);
+    }
+    cc_create($component2, ^iftype_graphic, $int12);
+    if ($int23 = 0) {
+        cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic(enum(int, graphic, clanchat2_rankgraphic, $int20));
+        $string1 = enum(int, string, clan_core_player_rank_int_to_rank, $int20);
+        cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+    }
+    cc_create($component6, ^iftype_graphic, $int12);
+    if ($int23 = 0) {
+        cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+        if ($int22 = 1) {
+            cc_setgraphic("aif_clan_permissions_list,12");
+            $string1 = "Muted in Clan Chat";
+            cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+        }
+    }
+    cc_create($component3, ^iftype_graphic, $int12);
+    if ($int23 = 0) {
+        cc_setsize($int18, $int24, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic("aif_browngrad_whole_btn,3");
+        cc_setop(1, "Show details");
+        cc_setonop("script4303");
+    }
+    $int12 = calc($int12 + 1);
+}
+def_int $int33 = 0;
+$int12 = 0;
+def_int $int34 = 0;
+while ($int12 < $int13) {
+    $int34 = activeclansettings_getsortedaffinedslot($int12);
+    if (cc_find($component0, $int34) = true & compare(cc_gettext, "") ! 0) {
+        if (calc($int33 % 2) ! 0) {
+            $int10 = $int27;
+        } else {
+            $int10 = 0;
+        }
+        $int11 = calc($int33 / 2 * $int25);
+        cc_setposition(calc($int14 + $int10), calc($int15 + $int11), ^setpos_abs_left, ^setpos_abs_top);
+        if (cc_find($component2, $int34) = true) {
+            cc_setposition(calc($int29 + $int10), calc($int15 + $int11), ^setpos_abs_left, ^setpos_abs_top);
+        }
+        if (cc_find($component3, $int34) = true) {
+            cc_setposition(calc($int28 + $int10), $int11, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        if (cc_find($component6, $int34) = true) {
+            cc_setposition(calc($int30 + $int10), calc($int17 + $int11), ^setpos_abs_left, ^setpos_abs_top);
+        }
+        $int33 = calc($int33 + 1);
+    }
+    $int12 = calc($int12 + 1);
+}
+%clansettings_clanmate_unfiltered_count = $int33;
+~script4318;

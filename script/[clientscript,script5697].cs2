@@ -1,0 +1,28 @@
+// 5697
+[clientscript,script5697](int $int0, struct $struct1, dbrow $dbrow2)
+def_string $string0 = ~skillguide_info($struct1, $dbrow2);
+if (string_length($string0) <= 0) {
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_fontmetrics $fontmetrics5 = museo_sans_11pt_regular;
+if (cc_find(skillguide:content_layer, $int0) = true) {
+    if (if_gethide(skillguide:tooltip_layer) = true) {
+        $int4 = calc(cc_getheight + cc_gety - 5);
+        if (~script6431 = true) {
+            if_settextfont(museo_sans_13pt_regular, skillguide:tooltip_text);
+            $fontmetrics5 = museo_sans_13pt_regular;
+        }
+        $int3 = calc(max(paraheight($string0, 500, $fontmetrics5), 1) * 12 + 30);
+        if_settext($string0, skillguide:tooltip_text);
+        if_setsize(590, $int3, ^setsize_abs, ^setsize_abs, skillguide:tooltip_layer);
+        if (calc($int4 + $int3 - if_getscrolly(skillguide:main_content_layer)) > if_getheight(skillguide:main_content_layer)) {
+            $int4 = calc(cc_gety - ($int3 - 10));
+        }
+        if_setposition(if_getx(skillguide:tooltip_layer), $int4, ^setpos_abs_left, ^setpos_abs_top, skillguide:tooltip_layer);
+        if_sethide(false, skillguide:tooltip_layer);
+    } else {
+        if_sethide(true, skillguide:tooltip_layer);
+    }
+}

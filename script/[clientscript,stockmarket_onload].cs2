@@ -1,0 +1,31 @@
+// 585
+[clientscript,stockmarket_onload]
+if_setonvartransmit("script588{stock_offeritem}", stockmarket:offerlayer);
+if_setonstocktransmit("stockmarket_onstocktransmit", stockmarket:stocktransmit_layer);
+if_setonvartransmit("script11743{lending_mydebtor, lending_retrievetime}", stockmarket:lending_container);
+if_setoninvtransmit("script11743{lent_items}", stockmarket:lending_container);
+~script8841(82, 1);
+if_settext(~mobile_text_get(1), stockmarket:search_input_display);
+if (map_lang = 1) {
+    ~script15026;
+}
+if (compare(%p_dialog_input, "") ! 0 & %p_dialog_listener = stockmarket:search_input_listener) {
+    if_settext(escape(%p_dialog_input), stockmarket:search_input_display);
+    if_sethide(false, stockmarket:search_input_clickout);
+    if_setonclick("stockmarket_clear_search", stockmarket:search_input_clickout);
+    if (%stock_offeritem = null) {
+        ~stockmarket_search_init;
+    }
+    ~script11700(%stock_offeritem);
+} else if (compare(%stock_search_save, "") ! 0) {
+    if (%p_dialog_listener = stockmarket:search_input_listener) {
+        %p_dialog_input = %stock_search_save;
+    }
+    if_settext(escape(%stock_search_save), stockmarket:search_input_display);
+    if_sethide(false, stockmarket:search_input_clickout);
+    if_setonclick("stockmarket_clear_search", stockmarket:search_input_clickout);
+    ~script11700(%stock_offeritem);
+} else {
+    %stock_search_save = "";
+}
+~script621;

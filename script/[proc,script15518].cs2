@@ -1,0 +1,31 @@
+// 15518
+[proc,script15518]
+if (~script6431 = true) {
+    return;
+}
+def_int $int0 = -1;
+def_int $int1 = 0;
+def_int $int2 = if_getnextsubid(fairyrings:favourite_build);
+def_int $int3 = 0;
+while ($int3 = 0) {
+    if (cc_find(fairyrings:favourite_build, ++$int0) = true) {
+        $int1 = cc_param(fairyrings_favourite_slot);
+        if ($int1 > 0) {
+            .cc_create(fairyrings:favourite_build, ^iftype_text, $int2);
+            .cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+            .cc_setposition(0, calc(cc_gety + (36 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+            if ($int1 = 10) {
+                .cc_settext("0");
+            } else {
+                .cc_settext(tostring($int1));
+            }
+            .cc_setcolour(~script10495(16777215));
+            .cc_settextfont(museo_sans_13pt_bold);
+            .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            .cc_settextshadow(true);
+            $int2 = calc($int2 + 1);
+        }
+    } else {
+        $int3 = 1;
+    }
+}

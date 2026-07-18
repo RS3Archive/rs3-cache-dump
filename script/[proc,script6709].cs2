@@ -1,0 +1,48 @@
+// 6709
+[proc,script6709](int $int0, int $int1)
+db_find(dino_base_camp_building:col0, $int1);
+def_dbrow $dbrow2 = db_findnext;
+def_string $string0 = "";
+def_int $int3 = ~script6061($int1);
+def_int $int4 = db_getfieldcount($dbrow2, dino_base_camp_building:col10);
+def_int $int5 = -1;
+while (++$int5 < 3) {
+    if ($int5 < $int4) {
+        $string0 = db_getfield($dbrow2, dino_base_camp_building:col10, $int5);
+        switch_int ($int5) {
+            case 0 :
+                if_settext($string0, dino_base_camp:perk_1_text);
+                if_sethide(false, dino_base_camp:perk_1);
+                if ($int3 >= 1) {
+                    ~script13990(dino_base_camp:perk_1_bg, null, rs3tli_content_container);
+                } else {
+                    ~script13991(dino_base_camp:perk_1_bg, null, rs3tli_content_container, true);
+                }
+            case 1 :
+                if_settext($string0, dino_base_camp:perk_2_text);
+                if_sethide(false, dino_base_camp:perk_2);
+                if ($int3 >= 2) {
+                    ~script13990(dino_base_camp:perk_2_bg, null, rs3tli_content_container);
+                } else {
+                    ~script13991(dino_base_camp:perk_2_bg, null, rs3tli_content_container, true);
+                }
+            case 2 :
+                if_settext($string0, dino_base_camp:perk_3_text);
+                if_sethide(false, dino_base_camp:perk_3);
+                if ($int3 >= 3) {
+                    ~script13990(dino_base_camp:perk_3_bg, null, rs3tli_content_container);
+                } else {
+                    ~script13991(dino_base_camp:perk_3_bg, null, rs3tli_content_container, true);
+                }
+        }
+    } else {
+        switch_int ($int5) {
+            case 0 :
+                if_sethide(true, dino_base_camp:perk_1);
+            case 1 :
+                if_sethide(true, dino_base_camp:perk_2);
+            case 2 :
+                if_sethide(true, dino_base_camp:perk_3);
+        }
+    }
+}

@@ -1,0 +1,24 @@
+// 18320
+[clientscript,script18320]
+def_int $int0 = inv_size(drop_casket_rewardinv);
+def_int $int1 = 0;
+def_int $int2 = 8;
+def_int $int3 = 0;
+def_obj $obj4 = null;
+while ($int1 < $int0) {
+    $obj4 = inv_getobj(drop_casket_rewardinv, $int1);
+    cc_create(drop_casket:reward_box, ^iftype_graphic, $int1);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_centre);
+    $int2 = calc($int2 + 36 + 8);
+    if ($obj4 ! null) {
+        cc_setobject($obj4, inv_getnum(drop_casket_rewardinv, $int1));
+        cc_setopbase("<col=ff9040><oc_name($obj4)>");
+        cc_setop(1, "Examine");
+        cc_setoutline(1);
+        cc_setparam(toplevel_v2_tooltip_item, $obj4);
+        cc_setonmouserepeat("script5495($obj4)");
+        cc_setonmouseleave("script9300(event_com, event_comsubid)");
+    }
+    $int1 = calc($int1 + 1);
+}

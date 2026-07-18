@@ -1,0 +1,40 @@
+// 16263
+[proc,script16263](dbrow $dbrow0, component $component1, int $int2)(int)
+def_int $int3 = db_getfieldcount($dbrow0, teleport_list_category:col2);
+def_int $int4 = enum_getoutputcount(teleport_keyboard_shortcuts);
+def_int $int5 = -1;
+def_int $setposh6 = ^setpos_abs_left;
+def_int $int7 = 0;
+def_int $int8 = if_getnextsubid($component1);
+def_dbrow $dbrow9 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_boolean $boolean10 = true;
+while (++$int5 < $int3) {
+    $dbrow9 = db_getfield($dbrow0, teleport_list_category:col2, $int5);
+    if ($dbrow9 ! null) {
+        $boolean10 = true;
+        $string1 = "To teleport, you must meet the following requirements:";
+        $string0 = db_getfield($dbrow9, teleport_destinations:col0, 0);
+        if ($int8 < $int4) {
+            $string0 = append(enum(int, string, teleport_keyboard_shortcuts, $int8), $string0);
+        }
+        $boolean10, $string1 = ~script8696($dbrow9, $string1);
+        if (calc($int5 % 2) = 0) {
+            $setposh6 = ^setpos_abs_left;
+        } else {
+            $setposh6 = ^setpos_abs_right;
+        }
+        $int7 = calc($int2 + (5 + $int5 / 2 * 28));
+        ~cc_add_button_full($component1, $int8, 10, $int7, $setposh6, ^setpos_abs_top, 7373, 24, ^setsize_rel, ^setsize_abs, button_cornered_neutral, $string0, $boolean10, true, false, false);
+        cc_settextfont(notosans_12);
+        cc_setmaxlines(1);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setop(1, "Select");
+        if ($boolean10 = false) {
+            ~script3537($string1);
+        }
+        $int8 = calc($int8 + 1);
+    }
+}
+return($int7);

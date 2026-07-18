@@ -1,0 +1,37 @@
+// 2757
+[proc,script2757](int $int0, int $int1, int $int2, boolean $boolean3, int $int4, int $int5, int $int6, int $int7)
+if ($boolean3 = false) {
+    ~info_reset;
+    return;
+}
+def_int $int8 = if_getx(toplevel_v2:gameview_window);
+def_int $int9 = if_gety(toplevel_v2:gameview_window);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_component $component12 = if_getparentlayer(info_box:mainlayer);
+if ($component12 ! null) {
+    $int10 = if_getwidth($component12);
+    $int11 = if_getheight($component12);
+}
+if (%info_box_open = true) {
+    ~info_box_build;
+}
+if (if_find(info_box:mainlayer) = true) {
+    if (compare(%info_box_text, "") ! 0) {
+        cc_setsize(min(200, calc(20 + parawidth(%info_box_text, 180, museo_sans_13pt_bold))), calc(22 + 15 * paraheight(%info_box_text, 180, museo_sans_13pt_bold)), ^setsize_abs, ^setsize_abs);
+    }
+    switch_int (%info_box_offset) {
+        case 1, 2 :
+            $int0, $int1 = ~script17185($int0, $int1, $int8, $int9, $int10, $int11, cc_getwidth, cc_getheight);
+        case default :
+            $int0, $int1 = ~script17184($int0, $int1, $int8, $int9, $int10, $int11, cc_getwidth, cc_getheight);
+    }
+    cc_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+    if (%info_box_open = true) {
+        %info_box_open = false;
+        cc_setontimer("info_box_timer(~info_box_timeout(%info_box_text))");
+    }
+}
+if (cc_find(info_box:mainlayer, 9) = true) {
+    cc_settext(%info_box_text);
+}

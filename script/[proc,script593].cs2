@@ -1,0 +1,47 @@
+// 593
+[proc,script593](int $int0)
+def_inv $inv1 = enum(int, inv, stockmarket_collectinv, %stock_offerslot);
+def_obj $obj2 = inv_getobj($inv1, 0);
+def_obj $obj3 = inv_getobj($inv1, 1);
+$obj2, $obj3 = ~script17386($obj2, $obj3, inv_getobj($inv1, 2));
+~script9263(stockmarket:offercollect_a, $obj2, $inv1);
+~script9263(stockmarket:offercollect_b, $obj3, $inv1);
+if_setoninvtransmit("stockmarket_oninvtransmit{$inv1}", stockmarket:runninglayer);
+def_int $int4 = stockmarket_getoffertype($int0, 0);
+def_int $int5 = stockmarket_getoffercount($int0, 0);
+def_int $int6 = stockmarket_getoffercompletedcount($int0, 0);
+def_long $long0 = stockmarket_getoffercompletedgold($int0, 0);
+def_long $long1 = ~script12802($int0, stockmarket_getofferitem($int0, 0), $int6, $long0, $int4);
+def_string $string0 = tostring_localised($int6, true);
+def_string $string1 = tostring_localised_long(calc($long0 - $long1), true);
+cc_deleteall(stockmarket:progressbar);
+if (if_find(stockmarket:progressbar) = true) {
+    if (stockmarket_isofferadding($int0, 0) = true) {
+        .cc_create(stockmarket:progressbar, ^iftype_text, 0);
+        .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_settextfont(museo_sans_11pt_regular);
+        .cc_setcolour(0xdbd884);
+        .cc_settext("Submitting offer...");
+        .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    } else {
+        ~script652(0, 0, cc_getwidth, cc_getheight, $int0, stockmarket:progressbar, 0, 0, 2, 1);
+    }
+}
+if (stockmarket_isofferfinished($int0, 0) = true) {
+    if ($int4 = 0) {
+        if_settext("You bought <col=cc9900><$string0></col> for <col=cc9900><$string1></col> coins.", stockmarket:progresstext);
+    } else {
+        if_settext("You sold <col=cc9900><$string0></col> and received <col=cc9900><$string1></col> coins.", stockmarket:progresstext);
+    }
+    if_sethide(true, stockmarket:offerabort);
+    if_sethide(false, stockmarket:offercollect_repeat);
+} else {
+    if ($int4 = 0) {
+        if_settext("You have bought <col=cc9900><$string0></col> so far for <col=cc9900><$string1></col> coins.", stockmarket:progresstext);
+    } else {
+        if_settext("You have sold <col=cc9900><$string0></col> so far and received  <col=cc9900><$string1></col> coins.", stockmarket:progresstext);
+    }
+    if_sethide(false, stockmarket:offerabort);
+    if_sethide(true, stockmarket:offercollect_repeat);
+}

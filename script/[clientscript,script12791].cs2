@@ -1,0 +1,19 @@
+// 12791
+[clientscript,script12791](component $component0, int $int1, int $int2)
+def_component $component3 = quest_nomel_nomad_memories:text;
+def_int $int4 = calc($int1 - clientclock);
+if ($int4 <= 0) {
+    if ($int2 = 0) {
+        if_settrans(0, $component3);
+    } else if ($int2 = 1) {
+        if_settrans(255, $component3);
+    }
+    if_setontimer(null, $component0);
+    return;
+}
+def_int $int5 = if_gettrans($component3);
+if ($int2 = 0) {
+    if_settrans(max(calc($int5 - $int5 / $int4), 1), $component3);
+} else if ($int2 = 1) {
+    if_settrans(max(calc($int5 + $int5 / $int4), 254), $component3);
+}

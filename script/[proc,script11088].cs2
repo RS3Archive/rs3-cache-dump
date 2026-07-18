@@ -1,0 +1,240 @@
+// 11088
+[proc,script11088](struct $struct0)(string)
+def_string $string0 = "";
+def_int $int1 = 0;
+switch_struct ($struct0) {
+    case combatv2_scrimshaw_timer_dummy_ability :
+        $string0 = "<oc_name(inv_getobj(worn, 17))> : <oc_desc(inv_getobj(worn, 17))>";
+    case masterwork_set_effect_damage_pool :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)><br>Your masterwork armour has stalled <tostring(%masterwork_set_effect_damage_pool)> damage. You'll take <tostring(~script2544)> or more damage every <col=ffffff>1.2</col> seconds until the pool is empty.";
+    case combatv2_clan_ava_buff_level :
+        $int1 = calc(10080 - (date_minutes - %clav_buff_bought_time_varp) + 1);
+        if ($int1 > 0) {
+            $string0 = "<br>This boost will expire in <~script11479(calc($int1 / 1440), calc($int1 % 1440 / 60), calc($int1 % 60))>.";
+        }
+        $string0 = append("Attuning to the Avatar Habitat has granted you a <col=33cc33><tostring(%clan_avatar_buff_level)>%</col> XP boost.", $string0);
+    case combatv2_mtxfair17_fortune_dummy_ability :
+        $string0 = "<col=FFFFFF>Cloud of destiny</col> - complete your fortune to get a reward from fate. <col=5A5AFF><enum(int, string, mtxfair17_ft_index_to_text, %mtxfair17_ft_fortune_index)></col>";
+    case combatv2_prayer_melee_attack_modified_dummy_ability :
+        if (%combatv2_prayer_melee_attack_modifier >= 0) {
+            $string0 = "Melee Attack Rating Boosted (+<tostring(%combatv2_prayer_melee_attack_modifier)> Melee Accuracy)";
+        } else {
+            $string0 = "Melee Attack Rating Drained (<tostring(%combatv2_prayer_melee_attack_modifier)>  Melee Accuracy)";
+        }
+    case combatv2_prayer_ranged_attack_modified_dummy_ability :
+        if (%combatv2_prayer_range_attack_modifier >= 0) {
+            $string0 = "Ranged Attack Rating Boosted (+<tostring(%combatv2_prayer_range_attack_modifier)> Ranged Accuracy)";
+        } else {
+            $string0 = "Ranged Attack Rating Drained (<tostring(%combatv2_prayer_range_attack_modifier)> Ranged Accuracy)";
+        }
+    case combatv2_prayer_magic_attack_modified_dummy_ability :
+        if (%combatv2_prayer_magic_attack_modifier >= 0) {
+            $string0 = "Magic Attack Rating Boosted (+<tostring(%combatv2_prayer_magic_attack_modifier)> Magic Accuracy)";
+        } else {
+            $string0 = "Magic Attack Rating Drained (<tostring(%combatv2_prayer_magic_attack_modifier)> Magic Accuracy)";
+        }
+    case combatv2_prayer_necromancy_attack_modified_dummy_ability :
+        if (%combatv2_prayer_necromancy_attack_modifier >= 0) {
+            $string0 = "Necromancy Attack Rating Boosted (+<tostring(%combatv2_prayer_necromancy_attack_modifier)> Necromancy Accuracy)";
+        } else {
+            $string0 = "Necromancy Attack Rating Drained (<tostring(%combatv2_prayer_necromancy_attack_modifier)> Necromancy Accuracy)";
+        }
+    case combatv2_prayer_defence_modified_dummy_ability :
+        if (%combatv2_prayer_defence_modifier >= 0) {
+            $string0 = "Defence Rating Boosted (<tostring(%combatv2_prayer_defence_modifier)>)";
+        } else {
+            $string0 = "Defence Rating Drained (<tostring(%combatv2_prayer_defence_modifier)>)";
+        }
+    case combatv2_prayer_melee_strength_modified_dummy_ability :
+        if (%combatv2_prayer_melee_strength_modifier >= 0) {
+            $string0 = "Melee Strength Rating Boosted (+<tostring(%combatv2_prayer_melee_strength_modifier)>%)";
+        } else {
+            $string0 = "Melee Strength Rating Drained (<tostring(%combatv2_prayer_melee_strength_modifier)>%)";
+        }
+    case combatv2_prayer_ranged_strength_modified_dummy_ability :
+        if (%combatv2_prayer_range_strength_modifier >= 0) {
+            $string0 = "Ranged Strength Rating Boosted (+<tostring(%combatv2_prayer_range_strength_modifier)>%)";
+        } else {
+            $string0 = "Ranged Strength Rating Drained (<tostring(%combatv2_prayer_range_strength_modifier)>%)";
+        }
+    case combatv2_prayer_magic_strength_modified_dummy_ability :
+        if (%combatv2_prayer_magic_strength_modifier >= 0) {
+            $string0 = "Magic Strength Rating Boosted (+<tostring(%combatv2_prayer_magic_strength_modifier)>%)";
+        } else {
+            $string0 = "Magic Strength Rating Drained (<tostring(%combatv2_prayer_magic_strength_modifier)>%)";
+        }
+    case combatv2_prayer_necromancy_strength_modified_dummy_ability :
+        if (%combatv2_prayer_necromancy_strength_modifier >= 0) {
+            $string0 = "Necromancy Strength Rating Boosted (+<tostring(%combatv2_prayer_necromancy_strength_modifier)>%)";
+        } else {
+            $string0 = "Necromancy Strength Rating Drained (<tostring(%combatv2_prayer_necromancy_strength_modifier)>%)";
+        }
+    case combatv2_valentines_staff_dummy_ability :
+        if (%trh82_xp_boost = 4) {
+            $string0 = "Valentine's Slam - 4% XP Boost";
+        } else if (%trh82_xp_boost = 2) {
+            $string0 = "Valentine's Slam - 2% XP Boost";
+        }
+    case combatv2_valentines_coin_dummy_ability :
+        $string0 = "Valentine's Flip - <tostring(%trh177_xp_boost)>% XP boost";
+    case combatv2_pulse_essence_dummy_ability :
+        $string0 = "Pulse Core - <tostring(calc(%trh50_pulse_essence_xp_boost * 2))>% XP Boost";
+    case combatv2_incense_guam_dummy, combatv2_incense_tarromin_dummy, combatv2_incense_marrentill_dummy, combatv2_incense_harralander_dummy, combatv2_incense_toadflax_dummy, combatv2_incense_spirit_dummy, combatv2_incense_irit_dummy, combatv2_incense_wergali_dummy, combatv2_incense_avantoe_dummy, combatv2_incense_kwuarm_dummy, combatv2_incense_bloodweed_dummy, combatv2_incense_snapdragon_dummy, combatv2_incense_cadantine_dummy, combatv2_incense_dwarf_dummy, combatv2_incense_torstol_dummy, combatv2_incense_fellstalk_dummy :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)> <col=ffffff><~script7247(calc(~script11077($struct0) * struct_param($struct0, combatv2_ability_bonus_hit_chance)))>%</col> <struct_param($struct0, combatv2_ability_info)>";
+    case combatv2_incense_ranarr_dummy :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)> <col=ffffff>+<tostring(calc(~script11077($struct0) * struct_param($struct0, combatv2_ability_bonus_hit_chance)))></col> <struct_param($struct0, combatv2_ability_info)>";
+    case combatv2_incense_lantadyme_dummy :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)> <col=ffffff><tostring(calc(~script11077($struct0) * struct_param($struct0, combatv2_ability_bonus_hit_chance) * 15))></col> <struct_param($struct0, combatv2_ability_info)>";
+    case skilling_offhand_measure_dummy_ability :
+        $string0 = "Crafting and Construction experience is increased by <col=ffffff><~script7247(calc(~script11077($struct0) * struct_param($struct0, combatv2_ability_bonus_hit_chance)))>%</col>.";
+    case combatv2_ability_strength_pulverise :
+        $string0 = "<col=ffffff>Pulverised</col> - Damage dealt reduced by <col=ffffff>25%</col>";
+    case combatv2_ability_constitution_surging_onslaught :
+        $string0 = "Onslaught Active";
+    case combatv2_trh165_bxp_burn_boost_dummy_ability :
+        $string0 = "Cinder Core - <tostring(calc(%trh165_pulse_bonus_xp_burn_boost * 2))>% Bonus XP Burn Boost";
+    case combatv2_invent_perk_ruthless_dummy_ability :
+        $string0 = "Ruthless - grants a <tostring(calc(%invent_perk_ruthless / 2))>.<tostring(calc(%invent_perk_ruthless % 2 * 5))>% damage boost per stack. Each kill will add a stack for 20 seconds, up to a maximum of 5.";
+    case combatv2_arch_excavation_focus_dummy_ability :
+        $string0 = ~script14791;
+    case combatv2_lunar_tune_bane_ore :
+        switch_int (%lunar_bane_rock_attunement) {
+            case 1 :
+                $string0 = "Tune bane ore - You have currently tuned bane rocks to abyssalbanite.";
+            case 2 :
+                $string0 = "Tune bane ore - You have currently tuned bane rocks to basiliskbanite.";
+            case 3 :
+                $string0 = "Tune bane ore - You have currently tuned bane rocks to dragonbanite.";
+            case 4 :
+                $string0 = "Tune bane ore - You have currently tuned bane rocks to wallasalkibanite.";
+        }
+    case halloween_spooky_time :
+        $string0 = ~script13402;
+    case combatv2_boss_buff_dino_incoming_damage :
+        if (~script15408(%dino_boss_player_shadow_energy) > 0) {
+            $string0 = "Shadow infused hide - Damage taken is increased by <~tostring_decimal(~script15408(%dino_boss_player_shadow_energy), 1, 1, 0, 0)>%.";
+        } else {
+            $string0 = "Shadow infused hide - Damage taken is reduced by <~tostring_decimal(calc(-1 * ~script15408(%dino_boss_player_shadow_energy)), 1, 1, 0, 0)>%.";
+        }
+    case combatv2_boss_buff_dino_outgoing_damage :
+        if (~script15409(%dino_boss_player_shadow_energy) >= 0) {
+            $string0 = "Shadow infused power - Damage dealt is increased by <~tostring_decimal(~script15409(%dino_boss_player_shadow_energy), 1, 1, 0, 0)>%.";
+        } else {
+            $string0 = "Shadow infused power - Damage dealt is reduced by <~tostring_decimal(calc(-1 * ~script15409(%dino_boss_player_shadow_energy)), 1, 1, 0, 0)>%.";
+        }
+    case combatv2_mtx_easter_2021_area_boost_duration_dummy_ability :
+        $string0 = "You are earning <tostring(%easter_2021_xp_buff_client)>% more XP in this area while the Spring Festival is active.";
+    case combatv2_mhaw_may21_stone_dummy_ability :
+        $string0 = "Rock of Resilience - <tostring(%mhaw_may21_stone_xp_buff_amount)>% XP boost";
+    case combatv2_egwd_jas_slayer_siege_engine_parts :
+        $string0 = "You have <tostring(inv_total(inv, egwd_jas_slayer_siege_engine_parts))> siege engine parts left.";
+    case combatv2_runepass_xp_boost_dummy_ability :
+        $string0 = "Yak Track - <tostring(%runepass_xp_boost_percent)>% XP Boost.";
+        if (~script12476 = true) {
+            $string0 = "<$string0> This buff is disabled while your DXP is active.";
+        }
+    case combatv2_boss_buff_sb_adds :
+        $string0 = "Spider minions will back up their leader: <tostring(%sb_buff_adds)> left.";
+    case combatv2_boss_buff_sb_acid :
+        $string0 = "<tostring(%sb_buff_acid)> acid is in the pool and should be dealt with via absorption.";
+    case combatv2_boss_buff_sb_heal :
+        $string0 = "Spider minons on the roof can still heal Araxxor for <tostring(%sb_buff_heal)> health points.";
+    case combatv2_duel_arena_removal_scarab_stack :
+        $string0 = "Stack-catch up to <tostring(~script2659)> extra scarabs whilst your crocodile is in the middle of a catch.";
+    case combatv2_buff_quiver_active_ammo :
+        if (%quiver_active_ammo ! null) {
+            $string0 = "Quiver ammo: <oc_name(%quiver_active_ammo)>";
+            if (oc_param(%quiver_active_ammo, combatv2_item_effect_struct) ! null & string_length(struct_param(oc_param(%quiver_active_ammo, combatv2_item_effect_struct), combatv2_ability_info)) > 0) {
+                $string0 = "<$string0><br><br><struct_param(oc_param(%quiver_active_ammo, combatv2_item_effect_struct), combatv2_ability_info)>";
+            }
+        } else {
+            $string0 = "Your quiver is empty.";
+        }
+    case combatv2_egwd_zamorak_boss_buff_rune_anima_flow :
+        $string0 = "You have access to the Anima Flow Edict<br><br>With <tostring(%egwd_zamorak_boss_edict_anima_flow_stacks)> <~text_plural(%egwd_zamorak_boss_edict_anima_flow_stacks, "stack", "stacks")>, your basic abilities will gain <tostring(calc(%egwd_zamorak_boss_edict_anima_flow_stacks * (20 / 10)))>% more adrenaline.";
+    case combatv2_egwd_zamorak_boss_buff_rune_balance_of_power :
+        $string0 = "You have access to the Balance of Power Edict<br><br>With <tostring(%egwd_zamorak_boss_edict_balance_of_power_stacks)> <~text_plural(%egwd_zamorak_boss_edict_balance_of_power_stacks, "stack", "stacks")>, while below <tostring(60)>% of your maximum life points, outgoing damage is increased by <tostring(calc(%egwd_zamorak_boss_edict_balance_of_power_stacks * 6))>%.";
+    case combatv2_egwd_zamorak_boss_buff_rune_guardians_triumph :
+        $string0 = "You have access to the Guardian's Triumph Edict<br><br>With <tostring(%egwd_zamorak_boss_edict_guardians_triumph_stacks)> <~text_plural(%egwd_zamorak_boss_edict_guardians_triumph_stacks, "stack", "stacks")>, after casting an ultimate ability, your next basic ability consumes Guardian's Triumph, increasing it's damage by <tostring(calc(%egwd_zamorak_boss_edict_guardians_triumph_stacks * 20))>% and heals you for <tostring(calc(%egwd_zamorak_boss_edict_guardians_triumph_stacks * 8))>%.";
+    case combatv2_egwd_zamorak_boss_buff_rune_haste :
+        $string0 = "You have access to the Haste Edict<br><br>With <tostring(%egwd_zamorak_boss_edict_haste_stacks)> <~text_plural(%egwd_zamorak_boss_edict_haste_stacks, "stack", "stacks")>, your ability cooldowns are reduced by <tostring(calc(%egwd_zamorak_boss_edict_haste_stacks * 8))>%.";
+    case combatv2_egwd_zamorak_boss_buff_hex_execute :
+        $string0 = "Zamorak has access to the Smite Hex<br><br>With <tostring(%combatv2_debuff_egwd_zamorak_boss_hex_execute_stacks_client)> <~text_plural(%combatv2_debuff_egwd_zamorak_boss_hex_execute_stacks_client, "stack", "stacks")>, if Zamorak's targets are hit below  <tostring(calc(%combatv2_debuff_egwd_zamorak_boss_hex_execute_stacks_client * 5))>% of their total maximum life points, they'll be killed instantly.";
+    case combatv2_egwd_zamorak_boss_buff_hex_healing_reduction :
+        $string0 = "Zamorak has access to the Affliction Hex<br><br>With <tostring(%combatv2_debuff_egwd_zamorak_boss_hex_healing_reduction_stacks_client)> <~text_plural(%combatv2_debuff_egwd_zamorak_boss_hex_healing_reduction_stacks_client, "stack", "stacks")>, when Zamorak's targets heal, the amount will be reduced by  <tostring(calc(%combatv2_debuff_egwd_zamorak_boss_hex_healing_reduction_stacks_client * 10))>%.";
+    case combatv2_egwd_zamorak_boss_buff_hex_obelisks :
+        $string0 = "Zamorak has access to his Coven generals<br><br>Upon activation of this Hex, Zamorak will call forth a Lifeweaver and a Protector to aid him in battle.";
+    case combatv2_egwd_zamorak_boss_buff_hex_shield_pen :
+        $string0 = "Zamorak has access to the Disintegrate Hex<br><br>With <tostring(%combatv2_debuff_egwd_zamorak_boss_hex_shield_pen_stacks_client)> <~text_plural(%combatv2_debuff_egwd_zamorak_boss_hex_shield_pen_stacks_client, "stack", "stacks")>, Zamorak's attacks will push <tostring(calc(%combatv2_debuff_egwd_zamorak_boss_hex_shield_pen_stacks_client * 7))>% damage through any shielding effects.";
+    case combatv2_egwd_zamorak_boss_buff_hex_traps :
+        $string0 = "Zamorak has access to Chaos traps<br><br>Upon activation of this Hex, Zamorak will spawn in traps across the arena that will spike magic damage if a target walks over.<br><br>For each subsequent Edict that is restored, Zamorak will send out a new set of traps.";
+    case combatv2_egwd_zamorak_boss_buff_hex_twinshot :
+        $string0 = "Zamorak has access to the Twinshot Hex<br><br>With <tostring(%combatv2_debuff_egwd_zamorak_boss_hex_twinshot_stacks_client)> <~text_plural(%combatv2_debuff_egwd_zamorak_boss_hex_twinshot_stacks_client, "stack", "stacks")>, Zamorak's attacks deal a second delayed hit at <tostring(calc(%combatv2_debuff_egwd_zamorak_boss_hex_twinshot_stacks_client * 10))>% total damage of the original hit.";
+    case combatv2_egwd_zamorak_boss_buff_b :
+        $string0 = "<col=FF0000>Hex: Twinshot - Zamorak's attacks deal a second hit at <tostring(10)>% total damage of the original hit, per stack.<br><br><col=FF00>Edict: Anima Flow - All basic abilities generate <tostring(calc(20 / 10))>% more adrenaline per stack.";
+    case combatv2_egwd_zamorak_boss_buff_e1 :
+        $string0 = "<col=FF0000>Hex: Smite - If Zamorak's targets are hit below <tostring(5)>% of their Constitution level, per stack, they'll be executed instantly.<br><br><col=FF00>Edict: Haste - Your ability cooldowns are reduced by <tostring(8)>% of their original cooldown per stack.";
+    case combatv2_egwd_zamorak_boss_buff_h :
+        $string0 = "<col=FF0000>Hex: Coven - Zamorak calls forth some of his coven to support him.<br><br><col=FF00>Edict: Inner Chaos - While standing near a Hexed Rune, you deal and take 5% more damage.";
+    case combatv2_egwd_zamorak_boss_buff_a :
+        $string0 = "<col=FF0000>Hex: Disintegrate - Zamorak's attacks will push <tostring(7)>% of damage through any shielding effects, per stack.<br><br><col=FF00>Edict: Guardian's Triumph - After casting an ultimate ability, your next basic ability consumes Guardian's Triumph, increasing the damage it deals by <tostring(20)>% extra damage, and heals you for <tostring(8)>% of your missing life points per stack.";
+    case combatv2_egwd_zamorak_boss_buff_v :
+        $string0 = "<col=FF0000>Hex: Chaos Traps - Upon activation of this hex, Zamorak will spawn in traps across the arena that will spike magic damage if a target walks over them.<br><br><col=FF00>Edict: Sword of Edicts - Temporarily siphon the dwindling defensive power from the Sword of Edicts, dealing and taking 5% less damage when standing near it.";
+    case combatv2_egwd_zamorak_boss_buff_e2 :
+        $string0 = "<col=FF0000>Hex: Affliction - When Zamorak's targets heal, the amount will be reduced by <tostring(%combatv2_debuff_egwd_zamorak_boss_hex_healing_reduction_stacks_client)>% per stack.<br><br><col=FF00>Edict: Balance of Power - While below <tostring(60)>% of your maximum life points, outgoing damage is increased by <tostring(6)>% per stack.";
+    case combatv2_gamemode_seasonal_xp_boost_dummy_ability :
+        $string0 = "During this week of Fresh Start Worlds, you are earning <col=FF00>+<tostring(calc(%givexp_boost_seasonal / 10))>% XP</col>";
+        if (%givexp_boost_seasonal_catchup > 0) {
+            $string0 = "<$string0> in skills level 70 and above; and <col=FF00>+<tostring(calc((%givexp_boost_seasonal + %givexp_boost_seasonal_catchup) / 10))>% XP</col> in skills below level 70";
+        }
+        $string0 = "<$string0>.";
+    case combatv2_ring_of_death_dummy_ability :
+        $string0 = "Ring of Death - Revive effect last dealt <tostring(%combatv2_ring_of_death_end_client)> damage.<br><br>The effect will stop when you die, or return to a safe area such as a bank.";
+    case combatv2_buff_necromancy_undead_instinct :
+        $string0 = ~script3111(%combatv2_buff_necromancy_undead_instinct_ability_struct, struct_param(%combatv2_buff_necromancy_undead_instinct_ability_struct, combatv2_ability_info), 1, 0);
+    case combatv2_buff_necromancy_spirit_skeleton_warrior :
+        $string0 = ~script17727($struct0, 1, 1);
+    case combatv2_buff_necromancy_spirit_putrid_zombie :
+        $string0 = ~script17727($struct0, 1, 1);
+    case combatv2_buff_necromancy_spirit_vengeful_ghost :
+        $string0 = ~script17727($struct0, 1, 1);
+    case combatv2_buff_necromancy_spirit_phantom_guardian :
+        $string0 = ~script17727($struct0, 1, 1);
+    case combatv2_buff_necromancy_threads_of_fate :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)><br><~script3111(combatv2_ability_necromancy_threads_of_fate, struct_param(combatv2_ability_necromancy_threads_of_fate, combatv2_ability_info), 1, 0)>";
+    case combatv2_buff_necromancy_invoke_death :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)><br><~script3111(combatv2_ability_necromancy_invoke_death, struct_param(combatv2_ability_necromancy_invoke_death, combatv2_ability_info), 1, 0)>";
+    case combatv2_buff_necromancy_split_soul :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)><br><~script3111(combatv2_ability_necromancy_split_soul, struct_param(combatv2_ability_necromancy_split_soul, combatv2_ability_info), 1, 0)>";
+    case combatv2_buff_necromancy_invoke_lord_of_bones :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)><br><~script3111(combatv2_ability_necromancy_invoke_lord_of_bones, struct_param(combatv2_ability_necromancy_invoke_lord_of_bones, combatv2_ability_info), 1, 0)>";
+    case buff_select_event_central_buff_bar_struct :
+        $string0 = "<~script18429(%buff_select_event_active_buff)><br><~script18431(%buff_select_event_active_buff)>";
+    case combatv2_dungeon_ulthven_2h_ranged_special_dummy_ability :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)><~script18710(49543, $string0, 1)>";
+    case combatv2_dmbh_weapon_ranged_special_dummy_ability :
+        $string0 = "<struct_param($struct0, combatv2_ability_name)><~script18713(49543, $string0, 1)>";
+    case combatv2_buff_skilling_offhand_runecrafting :
+        $string0 = "Absorbed energy: <col=00ff00><tostring_localised(%elidinis_boss_skilling_offhand_runecrafting_attuned_altar_streak, true)><br>Current attunement: <col=00ff00><~script19131(%elidinis_boss_skilling_offhand_runecrafting_attuned_altar_id)>";
+    case woodcutting_buff_weak_side_chop :
+        $string0 = "Lumberjack's Intuition<br><~script19675>";
+    case combatv2_trh205_love_letter_xp_dummy_ability :
+        $string0 = "Love Letter - <tostring(%trh205_xp_boost)>% XP Boost";
+    case combatv2_trh205_love_letter_bxp_dummy_ability :
+        $string0 = "Love Letter - <tostring(%trh205_bxp_boost)>% Bonus XP Burn Boost";
+    case combatv2_debuff_pulverised :
+        $string0 = ~script19979($struct0, $string0);
+    case combatv2_slow_sum_connection_dummy_ability :
+        $string0 = ~script20701;
+    case combatv2_fish_farm_wendle_growth_speed_buff :
+        $string0 = ~script3721;
+    case combatv2_boss_buff_nex2_mage1 :
+        $string0 = ~script3940($struct0, %nex2_buff_bar_mage_death1);
+    case combatv2_boss_buff_nex2_mage2 :
+        $string0 = ~script3940($struct0, %nex2_buff_bar_mage_death2);
+    case combatv2_boss_buff_nex2_mage3 :
+        $string0 = ~script3940($struct0, %nex2_buff_bar_mage_death3);
+    case combatv2_boss_buff_nex2_mage4 :
+        $string0 = ~script3940($struct0, %nex2_buff_bar_mage_death4);
+}
+return($string0);

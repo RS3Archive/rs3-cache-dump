@@ -1,0 +1,26 @@
+// 15654
+[proc,trh187_update_monster](component $component0, component $component1, component $component2, component $component3, dbrow $dbrow4)
+def_dbrow $dbrow5 = ~trh_chest_get_dbrow(db_getfield($dbrow4, trh_monster:col6, 0));
+def_npc $npc6 = db_getfield($dbrow4, trh_monster:col2, 0);
+if_setnpcmodel($npc6, $component0);
+if_settext(db_getfield($dbrow4, trh_monster:col1, 0), $component1);
+if (%trh_custom_reward_delay_in_progress = false) {
+    if_setmodelanim(db_getfield($dbrow4, trh_monster:col3, 0), $component0);
+    if_setmodelangle(db_getfield($dbrow4, trh_monster:col5, 0), $component0);
+}
+def_int $int7 = 0;
+def_int $int8 = 0;
+$int7, $int8 = db_getfield($dbrow5, trh_chest:col12, 0);
+if_settext("<~script10979($int7)><~script3186($int7)></col>", $component2);
+def_string $string0 = "<~script10979($int7)><~script3202($int7)></col>";
+if (if_find($component3) = true) {
+    ~script3537($string0);
+}
+def_component $component9 = ~script16788($component3);
+if ($dbrow5 = trh_chest_jackpot_monster) {
+    if_setgraphic(null, $component3);
+    if_setgraphic(null, $component9);
+} else {
+    if_setgraphic(~script16202($int7, 0), $component3);
+    if_setgraphic(trh187_rarity_plus, $component9);
+}

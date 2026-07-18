@@ -1,0 +1,16 @@
+// 12228
+[proc,script12228](int $int0, int $int1, int $int2)
+if ($int1 = 0 & clientclock < calc(%lobby_lightbox_clock + 200)) {
+    return;
+} else {
+    if_setontimer(null, lobbyscreen:subscribe_timer);
+    if_setonvartransmit("script5951{lobbyscreen_member_expires}", lobbyscreen:subscribe_timer);
+    ~lobby_popup_close;
+    if ($int2 = 1) {
+        if ($int0 = 1) {
+            ~lobby_popup(10000, lobby_popup_positive_close, "Complete Transaction", "After you have completed your transaction, use the continue button to return to the game.", "loadingwheel,14", "", "Continue");
+        } else {
+            ~lobby_popup(-3, lobby_popup_positive_close, "Complete Transaction", "Use the continue button when you have completed your transaction.", "loadingwheel,14", "", "Continue");
+        }
+    }
+}

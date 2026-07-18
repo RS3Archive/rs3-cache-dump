@@ -1,0 +1,103 @@
+// 12695
+[clientscript,script12695]
+def_int $int0 = 1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_component $component3 = null;
+def_component $component4 = null;
+def_string $string0 = "";
+def_int $int5 = 0;
+while ($int0 <= 5) {
+    switch_int ($int0) {
+        case 1 :
+            $int1 = %lampforge_slot_1_type;
+            $int2 = %lampforge_slot_1_value;
+            $component3 = lampforge:slot_gfx_1;
+            $component4 = lampforge:slot_text_1;
+            ~rs3_background_panel(lampforge:slot_highlight_1, rs3_panel_highlight);
+        case 2 :
+            $int1 = %lampforge_slot_2_type;
+            $int2 = %lampforge_slot_2_value;
+            $component3 = lampforge:slot_gfx_2;
+            $component4 = lampforge:slot_text_2;
+            ~rs3_background_panel(lampforge:slot_highlight_2, rs3_panel_highlight);
+        case 3 :
+            $int1 = %lampforge_slot_3_type;
+            $int2 = %lampforge_slot_3_value;
+            $component3 = lampforge:slot_gfx_3;
+            $component4 = lampforge:slot_text_3;
+            ~rs3_background_panel(lampforge:slot_highlight_3, rs3_panel_highlight);
+        case 4 :
+            $int1 = %lampforge_slot_4_type;
+            $int2 = %lampforge_slot_4_value;
+            $component3 = lampforge:slot_gfx_4;
+            $component4 = lampforge:slot_text_4;
+            ~rs3_background_panel(lampforge:slot_highlight_4, rs3_panel_highlight);
+        case 5 :
+            $int1 = %lampforge_slot_5_type;
+            $int2 = %lampforge_slot_5_value;
+            $component3 = lampforge:slot_gfx_5;
+            $component4 = lampforge:slot_text_5;
+            ~rs3_background_panel(lampforge:slot_highlight_5, rs3_panel_highlight);
+    }
+    switch_int ($int1) {
+        case 1 :
+            if_setgraphic(enum(int, graphic, stat2icon, $int2), $component3);
+            if_settext(enum(int, string, statstring, $int2), $component4);
+        case 2 :
+            if_setgraphic(enum(int, graphic, lampforge_statgroups_icons, $int2), $component3);
+            if_settext(enum(int, string, lampforge_statgroup_string, $int2), $component4);
+            $string0 = enum(int, string, lampforge_statgroup_tooltip, $int2);
+            if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component3);
+        case 3 :
+            if_setgraphic(enum(int, graphic, lampforge_boost_icons, $int2), $component3);
+            if_settext(enum(int, string, lampforge_boost_string, $int2), $component4);
+            $string0 = enum(int, string, lampforge_boost_tooltip, $int2);
+            if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component3);
+    }
+    $int0 = calc($int0 + 1);
+}
+if_settext("+<tostring(calc(~script12690 - 100))>%", lampforge:boost_text);
+switch_int (%lampforge_chain) {
+    case 2 :
+        if_setgraphic("sept16_icons_days,4", lampforge:day_2);
+    case 3 :
+        if_setgraphic("sept16_icons_days,4", lampforge:day_2);
+        if_setgraphic("sept16_icons_days,4", lampforge:day_3);
+    case 4 :
+        if_setgraphic("sept16_icons_days,4", lampforge:day_2);
+        if_setgraphic("sept16_icons_days,4", lampforge:day_3);
+        if_setgraphic("sept16_icons_days,4", lampforge:day_4);
+    case 5 :
+        if_setgraphic("sept16_icons_days,4", lampforge:day_2);
+        if_setgraphic("sept16_icons_days,4", lampforge:day_3);
+        if_setgraphic("sept16_icons_days,4", lampforge:day_4);
+        if_setgraphic("sept16_icons_days,4", lampforge:day_5);
+}
+if (%lampforge_chain <= 1) {
+    $string0 = "This is the first day you have logged in. Log in tomorrow to build up your boost!";
+} else {
+    $string0 = "You have logged in <tostring(%lampforge_chain)> days in a row! Current chain bonus: <tostring(calc(%lampforge_chain * 5))>%";
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", lampforge:chain_tracker_container);
+if (%lampforge_claimed = 1) {
+    if_sethide(false, lampforge:disable_slots_layer);
+    if_sethide(false, lampforge:forge_button_disabled_layer);
+    if_settext("Caught!", lampforge:forge_button_text);
+} else {
+    if_sethide(~negate_bool(playermember), lampforge:disable_slots_layer);
+    if_sethide(true, lampforge:forge_button_disabled_layer);
+    if_settext("Catch!", lampforge:forge_button_text);
+}
+if (playermember = false) {
+    if_settext(append(if_gettext(lampforge:landing_text), "<br><br><col=FFCB05>You need to be a member to play. You'll still build up your login bonus though!"), lampforge:landing_text);
+    if_settext("Upgrade", lampforge:start_button_text);
+    if_sethide(false, lampforge:forge_button_disabled_layer);
+    if_sethide(false, lampforge:lampforge_upsell_gfx);
+    if_sethide(false, lampforge:slot_disabled_layer_1);
+    if_sethide(false, lampforge:slot_disabled_layer_2);
+    if_sethide(false, lampforge:slot_disabled_layer_3);
+    if_sethide(false, lampforge:slot_disabled_layer_4);
+    if_sethide(false, lampforge:slot_disabled_layer_5);
+}
+~script12700;

@@ -1,0 +1,50 @@
+// 6053
+[clientscript,script6053](component $component0, int $int1, int $int2)
+def_int $int3 = 425;
+def_int $int4 = scale(%sa_energy, 1000, 100);
+def_int $int5 = scale(if_getwidth($component0), $int3, 100);
+def_int $int6 = 3;
+def_component $component7 = combatv2_actionbar:fullscreen_energy_pulse;
+def_int $int8 = 0;
+def_component $component9 = combatv2_actionbar:flash_ah_aaah;
+if (if_getlayer($component0) = combatv2_adrenaline:fullscreen_border_layer) {
+    $component7 = combatv2_adrenaline:fullscreen_energy_pulse;
+    $component9 = combatv2_adrenaline:flash_ah_aaah;
+}
+$int2 = $int1;
+$int1 = ~bool_to_int(if_gethide($component7));
+if ($int5 ! $int4) {
+    if ($int5 < $int4) {
+        if_setsize(min(calc(if_getwidth($component0) + $int6), $int3), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+        $int8 = 1;
+        if_sethide(false, $component7);
+        if_setposition(calc(if_getwidth($component0) + if_getx($component0) - (if_getwidth($component7) - 3)), if_gety($component7), ^setpos_abs_left, ^setpos_abs_top, $component7);
+        if_setposition(calc(if_getx($component7) + 6), if_gety($component9), ^setpos_abs_left, ^setpos_abs_top, $component9);
+    } else {
+        $int6 = 10;
+        if_setsize(max(calc(if_getwidth($component0) - $int6), 1), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+        $int8 = 0;
+        if_sethide(true, $component7);
+        if_sethide(true, $component9);
+    }
+    if (~bool_to_int(if_gethide($component7)) ! $int1 & $int1 ! $int2) {
+        if_setontimer(null, $component0);
+        if_sethide(true, $component7);
+        return;
+    }
+    $int5 = scale(if_getwidth($component0), $int3, 100);
+    if ($int5 ! $int4) {
+        if_setontimer("script6053($component0, $int1, $int2)", $component0);
+        return;
+    }
+}
+if (%sa_energy < 1) {
+    if_setsize(1, if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+}
+if_setontimer(null, $component0);
+if_sethide(true, $component7);
+if ($int8 = 1 & %combatv2_adrenaline_history < %sa_energy) {
+    if_sethide(false, $component9);
+    if_settrans(255, $component9);
+    if_setontimer("script6054(event_com, 0)", $component9);
+}

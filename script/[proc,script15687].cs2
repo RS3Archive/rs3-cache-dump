@@ -1,0 +1,26 @@
+// 15687
+[proc,script15687](int $int0)
+if_sethide(true, loginscreen:auth_layer);
+if_sethide(true, loginscreen:single_sign_on);
+if_sethide(true, loginscreen:login);
+if_sethide(true, loginscreen:login_progress_popup);
+if_sethide(true, loginscreen:oauth2_layer);
+if_sethide(true, loginscreen:steam);
+switch_int ($int0) {
+    case 14 :
+        if_sethide(false, loginscreen:auth_layer);
+    case 13 :
+        if_sethide(false, loginscreen:single_sign_on);
+    case 16 :
+        if_sethide(false, loginscreen:oauth2_layer);
+    case 102 :
+        if_sethide(false, loginscreen:login_progress_popup);
+    case default :
+        if (platformtype = ^platformtype_steam) {
+            if_sethide(false, loginscreen:steam);
+        } else if (~script15214 = true) {
+            if_sethide(false, loginscreen:oauth2_layer);
+        } else {
+            if_sethide(false, loginscreen:login);
+        }
+}

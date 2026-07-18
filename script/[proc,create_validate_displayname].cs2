@@ -1,0 +1,25 @@
+// 7855
+[proc,create_validate_displayname](int $int0, int $int1)
+%create_displayname_last = %create_displayname;
+if_settext("<tostring(string_length(%create_displayname))> / 12", acc_create_name:name_length);
+if (string_length(%create_displayname) <= 0) {
+    ~script7845(5, "Display names can be up to 12 characters long and may contain letters, numbers, spaces, underscores and dashes only.");
+    return;
+}
+if (string_indexof_string("- _", substring(%create_displayname, 0, 1), 0) ! -1) {
+    ~create_error("Display names cannot start with a space, dash or underscore.");
+    return;
+}
+if (~create_check_displayname(%create_displayname) = false) {
+    ~create_error("Please enter a valid display name.");
+    return;
+}
+if (if_gettop = lobbyscreen) {
+    ~script7845(4, "You have entered a valid character name!<br>Please wait while the system checks availability.");
+    create_name_availablerequest(%create_displayname);
+    if_setontimer("create_validate_displayname_timer", acc_create:name_listener);
+} else {
+    if_triggerop(acc_create_name:hidden_op_layer, -1, 1);
+    if_sethide(true, acc_create_name:name_label_desc);
+    if_sethide(false, acc_create_name:name_check_spinner);
+}

@@ -1,0 +1,118 @@
+// 8520
+[proc,script8520](int $int0)(int)
+def_string $string0 = ~script8521($int0);
+def_int $int1 = string_length($string0);
+def_int $int2 = -1;
+if ($int1 = 0) {
+    return(-1);
+}
+if ($int0 = 24 & %toplevel_v2_legacy_interface = 0) {
+    ~script8522($int0, $string0);
+    return(~script8550($int0));
+}
+if (%toplevel_v2_legacy_interface = 1 & %chat_v2_legacy_filter = 14) {
+    ~script8522($int0, $string0);
+    return(6);
+}
+def_string $string1 = "";
+def_int $int3 = 0;
+if (compare(substring($string0, 0, min(4, $int1)), "/pm ") = 0 | compare(substring($string0, 0, min(4, $int1)), "\\pm ") = 0) {
+    if ($int1 > 4) {
+        if (compare("'", substring($string0, 4, 5)) = 0) {
+            $int2 = string_indexof_char($string0, '\'', 5);
+            $int3 = 2;
+            if ($int2 > 5) {
+                $string1 = ~script2332(substring($string0, 5, $int2), " ", " ");
+            }
+        } else {
+            $int2 = string_indexof_char($string0, ' ', 4);
+            $int3 = 1;
+            if ($int2 > 4) {
+                $string1 = substring($string0, 4, $int2);
+            }
+        }
+        if (calc($int2 + $int3) < $int1 & string_length($string1) > 0 & friend_test($string1) = true) {
+            $string0 = substring($string0, calc($int2 + $int3), $int1);
+            $int2 = 100;
+            %friendtomessage = $string1;
+        } else {
+            mes("You need to enter the name of a player on your friends list and a message to send. If their name contains spaces enter as 'player name'.");
+            $int2 = 101;
+        }
+    } else {
+        mes("You need to enter the name of a player on your friends list and a message to send.");
+        $int2 = 101;
+    }
+} else if (%chatbox_wiki_mode = true) {
+    ~wiki($string0, ~script8526($int0));
+    $string0 = "";
+    $int2 = 101;
+    %chatbox_wiki_mode = false;
+} else if (compare(lowercase(substring($string0, 0, min(5, $int1))), "/wiki") = 0 | compare(lowercase(substring($string0, 0, min(5, $int1))), "\\wiki") = 0) {
+    if ($int1 = 5) {
+        ~wiki("", ~script8526($int0));
+        $string0 = "";
+        $int2 = 101;
+    } else if ($int1 > 6 & compare(substring($string0, 5, 6), " ") = 0) {
+        $string0 = substring($string0, 6, $int1);
+        ~wiki($string0, ~script8526($int0));
+        $string0 = "";
+        $int2 = 101;
+    } else {
+        mes_typed(~script8526($int0), 0, "Unrecognised Command: type /? for a list.");
+    }
+    %chatbox_wiki_mode = false;
+} else if (~script8550($int0) = 100) {
+    while ($int1 > 0 & compare(substring($string0, 0, 1), "/") = 0) {
+        $string0 = substring($string0, 1, $int1);
+        $int1 = string_length($string0);
+    }
+    $int2 = 100;
+} else if (compare(substring($string0, 0, min(6, $int1)), "//////") = 0) {
+    mes_typed(~script8526($int0), 0, "Unrecognised Command: type /? for a list.");
+} else if (compare(substring($string0, 0, min(5, $int1)), "/////") = 0) {
+    $string0 = substring($string0, 5, $int1);
+    %message_group_send_to_team = 1;
+    $int2 = 5;
+} else if (compare(substring($string0, 0, min(4, $int1)), "////") = 0) {
+    $string0 = substring($string0, 4, $int1);
+    %message_group_send_to_team = 0;
+    $int2 = 4;
+} else if (compare(substring($string0, 0, min(3, $int1)), "///") = 0) {
+    $string0 = substring($string0, 3, $int1);
+    $int2 = 3;
+} else if (compare(substring($string0, 0, min(2, $int1)), "//") = 0) {
+    $string0 = substring($string0, 2, $int1);
+    $int2 = 2;
+} else if (~script19316 = true & compare(substring($string0, 0, min(2, $int1)), "/#") = 0) {
+    $string0 = substring($string0, 2, $int1);
+    $int2 = 102;
+} else if (compare(substring($string0, 0, min(1, $int1)), "/") = 0) {
+    $string0 = substring($string0, 1, $int1);
+    $int2 = 1;
+} else if (%toplevel_v2_legacy_interface = 0 & (%toplevel_v2_mobile_interface = 1 | %toplevel_v2_chat_style = 0)) {
+    $int2 = ~script8550($int0);
+} else {
+    switch_int (%chat_v2_legacy_filter) {
+        case 4 :
+            $int2 = 1;
+        case 5 :
+            $int2 = 2;
+        case 6 :
+            $int2 = 3;
+        case 14 :
+            $int2 = 6;
+        case 10 :
+            if (%message_group_send_to_team = 0) {
+                $int2 = 4;
+            } else {
+                $int2 = 5;
+            }
+        case 11 :
+            $int2 = 102;
+        case default :
+            $int2 = 0;
+    }
+}
+~script8522($int0, $string0);
+return($int2);

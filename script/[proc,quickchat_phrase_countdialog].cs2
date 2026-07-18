@@ -1,0 +1,56 @@
+// 1047
+[proc,quickchat_phrase_countdialog](chatphrase $chatphrase0, int $int1)
+~quickchat_focus($int1);
+~script8622($int1, 0);
+def_string $string0 = chatphrase_gettext($chatphrase0);
+if (~script8613($int1) = 1) {
+    $string0 = "To <~script8605($int1)>: <col=10F010><$string0>";
+} else if (~script8613($int1) = 2) {
+    $string0 = "[<col=6464A0><clan_getchatdisplayname><col=FFFFFF>]: <col=10F010><$string0>";
+} else if (~script8613($int1) = 8) {
+    if (activeclanchannel_find_affined(0) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 13) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0><player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 15) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0>(Team)<player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int1) = 17) {
+    if (activeclanchannel_find_affined(1) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else {
+    $string0 = $string0;
+}
+if_sethide(true, ~script8585($int1));
+if_setonkey(null, ~script8556($int1));
+if_sethide(false, ~script8586($int1));
+if_sethide(false, ~script8588($int1));
+if_sethide(true, ~script8590($int1));
+if_sethide(true, ~script8594($int1));
+if_sethide(true, ~script8598($int1));
+if_sethide(true, ~script8599($int1));
+if_sethide(false, ~script8600($int1));
+if_setcolour(^white, ~script8600($int1));
+if_settextfont(museo_sans_11pt_regular, ~script8600($int1));
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, ~script8600($int1));
+if_settext($string0, ~script8600($int1));
+if_settextshadow(true, ~script8600($int1));
+cc_deleteall(~script8588($int1));
+if_setcolour(0xf01010, ~script8589($int1));
+if_settext("Please enter a value: *", ~script8589($int1));
+if_settextshadow(true, ~script8589($int1));
+if (if_find(~script8589($int1)) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_rootphrase, $chatphrase0);
+}
+if (if_find(~script8586($int1)) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_mode, 1);
+}

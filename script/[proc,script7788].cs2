@@ -1,0 +1,21 @@
+// 7788
+[proc,script7788](inv $inv0, obj $obj1, int $int2)
+def_component $component3 = null;
+def_int $int4 = -1;
+def_int $int5 = ~script9249($inv0);
+if ($inv0 = inv) {
+    $component3 = stockside:inventory_layer;
+} else {
+    $int4 = enum_getreverseindex(inv, int, stockmarket_collectinv, $inv0, 0);
+    if ($int4 ! -1) {
+        $component3 = enum(int, component, stockcollect_box, $int4);
+    }
+}
+if (if_find($component3) = true) {
+    if (calc(cc_getinvcount - $int2) > 0) {
+        cc_setobject(cc_getinvobject, calc(cc_getinvcount - $int2));
+    } else {
+        cc_setobject(null, 0);
+    }
+}
+return;

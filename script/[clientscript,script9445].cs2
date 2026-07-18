@@ -1,0 +1,31 @@
+// 9445
+[clientscript,script9445](int $int0)
+if (%6awe2_golem_currency = 0) {
+    return;
+}
+def_int $int1 = %6awe2_votetoready;
+def_int $int2 = %6awe2_votetoready;
+$int1 = calc($int0 + $int1);
+if ($int1 < 1) {
+    $int1 = 1;
+}
+if ($int1 >= %6awe2_golem_currency) {
+    $int1 = %6awe2_golem_currency;
+}
+def_vorbis $vorbis3 = null;
+if ($int2 ! $int1) {
+    %6awe2_votetoready = $int1;
+    if (%6awe2_golem_currency > 150) {
+        $int1 = scale($int1, %6awe2_golem_currency, 100);
+    }
+    ~script9448($int1);
+    switch_int (random(3)) {
+        case 0 :
+            $vorbis3 = makex_ui_slide_ticker_01;
+        case 1 :
+            $vorbis3 = makex_ui_slide_ticker_02;
+        case 2 :
+            $vorbis3 = makex_ui_slide_ticker_02;
+    }
+    sound_vorbis_rate($vorbis3, 1, 0, 20, random_sound_pitch(5, 10));
+}

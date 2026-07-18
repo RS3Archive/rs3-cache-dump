@@ -1,0 +1,9 @@
+// 18780
+[proc,script18780](dbrow $dbrow0, int $int1)(dbrow)
+def_int $int2 = db_getfieldcount($dbrow0, headicons_emote:col6);
+if ($int2 = 0 | $int1 > $int2) {
+    ~error("Trying to get an out of bounds overhead emote variant: <tostring($int1)>.");
+    return($dbrow0);
+}
+def_enum $enum3 = db_getfield($dbrow0, headicons_emote:col6, 0);
+return(enum(int, dbrow, $enum3, $int1));

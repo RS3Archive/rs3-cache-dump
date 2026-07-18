@@ -1,0 +1,28 @@
+// 16688
+[proc,script16688](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (cc_find($component0, $int1) = true) {
+    $int2 = calc(enum(int, int, sin_deg2percentage_enum, ~script16684(cc_param(rs3tli_component_resize_playback_rate), cc_param(rs3tli_component_resize_offset))) + 100);
+    $int3 = calc(cc_param(rs3tli_component_original_width) + scale(cc_param(rs3tli_component_resize_delta_width), 200, $int2));
+    $int4 = calc(cc_param(rs3tli_component_original_height) + scale(cc_param(rs3tli_component_resize_delta_height), 200, $int2));
+    $int3 = max(1, $int3);
+    $int4 = max(1, $int4);
+    if ($int2 >= 0) {
+        if (calc(cc_param(rs3tli_component_original_width) % 2) ! calc($int3 % 2)) {
+            $int3 = calc($int3 - 1);
+        }
+        if (calc(cc_param(rs3tli_component_original_height) % 2) ! calc($int4 % 2)) {
+            $int4 = calc($int4 - 1);
+        }
+    } else {
+        if (calc(cc_param(rs3tli_component_original_width) % 2) ! calc($int3 % 2)) {
+            $int3 = calc($int3 + 1);
+        }
+        if (calc(cc_param(rs3tli_component_original_height) % 2) ! calc($int4 % 2)) {
+            $int4 = calc($int4 + 1);
+        }
+    }
+    cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
+}

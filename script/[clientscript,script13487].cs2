@@ -1,0 +1,41 @@
+// 13487
+[clientscript,script13487](int $int0, int $int1, struct $struct2)
+def_component $component3 = slayer_pod_codex:monster_model;
+def_int $intbool4 = ~slayer_codex_check_monster($int0);
+def_string $string0 = struct_param($struct2, slayer_pod_name);
+def_npc $npc5 = struct_param($struct2, slayer_pod_npc);
+def_seq $seq6 = struct_param($struct2, slayer_pod_npc_anim);
+def_int $int7 = struct_param($struct2, slayer_pod_zoom);
+def_int $int8 = struct_param($struct2, slayer_pod_y_offset);
+if (struct_param($struct2, slayer_pod_model_override) = null) {
+    if_setnpcmodel($npc5, $component3);
+} else {
+    if_setmodel(struct_param($struct2, slayer_pod_model_override), $component3);
+}
+if_setmodelanim($seq6, $component3);
+if_setmodelzoom($int7, $component3);
+if_setposition(0, calc(60 + $int8), ^setpos_abs_centre, ^setpos_abs_top, $component3);
+if ($intbool4 = ^true) {
+    if_resetmodellighting($component3);
+    if_settext($string0, slayer_pod_codex:monster_name);
+} else {
+    if_setmodellighting(~script16107, null, $component3);
+    if_settext("???", slayer_pod_codex:monster_name);
+}
+if_settext("", slayer_pod_codex:monster_kills);
+def_int $int9 = -1;
+def_int $int10 = -1;
+if ($intbool4 = ^true) {
+    $int9, $int10 = ~script13485($npc5);
+}
+if ($int9 > -1) {
+    if_settext("Kills: <tostring_localised($int9, true)><br>Prestige: <tostring($int10)>", slayer_pod_codex:monster_kills);
+    if_sethide(false, slayer_pod_codex:monster_kills);
+} else {
+    if_sethide(true, slayer_pod_codex:monster_kills);
+}
+def_int $int11 = 5;
+def_int $int12 = 5;
+$int11 = calc(3 + $int1 % 5 * 40 + $int1 % 5 * 5);
+$int12 = calc(3 + $int1 / 5 * 40 + $int1 / 5 * 5);
+if_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top, slayer_pod_codex:active_highlight);

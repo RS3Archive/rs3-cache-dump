@@ -1,0 +1,18 @@
+// 8131
+[proc,script8131](component $component0)
+def_string $string0 = "Auto-retaliate disabled";
+def_graphic $graphic1 = "rs3_btn_combat_bar_adrenaline,0";
+def_graphic $graphic2 = rs3_hud_combat_bar_icon_adrenaline;
+def_graphic $graphic3 = rs3_hud_combat_bar_icon_adrenaline_over;
+if (%option_nodef ! 1) {
+    $string0 = "Auto-retaliate enabled";
+    $graphic1 = "rs3_btn_combat_bar_adrenaline,1";
+    $graphic2 = rs3_hud_combat_bar_icon_autoattack_on;
+    $graphic3 = rs3_hud_combat_bar_icon_autoattack_over;
+}
+if_setgraphic($graphic1, $component0);
+if_setgraphic($graphic2, toplevel_v2_combat_bar:auto_retaliate_button);
+if_setonmouseover("graphic_swapper(event_com, $graphic3)", toplevel_v2_combat_bar:auto_retaliate_button);
+if_setonmouseleave("graphic_swapper(event_com, $graphic2)", toplevel_v2_combat_bar:auto_retaliate_button);
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", toplevel_v2_combat_bar:auto_retaliate_button_layer);
+~script8808;

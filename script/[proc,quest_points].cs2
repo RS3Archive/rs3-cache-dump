@@ -1,0 +1,45 @@
+// 2133
+[proc,quest_points](quest $quest0)(string, int)
+if ($quest0 = null) {
+    ~error("Null .quest.");
+    return("", -1);
+}
+def_int $int1 = quest_points($quest0);
+switch_quest ($quest0) {
+    case myths_of_the_white_lands :
+        if (%sheep >= 21 & %sheepshearer_completed_after_declassification = 0) {
+            $int1 = 1;
+        }
+    case swept_away :
+        if (%hetty >= 3 & %witchspotion_completed_after_declassification = 0) {
+            $int1 = 1;
+        }
+    case gunnars_ground :
+        if (%rjquest = 100) {
+            $int1 = 0;
+        }
+    case ozan1 :
+        if (%princequest = 110) {
+            $int1 = 0;
+        }
+    case whats_mine_is_yours :
+        if (%doricquest = 100) {
+            $int1 = 0;
+        }
+    case ariane1 :
+        if (%runemysteries = 6) {
+            $int1 = 0;
+        }
+    case owen1 :
+        if (%spy = 4) {
+            $int1 = 0;
+        }
+}
+switch_int ($int1) {
+    case 0 :
+        return("", $int1);
+    case 1 :
+        return("1 Quest Point", $int1);
+    case default :
+        return("<tostring($int1)> Quest Points", $int1);
+}

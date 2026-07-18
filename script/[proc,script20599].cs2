@@ -1,0 +1,44 @@
+// 20599
+[proc,script20599](dbrow $dbrow0, component $component1, component $component2, component $component3, int $int4, int $int5)
+if_sethide(true, $component1);
+def_dbrow $dbrow6 = db_getfield($dbrow0, marketplace_featured_data:col9, 0);
+def_graphic $graphic7 = null;
+def_struct $struct8 = null;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_boolean $boolean11 = true;
+def_int $int12 = 0;
+$boolean11, $int12 = ~script20463($dbrow0);
+if ($int4 = 536) {
+    $int4 = calc(536 / 4);
+} else {
+    $int4 = 172;
+}
+if (~script6431 = true) {
+    $int5 = calc($int5 - $int5 / 6);
+} else {
+    $int5 = calc($int5 - $int5 / 20);
+}
+if ($dbrow6 ! null & $boolean11 = true) {
+    $struct8 = db_getfield($dbrow6, marketplace_store_item:col6, 0);
+    if ($struct8 = null | %marketplace_in_progress_runecoin_purchase_item ! $struct8) {
+        $graphic7 = ~script20474($dbrow6);
+        $int9 = db_getfield($dbrow6, marketplace_store_item:col7, 0);
+        if ($int9 = 0) {
+            $graphic7 = mtx_store_icon_currency_runecoins_025px;
+        } else if ($int9 = 2) {
+            $graphic7 = icon_currency_bond;
+        }
+        if ($int9 ! -1) {
+            $int10 = ~script20458($struct8, $int9);
+        }
+        if ($int10 ! -1) {
+            if ($graphic7 ! null) {
+                if_setgraphic($graphic7, $component2);
+            }
+            if_settext(tostring_localised($int10, true), $component3);
+            if_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top, $component1);
+            if_sethide(false, $component1);
+        }
+    }
+}

@@ -1,0 +1,18 @@
+// 14686
+[proc,script14686](obj $obj0)(dbrow)
+if ($obj0 = null) {
+    return(null);
+}
+if (oc_param($obj0, arch_restoration_data) ! null) {
+    return(oc_param($obj0, arch_restoration_data));
+}
+switch_category (oc_category($obj0)) {
+    case arch_restoration_damaged :
+        db_find(arch_restoration:col5, $obj0);
+        return(db_findnext);
+    case arch_restoration_restored :
+        db_find(arch_restoration:col6, $obj0);
+        return(db_findnext);
+}
+~error("Invalid restoration category for obj: <~script6686($obj0)>");
+return(null);

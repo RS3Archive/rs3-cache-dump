@@ -1,0 +1,23 @@
+// 7119
+[proc,makex2012_build_list]
+cc_deleteall(makex2012_controls:items_list);
+if (%makex2012_active_recipe_list = null | %makex2012_active_recipe = null) {
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = enum_getoutputcount(%makex2012_active_recipe_list);
+$int1 = ~makex2012_build_list_grid($int0);
+def_int $int2 = 0;
+if (%makex2012_active_recipe ! null & %makex2012_active_recipe ! makex2012_default_recipe & enum_hasoutput(obj, %makex2012_active_recipe_list, %makex2012_active_recipe) = true) {
+    $int2 = calc(enum_getreverseindex(obj, int, %makex2012_active_recipe_list, %makex2012_active_recipe, 0) / 4);
+}
+def_int $int3 = calc($int2 * 10 + ($int2 - 1) * (46 - 6));
+if (if_getheight(makex2012_controls:items_list) < $int1) {
+    if_setscrollsize(if_getwidth(makex2012_controls:items_list), $int1, makex2012_controls:items_list);
+    if_setscrollpos(0, max(0, min($int3, calc($int1 - if_getheight(makex2012_controls:items_list)))), makex2012_controls:items_list);
+} else {
+    if_setscrollsize(0, 0, makex2012_controls:items_list);
+    if_setscrollpos(0, 0, makex2012_controls:items_list);
+}
+~scrollbar_vertical(makex2012_controls:list_scrollbar, makex2012_controls:items_list, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");

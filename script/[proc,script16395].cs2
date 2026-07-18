@@ -1,0 +1,35 @@
+// 16395
+[proc,script16395](int $int0, int $int1)
+if ($int1 <= 1) {
+    if_sethide(true, uitutorial:pages);
+    if (if_gethide(uitutorial:ok_button) = true) {
+        if_setsize(20, 20, ^setsize_minus, ^setsize_minus, uitutorial:contents_area);
+    } else {
+        if_setsize(20, 65, ^setsize_minus, ^setsize_minus, uitutorial:contents_area);
+    }
+    return;
+}
+if_setsize(20, 65, ^setsize_minus, ^setsize_minus, uitutorial:contents_area);
+cc_deleteall(uitutorial:page_contents);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 26;
+if (~script6431 = true) {
+    $int5 = 35;
+}
+while ($int2 < $int0) {
+    ~cc_add_button(uitutorial:page_contents, $int2, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre, $int5, $int5, ^setsize_abs, ^setsize_abs, button_icon_neutral, tostring(calc($int3 + 1)));
+    if (~script16384(%uitutorial_current_parent, $int2) = true) {
+        cc_sethide(true);
+    } else {
+        cc_setop(1, "Page <tostring(calc($int3 + 1))>");
+        cc_setonop("script16397(event_comsubid)");
+        $int4 = calc($int4 + ($int5 + 5));
+        $int3 = calc($int3 + 1);
+    }
+    $int2 = calc($int2 + 1);
+}
+$int4 = calc($int4 - 5);
+if_setsize(calc($int4 + 80), 35, ^setsize_abs, ^setsize_abs, uitutorial:pages);
+~script16398;

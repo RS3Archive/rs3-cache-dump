@@ -1,0 +1,35 @@
+// 13248
+[proc,script13248](int $int0, string $string0, component $component1)
+def_int $int2 = ~script13165(~script13160);
+def_string $string1 = "There are no results that match your selection. Try changing the filters.";
+cc_deleteall($component1);
+if ($int0 > 0) {
+    return;
+}
+if (if_find(mtxmgt_store:items_layer) = true) {
+    if (calc(~script13250 & cc_param(mtxmgt_store_filter_bitmask_3)) = 0) {
+        $string1 = "There are no results. Try changing the availability filter.";
+    } else if (calc(12858 & cc_param(mtxmgt_store_filter_bitmask_4)) = 0) {
+        $string1 = "There are no results. Try changing the source filter.";
+    } else if (calc(1328831 & cc_param(mtxmgt_store_filter_bitmask_1_category_outfit)) = 0) {
+        $string1 = "There are no results. Try changing the advanced filter.";
+    } else if (compare($string0, "") = 0) {
+        if (testbit(cc_param(mtxmgt_store_filter_bitmask_3), 4) = ^true & testbit(cc_param(mtxmgt_store_filter_bitmask_3), 1) = ^false & testbit(cc_param(mtxmgt_store_filter_bitmask_3), 3) = ^false) {
+            $string1 = "There are no new items that match your selection. Try changing the filters.";
+        } else if (testbit(cc_param(mtxmgt_store_filter_bitmask_3), 4) = ^false & testbit(cc_param(mtxmgt_store_filter_bitmask_3), 1) = ^true & testbit(cc_param(mtxmgt_store_filter_bitmask_3), 3) = ^false) {
+            $string1 = "There are no owned items that match your selection. Try changing the filters.";
+        }
+    } else {
+        $string1 = "There are no results.";
+    }
+}
+if (if_find($component1) = true) {
+    cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+    cc_settext($string1);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(~script10495(6));
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    cc_setsize(if_getwidth($component1), ~script7593(cc_gettext, if_getwidth($component1), cc_getfontmetrics, 0), ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, calc(if_getheight($component1) / 3), ^setpos_abs_left, ^setpos_abs_top);
+}

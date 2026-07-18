@@ -1,0 +1,19 @@
+// 12472
+[proc,script12472]()(int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(mm16_tasks);
+def_int $int3 = 0;
+def_dbrow $dbrow4 = null;
+while ($int0 < $int2) {
+    $int1 = enum(int, int, mm16_tasks, $int0);
+    if ($int1 ! -1) {
+        db_find(mm16_task:col0, $int1);
+        $dbrow4 = db_findnext;
+        if ($dbrow4 ! null) {
+            $int3 = calc($int3 + ~script12475(db_getfield($dbrow4, mm16_task:col0, 0)));
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+return($int3);

@@ -1,0 +1,42 @@
+// 1811
+[proc,script1811](component $component0, component $component1, component $component2)
+if (string_length(%clanwars_caller) = 0) {
+    ~script1812("", $component2);
+    return;
+}
+def_int $int3 = ~script1960;
+def_int $int4 = 0;
+def_int $chattype5 = ^chattype_gamemessage;
+def_int $int6 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_chatphrase $chatphrase7 = null;
+def_string $string5 = "";
+def_int $int8 = -1;
+def_int $int9 = max(0, calc($int3 - 100));
+def_string $string6 = "";
+def_int $int10 = -1;
+def_int $int11 = -1;
+while ($int9 <= $int3) {
+    $chattype5, $string0, $int6, $string1, $string2, $string3, $string4, $chatphrase7, $string5, $int8, $int11 = chat_gethistory_byuid($int9);
+    switch_int ($chattype5) {
+        case ^chattype_modchat, ^chattype_publicchat, ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_friendschat, ^chattype_friendschatnotification, ^chattype_quickchat_public, ^chattype_quickchat_private_incoming, ^chattype_quickchat_friend_chat, ^chattype_group_all, ^chattype_group_same_team, ^chattype_quickchat_group_all, ^chattype_quickchat_group_same_team, ^chattype_clanchat, ^chattype_quickchat_clanchat, ^chattype_clanguestchat, ^chattype_quickchat_clanguestchat :
+            if (compare(lowercase(removetags($string1)), %clanwars_caller) = 0) {
+                $string6 = $string5;
+                $int10 = $int9;
+            }
+    }
+    $int9 = calc($int9 + 1);
+}
+if ($int10 < 0) {
+    %clanwars_caller_lastindex = -1;
+    ~script1812("", $component2);
+    return;
+}
+if (%clanwars_caller_lastindex = -1 | $int10 <= %clanwars_caller_lastindex | compare($string6, %clanwars_caller_lastusedstring) ! 0) {
+    ~script1812($string6, $component2);
+}
+%clanwars_caller_lastindex = $int10;

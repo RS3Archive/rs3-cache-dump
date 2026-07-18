@@ -1,0 +1,21 @@
+// 13758
+[clientscript,script13758](int $int0, component $component1)
+if ($int0 > if_getheight($component1)) {
+    if_setscrollsize(0, $int0, $component1);
+    if_setscrollpos(0, 0, $component1);
+    if ($component1 = polls:polls_survey_results_layer) {
+        if_setsize(0, $int0, ^setsize_minus, ^setsize_abs, polls:polls_survey_results_content);
+    } else {
+        if_setsize(0, $int0, ^setsize_minus, ^setsize_abs, polls:polls_survey_options_content);
+    }
+    ~scrollbar_vertical(polls:polls_survey_scroll_layer, $component1, null, null, null, null, null, null);
+    if_sethide(false, polls:polls_survey_scroll_layer);
+} else {
+    if ($component1 = polls:polls_survey_results_layer) {
+        if_setsize(0, $int0, ^setsize_minus, ^setsize_abs, polls:polls_survey_results_content);
+    } else {
+        if_setsize(0, $int0, ^setsize_minus, ^setsize_abs, polls:polls_survey_options_content);
+    }
+    if_setscrollsize(0, 0, $component1);
+    if_sethide(true, polls:polls_survey_scroll_layer);
+}

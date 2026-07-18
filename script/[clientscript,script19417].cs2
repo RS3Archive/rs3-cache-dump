@@ -1,0 +1,29 @@
+// 19417
+[clientscript,script19417](int $int0)
+def_string $string0 = "Regular";
+if ($int0 = 1 | calc(clientclock % 50) = 0) {
+    if (%group_ironman_creator = 1 | %group_ironman_member = 1) {
+        if_sethide(true, group_ironman_create:info_layer);
+        if_sethide(false, group_ironman_create:group_layer);
+        if_settext(%group_ironman_cache_clan_name_client, group_ironman_create:group_name);
+        if_setmaxlines(1, group_ironman_create:group_name);
+        ~script3536(%group_ironman_cache_clan_name_client, group_ironman_create:group_name, -1);
+        $string0 = ~script19324(%group_ironman_create_ruleset_client, %group_ironman_create_hiscore_ineligible_client);
+        if_settext($string0, group_ironman_create:group_type);
+        ~script19418;
+        if (%group_ironman_creator = 1) {
+            if_sethide(false, group_ironman_create:edit_group_name_layer);
+            if_sethide(false, group_ironman_create:edit_group_ruleset_layer);
+            if_sethide(false, group_ironman_create:confirm_button);
+            if_setposition(0, 35, ^setpos_abs_centre, ^setpos_abs_top, group_ironman_create:cancel_button);
+        } else {
+            if_sethide(true, group_ironman_create:edit_group_name_layer);
+            if_sethide(true, group_ironman_create:edit_group_ruleset_layer);
+            if_sethide(true, group_ironman_create:confirm_button);
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, group_ironman_create:cancel_button);
+        }
+    } else {
+        if_sethide(false, group_ironman_create:info_layer);
+        if_sethide(true, group_ironman_create:group_layer);
+    }
+}

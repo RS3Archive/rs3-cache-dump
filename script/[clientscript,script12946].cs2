@@ -1,0 +1,59 @@
+// 12946
+[clientscript,script12946]
+def_int $int0 = %xmas17_main;
+def_int $int1 = calc(%xmas17_task1 + %xmas17_task2 + %xmas17_task3);
+def_struct $struct2 = ~script14441;
+if_settext(struct_param($struct2, event_episodes_title), event_episodes:episode_info_title);
+if_settext(struct_param($struct2, event_episodes_desc), event_episodes:episode_info_description);
+def_dbrow $dbrow3 = null;
+def_int $int4 = 5;
+def_int $int5 = 0;
+def_int $int6 = 4;
+def_struct $struct7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int8 = calc(($int6 - 1) / 2 + 1);
+def_string $string0 = "";
+$int9 = ~divide_up($int6, $int8);
+def_int $int10 = calc((if_getheight(event_episodes:episode_layers) - $int4 * ($int8 - 1)) / $int8);
+def_int $int11 = calc((if_getwidth(event_episodes:episode_layers) - $int4 * ($int9 - 1)) / $int9);
+def_int $int12 = 0;
+while ($int5 < $int6) {
+    db_find(event_quest:col0, $int5);
+    $dbrow3 = db_findnext;
+    if ($dbrow3 ! null) {
+        $struct7 = enum(int, struct, event_episode_box, $int5);
+        if_settext(db_getfield($dbrow3, event_quest:col5, 0), struct_param($struct7, event_title));
+        if_settext(db_getfield($dbrow3, event_quest:col8, 0), struct_param($struct7, event_desc));
+        if (db_getfield($dbrow3, event_quest:col2, 0) ! null) {
+            if_setgraphic(db_getfield($dbrow3, event_quest:col2, 0), struct_param($struct7, event_graphic));
+            if_sethide(false, struct_param($struct7, event_graphic));
+        } else if (db_getfield($dbrow3, event_quest:col3, 0) ! null) {
+            if_setmodel(db_getfield($dbrow3, event_quest:col3, 0), struct_param($struct7, event_model));
+            if_sethide(false, struct_param($struct7, event_model));
+        }
+        if (%atlum_day_tracker < db_getfield($dbrow3, event_quest:col1, 0)) {
+            if_sethide(false, struct_param($struct7, event_locked_layer));
+            if_settext(db_getfield($dbrow3, event_quest:col6, 0), struct_param($struct7, event_locked_text));
+        }
+        if_sethide(false, struct_param($struct7, event_container));
+        switch_int ($int5) {
+            case 0, 1, 3 :
+                if ($int0 >= db_getfield($dbrow3, event_quest:col9, 0)) {
+                    if_sethide(false, struct_param($struct7, event_complete_layer));
+                }
+            case 2 :
+                if ($int1 >= db_getfield($dbrow3, event_quest:col9, 0)) {
+                    if_sethide(false, struct_param($struct7, event_complete_layer));
+                }
+        }
+        if_setsize($int11, $int10, ^setsize_abs, ^setsize_abs, struct_param($struct7, event_container));
+        $int12 = calc($int5 / $int9);
+        if (calc($int5 % 2) = 0) {
+            if_setposition(0, calc($int12 * $int10 + $int12 * $int4), ^setpos_abs_left, ^setpos_abs_top, struct_param($struct7, event_container));
+        } else {
+            if_setposition(0, calc($int12 * $int10 + $int12 * $int4), ^setpos_abs_right, ^setpos_abs_top, struct_param($struct7, event_container));
+        }
+    }
+    $int5 = calc($int5 + 1);
+}

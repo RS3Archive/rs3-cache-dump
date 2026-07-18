@@ -1,0 +1,45 @@
+// 16536
+[proc,script16536]
+if (~script16513 = false) {
+    return;
+}
+def_component $component0 = trh180_overlay:claim_option_1_layer;
+def_component $component1 = trh180_overlay:claim_option_2_layer;
+def_component $component2 = trh180_overlay:claim_option_3_layer;
+def_component $component3 = trh180_overlay:claim_option_1_build_layer;
+def_component $component4 = trh180_overlay:claim_option_2_build_layer;
+def_component $component5 = trh180_overlay:claim_option_3_build_layer;
+if_sethide(false, trh180_overlay:claim_layer);
+cc_deleteall($component3);
+cc_deleteall($component4);
+cc_deleteall($component5);
+if_settext("Egg Hunt<br>Bonus", trh180_overlay:claim_option_1_title_text);
+def_dbrow $dbrow6 = ~script16519(%trh180_next_bonus);
+def_string $string0 = db_getfield($dbrow6, trh180_promo_bonus:col1, 0);
+if_settext("Next <tostring(6)> eggs:</col><br><$string0>", trh180_overlay:claim_option_1_info_text);
+~script16537($component3, $dbrow6);
+if_settext("Bonus Prize", trh180_overlay:claim_option_3_title_text);
+if_settext("1x Mystery Egg", trh180_overlay:claim_option_3_info_text);
+~script16538($component5, easter25_mystery_egg, 1);
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_string $string1 = "";
+if (calc(%trh180_hunts_completed % 2) = 0) {
+    if_sethide(false, $component1);
+    if_setposition(40, 0, ^setpos_abs_left, ^setpos_abs_centre, $component0);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component1);
+    if_setposition(40, 0, ^setpos_abs_right, ^setpos_abs_centre, $component2);
+    $obj7, $int8 = ~script16515;
+    if_settext("Reward Item", trh180_overlay:claim_option_2_title_text);
+    if (oc_param($obj7, mtxmgt_category) = 2) {
+        $string1 = "Cosmetic Override:</col><br><oc_name($obj7)>";
+    } else {
+        $string1 = "<tostring($int8)> x <oc_name($obj7)>";
+    }
+    if_settext($string1, trh180_overlay:claim_option_2_info_text);
+    ~script16538($component4, $obj7, $int8);
+} else {
+    if_sethide(true, $component1);
+    if_setposition(120, 0, ^setpos_abs_left, ^setpos_abs_centre, $component0);
+    if_setposition(120, 0, ^setpos_abs_right, ^setpos_abs_centre, $component2);
+}

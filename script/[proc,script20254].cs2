@@ -1,0 +1,60 @@
+// 20254
+[proc,script20254]
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
+if ($dbrow0 = null) {
+    ~script20273;
+    return;
+}
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col8, 0);
+cc_deleteall(league_parent_relics:relic_main);
+cc_deleteall(league_parent_relics:relic_main_headers);
+if_sethide(true, league_parent_relics:relic_info);
+if_sethide(false, league_parent_relics:relic_contents);
+if_sethide(false, league_parent_relics:progress_bar);
+if_sethide(false, league_parent_relics:relic_scrollbar);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = db_getfieldcount($dbrow1, league_relic_list:col0);
+def_int $int5 = 0;
+def_dbrow $dbrow6 = null;
+def_boolean $boolean7 = false;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+while ($int2 < $int4) {
+    $int8 = 0;
+    $dbrow6 = db_getfield($dbrow1, league_relic_list:col0, $int2);
+    $int3 = db_getfieldcount($dbrow6, league_relic_tier:col1);
+    $boolean7 = ~script20143($dbrow6, $int3);
+    if ($int2 = 0) {
+        $int5 = $int3;
+    }
+    while ($int8 < $int3) {
+        $int11 = calc($int3 - $int8);
+        if ($int11 <= 2) {
+            $int5 = ~script20255($dbrow6, $int2, $int8, 2, $int9, $int5, $boolean7);
+            $int8 = calc($int8 + 2);
+        } else if ($int11 > 4) {
+            $int5 = ~script20255($dbrow6, $int2, $int8, 3, $int9, $int5, $boolean7);
+            $int8 = calc($int8 + 3);
+        } else if (calc($int11 % 4) = 0) {
+            $int5 = ~script20255($dbrow6, $int2, $int8, 2, $int9, $int5, $boolean7);
+            $int8 = calc($int8 + 2);
+        } else {
+            $int5 = ~script20255($dbrow6, $int2, $int8, 3, $int9, $int5, $boolean7);
+            $int8 = calc($int8 + 3);
+        }
+        $int9 = calc($int9 + 1);
+    }
+    $int2 = calc($int2 + 1);
+}
+def_int $int12 = -1;
+def_int $int13 = 0;
+$int13, $int12 = ~script20260($int9, $int4);
+$int13 = calc($int13 - 15);
+if_setscrollsize($int13, 0, league_parent_relics:relic_main_scrolling);
+if ($int12 ! -1 & cc_findbycategory(league_parent_relics:relic_main, 200, $int12) = 1) {
+    if_setscrollpos(calc(cc_getx + cc_getwidth / 2 - if_getwidth(league_parent_relics:relic_main) / 2), 0, league_parent_relics:relic_main);
+}
+~rs3_scrollbar_horizontal(league_parent_relics:relic_scrollbar, league_parent_relics:relic_main_scrolling);

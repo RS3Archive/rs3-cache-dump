@@ -1,0 +1,128 @@
+// 12831
+[proc,script12831](component $component0, int $int1, int $int2, int $int3, int $int4)
+def_enum $enum5 = enum(int, enum, elrc_chapters, $int1);
+def_enum $enum6 = enum(int, enum, $enum5, $int3);
+def_int $int7 = calc($int4 * $int2);
+def_struct $struct8 = enum(int, struct, $enum6, $int7);
+def_int $int9 = enum_getoutputcount($enum6);
+def_int $int10 = 50;
+def_int $int11 = 1;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+cc_deleteall($component0);
+cc_create($component0, ^iftype_text, $int12);
+cc_setsize(380, 50, ^setsize_abs, ^setsize_abs);
+cc_setposition(20, 8, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+switch_int ($int1) {
+    case 2 :
+        switch_int ($int3) {
+            case 1 :
+                cc_settext("Birds of the Arc");
+            case 2 :
+                cc_settext("Mushrooms of the Arc");
+            case 3 :
+                cc_settext("Berries of the Arc");
+            case 4 :
+                cc_settext("Kami Spirits of the Arc");
+            case 5 :
+                cc_settext("Castaways of the Arc");
+        }
+    case 3 :
+        cc_settext("Miniquests");
+}
+cc_settextfont(cinzel_18pt_bold);
+cc_setcolour(^black);
+$int12 = calc($int12 + 1);
+while ($int7 < $int9 & $int13 = 0) {
+    cc_create($component0, ^iftype_graphic, $int12);
+    switch_int ($int2) {
+        case 5 :
+            cc_setsize(80, 80, ^setsize_abs, ^setsize_abs);
+            if ($int11 = 1) {
+                cc_setposition(20, calc($int10 + 10), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(400, calc($int10 + 10), ^setpos_abs_left, ^setpos_abs_top);
+            }
+        case 8 :
+            cc_setsize(55, 55, ^setsize_abs, ^setsize_abs);
+            if ($int11 = 1) {
+                cc_setposition(20, $int10, ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(390, $int10, ^setpos_abs_left, ^setpos_abs_top);
+            }
+    }
+    if (~script12822($struct8) = ^true) {
+        cc_setgraphic(struct_param($struct8, elrc_objective_graphic_unlocked));
+    } else {
+        cc_setgraphic(struct_param($struct8, elrc_objective_graphic_locked));
+    }
+    $int12 = calc($int12 + 1);
+    cc_create($component0, ^iftype_text, $int12);
+    switch_int ($int2) {
+        case 5 :
+            cc_setsize(250, 20, ^setsize_abs, ^setsize_abs);
+            if ($int11 = 1) {
+                cc_setposition(110, calc($int10 + 10), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(490, calc($int10 + 10), ^setpos_abs_left, ^setpos_abs_top);
+            }
+        case 8 :
+            cc_setsize(250, 20, ^setsize_abs, ^setsize_abs);
+            if ($int11 = 1) {
+                cc_setposition(80, $int10, ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(450, $int10, ^setpos_abs_left, ^setpos_abs_top);
+            }
+    }
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext(struct_param($struct8, elrc_objective_title));
+    cc_settextfont(museo_sans_13pt_bold);
+    cc_setcolour(^black);
+    $int12 = calc($int12 + 1);
+    cc_create($component0, ^iftype_text, $int12);
+    switch_int ($int2) {
+        case 5 :
+            cc_setsize(250, 60, ^setsize_abs, ^setsize_abs);
+            if ($int11 = 1) {
+                cc_setposition(110, calc($int10 + 30), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(490, calc($int10 + 30), ^setpos_abs_left, ^setpos_abs_top);
+            }
+        case 8 :
+            cc_setsize(250, 40, ^setsize_abs, ^setsize_abs);
+            if ($int11 = 1) {
+                cc_setposition(80, calc($int10 + 15), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setposition(450, calc($int10 + 15), ^setpos_abs_left, ^setpos_abs_top);
+            }
+    }
+    if (~script12822($struct8) = ^true) {
+        cc_settext(struct_param($struct8, elrc_objective_desc));
+        cc_setcolour(^black);
+    } else {
+        cc_settext(struct_param($struct8, elrc_objective_hint));
+        cc_setcolour(0x3f3f3f);
+    }
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    $int12 = calc($int12 + 1);
+    if (calc(++$int7 % $int2) = 0 & calc($int7 % ($int2 * 2)) ! 0) {
+        $int10 = 50;
+        $int11 = 2;
+        $int4 = calc($int4 + 1);
+    } else if (calc($int7 % $int2) = 0) {
+        $int4 = calc($int4 + 1);
+        $int13 = 1;
+    } else {
+        switch_int ($int2) {
+            case 5 :
+                $int10 = calc($int10 + 90);
+            case 8 :
+                $int10 = calc($int10 + 60);
+        }
+    }
+    $struct8 = enum(int, struct, $enum6, $int7);
+}
+if_sethide(false, elrc:dynamic_layer);

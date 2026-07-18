@@ -1,0 +1,23 @@
+// 5735
+[clientscript,sworlds_challenge_time_remaining_update](int $int0, int $int1, int $int2)
+if (calc(clientclock % 50) ! 0 & $int2 = 0) {
+    return;
+}
+def_int $int3 = calc($int0 + $int1 - date_runeday);
+def_int $int4 = calc((date_minutes_fromruneday(calc(date_runeday + 1)) - date_minutes) / 60);
+def_int $int5 = calc((date_minutes_fromruneday(calc(date_runeday + 1)) - date_minutes) % 60);
+def_string $string0 = "days";
+def_string $string1 = "hours";
+def_string $string2 = "minutes";
+if ($int3 = 1) {
+    $string0 = "day";
+}
+if ($int4 = 1) {
+    $string1 = "hour";
+}
+if ($int5 = 1) {
+    $string2 = "minute";
+}
+if (cc_find(sworlds_challenge_information:sworlds_challenge_time_remaining, 1) = true) {
+    cc_settext("<tostring($int3)> <$string0>  <tostring($int4)> <$string1>  <tostring($int5)> <$string2>");
+}

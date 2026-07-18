@@ -1,0 +1,32 @@
+// 18059
+[proc,script18059](int $int0)
+def_int $int1 = ~script17896;
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_dbrow $dbrow5 = null;
+def_int $int6 = 0;
+if ($int0 ! 0) {
+    $dbrow5 = ~script17905($int0);
+    $int6 = ~script17898(db_getfield($dbrow5, bp3_mission:col14, 0));
+    if (cc_findbycategory(bp3_missions_tab:mission_list_content_layer, calc($int6 + 40), 0) = 1) {
+        cc_setparam_int(is_minimised, 0);
+        ~script17899($int6, 0);
+    }
+}
+while (++$int2 <= $int1) {
+    if (cc_findbycategory(bp3_missions_tab:mission_list_content_layer, calc($int2 + 40), 0) = 1) {
+        $int4 = cc_param(bp3_accordion_content_height);
+        if ($int4 = 58) {
+            cc_setparam(bp3_accordion_content_height, calc($int4 + 60));
+            cc_setparam_int(is_minimised, 1);
+            ~script17899($int2, 1);
+            ~cc_add_child_button_full(0, calc($int2 + 100), 4, 0, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth(bp3_missions_tab:mission_list_content_layer) - 8), 58, ^setsize_abs, ^setsize_abs, bp3_accordian_cutout_button_desat, "", true, true, true, true);
+            cc_setop(1, "Select");
+            cc_setonop("script18063($int2)");
+            ~cc_add_child_layer(calc(120 + $int2), 20, 0, 60, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+            ~cc_add_child_text(calc(120 + $int2), 21, 0, 20, ^setpos_abs_left, ^setpos_abs_top, if_getwidth(bp3_missions_tab:mission_list_content_layer), 20, ^setsize_abs, ^setsize_abs, bp3_text_gold_cinzel_bold_centre_16pt, "You currently have no missions of this type. Check back soon.");
+            ~cc_add_child_button_full(0, calc(120 + $int2), 2, 0, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth(bp3_missions_tab:mission_list_content_layer) - 4), 60, ^setsize_abs, ^setsize_abs, ~script17989(2), "", false, false, false, false);
+        }
+    }
+}

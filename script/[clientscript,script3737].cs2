@@ -1,0 +1,16 @@
+// 3737
+[clientscript,script3737](stat $stat0, int $int1, component $component2, component $component3)
+if (~xp_reward_checkskill($stat0, %xp_reward_minlevel, %xp_reward_item, 1) = false) {
+    return;
+}
+%lucky_strike_skill_selected = $int1;
+def_int $int4 = calc(enum_getoutputcount(lucky_strike_buttonlist) - 1);
+while ($int4 >= 0) {
+    $component2 = enum(int, component, lucky_strike_buttonlist, $int4);
+    if ($component2 ! null) {
+        if_callonresize($component2);
+    }
+    $int4 = calc($int4 - 1);
+}
+if_callonresize($component3);
+~script3746(%lucky_strike_skill_selected, %lucky_strike_box_selected);

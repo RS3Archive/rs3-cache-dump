@@ -1,0 +1,61 @@
+// 9511
+[proc,bank_build_tabs](int $int0)
+if (if_getnextsubid(bank:tab_dividers) = 0) {
+    return;
+}
+~script10185;
+~script14385;
+def_int $int1 = ~script5792;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = min($int1, calc(15 + 1));
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = -1;
+if (%bank_tab_vertical = 1) {
+    $int8 = if_getheight(bank:tabs_dynamic);
+    ~script14408(bank:all_tab_btn, bank_tab_vertical, 0, 0, 0, 0, ~equal_int(1, %bank_current_tab));
+} else {
+    $int8 = if_getwidth(bank:tabs_dynamic);
+    ~script14408(bank:all_tab_btn, bank_tab_horizontal, 0, 0, 0, 0, ~equal_int(1, %bank_current_tab));
+}
+while ($int2 < $int4) {
+    if ($int2 >= 2) {
+        $int6 = ~script14372($int2);
+        $int7 = ~bank_get_tab_size($int6);
+    }
+    if ($int7 > 0) {
+        ~script9587($int2, $int6, $int7, $int0, $int5, 0);
+        $int5 = calc($int5 + 48);
+    }
+    $int2 = calc($int2 + 1);
+}
+~script9587($int2, $int2, 0, 0, $int5, 1);
+if ($int2 ! calc(15 + 1)) {
+    ~script9587($int2, $int2, 0, 0, $int5, 2);
+    $int5 = calc($int5 + 48);
+}
+if (if_find(bank:tabs_dynamic) = true) {
+    $int3 = cc_param(bank_last_tab_count);
+    if ($int3 ! $int4) {
+        cc_setparam(bank_last_tab_count, $int4);
+    }
+}
+if (%bank_tab_vertical = 1) {
+    if_setscrollsize(0, $int5, bank:tabs_dynamic);
+    if_setscrollsize(0, calc($int5 + 12 + 12), bank:tabs_spacers);
+} else {
+    if_setscrollsize($int5, 0, bank:tabs_dynamic);
+    if_setscrollsize(calc($int5 + 12 + 12), 0, bank:tabs_spacers);
+}
+if ($int5 > $int8) {
+    if ($int3 ! -1 & $int3 < $int4) {
+        if_triggerop(bank:tabs_scroll_down, -1, 1);
+    }
+} else {
+    if_setscrollpos(0, 0, bank:tabs_dynamic);
+    if_setscrollpos(0, 0, bank:tabs_spacers);
+}
+~script10241;

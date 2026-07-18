@@ -1,0 +1,31 @@
+// 20334
+[proc,script20334](int $int0, int $int1, int $int2, int $int3, int $int4)(boolean)
+def_int $int5 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int6 = %lobbyscreen_world_autoselect_backup;
+if (testbit($int0, $int1) = $int2 & $int3 = $int4 & staffmodlevel < 2) {
+    if ($int1 = 24 & %league_lobby_select_league_worlds = 1 & (playermember = true | %lobbyscreen_trial_expires > %lobbyscreen_current_minute | %lobbyscreen_member_expires > %lobbyscreen_current_minute)) {
+        $int6 = %lobbyscreen_world_autoselect_leagues_backup;
+    }
+    if ($int6 > 0) {
+        $int0, $string0, $int5, $string0, $int5, $int5, $string1 = worldlist_specific($int6);
+        if (testbit($int0, $int1) = calc(1 - $int2)) {
+            if (worldlist_switch($int6, $string1) = false) {
+                worldlist_autoworld;
+                ~script16919;
+                return(true);
+            }
+        } else {
+            worldlist_autoworld;
+            ~script16919;
+            return(true);
+        }
+    } else {
+        worldlist_autoworld;
+        ~script16919;
+        return(true);
+    }
+}
+~script16919;
+return(false);

@@ -1,0 +1,18 @@
+// 17847
+[proc,script17847](struct $struct0, int $int1)(boolean)
+def_int $int2 = struct_param($struct0, rewardshop_daily_cap);
+if ($int2 = -1) {
+    return(false);
+}
+def_int $int3 = ~script17846($struct0);
+if ($int3 = -1) {
+    return(false);
+}
+if ($int3 >= $int2) {
+    ~script1296("You have reached your daily purchase cap for this item.");
+    return(true);
+} else if ($int1 > calc($int2 - $int3)) {
+    ~script1296("The amount you are trying to purchase exceeds your daily cap. You can only purchase <tostring_localised(calc($int2 - $int3), true)> more of this item today.");
+    return(true);
+}
+return(false);

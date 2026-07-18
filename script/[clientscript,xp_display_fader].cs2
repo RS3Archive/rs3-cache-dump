@@ -1,0 +1,22 @@
+// 2673
+[clientscript,xp_display_fader](int $int0, component $component1, int $int2)
+if ($int0 = 1) {
+    if_settrans(0, $component1);
+}
+if ($int2 < 500) {
+    $int2 = calc($int2 + 1);
+    if_setontimer("xp_display_fader(0, $component1, $int2)", $component1);
+    return;
+}
+def_int $int3 = if_gettrans($component1);
+if ($int3 < 255) {
+    $int3 = min(calc($int3 + 5), 255);
+    if_settrans($int3, $component1);
+}
+if ($int3 >= 255) {
+    if_sethide(true, $component1);
+    if_settrans(0, $component1);
+    if_setontimer(null, $component1);
+} else {
+    if_setontimer("xp_display_fader(0, $component1, $int2)", $component1);
+}

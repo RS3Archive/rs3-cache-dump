@@ -1,0 +1,54 @@
+// 3597
+[clientscript,script3597](obj $obj0, obj $obj1, obj $obj2)
+if ($obj0 ! null) {
+    if_setobject_nonum($obj0, 1, farming_requests:easy_animal_icon);
+} else {
+    if_sethide(true, farming_requests:easy_animal_icon);
+}
+if ($obj1 ! null) {
+    if_setobject_nonum($obj1, 1, farming_requests:med_animal_icon);
+} else {
+    if_sethide(true, farming_requests:med_animal_icon);
+}
+if ($obj2 ! null) {
+    if_setobject_nonum($obj2, 1, farming_requests:hard_animal_icon);
+} else {
+    if_sethide(true, farming_requests:hard_animal_icon);
+}
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_component $component5 = null;
+def_component $component6 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+while ($int3 < 3) {
+    switch_int ($int3) {
+        case 0 :
+            $int4 = 2360;
+            $component5 = farming_requests:easy_request_state;
+            $component6 = farming_requests:easy_complete_status;
+        case 1 :
+            $int4 = 2361;
+            $component5 = farming_requests:med_request_state;
+            $component6 = farming_requests:med_complete_status;
+        case 2 :
+            $int4 = 2362;
+            $component5 = farming_requests:hard_request_state;
+            $component6 = farming_requests:hard_complete_status;
+    }
+    if (~script3598($int4) = true) {
+        if_setgraphic("farming_icon_guild_request_complete,1", $component5);
+        $string0 = "This request has been completed.";
+        $string1 = "Completed! Requested items have been deposited";
+    } else {
+        if_setgraphic("farming_icon_guild_request_complete,0", $component5);
+        $string0 = "This request has not been completed.";
+        $string1 = "This request has not been completed yet";
+        if ($int4 = 2362 & ~reputation_get_current_reputation_tier(6) < 2) {
+            $string1 = "<col=FF0000>Unlocked when you reach the 'Practiced Farmer' rank";
+        }
+    }
+    if_setonmouserepeat("script8799($string0, event_com, -1)", $component5);
+    if_settext($string1, $component6);
+    $int3 = calc($int3 + 1);
+}

@@ -1,0 +1,72 @@
+// 1900
+[proc,quickchat_enter_search](component $component0, component $component1, int $int2, int $int3, int $int4)
+~quickchat_focus($int4);
+~script8676($int4, 0);
+~script8674($int4, 0);
+def_int $int5 = 0;
+while (cc_find($component0, $int5) = true) {
+    if ($int5 = $int2) {
+        cc_setonmouseover(null);
+        cc_setonmouseleave(null);
+        if (.cc_find($component1, $int5) = true) {
+            .cc_sethide(false);
+            .cc_setcolour(0x969777);
+        }
+    } else {
+        cc_setonmouseover("script1082(calc($int3 - 1), $component1, $int5, $int4)");
+        cc_setonmouseleave("script1083(calc($int3 - 1), $component1, $int5, $int4)");
+        if (.cc_find($component1, $int5) = true) {
+            .cc_sethide(true);
+        }
+    }
+    $int5 = calc($int5 + 1);
+}
+~script8618($int4, -1);
+~script8622($int4, 0);
+~script8612($int4, "");
+def_string $string0 = "Search phrases...";
+if (~script8613($int4) = 1) {
+    $string0 = "To <~script8605($int4)>: <col=10F010><$string0>";
+} else if (~script8613($int4) = 2) {
+    $string0 = "[<col=6464A0><clan_getchatdisplayname><col=FFFFFF>]: <col=10F010><$string0>";
+} else if (~script8613($int4) = 8) {
+    if (activeclanchannel_find_affined(0) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int4) = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int4) = 13) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0><player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int4) = 15) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0>(Team)<player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int4) = 17) {
+    if (activeclanchannel_find_affined(1) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else {
+    $string0 = $string0;
+}
+if_sethide(false, ~script8594($int4));
+if_sethide(true, ~script8598($int4));
+if_sethide(true, ~script8599($int4));
+if_sethide(false, ~script8600($int4));
+if_setcolour(^white, ~script8600($int4));
+if_settextfont(museo_sans_11pt_regular, ~script8600($int4));
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, ~script8600($int4));
+if_settext($string0, ~script8600($int4));
+if_settextshadow(true, ~script8600($int4));
+cc_deleteall(~script8595($int4));
+if_setcolour(0xf01010, ~script8596($int4));
+if_settext("Search for: *", ~script8596($int4));
+if_settextshadow(true, ~script8596($int4));
+if_setscrollsize(0, 0, ~script8595($int4));
+cc_deleteall(~script8597($int4));
+if (if_find(~script8586($int4)) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_mode, 3);
+}

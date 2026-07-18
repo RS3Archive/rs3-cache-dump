@@ -1,0 +1,36 @@
+// 367
+[proc,script367](boolean $boolean0)
+if ($boolean0 = true) {
+    %toplevel_v2_hud_hidden = 1;
+} else {
+    %toplevel_v2_hud_hidden = 0;
+}
+if ($boolean0 = true) {
+    if (%league_active_player > 0) {
+        %league_tracker_hud_hidden_legacy = ~bool_to_int(if_gethide(struct_param(toplevel_v2_window_data_cheevo_tracker, toplevel_v2_window_layer)));
+    }
+    %chat_view = -1;
+    ~script8869;
+    if (%toplevel_v2_mobile_interface = 1) {
+        ~script13893(1);
+    } else if (%toplevel_v2_legacy_interface = 1) {
+        ~script9944;
+    }
+} else {
+    if (%league_active_player > 0) {
+        if_sethide(~int_to_bool(%league_tracker_hud_hidden_legacy), struct_param(toplevel_v2_window_data_cheevo_tracker, toplevel_v2_window_layer));
+    }
+    %chat_view = 0;
+    ~script2464;
+    ~script2466;
+}
+if_sethide($boolean0, toplevel_v2:fullscreen_pop_ups);
+if_sethide($boolean0, toplevel_v2:warning_overlays);
+if ($boolean0 = true) {
+    clientoption_set(^clientoption_custom_cursors, 0);
+} else {
+    clientoption_set(^clientoption_custom_cursors, ~bool_to_int(%option_cursor));
+    %chat_view = 0;
+}
+~script8702(-1, 9);
+~script20344;

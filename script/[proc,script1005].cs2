@@ -1,0 +1,17 @@
+// 1005
+[proc,script1005](obj $obj0)(string)
+def_dbrow $dbrow1 = oc_param($obj0, pof_animal_db);
+if ($dbrow1 = null) {
+    return("");
+}
+def_int $int2 = invother_getvar(%tli_optext_inv, %tli_optext_slot, pof_obj_animal_age);
+if ($int2 < db_getfield($dbrow1, pof_animal_table:col8, 0)) {
+    return("Egg");
+} else if ($int2 < db_getfield($dbrow1, pof_animal_table:col9, 0)) {
+    return("Child");
+} else if ($int2 < db_getfield($dbrow1, pof_animal_table:col10, 0)) {
+    return("Adolescent");
+} else if ($int2 < db_getfield($dbrow1, pof_animal_table:col7, 0)) {
+    return("Adult");
+}
+return("Elder");

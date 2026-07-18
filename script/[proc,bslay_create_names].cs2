@@ -1,0 +1,40 @@
+// 3
+[proc,bslay_create_names]
+~script10428(bslay_boss_info:dropdown_build, bslay_boss_info:dropdown_click, bslay_interface_dropdown_cats, -1, "View different category information.", %bslay_cat_chosen, 0);
+cc_deleteall(bslay_boss_info:boss_name_builder_layer);
+if (%bslay_cat_chosen < 0 | %bslay_cat_chosen = -1) {
+    return;
+}
+if (%bslay_cat_chosen = 1) {
+    if_sethide(true, bslay_boss_info:boss_info_layer);
+    if_sethide(false, bslay_boss_info:boss_kill_layer);
+    if_sethide(true, bslay_boss_info:monster_layer);
+    return;
+}
+if (%bslay_cat_chosen = 2) {
+    if_sethide(true, bslay_boss_info:boss_info_layer);
+    if_sethide(true, bslay_boss_info:boss_kill_layer);
+    if_sethide(false, bslay_boss_info:monster_layer);
+    return;
+}
+if_sethide(false, bslay_boss_info:boss_info_layer);
+if_sethide(true, bslay_boss_info:boss_kill_layer);
+if_sethide(true, bslay_boss_info:monster_layer);
+def_enum $enum0 = bslayer_boss_list_enum;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_struct $struct4 = null;
+while ($int1 < enum_getoutputcount($enum0)) {
+    $struct4 = enum(int, struct, $enum0, $int1);
+    if (if_find(bslay_boss_info:boss_name_builder_layer) = true) {
+        $int3 = ~script10410(bslay_boss_info:boss_name_builder_layer, bslay_boss_info:boss_name_builder_layer_click, rs3tli_3x3_button, 0, calc($int1 * 32), cc_getwidth, 30, $int3, false, ~script16337($struct4));
+    }
+    $int1 = calc($int1 + 1);
+}
+cc_deleteall(bslay_boss_info:boss_name_scrollbar_layer);
+if (calc($int1 * 32 + 2) > if_getheight(bslay_boss_info:bos_name_wrapper)) {
+    if_setscrollsize(0, calc($int1 * 32 + 2), bslay_boss_info:boss_name_builder_layer_move);
+    if_setscrollpos(0, 0, bslay_boss_info:boss_name_builder_layer_move);
+    ~scrollbar_vertical(bslay_boss_info:boss_name_scrollbar_layer, bslay_boss_info:boss_name_builder_layer_move, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+}

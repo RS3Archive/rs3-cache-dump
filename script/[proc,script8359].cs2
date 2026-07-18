@@ -1,0 +1,42 @@
+// 8359
+[proc,script8359](int $int0, int $int1, int $int2)
+def_struct $struct3 = ~script10405($int0);
+def_component $component4 = struct_param($struct3, toplevel_v2_window_tabs_scroll_layer);
+def_component $component5 = struct_param($struct3, toplevel_v2_window_tabs_layer);
+def_component $component6 = struct_param($struct3, toplevel_v2_window_tabs_background_layer);
+def_struct $struct7 = ~script8418($struct3, 0);
+if ($component4 = null | $component5 = null | $component6 = null) {
+    return;
+}
+if (struct_param($struct7, toplevel_v2_window_titled_tab_mode) = 2) {
+    if_sethide(true, $component4);
+    if ($int1 > 1) {
+        ~script8378(0, $int0);
+    } else {
+        ~script8378(1, $int0);
+    }
+    return;
+}
+def_int $int8 = calc($int1 * struct_param($struct7, toplevel_v2_window_titled_tab_width));
+def_int $int9 = calc($int2 * struct_param($struct7, toplevel_v2_window_titled_tab_width));
+def_int $int10 = calc($int9 + struct_param($struct7, toplevel_v2_window_titled_tab_width));
+def_int $int11 = if_getscrollx($component5);
+if ($int8 > calc(if_getwidth($component6) - 2 * struct_param($struct7, toplevel_v2_window_titled_tab_background_side_width)) & %toplevel_v2_mobile_interface = 0) {
+    if_sethide(false, $component4);
+    if_setposition(calc(if_getx($component4) + struct_param($struct7, toplevel_v2_window_titled_tab_scroll_width)), if_gety($component5), ^setpos_abs_left, ^setpos_abs_top, $component5);
+    if_setsize(calc(2 * struct_param($struct7, toplevel_v2_window_titled_tab_scroll_width) + 2 * if_getx($component4)), if_getheight($component5), ^setsize_minus, ^setsize_abs, $component5);
+    if ($int9 < $int11) {
+        $int11 = $int9;
+    } else if ($int10 > calc($int11 + if_getwidth($component5))) {
+        $int11 = calc($int10 - if_getwidth($component5));
+    }
+    if_setscrollsize($int8, if_getheight($component5), $component5);
+    if_setscrollpos($int11, 0, $component5);
+    ~script1846($int0);
+} else {
+    if_sethide(true, $component4);
+    if_setposition(struct_param($struct7, toplevel_v2_window_titled_tab_background_side_width), if_gety($component5), ^setpos_abs_left, ^setpos_abs_top, $component5);
+    if_setsize(calc(2 * struct_param($struct7, toplevel_v2_window_titled_tab_background_side_width)), if_getheight($component5), ^setsize_minus, ^setsize_abs, $component5);
+    if_setscrollsize(0, 0, $component5);
+    if_setscrollpos(0, 0, $component5);
+}

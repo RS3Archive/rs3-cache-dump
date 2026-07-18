@@ -1,0 +1,38 @@
+// 12098
+[proc,skillguide_level](struct $struct0, dbrow $dbrow1)(int)
+def_int $int2 = 0;
+def_struct $struct3 = null;
+if ($struct0 ! null) {
+    if (struct_param($struct0, skillguide_level) > 0) {
+        $int2 = struct_param($struct0, skillguide_level);
+    } else if (struct_param($struct0, skillguide_item) ! null & ~skillguide_skill($struct0, $dbrow1) > 0) {
+        $int2 = ~script7960(struct_param($struct0, skillguide_item), enum(int, stat, int_to_stat, ~skillguide_skill($struct0, $dbrow1)));
+        if ($int2 = 0) {
+            $int2 = ~script2516(struct_param($struct0, skillguide_item), enum(int, stat, int_to_stat, ~skillguide_skill($struct0, $dbrow1)));
+        }
+    }
+    if ($int2 > 0) {
+        return($int2);
+    }
+    $struct3 = struct_param($struct0, skillguide_struct);
+    $dbrow1 = struct_param($struct0, skillguide_data);
+}
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case invent_blueprint_table :
+            $int2 = db_getfield($dbrow1, invent_blueprint_table:col9, 0);
+        case arch_site :
+            $int2 = db_getfield($dbrow1, arch_site:col6, 0);
+        case arch_excavation :
+            $int2 = db_getfield($dbrow1, arch_excavation:col4, 0);
+        case necro_ritual_recipe :
+            if (db_getfield($dbrow1, necro_ritual_recipe:col5:0, 0) = enum(int, stat, int_to_stat, ~skillguide_skill($struct0, $dbrow1))) {
+                $int2 = db_getfield($dbrow1, necro_ritual_recipe:col5:1, 0);
+            }
+        case construction_house_furniture :
+            $int2 = db_getfield($dbrow1, construction_house_furniture:col9, 0);
+    }
+} else if ($struct3 ! null & struct_param($struct3, combatv2_ability_id) > 0) {
+    $int2 = struct_param($struct3, combatv2_ability_level_req);
+}
+return($int2);

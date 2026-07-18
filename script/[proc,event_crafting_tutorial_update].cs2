@@ -1,0 +1,18 @@
+// 15187
+[proc,event_crafting_tutorial_update](int $int0, component $component1, component $component2)
+db_find(event_crafting_tutorial:col0, $int0);
+def_dbrow $dbrow3 = db_findnext;
+if ($dbrow3 ! null) {
+    if_setgraphic(db_getfield($dbrow3, event_crafting_tutorial:col1, 0), $component1);
+    if_settext(db_getfield($dbrow3, event_crafting_tutorial:col2, 0), $component2);
+}
+if ($int0 = 0) {
+    if_sethide(true, event_crafting:tutorial_back);
+} else {
+    if_sethide(false, event_crafting:tutorial_back);
+}
+if ($int0 = 6) {
+    if_sethide(true, event_crafting:tutorial_forward);
+} else {
+    if_sethide(false, event_crafting:tutorial_forward);
+}

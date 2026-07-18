@@ -1,0 +1,52 @@
+// 19015
+[proc,script19015](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+def_graphic $graphic5 = null;
+def_struct $struct6 = ~script16161;
+if (cc_find(trh119_buried_treasure_overlay:grid_chest_layer, $int0) = true) {
+    switch_struct ($struct6) {
+        case trh119_promo :
+            $graphic4 = "trh119_icon_checkmarks,2";
+        case trh142_promo :
+            $graphic4 = treasurehunter_trh142_icon_crossbones;
+            $int1 = ~script6954($int0);
+            if ($int1 ! 0) {
+                $graphic5 = enum(int, graphic, trh_category_icon, $int1);
+            }
+        case trh157_promo :
+            $graphic4 = "trh119_icon_checkmarks,2";
+            $int2 = ~script6397($int0);
+            if ($int2 ! 0) {
+                $graphic5 = enum(int, graphic, trh157_powerup_icon, $int2);
+            }
+        case trh172_promo :
+            $graphic4 = trh172_icon_digsite_cross;
+            $int2 = ~script2662($int0);
+            if ($int2 ! 0) {
+                $graphic5 = enum(int, graphic, trh172_powerup_icon, $int2);
+            }
+        case trh198_promo :
+            $graphic4, $graphic3, $graphic3 = ~script18988($int0);
+            $int2 = ~script18987($int0);
+            if ($int2 ! 0) {
+                $graphic5 = enum(int, graphic, trh172_powerup_icon, $int2);
+            }
+    }
+    switch_int (~script18993($int0)) {
+        case 0 :
+            cc_setgraphic($graphic5);
+        case 1 :
+            cc_setgraphic($graphic4);
+            if (.cc_find(trh119_buried_treasure_overlay:grid_hover_layer, $int0) = true) {
+                .cc_setgraphic(null);
+                .cc_setonmouseover(null);
+                .cc_setonmouseleave(null);
+            }
+        case 2 :
+            cc_setgraphic(enum(int, graphic, trh119_buried_treasure_chest_graphics, ~script5875($int0)));
+            cc_setonmouseover(null);
+    }
+}

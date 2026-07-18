@@ -1,0 +1,14 @@
+// 20131
+[proc,script20131](dbrow $dbrow0, achievement $achievement1)(string)
+switch_category (achievement_subcat($achievement1)) {
+    case quests, miniquests :
+        return("Complete the quest: <achievement_getname($achievement1)>.");
+    case archaeology_armadylean, archaeology_bandosian, archaeology_dragonkin, archaeology_saradominist, archaeology_zamorakian, archaeology_zarosian :
+        if (achievement_sprite($achievement1) = achievement_icon_archaeology_mysteries) {
+            return("Solve the Archaeology mystery: <achievement_getname($achievement1)>.");
+        }
+}
+if (achievement_category($achievement1) = atset & db_getfield($dbrow0, league_task:col4, 0) = 6) {
+    return("Complete the task set: <enum(category, string, area_tasks_area_names_by_category, achievement_subcat(achievement_achievement_req($achievement1, 0)))>.");
+}
+return(~achievement_description($achievement1));

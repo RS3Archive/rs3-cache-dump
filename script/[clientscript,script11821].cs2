@@ -1,0 +1,66 @@
+// 11821
+[clientscript,script11821](int $int0, int $int1, struct $struct2, int $int3)
+def_component $component4 = trh_event_overview:info_layer;
+def_component $component5 = trh_event_overview:progress_layer;
+def_int $int6 = if_getwidth(trh_event_overview:blue_large_progress_value_bounds_layer);
+def_int $int7 = calc($int6 / 10);
+~script9554(trh_event_overview:mainmodal_window_background, trh_event_overview:mainmodal_window_border, trh_event_overview:mainmodal_window_content, struct_param($struct2, trh_event_name), toplevel_v2_default_main_modal_skin_data);
+def_int $int8 = max(1, calc(scale($int0, 1000, $int6) + 1));
+if_setontimer("script11858($int0, $int1, $int8, $int7, trh_event_overview:blue_large_progress_value_layer, trh_event_overview:blue_large_progress_value_bounds_layer)", trh_event_overview:blue_large_progress_value_bounds_layer);
+def_int $int9 = max(1, calc(scale($int1, 1000, $int6) + 1));
+if_setontimer("script11858($int0, $int1, $int9, $int7, trh_event_overview:green_large_progress_value_layer, trh_event_overview:green_large_progress_value_bounds_layer)", trh_event_overview:green_large_progress_value_bounds_layer);
+def_string $string0 = "";
+def_int $int10 = 0;
+cc_deleteall($component4);
+$int10 = 0;
+def_int $int11 = 1;
+def_int $int12 = 104;
+def_int $int13 = 0;
+def_obj $obj14 = null;
+def_obj $obj15 = null;
+def_inv $inv16 = null;
+def_struct $struct17 = null;
+def_enum $enum18 = ~script11838($struct2);
+def_int $int19 = min(scale($int0, 1000, 100), scale($int1, 1000, 100));
+while ($int11 <= 10) {
+    $int13 = calc($int12 + 60 * $int11);
+    $int10 = if_getnextsubid($component5);
+    if ($int19 >= calc($int11 * 10)) {
+        $struct17 = rs3_icon_holder_selected;
+    } else {
+        $struct17 = rs3_icon_holder;
+    }
+    ~rs3_background_panel_dynamic($component5, $struct17, calc($int13 - 18), 131, 36, 36, null);
+    $obj14 = enum(int, obj, $enum18, calc($int11 - 1));
+    cc_create($component5, ^iftype_model, if_getnextsubid($component5));
+    cc_setobject($obj14, 1);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int13 - 18), 133, ^setpos_abs_left, ^setpos_abs_top);
+    $obj14, $obj15, $inv16 = ~script13265($obj14);
+    $inv16 = mtxmgt_store_temp;
+    if ($obj15 ! null & $obj15 ! $obj14) {
+        ~script14994($obj14, null, -1, $obj15, $inv16, 1);
+    } else {
+        ~script14994($obj14, null, -1, $obj15, $inv16, 0);
+    }
+    if ($int19 < calc($int11 * 10)) {
+        cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+        cc_setgraphic(rs3_icon_lock_33px);
+        cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int13 - 18), 131, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (calc($int11 % 2) = 1) {
+        cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+        cc_setgraphic(trh72_content_container_panel);
+        cc_setposition(calc($int13 - 55), 178, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(110, 90, ^setsize_abs, ^setsize_abs);
+        cc_create($component5, ^iftype_text, if_getnextsubid($component5));
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_setcolour(~script10495(3));
+        cc_settext(oc_param($obj14, trh_extended_desc));
+        cc_setposition(calc($int13 - 48), 183, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(95, 80, ^setsize_abs, ^setsize_abs);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 12);
+    }
+    $int11 = calc($int11 + 1);
+}

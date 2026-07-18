@@ -1,0 +1,20 @@
+// 4736
+[proc,wom2_setup](component $component0, int $int1)
+def_int $int2 = 1820;
+def_inv $inv3 = null;
+if (%wom2_varbit_invtype > 0) {
+    $inv3 = enum(int, inv, int_to_invtype, %wom2_varbit_invtype);
+    if ($inv3 ! null) {
+        $int2 = inv_size($inv3);
+    }
+}
+if_setscrollpos(0, 0, $component0);
+cc_deleteall($component0);
+def_int $int4 = 0;
+while ($int4 < $int2) {
+    cc_create($component0, ^iftype_graphic, $int4);
+    cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_sethide(true);
+    $int4 = calc($int4 + 1);
+}

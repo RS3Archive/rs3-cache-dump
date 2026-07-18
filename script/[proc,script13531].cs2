@@ -1,0 +1,77 @@
+// 13531
+[proc,script13531](int $int0, int $int1, int $int2, boolean $boolean3)
+def_component $component4 = null;
+def_component $component5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+switch_int ($int0) {
+    case 0 :
+        $component4, $component5 = chatdefault:legacy_chat_game, chatdefault:legacy_chat_game_icon;
+        $int7 = 0;
+    case 1 :
+        $component4, $component5 = chatdefault:legacy_chat_public, chatdefault:legacy_chat_public_icon;
+        $int7 = 1;
+    case 2 :
+        $component4, $component5 = chatdefault:legacy_chat_private, chatdefault:legacy_chat_private_icon;
+        $int7 = 2;
+    case 3 :
+        $component4, $component5 = chatdefault:legacy_chat_friendschat, chatdefault:legacy_chat_friendschat_icon;
+        $int7 = 3;
+    case 4 :
+        $component4, $component5 = chatdefault:legacy_chat_clan, chatdefault:legacy_chat_clan_icon;
+        $int7 = 4;
+    case 5 :
+        $component4, $component5 = chatdefault:legacy_chat_guest, chatdefault:legacy_chat_guest_icon;
+        $int7 = 5;
+    case 6 :
+        $component4, $component5 = chatdefault:legacy_chat_trade, chatdefault:legacy_chat_trade_icon;
+        $int7 = 6;
+    case 15 :
+        $component4, $component5 = chatdefault:legacy_chat_group, chatdefault:legacy_chat_group_icon;
+        $int7 = 7;
+    case 16 :
+        $component4, $component5 = chatdefault:legacy_chat_group_ironman, chatdefault:legacy_chat_group_ironman_icon;
+        $int7 = 8;
+        if_sethide(~negate_bool($boolean3), $component4);
+    case 99 :
+        $component4, $component5 = chatdefault:legacy_chat_all, chatdefault:legacy_chat_all_icon;
+        $int8 = 35;
+        $int9 = 0;
+    case default :
+        return;
+}
+if ($int0 ! 99) {
+    if ($boolean3 = true) {
+        $int8 = 51;
+    } else {
+        $int8 = 55;
+    }
+    if (%toplevel_v2_legacy_interface = 1) {
+        $int8 = calc($int8 + 2);
+    }
+    $int9 = calc(35 + $int7 * $int8);
+}
+if_setsize($int8, 0, ^setsize_abs, ^setsize_minus, $component4);
+if_setposition($int9, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component4);
+if ($int0 = 1 & %chat_v2_hide_public = 1) {
+    ~script9917($int0, 3);
+} else if ($int1 = 0) {
+    ~script9917($int0, 0);
+} else if ($int2 = 1) {
+    ~script9917($int0, 1);
+} else {
+    ~script9917($int0, 2);
+}
+if (%chat_view ! -1 & ~script9913($int0) = 1) {
+    if_setgraphic("rs3_button_filter_chat,3", $component5);
+} else {
+    $int6 = ~script9921($int0);
+    if ($int6 = 0 | calc($int6 / 25 % 2) = 1) {
+        if_setgraphic("rs3_button_filter_chat,3", $component5);
+    } else {
+        if_setgraphic("rs3_button_filter_chat,0", $component5);
+    }
+}
+if_setonop("script9915(event_op, 18, $int0)", $component4);

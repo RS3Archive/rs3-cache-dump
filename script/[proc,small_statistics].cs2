@@ -1,0 +1,203 @@
+// 9291
+[proc,small_statistics](int $int0, achievement $achievement1)
+~cheevo_reset_goto;
+def_component $component2 = achievements_sub:build_layer;
+def_int $int3 = -1;
+if (if_find($component2) = true) {
+    $int3 = cc_param(cheevo_current_drop_down_id);
+}
+if ($int3 > -1 & cc_find($component2, calc($int3 + 7)) = true) {
+    cc_setvflip(false);
+    %cheevo_last_opened_cheevo_id = -1;
+    %cheevo_last_opened_cheevo = null;
+}
+if_sethide(true, achievements_sub:cheevo_details);
+~script15343($int3, 0);
+def_int $int4 = 60;
+if (%cheevo_min_mode = 1) {
+    $int4 = 35;
+}
+def_int $int5 = 0;
+if (cc_find($component2, $int0) = true) {
+    $int5 = cc_gety;
+}
+def_int $int6 = 0;
+def_int $int7 = calc(if_getnextsubid($component2) - 11);
+if (cc_find($component2, $int7) = true) {
+    $int6 = calc(cc_gety + $int4);
+}
+if ($int3 = $int0) {
+    if (if_find($component2) = true) {
+        cc_setparam(cheevo_current_drop_down_id, -1);
+    }
+    ~script15341($component2, $int6, $int5);
+    return;
+}
+if (if_find($component2) = true) {
+    cc_setparam(cheevo_current_drop_down_id, $int0);
+}
+if (cc_find($component2, calc($int0 + 7)) = true) {
+    cc_setvflip(true);
+    %cheevo_last_opened_cheevo_id = $int0;
+    %cheevo_last_opened_cheevo = $achievement1;
+}
+cc_deleteall(achievements_sub:cheevo_details_grid);
+if (cc_find($component2, $int0) = true) {
+    if_setposition(0, calc(cc_gety + cc_getheight), ^setpos_abs_left, ^setpos_abs_top, achievements_sub:cheevo_details);
+}
+def_int $int8 = achievement_req_count($achievement1);
+def_int $int9 = 2;
+def_int $int10 = calc($int8 / $int9);
+def_int $int11 = calc($int8 - $int10 * $int9);
+if ($int11 > 0) {
+    $int10 = calc($int10 + 1);
+}
+if_grid_setlayoutparams(false, $int9, $int10, achievements_sub:cheevo_details_grid);
+def_int $int12 = 0;
+def_int $int13 = achievement_achievement_req_count($achievement1);
+def_string $string0 = "";
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = achievement_stat_req_count($achievement1);
+while ($int15 < $int16) {
+    $string0 = achievement_stat_req_name($achievement1, $int15);
+    if (compare($string0, "") ! 0) {
+        $int14 = calc(~bool_to_int(achievement_stat_req_met($achievement1, $int15)) * -2);
+        if (%cheevo_toggle_complete = 0 | $int14 ! -2) {
+            ~script15335($int13, $string0, "", $int14, 0, 0);
+            $int12 = max($int12, cc_getheight);
+            $int13 = calc($int13 + 1);
+        } else {
+            $int8 = calc($int8 - 1);
+        }
+    } else {
+        $int8 = calc($int8 - 1);
+    }
+    $int15 = calc($int15 + 1);
+}
+$int15 = 0;
+$int16 = achievement_varp_req_count($achievement1);
+while ($int15 < $int16) {
+    $string0 = achievement_varp_req_name($achievement1, $int15);
+    if (compare($string0, "") ! 0) {
+        $int14 = calc(~bool_to_int(achievement_varp_req_met($achievement1, $int15)) * -2);
+        if (%cheevo_toggle_complete = 0 | $int14 ! -2) {
+            ~script15335($int13, $string0, "", $int14, 0, 0);
+            $int12 = max($int12, cc_getheight);
+            $int13 = calc($int13 + 1);
+        } else {
+            $int8 = calc($int8 - 1);
+        }
+    } else {
+        $int8 = calc($int8 - 1);
+    }
+    $int15 = calc($int15 + 1);
+}
+$int15 = 0;
+$int16 = achievement_varbit_req_count($achievement1);
+while ($int15 < $int16) {
+    $string0 = achievement_varbit_req_name($achievement1, $int15);
+    $string0 = ~script19624($achievement1, $int15, $string0);
+    if (compare($string0, "") ! 0) {
+        if (achievement_category($achievement1) = group_ironman) {
+            $string0 = ~script19394($string0);
+        }
+        $int14 = calc(~bool_to_int(achievement_varbit_req_met($achievement1, $int15)) * -2);
+        if (%cheevo_toggle_complete = 0 | $int14 ! -2) {
+            ~script15335($int13, $string0, "", $int14, 0, 0);
+            $int12 = max($int12, cc_getheight);
+            $int13 = calc($int13 + 1);
+        } else {
+            $int8 = calc($int8 - 1);
+        }
+    } else {
+        $int8 = calc($int8 - 1);
+    }
+    $int15 = calc($int15 + 1);
+}
+$int15 = 0;
+$int16 = achievement_varp_testbit_req_count($achievement1);
+while ($int15 < $int16) {
+    $string0 = achievement_varp_testbit_req_name($achievement1, $int15);
+    if (compare($string0, "") ! 0) {
+        $int14 = calc(~bool_to_int(achievement_varp_testbit_req_met($achievement1, $int15)) * -2);
+        if (%cheevo_toggle_complete = 0 | $int14 ! -2) {
+            ~script15335($int13, $string0, "", $int14, 0, 0);
+            $int12 = max($int12, cc_getheight);
+            $int13 = calc($int13 + 1);
+        } else {
+            $int8 = calc($int8 - 1);
+        }
+    } else {
+        $int8 = calc($int8 - 1);
+    }
+    $int15 = calc($int15 + 1);
+}
+$int15 = 0;
+$int16 = achievement_varbit_testbit_req_count($achievement1);
+while ($int15 < $int16) {
+    $string0 = achievement_varbit_testbit_req_name($achievement1, $int15);
+    if (compare($string0, "") ! 0) {
+        $int14 = calc(~bool_to_int(achievement_varbit_testbit_req_met($achievement1, $int15)) * -2);
+        if (%cheevo_toggle_complete = 0 | $int14 ! -2) {
+            ~script15335($int13, $string0, "", $int14, 0, 0);
+            $int12 = max($int12, cc_getheight);
+            $int13 = calc($int13 + 1);
+        } else {
+            $int8 = calc($int8 - 1);
+        }
+    } else {
+        $int8 = calc($int8 - 1);
+    }
+    $int15 = calc($int15 + 1);
+}
+$int15 = 0;
+$int16 = achievement_quest_req_count($achievement1);
+def_quest $quest17 = null;
+while ($int15 < $int16) {
+    $quest17 = achievement_quest_req($achievement1, $int15);
+    if ($quest17 ! null) {
+        $int14 = calc(~bool_to_int(achievement_quest_req_met($achievement1, $int15)) * -2);
+        if (%cheevo_toggle_complete = 0 | $int14 ! -2) {
+            ~script15335($int13, quest_getname($quest17), quest_param($quest17, quest_description), $int14, 0, 0);
+            $int12 = max($int12, cc_getheight);
+            $int13 = calc($int13 + 1);
+        } else {
+            $int8 = calc($int8 - 1);
+        }
+    }
+    $int15 = calc($int15 + 1);
+}
+$int15 = 0;
+$int16 = achievement_achievement_req_count($achievement1);
+def_achievement $achievement18 = null;
+def_int $int19 = 0;
+while ($int15 < $int16) {
+    $achievement18 = achievement_achievement_req($achievement1, $int15);
+    if ($achievement18 ! null) {
+        $int14 = achievement_reqstate($achievement18);
+        if (enum_hasoutput(achievement, cheevo_dummy_meta_list, $achievement1) = true | %cheevo_toggle_complete = 0 | $int14 ! -2) {
+            $int19 = 0;
+            if (achievement_getgraceday($achievement18) > date_runeday) {
+                $int19 = 1;
+            }
+            ~script15335($int15, achievement_getname($achievement18), ~achievement_description($achievement18), $int14, 1, $int19);
+            $int12 = max($int12, cc_getheight);
+        } else {
+            $int8 = calc($int8 - 1);
+        }
+    }
+    $int15 = calc($int15 + 1);
+}
+$int10 = calc($int8 / $int9);
+$int11 = calc($int8 - $int10 * $int9);
+if ($int11 > 0) {
+    $int10 = calc($int10 + 1);
+}
+if_grid_setlayoutparams(false, $int9, $int10, achievements_sub:cheevo_details_grid);
+def_int $int20 = calc($int12 * $int10 + (if_getchildspacing(achievements_sub:cheevo_details_grid) * $int10 - 1) + 6);
+if_setsize(0, $int20, ^setsize_minus, ^setsize_abs, achievements_sub:cheevo_details);
+if_sethide(false, achievements_sub:cheevo_details);
+~script15343($int0, if_getheight(achievements_sub:cheevo_details));
+$int6 = calc($int6 + if_getheight(achievements_sub:cheevo_details));
+~script15341($component2, $int6, $int5);

@@ -1,0 +1,34 @@
+// 1252
+[clientscript,script1252](int $int0, char $char1, int $int2)
+if (%create_displayname_in_progress = true) {
+    return;
+}
+def_component $component3 = no_displayname_v2:name_input_layer;
+def_component $component4 = no_displayname_v2:name_input_text;
+def_component $component5 = no_displayname_v2:name_input_caret;
+switch_int ($int0) {
+    case 13 :
+        return;
+    case 84 :
+        %create_displayname_in_progress = true;
+        return;
+    case 96, 97, 98, 99, 102, 103 :
+        %login_caret = ~script1553($int0, %login_caret, %create_displayname);
+        ~script3218($component3, $component4, $component5, %create_displayname, 111);
+        return;
+}
+if (string_length(%create_displayname) >= 12 & $int0 ! 85 & $int0 ! 101) {
+    return;
+}
+if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789  _-", $char1, 0) ! -1 | $int0 = 85 | $int0 = 101) {
+    %create_displayname, %login_caret = ~script802(%login_caret, %create_displayname, 2, $int0, $char1);
+    if_settext(%create_displayname, $component4);
+    if (string_length(%create_displayname) <= 0) {
+        if_sethide(false, no_displayname_v2:confirm_button_disabled);
+    } else {
+        if_sethide(true, no_displayname_v2:confirm_button_disabled);
+    }
+    ~script3218($component3, $component4, $component5, %create_displayname, 111);
+    if_sethide(true, no_displayname_v2:name_icon_layer);
+    if_sethide(true, no_displayname_v2:information_layer);
+}

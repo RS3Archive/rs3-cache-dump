@@ -1,0 +1,30 @@
+// 9341
+[proc,script9341]
+def_component $component0 = activity_tracker_embedded_more_info:path_title;
+def_component $component1 = activity_tracker_embedded_more_info:path_desc;
+def_component $component2 = activity_tracker_embedded_more_info:path_complete;
+cc_deleteall(activity_tracker_embedded_more_info:goto_builder);
+cc_deleteall(activity_tracker_embedded_more_info:goto_click);
+if_sethide(true, activity_tracker_embedded_more_info:goto_click);
+if (%cheevo_path_enum_id = 0) {
+    if_settext("No path selected...", $component0);
+    if_settext("Please choose a recommended path.", $component1);
+    if_settext("", $component2);
+    ~script13993(activity_tracker_embedded_more_info:goto_builder, activity_tracker_embedded_more_info:goto_click, rs3tli_3x3_button, "Show More");
+    return;
+}
+def_struct $struct3 = enum(int, struct, ~cheevo_path_book_enum, %cheevo_path_enum_id);
+if_settext(struct_param($struct3, cheevo_path_name), $component0);
+if_settext(struct_param($struct3, cheevo_path_desc), $component1);
+def_enum $enum4 = struct_param($struct3, cheevo_path_enum);
+def_int $int5 = enum_getoutputcount($enum4);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int6 < $int5) {
+    if (~cheevo_obtain_progress(enum(int, struct, $enum4, $int6)) = -2) {
+        $int8 = calc($int8 + 1);
+    }
+    $int6 = calc($int6 + 1);
+}
+if_settext("<tostring($int8)>/<tostring($int5)>", $component2);

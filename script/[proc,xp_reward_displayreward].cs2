@@ -1,0 +1,275 @@
+// 6036
+[proc,xp_reward_displayreward](stat $stat0, int $int1, obj $obj2)(string)
+sound_vorbis_volume(select_shop_item, 1, 0, 150);
+if ($stat0 = null) {
+    return("N/A");
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+if (oc_param($obj2, xpbooster_grade) > -1) {
+    if ($obj2 = trh35_small_meteor_bonus_xp | $obj2 = trh35_medium_meteor_bonus_xp | $obj2 = trh35_large_meteor_bonus_xp | $obj2 = trh35_huge_meteor_bonus_xp) {
+        if (~script9121($stat0) = true) {
+            return("<enum(stat, string, stat_to_string, $stat0)> XP <col=00FF00>(+100% Extra Bonus XP)</col>");
+        } else {
+            return("<enum(stat, string, stat_to_string, $stat0)> XP <col=FFFF00>(+33% Extra Bonus XP)</col>");
+        }
+    }
+    if (oc_param($obj2, bxp_swap) ! null) {
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    } else {
+        return("<enum(stat, string, stat_to_string, $stat0)> ");
+    }
+}
+if (oc_param($obj2, can_award_xp) = 1) {
+    $int3 = calc($int1 / 10);
+    if ($int3 > 0) {
+        return("<enum(stat, string, stat_to_string, $stat0)>: <tostring_localised($int3, true)> XP");
+    } else {
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    }
+}
+if (oc_param($obj2, xp_reward_prismatic) = 1) {
+    return("<enum(stat, string, stat_to_string, $stat0)> XP");
+}
+if (oc_param($obj2, statsize) ! -1) {
+    return("<enum(stat, string, stat_to_string, $stat0)> XP");
+}
+if (oc_category($obj2) = raffle_lamp) {
+    return("<enum(stat, string, stat_to_string, $stat0)> XP");
+}
+switch_obj ($obj2) {
+    case default :
+        $int3 = calc($int1 / 10);
+    case loy_wave_reward, loy_def_reward, wof_lamp_small, wof_lamp_medium, wof_lamp_large, wof_lamp_huge, easter12_lamp, 6awe1_tier1_lamp_small, 6awe1_tier1_lamp_medium, 6awe1_tier1_lamp_large, 6awe1_tier1_lamp_huge, 6awe1_tier2_lamp_small, 6awe1_tier2_lamp_medium, 6awe1_tier2_lamp_large, 6awe1_tier2_lamp_huge, 6awe1_tier3_lamp_small, 6awe1_tier3_lamp_medium, 6awe1_tier3_lamp_large, 6awe1_tier3_lamp_huge, oct13_lamp_small, oct13_lamp_medium, oct13_lamp_large, 6awe2_lamp_small, 6awe2_lamp_medium, 6awe2_lamp_large, 6awe2_lamp_huge, xmas13_small_lamp, xmas13_large_lamp, rec_lamp_small, rec_lamp_medium, rec_lamp_large, rec_lamp_huge, challenge_xp_lamp, ash1_reward_consumable, ash1_replay_consumable, hw14_lamp_large, trh32_epic_lamp_small, trh32_epic_lamp_medium, trh32_epic_lamp_large, trh32_epic_lamp_huge, trh37_xmasrare14_lamp, trh37_xmasrare14_lamp_big, egq_lamp_postquest, mm15_large_lamp, tuska_lamp_small, tuska_lamp_medium, tuska_lamp_large, tuska_lamp_huge, trh70_corrupted_lamp_small, trh70_corrupted_lamp_medium, trh70_corrupted_lamp_large, trh70_corrupted_lamp_huge, hw15_lamp, godscore_lamp, trh155_angelic_lamp_small, trh155_angelic_lamp_medium, trh155_angelic_lamp_large, trh155_angelic_lamp_huge :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case wof_lamp_prismatic_small, wof_lamp_prismatic_medium, wof_lamp_prismatic_large, wof_lamp_prismatic_huge :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case generic_lamp_small, generic_lamp_medium, generic_lamp_large, generic_lamp_huge :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case godem_banner_armadyl_tier1 :
+        return("<enum(stat, string, stat_to_string, $stat0)> boost");
+    case macro_genilamp, swept_bowl, humble_pie :
+        $int3 = calc(stat_base($stat0) * 10);
+    case pattern_reward :
+        $int3 = calc(stat_base($stat0) * 15);
+    case lmm_xp_lamp :
+        $int4 = stat_base($stat0);
+        if ($int4 <= 18) {
+            $int3 = calc(enum(int, int, xp_for_level, calc($int4 + 1)) - enum(int, int, xp_for_level, $int4));
+        } else {
+            $int3 = calc(stat_base($stat0) * 25);
+        }
+    case effi_dragonkin_lamp :
+        $int4 = stat_base($stat0);
+        if ($int4 < 30) {
+            $int3 = calc(enum(int, int, xp_for_level, calc($int4 + 1)) - enum(int, int, xp_for_level, $int4));
+        } else {
+            $int3 = calc($int4 * $int4 - 2 * $int4 + 100);
+            $int3 = calc($int3 * ($int4 * 10000 / 20));
+            $int3 = calc($int3 / 10000);
+        }
+    case clan_cloak :
+        $int4 = stat_base($stat0);
+        $int3 = pow($int4, 2);
+        $int3 = calc($int3 - 2 * $int4 + 100);
+        if (~script7766 = true) {
+            $int3 = addpercent($int3, 40);
+        }
+    case cbtv2ca_reward_book :
+        $int4 = stat_base($stat0);
+        $int3 = pow($int4, 2);
+        $int3 = calc($int3 - 2 * $int4 + 100);
+    case csi_combat_lamp :
+        $int3 = %csi_xp_to_give;
+    case aura_multiskiller_reward :
+        $int4 = stat_base($stat0);
+        $int3 = calc(pow($int4, 2) - 2 * $int4 + 100);
+        $int3 = scale(3, 2, $int3);
+    case aura_multiskiller_reward_2 :
+        $int4 = stat_base($stat0);
+        $int3 = calc(pow($int4, 2) - 2 * $int4 + 100);
+        $int3 = scale(4, 2, $int3);
+    case aura_multiskiller_reward_3 :
+        $int4 = stat_base($stat0);
+        $int3 = calc(pow($int4, 2) - 2 * $int4 + 100);
+        $int3 = scale(5, 2, $int3);
+    case aura_multiskiller_reward_4 :
+        $int4 = stat_base($stat0);
+        $int3 = calc(pow($int4, 2) - 2 * $int4 + 100);
+        $int3 = scale(6, 2, $int3);
+    case cbtv2ca_beta_reward_book :
+        $int4 = stat_base($stat0);
+        $int3 = pow($int4, 2);
+        $int3 = calc($int3 - 2 * $int4 + 100);
+        $int3 = calc($int3 * 10);
+    case trh26_dummy :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case wof33_pendant_love, wof33_pendant_hate :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case wof46_lamp_blue, wof46_lamp_brown, wof46_lamp_green, wof46_lamp_red, wof46_lamp_white :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case toplevel_v2_beta_small_lamp, toplevel_v2_beta_medium_lamp, toplevel_v2_beta_large_lamp :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case wof_skill_set_recharge_1, wof_skill_set_recharge_7, wof28_reward_xmas_booster :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case hotm_tuska_mask :
+        $int3 = calc($int1 * enum(stat, int, hotm_tuska_xp_selection, $stat0) / 10);
+    case mm14_reward_lamp, xmas2014_reward_lamp :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case div_chronicle_obj :
+        $int3 = calc(~script1128($stat0, 0) * %div_chronicles_held + ~script1128($stat0, 1) * %div_enhanced_chronicles_held);
+        $int3 = scale(75, 100, $int3);
+        $int3 = calc($int3 / 10);
+    case tpr_elder_chronicle_mah :
+        $int3 = calc(~script1128($stat0, 0) * %div_chronicles_held + ~script1128($stat0, 1) * %div_enhanced_chronicles_held);
+        $int3 = calc($int3 / 10);
+    case trh27_skill_card_deck :
+        return("You will receive <tostring(~script10267($stat0))> <enum(stat, string, stat_to_string, $stat0)> XP.");
+    case trh27_skill_card_attack :
+        return(enum(stat, string, stat_to_string, $stat0));
+    case elfcity_slayer_reward :
+        switch_int (%elfcity_slayer_weekly_challenge_level) {
+            case 0 :
+                $int3 = scale($int1, 99, stat_base($stat0));
+            case 1 :
+                $int3 = scale($int1, 95, stat_base($stat0));
+            case 2 :
+                $int3 = scale($int1, 90, stat_base($stat0));
+            case 3 :
+                $int3 = scale($int1, 85, stat_base($stat0));
+        }
+        $int3 = calc($int3 / 10);
+    case trh30_store_credit_dummy, trh30_roaming_store_credit_dummy :
+        $int5 = ~script212($stat0, stat_base($stat0), 1, 0);
+        if ($int5 = 1) {
+            return("Bonus XP in this skill can be traded for <tostring_localised($int5, true)> credit.");
+        } else {
+            return("Bonus XP in this skill can be traded for up to <tostring_localised($int5, true)> credits.");
+        }
+    case house_lamp_tier_1, house_lamp_tier_2, house_lamp_tier_3, house_lamp_tier_4, house_lamp_tier_5, house_lamp_tier_6, house_lamp_tier_7, house_lamp_tier_8, house_lamp_tier_9, house_lamp_reward_small, house_lamp_reward_large, house_lamp_reward_huge :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case trh35_small_meteor_direct_xp, trh35_medium_meteor_direct_xp, trh35_large_meteor_direct_xp, trh35_huge_meteor_direct_xp :
+        if (~script9121($stat0) = true) {
+            return("<enum(stat, string, stat_to_string, $stat0)> XP <col=00FF00>(+100% Extra XP)</col>");
+        } else {
+            return("<enum(stat, string, stat_to_string, $stat0)> XP <col=FFFF00>(+33% Extra XP)</col>");
+        }
+    case sliske2_lamp_reward :
+        return("<enum(stat, string, stat_to_string, $stat0)>: 1,500 XP");
+    case nomel_lamp_combat :
+        return("<enum(stat, string, stat_to_string, $stat0)>: 50,000 XP");
+    case sliske2_lamp_tier_1, sliske2_lamp_tier_2, sliske2_lamp_tier_3 :
+        return("<enum(stat, string, stat_to_string, $stat0)> XP");
+    case trh72_basic_tool :
+        if (stat_base($stat0) < 50) {
+            $int3 = calc((~obj_gettotal(trh72_basic_tool) * 100 + min(500000, ~obj_gettotal(trh72_golden_tool)) * 1250) / 10);
+        } else {
+            $int3 = calc((~obj_gettotal(trh72_basic_tool) * 100 + min(50000, ~obj_gettotal(trh72_golden_tool)) * 2500) / 10);
+        }
+    case trh86_basic_tool :
+        if (stat_base($stat0) < 50) {
+            $int3 = calc((~obj_gettotal(trh86_basic_tool) * 100 + min(500000, ~obj_gettotal(trh86_golden_tool)) * 1250) / 10);
+        } else {
+            $int3 = calc((~obj_gettotal(trh86_basic_tool) * 100 + min(50000, ~obj_gettotal(trh86_golden_tool)) * 2500) / 10);
+        }
+    case trh94_basic_tool :
+        if (stat_base($stat0) < 50) {
+            $int3 = calc((~obj_gettotal(trh94_basic_tool) * 100 + min(500000, ~obj_gettotal(trh94_golden_tool)) * 1250) / 10);
+        } else {
+            $int3 = calc((~obj_gettotal(trh94_basic_tool) * 100 + min(50000, ~obj_gettotal(trh94_golden_tool)) * 2500) / 10);
+        }
+    case trh117_basic_tool :
+        if (stat_base($stat0) < 50) {
+            $int3 = calc((~obj_gettotal(trh117_basic_tool) * 100 + min(500000, ~obj_gettotal(trh117_golden_tool)) * 1250) / 10);
+        } else {
+            $int3 = calc((~obj_gettotal(trh117_basic_tool) * 100 + min(50000, ~obj_gettotal(trh117_golden_tool)) * 2500) / 10);
+        }
+    case generic_xp_award_cache :
+        switch_stat ($stat0) {
+            case attack :
+                $int3 = calc(%xp_reward_attack / 10);
+            case defence :
+                $int3 = calc(%xp_reward_defence / 10);
+            case strength :
+                $int3 = calc(%xp_reward_strength / 10);
+            case hitpoints :
+                $int3 = calc(%xp_reward_hitpoints / 10);
+            case ranged :
+                $int3 = calc(%xp_reward_ranged / 10);
+            case prayer :
+                $int3 = calc(%xp_reward_prayer / 10);
+            case magic :
+                $int3 = calc(%xp_reward_magic / 10);
+            case cooking :
+                $int3 = calc(%xp_reward_cooking / 10);
+            case woodcutting :
+                $int3 = calc(%xp_reward_woodcutting / 10);
+            case fletching :
+                $int3 = calc(%xp_reward_fletching / 10);
+            case fishing :
+                $int3 = calc(%xp_reward_fishing / 10);
+            case firemaking :
+                $int3 = calc(%xp_reward_firemaking / 10);
+            case crafting :
+                $int3 = calc(%xp_reward_crafting / 10);
+            case smithing :
+                $int3 = calc(%xp_reward_smithing / 10);
+            case mining :
+                $int3 = calc(%xp_reward_mining / 10);
+            case herblore :
+                $int3 = calc(%xp_reward_herblore / 10);
+            case agility :
+                $int3 = calc(%xp_reward_agility / 10);
+            case thieving :
+                $int3 = calc(%xp_reward_thieving / 10);
+            case slayer :
+                $int3 = calc(%xp_reward_slayer / 10);
+            case farming :
+                $int3 = calc(%xp_reward_farming / 10);
+            case runecraft :
+                $int3 = calc(%xp_reward_runecraft / 10);
+            case hunter :
+                $int3 = calc(%xp_reward_hunter / 10);
+            case construction :
+                $int3 = calc(%xp_reward_construction / 10);
+            case summoning :
+                $int3 = calc(%xp_reward_summoning / 10);
+            case dungeoneering :
+                $int3 = calc(%xp_reward_dungeoneering / 10);
+            case divination :
+                $int3 = calc(%xp_reward_divination / 10);
+            case invention :
+                $int3 = calc(%xp_reward_invention / 10);
+            case archaeology :
+                $int3 = calc(%xp_reward_archaeology / 10);
+            case necromancy :
+                $int3 = calc(%xp_reward_necromancy / 10);
+        }
+    case event3_pendant_hate :
+        if (~script9121($stat0) = true) {
+            return("<enum(stat, string, stat_to_string, $stat0)>: 1,500 bonus XP");
+        }
+    case event3_pendant_love :
+        if (~script13031($stat0) = true) {
+            return("<enum(stat, string, stat_to_string, $stat0)>: 1,500 bonus XP");
+        }
+    case clan_skill_ring_uncharged :
+        return("<tostring_localised(~script5345($stat0), true)> <enum(stat, string, stat_to_string, $stat0)> XP");
+    case trh_consumable_bxp_exchanger :
+        return("You will exchange <~tostring_decimal(~script17430($stat0), 1, 1, 0, 1)> Bonus XP from <enum(stat, string, stat_to_string, $stat0)>.");
+    case trh_consumable_bxp_exchanger_give_bxp_dummy :
+        $int1, $int3 = ~script17431($stat0, $int1);
+        return("You will gain <~tostring_decimal($int3, 1, 1, 0, 1)> Bonus XP in <enum(stat, string, stat_to_string, $stat0)>.");
+    case dom_xp_book :
+        if ($stat0 = prayer) {
+            $int3 = scale(enum(int, int, dom_points_to_xp_prayer, min(99, stat_base($stat0))), 1000, $int1);
+        } else {
+            $int3 = scale(enum(int, int, dom_points_to_xp_combat, min(99, stat_base($stat0))), 1000, $int1);
+        }
+}
+if ($int3 > 0) {
+    return("<enum(stat, string, stat_to_string, $stat0)>: <tostring_localised($int3, true)> XP");
+} else {
+    return("<enum(stat, string, stat_to_string, $stat0)> XP");
+}

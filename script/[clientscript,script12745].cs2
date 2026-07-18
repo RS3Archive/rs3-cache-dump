@@ -1,0 +1,23 @@
+// 12745
+[clientscript,script12745]
+def_int $int0 = if_getwidth(trh104_overlay:progress_bar);
+def_int $int1 = calc(if_getwidth(trh104_overlay:progress_bar_outer) - 2);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3, $int4 = ~trh104_get_progress;
+def_int $int5 = calc($int1 / $int4);
+def_int $int6 = scale($int1, $int4, $int3);
+if ($int0 < $int6) {
+    $int2 = min(calc($int0 + 2), $int6);
+} else if ($int0 > $int6) {
+    $int2 = max(calc($int0 - 2), $int6);
+} else {
+    if_setontimer(null, trh104_overlay:progress_bar);
+    return;
+}
+if ($int2 = 0) {
+    $int2 = 1;
+    if_setontimer(null, trh104_overlay:progress_bar);
+}
+if_setsize($int2, 0, ^setsize_abs, ^setsize_minus, trh104_overlay:progress_bar);

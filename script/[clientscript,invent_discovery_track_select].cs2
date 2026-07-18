@@ -1,0 +1,30 @@
+// 12151
+[clientscript,invent_discovery_track_select](int $int0, component $component1)
+def_int $int2 = 0;
+def_component $component3 = null;
+if (if_find(invent_discovery:track_select) = true) {
+    if (cc_gethide = true) {
+        cc_sethide(false);
+        cc_setposition(calc(if_getx($component1) - 3), calc(if_gety($component1) - 3), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setparam(invent_client_selected, $int0);
+        %varclientbit_30258 = $int0;
+        ~invent_discovery_register_move;
+    } else {
+        switch_int (cc_param(invent_client_selected)) {
+            case 0 :
+                $component3 = invent_discovery:track_icon_0;
+            case 1 :
+                $component3 = invent_discovery:track_icon_1;
+            case 2 :
+                $component3 = invent_discovery:track_icon_2;
+            case 3 :
+                $component3 = invent_discovery:track_icon_3;
+            case 4 :
+                $component3 = invent_discovery:track_icon_4;
+        }
+        cc_sethide(true);
+        cc_setparam(invent_client_selected, $int0);
+        %varclientbit_30258 = 0;
+        ~invent_discovery_swap_components($component3, $component1);
+    }
+}

@@ -1,0 +1,498 @@
+// 547
+[proc,stats_mouseover_create](component $component0, int $int1, stat $stat2, int $int3)
+def_component $component4 = toplevel_v2:tooltips_layer;
+def_int $int5 = 2;
+def_string $string0 = "";
+def_string $string1 = "";
+if ($int3 = 0) {
+    $string0 = "<enum(stat, string, stat_to_string, $stat2)>: <tostring(~script11861($stat2))>/<tostring(~script11860($stat2))>";
+    $string1 = tostring_localised(stat_visible_xp_actual($stat2), true);
+} else {
+    $string0 = "<enum(stat, string, stat_to_string, $stat2)>: <tostring(~script11865($stat2))>/<tostring(~script11864($stat2))>";
+    $string1 = tostring_localised(~player_inspect_get_xp($stat2), true);
+}
+def_string $string2 = "";
+def_string $string3 = "";
+def_enum $enum6 = ~script12289($stat2);
+def_int $int7 = enum(stat, int, stat_to_statcap, $stat2);
+def_int $int8 = ~script3158($stat2);
+if (%option_virtuallvl = 1) {
+    if ($int3 = 0 & ~script11862($stat2) < $int8) {
+        $string2 = tostring_localised(enum(int, int, $enum6, calc(~script11862($stat2) + 1)), true);
+        $string3 = tostring_localised(calc(enum(int, int, $enum6, calc(~script11862($stat2) + 1)) - stat_visible_xp_actual($stat2)), true);
+        $int5 = 4;
+    }
+} else if ($int3 = 0 & stat_base_actual($stat2) < $int7) {
+    $string2 = tostring_localised(enum(int, int, $enum6, calc(stat_base_actual($stat2) + 1)), true);
+    $string3 = tostring_localised(calc(enum(int, int, $enum6, calc(stat_base_actual($stat2) + 1)) - stat_visible_xp_actual($stat2)), true);
+    $int5 = 4;
+}
+def_int $intbool9 = ^false;
+if ($int3 = 0) {
+    $intbool9 = ~script4036(enum(stat, int, stat_to_int, $stat2));
+    if ($intbool9 = ^true) {
+        $int5 = calc($int5 + 3);
+    }
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $intbool12 = ^false;
+def_string $string4 = "";
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_string $string5 = "";
+def_int $int15 = 15;
+if ($int3 = 0) {
+    $intbool12, $int10, $int11 = ~script4037(enum(stat, int, stat_to_int, $stat2));
+    $string4 = tostring_localised($int10, true);
+    $int13 = $int10;
+    if ($intbool12 = ^true) {
+        $int13 = enum(int, int, $enum6, $int10);
+    }
+    $int14 = max(0, calc($int13 - stat_visible_xp_actual($stat2)));
+    $string5 = tostring_localised($int14, true);
+}
+def_string $string6 = "";
+def_int $int16 = 0;
+def_fontmetrics $fontmetrics17 = notosans_12;
+if (~script6431 = true) {
+    $fontmetrics17 = struct_param(enum(int, struct, minimenu_skin, %minimenu_skin), minimenu_font);
+    $int15 = calc(enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics17) + 3);
+}
+if ($int3 = 0) {
+    switch_stat ($stat2) {
+        case attack :
+            $int16 = %bonusxp_attack;
+        case strength :
+            $int16 = %bonusxp_strength;
+        case defence :
+            $int16 = %bonusxp_defence;
+        case magic :
+            $int16 = %bonusxp_magic;
+        case ranged :
+            $int16 = %bonusxp_ranged;
+        case prayer :
+            $int16 = %bonusxp_prayer;
+        case summoning :
+            $int16 = %bonusxp_summoning;
+        case mining :
+            $int16 = %bonusxp_mining;
+        case smithing :
+            $int16 = %bonusxp_smithing;
+        case crafting :
+            $int16 = %bonusxp_crafting;
+        case woodcutting :
+            $int16 = %bonusxp_woodcutting;
+        case farming :
+            $int16 = %bonusxp_farming;
+        case firemaking :
+            $int16 = %bonusxp_firemaking;
+        case fishing :
+            $int16 = %bonusxp_fishing;
+        case cooking :
+            $int16 = %bonusxp_cooking;
+        case dungeoneering :
+            $int16 = %bonusxp_dungeoneering;
+        case slayer :
+            $int16 = %bonusxp_slayer;
+        case runecraft :
+            $int16 = %bonusxp_runecrafting;
+        case hunter :
+            $int16 = %bonusxp_hunter;
+        case thieving :
+            $int16 = %bonusxp_thieving;
+        case construction :
+            $int16 = %bonusxp_construction;
+        case hitpoints :
+            $int16 = %bonusxp_hitpoints;
+        case agility :
+            $int16 = %bonusxp_agility;
+        case fletching :
+            $int16 = %bonusxp_fletching;
+        case herblore :
+            $int16 = %bonusxp_herblore;
+        case divination :
+            $int16 = %bonusxp_divination;
+        case invention :
+            $int16 = %bonusxp_invention;
+        case archaeology :
+            $int16 = %bonusxp_archaeology;
+        case necromancy :
+            $int16 = %bonusxp_necromancy;
+    }
+    if ($int16 > 0) {
+        $string6 = tostring_localised(calc($int16 / 10), true);
+        $int5 = calc($int5 + 1);
+    }
+}
+def_int $int18 = 0;
+def_string $string7 = "Member's skill.";
+def_string $string8 = "";
+def_struct $struct19 = null;
+if ($int3 = 0 & ~stat_unlocked($stat2) = 0) {
+    $int18 = 1;
+    $string7 = "Elite skill.";
+    $int5 = calc($int5 + 1);
+    $string8 = "Required stats:";
+    $int5 = calc($int5 + 1);
+    $struct19 = ~stat_struct($stat2);
+    if (struct_param($struct19, eskill_required_stat_1) ! null) {
+        $string8 = "<$string8><br> - <enum(stat, string, stat_to_string, struct_param($struct19, eskill_required_stat_1))>: ";
+        if (stat_base_actual(struct_param($struct19, eskill_required_stat_1)) < struct_param($struct19, eskill_required_level_1)) {
+            $string8 = "<$string8><col=ff0000>";
+        }
+        $string8 = "<$string8><tostring(struct_param($struct19, eskill_required_level_1))>";
+        $int5 = calc($int5 + 1);
+    }
+    if (struct_param($struct19, eskill_required_stat_2) ! null) {
+        $string8 = "<$string8><br> - <enum(stat, string, stat_to_string, struct_param($struct19, eskill_required_stat_2))>: ";
+        if (stat_base_actual(struct_param($struct19, eskill_required_stat_2)) < struct_param($struct19, eskill_required_level_2)) {
+            $string8 = "<$string8><col=ff0000>";
+        }
+        $string8 = "<$string8><tostring(struct_param($struct19, eskill_required_level_2))>";
+        $int5 = calc($int5 + 1);
+    }
+    if (struct_param($struct19, eskill_required_stat_3) ! null) {
+        $string8 = "<$string8><br> - <enum(stat, string, stat_to_string, struct_param($struct19, eskill_required_stat_3))>: ";
+        if (stat_base_actual(struct_param($struct19, eskill_required_stat_3)) < struct_param($struct19, eskill_required_level_3)) {
+            $string8 = "<$string8><col=ff0000>";
+        }
+        $string8 = "<$string8><tostring(struct_param($struct19, eskill_required_level_3))>";
+        $int5 = calc($int5 + 1);
+    }
+} else if (enum_hasoutput(stat, stat_p2p_list, $stat2) = true & playermember = false) {
+    $int18 = 1;
+    $int5 = calc($int5 + 1);
+    if ($int3 = 0 & stat($stat2) >= ~script12038($stat2)) {
+        $string8 = "Level cap reached!";
+        $int5 = calc($int5 + 1);
+    }
+}
+def_int $int20 = calc(parawidth($string0, 190, $fontmetrics17) + 12);
+def_int $int21 = calc(8 + $int5 * $int15);
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+$int22 = parawidth("Current XP:", 190, $fontmetrics17);
+$int23 = parawidth($string1, 190, $fontmetrics17);
+$int24 = calc($int22 + 10 + $int23);
+$int20 = max($int20, $int24);
+if ($int18 = 1) {
+    $int24 = calc(parawidth($string7, 190, $fontmetrics17) + 10);
+    $int24 = max($int24, calc(parawidth($string8, 190, $fontmetrics17) + 10));
+    $int20 = max($int20, $int24);
+}
+if ($int3 = 0 & (stat_base_actual($stat2) < $int7 | %option_virtuallvl = 1 & ~script11862($stat2) < $int8)) {
+    $int22 = parawidth("Next level:", 190, $fontmetrics17);
+    $int23 = parawidth($string2, 190, $fontmetrics17);
+    $int24 = calc($int22 + 3 + $int23);
+    $int20 = max($int20, $int24);
+    $int22 = parawidth("Remainder:", 190, $fontmetrics17);
+    $int23 = parawidth($string3, 190, $fontmetrics17);
+    $int24 = calc($int22 + 3 + $int23);
+    $int20 = max($int20, $int24);
+}
+if ($intbool9 = ^true) {
+    if ($intbool12 = ^true) {
+        $int22 = parawidth("Target level:", 190, $fontmetrics17);
+        $int23 = parawidth($string4, 190, $fontmetrics17);
+    } else {
+        $int22 = parawidth("Target XP:", 190, $fontmetrics17);
+        $int23 = parawidth($string4, 190, $fontmetrics17);
+    }
+    $int24 = calc($int22 + 3 + $int23);
+    $int20 = max($int20, $int24);
+    $int22 = parawidth("Remainder:", 190, $fontmetrics17);
+    $int23 = parawidth($string5, 190, $fontmetrics17);
+    $int24 = calc($int22 + 3 + $int23);
+    $int20 = max($int20, $int24);
+}
+if ($int16 > 0) {
+    $int22 = parawidth("Bonus XP:", 190, $fontmetrics17);
+    $int23 = parawidth($string6, 190, $fontmetrics17);
+    $int24 = calc($int22 + 5 + $int23);
+    $int20 = max($int20, $int24);
+}
+if (cc_find($component0, $int1) = true) {
+    $int22 = calc(cc_getx + ~script8407($component0));
+    $int23 = calc(cc_gety + ~script8408($component0) + 27);
+}
+if (calc($int22 + $int20 + 10) > if_getwidth(toplevel_v2:viewport)) {
+    $int22 = calc(if_getwidth(toplevel_v2:viewport) - ($int20 + 24));
+}
+if (calc($int23 + $int21 + 10) > if_getheight($component4)) {
+    $int23 = calc($int23 - ($int21 + 10));
+}
+$int23 = calc($int23 + ~script20394(20));
+def_int $int27 = 4;
+def_int $int28 = -1;
+def_int $int29 = -1;
+def_int $int30 = -1;
+def_int $int31 = -1;
+def_int $int32 = -1;
+def_int $int33 = -1;
+def_int $int34 = 6;
+if (~script6431 = true) {
+    $int22 = 0;
+    $int23 = 0;
+    $int20 = calc($int20 + 10);
+}
+if ($intbool9 = ^true) {
+    $int21 = calc($int21 + 8);
+}
+cc_deleteall($component4);
+cc_create($component4, ^iftype_rectangle, if_getnextsubid($component4));
+cc_setsize(calc($int20 + 10), $int21, ^setsize_abs, ^setsize_abs);
+cc_setposition($int22, $int23, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour(^black);
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setposition($int22, $int23, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_sethflip(true);
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int22 + $int20), $int23, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setposition($int22, calc($int23 + $int21 - 10), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_setvflip(true);
+cc_sethflip(true);
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int22 + $int20), calc($int23 + $int21 - 10), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_setvflip(true);
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(calc($int20 - 10), 10, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int22 + 10), $int23, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,0");
+cc_settiling(true);
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(calc($int20 - 10), 10, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int22 + 10), calc($int23 + $int21 - 10), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,0");
+cc_settiling(true);
+cc_setvflip(true);
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(10, calc($int21 - 20), ^setsize_abs, ^setsize_abs);
+cc_setposition($int22, calc($int23 + 10), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,2");
+cc_settiling(true);
+cc_sethflip(true);
+cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+cc_setsize(10, calc($int21 - 20), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int22 + $int20), calc($int23 + 10), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("aif_overlay_frame_gold_corner_1,2");
+cc_settiling(true);
+def_int $int35 = 0;
+if ($int18 = 1) {
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    $int35 = calc($int15 * paraheight($string7, $int20, $fontmetrics17));
+    cc_setsize($int20, $int35, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_left, ^settextalign_top, $int15);
+    cc_settextshadow(false);
+    cc_settext($string7);
+    cc_setcolour(0xebe0bc);
+    $int27 = calc($int27 + $int35);
+    if (string_length($string8) > 0) {
+        cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+        cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+        $int35 = calc($int15 * paraheight($string8, $int20, $fontmetrics17));
+        cc_setsize($int20, $int35, ^setsize_abs, ^setsize_abs);
+        cc_settextfont($fontmetrics17);
+        cc_settextalign(^settextalign_left, ^settextalign_top, $int15);
+        cc_settextshadow(false);
+        cc_settext($string8);
+        cc_setcolour(0xebe0bc);
+        $int27 = calc($int27 + $int35);
+    }
+}
+cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+$int28 = calc(if_getnextsubid($component4) - 1);
+cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int20, $int15, ^setsize_abs, ^setsize_abs);
+cc_settextfont($fontmetrics17);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settextshadow(false);
+cc_settext($string0);
+cc_setcolour(0xebe0bc);
+$int27 = calc($int27 + $int15);
+cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int20, $int15, ^setsize_abs, ^setsize_abs);
+cc_settextfont($fontmetrics17);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settextshadow(false);
+cc_settext("Current XP:");
+cc_setcolour(0xebe0bc);
+cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+$int29 = calc(if_getnextsubid($component4) - 1);
+cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int20 - 2), $int15, ^setsize_abs, ^setsize_abs);
+cc_settextfont($fontmetrics17);
+cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+cc_settextshadow(false);
+cc_setcolour(0xebe0bc);
+cc_settext($string1);
+$int27 = calc($int27 + $int15);
+def_int $int36 = 0;
+def_int $int37 = 0;
+if ($int3 = 0 & (stat_base_actual($stat2) < $int7 | %option_virtuallvl = 1 & ~script11862($stat2) < $int8)) {
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int20, $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_settext("Next level:");
+    cc_setcolour(0xebe0bc);
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int20 - 2), $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_settext($string2);
+    cc_setcolour(0xebe0bc);
+    $int27 = calc($int27 + $int15);
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int20, 16, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_settext("Remainder:");
+    cc_setcolour(0xebe0bc);
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    $int30 = calc(if_getnextsubid($component4) - 1);
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int20 - 2), $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_settext($string3);
+    cc_setcolour(0xebe0bc);
+    $int27 = calc($int27 + $int15);
+}
+if ($int16 > 0) {
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int20, $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_settext("Bonus XP:");
+    cc_setcolour(0xebe0bc);
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    $int33 = calc(if_getnextsubid($component4) - 1);
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int20 - 2), $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_settext($string6);
+    cc_setcolour(^green);
+    $int27 = calc($int27 + $int15);
+}
+def_int $int38 = 0;
+if ($intbool9 = ^true) {
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int20, $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_setcolour(0xebe0bc);
+    if ($intbool12 = ^true) {
+        cc_settext("Target level:");
+    } else {
+        cc_settext("Target XP:");
+    }
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int20 - 2), $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_setcolour(0xebe0bc);
+    if ($intbool12 = ^true) {
+        cc_settext($string4);
+    } else {
+        cc_settext($string4);
+    }
+    $int27 = calc($int27 + $int15);
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int20, $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_settext("Remainder:");
+    cc_setcolour(0xebe0bc);
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + $int34), calc($int23 + $int27), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int20 - 2), $int15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_settextshadow(false);
+    cc_setcolour(0xebe0bc);
+    cc_settext($string5);
+    $int31 = cc_getid;
+    $int27 = calc($int27 + $int15);
+    cc_create($component4, ^iftype_rectangle, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + 8), calc($int23 + $int27 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int20 - 6), $int15, ^setsize_abs, ^setsize_abs);
+    cc_setfill(true);
+    cc_setcolour(^red);
+    cc_create($component4, ^iftype_rectangle, if_getnextsubid($component4));
+    $int38 = cc_getid;
+    cc_setposition(calc($int22 + 8), calc($int23 + $int27 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    cc_setcolour(^green);
+    if ($intbool12 = ^true) {
+        $int36 = enum(int, int, $enum6, $int11);
+        $int37 = enum(int, int, $enum6, $int10);
+        if (calc($int37 - $int36) ! 0) {
+            $int25 = scale(calc(stat_visible_xp_actual($stat2) - $int36), calc($int37 - $int36), 100);
+        } else {
+            $int25 = -1;
+        }
+    } else if (calc($int10 - $int11) ! 0) {
+        $int25 = scale(calc(stat_visible_xp_actual($stat2) - $int11), calc($int10 - $int11), 100);
+    } else {
+        $int25 = -1;
+    }
+    if ($int25 > 100) {
+        $int25 = 100;
+    }
+    $int25 = max($int25, 0);
+    $int26 = calc($int25 * ($int20 - 6));
+    $int26 = calc($int26 / 100);
+    cc_setsize($int26, $int15, ^setsize_abs, ^setsize_abs);
+    cc_create($component4, ^iftype_rectangle, if_getnextsubid($component4));
+    cc_setposition(calc($int22 + 8), calc($int23 + $int27 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int20 - 6), $int15, ^setsize_abs, ^setsize_abs);
+    cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+    cc_setsize(stringwidth("<tostring($int25)>%", $fontmetrics17), $int15, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int22 + $int20 / 2 - cc_getwidth / 2 + 5), calc($int23 + $int27 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont($fontmetrics17);
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    cc_settextshadow(true);
+    cc_setcolour(^white);
+    if ($int25 > 47) {
+        cc_setcolour(^black);
+    }
+    cc_settext("<tostring($int25)>%");
+    $int32 = cc_getid;
+}
+if (cc_find($component4, 0) = true & $int3 = 0) {
+    cc_setonstattransmit("stats_update($int28, $int29, $int30, $int33, $int31, $int32, $int38, $int20, $stat2, $component0, $component4, $int1){$stat2}");
+}

@@ -1,0 +1,79 @@
+// 18111
+[proc,script18111](dbrow $dbrow0)
+cc_deleteall(bp3_buffs_tab:content_buff_content_layer);
+def_int $int1 = db_getfieldcount($dbrow0, bp3_table:col19);
+def_int $int2 = calc(1 + $int1 / 3);
+def_int $int3 = calc($int1 + 1);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+while ($int4 < $int2) {
+    $int7 = min(calc($int1 - $int4 * 3), 3);
+    $int5 = calc($int7 * 200 + ($int7 - 1) * 20);
+    $int6 = calc($int4 * (200 + 20));
+    ~if_add_child_panel(bp3_buffs_tab:content_buff_content_layer, $int3, $int4, 0, $int6, ^setpos_abs_centre, ^setpos_abs_top, $int5, 200, ^setsize_abs, ^setsize_abs, false, 20);
+    $int4 = calc($int4 + 1);
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 1;
+def_dbrow $dbrow12 = null;
+def_int $int13 = 0;
+def_int $int14 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+while ($int11 <= $int1) {
+    $int8 = 0;
+    $int17 = 22;
+    if ($int10 = 3) {
+        $int10 = 0;
+        $int9 = calc($int9 + 1);
+    }
+    if (cc_findbycategory(bp3_buffs_tab:content_buff_content_layer, $int3, $int9) = 1) {
+        ~cc_add_child_layer($int11, $int8++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 200, 200, ^setsize_abs, ^setsize_abs);
+        $dbrow12 = db_getfield($dbrow0, bp3_table:col19, calc($int11 - 1));
+        $int13 = ~script17924($int11);
+        if ($int13 <= 0) {
+            $int17 = 23;
+        }
+        ~script17947($int11, $int8++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, bp3_info_panel_prem);
+        cc_find_parent;
+        ~cc_add_child_graphic($int11, $int8++, 0, 50, ^setpos_abs_centre, ^setpos_abs_top, 6, 0, ^setsize_minus, ^setsize_minus, bp3_fade_large);
+        ~cc_add_child_text($int11, $int8++, 0, 3, ^setpos_abs_centre, ^setpos_abs_top, 10, 47, ^setsize_minus, ^setsize_abs, bp3_text_white_cinzel_bold_centre_18pt, ~script17915($dbrow12));
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 20);
+        ~cc_add_child_text($int11, $int8++, 0, 52, ^setpos_abs_centre, ^setpos_abs_top, 10, 55, ^setsize_minus, ^setsize_abs, bp3_text_white_notosans_centre_top_11pt, ~script17916($dbrow12));
+        $int15 = ~script17919($dbrow12);
+        $int16 = ~script17925($int11);
+        if ($int16 <= 0) {
+            $string1 = "<col=E0D471>Buff Inactive</col>";
+            if ($int15 ! -1) {
+                $string0 = "Use Charge";
+            } else {
+                $string0 = "Activate";
+            }
+        } else {
+            if ($int15 ! -1) {
+                $string1 = "<col=FF00>Buff Active for <~script15973(calc($int16 * 25), 0)></col>";
+                $int17 = 23;
+            } else {
+                $string1 = "<col=FF00>Buff Active</col>";
+            }
+            $string0 = "Deactivate";
+        }
+        ~cc_add_child_text($int11, $int8++, 40, 107, ^setpos_abs_left, ^setpos_abs_top, 80, 29, ^setsize_abs, ^setsize_abs, bp3_text_white_notosans_centre_11pt, $string1);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        $string0 = "Disabled";
+        ~cc_add_child_text($int11, $int8++, 0, 140, ^setpos_abs_centre, ^setpos_abs_top, 10, 15, ^setsize_minus, ^setsize_abs, bp3_text_white_notosans_centre_11pt, "<col=2EF8FF><tostring_localised($int13, true)></col> <~text_plural($int13, "charge", "charges")> remaining");
+        ~cc_add_child_button(0, $int11, 0, 160, ^setpos_abs_centre, ^setpos_abs_top, 130, 30, ^setsize_abs, ^setsize_abs, ~script17989($int17), "<col=E0D471><$string0></col>");
+        ~script7872(false, true, false, false);
+        cc_settextfont(cinzel_15pt_bold);
+        cc_sendtofront;
+    }
+    $int10 = calc($int10 + 1);
+    $int11 = calc($int11 + 1);
+}

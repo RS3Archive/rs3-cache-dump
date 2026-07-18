@@ -1,0 +1,21 @@
+// 2152
+[proc,ql4_skill_requirements](quest $quest0)(boolean)
+if ($quest0 = null) {
+    ~error("Null .quest.");
+    return(false);
+}
+def_int $int1 = quest_statreq_count($quest0);
+def_stat $stat2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+while ($int4 < $int1) {
+    $stat2, $int3 = ~script2112($quest0, calc($int4 + 1));
+    if ($stat2 = null) {
+        return(true);
+    }
+    if (stat_base($stat2) < $int3) {
+        return(false);
+    }
+    $int4 = calc($int4 + 1);
+}
+return(true);

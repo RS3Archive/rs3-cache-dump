@@ -1,0 +1,34 @@
+// 13893
+[proc,script13893](int $int0)
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount(toplevel_v2_mobile_hide_hud);
+def_boolean $boolean5 = false;
+if ($int0 = 1 | %toplevel_v2_hud_hidden = 1) {
+    $boolean5 = true;
+}
+while ($int3 < $int4) {
+    $int2 = enum(int, int, toplevel_v2_mobile_hide_hud, $int3);
+    $struct1 = ~script10405($int2);
+    if ($int2 = 18) {
+        if (if_gethide(toplevel_v2_mobile:chat_panel) = false) {
+            if_sethide($boolean5, toplevel_v2_mobile:chat_panel);
+            ~mobile_toggle_hud;
+        }
+        $int2 = enum(int, int, mobile_social_panel_chat_references, %mobile_chat_panel_current_social_button_active);
+        if (~script383($int2) ! 31 & %mobile_chat_panel_current_tab = 0) {
+            if_sethide($boolean5, struct_param($struct1, toplevel_v2_window_layer));
+        }
+    } else {
+        if_sethide($boolean5, struct_param($struct1, toplevel_v2_window_layer));
+    }
+    $int3 = calc($int3 + 1);
+}
+if_sethide($boolean5, toplevel_v2_mobile:settings_mobile);
+if_sethide($boolean5, mobile_ribbon_left:home_screen_button);
+if_sethide($boolean5, mobile_ribbon_left:chat_wrapper);
+if_sethide($boolean5, mobile_ribbon_left:activity_tracker_wrapper);
+if_sethide($boolean5, mobile_ribbon_left:calendar_wrapper);
+if_sethide($boolean5, mobile_ribbon_left:event_hud_hide);
+if_sethide($boolean5, mobile_ribbon_left:secondary_event_hud_hide);

@@ -1,0 +1,28 @@
+// 7430
+[proc,script7430](struct $struct0, int $int1)(int)
+if ($struct0 = null) {
+    return(0);
+}
+if (%mtx_pets_current_active_pet = null) {
+    return(0);
+}
+def_struct $struct2 = enum(struct, struct, mtxmgt_pets_struct_structinfo, $struct0);
+if ($struct2 = null) {
+    return(0);
+}
+def_npc $npc3 = null;
+if ($int1 < 9000) {
+    $npc3 = struct_param($struct2, mtxmgt_pet_baby_npc);
+} else if ($int1 >= 9000 & $int1 < 24000) {
+    $npc3 = struct_param($struct2, mtxmgt_pet_juvi_npc);
+} else {
+    $npc3 = struct_param($struct2, mtxmgt_pet_adult_npc);
+}
+def_obj $obj4 = nc_param($npc3, follower_obj);
+if ($obj4 = null) {
+    return(0);
+}
+if (%mtx_pets_current_active_pet = $obj4) {
+    return(1);
+}
+return(0);

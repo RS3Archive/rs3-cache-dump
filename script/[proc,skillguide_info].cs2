@@ -1,0 +1,68 @@
+// 12096
+[proc,skillguide_info](struct $struct0, dbrow $dbrow1)(string)
+def_string $string0 = "";
+def_int $int2 = 0;
+if ($struct0 ! null) {
+    $dbrow1 = struct_param($struct0, skillguide_data);
+    $string0 = struct_param($struct0, skillguide_info);
+    $int2 = struct_param($struct0, skillguide_info_derived);
+}
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case invent_blueprint_table :
+            $string0 = db_getfield($dbrow1, invent_blueprint_table:col3, 0);
+            if (struct_param($struct0, skillguide_info_ingredients) = 0) {
+                $string0 = "<$string0><br><struct_param($struct0, skillguide_info)>";
+            }
+            $int2 = 1;
+        case arch_site :
+            $string0 = db_getfield($dbrow1, arch_site:col3, 0);
+        case arch_excavation :
+            $string0 = ~script14789($dbrow1);
+        case arch_relic :
+            $string0 = "Offering this to the Monolith at the Archaeology campus will unlock the '<db_getfield($dbrow1, arch_relic:col1, 0)>' relic power.<br><br>Power: <~arch_relic_get_description($dbrow1)>";
+        case necro_ritual_recipe :
+            $string0 = ~script17817($dbrow1);
+        case construction_house_furniture :
+            $string0 = ~script20815($dbrow1);
+    }
+}
+if ($int2 = 0) {
+    return($string0);
+}
+def_obj $obj3 = struct_param($struct0, skillguide_item);
+def_int $int4 = struct_param($struct0, skillguide_info_ingredients_multi_index);
+def_struct $struct5 = null;
+def_string $string1 = "<br>";
+if ($obj3 ! null & struct_param($struct0, skillguide_info_ingredients) = 1) {
+    $string0 = "<$string0>Ingredients: <~script12104($obj3, $int4, $string1)>";
+}
+if ($obj3 ! null & struct_param($struct0, skillguide_info_ingredients_set) = 1) {
+    $struct5 = oc_param($obj3, combatv2_item_set_struct);
+    $string0 = "<$string0>Ingredients:";
+    if (struct_param($struct5, combatv2_set_item_1) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_1), $int4);
+    }
+    if (struct_param($struct5, combatv2_set_item_2) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_2), $int4);
+    }
+    if (struct_param($struct5, combatv2_set_item_3) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_3), $int4);
+    }
+    if (struct_param($struct5, combatv2_set_item_4) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_4), $int4);
+    }
+    if (struct_param($struct5, combatv2_set_item_5) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_5), $int4);
+    }
+    if (struct_param($struct5, combatv2_set_item_6) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_6), $int4);
+    }
+    if (struct_param($struct5, combatv2_set_item_7) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_7), $int4);
+    }
+    if (struct_param($struct5, combatv2_set_item_8) ! null) {
+        $string0 = ~script17670($string0, struct_param($struct5, combatv2_set_item_8), $int4);
+    }
+}
+return($string0);

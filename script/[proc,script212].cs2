@@ -1,0 +1,59 @@
+// 212
+[proc,script212](stat $stat0, int $int1, int $int2, int $int3)(int)
+def_enum $enum4 = enum(stat, enum, trh30_base_conversion, $stat0);
+if ($enum4 = null) {
+    return(0);
+}
+def_int $int5 = ~stat_bonus_xp($stat0);
+def_int $int6 = enum(int, int, $enum4, $int1);
+def_int $int7 = ~script480($stat0);
+def_int $int8 = 0;
+if (%mtx_trader_interaction = 1) {
+    $int8 = 2;
+} else if (%trh30_special_credit_stat ! 0) {
+    $int8 = 1;
+}
+def_int $int9 = max(1, pow(2, calc(~script491($stat0, $int8) / $int7)));
+def_int $int10 = calc($int7 - ~script491($stat0, $int8) % $int7);
+def_int $int11 = 0;
+def_int $int12 = 0;
+if ($int8 ! 2) {
+    $int6 = scale(calc(100 + 10), 100, $int6);
+}
+$int12 = calc($int6 * $int9);
+def_int $int13 = calc($int5 / $int12);
+if ($int2 = 2) {
+    return($int12);
+} else if ($int2 = 3) {
+    return($int10);
+} else if ($int2 = 5) {
+    return($int9);
+} else if ($int2 = 1) {
+    while ($int5 > $int12) {
+        $int13 = calc($int5 / $int12);
+        if ($int13 >= $int10) {
+            $int11 = calc($int11 + $int10);
+            $int5 = calc($int5 - $int12 * $int10);
+            $int12 = calc($int12 * 2);
+            $int10 = $int7;
+        } else {
+            $int11 = calc($int11 + $int13);
+            $int5 = calc($int5 - $int12 * $int13);
+        }
+    }
+    return($int11);
+} else if ($int2 = 4) {
+    $int5 = 0;
+    while ($int3 > 0) {
+        if ($int3 >= $int10) {
+            $int5 = calc($int5 + $int12 * $int10);
+            $int3 = calc($int3 - $int10);
+            $int12 = calc($int12 * 2);
+            $int10 = $int7;
+        } else {
+            $int5 = calc($int5 + $int12 * $int3);
+            $int3 = 0;
+        }
+    }
+    return($int5);
+}

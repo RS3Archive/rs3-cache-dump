@@ -1,0 +1,89 @@
+// 11354
+[proc,mtx_pet_ability_build_interface]
+def_int $int0 = 1;
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_component $component6 = mtxmgt:pet_abilities_content;
+def_int $int7 = enum_getoutputcount(mtxmgt_pet_ability_id_to_struct);
+def_int $int8 = 0;
+cc_deleteall($component6);
+def_boolean $boolean9 = ~is_mobile_client;
+while ($int0 <= $int7) {
+    $struct1 = enum(int, struct, mtxmgt_pet_ability_id_to_struct, $int0);
+    if ($struct1 ! null) {
+        cc_create($component6, ^iftype_graphic, $int8);
+        $int8 = calc($int8 + 1);
+        cc_setsize(37, 37, ^setsize_abs, ^setsize_abs);
+        $int4, $int5 = ~mtx_pet_ability_get_position($int2, $int3, 0);
+        cc_setposition($int4, $int5, ^setpos_abs_centre, ^setpos_abs_top);
+        if (~script11359($struct1) = 0 | $struct1 = mtx_pet_ability_bob) {
+            cc_setgraphic(struct_param($struct1, mtx_graphic_on));
+        } else {
+            cc_setgraphic(struct_param($struct1, mtx_graphic_off));
+        }
+        cc_setonmouserepeat("mtx_pet_ability_tooltip($struct1, event_com, event_comsubid)");
+        cc_setonmouseleave("script8805");
+        cc_setdraggable(mtxmgt:pet_abilities_content, -1);
+        cc_setdragrenderbehaviour(2);
+        if ($boolean9 = false) {
+            cc_setdragdeadtime(5);
+            cc_setdragdeadzone(5);
+        } else {
+            cc_setdragdeadtime(5);
+            cc_setdragdeadzone(20);
+        }
+        cc_setop(1, "Select");
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 4);
+        cc_setparam(toplevel_v2_tooltip_mobile_struct, $struct1);
+        cc_setonop("script11361(calc($int8 - 1), $int0, null, 0, 1)");
+        cc_setondragcomplete("script11361(calc($int8 - 1), $int0, event_com2, event_comsubid2, 1)");
+        if (++$int3 = 3) {
+            $int3 = 0;
+            $int2 = calc($int2 + 1);
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+def_int $int10 = 1;
+$int3 = 0;
+while ($int10 <= 3) {
+    $int0 = ~mtx_pet_ability_get_active($int10);
+    $struct1 = enum(int, struct, mtxmgt_pet_ability_id_to_struct, $int0);
+    cc_create($component6, ^iftype_graphic, $int8);
+    $int8 = calc($int8 + 1);
+    cc_setsize(37, 37, ^setsize_abs, ^setsize_abs);
+    $int4, $int5 = ~mtx_pet_ability_get_position($int2, $int3, 1);
+    cc_setposition($int4, $int5, ^setpos_abs_centre, ^setpos_abs_bottom);
+    if ($struct1 ! null) {
+        if (~script11359($struct1) = 0 | $struct1 = mtx_pet_ability_bob) {
+            cc_setgraphic(struct_param($struct1, mtx_graphic_on));
+        } else {
+            cc_setgraphic(struct_param($struct1, mtx_graphic_off));
+        }
+        cc_setonmouserepeat("mtx_pet_ability_tooltip($struct1, event_com, event_comsubid)");
+        cc_setonmouseleave("script8805");
+        cc_setop(1, "Remove");
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 4);
+        cc_setparam(toplevel_v2_tooltip_mobile_struct, $struct1);
+        cc_setonop("script11361(calc($int8 - 1), $int0, null, 0, 0)");
+    } else if ($int10 > %mtx_pet_available_abilities) {
+        cc_setonmouserepeat("script11362($component6, calc($int8 - 1))");
+        cc_setgraphic(rs3_icon_slot_standard_locked);
+    } else {
+        cc_setonmouserepeat("mtx_pet_ability_tooltip(null, event_com, event_comsubid)");
+        cc_setgraphic(rs3_icon_slot_standard);
+    }
+    $int3 = calc($int3 + 1);
+    $int10 = calc($int10 + 1);
+}
+cc_create($component6, ^iftype_text, $int8);
+$int8 = calc($int8 + 1);
+cc_settext("Active Abilities");
+cc_setcolour(~script10495(1));
+cc_settextfont(museo_sans_13pt_regular);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+cc_setsize(0, 15, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 70, ^setpos_abs_centre, ^setpos_abs_bottom);

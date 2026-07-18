@@ -1,0 +1,12 @@
+// 15763
+[proc,script15763](int $int0, int $int1)
+def_dbfilter $dbfilter2 = db_filter_combine(db_filter_value(mtxmgt_cosmetic:col23, $int0, ^filterop_gte, 0), db_filter_value(mtxmgt_cosmetic:col23, $int1, ^filterop_lte, 0));
+def_int $int3 = db_filter_find($dbfilter2, mtxmgt_cosmetic:col23, true, -1, 0);
+mes_typed(^chattype_console, 0, "Found <tostring($int3)> cosmetics released between runeday <tostring($int0)> and runeday <tostring($int1)>.");
+mes_typed(^chattype_console, 0, "The first <tostring(min(5, $int3))> found between these dates are:");
+def_int $int4 = 5;
+def_dbrow $dbrow5 = db_findnext;
+while ($int4-- > 0 & $dbrow5 ! null) {
+    mes_typed(^chattype_console, 0, db_getfield($dbrow5, mtxmgt_cosmetic:col2, 0));
+    $dbrow5 = db_findnext;
+}

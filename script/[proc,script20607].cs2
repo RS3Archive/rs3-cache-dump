@@ -1,0 +1,46 @@
+// 20607
+[proc,script20607](struct $struct0, int $int1, int $int2, string $string0, int $int3, int $int4)
+def_string $string1 = ~script20608($struct0, $int1);
+if (string_length($string1) > 0) {
+    if (string_length($string0) > 0) {
+        $string0 = append($string0, "<br><br>");
+    }
+    $string0 = append($string0, $string1);
+}
+if ($int4 = 1) {
+    if (string_length($string0) > 0) {
+        $string0 = append($string0, "<br><br>");
+    }
+    $string0 = append($string0, "This purchase includes an offhand variant.");
+}
+switch_int ($int2) {
+    case 0 :
+        if (playermember = true) {
+            switch_struct ($struct0) {
+                case mtx_batch2_bank_space_item6, mtx54_bank_space_item12, mtx54_bank_space_item13, mtx54_bank_space_item14 :
+                    $string0 = append($string0, "<br><br>As you're a member, this item is free for you!");
+                case prem25_pack :
+                    $string0 = append($string0, "<br><br>As you're a 12-month member, this item is free for you!");
+                case marketplace_store_bundle_lp_freebies :
+                    $string0 = append($string0, "<br><br>");
+                    $string0 = append($string0, ~script4700);
+                case default :
+                    $string0 = append($string0, "<br><br>As you're a member, this item is 10% cheaper for you! We've already added that discount to the price.");
+            }
+        }
+}
+if ($int3 = 1) {
+    $string0 = append("<$string0><br><br>", "Discounts for partially owned packages are not supported at this time.");
+}
+if_settext($string0, marketplace_preview:description);
+def_int $int5 = ~script15891($string0, if_getwidth(marketplace_preview:description), if_getfontmetrics(marketplace_preview:description), 0);
+if ($int5 > if_getheight(marketplace_preview:description_layer)) {
+    if_setsize(30, 20, ^setsize_minus, ^setsize_minus, marketplace_preview:description_layer);
+    $int5 = ~script15891($string0, if_getwidth(marketplace_preview:description), if_getfontmetrics(marketplace_preview:description), 0);
+    if_setscrollsize(0, $int5, marketplace_preview:description_layer);
+    ~rs3_scrollbar_vertical(marketplace_preview:scrollbar_layer, marketplace_preview:description_layer);
+} else {
+    if_setscrollsize(0, 0, marketplace_preview:description_layer);
+    if_setsize(20, 20, ^setsize_minus, ^setsize_minus, marketplace_preview:description_layer);
+    cc_deleteall(marketplace_preview:scrollbar_layer);
+}

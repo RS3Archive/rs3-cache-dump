@@ -1,0 +1,84 @@
+// 1692
+[proc,script1692](component $component0, int $int1, int $int2, int $int3)(int, int)
+def_struct $struct4 = enum(int, struct, poh_bookcase, $int2);
+if ($int2 = -1) {
+    $struct4 = poh_bookcase_nosearchresults;
+}
+def_string $string0 = struct_param($struct4, poh_bookcase_info);
+def_obj $obj5 = struct_param($struct4, poh_bookcase_obj);
+def_string $string1 = struct_param($struct4, poh_bookcase_displayname);
+def_int $int6 = calc(paraheight($string0, calc(if_getwidth($component0) - 22), museo_sans_11pt_regular) * 11 + 5);
+def_int $int7 = calc(32 + $int6 + 10);
+cc_setsize(0, $int7, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setfill(true);
+if (calc($int3 % 2) = 0) {
+    cc_setcolour(0x071820);
+} else {
+    cc_setcolour(0x1c2c34);
+}
+if (inv_total(inv, $obj5) = 0) {
+    cc_setop(1, "Take");
+    cc_setopcursor(1, cursor_take);
+} else {
+    cc_setopcursor(1, null);
+}
+cc_setop(10, "Examine");
+cc_setopbase("<col=ff9040><oc_name(struct_param($struct4, poh_bookcase_obj))>");
+cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+cc_setsize(0, $int7, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setcolour(^white);
+cc_settrans(255);
+cc_setonmouseover("cc_settrans(event_com, event_comsubid, 0)");
+cc_setonmouseleave("cc_settrans(event_com, event_comsubid, 255)");
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(4, calc($int1 + 6), ^setpos_abs_left, ^setpos_abs_top);
+cc_setobject_nonum(struct_param($struct4, poh_bookcase_obj), 1);
+def_string $string2 = "You already have this book in your pack.";
+if (inv_total(inv, $obj5) = 0) {
+    cc_settrans(0);
+    cc_setoutline(2);
+    cc_setonmouserepeat(null);
+} else {
+    cc_settrans(100);
+    cc_setoutline(1);
+    cc_setonmouserepeat("script8799($string2, event_com, event_comsubid)");
+}
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setposition(2, calc($int1 + 4), ^setpos_abs_right, ^setpos_abs_top);
+cc_setcolour(0xfff08c);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextshadow(false);
+.cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+.cc_setsize(calc(36 + 4), 12, ^setsize_minus, ^setsize_abs);
+.cc_setposition(2, calc($int1 + 4 + (32 - .cc_getheight)), ^setpos_abs_right, ^setpos_abs_top);
+.cc_settextfont(museo_sans_13pt_regular);
+.cc_setcolour(0xff981f);
+.cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+.cc_settextshadow(false);
+def_quest $quest8 = struct_param($struct4, poh_bookcase_quest);
+if ($quest8 ! null) {
+    cc_setsize(calc(36 + 4), calc(32 - .cc_getheight), ^setsize_minus, ^setsize_abs);
+    .cc_settext(~quest_name($quest8));
+} else {
+    cc_setsize(calc(36 + 4), 32, ^setsize_minus, ^setsize_abs);
+    .cc_sethide(true);
+}
+if (paraheight($string1, cc_getwidth, museo_sans_13pt_regular) <= 1) {
+    cc_settextfont(museo_sans_13pt_regular);
+} else {
+    cc_settextfont(museo_sans_11pt_regular);
+}
+cc_settext($string1);
+cc_setcolour(0xf0be79);
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setsize(22, $int6, ^setsize_minus, ^setsize_abs);
+cc_setposition(5, calc($int1 + 32 + 6), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour(0xaed0e0);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextshadow(false);
+cc_settext($string0);
+return(calc($int1 + $int7), cc_getid);

@@ -1,0 +1,22 @@
+// 8768
+[proc,script8768](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (cam2_getpositionmode ! 1 | cam2_getlookatmode ! 1) {
+    return;
+}
+$int2, $int3 = cam2_getpositionentity_angleoffsets;
+if ($int0 ! 0) {
+    $int2 = calc($int2 + $int0);
+}
+if ($int1 ! 0) {
+    $int3 = calc($int3 + $int1);
+}
+$int2, $int3 = ~script15712($int2, $int3);
+%zoom = ~script15713(%zoom);
+%toplevel_v2_track_x_ang = $int2;
+%toplevel_v2_track_y_ang = $int3;
+if (if_hassuboverlay(toplevel_v2:world_fade_overlay, track_npc) = false) {
+    cam2_setpositionangularinterpolation(300);
+    cam2_setpositionentity_player(0, 0, ~script8769($int2), $int2, $int3, false, 0, 100);
+}

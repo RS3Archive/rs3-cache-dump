@@ -1,0 +1,80 @@
+// 7478
+[proc,script7478](int $int0, struct $struct1, int $int2)(int)
+def_string $string0 = "<col=ff0000>";
+def_string $string1 = "";
+def_obj $obj3 = inv_getobj(worn, 3);
+def_obj $obj4 = inv_getobj(worn, 5);
+def_string $string2 = "";
+def_graphic $graphic5 = null;
+def_int $int6 = struct_param($struct1, combatv2_ability_parent_stat);
+def_string $string3 = "";
+if (struct_param($struct1, combatv2_ability_req_2x) = 1) {
+    if (oc_param($obj3, combatv2_ranged_weapon) = 1 & oc_param($obj4, combatv2_ranged_weapon) = 1 & $int6 = 3 | oc_param($obj3, combatv2_magic_weapon) = 1 & oc_param($obj4, combatv2_magic_weapon) = 1 & $int6 = 4 | oc_param($obj3, combatv2_necromancy_weapon) = 1 & oc_param($obj4, combatv2_necromancy_weapon) = 1 & $int6 = 29 | oc_param($obj3, combatv2_melee_weapon) = 1 & oc_param($obj4, combatv2_melee_weapon) = 1 & $int6 ! 3 & $int6 ! 4 & $int6 ! 29) {
+        $string0 = "<col=00ff00>";
+    }
+    $string2 = "<$string0>2x</col>";
+    switch_int ($int6) {
+        case 3 :
+            $graphic5 = "combatv2_attribute_requirement_icons,4";
+            $string3 = "Requires dual-wielded ranged weapons.";
+        case 4 :
+            $graphic5 = "combatv2_attribute_requirement_icons,23";
+            $string3 = "Requires dual-wielded magic weapons.";
+        case 29 :
+            $graphic5 = "combatv2_attribute_requirement_icons,26";
+            $string3 = "Requires dual-wielded necromancy weapons.";
+        case default :
+            $graphic5 = "combatv2_attribute_requirement_icons,2";
+            switch_struct ($struct1) {
+                case combatv2_ability_attack_bladed_dive :
+                    $string3 = "Requires dual-wielded melee weapons or skilling tools.";
+                    if (~script6688($struct1) = true) {
+                        $string0 = "<col=00ff00>";
+                    }
+                    $string2 = "<$string0>2x*</col>";
+                case default :
+                    $string3 = "Requires dual-wielded melee weapons.";
+            }
+    }
+} else if (struct_param($struct1, combatv2_ability_req_2h) = 1) {
+    if (oc_wearpos($obj3) > 0 & oc_wearpos2($obj3) > 0 & ($int6 = 3 & oc_param($obj3, combatv2_ranged_weapon) = 1 | $int6 = 4 & oc_param($obj3, combatv2_magic_weapon) = 1 | $int6 = 29 & oc_param($obj3, combatv2_necromancy_weapon) = 1 | $int6 ! 3 & $int6 ! 4 & $int6 ! 29 & oc_param($obj3, combatv2_melee_weapon) = 1)) {
+        $string0 = "<col=00ff00>";
+    }
+    $string2 = "<$string0>2h</col>";
+    switch_int ($int6) {
+        case 3 :
+            $graphic5 = "combatv2_attribute_requirement_icons,3";
+            $string3 = "Requires a two-handed ranged weapon.";
+        case 4 :
+            $graphic5 = "combatv2_attribute_requirement_icons,22";
+            $string3 = "Requires a two-handed magic weapon.";
+        case 29 :
+            $graphic5 = "combatv2_attribute_requirement_icons,25";
+            $string3 = "Requires a two-handed necromancy weapon.";
+        case default :
+            $graphic5 = "combatv2_attribute_requirement_icons,1";
+            $string3 = "Requires a two-handed melee weapon.";
+    }
+} else if (struct_param($struct1, combatv2_ability_req_shield) = 1) {
+    switch_int (~script17448) {
+        case 1, 2 :
+            $string0 = "<col=00ff00>";
+        case 3 :
+            if (struct_param($struct1, combatv2_ability_offensive) = 0) {
+                $string0 = "<col=00ff00>";
+            }
+    }
+    $string2 = "<$string0>Shield</col>";
+    $graphic5 = "combatv2_attribute_requirement_icons,0";
+    $string3 = "Requires a shield or a defender.";
+} else if (struct_param($struct1, combatv2_ability_req_any_weapon) = 1) {
+    if ($obj3 ! null & calc(oc_param($obj3, combatv2_ranged_weapon) + oc_param($obj3, combatv2_melee_weapon) + oc_param($obj3, combatv2_magic_weapon) + oc_param($obj3, combatv2_necromancy_weapon)) > 0) {
+        $string0 = "<col=00ff00>";
+    }
+    $string2 = "<$string0>Weapon</col>";
+    $graphic5 = "combatv2_attribute_requirement_icons,24";
+    $string3 = "Requires a weapon.";
+} else {
+    return($int0);
+}
+return(~script7482($string2, $graphic5, null, $string3, ~script7484($int0, $int2)));

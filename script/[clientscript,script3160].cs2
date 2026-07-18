@@ -1,0 +1,40 @@
+// 3160
+[clientscript,script3160](int $int0, char $char1, component $component2, component $component3)
+if (userdetail_quickchat = true | ~script5280 = true) {
+    return;
+}
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+$int4, $int5, $int6, $int7, $int8, $int9, $int10 = ~script4590;
+switch_int ($int0) {
+    case 84 :
+        if ($int4 < 0) {
+            mes_typed(^chattype_clanmessage, 0, "You are not in a Clan.");
+        } else if ($int5 < $int6) {
+            mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your Clan Chat.");
+        } else if ($int7 = 1) {
+            mes_typed(^chattype_clanmessage, 0, "You've been muted by your Clan and can't talk in your Clan Chat.");
+        } else if (string_length(%lobbyscreen_input_clan) > 0) {
+            chat_setmode_affined_clan(0);
+            chat_sendpublic(%lobbyscreen_input_clan);
+            ~script1594;
+        }
+        %lobbyscreen_input_clan = "";
+        if_settext(escape(%lobbyscreen_input_clan), $component2);
+        %lobby_caret_clan = string_length(%lobbyscreen_input_clan);
+        ~script1390($component2, $component3, %lobbyscreen_input_clan);
+    case 96, 97, 98, 99, 102, 103 :
+        %lobby_caret_clan = ~script1553($int0, %lobby_caret_clan, %lobbyscreen_input_clan);
+        ~script1390($component2, $component3, %lobbyscreen_input_clan);
+    case default :
+        if (char_isprintable($char1) = true | $int0 = 85 | $int0 = 101) {
+            %lobbyscreen_input_clan, %lobby_caret_clan = ~script802(%lobby_caret_clan, %lobbyscreen_input_clan, 0, $int0, $char1);
+            if_settext(escape(%lobbyscreen_input_clan), $component2);
+            ~script1390($component2, $component3, %lobbyscreen_input_clan);
+        }
+}

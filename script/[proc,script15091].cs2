@@ -1,0 +1,161 @@
+// 15091
+[proc,script15091](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, struct $struct6)
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 1;
+def_int $int13 = 0;
+def_int $int14 = ~script12869($struct6);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int15 = calc(if_getwidth($component5) - 50);
+def_int $int16 = calc(if_getwidth($component0) / 100);
+def_dbrow $dbrow17 = struct_param($struct6, timed_event_reward_track);
+def_enum $enum18 = struct_param($struct6, timed_event_rewards);
+def_int $int19 = 0;
+if ($dbrow17 ! null) {
+    $int19 = db_getfieldcount($dbrow17, timed_event_reward_track:col1);
+} else if ($enum18 ! null) {
+    $int19 = enum_getoutputcount($enum18);
+} else {
+    ~error("No valid data.");
+    return;
+}
+def_obj $obj20 = null;
+def_int $int21 = -1;
+def_int $int22 = -1;
+def_graphic $graphic23 = null;
+def_model $model24 = null;
+def_enum $enum25 = null;
+def_enum $enum26 = null;
+if ($enum18 ! null) {
+    $enum25 = struct_param($struct6, timed_event_thresholds);
+    $enum26 = struct_param($struct6, timed_event_quantities);
+}
+def_struct $struct27 = null;
+cc_deleteall($component5);
+cc_deleteall($component4);
+def_int $int28 = min(scale($int14, calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier)), if_getwidth($component0)), if_getwidth($component0));
+if (if_getnextsubid($component0) = 0) {
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_settextfont(museo_sans_15pt_bold);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setcolour(^white);
+    cc_settextshadow(true);
+}
+if (cc_find($component0, 0) = true & struct_param($struct6, timed_event_hide_numbers) = false) {
+    if (struct_param($struct6, timed_event_text_progress_divider) = 1) {
+        cc_settext("<tostring_localised($int14, true)>/<tostring_localised(calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier)), true)>");
+    } else {
+        cc_settext("<tostring_localised(calc($int14 / struct_param($struct6, timed_event_text_progress_divider)), true)>/<tostring_localised(calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier) / struct_param($struct6, timed_event_text_progress_divider)), true)>");
+    }
+}
+if (if_getnextsubid($component1) = 0) {
+    cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+    cc_setgraphic("rs3_progress_bar_green_12px,0");
+    cc_setsize(12, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setonvartransmit("script12874($struct6){timed_event_temp}");
+    cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+    cc_setgraphic("rs3_progress_bar_green_12px,1");
+    cc_setposition(calc($int8 + 12), $int9, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 19, ^setsize_minus, ^setsize_abs);
+    cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+    cc_setgraphic("rs3_progress_bar_green_12px,2");
+    cc_setsize(12, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(0, $int9, ^setpos_abs_right, ^setpos_abs_top);
+}
+if_setontimer("script12886($component1, $component2, $component3, $int28)", $component1);
+if (if_getnextsubid($component5) = 0) {
+    cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+    cc_setgraphic(trh72_progress_bar_back_end);
+    cc_setposition($int8, $int9, ^setpos_abs_right, ^setpos_abs_top);
+    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+    cc_setgraphic(trh72_progress_bar_back_start);
+    cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+    cc_setgraphic(trh72_progress_bar_back_tile);
+    cc_setposition(calc($int8 + 25), $int9, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int15, 25, ^setsize_abs, ^setsize_abs);
+}
+while ($int7 < $int19) {
+    if ($dbrow17 ! null) {
+        $obj20, $int12, $int11 = ~script19880($dbrow17, $int7);
+    } else {
+        $obj20 = enum(int, obj, $enum18, $int7);
+        $int11 = enum(int, int, $enum25, $int7);
+        $int12 = enum(int, int, $enum26, $int7);
+    }
+    $graphic23 = oc_param($obj20, timed_event_reward_graphic);
+    $model24 = oc_param($obj20, timed_event_reward_model_claimed);
+    $int13 = ~script12879($struct6, $int7);
+    $int8 = $int16;
+    $int8 = calc($int8 * scale($int11, calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier)), 100));
+    if ($int7 ! calc($int19 - 1) & if_getnextsubid($component5) ! calc($int19 + 2)) {
+        cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+        cc_setgraphic(trh72_progress_bar_back_link);
+        cc_setposition(calc($int8 - 7), $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    }
+    if (if_getnextsubid($component2) = $int7 & if_getnextsubid($component3) = $int7) {
+        cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+        cc_setgraphic(trh72_progress_bar_back_final);
+        cc_setposition(calc($int8 - 9), $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(15, 19, ^setsize_abs, ^setsize_abs);
+        cc_create($component3, ^iftype_rectangle, if_getnextsubid($component3));
+        cc_setcolour(0x005c2f);
+        cc_setfill(true);
+        cc_setposition(calc($int8 - 3), $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(3, 1, ^setsize_abs, ^setsize_abs);
+        cc_sethide(true);
+    }
+    if (if_getnextsubid($component4) = $int10) {
+        if ($int14 >= $int11 & $int13 = 0) {
+            $struct27 = rs3_icon_holder_selected;
+            if (oc_param($obj20, timed_event_reward_graphic_unclaimed) ! null) {
+                $graphic23 = oc_param($obj20, timed_event_reward_graphic_unclaimed);
+            }
+            $model24 = oc_param($obj20, timed_event_reward_model_unclaimed);
+        } else {
+            $struct27 = rs3_icon_holder_action_selected;
+            if ($int14 < $int11) {
+                $struct27 = rs3_icon_holder;
+                $int13 = 2;
+                if (oc_param($obj20, timed_event_reward_graphic_locked) ! null) {
+                    $graphic23 = oc_param($obj20, timed_event_reward_graphic_locked);
+                }
+                $model24 = oc_param($obj20, timed_event_reward_model_locked);
+            }
+        }
+        if (struct_param($struct6, timed_event_show_reward_background_panel) = true & oc_param($obj20, timed_event_show_reward_background_panel) = true) {
+            ~rs3_background_panel_dynamic($component4, $struct27, calc($int8 - 20), $int9, calc(36 + 4), calc(32 + 4), null);
+        }
+        if ($model24 = null) {
+            cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+            cc_setsize(oc_param($obj20, timed_event_reward_graphic_width), oc_param($obj20, timed_event_reward_graphic_height), ^setsize_abs, ^setsize_abs);
+            if ($graphic23 = null) {
+                cc_setobject($obj20, $int12);
+                cc_setposition(calc($int8 - 16), calc($int9 + 2), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                cc_setgraphic($graphic23);
+                cc_setposition(calc($int8 + oc_param($obj20, timed_event_reward_xoffset)), calc($int9 + oc_param($obj20, timed_event_reward_yoffset)), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setsize(oc_param($obj20, timed_event_reward_graphic_width), oc_param($obj20, timed_event_reward_graphic_height), ^setsize_abs, ^setsize_abs);
+            }
+            $int10 = ~script15824($struct6, $component4, $graphic23, $obj20, $int12, $int11, $int13);
+        } else {
+            cc_create($component4, ^iftype_model, if_getnextsubid($component4));
+            cc_setsize(40, 44, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int8 + oc_param($obj20, timed_event_reward_xoffset)), calc($int9 + oc_param($obj20, timed_event_reward_yoffset)), ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_setmodel($model24);
+            cc_setmodelangle(0, oc_param($obj20, timed_event_reward_yoffset), oc_param($obj20, timed_event_reward_model_xangle), oc_param($obj20, timed_event_reward_model_yangle), oc_param($obj20, timed_event_reward_model_zangle), oc_param($obj20, timed_event_reward_model_zoom));
+            $int10 = ~script15824($struct6, $component4, $graphic23, $obj20, $int12, $int11, $int13);
+        }
+    }
+    $int7 = calc($int7 + 1);
+}

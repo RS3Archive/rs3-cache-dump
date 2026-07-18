@@ -1,0 +1,22 @@
+// 17972
+[proc,script17972]()(string)
+def_dbrow $dbrow0 = ~script17853;
+if ($dbrow0 = null) {
+    return("The Hero Pass has now ended.");
+}
+def_int $int1 = db_getfield($dbrow0, bp3_table:col1:1, 0);
+def_int $int2 = calc($int1 - date_runeday);
+def_string $string0 = "Pass ends in : ";
+switch_int ($int2) {
+    case 0 :
+        if (reboottimer > 0) {
+            $string0 = "<$string0><~script17944>";
+        } else {
+            $string0 = "Pass ends today!";
+        }
+    case 1 :
+        $string0 = "Pass ends tomorrow!";
+    case default :
+        $string0 = "<$string0><tostring($int2)> days";
+}
+return($string0);

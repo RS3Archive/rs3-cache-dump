@@ -1,0 +1,92 @@
+// 19542
+[proc,script19542](inv $inv0, component $component1, int $int2, int $int3)
+if (~script6354(group_ironman_storage:clan_inv) = false) {
+    return;
+}
+if (cc_find($component1, $int2) = true) {
+    if (cc_getinvobject = bank_empty_slot) {
+        cancel_interface_drag;
+        return;
+    }
+    %inv_obj_being_dragged = cc_getinvobject;
+}
+if (~script6431 = true) {
+    unknown_command_26(true);
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_obj $obj8 = null;
+def_int $int9 = ~script8403(group_ironman_storage:clan_items_container);
+def_int $int10 = ~script8404(group_ironman_storage:clan_items_container);
+def_int $int11 = if_getheight(group_ironman_storage:clan_items_container);
+def_int $int12 = if_getwidth(group_ironman_storage:clan_items_container);
+def_int $int13 = if_getscrolly(group_ironman_storage:clan_items_container);
+def_int $int14 = 1;
+if (%bank_filter ! 0 | $int9 < 0 | $int9 > $int12 | $int10 < 0 | $int10 > $int11) {
+    if_sethide(true, group_ironman_storage:ondrag_highlight);
+    if_sethide(true, group_ironman_storage:ondrag_placeholder_highlight);
+    %bank_scrolldelay = 0;
+    $int14 = 0;
+}
+if ($inv0 = group_ironman_storage_clan_temp) {
+    %inv_inv_being_dragged = group_ironman_storage_clan_temp;
+    %bank_slot_being_dragged = $int2;
+} else {
+    %inv_inv_being_dragged = $inv0;
+    $obj8 = oc_uncert(inv_getobj($inv0, $int2));
+    if (~script3802($obj8) = true) {
+        $int6 = ~script19583($obj8);
+        $int7 = $int6;
+    } else {
+        $int6 = ~script19584($obj8, 0, 1);
+        $int7 = $int6;
+    }
+    if ($int6 = -1 & $int7 = -1) {
+        %bank_slot_being_dragged = calc(200 + 1);
+        %bank_slot_existing_highlight = 0;
+    } else {
+        if ($int14 = 1) {
+            if (if_gethide(group_ironman_storage:ondrag_highlight) = true & if_gethide(group_ironman_storage:ondrag_placeholder_highlight) = true) {
+                if ($int6 ! -1 & .cc_find(group_ironman_storage:clan_inv, $int6) = true) {
+                    %bank_slot_being_dragged = -1;
+                    %bank_slot_existing_highlight = 1;
+                    ~script19543(group_ironman_storage:ondrag_highlight);
+                }
+                if ($int7 ! -1 & .cc_find(group_ironman_storage:clan_inv, $int7) = true) {
+                    if ($int6 = -1) {
+                        %bank_slot_being_dragged = calc(200 + 1);
+                        %bank_slot_existing_highlight = 0;
+                        ~script19543(group_ironman_storage:ondrag_placeholder_highlight);
+                    }
+                    $int13 = max(0, max(calc(.cc_gety + .cc_getheight + 2 - $int11 / 2), min(calc(.cc_gety - 2 - $int11 / 2), $int13)));
+                    ~scrollbar_ondrag_doscroll(group_ironman_storage:scrollbar, group_ironman_storage:clan_items_container, $int13, 1);
+                }
+            }
+        } else {
+            %bank_slot_existing_highlight = 0;
+            if_sethide(true, group_ironman_storage:ondrag_highlight);
+            if_sethide(true, group_ironman_storage:ondrag_placeholder_highlight);
+        }
+        return;
+    }
+}
+%bank_tab_last_drag_update = clientclock;
+def_int $int15 = 0;
+if ($int10 < 30) {
+    if ($int10 < 15) {
+        $int15 = -8;
+    } else {
+        $int15 = -4;
+    }
+} else if ($int10 > calc($int11 - 30)) {
+    if ($int10 > calc($int11 - 15)) {
+        $int15 = 8;
+    } else {
+        $int15 = 4;
+    }
+}
+if (++%bank_scrolldelay > 5 & $int15 ! 0) {
+    ~scrollbar_ondrag_doscroll(group_ironman_storage:scrollbar, group_ironman_storage:clan_items_container, calc($int13 + $int15), 1);
+}

@@ -1,0 +1,16 @@
+// 10116
+[proc,twitch_login]
+def_string $string0 = %twitch_login_username;
+def_string $string1 = %twitch_login_password;
+%twitch_login_password = "";
+if_settext("", toplevel_v2_parent_suboverlay_twitch:login_password);
+def_int $int0 = 0;
+if (string_length($string0) > 0 & string_length($string1) > 0) {
+    $int0 = ttv_login($string0, $string1);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:api_check);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_login);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_setup);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:autosetup);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:logging_in);
+    sound_vorbis_volume(tli_click_01, 1, 0, 100);
+}

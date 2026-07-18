@@ -1,0 +1,32 @@
+// 9205
+[clientscript,script9205](int $int0, char $char1, component $component2, component $component3)
+if ($char1 = '<') {
+    return;
+}
+def_string $string0 = if_gettext($component2);
+def_string $string1 = $string0;
+def_string $string2 = "";
+switch_int ($int0) {
+    case 96 :
+        if (%friends_caret_position > 0) {
+            %friends_caret_position = calc(%friends_caret_position - 1);
+        }
+    case 97 :
+        if (%friends_caret_position < string_length($string0)) {
+            %friends_caret_position = calc(%friends_caret_position + 1);
+        }
+    case 102 :
+        %friends_caret_position = 0;
+    case 103 :
+        %friends_caret_position = string_length($string0);
+    case default :
+        $string1, %friends_caret_position = ~script802(%friends_caret_position, $string0, 7, $int0, $char1);
+}
+if_settext(~script1602($string1), $component2);
+def_int $int4 = stringwidth(substring($string1, 0, %friends_caret_position), if_getfontmetrics($component2));
+def_int $int5 = 4;
+if (calc($int4 + 4) > if_getwidth(if_getlayer($component2))) {
+    $int5 = calc(-4 - ($int4 - if_getwidth(if_getlayer($component2))));
+}
+if_setposition($int5, if_gety($component2), ^setpos_abs_left, ^setpos_abs_top, $component2);
+if_setposition(~script1551(%friends_caret_position, $string1, if_getfontmetrics($component2), $int5), 5, ^setpos_abs_left, ^setpos_abs_top, $component3);

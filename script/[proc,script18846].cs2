@@ -1,0 +1,17 @@
+// 18846
+[proc,script18846](struct $struct0)(string)
+def_string $string0 = "";
+def_dbrow $dbrow1 = struct_param($struct0, trh_promo_info_dbrow);
+if ($dbrow1 ! null) {
+    $string0 = db_getfield($dbrow1, trh_promo_info:col0, 0);
+    return($string0);
+}
+if (struct_param($struct0, timed_event_id) > 0) {
+    $string0 = struct_param($struct0, timed_event_name);
+    return($string0);
+}
+if (struct_param($struct0, bslay_id) > 0) {
+    return(struct_param($struct0, bslay_name));
+}
+~error("Could not find a valid name for entry struct. Defaulting to \"Entry\"");
+return("Entry");

@@ -1,0 +1,20 @@
+// 8048
+[clientscript,script8048]
+~lobby_popup_close;
+def_string $string0 = "";
+def_int $int0 = calc(%lobby_betasave_var - 1);
+switch_int ($int0) {
+    case 0 :
+        $string0 = "Congratulations! Your saved game has been updated. Progress in the beta won't affect your progress in the main game.";
+    case 1 :
+        $string0 = "The login server timed out while trying to update your saved game. Please try again later.";
+    case 2 :
+        $string0 = "Source save game file does not exist. Please check that your accounts are synched correctly.";
+    case 3 :
+        $string0 = "There was an error contacting the login server. Please try again later";
+    case 4 :
+        $string0 = "There was an error converting your saved game. Please try again later.";
+    case default :
+        return;
+}
+~lobby_popup(-3, lobby_popup_positive_close, "Save Game Update", $string0, "loadingwheel,12", "", "OK");

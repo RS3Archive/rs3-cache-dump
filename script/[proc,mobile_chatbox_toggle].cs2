@@ -1,0 +1,35 @@
+// 16572
+[proc,mobile_chatbox_toggle]
+def_struct $struct0 = ~script10405(18);
+if ($struct0 = null) {
+    return;
+}
+def_component $component1 = struct_param($struct0, toplevel_v2_window_layer);
+if ($component1 = null) {
+    return;
+}
+if (if_gethide(toplevel_v2_mobile:chat_panel) = true) {
+    if (~script8314(1028) ! -1) {
+        ~script8323(1028, 0);
+    }
+    if_sethide(false, toplevel_v2_mobile:chat_panel);
+    if_setposition(~script3365(mobile_chat_panel:contents), ~script3366(mobile_chat_panel:contents), ^setpos_abs_left, ^setpos_abs_top, $component1);
+    if_setsize(if_getwidth(mobile_chat_panel:contents), if_getheight(mobile_chat_panel:contents), ^setsize_abs, ^setsize_abs, $component1);
+    if_sethide(true, $component1);
+    %toplevel_v2_mobile_chat_hide_time = 0;
+    ~dynamic_chat_fade(0);
+    ~script15855(enum(int, int, mobile_social_panel_chat_references, %mobile_chat_panel_current_social_button_active));
+} else {
+    if_sethide(true, toplevel_v2_mobile:chat_panel);
+    ~script15854(enum(int, int, mobile_social_panel_chat_references, %mobile_chat_panel_current_social_button_active));
+    if_sethide(false, $component1);
+    if_setposition(0, 82, ^setpos_abs_left, ^setpos_abs_top, $component1);
+    if_setsize(300, 100, ^setsize_abs, ^setsize_abs, $component1);
+    ~script9292;
+}
+~script15881;
+~chat_v2_rebuildchatbox(18);
+~script1558(18, 0);
+~script15871;
+~mobile_toggle_hud_overlay;
+~mobile_toggle_hud;

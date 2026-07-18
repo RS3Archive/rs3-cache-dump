@@ -1,0 +1,79 @@
+// 13121
+[proc,script13121](int $int0, char $char1, component $component2, component $component3, component $component4, component $component5, component $component6, int $int7)
+if (%keyboard_manager_listening_input_subsystem ! 11) {
+    return;
+}
+if (if_gethide($component3) = true) {
+    return;
+}
+switch_int ($int0) {
+    case 84 :
+        if (%p_dialog_mode = 8) {
+            if (~is_mobile_client = false) {
+                ~script7206($component2, $component3, $component4, $component5, $component6);
+            }
+            return;
+        } else if (%p_dialog_mode = 10) {
+            if (~is_mobile_client = true) {
+                ~script1594;
+            }
+            return;
+        }
+        if (string_length(%p_dialog_input) > 0) {
+            ~script10519($component3, $component4, $component5, $component6, %p_dialog_input);
+            return;
+        } else if (%p_dialog_mode = 7 | %p_dialog_mode = 11) {
+            if ($int7 = 1) {
+                ~script12426($component2, $component3, $component4, $component5, $component6);
+            } else {
+                ~script7206($component2, $component3, $component4, $component5, $component6);
+            }
+            return;
+        }
+    case 13 :
+        if (~cancel_targetmode = true) {
+            return;
+        }
+        switch_int (%p_dialog_mode) {
+            case 8, 10 :
+                if (compare(%p_dialog_input, "") ! 0) {
+                    %p_dialog_input = "";
+                    %meslayer_caret = ~script1553(102, %meslayer_caret, %p_dialog_input);
+                    return;
+                }
+        }
+        if ($int7 = 1) {
+            ~script12426($component2, $component3, $component4, $component5, $component6);
+        } else {
+            ~script7206($component2, $component3, $component4, $component5, $component6);
+        }
+        return;
+    case 96, 97, 98, 99, 102, 103 :
+        if (keyheld_shift = false) {
+            return;
+        }
+        %meslayer_caret = ~script1553($int0, %meslayer_caret, %p_dialog_input);
+    case default :
+        $char1 = ~script10523($component3, $char1);
+        switch_int (%p_dialog_mode) {
+            case 7 :
+                %p_dialog_input, %meslayer_caret = ~script7170(%meslayer_caret, %p_dialog_input, 6, $int0, $char1, %p_dialog_maxchar);
+            case 11 :
+                %p_dialog_input, %meslayer_caret = ~script7170(%meslayer_caret, %p_dialog_input, 10, $int0, $char1, %p_dialog_maxchar);
+            case 8, 10 :
+                %p_dialog_input, %meslayer_caret = ~script7170(%meslayer_caret, %p_dialog_input, 0, $int0, $char1, %p_dialog_maxchar);
+            case 9 :
+                %p_dialog_input, %meslayer_caret = ~script7170(%meslayer_caret, %p_dialog_input, 8, $int0, $char1, %p_dialog_maxchar);
+        }
+}
+if_settext(escape(%p_dialog_input), $component3);
+~script7213($component3, $component4);
+if (%p_dialog_mode = 10) {
+    switch_component ($component2) {
+        case stockmarket:search_input_listener :
+            ~script11698($component6, %stock_offeritem);
+            ~stockmarket_search_init;
+        case stock_favourites:search_input_listener :
+            ~script11698($component6, null);
+    }
+}

@@ -1,0 +1,27 @@
+// 17123
+[proc,script17123](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9)
+if ($int0 = 1) {
+    if_setonop("script3048", lobbyscreen_pane_mobile_social:add_player_button);
+    if_setonop("script11475(lobbyscreen_pane_mobile_social:player_list_top_bar_friends)", lobbyscreen_pane_mobile_social:join_player_button);
+    if_settext("Friends List", lobbyscreen_pane_mobile_social:friends_list_title);
+    if_sethide(false, lobbyscreen_pane_mobile_social:column_header_status);
+    if_setsize(142, 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_mobile_social:column_header_name);
+    ~script3029($component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8, $component9);
+    if_button_settoggled(true, lobbyscreen_pane_mobile_social:friends_list_button);
+    if_button_settoggled(false, lobbyscreen_pane_mobile_social:ignore_list_button);
+    if_setgraphic(icon_lobbysocial_friends_list_active, lobbyscreen_pane_mobile_social:friends_list_button_graphic);
+    if_setgraphic(icon_lobbysocial_ignore_list_inactive, lobbyscreen_pane_mobile_social:ignore_list_button_graphic);
+} else {
+    if_setonop("script3050", lobbyscreen_pane_mobile_social:add_player_button);
+    cc_deleteall(lobbyscreen_pane_mobile_social:player_list_status);
+    if_settext("Ignore List", lobbyscreen_pane_mobile_social:friends_list_title);
+    if_sethide(true, lobbyscreen_pane_mobile_social:column_header_status);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen_pane_mobile_social:column_header_name);
+    ~script3041($component1, $component2, $component4, $component5, $component6, $component7, $component9);
+    if_button_settoggled(false, lobbyscreen_pane_mobile_social:friends_list_button);
+    if_button_settoggled(true, lobbyscreen_pane_mobile_social:ignore_list_button);
+    if_setgraphic(icon_lobbysocial_friends_list_inactive, lobbyscreen_pane_mobile_social:friends_list_button_graphic);
+    if_setgraphic(icon_lobbysocial_ignore_list_active, lobbyscreen_pane_mobile_social:ignore_list_button_graphic);
+    ~script7871(lobbyscreen_pane_mobile_social:join_player_button, false, true, false, false);
+}
+%lobbyscreen_friendlist_selected_friend = -1;

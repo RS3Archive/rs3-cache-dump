@@ -1,0 +1,73 @@
+// 6228
+[proc,script6228](int $int0)
+def_component $component1 = 6awe3_rewards:info_build_area;
+def_component $component2 = 6awe3_rewards:skill_book;
+def_component $component3 = 6awe3_rewards:skill_extras;
+def_component $component4 = 6awe3_rewards:skill_buy;
+def_component $component5 = 6awe3_rewards:buy_skill_disabled;
+def_int $int6 = 0;
+def_struct $struct7 = null;
+cc_deleteall($component1);
+cc_deleteall($component3);
+if (%6awe3_skill_selected ! -1) {
+    $int6 = %6awe3_skill_selected;
+    $int0 = enum(int, int, 6awe3_ability_order, %6awe3_skill_selected);
+    $struct7 = enum(int, struct, 6awe3_ability_to_struct, $int0);
+    if (~script5858($struct7) = true) {
+        if_sethide(false, $component4);
+        if ($struct7 ! null & %6awe3_renown_points < struct_param($struct7, 6awe3_ability_cost)) {
+            if_sethide(false, $component5);
+        } else {
+            if_sethide(true, $component5);
+        }
+    } else {
+        if_sethide(true, $component4);
+    }
+    if (cc_find($component2, $int6) = true) {
+        ~script10066($component3, if_getnextsubid($component3), calc(cc_getwidth + 6), calc(cc_getheight + 6), calc(cc_getx - 3), calc(cc_gety - 3), 15777401, false, 0);
+    }
+} else {
+    if_sethide(true, $component4);
+}
+if (%6awe3_skill_mouseover ! -1) {
+    $int6 = %6awe3_skill_mouseover;
+    if (cc_find($component2, $int6) = true) {
+        ~script10066($component3, if_getnextsubid($component3), calc(cc_getwidth + 6), calc(cc_getheight + 6), calc(cc_getx - 3), calc(cc_gety - 3), 16777215, false, 0);
+    }
+}
+def_int $int8 = -1;
+def_struct $struct9 = null;
+def_int $int10 = if_getwidth($component1);
+def_int $int11 = if_getheight($component1);
+def_int $int12 = 0;
+def_string $string0 = "";
+$int8 = enum(int, int, 6awe3_ability_order, $int6);
+$struct9 = enum(int, struct, 6awe3_ability_to_struct, $int8);
+if ($struct9 = null) {
+    return;
+}
+~script7924($component1, 0, 32, 32, 5, 5, struct_param($struct9, 6awe3_ability_graphic), false, false, false, 0);
+~script10629($component1, 1, calc($int10 - 40), 32, 40, 5, struct_param($struct9, 6awe3_ability_name), 7705248, museo_sans_19pt_bold, ^settextalign_left, ^settextalign_centre, 20, false);
+$int12 = calc(paraheight(struct_param($struct9, 6awe3_ability_desc), calc($int10 - 20), notosans_11) * 13);
+~script10629($component1, 2, calc($int10 - 5), $int12, 5, 40, struct_param($struct9, 6awe3_ability_desc), 7705248, notosans_11, ^settextalign_left, ^settextalign_top, 13, false);
+switch_int (struct_param($struct9, 6awe3_ability_cast)) {
+    case default :
+        $string0 = "Passive ability - always on.";
+    case 1 :
+        $string0 = "Self cast - has immediate effect.";
+    case 2 :
+        $string0 = "Requires another competitor nearby.";
+    case 3 :
+        $string0 = "Requires a gorilla or monkey nearby.";
+}
+if (struct_param($struct9, 6awe3_ability_round_cap) > 0) {
+    $string0 = append($string0, "<br>Limited casts: <tostring(struct_param($struct9, 6awe3_ability_round_cap))> uses per game.");
+} else if (struct_param($struct9, 6awe3_ability_cooldown) > 0) {
+    $string0 = append($string0, "<br>Cooldown: <tostring(scale(struct_param($struct9, 6awe3_ability_cooldown), 100, 60))> seconds.");
+}
+$int12 = calc(paraheight($string0, calc($int10 - 10), museo_sans_11pt_regular) * 13);
+~script10629($component1, 3, calc($int10 - 10), $int12, 5, calc($int11 - 6 - $int12), $string0, 7705248, notosans_11, ^settextalign_left, ^settextalign_top, 13, false);
+if (~script5858($struct9) = true) {
+    $string0 = "Cost to unlock: <tostring(struct_param($struct9, 6awe3_ability_cost))>";
+    ~script10629($component1, 4, calc($int10 - 10), 13, 5, calc($int11 - 21 - $int12), $string0, 11456736, museo_sans_11pt_regular, ^settextalign_left, ^settextalign_top, 13, false);
+}

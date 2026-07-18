@@ -1,0 +1,15 @@
+// 5467
+[clientscript,script5467]
+%dom_battle_topinfo_pos = calc(%dom_battle_topinfo_pos + 1);
+%dom_battle_bottominfo_pos = calc(%dom_battle_bottominfo_pos + 1);
+if (%dom_battle_topinfo_pos < 17) {
+    if_setposition(0, %dom_battle_topinfo_pos, ^setpos_abs_centre, ^setpos_abs_top, dom_battle_overlay:health_bars_layer);
+} else {
+    if_setposition(0, 17, ^setpos_abs_centre, ^setpos_abs_top, dom_battle_overlay:health_bars_layer);
+}
+if (%dom_battle_bottominfo_pos < 3) {
+    if_setposition(3, %dom_battle_bottominfo_pos, ^setpos_abs_right, ^setpos_abs_bottom, dom_battle_overlay:stats_layer);
+} else {
+    if_setposition(3, 3, ^setpos_abs_right, ^setpos_abs_bottom, dom_battle_overlay:stats_layer);
+    if_setontimer(null, dom_battle_overlay:global_layer);
+}

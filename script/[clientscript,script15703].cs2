@@ -1,0 +1,16 @@
+// 15703
+[clientscript,script15703](int $int0, string $string0)
+switch_int ($int0) {
+    case 0 :
+        if_settrans(0, loginscreen:auth_text);
+    case 250 :
+        if_settrans(0, loginscreen:auth_text);
+        if_settext($string0, loginscreen:auth_text);
+        if_setontimer(null, loginscreen:auth_text);
+        return;
+    case default :
+        if ($int0 >= 200) {
+            if_settrans(min(255, calc(if_gettrans(loginscreen:auth_text) + 5)), loginscreen:auth_text);
+        }
+}
+if_setontimer("script15703(calc($int0 + 1), $string0)", loginscreen:auth_text);

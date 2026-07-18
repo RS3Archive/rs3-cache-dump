@@ -1,0 +1,39 @@
+// 2293
+[proc,bank_deposit_op](inv $inv0, int $int1, int $int2)
+def_obj $obj3 = ~bank_get_invobject($inv0, $int2);
+def_int $int4 = ~bank_get_invnum($inv0, $int2);
+if ($obj3 = null | $int4 < 1) {
+    return;
+}
+def_int $int5 = 0;
+if ($int1 = 1) {
+    $int1 = %bank_customop;
+}
+switch_int ($int1) {
+    case 2 :
+        $int5 = 1;
+    case 3 :
+        $int5 = 5;
+    case 4 :
+        $int5 = 10;
+    case 5 :
+        $int5 = %bank_move_x;
+    case 6 :
+        $int5 = ~bank_get_custom_amount;
+    case 7 :
+        $int5 = -1;
+    case 8 :
+        if (~script5730(1, $obj3, $int2) = true & $inv0 = inv) {
+            ~wearobj($obj3, $inv0, $int2, 1);
+        }
+        return;
+    case 9 :
+        if (~script5730(2, $obj3, $int2) = true & $inv0 = inv) {
+            ~wearobj($obj3, $inv0, $int2, 1);
+        }
+        return;
+    case default :
+        return;
+}
+~script14186;
+~bank_deposit_generic($inv0, $obj3, $int5, $int2, 1, 1);

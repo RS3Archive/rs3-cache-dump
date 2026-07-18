@@ -1,0 +1,41 @@
+// 8794
+[proc,script8794](int $int0, int $int1, component $component2, int $int3)
+if ($component2 = null) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($int3 = -1) {
+    $int4 = ~script8407($component2);
+    $int5 = ~script8408($component2);
+    $int6 = if_getwidth($component2);
+    $int7 = if_getheight($component2);
+} else if (cc_find($component2, $int3) = true) {
+    $int4 = ~script6355;
+    $int5 = ~script6356;
+    $int6 = cc_getwidth;
+    $int7 = cc_getheight;
+} else {
+    return;
+}
+if_setsize(calc($int0 + $int6), $int1, ^setsize_abs, ^setsize_abs, toplevel_v2:context_sub_menu_layer);
+if_setsize($int6, $int1, ^setsize_minus, ^setsize_abs, toplevel_v2:context_sub_menu_content_layer);
+if (calc($int4 + $int0 + $int6) <= if_getwidth(toplevel_v2:viewport)) {
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2:context_sub_menu_content_layer);
+    $int8 = $int4;
+} else {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2:context_sub_menu_content_layer);
+    $int8 = calc($int4 - $int0);
+}
+if (calc($int5 + $int1) <= if_getheight(toplevel_v2:viewport)) {
+    $int9 = $int5;
+} else {
+    $int9 = calc($int5 - $int1);
+}
+if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2:context_sub_menu_layer);
+if_sethide(false, toplevel_v2:context_sub_menu_layer);
+if_setonmouseleave("script8795", toplevel_v2:context_sub_menu_layer);

@@ -1,0 +1,25 @@
+// 841
+[proc,script841](int $int0)
+def_int $int1 = 0;
+%catcon_selected_side = $int0;
+if (%catcon_selected ! 10) {
+    if_sethide(true, enum(int, component, catcon_top_piece_component, %catcon_selected));
+    if_sethide(true, enum(int, component, catcon_selected_window_component, %catcon_selected));
+}
+if ($int0 = 0) {
+    if_sethide(false, catcon_repair_puzzle:left_side);
+    if_sethide(true, catcon_repair_puzzle:right_side);
+} else {
+    if_sethide(false, catcon_repair_puzzle:right_side);
+    if_sethide(true, catcon_repair_puzzle:left_side);
+}
+while ($int1 < 10) {
+    if (~script855($int1) = $int0) {
+        if (~script851($int1) ! 7 | ~script852($int1) ! 2) {
+            if_sethide(false, enum(int, component, catcon_piece_component, $int1));
+        }
+    } else {
+        if_sethide(true, enum(int, component, catcon_piece_component, $int1));
+    }
+    $int1 = calc($int1 + 1);
+}

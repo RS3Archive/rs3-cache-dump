@@ -1,0 +1,32 @@
+// 13392
+[proc,minimenu_draw](int $int0, int $int1, int $int2, int $int3)
+if (~script6431 = true) {
+    %minimenu_skin = 1;
+    if (%mobile_zoom ! 0) {
+        %minimenu_skin = 2;
+    }
+}
+def_struct $struct4 = enum(int, struct, minimenu_skin, %minimenu_skin);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_boolean $boolean10 = false;
+$int0, $int1, $int5, $int6, $int7, $int8, $int9, $boolean10 = ~script13393($int0, $int1, $int2, $int3, $struct4);
+if_setsize(calc($int5 + $int8), max($int6, $int9), ^setsize_abs, ^setsize_abs, minimenu:universe_layer);
+if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, minimenu:universe_layer);
+if ((~is_mobile_client = true & $int3 > 3 | ~is_mobile_client = false & $int2 > ~script20844($struct4)) & $boolean10 = false) {
+    ~script13396($int0, $int1, $int5, $int6, $int7, $int3, $struct4);
+} else {
+    if ($int6 ! $int7) {
+        $int5 = calc($int5 - 16);
+    }
+    ~minimenu_draw_single($int0, $int1, $int5, $int6, $int7, $int2, $struct4);
+}
+if (~is_mobile_client = false) {
+    if_setonmouseleave("minimenu_close", minimenu:pc_mouse_leave_layer);
+    if_sethide(false, minimenu:pc_mouse_leave_layer);
+    if_setsize(calc($int5 + $int8 + 2 * 31), calc($int6 + $int9 + 2 * 31), ^setsize_abs, ^setsize_abs, minimenu:pc_mouse_leave_layer);
+    if_setposition(calc($int0 - 31), calc($int1 - 31), ^setpos_abs_left, ^setpos_abs_top, minimenu:pc_mouse_leave_layer);
+}

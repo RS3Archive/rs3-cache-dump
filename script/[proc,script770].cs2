@@ -1,0 +1,109 @@
+// 770
+[proc,script770](boolean $boolean0, int $int1, int $int2)
+def_int $int3 = if_getwidth(tut5_spotlight:content_layer);
+def_int $int4 = if_getheight(tut5_spotlight:content_layer);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_graphic $graphic12 = null;
+if ($boolean0 = false) {
+    if ($int1 < 0) {
+        $int11 = 1;
+    } else if ($int1 > $int3) {
+        $int11 = 2;
+    } else if ($int2 < 0) {
+        $int11 = 3;
+    } else {
+        $int11 = 4;
+    }
+    if (%tut5_offscreen_built ! 0 & $int11 = %tut5_offscreen_built) {
+        return;
+    }
+    cc_deleteall(tut5_spotlight:content_layer);
+    cc_create(tut5_spotlight:content_layer, ^iftype_rectangle, 0);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    cc_settrans(125);
+    cc_create(tut5_spotlight:content_layer, ^iftype_graphic, 1);
+    cc_setgraphic(rs3_info_display_pointer);
+    cc_setsize(41, 54, ^setsize_abs, ^setsize_abs);
+    cc_setontimer("script773(1, 0, tut5_spotlight:content_layer)");
+    switch_int ($int11) {
+        case default :
+            cc_setposition(0, calc($int4 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_set2dangle(49152);
+        case 2 :
+            cc_setposition(calc($int3 - cc_getwidth), calc($int4 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_set2dangle(16384);
+        case 3 :
+            cc_setposition(calc($int3 / 2 - cc_getwidth / 2), 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_set2dangle(32768);
+        case 4 :
+            cc_setposition(calc($int3 / 2 - cc_getwidth / 2), calc($int4 - cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
+            cc_set2dangle(0);
+    }
+    %tut5_offscreen_built = $int11;
+    return;
+}
+cc_deleteall(tut5_spotlight:content_layer);
+%tut5_offscreen_built = 0;
+def_int $int13 = db_getfield(%uitutorial_current_step, uitutorial_step:col26, 0);
+$int5 = scale(calc(%tut5_bound_right - %tut5_bound_left), 100, %tut5_bound_scaler);
+$int6 = scale(calc(%tut5_bound_bottom - %tut5_bound_top), 100, %tut5_bound_scaler);
+if ($int13 = 0) {
+    $int5 = max($int5, $int6);
+    $int6 = max($int5, $int6);
+}
+$graphic12, $int5, $int6 = ~script771($int13, $int5, $int6);
+def_boolean $boolean14 = true;
+if (db_getfield(%uitutorial_current_step, uitutorial_step:col27, 0) = 1) {
+    $boolean14 = false;
+}
+if ($int13 = 0) {
+    $int7 = calc($int1 - $int6 / 2);
+    $int9 = calc($int7 + $int6);
+    $int8 = calc($int2 - scale($int6, 100, %tut5_bound_y_scaler));
+    $int10 = calc($int8 + $int6);
+} else {
+    $int7 = calc($int1 - $int5 / 2);
+    $int9 = calc($int7 + $int5);
+    $int8 = calc($int2 - scale($int6, 100, %tut5_bound_y_scaler));
+    $int10 = calc($int8 + $int6);
+}
+if_sethide(false, tut5_spotlight:centre);
+if_setgraphic($graphic12, tut5_spotlight:centre);
+if_setsize($int5, $int6, ^setsize_abs, ^setsize_abs, tut5_spotlight:centre);
+if_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:centre);
+if_sethide(false, tut5_spotlight:top);
+if_setsize($int5, calc($int4 - ($int4 - $int8)), ^setsize_abs, ^setsize_abs, tut5_spotlight:top);
+if_setposition($int7, 0, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:top);
+if_setfill(true, tut5_spotlight:top_rect);
+if_setcolour(^black, tut5_spotlight:top_rect);
+if_settrans(125, tut5_spotlight:top_rect);
+if_sethide($boolean14, tut5_spotlight:top_noclickthrough);
+if_sethide(false, tut5_spotlight:bottom);
+if_setsize($int5, calc($int4 - $int10), ^setsize_abs, ^setsize_abs, tut5_spotlight:bottom);
+if_setposition($int7, $int10, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:bottom);
+if_setfill(true, tut5_spotlight:bottom_rect);
+if_setcolour(^black, tut5_spotlight:bottom_rect);
+if_settrans(125, tut5_spotlight:bottom_rect);
+if_sethide($boolean14, tut5_spotlight:bottom_noclickthrough);
+if_sethide(false, tut5_spotlight:left);
+if_setsize($int7, $int4, ^setsize_abs, ^setsize_abs, tut5_spotlight:left);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:left);
+if_setfill(true, tut5_spotlight:left_rect);
+if_setcolour(^black, tut5_spotlight:left_rect);
+if_settrans(125, tut5_spotlight:left_rect);
+if_sethide($boolean14, tut5_spotlight:left_noclickthrough);
+if_sethide(false, tut5_spotlight:right);
+if_setsize(calc($int3 - $int9), $int4, ^setsize_abs, ^setsize_abs, tut5_spotlight:right);
+if_setposition($int9, 0, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:right);
+if_setfill(true, tut5_spotlight:right_rect);
+if_setcolour(^black, tut5_spotlight:right_rect);
+if_settrans(125, tut5_spotlight:right_rect);
+if_sethide($boolean14, tut5_spotlight:right_noclickthrough);

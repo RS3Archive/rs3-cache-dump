@@ -1,0 +1,35 @@
+// 12309
+[proc,script12309](component $component0, int $int1, int $int2)(boolean)
+def_boolean $boolean3 = false;
+def_int $int4 = if_getnextsubid($component0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find($component0, $int1) = true & .cc_find($component0, calc(($int1 - 1 + $int4) % $int4)) = true) {
+    $boolean3, $int5 = ~script12283(~script12300(%varclientbit_30618, %varclientbit_30619, %varclientbit_30620));
+    if ($boolean3 = false) {
+        cc_deleteall($component0);
+        return($boolean3);
+    }
+    cc_setparam(rs3tli_component_param_int1, $int5);
+    if ($int2 = 0) {
+        $int6 = .cc_param(rs3tli_component_param_int1);
+        if ($int6 > 0) {
+            if ($int5 <= calc($int6 + ^min_32bit_int)) {
+                $int5 = ^min_32bit_int;
+            } else {
+                $int5 = calc($int5 - $int6);
+            }
+        } else if ($int6 < 0) {
+            if (calc($int6 + ^max_32bit_int) <= $int5) {
+                $int5 = ^max_32bit_int;
+            } else {
+                $int5 = calc($int5 - $int6);
+            }
+        }
+    } else {
+        $int5 = 0;
+    }
+    cc_setparam(rs3tli_component_param_int0, $int5);
+    if_setparam_int(telemetry_graph_component_offset, $int1, $component0);
+}
+return($boolean3);

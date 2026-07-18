@@ -1,0 +1,33 @@
+// 16219
+[proc,script16219](component $component0, component $component1, component $component2, int $int3, int $int4, int $int5, int $int6)
+def_int $int7 = 0;
+def_int $int8 = calc($int3 * $int4);
+def_int $int9 = if_getscrollx($component0);
+if (if_find($component0) = true) {
+    if ($int5 = 0) {
+        $int7 = $int3;
+        if ($int8 = cc_param(rs3tli_component_param_int0)) {
+            return;
+        }
+        cc_setparam(rs3tli_component_param_int0, $int8);
+    } else {
+        $int8 = calc(max(cc_param(rs3tli_component_param_int0), 0) + $int8);
+        if (calc($int9 % $int4) ! 0) {
+            if (calc($int8 % $int4) <= calc($int4 / 2)) {
+                $int8 = calc($int8 - $int8 % $int4);
+            } else {
+                $int8 = calc($int8 + ($int4 - $int8 % $int4));
+            }
+        }
+        $int8 = min(calc(if_getscrollwidth($component0) - if_getwidth($component0)), $int8);
+        $int8 = max($int8, 0);
+        if ($int8 = cc_param(rs3tli_component_param_int0)) {
+            return;
+        }
+        $int7 = calc($int8 / $int4);
+        cc_setparam(rs3tli_component_param_int0, $int8);
+    }
+} else {
+    return;
+}
+if_setontimer("script16221($component0, $component2, $int8, $int4, $int6)", $component0);

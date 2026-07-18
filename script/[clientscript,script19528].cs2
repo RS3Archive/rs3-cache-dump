@@ -1,0 +1,61 @@
+// 19528
+[clientscript,script19528]
+%group_ironman_storage_init_cycle = clientclock;
+%group_ironman_storage_rebuild_delay = 0;
+if (%bank_customop = 0) {
+    %bank_customop = 2;
+}
+def_int $int0 = 0;
+def_int $int1 = 40;
+def_int $int2 = 36;
+def_int $int3 = 36;
+def_int $int4 = 32;
+def_int $int5 = 10;
+def_int $int6 = 10;
+def_int $int7 = 18266;
+def_int $int8 = 0;
+if (~script6431 = true) {
+    $int1 = 44;
+    $int2 = 44;
+    $int3 = 44;
+    $int4 = 39;
+    $int5 = 20;
+    $int6 = 5;
+}
+while ($int0 < 200) {
+    cc_create(group_ironman_storage:clan_inv, ^iftype_graphic, $int0);
+    cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
+    cc_setoutline(1);
+    cc_setonop("script19529(event_op, event_comsubid, event_com)");
+    cc_setdraggable(group_ironman_storage:all, -1);
+    cc_setdragdeadzone($int5);
+    cc_setdragdeadtime($int6);
+    cc_setondrag("script19541(event_com, event_comsubid, event_mousey)");
+    cc_setondragcomplete("script19480(event_comsubid, event_com2, event_comsubid2)");
+    cc_setonmouseover("script19549(event_com, event_comsubid, 1)");
+    cc_setonmouseleave("script19498(event_com, event_comsubid)");
+    cc_setonmouserepeat("script19499(event_com, event_comsubid)");
+    cc_sethide(true);
+    .cc_create(group_ironman_storage:clan_inv_insert, ^iftype_graphic, $int0);
+    .cc_setcolour(^cyan);
+    .cc_setonmouseover("script19548(event_comsubid, 1)");
+    .cc_setonmouseleave("script19548(event_comsubid, 0)");
+    .cc_setsize(8, $int4, ^setsize_abs, ^setsize_abs);
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+while ($int0 <= 20) {
+    ~script19530($int0);
+    $int0 = calc($int0 + 1);
+}
+~script19507;
+~script19558;
+~rs3_scrollbar_vertical(group_ironman_storage:scrollbar, group_ironman_storage:clan_items_container);
+~script19538;
+~script8841(101, 1);
+~script9236(group_ironman_storage:inventory_slots, group_ironman_storage:inventory_click, group_ironman_storage:inventory_scrollbar, group_ironman_storage_player_inv_temp, false, -1, -1, 1, "Deposit");
+if (inv_getobj(group_ironman_storage_clan_temp, 0) ! null) {
+    %group_ironman_storage_init_rebuild_ran = 1;
+    ~script19512(0);
+}
+~script9554(group_ironman_storage:background_layer, group_ironman_storage:border_layer, null, "<%group_ironman_cache_clan_name_client> Storage", toplevel_v2_bank_modal_dialogue_skin_data);

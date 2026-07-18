@@ -1,0 +1,19 @@
+// 6166
+[proc,script6166]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(rcsiphonxp_item_iterator);
+if_sethide(false, rcsiphonxp_shop:items_buy_op_layer);
+while ($int0 < enum_getoutputcount(rcsiphonxp_item_iterator)) {
+    cc_create(rcsiphonxp_shop:items_buy_op_layer, ^iftype_graphic, $int0);
+    $int0 = calc($int0 + 1);
+}
+$int1 = ~script6173($int1, rcsiphonxp_shop:items_buy_op_layer);
+$int0 = 0;
+while ($int0 < calc(enum_getoutputcount(rcsiphonxp_item_iterator) / 2)) {
+    if (cc_find(rcsiphonxp_shop:items_buy_op_layer, $int0) = true) {
+        cc_sendtofront;
+        $int1 = ~script6172($int0, $int1);
+    }
+    $int0 = calc($int0 + 1);
+}
+if_setontimer("script6167(0, $int1)", rcsiphonxp_shop:items_buy_op_layer);

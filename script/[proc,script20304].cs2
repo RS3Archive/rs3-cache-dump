@@ -1,0 +1,58 @@
+// 20304
+[proc,script20304]
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
+if (~script20132($dbrow0) = false) {
+    return;
+}
+if (%league_task_child_last_w = if_getwidth(league_child_tasks:main) & %league_task_child_last_h = if_getheight(league_child_tasks:main)) {
+    return;
+}
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col11, 0);
+def_dbrow $dbrow2 = db_getfield($dbrow1, league_task_settings:col6, 1);
+def_int $int3 = 0;
+def_dbfilter $dbfilter4 = ~script20168(db_getfield($dbrow0, league:col20, 0));
+def_achievement $achievement5 = null;
+def_string $string0 = "";
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+unknown_command_77($dbfilter4, league_task:col6, true);
+def_dbrow $dbrow11 = db_findnext;
+def_int $int12 = 0;
+def_fontmetrics $fontmetrics13 = ~script20491(text_body_default);
+while ($dbrow11 ! null) {
+    $int9 = db_getfield($dbrow11, league_task:col0, 0);
+    $achievement5 = db_getfield($dbrow11, league_task:col2, 0);
+    $int6 = db_getfield($dbrow11, league_task:col5, 0);
+    $string0 = ~script20131($dbrow11, $achievement5);
+    $int3 = calc(200 + db_getfield($dbrow2, league_task_order:col1:0, $int6));
+    if (.cc_findbycategory(league_child_tasks:task_panel, $int3, 0) = 1 & cc_find(league_child_tasks:task_panel, $int9) = true) {
+        if (if_exists(~script20173(calc(3000 * 5 + $int9)), league_child_tasks:task_panel) = 1) {
+            $int12 = calc(38 + 32);
+        } else {
+            $int12 = 38;
+        }
+        $int7 = cc_getheight;
+        $int8 = max(40, calc(~script15891($string0, calc(cc_getwidth - $int12), $fontmetrics13, 0) + 4));
+        if ($int8 ! $int7) {
+            cc_setsize(6, $int8, ^setsize_minus, ^setsize_abs);
+            if ($int8 > $int7) {
+                $int10 = calc(.cc_param(league_task_cat_full_height) + ($int8 - $int7));
+            } else {
+                $int10 = calc(.cc_param(league_task_cat_full_height) - ($int7 - $int8));
+            }
+            if (~script20171(1, calc(200 - $int3)) = 0) {
+                .cc_setsize(0, $int10, ^setsize_minus, ^setsize_abs);
+            }
+            .cc_setparam(league_task_cat_full_height, $int10);
+        }
+    }
+    $dbrow11 = db_findnext;
+}
+~script20309(league_child_tasks:task_panel, league_child_tasks:task_scrolling, league_child_tasks:task_scrollbar);
+%league_task_child_last_w = if_getwidth(league_child_tasks:main);
+%league_task_child_last_h = if_getheight(league_child_tasks:main);
+~child_buttons_resize(league_child_tasks:button_layer, 100);
+~script20316;

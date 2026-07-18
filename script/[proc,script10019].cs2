@@ -1,0 +1,40 @@
+// 10019
+[proc,script10019](component $component0, int $int1)
+if ($component0 = null | $int1 = -1) {
+    return;
+}
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 5;
+def_int $int7 = -1;
+def_int $int8 = -1;
+if (cc_find($component0, $int1) = true) {
+    $int7 = cc_param(rs3tli_component_quarter);
+    if ($int7 ! -1) {
+        $int8 = calc((100 + clientclock - $int7 * 25) % 100);
+        if (calc($int8 / 25) = 0) {
+            cc_sendtofront;
+        } else if (calc($int8 / 25) = 1) {
+            $int8 = 25;
+        } else {
+            $int8 = 0;
+        }
+        cc_settrans(scale(calc(100 - scale($int8, 25, 100)), 100, 255));
+    } else if (cc_param(rs3tli_component_sin_trans) = 1) {
+        cc_settrans(scale(calc(enum(int, int, sin_deg2percentage_enum, calc(scale(calc(clientclock % 100), 100, 360) % 360)) + 100), 200, 255));
+    } else if (cc_param(rs3tli_component_anchor_subid) > -1) {
+        if (.cc_find($component0, cc_param(rs3tli_component_anchor_subid)) = true) {
+            cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        }
+    } else {
+        $int2 = cc_param(rs3tli_component_anchor_pos_x);
+        $int3 = cc_param(rs3tli_component_anchor_pos_y);
+        if ($int2 = ^min_32bit_int | $int3 = ^min_32bit_int) {
+            return;
+        }
+        $int5 = scale(enum(int, int, sin_deg2percentage_enum, calc(scale(calc(clientclock * 2 % 100), 100, 360) % 360)), 100, $int6);
+        cc_setposition(calc($int2 + $int4 - cc_getwidth / 2), calc($int3 + $int5 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

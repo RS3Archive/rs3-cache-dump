@@ -1,0 +1,40 @@
+// 3298
+[proc,script3298](stat $stat0, component $component1, component $component2, component $component3)
+def_int $int4 = enum(stat, int, stat_to_int, $stat0);
+def_string $string0 = enum(stat, string, stat_to_string, $stat0);
+def_boolean $boolean5 = ~xp_reward_checkskill($stat0, %xp_reward_minlevel, %xp_reward_item, 0);
+def_enum $enum6 = stat2icon_small_off;
+if ($boolean5 = true) {
+    $enum6 = stat2icon_small;
+}
+cc_deleteall($component1);
+def_struct $struct7 = rs3_icon_holder;
+def_struct $struct8 = rs3_icon_holder_selected;
+def_struct $struct9 = rs3_icon_holder_over;
+if ($int4 = %lucky_strike_skill_selected) {
+    ~rs3_background_panel($component2, $struct8);
+    if_setonmouseover(null, $component2);
+    if_setonmouseleave(null, $component2);
+} else {
+    ~rs3_background_panel($component2, $struct7);
+    if ($boolean5 = true) {
+        if_setonmouseover("rs3_background_panel(event_com, $struct9)", $component2);
+        if_setonmouseleave("rs3_background_panel(event_com, $struct7)", $component2);
+    } else {
+        if_setonmouseover(null, $component2);
+        if_setonmouseleave(null, $component2);
+    }
+}
+def_int $int10 = 0;
+cc_create($component1, ^iftype_graphic, $int10);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(enum(int, graphic, $enum6, $int4));
+if ($boolean5 = false) {
+    $string0 = "<$string0> - Unavailable";
+    cc_settrans(150);
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component1);
+if_setop(1, "Choose", $component1);
+if_setopbase(enum(stat, string, stat_to_string, $stat0), $component1);
+if_setonop("script3737($stat0, $int4, $component1, $component3)", $component1);

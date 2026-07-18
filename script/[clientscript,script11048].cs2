@@ -1,0 +1,20 @@
+// 11048
+[clientscript,script11048]
+def_int $int0 = if_getheight(trh55_world_event:astromancer_progress_bar);
+def_int $int1 = calc(if_getheight(trh55_world_event:astromancer_progress_bar_layer) * 1000 / 5000);
+def_int $int2 = calc($int1 * %trh55_astromancer_currency / 1000);
+def_int $int3 = 0;
+if ($int0 < $int2) {
+    $int3 = min(calc($int0 + 1), $int2);
+} else if ($int0 = $int2) {
+    if_setontimer(null, trh55_world_event:astromancer_progress_bar_layer);
+    return;
+}
+if ($int3 ! 0) {
+    if_setsize(0, $int3, ^setsize_minus, ^setsize_abs, trh55_world_event:astromancer_progress_bar);
+} else {
+    if_setsize(0, 1, ^setsize_minus, ^setsize_abs, trh55_world_event:astromancer_progress_bar);
+    if_setontimer(null, trh55_world_event:astromancer_progress_bar_layer);
+    return;
+}
+~script11564;

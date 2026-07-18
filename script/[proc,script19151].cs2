@@ -1,0 +1,21 @@
+// 19151
+[proc,script19151](dbrow $dbrow0)(npc, seq)
+def_npc $npc1 = null;
+def_seq $seq2 = null;
+switch_dbtable (db_getrowtable($dbrow0)) {
+    case trh182_monsters :
+        $npc1, $seq2 = db_getfield($dbrow0, trh182_monsters:col1, 0);
+    case trh203_nodes :
+        $npc1 = db_getfield($dbrow0, trh203_nodes:col2, 0);
+        if (db_getfieldcount($dbrow0, trh203_nodes:col3) > 0) {
+            $seq2 = db_getfield($dbrow0, trh203_nodes:col3, 0);
+        }
+    case trh207_nodes :
+        $npc1 = db_getfield($dbrow0, trh207_nodes:col2, 0);
+        if (db_getfieldcount($dbrow0, trh207_nodes:col3) > 0) {
+            $seq2 = db_getfield($dbrow0, trh207_nodes:col3, 0);
+        }
+    case default :
+        ~error("Missed plugin point for DBTable.");
+}
+return($npc1, $seq2);

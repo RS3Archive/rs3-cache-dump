@@ -1,0 +1,23 @@
+// 3519
+[clientscript,script3519](dbrow $dbrow0, component $component1, int $int2)
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_obj $obj5 = null;
+def_string $string0 = "";
+if (cc_find($component1, $int2) = true) {
+    $int3 = cc_getinvcount;
+    $int4 = ~currency_pouch_total($dbrow0);
+    if ($dbrow0 = currency_livid_points) {
+        $int4 = calc($int4 * 10);
+    }
+    if ($int3 ! $int4) {
+        cc_setobject(db_getfield($dbrow0, currency_table:col4, 0), $int4);
+    }
+    $obj5 = db_getfield($dbrow0, currency_table:col4, 0);
+    if (string_length(db_getfield($dbrow0, currency_table:col5, 0)) ! 0) {
+        $string0 = db_getfield($dbrow0, currency_table:col5, 0);
+    } else if ($obj5 ! null) {
+        $string0 = oc_name($obj5);
+    }
+    ~script3537($string0);
+}

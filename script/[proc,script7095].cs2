@@ -1,0 +1,56 @@
+// 7095
+[proc,script7095]
+if (%makex2012_item_in_production = null | %makex2012_item_in_production = mcannonremains) {
+    return;
+}
+if (%makex2012_total_remaining < 0) {
+    ~script7098;
+    return;
+}
+if (%makex2012_total_to_make = 0) {
+    ~script7098;
+    return;
+}
+def_vorbis $vorbis0 = null;
+if (%makex2012_total_remaining > -1) {
+    switch_int (random(4)) {
+        case 0 :
+            $vorbis0 = makex_ui_item_produced_01;
+        case 1 :
+            $vorbis0 = makex_ui_item_produced_02;
+        case 2 :
+            $vorbis0 = makex_ui_item_produced_03;
+        case 3 :
+            $vorbis0 = makex_ui_item_produced_04;
+    }
+}
+sound_vorbis_rate($vorbis0, 1, 0, 30, random_sound_pitch(5, 10));
+def_string $string0 = "";
+~aif_progressbar_set(calc((%makex2012_total_to_make - %makex2012_total_remaining) * 100 / %makex2012_total_to_make), makex2012_progress_dialogue:progress_bar_value_layer, null);
+$string0 = "<tostring(calc(%makex2012_total_to_make - %makex2012_total_remaining))>/<tostring(%makex2012_total_to_make)>";
+~script4212(makex2012_progress_dialogue:progress_bar_text, $string0, museo_sans_11pt_regular, ^white, 0);
+if (oc_category(%makex2012_item_in_production) ! construction_house_furniture) {
+    switch_struct (oc_param(%makex2012_item_in_production, recipe_ingredient_2_multiple)) {
+        case nails_ingredient_multi_1, nails_ingredient_multi_2, nails_ingredient_multi_3, nails_ingredient_multi_4, nails_ingredient_multi_5, nails_ingredient_multi_6, nails_ingredient_multi_8 :
+            if_settext("-", makex2012_progress_dialogue:time_text);
+            if_setontimer(null, makex2012_progress_dialogue:production_dialog_control);
+            if_setontimer(null, makex2012_progress_dialogue:cancel_layer);
+            return;
+    }
+}
+def_int $int1 = calc((%makex2012_production_initial_delay + %makex2012_production_cycles_per_item) * 30 * %makex2012_total_remaining);
+def_int $int2 = calc($int1 % 50);
+if ($int2 = 0) {
+    $int2 = 50;
+}
+$int1 = calc($int1 / 50);
+if (%makex2012_total_remaining > 0) {
+    $string0 = "<tostring(max(1, $int1))>s";
+} else {
+    ~script7098;
+    return;
+}
+if_settext($string0, makex2012_progress_dialogue:time_text);
+if_setontimer("script7099(makex2012_progress_dialogue:time_text, calc($int1 - 1), calc(clientclock + $int2))", makex2012_progress_dialogue:production_dialog_control);
+def_int $int3 = calc(clientclock + (%makex2012_production_initial_delay + %makex2012_production_cycles_per_item) * 30 * 2);
+if_setontimer("script7097($int3)", makex2012_progress_dialogue:cancel_layer);

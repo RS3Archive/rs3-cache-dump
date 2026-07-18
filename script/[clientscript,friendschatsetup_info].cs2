@@ -1,0 +1,40 @@
+// 11952
+[clientscript,friendschatsetup_info](int $int0, int $int1)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int2 = 0;
+$string0, $string1 = friend_getname($int0);
+if (compare($string1, "") ! 0) {
+    $int2 = 1;
+}
+if (cc_find(friendschatsetup:icon, $int0) = true) {
+    if ($int2 = 0) {
+        cc_sethide(true);
+    } else {
+        cc_setgraphic(friends_changed_name);
+        cc_setonmouserepeat("script8799($string2, event_com, event_comsubid)");
+    }
+}
+if (cc_find(friendschatsetup:name, $int0) = true) {
+    cc_settext($string0);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    ~script11024(3);
+    cc_setonmouserepeat("script8799($string2, event_com, event_comsubid)");
+}
+if (cc_find(friendschatsetup:rank, $int0) = true) {
+    cc_settext(enum(int, string, friendschat_rankenum, $int1));
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    ~script11024(3);
+    cc_setop(1, enum(int, string, friendschat_rankenum, 0));
+    cc_setop(2, enum(int, string, friendschat_rankenum, 1));
+    cc_setop(3, enum(int, string, friendschat_rankenum, 2));
+    cc_setop(4, enum(int, string, friendschat_rankenum, 3));
+    cc_setop(5, enum(int, string, friendschat_rankenum, 4));
+    cc_setop(6, enum(int, string, friendschat_rankenum, 5));
+    cc_setop(7, enum(int, string, friendschat_rankenum, 6));
+    cc_setonop("friendschat_setrank($int0, event_op)");
+    cc_setontimer(null);
+}

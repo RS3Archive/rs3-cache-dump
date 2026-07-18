@@ -1,0 +1,41 @@
+// 12697
+[clientscript,script12697]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+while ($int0 < 5) {
+    if (testbit(%lampforge_selected, $int0) = ^true) {
+        $int1 = calc($int1 + 1);
+    }
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+while ($int0 < 5) {
+    if_sethide(~int_to_bool(calc(1 - testbit(%lampforge_selected, $int0))), enum(int, component, lampforge_highlight_com, $int0));
+    if (testbit(%lampforge_selected, $int0) = ^false) {
+        if ($int1 = 3) {
+            if_sethide(false, enum(int, component, lampforge_disabled_com, $int0));
+        } else {
+            if_sethide(true, enum(int, component, lampforge_disabled_com, $int0));
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+if_settext("+<tostring(calc(~script12690 - 100))>%", lampforge:boost_text);
+if (%lampforge_claimed = 1) {
+    if_sethide(false, lampforge:disable_slots_layer);
+    if_sethide(false, lampforge:forge_button_disabled_layer);
+    if_settext("Caught!", lampforge:forge_button_text);
+} else {
+    if_sethide(true, lampforge:disable_slots_layer);
+    if_sethide(true, lampforge:forge_button_disabled_layer);
+    if_settext("Catch!", lampforge:forge_button_text);
+}
+if (playermember = false) {
+    if_sethide(false, lampforge:forge_button_disabled_layer);
+    if_sethide(false, lampforge:slot_disabled_layer_1);
+    if_sethide(false, lampforge:slot_disabled_layer_2);
+    if_sethide(false, lampforge:slot_disabled_layer_3);
+    if_sethide(false, lampforge:slot_disabled_layer_4);
+    if_sethide(false, lampforge:slot_disabled_layer_5);
+}

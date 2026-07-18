@@ -1,0 +1,105 @@
+// 9673
+[proc,script9673](component $component0, int $int1, obj $obj2, int $int3, int $int4, string $string0, int $int5, int $int6)
+if ($obj2 = null) {
+    return;
+}
+def_component $component7 = wheel_of_fortune:ticker_tooltip_layer;
+def_component $component8 = wheel_of_fortune:ticker_tooltip_extra_layer;
+if_sethide(false, $component7);
+if_setobject($obj2, $int3, wheel_of_fortune:ticker_tooltip_object);
+if_settext(oc_name($obj2), wheel_of_fortune:ticker_tooltip_name);
+if_settext($string0, wheel_of_fortune:ticker_tooltip_description);
+def_int $int9 = calc(paraheight($string0, if_getwidth(wheel_of_fortune:ticker_tooltip_description), museo_sans_11pt_regular) * ~script11432(museo_sans_11pt_regular));
+if ($int9 > 56) {
+    if_setsize(if_getwidth(wheel_of_fortune:ticker_tooltip_layer), calc(220 + ($int9 - 56)), ^setsize_abs, ^setsize_abs, wheel_of_fortune:ticker_tooltip_layer);
+} else {
+    if_setsize(if_getwidth(wheel_of_fortune:ticker_tooltip_layer), 220, ^setsize_abs, ^setsize_abs, wheel_of_fortune:ticker_tooltip_layer);
+}
+switch_int ($int4) {
+    case 1 :
+        if_settext("Common", wheel_of_fortune:ticker_tooltip_rarity);
+    case 2 :
+        if_settext("Fairly Common", wheel_of_fortune:ticker_tooltip_rarity);
+    case 3 :
+        if_settext("Uncommon", wheel_of_fortune:ticker_tooltip_rarity);
+    case 4 :
+        if_settext("Rare", wheel_of_fortune:ticker_tooltip_rarity);
+    case 5 :
+        if_settext("Very Rare", wheel_of_fortune:ticker_tooltip_rarity);
+    case 6 :
+        if_settext("Super Rare", wheel_of_fortune:ticker_tooltip_rarity);
+    case 7 :
+        if_settext("Ultra Rare", wheel_of_fortune:ticker_tooltip_rarity);
+}
+if ($int5 = 8 | $int5 = 10) {
+    if_setgraphic(~script8948($int4), wheel_of_fortune:ticker_tooltip_rarity_graphic);
+} else {
+    if_setgraphic(~script8948($int4), wheel_of_fortune:ticker_tooltip_rarity_graphic);
+}
+if_settext(enum(int, string, trh_category_name, $int5), wheel_of_fortune:ticker_tooltip_category);
+if_setgraphic(enum(int, graphic, trh_category_icon, $int5), wheel_of_fortune:ticker_tooltip_category_graphic);
+if_setsize(1, 1, ^setsize_abs, ^setsize_abs, $component8);
+if (~script5828("", $obj2, null, optext_format_leftalign, $component8, wheel_of_fortune:ticker_tooltip_optext_layer, null, null) > 0) {
+    if_sethide(false, $component8);
+    if_sethide(false, wheel_of_fortune:ticker_tooltip_optext_layer);
+    if_sethide(false, wheel_of_fortune:ticker_tooltip_extra_title);
+    if_setsize(calc(if_getwidth($component8) + 16), calc(25 + if_getheight($component8)), ^setsize_abs, ^setsize_abs, $component8);
+    if_setposition(calc(16 / 2), calc(16 / 2 + 25), ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:ticker_tooltip_optext_layer);
+} else {
+    if_sethide(true, wheel_of_fortune:ticker_tooltip_extra_layer);
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_component $component14 = if_getlayer($component7);
+if ($component14 ! null) {
+    $int10 = ~script3365($component14);
+    $int12 = ~script3366($component14);
+    $int11 = calc($int10 + if_getwidth($component14));
+    $int13 = calc($int12 + if_getheight($component14));
+} else if ($component14 ! null) {
+    $int11, $int13 = if_getwidth($component14), if_getheight($component14);
+} else {
+    $int11, $int13 = 765, 503;
+}
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = if_getheight($component7);
+def_int $int23 = if_getwidth($component7);
+if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
+    $int15, $int16, $int17, $int18 = ~script1743, ~script1744, cc_getwidth, cc_getheight;
+    $int19 = calc($int15 + $int17 / 2 - $int23 / 2);
+    $int20 = calc($int16 - $int22 + 10);
+    if ($int19 < $int10) {
+        $int21 = calc($int19 - $int10);
+        $int19 = calc($int19 - $int21);
+        $int21 = max($int21, calc(0 - ($int23 - 35) / 2));
+    } else if (calc($int19 + $int23) > $int11) {
+        $int21 = calc($int19 + $int23 - $int11);
+        $int19 = calc($int19 - $int21);
+        $int21 = min($int21, calc(($int23 - 35) / 2));
+    }
+    $int21 = calc($int21 + $int23 / 2 - 9);
+    if_setposition($int21, 0, ^setpos_abs_left, ^setpos_abs_bottom, wheel_of_fortune:ticker_tooltip_arrow);
+    if_setsize(calc($int21 - 17), 18, ^setsize_abs, ^setsize_abs, wheel_of_fortune:ticker_tooltip_border_sw);
+    if_setsize(calc($int23 - $int21 - 34), 18, ^setsize_abs, ^setsize_abs, wheel_of_fortune:ticker_tooltip_border_se);
+} else {
+    if_sethide(true, $component7);
+}
+def_int $int24 = if_getwidth(if_getparentlayer($component7));
+def_int $int25 = calc($int19 - $int10);
+def_int $int26 = calc($int20 - $int12);
+$int25 = min(max(0, $int25), calc($int24 - $int23));
+$int26 = min(max(0, $int26), calc(if_getheight(if_getparentlayer($component7)) - $int22));
+if_setposition($int25, $int26, ^setpos_abs_left, ^setpos_abs_top, $component7);
+def_int $int27 = calc($int25 + $int23 - 3);
+if ($int27 > calc($int24 - if_getwidth($component8))) {
+    $int27 = calc($int25 - if_getwidth($component8) + 3);
+}
+if_setposition($int27, calc($int26 + 40), ^setpos_abs_left, ^setpos_abs_top, $component8);

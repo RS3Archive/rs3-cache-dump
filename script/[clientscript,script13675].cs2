@@ -1,0 +1,43 @@
+// 13675
+[clientscript,script13675](component $component0)
+if (%invent_machine_id = 0) {
+    return;
+}
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = ~script13641(%invent_hotspot_id);
+db_find(invent_machine_table:col0, %invent_machine_id);
+def_dbrow $dbrow3 = db_findnext;
+def_int $int4 = db_getfield($dbrow3, invent_machine_table:col11, 0);
+def_obj $obj5 = null;
+def_obj $obj6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+switch_int (%invent_machine_hotspot_guild_generator_built) {
+    case 1 :
+        $int9 = 175000;
+    case 2 :
+        $int9 = 350000;
+    case 3 :
+        $int9 = 500000;
+}
+if (db_getfieldcount($dbrow3, invent_machine_table:col19) > 0) {
+    $obj5, $int7 = db_getfield($dbrow3, invent_machine_table:col19, 0);
+    if (db_getfieldcount($dbrow3, invent_machine_table:col19) > 1) {
+        $obj6, $int8 = db_getfield($dbrow3, invent_machine_table:col19, 1);
+    }
+}
+if ($component0 = invent_machine_management:input_secondary_1_bar) {
+    $string0 = "<tostring_localised($int1, true)>/<tostring_localised(calc($int4 * $int7), true)> <oc_name($obj5)><br>The indicator shows how many secondaries you need to fully process your input.";
+} else if ($component0 = invent_machine_management:input_secondary_2_bar) {
+    $string0 = "<tostring_localised($int2, true)>/<tostring_localised(calc($int4 * $int8), true)> <oc_name($obj6)><br>The indicator shows how many secondaries you need to fully process your input.";
+} else if ($component0 = invent_machine_management:input_generator_charge_bar) {
+    if ($int9 = 0) {
+        $string0 = "You don't have a generator built. You must build a generator and add divine charge to it before this machine will function.";
+    } else {
+        $string0 = "The amount of charge in your generator.<br><tostring_localised(%invent_machine_charge_stored, true)>/<tostring_localised($int9, true)>";
+    }
+}
+~script13651($string0, $component0, -1, ^settextalign_centre, ^settextalign_top, calc(enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular_multiline) + 2));

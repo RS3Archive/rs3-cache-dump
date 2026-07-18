@@ -1,0 +1,29 @@
+// 19117
+[proc,script19117](dbrow $dbrow0)(bas)
+def_obj $obj1 = null;
+def_obj $obj2 = null;
+def_int $int3 = -1;
+def_dbrow $dbrow4 = null;
+if ($dbrow0 ! null) {
+    switch_int (db_getfield($dbrow0, mtxmgt_cosmetic:col6, 0)) {
+        case 5 :
+            $obj1 = db_getfield($dbrow0, mtxmgt_cosmetic:col4, 0);
+        case 3 :
+            $obj2 = db_getfield($dbrow0, mtxmgt_cosmetic:col4, 0);
+        case 20 :
+            if (db_getfieldcount($dbrow0, mtxmgt_cosmetic:col13) > 0) {
+                $int3 = db_getfield($dbrow0, mtxmgt_cosmetic:col13, 0);
+                unknown_command_77(db_filter_combine(db_filter_value(mtxmgt_cosmetic:col13, $int3, ^filterop_eq, 0), db_filter_value(mtxmgt_cosmetic:col6, 5, ^filterop_eq, 0)), mtxmgt_cosmetic:col0, true);
+                $dbrow4 = db_findnext;
+                if ($dbrow4 ! null) {
+                    $obj1 = db_getfield($dbrow4, mtxmgt_cosmetic:col4, 0);
+                }
+                unknown_command_77(db_filter_combine(db_filter_value(mtxmgt_cosmetic:col13, $int3, ^filterop_eq, 0), db_filter_value(mtxmgt_cosmetic:col6, 3, ^filterop_eq, 0)), mtxmgt_cosmetic:col0, true);
+                $dbrow4 = db_findnext;
+                if ($dbrow4 ! null) {
+                    $obj2 = db_getfield($dbrow4, mtxmgt_cosmetic:col4, 0);
+                }
+            }
+    }
+}
+return(~script17267($obj1, $obj2));

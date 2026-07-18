@@ -1,0 +1,39 @@
+// 20834
+[clientscript,script20834](component $component0, component $component1, component $component2, dbrow $dbrow3, int $int4)
+def_obj $obj5 = db_getfield($dbrow3, construction_house_furniture:col4, 0);
+def_obj $obj6 = oc_cert($obj5);
+def_int $int7 = inv_total(inv, $obj5);
+if ($obj6 ! $obj5) {
+    $int7 = calc($int7 + inv_total(inv, $obj6));
+}
+def_int $int8 = inv_total(house_furniture_trunk, $obj5);
+def_string $string0 = "Withdraw";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "Examine";
+if ($int8 > 1) {
+    $string0 = "Withdraw-1";
+    $string1 = "Withdraw-5";
+    $string3 = "Withdraw-All";
+    $string4 = "Withdraw-X";
+    if ($int8 > 5) {
+        $string2 = "Withdraw-10";
+    }
+}
+if (cc_find($component0, $int4) = true & .cc_find($component1, $int4) = true) {
+    ~script10641($string0, $string1, $string2, $string3, $string4, "", "", "", "", $string5);
+    if ($int7 > 0) {
+        ~cc_set_stylesheet(button_makex_available);
+        ~script7872(true, true, true, true);
+        .cc_settrans(0);
+    } else {
+        ~cc_set_stylesheet(button_makex_available);
+        ~script7872(true, true, false, false);
+        .cc_settrans(0);
+    }
+    if ($int8 > 1 & .cc_find($component2, $int4) = true) {
+        .cc_settext(~script17372(int_to_long($int8), 3, 1));
+    }
+}

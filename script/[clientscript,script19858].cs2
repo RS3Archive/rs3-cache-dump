@@ -1,0 +1,24 @@
+// 19858
+[clientscript,script19858](achievement $achievement0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int8, $int9 = ~script19851($achievement0);
+if_setgraphic(achievement_sprite($achievement0), $component1);
+def_string $string0 = "<enum(achievement, string, combat_mastery_task_set_names, $achievement0)> (+<tostring(enum(achievement, int, combat_mastery_task_set_combatscore, $achievement0))> CombatScore)";
+if_settext($string0, $component2);
+if_settext("<tostring_localised($int8, true)>/<tostring_localised($int9, true)>", $component3);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component5);
+if_setsize(scale($int8, $int9, if_getwidth($component5)), 0, ^setsize_abs, ^setsize_minus, $component5);
+if_setopbase("<col=B8D1D1><achievement_getname($achievement0)></col>", $component4);
+if_setopcursor(1, cursor_goto, $component4);
+if ($int8 = $int9) {
+    ~rs3_background_panel($component6, rs3_icon_holder_selected);
+} else {
+    ~rs3_background_panel($component6, rs3_icon_holder);
+}
+def_obj $obj10 = ~script19830($achievement0);
+if_setobject_nonum($obj10, 1, $component7);
+if_setopbase("<col=B8D1D1><achievement_getname($achievement0)></col>", $component7);
+if_setopcursor(1, cursor_info, $component7);
+if_setonop("script19859($achievement0)", $component7);
+if_setonmouserepeat("script9564($obj10, event_com, -1)", $component7);

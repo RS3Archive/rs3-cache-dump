@@ -1,0 +1,91 @@
+// 7123
+[proc,script7123]
+if (%makex2012_active_recipe = null | %makex2012_active_recipe = mcannonremains) {
+    return;
+}
+def_obj $obj0 = %makex2012_active_recipe;
+if ($obj0 = null) {
+    if_sethide(true, makex2012:info_overview);
+    if_sethide(true, makex2012:info_listing);
+    if_sethide(true, makex2012:info_scrollbar);
+    return;
+} else {
+    if_sethide(false, makex2012:info_overview);
+    if_sethide(false, makex2012:info_listing);
+    if_sethide(false, makex2012:info_scrollbar);
+}
+def_obj $obj1 = oc_param($obj0, recipe_non_dummy_obj);
+if ($obj1 = null) {
+    $obj1 = $obj0;
+}
+def_int $int2 = oc_param($obj0, recipe_improvement_level);
+if ($int2 > -1) {
+    if_sethide(false, makex2012:info_upgrade_0);
+    if_sethide(false, makex2012:info_upgrade_1);
+    if_sethide(false, makex2012:info_upgrade_2);
+    switch_int ($int2) {
+        case 0 :
+            if_setgraphic("stat_star,0", makex2012:info_upgrade_0);
+            if_setgraphic("stat_star,1", makex2012:info_upgrade_1);
+            if_setgraphic("stat_star,1", makex2012:info_upgrade_2);
+        case 1 :
+            if_setgraphic("stat_star,0", makex2012:info_upgrade_0);
+            if_setgraphic("stat_star,0", makex2012:info_upgrade_1);
+            if_setgraphic("stat_star,1", makex2012:info_upgrade_2);
+        case 2 :
+            if_setgraphic("stat_star,0", makex2012:info_upgrade_0);
+            if_setgraphic("stat_star,0", makex2012:info_upgrade_1);
+            if_setgraphic("stat_star,0", makex2012:info_upgrade_2);
+    }
+} else {
+    if_sethide(true, makex2012:info_upgrade_0);
+    if_sethide(true, makex2012:info_upgrade_1);
+    if_sethide(true, makex2012:info_upgrade_2);
+}
+if (oc_param($obj0, recipe_graphic) ! null) {
+    if_setgraphic(oc_param($obj0, recipe_graphic), makex2012:info_icon);
+    if_setsize(32, 32, ^setsize_abs, ^setsize_abs, makex2012:info_icon);
+} else {
+    if (oc_param($obj0, recipe_make_stack_size) > 1) {
+        if_setobject($obj1, ~script18374($obj0), makex2012:info_icon);
+    } else if (oc_param($obj0, recipe_batch_size) > 1) {
+        if_setobject($obj1, oc_param($obj0, recipe_batch_size), makex2012:info_icon);
+    } else {
+        if_setobject_nonum($obj1, -1, makex2012:info_icon);
+    }
+    if_setsize(36, 32, ^setsize_abs, ^setsize_abs, makex2012:info_icon);
+}
+if (string_length(oc_param($obj0, recipe_name_override)) > 0 & oc_param($obj0, recipe_non_dummy_obj) ! null) {
+    if_setonmouserepeat("script3584(oc_param($obj0, recipe_non_dummy_obj), oc_param($obj0, recipe_non_dummy_obj), null, event_com, event_comsubid, 0, 1, \"\")", makex2012:info_overview);
+} else {
+    if_setonmouserepeat("script14194($obj0, event_com, event_comsubid)", makex2012:info_overview);
+}
+def_int $int3 = ~script7124(makex2012:info_name, $obj0, ~script18374($obj0));
+~script7126(makex2012:info_value, $obj0);
+def_int $int4 = calc(if_gety(makex2012:info_value) + if_getheight(makex2012:info_value) + 2);
+def_int $int5 = 0;
+def_int $int6 = calc(if_gety(makex2012:info_requirements_header) + if_getheight(makex2012:info_requirements_header) + 2);
+if_setposition(if_getx(makex2012:info_requirements), $int4, ^setpos_abs_left, ^setpos_abs_top, makex2012:info_requirements);
+$int5 = ~script7127($obj0, $int6, makex2012:info_requirements);
+if ($int5 > $int6) {
+    if_sethide(false, makex2012:info_requirements);
+    $int4 = calc($int4 + $int5 + 2);
+} else {
+    if_sethide(true, makex2012:info_requirements);
+}
+if_setposition(if_getx(makex2012:info_materials), $int4, ^setpos_abs_left, ^setpos_abs_top, makex2012:info_materials);
+$int6 = calc(if_gety(makex2012:info_materials_header) + if_getheight(makex2012:info_materials_header) + 2);
+$int5 = ~script7129($obj0, $int6, makex2012:info_materials);
+if ($int5 > $int6) {
+    if_sethide(false, makex2012:info_materials);
+    $int4 = calc($int4 + $int5);
+} else {
+    if_sethide(true, makex2012:info_materials);
+}
+if (if_getheight(makex2012:info_listing) < $int4) {
+    if_setscrollsize(if_getwidth(makex2012:info_listing), $int4, makex2012:info_listing);
+} else {
+    if_setscrollsize(0, 0, makex2012:info_listing);
+}
+if_setscrollpos(0, 0, makex2012:info_listing);
+~scrollbar_vertical(makex2012:info_scrollbar, makex2012:info_listing, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");

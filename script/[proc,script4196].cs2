@@ -1,0 +1,57 @@
+// 4196
+[proc,script4196](int $int0, int $int1, component $component2, component $component3, int $int4, inv $inv5, int $int6, dbrow $dbrow7, string $string0, int $int8)(int)
+def_struct $struct9 = rs3tli_3x3_icon_pof_button;
+def_int $int10 = 0;
+def_struct $struct11 = struct_param($struct9, rs3tli_button_struct_text);
+def_boolean $boolean12 = ~script891(inv_getvar($inv5, $int6, pof_obj_animal_xp_to_claim));
+def_npc $npc13 = enum(int, npc, pof_animal_int_to_npc, db_getfield($dbrow7, pof_animal_table:col1, 0));
+def_int $int14 = inv_getvar($inv5, $int6, pof_obj_animal_gender);
+def_int $int15 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+$npc13, $string1, $string2, $int15 = ~script15449($dbrow7, $inv5, $int6, max(0, inv_getvar($inv5, $int6, pof_obj_animal_age)), $int14, inv_getvar($inv5, $int6, pof_obj_animal_name), inv_getvar($inv5, $int6, pof_obj_animal_shiny));
+def_int $int16 = nc_param($npc13, pof_animal_zoom);
+def_int $int17 = 0;
+if (if_find($component2) = true) {
+    $int4 = ~script10410($component2, $component3, $struct9, $int0, $int1, 75, 75, $int4, false, $string1);
+    cc_setop(1, "Select");
+    cc_setonop("script1009($npc13, $inv5, $int6, $string1, $string2, $int14, $int15, $int8, event_op, $boolean12)");
+    cc_setop(2, $string0);
+    $int10 = calc(if_getnextsubid($component2) - 2);
+    if (cc_find($component2, $int10) = true) {
+        cc_settextshadow(true);
+        cc_setsize(75, 30, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextalign(^settextalign_centre, ^settextalign_top, 13);
+        cc_settextfont(struct_param($struct11, rs3tli_button_text_font));
+        ~script11024(0);
+    }
+    cc_create($component2, ^iftype_model, if_getnextsubid($component2));
+    if ($npc13 = pof_animal_dragon_baby_royal) {
+        $int16 = scale(60, 100, $int16);
+        $int17 = -6;
+    }
+    cc_setposition(calc($int0 + 19 + nc_param($npc13, pof_animal_offsetx)), calc($int1 + 25 + nc_param($npc13, pof_animal_offsety) + $int17), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(35, 52, ^setsize_abs, ^setsize_abs);
+    cc_setnpcmodel($npc13);
+    cc_setmodelanim(bas_getanim_ready(nc_param($npc13, client_bas)));
+    if (inv_getvar($inv5, $int6, pof_obj_animal_shiny) = 1 & db_getfield($dbrow7, pof_animal_table:col0, 0) = 9) {
+        cc_setmodelangle(-1, 25, 0, 1600, 0, 800);
+    } else {
+        cc_setmodelangle(-1, 25, nc_param($npc13, pof_animal_anglex), nc_param($npc13, pof_animal_angley), 0, 800);
+    }
+    cc_setmodelzoom(scale(120, 100, $int16));
+    if ($boolean12 = true) {
+        cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+        cc_setgraphic("xp_token_with_plus,0");
+        cc_setposition(calc($int0 + 47), calc($int1 + 47), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    }
+    if (inv_getvar($inv5, $int6, pof_obj_animal_favourite) = 1) {
+        cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+        cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int0 + 4), calc($int1 + 56), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic("stat_star,0");
+    }
+}
+return($int4);

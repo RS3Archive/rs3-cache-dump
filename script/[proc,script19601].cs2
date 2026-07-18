@@ -1,0 +1,26 @@
+// 19601
+[proc,script19601](int $int0, int $int1, int $int2)
+def_int $int3 = calc($int1 + $int2);
+def_int $int4 = $int1;
+while ($int3 >= $int0) {
+    if (cc_find(group_ironman_storage:clan_inv, $int3) = true & .cc_find(group_ironman_storage:clan_inv, $int4) = true) {
+        if (.cc_getinvobject = bank_empty_slot) {
+            cc_setobject_nonum(bank_empty_slot, 1);
+        } else {
+            cc_setobject(.cc_getinvobject, .cc_getinvcount);
+        }
+    }
+    $int3 = calc($int3 - 1);
+    $int4 = calc($int4 - 1);
+}
+$int4 = calc($int0 + $int2);
+while ($int0 < $int4) {
+    if (cc_find(group_ironman_storage:clan_inv, $int0) = true) {
+        cc_setobject_nonum(bank_empty_slot, 0);
+    }
+    $int0 = calc($int0 + 1);
+}
+if_setontimer("script19597", group_ironman_storage:clan_items_container);
+if (%group_ironman_storage_first_freeslot > $int0) {
+    %group_ironman_storage_first_freeslot = calc(%group_ironman_storage_first_freeslot + $int2);
+}

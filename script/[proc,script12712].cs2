@@ -1,0 +1,33 @@
+// 12712
+[proc,script12712]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0, $int1 = ~script12711;
+if_setonvartransmit("script12713(event_com){trh54_guaranteed_quality2}", trh54_guaranteed_quality:purple_gem_active_layer);
+if_setontimer("script12631(event_com, -1)", trh54_guaranteed_quality:purple_gem_charge_layer);
+if_setparam_int(rs3tli_component_resize_type, 3, trh54_guaranteed_quality:purple_gem_charge_layer);
+if_setparam_int(rs3tli_component_resize_step, 2, trh54_guaranteed_quality:purple_gem_charge_layer);
+if_settext("<tostring($int0)>%", trh54_guaranteed_quality:purple_gem_percentage);
+if_setparam_int(rs3tli_component_target_height, $int1, trh54_guaranteed_quality:purple_gem_charge_layer);
+if_setsize(if_getwidth(trh54_guaranteed_quality:purple_gem_charge_layer), $int1, ^setsize_abs, ^setsize_abs, trh54_guaranteed_quality:purple_gem_charge_layer);
+if (%trh54_super_charge = 500) {
+    if_settrans(0, trh54_guaranteed_quality:purple_gem_charge_glow);
+} else {
+    if_settrans(255, trh54_guaranteed_quality:purple_gem_charge_glow);
+}
+if (if_find(trh54_guaranteed_quality:purple_gem_charge) = true) {
+    cc_setontimer("script12631(event_com, event_comsubid)");
+    cc_setparam(rs3tli_component_playback_rate, calc(1000 * 5));
+    cc_setparam(rs3tli_component_target_2dangle, 0);
+}
+if (if_find(trh54_guaranteed_quality:purple_gem) = true) {
+    cc_setontimer("script12631(event_com, event_comsubid)");
+    cc_setparam(rs3tli_component_playback_rate, calc(1000 * 5));
+    cc_setparam(rs3tli_component_target_2dangle, 0);
+}
+if (if_find(trh54_guaranteed_quality:purple_gem_charge_glow) = true) {
+    cc_setontimer("script12631(event_com, event_comsubid)");
+    cc_setparam(rs3tli_component_playback_rate, calc(1000 * 5));
+    cc_setparam(rs3tli_component_target_2dangle, 0);
+    cc_setparam(rs3tli_component_transparency_playback_rate, 1000);
+}

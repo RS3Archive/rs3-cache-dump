@@ -1,0 +1,163 @@
+// 9058
+[proc,activity_tracker_update_everything](int $int0)
+def_component $component1 = cheevo_tracker:scrollable_layer;
+def_component $component2 = cheevo_tracker:build_layer;
+def_component $component3 = cheevo_tracker:click_layer;
+def_component $component4 = cheevo_tracker:find_more_click;
+def_component $component5 = cheevo_tracker:mobile_highlights;
+def_component $component6 = cheevo_tracker:scrollbar_layer;
+if ($int0 = 1) {
+    $component1 = cheevo_tracker_embedded:scrollable_layer;
+    $component2 = cheevo_tracker_embedded:build_layer;
+    $component3 = cheevo_tracker_embedded:click_layer;
+    $component4 = null;
+    $component5 = null;
+    $component6 = cheevo_tracker_embedded:scrollbar_layer;
+}
+if_sethide(true, $component6);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component1);
+if_setscrollsize(0, 0, $component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+if ($component4 ! null) {
+    cc_deleteall($component4);
+}
+if ($component5 ! null) {
+    cc_deleteall($component5);
+}
+def_int $int7 = if_getwidth($component1);
+def_string $string0 = "Choose a Path...";
+def_int $int8 = 0;
+def_int $int9 = 5;
+if (~script8237 = true) {
+    if (~script8223 = true) {
+        $int9 = calc($int9 + ~script7593($string0, $int7, museo_sans_15pt_bold, 14));
+        $int9 = calc($int9 + 5);
+        $int9 = calc($int9 + ~script8952($int7));
+        if ($int0 = 0) {
+            if (~skilltotal_actual > 60) {
+                $int9 = calc($int9 + 16);
+                $int9 = calc($int9 + 30);
+                if (~script6431 = true) {
+                    $int9 = calc($int9 + 5);
+                    $int9 = calc($int9 + 30);
+                }
+            } else if (~script6431 = true) {
+                $int9 = calc($int9 + 5);
+                $int9 = calc($int9 + 30);
+            }
+            $int9 = calc($int9 + 5);
+        }
+    } else if ($int0 = 0) {
+        $int9 = calc($int9 + 30);
+        $int9 = calc($int9 + 5);
+    }
+    if ($int9 > if_getheight($component1)) {
+        if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component1);
+        if_sethide(false, $component6);
+    }
+    $int7 = if_getwidth($component1);
+    $int9 = 5;
+    if (~script8223 = false) {
+        if ($int0 = 0) {
+            ~script10410($component2, $component3, rs3tli_3x3_button, 10, $int9, calc($int7 - 10 * 2), 30, 0, false, "Find More");
+            $int9 = calc($int9 + 30);
+            $int9 = calc($int9 + 5);
+        }
+    } else {
+        $int8 = ~script7593($string0, $int7, museo_sans_15pt_bold, 14);
+        cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+        cc_settext($string0);
+        cc_settextfont(museo_sans_15pt_bold);
+        cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(0, $int8, ^setsize_minus, ^setsize_abs);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 14);
+        ~script11024(0);
+        $int9 = calc($int9 + $int8);
+        $int9 = calc($int9 + 5);
+        $int9 = ~script8953($component2, $component3, 5, $int9);
+        if ($int0 = 0) {
+            if (~skilltotal_actual > 60) {
+                $int9 = calc($int9 + 16);
+                ~script10410($component2, $component4, rs3tli_3x3_button, 5, $int9, calc($int7 - 10), 30, 0, false, "Find More");
+                $int9 = calc($int9 + 30);
+            }
+            $int9 = calc($int9 + 5);
+        }
+    }
+    if (if_gethide($component6) = false) {
+        if_setscrollsize(0, $int9, $component1);
+        if_setscrollpos(0, 0, $component1);
+        ~rs3_scrollbar_vertical($component6, $component1);
+    }
+    return;
+}
+def_int $int10 = 5;
+def_int $int11 = 0;
+def_int $int12 = -1;
+def_int $int13 = 0;
+def_achievement $achievement14 = null;
+while ($int10 > -1) {
+    $int11 = ~script8224(calc(5 - $int10));
+    if ($int11 > 0) {
+        $achievement14 = null;
+        $int12 = -1;
+        if ($int11 ! 2) {
+            $int12 = ~script8226(calc(5 - $int10));
+        } else {
+            $achievement14 = ~script15324(calc(5 - $int10));
+        }
+        if ($int11 = 3) {
+            $int13 = calc($int13 + 24);
+        }
+        $int13 = calc($int13 + 48);
+        if ($int0 = 0) {
+            $int13 = calc($int13 + ~script9059($int7, $int11, $int12, $achievement14));
+            $int13 = calc($int13 + 4);
+        }
+        $int13 = calc($int13 + 5);
+    }
+    $int10 = calc($int10 - 1);
+}
+if ($int13 > if_getheight($component1)) {
+    if_sethide(false, $component6);
+    if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component1);
+    $int7 = if_getwidth($component1);
+}
+$int9 = 0;
+$int10 = 5;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_boolean $boolean17 = ~script6431;
+while ($int10 > 0) {
+    $int11 = ~script8224(calc(5 - $int10));
+    if ($int11 > 0) {
+        if ($int11 ! 2) {
+            $int12 = ~script8226(calc(5 - $int10));
+        } else {
+            $achievement14 = ~script15324(calc(5 - $int10));
+        }
+        $int9, $int16 = ~activity_tracker_build_title($component2, $component3, $int10, $int9, $int7, $int0, $int16, $int11, $int12, $achievement14, $boolean17);
+        if ($int0 = 0) {
+            $int9 = ~script9078($component2, $int9, $int7, $int0, $int11, $int12, $achievement14, $boolean17);
+            if ($boolean17 = true) {
+                cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+                cc_setsize(53, 2, ^setsize_minus, ^setsize_abs);
+                cc_setposition(0, $int9, ^setpos_abs_centre, ^setpos_abs_top);
+                cc_setgraphic(gradient_tli_modular_1);
+                $int9 = calc($int9 + 6);
+            } else {
+                $int9 = calc($int9 + 4);
+            }
+        }
+        $int9 = calc($int9 + 5);
+    }
+    $int10 = calc($int10 - 1);
+}
+if (if_gethide($component6) = false) {
+    if_setscrollsize(0, $int9, $component1);
+    if_setscrollpos(0, min($int9, if_getscrolly($component1)), $component1);
+    ~rs3_scrollbar_vertical($component6, $component1);
+} else {
+    if_setscrollpos(0, 0, $component1);
+}

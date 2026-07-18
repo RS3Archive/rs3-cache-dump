@@ -1,0 +1,33 @@
+// 6589
+[proc,script6589](obj $obj0, obj $obj1, int $int2)(int)
+def_int $int3 = 0;
+def_obj $obj4 = null;
+def_enum $enum5 = null;
+if (enum_getreversecount(obj, magic_enchant_default_pointer, $obj0) > 0) {
+    $obj4 = enum_getreverseindex(obj, obj, magic_enchant_default_pointer, $obj0, 0);
+    if ($obj4 ! null) {
+        $enum5 = oc_param($obj4, magic_enchant_jewellery_table);
+    }
+}
+if ($enum5 ! null) {
+    return(~script6678(enum(enum, struct, magic_enchant_table_to_struct, $enum5), 0, $int2));
+}
+switch_obj ($obj0) {
+    case fire_orb :
+        $int3 = ~script6678(magic_fire_orb, 0, $int2);
+    case water_orb :
+        $int3 = ~script6678(magic_water_orb, 0, $int2);
+    case air_orb :
+        $int3 = ~script6678(magic_air_orb, 0, $int2);
+    case earth_orb :
+        $int3 = ~script6678(magic_earth_orb, 0, $int2);
+    case mah5_dragon_bane_ore, mah5_abyssal_demon_bane_ore, mah5_wallasalki_bane_ore, mah5_basilisk_bane_ore :
+        $int3 = ~script6678(magic_tune_bane_ore, 2, $int2);
+    case leather_lunar_spell_dummy, hard_leather_lunar_spell_dummy, dragon_leather_lunar_spell_dummy, dragon_leather_blue_lunar_spell_dummy, dragon_leather_red_lunar_spell_dummy, dragon_leather_black_lunar_spell_dummy, dragon_leather_royal_lunar_spell_dummy, village_snake_skin_lunar_spell_dummy, trekking_snake_skin_lunar_spell_dummy, dino_game_creature_leather_lunar_spell_dummy :
+        $int3 = ~script6678(magic_make_leather, 2, $int2);
+    case default :
+        if ($obj0 ! null & $obj1 ! null & oc_param($obj0, fletching_upgrade_object) = 1 & oc_category($obj1) = logs & inv_totalcat(inv, woodcutting_woodbox) > 0) {
+            $int3 = inv_total(woodcutting_woodbox, $obj1);
+        }
+}
+return($int3);

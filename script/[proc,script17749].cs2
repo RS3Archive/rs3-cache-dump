@@ -1,0 +1,31 @@
+// 17749
+[proc,script17749](dbrow $dbrow0, dbrow $dbrow1)
+~script17754;
+if_sethide(false, skill_tree:popup_window);
+if_sethide(false, skill_tree:more_information_window);
+def_boolean $boolean2 = false;
+def_string $string0 = "";
+if ($dbrow1 ! null) {
+    $boolean2, $string0 = ~script17490($dbrow1);
+    if ($dbrow0 ! null) {
+        if_settext("Requires:<br>- Access to tier <col=ffffff><db_getfield($dbrow0, skill_tree_level:col0, 0)></col> talents", skill_tree:more_information_summary);
+    } else {
+        if_settext("Requires:", skill_tree:more_information_summary);
+    }
+    if_settext(~script17486($dbrow1), skill_tree:more_information_name);
+    if_setgraphic(~script17489($dbrow1, 0, 1), skill_tree:more_information_icon_graphic);
+    if_settext("<if_gettext(skill_tree:more_information_summary)><$string0>", skill_tree:more_information_summary);
+} else if ($dbrow0 ! null) {
+    $boolean2, $string0 = ~script17482($dbrow0);
+    if_settext("Tier <col=ffffff><db_getfield($dbrow0, skill_tree_level:col0, 0)></col>", skill_tree:more_information_name);
+    if_setgraphic("rs3_icon_info_32px,3", skill_tree:more_information_icon_graphic);
+    if_settext("Requires:<$string0>", skill_tree:more_information_summary);
+} else if (%skill_tree_dbrow ! null) {
+    if_settext(db_getfield(%skill_tree_dbrow, skill_tree:col1, 0), skill_tree:more_information_name);
+    if_setgraphic("rs3_icon_info_32px,3", skill_tree:more_information_icon_graphic);
+    switch_dbrow (%skill_tree_dbrow) {
+        case skill_tree_necromancy_hub :
+            $string0 = "The amount of XP required to earn a talent point will increase.";
+    }
+    if_settext($string0, skill_tree:more_information_summary);
+}

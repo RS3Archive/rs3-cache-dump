@@ -1,0 +1,23 @@
+// 4556
+[proc,script4556](int $int0)
+def_component $component1 = lobbyscreen_pane_friendschat:chat_input;
+def_component $component2 = lobbyscreen_pane_friendschat:chat_input_text;
+def_component $component3 = lobbyscreen_pane_friendschat:input_caret;
+def_boolean $boolean4 = ~is_mobile_client;
+if ($boolean4 = true) {
+    $component1 = lobbyscreen_pane_mobile_social:chat_input;
+    $component2 = lobbyscreen_pane_mobile_social:chat_input_text;
+    $component3 = lobbyscreen_pane_mobile_social:chat_input_caret;
+}
+if ($int0 = 1 & userdetail_quickchat = false) {
+    if_setonkey("script4555($component2, $component3, event_keycode, event_keychar)", $component1);
+    if_setontimer("script4572(clientclock, $component2, $component3)", $component2);
+} else {
+    if_setonkey(null, $component1);
+    if_setontimer(null, $component2);
+    if (string_length(%lobbyscreen_input_friendschat) = 0 & $boolean4 = true) {
+        if_settext("Tap here to chat", $component2);
+    } else {
+        if_settext(escape(%lobbyscreen_input_friendschat), $component2);
+    }
+}

@@ -1,0 +1,51 @@
+// 11768
+[proc,script11768](int $int0, dbrow $dbrow1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+switch_int ($int0) {
+    case 1 :
+        $component2 = trh175_overlay:bonus_option_1_title_text;
+        $component3 = trh175_overlay:bonus_option_1_info_text;
+        $component4 = trh175_overlay:bonus_option_1_build_layer;
+    case 2 :
+        $component2 = trh175_overlay:bonus_option_2_title_text;
+        $component3 = trh175_overlay:bonus_option_2_info_text;
+        $component4 = trh175_overlay:bonus_option_2_build_layer;
+}
+cc_deleteall($component4);
+if ($dbrow1 = null) {
+    return;
+}
+def_int $int5 = db_getfield($dbrow1, trh175_promo_bonus:col1, 0);
+def_int $int6 = db_getfield($dbrow1, trh175_promo_bonus:col2, 0);
+def_int $int7 = db_getfield($dbrow1, trh175_promo_bonus:col3, 0);
+def_obj $obj8 = null;
+def_int $int9 = 0;
+$obj8, $int9 = db_getfield($dbrow1, trh175_promo_bonus:col6, 0);
+def_string $string0 = "";
+if ($int5 > 0 & ($int6 > 1 | $int7 > 1)) {
+    if_settext("Pumpkin Modifier", $component2);
+    ~script11769($component4, $int5, $int6, $int7);
+    if ($int5 > 1) {
+        $string0 = "<col=DA8F23>Next <tostring($int5)> pumpkins:</col>";
+    } else {
+        $string0 = "<col=DA8F23>Next pumpkin:</col>";
+    }
+    if ($int6 > 1) {
+        $string0 = "<$string0><br>Guaranteed <~script10979($int6)><~script10876($int6)></col> rarity";
+    }
+    if ($int7 > 1) {
+        $string0 = "<$string0><br>x<tostring($int7)> multiplier";
+    }
+    if_settext($string0, $component3);
+} else if ($obj8 ! null & $int9 > 0) {
+    if_settext("Reward Item", $component2);
+    ~script11770($component4, $obj8, $int9);
+    if ($int9 > 1) {
+        $string0 = "<tostring($int9)> x <oc_name($obj8)>";
+    } else {
+        $string0 = oc_name($obj8);
+    }
+    if_settext($string0, $component3);
+}

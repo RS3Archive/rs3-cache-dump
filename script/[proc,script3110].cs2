@@ -1,0 +1,34 @@
+// 3110
+[proc,script3110]()(int)
+def_int $int0 = 0;
+if (%varclientbit_23068 > 0) {
+    $int0 = 1;
+}
+if (%varclientbit_23080 = -1) {
+    mes("You need to set the broadcast resolution scale first.");
+    sound_vorbis_volume(omge_error, 1, 0, 150);
+    return(0);
+}
+if (%varclientbit_23072 = -1) {
+    mes("You need to set the bandwidth usage first.");
+    sound_vorbis_volume(omge_error, 1, 0, 150);
+    return(0);
+}
+%varclientbit_23073 = 30;
+def_int $int1 = ttv_stream_start(%varclientbit_23080, %varclientbit_23072, %varclientbit_23073, $int0);
+if ($int1 > 0) {
+    if ($int1 = 2069) {
+        mes("You are already broadcasting!");
+        sound_vorbis_volume(omge_error, 1, 0, 150);
+        return(1);
+    } else {
+        mes("Something went wrong (<tostring($int1)>). Please try again with different broadcast settings.");
+        sound_vorbis_volume(omge_error, 1, 0, 150);
+        return(0);
+    }
+}
+$int1 = ttv_stream_settitle(%twitch_stream_name);
+if ($int1 > 0) {
+    return(1);
+}
+return(1);

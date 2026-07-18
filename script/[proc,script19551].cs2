@@ -1,0 +1,20 @@
+// 19551
+[proc,script19551](component $component0, int $int1)(boolean)
+if ($component0 ! group_ironman_storage:spacer_endrow & $component0 ! group_ironman_storage:spacer_below) {
+    return(false);
+}
+def_int $int2 = max(0, calc(~script19579 - 1));
+if (cc_find(group_ironman_storage:clan_inv, $int2) = true & .cc_find(group_ironman_storage:clan_inv_insert, $int2) = true) {
+    if ($int1 = 0) {
+        if (if_getx(group_ironman_storage:ondrag_highlight) = calc(cc_getx + cc_getwidth - 1) & if_gety(group_ironman_storage:ondrag_highlight) = calc(cc_gety - 1)) {
+            if_sethide(true, group_ironman_storage:ondrag_highlight);
+        }
+    } else {
+        if_setposition(calc(cc_getx + cc_getwidth - 1), calc(cc_gety - 1), ^setpos_abs_left, ^setpos_abs_top, group_ironman_storage:ondrag_highlight);
+        if_setsize(calc(.cc_getwidth + 2), calc(.cc_getheight + 2), ^setsize_abs, ^setsize_abs, group_ironman_storage:ondrag_highlight);
+        if_sethide(false, group_ironman_storage:ondrag_highlight);
+        if_sethide(true, group_ironman_storage:ondrag_insert_right_highlight);
+        if_sethide(true, group_ironman_storage:ondrag_insert_left_highlight);
+    }
+}
+return(true);

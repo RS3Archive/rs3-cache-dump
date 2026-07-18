@@ -1,0 +1,49 @@
+// 20602
+[clientscript,script20602](struct $struct0, int $int1, int $int2, int $int3, dbrow $dbrow4, int $int5, graphic $graphic6, int $int7, int $int8, string $string0, string $string1)
+~spinner_create(marketplace_preview:load_preview, 3, -1);
+def_int $int9 = -1;
+if ($struct0 ! null & struct_param($struct0, marketplace_preview_recolourable) = true) {
+    $int9 = struct_param($struct0, marketplace_preview_default_colour);
+}
+~script20604($struct0, $int1, $graphic6, 0, $int9, 1);
+~script20605($struct0);
+~script9554(marketplace_preview:preview_window_background, marketplace_preview:preview_window_border, marketplace_preview:preview_window_content, $string0, toplevel_v2_nondragable_modal_dialogue_skin_data);
+def_string $string2 = "";
+def_string $string3 = "";
+def_graphic $graphic10 = null;
+def_int $int11 = 0;
+def_int $int12 = 0;
+if ($int2 = 0 & $int3 ! 1) {
+    $int12 = 1;
+}
+$string2 = ~script20466($int2, $dbrow4, $int3);
+if ($int12 = 1) {
+    $string2 = "Free";
+}
+if_settext($string2, marketplace_preview:price);
+$int11 = calc($int11 + parawidth($string2, if_getwidth(marketplace_preview:purchase_price_layer), museo_sans_13pt_bold));
+if_setsize($int11, if_getheight(marketplace_preview:price), ^setsize_abs, ^setsize_abs, marketplace_preview:price);
+$string3 = ~script20609($int2, $int3);
+if (string_length($string3) > 0 & $int12 = 0) {
+    if_settext($string3, marketplace_preview:conversion_price);
+    $int11 = calc($int11 + (parawidth($string3, if_getwidth(marketplace_preview:conversion_price), museo_sans_13pt_regular) + 10));
+    if_setsize(parawidth($string3, if_getwidth(marketplace_preview:purchase_price_layer), museo_sans_13pt_regular), if_getheight(marketplace_preview:conversion_price), ^setsize_abs, ^setsize_abs, marketplace_preview:conversion_price);
+}
+$graphic10 = ~script20620($int3);
+if ($graphic10 ! null & $int12 = 0) {
+    if_setgraphic(~script20620($int3), marketplace_preview:currency_icon);
+    $int11 = calc($int11 + 27);
+} else {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, marketplace_preview:price);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, marketplace_preview:price);
+}
+if_setsize($int11, if_getheight(marketplace_preview:purchase_price_layer), ^setsize_abs, ^setsize_abs, marketplace_preview:purchase_price_layer);
+if ($int5 = 0) {
+    if_setenabled(false, marketplace_preview:purchase_button);
+}
+if ($int12 = 1) {
+    if_settext("Claim", marketplace_preview:purchase_button);
+} else {
+    if_settext("Buy", marketplace_preview:purchase_button);
+}
+~script20607($struct0, $int1, $int3, $string1, $int7, $int8);

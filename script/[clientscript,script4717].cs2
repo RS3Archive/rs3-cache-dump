@@ -1,0 +1,79 @@
+// 4717
+[clientscript,script4717](component $component0, component $component1, enum $enum2)
+cc_deleteall($component0);
+def_int $int3 = -1;
+def_struct $struct4 = null;
+def_graphic $graphic5 = null;
+def_int $int6 = -1;
+def_string $string0 = "";
+def_boolean $boolean7 = true;
+def_int $int8 = -1;
+def_int $int9 = max(%emote_last_sort, 0);
+def_int $int10 = enum_getoutputcount($enum2);
+def_int $iftype11 = ^iftype_graphic;
+def_int $int12 = 13;
+def_fontmetrics $fontmetrics13 = museo_sans_11pt_regular;
+def_boolean $boolean14 = ~is_mobile_client;
+if (%emote_display_mode = 1) {
+    if ($boolean14 = true) {
+        $fontmetrics13 = museo_sans_17pt_bold;
+        $int12 = 30;
+    }
+    $iftype11 = ^iftype_text;
+}
+while (++$int3 < $int10) {
+    $struct4 = enum(int, struct, $enum2, $int3);
+    $graphic5 = struct_param($struct4, emotes2_icon);
+    $boolean7 = ~emotes2_unlock_check($struct4);
+    $string0 = struct_param($struct4, emotes2_name);
+    cc_create($component0, $iftype11, $int3);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if ($boolean7 = false) {
+        $graphic5 = struct_param($struct4, emotes2_icon_locked);
+    }
+    if ($struct4 = emotes2_bow) {
+        if (gender > 0) {
+            $struct4 = emotes2_curtsy;
+            $graphic5 = struct_param($struct4, emotes2_icon);
+            $string0 = struct_param($struct4, emotes2_name);
+            cc_setop(1, "Curtsy");
+            cc_setop(2, "Bow");
+        } else {
+            cc_setop(1, "Bow");
+            cc_setop(2, "Curtsy");
+        }
+    } else if ($struct4 = mtx_batch30_actor_talking_a) {
+        cc_setop(1, "Talk (A)");
+        cc_setop(2, "Talk (B)");
+    }
+    if ($boolean7 = true & struct_param($struct4, emotes2_has_op) = 1) {
+        cc_setop(1, $string0);
+        cc_setop(2, struct_param($struct4, emote2_op2_name));
+    } else {
+        cc_setop(1, $string0);
+    }
+    cc_setparam(emotes2_client_unlocked, $boolean7);
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    if (%emote_display_mode = 1) {
+        cc_settext($string0);
+        cc_settextfont($fontmetrics13);
+        cc_setmaxlines(1);
+        if ($boolean7 = true) {
+            ~script11024(3);
+        } else {
+            ~script11024(5);
+        }
+    } else {
+        cc_setgraphic($graphic5);
+    }
+    cc_setonmouseleave("script8805");
+    if ($boolean14 = false) {
+        cc_setdragdeadtime(5);
+        cc_setdragdeadzone(5);
+    } else {
+        cc_setdragdeadtime(5);
+        cc_setdragdeadzone(20);
+    }
+    cc_setondragcomplete("script7001(event_com, event_comsubid, event_com2)");
+}
+~emotes2_sort($component0, $component1, $enum2, $int9);

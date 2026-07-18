@@ -1,0 +1,39 @@
+// 14223
+[clientscript,script14223](component $component0, int $int1, int $int2, int $int3)
+~script14225;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_struct $struct6 = enum(int, struct, minimenu_skin, %minimenu_skin);
+if (%mobile_zoom = 4) {
+    $struct6 = minimenu_desktop;
+}
+def_int $int7 = 0;
+def_string $string0 = "";
+def_int $int8 = 0;
+def_string $string1 = "0";
+def_int $int9 = 0;
+$int7, $string0 = unknown_command_28($int2);
+$int4, $int5 = ~script14226($int2, $struct6, $int7, $string0);
+def_int $int10 = calc($int4 + 31);
+def_int $int11 = calc($int5 + 2 * 31);
+$int3 = max(0, calc($int3 - if_getscrolly(minimenu:menu_build_layer)));
+if (calc($int3 + $int5) > if_getheight(minimenu:universe_layer)) {
+    $int3 = calc(if_getheight(minimenu:universe_layer) - $int5);
+}
+def_int $int12 = calc($int3 - 31);
+if ($int3 < $int12) {
+    $int11 = calc($int11 - ($int12 - $int3));
+    $int12 = 0;
+}
+if_sethide(false, minimenu:submenu_blocking_layer);
+if_setsize($int10, $int11, ^setsize_abs, ^setsize_abs, minimenu:submenu_blocking_layer);
+if_setsize($int4, $int5, ^setsize_abs, ^setsize_abs, minimenu:submenu_layer);
+if_setposition(if_getwidth(minimenu:menu_layer), $int3, ^setpos_abs_left, ^setpos_abs_top, minimenu:submenu_layer);
+if_setposition(calc(if_getwidth(minimenu:menu_layer) + if_getx(minimenu:universe_layer)), calc($int12 + if_gety(minimenu:universe_layer)), ^setpos_abs_left, ^setpos_abs_top, minimenu:submenu_blocking_layer);
+~minimenu_draw_container($int4, $int5, $int5, $struct6, minimenu:submenu_build_layer, minimenu:submenu_background_layer, $string0);
+def_int $int13 = 0;
+while ($int13 < $int7) {
+    $int8, $string1, $int9 = unknown_command_29($int2, $int13);
+    ~minimenu_draw_entry($string1, 1, $int2, $int13, $int13, $int4, $struct6, minimenu:submenu_build_layer);
+    $int13 = calc($int13 + 1);
+}

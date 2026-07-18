@@ -1,0 +1,26 @@
+// 13931
+[clientscript,script13931](component $component0, int $int1, int $int2, int $int3)
+if (calc(clientclock % 5) ! 0) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+if (cc_find($component0, $int1) = true) {
+    $int4 = cc_gettrans;
+    if ($int4 = 0 & $int2 < 0) {
+        cc_setontimer("script13931($component0, $int1, calc($int2 * -1), $int3)");
+    }
+    if ($int4 = 255) {
+        if ($int3 = -1) {
+            cc_setontimer(null);
+            return;
+        } else {
+            $int3 = calc($int3 - 1);
+            if ($int2 > 0) {
+                cc_setontimer("script13931($component0, $int1, calc($int2 * -1), $int3)");
+            }
+        }
+    }
+    $int5 = max(min(calc($int4 + $int2), 255), 0);
+    cc_settrans($int5);
+}

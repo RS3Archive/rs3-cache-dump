@@ -1,0 +1,280 @@
+// 2556
+[proc,script2556]
+def_component $component0 = text_tooltip:tooltip_dynamic_text;
+def_string $string0 = cc_param(toplevel_v2_tooltip_param_str0);
+def_boolean $boolean1 = cc_param(toplevel_v2_tooltip_param_membersonly);
+def_int $int2 = 8;
+def_int $intarray0($int2);
+$intarray0(0) = cc_param(toplevel_v2_tooltip_param_int0);
+$intarray0(1) = cc_param(toplevel_v2_tooltip_param_int1);
+$intarray0(2) = cc_param(toplevel_v2_tooltip_param_int2);
+$intarray0(3) = cc_param(toplevel_v2_tooltip_param_int3);
+$intarray0(4) = cc_param(toplevel_v2_tooltip_param_int4);
+$intarray0(5) = cc_param(toplevel_v2_tooltip_param_int5);
+$intarray0(6) = cc_param(toplevel_v2_tooltip_param_int6);
+$intarray0(7) = cc_param(toplevel_v2_tooltip_param_int7);
+def_struct $struct3 = cc_param(toplevel_v2_tooltip_param_cheevo);
+def_string $string1 = "";
+def_int $int4 = 1;
+if ($struct3 ! null) {
+    $string1 = ~cheevo_requirements_response($struct3);
+    $int4 = ~cheevo_requirements_met($struct3);
+}
+if (string_length($string1) = 0 & $boolean1 = true) {
+    if (playermember = false) {
+        $string1 = "Membership<br>";
+    } else if (map_members = false) {
+        $string1 = "Log in to a Members' World<br>";
+    }
+}
+def_int $int5 = 0;
+def_int $int6 = 200;
+def_int $int7 = 50;
+def_int $int8 = 50;
+def_int $int9 = 145;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 1;
+def_int $int14 = 0;
+def_fontmetrics $fontmetrics15 = museo_sans_11pt_regular;
+def_fontmetrics $fontmetrics16 = museo_sans_11pt_regular;
+if (~script6431 = true) {
+    $fontmetrics15 = museo_sans_13pt_regular;
+    $fontmetrics16 = museo_sans_13pt_regular;
+    $int6 = 300;
+}
+if (compare($string0, null) ! 0 & compare($string0, "") ! 0) {
+    cc_create($component0, ^iftype_text, $int5);
+    cc_setposition(4, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc(2 * 4), ~script7593($string0, calc($int6 - 2 * 4), cinzel_18pt_bold, enum(fontmetrics, int, toplevel_v2_font_heights, cinzel_18pt_bold)), ^setsize_minus, ^setsize_abs);
+    cc_settext($string0);
+    cc_settextfont(cinzel_18pt_bold);
+    if (map_members = false & $boolean1 = true | $int4 = 0) {
+        cc_setcolour(~script10495(6));
+    } else {
+        cc_setcolour(~script10495(0));
+    }
+    cc_settextalign(^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, cinzel_18pt_bold));
+    $int5 = calc($int5 + 1);
+    $int10 = calc($int10 + cc_getheight + 2 * 2);
+    cc_create($component0, ^iftype_line, $int5);
+    cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_abs);
+    cc_setcolour(~script10495(8));
+    $int5 = calc($int5 + 1);
+    $int10 = calc($int10 + 1);
+    cc_create($component0, ^iftype_line, $int5);
+    cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_abs);
+    cc_setcolour(~script10495(7));
+    $int5 = calc($int5 + 1);
+    $int10 = calc($int10 + 1 + 2 * 2);
+}
+def_int $int17 = 0;
+def_int $int18 = 10;
+def_int $intarray1($int18);
+def_int $intarray2($int18);
+def_int $int19 = 0;
+while ($int17 < $int18 & $int19 = 0) {
+    if ($int17 = 0) {
+        $intarray1($int17) = 0;
+    } else {
+        $intarray1($int17) = calc($intarray2(calc($int17 - 1)) + 4);
+    }
+    $intarray2($int17) = string_indexof_string($string1, "<br>", $intarray1($int17));
+    if ($intarray2($int17) = -1) {
+        $int19 = 1;
+        $intarray2($int17) = string_length($string1);
+    } else {
+        $int17 = calc($int17 + 1);
+    }
+}
+$int18 = $int17;
+if (string_length($string1) > 0) {
+    $int17 = 0;
+    .cc_create($component0, ^iftype_rectangle, $int5);
+    .cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setfill(true);
+    if ($int13 = 1) {
+        .cc_setcolour(~script10495(9));
+    } else {
+        .cc_setcolour(~script10495(12));
+    }
+    $int13 = calc(($int13 + 1) % 2);
+    $int5 = calc($int5 + 1);
+    $int10 = calc($int10 + 8);
+    cc_create($component0, ^iftype_text, $int5);
+    cc_setposition(4, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext("Requirements:");
+    cc_setsize(calc(2 * 4), ~script7593(cc_gettext, calc($int6 - 2 * 4), $fontmetrics15, 0), ^setsize_minus, ^setsize_abs);
+    cc_settextfont($fontmetrics15);
+    if (map_members = false & $boolean1 = true | $int4 = 0) {
+        cc_setcolour(~script10495(6));
+    } else {
+        cc_setcolour(~script10495(3));
+    }
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $int5 = calc($int5 + 1);
+    $int10 = calc($int10 + cc_getheight + 8);
+    $int7 = 16;
+    $int8 = 16;
+    $int11 = calc(4 + $int7 + 4);
+    while ($int17 < $int18 & $int17 < 4) {
+        cc_create($component0, ^iftype_graphic, $int5);
+        cc_setposition(4, $int10, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+        if ($int17 = 3 & $int18 > 4) {
+            cc_setgraphic(rs3_contextual_input_plus);
+        } else {
+            cc_setgraphic(rs3_contextual_input_hollow);
+        }
+        $int5 = calc($int5 + 1);
+        cc_create($component0, ^iftype_text, $int5);
+        cc_setposition($int11, $int10, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext(substring($string1, $intarray1($int17), $intarray2($int17)));
+        $int12 = ~script7593(cc_gettext, calc($int6 - $int11 - 4), $fontmetrics16, 0);
+        if ($int12 < $int8) {
+            $int12 = $int8;
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        } else {
+            cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        }
+        cc_setsize(calc($int11 + 4), $int12, ^setsize_minus, ^setsize_abs);
+        cc_settextfont($fontmetrics16);
+        if (map_members = false & $boolean1 = true | $int4 = 0) {
+            cc_setcolour(~script10495(6));
+        } else {
+            cc_setcolour(^white);
+        }
+        $int5 = calc($int5 + 1);
+        $int10 = calc($int10 + cc_getheight + 2);
+        $int17 = calc($int17 + 1);
+    }
+    $int10 = calc($int10 + 8);
+    .cc_setsize(0, calc($int10 - 2 - .cc_gety), ^setsize_minus, ^setsize_abs);
+}
+$int7 = 50;
+$int8 = 50;
+def_dbrow $dbrow20 = null;
+$int17 = 0;
+def_obj $obj21 = null;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 0;
+while ($int17 < $int2) {
+    $dbrow20 = null;
+    if ($intarray0($int17) ! -1) {
+        db_find(mining_rock_data:col0, $intarray0($int17));
+        $dbrow20 = db_findnext;
+        if ($dbrow20 ! null) {
+            $int24 = db_getfieldcount($dbrow20, mining_rock_data:col3);
+            $obj21, $int22, $int23 = db_getfield($dbrow20, mining_rock_data:col3, 0);
+            .cc_create($component0, ^iftype_rectangle, $int5);
+            .cc_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setfill(true);
+            if ($int13 = 1) {
+                .cc_setcolour(~script10495(9));
+            } else {
+                .cc_setcolour(~script10495(12));
+            }
+            $int13 = calc(($int13 + 1) % 2);
+            $int5 = calc($int5 + 1);
+            $int7 = 35;
+            $int8 = 35;
+            $int14 = calc(($int6 - 2 * 4 - 4 * ($int7 + 1)) / 3);
+            cc_create($component0, ^iftype_text, $int5);
+            cc_settextfont(museo_sans_13pt_bold);
+            cc_settext(db_getfield($dbrow20, mining_rock_data:col1, 0));
+            cc_setsize($int9, ~script7593(cc_gettext, $int9, museo_sans_13pt_bold, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold)), ^setsize_abs, ^setsize_abs);
+            cc_settextalign(^settextalign_left, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold));
+            $int11 = calc($int7 + 1 + $int14);
+            $int26 = calc($int10 + 8);
+            if (cc_getheight <= 15) {
+                $int10 = $int26;
+            }
+            cc_setposition($int11, $int10, ^setpos_abs_left, ^setpos_abs_top);
+            if (stat_base(mining) < $int22 | map_members = false & ($int22 > 50 | oc_members($obj21) = 1) | $int4 = 0) {
+                cc_setcolour(~script10495(6));
+            } else {
+                cc_setcolour(^white);
+            }
+            $int5 = calc($int5 + 1);
+            $int25 = 0;
+            $int10 = calc($int26 + enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold) + 5);
+            $int7 = 30;
+            $int8 = 30;
+            $int14 = 5;
+            while ($int25 < $int24 & $int25 < 4) {
+                if ($int25 < 3 | $int24 = 4) {
+                    cc_create($component0, ^iftype_graphic, $int5);
+                    cc_setposition($int11, calc($int10 - 1), ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize(calc($int7 + 1), calc($int8 + 1), ^setsize_abs, ^setsize_abs);
+                    cc_setgraphic(rs3_icon_slot_standard);
+                    $int5 = calc($int5 + 1);
+                }
+                $obj21, $int27, $int27 = db_getfield($dbrow20, mining_rock_data:col3, $int25);
+                cc_create($component0, ^iftype_graphic, $int5);
+                cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+                if ($int25 = 3 & $int24 > 4) {
+                    cc_setposition($int11, $int10, ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setgraphic(rs3_icon_additional);
+                } else {
+                    cc_setposition(calc($int11 + 2), calc($int10 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setobject($obj21, -1);
+                }
+                $int5 = calc($int5 + 1);
+                $int11 = calc($int11 + $int7 + 1 + $int14);
+                if ($int24 = 1) {
+                    cc_create($component0, ^iftype_text, $int5);
+                    cc_setposition($int11, $int10, ^setpos_abs_left, ^setpos_abs_top);
+                    cc_settext(oc_name($obj21));
+                    cc_settextalign(^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics16));
+                    cc_setsize(105, $int8, ^setsize_minus, ^setsize_abs);
+                    cc_settextfont($fontmetrics16);
+                    if (stat_base(mining) < $int22 | map_members = false & ($int22 > 50 | oc_members($obj21) = 1) | $int4 = 0) {
+                        cc_setcolour(~script10495(6));
+                    } else {
+                        cc_setcolour(^white);
+                    }
+                    $int5 = calc($int5 + 1);
+                }
+                $int25 = calc($int25 + 1);
+            }
+            $int7 = 35;
+            $int8 = 35;
+            $int14 = calc(($int6 - 2 * 4 - 4 * ($int7 + 1)) / 3);
+            $int11 = 4;
+            $int10 = $int26;
+            cc_create($component0, ^iftype_graphic, $int5);
+            cc_setposition($int11, calc($int10 - 1), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(calc($int7 + 1), calc($int8 + 1), ^setsize_abs, ^setsize_abs);
+            cc_setgraphic(rs3_icon_slot_standard);
+            $int5 = calc($int5 + 1);
+            cc_create($component0, ^iftype_graphic, $int5);
+            cc_setposition($int11, $int10, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic(enum(int, graphic, stat2icon_medium, 13));
+            $int5 = calc($int5 + 1);
+            cc_create($component0, ^iftype_text, $int5);
+            cc_setposition($int11, calc($int10 + $int8 + 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_settext("Lvl <tostring($int22)>");
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            cc_setsize(calc($int7 + 1), enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics16), ^setsize_abs, ^setsize_abs);
+            cc_settextfont($fontmetrics16);
+            if (stat_base(mining) < $int22 | map_members = false & ($int22 > 50 | oc_members($obj21) = 1) | $int4 = 0) {
+                cc_setcolour(~script10495(6));
+            } else {
+                cc_setcolour(^white);
+            }
+            $int5 = calc($int5 + 1);
+            $int10 = calc($int26 + $int8 + enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics16) + 8 + 2);
+            .cc_setsize(0, calc($int10 - 2 - .cc_gety), ^setsize_minus, ^setsize_abs);
+        }
+    }
+    $int17 = calc($int17 + 1);
+}
+if_setsize($int6, calc($int10 - 2), ^setsize_abs, ^setsize_abs, $component0);

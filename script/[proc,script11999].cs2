@@ -1,0 +1,35 @@
+// 11999
+[proc,script11999](component $component0, component $component1, component $component2, int $int3)
+def_int $int4 = if_getwidth($component0);
+if ($int3 = 1) {
+    if_setgraphic("rs3_icon_wardrobe_filter_24px,1", $component1);
+} else if (%prayer_client_current_filter = 1) {
+    if_setgraphic("rs3_icon_wardrobe_filter_24px,3", $component1);
+    if ($int4 >= 110) {
+        switch_int (%prayer_mode) {
+            case 1 :
+                if_settext("Show all Curses", $component0);
+            case 0 :
+                if_settext("Show all Prayers", $component0);
+        }
+    } else if ($int4 >= calc(110 / 2)) {
+        if_settext("Show All", $component0);
+    } else {
+        if_settext("", $component0);
+    }
+} else {
+    if_setgraphic("rs3_icon_wardrobe_filter_24px,4", $component1);
+    if ($int4 >= 110) {
+        switch_int (%prayer_mode) {
+            case 1 :
+                if_settext("Filter Unusable Curses", $component0);
+            case 0 :
+                if_settext("Filter Unusable Prayers", $component0);
+        }
+    } else if ($int4 >= calc(110 / 2)) {
+        if_settext("Filter", $component0);
+    } else {
+        if_settext("", $component0);
+    }
+}
+~script12014($component2);

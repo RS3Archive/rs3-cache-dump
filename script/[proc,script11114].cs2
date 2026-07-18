@@ -1,0 +1,70 @@
+// 11114
+[proc,script11114](int $int0, int $int1, int $int2, int $int3, component $component4, component $component5, component $component6)
+cc_deleteall($component5);
+if_settext(enum(int, string, easter15_stat_name, $int0), $component4);
+def_string $string0 = "<~script11120($int1)><br>";
+if ($int3 = 1 | $int3 = 2) {
+    if_sethide(true, $component6);
+    $int1 = -1;
+    $string0 = "";
+} else if (~script11118($int1, $int2) = 1) {
+    if_setgraphic(rs3_contextual_input_accept, $component6);
+    if_sethide(false, $component6);
+} else {
+    if_setgraphic(rs3_contextual_input_error, $component6);
+    if_sethide(false, $component6);
+}
+def_string $string1 = "<$string0>Current value: <tostring($int2)>";
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 90;
+cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+cc_setposition($int9, 2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic(easter2015_combination_meter_current_base);
+$int7, $int8 = cc_getgraphicdimensions;
+cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+cc_setonmouserepeat("script3876($string1, $component5, cc_getid)");
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = calc(($int7 - 4) / 2);
+switch_int ($int1) {
+    case -1 :
+    case 0 :
+        $int11 = 0;
+        $int10 = calc($int12 - 16);
+    case 1 :
+        $int11 = calc($int12 - 16);
+        $int10 = 32;
+    case 2 :
+        $int11 = calc($int12 + 16);
+        $int10 = calc($int12 - 16);
+}
+cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+cc_setposition(calc($int9 + $int11 + 2), 5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("easter2015_combination_meter_bars,0");
+cc_setsize($int10, 11, ^setsize_abs, ^setsize_abs);
+cc_settiling(true);
+def_graphic $graphic13 = "easter2015_combination_meter_marker,0";
+def_int $int14 = scale($int2, 500, 16);
+if ($int3 ! 1 & $int3 ! 3) {
+    if ($int14 > $int12) {
+        $int14 = $int12;
+        if ($int2 > 2500) {
+            $graphic13 = "easter2015_combination_meter_marker,2";
+        } else {
+            $graphic13 = "easter2015_combination_meter_marker,1";
+        }
+    }
+    if ($int14 < calc(0 - $int12)) {
+        $int14 = calc(0 - $int12);
+        if ($int2 < -2500) {
+            $graphic13 = "easter2015_combination_meter_marker,4";
+        } else {
+            $graphic13 = "easter2015_combination_meter_marker,3";
+        }
+    }
+    cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+    cc_setposition(calc($int9 + $int12 + $int14 - 3), 2, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic($graphic13);
+    cc_setsize(13, 19, ^setsize_abs, ^setsize_abs);
+}

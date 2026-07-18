@@ -1,0 +1,40 @@
+// 20320
+[proc,script20320](component $component0, component $component1)(boolean)
+if (if_find($component0) = true & cc_param(league_task_fading_out) > 0) {
+    return(false);
+}
+def_dbrow $dbrow2 = ~script20117(%league_active_player);
+if (~script20132($dbrow2) = false) {
+    return(false);
+}
+def_dbfilter $dbfilter3 = null;
+if ($component0 = league_parent_tasks:task_panel) {
+    $dbfilter3 = ~script20169(%varclientbit_58393, %varclientbit_58395, %varclientbit_58397, %varclientbit_58399, 0);
+} else {
+    $dbfilter3 = ~script20168(db_getfield($dbrow2, league:col20, 0));
+}
+unknown_command_77($dbfilter3, league_task:col5, true);
+def_dbrow $dbrow4 = db_findnext;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (if_find($component0) = true) {
+    $int6 = cc_param(league_task_total);
+}
+while ($dbrow4 ! null) {
+    if (achievement_reqstate(db_getfield($dbrow4, league_task:col2, 0)) ! -1) {
+        $int5 = calc($int5 + 1);
+    }
+    $dbrow4 = db_findnext;
+}
+if ($int5 ! $int6) {
+    if_setparam_int(league_task_scroll_pos, if_getscrolly($component1), $component0);
+    if ($component0 = league_parent_tasks:task_panel) {
+        if_setonresize("script20286", league_parent_tasks:filter_deferred);
+        if_callonresize(league_parent_tasks:filter_deferred);
+    } else {
+        if_setonresize("script20287", league_child_tasks:filter_deferred);
+        if_callonresize(league_child_tasks:filter_deferred);
+    }
+    return(true);
+}
+return(false);

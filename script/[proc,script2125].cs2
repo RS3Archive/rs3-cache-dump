@@ -1,0 +1,31 @@
+// 2125
+[proc,script2125](quest $quest0)(boolean)
+if ($quest0 = null) {
+    ~error("Null .quest.");
+    return(false);
+}
+if (quest_getmembers($quest0) = true & map_members = false) {
+    return(false);
+}
+if (%qp < quest_pointsreq($quest0)) {
+    return(false);
+}
+if (~comlevel < quest_param($quest0, quest_requires_comlevel)) {
+    return(false);
+}
+if (~task_kudos_available < quest_param($quest0, quest_requires_kudos)) {
+    return(false);
+}
+if (quest_param($quest0, quest_requires_special) = true & ~ql4_special_requirements($quest0) = false) {
+    return(false);
+}
+if (quest_param($quest0, quest_requires_morytania) = true & %morytania_entry_allowed = 0) {
+    return(false);
+}
+if (~ql4_quest_requirements($quest0) = false) {
+    return(false);
+}
+if (~ql4_skill_requirements($quest0) = false) {
+    return(false);
+}
+return(true);

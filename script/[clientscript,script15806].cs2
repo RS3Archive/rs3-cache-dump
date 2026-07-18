@@ -1,0 +1,17 @@
+// 15806
+[clientscript,script15806](component $component0)
+def_enum $enum1 = bonds_redeem_generic_fakeop_id_to_component;
+def_int $int2 = enum_getoutputcount($enum1);
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+def_int $int3 = 1;
+def_component $component4 = null;
+while ($int3 <= $int2) {
+    cc_create($component0, ^iftype_graphic, $int3);
+    $component4 = enum(int, component, $enum1, $int3);
+    if ($component4 ! null) {
+        if_setonop("script15808(event_com, event_op, $component0)", $component4);
+        if_setop(1, ~script15807($component4), $component4);
+    }
+    $int3 = calc($int3 + 1);
+}

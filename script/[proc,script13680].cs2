@@ -1,0 +1,312 @@
+// 13680
+[proc,script13680](int $int0)
+def_component $component1 = invent_machine_build:info_window_recipe;
+cc_deleteall($component1);
+def_dbrow $dbrow2 = enum(int, dbrow, invent_machine_dbrows, %invent_machine_id);
+def_dbrow $dbrow3 = null;
+def_int $int4 = db_getfield($dbrow2, invent_machine_table:col21, 0);
+def_string $string0 = null;
+def_int $int5 = if_getnextsubid($component1);
+def_int $int6 = 2;
+def_int $int7 = 0;
+def_int $int8 = 5;
+def_int $int9 = 0;
+def_int $int10 = 20;
+def_int $int11 = 15;
+def_int $int12 = 15;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_obj $obj16 = null;
+def_dbrow $dbrow17 = null;
+def_int $int18 = -1;
+def_int $int19 = if_gety(invent_machine_build:info_window_recipe);
+def_int $int20 = 1;
+if (cc_find(invent_machine_build:button_control_layer, $int0) = true) {
+    db_find(invent_machine_table:col0, cc_param(invent_machine_id));
+    $dbrow3 = db_findnext;
+    if (.cc_find(invent_machine_build:button_draw_layer, 0) = true) {
+        .cc_setposition(.cc_getx, cc_param(invent_machine_y_offset), ^setpos_abs_left, ^setpos_abs_top);
+        .cc_sethide(false);
+        .cc_sendtofront;
+    }
+} else {
+    return;
+}
+$string0 = db_getfield($dbrow3, invent_machine_table:col1, 0);
+if_settext($string0, invent_machine_build:machine_name);
+$string0 = db_getfield($dbrow3, invent_machine_table:col2, 0);
+if_settext($string0, invent_machine_build:machine_desc);
+$int9 = db_getfield($dbrow3, invent_machine_table:col11, 0);
+if ($int9 = -1) {
+    $string0 = "Lots!";
+} else {
+    $string0 = tostring_localised($int9, true);
+}
+if_settext($string0, invent_machine_build:capacity_value);
+$int9 = db_getfield($dbrow3, invent_machine_table:col23, 0);
+$string0 = tostring_localised($int9, true);
+if_settext($string0, invent_machine_build:invent_xp_value);
+if (%invent_hotspot_id = 1) {
+    if_settext("N/A", invent_machine_build:items_per_hour_value);
+} else {
+    $int9 = db_getfield($dbrow3, invent_machine_table:col17, 0);
+    $string0 = tostring_localised($int9, true);
+    if_settext($string0, invent_machine_build:items_per_hour_value);
+}
+$int9 = db_getfield($dbrow3, invent_machine_table:col21, 0);
+$string0 = tostring_localised($int9, true);
+if_settext($string0, invent_machine_build:power_req_value);
+if (%invent_hotspot_id = 1) {
+    if_settext("Power supplied", invent_machine_build:power_req_label);
+    if_setonmouserepeat("script13684(event_com, event_comsubid, 1, db_getfield($dbrow3, invent_machine_table:col21, 0), $int4)", invent_machine_build:power_required);
+} else {
+    if_setonmouserepeat("script13684(event_com, event_comsubid, 0, 0, $int4)", invent_machine_build:power_required);
+}
+if (calc(%invent_machine_generator_power_provided - %invent_machine_generator_power_used + $int4) >= $int9 | %invent_hotspot_id = 1) {
+    if_setgraphic("aif_tick_cross_icon,0", invent_machine_build:power_req_graphic);
+    if_setcolour(^green, invent_machine_build:power_req_value);
+} else {
+    if_setgraphic("aif_tick_cross_icon,1", invent_machine_build:power_req_graphic);
+    if_setcolour(^red, invent_machine_build:power_req_value);
+    $int20 = 0;
+}
+if_setgraphic("menaphos_tombs_icon_power_up,3", invent_machine_build:power_req_icon);
+$int9 = db_getfield($dbrow3, invent_machine_table:col3, 0);
+$string0 = tostring_localised($int9, true);
+if_settext($string0, invent_machine_build:invent_level_value);
+if (stat(invention) >= $int9) {
+    if_setgraphic("aif_tick_cross_icon,0", invent_machine_build:invent_level_graphic);
+    if_setcolour(^green, invent_machine_build:invent_level_value);
+} else {
+    if_setgraphic("aif_tick_cross_icon,1", invent_machine_build:invent_level_graphic);
+    if_setcolour(^red, invent_machine_build:invent_level_value);
+    $int20 = 0;
+}
+$string0 = "<col=f5b241>Current Invention level:</col> <tostring(stat(invention))>";
+if_setonmouserepeat("script3876($string0, event_com, -1)", invent_machine_build:invent_level_label);
+$int9 = db_getfield($dbrow3, invent_machine_table:col4, 0);
+$string0 = db_getfield($dbrow3, invent_machine_table:col1, 0);
+if_settext($string0, invent_machine_build:blueprint_label);
+if (~invent_blueprint_unlocked($int9) = 1) {
+    if_setgraphic("aif_tick_cross_icon,0", invent_machine_build:blueprint_graphic);
+} else {
+    if_setgraphic("aif_tick_cross_icon,1", invent_machine_build:blueprint_graphic);
+    $int20 = 0;
+}
+$string0 = "<col=f5b241>Discover blueprint:</col> <db_getfield($dbrow3, invent_machine_table:col1, 0)>";
+if_setonmouserepeat("script3876($string0, event_com, -1)", invent_machine_build:blueprint_label);
+def_dbrow $dbrow21 = db_getfield($dbrow3, invent_machine_table:col5, 0);
+if ($dbrow21 ! null) {
+    if_settext("Tier <tostring(db_getfield($dbrow21, invent_machine_table:col6, 0))>", invent_machine_build:machine_value);
+    if ($dbrow2 = $dbrow21) {
+        if_setgraphic("aif_tick_cross_icon,0", invent_machine_build:machine_graphic);
+        if_setcolour(^green, invent_machine_build:machine_value);
+    } else {
+        if_setgraphic("aif_tick_cross_icon,1", invent_machine_build:machine_graphic);
+        if_setcolour(^red, invent_machine_build:machine_value);
+        $int20 = 0;
+    }
+    $string0 = "<col=f5b241>Machine required:</col> <db_getfield($dbrow21, invent_machine_table:col1, 0)>";
+    if_setonmouserepeat("script3876($string0, event_com, -1)", invent_machine_build:machine_label);
+} else {
+    if_settext("None", invent_machine_build:machine_value);
+    if_setgraphic("aif_tick_cross_icon,0", invent_machine_build:machine_graphic);
+    if_setcolour(^green, invent_machine_build:machine_value);
+    $string0 = "<col=f5b241>Machine required:</col> None";
+    if_setonmouserepeat("script3876($string0, event_com, -1)", invent_machine_build:machine_label);
+}
+$int13 = db_getfieldcount($dbrow3, invent_machine_table:col7);
+$int14 = db_getfieldcount($dbrow3, invent_machine_table:col8);
+while ($int14 > 0) {
+    $obj16, $int9 = db_getfield($dbrow3, invent_machine_table:col8, calc($int14 - 1));
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,0");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(calc(8 + $int8), $int10, ^setsize_minus, ^setsize_abs);
+    cc_setposition(calc($int8 + 4), $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,1");
+    cc_setonmouserepeat("script8801(~script13683($obj16, 0), $component1, $int5, ^settextalign_centre, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular))");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int8, $int7, ^setpos_abs_right, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,2");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(2 * $int8), calc($int7 + ($int10 - $int12) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject($obj16, -1);
+    $string0 = tostring_localised($int9, true);
+    $int5 = calc($int5 + 1);
+    ~script13681($component1, $int5, calc(2 * $int8 + $int10), $int7, oc_name($obj16), calc(2 * $int8), $int10, 11505726, ^settextalign_left, ^settextalign_centre, museo_sans_11pt_regular);
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(2 * $int8), calc($int7 + ($int10 - $int12) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    if (~script2515(inv, $obj16) >= $int9) {
+        $int9 = 65280;
+        cc_setgraphic("aif_tick_cross_icon,0");
+    } else {
+        $int9 = 16711680;
+        cc_setgraphic("aif_tick_cross_icon,1");
+        $int20 = 0;
+    }
+    $int5 = calc($int5 + 1);
+    ~script13681($component1, $int5, $int8, $int7, $string0, calc(3 * $int8 + $int10), $int10, $int9, ^settextalign_right, ^settextalign_centre, museo_sans_11pt_regular);
+    $int7 = calc($int7 + ($int6 + $int10));
+    $int19 = calc($int19 + ($int6 + $int10));
+    $int14 = calc($int14 - 1);
+    $int5 = calc($int5 + 1);
+}
+while ($int13 > 0) {
+    $dbrow17, $int9 = db_getfield($dbrow3, invent_machine_table:col7, calc($int13 - 1));
+    $int18 = db_getfield($dbrow17, invent_material_table:col0, 0);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,0");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(calc(8 + $int8), $int10, ^setsize_minus, ^setsize_abs);
+    cc_setposition(calc($int8 + 4), $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,1");
+    cc_setonmouserepeat("script8801(~script13682($int18, 0, null), $component1, $int5, ^settextalign_centre, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular))");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int8, $int7, ^setpos_abs_right, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,2");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(2 * $int8), calc($int7 + ($int10 - $int12) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(db_getfield($dbrow17, invent_material_table:col4, 0));
+    $string0 = tostring_localised($int9, true);
+    $int5 = calc($int5 + 1);
+    ~script13681($component1, $int5, calc(2 * $int8 + $int10), $int7, db_getfield($dbrow17, invent_material_table:col1, 0), calc(2 * $int8), $int10, 11505726, ^settextalign_left, ^settextalign_centre, museo_sans_11pt_regular);
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(2 * $int8), calc($int7 + ($int10 - $int12) / 2), ^setpos_abs_right, ^setpos_abs_top);
+    if (~invent_material_count(db_getfield($dbrow17, invent_material_table:col0, 0)) >= $int9) {
+        $int9 = 65280;
+        cc_setgraphic("aif_tick_cross_icon,0");
+    } else {
+        $int9 = 16711680;
+        cc_setgraphic("aif_tick_cross_icon,1");
+        $int20 = 0;
+    }
+    $int5 = calc($int5 + 1);
+    ~script13681($component1, $int5, $int8, $int7, $string0, calc(3 * $int8 + $int10), $int10, $int9, ^settextalign_right, ^settextalign_centre, museo_sans_11pt_regular);
+    $int7 = calc($int7 + ($int6 + $int10));
+    $int19 = calc($int19 + ($int6 + $int10));
+    $int13 = calc($int13 - 1);
+    $int5 = calc($int5 + 1);
+}
+if (%invent_hotspot_id ! 1) {
+    cc_create($component1, ^iftype_text, $int5);
+    cc_setsize(calc(2 * $int8), $int11, ^setsize_minus, ^setsize_abs);
+    cc_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext("Running Costs");
+    cc_settextshadow(true);
+    cc_setcolour(^white);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settextfont(museo_sans_13pt_regular);
+    $int7 = calc($int7 + ($int11 + $int6));
+    $int19 = calc($int19 + ($int11 + $int6));
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,0");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(calc(8 + $int8), $int10, ^setsize_minus, ^setsize_abs);
+    cc_setposition(calc($int8 + 4), $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,1");
+    $string0 = "The amount of machine charge this machine uses from your generator every hour.";
+    cc_setonmouserepeat("script3876($string0, $component1, $int5)");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int8, $int7, ^setpos_abs_right, ^setpos_abs_top);
+    cc_setgraphic("aif_make_x_square_blue_strip,2");
+    $int5 = calc($int5 + 1);
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(2 * $int8), calc($int7 + ($int10 - $int12) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(invention_icon_inspiration);
+    $int5 = calc($int5 + 1);
+    ~script13681($component1, $int5, calc(2 * $int8 + $int10), $int7, "Machine charge", calc(2 * $int8), $int10, 11505726, ^settextalign_left, ^settextalign_centre, museo_sans_11pt_regular);
+    $int5 = calc($int5 + 1);
+    $string0 = tostring(db_getfield($dbrow3, invent_machine_table:col22, 0));
+    ~script13681($component1, $int5, $int8, $int7, $string0, calc(3 * $int8 + $int10), $int10, 16777215, ^settextalign_right, ^settextalign_centre, museo_sans_11pt_regular);
+    $int7 = calc($int7 + ($int6 + $int10));
+    $int19 = calc($int19 + ($int6 + $int10));
+    $int15 = db_getfieldcount($dbrow3, invent_machine_table:col19);
+    while ($int15 > 0) {
+        $int5 = calc($int5 + 1);
+        $obj16, $int9 = db_getfield($dbrow3, invent_machine_table:col19, calc($int15 - 1));
+        cc_create($component1, ^iftype_graphic, $int5);
+        cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic("aif_make_x_square_blue_strip,0");
+        $int5 = calc($int5 + 1);
+        cc_create($component1, ^iftype_graphic, $int5);
+        cc_setsize(calc(8 + $int8), $int10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(calc($int8 + 4), $int7, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic("aif_make_x_square_blue_strip,1");
+        $string0 = "The amount of this secondary this machine uses for every item it processes.";
+        cc_setonmouserepeat("script3876($string0, $component1, $int5)");
+        $int5 = calc($int5 + 1);
+        cc_create($component1, ^iftype_graphic, $int5);
+        cc_setsize(4, $int10, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int8, $int7, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setgraphic("aif_make_x_square_blue_strip,2");
+        $int5 = calc($int5 + 1);
+        cc_create($component1, ^iftype_graphic, $int5);
+        cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc(2 * $int8), calc($int7 + ($int10 - $int12) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setobject($obj16, -1);
+        $int5 = calc($int5 + 1);
+        ~script13681($component1, $int5, calc(2 * $int8 + $int10), $int7, oc_name($obj16), calc(2 * $int8), $int10, 11505726, ^settextalign_left, ^settextalign_centre, museo_sans_11pt_regular);
+        $int5 = calc($int5 + 1);
+        $string0 = tostring($int9);
+        ~script13681($component1, $int5, $int8, $int7, $string0, calc(3 * $int8 + $int10), $int10, 16777215, ^settextalign_right, ^settextalign_centre, museo_sans_11pt_regular);
+        $int7 = calc($int7 + ($int6 + $int10));
+        $int19 = calc($int19 + ($int6 + $int10));
+        $int15 = calc($int15 - 1);
+    }
+}
+if ($dbrow2 ! null) {
+    if (db_getfield($dbrow3, invent_machine_table:col10, 0) = db_getfield($dbrow2, invent_machine_table:col10, 0)) {
+        if (db_getfield($dbrow3, invent_machine_table:col6, 0) < db_getfield($dbrow2, invent_machine_table:col6, 0)) {
+            if_settext("Downgrade", invent_machine_build:build_button_text);
+        } else {
+            if_settext("Upgrade", invent_machine_build:build_button_text);
+        }
+    } else {
+        if_settext("Build", invent_machine_build:build_button_text);
+    }
+} else if (db_getfield($dbrow3, invent_machine_table:col6, 0) > 1) {
+    $int20 = 0;
+}
+if ($int20 = 0) {
+    if_sethide(false, invent_machine_build:build_button_disabled_layer);
+    $string0 = "You do not have all of the requirements to build this machine.";
+    if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", invent_machine_build:build_button_disabled_layer);
+} else {
+    if_sethide(true, invent_machine_build:build_button_disabled_layer);
+    if_setonmouserepeat(null, invent_machine_build:build_button_disabled_layer);
+}
+if ($int19 > if_getheight(invent_machine_build:scroll_layer)) {
+    if_setscrollsize(0, $int19, invent_machine_build:scroll_layer);
+} else {
+    if_setscrollsize(0, 0, invent_machine_build:scroll_layer);
+}
+if_setscrollpos(0, 0, invent_machine_build:scroll_layer);
+~rs3_scrollbar_vertical(invent_machine_build:rhs_button_scrollbar, invent_machine_build:scroll_layer);

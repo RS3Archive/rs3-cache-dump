@@ -1,0 +1,19 @@
+// 15362
+[clientscript,cheevo_resolve_goto](component $component0, component $component1)
+if (%cheevo_goto_achievement = null) {
+    return;
+}
+def_category $category2 = achievement_category(%cheevo_goto_achievement);
+def_category $category3 = achievement_subcat(%cheevo_goto_achievement);
+def_int $int4 = enum_getreverseindex(category, int, cheevo_categories, $category2, 0);
+~cheevo_op_category($component0, $component1, $int4);
+def_enum $enum5 = enum(category, enum, cheevo_cat_to_subcat, $category2);
+def_int $int6 = -1;
+def_int $int7 = 0;
+if ($category3 ! null) {
+    $int6 = enum_getreverseindex(category, int, $enum5, $category3, 0);
+    $int7 = calc($int6 * (32 + 2 + 2));
+    ~script15359($category2, $category3, $int7);
+}
+%cheevo_selected_cat_client = calc($int4 + 1);
+%cheevo_selected_subcat_client = calc($int6 + 1);

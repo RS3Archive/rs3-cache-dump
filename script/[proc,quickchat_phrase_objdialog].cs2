@@ -1,0 +1,61 @@
+// 1037
+[proc,quickchat_phrase_objdialog](chatphrase $chatphrase0, boolean $boolean1, int $int2)
+~quickchat_focus($int2);
+~script8620($int2, $boolean1);
+~script8618($int2, -1);
+~script8622($int2, 0);
+~script8612($int2, "");
+def_string $string0 = chatphrase_gettext($chatphrase0);
+if (~script8613($int2) = 1) {
+    $string0 = "To <~script8605($int2)>: <col=10F010><$string0>";
+} else if (~script8613($int2) = 2) {
+    $string0 = "[<col=6464A0><clan_getchatdisplayname><col=FFFFFF>]: <col=10F010><$string0>";
+} else if (~script8613($int2) = 8) {
+    if (activeclanchannel_find_affined(0) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 13) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0><player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 15) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0>(Team)<player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int2) = 17) {
+    if (activeclanchannel_find_affined(1) = true) {
+        $string0 = "[<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else {
+    $string0 = $string0;
+}
+if_sethide(true, ~script8585($int2));
+if_setonkey(null, ~script8556($int2));
+if_sethide(false, ~script8586($int2));
+if_sethide(true, ~script8588($int2));
+if_sethide(true, ~script8590($int2));
+if_sethide(false, ~script8594($int2));
+if_sethide(true, ~script8598($int2));
+if_sethide(true, ~script8599($int2));
+if_sethide(false, ~script8600($int2));
+if_setcolour(^white, ~script8600($int2));
+if_settextfont(museo_sans_11pt_regular, ~script8600($int2));
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, ~script8600($int2));
+if_settext($string0, ~script8600($int2));
+if_settextshadow(true, ~script8600($int2));
+cc_deleteall(~script8595($int2));
+if_setcolour(0xf01010, ~script8596($int2));
+if_settext("Search for: *", ~script8596($int2));
+if_settextshadow(true, ~script8596($int2));
+if_setscrollsize(0, 0, ~script8595($int2));
+cc_deleteall(~script8597($int2));
+if (if_find(~script8596($int2)) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_rootphrase, $chatphrase0);
+}
+if (if_find(~script8586($int2)) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_mode, 2);
+}

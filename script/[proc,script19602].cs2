@@ -1,0 +1,48 @@
+// 19602
+[proc,script19602](int $int0, int $int1, obj $obj2, int $int3, inv $inv4, int $int5, boolean $boolean6, boolean $boolean7)
+if (cc_find(group_ironman_storage:clan_inv, $int0) = true) {
+    if ($int3 >= $int1) {
+        if ($boolean7 = true) {
+            ~script19539($obj2, 0);
+        } else {
+            ~script19539(null, 0);
+        }
+    } else {
+        ~script19539($obj2, calc($int1 - $int3));
+    }
+}
+def_int $int8 = -1;
+def_component $component9 = ~script19567($inv4);
+if (oc_stackable($obj2) = true | $boolean6 = true & oc_cert($obj2) ! $obj2) {
+    $int8 = ~script19585($inv4, oc_cert($obj2), 0);
+    if ($int8 ! $int5 & $int8 ! -1) {
+        $int5 = $int8;
+    }
+    if ($int5 = -1) {
+        $int5 = ~script3798($component9, 0);
+    }
+    if ($int5 ! -1 & cc_find($component9, $int5) = true) {
+        if ($boolean6 = true) {
+            ~script19607($inv4, oc_cert($obj2), calc(cc_getinvcount + $int3));
+        } else {
+            ~script19607($inv4, $obj2, calc(cc_getinvcount + $int3));
+        }
+    }
+    return;
+}
+if ($int5 = -1) {
+    $int5 = ~script3798($component9, 0);
+    if ($int5 = -1) {
+        return;
+    }
+}
+while ($int3 > 0) {
+    if (cc_find($component9, $int5) = true) {
+        ~script19607($inv4, $obj2, 1);
+    }
+    $int5 = ~script3798($component9, $int5);
+    if ($int5 = -1) {
+        return;
+    }
+    $int3 = calc($int3 - 1);
+}

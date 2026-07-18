@@ -1,0 +1,65 @@
+// 13179
+[proc,script13179](component $component0, dbrow $dbrow1)
+def_struct $struct2 = null;
+def_struct $struct3 = null;
+def_graphic $graphic4 = null;
+$struct2, $struct3, $graphic4 = ~script13178($dbrow1);
+if ($component0 = null | $struct2 = null) {
+    return;
+}
+def_struct $struct5 = ~script9984($struct2, 6);
+if ($struct5 = null) {
+    return;
+}
+def_fontmetrics $fontmetrics6 = struct_param($struct5, rs3tli_button_text_font);
+def_int $rgb7 = struct_param($struct5, rs3tli_button_text_colour);
+def_int $int8 = calc(2 + 1);
+def_int $int9 = calc(if_getwidth($component0) - $int8 * 2);
+def_int $int10 = calc(if_getheight($component0) - $int8 * 2);
+def_int $int11 = inv_size(worn_custom_overrides);
+def_int $int12 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_text, $int12++);
+cc_settextfont($fontmetrics6);
+cc_settextshadow(true);
+cc_setposition($int8, $int8, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+cc_setcolour($rgb7);
+def_string $string0 = "";
+if (%mtxmgt_store_keepsake_slots_used = 0) {
+    $string0 = "The Keepsake Box can store wearable items as cosmetic overrides.";
+} else {
+    $string0 = "Keepsake slots available:<br><tostring(calc($int11 - %mtxmgt_store_keepsake_slots_used))> / <tostring($int11)>";
+}
+def_int $int13 = 34;
+def_int $int14 = 35;
+def_int $int15 = 0;
+.cc_create($component0, ^iftype_graphic, $int12++);
+if (%mtx_batch11_customiser_consumable = 0) {
+    $string0 = "<$string0><br><br>To add an item you'll need a Keepsake Key.";
+    .cc_setgraphic(wardrobe_icon_keepsake_currency);
+} else {
+    if (~script6431 = true) {
+        $string0 = "<$string0><br><br>Tap here to select an item to keepsake.";
+    } else {
+        $string0 = "<$string0><br><br>Drag your item into this box.";
+    }
+    .cc_setgraphic(wardrobe_icon_drop_item);
+}
+cc_settext($string0);
+.cc_setsize($int13, $int14, ^setsize_abs, ^setsize_abs);
+$int15 = ~script7593($string0, $int9, $fontmetrics6, 0);
+$int10 = calc($int10 - $int14 - 4);
+if ($int15 > $int10) {
+    cc_settext(~script3930($string0, $int9, calc($int10 / enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics6)), $fontmetrics6));
+    $int15 = min($int10, ~script7593(cc_gettext, $int9, $fontmetrics6, 0));
+}
+cc_setsize($int9, $int15, ^setsize_abs, ^setsize_abs);
+cc_setposition(cc_getx, calc($int8 + ($int10 - $int15) / 2), ^setpos_abs_left, ^setpos_abs_top);
+.cc_setposition(0, cc_gety, ^setpos_abs_centre, ^setpos_abs_bottom);
+if (%mtx_batch11_customiser_consumable = 0) {
+    cc_create($component0, ^iftype_graphic, $int12++);
+    cc_setgraphic(rs3_btn_add_currency_sml_nml);
+    cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(.cc_getx + .cc_getwidth - cc_getwidth), calc(.cc_gety + .cc_getheight - cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
+}

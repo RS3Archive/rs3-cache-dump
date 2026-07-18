@@ -1,0 +1,27 @@
+// 4001
+[proc,cheevo_quest_tooltip](string $string0, struct $struct0, string $string1)(string)
+def_string $string2 = $string0;
+if (struct_param($struct0, quest_id) > 0) {
+    if (string_length(quest_param(struct_param($struct0, quest_struct_quest), quest_start_point)) > 0) {
+        if (compare($string0, "") ! 0) {
+            $string0 = append($string0, "<br>");
+        }
+        $string0 = append($string0, "Quest Start:<br>");
+        $string0 = append($string0, quest_param(struct_param($struct0, quest_struct_quest), quest_start_point));
+    }
+    if (string_length(quest_param(struct_param($struct0, quest_struct_quest), quest_description)) > 0) {
+        if (compare($string0, "") ! 0) {
+            if (string_length(quest_param(struct_param($struct0, quest_struct_quest), quest_start_point)) > 0) {
+                $string0 = append($string0, "<br><br>");
+            } else {
+                $string0 = append($string0, "<br>");
+            }
+        }
+        $string0 = append($string0, "Description:<br>");
+        $string0 = append($string0, quest_param(struct_param($struct0, quest_struct_quest), quest_description));
+    }
+}
+if (compare($string2, "") = 0 & compare($string0, "") ! 0 & compare($string1, "") ! 0) {
+    $string0 = append($string0, "<br>");
+}
+return($string0);

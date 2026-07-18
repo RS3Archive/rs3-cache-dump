@@ -1,0 +1,44 @@
+// 16567
+[proc,script16567](dbrow $dbrow0)(graphic)
+switch_dbrow ($dbrow0) {
+    case prayer_filter :
+        if (%prayer_client_current_filter = 1) {
+            return("rs3_icon_wardrobe_filter_24px,1");
+        } else {
+            return("rs3_icon_wardrobe_filter_24px,4");
+        }
+    case ability_filter :
+        if (%ability_book_filter_unavailable = 0) {
+            return("rs3_icon_wardrobe_filter_24px,1");
+        } else {
+            return("rs3_icon_wardrobe_filter_24px,4");
+        }
+    case ability_filter_locked :
+        if (%ability_book_filter_locked_abilities = 0) {
+            return("rs3_icon_wardrobe_filter_24px,1");
+        } else {
+            return("rs3_icon_wardrobe_filter_24px,4");
+        }
+    case ability_filter_lodestone :
+        if (%ability_book_filter_lodestone_teleports = 0) {
+            return("rs3_icon_wardrobe_filter_24px,1");
+        } else {
+            return("rs3_icon_wardrobe_filter_24px,4");
+        }
+    case spell_filter :
+        if (%ability_book_filter_unavailable_spells = 0) {
+            return("rs3_icon_wardrobe_filter_24px,1");
+        } else {
+            return("rs3_icon_wardrobe_filter_24px,4");
+        }
+    case inv_drag_toggle :
+        if (%toplevel_v2_inv_drag_toggle = 0) {
+            return(hud_combat_btn_unlocked);
+        } else {
+            return(hud_combat_btn_locked);
+        }
+    case null :
+        return(null);
+    case default :
+        return(db_getfield($dbrow0, child_options:col1, 0));
+}

@@ -1,0 +1,75 @@
+// 947
+[proc,script947](obj $obj0)(obj, int, int)
+if ($obj0 = null) {
+    return(null, -1, -1);
+}
+def_obj $obj1 = $obj0;
+def_struct $struct2 = oc_param($obj1, potion_struct);
+def_obj $obj3 = null;
+def_int $int4 = -1;
+def_int $int5 = -1;
+if ($struct2 ! null) {
+    if (oc_param($obj1, fake_potion) = 1) {
+        $int5 = ~inv_find(inv, $obj1, 0);
+        return($obj1, $int5, 93);
+    }
+    if (oc_wearpos($obj1) ! -1) {
+        $obj3, $int5 = ~script8233($struct2, worn, $obj1, 1);
+    }
+    if ($obj3 ! null) {
+        return($obj3, $int5, 94);
+    }
+    $obj3, $int5 = ~script8233($struct2, inv, $obj1, 1);
+    if ($obj3 ! null) {
+        return($obj3, $int5, 93);
+    }
+} else {
+    switch_category (oc_category($obj1)) {
+        case pop_scrimshaw :
+            if (oc_wearpos($obj1) ! -1) {
+                if (oc_param($obj1, pop_untradeable_version) ! null) {
+                    $obj3 = oc_param($obj1, pop_untradeable_version);
+                } else if (oc_param($obj1, pop_new_version) ! null) {
+                    $obj3 = $obj1;
+                    $obj1 = oc_param($obj1, pop_new_version);
+                }
+            } else if (oc_param($obj1, pop_untradeable_version) ! null) {
+                $obj3 = $obj1;
+                $obj1 = oc_param($obj1, pop_untradeable_version);
+            } else if (oc_param($obj1, pop_new_version) ! null) {
+                $obj3 = oc_param($obj1, pop_new_version);
+            }
+        case enchanted_silver_jewellery :
+            if (oc_param($obj1, invent_compactor_iscompacted) = false & (oc_members($obj1) = 0 | map_members = true)) {
+                if (oc_param($obj1, item_degrade_freshitem) = 1) {
+                    $obj3 = enum(obj, obj, enchanted_silver_new_to_used, $obj1);
+                } else {
+                    $obj3 = $obj1;
+                    $obj1 = enum_getreverseindex(obj, obj, enchanted_silver_new_to_used, $obj1, 0);
+                }
+            }
+    }
+    if (oc_wearpos($obj1) > -1) {
+        $int5 = ~inv_find(worn, $obj1, 0);
+        if ($int5 > -1) {
+            return($obj1, $int5, 94);
+        }
+        if ($obj3 ! null) {
+            $int5 = ~inv_find(worn, $obj3, 0);
+            if ($int5 > -1) {
+                return($obj3, $int5, 94);
+            }
+        }
+    }
+    $int5 = ~inv_find(inv, $obj1, 0);
+    if ($int5 > -1) {
+        return($obj1, $int5, 93);
+    }
+    if ($obj3 ! null) {
+        $int5 = ~inv_find(inv, $obj3, 0);
+        if ($int5 > -1) {
+            return($obj3, $int5, 93);
+        }
+    }
+}
+return($obj0, -1, 93);

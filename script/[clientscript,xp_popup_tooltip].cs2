@@ -1,0 +1,163 @@
+// 5677
+[clientscript,xp_popup_tooltip](component $component0)
+def_stat $stat1 = null;
+switch_component ($component0) {
+    case default :
+        return;
+    case xp_popup:attack_button :
+        $stat1 = attack;
+    case xp_popup:strength_button :
+        $stat1 = strength;
+    case xp_popup:defence_button :
+        $stat1 = defence;
+    case xp_popup:ranged_button :
+        $stat1 = ranged;
+    case xp_popup:prayer_button :
+        $stat1 = prayer;
+    case xp_popup:magic_button :
+        $stat1 = magic;
+    case xp_popup:constitution_button :
+        $stat1 = hitpoints;
+    case xp_popup:agility_button :
+        $stat1 = agility;
+    case xp_popup:herblore_button :
+        $stat1 = herblore;
+    case xp_popup:thieving_button :
+        $stat1 = thieving;
+    case xp_popup:crafting_button :
+        $stat1 = crafting;
+    case xp_popup:fletching_button :
+        $stat1 = fletching;
+    case xp_popup:mining_button :
+        $stat1 = mining;
+    case xp_popup:smithing_button :
+        $stat1 = smithing;
+    case xp_popup:fishing_button :
+        $stat1 = fishing;
+    case xp_popup:cooking_button :
+        $stat1 = cooking;
+    case xp_popup:firemaking_button :
+        $stat1 = firemaking;
+    case xp_popup:woodcutting_button :
+        $stat1 = woodcutting;
+    case xp_popup:runecrafting_button :
+        $stat1 = runecraft;
+    case xp_popup:slayer_button :
+        $stat1 = slayer;
+    case xp_popup:farming_button :
+        $stat1 = farming;
+    case xp_popup:hunter_button :
+        $stat1 = hunter;
+    case xp_popup:construction_button :
+        $stat1 = construction;
+    case xp_popup:summoning_button :
+        $stat1 = summoning;
+    case xp_popup:dungeoneering_button :
+        $stat1 = dungeoneering;
+    case xp_popup:divination_button :
+        $stat1 = divination;
+    case xp_popup:invention_button :
+        $stat1 = invention;
+    case xp_popup:archaeology_button :
+        $stat1 = archaeology;
+    case xp_popup:necromancy_button :
+        $stat1 = necromancy;
+    case xp_popup:pets_button :
+        $stat1 = null;
+}
+def_string $string0 = "";
+def_int $int2 = 0;
+def_int $int3 = calc(%new_pet_size / 10);
+def_int $int4 = enum(stat, int, stat_to_int, $stat1);
+def_int $intbool5 = ^false;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_enum $enum8 = ~script12040($int4);
+if ($stat1 ! null) {
+    $string0 = append(enum(stat, string, stat_to_string, $stat1), ": <tostring(~script11861($stat1))>/<tostring(~script11890($stat1))><br>");
+    $string0 = append($string0, "Current XP: <tostring_localised(stat_visible_xp($stat1), true)><br>");
+    $intbool5, $int6, $int7 = ~script4037($int4);
+    if (~script10888($int4) = 0) {
+        if ($intbool5 = ^false) {
+            $string0 = append($string0, "Target XP: <tostring_localised($int6, true)><br>");
+            $string0 = append($string0, "Remainder: <tostring_localised(calc($int6 - stat_visible_xp($stat1)), true)>");
+        } else {
+            $string0 = append($string0, "XP for target level: <tostring_localised(enum(int, int, $enum8, $int6), true)><br>");
+            $string0 = append($string0, "Remainder: <tostring_localised(calc(enum(int, int, $enum8, $int6) - stat_visible_xp($stat1)), true)>");
+        }
+    } else {
+        $string0 = append($string0, "Next level: <tostring_localised(enum(int, int, $enum8, calc(~script11889($stat1) + 1)), true)><br>");
+        $string0 = append($string0, "Remainder: <tostring_localised(calc(enum(int, int, $enum8, calc(~script11889($stat1) + 1)) - stat_visible_xp($stat1)), true)>");
+    }
+    switch_stat ($stat1) {
+        case attack :
+            $int2 = %bonusxp_attack;
+        case strength :
+            $int2 = %bonusxp_strength;
+        case defence :
+            $int2 = %bonusxp_defence;
+        case magic :
+            $int2 = %bonusxp_magic;
+        case ranged :
+            $int2 = %bonusxp_ranged;
+        case prayer :
+            $int2 = %bonusxp_prayer;
+        case summoning :
+            $int2 = %bonusxp_summoning;
+        case mining :
+            $int2 = %bonusxp_mining;
+        case smithing :
+            $int2 = %bonusxp_smithing;
+        case crafting :
+            $int2 = %bonusxp_crafting;
+        case woodcutting :
+            $int2 = %bonusxp_woodcutting;
+        case farming :
+            $int2 = %bonusxp_farming;
+        case firemaking :
+            $int2 = %bonusxp_firemaking;
+        case fishing :
+            $int2 = %bonusxp_fishing;
+        case cooking :
+            $int2 = %bonusxp_cooking;
+        case dungeoneering :
+            $int2 = %bonusxp_dungeoneering;
+        case slayer :
+            $int2 = %bonusxp_slayer;
+        case runecraft :
+            $int2 = %bonusxp_runecrafting;
+        case hunter :
+            $int2 = %bonusxp_hunter;
+        case thieving :
+            $int2 = %bonusxp_thieving;
+        case construction :
+            $int2 = %bonusxp_construction;
+        case hitpoints :
+            $int2 = %bonusxp_hitpoints;
+        case agility :
+            $int2 = %bonusxp_agility;
+        case fletching :
+            $int2 = %bonusxp_fletching;
+        case herblore :
+            $int2 = %bonusxp_herblore;
+        case divination :
+            $int2 = %bonusxp_divination;
+        case invention :
+            $int2 = %bonusxp_invention;
+        case archaeology :
+            $int2 = %bonusxp_archaeology;
+        case necromancy :
+            $int2 = %bonusxp_necromancy;
+    }
+    if ($int2 > 0) {
+        $string0 = append($string0, "<br>Bonus XP: <col=00FF00><tostring_localised(calc($int2 / 10), true)>");
+    }
+} else {
+    $string0 = append("Current XP", ": <tostring($int3)><br>");
+    if (%new_pet_size < 9000) {
+        $string0 = append($string0, "Remainder until adolescent : <tostring(calc((9000 - %new_pet_size) / 10))>");
+    } else {
+        $string0 = append($string0, "Remainder until adult : <tostring(calc((24000 - %new_pet_size) / 10))>");
+    }
+}
+~script8800($string0, $component0, -1);

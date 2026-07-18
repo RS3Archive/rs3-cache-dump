@@ -1,0 +1,101 @@
+// 2184
+[proc,trade_pricechecker_setup](component $component0, component $component1, component $component2)
+cc_deleteall($component0);
+def_int $int3 = calc((if_getwidth($component0) - 5 * 36) / 6);
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_long $long0 = 0;
+def_long $long1 = 0;
+def_long $long2 = 0;
+def_int $int7 = 0;
+def_int $int8 = inv_size(tradeoffer);
+def_string $string0 = "";
+def_int $int9 = calc(stringwidth(tostring_localised(^max_32bit_int, true), notosans_11) + 4);
+def_int $int10 = ~script15891("0<br>0<br>0<br>", 1000, notosans_11, 0);
+def_int $int11 = 16;
+def_int $int12 = 0;
+def_int $int13 = 0;
+if (inv_freespace(tradeoffer) < $int8) {
+    while ($int4 < $int8) {
+        $int6 = inv_getnum(tradeoffer, $int4);
+        cc_create($component0, ^iftype_graphic, calc($int4 * 2));
+        .cc_create($component0, ^iftype_text, calc($int4 * 2 + 1));
+        if ($int6 > 0) {
+            $obj5 = inv_getobj(tradeoffer, $int4);
+            $long0 = long_max(1, ~script2185($int4));
+            if ($int6 > 1) {
+                $long2 = calc(9223372036854775807 / $long0);
+                if ($long0 > 0 & ~script17138($long2) < $int6) {
+                    $string0 = "<tostring_localised($int6, true)> x <tostring_localised_long($long0, true)><br>=<br>LOTS";
+                } else {
+                    $string0 = "<tostring_localised($int6, true)> x <tostring_localised_long($long0, true)><br>=<br><tostring_localised_long(calc(int_to_long($int6) * $long0), true)>";
+                }
+            } else {
+                $string0 = tostring_localised_long($long0, true);
+            }
+            $int12 = max($int9, parawidth($string0, 10000, notosans_11));
+            if (calc($int11 + $int12) > if_getwidth($component0)) {
+                $int11 = 16;
+                $int13 = calc($int13 + 32 + $int10 + 4);
+            }
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int11 + $int12 / 2 - 36 / 2), $int13, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+            cc_setobject($obj5, $int6);
+            cc_setoutline(1);
+            cc_setop(1, "Remove-1");
+            cc_setop(2, "Remove-5");
+            cc_setop(3, "Remove-10");
+            cc_setop(4, "Remove-All");
+            cc_setop(5, "Remove-X");
+            cc_setop(10, "Examine");
+            cc_setopbase("<col=ff9040><oc_name($obj5)>");
+            .cc_setsize($int12, $int10, ^setsize_abs, ^setsize_abs);
+            .cc_setposition($int11, calc($int13 + 2 + 32), ^setpos_abs_left, ^setpos_abs_top);
+            .cc_sethide(false);
+            .cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+            .cc_settextfont(notosans_11);
+            ~script12108(3);
+            .cc_settextshadow(true);
+            .cc_settext($string0);
+            $int11 = calc($int11 + $int12 + 4 * 3);
+        } else {
+            cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+            cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(true);
+            .cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+            .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_sethide(true);
+        }
+        $int4 = calc($int4 + 1);
+    }
+} else {
+    cc_create($component0, ^iftype_text, 0);
+    cc_setsize(0, if_getheight($component0), ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    ~script11024(3);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settextfont(notosans_11);
+    cc_settext("Interact with items in your inventory to check their values.");
+}
+$int13 = calc($int13 + 32 + $int10 + 4);
+if ($int13 > if_getheight($component0)) {
+    if_setscrollsize(0, $int13, $component0);
+    if_setposition(-8, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top, $component0);
+    ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if (cc_find($component1, 1) = true) {
+        ~scrollbar_vertical_doscroll($component1, $component0, if_getscrolly($component0), 1);
+    }
+} else {
+    if_setscrollsize(0, 0, $component0);
+    if_setscrollpos(0, 0, $component0);
+    cc_deleteall($component1);
+    if_setposition(0, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top, $component0);
+}
+if (%trade_pricechecker_totalvalue < 0) {
+    if_settext("Total value:<br>---", $component2);
+} else {
+    if_settext("Total value:<br><tostring_localised_long(%trade_pricechecker_totalvalue, true)>", $component2);
+}

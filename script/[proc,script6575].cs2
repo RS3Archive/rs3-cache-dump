@@ -1,0 +1,99 @@
+// 6575
+[proc,script6575]
+db_find(area_task_set:col0, %cheevo_area_task_set_selected);
+def_dbrow $dbrow0 = db_findnext;
+if ($dbrow0 = null) {
+    ~error("Null dbrow");
+    return;
+}
+def_dbrow $dbrow1 = null;
+def_category $category2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_achievement $achievement5 = null;
+def_achievement $achievement6 = null;
+def_achievement $achievement7 = null;
+def_string $string0 = "";
+def_graphic $graphic8 = null;
+def_obj $obj9 = null;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = db_getfieldcount($dbrow0, area_task_set:col3);
+def_int $int13 = db_getfield($dbrow0, area_task_set:col2, 0);
+def_int $int14 = 0;
+while ($int14 < 4) {
+    $dbrow1 = ~script7480($int14);
+    if ($dbrow1 = null) {
+        ~error("Null progress bar data for <tostring($int14)>");
+        return;
+    }
+    if_settext(enum(int, string, area_tasks_difficulty_tiers, calc($int13 + $int14)), db_getfield($dbrow1, area_task_set_progress_bar:col2, 0));
+    $component3 = db_getfield($dbrow1, area_task_set_progress_bar:col1, 0);
+    if ($int14 < $int12) {
+        $category2 = ~script11706($dbrow0, $int14);
+    }
+    if ($category2 ! null) {
+        $string0, $int10, $int11, $achievement5, $achievement6 = ~script11708($category2, $achievement5, $achievement6);
+        if_sethide(false, $component3);
+        if_settext($string0, db_getfield($dbrow1, area_task_set_progress_bar:col4, 0));
+        if_setsize(scale($int10, $int11, 16384), 16384, ^setsize_rel, ^setsize_rel, db_getfield($dbrow1, area_task_set_progress_bar:col3, 0));
+        $achievement7 = ~script8438($dbrow0, $int14);
+        $graphic8 = achievement_sprite($achievement7);
+        if_setgraphic($graphic8, db_getfield($dbrow1, area_task_set_progress_bar:col5, 0));
+        $obj9 = ~script11707($dbrow0, $int14);
+        $component4 = db_getfield($dbrow1, area_task_set_progress_bar:col6, 0);
+        if_setobject_nonum($obj9, 1, $component4);
+        if_setsize(36, 32, ^setsize_abs, ^setsize_abs, $component4);
+        if_setonop("script17834($achievement7, $obj9)", $component4);
+    } else {
+        if_sethide(true, $component3);
+    }
+    $category2 = null;
+    $int14 = calc($int14 + 1);
+}
+if ($achievement5 = null & $achievement6 ! null) {
+    $achievement5 = $achievement6;
+}
+cc_deleteall(area_task_sub:recommended_task_pin_layer);
+if ($achievement5 ! null) {
+    achievement_findparents($achievement5);
+    $achievement7 = achievement_findnext;
+    if_settext("Recommended Task: <achievement_getname($achievement5)>", area_task_sub:recommended_task_name);
+    if_settext("<achievement_getname($achievement7)><br>Task Description: <~achievement_description($achievement5)>", area_task_sub:recommended_task_desc);
+    if_setgraphic(achievement_sprite($achievement5), area_task_sub:recommended_task_graphic);
+    if (if_find(area_task_sub:recommended_task_pin_layer) = true) {
+        cc_create(area_task_sub:recommended_task_pin_layer, ^iftype_graphic, 0);
+        cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+        cc_setnoclickthrough(true);
+        ~cheevo_update_pin(area_task_sub:recommended_task_pin_layer, 0, $achievement5);
+    }
+    if_sethide(false, area_task_sub:recommended_task_pin_layer);
+    if_setposition(60, 4, ^setpos_abs_left, ^setpos_abs_top, area_task_sub:recommended_task_name);
+} else {
+    if_settext("All tasks completed!", area_task_sub:recommended_task_name);
+    if_settext("", area_task_sub:recommended_task_desc);
+    if_setgraphic($graphic8, area_task_sub:recommended_task_graphic);
+    if_sethide(true, area_task_sub:recommended_task_pin_layer);
+    if_setposition(45, 4, ^setpos_abs_left, ^setpos_abs_top, area_task_sub:recommended_task_name);
+}
+def_int $int15 = -1;
+$int14 = $int12;
+$achievement7 = null;
+while (--$int14 >= 0) {
+    $achievement7 = ~script8438($dbrow0, $int14);
+    if (achievement_reqstate($achievement7) ! -2) {
+        $int15 = $int14;
+    }
+}
+if ($int15 = -1) {
+    $int15 = calc($int12 - 1);
+}
+if_settext(enum(int, string, area_tasks_reward_title_text, calc($int15 + $int13)), area_task_sub:reward_title);
+~script1025(area_task_sub:reward_title, -1, notosans_14, notosans_13, notosans_12);
+$achievement7 = ~script8438($dbrow0, $int15);
+$obj9 = ~script11707($dbrow0, $int15);
+if_setobject_highres($obj9, area_task_sub:reward_graphic);
+if_settext(~oc_name($obj9), area_task_sub:reward_name);
+if_settext(~achievement_description($achievement7), area_task_sub:reward_desc);
+~script1025(area_task_sub:reward_desc, -1, notosans_13, notosans_12, notosans_11);
+if_setonop("script17834($achievement7, $obj9)", area_task_sub:reward_info_button);

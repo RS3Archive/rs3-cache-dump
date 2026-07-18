@@ -1,0 +1,37 @@
+// 18638
+[proc,script18638](struct $struct0, string $string0, int $int1)(string)
+def_int $int2 = 25;
+def_int $int3 = 10;
+if (%invent_perk_lunging > 0) {
+    $int2 = calc($int2 + scale($int2, 100, calc(10 + %invent_perk_lunging * 3)));
+    $int3 = calc($int3 + scale($int3, 100, calc(10 + %invent_perk_lunging * 3)));
+}
+switch_struct ($struct0) {
+    case combatv2_ability_strength_dismember :
+        $string0 = "<$string0><br>- <~script17720($struct0, $int2, calc($int2 + $int3), 0, $int1)> per hit every <col=ffffff><~script15973(2, 1)></col>.";
+        $string0 = "<$string0><br>- <col=ffffff><tostring(8)></col> hits.";
+        $string0 = "<$string0><br>- <col=ffffff>Damage over time</col>.";
+        $string0 = "<$string0><br>- Heals you for <col=ffffff><tostring(4)>%</col> of the damage dealt.";
+        if (~script15411(combatv2_ability_melee_dismember_recast_1) = 1) {
+            $string0 = "<$string0><br>- Can be <col=ffffff>recast</col> within <col=ffffff><~script14945(40, 1)></col> of the previous cast.";
+            $string0 = "<$string0><br><br><col=ffffff>Second Cast:</col> <struct_param(combatv2_ability_melee_dismember_recast_1, combatv2_ability_info)>";
+        }
+        if (~script15411(combatv2_ability_melee_dismember_recast_2) = 1) {
+            $string0 = "<$string0><br><col=ffffff>Third Cast:</col> <struct_param(combatv2_ability_melee_dismember_recast_2, combatv2_ability_info)>";
+        }
+    case combatv2_ability_melee_dismember_recast_1 :
+        $string0 = "<$string0><br>- <~script17720($struct0, 80, calc(80 + 20), 0, $int1)> per hit every <col=ffffff><~script15973(3, 1)></col>.";
+        $string0 = "<$string0><br>- <col=ffffff><tostring(6)></col> hits.";
+        $string0 = "<$string0><br>- <col=ffffff>Damage over time</col>.";
+        $string0 = "<$string0><br>- Heals you for <col=ffffff><tostring(6)>%</col> of the damage dealt.";
+        if (~script15411(combatv2_ability_melee_dismember_recast_2) = 1) {
+            $string0 = "<$string0><br><br><col=ffffff>Third Cast:</col> <struct_param(combatv2_ability_melee_dismember_recast_2, combatv2_ability_info)>";
+        }
+    case combatv2_ability_melee_dismember_recast_2 :
+        $string0 = "<$string0><br>- <~script17720($struct0, 110, calc(110 + 20), 0, $int1)> on first hit.";
+        $string0 = "<$string0><br>- <~script17718($struct0, 100, 0, $int1)> per hit every <col=ffffff><~script15973(4, 1)></col>.";
+        $string0 = "<$string0><br>- <col=ffffff><tostring(calc(6 + 1))></col> hits.";
+        $string0 = "<$string0><br>- <col=ffffff>Damage over time</col>.";
+        $string0 = "<$string0><br>- Heals you for <col=ffffff><tostring(12)>%</col> of the damage dealt.";
+}
+return($string0);

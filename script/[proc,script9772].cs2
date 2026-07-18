@@ -1,0 +1,78 @@
+// 9772
+[proc,script9772](enum $enum0, int $int1, int $int2, string $string0, string $string1, int $int3)
+def_component $component4 = trh17_item_select:root_layer;
+def_component $component5 = trh17_item_select:background_layer;
+def_component $component6 = trh17_item_select:frame_layer;
+def_component $component7 = trh17_item_select:content_layer;
+def_component $component8 = trh17_item_select:close_button_layer;
+def_component $component9 = trh17_item_select:info_layer;
+def_component $component10 = trh17_item_select:info_text;
+def_component $component11 = trh17_item_select:object_panel;
+~script9774;
+def_int $int12 = enum_getoutputcount($enum0);
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_component $component16 = null;
+def_obj $obj17 = null;
+def_int $int18 = 0;
+def_string $string2 = "";
+while ($int13 < $int12) {
+    $component16 = ~script9773($int13);
+    $int18 = 0;
+    $obj17 = enum(int, obj, $enum0, $int13);
+    if_setsize(50, 50, ^setsize_abs, ^setsize_abs, $component16);
+    if_setposition(calc(5 + $int15 * 60), calc(5 + $int14 * 60), ^setpos_abs_left, ^setpos_abs_top, $component16);
+    if_sethide(false, $component16);
+    cc_deleteall($component16);
+    cc_create($component16, ^iftype_rectangle, $int18);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setfill(true);
+    ~script10010(rs3_rect_dark);
+    $int18 = calc($int18 + 1);
+    cc_create($component16, ^iftype_graphic, $int18);
+    cc_setposition(2, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject($obj17, $int3);
+    cc_sethide(false);
+    $int18 = calc($int18 + 1);
+    $string2 = oc_param($obj17, trh17_select_tooltip);
+    if (string_length($string2) > 0) {
+        if_setonmouserepeat("script8799($string2, event_com, -1)", $component16);
+    } else {
+        if_setonmouserepeat(null, $component16);
+    }
+    $int13 = calc($int13 + 1);
+    if (++$int15 >= $int2) {
+        $int15 = 0;
+        $int14 = calc($int14 + 1);
+    }
+}
+if ($int15 = 0) {
+    $int14 = calc($int14 - 1);
+}
+def_int $int19 = calc($int2 * 60);
+def_int $int20 = calc($int14 * 60 + 60);
+if_setsize($int19, $int20, ^setsize_abs, ^setsize_abs, $component11);
+def_int $int21 = 0;
+def_int $int22 = 0;
+if (string_length($string1) = 0) {
+    if_sethide(true, $component9);
+} else {
+    $int22 = calc($int19 - 10);
+    $int21 = calc(paraheight($string1, $int22, museo_sans_11pt_regular_multiline) * 13);
+    if_settext($string1, $component10);
+    $int21 = calc($int21 + 10);
+    if_setsize($int19, $int21, ^setsize_abs, ^setsize_abs, $component9);
+    if_setposition(10, calc($int21 + 20), ^setpos_abs_left, ^setpos_abs_top, $component11);
+    $int20 = calc($int20 + $int21 + 10);
+    if_sethide(false, $component9);
+}
+$int19 = calc($int19 + 20);
+$int20 = calc($int20 + 20 + 36);
+def_struct $struct23 = toplevel_v2_default_main_modal_skin_data;
+$int20 = calc($int20 + struct_param($struct23, toplevel_v2_window_titled_top_height) + struct_param($struct23, toplevel_v2_window_titled_bottom_height));
+$int19 = calc($int19 + struct_param($struct23, toplevel_v2_window_titled_left_width) + struct_param($struct23, toplevel_v2_window_titled_right_width));
+if_setsize($int19, $int20, ^setsize_abs, ^setsize_abs, $component4);
+~script8421($component5, $component6, $component7, $component8, $string0, $struct23, -1, 1, null, null);

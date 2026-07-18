@@ -1,0 +1,95 @@
+// 11910
+[proc,script11910](struct $struct0, component $component1, int $int2, int $int3, int $int4, int $int5)
+if ($struct0 = null) {
+    return;
+}
+if (~script6431 = false & ~tooltip_time(25) = false) {
+    return;
+}
+$struct0 = ~script8247($struct0);
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_struct $struct9 = toplevel_v2_ability_book;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+$int10, $int11, $int12, $int13 = ~script14244;
+def_int $int14 = 342;
+def_int $int15 = 0;
+if (~script6431 = true) {
+    %tooltip_built = 0;
+    ~script1889($struct9, struct_param(enum(int, struct, minimenu_skin, %minimenu_skin), minimenu_font));
+}
+~script6211($component1, $int2);
+if (%tooltip_built ! 1) {
+    ~script8808;
+    if_opensubclient(toplevel_v2:tooltips_layer, toplevel_v2_ability_book_tooltip);
+    %tooltip_built = 1;
+    $string0, $string1, $string2, $int7, $int8 = ~script967($struct0, 1, 1, 1);
+    $int6 = ~script17704($struct0);
+    if_setgraphic(struct_param($struct0, combatv2_ability_icon), struct_param($struct9, toplevel_v2_ability_tooltip_icon));
+    if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_name_text)) = true) {
+        cc_settext($string0);
+    }
+    if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_type_text)) = true) {
+        cc_settext($string2);
+    }
+    if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_desc_text)) = true) {
+        cc_settext($string1);
+        if_setsize(8, calc(2 + ~script7593(cc_gettext, cc_getwidth, cc_getfontmetrics, 0)), ^setsize_minus, ^setsize_abs, toplevel_v2_ability_book_tooltip:body_layer);
+        $int15 = calc(if_unknown2(toplevel_v2_ability_book_tooltip:body_layer) + if_getheight(toplevel_v2_ability_book_tooltip:body_layer));
+    }
+    if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_cooldown_text)) = true) {
+        cc_settext(~script17698($struct0, 0));
+        if (.if_find(struct_param($struct9, toplevel_v2_ability_tooltip_cooldown_icon)) = true) {
+            if (string_length(cc_gettext) > 0) {
+                .cc_setgraphic(rs3_icon_sand_timer);
+            } else {
+                .cc_setgraphic(null);
+            }
+        }
+    }
+    if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_target_type_text)) = true) {
+        cc_settext(~script17707($int6, 0));
+        if (.if_find(struct_param($struct9, toplevel_v2_ability_tooltip_target_type_icon)) = true) {
+            .cc_setgraphic(~script17705($int6));
+        }
+    }
+    if (~script7473($struct0, $int7, $int8, 1) > 0) {
+        $int15 = calc($int15 + 50);
+        if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_footer_layer)) = true) {
+            if_sethide(false, toplevel_v2_ability_book_tooltip:footer_layer);
+        }
+    } else if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_footer_layer)) = true) {
+        if_sethide(true, toplevel_v2_ability_book_tooltip:footer_layer);
+    }
+    $int15 = calc($int15 + 9);
+    if ($int5 = 0) {
+        if ($int2 = -1) {
+            $int3, $int4 = ~script8405($component1);
+        } else {
+            $int3, $int4 = ~script8406($component1, $int2);
+        }
+    }
+    $int4 = calc($int4 + ~script20394(35));
+    if (calc($int4 + $int15) >= $int13) {
+        $int4 = calc($int4 - $int15);
+        $int4 = calc($int4 - ~script20394(35));
+    }
+    $int4 = max(min($int4, calc($int13 - $int15)), $int11);
+    $int3 = max(min(calc($int3 - $int14 / 2), calc($int12 - $int14)), $int10);
+    if (if_find(struct_param($struct9, toplevel_v2_ability_tooltip_main_layer)) = true) {
+        cc_setsize($int14, $int15, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (~script7981($struct0) = 1) {
+        if_sethide(false, toplevel_v2_ability_book_tooltip:on_actionbar_layer);
+    } else {
+        if_sethide(true, toplevel_v2_ability_book_tooltip:on_actionbar_layer);
+    }
+}

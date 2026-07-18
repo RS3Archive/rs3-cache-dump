@@ -1,0 +1,112 @@
+// 9554
+[proc,script9554](component $component0, component $component1, component $component2, string $string0, struct $struct3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_fontmetrics $fontmetrics12 = null;
+if ($component1 = null) {
+    return;
+}
+$struct3 = ~script9952($struct3);
+if (struct_param($struct3, toplevel_v2_window_use_mobile_ui_builder) = 1) {
+    ~script10404($component1, $string0);
+    return;
+}
+def_int $int13 = struct_param($struct3, toplevel_v2_window_titled_top_height);
+def_int $int14 = struct_param($struct3, toplevel_v2_window_titled_top_scalar_height);
+def_int $int15 = struct_param($struct3, toplevel_v2_window_titled_top_left_width);
+def_int $int16 = struct_param($struct3, toplevel_v2_window_titled_top_right_width);
+def_int $int17 = struct_param($struct3, toplevel_v2_window_titled_header_flourish_left_width);
+def_int $int18 = struct_param($struct3, toplevel_v2_window_titled_header_flourish_right_width);
+def_int $int19 = struct_param($struct3, toplevel_v2_window_titled_header_flourish_scalar_height);
+def_int $int20 = 0;
+def_int $int21 = struct_param($struct3, toplevel_v2_window_titled_icon_offset_y);
+if ($int21 < 0) {
+    $int20 = calc(0 - $int21);
+}
+$int4 = struct_param($struct3, toplevel_v2_window_titled_left_width);
+$int5 = calc($int13 + struct_param($struct3, toplevel_v2_window_titled_background_top_height) + $int20);
+$int6 = $int5;
+$int10 = struct_param($struct3, toplevel_v2_window_title_align);
+$int11 = calc(struct_param($struct3, toplevel_v2_window_titled_title_offset_y) + $int20);
+$fontmetrics12 = struct_param($struct3, toplevel_v2_window_title_font);
+def_int $int22 = max(stringwidth($string0, $fontmetrics12), struct_param($struct3, toplevel_v2_window_titled_title_minimum_width));
+if (cc_find($component1, 0) = true) {
+    if_setontimer(null, $component1);
+    if ($int10 = 1) {
+        cc_setposition(calc($int15 + $int17), $int14, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(calc($int15 + $int16 + $int17 + $int18), calc($int13 - $int14), ^setsize_minus, ^setsize_abs);
+    } else if ($int10 = 0) {
+        cc_setposition($int15, $int14, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int22, calc($int13 - $int14), ^setsize_abs, ^setsize_abs);
+    } else if ($int10 = 2) {
+        cc_setposition($int16, $int14, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize($int22, calc($int13 - $int14), ^setsize_abs, ^setsize_abs);
+    }
+} else {
+    if_setontimer("script9553($component0, $component1, $component2, $string0, $struct3)", $component1);
+    return;
+}
+if (cc_find($component1, 3) = true) {
+    if ($int10 = 1) {
+        cc_setposition($int15, $int19, ^setpos_abs_left, ^setpos_abs_top);
+    } else if ($int10 = 0) {
+        cc_setposition(calc($int15 + $int22), $int19, ^setpos_abs_left, ^setpos_abs_top);
+    } else if ($int10 = 2) {
+        cc_setposition(calc($int16 + $int22), $int19, ^setpos_abs_right, ^setpos_abs_top);
+    }
+    cc_setsize($int17, calc($int13 - $int19), ^setsize_abs, ^setsize_abs);
+}
+if (cc_find($component1, 4) = true) {
+    if ($int10 = 1) {
+        cc_setposition($int16, $int19, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize($int18, calc($int13 - $int19), ^setsize_abs, ^setsize_abs);
+    } else if ($int10 = 0) {
+        cc_setposition($int16, $int19, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(calc($int17 + $int22 + $int15 + $int16), calc($int13 - $int19), ^setsize_minus, ^setsize_abs);
+    } else if ($int10 = 2) {
+        cc_setposition($int16, $int19, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(calc($int17 + $int22 + $int15 + $int16), calc($int13 - $int19), ^setsize_minus, ^setsize_abs);
+    }
+}
+if (cc_find($component1, 14) = true) {
+    if (compare($string0, "") = 0) {
+        cc_sethide(true);
+        if ($int20 > 0) {
+            $int6 = $int11;
+        }
+    } else {
+        if ($int10 = 1) {
+            cc_setposition(0, $int11, ^setpos_abs_left, ^setpos_abs_top);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, cc_getfontmetrics));
+        } else if ($int10 = 0) {
+            cc_setposition($int15, $int11, ^setpos_abs_left, ^setpos_abs_top);
+            cc_settextalign(^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, cc_getfontmetrics));
+        } else if ($int10 = 2) {
+            cc_setposition($int16, $int11, ^setpos_abs_right, ^setpos_abs_top);
+            cc_settextalign(^settextalign_right, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, cc_getfontmetrics));
+        }
+        if (struct_param($struct3, toplevel_v2_window_titled_header_text_minus_width_override) ! -1) {
+            cc_setsize(struct_param($struct3, toplevel_v2_window_titled_header_text_minus_width_override), cc_getheight, ^setsize_minus, ^setsize_abs);
+        }
+        cc_settext($string0);
+        cc_sethide(false);
+        $int6 = max($int6, calc(cc_gety + cc_getheight));
+    }
+}
+$int7 = calc($int4 + struct_param($struct3, toplevel_v2_window_titled_right_width));
+$int8 = calc($int5 + struct_param($struct3, toplevel_v2_window_titled_bottom_height));
+$int9 = calc($int6 + struct_param($struct3, toplevel_v2_window_titled_bottom_height));
+if ($component0 ! null) {
+    if_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top, $component0);
+    if_setsize($int7, $int8, ^setsize_minus, ^setsize_minus, $component0);
+}
+if ($component2 ! null) {
+    if_setposition($int4, $int6, ^setpos_abs_left, ^setpos_abs_top, $component2);
+    if_setsize($int7, $int9, ^setsize_minus, ^setsize_minus, $component2);
+}

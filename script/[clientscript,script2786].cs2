@@ -1,0 +1,28 @@
+// 2786
+[clientscript,script2786](int $int0)
+if ($int0 = 2) {
+    sound_vorbis_volume(tli_click_01, 1, 0, 120);
+    autosetup_setlow;
+    if (~is_mobile_client = true) {
+        ~script17420;
+    }
+    %using_autosetup = 0;
+    ~script2710;
+} else if ($int0 = 3 & %using_autosetup = 0) {
+    sound_vorbis_volume(tli_click_01, 1, 0, 120);
+    if_sethide(true, graphics_options_v2_client_mobile:rec_button_click);
+    if_sethide(false, graphics_options_v2_client_mobile:prevent_click_through_layer);
+    if_sethide(false, graphics_options_v2_client_mobile:auto_setup_in_progress);
+    switch_toplevelinterface (if_gettop) {
+        case loginscreen :
+            ~autosetup(0);
+        case toplevel_v2 :
+            if (if_hassuboverlay(toplevel_v2:fullscreen_pop_ups, acc_create) = false) {
+                ~autosetup(1);
+            } else {
+                ~autosetup(4);
+            }
+        case lobbyscreen :
+            ~autosetup(2);
+    }
+}

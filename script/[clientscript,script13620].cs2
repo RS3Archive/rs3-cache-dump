@@ -1,0 +1,31 @@
+// 13620
+[clientscript,script13620](component $component0, component $component1)
+if_clearops($component0);
+if_setonmouserepeat(null, $component1);
+if_setopcursor(1, null, $component0);
+if_setgraphic(null, $component1);
+def_achievement $achievement2 = null;
+switch_component ($component0) {
+    case tracker_sub:fav_1 :
+        $achievement2 = %cheevo_fav_1;
+    case tracker_sub:fav_2 :
+        $achievement2 = %cheevo_fav_2;
+    case tracker_sub:fav_3 :
+        $achievement2 = %cheevo_fav_3;
+    case tracker_sub:fav_4 :
+        $achievement2 = %cheevo_fav_4;
+    case default :
+        return;
+}
+def_string $string0 = "";
+def_string $string1 = "";
+if ($achievement2 ! null) {
+    $string0 = achievement_getname($achievement2);
+    if_setgraphic(achievement_sprite($achievement2), $component1);
+    $string1 = append($string0, append("<br>", ~achievement_description($achievement2)));
+    if_setonmouserepeat("script8799($string1, event_com, -1)", $component1);
+    if_setopcursor(1, cursor_goto, $component0);
+    if_setop(1, "Go To", $component0);
+    if_setop(2, "Unfavourite", $component0);
+    if_setopbase($string0, $component0);
+}

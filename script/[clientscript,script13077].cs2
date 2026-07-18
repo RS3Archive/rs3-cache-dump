@@ -1,0 +1,23 @@
+// 13077
+[clientscript,script13077](int $int0)
+if (%peng_bttf_quest >= 80) {
+    return;
+}
+%peng_bttf_div_puzzle_energy_selection_client = calc($int0 + 1);
+def_int $int1 = 0;
+while ($int1 < if_getnextsubid(peng_bttf_mastermind:selection)) {
+    if (cc_find(peng_bttf_mastermind:selection, $int1) = true) {
+        if ($int1 ! $int0) {
+            cc_setoutline(0);
+        } else {
+            cc_setoutline(2);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+switch_int (random(2)) {
+    case 0 :
+        sound_vorbis_volume(peng_bttf_mastermind_select_energy_1, 1, 0, 225);
+    case 1 :
+        sound_vorbis_volume(peng_bttf_mastermind_select_energy_2, 1, 0, 225);
+}

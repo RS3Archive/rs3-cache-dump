@@ -1,0 +1,29 @@
+// 12014
+[proc,script12014](component $component0)
+def_string $string0 = "";
+if (%prayer_client_current_filter = 1) {
+    switch_int (%prayer_mode) {
+        case default :
+            $string0 = "<~script8241(1)> here to unfilter and show the full list of prayers.";
+        case 0 :
+            $string0 = "<~script8241(1)> here to unfilter and show the full list of prayers.";
+        case 1 :
+            $string0 = "<~script8241(1)> here to unfilter and show the full list of curses.";
+    }
+} else {
+    switch_int (%prayer_mode) {
+        case default :
+            $string0 = "<~script8241(1)> here to filter the list of prayers to show only those which you meet the level or quest requirements.";
+        case 0 :
+            $string0 = "<~script8241(1)> here to filter the list of prayers to show only those which you meet the level or quest requirements.";
+        case 1 :
+            $string0 = "<~script8241(1)> here to filter the list of curses to show only those which you meet the level or quest requirements.";
+    }
+}
+if (~script6431 = true) {
+    if_setop(5, "Info", $component0);
+    if_setonop("script7774($string0, event_com, event_comsubid, 0)", $component0);
+} else {
+    if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component0);
+    if_setonmouseleave("script8805", $component0);
+}

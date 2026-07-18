@@ -1,0 +1,42 @@
+// 6317
+[clientscript,combatv2_xp_onop](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, int $int6, int $int7)
+def_int $int8 = 0;
+def_component $component9 = null;
+def_component $component10 = null;
+if ($int6 = 1) {
+    if (testbit(%combatv2_melee_xp_option, $int7) = ^false) {
+        setbit(%combatv2_melee_xp_option, $int7);
+    } else {
+        clearbit(%combatv2_melee_xp_option, $int7);
+    }
+} else if ($int6 = 3) {
+    if (testbit(%combatv2_range_xp_option, $int7) = ^false) {
+        setbit(%combatv2_range_xp_option, $int7);
+    } else {
+        clearbit(%combatv2_range_xp_option, $int7);
+    }
+} else if (testbit(%combatv2_magic_xp_option, $int7) = ^false) {
+    setbit(%combatv2_magic_xp_option, $int7);
+} else {
+    clearbit(%combatv2_magic_xp_option, $int7);
+}
+while ($int8 < 3) {
+    switch_int ($int8) {
+        case 0 :
+            $component9 = $component0;
+            $component10 = $component1;
+        case 1 :
+            $component9 = $component2;
+            $component10 = $component3;
+        case 2 :
+            $component9 = $component4;
+            $component10 = $component5;
+    }
+    if ($component9 ! null) {
+        ~script6057($component9, $int6, $int8);
+    }
+    if ($component10 ! null) {
+        ~combatv2_xp_text_update($component10, $int6, $int8);
+    }
+    $int8 = calc($int8 + 1);
+}

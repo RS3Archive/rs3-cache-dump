@@ -1,0 +1,16 @@
+// 15669
+[clientscript,script15669](component $component0, int $int1, int $int2)
+if (map_loadedpercent < 100) {
+    return;
+}
+%loginscreen_preload_mask = setbit(%loginscreen_preload_mask, $int1);
+if (++$int1 < $int2) {
+    map_preload(enum(int, coord, loginscreen_preload_coords, $int1));
+    if_setontimer("script15669($component0, $int1, $int2)", $component0);
+    return;
+}
+if (%player_coord ! null) {
+    map_preload(%player_coord);
+}
+%loginscreen_preload_version = 0;
+if_setontimer(null, $component0);

@@ -1,0 +1,121 @@
+// 9566
+[proc,script9566](string $string0, int $int0, int $int1, int $int2, int $int3, component $component4, int $int5, fontmetrics $fontmetrics6, int $rgb7, int $int8, int $int9)
+if (~tooltip_time($int3) = false) {
+    return;
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+~script6211($component4, $int5);
+def_component $component16 = ~script10074;
+def_component $component17 = ~script10075;
+def_component $component18 = ~script10076;
+def_int $int19 = 0;
+if (%tooltip_built ! 1 | $int8 = 1) {
+    $int2 = min($int2, ~script14195($component16));
+    if_opensubclient($component17, text_tooltip);
+    if_setsize(0, 0, ^setsize_abs, ^setsize_abs, text_tooltip:tooltip_layer);
+    if_setparam_int(toplevel_v2_tooltip_type, -1, $component18);
+    if_sethide(true, text_tooltip:tooltip_dynamic_text);
+    cc_deleteall(text_tooltip:tooltip_dynamic_text);
+    if_sethide(true, text_tooltip:tooltip_text);
+    if_settext(null, text_tooltip:tooltip_text);
+    if_sethide(true, toplevel_v2:tooltips_ragdoll_layer);
+    if ($int1 ! -1) {
+        if_setparam_int(toplevel_v2_tooltip_type, $int1, $component18);
+        if_sethide(false, text_tooltip:tooltip_dynamic_text);
+        if_setsize(0, 0, ^setsize_abs, ^setsize_abs, text_tooltip:tooltip_dynamic_text);
+        if (cc_find($component18, 0) = true) {
+            switch_int ($int1) {
+                case 0 :
+                    ~worldmap_elements_quest_tooltip;
+                case 7 :
+                    ~script2556;
+                case 14 :
+                    ~script16458;
+                case 15 :
+                    ~script16454;
+                case 21 :
+                    ~script7345;
+                case 16 :
+                    ~script16447;
+                case 17 :
+                    ~script16449;
+                case 9 :
+                    ~script7346;
+                case 10 :
+                    ~script14744;
+                case 11 :
+                    ~script14745;
+                case 18 :
+                    ~script16446($string0);
+                case 1 :
+                    ~thas_lodestone_tooltip;
+                case 2 :
+                    ~lobby_world_tooltip;
+                case 3, 4 :
+                    ~rs3_item_tooltip(text_tooltip:tooltip_dynamic_text, text_tooltip:tooltip_dynamic_text, $string0);
+                    $int19 = 1;
+                case 13 :
+                    ~rs3_item_tooltip(text_tooltip:tooltip_dynamic_text, text_tooltip:tooltip_dynamic_text, $string0);
+                case 5 :
+                    ~cheevo_tooltip;
+                case 6 :
+                    ~rs3_reputation_tooltip;
+                case 8 :
+                    ~thas_lodestone_tooltip;
+                case 19 :
+                    ~script11176;
+                case 12 :
+                    ~rs3_title_tooltip;
+            }
+        }
+        if (if_getwidth(text_tooltip:tooltip_dynamic_text) = 0 | if_getheight(text_tooltip:tooltip_dynamic_text) = 0) {
+            ~script8808;
+            return;
+        } else {
+            if_setsize(if_getwidth(text_tooltip:tooltip_dynamic_text), if_getheight(text_tooltip:tooltip_dynamic_text), ^setsize_abs, ^setsize_abs, text_tooltip:tooltip_layer);
+        }
+    } else if (compare($string0, "") ! 0) {
+        if_sethide(false, text_tooltip:tooltip_dynamic_text);
+        ~script9567($string0, $fontmetrics6, $rgb7, $int2, text_tooltip:tooltip_layer, text_tooltip:tooltip_dynamic_text);
+    } else {
+        ~script8808;
+        return;
+    }
+    $int12 = if_getwidth(text_tooltip:tooltip_layer);
+    $int13 = if_getheight(text_tooltip:tooltip_layer);
+    if_setsize(calc($int12 + 5 * 2), calc($int13 + 5 * 2), ^setsize_abs, ^setsize_abs, text_tooltip:tooltip_layer);
+    %tooltip_built = 1;
+}
+$int12 = if_getwidth(text_tooltip:tooltip_layer);
+$int13 = if_getheight(text_tooltip:tooltip_layer);
+$int10, $int11, $int14, $int15 = ~script12613($component4, $int5);
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+$int20, $int21, $int22, $int23 = ~script14244;
+def_int $int24 = calc($int11 - ($int13 + 2));
+def_int $int25 = $int10;
+if ($int24 < $int21 | $int9 = 1) {
+    $int24 = calc($int11 + $int15 + 2);
+}
+if ($int24 < $int21 | $int24 < $int11 & calc($int24 + $int13) > $int11 | $int24 >= $int11 & calc($int24 + $int13) > $int23) {
+    $int25 = calc($int10 - ($int12 + 2));
+    if ($int25 < $int20) {
+        $int25 = calc($int10 + $int14 + 2);
+    }
+    $int24 = calc($int11 + $int15 / 2 - $int13 / 2);
+    $int24 = min(max($int24, $int21), calc($int23 - $int13));
+} else {
+    $int25 = calc($int10 + $int14 / 2 - $int12 / 2);
+    $int25 = min(max($int25, $int20), calc($int22 - $int12));
+}
+if_setposition($int25, calc($int24 - ~script20394(10)), ^setpos_abs_left, ^setpos_abs_top, text_tooltip:tooltip_layer);
+if ($int19 = 1 & if_find(text_tooltip:tooltip_layer) = true & .if_find(toplevel_v2:tooltips_ragdoll_layer) = true) {
+    .cc_setposition(calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2), calc(cc_gety + cc_getheight - .cc_getheight - 5), ^setpos_abs_left, ^setpos_abs_top);
+}

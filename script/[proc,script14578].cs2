@@ -1,0 +1,20 @@
+// 14578
+[proc,script14578](dbrow $dbrow0)(string)
+if ($dbrow0 = null) {
+    return("");
+}
+def_string $string0 = db_getfield($dbrow0, arch_excavation:col2, 0);
+if (string_length($string0) > 0) {
+    return($string0);
+}
+def_obj $obj1 = null;
+def_int $int2 = 0;
+if (db_getfield($dbrow0, arch_excavation:col1, 0) = 2) {
+    if (db_getfieldcount($dbrow0, arch_excavation:col15) = 0) {
+        return("Material cache");
+    }
+    $obj1, $int2 = db_getfield($dbrow0, arch_excavation:col15, 0);
+    return("Material cache (<oc_name($obj1)>)");
+}
+~error("Invalid name specified for excavation. ID: <tostring(db_getfield($dbrow0, arch_excavation:col0, 0))>");
+return("");

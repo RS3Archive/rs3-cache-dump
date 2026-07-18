@@ -1,0 +1,43 @@
+// 16217
+[proc,script16217](component $component0, component $component1, component $component2, int $int3, int $int4, int $int5, int $int6, int $int7)
+def_int $int8 = 0;
+def_int $int9 = calc($int7 * 2 + $int3 * $int6);
+if (calc($int9 - $int7) > if_getwidth($component0)) {
+    if_setscrollsize($int9, 0, $component0);
+    if ($int5 > -1) {
+        $int8 = $int5;
+    } else if ($int4 > -1) {
+        $int8 = calc($int4 * $int6);
+    }
+    if_setscrollpos($int8, 0, $component0);
+    if_setparam_int(rs3tli_component_param_int0, $int8, $component0);
+} else {
+    if_setscrollsize(0, 0, $component0);
+    if_setscrollpos(0, 0, $component0);
+    if_setparam_int(rs3tli_component_param_int0, 0, $component0);
+    cc_deleteall($component2);
+    if_sethide(true, $component1);
+    return;
+}
+~scrollbar_horizontal_mobile($component2, $component0, rs3tli_scrollbar_horizontal);
+if_sethide(false, $component1);
+if ($int6 > 132) {
+    if_setparam_int(rs3tli_scrollbar_wheel_step, calc(45 * 3), $component2);
+} else {
+    $int6 = calc($int6 * 3);
+}
+cc_create($component1, ^iftype_graphic, 0);
+cc_setgraphic(art_fade_out);
+cc_setsize(100, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setnoclickthrough(true);
+cc_setonclick("script16218($component0, $component1, $component2, -1, $int6, 1, 25)");
+cc_setmouseovercursor(pagination_scroll_left);
+cc_create($component1, ^iftype_graphic, 1);
+cc_setgraphic(art_fade_out);
+cc_sethflip(true);
+cc_setsize(100, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_setnoclickthrough(true);
+cc_setonclick("script16218($component0, $component1, $component2, 1, $int6, 1, 25)");
+cc_setmouseovercursor(pagination_scroll_right);

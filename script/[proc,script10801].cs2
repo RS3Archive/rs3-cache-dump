@@ -1,0 +1,197 @@
+// 10801
+[proc,script10801]
+~script11661(%mtxmgt_purchase_selected_currency, 0);
+def_component $component0 = mtxmgt_purchase:header_layer;
+def_component $component1 = mtxmgt_purchase:outfit_content_layer;
+def_component $component2 = mtxmgt_purchase:outfit_scrollbar_layer;
+~script10809;
+~script10810;
+~script11663;
+~script10811;
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+if (%mtxmgt_purchase_struct = null) {
+    return;
+}
+def_struct $struct3 = struct_param(%mtxmgt_purchase_struct, mtxmgt_parent_struct);
+if ($struct3 = null) {
+    $struct3 = %mtxmgt_purchase_struct;
+}
+def_obj $obj4 = null;
+def_string $string0 = "";
+if (%mtxmgt_purchase_event_struct ! null) {
+    $obj4 = struct_param(%mtxmgt_purchase_event_struct, timed_event_currency);
+    if ($obj4 ! null) {
+        if (~script13032 = timed_event11) {
+            $string0 = "Currency Pack (Contains <tostring(~script12870(struct_param(%mtxmgt_purchase_struct, mtxmgt_linked_obj), %mtxmgt_purchase_event_struct))>Currency)";
+        } else {
+            $string0 = oc_name($obj4);
+            if (string_length($string0) > 0) {
+                $string0 = "<$string0> (x<tostring(~script12870(struct_param(%mtxmgt_purchase_struct, mtxmgt_linked_obj), %mtxmgt_purchase_event_struct))>)";
+            }
+        }
+    }
+} else if (%mtxmgt_purchase_event_dbrow ! null) {
+    $obj4 = ~script15145(%mtxmgt_purchase_event_dbrow);
+    if ($obj4 ! null) {
+        $string0 = oc_name($obj4);
+        if (string_length($string0) > 0) {
+            $string0 = "<$string0> (x<tostring(oc_param(struct_param(%mtxmgt_purchase_struct, mtxmgt_linked_obj), timed_event_reward_quantity))>)";
+        }
+    }
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = calc(if_getwidth($component0) - 2 * $int6);
+def_fontmetrics $fontmetrics9 = museo_sans_13pt_bold;
+cc_create($component0, ^iftype_text, $int5);
+cc_settextfont($fontmetrics9);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour(~script10495(1));
+cc_settext(~script11659($struct3, 0));
+cc_setsize(calc($int6 * 2), ~script7593(cc_gettext, $int8, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+$int7 = calc($int7 + cc_getheight + $int6);
+$int5 = calc($int5 + 1);
+def_fontmetrics $fontmetrics10 = museo_sans_11pt_regular;
+cc_create($component0, ^iftype_text, $int5);
+def_int $int11 = $int5;
+cc_settextfont($fontmetrics10);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour(~script10495(3));
+$int7 = calc($int7 + cc_getheight + $int6);
+$int5 = calc($int5 + 1);
+cc_create($component0, ^iftype_text, $int5);
+def_int $int12 = $int5;
+cc_settextfont($fontmetrics9);
+cc_settextalign(^settextalign_left, ^settextalign_bottom, 0);
+cc_setposition($int6, $int6, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setcolour(~script10495(2));
+$int5 = calc($int5 + 1);
+$int5 = 0;
+$int6 = 2;
+$int7 = 0;
+def_int $int13 = 0;
+def_enum $enum14 = null;
+def_int $int15 = 0;
+def_struct $struct16 = null;
+def_int $int17 = -1;
+def_int $int18 = -1;
+def_int $int19 = -1;
+def_int $int20 = ~script10495(9);
+def_int $int21 = ~script10495(12);
+def_int $int22 = enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics10);
+def_int $int23 = 24;
+def_int $int24 = 0;
+if ($int22 > $int23) {
+    $int24 = calc($int22 / 2 - $int23 / 2);
+}
+$enum14 = struct_param($struct3, mtxmgt_pack_structs);
+if ($enum14 = null) {
+    $struct16 = $struct3;
+} else {
+    $struct16 = enum(int, struct, $enum14, $int15);
+}
+def_int $int25 = 0;
+def_struct $struct26 = null;
+def_string $string1 = "";
+def_dbrow $dbrow27 = null;
+while ($struct16 ! null) {
+    if (struct_param($struct16, mtxmgt_category) = 2) {
+        $dbrow27 = ~script15769($struct16);
+    }
+    if ($dbrow27 ! null & (db_getfieldcount($dbrow27, mtxmgt_cosmetic:col13) = 1 | db_getfieldcount($dbrow27, mtxmgt_cosmetic:col4) = 1)) {
+        db_find(mtxmgt_cosmetic:col0, db_getfield($dbrow27, mtxmgt_cosmetic:col0, 0));
+        if (db_getfieldcount($dbrow27, mtxmgt_cosmetic:col13) = 1) {
+            unknown_command_77(db_filter_combine(db_filter_combine(db_filter_value(mtxmgt_cosmetic:col13, db_getfield($dbrow27, mtxmgt_cosmetic:col13, 0), ^filterop_eq, 0), db_filter_value(mtxmgt_cosmetic:col22, 0, ^filterop_eq, 0)), db_filter_value(mtxmgt_cosmetic:col21, 0, ^filterop_eq, 0)), mtxmgt_cosmetic:col6, true);
+            $dbrow27 = db_findnext;
+        } else {
+            $dbrow27 = db_findnext;
+        }
+        $int25 = 1;
+        while ($dbrow27 ! null) {
+            $int5, $int7 = ~script11369(~script15770($dbrow27), $component1, $int5, $int7, enum(int, graphic, mtxmgt_purchase_worn_slot_icons, $int13), ~script19118($dbrow27, 1));
+            $dbrow27 = db_findnext;
+        }
+    } else {
+        $struct26 = struct_param($struct16, mtxmgt_purchase_icon_override_struct);
+        if ($struct26 ! null) {
+            if (struct_param($struct26, mtxmgt_category) ! 2 | struct_param($struct26, mtxmgt_subcat) >= 19) {
+                $int5, $int7 = ~script11369($struct16, $component1, $int5, $int7, enum(int, graphic, mtxmgt_purchase_category_icons, struct_param($struct26, mtxmgt_category)), "");
+            } else {
+                $int5, $int7 = ~script11369($struct16, $component1, $int5, $int7, enum(int, graphic, mtxmgt_purchase_worn_slot_icons, struct_param($struct26, mtxmgt_subcat)), "");
+            }
+        } else {
+            $int5, $int7 = ~script11369($struct16, $component1, $int5, $int7, enum(int, graphic, mtxmgt_purchase_category_icons, struct_param($struct16, mtxmgt_category)), $string0);
+        }
+    }
+    if ($enum14 = null) {
+        $struct16 = null;
+    } else {
+        $int15 = calc($int15 + 1);
+        $struct16 = enum(int, struct, $enum14, $int15);
+    }
+}
+def_int $int28 = 0;
+if ($int7 < if_getheight($component1)) {
+    if_setscrollsize(0, 0, $component1);
+    $int28 = calc($int5 / 3);
+    while ($int7 < if_getheight($component1)) {
+        $int28 = calc($int28 + 1);
+        .cc_create($component1, ^iftype_rectangle, $int5);
+        .cc_setposition(0, $int7, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setsize(0, max($int22, $int23), ^setsize_minus, ^setsize_abs);
+        if (calc($int28 % 2) = 1) {
+            .cc_setcolour($int20);
+        } else {
+            .cc_setcolour($int21);
+        }
+        .cc_setfill(true);
+        $int5 = calc($int5 + 1);
+        $int7 = calc($int7 + .cc_getheight + $int6);
+    }
+} else {
+    if_setscrollsize(0, $int7, $component1);
+    if_setscrollpos(0, 0, $component1);
+    ~rs3_scrollbar_vertical($component2, $component1);
+}
+$int6 = 0;
+$int8 = calc(if_getwidth($component0) - 2 * $int6);
+def_string $string2 = get_col_tag(~script10495(3));
+$string2 = append_char($string2, '<');
+$string2 = "<$string2>u<substring($string2, 4, calc(string_length($string2) - 1))>";
+def_string $string3 = get_col_tag(~script10495(4));
+$string3 = append_char($string3, '<');
+$string3 = "<$string3>u<substring($string3, 4, calc(string_length($string3) - 1))>";
+if ($obj4 ! null) {
+    $string2 = "This package contains the highlighted items listed below. Please note that this currency can only be used for the current event (<struct_param(%mtxmgt_purchase_event_struct, timed_event_name)>). Any currency not used by <~fromdate(struct_param(%mtxmgt_purchase_event_struct, timed_event_cleanup))> will be removed. There is no refund available for this package.";
+    $string3 = "";
+} else if (struct_param($struct3, mtxmgt_purchase_ingame_only) = true) {
+    $string2 = "This package contains the highlighted items listed below.";
+    $string3 = "";
+} else if ($int25 = 0) {
+    $string2 = "This package contains the highlighted items listed below. Please note that the package may be subject to restrictions.";
+    $string3 = "";
+} else {
+    $string2 = "This package contains the highlighted items listed below. Please note that the package may be subject to restrictions and it may contain additional items such as emotes, etc.";
+    $string3 = "";
+}
+def_string $string4 = "Contents:";
+if (cc_find($component0, $int11) = true & .cc_find($component0, $int12) = true) {
+    cc_settext($string2);
+    cc_setsize(calc($int6 * 2), ~script7593(cc_gettext, $int8, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+    .cc_settext($string4);
+    .cc_setsize(calc($int6 * 2), ~script7593(cc_gettext, $int8, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+    .cc_sethide(true);
+}
+def_string $string5 = "No recolour available.";
+if (%mtxmgt_purchase_recolour_warning = 1) {
+    cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+    cc_setgraphic("rs3_icon_colour_palette,2");
+    cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+    ~script14990(2, $string5);
+}

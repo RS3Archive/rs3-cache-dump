@@ -1,0 +1,160 @@
+// 16454
+[proc,script16454]
+def_component $component0 = text_tooltip:tooltip_dynamic_text;
+def_int $int1 = cc_param(toplevel_v2_tooltip_param_int0);
+db_find(fishing_site:col0, $int1);
+def_dbrow $dbrow2 = db_findnext;
+if ($dbrow2 = null) {
+    return;
+}
+if (db_getfield($dbrow2, fishing_site:col0, 0) <= 0) {
+    return;
+}
+def_struct $struct3 = null;
+def_int $int4 = 0;
+def_int $int5 = 1;
+$struct3, $int4 = db_getfield($dbrow2, fishing_site:col3, 0);
+if ($struct3 ! null) {
+    $int5 = db_getfieldcount($dbrow2, fishing_site:col3);
+}
+def_int $int6 = 200;
+def_int $int7 = 0;
+def_int $int8 = -1;
+if (~script6431 = true) {
+    $int6 = 300;
+}
+def_int $int9 = $int5;
+$int6 = calc($int6 + 5 * ($int9 - 1));
+def_struct $struct10 = db_getfield($dbrow2, fishing_site:col2, 0);
+def_int $int11 = 0;
+def_string $string0 = "";
+def_int $int12 = 0;
+def_string $string1 = db_getfield($dbrow2, fishing_site:col1, 0);
+def_int $int13 = -1;
+def_string $string2 = "";
+def_string $string3 = "";
+def_obj $obj14 = null;
+def_obj $obj15 = null;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+$int8 = -1;
+while (++$int8 < $int5) {
+    $struct3, $int4 = db_getfield($dbrow2, fishing_site:col3, $int8);
+    if ($int8 = 0) {
+        if ($struct3 ! null & struct_param($struct3, fishingspot_member) = 1) {
+            $int12 = 1;
+        }
+        if ($struct10 ! null) {
+            $int11, $string0, $int13 = ~script16461($struct10, $int12);
+        }
+        $int7 = ~script14747($component0, 0, $int7, calc($int6 * $int9), $string1, $int13, 0);
+        $int7 = ~script14748($component0, 0, $int7);
+        if (string_length($string0) > 0) {
+            $int7 = ~script16462($component0, 0, $int7, calc($int6 * $int9), $int11, $string0);
+            $int7 = ~script14748($component0, 0, $int7);
+        }
+        $int17 = $int7;
+        $int18 = $int7;
+    } else if ($int8 > 0) {
+        if ($int8 < $int9) {
+            $int7 = $int17;
+            $int16 = calc($int16 + $int6);
+            $int16 = ~script16463($component0, $int16, $int7);
+        } else {
+            $int7 = ~script14748($component0, $int16, $int7);
+        }
+    }
+    $int11 = 1;
+    $string0 = "";
+    $int13 = -1;
+    $obj15 = null;
+    switch_int ($int4) {
+        case 1 :
+            $obj14 = net_brighter_dummy;
+            $string2 = "Net";
+        case 2 :
+            $obj14 = big_net_brighter_dummy;
+            $string2 = "Net";
+        case 4, 5 :
+            $obj14 = fly_fishing_rod;
+            $string2 = "Lure";
+        case 3 :
+            switch_int ($int1) {
+                case 9 :
+                    $obj14 = oily_fishing_rod;
+                case 8 :
+                    $obj14 = brut_fishing_rod;
+                case 37 :
+                    $obj14 = tbwt_karambwan_vessel;
+                case default :
+                    $obj14 = fishing_rod;
+            }
+            $string2 = "Bait";
+        case 6 :
+            $obj14 = harpoon;
+            $string2 = "Harpoon";
+        case 7 :
+            $obj14 = crayfish_cage;
+            $string2 = "Cage";
+        case 8 :
+            $obj14 = lobster_pot;
+            $string2 = "Cage";
+        case default :
+            if ($struct3 ! null & struct_param($struct3, fishingspot_anim) = player_2014_fishing_largenet) {
+                $obj14 = big_net_brighter_dummy;
+                $string2 = "Net";
+            } else {
+                switch_int ($int1) {
+                    case 25 :
+                        $obj14 = big_net_brighter_dummy;
+                        $string2 = "Net";
+                    case 36 :
+                        $obj14 = harpoon;
+                        $string2 = "Harpoon/Cage";
+                    case default :
+                        $obj14 = fishing_rod;
+                        $string2 = "Catch";
+                }
+            }
+    }
+    if ($struct3 ! null) {
+        $obj15 = struct_param($struct3, fishingspot_bait_1);
+        if ($obj15 = null & $int4 = 3) {
+            $obj15 = fishing_bait;
+        }
+        switch_int ($int1) {
+            case 37 :
+                $obj15 = tbwt_raw_karambwanji;
+            case 24 :
+                switch_struct ($struct3) {
+                    case fishingspot_dsf_seaturtle :
+                        $obj15 = dsf_seaturtle_bait;
+                    case fishingspot_dsf_greatwhiteshark :
+                        $obj15 = dsf_greatwhiteshark_bait;
+                    case fishingspot_dsf_mantaray :
+                        $obj15 = dsf_mantaray_bait;
+                }
+        }
+    }
+    if ($obj15 ! null) {
+        $string3 = oc_name($obj15);
+        if (string_length($string3) < 16) {
+            $string2 = append($string2, "<br>(");
+        } else {
+            $string2 = append($string2, " (");
+        }
+        $string2 = append($string2, $string3);
+        $string2 = append($string2, ")");
+    }
+    $int7 = ~script16460($component0, $int16, $int7, $int6, $obj14, $string2, $obj15, $int13);
+    if (string_length($string0) > 0) {
+        $int7 = ~script16462($component0, $int16, $int7, $int6, $int11, $string0);
+        $int7 = ~script14748($component0, $int16, $int7);
+    }
+    $int7 = ~script16456($component0, $int16, $int7, $int6, $struct3, $int1);
+    if ($int7 > $int18) {
+        $int18 = $int7;
+    }
+}
+if_setsize(calc($int6 * $int9), calc($int18 - 2), ^setsize_abs, ^setsize_abs, $component0);

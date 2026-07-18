@@ -1,0 +1,23 @@
+// 2001
+[proc,script2001](int $int0)
+def_int $int1 = ~script2119;
+def_int $int2 = 0;
+cc_deleteall(qps:claim_layer_build);
+if_setsize(calc(20 + 110 * $int1), 0, ^setsize_abs, ^setsize_minus, qps:claim_layer_build);
+if_setscrollsize(calc(20 + 110 * $int1), 0, qps:claim_layer);
+if_sethide(false, qps:claim_scrollbar);
+~scrollbar_resize_horizontal(qps:claim_scrollbar, qps:claim_layer, if_getscrollx(qps:claim_layer));
+if ($int1 = 0 | $int0 = 0) {
+    if_settext("You have no more rewards to claim at the minute. Gain more quest points to unlock further rewards.", qps:claim_text);
+    if_sethide(true, qps:claim_scrollbar);
+    ~script13971(qps:claim_accept_build, qps:claim_accept_click, rs3tli_positive_button, "Claim now", true);
+} else {
+    $int2 = ~script2116;
+    ~script2118($int2);
+    if ($int1 < 3) {
+        if_sethide(true, qps:claim_scrollbar);
+    }
+    if ($int0 = -1) {
+        if_settext("Not enough inventory space", qps:claim_warning);
+    }
+}

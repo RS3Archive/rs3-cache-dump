@@ -1,0 +1,92 @@
+// 3093
+[proc,lobby_popup](int $int0, dbrow $dbrow1, string $string0, string $string1, graphic $graphic2, string $string2, string $string3)
+if (if_gethide(lobbyscreen:popup) = false) {
+    return;
+}
+~lobby_popup_close;
+def_int $int3 = 50;
+def_int $int4 = 140;
+def_int $int5 = 600;
+def_int $int6 = 450;
+def_int $int7 = 150;
+def_int $int8 = 20;
+def_int $int9 = 50;
+def_int $int10 = 20;
+def_int $int11 = 72;
+def_int $int12 = 10;
+def_int $int13 = 40;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 18;
+if (string_length($string2) > 0) {
+    $int14 = max($int7, calc(30 + parawidth($string2, 1000, cinzel_13pt_bold)));
+} else {
+    if_sethide(true, lobbyscreen_popup:left_button);
+}
+if (string_length($string3) > 0) {
+    $int15 = max($int7, calc(30 + parawidth($string3, 1000, cinzel_13pt_bold)));
+} else {
+    if_sethide(true, lobbyscreen_popup:right_button);
+}
+def_int $int18 = $int6;
+def_int $int19 = calc($int13 + $int8);
+if ($int14 > 0 & $int15 > 0) {
+    if (calc($int14 + $int15 + $int8) > calc($int5 - $int9)) {
+        $int14 = calc(($int5 - $int9 - $int8) / 2);
+        $int15 = $int14;
+        $int18 = $int5;
+    } else {
+        $int18 = max($int18, calc($int14 + $int15 + $int8 + $int9));
+    }
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, lobbyscreen_popup:left_button);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom, lobbyscreen_popup:right_button);
+    if_sethide(false, lobbyscreen_popup:left_button);
+    if_sethide(false, lobbyscreen_popup:right_button);
+} else if ($int14 > 0) {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen_popup:left_button);
+    if_sethide(false, lobbyscreen_popup:left_button);
+    if_sethide(true, lobbyscreen_popup:right_button);
+} else if ($int15 > 0) {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen_popup:right_button);
+    if_sethide(true, lobbyscreen_popup:left_button);
+    if_sethide(false, lobbyscreen_popup:right_button);
+} else {
+    if_sethide(true, lobbyscreen_popup:right_button);
+    if_sethide(true, lobbyscreen_popup:left_button);
+    $int19 = 0;
+}
+~lobby_popup_button(lobbyscreen_popup:left_button, $string2, db_getfield($dbrow1, lobby_popup_format:col1, 0));
+~lobby_popup_button(lobbyscreen_popup:right_button, $string3, db_getfield($dbrow1, lobby_popup_format:col2, 0));
+~script3095(lobbyscreen_popup:left_button, lobbyscreen_popup:right_button, $int0);
+if_setsize($int14, 0, ^setsize_abs, ^setsize_minus, lobbyscreen_popup:left_button);
+if_setsize($int15, 0, ^setsize_abs, ^setsize_minus, lobbyscreen_popup:right_button);
+if ($graphic2 ! null) {
+    $int19 = calc($int19 + ($int11 + $int12));
+    if ($graphic2 = rs3_loading_spinner_default) {
+        if_set2dangle(0, lobbyscreen_popup:spinner_inner);
+        if_sethide(false, lobbyscreen_popup:spinner);
+        if_sethide(true, lobbyscreen_popup:static_graphic);
+    } else {
+        if_setgraphic($graphic2, lobbyscreen_popup:static_graphic);
+        if_sethide(true, lobbyscreen_popup:spinner);
+        if_sethide(false, lobbyscreen_popup:static_graphic);
+    }
+    if_setposition(0, calc($int11 + $int12), ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen_popup:text);
+} else {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen_popup:text);
+    if_sethide(true, lobbyscreen_popup:spinner);
+    if_sethide(true, lobbyscreen_popup:static_graphic);
+}
+def_int $int20 = paraheight($string1, $int18, museo_sans_15pt_regular);
+$int19 = calc($int19 + $int20 * $int17);
+if_setsize($int10, calc($int20 * $int17), ^setsize_minus, ^setsize_abs, lobbyscreen_popup:text);
+$int18 = max($int18, parawidth($string0, $int5, if_getfontmetrics(lobbyscreen_popup:title)));
+$int19 = calc($int19 + $int4);
+$int18 = calc($int18 + $int3);
+if_setsize($int18, $int19, ^setsize_abs, ^setsize_abs, lobbyscreen_popup:window);
+if_setsize(124, 76, ^setsize_minus, ^setsize_abs, lobbyscreen_popup:title_bar_tile);
+if_settext($string0, lobbyscreen_popup:title);
+if_settext($string1, lobbyscreen_popup:text);
+if_setonkey("lobbyscreen_popup_keyboard(event_keycode)", lobbyscreen:popup);
+if_sethide(false, lobbyscreen:popup);

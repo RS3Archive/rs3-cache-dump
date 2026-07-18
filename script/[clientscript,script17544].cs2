@@ -1,0 +1,115 @@
+// 17544
+[clientscript,script17544](component $component0, int $int1)
+def_component $component2 = ~script18321($component0, activity_progress_bar:container);
+def_component $component3 = ~script18321($component0, activity_progress_bar:beam_right);
+def_component $component4 = ~script18321($component0, activity_progress_bar:beam_left);
+def_component $component5 = ~script18321($component0, activity_progress_bar:lightning_right);
+def_component $component6 = ~script18321($component0, activity_progress_bar:lightning_left);
+def_component $component7 = ~script18321($component0, activity_progress_bar:tooltip_progress_amount);
+def_component $component8 = ~script18321($component0, activity_progress_bar:progress_bar_red);
+def_component $component9 = ~script18321($component0, activity_progress_bar:prog_bg_mid);
+def_component $component10 = ~script18321($component0, activity_progress_bar:prog_bg_left);
+def_component $component11 = ~script18321($component0, activity_progress_bar:prog_bg_right);
+def_component $component12 = ~script18321($component0, activity_progress_bar:progress_diamond_left);
+def_component $component13 = ~script18321($component0, activity_progress_bar:progress_diamond_right);
+def_component $component14 = ~script18321($component0, activity_progress_bar:progress_bar_fill);
+def_component $component15 = ~script18321($component0, activity_progress_bar:progress_bar_end);
+def_component $component16 = ~script18321($component0, activity_progress_bar:progress_bar_fill_underlay);
+def_component $component17 = ~script18321($component0, activity_progress_bar:progress_bar);
+def_component $component18 = ~script18321($component0, activity_progress_bar:activity_backing_left);
+def_component $component19 = ~script18321($component0, activity_progress_bar:activity_backing_right);
+def_component $component20 = ~script18321($component0, activity_progress_bar:activity_backing_tile);
+def_component $component21 = ~script18321($component0, activity_progress_bar:activity_name_text);
+def_component $component22 = ~script18321($component0, activity_progress_bar:activity_name);
+def_int $int23 = 100;
+def_struct $struct24 = %activity_progress_bar_active_struct;
+def_string $string0 = %activity_progress_bar_active_name;
+if ($struct24 ! null & struct_param($struct24, activity_progress_bar_second_healthbar) ! null & $component2 ! activity_progress_bar:container) {
+    $struct24 = struct_param($struct24, activity_progress_bar_second_healthbar);
+    $string0 = struct_param($struct24, activity_progress_bar_name);
+}
+def_int $int25 = struct_param($struct24, activity_progress_bar_hide_animation);
+def_int $int26 = struct_param($struct24, activity_progress_bar_hide_name);
+def_int $int27 = 10;
+def_int $int28 = 125;
+def_int $int29 = 200;
+def_int $int30 = 300;
+def_int $int31 = 400;
+def_int $int32 = 500;
+if ($int25 = 1) {
+    $int29 = 0;
+    $int30 = 100;
+    $int31 = 200;
+    $int32 = 300;
+}
+def_int $int33 = scale(calc(clientclock - $int1), $int32, $int32);
+if ($int25 = 0 & $int33 < $int27) {
+    if_sethide(false, $component5);
+    if_sethide(false, $component6);
+    if_setmodelanim(tpr_lightning_spotanim_for_healthbar, $component5);
+    if_setmodelanim(nomel_healthbar_lightning_spotanim, $component6);
+} else if ($int25 = 0 & $int33 = $int28) {
+    if_sethide(false, $component3);
+    if_sethide(false, $component4);
+} else if ($int33 = $int29) {
+    if ($int25 = 0) {
+        if_sethide(true, $component5);
+        if_sethide(true, $component6);
+    }
+    if ($int26 = 0 & $struct24 ! null) {
+        if_settext($string0, $component21);
+        if_setsize(min(400, calc(stringwidth(if_gettext($component21), cinzel_12pt_bold) + 60)), 33, ^setsize_abs, ^setsize_abs, $component22);
+    }
+} else if ($int26 = 0 & $int33 > $int29 & $int33 <= $int30) {
+    $int33 = calc(255 - scale(255, 100, calc($int33 - $int29)));
+    if_settrans($int33, $component18);
+    if_settrans($int33, $component19);
+    if_settrans($int33, $component20);
+    if_settrans($int33, $component21);
+} else if ($int33 > $int30 & $int33 < $int31) {
+    $int33 = calc(255 - scale(255, 100, calc($int33 - $int30)));
+    if_settrans($int33, $component9);
+    if_settrans($int33, $component10);
+    if_settrans($int33, $component11);
+    if_settrans($int33, $component12);
+    if_settrans($int33, $component13);
+    if_settrans($int33, $component14);
+    if_settrans($int33, $component16);
+    if_settrans($int33, $component15);
+    if ($struct24 ! null) {
+        if_setgraphic(struct_param($struct24, activity_progress_bar_sprite_override), $component14);
+        if_setcolour(struct_param($struct24, activity_progress_bar_colour), $component14);
+        if_setcolour(struct_param($struct24, activity_progress_bar_colour), $component13);
+        if_setcolour(struct_param($struct24, activity_progress_bar_colour), $component12);
+        if (struct_param($struct24, activity_progress_bar_underlay_colour) ! -1) {
+            if_sethide(false, $component16);
+            if_setcolour(struct_param($struct24, activity_progress_bar_underlay_colour), $component16);
+        }
+        if (struct_param($struct24, activity_progress_bar_custom_start_progress) ! -1) {
+            $int23 = if_getwidth($component17);
+            if_setsize(struct_param($struct24, activity_progress_bar_custom_start_progress), 33, ^setsize_abs, ^setsize_abs, $component17);
+        }
+    }
+} else if ($int33 > $int31 & $int33 < $int32) {
+    if ($int26 = 0) {
+        $int33 = calc($int33 - $int31);
+        if_setmodelzoom(calc(2000 + scale(1500, 100, $int33)), $component3);
+        if_setmodelzoom(calc(2000 + scale(1500, 100, $int33)), $component4);
+        $int33 = calc(255 - scale(255, 100, $int33));
+        if (~script17757 = false) {
+            if_settrans(calc(255 - $int33), $component18);
+            if_settrans(calc(255 - $int33), $component19);
+            if_settrans(calc(255 - $int33), $component20);
+            if_settrans(calc(255 - $int33), $component21);
+        }
+    }
+    if_sethide(false, $component7);
+} else if ($int33 >= $int32) {
+    if_sethide(true, $component3);
+    if_sethide(true, $component4);
+    if_sethide(false, $component8);
+    if ($struct24 ! null) {
+        if_setonvartransmit("script17545($component0){activity_progress_bar_active_info, activity_progress_bar_active_info_2, activity_progress_bar_active_info_3, activity_progress_bar_active_info_4, activity_progress_bar_active_info_5, activity_progress_bar_active_info_6, activity_progress_bar_active_info_7, activity_progress_bar_extension_second_health_bar_progress, activity_progress_bar_extension_second_health_bar_max_progress}", $component12);
+    }
+    if_setontimer(null, $component0);
+}

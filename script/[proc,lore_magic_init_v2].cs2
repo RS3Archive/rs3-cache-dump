@@ -1,0 +1,22 @@
+// 659
+[proc,lore_magic_init_v2](component $component0, graphic $graphic1, graphic $graphic2, int $int3, string $string0, string $string1, obj $obj4, int $int5)
+if ($component0 ! null) {
+    if_setontargetenter("lore_magic_entertargetmode(event_com)", $component0);
+    if_setontargetleave("lore_magic_leavetargetmode(event_com)", $component0);
+    if_setoninvtransmit("lore_updateicon_v2(event_com, $graphic1, $graphic2, $int3, $obj4, $int5){inv}", $component0);
+    if_setonstattransmit("lore_updateicon_v2(event_com, $graphic1, $graphic2, $int3, $obj4, $int5){summoning}", $component0);
+    if_setonvartransmit("lore_updateicon_v2(event_com, $graphic1, $graphic2, $int3, $obj4, $int5){lore_npc_stats, follower_obj, combatv2_summoning}", $component0);
+    ~lore_updateicon_v2($component0, $graphic1, $graphic2, $int3, $obj4, $int5);
+}
+if (if_find(toplevel_v2_combat_bar_mobile:spell_icon) = true) {
+    cc_setontargetenter("lore_topstat_magic_entertargetmode(toplevel_v2_combat_bar_mobile:summoning_orb)");
+    cc_setontargetleave("lore_topstat_magic_leavetargetmode(toplevel_v2_combat_bar_mobile:summoning_orb)");
+}
+if (if_find(toplevel_v2_combat_bar:spell_icon) = true) {
+    cc_setontargetenter("lore_topstat_magic_entertargetmode(toplevel_v2_combat_bar:summoning_icon)");
+    cc_setontargetleave("lore_topstat_magic_leavetargetmode(toplevel_v2_combat_bar:summoning_icon)");
+}
+if (if_find(topstat_lore:spell_icon) = true) {
+    cc_setontargetenter("lore_topstat_magic_entertargetmode(topstat_lore:spell_icon)");
+    cc_setontargetleave("lore_topstat_magic_leavetargetmode(topstat_lore:spell_icon)");
+}

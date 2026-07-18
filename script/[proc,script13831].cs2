@@ -1,0 +1,84 @@
+// 13831
+[proc,script13831](int $int0)
+def_boolean $boolean1 = ~script6431;
+if ($boolean1 = true) {
+    if_setnoclickthrough(true, toplevel_v2:escape_menu_content);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, escape_menu_mobile:root);
+    if_setop(1, "", toplevel_v2:escape_menu_close_button);
+    if (if_find(escape_menu_mobile:root) = true) {
+        cc_setonresize("script9537");
+        cc_callonresize;
+    }
+    if (~script248 = true) {
+        if_sethide(true, escape_menu_mobile:bonds_layer);
+        if_sethide(true, escape_menu_mobile:runecoins_layer);
+    }
+} else {
+    if_setnoclickthrough(false, toplevel_v2:escape_menu_content);
+    if_setop(1, "", toplevel_v2:escape_menu_close_button);
+    if_setsize(470, 234, ^setsize_abs, ^setsize_abs, escape_menu:root);
+    if_settextfont(museo_sans_11pt_regular, escape_menu:parent_buttons_title);
+    if_settextfont(museo_sans_11pt_regular, escape_menu:quick_switch_text);
+    if_settextfont(museo_sans_11pt_regular, escape_menu:csat_text);
+}
+def_boolean $boolean2 = false;
+def_boolean $boolean3 = false;
+def_boolean $boolean4 = true;
+def_boolean $boolean5 = true;
+if (%toplevel_v2_mobile_interface = 1) {
+    $boolean5 = false;
+    $boolean3 = true;
+} else if (%toplevel_v2_active_skinset = 1) {
+    if_setsize(0, 68, ^setsize_minus, ^setsize_abs, escape_menu:parents_layer);
+    if_setsize(0, 40, ^setsize_minus, ^setsize_abs, escape_menu:parents_scrolling);
+} else {
+    if_setsize(0, 63, ^setsize_minus, ^setsize_abs, escape_menu:parents_layer);
+    if_setsize(0, 35, ^setsize_minus, ^setsize_abs, escape_menu:parents_scrolling);
+}
+def_int $int6 = 1;
+def_int $int7 = 0;
+if (~script15532(0) = true) {
+    $boolean2 = true;
+    $boolean3 = true;
+    $boolean5 = true;
+    $int7 = 1;
+    $boolean4 = false;
+    $int6 = 0;
+}
+def_int $int8 = 0;
+def_int $int9 = 5;
+def_int $int10 = -1;
+if ($boolean1 = false) {
+    $int8 = ~script13832(escape_menu:parents_layer, $boolean2, $int8, $int9);
+    $int8 = ~script13832(escape_menu:tutorial_skip_layer, $boolean4, $int8, $int9);
+    if (%toplevel_v2_active_skinset = 1) {
+        $int8 = calc($int8 - 5);
+    }
+    $int8 = ~script13832(escape_menu:settings_buttons_layer, false, $int8, $int9);
+    $int8 = ~script13832(escape_menu:layouts_layer, $boolean3, $int8, $int9);
+    $int8 = ~script13832(escape_menu:mobile_layer, $boolean5, $int8, $int9);
+    $int8 = ~script13832(escape_menu:report_issue_layer, false, $int8, $int9);
+    $int9 = 240;
+    $int8 = 0;
+    $int8 = ~script13832(escape_menu:csat_layer, false, $int8, $int9);
+    $int8 = ~script13832(escape_menu:logout_layer, false, $int8, $int9);
+}
+$int8 = calc($int8 + 40);
+if ($boolean2 = false) {
+    ~script13836(escape_menu:parents_build, escape_menu:parents_click);
+    if_setsize(220, 63, ^setsize_abs, ^setsize_abs, escape_menu:parents_layer);
+}
+if ($boolean3 = false) {
+    if (calc(%varclientbit_19036 + %varclientbit_19628 + %varclientbit_31443 + %varclientbit_31921) = 0) {
+        if_sethide(true, escape_menu:quick_switch_text);
+        if_sethide(true, escape_menu:static_dropdown_load);
+    } else {
+        ~script2708(escape_menu:dropdown_build_load, escape_menu:dropdown_click_load, toplevel_v2_layout_names, -1, "Select a preset to load", 0, ~equal_int_bool(%combatv2_player_is_in_combat, 1));
+    }
+}
+~script14043;
+~script7136;
+~script2935;
+if ($int0 = 1) {
+    if_close;
+}

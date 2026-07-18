@@ -1,0 +1,25 @@
+// 18082
+[proc,script18082](dbrow $dbrow0, component $component1, int $int2)(int)
+def_int $int3 = ~script17903(%bp3_missions_interface_drawn_mission_slot);
+def_string $string0 = "";
+def_int $int4 = 0;
+if (if_find($component1) = true) {
+    cc_createchild(^iftype_layer, $int4, 3);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    ~cc_add_child_text(3, $int4, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_gold_cinzel_bold_16pt, "Progress");
+    $int4 = calc($int4 + 1);
+    $int2 = calc($int2 + 20);
+    if ($dbrow0 ! ~script17905(%bp3_missions_interface_drawn_mission_slot)) {
+        ~cc_add_child_text(3, $int4, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_white_notosans_14pt, "Viewing future chain mission");
+        $int3 = 0;
+        $int4 = calc($int4 + 1);
+        $int2 = calc($int2 + 20);
+    }
+    ~cc_add_child_text(3, $int4, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_white_notosans_14pt, "<col=2EF8FF><tostring($int3)></col> / <col=2EF8FF><tostring(db_getfield($dbrow0, bp3_mission:col5, 0))></col> progress");
+    $int4 = calc($int4 + 1);
+    $int2 = calc($int2 + 40);
+} else {
+    ~error("Cannot find parent layer when trying to populate BP3 missions reward panel.");
+}
+return($int2);

@@ -1,0 +1,45 @@
+// 4010
+[proc,lore_if_info](dbrow $dbrow0)(string)
+def_string $string0 = "";
+$string0 = append($string0, db_getfield($dbrow0, lore:col3, 0));
+def_obj $obj1 = db_getfield($dbrow0, lore:col6, 0);
+if ($obj1 ! null) {
+    $string0 = append($string0, "<br><br><oc_name($obj1)>");
+    $string0 = append($string0, "<br>");
+    $string0 = append($string0, "Familiar spell points");
+    $string0 = append($string0, ": <tostring(~lore_get_cost($obj1))>");
+    $string0 = append($string0, "<br><db_getfield($dbrow0, lore:col7, 0)>");
+    $string0 = append($string0, "<br><~script14945(db_getfield($dbrow0, lore:col13, 0), 1)> cooldown.</col>");
+}
+def_string $string1 = "";
+if (%lore_combat_mode ! 0) {
+    $string1 = enum(int, string, settings_summoning_combat_mode, %lore_combat_mode);
+} else {
+    switch_int (db_getfield($dbrow0, lore:col18, 0)) {
+        case default :
+            $string1 = "Aggressive";
+        case 1 :
+            $string1 = "Passive";
+        case 2 :
+            $string1 = "Cannot fight";
+    }
+}
+$string0 = append($string0, "<br><br>Current combat mode: <$string1>");
+if (db_getfield($dbrow0, lore:col12, 0) = true) {
+    if (db_getfield($dbrow0, lore:col9, 0) = true) {
+        if (%combatv2_summoning_scroll_speed > 0) {
+            $string0 = append($string0, "<br>Autofire rate: <tostring(%combatv2_summoning_scroll_speed)>");
+        } else {
+            $string0 = append($string0, "<br>Autofire rate: Not set");
+        }
+        $string0 = append($string0, "<br>Autofire interval: Familiar attacks");
+    } else {
+        if (%combatv2_summoning_scroll_speed_noncombat > 0) {
+            $string0 = append($string0, "<br>Autofire rate: <tostring(~script2475(%combatv2_summoning_scroll_speed_noncombat))>");
+        } else {
+            $string0 = append($string0, "<br>Autofire rate: Not set");
+        }
+        $string0 = append($string0, "<br>Autofire interval: Seconds");
+    }
+}
+return($string0);

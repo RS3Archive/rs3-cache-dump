@@ -1,0 +1,33 @@
+// 6880
+[proc,script6880]
+def_graphic $graphic0 = "customise_hair_colour_button,2";
+def_graphic $graphic1 = "customise_hair_colour_button,4";
+def_graphic $graphic2 = "customise_hair_colour_button,3";
+def_graphic $graphic3 = "customise_hair_colour_button,0";
+def_graphic $graphic4 = "customise_hair_colour_button,1";
+if (%mtxmgt_selected_item = -1 | %mtxmgt_selected_item = 1023) {
+    if_setgraphic($graphic3, mtxmgt:primary_swapper);
+    if_setgraphic($graphic3, mtxmgt:secondary_swapper);
+    if_setonmouseover(null, mtxmgt:primary_swapper);
+    if_setonmouseleave(null, mtxmgt:primary_swapper);
+    if_setonmouseover(null, mtxmgt:secondary_swapper);
+    if_setonmouseleave(null, mtxmgt:secondary_swapper);
+} else if (%mtxmgt_selected_hair_colour_slot = 0) {
+    if_setonmouseover(null, mtxmgt:primary_swapper);
+    if_setonmouseleave(null, mtxmgt:primary_swapper);
+    if_setgraphic($graphic3, mtxmgt:secondary_swapper);
+    if (%mtxmgt_enable_secondary_colour = 1) {
+        if_setgraphic($graphic0, mtxmgt:primary_swapper);
+        if_setonmouseover("graphic_swapper(event_com, $graphic4)", mtxmgt:secondary_swapper);
+        if_setonmouseleave("graphic_swapper(event_com, $graphic3)", mtxmgt:secondary_swapper);
+    } else {
+        if_setgraphic($graphic1, mtxmgt:primary_swapper);
+    }
+} else {
+    if_setgraphic($graphic3, mtxmgt:primary_swapper);
+    if_setonmouseover("graphic_swapper(event_com, $graphic4)", mtxmgt:primary_swapper);
+    if_setonmouseleave("graphic_swapper(event_com, $graphic3)", mtxmgt:primary_swapper);
+    if_setgraphic($graphic2, mtxmgt:secondary_swapper);
+    if_setonmouseover(null, mtxmgt:secondary_swapper);
+    if_setonmouseleave(null, mtxmgt:secondary_swapper);
+}

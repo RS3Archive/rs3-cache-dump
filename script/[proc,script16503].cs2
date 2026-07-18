@@ -1,0 +1,37 @@
+// 16503
+[proc,script16503](component $component0, component $component1, component $component2, dbrow $dbrow3, int $int4, dbrow $dbrow5, struct $struct6)
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+if ($int4 = 1) {
+    ~script16186($component0, $component2);
+}
+~cc_add_panel($component0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, true, 5);
+def_int $int7 = 0;
+def_dbrow $dbrow8 = null;
+def_int $int9 = 0;
+def_int $int10 = -1;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = -1;
+def_int $int14 = 0;
+while (++$int10 < db_getfieldcount($dbrow3, trh_promo_categories:col0)) {
+    $int7, $dbrow8, $int9 = db_getfield($dbrow3, trh_promo_categories:col0, $int10);
+    if (~script16584($int7, $dbrow5) = true) {
+        $int11 = ~script16169($dbrow8, $struct6);
+        if ($int11 > 0) {
+            $int14 = calc(3 + 2 * $int10);
+            $int12 = calc($int12 + ~script16187($int10, $int11, $int14, enum(int, string, trh_category_name, $int7), enum(int, string, trh_category_sub_info, $int7), $component0, $component1, $component2));
+            ~script16188($int10, $int11, $int14, $dbrow3, $component0, $struct6);
+        }
+    }
+}
+cc_deleteall($component1);
+if_setscrollsize(0, $int12, $component0);
+if_setscrollpos(0, 0, $component0);
+~rs3_scrollbar_vertical($component1, $component0);
+if ($int12 > calc(if_getheight($component2) - 30)) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}

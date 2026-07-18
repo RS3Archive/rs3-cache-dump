@@ -1,0 +1,102 @@
+// 8678
+[proc,script8678](component $component0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+$component1, $component2, $component3, $component4, $component5, $component6 = ~script8682($component0);
+cc_deleteall($component0);
+if ($component1 ! null) {
+    cc_deleteall($component1);
+}
+if ($component2 ! null) {
+    cc_deleteall($component2);
+}
+if ($component3 ! null) {
+    cc_deleteall($component3);
+}
+if ($component5 ! null) {
+    cc_deleteall($component5);
+}
+if ($component4 ! null) {
+    cc_deleteall($component4);
+}
+if ($component6 ! null) {
+    cc_deleteall($component6);
+}
+if ($component0 ! null & if_find($component0) = true) {
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setnoclickthrough(false);
+}
+def_boolean $boolean7 = ~script6431;
+def_int $int8 = 33;
+def_int $int9 = inv_size(inv);
+def_int $int10 = 0;
+def_int $int11 = 40;
+def_int $int12 = 36;
+def_int $int13 = 36;
+def_int $int14 = 32;
+if ($boolean7 = true) {
+    if ($component0 = toplevel_v2_inventory:main_layer) {
+        $int11 = 44;
+        $int12 = 44;
+        $int13 = 44;
+        $int14 = 39;
+    } else {
+        $int11 = 44;
+        $int12 = 44;
+        $int13 = 44;
+        $int14 = 39;
+    }
+    $int8 = 42;
+}
+if ($component6 ! null) {
+    if ($int8 <= 0) {
+        if_sethide(true, $component6);
+    } else if (if_find($component6) = true) {
+        if_sethide(false, $component6);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_setsize(0, $int8, ^setsize_minus, ^setsize_abs);
+    }
+}
+if ($component2 ! null & if_find($component2) = true) {
+    cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+    cc_setsize(16, $int8, ^setsize_abs, ^setsize_minus);
+}
+if ($component1 ! null & if_find($component1) = true) {
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(16, $int8, ^setsize_minus, ^setsize_minus);
+}
+if ($component4 ! null & if_find($component4) = true) {
+    cc_setparam(rs3_setup_interface_inv_inventory, inv);
+    cc_setparam(rs3_setup_interface_inv_isinvother, false);
+}
+while ($int10 < $int9) {
+    if ($component3 ! null) {
+        cc_create($component3, ^iftype_graphic, $int10);
+        if (%toplevel_v2_active_skinset ! 1) {
+            cc_setgraphic(rs3_inventory_slot);
+        } else {
+            cc_setgraphic(null);
+        }
+        cc_setsize($int11, $int12, ^setsize_abs, ^setsize_abs);
+        cc_setonmouseover("inventory_slot_highlight(93, event_com, event_comsubid, $component5, 1)");
+        cc_setonmouseleave("inventory_slot_highlight(93, event_com, event_comsubid, $component5, 0)");
+    }
+    if ($component5 ! null) {
+        ~script9229($component5, $int10, $int11, $int12);
+    }
+    if ($component4 ! null) {
+        cc_create($component4, ^iftype_graphic, $int10);
+        cc_setsize($int13, $int14, ^setsize_abs, ^setsize_abs);
+        cc_setontargetenter("inventory_targetmode(1, event_com, event_comsubid)");
+        cc_setontargetleave("inventory_targetmode(0, event_com, event_comsubid)");
+    }
+    $int10 = calc($int10 + 1);
+}
+if_setonresize("script8679(event_com)", $component0);
+if_setoninvtransmit("script8679(event_com){inv}", $component0);
+~script8680($component0);

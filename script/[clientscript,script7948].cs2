@@ -1,0 +1,32 @@
+// 7948
+[clientscript,script7948]
+if (cam2_getcontrolmode = 0) {
+    return;
+}
+if_setontimer(null, toplevel_v2:worldmap_ui_layer);
+def_wma $wma0 = worldmap_getcurrentmap;
+def_coordfine $coordfine0 = coord_gridtofine(%worldmap_focus, true);
+if ($wma0 = null) {
+    $wma0 = main;
+    $coordfine0 = coord_gridtofine(worldmap_getconfigorigin($wma0), true);
+}
+worldmap_3dview_enable($wma0);
+cam2_enable(true);
+cam2_setsnapdistances(0, 0, 0);
+cam2_setcollisionmode(false, true);
+cam2_setlinearmovementmode(0);
+cam2_setpositionmode(0);
+$coordfine0 = movecoord_fine($coordfine0, 0, 0, calc(0 - coordy_fine($coordfine0)), 0);
+%worldmap_v2_focus_fine_x = coordx_fine($coordfine0);
+%worldmap_v2_focus_fine_z = coordz_fine($coordfine0);
+def_coordfine $coordfine1 = movecoord_fine($coordfine0, 0, 0, 2000, -100);
+cam2_setpositionacceleration_axis(-1, -1, -1, 1);
+cam2_setpositionmaxspeed_axis(-1, -1, -1, 1);
+cam2_setlookatmode(0);
+cam2_setlookatacceleration_axis(-1, -1, -1, 1);
+cam2_setlookatmaxspeed_axis(-1, -1, -1, 1);
+if_setonhold("script7951(event_mousex, event_mousey)", toplevel_v2:worldmap_ui_layer);
+if_setonclick("worldmap_v2_onclick(event_com, event_mousex, event_mousey)", toplevel_v2:worldmap_ui_layer);
+if_setontimer("worldmap_v2_ontimer", toplevel_v2:worldmap_ui_layer);
+~worldmap_v2_setzoom(100, 1);
+~script7952;

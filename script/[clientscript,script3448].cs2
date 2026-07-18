@@ -1,0 +1,43 @@
+// 3448
+[clientscript,script3448]
+if (%csi_court_jury_select ! 0) {
+    if_sethide(false, csi_jury_spy:selected);
+} else {
+    if_sethide(true, csi_jury_spy:selected);
+}
+def_component $component0 = null;
+switch_int (%csi_court_jury_select) {
+    case 1 :
+        $component0 = csi_jury_spy:jury_mem_1;
+    case 2 :
+        $component0 = csi_jury_spy:jury_mem_2;
+    case 3 :
+        $component0 = csi_jury_spy:jury_mem_3;
+    case 4 :
+        $component0 = csi_jury_spy:jury_mem_4;
+    case 5 :
+        $component0 = csi_jury_spy:jury_mem_5;
+    case 6 :
+        $component0 = csi_jury_spy:jury_mem_6;
+    case 7 :
+        $component0 = csi_jury_spy:jury_mem_7;
+    case 8 :
+        $component0 = csi_jury_spy:jury_mem_8;
+    case 9 :
+        $component0 = csi_jury_spy:jury_mem_9;
+    case 10 :
+        $component0 = csi_jury_spy:jury_mem_10;
+    case 11 :
+        $component0 = csi_jury_spy:jury_mem_11;
+    case 12 :
+        $component0 = csi_jury_spy:jury_mem_12;
+}
+if ($component0 = null) {
+    if_sethide(true, csi_jury_spy:selected);
+    return;
+}
+if (if_find($component0) = true) {
+    if_sethide(false, csi_jury_spy:selected);
+    if_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs, csi_jury_spy:selected);
+    if_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:selected);
+}

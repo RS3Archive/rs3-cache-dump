@@ -1,0 +1,81 @@
+// 3969
+[proc,script3969](inv $inv0, int $int1, component $component2, int $int3)
+def_obj $obj4 = ~bank_get_invobject($inv0, $int1);
+def_int $int5 = ~bank_get_invnum($inv0, $int1);
+if ($obj4 = null | $int5 <= 0) {
+    return;
+}
+def_obj $obj6 = oc_uncert($obj4);
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = -1;
+switch_component ($component2) {
+    case bank:bank_inv_insert :
+        $int8 = ~bank_get_item_slot($inv0, $obj6);
+        if ($int8 ! -1) {
+            $int3 = $int8;
+        } else {
+            $int12 = ~bank_get_tab($int3);
+        }
+        ~script2347($obj4, $obj6, $int8, $int5, $int3, $int12, $inv0, $int1, 1, 1);
+        return;
+    case bank:bank_inv :
+        $int8 = ~bank_get_item_slot($inv0, $obj6);
+        if ($int8 ! -1) {
+            ~script2347($obj4, $obj6, $int8, $int5, $int8, -1, $inv0, $int1, 1, 1);
+            return;
+        }
+        $obj7 = ~bank_get_object($int3);
+        if ($obj7 = null) {
+            ~script2347($obj4, $obj6, $int8, $int5, $int3, -1, $inv0, $int1, 1, 1);
+            return;
+        }
+        if ($inv0 = worn) {
+            if (oc_wearpos($obj7) = -1 | oc_wearpos($obj7) ! oc_wearpos($obj6)) {
+                ~script2347($obj4, $obj6, $int8, $int5, $int3, -1, $inv0, $int1, 1, 1);
+            } else {
+                $int9 = ~bank_get_num($int3);
+                if (oc_stackable($obj7) = true) {
+                    ~bank_withdraw($obj7, $int9, $int3, $inv0, $int1, $int9, false);
+                } else {
+                    ~bank_withdraw($obj7, 1, $int3, $inv0, $int1, $int9, false);
+                }
+            }
+        } else {
+            ~bank_swap_external($int3, $inv0, $int1, $int1, false);
+        }
+        return;
+    case bank:preset_worn_item_layer :
+        ~script14386($inv0, $int1, $obj4, $int5);
+        return;
+    case bank:preset_inventory_layer :
+        ~script14387($inv0, $int1, $obj4, $int5, $int3);
+        return;
+    case bank:tabs_all_button :
+        $int12 = 1;
+    case bank:tabs_click :
+        $int12 = ~script14372($int3);
+    case bank:tab_spacer_endrow, bank:tab_spacer_below :
+        if (%bank_current_tab = 1) {
+            $int12 = ~script14372($int3);
+        } else {
+            $int12 = $int3;
+        }
+    case default :
+        return;
+}
+$int8 = ~bank_get_item_slot($inv0, $obj6);
+if (~script3802($obj4) = false & $int8 ! -1) {
+    ~script2347($obj4, $obj6, $int8, $int5, $int8, -1, $inv0, $int1, 1, 0);
+    return;
+}
+if ($int12 >= 2) {
+    $int10, $int11 = ~bank_get_tab_range($int12);
+} else {
+    $int11 = ~script14337;
+}
+~script2347($obj4, $obj6, $int8, $int5, $int11, $int12, $inv0, $int1, 1, 1);
+~script9323;

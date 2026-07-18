@@ -1,0 +1,50 @@
+// 2023
+[clientscript,script2023](struct $struct0, int $int1, component $component2)
+def_string $string0 = "";
+def_int $int3 = 0;
+def_string $string1 = "";
+def_struct $struct4 = null;
+def_int $int5 = 0;
+switch_int ($int1) {
+    case 1 :
+        $int5 = struct_param($struct0, pop_voyage_requirement1type);
+        $string0 = enum(int, string, pop_voyage_requirements_short, $int5);
+        $int3 = struct_param($struct0, pop_voyage_requirement1value);
+    case 2 :
+        $int5 = struct_param($struct0, pop_voyage_requirement2type);
+        $string0 = enum(int, string, pop_voyage_requirements_short, $int5);
+        $int3 = struct_param($struct0, pop_voyage_requirement2value);
+    case 3 :
+        $int5 = struct_param($struct0, pop_voyage_requirement3type);
+        $string0 = enum(int, string, pop_voyage_requirements_short, $int5);
+        $int3 = struct_param($struct0, pop_voyage_requirement3value);
+}
+switch_int ($int5) {
+    case default :
+        $string0 = "";
+    case 1 :
+        $string1 = " <oc_name(enum(int, obj, pop_crew_list, $int3))>";
+    case 2 :
+        $string1 = " <oc_name(enum(int, obj, pop_item_list, $int3))>";
+    case 3 :
+        $string1 = " <oc_name(enum(int, obj, pop_captain_list, $int3))>";
+    case 4 :
+        $string1 = " <oc_name(enum(int, obj, pop_crew_list, $int3))>";
+    case 5 :
+        $string1 = " <enum(int, string, pop_voyage_adventurers, $int3)>";
+    case 6 :
+    case 7 :
+        $string1 = " <enum(int, string, pop_voyage_adventurers, $int3)>";
+    case 8 :
+        $struct4 = enum(int, struct, pop_voyage_list, $int3);
+        $string1 = " <struct_param($struct4, pop_voyage_name)>";
+    case 9 :
+        $string1 = " <enum(int, string, pop_voyage_adventurers, $int3)>";
+    case 10, 11 :
+        $struct4 = enum(int, struct, pop_trait_list, $int3);
+        $string1 = " <struct_param($struct4, pop_crew_trait_name)>";
+    case 12, 13 :
+        $string1 = " <enum(int, string, pop_voyage_adventurers, $int3)>";
+}
+$string0 = append($string0, $string1);
+if_settext($string0, $component2);

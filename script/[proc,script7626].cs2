@@ -1,0 +1,21 @@
+// 7626
+[proc,script7626](dbrow $dbrow0, int $int1, string $string0)(string)
+switch_dbrow ($dbrow0) {
+    case wish_options :
+        if ($int1 = 0) {
+            $string0 = append("<col=ffffff>Charge Remaining:</col> <tostring(%wish_charges_remaining)>%<br><br>", $string0);
+        } else {
+            $string0 = append("<col=ffffff>Charge Remaining:</col> <tostring(%wish_charges_remaining)>%<br><col=ffffff>Charge Cost:</col> <~script2700($int1)>%<br><br>", $string0);
+        }
+    case weekends_boss_spotlight_schedule :
+        if ($int1 = 0 & ~script8245 > 0) {
+            $string0 = append("<col=ffffff>Active Week:</col> <tostring(~script8245)><br><br>", $string0);
+        } else if (enum(int, dbrow, weekends_boss_spotlight_events, $int1) ! null) {
+            $string0 = append("<col=ffffff>Active:</col> <~fromdate_numeric(~script16024(enum(int, int, weekends_boss_spotlight_week_to_event_id, $int1)))> - <~fromdate_numeric(~script16025(enum(int, int, weekends_boss_spotlight_week_to_event_id, $int1)))><br><br>", $string0);
+        }
+    case trh180_easter24_basket_options :
+        if ($int1 = calc(2 - 1)) {
+            $string0 = append($string0, ~script16781);
+        }
+}
+return($string0);

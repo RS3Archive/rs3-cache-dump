@@ -1,0 +1,68 @@
+// 1505:0
+[topstat_circle_prayer]
+type=graphic
+x=1
+width=31
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=globe_layer
+graphic="aif_topstat_fill_full,1"
+clickmask=no
+
+// 1505:1
+[topstat_prayer]
+type=layer
+width=67
+height=34
+noclickthrough=yes
+
+// 1505:2
+[topstat_background_prayer]
+type=graphic
+width=67
+height=34
+layer=topstat_prayer
+graphic=topstat_slot_full_lrg
+hflip=yes
+clickmask=no
+transmitop1=yes
+transmitop2=yes
+op1=Turn Quick Prayers On
+op2=Select Quick Prayers
+onload=script8050(event_com)
+onmouseover=graphic_swapper(event_com, topstat_slot_roll_empty_lrg)
+onmouseleave=graphic_swapper(event_com, topstat_slot_full_lrg)
+onvartransmit=topstat_prayer_custom(topstat_prayer:topstat_circle_prayer, event_com, "topstat_fill_full,5", "topstat_fill_full,1")
+onop=topstat_prayer_button_op(event_op, topstat_prayer:topstat_circle_prayer, event_com, "topstat_fill_full,5", "topstat_fill_full,1")
+onvarctransmit=topstat_prayer_custom(topstat_prayer:topstat_circle_prayer, event_com, "topstat_fill_full,5", "topstat_fill_full,1")
+onvartransmitlist=prayer_perm1,prayer_points_var,topstat_prayer_if
+onvarctransmitlist=prayer_custom_view_client
+
+// 1505:3
+[globe_layer]
+type=layer
+y=1
+height=31
+widthmode=minus
+xmode=abs_right
+layer=topstat_prayer
+onload=script9890(event_com)
+onvartransmit=script8119(event_com)
+onstattransmit=script8119(event_com)
+onvartransmitlist=prayer_points_var
+onstattransmitlist=prayer
+
+// 1505:4
+[topstat_graphic_prayer]
+type=graphic
+x=7
+width=20
+height=20
+xmode=abs_right
+ymode=abs_centre
+layer=topstat_prayer
+graphic="aif_topstat_icon,1"
+colour=0xffffff
+clickmask=no
+

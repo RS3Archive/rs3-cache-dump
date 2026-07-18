@@ -1,0 +1,27 @@
+// 7986
+[proc,script7986](component $component0, int $int1)
+if ($component0 = null) {
+    return;
+}
+def_component $component2 = if_getlayer($component0);
+if ($component2 = null) {
+    return;
+}
+def_int $setposh3 = ^setpos_abs_left;
+def_int $int4 = 40;
+def_struct $struct5 = rs3_content_container_active;
+if (calc($int1 % 2) = 0) {
+    $setposh3 = ^setpos_abs_right;
+}
+if (calc($int1 % 4) = 0 | calc(($int1 - 1) % 4) = 0) {
+    $struct5 = rs3_content_container_inactive;
+}
+$int4 = calc($int4 + ($int1 - 1) / 2 * 35);
+if_setposition(0, $int4, $setposh3, ^setpos_abs_top, $component2);
+if_setsize(346, 32, ^setsize_abs, ^setsize_abs, $component2);
+def_component $component6 = if_getlayer($component2);
+if ($component6 ! null & if_find($component6) = true & .if_find($component2) = true & .cc_gethide = false & cc_getheight < calc(.cc_gety + .cc_getheight + 2)) {
+    cc_setsize(0, calc(.cc_gety + .cc_getheight), ^setsize_minus, ^setsize_abs);
+    ~script7987($component6);
+}
+~rs3_background_panel($component0, $struct5);

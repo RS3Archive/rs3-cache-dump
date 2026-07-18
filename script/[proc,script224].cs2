@@ -1,0 +1,115 @@
+// 224
+[proc,script224]
+def_boolean $boolean0 = if_gethide(snapshot_main_v2:name_list_layer);
+def_string $string0 = removetags(chat_playername_unfiltered);
+def_string $string1 = "";
+if ($boolean0 = true) {
+    if_sethide(false, snapshot_main_v2:name_list_layer);
+}
+def_int $int1 = ~script1960;
+def_int $int2 = 0;
+def_int $chattype3 = ^chattype_gamemessage;
+def_int $int4 = 0;
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_chatphrase $chatphrase5 = null;
+def_string $string7 = "";
+def_int $int6 = -1;
+def_string $string8 = "";
+def_int $int7 = max(0, calc($int1 - 100));
+def_int $int8 = 0;
+def_int $int9 = 1;
+def_int $int10 = 0;
+def_int $int11 = -1;
+def_int $int12 = 0;
+cc_deleteall(snapshot_main_v2:build_layer);
+cc_deleteall(snapshot_main_v2:highlight_name_layer);
+cc_deleteall(snapshot_main_v2:selected_name_layer);
+if_setscrollsize(0, 0, snapshot_main_v2:build_layer);
+if_setscrollpos(0, 0, snapshot_main_v2:build_layer);
+def_int $int13 = -1;
+while ($int7 <= $int1) {
+    $chattype3, $string2, $int4, $string3, $string4, $string5, $string6, $chatphrase5, $string7, $int6, $int13 = chat_gethistory_byuid($int7);
+    switch_int ($chattype3) {
+        case ^chattype_gamemessage, ^chattype_engine, ^chattype_obj_examine, ^chattype_npc_examine, ^chattype_loc_examine, ^chattype_clanmessage, ^chattype_trade_notification, ^chattype_assist_notification, ^chattype_snapshotfeedback, ^chattype_friendnotification, ^chattype_ignorenotification, ^chattype_broadcast, ^chattype_system_broadcast, ^chattype_broadcast_global, ^chattype_broadcast_world, ^chattype_broadcast_friends, ^chattype_motd, ^chattype_interface_open, ^chattype_interface_open_filtered, 146 :
+        case default :
+            if (compare($string3, "") ! 0 & compare($string7, "") ! 0) {
+                $string1 = removetags($string4);
+                if ($chattype3 ! ^chattype_privatechatout & $chattype3 ! ^chattype_quickchat_private_outgoing) {
+                    if ($chattype3 = ^chattype_clanchat | $chattype3 = ^chattype_clanguestchat | $chattype3 = ^chattype_friendschat) {
+                        if (compare($string0, $string1) ! 0 & $chattype3 ! ^chattype_privatechatout & $chattype3 ! ^chattype_quickchat_private_outgoing) {
+                            $int10 = 0;
+                            $string8 = "<col=<tostring($int10, 16)>>[</col><col=0000FF><$string6></col><col=<tostring($int10, 16)>>]<$string3>: <$string7>";
+                        } else {
+                            $int10 = 7829367;
+                            $string8 = "<col=<tostring($int10, 16)>>[<$string6>]<$string3>: <$string7>";
+                        }
+                    } else {
+                        $string8 = " <$string3>: <$string7>";
+                    }
+                } else {
+                    $string8 = "To <$string3>: <$string7>";
+                }
+                $int9 = paraheight($string8, calc(if_getwidth(snapshot_main_v2:build_layer) - 5), museo_sans_11pt_regular);
+                if (compare(removetags($string3), chat_playername) ! 0 & $chattype3 ! ^chattype_privatechatout & $chattype3 ! ^chattype_quickchat_private_outgoing) {
+                    $int12 = 1;
+                    cc_create(snapshot_main_v2:highlight_name_layer, ^iftype_rectangle, if_getnextsubid(snapshot_main_v2:highlight_name_layer));
+                    cc_setposition(0, calc($int8 * 15 + 2), ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize(456, calc($int9 * 15), ^setsize_abs, ^setsize_abs);
+                    cc_setcolour(0x646464);
+                    cc_settrans(255);
+                    cc_setfill(true);
+                    cc_setonmouseover("script237(event_comsubid)");
+                    cc_setonmouseleave("script238(event_comsubid)");
+                    $int11 = if_getnextsubid(snapshot_main_v2:selected_name_layer);
+                    cc_create(snapshot_main_v2:selected_name_layer, ^iftype_rectangle, $int11);
+                    cc_setposition(0, calc($int8 * 15 + 2), ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize(456, calc($int9 * 15), ^setsize_abs, ^setsize_abs);
+                    cc_setcolour(^black);
+                    cc_settrans(255);
+                    cc_setfill(true);
+                } else {
+                    $int11 = -1;
+                }
+                cc_create(snapshot_main_v2:build_layer, ^iftype_text, if_getnextsubid(snapshot_main_v2:build_layer));
+                cc_setposition(5, calc($int8 * 15), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setsize(5, calc(15 * $int9), ^setsize_minus, ^setsize_abs);
+                cc_settext($string8);
+                cc_setcolour(0xaaaaaa);
+                if (compare($string0, $string1) ! 0 & $chattype3 ! ^chattype_privatechatout & $chattype3 ! ^chattype_quickchat_private_outgoing) {
+                    cc_setopbase($string1);
+                    cc_setop(1, "Report");
+                    cc_setonop("script234(event_comsubid, $int11)");
+                    cc_setcolour(^white);
+                }
+                cc_settextfont(museo_sans_11pt_regular);
+                cc_settextalign(^settextalign_left, ^settextalign_centre, 15);
+                $int8 = calc($int8 + $int9);
+            }
+    }
+    $int7 = calc($int7 + 1);
+}
+if ($int12 = 0) {
+    cc_create(snapshot_main_v2:build_layer, ^iftype_text, if_getnextsubid(snapshot_main_v2:build_layer));
+    cc_setposition(5, calc($int8 * 15), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(16384, 15, ^setsize_rel, ^setsize_abs);
+    cc_settext("There is no chat to report at the moment.");
+    cc_setcolour(^red);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 15);
+    $int8 = calc($int8 + 1);
+}
+if_setscrollsize(if_getwidth(snapshot_main_v2:scrolled_layer), calc(2 + $int8 * 15), snapshot_main_v2:scrolled_layer);
+~scrollbar_vertical(snapshot_main_v2:scroll_layer, snapshot_main_v2:scrolled_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if (cc_find(snapshot_main_v2:scroll_layer, 1) = true) {
+    ~scrollbar_vertical_doscroll(snapshot_main_v2:scroll_layer, snapshot_main_v2:scrolled_layer, if_getscrollheight(snapshot_main_v2:scrolled_layer), 1);
+}
+if ($boolean0 = true) {
+    if_sethide(true, snapshot_main_v2:name_list_layer);
+}
+if ($int8 <= 11) {
+    if_sethide(true, snapshot_main_v2:scroll_layer);
+}

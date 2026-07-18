@@ -1,0 +1,183 @@
+// 1077
+[proc,quickchat_phrase_send](chatphrase $chatphrase0, int $int1)
+def_chatphrase $chatphrase2 = $chatphrase0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int3, $int4, $int5 = date_runeday_todate(%atlum_day_tracker);
+switch_chatphrase ($chatphrase0) {
+    case chatphrase_105 :
+        if (%slayc_current_challenge ! 0 | %slayc_morvran_challenge = 1) {
+            $chatphrase0 = chatphrase_1021;
+        } else if (%slayer_count = 0) {
+            $chatphrase0 = chatphrase_561;
+        }
+    case chatphrase_1712 :
+        if ($int3 = 1 & $int4 = 3) {
+            $chatphrase0 = chatphrase_1714;
+        }
+        if (~ironman_mode = false) {
+            ~script3686("You cannot send this message as you are not an Ironman.");
+            return;
+        }
+    case chatphrase_1713 :
+        if ($int3 = 1 & $int4 = 3) {
+            $chatphrase0 = chatphrase_1715;
+        }
+        if (~hardcore_mode = false) {
+            ~script3686("You cannot send this message as you are not a Hardcore Ironman.");
+            return;
+        }
+    case chatphrase_1716, chatphrase_1717 :
+        if (~hardcore_mode = false) {
+            ~script3686("You cannot send this message as you are not a Hardcore Ironman.");
+            return;
+        }
+    case chatphrase_2983 :
+        if (~script19316 = false) {
+            ~script3686("You cannot send this message as you are not a Group Ironman.");
+            return;
+        }
+        if (~script19320 = true) {
+            $chatphrase0 = chatphrase_2984;
+        }
+    case chatphrase_1728 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_itemlog_clue_easy_reward_lookup, calc(~script8633($int1) + 1));
+    case chatphrase_1729 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_itemlog_clue_medium_reward_lookup, calc(~script8633($int1) + 1));
+    case chatphrase_1730 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_itemlog_clue_hard_reward_lookup, calc(~script8633($int1) + 1));
+    case chatphrase_1731 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_itemlog_clue_elite_reward_lookup, calc(~script8633($int1) + 1));
+    case chatphrase_1732 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_itemlog_clue_master_reward_lookup, calc(~script8633($int1) + 1));
+    case chatphrase_1733 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_itemlog_clue_general_reward_lookup, calc(~script8633($int1) + 1));
+    case chatphrase_2306 :
+        if (%dino_agility_best_lap_time = 0) {
+            ~script3686("You cannot send this message as you have not yet completed a suitable lap time.");
+            return;
+        }
+    case chatphrase_2307 :
+        if (~script6061(1) = 0) {
+            $chatphrase0 = chatphrase_2314;
+        }
+    case chatphrase_2308 :
+        if (~script6061(2) = 0) {
+            $chatphrase0 = chatphrase_2315;
+        }
+    case chatphrase_2309 :
+        if (~script6061(3) = 0) {
+            $chatphrase0 = chatphrase_2316;
+        }
+    case chatphrase_2310 :
+        if (~script6061(4) = 0) {
+            $chatphrase0 = chatphrase_2317;
+        }
+    case chatphrase_2311 :
+        if (~script6061(5) = 0) {
+            $chatphrase0 = chatphrase_2318;
+        }
+    case chatphrase_2312 :
+        if (~script6061(6) = 0) {
+            $chatphrase0 = chatphrase_2319;
+        }
+    case chatphrase_2313 :
+        if (~script6061(7) = 0) {
+            $chatphrase0 = chatphrase_2320;
+        }
+    case chatphrase_2622 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_arch_restoration_armadylean_lookup, ~script8633($int1));
+    case chatphrase_2623 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_arch_restoration_bandosian_lookup, ~script8633($int1));
+    case chatphrase_2785 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_arch_restoration_dragonkin_lookup, ~script8633($int1));
+    case chatphrase_2624 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_arch_restoration_saradominist_lookup, ~script8633($int1));
+    case chatphrase_2625 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_arch_restoration_zamorakian_lookup, ~script8633($int1));
+    case chatphrase_2626 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_arch_restoration_zarosian_lookup, ~script8633($int1));
+    case chatphrase_2627 :
+        $chatphrase0 = enum(int, chatphrase, quickchat_arch_restoration_miscellaneous_lookup, ~script8633($int1));
+}
+if ($chatphrase0 = null) {
+    return;
+}
+activechatphrase_prepare($chatphrase0);
+def_int $int6 = 0;
+def_int $int7 = chatphrase_getdynamiccommandcount($chatphrase0);
+def_int $int8 = -1;
+def_string $string0 = "";
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = -1;
+def_int $int12 = -1;
+def_int $int13 = -1;
+def_int $int14 = -1;
+def_int $int15 = -1;
+while ($int6 < $int7 & $int6 < 10) {
+    switch_int (chatphrase_getdynamiccommand($chatphrase0, $int6)) {
+        case 0 :
+            ~quickchat_phrase_setint($int6, $int1);
+        case 1 :
+            ~quickchat_phrase_setobj($int6, $int1);
+        case 10 :
+            ~quickchat_phrase_setobj($int6, $int1);
+        case 2 :
+            ~quickchat_phrase_setint($int6, $int1);
+    }
+    $int6 = calc($int6 + 1);
+}
+switch_int (~script8613($int1)) {
+    case 0, 4 :
+        chat_setmode(0);
+        activechatphrase_send;
+    case 1 :
+        $string0 = ~script8605($int1);
+        $int8 = ~quickchat_friend_status($string0);
+        if ($int8 = 1) {
+            activechatphrase_sendprivate(removetags($string0));
+            ~script1089;
+        } else if ($int8 = -1) {
+            mes("Sorry, this user is not on your Friends List.");
+        } else {
+            mes("Sorry, your friend is no longer playing RuneScape.");
+        }
+    case 5 :
+        activechatphrase_sendprivate(removetags(~script8605($int1)));
+        ~script1089;
+    case 2, 6 :
+        chat_setmode(1);
+        activechatphrase_send;
+    case 8, 9 :
+        $int9, $int10, $int11, $int12, $int13, $int14, $int15 = ~script4590;
+        if ($int9 >= 0 & $int10 >= $int11 & $int12 ! 1 & activeclanchannel_find_affined(0) = true) {
+            chat_setmode_affined_clan(0);
+            activechatphrase_send;
+        }
+    case 10, 11 :
+        if (activeclanchannel_find_listened = true) {
+            chat_setmode(3);
+            activechatphrase_send;
+        }
+    case 13, 14 :
+        if (player_group_find = true) {
+            chat_setmode(4);
+            activechatphrase_send;
+        }
+    case 15, 16 :
+        if (player_group_find = true) {
+            chat_setmode(5);
+            activechatphrase_send;
+        }
+    case 17, 18 :
+        if (activeclanchannel_find_affined(1) = true) {
+            chat_setmode_affined_clan(1);
+            activechatphrase_send;
+        }
+}
+~script8624($int1, $chatphrase2);
+~script8626($int1, ~script8613($int1));
+~script8608($int1, ~script8605($int1));
+~quickchat_close($int1);

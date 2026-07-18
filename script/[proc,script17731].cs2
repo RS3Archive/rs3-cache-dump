@@ -1,0 +1,29 @@
+// 17731
+[proc,script17731](struct $struct0, string $string0, int $int1, int $int2)(string)
+$string0 = struct_param($struct0, combatv2_ability_info);
+def_int $int3 = calc(%combatv2_ability_necromancy_spectral_scythe_recast_1_unlocked + %combatv2_ability_necromancy_spectral_scythe_recast_2_unlocked);
+switch_struct ($struct0) {
+    case combatv2_ability_necromancy_spectral_scythe :
+        $string0 = "<$string0><br>- <~script17720(combatv2_ability_necromancy_spectral_scythe, 72, calc(72 + 16), 0, $int1)> to the target and up to <~script18561(9)> in a <col=ffffff>cone</col> in the attack direction.";
+        $string0 = "<$string0><br>- <col=ffffff><tostring(25)>%</col> chance to generate <col=ffffff><tostring(1)> <sprite=30123><nbsp><struct_param(combatv2_buff_necromancy_residual_soul, combatv2_ability_name)></col> stack with each hit.";
+        if ($int2 ! 2 & $int3 > 0) {
+            $string0 = "<$string0><br>- Can be <col=ffffff>recast</col> within <col=ffffff><~script14945(25, 1)></col> of the previous cast.";
+            $string0 = "<$string0><br><br><col=ffffff>Second Cast:</col> <struct_param(combatv2_ability_necromancy_spectral_scythe_recast_1, combatv2_ability_info)>";
+            if ($int3 > 1) {
+                $string0 = "<$string0><br><col=ffffff>Third Cast:</col> <struct_param(combatv2_ability_necromancy_spectral_scythe_recast_2, combatv2_ability_info)>";
+            }
+        }
+    case combatv2_ability_necromancy_spectral_scythe_recast_1 :
+        $string0 = "<$string0><br>- <~script17720(combatv2_ability_necromancy_spectral_scythe_recast_1, 180, calc(180 + 40), 0, $int1)> to the target and up to <~script18561(25)> within <~script17709(2)> of you.";
+        $string0 = "<$string0><br>- <col=ffffff>On hit:</col> <col=ffffff><tostring(25)>%</col> chance to generate <col=ffffff><tostring(1)> <sprite=30123><nbsp><struct_param(combatv2_buff_necromancy_residual_soul, combatv2_ability_name)></col> stack.";
+        if ($int2 = 2) {
+            $string0 = "<$string0><br><br><col=969696>Note: This is an upgrade to <struct_param(combatv2_ability_necromancy_spectral_scythe, combatv2_ability_name)> and will be available as a second cast.</col>";
+        }
+    case combatv2_ability_necromancy_spectral_scythe_recast_2 :
+        $string0 = "<$string0><br>- <~script17720(combatv2_ability_necromancy_spectral_scythe_recast_2, 225, calc(225 + 50), 0, $int1)> to the target and up to <~script18561(25)> within <~script17709(2)> of you.";
+        $string0 = "<$string0><br>- Damage is increased by <col=ffffff>0%-<tostring(calc(100 / 1 * 1))>%</col> based on enemy's missing life points.";
+        if ($int2 = 2) {
+            $string0 = "<$string0><br><br><col=969696>Note: This is an upgrade to <struct_param(combatv2_ability_necromancy_spectral_scythe, combatv2_ability_name)> and will be available as a third cast.</col>";
+        }
+}
+return($string0);

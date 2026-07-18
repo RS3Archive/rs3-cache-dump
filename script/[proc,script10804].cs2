@@ -1,0 +1,21 @@
+// 10804
+[proc,script10804]
+def_component $component0 = mtxmgt_purchase:currency_layer;
+def_component $component1 = mtxmgt_purchase:confirm_layer;
+def_component $component2 = mtxmgt_purchase:progress_layer;
+def_component $component3 = mtxmgt_purchase:response_layer;
+if_sethide(true, $component0);
+if_sethide(true, $component1);
+if_sethide(true, $component2);
+if_sethide(true, $component3);
+switch_int (%mtxmgt_purchase_state) {
+    case 0 :
+        if_sethide(false, $component0);
+    case 1 :
+        if_sethide(false, $component1);
+    case 2 :
+        if_sethide(false, $component2);
+    case 3 :
+        ~script10805;
+        if_sethide(false, $component3);
+}

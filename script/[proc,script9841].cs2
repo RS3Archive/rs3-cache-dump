@@ -1,0 +1,32 @@
+// 9841
+[proc,script9841](int $int0)
+if (%rhino_client_question = null) {
+    return;
+}
+def_int $int1 = struct_param(%rhino_client_question, rhino_correct_answer);
+def_string $string0 = "";
+switch_int ($int0) {
+    case 0 :
+        $string0 = struct_param(%rhino_client_question, rhino_answer_1);
+    case 1 :
+        $string0 = struct_param(%rhino_client_question, rhino_answer_2);
+    case 2 :
+        $string0 = struct_param(%rhino_client_question, rhino_answer_3);
+    case 3 :
+        $string0 = struct_param(%rhino_client_question, rhino_answer_4);
+}
+if ($int0 = $int1) {
+    if_settext("Correct", rhino_awareness:rhino_answered_title);
+    if_settext("It was indeed<br><$string0>", rhino_awareness:rhino_answered_text);
+    if_sethide(false, rhino_awareness:rhino_answered_question_popup);
+} else {
+    if_sethide(false, rhino_awareness:todays_rhino_wrong_answer);
+    if_settext("Incorrect", rhino_awareness:rhino_answered_title);
+    if_settext("You will have to wait 1 minute until you can try again.", rhino_awareness:rhino_answered_text);
+    if_sethide(false, rhino_awareness:rhino_answered_question_popup);
+    if (%rhino_client_end_time < clientclock) {
+        %rhino_client_time_remaining = 60;
+        %rhino_client_end_time = calc(clientclock + %rhino_client_time_remaining * 50);
+        ~script9842;
+    }
+}

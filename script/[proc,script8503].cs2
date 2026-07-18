@@ -1,0 +1,24 @@
+// 8503
+[proc,script8503](component $component0, int $int1, int $int2)(int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = if_getwidth($component0);
+def_fontmetrics $fontmetrics6 = enum(int, fontmetrics, settings_chat_size_to_fontmetric, ~script3873);
+def_int $int7 = ~script11432($fontmetrics6);
+def_int $setposv8 = ^setpos_abs_bottom;
+def_boolean $boolean9 = ~script6431;
+if ($boolean9 = true & %settings_chat_message_direction = 0) {
+    $setposv8 = ^setpos_abs_top;
+}
+while (cc_find($component0, $int1) = true) {
+    cc_setposition(0, $int2, ^setpos_abs_left, $setposv8);
+    $int3 = calc(paraheight(cc_gettext, $int5, cc_getfontmetrics) * $int7);
+    $int4 = max(parawidth(cc_gettext, $int5, cc_getfontmetrics), 0);
+    cc_setsize($int4, $int3, ^setsize_abs, ^setsize_abs);
+    $int2 = calc($int2 + cc_getheight);
+    if ($boolean9 = true) {
+        $int2 = calc($int2 + 4);
+    }
+    $int1 = calc($int1 + 1);
+}
+return($int2);

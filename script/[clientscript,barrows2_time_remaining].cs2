@@ -1,0 +1,15 @@
+// 9191
+[clientscript,barrows2_time_remaining](int $int0, int $int1)
+def_int $int2 = calc(($int0 - clientclock) / 50);
+if ($int2 < 0) {
+    if_setontimer(null, barrows2_escape:time_remaining);
+    return;
+}
+def_string $string0 = "<col=EBE1BE>";
+if ($int2 < 11) {
+    $string0 = "<col=EB3232>";
+} else if ($int2 < 21) {
+    $string0 = "<col=EB9632>";
+}
+if_settext("Total collapse in: <$string0><tostring($int2)></col>", barrows2_escape:time_remaining);
+if_setontimer("barrows2_time_remaining($int0, $int1)", barrows2_escape:time_remaining);

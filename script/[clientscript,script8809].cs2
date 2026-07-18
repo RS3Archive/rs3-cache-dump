@@ -1,0 +1,57 @@
+// 8809
+[clientscript,script8809]
+if (playermember = false) {
+    if_setobject(oct13_lamp_small, 1, oct13_reward_shop:oct13_item_gfx_1);
+    if_settext("Small<br>Rebuildathon<br>lamp", oct13_reward_shop:oct13_reward_name_1);
+    if_setobject(oct13_lamp_medium, 1, oct13_reward_shop:oct13_item_gfx_2);
+    if_settext("Medium<br>Rebuildathon<br>lamp", oct13_reward_shop:oct13_reward_name_2);
+} else {
+    if_setobject(oct13_lamp_medium, 1, oct13_reward_shop:oct13_item_gfx_1);
+    if_settext("Medium<br>Rebuildathon<br>lamp", oct13_reward_shop:oct13_reward_name_1);
+    if_setobject(oct13_lamp_large, 1, oct13_reward_shop:oct13_item_gfx_2);
+    if_settext("Large<br>Rebuildathon<br>lamp", oct13_reward_shop:oct13_reward_name_2);
+}
+if_setobject(oct13_helmet, 1, oct13_reward_shop:oct13_item_gfx_3);
+if (%oct13_hascontributed = 1) {
+    switch_int (%oct13_stagescomplete) {
+        case 1 :
+            if_sethide(false, oct13_reward_shop:item_box_3);
+            if_sethide(true, oct13_reward_shop:oct13_locked_1);
+        case 2 :
+            if_sethide(false, oct13_reward_shop:item_box_3);
+            if_sethide(true, oct13_reward_shop:oct13_locked_1);
+            if_sethide(false, oct13_reward_shop:item_box_4);
+            if_sethide(true, oct13_reward_shop:oct13_locked_2);
+        case 3 :
+            if_sethide(false, oct13_reward_shop:item_box_3);
+            if_sethide(true, oct13_reward_shop:oct13_locked_1);
+            if_sethide(false, oct13_reward_shop:item_box_4);
+            if_sethide(true, oct13_reward_shop:oct13_locked_2);
+            if_sethide(false, oct13_reward_shop:item_box_5);
+            if_sethide(true, oct13_reward_shop:oct13_locked_3);
+    }
+}
+if (%oct13_totalcount < 150) {
+    if_sethide(true, oct13_reward_shop:oct13_buy_1);
+    if_sethide(false, oct13_reward_shop:oct13_button_disable_1);
+}
+if (%oct13_totalcount < 300) {
+    if_sethide(true, oct13_reward_shop:oct13_buy_2);
+    if_sethide(false, oct13_reward_shop:oct13_button_disable_2);
+}
+if (%oct13_rewarditem = 1 & %oct13_hatlost ! 1) {
+    if_sethide(true, oct13_reward_shop:oct13_buy_3);
+    if_sethide(false, oct13_reward_shop:oct13_button_disable_3);
+    if_settext("Claimed", oct13_reward_shop:oct13_buy_button_text_3);
+}
+if (%oct13_rewardemote = 1) {
+    if_sethide(true, oct13_reward_shop:oct13_buy_4);
+    if_sethide(false, oct13_reward_shop:oct13_button_disable_4);
+    if_settext("Claimed", oct13_reward_shop:oct13_buy_button_text_4);
+}
+if (%oct13_rewardtitle = 1) {
+    if_sethide(true, oct13_reward_shop:oct13_buy_5);
+    if_sethide(false, oct13_reward_shop:oct13_button_disable_5);
+    if_settext("Claimed", oct13_reward_shop:oct13_buy_button_text_5);
+}
+if_settext("Your contribution points: <tostring(%oct13_totalcount)>", oct13_reward_shop:oct13_shop_total);

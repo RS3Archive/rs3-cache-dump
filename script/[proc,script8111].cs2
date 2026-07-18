@@ -1,0 +1,56 @@
+// 8111
+[proc,script8111](int $int0, int $int1)
+def_component $component2 = toplevel_v2_combat_bar:actionbar_scroller;
+def_component $component3 = toplevel_v2_combat_bar:actionbar_layer;
+def_component $component4 = toplevel_v2_combat_bar:combatbar_buttons;
+def_struct $struct5 = ~script10405(1003);
+if (%toplevel_v2_legacy_combat = 1) {
+    if_sethide(true, struct_param($struct5, toplevel_v2_window_close_button_layer));
+} else {
+    if_sethide(false, struct_param($struct5, toplevel_v2_window_close_button_layer));
+}
+if (~script20655 = 1 | %toplevel_v2_legacy_combat = 1) {
+    if_sethide(true, $component2);
+    if_sethide(true, $component3);
+    if_sethide(true, $component4);
+    return;
+}
+if_sethide(false, $component2);
+if_sethide(false, $component3);
+if_sethide(false, $component4);
+if_setsize(40, 32, ^setsize_abs, ^setsize_abs, $component2);
+if ($int0 = 0) {
+    if ($int1 = 0) {
+        if (%toplevel_v2_legacy_interface = 1) {
+            if_setsize(calc(504 + 14), 36, ^setsize_abs, ^setsize_abs, $component3);
+        } else {
+            if_setsize(504, 36, ^setsize_abs, ^setsize_abs, $component3);
+        }
+        if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component3);
+        if_setsize(16, calc(36 - 4), ^setsize_abs, ^setsize_abs, $component2);
+        if_setposition(calc((if_getwidth(if_getparentlayer($component2)) - if_getwidth($component3) - if_getwidth($component2)) / 2), 2, ^setpos_abs_right, ^setpos_abs_bottom, $component2);
+        if_setsize(16, 16, ^setsize_abs, ^setsize_abs, $component4);
+        if_setposition(calc((if_getwidth(if_getparentlayer($component4)) - if_getwidth($component3) - if_getwidth($component4)) / 2), calc(3 + 30 - 16), ^setpos_abs_right, ^setpos_abs_top, $component4);
+    } else {
+        if_setsize(36, 504, ^setsize_abs, ^setsize_abs, $component3);
+        if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component3);
+        if_setsize(calc(36 - 4), 16, ^setsize_abs, ^setsize_abs, $component2);
+        if_setposition(2, calc((if_getheight(if_getparentlayer($component2)) - if_getheight($component3) - if_getheight($component2)) / 2), ^setpos_abs_left, ^setpos_abs_bottom, $component2);
+        if_setsize(16, 16, ^setsize_abs, ^setsize_abs, $component4);
+        if_setposition(calc(3 + 30 - 16), 2, ^setpos_abs_right, ^setpos_abs_top, $component4);
+    }
+} else if ($int1 = 0) {
+    if_setsize(245, 72, ^setsize_abs, ^setsize_abs, $component3);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component3);
+    if_setsize(16, calc(72 - 4), ^setsize_abs, ^setsize_abs, $component2);
+    if_setposition(calc((if_getwidth(if_getparentlayer($component2)) - if_getwidth($component3) - if_getwidth($component2)) / 2), 2, ^setpos_abs_right, ^setpos_abs_bottom, $component2);
+    if_setsize(16, 16, ^setsize_abs, ^setsize_abs, $component4);
+    if_setposition(calc((if_getwidth(if_getparentlayer($component4)) - if_getwidth($component3) - if_getwidth($component4)) / 2), calc(3 + 50 - 16), ^setpos_abs_right, ^setpos_abs_top, $component4);
+} else {
+    if_setsize(72, 245, ^setsize_abs, ^setsize_abs, $component3);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_setsize(calc(72 - 4), 16, ^setsize_abs, ^setsize_abs, $component2);
+    if_setposition(2, calc((if_getheight(if_getparentlayer($component2)) - if_getheight($component3) - if_getheight($component2)) / 2), ^setpos_abs_left, ^setpos_abs_bottom, $component2);
+    if_setsize(16, 16, ^setsize_abs, ^setsize_abs, $component4);
+    if_setposition(calc(2 + 50 - 16), 2, ^setpos_abs_right, ^setpos_abs_top, $component4);
+}

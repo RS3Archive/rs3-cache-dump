@@ -1,0 +1,28 @@
+// 7198
+[clientscript,machinima_init]
+~script7997;
+if_sethide(true, machinima_livecamera:info0);
+if_sethide(true, machinima_livecamera:info1);
+if_sethide(true, machinima_livecamera:info2);
+if_sethide(false, machinima_livecamera:info3);
+if_sethide(false, machinima_livecamera:ui);
+if_sethide(false, machinima_livecamera:exithint);
+if_setontimer("script2870(event_com, calc(clientclock + 150))", machinima_livecamera:exithint);
+~script3455;
+if_setontimer("script7940(event_com)", toplevel_v2:machinima_camera);
+~script12446;
+if (%toplevel_v2_legacy_interface = 1) {
+    if_sethide(true, toplevel_v2:minimap_window);
+    if_sethide(true, toplevel_v2:action_window);
+    if_sethide(true, toplevel_v2:buttons_window);
+    if_sethide(true, toplevel_v2:hud_window);
+}
+if (%machinima_livecamera_camera_pos_speed < 64) {
+    %machinima_livecamera_camera_pos_speed = calc(64 + (1024 - 64) / 2);
+}
+if (%machinima_livecamera_camera_rot_speed < 1) {
+    %machinima_livecamera_camera_rot_speed = calc(1 + (50 - 1) / 2);
+}
+~script8776;
+~script8836(keyboard_manager_orb_of_occulus);
+if_setonvarctransmit("machinima_setup_state(coord){machinima_livecamera_camera_type}", toplevel_v2:machinima_camera);

@@ -1,0 +1,57 @@
+// 11301
+[clientscript,script11301]
+def_int $int0 = 0;
+def_int $int1 = 15;
+def_int $int2 = 0;
+cc_deleteall(poh_aquarium:floorplan);
+while ($int1 >= 0) {
+    while ($int0 < 16) {
+        cc_create(poh_aquarium:floorplan, ^iftype_rectangle, $int2);
+        cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+        cc_setcolour(^green);
+        cc_setfill(true);
+        switch_int ($int2) {
+            case 103, 104, 119, 120, 135, 136 :
+                cc_setcolour(^cyan);
+        }
+        cc_setposition(calc($int0 * 15), calc($int1 * 15), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setonmouseover("poh_aquarium_mouseover(event_com, cc_getid)");
+        cc_setonmouseleave("script11302(cc_getid)");
+        cc_settrans(255);
+        if (~script6431 = true) {
+            cc_setop(1, "Build");
+        }
+        $int2 = calc($int2 + 1);
+        $int0 = calc($int0 + 1);
+    }
+    $int0 = 0;
+    $int1 = calc($int1 - 1);
+}
+def_int $int3 = 1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_component $component8 = null;
+def_int $int9 = 0;
+def_int $int10 = 0;
+while ($int3 <= 30) {
+    $int9, $int10, $int4, $int5 = ~poh_aquarium_load_client($int3);
+    $component8 = enum(int, component, poh_aquarium_comlist, $int3);
+    if ($int4 > 0) {
+        $int7 = calc(lc_param(enum(int, loc, poh_aquarium_loclist, $int4), poh_loc_size) * 15);
+        if_setgraphic(lc_param(enum(int, loc, poh_aquarium_loclist, $int4), poh_loc_icon), $component8);
+        if_sethide(false, $component8);
+        if_setsize($int7, $int7, ^setsize_abs, ^setsize_abs, $component8);
+        if_setposition(calc($int9 * 15), calc($int10 * 15), ^setpos_abs_left, ^setpos_abs_bottom, $component8);
+        if ($int5 > 0) {
+            $int5 = calc(65535 - 16384 * $int5);
+            if_set2dangle($int5, $component8);
+        } else {
+            if_set2dangle(0, $component8);
+        }
+    } else {
+        if_sethide(true, $component8);
+    }
+    $int3 = calc($int3 + 1);
+}

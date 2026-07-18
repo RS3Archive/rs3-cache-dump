@@ -1,0 +1,48 @@
+// 8159
+[proc,script8159](int $int0, int $int1)
+def_struct $struct2 = ~script10405($int0);
+if ($struct2 = null) {
+    return;
+}
+def_component $component3 = struct_param($struct2, toplevel_v2_window_layer);
+def_component $component4 = struct_param($struct2, toplevel_v2_window_border_layer);
+if ($component3 = null | $component4 = null) {
+    return;
+}
+if ($int0 = 26) {
+    if (has_nxt = true) {
+        mes("This feature is currently disabled in this client.");
+        return;
+    }
+    if (%varclientbit_23064 < 1) {
+        mes("You need to be logged into Twitch to do that.");
+        return;
+    }
+}
+~script8306;
+if (if_gethide($component3) = false) {
+    if (~script6213($int0) = true) {
+        if (%option_highlight_tabs_instead_of_close = 1 & %toplevel_v2_legacy_interface = 0 & %toplevel_v2_mobile_interface = 0) {
+            ~script8054($component3, -1, 12, calc(36 * 2));
+        } else {
+            ~script8323($int0, 0);
+            ~script13842($int0);
+        }
+    }
+    return;
+}
+if ($int1 = 1 & %toplevel_v2_customization_lock = 0 & %toplevel_v2_mobile_interface = 0) {
+    if_sethide(false, $component3);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_setsize(1, 1, ^setsize_abs, ^setsize_abs, $component3);
+    if (cc_find($component4, 0) = true) {
+        cc_setondrag("script8160($int0, get_mousex, get_mousey)");
+        cc_setondragcomplete("script8161($int0)");
+        cc_dragpickup(0, 0);
+        force_interface_drag;
+        ~script173($int0);
+    }
+} else {
+    ~script8162($int0);
+    ~script13842($int0);
+}

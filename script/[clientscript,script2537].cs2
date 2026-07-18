@@ -1,0 +1,18 @@
+// 2537
+[clientscript,script2537](dbrow $dbrow0)
+def_component $component1 = q4_awareness_2023:info_box_description;
+if_settext(db_getfield($dbrow0, q4_awareness_2023_update:col0, 0), q4_awareness_2023:info_box_title);
+if_settext(db_getfield($dbrow0, q4_awareness_2023_update:col1, 0), q4_awareness_2023:info_box_release_date);
+if_settext(db_getfield($dbrow0, q4_awareness_2023_update:col2, 0), $component1);
+def_int $int2 = ~script15891(if_gettext($component1), if_getwidth($component1), if_getfontmetrics($component1), 0);
+cc_deleteall(q4_awareness_2023:info_box_description_scrollbar);
+if_setscrollpos(0, 0, q4_awareness_2023:info_box_description_scrollbar);
+if_setscrollsize(0, 0, q4_awareness_2023:info_box_description_text_layer);
+if ($int2 > 288) {
+    if_setscrollsize(0, $int2, q4_awareness_2023:info_box_description_text_layer);
+    ~rs3_scrollbar_vertical(q4_awareness_2023:info_box_description_scrollbar, q4_awareness_2023:info_box_description_text_layer);
+}
+~script18315($dbrow0, 0);
+sound_vorbis_volume(tli_click_01, 1, 0, 210);
+sound_vorbis_volume(omge_climb_wood_03, 1, 2, 250);
+if_sethide(false, q4_awareness_2023:info_overlay);

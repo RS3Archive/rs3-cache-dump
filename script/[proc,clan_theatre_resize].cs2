@@ -1,0 +1,34 @@
+// 8092
+[proc,clan_theatre_resize]
+switch_int (%clan_theatre_side_tab_current) {
+    case 2 :
+        if_setsize(0, 53, ^setsize_minus, ^setsize_minus, clan_keep_theatre_actors:list);
+        if (if_gethide(clan_keep_theatre_actors:scrollbar_layer) = true) {
+            if_sethide(false, clan_keep_theatre_actors:scrollbar_layer);
+            if_setsize(16, 0, ^setsize_minus, ^setsize_minus, clan_keep_theatre_actors:scrolling_layer);
+        }
+        ~scrollbar_resize(clan_keep_theatre_actors:scrollbar_layer, clan_keep_theatre_actors:scrolling_layer, if_getscrolly(clan_keep_theatre_actors:scrolling_layer));
+    case 3 :
+        if_sethide(false, clan_keep_theatre_sounds:main_layer);
+        if_sethide(true, clan_keep_theatre_container:warning_interface);
+        if_setsize(16, 45, ^setsize_minus, ^setsize_minus, clan_keep_theatre_sounds:lists);
+        if (if_gethide(clan_keep_theatre_sounds:scroll_bar1) = false) {
+            if_sethide(false, clan_keep_theatre_sounds:scroll_bar1);
+        }
+        if (if_gethide(clan_keep_theatre_sounds:scroll_bar2) = false) {
+            if_sethide(false, clan_keep_theatre_sounds:scroll_bar2);
+        }
+        ~scrollbar_resize(clan_keep_theatre_sounds:scroll_bar2, clan_keep_theatre_sounds:bm_list, if_getscrolly(clan_keep_theatre_sounds:bm_list));
+        ~scrollbar_resize(clan_keep_theatre_sounds:scroll_bar1, clan_keep_theatre_sounds:sound_list, if_getscrolly(clan_keep_theatre_sounds:sound_list));
+    case 4 :
+        if_sethide(false, clan_keep_theatre_spotlight:main_layer);
+        if_sethide(true, clan_keep_theatre_container:warning_interface);
+        if_setsize(16, 0, ^setsize_minus, ^setsize_minus, clan_keep_theatre_spotlight:list);
+        if_setscrollsize(0, 255, clan_keep_theatre_spotlight:list);
+        if (if_gethide(clan_keep_theatre_spotlight:scrollbar) = false) {
+            if_sethide(false, clan_keep_theatre_spotlight:scrollbar);
+        }
+        ~scrollbar_resize(clan_keep_theatre_spotlight:scrollbar, clan_keep_theatre_spotlight:list, if_getscrolly(clan_keep_theatre_spotlight:list));
+    case 5 :
+        ~script5308;
+}

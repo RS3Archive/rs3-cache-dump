@@ -1,0 +1,37 @@
+// 4653
+[proc,script4653]
+return;
+def_component $component0 = fremsaga_map:sig_contents;
+if (%fremsaga_current_saga = 1) {
+    $component0 = fremsaga_map:sig_contents;
+}
+if (%fremsaga_current_saga = 2) {
+    $component0 = fremsaga_map:veng_contents;
+}
+if (%fremsaga_current_saga = 4) {
+    if (%fremsaga_floorset = 1) {
+        $component0 = fremsaga_map:thok_frzncontents;
+    }
+    if (%fremsaga_floorset = 2) {
+        $component0 = fremsaga_map:thok_abndcontents;
+    }
+    if (%fremsaga_floorset = 3) {
+        $component0 = fremsaga_map:thok_furncontents;
+    }
+}
+def_coord $coord1 = ~script284(coord);
+def_int $int2 = calc((coordx(coord) - coordx($coord1)) / 16);
+def_int $int3 = calc((coordz(coord) - coordz($coord1)) / 16);
+switch_int (%fremsaga_current_saga) {
+    case 1 :
+        $int3 = calc($int3 - 1);
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("rand_map_player_pips,0");
+cc_setposition(calc($int2 * 32 + 10), calc($int3 * 32 + 10), ^setpos_abs_left, ^setpos_abs_bottom);
+cc_create($component0, ^iftype_graphic, 1);
+cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("rand_map_player_pips,1");
+cc_setposition(calc($int2 * 64 + 10), calc($int3 * 64 + 10), ^setpos_abs_left, ^setpos_abs_bottom);

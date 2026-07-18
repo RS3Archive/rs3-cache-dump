@@ -1,0 +1,38 @@
+// 20265
+[proc,script20265](dbrow $dbrow0, int $int1, int $int2, int $int3, boolean $boolean4)(int, int)
+def_obj $obj5 = db_getfield($dbrow0, league_relic:col2, 0);
+if ($obj5 = null) {
+    return($int1, $int2);
+}
+def_int $int6 = 0;
+def_int $int7 = db_getfieldcount($dbrow0, league_relic:col5);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_boolean $boolean10 = false;
+def_boolean $boolean11 = true;
+def_var_int $var_int12 = null;
+def_int $int13 = 0;
+while ($int6 < $int7) {
+    $var_int12, $int13, $boolean10, $string0 = db_getfield($dbrow0, league_relic:col5, $int6);
+    if (string_length($string0) > 0 & $boolean10 = true) {
+        if ($boolean4 = true & var_reference_get($var_int12) ! 1 | $boolean4 = false & $int13 = 2) {
+            $boolean11 = false;
+        } else {
+            $boolean11 = true;
+        }
+        $int8 = max(18, ~script15891($string0, calc($int3 - 34), notosans_12, 0));
+        ~if_add_child_checkbox_full(league_parent_relics:overview_scrolling_toggles, $int6, 0, 16, $int9, ^setpos_abs_left, ^setpos_abs_top, 16, $int8, ^setsize_minus, ^setsize_abs, checkbox_default_left_aligned, $string0, $boolean4, true, $boolean11);
+        cc_setop(1, "Toggle");
+        $int9 = calc($int9 + $int8 + 4);
+    }
+    $int6 = calc($int6 + 1);
+}
+if ($int9 > 0 & if_find(league_parent_relics:overview_scrolling_contents) = true) {
+    $int1, $int2 = ~script19613(0, $int1, $int2, $int3, "Toggleable Effects");
+    if_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top, league_parent_relics:overview_scrolling_toggles);
+    if_setsize(0, $int9, ^setsize_minus, ^setsize_abs, league_parent_relics:overview_scrolling_toggles);
+    $int2 = calc($int2 + $int9);
+    $int1, $int2 = ~script19613(0, $int1, $int2, $int3, "Always Active Effects");
+}
+return($int1, $int2);

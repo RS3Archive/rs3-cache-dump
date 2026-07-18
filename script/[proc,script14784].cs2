@@ -1,0 +1,29 @@
+// 14784
+[proc,script14784](int $int0)
+cc_deleteall(collector_board:collection_info_background_layer);
+cc_deleteall(collector_board:collection_info_build_layer);
+cc_deleteall(collector_board:collection_info_control_layer);
+cc_deleteall(collector_board:collection_info_scrollbar_layer);
+def_dbrow $dbrow1 = enum(int, dbrow, %collector_board_list, $int0);
+def_dbrow $dbrow2 = db_getfield($dbrow1, collector:col7, 0);
+def_int $int3 = db_getfieldcount($dbrow2, collection_log:col7);
+def_dbrow $dbrow4 = null;
+def_int $int5 = 0;
+def_int $int6 = 20;
+if (~script6431 = true) {
+    $int6 = 14;
+}
+def_int $int7 = -1;
+while (++$int7 < $int3) {
+    $dbrow4 = db_getfield($dbrow2, collection_log:col7, $int7);
+    $int5 = ~script14765(collector_board:collection_info_background_layer, collector_board:collection_info_build_layer, collector_board:collection_info_control_layer, null, $dbrow4, $int6, $int5, calc(if_getwidth(collector_board:collection_info_scrolling_layer) - 2 * $int6), if_getnextsubid(collector_board:collection_info_control_layer), -1);
+    $int5 = calc($int5 + 8);
+}
+$int7 = -1;
+def_int $int8 = if_getnextsubid(collector_board:collection_info_control_layer);
+while (++$int7 < $int8) {
+    if (cc_find(collector_board:collection_info_control_layer, $int7) = true) {
+        cc_setop(10, "Examine");
+    }
+}
+if_setscrollsize(0, max(if_getheight(collector_board:collection_info_scrolling_layer), $int5), collector_board:collection_info_scrolling_layer);

@@ -1,0 +1,121 @@
+// 8509
+[proc,chatdefault_onkey](int $int0, char $char1)
+if (%p_dialog_listener ! null) {
+    if (if_gethide(%p_dialog_listener) = true) {
+        ~script7208("", null);
+    } else if (%keyboard_manager_listening_input_subsystem = 11) {
+        return;
+    }
+}
+def_string $string0 = "";
+def_int $int2 = %chatbox_focus;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3, $int4 = ~script8825(7, 0);
+if ($int2 = -1 & (~script16474($int4) = false | $int0 ! $int3)) {
+    return;
+}
+if (~script8585($int2) = null | if_gethide(~script8585($int2)) = true) {
+    return;
+}
+if (~script11370 = 0) {
+    if ($int0 = 84) {
+        mes_typed(~script8526($int2), 0, "Chat is not available until your Date of Birth is recorded. Please enter your DOB above.");
+    }
+    return;
+}
+if (%keyboard_manager_listening_input_subsystem ! 8 & $int0 ! 84 & (~script16474($int4) = false | $int0 ! $int3)) {
+    return;
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 1;
+switch_int ($int0) {
+    case 9 :
+        if (~script8627($int2) ! null) {
+            ~quickchat_respond(~script8629($int2), ~script8609($int2), ~script8627($int2), $int2);
+        }
+    case 10 :
+        if (%toplevel_v2_quickchat_toggle = 0 & ~script1036 ! null) {
+            ~quickchat_open_context(0, "", $int2);
+        }
+    case 12 :
+        $int5 = 150;
+        $int6 = calc(clientclock - ~script8673($int2));
+        if ($int6 > 1500) {
+            ~script8676($int2, 0);
+        }
+        if (~script8675($int2) >= 7) {
+            $int5 = 600;
+        } else if (~script8675($int2) >= 5) {
+            $int5 = 450;
+        } else if (~script8675($int2) >= 3) {
+            $int5 = 300;
+        }
+        if ($int6 >= $int5) {
+            ~script8674($int2, clientclock);
+            ~script8676($int2, calc(~script8675($int2) + 1));
+            if (~script8623($int2) ! null) {
+                ~quickchat_phrase_resend($int2);
+            }
+            return;
+        }
+    case 96, 97, 98, 99, 102, 103 :
+        if (keyheld_shift = true & ~is_mobile_client = false) {
+            %chat_caret = ~script1553($int0, %chat_caret, ~script8521($int2));
+        }
+    case 13 :
+        if (%message_channel_just_switched = true) {
+            %message_channel_just_switched = false;
+            ~cancel_targetmode;
+            ~script8517($int2);
+            return;
+        }
+        if (~cancel_targetmode = true) {
+            return;
+        }
+        if (string_length(~script8521($int2)) < 1) {
+            ~script8517($int2);
+        } else {
+            ~script8522($int2, "");
+            %chat_caret = 0;
+            if (~script8853 > 1) {
+                ~script9958(8, 0);
+            }
+        }
+    case 80 :
+        ~script8511($int2);
+    case 84 :
+        ~script15841($int2);
+    case 83 :
+        $int7 = ~script8519(~script8521($int2));
+        if ($int7 ! -1) {
+            ~script8522($int2, "");
+            ~script8514($int2, $int7);
+            if ($int7 = 18) {
+                ~script8551($int7, 0);
+                ~script1558($int7, 0);
+            }
+            return;
+        } else {
+            ~script8510($int2, $int0, $char1);
+        }
+    case default :
+        if (~script16474($int4) = true & $int0 = $int3) {
+            ~script8511($int2);
+        } else {
+            if (~script6431 = false & %message_channel_just_switched = true) {
+                %message_channel_just_switched = false;
+                return;
+            }
+            if ($int2 = 18) {
+                $int8 = string_length(%chatinput);
+            }
+            ~script8510($int2, $int0, $char1);
+            if ($int2 = 18 & $int8 = 0 & string_length(%chatinput) > 0) {
+                if_sethide(true, chatdefault:wiki_button);
+            }
+        }
+}
+~script1558($int2, 0);

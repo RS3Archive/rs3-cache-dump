@@ -1,0 +1,57 @@
+// 8937
+[proc,scrollbar_horizontal_mobile](component $component0, component $component1, struct $struct2)
+def_int $int3 = if_getscrollwidth($component1);
+def_int $int4 = if_getwidth($component0);
+def_int $int5 = $int4;
+def_int $int6 = 0;
+if ($int3 > 0) {
+    $int6 = scale(if_getwidth($component1), $int3, $int5);
+} else {
+    $int6 = $int5;
+}
+$int6 = max($int6, 10);
+def_int $int7 = if_getscrollx($component1);
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($int7 > 0) {
+    $int8 = calc($int3 - if_getwidth($component1));
+    if ($int8 = 0) {
+        $int8 = 1;
+    }
+    if ($int7 > $int8) {
+        if_setscrollpos($int8, 0, $component1);
+        $int7 = $int8;
+    }
+    $int9 = scale($int7, $int8, calc($int5 - $int6));
+    $int9 = min(max($int9, 0), calc($int5 - $int6));
+}
+def_struct $struct10 = ~script12611($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(0, 16, ^setsize_minus, ^setsize_abs);
+cc_setonclick("scrollbar_horizontal_jump($component0, $component1, event_mousex)");
+cc_create($component0, ^iftype_rectangle, 1);
+cc_setcolour(0xf9fabd);
+cc_setfill(true);
+cc_settrans(51);
+cc_setposition($int9, 4, ^setpos_abs_left, ^setpos_abs_top);
+~script12591(4, $struct10);
+cc_setdraggable($component0, 0);
+cc_setdragrenderbehaviour(3);
+cc_setsize($int6, 8, ^setsize_abs, ^setsize_abs);
+cc_setparam(rs3tli_scrollbar_skin, 2);
+cc_setondrag("scrollbar_horizontal_drag($component0, $component1, event_mousex, 0)");
+cc_setondragcomplete("scrollbar_horizontal_drag($component0, $component1, event_mousex, 1)");
+cc_create($component0, ^iftype_graphic, 2);
+cc_create($component0, ^iftype_graphic, 3);
+cc_create($component0, ^iftype_rectangle, 4);
+cc_setcolour(0x4bb9d9);
+cc_setfill(true);
+cc_settrans(153);
+cc_sendtoback;
+cc_setposition(0, 7, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(0, 2, ^setsize_minus, ^setsize_abs);
+~script12591(4, $struct10);
+if_setonscrollwheel("scrollbar_horizontal_wheel($component0, $component1, event_mousey)", $component0);
+if_setonscrollwheel("scrollbar_horizontal_wheel($component0, $component1, event_mousey)", $component1);
+~script14179($component0, $component1);

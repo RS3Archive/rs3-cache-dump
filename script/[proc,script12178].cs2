@@ -1,0 +1,21 @@
+// 12178
+[proc,script12178](obj $obj0, component $component1, component $component2)
+~script12158($obj0, $component1, $component2);
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+while ($int4 < enum_getoutputcount(invent_material_list)) {
+    if (cc_find($component1, $int4) = true) {
+        $dbrow3 = enum(int, dbrow, invent_material_list, $int4);
+        if (cc_gethide = false) {
+            if (~invent_gizmo_validate_material($obj0, $dbrow3) = 1) {
+                cc_setondragcomplete("script12181($obj0, event_com, event_comsubid, event_com2, event_comsubid2)");
+                cc_setdragdeadzone(5);
+                cc_setop(1, "Add to gizmo");
+                cc_setonop("invent_gizmo_material_add($obj0, event_com, event_comsubid)");
+            } else {
+                cc_sethide(true);
+            }
+        }
+    }
+    $int4 = calc($int4 + 1);
+}

@@ -1,0 +1,87 @@
+// 3117
+[proc,script3117](int $int0, int $int1, int $int2, string $string0, string $string1, int $int3, int $int4)(graphic, string, string, int, graphic, int, graphic, string, string)
+def_graphic $graphic5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_graphic $graphic8 = null;
+def_graphic $graphic9 = null;
+def_string $string2 = "";
+def_string $string3 = "";
+if (string_length($string0) <= 1) {
+    $string0 = "-";
+} else {
+    switch_int (map_lang) {
+        case 0 :
+            $graphic8 = enum(int, graphic, geopip_flag, $int4);
+        case 1 :
+            $graphic8 = enum(int, graphic, geopip_flag, 56);
+        case 2 :
+            $graphic8 = enum(int, graphic, geopip_flag, 74);
+        case 3 :
+            $graphic8 = enum(int, graphic, geopip_flag, 31);
+        case 6 :
+            $graphic8 = enum(int, graphic, geopip_flag, 67);
+        case default :
+            $graphic8 = enum(int, graphic, geopip_flag, $int4);
+    }
+}
+switch_int (map_lang) {
+    case 1 :
+        $string1 = "German";
+    case 2 :
+        $string1 = "French";
+    case 3 :
+        $string1 = "Portuguese";
+    case 6 :
+        $string1 = "Spanish (Latin American)";
+}
+if (testbit($int1, 0) = ^false) {
+    $int7 = 16777215;
+    $string2 = "Free";
+} else {
+    $int7 = 15777401;
+    $string2 = "Members";
+}
+if (testbit($int1, 3) = ^true) {
+    $graphic9 = lobby_icon_tick;
+} else {
+    $graphic9 = lobby_icon_minus;
+}
+if ($int0 = ~script20335(1)) {
+    $int6 = ~script10495(9);
+    $graphic5 = "rs3_icon_lobby_favorite_small,0";
+} else if ($int0 = ~script20335(2)) {
+    $int6 = ~script10495(12);
+    $graphic5 = "rs3_icon_lobby_favorite_small,0";
+} else if ($int0 = ~script20335(3)) {
+    $int6 = ~script10495(9);
+    $graphic5 = "rs3_icon_lobby_favorite_small,0";
+} else {
+    if (calc($int2 % 2) = 0) {
+        $int6 = ~script10495(9);
+    } else {
+        $int6 = ~script10495(12);
+    }
+    $graphic5 = "rs3_icon_lobby_favorite_small,2";
+}
+if (%league_lobby_select_league_worlds = 1) {
+    if ($graphic5 = "rs3_icon_lobby_favorite_small,0") {
+        $graphic5 = rs3_icon_leagues_world_select_gold;
+    } else {
+        $graphic5 = rs3_icon_leagues_world_select_silver;
+    }
+} else if (~is_mobile_client = true) {
+    if ($graphic5 = "rs3_icon_lobby_favorite_small,0") {
+        $graphic5 = icon_star_fill;
+    } else {
+        $graphic5 = icon_star_empty;
+    }
+}
+if ($int3 >= 1980) {
+    $string3 = "FULL";
+} else if ($int3 >= 0) {
+    $string3 = tostring($int3);
+} else {
+    $string3 = "OFFLINE";
+}
+return($graphic8, $string1, $string0, $int7, $graphic9, $int6, $graphic5, $string2, $string3);

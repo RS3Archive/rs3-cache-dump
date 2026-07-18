@@ -1,0 +1,39 @@
+// 7245
+[proc,script7245](obj $obj0, int $int1)(int)
+if (oc_param($obj0, combatv2_item_tier) > 0) {
+    return(oc_param($obj0, combatv2_item_tier));
+}
+def_stat $stat2 = null;
+switch_int ($int1) {
+    case default :
+        return(0);
+    case 3, 10 :
+        $stat2 = magic;
+    case 2, 4 :
+        $stat2 = ranged;
+    case 1 :
+        if (oc_param($obj0, wear_requires_stat1) = strength) {
+            $stat2 = strength;
+        } else {
+            $stat2 = attack;
+        }
+    case 11, 13 :
+        $stat2 = necromancy;
+    case 9, 8, 5, 6, 7, 12 :
+        $stat2 = defence;
+}
+def_int $int3 = 0;
+if (oc_param($obj0, wear_requires_stat1) = $stat2) {
+    $int3 = oc_param($obj0, wear_requires_stat_level1);
+} else if (oc_param($obj0, wear_requires_stat2) = $stat2) {
+    $int3 = oc_param($obj0, wear_requires_stat_level2);
+} else if (oc_param($obj0, wear_requires_stat3) = $stat2) {
+    $int3 = oc_param($obj0, wear_requires_stat_level3);
+} else if (oc_param($obj0, wear_requires_stat4) = $stat2) {
+    $int3 = oc_param($obj0, wear_requires_stat_level4);
+} else if (oc_param($obj0, wear_requires_stat5) = $stat2) {
+    $int3 = oc_param($obj0, wear_requires_stat_level5);
+} else if (oc_param($obj0, wear_requires_stat6) = $stat2) {
+    $int3 = oc_param($obj0, wear_requires_stat_level6);
+}
+return($int3);

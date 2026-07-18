@@ -1,0 +1,48 @@
+// 2738
+[proc,script2738](struct $struct0, int $int1, int $int2)
+def_int $int3 = 1;
+def_int $int4 = 1;
+def_enum $enum5 = enum(struct, enum, mtx_modular_pet_model_enums, $struct0);
+def_enum $enum6 = enum(int, enum, $enum5, 1);
+def_enum $enum7 = null;
+def_int $int8 = struct_param($struct0, mtxmgt_pet_number_of_outfit_models);
+$int3 = 1;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 1;
+def_int $int13 = 4;
+def_int $int14 = 0;
+while ($int3 <= $int8) {
+    $int9 = calc(($int3 - 1) * $int13);
+    $int10 = calc(($int3 - 1) * $int13 + ($int13 - 1));
+    if ($int1 = 0) {
+        $int11 = ~script2373($int3, $struct0);
+    } else {
+        $int11 = getbit_range($int1, $int9, $int10);
+    }
+    $enum7 = enum(int, enum, $enum5, calc($int11 + $int12));
+    cc_npc_setcustombodymodel($int4, enum(int, model, $enum7, $int3));
+    if ($int3 = 7) {
+        $int14 = $int11;
+    }
+    $int4 = calc($int4 + 1);
+    $int3 = calc($int3 + 1);
+}
+~script2739($struct0, $int2);
+if ($struct0 = trh162_pet_cat_struct) {
+    switch_int ($int14) {
+        case 0 :
+            %mtx_pets_current_pet_anim = mtxsept19_trh162_cat_pet_unarmed_idle;
+        case 1 :
+            %mtx_pets_current_pet_anim = mtxsept19_trh162_cat_pet_armed_idle;
+        case 2 :
+            %mtx_pets_current_pet_anim = mtxsept19_trh162_cat_pet_armed_idle;
+        case 4 :
+            %mtx_pets_current_pet_anim = mtxmar20_cat_armed_samurai_idle;
+            cc_npc_setcustombodymodel($int4, cat_biped_samurai_scabbard);
+        case 5 :
+            %mtx_pets_current_pet_anim = mtxmar20_cat_armed_samurai_idle;
+            cc_npc_setcustombodymodel($int4, cat_biped_samurai_elite_scabbard);
+    }
+}

@@ -1,0 +1,53 @@
+// 15727
+[proc,mobile_shop_draw](int $int0)
+cc_deleteall(mobile_shop_hard_currency:tab_layer);
+%mobile_shop_current_tab_selected = $int0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_enum $enum3 = enum(int, enum, mobile_shop_user_category_tab_order_all, %mtx_mobile_shop_user_cohort);
+def_int $int4 = 0;
+def_int $int5 = enum_getoutputcount($enum3);
+def_int $int6 = 0;
+def_int $int7 = 0;
+if (if_gettop = lobbyscreen) {
+    if (~script248 = true) {
+        $enum3 = mobile_shop_user_category_tab_order_lobby_fss_competitive_override;
+    } else {
+        $enum3 = mobile_shop_user_category_tab_order_lobby_override;
+    }
+    $int5 = enum_getoutputcount($enum3);
+}
+if (enum_hasoutput(int, $enum3, $int0) = true) {
+    $int7 = enum_getreverseindex(int, int, $enum3, $int0, 0);
+} else {
+    $int0 = 0;
+    $int7 = enum(int, int, $enum3, 0);
+}
+def_string $string0 = "";
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+while ($int4 < $int5) {
+    $int8 = enum(int, int, $enum3, $int4);
+    $string0 = enum(int, string, mobile_shop_tab_names, $int8);
+    $int9 = ~script17963($int8);
+    $int10 = shop_getindexforcategoryid($int9);
+    if (shop_getproductcount($int10) > 0) {
+        if ($int0 ! $int8 & (~mobile_shop_block_category($int9) = 1 | ~script16140($int9) = 1)) {
+            ~script20619(mobile_shop_hard_currency:tab_layer, $int4, $string0);
+            cc_setonop("mobile_shop_tab_click($int8)");
+            cc_button_settoggled(false);
+        } else {
+            ~script20618(mobile_shop_hard_currency:tab_layer, $int4, $string0);
+            cc_setonop("mobile_shop_tab_click($int8)");
+            if ($int0 = $int8) {
+                cc_button_settoggled(true);
+            } else {
+                cc_button_settoggled(false);
+            }
+        }
+        $int2 = calc($int2 + 1);
+    }
+    $int4 = calc($int4 + 1);
+}
+~mobile_shop_build_category(~script17963($int0));

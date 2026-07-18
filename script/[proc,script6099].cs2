@@ -1,0 +1,24 @@
+// 6099
+[proc,script6099](inv $inv0, component $component1, component $component2, component $component3, component $component4)
+cc_deleteall($component1);
+cc_deleteall($component4);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int5 = inv_size($inv0);
+def_int $int6 = 0;
+while ($int6 < $int5) {
+    cc_create($component2, ^iftype_graphic, $int6);
+    cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(rs3_inventory_slot);
+    cc_create($component3, ^iftype_graphic, $int6);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    $int6 = calc($int6 + 1);
+}
+if (%toplevel_v2_legacy_interface = 1 | ~script6431 = true) {
+    switch_inv ($inv0) {
+        case inv :
+            if_sethide(false, group_inspect_inv:close_button);
+        case lore_bob :
+            if_sethide(false, group_inspect_bob:close_button);
+    }
+}

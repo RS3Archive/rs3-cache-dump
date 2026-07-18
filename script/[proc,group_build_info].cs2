@@ -1,0 +1,71 @@
+// 10361
+[proc,group_build_info](int $int0)
+def_int $int1 = enum(int, int, group_list_order, $int0);
+def_struct $struct2 = enum(int, struct, group_id_to_struct, $int1);
+if ($struct2 = null | $int0 = -1 | $int1 = -1) {
+    return;
+}
+if (struct_param($struct2, group_combat_req) ! -1) {
+    %group_min_combat = struct_param($struct2, group_combat_req);
+} else {
+    %group_min_combat = 3;
+}
+%group_max_combat = max(%group_min_combat, min(~comlevel, 152));
+def_string $string0 = struct_param($struct2, dndtracker_full_description);
+if (compare($string0, "") = 0 | paraheight($string0, if_getwidth(group_parent:description_text), if_getfontmetrics(group_parent:description_text)) > 2) {
+    $string0 = struct_param($struct2, task_details);
+}
+if_settext(struct_param($struct2, task_name), group_parent:info_title);
+if_settext($string0, group_parent:description_text);
+if_settext("<tostring(struct_param($struct2, group_min_players))> - <tostring(struct_param($struct2, group_max_players))> Players", group_parent:size_text);
+if_settext("<tostring(struct_param($struct2, group_rec_players))> Players", group_parent:recommended_text);
+def_int $int3 = ~script10390($struct2, $int1);
+def_int $int4 = ~script10364($struct2);
+def_int $int5 = ~script10366($struct2);
+~script10368;
+def_int $int6 = min(69, $int3);
+def_int $int7 = min(69, $int4);
+def_int $int8 = min(69, $int5);
+def_int $int9 = calc(207 - $int6 - $int7 - $int8);
+if ($int9 = 0 | $int6 < 69 & $int7 < 69 & $int8 < 69) {
+    if_setsize(10, 90, ^setsize_minus, ^setsize_abs, group_parent:req_holder);
+    if_setsize(10, 90, ^setsize_minus, ^setsize_abs, group_parent:reward_holder);
+    if_setposition(5, 195, ^setpos_abs_left, ^setpos_abs_top, group_parent:reward_holder);
+    if_setsize(10, 90, ^setsize_minus, ^setsize_abs, group_parent:settings_holder);
+    if_setposition(5, 290, ^setpos_abs_left, ^setpos_abs_top, group_parent:settings_holder);
+    ~group_info_scrollbar($int3, group_parent:req_build_area, group_parent:req_scrollbar);
+    ~group_info_scrollbar($int4, group_parent:reward_build_area, group_parent:reward_scrollbar);
+    ~group_info_scrollbar($int5, group_parent:settings_content_area, group_parent:settings_scrollbar);
+    return;
+}
+def_int $int10 = 0;
+if ($int3 > $int6) {
+    $int10 = calc($int10 + 1);
+}
+if ($int4 > $int7) {
+    $int10 = calc($int10 + 1);
+}
+if ($int5 > $int8) {
+    $int10 = calc($int10 + 1);
+}
+$int10 = calc($int9 / max(1, $int10));
+if ($int3 > $int6) {
+    $int6 = calc($int6 + $int10);
+}
+if ($int4 > $int7) {
+    $int7 = calc($int7 + $int10);
+}
+if ($int5 > $int8) {
+    $int8 = calc($int8 + $int10);
+}
+$int6 = calc($int6 + 24);
+$int7 = calc($int7 + 24);
+$int8 = calc($int8 + 24);
+if_setsize(10, $int6, ^setsize_minus, ^setsize_abs, group_parent:req_holder);
+if_setsize(10, $int7, ^setsize_minus, ^setsize_abs, group_parent:reward_holder);
+if_setposition(5, calc(100 + $int6 + 5), ^setpos_abs_left, ^setpos_abs_top, group_parent:reward_holder);
+if_setsize(10, $int8, ^setsize_minus, ^setsize_abs, group_parent:settings_holder);
+if_setposition(5, calc(100 + $int6 + $int7 + 10), ^setpos_abs_left, ^setpos_abs_top, group_parent:settings_holder);
+~group_info_scrollbar($int3, group_parent:req_build_area, group_parent:req_scrollbar);
+~group_info_scrollbar($int4, group_parent:reward_build_area, group_parent:reward_scrollbar);
+~group_info_scrollbar($int5, group_parent:settings_content_area, group_parent:settings_scrollbar);

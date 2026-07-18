@@ -1,0 +1,30 @@
+// 5655
+[clientscript,script5655](component $component0, component $component1, int $int2, int $int3)
+$int3 = calc($int3 + 1);
+if_setontimer("script5655($component0, $component1, $int2, $int3)", $component0);
+if (calc($int3 % 5) > 0) {
+    return;
+}
+if ($int2 <= 50) {
+    if_setsize(if_getwidth($component1), 0, ^setsize_abs, ^setsize_abs, $component1);
+    if (if_getheight($component0) > max(1, scale($int2, 50, 45))) {
+        if_setsize(if_getwidth($component0), 0, ^setsize_abs, ^setsize_abs, $component0);
+    }
+    if (if_getheight($component0) = max(1, scale($int2, 50, 45))) {
+        if_setontimer(null, $component0);
+    } else {
+        if_setsize(if_getwidth($component0), calc(if_getheight($component0) + 1), ^setsize_abs, ^setsize_abs, $component0);
+    }
+} else if (if_getheight($component0) < 45) {
+    if_setsize(if_getwidth($component0), calc(if_getheight($component0) + 1), ^setsize_abs, ^setsize_abs, $component0);
+} else {
+    $int2 = calc($int2 - 50);
+    if (if_getheight($component1) > max(1, scale($int2, 50, 45))) {
+        if_setsize(if_getwidth($component1), 0, ^setsize_abs, ^setsize_abs, $component1);
+    }
+    if (if_getheight($component1) = max(1, scale($int2, 50, 45))) {
+        if_setontimer(null, $component0);
+    } else {
+        if_setsize(if_getwidth($component1), calc(if_getheight($component1) + 1), ^setsize_abs, ^setsize_abs, $component1);
+    }
+}

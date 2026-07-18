@@ -1,0 +1,98 @@
+// 17266
+[proc,script17266](struct $struct0)(boolean)
+def_boolean $boolean1 = ~script3112;
+if (%lobby_runeday < struct_param($struct0, motw_start_date) | %lobby_runeday > struct_param($struct0, motw_end_date) & struct_param($struct0, motw_end_date) ! 0) {
+    return(false);
+}
+if (struct_param($struct0, motw_desktop_client_only) = true & platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex) {
+    return(false);
+}
+if (struct_param($struct0, motw_mobile_client_only) = true & platformtype ! ^platformtype_apple & platformtype ! ^platformtype_android) {
+    return(false);
+}
+if (struct_param($struct0, motw_steam_client_only) = true & platformtype ! ^platformtype_steam) {
+    return(false);
+}
+if (struct_param($struct0, motw_fss_competitive_allowed) = false & ~script10946 = true & $boolean1 = true) {
+    return(false);
+}
+if (struct_param($struct0, motw_fss_active_only) = true & $boolean1 = false) {
+    return(false);
+}
+if (struct_param($struct0, motw_cosmetic_item) ! null & ~script10881(struct_param($struct0, motw_cosmetic_item)) = 1) {
+    return(false);
+}
+if (struct_param($struct0, quest_id) ! -1 & struct_param($struct0, quest_id) ! 0 & ~script7073(struct_param($struct0, quest_id)) = 2) {
+    return(false);
+}
+switch_struct ($struct0) {
+    case motw_banner_mtx_bundles :
+        if (struct_param($struct0, motw_package_dbrow) ! null & (~script12115(struct_param($struct0, motw_package_dbrow)) = false | random(2) = 0)) {
+            return(false);
+        }
+    case motw_banner_sgs_ornateweaponry :
+        if (%mtx98_elegant_weapon_pack_melee_1h_unlocked = 1 & %mtx98_elegant_weapon_pack_melee_2h_unlocked = 1 & %mtx98_elegant_weapon_pack_magic_unlocked = 1 & %mtx98_elegant_weapon_pack_ranged_unlocked = 1) {
+            return(false);
+        }
+    case motw_banner_sgs_faeweapons :
+        if (%mtx108_fae_weapon_pack_melee_1h_unlocked = 1 & %mtx108_fae_weapon_pack_melee_2h_unlocked = 1 & %mtx108_fae_weapon_pack_magic_unlocked = 1 & %mtx108_fae_weapon_pack_ranged_unlocked = 1) {
+            return(false);
+        }
+    case motw_banner_sgs_manticoreweapons :
+        if (%mtx103_weapon_melee_unlocked = 1 & %mtx103_weapon_magic_unlocked = 1 & %mtx103_weapon_ranged_unlocked = 1) {
+            return(false);
+        }
+    case motw_banner_primary1_dxpw :
+        if (date_minutes <= calc(date_minutes_fromruneday(8829) + 720) | date_minutes >= calc(date_minutes_fromruneday(8839) + 720)) {
+            return(false);
+        } else if (%doublexp_week_reset = 27 & %doublexp_week_time_remaining = 0) {
+            return(false);
+        } else if (random(2) = 0) {
+            return(false);
+        }
+    case motw_banner_primary1_easter_2022 :
+        if (random(4) = 0) {
+            return(false);
+        }
+    case motw_banner_primary_dxp_bond_bundles :
+        if (%dxp_bundles_daily_bundle_purchased = 1 & ~script18945 = 1) {
+            return(false);
+        }
+    case motw_banner_secondary_premier_perks :
+        return(~int_to_bool(~script18319));
+    case motw_banner_primary_premier_2023, motw_banner_primary_premier_2024, motw_banner_primary_premier_2025, motw_banner_sgs_premier_club_2022, motw_banner_sgs_premier_club_2023 :
+        if (~script15757 = true) {
+            return(false);
+        }
+    case motw_banner_primary_bank_booster_sale :
+        if (%mtx54_bank_space_unlocked15 = 1 & %bond_package_bank_booster_bundle_unlocked = 1) {
+            return(false);
+        }
+    case motw_banner_secondary_variety_task_events_sanctum :
+        if (%variety_task_events_reward_claimed = 1) {
+            return(false);
+        }
+    case motw_banner_secondary_dec23_otp_bundles :
+        return(~script18317);
+    case motw_banner_secondary_black_celestial_robes_pack_desktop, motw_banner_secondary_black_celestial_robes_pack_mobile :
+        if (%mtx146_celestial_outfit_unlocked = 1) {
+            return(false);
+        }
+    case motw_banner_secondary_desert_wanderer_pack_desktop, motw_banner_secondary_desert_wanderer_pack_mobile :
+        if (%mtx147_desert_bundle_unlocked = 1) {
+            return(false);
+        }
+    case motw_banner_secondary_jan25_golden_bundle :
+        return(~script649);
+    case motw_banner_secondary_event_anniversary_skillcapes :
+        if (%variety_task_events_reward_claimed = 1) {
+            return(false);
+        }
+    case motw_banner_membership_upsell :
+        if (playermember = true) {
+            return(false);
+        }
+    case motw_banner_chaos_destruction :
+        return(~script8297(12148));
+}
+return(true);

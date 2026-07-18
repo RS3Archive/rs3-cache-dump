@@ -1,0 +1,48 @@
+// 12241
+[proc,script12241](component $component0, struct $struct1, int $int2)
+if_setposition(0, if_getheight(struct_param($struct1, prayer_child_bottom)), ^setpos_abs_left, ^setpos_abs_bottom, $component0);
+def_int $int3 = 0;
+if (if_gethide(struct_param($struct1, prayer_child_scrollbar)) = false) {
+    $int3 = 16;
+}
+if_setsize(calc(if_getwidth(struct_param($struct1, prayer_child_view)) + $int3), calc(if_getheight(struct_param($struct1, prayer_child_view)) + if_getheight(struct_param($struct1, prayer_child_stats))), ^setsize_abs, ^setsize_abs, $component0);
+cc_deleteall($component0);
+def_string $string0 = "";
+if (%prayer_client_showing_active_summary = 1) {
+    if ($int2 = 0) {
+        if_sethide(true, struct_param($struct1, prayer_child_stats));
+        if_sethide(true, struct_param($struct1, prayer_child_scrollbar));
+        if_sethide(false, $component0);
+        cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+        if (~script6431 = false) {
+            switch_int (%prayer_mode) {
+                case default :
+                    $string0 = "You don't have any prayers active.<br><br>Click the bottom-left button to view the full prayer list.";
+                case 1 :
+                    $string0 = "You don't have any curses active.<br><br>Click the bottom-left button to view the full curse list.";
+            }
+        } else {
+            switch_int (%prayer_mode) {
+                case default :
+                    $string0 = "You don't have any prayers active.<br><br>Tap the Active Prayers button to view the full list of prayers.";
+                case 1 :
+                    $string0 = "You don't have any curses active.<br><br>Tap the Active Curses button to view the full list of curses.";
+            }
+        }
+        cc_settext($string0);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_setcolour(^white);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextshadow(true);
+        cc_setsize(8, 8, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    } else {
+        if_sethide(false, struct_param($struct1, prayer_child_stats));
+        if_sethide(true, $component0);
+        if_sethide(false, struct_param($struct1, prayer_child_scrollbar));
+    }
+} else {
+    if_sethide(true, struct_param($struct1, prayer_child_stats));
+    if_sethide(true, $component0);
+    if_sethide(false, struct_param($struct1, prayer_child_scrollbar));
+}

@@ -1,0 +1,71 @@
+// 19946
+[proc,script19946]
+def_component $component0 = easter_egg_hunt:clue_list_clue_layer;
+def_component $component1 = easter_egg_hunt:clue_list_scrollbar_layer;
+def_int $int2 = if_getwidth($component0);
+def_dbrow $dbrow3 = easter26_egg_hunt_world_week_1;
+def_dbrow $dbrow4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_graphic $graphic12 = easter24_egg_hunt_clue;
+def_int $int13 = -1;
+cc_deleteall($component0);
+switch_int (%easter_egg_hunt_dropdown) {
+    case 1 :
+        $dbrow3 = easter26_egg_hunt_world_week_2;
+    case 2 :
+        $dbrow3 = easter26_egg_hunt_world_week_3;
+    case 3 :
+        $dbrow3 = easter25_egg_hunt_community_week_1;
+    case 4 :
+        $dbrow3 = easter25_egg_hunt_community_week_2;
+}
+$int5 = db_filter_find(db_filter_value(easter_egg_hunt_clue_table:col1, $dbrow3, ^filterop_eq, 0), easter_egg_hunt_clue_table:col0, true, -1, 0);
+while (++$int13 < $int5) {
+    $dbrow4 = db_findnext;
+    $int6 = 0;
+    $int7 = 0;
+    $graphic12 = easter24_egg_hunt_clue;
+    if ($dbrow4 ! null) {
+        if (~script19930($dbrow4) ! 0) {
+            $int6 = 1;
+        }
+        $int10 = db_getfield($dbrow4, easter_egg_hunt_clue_table:col0, 0);
+        if (~script19934($dbrow4) = 1) {
+            $int7 = 1;
+        }
+        ~cc_add_button_full($component0, $int10, 0, $int11, ^setpos_abs_left, ^setpos_abs_top, $int2, 24, ^setsize_abs, ^setsize_abs, button_default, "Clue <tostring(calc($int13 + 1))>", true, true, true, false);
+        cc_settextfont(notosans_12);
+        cc_text_setcolour(~script10495(2), 0);
+        cc_setop(1, "Select");
+        cc_setonbuttonpressed("script19947($int10)");
+        if ($int9 = -1) {
+            $int9 = $int10;
+        }
+        if ($int6 = 1) {
+            $graphic12 = easter24_egg_hunt_clue_inactive;
+        } else if ($int7 = 1) {
+            $graphic12 = easter24_egg_hunt_clue_solved;
+        } else if ($int8 = -1) {
+            $int8 = $int10;
+        }
+        ~cc_add_graphic($component0, calc($int10 + 30), 4, calc($int11 + 24 / 4), ^setpos_abs_left, ^setpos_abs_top, 12, 12, ^setsize_abs, ^setsize_abs, $graphic12);
+        $int11 = calc($int11 + (24 + 4));
+    }
+}
+if_sethide(false, $component1);
+if_setscrollpos(0, 0, $component0);
+if_setscrollsize(0, $int11, $component0);
+~rs3_scrollbar_vertical($component1, $component0);
+if ($int8 = -1) {
+    $int8 = $int9;
+}
+if (cc_find($component0, $int8) = true) {
+    ~script7872(true, true, true, true);
+}
+~script19948($int8);

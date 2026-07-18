@@ -1,0 +1,14 @@
+// 5905
+[proc,script5905]
+def_string $string0 = "";
+if (%elfcity_hefin_course_velocity >= 100) {
+    $string0 = "You have achieved maximum velocity! You will automatically traverse the next obstacle.";
+} else {
+    $string0 = "Traverse course obstacles to increase velocity. When you have maximum velocity, you will automatically traverse the next obstacle.";
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", elfcity_hefin_course_overlay:velocity_layer);
+def_int $int0 = 0;
+if (if_find(elfcity_hefin_course_overlay:velocity_bar_layer) = true & .if_find(cc_getparentlayer) = true) {
+    $int0 = ~scale_round(%elfcity_hefin_course_velocity, 100, .cc_getwidth);
+    cc_setsize($int0, cc_getheight, ^setsize_abs, ^setsize_abs);
+}

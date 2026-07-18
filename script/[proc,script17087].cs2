@@ -1,0 +1,22 @@
+// 17087
+[proc,script17087](int $int0)
+def_obj $obj1 = inv_getobj(death_overflow, $int0);
+if ($int0 = -1 | $obj1 = null | %death_last_tab ! 2 | %death_price_transmit = 1) {
+    if_settext("", death:overflow_selected);
+    if_sethide(true, death:overflow_highlight);
+    if_setenabled(false, death:confirm_overflow_single);
+    if_setenabled(false, death:confirm_overflow_destroy);
+    if_settext(" - ", death:reclaim_cost_overflow);
+    return;
+}
+def_long $long0 = 0;
+def_int $int2 = inv_getnum(death_overflow, $int0);
+if (cc_find(death:overflow_click, $int0) = true) {
+    if_settext("Selected: <col=ffffff><tostring_localised($int2, true)> x <oc_name($obj1)>", death:overflow_selected);
+    if_setposition(calc(cc_getx - 2), calc(cc_gety - 4), ^setpos_abs_left, ^setpos_abs_top, death:overflow_highlight);
+    if_sethide(false, death:overflow_highlight);
+    if_setenabled(true, death:confirm_overflow_single);
+    if_setenabled(true, death:confirm_overflow_destroy);
+    $long0 = ~script11466($obj1, ~script11472($int0), inv_getnum(death_overflow, $int0), 7);
+    if_settext(~script17372($long0, 6, 0), death:reclaim_cost_overflow);
+}

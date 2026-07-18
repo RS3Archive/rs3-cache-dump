@@ -1,0 +1,66 @@
+// 18105
+[proc,script18105](int $int0, int $int1, dbrow $dbrow2, int $int3, int $int4)(int, int)
+def_int $int5 = calc(58 + 2);
+def_dbrow $dbrow6 = bp3_container_inactive;
+if ($int3 > 0) {
+    $dbrow6 = bp3_container_active;
+}
+~script17947($int0, $int1++, 0, $int5, ^setpos_abs_centre, ^setpos_abs_top, calc(2 * 2), calc(58 + 2 * 2), ^setsize_minus, ^setsize_minus, $dbrow6);
+cc_find_parent;
+$int5 = calc($int5 + 5);
+def_int $int7 = $int1;
+def_enum $enum8 = enum(int, enum, stat_type_to_enum, $int4);
+def_int $int9 = enum_getoutputcount($enum8);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = calc(1 + $int9 / 5);
+while ($int12 < $int13) {
+    $int10 = min(calc($int9 - $int12 * 5), 5);
+    $int11 = calc($int10 * 35 + ($int10 - 1) * 5);
+    ~cc_add_child_panel($int0, $int1++, 0, $int5, ^setpos_abs_centre, ^setpos_abs_top, $int11, 35, ^setsize_abs, ^setsize_abs, false, 5);
+    $int5 = calc($int5 + (35 + 5));
+    cc_find_parent;
+    $int12 = calc($int12 + 1);
+}
+def_stat $stat14 = null;
+def_int $int15 = 0;
+def_stat $stat16 = null;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = enum_getoutputcount(stat_autoint_to_int);
+while ($int18 < $int19) {
+    if ($int17 = 5) {
+        $int17 = 0;
+        $int7 = calc($int7 + 1);
+    }
+    if (cc_findbycategory(bp3_buffs_tab:xp_buff_content_layer, $int0, $int7) = 1) {
+        $int15 = enum(int, int, stat_autoint_to_int, $int18);
+        $stat16 = ~int_to_stat($int15);
+        if (enum_hasoutput(stat, $enum8, $stat16) = true) {
+            if ($stat16 ! null) {
+                ~cc_add_child_graphic($int0, $int1++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 35, 35, ^setsize_abs, ^setsize_abs, enum(int, graphic, stat2icon_medium, $int15));
+                ~script3537("+<tostring_localised($int3, true)>% base <enum(stat, string, stat_to_string, $stat16)> XP");
+            } else {
+                ~cc_add_child_layer($int0, $int1++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 35, 35, ^setsize_abs, ^setsize_abs);
+                ~cc_add_child_graphic($int0, $int1++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 35, 35, ^setsize_abs, ^setsize_abs, enum(int, graphic, stat2icon_medium, $int15));
+                ~cc_add_child_graphic($int0, $int1++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 35, 35, ^setsize_abs, ^setsize_abs, trh190_icon_cross);
+                ~script3537("<enum(stat, string, stat_to_string, $stat16)> is excluded from this buff.");
+                $stat14 = null;
+            }
+            $int17 = calc($int17 + 1);
+        }
+    }
+    $int18 = calc($int18 + 1);
+}
+def_string $string0 = "";
+def_int $int20 = 0;
+def_int $int21 = 0;
+if (cc_findbycategory(bp3_buffs_tab:xp_buff_content_layer, $int0, 0) = 1) {
+    $string0 = ~script18106($dbrow2, $int3, $stat14, $int4);
+    $int20 = calc(cc_getwidth - 20);
+    $int21 = ~script15891($string0, $int20, notosans_12, 0);
+    ~cc_add_child_text($int0, $int1++, 0, $int5, ^setpos_abs_centre, ^setpos_abs_top, $int20, $int21, ^setsize_abs, ^setsize_abs, bp3_text_white_notosans_centre_12pt, $string0);
+    $int5 = calc($int5 + $int21);
+}
+return($int1, calc($int5 + 10));

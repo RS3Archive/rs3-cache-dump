@@ -1,0 +1,41 @@
+// 12873
+[clientscript,script12873](struct $struct0, int $int1, int $int2, int $int3, int $int4)
+if ($struct0 = null) {
+    return;
+}
+%timed_event_countdown_runeday = $int2;
+%timed_event_countdown_minutes = calc(date_minutes_fromruneday(calc(struct_param($struct0, timed_event_end) + 1)) - ($int3 + 1));
+%timed_event_countdown_minuteseconds = $int4;
+if (%timed_event_countdown_runeday < struct_param($struct0, timed_event_start)) {
+    return;
+}
+def_component $component5 = timed_event:left_container;
+def_component $component6 = timed_event:countdown_layer;
+def_component $component7 = timed_event:event_ended_layer;
+def_component $component8 = timed_event:title_text;
+def_component $component9 = timed_event:title_graphic;
+def_component $component10 = timed_event:universe;
+if ($struct0 = timed_event10 | $struct0 = timed_event11) {
+    $component5 = timed_event_tasks:left_container;
+    $component6 = timed_event_tasks:countdown_layer;
+    $component7 = timed_event_tasks:event_ended_layer;
+    $component8 = timed_event_tasks:title_text;
+    $component10 = timed_event_tasks:main_layer;
+}
+if ($int1 = 2) {
+    if_sethide(true, $component5);
+    if_sethide(true, $component6);
+    if (struct_param($struct0, timed_event_compact_countdown) = 0) {
+        if_sethide(false, $component7);
+    }
+} else {
+    if_sethide(false, $component6);
+    if_sethide(true, $component7);
+    if_sethide(false, $component8);
+    if_sethide(false, $component9);
+    ~script12889($struct0);
+    if_setontimer("script12888($struct0)", $component10);
+}
+~script12876($struct0);
+~script12881($struct0);
+~script12885($struct0);

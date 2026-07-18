@@ -1,0 +1,27 @@
+// 13100
+[proc,script13100](struct $struct0, boolean $boolean1)(int)
+if (struct_param($struct0, mtxmgt_was_limited_edition) = true) {
+    return(0);
+}
+if (struct_param($struct0, mtxmgt_parent_struct) ! null) {
+    $struct0 = struct_param($struct0, mtxmgt_parent_struct);
+}
+if (struct_param($struct0, release_date) > %atlum_day_tracker) {
+    return(0);
+}
+def_int $int2 = 0;
+$int2, $boolean1 = ~script13101($struct0);
+if ($int2 = 0) {
+    return(0);
+}
+if ($boolean1 = false & struct_param($struct0, withdraw_date) < %atlum_day_tracker) {
+    if (struct_param($struct0, rerun_start_date) <= struct_param($struct0, withdraw_date)) {
+        return(0);
+    } else if (struct_param($struct0, rerun_start_date) > %atlum_day_tracker) {
+        return(0);
+    }
+    if (struct_param($struct0, rerun_end_date) < %atlum_day_tracker) {
+        return(0);
+    }
+}
+return(1);

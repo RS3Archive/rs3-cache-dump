@@ -1,0 +1,67 @@
+// 14278
+[proc,script14278](int $int0)
+def_enum $enum1 = enum(int, enum, conq_reward_list_for_tab, $int0);
+if ($enum1 = null) {
+    return;
+}
+cc_deleteall(conq_rewards:build);
+cc_deleteall(conq_rewards:click);
+def_int $int2 = 0;
+def_int $int3 = enum_getoutputcount($enum1);
+def_int $int4 = 0;
+def_int $int5 = 9;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_struct $struct8 = null;
+def_boolean $boolean9 = false;
+def_graphic $graphic10 = null;
+def_obj $obj11 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+while ($int2 < $int3) {
+    $struct8 = enum(int, struct, $enum1, $int2);
+    $int6 = ~equal_int($int2, %conq_reward_selected);
+    $obj11 = struct_param($struct8, rewardshop_obj);
+    $boolean9, $graphic10, $string0 = ~script14281($struct8);
+    $string1 = struct_param($struct8, rewardshop_tooltip);
+    $int7 = calc(if_getnextsubid(conq_rewards:build) + 10);
+    ~script13998(conq_rewards:build, conq_rewards:click, rs3tli_3x3_button, $int5, $int4, 220, 43, $int2, $boolean9, "", $int6);
+    if ($boolean9 = false & cc_find(conq_rewards:click, $int2) = true) {
+        cc_setop(1, "Select");
+        cc_setonop("conq_reward_onop(event_comsubid)");
+    }
+    if (cc_find(conq_rewards:build, $int7) = true) {
+        if (string_length($string1) = 0) {
+            if (struct_param($struct8, conq_requirement) = 1) {
+                $string1 = ~script14282($struct8);
+            } else {
+                switch_struct ($struct8) {
+                    case conq_reward_void_herb_pack :
+                        $string1 = "Purchasing this will provide one batch of the following grimy herbs:<br> - 25x Cadantine<br> - 20x Ranarr<br> - 20x Irit<br> - 20x Kwuarm<br> - 16x Toadflax<br> - 16x Avantoe<br> - 16x Snapdragon<br> - 8x Dwarf weed<br> - 8x Lantadyme";
+                    case conq_reward_void_mineral_pack :
+                        $string1 = "Purchasing this will provide one batch of the following ores:<br> - 100x Coal<br> - 75x Iron<br> - 75x Gold<br> - 30x Mithril ore<br> - 20x Adamant ore<br> - 5x Rune ore";
+                    case conq_reward_void_seed_pack :
+                        $string1 = "Purchasing this will provide one batch of the following seeds:<br> - 16x Ranarr seed<br> - 16x Limpwurt seed<br> - 16x Cadantine seed<br> - 16x Toadflax seed<br> - 16x Snapdragon seed<br> - 12x Avantoe seed<br> - 12x Watermelon seed<br> - 1x Lantadyme seed<br> - 1x Dwarf weed seed";
+                }
+            }
+        }
+        if ($obj11 ! null & struct_param($struct8, conq_requirement) ! 4) {
+            cc_setonmouserepeat("script14193($string1, $obj11, event_com, event_comsubid)");
+        } else {
+            cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+        }
+    }
+    ~script4512(conq_rewards:build, 35, 35, calc($int5 + 4), calc($int4 + 4), $graphic10);
+    if ($graphic10 = null) {
+        cc_setobject_nonum($obj11, 1);
+    }
+    ~cc_add_title_text(conq_rewards:build, 175, 13, calc($int5 + 40), calc($int4 + 4), museo_sans_11pt_regular, struct_param($struct8, rewardshop_item_name), 0);
+    ~script6201(conq_rewards:build, 175, 24, calc($int5 + 40), calc($int4 + 17), museo_sans_11pt_regular_multiline, $string0);
+    $int2 = calc($int2 + 1);
+    $int5 = calc($int5 + 229);
+    if ($int5 > 300) {
+        $int5 = 9;
+        $int4 = calc($int4 + 44);
+    }
+}
+%conq_reward_tab = $int0;

@@ -1,0 +1,29 @@
+// 2553
+[proc,skillguide_members](struct $struct0, dbrow $dbrow1)(boolean)
+def_struct $struct2 = null;
+if ($struct0 ! null) {
+    if (struct_param($struct0, skillguide_members) = true) {
+        return(true);
+    }
+    $dbrow1 = struct_param($struct0, skillguide_data);
+    $struct2 = struct_param($struct0, skillguide_struct);
+}
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case arch_site :
+            return(db_getfield($dbrow1, arch_site:col4, 0));
+        case arch_excavation :
+            return(db_getfield($dbrow1, arch_excavation:col3, 0));
+        case arch_relic :
+            return(db_getfield($dbrow1, arch_relic:col3, 0));
+        case construction_house_furniture :
+            return(~script16269(db_getfield($dbrow1, construction_house_furniture:col4, 0)));
+    }
+}
+if ($struct2 ! null & (struct_param($struct2, combatv2_ability_id) > 0 | struct_param($struct2, combatv2_ability_adrenaline_type) = 6)) {
+    return(~int_to_bool(struct_param($struct2, combatv2_ability_is_members)));
+}
+if ($struct0 ! null & struct_param($struct0, skillguide_item) ! null & oc_members(struct_param($struct0, skillguide_item)) = 1) {
+    return(true);
+}
+return(false);

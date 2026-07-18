@@ -1,0 +1,22 @@
+// 12357
+[clientscript,trh87_overlay_onload]
+def_int $int0 = calc(if_getwidth(trh87_overlay:progress_bar_outer) - 2);
+def_int $int1 = ~trh87_get_progress(%trh87_nodes);
+if ($int1 = 0) {
+    if_setsize(1, 0, ^setsize_abs, ^setsize_minus, trh87_overlay:progress_bar);
+} else {
+    if_setsize(scale($int0, 32, $int1), 0, ^setsize_abs, ^setsize_minus, trh87_overlay:progress_bar);
+}
+if_sethide(true, wheel_of_fortune:chests_layer);
+if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+if_sethide(true, wheel_of_fortune:foreground_layer);
+if ($int1 = 32) {
+    if_setgraphic(trh87_easter_butterfly_bright, trh87_overlay:background_butterfly_left);
+    if_setgraphic(trh87_easter_butterfly_bright, trh87_overlay:background_butterfly_right);
+    if_sethide(true, trh87_overlay:locked);
+} else {
+    if_setgraphic(trh87_easter_butterfly, trh87_overlay:background_butterfly_left);
+    if_setgraphic(trh87_easter_butterfly, trh87_overlay:background_butterfly_right);
+    if_sethide(false, trh87_overlay:locked);
+}
+if_setgraphic(trh87_easter_background_leaf, wheel_of_fortune:background);

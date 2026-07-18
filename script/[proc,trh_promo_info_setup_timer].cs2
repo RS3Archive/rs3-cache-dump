@@ -1,0 +1,17 @@
+// 14431
+[proc,trh_promo_info_setup_timer](struct $struct0, int $int1, int $int2, int $int3)
+%trh_promo_struct = $struct0;
+%trh_promo_ticker_speed = 1;
+%trh_promo_comp = null;
+%trh_promo_prize_info = null;
+%trh_promo_obj = null;
+%trh_promo_time_runeday = $int1;
+%trh_promo_display_day = calc($int1 - ~trh_promo_start_runeday($struct0));
+%trh_promo_time_minutes = calc(date_minutes_fromruneday(calc(~trh_promo_end_runeday($struct0) + 1)) - ($int2 + 1));
+%trh_promo_time_minuteseconds = $int3;
+switch_struct ($struct0) {
+    case trh130_promo :
+        %trh130_promo_time_minutes = ~script13731($int2);
+        %trh130_promo_time_minuteseconds = $int3;
+}
+~trh_promo_info_countdown($struct0);

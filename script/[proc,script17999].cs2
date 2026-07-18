@@ -1,0 +1,116 @@
+// 17999
+[proc,script17999](dbrow $dbrow0, boolean $boolean1, component $component2, component $component3, component $component4)
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int5 = 0;
+def_int $int6 = min(~script17862(dbrow_7906), ~script17892($dbrow0));
+def_int $int7 = 1;
+def_int $int8 = 100;
+def_int $int9 = 100;
+def_int $int10 = 3;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = ~script17881($boolean1);
+def_string $string0 = "To unlock these Premier Rewards, upgrade to Premier Hero Pass";
+if ($boolean1 = true) {
+    $int8 = 85;
+    $int9 = 85;
+    $int10 = 5;
+    $int11 = 2;
+    $int12 = calc($int13 / 2);
+    if (calc($int13 % 2) ! 0) {
+        $int12 = calc($int12 + 1);
+    }
+    if (~script17865($dbrow0) = true) {
+        $string0 = "You've got the Premier Hero Pass, you're able to claim Premier Rewards.";
+        if_sethide(true, bp3_track_tab:claim_all_upgrade_button);
+    } else {
+        if_sethide(false, bp3_track_tab:claim_all_upgrade_button);
+    }
+    if_settext($string0, bp3_track_tab:claim_premium_upsell);
+} else {
+    $int8 = 65;
+    $int9 = 65;
+    $int10 = 5;
+    $int11 = 1;
+    $int12 = $int13;
+}
+def_int $int14 = calc(($int8 + $int10) * $int12 + $int10 * 2);
+if_settext(tostring_localised($int13, true), $component4);
+if ($int13 = 0) {
+    return;
+}
+$int12 = max($int12, 1);
+~cc_add_grid($component2, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, $int14, 0, ^setsize_abs, ^setsize_minus, true, $int8, $int9, $int10);
+def_int $int15 = 0;
+def_int $int16 = 1;
+def_int $int17 = 0;
+def_int $int18 = 100;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 55;
+def_obj $obj22 = null;
+def_struct $struct23 = null;
+def_dbrow $dbrow24 = null;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_graphic $graphic27 = null;
+def_boolean $boolean28 = false;
+def_int $int29 = 0;
+def_dbrow $dbrow30 = null;
+def_dbrow $dbrow31 = null;
+def_dbrow $dbrow32 = null;
+def_dbrow $dbrow33 = null;
+def_dbrow $dbrow34 = null;
+def_dbrow $dbrow35 = null;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int36 = 3;
+if ($boolean1 = false) {
+    $int36 = 1;
+}
+while ($int7 <= $int6) {
+    if (~script17868(dbrow_7906, $int7) = false) {
+        $boolean28 = ~script17874($dbrow0, $int7);
+        if (~script17843($boolean1, $boolean28) = true) {
+            $int29, $dbrow30, $dbrow31, $dbrow32, $dbrow33, $dbrow34 = ~script17878($dbrow0, $int7);
+            $int20 = 0;
+            while ($int20 < $int29) {
+                $dbrow35 = ~script17877($int20, $dbrow30, $dbrow31, $dbrow32, $dbrow33, $dbrow34);
+                if (cc_findbycategory($component2, 0, 0) = 1) {
+                    $obj22, $struct23, $dbrow24, $int25, $int26, $graphic27 = ~script17884($dbrow35);
+                    if ($int7 > ~script17890($dbrow0)) {
+                        $int25 = calc($int25 * ~script17893($dbrow0));
+                    }
+                    if ($int17 > 210) {
+                        $int16 = calc($int16 + 1);
+                        $int17 = 0;
+                    }
+                    ~script15939($component2, $int16, $int17, 0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+                    $int17 = calc($int17 + 1);
+                    ~cc_add_child_button($int16, $int17, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, ~script17989($int36), "");
+                    $int17 = calc($int17 + 1);
+                    ~script7872(true, true, false, false);
+                    $string1 = ~script17886($obj22, $struct23, $dbrow24, $int25, $int26, $graphic27);
+                    $string2 = ~script17887($obj22, $struct23, $dbrow24, $int25, $int26, $graphic27);
+                    $string3 = "<$string1><br><br><$string2>";
+                    if (~is_mobile_client = true) {
+                        ~script17927;
+                        ~script17955($string3);
+                    } else {
+                        cc_setonmouserepeat("script8802($string3, 1000, 25, event_com, event_comsubid, notosans_14, ^white)");
+                    }
+                    $int17 = ~script17966($dbrow35, $int16, $int17, $int8, $int25);
+                }
+                $int20 = calc($int20 + 1);
+            }
+        }
+    }
+    $int7 = calc($int7 + 1);
+}
+if ($int14 > calc(if_getwidth($component2) - 20)) {
+    if_setscrollpos(0, 0, $component2);
+    if_setscrollsize($int14, 0, $component2);
+    ~rs3_scrollbar_horizontal($component3, $component2);
+}

@@ -1,0 +1,58 @@
+// 19891
+[proc,script19891](struct $struct0, int $int1, struct $struct2, component $component3, component $component4, int $int5, int $int6, string $string0, string $string1, string $string2, boolean $boolean7, boolean $boolean8, int $int9, int $int10)
+if ($int9 > 0) {
+    ~script13989($component3, rs3tli_neutral_button, ~script653($int1, 1), $boolean7, -1, 0);
+} else {
+    ~script13989($component3, rs3tli_positive_button, ~script653($int1, 1), $boolean7, -1, 0);
+}
+if (string_length($string0) > 0 & cc_find($component3, ~script653($int1, 2)) = true) {
+    cc_settext($string0);
+}
+def_boolean $boolean11 = struct_param($struct2, rewardshop_buy_x_first);
+if (struct_param($struct0, rewardshop_mtxmgt_purchase_redirect) = 0 & cc_find($component3, ~script653($int1, 3)) = true) {
+    cc_settext(~script3930(~script12658($struct0, $struct2, $int5, $int6, $boolean11, 1), 60, 5, museo_sans_11pt_regular));
+}
+if (cc_find($component4, $int1) = true) {
+    if ($boolean7 = false) {
+        if (struct_param($struct0, rewardshop_preview_shop) = 1) {
+            cc_setop(1, struct_param($struct0, rewardshop_buy_button_label_shop_override));
+            if ($struct2 ! null) {
+                cc_setonop("script1365($struct2)");
+            }
+        } else {
+            cc_setop(1, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_1), $boolean11));
+        }
+        if (struct_param($struct2, rewardshop_buy_option_2) ! -1 | struct_param($struct2, rewardshop_buy_option_3) ! -1 | struct_param($struct2, rewardshop_buy_option_4) ! -1) {
+            if (~script6431 = true) {
+                $string1 = "There are more buy options if you tap and hold.";
+            } else {
+                $string1 = "There are more buy options if you right-click.";
+            }
+            if (struct_param($struct2, rewardshop_buy_option_2) ! -1) {
+                cc_setop(2, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_2), false));
+            }
+            if (struct_param($struct2, rewardshop_buy_option_3) ! -1) {
+                cc_setop(3, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_3), false));
+                if ($boolean11 = false) {
+                    cc_setop(4, ~script12793($struct2, -1, true));
+                }
+            }
+            if (struct_param($struct2, rewardshop_buy_option_4) ! -1) {
+                cc_setop(4, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_4), false));
+                if ($boolean11 = false) {
+                    cc_setop(5, ~script12793($struct2, -1, true));
+                }
+            }
+        }
+    } else {
+        cc_clearops;
+    }
+    if (~script6431 = true) {
+        if ($boolean7 = true & string_length($string1) > 0) {
+            cc_setonclick("script7774($string1, event_com, event_comsubid, $int10)");
+        } else {
+            cc_setonclick(null);
+        }
+    }
+    cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+}

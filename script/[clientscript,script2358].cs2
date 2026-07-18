@@ -1,0 +1,23 @@
+// 2358
+[clientscript,script2358](component $component0)
+def_int $int1 = enum(component, int, vkq3_block_target_index, $component0);
+def_int $int2 = enum(component, int, vkq3_block_target_grid, $component0);
+def_int $intbool3 = ^true;
+if (%vkq3_active_piece = null) {
+    if ($int2 = 1) {
+        $intbool3 = testbit(%vkq3_grid_1, $int1);
+    } else if ($int2 = 2) {
+        $intbool3 = testbit(%vkq3_grid_2, $int1);
+    } else {
+        $intbool3 = testbit(%vkq3_grid_3, $int1);
+    }
+    if ($intbool3 = ^false) {
+        if_sendtoback($component0);
+    }
+    return;
+}
+def_struct $struct4 = enum(component, struct, vkq3_piece_values, %vkq3_active_piece);
+def_int $int5 = struct_param($struct4, vkq3_block_defaultx);
+def_int $int6 = struct_param($struct4, vkq3_block_defaulty);
+def_component $component7 = enum(component, component, vkq3_piece_borders, %vkq3_active_piece);
+if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, $component7);

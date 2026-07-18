@@ -1,0 +1,61 @@
+// 6410
+[proc,script6410]
+if (%slayer_master = 0) {
+    ~ss_disable_button(85721635, 0);
+    ~ss_disable_button(85721647, 0);
+    ~ss_disable_button(85721659, 0);
+    ~ss_disable_button(85721671, 0);
+    if_settext("Complete one task", ss_rework:cancel_current_title);
+    if_settext("Complete one task", ss_rework:never_again_title);
+    return;
+} else {
+    if (~script10608(%slayer_target) = true) {
+        ~ss_disable_button(85721671, 0);
+    } else {
+        if_setcolour(0xfbf5e6, ss_rework:prefer_task_title);
+    }
+    if (%smki_slayer_points < 100) {
+        ~ss_disable_button(85721647, 0);
+        ~ss_disable_button(85721671, 0);
+    }
+    if (%slayer_count > 0) {
+        if_settext("Block task (100pts)", ss_rework:never_again_title);
+        if_settext("Prefer task (100pts)", ss_rework:prefer_task_title);
+    } else {
+        if_settext("Not on task", ss_rework:never_again_title);
+        if_settext("Not on task", ss_rework:prefer_task_title);
+        ~ss_disable_button(85721647, 0);
+        ~ss_disable_button(85721671, 0);
+    }
+    if (%smki_slayer_points < 30) {
+        if (%slayc_morvran_challenge = 0) {
+            ~ss_disable_button(85721635, 0);
+        }
+        ~ss_disable_button(85721659, 0);
+    }
+    if (%slayer_count > 0) {
+        if_settext("Cancel task (30pts)", ss_rework:cancel_current_title);
+        if_settext("Extend task (30pts)", ss_rework:extend_current_title);
+    } else if (%slayc_current_challenge ! 0 | %slayc_morvran_challenge = 1) {
+        if (%slayc_morvran_challenge = 1) {
+            if_settext("Cancel challenge (free)", ss_rework:cancel_current_title);
+        } else {
+            if_settext("Cancel challenge (30pts)", ss_rework:cancel_current_title);
+        }
+        ~ss_disable_button(85721659, 0);
+    } else {
+        if_settext("Not on task", ss_rework:cancel_current_title);
+        if_settext("Not on task", ss_rework:extend_current_title);
+        ~ss_disable_button(85721635, 0);
+        ~ss_disable_button(85721659, 0);
+    }
+}
+if (%elfcity_slayer_task_extended = 1) {
+    ~ss_disable_button(85721659, 0);
+}
+if (%smki_prefer_flag_8 > 0 & %smki_prefer_flag_7 > 0 & %smki_prefer_flag_6 > 0 & %smki_prefer_flag_5 > 0 & %smki_prefer_flag_4 > 0 & %smki_prefer_flag_3 > 0 & %smki_prefer_flag_2 > 0 & %smki_prefer_flag_1 > 0) {
+    ~ss_disable_button(85721671, 0);
+}
+if (%smki_ignore_flag_8 > 0 & %smki_ignore_flag_7 > 0 & %smki_ignore_flag_6 > 0 & %smki_ignore_flag_5 > 0 & %smki_ignore_flag_4 > 0 & %smki_ignore_flag_3 > 0 & %smki_ignore_flag_2 > 0 & %smki_ignore_flag_1 > 0) {
+    ~ss_disable_button(85721647, 0);
+}

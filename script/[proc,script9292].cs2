@@ -1,0 +1,21 @@
+// 9292
+[proc,script9292]
+~script16571(%varclientbit_41275);
+if_sethide(~negate_bool(~script19316), mobile_chat_panel:group_ironman);
+if (if_gethide(toplevel_v2_mobile:chat_panel) = true & if_find(struct_param(~script10405(18), toplevel_v2_window_layer)) = true) {
+    switch_int (%varclientbit_41275) {
+        case 0 :
+            cc_setsize(300, 100, ^setsize_abs, ^setsize_abs);
+            if_setparam_int(mobile_last_chat_uid, %toplevel_v2_chat_last_uid, chatdefault:chat);
+            ~dynamic_chat_fade(255);
+            %toplevel_v2_mobile_chat_hide_time = calc(clientclock + 250);
+            ~script8792;
+        case 1 :
+            cc_setsize(300, 100, ^setsize_abs, ^setsize_abs);
+            %toplevel_v2_mobile_chat_hide_time = 0;
+            ~dynamic_chat_fade(0);
+        case 2 :
+            cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+            ~dynamic_chat_fade(255);
+    }
+}

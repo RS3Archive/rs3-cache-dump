@@ -1,0 +1,25 @@
+// 16702
+[proc,script16702](component $component0, boolean $boolean1)
+def_component $component2 = modal_storage:inventory_obj_build_layer;
+def_component $component3 = modal_storage:storage_obj_build_layer;
+def_component $component4 = modal_storage:inventory_window_highlight;
+def_component $component5 = modal_storage:storage_window_highlight;
+switch_inv (%modal_storage_active_inv) {
+    case rand_storage :
+        $component2 = rand_storage:inventory_obj_build_layer;
+        $component3 = rand_storage:storage_obj_build_layer;
+        $component4 = rand_storage:inventory_window_highlight;
+        $component5 = rand_storage:storage_window_highlight;
+}
+if (%modal_storage_drag_in_progress = 1) {
+    if ($component0 = $component2) {
+        if_sethide($boolean1, $component4);
+    } else if ($component0 = $component3) {
+        if_sethide($boolean1, $component5);
+    }
+}
+if ($component0 ! %modal_storage_drag_current_inv_com & $boolean1 = false) {
+    %modal_storage_drag_current_inv_com = $component0;
+} else if ($boolean1 = true) {
+    %modal_storage_drag_current_inv_com = null;
+}

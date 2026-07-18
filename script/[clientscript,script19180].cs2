@@ -1,0 +1,26 @@
+// 19180
+[clientscript,script19180](seq $seq0, seq $seq1, int $int2, seq $seq3, model $model4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10)
+if ($seq1 ! null) {
+    if ($int2 > 0) {
+        if_scriptqueue_add($int2, "if_setmodelanim($seq1, trh_academy_shared_overlay:entity_model)", trh_academy_shared_overlay:entity_model);
+    } else {
+        if_setmodelanim($seq1, trh_academy_shared_overlay:entity_model);
+    }
+    if_setontimer("script19181(trh_academy_shared_overlay:entity_model, calc($int2 + seqlength($seq1)))", trh_academy_shared_overlay:entity_model);
+}
+if ($seq0 ! null) {
+    if_setmodelanim($seq0, trh_academy_shared_overlay:character_model);
+    %trh_academy_shared_character_animation_occuring = 1;
+    if_setontimer("script19181(trh_academy_shared_overlay:character_model, seqlength($seq0))", trh_academy_shared_overlay:character_model);
+}
+if ($seq3 ! null & $model4 ! null) {
+    if ($int2 > 0) {
+        if_scriptqueue_add($int2, "script19253($model4, trh_academy_shared_overlay:spotanim_model)", trh_academy_shared_overlay:spotanim_model);
+        if_scriptqueue_add($int2, "if_setmodelanim($seq3, trh_academy_shared_overlay:spotanim_model)", trh_academy_shared_overlay:spotanim_model);
+    } else {
+        if_setmodel($model4, trh_academy_shared_overlay:spotanim_model);
+        if_setmodelanim($seq3, trh_academy_shared_overlay:spotanim_model);
+    }
+    if_setmodelangle($int5, $int6, $int7, $int8, $int9, $int10, trh_academy_shared_overlay:spotanim_model);
+    if_setontimer("script19181(trh_academy_shared_overlay:spotanim_model, calc($int2 + seqlength($seq3)))", trh_academy_shared_overlay:spotanim_model);
+}

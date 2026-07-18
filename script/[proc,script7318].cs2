@@ -1,0 +1,365 @@
+// 7318
+[proc,script7318](inv $inv0, int $int1)(string, string, string, string, string, string, string, graphic)
+def_obj $obj2 = inv_getobj($inv0, $int1);
+if ($obj2 = null) {
+    return("No crewman.", "", "", "", "", "", "", null);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "";
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_string $string1 = "";
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $string2 = "";
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_string $string3 = "";
+$int3 = ~pop_crew_speed($inv0, $int1);
+$int4 = ~script7315($inv0, $int1);
+$int5, $int7, $int9 = ~pop_crew_stats($inv0, $int1);
+$int6, $int8, $int10 = ~script7314($inv0, $int1);
+$string0 = tostring($int3);
+if ($int3 > %pop_crew_stat_speed) {
+    $string0 = append("<col=00FF00>", $string0);
+} else if ($int3 < %pop_crew_stat_speed) {
+    $string0 = append("<col=FF0000>", $string0);
+} else {
+    $string0 = append("<col=F7EDB7>", $string0);
+}
+if ($int4 ! 0 | %pop_crew_stat_speedboost ! 0) {
+    if ($int4 > %pop_crew_stat_speedboost) {
+        $string0 = append($string0, "<col=1D8C07>");
+    } else if ($int4 < %pop_crew_stat_speedboost) {
+        $string0 = append($string0, "<col=FF0000>");
+    } else {
+        $string0 = append($string0, "<col=FAF2D6>");
+    }
+    if ($int4 > 0) {
+        $string0 = append($string0, " <col=FFFFFF>(+<tostring($int4)>%)</col>");
+    } else if ($int4 < 0) {
+        $string0 = append($string0, "<col=FFFFFF> (<tostring($int4)>%)</col>");
+    } else {
+        $string0 = append($string0, " (+0%)</col>");
+    }
+}
+$string1 = tostring($int5);
+if ($int5 > %pop_crew_stat_graft) {
+    $string1 = append("<col=00FF00>", $string1);
+} else if ($int5 < %pop_crew_stat_graft) {
+    $string1 = append("<col=FF0000>", $string1);
+} else {
+    $string1 = append("<col=F7EDB7>", $string1);
+}
+if ($int6 ! 0 | %pop_crew_stat_graftboost ! 0) {
+    if ($int6 > %pop_crew_stat_graftboost) {
+        $string1 = append($string1, "<col=1D8C07>");
+    } else if ($int6 < %pop_crew_stat_graftboost) {
+        $string1 = append($string1, "<col=FF0000>");
+    } else {
+        $string1 = append($string1, "<col=FAF2D6>");
+    }
+    if ($int6 > 0) {
+        $string1 = append($string1, "<col=FFFFFF> (+<tostring($int6)>%)</col>");
+    } else if ($int6 < 0) {
+        $string1 = append($string1, "<col=FFFFFF> (<tostring($int6)>%)</col>");
+    } else {
+        $string1 = append($string1, " (+0%)</col>");
+    }
+}
+$string2 = tostring($int7);
+if ($int7 > %pop_crew_stat_combat) {
+    $string2 = append("<col=00FF00>", $string2);
+} else if ($int7 < %pop_crew_stat_combat) {
+    $string2 = append("<col=FF0000>", $string2);
+} else {
+    $string2 = append("<col=F7EDB7>", $string2);
+}
+if ($int8 ! 0 | %pop_crew_stat_combatboost ! 0) {
+    if ($int8 > %pop_crew_stat_combatboost) {
+        $string2 = append($string2, "<col=1D8C07>");
+    } else if ($int8 < %pop_crew_stat_combatboost) {
+        $string2 = append($string2, "<col=FF0000>");
+    } else {
+        $string2 = append($string2, "<col=FAF2D6>");
+    }
+    if ($int8 > 0) {
+        $string2 = append($string2, "<col=FFFFFF> (+<tostring($int8)>%)</col>");
+    } else if ($int8 < 0) {
+        $string2 = append($string2, "<col=FFFFFF> (<tostring($int8)>%)</col>");
+    } else {
+        $string2 = append($string2, " (+0%)</col>");
+    }
+}
+$string3 = tostring($int9);
+if ($int9 > %pop_crew_stat_seafaring) {
+    $string3 = append("<col=00FF00>", $string3);
+} else if ($int9 < %pop_crew_stat_seafaring) {
+    $string3 = append("<col=FF0000>", $string3);
+} else {
+    $string3 = append("<col=F7EDB7>", $string3);
+}
+if ($int10 ! 0 | %pop_crew_stat_seafaringboost ! 0) {
+    if ($int10 > %pop_crew_stat_seafaringboost) {
+        $string3 = append($string3, "<col=1D8C07>");
+    } else if ($int10 < %pop_crew_stat_seafaringboost) {
+        $string3 = append($string3, "<col=FF0000>");
+    } else {
+        $string3 = append($string3, "<col=FAF2D6>");
+    }
+    if ($int10 > 0) {
+        $string3 = append($string3, "<col=FFFFFF> (+<tostring($int10)>%)</col>");
+    } else if ($int10 < 0) {
+        $string3 = append($string3, "<col=FFFFFF> (<tostring($int10)>%)</col>");
+    } else {
+        $string3 = append($string3, " (+0%)</col>");
+    }
+}
+def_string $string4 = "Level <tostring(~script7317($inv0, $int1))>";
+def_string $string5 = oc_name($obj2);
+def_int $int11 = ~script7319($int1);
+def_int $int12 = calc(($int11 & 2113929216) / 33554432);
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_enum $enum16 = pop_captain_firstname_male;
+if (enum_hasoutput(obj, pop_captain_list, $obj2) = true) {
+    switch_int ($int12) {
+        case 1 :
+            $int13 = %pop_captain_1_gender;
+            $int14 = %pop_captain_1_firstname;
+            $int15 = %pop_captain_1_lastname;
+        case 2 :
+            $int13 = %pop_captain_2_gender;
+            $int14 = %pop_captain_2_firstname;
+            $int15 = %pop_captain_2_lastname;
+        case 3 :
+            $int13 = %pop_captain_3_gender;
+            $int14 = %pop_captain_3_firstname;
+            $int15 = %pop_captain_3_lastname;
+        case 4 :
+            $int13 = %pop_captain_4_gender;
+            $int14 = %pop_captain_4_firstname;
+            $int15 = %pop_captain_4_lastname;
+        case 5 :
+            $int13 = %pop_captain_5_gender;
+            $int14 = %pop_captain_5_firstname;
+            $int15 = %pop_captain_5_lastname;
+    }
+    if ($int13 = 1) {
+        $enum16 = pop_captain_firstname_female;
+    }
+    $string5 = append(enum(int, string, $enum16, $int14), append(" ", enum(int, string, pop_captain_lastname, $int15)));
+}
+def_struct $struct17 = enum(int, struct, pop_trait_list, $int12);
+if ($struct17 = null) {
+    $struct17 = pop_crew_trait_none;
+}
+def_string $string6 = "";
+def_struct $struct18 = null;
+def_string $string7 = "";
+if (enum_hasoutput(obj, pop_captain_list, $obj2) = true) {
+    switch_int ($int12) {
+        case 1 :
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_1_trait_1);
+            if (%pop_captain_1_trait_1 > 0) {
+                $string6 = append($string6, struct_param($struct18, pop_crew_trait_name));
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_1_trait_2);
+            if (%pop_captain_1_trait_2 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_1_trait_3);
+            if (%pop_captain_1_trait_3 > 0) {
+                $string6 = append($string6, "<$string7><br><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_1_trait_4);
+            if (%pop_captain_1_trait_4 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+            }
+        case 2 :
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_2_trait_1);
+            if (%pop_captain_2_trait_1 > 0) {
+                $string6 = append($string6, struct_param($struct18, pop_crew_trait_name));
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_2_trait_2);
+            if (%pop_captain_2_trait_2 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_2_trait_3);
+            if (%pop_captain_2_trait_3 > 0) {
+                $string6 = append($string6, "<$string7><br><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_2_trait_4);
+            if (%pop_captain_2_trait_4 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+            }
+        case 3 :
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_3_trait_1);
+            if (%pop_captain_3_trait_1 > 0) {
+                $string6 = append($string6, struct_param($struct18, pop_crew_trait_name));
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_3_trait_2);
+            if (%pop_captain_3_trait_2 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_3_trait_3);
+            if (%pop_captain_3_trait_3 > 0) {
+                $string6 = append($string6, "<$string7><br><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_3_trait_4);
+            if (%pop_captain_3_trait_4 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+            }
+        case 4 :
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_4_trait_1);
+            if (%pop_captain_4_trait_1 > 0) {
+                $string6 = append($string6, struct_param($struct18, pop_crew_trait_name));
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_4_trait_2);
+            if (%pop_captain_4_trait_2 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_4_trait_3);
+            if (%pop_captain_4_trait_3 > 0) {
+                $string6 = append($string6, "<$string7><br><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_4_trait_4);
+            if (%pop_captain_4_trait_4 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+            }
+        case 5 :
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_5_trait_1);
+            if (%pop_captain_5_trait_1 > 0) {
+                $string6 = append($string6, struct_param($struct18, pop_crew_trait_name));
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_5_trait_2);
+            if (%pop_captain_5_trait_2 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_5_trait_3);
+            if (%pop_captain_5_trait_3 > 0) {
+                $string6 = append($string6, "<$string7><br><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_5_trait_4);
+            if (%pop_captain_5_trait_4 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+            }
+        case 6 :
+            if (%pop_captain_n_trait_1 > 0) {
+                $string6 = append($string6, struct_param($struct18, pop_crew_trait_name));
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_n_trait_2);
+            if (%pop_captain_n_trait_2 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_n_trait_3);
+            if (%pop_captain_n_trait_3 > 0) {
+                $string6 = append($string6, "<$string7><br><struct_param($struct18, pop_crew_trait_name)>");
+                $string7 = ", ";
+            }
+            $struct18 = enum(int, struct, pop_trait_list, %pop_captain_n_trait_4);
+            if (%pop_captain_n_trait_4 > 0) {
+                $string6 = append($string6, "<$string7><struct_param($struct18, pop_crew_trait_name)>");
+            }
+    }
+} else if (enum_hasoutput(obj, pop_item_list, $obj2) = true) {
+    if ($obj2 = pop_crew_item_ghost | $obj2 = pop_crew_item_zombie) {
+        $string6 = "Undead";
+    } else {
+        $string6 = "Ship Supplies";
+    }
+} else if ($struct17 ! pop_crew_trait_none) {
+    $string6 = struct_param($struct17, pop_crew_trait_name);
+}
+if (oc_param($obj2, pop_crew_is_pirate) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Pirate Band");
+}
+if (oc_param($obj2, pop_crew_is_mate) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Solidarity");
+}
+if (oc_param($obj2, pop_crew_is_golem) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Staunch");
+}
+if (oc_param($obj2, pop_crew_is_inspiring) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Rallying Cry");
+}
+if (oc_param($obj2, pop_crew_is_gambler) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Gambler");
+}
+if (oc_param($obj2, pop_crew_is_explosive) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Explosive");
+}
+if (oc_param($obj2, pop_crew_is_merchant) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Merchant");
+}
+if (oc_param($obj2, pop_crew_resurrects) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Resurrects");
+}
+if (oc_param($obj2, pop_crew_is_palmist) > 0) {
+    if ($struct17 ! pop_crew_trait_none) {
+        $string6 = append($string6, ", ");
+    } else {
+        $string6 = "";
+    }
+    $string6 = append($string6, "Good Fortune");
+}
+return($string5, $string0, $string1, $string2, $string3, $string4, $string6, oc_param($obj2, pop_crew_graphic));

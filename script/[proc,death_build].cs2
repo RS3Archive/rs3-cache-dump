@@ -1,0 +1,261 @@
+// 11454
+[proc,death_build]
+cc_deleteall(death:protect_build);
+cc_deleteall(death:protect_click);
+cc_deleteall(death:keep_build);
+cc_deleteall(death:keep_click);
+cc_deleteall(death:lost_build);
+cc_deleteall(death:lost_click);
+cc_deleteall(death:lost_bob_build);
+cc_deleteall(death:lost_bob_click);
+cc_deleteall(death:autosave_build);
+cc_deleteall(death:autosave_click);
+cc_deleteall(death:overflow_build);
+cc_deleteall(death:overflow_click);
+def_int $int0 = 0;
+def_int $int1 = 0;
+switch_int (%death_open_inv_server) {
+    case default :
+        return;
+    case 2 :
+        $int0 = %deathkeep_info_dangermode;
+        $int1 = ~inv_freespace_range(lore_bob, 0, 30);
+    case 1 :
+}
+def_int $int2 = %death_protected_items;
+def_int $int3 = %death_saved_items;
+def_int $int4 = %death_lost_items;
+def_int $int5 = %death_always_saved_items;
+def_int $int6 = 0;
+def_string $string0 = "<br><col=<tostring(~script10495(3), 16)>>";
+def_string $string1 = "Protected Items:<$string0>These items are free to reclaim.</col>";
+def_string $string2 = "Saved Items:<$string0>These items compose the base reclaim cost.</col>";
+def_string $string3 = "Lost Items:<$string0>These items are lost upon death.</col>";
+def_string $string4 = "Beast of Burden Items:<$string0>Your familiar will drop the items it is holding.</col>";
+def_string $string5 = "Always-Kept Items:<$string0>These items will remain with you through death.</col>";
+switch_int ($int0) {
+    case 1, 3 :
+        $int3 = $int2;
+        $int6 = 1;
+        $string1 = "Protected items:<$string0>You save these items automatically.</col>";
+        $string3 = "Lost items:<$string0>In a dangerous area all of these items will be lost.</col>";
+    case 2 :
+        $int2 = $int5;
+        $int3 = $int5;
+        $int4 = $int5;
+        $int1 = 0;
+        $string1 = "Protected Items:<$string0>In a safe area you will keep items upon death.</col>";
+}
+if (%death_open_inv_server = 1 & %death_last_tab = 1 | %death_last_tab = 2) {
+    if_setsize(288, calc(5 + if_getheight(death:buttons_layer)), ^setsize_minus, ^setsize_minus, death:left_hand_display);
+    if_setsize(30, calc(30 + if_getheight(death:buttons_layer)), ^setsize_minus, ^setsize_minus, death:cost_info);
+    if_sethide(false, death:buttons_layer);
+    if (%death_last_tab = 2) {
+        if_sethide(false, death:overflow_destroy_single);
+        if_sethide(false, death:overflow_confirm_single);
+    } else {
+        if_sethide(true, death:overflow_destroy_single);
+        if_sethide(true, death:overflow_confirm_single);
+    }
+} else {
+    if_setsize(288, 5, ^setsize_minus, ^setsize_minus, death:left_hand_display);
+    if_setsize(30, 30, ^setsize_minus, ^setsize_minus, death:cost_info);
+    if_sethide(true, death:buttons_layer);
+}
+~death_update_tabs($int0);
+def_long $long0 = 0;
+def_long $long1 = 0;
+def_long $long2 = 0;
+def_long $long3 = 0;
+def_long $long4 = 0;
+def_long $long5 = 0;
+def_int $int7 = $int2;
+def_int $int8 = calc($int3 - $int2);
+def_int $int9 = calc($int4 - $int3);
+def_int $int10 = calc($int5 - $int4);
+def_obj $objarray0(calc(5 + 1));
+def_int $intarray1(calc(5 + 1));
+def_obj $obj11 = null;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = -1;
+def_int $int16 = 0;
+def_obj $obj17 = null;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = $int9;
+if ($int6 = 1) {
+    while ($int22 < $int7) {
+        $obj17 = inv_getobj(grave_gravestone_contents, $int14);
+        $int18 = inv_getnum(grave_gravestone_contents, $int14);
+        $objarray0($int22) = $obj17;
+        $intarray1($int22) = $int14;
+        $int13 = calc($int13 + 1);
+        if (calc($int18 - $int13) = 0) {
+            $int13 = 0;
+            $int14 = calc($int14 + 1);
+        }
+        $int22 = calc($int22 + 1);
+    }
+    if ($int13 > 0 & calc($int18 - $int13) > 0) {
+        $obj11 = $obj17;
+        $int12 = calc($int18 - $int13);
+        $int15 = $int14;
+        $int16 = 1;
+    }
+    $int23 = calc($int9 + ($int7 - $int14));
+}
+def_int $int24 = 0;
+def_int $int25 = ~script17093;
+if (%death_last_tab = 0) {
+    if_sethide(false, death:info_panel);
+    if_sethide(true, death:death_status);
+} else if (%death_last_tab = 2) {
+    if_sethide(true, death:info_panel);
+    if_sethide(false, death:death_status);
+    $int24 = ~death_resize_panel(death:overflow_container, null, null, $int24, $int25, calc(inv_size(death_overflow) - inv_freespace(death_overflow)), "");
+    if_sethide(true, death:protected_container);
+    if_sethide(true, death:keep_container);
+    if_sethide(true, death:lost_container);
+    if_sethide(true, death:lost_bob_container);
+    if_sethide(true, death:autosave_container);
+} else {
+    if_sethide(true, death:info_panel);
+    if_sethide(false, death:death_status);
+    $int24 = ~death_resize_panel(death:protected_container, death:protected_label, death:protected_contents, $int24, $int25, $int7, $string1);
+    $int24 = ~death_resize_panel(death:keep_container, death:keep_label, death:keep_contents, $int24, $int25, $int8, $string2);
+    $int24 = ~death_resize_panel(death:lost_container, death:lost_label, death:lost_contents, $int24, $int25, $int23, $string3);
+    $int24 = ~death_resize_panel(death:lost_bob_container, death:lost_bob_label, death:lost_bob_contents, $int24, $int25, $int1, $string4);
+    $int24 = ~death_resize_panel(death:autosave_container, death:autosave_label, death:autosave_contents, $int24, $int25, $int10, $string5);
+    if_sethide(true, death:overflow_container);
+}
+def_int $int26 = 0;
+def_int $int27 = 0;
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = inv_size(grave_gravestone_contents);
+def_int $int31 = 0;
+def_int $int32 = 0;
+while ($int32 < $int2) {
+    if ($int6 = 1) {
+        $obj17 = $objarray0($int32);
+        $int31 = $intarray1($int32);
+        $int18 = 1;
+    } else {
+        $obj17 = inv_getobj(grave_gravestone_contents, $int32);
+        $int18 = inv_getnum(grave_gravestone_contents, $int32);
+        $int31 = $int32;
+    }
+    $long0 = ~script17375($long0, ~script11466($obj17, ~script11472($int31), $int18, 2));
+    $long1 = ~script17375($long1, ~script11466($obj17, ~script11472($int31), $int18, 1));
+    $int26, $int27 = ~death_build_object(106561545, death:protect_click, $obj17, $int18, $int26, $int27, $int31, $int32, $int15, $int0);
+    $int32 = calc($int32 + 1);
+}
+$int26 = 0;
+$int27 = 0;
+while ($int32 < $int3) {
+    $obj17 = inv_getobj(grave_gravestone_contents, $int32);
+    $int18 = inv_getnum(grave_gravestone_contents, $int32);
+    $long2, $long4 = ~script17092($long2, $long4, $obj17, ~script11472($int32), $int18, 2);
+    $long3 = ~script17375($long3, ~script11466($obj17, ~script11472($int32), $int18, 1));
+    $int26, $int27 = ~death_build_object(106561591, death:keep_click, $obj17, $int18, $int26, $int27, $int32, calc($int32 - $int2), $int15, $int0);
+    $int32 = calc($int32 + 1);
+}
+$int26 = 0;
+$int27 = 0;
+if ($int6 = 1 & $int14 < $int2) {
+    $int32 = calc($int32 - $int14);
+}
+if ($int15 ! -1) {
+    $long5 = ~script17375($long5, ~script11466($obj11, ~script11472($int15), $int12, 1));
+    $int26, $int27 = ~death_build_object(106561538, death:lost_click, $obj11, $int12, $int26, $int27, $int30, $int30, $int15, $int0);
+}
+while ($int32 < $int4) {
+    $obj17 = inv_getobj(grave_gravestone_contents, $int32);
+    $int18 = inv_getnum(grave_gravestone_contents, $int32);
+    $long5 = ~script17375($long5, ~script11466($obj17, ~script11472($int32), $int18, 1));
+    $int26, $int27 = ~death_build_object(106561538, death:lost_click, $obj17, $int18, $int26, $int27, $int32, calc($int32 - $int3 + $int14), $int15, $int0);
+    $int32 = calc($int32 + 1);
+}
+if ($int1 > 0) {
+    $int26 = 0;
+    $int27 = 0;
+    while ($int28 < 30) {
+        $obj17 = inv_getobj(lore_bob, $int28);
+        $int18 = inv_getnum(lore_bob, $int28);
+        if ($obj17 ! null) {
+            $int26, $int27 = ~death_build_object(106561631, death:lost_bob_click, $obj17, $int18, $int26, $int27, $int28, $int28, $int15, $int0);
+            $int29 = calc($int29 + 1);
+        }
+        $int28 = calc($int28 + 1);
+    }
+}
+$int26 = 0;
+$int27 = 0;
+while ($int32 < 47) {
+    $obj17 = inv_getobj(grave_gravestone_contents, $int32);
+    $int18 = inv_getnum(grave_gravestone_contents, $int32);
+    $int26, $int27 = ~death_build_object(106561598, death:autosave_click, $obj17, $int18, $int26, $int27, $int32, calc($int32 - $int4), $int15, $int0);
+    $int32 = calc($int32 + 1);
+}
+$int26 = 0;
+$int27 = 0;
+$int32 = 0;
+def_long $long6 = 0;
+while ($int32 < 50) {
+    $obj17 = inv_getobj(death_overflow, $int32);
+    $int18 = inv_getnum(death_overflow, $int32);
+    $int26, $int27 = ~death_build_object(106561613, death:overflow_click, $obj17, $int18, $int26, $int27, $int32, $int32, 0, 0);
+    $long6 = ~script17375($long6, ~script11466($obj17, ~script11472($int32), $int18, 7));
+    $int32 = calc($int32 + 1);
+}
+def_long $long7 = $long2;
+def_long $long8 = ~script12798;
+$long7 = calc($long7 - $long4);
+def_long $long9 = long_scale($long7, 100, $long8);
+$long7 = calc($long7 - $long9);
+def_long $long10 = $long7;
+def_string $string6 = "...";
+if (%death_price_transmit = 0) {
+    if (%death_last_tab = 2) {
+        if (inv_freespace(death_overflow) = inv_size(death_overflow)) {
+            if_setenabled(false, death:confirm_button);
+        } else {
+            if_setenabled(true, death:confirm_button);
+        }
+        $string6 = ~script17372($long6, 9, 0);
+    } else {
+        if (inv_freespace(grave_gravestone_contents) = inv_size(grave_gravestone_contents)) {
+            if_setenabled(false, death:confirm_button);
+        } else {
+            if_setenabled(true, death:confirm_button);
+        }
+        if (%death_free_deaths_transmit = 3) {
+            $string6 = "Free";
+            $long7 = calc($long7 - $long10);
+        } else {
+            $string6 = ~script17372($long7, 9, 0);
+        }
+    }
+} else {
+    if_setenabled(false, death:confirm_button);
+}
+if_settext($string6, death:reclaim_cost);
+def_long $long11 = ~script17375(~script17375($long3, $long5), %death_value_bob);
+def_long $long12 = ~script17375($long1, $long11);
+~script17096;
+~script17094($int0, $long12, $long11, $long2, $long4, $long9, $long10, $long7);
+if_settext("Confirm", death:popup_confirm);
+if_settext("Yes", death:popup_yes);
+if_settext("No", death:popup_no);
+if ($int24 = 0 & %death_price_transmit = 0) {
+    if_sethide(false, death:no_items);
+} else {
+    if_sethide(true, death:no_items);
+}
+if_setscrollsize(0, ~script17380($int24, if_getheight(death:death_status_scrolling), $int24, 0), death:death_status_scrolling);
+~rs3_scrollbar_vertical(death:death_status_scrollbar, death:death_status_scrolling);

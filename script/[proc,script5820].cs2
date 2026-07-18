@@ -1,0 +1,16 @@
+// 5820
+[proc,script5820](dbrow $dbrow0)(string)
+switch_dbrow ($dbrow0) {
+    case bonds_wmh_oct21_bundle :
+        return("<tostring_localised(calc(50000 - %wmh_bundles_purchased_temp), true)> Left");
+    case bonds_monthly_bundle_nov_21 :
+        return("<tostring_localised(calc(db_getfield($dbrow0, bonds_package:col29, 0) - %bonds_monthly_skilling_package_1_purchase_volume), true)> Left");
+    case bonds_runecoins_package_holder, bonds_membership_package_holder :
+        if (~script18304 = true) {
+            return("Value added!");
+        } else {
+            return(db_getfield($dbrow0, bonds_package:col5, 0));
+        }
+    case default :
+        return(db_getfield($dbrow0, bonds_package:col5, 0));
+}

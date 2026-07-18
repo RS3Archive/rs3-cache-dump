@@ -1,0 +1,38 @@
+// 16445
+[proc,script16445](dbrow $dbrow0)(string)
+def_string $string0 = "";
+def_int $int1 = 0;
+def_struct $struct2 = ~trh_promo_current;
+if ($struct2 ! null & struct_param($struct2, trh_promo_oddments) ! trh125_currency) {
+    $int1 = 1;
+}
+switch_dbrow ($dbrow0) {
+    case uitutorial_treasure_hunter_oddments_1 :
+        if ($int1 = 1) {
+            $string0 = "Oddments are a currency that can be used to purchase Treasure Hunter keys, XP rewards, cosmetics and much more! Occasionally they're replaced by seasonal oddments which can be used to purchase limited time items.";
+        }
+    case uitutorial_treasure_hunter_oddments_2 :
+        if ($int1 = 1) {
+            $string0 = "<col=FFCB05>You win oddments or seasonal oddments alongside every prize.</col> The rarer the prize the more oddments you win!";
+        }
+    case uitutorial_treasure_hunter_oddments_3 :
+        if ($int1 = 1) {
+            $string0 = "You can also convert your prize to earn even more oddments or seasonal oddments.";
+        }
+    case uitutorial_treasure_hunter_oddments_4 :
+        if ($int1 = 1) {
+            $string0 = "The Oddments & Seasonal Oddments Store can be accessed here, via the <col=FFCB05>Marketplace</col> or through the currency in your backpack.";
+        }
+    case uitutorial_witchs_cauldron_2 :
+        $string0 = "The top <col=e8ce80>ingredient</col> will always be a <col=26c914>multiplier</col>. It will be active for 5 keys <sprite=22110>. Then you'll need to use 4 keys for it to <col=be2aeb>refill</col> <sprite=22113> and you can use it again.<br>Try using this now!";
+    case uitutorial_witchs_cauldron_4 :
+        $string0 = "<col=e8ce80>Ingredients</col> can stack!<br>The middle <col=e8ce80>ingredient</col> will always be a <col=FFFF00>minimum rarity</col>. It will be active for 4 keys <sprite=22110>. Then you'll need to use 2 keys for it to <col=be2aeb>refill</col> <sprite=22113> and you can use it again.<br>Try using this now!";
+    case uitutorial_witchs_cauldron_6 :
+        $string0 = "The bottom <col=e8ce80>ingredient</col> will always be an <col=14c3c9>extra reward</col>. It will be active for 4 keys <sprite=22110>. Then you'll need to use 2 keys for it to <col=be2aeb>refill</col> <sprite=22113> and you can use it again.<br>Try using this now!";
+    case uitutorial_helpbutton_league_tasks_1 :
+        $string0 = "Completing a task provides League points:<br><sprite=35246> 10 - Easy.<br><sprite=35247> 30 - Medium.<br><sprite=35248> 80 - Hard.<br><sprite=35249> 200 - Elite.<br><sprite=35250> 400 - Master.";
+}
+if (string_length($string0) <= 0) {
+    $string0 = db_getfield($dbrow0, uitutorial_step:col3, 0);
+}
+return($string0);

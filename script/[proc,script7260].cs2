@@ -1,0 +1,177 @@
+// 7260
+[proc,script7260]
+def_int $int0 = 0;
+def_string $string0 = "";
+def_struct $struct1 = null;
+def_graphic $graphic2 = null;
+def_int $int3 = enum_getoutputcount(cbtv2ca_int_to_course_struct);
+if_setscrollsize(if_getwidth(cbtv2ca_course_selection:course_list_display_layer), calc($int3 * 50), cbtv2ca_course_selection:course_list_display_layer);
+if_setsize(if_getwidth(cbtv2ca_course_selection:medals_layer), calc($int3 * 50), ^setsize_abs, ^setsize_abs, cbtv2ca_course_selection:medals_layer);
+if_setsize(if_getwidth(cbtv2ca_course_selection:course_list_background_layer), calc($int3 * 50), ^setsize_abs, ^setsize_abs, cbtv2ca_course_selection:course_list_background_layer);
+if_setsize(if_getwidth(cbtv2ca_course_selection:course_name_layer), calc($int3 * 50), ^setsize_abs, ^setsize_abs, cbtv2ca_course_selection:course_name_layer);
+if_setsize(if_getwidth(cbtv2ca_course_selection:info_box_layer), calc($int3 * 50), ^setsize_abs, ^setsize_abs, cbtv2ca_course_selection:info_box_layer);
+~scrollbar_vertical(cbtv2ca_course_selection:course_list_scroll_bar, cbtv2ca_course_selection:course_list_display_layer, "aif_scrollbar_dragger_4,3", "aif_scrollbar_dragger_4,0", "aif_scrollbar_dragger_4,1", "aif_scrollbar_dragger_4,2", "aif_scrollbar_arrow_4,1", "aif_scrollbar_arrow_4,0");
+while ($int0 < $int3) {
+    $struct1 = enum(int, struct, cbtv2ca_int_to_course_struct, $int0);
+    if ($struct1 ! null) {
+        cc_create(cbtv2ca_course_selection:info_box_layer, ^iftype_graphic, $int0);
+        cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, calc(13 + $int0 * 50), ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setgraphic(combat_academy_info_icon);
+        $string0 = "<struct_param($struct1, cbtv2ca_course_name)><br><br><struct_param($struct1, cbtv2ca_course_description)>";
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+        cc_create(cbtv2ca_course_selection:course_name_layer, ^iftype_text, $int0);
+        cc_setposition(5, calc($int0 * 50), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(0, 50, ^setsize_minus, ^setsize_abs);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_settextfont(museo_sans_11pt_regular_multiline);
+        if ($int0 = %cbtv2ca_selected_course_client) {
+            cc_setcolour(~script10495(4));
+        } else {
+            cc_setcolour(~script10495(3));
+        }
+        cc_settextshadow(true);
+        cc_settext("<tostring(calc($int0 + 1))>. <struct_param($struct1, cbtv2ca_course_name)>");
+        cc_sendtoback;
+        cc_create(cbtv2ca_course_selection:medals_button_layer, ^iftype_graphic, calc(3 * $int0));
+        cc_setsize(38, 38, ^setsize_abs, ^setsize_abs);
+        cc_setposition(5, calc(6 + $int0 * 50), ^setpos_abs_right, ^setpos_abs_top);
+        if (~script7265(2, $int0) = 1) {
+            if (~script7266(2, $int0) = 1) {
+                cc_setgraphic("combat_academy_icon_button,0");
+                $graphic2 = "combat_academy_icon_button,1";
+                cc_setonmouseover("graphic_swapper_dynamic(event_com, calc(3 * $int0), $graphic2)");
+                $graphic2 = "combat_academy_icon_button,0";
+                cc_setonmouseleave("graphic_swapper_dynamic(event_com, calc(3 * $int0), $graphic2)");
+            } else {
+                cc_setgraphic("combat_academy_icon_button,3");
+            }
+        } else {
+            cc_setgraphic("combat_academy_icon_button,4");
+        }
+        cc_create(cbtv2ca_course_selection:medals_layer, ^iftype_graphic, calc(3 * $int0));
+        cc_setsize(38, 38, ^setsize_abs, ^setsize_abs);
+        cc_setposition(5, calc(6 + $int0 * 50), ^setpos_abs_right, ^setpos_abs_top);
+        $string0 = struct_param($struct1, cbtv2ca_course_gold);
+        if (~script7265(2, $int0) = 1) {
+            if (~script7266(2, $int0) = 1) {
+                cc_setgraphic("combat_academy_rank_icons,0");
+                cc_setop(1, "Claim-Reward");
+                cc_setonop("script7263(calc(3 * $int0 + 2))");
+                $string0 = "<$string0><br><br>Reward: available";
+            } else {
+                cc_setgraphic("combat_academy_rank_icons,3");
+                $string0 = "<$string0><br><br>Reward: claimed";
+            }
+        } else {
+            cc_setgraphic("combat_academy_rank_icons,6");
+        }
+        cc_setonmouserepeat("script7271(event_com, event_comsubid, -1, $string0, 0, 150)");
+        cc_create(cbtv2ca_course_selection:medals_button_layer, ^iftype_graphic, calc(3 * $int0 + 1));
+        cc_setsize(38, 38, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, calc(6 + $int0 * 50), ^setpos_abs_centre, ^setpos_abs_top);
+        if (~script7265(1, $int0) = 1) {
+            if (~script7266(1, $int0) = 1) {
+                cc_setgraphic("combat_academy_icon_button,0");
+                $graphic2 = "combat_academy_icon_button,1";
+                cc_setonmouseover("graphic_swapper_dynamic(event_com, calc(3 * $int0 + 1), $graphic2)");
+                $graphic2 = "combat_academy_icon_button,0";
+                cc_setonmouseleave("graphic_swapper_dynamic(event_com, calc(3 * $int0 + 1), $graphic2)");
+            } else {
+                cc_setgraphic("combat_academy_icon_button,3");
+            }
+        } else {
+            cc_setgraphic("combat_academy_icon_button,4");
+        }
+        cc_create(cbtv2ca_course_selection:medals_layer, ^iftype_graphic, calc(3 * $int0 + 1));
+        cc_setsize(38, 38, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, calc(6 + $int0 * 50), ^setpos_abs_centre, ^setpos_abs_top);
+        $string0 = struct_param($struct1, cbtv2ca_course_silver);
+        if (~script7265(1, $int0) = 1) {
+            if (~script7266(1, $int0) = 1) {
+                cc_setop(1, "Claim-Reward");
+                cc_setonop("script7263(calc(3 * $int0 + 1))");
+                cc_setgraphic("combat_academy_rank_icons,1");
+                $string0 = "<$string0><br><br>Reward: available";
+            } else {
+                cc_setgraphic("combat_academy_rank_icons,4");
+                $string0 = "<$string0><br><br>Reward: claimed";
+            }
+        } else {
+            cc_setgraphic("combat_academy_rank_icons,7");
+        }
+        cc_setonmouserepeat("script7271(event_com, event_comsubid, -1, $string0, 0, 150)");
+        cc_create(cbtv2ca_course_selection:medals_button_layer, ^iftype_graphic, calc(3 * $int0 + 2));
+        cc_setsize(38, 38, ^setsize_abs, ^setsize_abs);
+        cc_setposition(5, calc(6 + $int0 * 50), ^setpos_abs_left, ^setpos_abs_top);
+        if (~script7265(0, $int0) = 1) {
+            if (~script7266(0, $int0) = 1) {
+                cc_setgraphic("combat_academy_icon_button,0");
+                $graphic2 = "combat_academy_icon_button,1";
+                cc_setonmouseover("graphic_swapper_dynamic(event_com, calc(3 * $int0 + 2), $graphic2)");
+                $graphic2 = "combat_academy_icon_button,0";
+                cc_setonmouseleave("graphic_swapper_dynamic(event_com, calc(3 * $int0 + 2), $graphic2)");
+            } else {
+                cc_setgraphic("combat_academy_icon_button,3");
+            }
+        } else {
+            cc_setgraphic("combat_academy_icon_button,4");
+        }
+        cc_create(cbtv2ca_course_selection:medals_layer, ^iftype_graphic, calc(3 * $int0 + 2));
+        cc_setsize(38, 38, ^setsize_abs, ^setsize_abs);
+        cc_setposition(5, calc(6 + $int0 * 50), ^setpos_abs_left, ^setpos_abs_top);
+        $string0 = struct_param($struct1, cbtv2ca_course_bronze);
+        if (~script7265(0, $int0) = 1) {
+            if (~script7266(0, $int0) = 1) {
+                cc_setgraphic("combat_academy_rank_icons,2");
+                cc_setop(1, "Claim-Reward");
+                cc_setonop("script7263(calc(3 * $int0))");
+                $string0 = "<$string0><br><br>Reward: available";
+            } else {
+                cc_setgraphic("combat_academy_rank_icons,5");
+                $string0 = "<$string0><br><br>Reward: claimed";
+            }
+        } else {
+            cc_setgraphic("combat_academy_rank_icons,8");
+        }
+        cc_setonmouserepeat("script7271(event_com, event_comsubid, -1, $string0, 0, 150)");
+        cc_create(cbtv2ca_course_selection:course_list_background_layer, ^iftype_graphic, calc(3 * $int0));
+        cc_setposition(5, calc($int0 * 50 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(14, 46, ^setsize_abs, ^setsize_abs);
+        if ($int0 = %cbtv2ca_selected_course_client) {
+            cc_setgraphic("aif_bronze_icon_button_5,9");
+        } else {
+            cc_setgraphic("aif_bronze_icon_button_5,0");
+        }
+        cc_setonmouseover("script7261($int0)");
+        cc_setonmouseleave("script7262($int0)");
+        cc_setop(2, "Select");
+        cc_setonop("script7259($int0)");
+        cc_create(cbtv2ca_course_selection:course_list_background_layer, ^iftype_graphic, calc(3 * $int0 + 1));
+        cc_setposition(0, calc($int0 * 50 + 2), ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(14, 46, ^setsize_abs, ^setsize_abs);
+        if ($int0 = %cbtv2ca_selected_course_client) {
+            cc_setgraphic("aif_bronze_icon_button_5,11");
+        } else {
+            cc_setgraphic("aif_bronze_icon_button_5,2");
+        }
+        cc_setonmouseover("script7261($int0)");
+        cc_setonmouseleave("script7262($int0)");
+        cc_setop(2, "Select");
+        cc_setonop("script7259($int0)");
+        cc_create(cbtv2ca_course_selection:course_list_background_layer, ^iftype_graphic, calc(3 * $int0 + 2));
+        cc_setposition(19, calc($int0 * 50 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(33, 46, ^setsize_minus, ^setsize_abs);
+        if ($int0 = %cbtv2ca_selected_course_client) {
+            cc_setgraphic("aif_bronze_icon_button_5,10");
+        } else {
+            cc_setgraphic("aif_bronze_icon_button_5,1");
+        }
+        cc_setonmouseover("script7261($int0)");
+        cc_setonmouseleave("script7262($int0)");
+        cc_setop(2, "Select");
+        cc_setonop("script7259($int0)");
+        $struct1 = null;
+    }
+    $int0 = calc($int0 + 1);
+}

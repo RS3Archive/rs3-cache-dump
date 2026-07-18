@@ -1,0 +1,114 @@
+// 18202
+[proc,script18202](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, string $string0)
+def_int $int6 = 0;
+if (testbit(calc($int5 & 12858), 13) = ^true) {
+    $int6 = 1;
+}
+def_int $int7 = -1;
+def_struct $struct8 = null;
+def_struct $struct9 = null;
+def_component $component10 = null;
+def_component $component11 = null;
+def_component $component12 = null;
+def_component $component13 = null;
+def_component $component14 = null;
+def_dbrow $dbrow15 = null;
+def_int $int16 = -1;
+def_boolean $boolean17 = false;
+def_component $component18 = null;
+def_int $int19 = 0;
+def_int $int20 = -1;
+def_string $string1 = "";
+if (if_find(mtxmgt_store:item_buttons_layer) = true) {
+    cc_setparam(rs3tli_component_param_int0, -1);
+}
+$struct8 = enum(int, struct, mtxmgt_store_item_button_structs, ++$int7);
+$struct9 = enum(int, struct, mtxmgt_store_grid_ragdoll_structs, $int7);
+def_int $int21 = 0;
+if (if_find(mtxmgt_store:items_layer) = true) {
+    $int21 = max(0, cc_param(mtxmgt_first_visible_index));
+}
+$dbrow15, $int0 = ~script18193($dbrow15, $int21, $int0, $int6, $string0, $int2, $int3, $int4);
+while ($dbrow15 ! null & $struct8 ! null & $struct9 ! null) {
+    $string1 = ~script18200($dbrow15);
+    $component10 = struct_param($struct9, toplevel_v2_ragdoll_suboverlay_layer);
+    $component13 = struct_param($struct9, toplevel_v2_ragdoll_model_component);
+    if ($component10 ! null & $component13 ! null) {
+        $component11 = struct_param($struct9, toplevel_v2_ragdoll_layer);
+        $component12 = struct_param($struct9, toplevel_v2_ragdoll_loading_layer);
+        $component14 = struct_param($struct9, toplevel_v2_ragdoll_drag_layer);
+        if (.if_find($component10) = true & (.cc_param(mtxmgt_target_preview_subid) ! db_getfield($dbrow15, mtxmgt_cosmetic:col0, 0) | db_getfield($dbrow15, mtxmgt_cosmetic:col8, 0) = 13 & compare($string1, .cc_param(mtxmgt_name)) ! 0)) {
+            .cc_setparam(mtxmgt_target_preview_subid, db_getfield($dbrow15, mtxmgt_cosmetic:col0, 0));
+            .cc_setparam_string(mtxmgt_name, $string1);
+            .cc_setparam(mtxmgt_current_preview_subid, -1);
+            .cc_setparam(rs3tli_component_last_update, -1);
+            $int19 = 1;
+            if (db_getfield($dbrow15, mtxmgt_cosmetic:col5, 0) = 2) {
+                $int16 = db_getfield($dbrow15, mtxmgt_cosmetic:col6, 0);
+                if ($int16 = 19) {
+                    $int16 = ~script6256($dbrow15);
+                }
+            }
+        }
+        ~script18204($struct8, $dbrow15, $component10);
+        $boolean17 = ~script18197($struct8, $dbrow15);
+        ~script18198($struct8, $dbrow15);
+        if (if_find(struct_param($struct8, rs3tli_button_text_component)) = true) {
+            cc_settext("");
+        }
+        $component18 = struct_param($struct8, rs3tli_button_content_layer);
+        cc_deleteall($component18);
+        if ($boolean17 = true & .if_find($component10) = true) {
+            ~script18203($component10);
+            ~script13179($component18, $dbrow15);
+            $boolean17 = false;
+            $int19 = 0;
+        } else {
+            if_sethide(false, $component10);
+            ~script33($component11, ~script18199($dbrow15));
+            if ($component14 ! null) {
+                if_sethide(true, $component14);
+            }
+            if ($int19 = 1) {
+                if_sethide(true, $component13);
+                if_setmodel(null, $component13);
+                ~script9531($component12, 255);
+                ~spinner_show($component12);
+                ~script13146($component13, $int16, $dbrow15);
+                $int19 = 0;
+            }
+        }
+        $struct8 = enum(int, struct, mtxmgt_store_item_button_structs, ++$int7);
+        $struct9 = enum(int, struct, mtxmgt_store_grid_ragdoll_structs, $int7);
+        $int21 = calc($int21 + 1);
+        $dbrow15, $int0 = ~script18193($dbrow15, $int21, $int0, $int6, $string0, $int2, $int3, $int4);
+        $int16 = -1;
+    } else {
+        $dbrow15 = null;
+    }
+}
+$int0 = calc($int0 + ~script18194($dbrow15, $int6, $string0, $int2, $int3, $int4));
+while ($struct8 ! null & .if_find(if_getlayer(struct_param($struct8, rs3tli_button_on_layer))) = true) {
+    if (.cc_getwidth ! 0) {
+        .cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+        $struct8 = enum(int, struct, mtxmgt_store_item_button_structs, ++$int7);
+    } else {
+        $struct8 = null;
+    }
+}
+if ($struct9 ! null & enum_getreversecount(struct, mtxmgt_store_grid_ragdoll_structs, $struct9) > 0) {
+    $int7 = enum_getreverseindex(struct, int, mtxmgt_store_grid_ragdoll_structs, $struct9, 0);
+}
+while ($struct9 ! null) {
+    $component10 = struct_param($struct9, toplevel_v2_ragdoll_suboverlay_layer);
+    if ($component10 ! null) {
+        ~script18203($component10);
+        $struct9 = enum(int, struct, mtxmgt_store_grid_ragdoll_structs, ++$int7);
+    } else {
+        $struct9 = null;
+    }
+}
+if (if_find(mtxmgt_store:filter_error_message_layer) = true) {
+    ~script13248($int0, $string0, mtxmgt_store:filter_error_message_layer);
+}
+~script13172($int0, 0);

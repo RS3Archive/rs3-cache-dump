@@ -1,0 +1,16 @@
+// 15657
+[proc,script15657]
+def_component $component0 = loginscreen:audio_cross;
+switch_toplevelinterface (if_gettop) {
+    case lobbyscreen :
+        $component0 = lobbyscreen_pane_options:audio_cross;
+    case loginscreen :
+        if (~script6431 = true) {
+            $component0 = loginscreen:mobile_mute_audio_cross;
+        }
+}
+if (detailget_loginvol > 0) {
+    if_sethide(true, $component0);
+} else {
+    if_sethide(false, $component0);
+}

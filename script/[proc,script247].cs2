@@ -1,0 +1,29 @@
+// 247
+[proc,script247](int $int0, struct $struct1, string $string0, string $string1, int $int2, int $int3)(string, int, int, boolean)
+def_boolean $boolean4 = false;
+switch_struct ($struct1) {
+    case item_set_struct_skilling_prayer :
+        if ($int0 = 2 & %wof_reward_prayer_cape = 0 & inv_getobj(worn, 1) ! wof36_skill_prayer_cape) {
+            $boolean4 = true;
+        } else if ((oc_param(inv_getobj(worn, 1), skillcape_max) = 1 | oc_param(inv_getobj(worn, 1), skillcape_completionist) = 1 | inv_getobj(worn, 1) = njcapes_combat_cape) & ~script13040(7, 0) = true) {
+            $int3 = 1;
+            return($string0, $int2, $int3, $boolean4);
+        }
+    case item_set_struct_skilling_cooking :
+        if ($int0 = 3 & %wof_reward_cooking_hands = 0 & inv_getobj(worn, 9) = gauntlets_of_cooking) {
+            $boolean4 = true;
+        }
+    case item_set_struct_skilling_smithing :
+        if ($int0 = 3 & %wof_reward_smithing_hands = 0 & inv_getobj(worn, 9) = gauntlets_of_goldsmithing) {
+            $boolean4 = true;
+        }
+    case item_set_struct_skilling_agility :
+        if ($int0 = 5 & %trh85_agility_feet_unlocked = 0 & oc_category(inv_getobj(worn, 10)) = trh5_pegasus_boots) {
+            $boolean4 = true;
+        }
+}
+if ($boolean4 = true) {
+    $string0 = $string1;
+    $int2 = 1;
+}
+return($string0, $int2, $int3, $boolean4);

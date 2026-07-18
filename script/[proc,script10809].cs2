@@ -1,0 +1,42 @@
+// 10809
+[proc,script10809]
+def_component $component0 = mtxmgt_purchase:runecoins_layer;
+def_component $component1 = mtxmgt_purchase:runecoins_bg_layer;
+def_component $component2 = mtxmgt_purchase:runecoins_content_layer;
+def_component $component3 = mtxmgt_purchase:runecoins_button_layer;
+def_component $component4 = mtxmgt_purchase:runecoins_button_text;
+def_component $component5 = mtxmgt_purchase:buy_runecoins_button_layer;
+def_component $component6 = mtxmgt_purchase:bonds_to_runecoins_button_layer;
+cc_deleteall($component2);
+def_int $int7 = -1;
+def_int $int8 = calc(%mtxmgt_total_tradeable_bonds + %mtxmgt_total_untradeable_bonds);
+if (%mtxmgt_purchase_struct ! null) {
+    $int7 = ~script10813(%mtxmgt_purchase_rc_price);
+}
+if ($int7 ! -1) {
+    ~script10812($component2, $component5, rs3_icon_general_store_runecoin, null, 34, 35, "RuneCoins", $int7, %mtxmgt_total_runecoins, 0);
+    if (%mtxmgt_total_runecoins < $int7) {
+        if_sethide(false, $component5);
+        if ($int8 > 0) {
+            if_sethide(false, $component6);
+        } else {
+            if_sethide(true, $component6);
+        }
+        if_sethide(true, $component3);
+    } else {
+        if_sethide(true, $component5);
+        if_sethide(true, $component6);
+        if_sethide(false, $component3);
+        if ($int7 = 0) {
+            if_settext("Claim", $component4);
+        } else {
+            if_settext("Buy", $component4);
+        }
+    }
+    ~rs3_background_panel($component1, rs3_content_container_active);
+    if_sethide(false, $component0);
+    if_setonvarctransmit("script10807{mtxmgt_total_runecoins, mtxmgt_total_tradeable_bonds, mtxmgt_total_untradeable_bonds}", $component0);
+} else {
+    if_sethide(true, $component0);
+    if_setonvarctransmit(null, $component0);
+}

@@ -1,0 +1,46 @@
+// 20263
+[proc,script20263]
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
+if (~script20132($dbrow0) = false) {
+    ~script20254;
+    return;
+}
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col8, 0);
+def_dbrow $dbrow2 = db_getfield($dbrow1, league_relic_list:col0, %league_relic_selected_tier);
+if ($dbrow2 = null) {
+    ~script20254;
+    return;
+}
+def_dbrow $dbrow3 = db_getfield($dbrow2, league_relic_tier:col1, %league_relic_selected_id);
+if ($dbrow3 = null) {
+    ~script20254;
+    return;
+}
+~script20264($dbrow2, $dbrow3);
+~script20268($dbrow1);
+if_sethide(false, league_parent_relics:relic_info);
+if_sethide(false, league_parent_relics:passive_info);
+if_sethide(true, league_parent_relics:relic_contents);
+if_sethide(true, league_parent_relics:progress_bar);
+if_sethide(true, league_parent_relics:relic_scrollbar);
+if_sethide(true, league_parent_relics:confirm_popup);
+cc_deleteall(league_parent_relics:overview_scrolling_contents);
+cc_deleteall(league_parent_relics:overview_scrolling_toggles);
+def_string $string0 = db_getfield($dbrow3, league_relic:col0, 0);
+def_graphic $graphic4 = db_getfield($dbrow3, league_relic:col3, 0);
+def_boolean $boolean5 = ~league_relic_active($dbrow3);
+if_settext("Tier <tostring(calc(%league_relic_selected_tier + 1))> Relics", league_parent_relics:detailed_window_title);
+if ($boolean5 = false & ~script20142(%league_relic_selected_tier) = true) {
+    if_setenabled(true, league_parent_relics:overview_unlock);
+} else {
+    if_setenabled(false, league_parent_relics:overview_unlock);
+}
+def_int $int6 = 4;
+def_int $int7 = 0;
+def_int $int8 = if_getwidth(league_parent_relics:overview_scrolling);
+if (if_find(league_parent_relics:overview_scrolling_contents) = true) {
+    $int7, $int6 = ~script20266($dbrow3, $int7, $int6, $int8);
+    $int7, $int6 = ~script20265($dbrow3, $int7, $int6, $int8, $boolean5);
+    $int7, $int6 = ~script20267($dbrow3, $int7, $int6, $int8);
+}
+~script19620(league_parent_relics:overview_scrollbar, league_parent_relics:overview_scrolling, $int6, null, -1, 0, 8, 4);

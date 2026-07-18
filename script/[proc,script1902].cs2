@@ -1,0 +1,67 @@
+// 1902
+[proc,script1902](component $component0, component $component1, component $component2, int $int3)
+~script8618($int3, -1);
+def_int $int4 = chatphrase_find(~script8611($int3), false);
+def_int $int5 = if_getwidth($component1);
+def_int $int6 = calc($int5 - 8);
+if ($int4 = -1) {
+    cc_create($component1, ^iftype_text, 0);
+    cc_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int5, 14, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext("Too many results. Please refine your search.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    cc_settextshadow(true);
+    if_setscrollsize(0, 0, $component1);
+    ~script1905($component1, $component2);
+    return;
+}
+if ($int4 = 0) {
+    cc_create($component1, ^iftype_text, 0);
+    cc_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int5, 14, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext("No matching items found.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    cc_settextshadow(true);
+    if_setscrollsize(0, 0, $component1);
+    ~script1905($component1, $component2);
+    return;
+}
+def_int $int7 = 1;
+def_chatphrase $chatphrase8 = chatphrase_findnext;
+def_string $string0 = "";
+cc_create($component1, ^iftype_rectangle, 0);
+while ($chatphrase8 ! null) {
+    if (compare($string0, chatphrase_gettext($chatphrase8)) ! 0) {
+        $string0 = chatphrase_gettext($chatphrase8);
+        cc_create($component1, ^iftype_text, $int7);
+        cc_setposition(4, calc(14 * ($int7 - 1)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int6, 14, ^setsize_abs, ^setsize_abs);
+        cc_setcolour(^white);
+        cc_settext(chatphrase_gettext($chatphrase8));
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextshadow(true);
+        cc_setonmouseover("script1906($int7, $component1, $int3)");
+        cc_setonclick("quickchat_phrase($component0, $chatphrase8, 0, $int3)");
+        $int7 = calc($int7 + 1);
+    }
+    $chatphrase8 = chatphrase_findnext;
+}
+if ($int7 = 1) {
+    cc_create($component1, ^iftype_text, 0);
+    cc_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int5, 14, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext("No matching items found.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(^white);
+    cc_settextshadow(true);
+    if_setscrollsize(0, 0, $component1);
+    ~script1905($component1, $component2);
+    return;
+}
+if_setscrollsize(0, calc(14 * ($int7 - 1)), $component1);
+~script1905($component1, $component2);

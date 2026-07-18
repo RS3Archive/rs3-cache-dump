@@ -1,0 +1,81 @@
+// 15517
+[proc,script15517](int $int0, int $int1, int $int2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8)(int, int)
+def_int $int9 = 2;
+def_int $int10 = 4;
+def_string $string0 = "";
+def_string $string1 = "";
+def_dbrow $dbrow11 = null;
+def_graphic $graphic12 = "fairy_rings_icon_favourite,1";
+def_graphic $graphic13 = "fairy_rings_icon_favourite,0";
+db_find(fairyrings:col0, $int0);
+$dbrow11 = db_findnext;
+if ($dbrow11 = null) {
+    return($int1, $int2);
+}
+def_int $int14 = db_getfield($dbrow11, fairyrings:col1, 0);
+if (~script3101($int14) = 1 & ~script15320($int14) = true & ~script3104($int14) = true) {
+    $string0 = db_getfield($dbrow11, fairyrings:col2, 0);
+    $string1 = db_getfield($dbrow11, fairyrings:col3, 0);
+    if (db_getfield($dbrow11, fairyrings:col5, 0) ! null) {
+        $string0 = ~script12398($dbrow11);
+    }
+    if (cc_find($component4, $int0) = true) {
+        cc_setsize(0, 32, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, calc($int1 + (36 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        if (~script10989($int14) = true) {
+            cc_setop(1, "Remove favourite");
+        } else {
+            cc_setop(1, "Add favourite");
+        }
+        cc_setopbase($string0);
+    }
+    if (cc_find($component8, $int0) = true) {
+        cc_setsize(0, 36, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setop(1, "Select");
+        cc_setopbase($string0);
+    }
+    if (cc_find($component3, $int0) = true) {
+        cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, calc($int1 + (36 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setmouseovercursor(cursor_use);
+        cc_setparam(fairyrings_favourite_slot, ~script10990($int14));
+        if (~script10989($int14) = true) {
+            cc_setgraphic($graphic12);
+        } else {
+            cc_setgraphic($graphic13);
+        }
+    }
+    if (cc_find($component5, $int0) = true) {
+        cc_setsize(0, 36, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setfill(true);
+        cc_setmouseovercursor(cursor_use);
+        if (calc($int2 % 2) = 0) {
+            ~script1341(rs3_rect_light);
+        } else {
+            ~script1341(rs3_rect_dark);
+        }
+        $int2 = calc($int2 + 1);
+    }
+    if (cc_find($component6, $int0) = true) {
+        cc_setsize(calc(2 * $int10), calc(36 - $int9), ^setsize_minus, ^setsize_abs);
+        cc_setposition($int10, calc($int1 + $int9), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext($string0);
+        cc_setcolour(~script10495(2));
+        cc_settextfont(museo_sans_13pt_bold);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settextshadow(true);
+    }
+    if (cc_find($component7, $int0) = true) {
+        cc_setsize(calc(2 * $int10), calc(36 - 2 * $int9), ^setsize_minus, ^setsize_abs);
+        cc_setposition($int10, calc($int1 + $int9), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext($string1);
+        cc_setcolour(~script10495(3));
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_bottom, 0);
+        cc_settextshadow(true);
+    }
+    $int1 = calc($int1 + (36 + $int9));
+}
+return($int1, $int2);

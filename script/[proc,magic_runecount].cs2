@@ -1,0 +1,67 @@
+// 19
+[proc,magic_runecount](obj $obj0)(int)
+switch_obj ($obj0) {
+    case airrune :
+        return(%combatv2_runecount_air);
+    case waterrune :
+        return(%combatv2_runecount_water);
+    case firerune :
+        return(%combatv2_runecount_fire);
+    case earthrune :
+        return(%combatv2_runecount_earth);
+    case dustrune :
+        return(%combatv2_runecount_dust);
+    case mudrune :
+        return(%combatv2_runecount_mud);
+    case smokerune :
+        return(%combatv2_runecount_smoke);
+    case steamrune :
+        return(%combatv2_runecount_steam);
+    case mistrune :
+        return(%combatv2_runecount_mist);
+    case lavarune :
+        return(%combatv2_runecount_lava);
+    case mindrune :
+        return(%combatv2_runecount_mind);
+    case bodyrune :
+        return(%combatv2_runecount_body);
+    case soulrune :
+        return(%combatv2_runecount_soul);
+    case bloodrune :
+        return(%combatv2_runecount_blood);
+    case cosmicrune :
+        return(%combatv2_runecount_cosmic);
+    case astralrune :
+        return(%combatv2_runecount_astral);
+    case deathrune :
+        return(%combatv2_runecount_death);
+    case lawrune :
+        return(%combatv2_runecount_law);
+    case chaosrune :
+        return(%combatv2_runecount_chaos);
+    case naturerune :
+        return(%combatv2_runecount_nature);
+    case timerune :
+        return(%combatv2_runecount_time);
+    case mah5_armadyl_rune :
+        return(%combatv2_runecount_armadyl);
+    case pest_interface_staffs :
+        return(calc(~inv_total_available(worn, guthix_staff) + ~inv_total_available(worn, pest_void_knight_mace)));
+    case slayer_staff :
+        return(calc(~inv_total_available(worn, slayer_staff) + ~inv_total_available(worn, staff_of_light) + ~inv_total_available(worn, staff_of_darkness_charged) + ~inv_total_available(worn, lent_staff_of_light) + ~inv_total_available(worn, staff_of_light_red) + ~inv_total_available(worn, staff_of_light_green) + ~inv_total_available(worn, staff_of_light_blue) + ~inv_total_available(worn, staff_of_light_yellow) + ~inv_total_available(worn, dt14_abyssal_wand) + ~inv_total_available(worn, dt14_abyssal_wand_augmented) + ~inv_total_available(worn, lent_dt14_abyssal_wand) + ~inv_total_available(worn, dt14_abyssal_orb) + ~inv_total_available(worn, lent_dt14_abyssal_orb) + ~inv_total_available(worn, dt14_abyssal_orb_augmented) + ~inv_total_available(worn, staff_of_light_augmented) + ~inv_total_available(worn, staff_of_darkness_augmented)));
+    case ibanstaff, saradomin_staff, zamorak_staff :
+        return(~inv_total_available(worn, $obj0));
+    case pvpw_staff :
+        if (~inv_total_available(worn, pvpw_staff_used) > 0) {
+            return(~inv_total_available(worn, pvpw_staff_used));
+        } else if (~inv_total_available(worn, pvpw_staff_20) > 0) {
+            return(~inv_total_available(worn, pvpw_staff_20));
+        } else if (~inv_total_available(worn, pvpw_staff_20_used) > 0) {
+            return(~inv_total_available(worn, pvpw_staff_20_used));
+        } else {
+            return(~inv_total_available(worn, $obj0));
+        }
+    case hlr4m_power_amulet_charged :
+        return(~inv_total_available(worn, hlr4m_power_amulet_charged));
+}
+return(0);

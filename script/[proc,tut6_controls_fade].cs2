@@ -1,0 +1,107 @@
+// 15386
+[proc,tut6_controls_fade](int $int0, int $int1)
+def_int $int2 = 0;
+def_component $component3 = null;
+def_int $int4 = 0;
+def_component $component5 = null;
+while ($int2 < 9) {
+    switch_int ($int1) {
+        case 1 :
+            switch_int ($int2) {
+                case 0 :
+                    $component5 = tut6_controls:page1_slot1_click;
+                    $component3 = tut6_controls:page1_slot1_window_background;
+                case 1 :
+                    $component3 = tut6_controls:page1_slot1_window_content;
+                case 2 :
+                    $component3 = tut6_controls:page1_slot1_window_border;
+                case 3 :
+                    $component5 = tut6_controls:page1_slot2_click;
+                    $component3 = tut6_controls:page1_slot2_window_background;
+                case 4 :
+                    $component3 = tut6_controls:page1_slot2_window_content;
+                case 5 :
+                    $component3 = tut6_controls:page1_slot2_window_border;
+                case 6 :
+                    $component5 = tut6_controls:page1_slot3_click;
+                    $component3 = tut6_controls:page1_slot3_window_background;
+                case 7 :
+                    $component3 = tut6_controls:page1_slot3_window_content;
+                case 8 :
+                    $component3 = tut6_controls:page1_slot3_window_border;
+            }
+        case 2 :
+            switch_int ($int2) {
+                case 0 :
+                    $component5 = tut6_controls:page2_slot1_click;
+                    $component3 = tut6_controls:page2_slot1_window_background;
+                case 1 :
+                    $component3 = tut6_controls:page2_slot1_window_content;
+                case 2 :
+                    $component3 = tut6_controls:page2_slot1_window_border;
+                case 3 :
+                    $component5 = tut6_controls:page2_slot2_click;
+                    $component3 = tut6_controls:page2_slot2_window_background;
+                case 4 :
+                    $component3 = tut6_controls:page2_slot2_window_content;
+                case 5 :
+                    $component3 = tut6_controls:page2_slot2_window_border;
+                case 6 :
+                    $component5 = tut6_controls:page2_slot3_click;
+                    $component3 = tut6_controls:page2_slot3_window_background;
+                case 7 :
+                    $component3 = tut6_controls:page2_slot3_window_content;
+                case 8 :
+                    $component3 = tut6_controls:page2_slot3_window_border;
+            }
+        case 3 :
+            switch_int ($int2) {
+                case 0 :
+                    $component5 = tut6_controls:page3_slot1_click;
+                    $component3 = tut6_controls:page3_slot1_window_background;
+                case 1 :
+                    $component3 = tut6_controls:page3_slot1_window_content;
+                case 2 :
+                    $component3 = tut6_controls:page3_slot1_window_border;
+                case 3 :
+                    $component5 = tut6_controls:page3_slot2_click;
+                    $component3 = tut6_controls:page3_slot2_window_background;
+                case 4 :
+                    $component3 = tut6_controls:page3_slot2_window_content;
+                case 5 :
+                    $component3 = tut6_controls:page3_slot2_window_border;
+                case 6 :
+                    $component5 = tut6_controls:page3_slot3_click;
+                    $component3 = tut6_controls:page3_slot3_window_background;
+                case 7 :
+                    $component3 = tut6_controls:page3_slot3_window_content;
+                case 8 :
+                    $component3 = tut6_controls:page3_slot3_window_border;
+            }
+        case default :
+            ~error("Unhandled $page : <tostring($int1)>");
+            return;
+    }
+    $int4 = calc(if_getnextsubid($component3) - 1);
+    while ($int4 >= 0) {
+        if (cc_find($component3, $int4) = true) {
+            switch_int ($int0) {
+                case 0 :
+                    cc_settrans(255);
+                    cc_setontimer(null);
+                    if ($component5 ! null) {
+                        if_sethide(true, $component5);
+                    }
+                case 1 :
+                    ~cc_fadein(50, $component5);
+                case 2 :
+                    ~cc_fadeout(50, $component5);
+                case default :
+                    ~error("Unhandled $fade_type : <tostring($int0)>");
+                    return;
+            }
+        }
+        $int4 = calc($int4 - 1);
+    }
+    $int2 = calc($int2 + 1);
+}

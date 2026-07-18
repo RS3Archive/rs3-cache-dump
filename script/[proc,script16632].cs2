@@ -1,0 +1,22 @@
+// 16632
+[proc,script16632](dbrow $dbrow0)(boolean)
+def_int $int1 = db_getfield($dbrow0, invent_machine_table:col9, 0);
+if ($int1 = -1) {
+    return(false);
+}
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = db_getfield($dbrow0, invent_machine_table:col10, 0);
+def_int $int5 = -1;
+def_int $int6 = 2;
+while ($int6 <= 7) {
+    $int5 = ~script16603($int6);
+    if ($int5 > 0) {
+        $int3 = db_getfield(enum(int, dbrow, invent_machine_dbrows, $int5), invent_machine_table:col10, 0);
+        if ($int3 = $int4 & ++$int2 >= $int1) {
+            return(true);
+        }
+    }
+    $int6 = calc($int6 + 1);
+}
+return(false);

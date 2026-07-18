@@ -1,0 +1,118 @@
+// 2596
+[proc,graphics_options_rebuild](int $int0, int $int1, int $int2, int $int3)
+if (~is_mobile_client = true) {
+    return;
+}
+~script3451($int0, $int1, $int2, $int3);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = -1;
+def_component $component12 = graphics_options_v2_client:dynamic_build;
+def_component $component13 = graphics_options_v2_client:dynamic_click;
+def_component $component14 = graphics_options_v2_client:advanced_bg;
+def_component $component15 = graphics_options_v2_client:brightness_dragzone;
+def_component $component16 = graphics_options_v2_client:brightness_slider;
+def_component $component17 = graphics_options_v2_client:brightness_container;
+def_component $component18 = graphics_options_v2_client:brightness_bg;
+def_int $int19 = enum_getoutputcount(graphics_options_nxt);
+def_int $int20 = calc(5 + $int2 + 24);
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_struct $struct23 = null;
+def_enum $enum24 = null;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_struct $struct27 = null;
+def_boolean $boolean28 = false;
+def_int $int29 = 0;
+cc_deleteall($component12);
+cc_deleteall($component14);
+~script10084("Brightness", $int4, $int7, $component12, 28);
+cc_setsize(cc_getwidth, 28, ^setsize_abs, ^setsize_abs);
+cc_setonmouserepeat("script3876(struct_param(graphics_options_game_brightness_mobile, settings_desc), event_com, event_comsubid)");
+if_setposition(calc(cc_getx - 4), cc_gety, ^setpos_abs_left, ^setpos_abs_top, $component18);
+if_setsize(calc(cc_getwidth + 4), cc_getheight, ^setsize_abs, ^setsize_abs, $component18);
+if_setsize(126, 19, ^setsize_abs, ^setsize_abs, $component17);
+if_setposition(calc(cc_getx + (cc_getwidth - if_getwidth($component17)) + 5), calc(cc_gety + 3), ^setpos_abs_left, ^setpos_abs_top, $component17);
+~rs3_background_panel($component18, rs3_content_container_active);
+$int7 = calc($int7 + (28 + 3));
+$int9 = $int7;
+~loginscreen_brightness($component15, $component16);
+if_setdraggable($component15, -1, $component16);
+while ($int22 < $int19) {
+    $struct23 = enum(int, struct, graphics_options_nxt, $int22);
+    if (struct_param($struct23, settings_vis) ! 2) {
+        $enum24 = struct_param($struct23, graphics_options_strings);
+        $int21 = ~graphics_options_detailget($struct23);
+        if ($int21 <= -1) {
+            if (cc_find($component12, $int11) = true) {
+                cc_setcolour(~script10495(3));
+            }
+            $boolean28 = true;
+            if (struct_param($struct23, graphics_options_hide_if_disabled) = true) {
+                $int29 = 1;
+            } else {
+                $int29 = 0;
+            }
+            $struct27 = rs3tli_content_panel_dark_grey;
+        } else {
+            $boolean28 = false;
+            $int29 = 0;
+            $struct27 = rs3tli_content_panel_blue;
+        }
+        if ($int29 = 0) {
+            if ($int4 = 0) {
+                $int4 = 1;
+                $int7 = $int10;
+            } else {
+                $int4 = 0;
+                $int7 = $int9;
+            }
+            $int11 = ~script10084(struct_param($struct23, graphics_options_name), $int4, $int7, $component12, 28);
+            if (($int3 = 1 | $int3 = 0) & cc_find($component12, $int11) = true) {
+                if (string_length(struct_param($struct23, graphics_options_tooltip)) = 0) {
+                    cc_setonmouserepeat("script3876(struct_param($struct23, settings_desc), event_com, event_comsubid)");
+                } else {
+                    cc_setonmouserepeat("script3876(struct_param($struct23, graphics_options_tooltip), event_com, event_comsubid)");
+                }
+            }
+            $int5 = calc(cc_getx - 4);
+            $int6 = calc(cc_getwidth + 4);
+            $int8 = cc_getheight;
+            switch_enum ($enum24) {
+                case ogl_top_on_off, ogl_top_dof, ogl_top_yes_no :
+                    cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize(calc(cc_getwidth - 24 - 4), cc_getheight, ^setsize_abs, ^setsize_abs);
+                case default :
+                    cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                    cc_setsize(calc(cc_getwidth - $int20 - 4), cc_getheight, ^setsize_abs, ^setsize_abs);
+            }
+            ~script10410($component14, null, $struct27, $int5, $int7, $int6, $int8, -1, false, "");
+            switch_enum ($enum24) {
+                case ogl_top_on_off, ogl_top_dof, ogl_top_yes_no :
+                    $int25, $int26 = ~dynamic_checkbox_create_disable($component12, $component13, calc($int5 + $int6 - 3 - 18), calc($int7 + 4), $int26, $int21, $boolean28);
+                case default :
+                    $int25, $int26 = ~dynamic_dropdown_create_disable($component12, $component13, calc($int5 + $int6 - $int20 - 2), calc($int7 + 2), $int20, $int26, $enum24, null, "", $int21, 0, $boolean28);
+            }
+            $int7 = calc($int7 + (28 + 3));
+            if ($int4 = 1) {
+                $int10 = $int7;
+            } else {
+                $int9 = $int7;
+            }
+        }
+    }
+    $int22 = calc($int22 + 1);
+}
+def_int $int30 = calc(if_gety(graphics_options_v2_client:advanced_layer) + if_gety(graphics_options_v2_client:advanced_build_area) + max($int9, $int10));
+switch_int ($int3) {
+    case 0, 4 :
+        $int30 = calc(if_gety(loginscreen_graphics_options:mainmodal_window_content) + $int30 + 10);
+        if_setsize(if_getwidth(loginscreen_graphics_options:contents), $int30, ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:contents);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:contents);
+}

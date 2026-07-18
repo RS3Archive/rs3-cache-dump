@@ -1,0 +1,12 @@
+// 16347
+[proc,script16347](struct $struct0)(string)
+def_dbrow $dbrow1 = struct_param($struct0, trh_promo_info_dbrow);
+if ($dbrow1 = null) {
+    ~error("Attempted to get desc of promo <tostring(enum_getreverseindex(struct, int, trh_promos, $struct0, 0))> which did not have a dbrow specified on trh_promo_info_dbrow");
+    return("");
+}
+if (db_getrowtable($dbrow1) ! trh_promo_info) {
+    ~error("Attempted to get desc of promo <tostring(enum_getreverseindex(struct, int, trh_promos, $struct0, 0))> but the dbrow on param trh_promo_info_dbrow was invalid");
+    return("");
+}
+return(~script16348($dbrow1));

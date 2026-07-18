@@ -1,0 +1,35 @@
+// 20479
+[proc,script20479](dbrow $dbrow0, string $string0)
+cc_settext($string0);
+if (string_length($string0) = 0) {
+    return;
+}
+def_stylesheet $stylesheet1 = ~script20489($dbrow0);
+if ($stylesheet1 = null | stylesheet_has_value($stylesheet1, "groupbox.header.width") = false | stylesheet_has_value($stylesheet1, "groupbox.header.height") = false) {
+    return;
+}
+def_int $int2 = stylesheet_get_value($stylesheet1, "groupbox.header.width", 0);
+if ($int2 <= 65000) {
+    return;
+}
+def_int $int3 = stylesheet_get_value($stylesheet1, "groupbox.header.height", 0);
+def_int $int4 = stylesheet_get_value($stylesheet1, "groupbox.header.width.min", 20);
+def_int $int5 = stylesheet_get_value($stylesheet1, "groupbox.header.width.spacing", 4);
+def_int $int6 = stylesheet_get_value($stylesheet1, "groupbox.header.alignment", 0);
+switch_int ($int2) {
+    case 65535 :
+        cc_groupbox_setheaderlayout(min(255, cc_getwidth), $int3, 0, 0, $int6);
+    case 65534 :
+        if (stylesheet_has_value($stylesheet1, "groupbox.header.background.sprite.edge.horizontal") = true) {
+            $int2 = calc(2 * stylesheet_get_value($stylesheet1, "groupbox.header.background.sprite.edge.horizontal", 0));
+            $int2 = calc($int2 + parawidth($string0, ^max_32bit_int, cc_getfontmetrics));
+            $int2 = calc($int2 + $int5 * 2);
+        } else if (stylesheet_has_value($stylesheet1, "groupbox.header.background.sprite.edge.left") = true & stylesheet_has_value($stylesheet1, "groupbox.header.background.sprite.edge.right") = true) {
+            $int2 = calc(stylesheet_get_value($stylesheet1, "groupbox.header.background.sprite.edge.left", 0) + stylesheet_get_value($stylesheet1, "groupbox.header.background.sprite.edge.right", 0));
+            $int2 = calc($int2 + parawidth($string0, ^max_32bit_int, cc_getfontmetrics));
+            $int2 = calc($int2 + $int5 * 2);
+        } else {
+            $int2 = cc_getwidth;
+        }
+        cc_groupbox_setheaderlayout(min(min(255, max($int2, $int4)), cc_getwidth), $int3, 0, 0, $int6);
+}

@@ -1,0 +1,15 @@
+// 20709
+[proc,script20709]
+if (%construction_house_furniture_portal_nexus_drag_over_last = -1) {
+    return;
+}
+if (%construction_house_furniture_portal_nexus_drag_over_last = 43) {
+    if (cc_findbycategory(construction_house_furniture_portal_nexus_configure:active_scrolling, %construction_house_furniture_portal_nexus_drag_over_last, 1) = 1) {
+        cc_sethide(true);
+    }
+} else if (cc_findbycategory(construction_house_furniture_portal_nexus_configure:active_scrolling, %construction_house_furniture_portal_nexus_drag_over_last, 0) = 1) {
+    cc_setsize(0, 34, ^setsize_minus, ^setsize_abs);
+    if_setscrollsize(0, calc(if_getscrollheight(construction_house_furniture_portal_nexus_configure:active_scrolling) - 34), construction_house_furniture_portal_nexus_configure:active_scrolling);
+    ~scrollbar_resize(construction_house_furniture_portal_nexus_configure:active_scrollbar, construction_house_furniture_portal_nexus_configure:active_scrolling, if_getscrolly(construction_house_furniture_portal_nexus_configure:active_scrolling));
+}
+%construction_house_furniture_portal_nexus_drag_over_last = -1;

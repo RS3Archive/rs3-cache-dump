@@ -1,0 +1,25 @@
+// 102
+[proc,meslayer_mode1](string $string0)
+if (%meslayermode > 1) {
+    return;
+}
+if_sethide(false, meslayer:root);
+if_settextfont(q8_full, meslayer:mes_text);
+if_settextfont(q8_full, meslayer:mes_text2);
+if_setsize(0, 20, ^setsize_minus, ^setsize_minus, meslayer:mes_text);
+if_setsize(0, 20, ^setsize_minus, ^setsize_abs, meslayer:mes_text2);
+def_int $int0 = calc((if_getheight(meslayer:mes_layer) - 60 - 20) / 2 + 60);
+if_setposition(0, calc((if_getheight(meslayer:mes_layer) - 40 - $int0) / 2), ^setpos_abs_centre, ^setpos_abs_top, meslayer:mes_text);
+if_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_top, meslayer:mes_text2);
+if_settext($string0, meslayer:mes_text);
+if_settext("Select to continue", meslayer:mes_text2);
+%meslayermode = 1;
+if_setonclick("meslayer_close", meslayer:mes_layer);
+cc_deleteall(meslayer:mes_layer);
+if_setcolour(0x000080, meslayer:mes_text2);
+if_setonmouserepeat("text_colour_swapper(event_com, 16777215)", meslayer:mes_text2);
+if_setonmouseleave("text_colour_swapper(event_com, 128)", meslayer:mes_text2);
+if_sethide(true, meslayer:caret);
+if_setontimer(null, meslayer:mes_text2);
+if_setonclick(null, meslayer:mes_text2);
+if_setonsubchange("script3450(1)", meslayer:mes_text2);

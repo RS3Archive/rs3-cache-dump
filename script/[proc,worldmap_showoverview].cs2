@@ -1,0 +1,21 @@
+// 1374
+[proc,worldmap_showoverview](int $int0)
+def_string $string0 = "";
+if ($int0 = 1) {
+    if_sethide(false, worldmap_v2_ui:overviewframe);
+    %varclientbit_21368 = 0;
+    if_setop(1, "Hide overview", worldmap_v2_ui:overviewtoggle_active_layer);
+    if_setsize(if_getwidth(worldmap_v2_ui:funclistframe), if_getheight(worldmap_v2_ui:overviewframe), ^setsize_abs, ^setsize_minus, worldmap_v2_ui:funclistframe);
+    $string0 = "Hide overview";
+    if_setonmouserepeat("script8799($string0, event_com, -1)", worldmap_v2_ui:overviewtoggle_active_layer);
+} else {
+    if_sethide(true, worldmap_v2_ui:overviewframe);
+    %varclientbit_21368 = 1;
+    if_setop(1, "Show overview", worldmap_v2_ui:overviewtoggle_active_layer);
+    if_setsize(if_getwidth(worldmap_v2_ui:funclistframe), 0, ^setsize_abs, ^setsize_minus, worldmap_v2_ui:funclistframe);
+    $string0 = "Show overview";
+    if_setonmouserepeat("script8799($string0, event_com, -1)", worldmap_v2_ui:overviewtoggle_active_layer);
+}
+if_setonop("worldmap_toggleoverview", worldmap_v2_ui:overviewtoggle_active_layer);
+~script9581(worldmap_v2_ui:funclistframe_groups);
+~worldmap_key_build_scrollbar(worldmap_v2_ui:key, worldmap_v2_ui:key_scrollbar);

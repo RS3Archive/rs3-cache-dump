@@ -1,0 +1,35 @@
+// 773
+[clientscript,script773](int $int0, int $int1, component $component2)
+def_int $int3 = if_getwidth($component2);
+def_int $int4 = if_getheight($component2);
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find($component2, $int0) = true) {
+    $int5 = calc(if_getwidth($component2) - cc_getwidth);
+    $int6 = calc(if_getheight($component2) - cc_getheight);
+    if (calc($int1 % 40) < 20) {
+        switch_int (cc_get2dangle) {
+            case 49152 :
+                cc_setposition(calc(cc_getx + 3), calc($int4 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+            case 16384 :
+                cc_setposition(calc(cc_getx - 3), calc($int4 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+            case 32768 :
+                cc_setposition(calc($int3 / 2 - cc_getwidth / 2), calc(cc_gety + 3), ^setpos_abs_left, ^setpos_abs_top);
+            case 0 :
+                cc_setposition(calc($int3 / 2 - cc_getwidth / 2), calc(cc_gety - 3), ^setpos_abs_left, ^setpos_abs_top);
+        }
+    } else {
+        switch_int (cc_get2dangle) {
+            case 49152 :
+                cc_setposition(calc(cc_getx - 3), calc($int4 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+            case 16384 :
+                cc_setposition(calc(cc_getx + 3), calc($int4 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+            case 32768 :
+                cc_setposition(calc($int3 / 2 - cc_getwidth / 2), calc(cc_gety - 3), ^setpos_abs_left, ^setpos_abs_top);
+            case 0 :
+                cc_setposition(calc($int3 / 2 - cc_getwidth / 2), calc(cc_gety + 3), ^setpos_abs_left, ^setpos_abs_top);
+        }
+    }
+    $int1 = calc($int1 + 1);
+    cc_setontimer("script773($int0, $int1, $component2)");
+}

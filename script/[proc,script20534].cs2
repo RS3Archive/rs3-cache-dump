@@ -1,0 +1,30 @@
+// 20534
+[proc,script20534](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+while ($int6 < $int1) {
+    $int9 = calc($int7 * $int3);
+    $int10 = calc($int8 * $int4);
+    $int11 = calc($int6 * 4);
+    if (cc_find($component0, $int11) = true) {
+        cc_setposition($int9, $int10, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find($component0, calc($int11 + 1)) = true) {
+        cc_setposition(calc($int9 + $int5), calc($int10 + ($int4 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        if (.cc_find($component0, calc($int11 + 2)) = true) {
+            .cc_setposition(calc($int9 + min(cc_getwidth, cc_getheight) / 2), calc($int10 + cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+        }
+        if (.cc_find($component0, calc($int11 + 3)) = true) {
+            .cc_setposition(calc($int9 + min(cc_getwidth, cc_getheight) / 2), calc($int10 + cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+        }
+    }
+    if (++$int7 >= $int2) {
+        $int7 = 0;
+        $int8 = calc($int8 + 1);
+    }
+    $int6 = calc($int6 + 1);
+}

@@ -1,0 +1,17 @@
+// 20134
+[proc,script20134]()(int)
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
+if ($dbrow0 = null) {
+    return(0);
+}
+def_enum $enum1 = db_getfield($dbrow0, league:col18, 0);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount($enum1);
+while ($int2 < $int4) {
+    if (%league_task_completed_total >= enum(int, int, $enum1, $int2)) {
+        $int3 = calc($int3 + 1);
+    }
+    $int2 = calc($int2 + 1);
+}
+return($int3);

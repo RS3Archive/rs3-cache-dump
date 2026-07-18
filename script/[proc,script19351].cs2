@@ -1,0 +1,44 @@
+// 19351
+[proc,script19351](inv $inv0, int $int1, component $component2, int $int3)
+def_obj $obj4 = ~script19588($inv0, $int1);
+def_int $int5 = ~script19589($inv0, $int1);
+if ($obj4 = null | $int5 <= 0) {
+    return;
+}
+def_obj $obj6 = oc_uncert($obj4);
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+switch_component ($component2) {
+    case group_ironman_storage:clan_inv_insert :
+        $int8 = ~script19581($inv0, $obj6);
+        if ($int8 ! -1) {
+            $int3 = $int8;
+        }
+        ~script19345($obj4, $obj6, $int8, $int5, $int3, $inv0, $int1, 1, 1);
+        return;
+    case group_ironman_storage:clan_inv :
+        $int8 = ~script19581($inv0, $obj6);
+        if ($int8 ! -1) {
+            ~script19345($obj4, $obj6, $int8, $int5, $int8, $inv0, $int1, 1, 1);
+            return;
+        }
+        $obj7 = ~script19586($int3);
+        if ($obj7 = null) {
+            ~script19345($obj4, $obj6, $int8, $int5, $int3, $inv0, $int1, 1, 1);
+            return;
+        } else {
+            ~script19366($int3, $inv0, $int1, $int1, false);
+        }
+        return;
+    case group_ironman_storage:spacer_endrow, group_ironman_storage:spacer_below :
+        $int8 = ~script19581($inv0, $obj6);
+        if (~script3802($obj4) = false & $int8 ! -1) {
+            ~script19345($obj4, $obj6, $int8, $int5, $int8, $inv0, $int1, 1, 0);
+            return;
+        }
+        $int3 = ~script19579;
+        ~script19345($obj4, $obj6, $int8, $int5, $int3, $inv0, $int1, 1, 1);
+    case default :
+        return;
+}

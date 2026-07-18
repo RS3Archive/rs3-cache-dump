@@ -1,0 +1,42 @@
+// 6979
+[proc,script6979](int $int0)
+if ($int0 = -1) {
+    ~script7610("Select a potion from the list to view boosts.");
+    return;
+}
+def_obj $obj1 = enum(int, obj, elfcity_recipe_shop, $int0);
+if ($obj1 = null) {
+    ~script7610("Select a potion from the list to view boosts.");
+    return;
+}
+def_int $int2 = oc_param($obj1, recipe_requirement_value_2);
+if ($int2 = -1) {
+    ~script7610("Select a potion from the list to view boosts.");
+    return;
+}
+if (~script7612($int2) = 0) {
+    ~script7610("The Meilyr clan are still working on perfecting this recipe. You can help them by finding lost journal pages within Daemonheim.");
+    if_settext("Unknown recipe", elfcity_meilyr_recipe_shop:name_text);
+    if_settext("Cost to unlock:<br>Unknown", elfcity_meilyr_recipe_shop:unlock_text);
+    return;
+}
+def_string $string0 = oc_name($obj1);
+$string0 = substring($string0, 0, calc(string_length($string0) - 3));
+if_settext($string0, elfcity_meilyr_recipe_shop:name_text);
+def_int $int3 = ~script7157(elfcity_meilyr_recipe_shop:use_bonus, $obj1, 0);
+if ($int3 > if_getheight(elfcity_meilyr_recipe_shop:use_bonus)) {
+    if_setscrollsize(0, $int3, elfcity_meilyr_recipe_shop:use_bonus);
+} else {
+    if_setscrollsize(0, 0, elfcity_meilyr_recipe_shop:use_bonus);
+}
+~scrollbar_vertical(elfcity_meilyr_recipe_shop:scrollbar_layer_info, elfcity_meilyr_recipe_shop:use_bonus, null, null, null, null, null, null);
+def_int $int4 = oc_param($obj1, elfcity_recipe_unlock_cost);
+if_sethide(false, elfcity_meilyr_recipe_shop:buy_button_disabled_layer);
+if (~elfcity_recipe_unlocked($int2) = 1) {
+    if_settext("Unlocked!", elfcity_meilyr_recipe_shop:unlock_text);
+} else if ($int4 ! -1) {
+    if_settext("Cost to unlock:<br><tostring_localised($int4, true)>", elfcity_meilyr_recipe_shop:unlock_text);
+    if_sethide(true, elfcity_meilyr_recipe_shop:buy_button_disabled_layer);
+} else {
+    if_settext("-", elfcity_meilyr_recipe_shop:unlock_text);
+}

@@ -1,0 +1,27 @@
+// 9417
+[clientscript,script9417](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, struct $struct8)
+def_string $string0 = "";
+if (%6awe2_reward_currency < $int3) {
+    $string0 = "You cannot afford this reward.<br>";
+}
+if (calc(%6awe2_token_level - 1) < $int4) {
+    $string0 = append($string0, "You need a higher-level faction token to purchase this reward.<br>");
+}
+if ($int5 = 0 & inv_freespace(inv) = 0) {
+    $string0 = append($string0, "You do not have space in your inventory for this reward.<br>");
+}
+if ($int7 = 1) {
+    if ($int6 = 1) {
+        if (~script9414($struct8) = 1) {
+            $string0 = "You already have this reward in your inventory, bank or house.";
+        }
+    } else {
+        switch_struct ($struct8) {
+            case 6awe2_smallxp_lamp, 6awe2_mediumxp_lamp, 6awe2_largexp_lamp, 6awe2_hugexp_lamp :
+                $string0 = "You must use or destroy the lamp you own before purchasing another.";
+            case default :
+                $string0 = "You have already purchased this reward.";
+        }
+    }
+}
+~script8800($string0, $component0, -1);

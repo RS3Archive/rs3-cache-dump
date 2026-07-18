@@ -1,0 +1,99 @@
+// 13824
+[clientscript,optext_timer]
+if (%option_optext_disabled = 1 | ~script6431 = true) {
+    if_setontimer(null, toplevel_v2:optext_layer);
+    return;
+}
+def_int $int0 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+$int0, $string1, $string0, $string2 = get_active_minimenu_entry;
+%toplevel_v2_hover_layer_npc_in_focus = 0;
+switch_int ($int0) {
+    case 4, 3, 2, 7 :
+        if (%optext_last_type ! $int0) {
+            ~script5487(1);
+        }
+        %toplevel_v2_hover_layer_npc_in_focus = 1;
+    case 1 :
+        if (%tli_optext_item = null) {
+            if (%tli_optext_open = true) {
+                ~script5487(1);
+            }
+            return;
+        }
+    case default :
+        if (%tli_optext_open = true) {
+            ~script5487(1);
+        }
+        return;
+}
+%optext_last_type = $int0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = get_minimenu_length;
+def_boolean $boolean3 = false;
+def_string $string3 = "";
+def_string $string4 = "";
+$boolean3, $string4, $string3 = get_minimenu_target;
+if ($boolean3 = true & $int1 < 2) {
+    $string0 = $string4;
+    $string1 = "-> <$string3>";
+    $string2 = "";
+    $int0 = -1;
+}
+if (compare($string0, %tli_optext_last_noun) ! 0 | compare($string1, %tli_optext_last_verb) ! 0) {
+    %tli_optext_last_noun = $string0;
+    %tli_optext_last_verb = $string1;
+    ~script5487(0);
+} else if ($int0 = 1) {
+    if (calc(clientclock % 50) ! 0) {
+        ~script5489;
+        return;
+    }
+} else if ($int0 ! 4) {
+    ~script5489;
+    return;
+}
+def_string $string5 = $string1;
+if (string_length($string0) > 0) {
+    if (string_length($string2) > 0) {
+        $string5 = "<$string5> <$string0> <$string2>";
+    } else {
+        $string5 = "<$string5> <$string0>";
+    }
+}
+switch_int ($int0) {
+    case 4 :
+        if (npc_find_active_minimenu_entry = true) {
+            if (%camera_control_mode <= 0 & %cutscene_status = 0 & (compare($string1, "Attack") = 0 | nc_param(npc_type, toplevel_v2_show_overhead_panel) = 1)) {
+                if (is_targeted_entity = false) {
+                    ~script8876(removetags($string0), nc_param(npc_type, combatv2_weakness), nc_param(npc_type, damagetype));
+                    ~script7234($string5);
+                } else {
+                    ~script8880;
+                }
+            } else {
+                ~script8880;
+                ~script7234($string5);
+            }
+        } else {
+            ~script8880;
+            ~script7234($string5);
+        }
+    case 3, 2 :
+        ~script7234($string5);
+    case 7 :
+        ~script7234($string5);
+    case 1 :
+        if (%tli_optext_item ! null) {
+            ~script7234($string5);
+        } else {
+            ~script5487(1);
+        }
+    case default :
+        if (%tli_optext_open = true) {
+            ~script5487(1);
+        }
+}

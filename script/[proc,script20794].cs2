@@ -1,0 +1,31 @@
+// 20794
+[proc,script20794](int $int0)(int)
+def_component $component1 = house_furniture_dropdown:contents;
+def_int $int2 = 0;
+def_boolean $boolean3 = true;
+if (%construction_house_furniture_dropdown = house_furniture_trunk:filters) {
+    $boolean3 = false;
+}
+~cc_add_dropdown_full($component1, 0, 0, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 24, ^setsize_minus, ^setsize_abs, dropdown_default, true, construction_house_filter_indoors, -1, %varclientbit_61235);
+cc_setonselectionchanged("script20796(event_comsubid, event_mousex, event_mousey)");
+$int2 = calc($int2 + 24 + 4);
+~cc_add_dropdown_full($component1, 1, 0, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 24, ^setsize_minus, ^setsize_abs, dropdown_default, $boolean3, construction_house_filter_unlocked, -1, %varclientbit_61236);
+cc_setonselectionchanged("script20796(event_comsubid, event_mousex, event_mousey)");
+$int2 = calc($int2 + 24 + 4);
+$int0 = calc($int0 - 22);
+$int2 = ~script20795($component1, 2, $int2, $int0, "Can be unlocked from recipes", %varclientbit_61237, $boolean3);
+$int2 = ~script20795($component1, 3, $int2, $int0, "Construction level requirement met", %varclientbit_61238, true);
+$int2 = ~script20795($component1, 4, $int2, $int0, "Holiday furniture", %varclientbit_61240, true);
+$int2 = ~script20795($component1, 5, $int2, $int0, "Stored", %varclientbit_61239, $boolean3);
+~cc_add_dropdown_full($component1, 6, 0, $int2, ^setpos_abs_left, ^setpos_abs_top, 28, 24, ^setsize_minus, ^setsize_abs, dropdown_default, true, construction_house_sort, -1, %varclientbit_61233);
+cc_setonselectionchanged("script20796(event_comsubid, event_mousex, event_mousey)");
+~cc_add_button($component1, 7, 0, $int2, ^setpos_abs_right, ^setpos_abs_top, 24, 24, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "");
+cc_setop(1, "Toggle");
+cc_setonop("script20797(event_comsubid)");
+def_graphic $graphic4 = "rs3_icon_sort,5";
+if (%varclientbit_61234 = 1) {
+    $graphic4 = "rs3_icon_sort,0";
+}
+~cc_add_graphic($component1, 8, 4, calc($int2 + 4), ^setpos_abs_right, ^setpos_abs_top, 15, 15, ^setsize_abs, ^setsize_abs, $graphic4);
+$int2 = calc($int2 + 24 + 4 * 2);
+return($int2);

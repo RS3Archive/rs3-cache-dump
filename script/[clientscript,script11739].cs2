@@ -1,0 +1,69 @@
+// 11739
+[clientscript,script11739](int $int0, struct $struct1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if ($struct1 = null | $struct1 = comscenario_faction_objective_null) {
+    if ($int0 = 1) {
+        if_sethide(true, comscenario_faction_hud:objective_1);
+    } else if ($int0 = 2) {
+        if_sethide(true, comscenario_faction_hud:objective_2);
+    } else if ($int0 = 3) {
+        if_sethide(true, comscenario_faction_hud:objective_3);
+    }
+    return;
+}
+def_string $string0 = tostring($int3);
+def_string $string1 = tostring($int4);
+def_string $string2 = tostring($int2);
+def_int $int7 = $int2;
+if ($int2 > 1000) {
+    $int7 = calc($int2 / 1000);
+    $string2 = "<tostring($int7)>.<tostring(calc($int2 % 1000 / 100))>k";
+}
+if ($int3 > 1000) {
+    $int7 = calc($int3 / 1000);
+    $string0 = "<tostring($int7)>.<tostring(calc($int3 % 1000 / 100))>k";
+}
+if ($int4 > 1000) {
+    $int7 = calc($int4 / 1000);
+    $string1 = "<tostring($int7)>.<tostring(calc($int4 % 1000 / 100))>k";
+}
+if_sethide(false, comscenario_faction_hud:objectives_holder);
+if ($int0 = 1) {
+    if_sethide(false, comscenario_faction_hud:objective_1);
+    if_settext(struct_param($struct1, comscenario_faction_objective_title), comscenario_faction_hud:objective_1_title);
+    if ($struct1 = comscenario_faction_objective_reach_score) {
+        if_settext("<col=ffff00>Goal: <$string2>", comscenario_faction_hud:objective_1_score);
+    } else {
+        if_settext("<col=ff0000><$string0>/<$string2> </col>| <col=00ff00><$string1>/<$string2>", comscenario_faction_hud:objective_1_score);
+    }
+    if ($int6 = 1) {
+        if_settext("Win Condition", comscenario_faction_hud:objective_1_value);
+    } else {
+        if_settext(tostring($int5), comscenario_faction_hud:objective_1_value);
+    }
+} else if ($int0 = 2) {
+    if_sethide(false, comscenario_faction_hud:objective_2);
+    if_settext(struct_param($struct1, comscenario_faction_objective_title), comscenario_faction_hud:objective_2_title);
+    if ($struct1 = comscenario_faction_objective_reach_score) {
+        if_settext("<col=ffff00>Goal: <$string2>", comscenario_faction_hud:objective_2_score);
+    } else {
+        if_settext("<col=ff0000><$string0>/<$string2> </col>| <col=00ff00><$string1>/<$string2>", comscenario_faction_hud:objective_2_score);
+    }
+    if ($int6 = 1) {
+        if_settext("Win Condition", comscenario_faction_hud:objective_2_value);
+    } else {
+        if_settext(tostring($int5), comscenario_faction_hud:objective_2_value);
+    }
+} else if ($int0 = 3) {
+    if_sethide(false, comscenario_faction_hud:objective_3);
+    if_settext(struct_param($struct1, comscenario_faction_objective_title), comscenario_faction_hud:objective_3_title);
+    if ($struct1 = comscenario_faction_objective_reach_score) {
+        if_settext("<col=ffff00>Goal: <$string2>", comscenario_faction_hud:objective_3_score);
+    } else {
+        if_settext("<col=ff0000><$string0>/<$string2> </col>| <col=00ff00><$string1>/<$string2>", comscenario_faction_hud:objective_3_score);
+    }
+    if ($int6 = 1) {
+        if_settext("Win Condition", comscenario_faction_hud:objective_3_value);
+    } else {
+        if_settext(tostring($int5), comscenario_faction_hud:objective_3_value);
+    }
+}

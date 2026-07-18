@@ -1,0 +1,33 @@
+// 18230
+[proc,script18230](struct $struct0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1 = ~script12869($struct0);
+$int2 = min(scale($int1, calc(struct_param($struct0, timed_event_target) * struct_param($struct0, timed_event_currency_multiplier)), if_getwidth(jobs_main:weekly_progress_value_bounds_layer)), if_getwidth(jobs_main:weekly_progress_value_bounds_layer));
+if (cc_find(jobs_main:weekly_progress_value_bounds_layer, 0) = true) {
+    cc_settext("<tostring_localised(calc($int1 / struct_param($struct0, timed_event_text_progress_divider)), true)>/<tostring_localised(calc(struct_param($struct0, timed_event_target) * struct_param($struct0, timed_event_currency_multiplier) / struct_param($struct0, timed_event_text_progress_divider)), true)>");
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_obj $obj6 = null;
+def_graphic $graphic7 = null;
+def_enum $enum8 = struct_param($struct0, timed_event_rewards);
+def_component $component9 = jobs_main:weekly_progress_rewards_layer;
+while ($int3 < 7) {
+    if (cc_find($component9, $int3) = true) {
+        $obj6 = enum(int, obj, $enum8, $int3);
+        $int5, $int4 = ~script18229($int3, 1);
+        $graphic7 = oc_param($obj6, timed_event_reward_graphic);
+        if ($int1 >= $int4 & $int5 = 0) {
+            $graphic7 = oc_param($obj6, timed_event_reward_graphic_unclaimed);
+        } else if ($int1 < $int4) {
+            $int5 = 2;
+            $graphic7 = oc_param($obj6, timed_event_reward_graphic_locked);
+        }
+        cc_setgraphic($graphic7);
+        ~script15824($struct0, $component9, $graphic7, $obj6, 1, $int4, $int5);
+    }
+    $int3 = calc($int3 + 1);
+}
+if_setontimer("script12886(jobs_main:weekly_progress_value_graphic_layer, jobs_main:weekly_progress_join_layer, jobs_main:weekly_progress_join_bar_layer, $int2)", jobs_main:weekly_progress_value_graphic_layer);

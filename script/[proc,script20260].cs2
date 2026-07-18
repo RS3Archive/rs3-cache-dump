@@ -1,0 +1,33 @@
+// 20260
+[proc,script20260](int $int0, int $int1)(int, int)
+def_int $int2 = 4;
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = 140;
+def_int $int7 = ~script20261($int1);
+def_int $int8 = -1;
+while ($int3 < $int0) {
+    if (cc_findbycategory(league_parent_relics:relic_main, 200, $int3) = 1) {
+        if ($int4 = cc_param(league_relic_column_tier)) {
+            $int5 = calc($int5 + 1);
+        } else {
+            $int4 = cc_param(league_relic_column_tier);
+            $int5 = 1;
+        }
+        cc_setsize($int6, 0, ^setsize_abs, ^setsize_minus);
+        cc_setposition($int2, 0, ^setpos_abs_left, ^setpos_abs_top);
+        if (cc_findbycategory(league_parent_relics:relic_main_headers, $int4, 0) = 1) {
+            cc_setsize(calc($int6 * $int5 + 15 * ($int5 - 1)), 0, ^setsize_abs, ^setsize_minus);
+            if ($int5 = 1) {
+                cc_setposition($int2, 0, ^setpos_abs_left, ^setpos_abs_centre);
+                if ($int4 = $int7) {
+                    $int8 = $int3;
+                }
+            }
+        }
+        $int2 = calc($int2 + ($int6 + 15));
+    }
+    $int3 = calc($int3 + 1);
+}
+return(calc($int2 + 4), $int8);

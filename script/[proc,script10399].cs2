@@ -1,0 +1,48 @@
+// 10399
+[proc,script10399](int $int0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_boolean $boolean8 = false;
+if (if_hassub(~script8072) = true & if_hassub(~script8073) = true) {
+    $component1 = ~script14197;
+    $component2 = ~script12922;
+} else if (if_hassub(~script8074) = true & if_hassub(~script8073) = true) {
+    $component1 = ~script12923;
+    $component2 = ~script12922;
+    if (if_hassubmodal(~script8074, trh_dialog_select_overlay) = true) {
+        $component3 = trh_dialog_select_overlay:root_layer;
+    }
+}
+if (%toplevel_v2_mobile_interface = 1) {
+    ~script13894($int0, $component1, $component3);
+} else if (%toplevel_v2_legacy_interface = 0) {
+    if ($int0 = 1) {
+        if ($component1 ! null & $component2 ! null) {
+            if ($component3 ! null) {
+                $int4 = calc(if_getx($component1) + if_getx($component3));
+                $int6 = if_getwidth($component3);
+            } else {
+                $int4 = if_getx($component1);
+                $int6 = if_getwidth($component1);
+            }
+            if ($int4 > calc(if_getwidth(toplevel_v2:viewport) - ($int4 + $int6))) {
+                $int4 = calc($int4 - if_getwidth($component2));
+            } else {
+                $int4 = calc($int4 + $int6);
+            }
+            $int5 = calc(if_gety($component1) + if_getheight($component1) / 2 - if_getheight($component2) / 2);
+            if_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top, $component2);
+            ~script8387($int4, $int5, if_getwidth($component2), if_getheight($component2), 1008);
+        }
+    } else {
+        $int4, $int5, $int6, $int7, $boolean8 = ~script8382(~script8717(1008), 1008, 0, 0);
+        ~script8387($int4, $int5, $int6, $int7, 1008);
+    }
+} else {
+    ~script9951;
+}

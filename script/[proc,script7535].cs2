@@ -1,0 +1,19 @@
+// 7535
+[proc,script7535](string $string0, struct $struct0, string $string1)
+def_int $int1 = struct_param($struct0, slayer_contract_level);
+def_stat $stat2 = struct_param($struct0, slayer_contract_extra_stat_1);
+def_int $int3 = struct_param($struct0, slayer_contract_extra_level_1);
+def_string $string2 = "Level <tostring($int1)> Slayer";
+if (stat_base(slayer) < $int1) {
+    $string2 = append("<col=ff0000>", append($string2, "</col>"));
+}
+if ($stat2 ! null) {
+    if (stat_base($stat2) < $int3) {
+        $string2 = "<$string2><br><col=ff0000>Level <tostring($int3)> <enum(stat, string, stat_to_string, $stat2)></col>";
+    } else {
+        $string2 = "<$string2><br>Level <tostring($int3)> <enum(stat, string, stat_to_string, $stat2)>";
+    }
+}
+$string2 = append($string2, "<br>");
+cc_settext(append($string0, append($string2, $string1)));
+cc_setonstattransmit("script7534(event_com, event_comsubid, $string0, $struct0, $string1){slayer}");

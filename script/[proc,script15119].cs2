@@ -1,0 +1,12 @@
+// 15119
+[proc,script15119](int $int0, dbrow $dbrow1)(int)
+if (db_getrowtable($dbrow1) ! event_crafting_core_event) {
+    ~error("Invalid event passed into get_npc_level_cap, Defaulting to <tostring(30)>");
+    return(30);
+}
+def_int $int2 = db_getfield($dbrow1, event_crafting_core_event:col3, 0);
+if ($int2 <= 0) {
+    ~error("Crafter cap, is an invalid number. Defaulting to <tostring(30)>");
+    return(30);
+}
+return($int2);

@@ -1,0 +1,34 @@
+// 20729
+[clientscript,script20729]
+if (if_getwidth(house_furniture_catalogue:mainmodal_window_content) = 0 | cc_find(house_furniture_catalogue:mainmodal_window_border, 0) = false) {
+    if_setontimer("script20729", house_furniture_catalogue:mainmodal_window_content);
+    return;
+}
+%construction_house_ui_client_1 = %construction_house_ui_1;
+%construction_house_ui_client_2 = %construction_house_ui_2;
+%construction_house_ui_filters_client_1 = %construction_house_ui_filters_1;
+%construction_house_selection_client_source = 2;
+def_int $int0 = scale(if_getwidth(toplevel_v2:background_colour), 100, 33);
+def_int $int1 = ~script20789($int0, 0, 1);
+if (~script6431 = false) {
+    if_setsize($int1, scale(16384, 100, 66), ^setsize_abs, ^setsize_rel, house_furniture_catalogue:mainmodal_window);
+} else {
+    if_setsize($int1, max(470, scale(if_getheight(toplevel_v2:background_colour), 100, 66)), ^setsize_abs, ^setsize_abs, house_furniture_catalogue:mainmodal_window);
+}
+~script20742($int1);
+~script20738;
+if_setontimer(null, house_furniture_catalogue:mainmodal_window_content);
+~script20790(house_furniture_catalogue:mainmodal_window_content, house_furniture_catalogue:mainmodal_window_dividers, house_furniture_catalogue:items, house_furniture_catalogue:filters, house_furniture_catalogue:div_filters, house_furniture_catalogue:categories, house_furniture_catalogue:div_cat, null, null, 0);
+~script20791(house_furniture_catalogue:filters);
+~script20801(house_furniture_catalogue:categories, %varclientbit_61226, %varclientbit_61227, house_furniture_catalogue:items_scrolling, house_furniture_catalogue:items_scrollbar, house_furniture_catalogue:items_bg, house_furniture_catalogue:items_obj, house_furniture_catalogue:items_count, -1);
+~script20806(house_furniture_catalogue:items_scrolling, house_furniture_catalogue:items_scrollbar, house_furniture_catalogue:items_bg, house_furniture_catalogue:items_obj, house_furniture_catalogue:items_count, %varclientbit_61228, -1, 1);
+if (cc_find(house_furniture_catalogue:mainmodal_window_border, 7) = true) {
+    cc_setmouseovercursor(toplevel_v2_scale_horz);
+    cc_setdragrenderbehaviour(3);
+    cc_setdraggable(toplevel_v2:viewport, -1);
+    cc_setdragdeadtime(1);
+    cc_setdragdeadzone(1);
+    cc_setondrag("script20739(event_com, event_comsubid, $int1, -1, 0)");
+    cc_setondragcomplete("script20739(event_com, event_comsubid, $int1, -1, 1)");
+}
+~script8841(106, 1);

@@ -1,0 +1,33 @@
+// 3930
+[proc,script3930](string $string0, int $int0, int $int1, fontmetrics $fontmetrics2)(string)
+if ($int1 < 1) {
+    return($string0);
+}
+def_int $int3 = string_length($string0);
+if ($int3 = 0) {
+    return($string0);
+}
+def_int $int4 = 1;
+def_int $int5 = paraheight($string0, $int0, $fontmetrics2);
+def_int $int6 = parawidth($string0, $int0, $fontmetrics2);
+if ($int6 <= $int0 & $int5 <= $int1) {
+    return($string0);
+}
+def_int $int7 = -1;
+def_string $string1 = "";
+while ($int4 < $int3) {
+    $int7 = calc(($int4 + $int3) / 2);
+    $string1 = "<substring($string0, 0, $int7)>...";
+    $int5 = paraheight($string1, $int0, $fontmetrics2);
+    $int6 = parawidth($string1, $int0, $fontmetrics2);
+    if ($int6 <= $int0 & $int5 <= $int1) {
+        $int4 = calc($int7 + 1);
+    } else {
+        $int3 = $int7;
+    }
+}
+if ($int4 > 1) {
+    return("<substring($string0, 0, calc($int4 - 1))>...");
+} else {
+    return("...");
+}

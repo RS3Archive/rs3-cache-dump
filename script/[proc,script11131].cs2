@@ -1,0 +1,28 @@
+// 11131
+[proc,script11131]
+def_int $int0 = calc(cc_get2dangle + cc_param(easter15_dtheta));
+if ($int0 < 0) {
+    $int0 = calc($int0 + 65536);
+}
+if ($int0 >= 65536) {
+    $int0 = calc($int0 - 65536);
+}
+cc_set2dangle($int0);
+def_int $int1 = calc(cc_getx + cc_param(easter15_dx));
+def_int $int2 = calc(cc_gety + cc_param(easter15_dy));
+def_int $int3 = 0;
+def_component $component4 = cc_getlayer;
+if (cc_param(easter15_dx) < 0 & $int1 < 0 | cc_param(easter15_dx) > 0 & $int1 > calc(if_getwidth($component4) - cc_getwidth)) {
+    cc_setparam(easter15_dx, calc(0 - cc_param(easter15_dx)));
+    $int1 = calc(cc_getx + cc_param(easter15_dx));
+    $int3 = 1;
+}
+if (cc_param(easter15_dy) < 0 & $int2 < 0 | cc_param(easter15_dy) > 0 & $int2 > calc(if_getheight($component4) - cc_getheight)) {
+    cc_setparam(easter15_dy, calc(0 - cc_param(easter15_dy)));
+    $int2 = calc(cc_gety + cc_param(easter15_dy));
+    $int3 = 1;
+}
+if ($int3 = 1) {
+    ~script11130(cc_getgraphic);
+}
+cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);

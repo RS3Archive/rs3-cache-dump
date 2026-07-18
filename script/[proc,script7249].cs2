@@ -1,0 +1,311 @@
+// 7249
+[proc,script7249](int $int0)
+def_enum $enum1 = null;
+def_int $intbool2 = ^false;
+def_int $int3 = -1;
+switch_int (%pop_ship_slot_selected) {
+    case 1 :
+        $enum1 = pop_ship_hulls;
+        $intbool2 = testbit(%pop_ship_unlocked_hulls, $int0);
+        switch_int (%pop_ship_selected_var) {
+            case 1 :
+                $int3 = %pop_ship_1_hull;
+            case 2 :
+                $int3 = %pop_ship_2_hull;
+            case 3 :
+                $int3 = %pop_ship_3_hull;
+            case 4 :
+                $int3 = %pop_ship_4_hull;
+        }
+    case 2 :
+        $enum1 = pop_ship_decks;
+        $intbool2 = testbit(%pop_ship_unlocked_decks, $int0);
+        switch_int (%pop_ship_selected_var) {
+            case 1 :
+                $int3 = %pop_ship_1_deck1;
+            case 2 :
+                $int3 = %pop_ship_2_deck1;
+            case 3 :
+                $int3 = %pop_ship_3_deck1;
+            case 4 :
+                $int3 = %pop_ship_4_deck1;
+        }
+    case 3 :
+        $enum1 = pop_ship_decks;
+        $intbool2 = testbit(%pop_ship_unlocked_decks, $int0);
+        switch_int (%pop_ship_selected_var) {
+            case 1 :
+                $int3 = %pop_ship_1_deck2;
+            case 2 :
+                $int3 = %pop_ship_2_deck2;
+            case 3 :
+                $int3 = %pop_ship_3_deck2;
+            case 4 :
+                $int3 = %pop_ship_4_deck2;
+        }
+    case 4 :
+        $enum1 = pop_ship_rudders;
+        $intbool2 = testbit(%pop_ship_unlocked_rudders, $int0);
+        switch_int (%pop_ship_selected_var) {
+            case 1 :
+                $int3 = %pop_ship_1_rudder;
+            case 2 :
+                $int3 = %pop_ship_2_rudder;
+            case 3 :
+                $int3 = %pop_ship_3_rudder;
+            case 4 :
+                $int3 = %pop_ship_4_rudder;
+        }
+    case 5 :
+        $enum1 = pop_ship_rams;
+        $intbool2 = testbit(%pop_ship_unlocked_rams, $int0);
+        switch_int (%pop_ship_selected_var) {
+            case 1 :
+                $int3 = %pop_ship_1_ram;
+            case 2 :
+                $int3 = %pop_ship_2_ram;
+            case 3 :
+                $int3 = %pop_ship_3_ram;
+            case 4 :
+                $int3 = %pop_ship_4_ram;
+        }
+}
+if ($enum1 = null) {
+    return;
+}
+def_struct $struct4 = enum(int, struct, $enum1, $int0);
+if ($struct4 = null) {
+    return;
+}
+def_int $int5 = struct_param($struct4, pop_ship_upgrade_cost1type);
+def_int $int6 = struct_param($struct4, pop_ship_upgrade_cost1value);
+def_int $int7 = struct_param($struct4, pop_ship_upgrade_cost2type);
+def_int $int8 = struct_param($struct4, pop_ship_upgrade_cost2value);
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int9 = struct_param($struct4, pop_ship_upgrade_stat1);
+def_int $int10 = struct_param($struct4, pop_ship_upgrade_statboost1);
+def_string $string2 = "";
+def_int $int11 = struct_param($struct4, pop_ship_upgrade_stat2);
+def_int $int12 = struct_param($struct4, pop_ship_upgrade_statboost2);
+def_string $string3 = "";
+def_int $int13 = struct_param($struct4, pop_ship_upgrade_stat3);
+def_int $int14 = struct_param($struct4, pop_ship_upgrade_statboost3);
+def_string $string4 = "";
+def_int $int15 = struct_param($struct4, pop_ship_upgrade_stat4);
+def_int $int16 = struct_param($struct4, pop_ship_upgrade_statboost4);
+def_string $string5 = "";
+$string2 = tostring($int9);
+$string3 = tostring($int11);
+$string4 = tostring($int13);
+$string5 = tostring($int15);
+if_settext($string2, pop_ship:part_speed);
+if ($int9 > %pop_ship_part_speed) {
+    if_setcolour(0x1d8c07, pop_ship:part_speed);
+} else if ($int9 < %pop_ship_part_speed) {
+    if_setcolour(^red, pop_ship:part_speed);
+} else {
+    if_setcolour(0xfaf2d6, pop_ship:part_speed);
+}
+if_settext($string3, pop_ship:part_graft);
+if ($int11 > %pop_ship_part_graft) {
+    if_setcolour(0x1d8c07, pop_ship:part_graft);
+} else if ($int11 < %pop_ship_part_graft) {
+    if_setcolour(^red, pop_ship:part_graft);
+} else {
+    if_setcolour(0xfaf2d6, pop_ship:part_graft);
+}
+if_settext($string4, pop_ship:part_combat);
+if ($int13 > %pop_ship_part_combat) {
+    if_setcolour(0x1d8c07, pop_ship:part_combat);
+} else if ($int13 < %pop_ship_part_combat) {
+    if_setcolour(^red, pop_ship:part_combat);
+} else {
+    if_setcolour(0xfaf2d6, pop_ship:part_combat);
+}
+if_settext($string5, pop_ship:part_seafaring);
+if ($int15 > %pop_ship_part_seafaring) {
+    if_setcolour(0x1d8c07, pop_ship:part_seafaring);
+} else if ($int15 < %pop_ship_part_seafaring) {
+    if_setcolour(^red, pop_ship:part_seafaring);
+} else {
+    if_setcolour(0xfaf2d6, pop_ship:part_seafaring);
+}
+def_int $int17 = 1;
+if_setcolour(0xfaf2d6, pop_ship:cost_1_amount);
+if_setcolour(0xfaf2d6, pop_ship:cost_2_amount);
+if ($intbool2 = ^false) {
+    switch_int ($int5) {
+        case 1 :
+            if ($int6 > %pop_port_resource_1) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 2 :
+            if ($int6 > %pop_port_resource_2) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 3 :
+            if ($int6 > %pop_port_resource_3) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 4 :
+            if ($int6 > %pop_port_resource_4) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 5 :
+            if ($int6 > %pop_port_resource_5) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 6 :
+            if ($int6 > %pop_port_resource_6) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 7 :
+            if ($int6 > %pop_port_resource_7) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 8 :
+            if ($int6 > %pop_port_resource_8) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+        case 9 :
+            if ($int6 > %pop_port_resource_9) {
+                if_setcolour(^red, pop_ship:cost_1_amount);
+                $int17 = 0;
+            }
+    }
+    $string0 = " <tostring($int6)>";
+    if ($int5 > 0 & $int5 < 8 & $int6 > 0) {
+        if_settext($string0, pop_ship:cost_1_amount);
+        if_setgraphic(enum(int, graphic, pop_port_resource_icons, $int5), pop_ship:cost_1_icon);
+        if_setsize(17, 17, ^setsize_abs, ^setsize_abs, pop_ship:cost_1_icon);
+    } else {
+        if_settext("", pop_ship:cost_1_amount);
+        if_setgraphic(null, pop_ship:cost_1_icon);
+    }
+    switch_int ($int7) {
+        case 1 :
+            if ($int8 > %pop_port_resource_1) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 2 :
+            if ($int8 > %pop_port_resource_2) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 3 :
+            if ($int8 > %pop_port_resource_3) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 4 :
+            if ($int8 > %pop_port_resource_4) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 5 :
+            if ($int8 > %pop_port_resource_5) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 6 :
+            if ($int8 > %pop_port_resource_6) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 7 :
+            if ($int8 > %pop_port_resource_7) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 8 :
+            if ($int8 > %pop_port_resource_8) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+        case 9 :
+            if ($int8 > %pop_port_resource_9) {
+                if_setcolour(^red, pop_ship:cost_2_amount);
+                $int17 = 0;
+            }
+    }
+    $string1 = " <tostring($int8)>";
+    if ($int7 > 0 & $int7 < 10 & $int8 > 0) {
+        if_settext($string1, pop_ship:cost_2_amount);
+        if_setgraphic(enum(int, graphic, pop_port_resource_icons, $int7), pop_ship:cost_2_icon);
+        if_setsize(17, 17, ^setsize_abs, ^setsize_abs, pop_ship:cost_2_icon);
+    } else {
+        if_settext("", pop_ship:cost_2_amount);
+        if_setgraphic(null, pop_ship:cost_2_icon);
+    }
+    if_sethide(false, pop_ship:part_unlock);
+    if_sethide(true, pop_ship:part_vs);
+    ~script13969(pop_ship:list_activate, null, rs3tli_positive_button, "Buy");
+    ~script13971(pop_ship:list_activate_no, null, rs3tli_positive_button, "Buy", true);
+    if ($int17 = 0) {
+        if_sethide(false, pop_ship:list_activate_no);
+        if (cc_find(pop_ship:list_lock, $int0) = true) {
+            cc_setgraphic("aif_clan_loyalty_lock,2");
+        }
+    } else {
+        if_sethide(true, pop_ship:list_activate_no);
+    }
+} else if (%pop_ship_list_selected_var = $int3) {
+    if_sethide(true, pop_ship:part_unlock);
+    if_sethide(true, pop_ship:part_vs);
+    ~script13969(pop_ship:list_activate, null, rs3tli_positive_button, "Close");
+    ~script13971(pop_ship:list_activate_no, null, rs3tli_positive_button, "Close", true);
+    if_sethide(true, pop_ship:list_activate_no);
+} else {
+    $string2 = tostring(%pop_ship_part_speed);
+    $string3 = tostring(%pop_ship_part_graft);
+    $string4 = tostring(%pop_ship_part_combat);
+    $string5 = tostring(%pop_ship_part_seafaring);
+    if_settext($string2, pop_ship:active_speed);
+    if_settext($string3, pop_ship:active_graft);
+    if_settext($string4, pop_ship:active_combat);
+    if_settext($string5, pop_ship:active_seafaring);
+    if ($int9 < %pop_ship_part_speed) {
+        if_setcolour(0x1d8c07, pop_ship:active_speed);
+    } else if ($int9 > %pop_ship_part_speed) {
+        if_setcolour(^red, pop_ship:active_speed);
+    } else {
+        if_setcolour(0xfaf2d6, pop_ship:active_speed);
+    }
+    if ($int11 < %pop_ship_part_graft) {
+        if_setcolour(0x1d8c07, pop_ship:active_graft);
+    } else if ($int11 > %pop_ship_part_graft) {
+        if_setcolour(^red, pop_ship:active_graft);
+    } else {
+        if_setcolour(0xfaf2d6, pop_ship:active_graft);
+    }
+    if ($int13 < %pop_ship_part_combat) {
+        if_setcolour(0x1d8c07, pop_ship:active_combat);
+    } else if ($int13 > %pop_ship_part_combat) {
+        if_setcolour(^red, pop_ship:active_combat);
+    } else {
+        if_setcolour(0xfaf2d6, pop_ship:active_combat);
+    }
+    if ($int15 < %pop_ship_part_seafaring) {
+        if_setcolour(0x1d8c07, pop_ship:active_seafaring);
+    } else if ($int15 > %pop_ship_part_seafaring) {
+        if_setcolour(^red, pop_ship:active_seafaring);
+    } else {
+        if_setcolour(0xfaf2d6, pop_ship:active_seafaring);
+    }
+    if_sethide(true, pop_ship:part_unlock);
+    if_sethide(false, pop_ship:part_vs);
+    ~script13969(pop_ship:list_activate, null, rs3tli_positive_button, "Activate");
+    ~script13971(pop_ship:list_activate_no, null, rs3tli_positive_button, "Activate", true);
+    if_sethide(true, pop_ship:list_activate_no);
+}
+return;

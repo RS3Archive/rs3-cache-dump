@@ -1,0 +1,79 @@
+// 9832
+[proc,diango_search_item](string $string0, component $component0)
+def_obj $obj1 = null;
+def_int $int2 = if_getwidth($component0);
+def_string $string1 = lowercase($string0);
+def_int $int3 = enum_getoutputcount(diango_items);
+def_int $int4 = calc($int3 + enum_getoutputcount(trh_diango_recoverable_items));
+def_enum $enum5 = diango_items;
+if (%diango_interface_mode = 1) {
+    $enum5 = qps_storage_chest_items;
+    $int4 = enum_getoutputcount(qps_storage_chest_items);
+    $int3 = $int4;
+}
+def_int $int6 = 0;
+def_int $int7 = 8;
+def_int $int8 = 5;
+def_int $int9 = 0;
+def_int $int10 = 44;
+def_int $int11 = 0;
+def_int $int12 = 36;
+if (~script6431 = true) {
+    $int12 = 44;
+    $int10 = 64;
+}
+if (%bank_searchmode_client = true) {
+    $int8 = 20;
+}
+while ($int6 < $int4) {
+    if (cc_find($component0, $int6) = true) {
+        if ($int6 < $int3) {
+            $obj1 = enum(int, obj, $enum5, $int6);
+        } else {
+            $int9 = 1;
+            $obj1 = enum(int, obj, trh_diango_recoverable_items, calc($int6 - $int3));
+        }
+        if (~script14437($obj1, $int9) = true & string_indexof_string(lowercase(oc_name(~script13794($obj1))), $string1, 0) > -1) {
+            $int11 = calc($int11 + 1);
+            cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+            $int7 = calc($int7 + $int10);
+            if (calc($int7 + $int12) >= $int2) {
+                $int7 = 8;
+                $int8 = calc($int8 + $int10);
+            }
+        } else {
+            cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(true);
+        }
+    }
+    $int6 = calc($int6 + 1);
+}
+if ($int7 > 8) {
+    $int8 = calc($int8 + $int10);
+}
+def_int $int13 = 0;
+if (%bank_searchmode_client = true) {
+    $int13 = if_gety(bank:diango_inv);
+    if ($int11 > 0) {
+        if ($int13 = 0) {
+            $int13 = calc($int13 + 5);
+        }
+        ~script9328(1, $int13, "Search Results: Diango");
+        ~script15434($int11);
+    } else if ($int11 = 0) {
+        if ($int13 = 0) {
+            if_sethide(false, bank:message_nomatches);
+        }
+        ~script10186(1, 1);
+    }
+    ~bank_build_scrollbar(calc($int13 + $int8));
+    return;
+}
+if ($int8 > if_getheight(diango_items:holiday_items)) {
+    if_setscrollsize(0, $int8, diango_items:holiday_items);
+    ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, if_getscrolly(diango_items:holiday_items));
+} else {
+    if_setscrollsize(0, 0, diango_items:holiday_items);
+    ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, 0);
+}

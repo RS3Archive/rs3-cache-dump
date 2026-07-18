@@ -1,0 +1,30 @@
+// 9269
+[proc,script9269](component $component0, component $component1, int $int2, int $int3)
+if ($component0 = null | $component1 ! stockside:inventory_layer) {
+    return;
+}
+if ($int2 < 0 | $int2 >= inv_size(inv)) {
+    return;
+}
+if (%stock_offerslot = -1) {
+    return;
+}
+def_int $int4 = 0;
+if ($component0 = stockmarket:offercollect_a) {
+    $int4 = 0;
+} else if ($component0 = stockmarket:offercollect_b) {
+    $int4 = 1;
+} else {
+    return;
+}
+def_int $int5 = %stock_offerslot;
+~script9270($component0, %stock_offerslot, $int4, $component1, $int2, $int3);
+if (if_getinvobject(stockmarket:offercollect_a) = null & if_getinvobject(stockmarket:offercollect_b) = null & (stockmarket_isofferempty(%stock_offerslot, 0) = true | stockmarket_isofferfinished(%stock_offerslot, 0) = true)) {
+    ~stockmarket_choosecancel;
+    if (enum(int, component, stockmarket_box, $int5) ! null) {
+        cc_deleteall(enum(int, component, stockmarket_box, $int5));
+    }
+    if (enum(int, component, stockmarket_box_choosetype, $int5) ! null) {
+        if_sethide(false, enum(int, component, stockmarket_box_choosetype, $int5));
+    }
+}

@@ -1,0 +1,50 @@
+// 4172
+[proc,script4172](int $int0)
+if (calc($int0 % 50) ! 0) {
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = calc($int0 / 3000);
+def_int $int3 = calc($int2 / 60);
+if ($int3 > 0) {
+    $int2 = calc($int2 % 60);
+}
+$int1 = calc($int0 % 3000);
+def_int $int4 = scale(60, 3000, $int1);
+def_string $string0 = tostring($int3);
+def_string $string1 = tostring($int2);
+def_string $string2 = tostring($int4);
+if ($int3 < 10) {
+    $string0 = append("0", $string0);
+}
+if ($int2 < 10) {
+    $string1 = append("0", $string1);
+}
+if ($int4 < 10) {
+    $string2 = append("0", $string2);
+}
+if ($int3 > 0) {
+    if_settext("<$string0>:<$string1>:<$string2>", timed_kill:time_text);
+} else {
+    if_settext("<$string1>:<$string2>", timed_kill:time_text);
+}
+def_int $int5 = calc(%boss_instance_client_start_time + %timed_kill_target * 30);
+if (%timed_kill_target ! 0) {
+    if (clientclock > $int5) {
+        if_setcolour(0xc80000, timed_kill:time_text);
+    } else if (clientclock > calc($int5 - 50)) {
+        if_setcolour(0xc81400, timed_kill:time_text);
+    } else if (clientclock > calc($int5 - 100)) {
+        if_setcolour(0xd22800, timed_kill:time_text);
+    } else if (clientclock > calc($int5 - 150)) {
+        if_setcolour(0xdc3c00, timed_kill:time_text);
+    } else if (clientclock > calc($int5 - 200)) {
+        if_setcolour(0xe65000, timed_kill:time_text);
+    } else if (clientclock > calc($int5 - 250)) {
+        if_setcolour(0xfa6400, timed_kill:time_text);
+    } else {
+        if_setcolour(^white, timed_kill:time_text);
+    }
+} else {
+    if_setcolour(^white, timed_kill:time_text);
+}

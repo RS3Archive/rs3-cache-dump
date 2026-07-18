@@ -1,0 +1,31 @@
+// 12216
+[clientscript,trh82_shop_setup]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(trh82_current_prize_to_price);
+while ($int0 < $int1) {
+    if_settext(tostring(enum(int, int, trh82_current_prize_to_price, $int0)), enum(int, component, trh82_current_prize_to_component, $int0));
+    if_setonmouserepeat("script3876(enum(int, string, trh82_current_prizes_tooltips, $int0), enum(int, component, trh82_current_prize_to_tooltip_layer, $int0), -1)", enum(int, component, trh82_current_prize_to_tooltip_layer, $int0));
+    if_setonmouseleave("script8805", enum(int, component, trh82_current_prize_to_tooltip_layer, $int0));
+    $int0 = calc($int0 + 1);
+}
+$int0 = 1;
+$int1 = enum_getoutputcount(trh82_prize_to_price);
+def_int $int2 = 0;
+while ($int0 <= $int1) {
+    if_settext(tostring(enum(int, int, trh82_prize_to_price, $int0)), enum(int, component, trh82_prize_to_component, $int0));
+    if_setonmouserepeat("script3876(~script12218($int0), enum(int, component, trh82_prize_to_tooltip, $int0), -1)", enum(int, component, trh82_prize_to_tooltip, $int0));
+    if_setonmouseleave("script8805", enum(int, component, trh82_prize_to_tooltip, $int0));
+    if (~script12219($int0) = 1) {
+        if_setgraphic("trh82_btn_valentines,1", ~script12220($int0));
+        if_sethide(true, ~script12221($int0));
+        if ($int0 > 6 & $int0 < 15) {
+            $int2 = calc($int2 + 1);
+        }
+    } else {
+        if_setgraphic("trh82_btn_valentines,0", ~script12220($int0));
+    }
+    $int0 = calc($int0 + 1);
+}
+if ($int2 ! 8) {
+    if_setgraphic("trh82_btn_valentines,2", trh82_valentines:prize_disabled_15);
+}

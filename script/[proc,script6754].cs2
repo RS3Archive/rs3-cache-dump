@@ -1,0 +1,72 @@
+// 6754
+[proc,script6754](struct $struct0)
+def_component $component1 = wheel_of_fortune:reward_layer_bonus_prizes_content;
+cc_deleteall($component1);
+~cc_add_panel($component1, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, false, 0);
+def_int $int2 = 0;
+def_graphic $graphic3 = null;
+def_dbtable $dbtable4 = null;
+switch_struct ($struct0) {
+    case trh177_promo :
+        $dbtable4 = trh177_promo_bonus;
+    case trh196_promo :
+        $dbtable4 = trh196_promo_bonus;
+    case trh205_promo :
+        $dbtable4 = trh205_promo_bonus;
+}
+db_listall($dbtable4);
+def_dbrow $dbrow5 = db_findnext;
+def_obj $obj6 = null;
+def_int $int7 = 0;
+def_string $string0 = "";
+while ($dbrow5 ! null) {
+    if (~trh_get_reward_per_key_item_count($struct0, $dbrow5) > 0 & ~trh_bonus_bar_bonus_active($struct0, $dbrow5) = true) {
+        $int2 = calc($int2 + 1);
+        $obj6, $int7 = ~trh_get_reward_per_key_item($struct0, $dbrow5);
+        ~script15939($component1, $int2, 0, 0, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+        ~script7920($component1, $int2, 1, $int2, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 40, 40, ^setsize_abs, ^setsize_abs, rs3_ui_slot_bonus_prize);
+        ~script10024($component1, $int2, 2, $int2, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs, $obj6, $int7, 2, 0);
+        $string0 = "<tostring($int7)> x <oc_name($obj6)><br><oc_param($obj6, trh_extended_desc)>";
+        if (oc_param($obj6, premium_currency_object) = 1) {
+            $graphic3 = "rs3_icon_bonds_pouch,0";
+            $string0 = "<$string0><br>This item gets sent to your currency pouch.";
+        } else if (oc_param($obj6, mtxmgt_tracked_variable_object) = 1) {
+            $graphic3 = null;
+        } else {
+            switch_int (~trh_validate_claim_destination($obj6, 1)) {
+                case 93 :
+                    $graphic3 = rs3_icon_send_to_backpack;
+                    $string0 = "<$string0><br>This item gets sent to your backpack.";
+                case 95 :
+                    $graphic3 = rs3_icon_worldmap_key_bank;
+                    $string0 = "<$string0><br>This item gets sent to the bank.";
+            }
+        }
+        ~script7920($component1, $int2, 3, $int2, 0, 0, 35, ^setpos_abs_centre, ^setpos_abs_centre, 20, 20, ^setsize_abs, ^setsize_abs, $graphic3);
+        ~script15939($component1, $int2, 4, $int2, 0, 0, 10, ^setpos_abs_centre, ^setpos_abs_centre, 50, 80, ^setsize_abs, ^setsize_abs);
+        if (~is_mobile_client = true) {
+            cc_setop(1, "Information");
+            cc_setonop("script7774($string0, event_com, event_comsubid, 2)");
+        } else {
+            cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+        }
+    }
+    $dbrow5 = db_findnext;
+}
+if_settext("Bonus Prizes  <col=FFFFFF>(<tostring($int2)>)</col>", wheel_of_fortune:reward_layer_bonus_prizes_title);
+if (cc_find($component1, 0) = true) {
+    cc_setsize(calc(80 * $int2), 0, ^setsize_abs, ^setsize_minus);
+    if ($int2 <= 8) {
+        ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_left_btn, rs3tli_icon_scroll_horizontal, true);
+        ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_right_btn, rs3tli_icon_scroll_horizontal, true);
+        if_sethide(true, wheel_of_fortune:reward_layer_bonus_prizes_scroll_left);
+        if_sethide(true, wheel_of_fortune:reward_layer_bonus_prizes_scroll_right);
+    } else {
+        if_setscrollsize(cc_getwidth, 0, wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer);
+        if_setscrollpos(0, 0, wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer);
+        ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_left_btn, rs3tli_icon_scroll_horizontal, true);
+        if_sethide(false, wheel_of_fortune:reward_layer_bonus_prizes_scroll_left);
+        if_sethide(false, wheel_of_fortune:reward_layer_bonus_prizes_scroll_right);
+    }
+}
+if_settext("(<tostring($int2)>)", wheel_of_fortune:reward_layer_bonus_prizes_number);

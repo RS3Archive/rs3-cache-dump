@@ -1,0 +1,12 @@
+// 2951
+[clientscript,login_popup_throbber](component $component0)
+%lobby_open_origin = 1;
+def_int $int1 = ~login_getreply;
+if (platformtype ! ^platformtype_steam & $int1 ! -3 & $int1 ! 42 & $int1 ! 43) {
+    if_setontimer(null, $component0);
+    return;
+}
+%throbber_last = calc(clientclock + 5);
+if ($component0 ! null & cc_find($component0, 1) = true & cc_getgraphic = rs3_loading_spinner_default) {
+    cc_set2dangle(calc((cc_get2dangle - 1872) % 65536));
+}

@@ -1,0 +1,149 @@
+// 112
+[clientscript,meslayer_onkey](int $int0, char $char1)
+if (%keyboard_manager_listening_input_subsystem ! 10) {
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 1;
+switch_int ($int0) {
+    case 84 :
+        switch_int (%meslayermode) {
+            case 7, 17 :
+                if (string_length(%meslayerinput) <= 0) {
+                    return;
+                }
+            case 12 :
+                ~script1806(%meslayerinput);
+                return;
+            case 13 :
+                resume_stringdialog(%meslayerinput);
+                ~meslayer_close(13);
+                return;
+        }
+        if (string_length(%meslayerinput) > 0) {
+            switch_int (%meslayermode) {
+                case 4, 5 :
+                    if (ignore_count < 0) {
+                        mes("Unable to update Ignore List: system busy");
+                    } else if (%meslayermode = 4) {
+                        ignore_add(%meslayerinput);
+                    } else if (%meslayermode = 5) {
+                        if (ignore_test(~displayname_simplify(%meslayerinput)) = true) {
+                            ignore_del(~displayname_simplify(%meslayerinput));
+                        } else {
+                            mes("That player is not on your ignore list.");
+                        }
+                    }
+                    ~meslayer_close(%meslayermode);
+                case 2, 3, 6 :
+                    if (friend_count < 0) {
+                        mes("Unable to complete action - system busy");
+                    } else if (%meslayermode = 2) {
+                        friend_add(%meslayerinput);
+                    } else if (%meslayermode = 3) {
+                        if (friend_test(~displayname_simplify(%meslayerinput)) = true) {
+                            %friendtodelete = ~displayname_simplify(%meslayerinput);
+                            ~script2018(8);
+                        } else {
+                            mes("That player is not on your friends list.");
+                        }
+                    } else if (%meslayermode = 6) {
+                        if (chat_getfilter_private = ^chatfilter_off) {
+                            chat_setfilter(chat_getfilter_public, ^chatfilter_friends, chat_getfilter_trade);
+                        }
+                        chat_sendprivate(%friendtomessage, %meslayerinput);
+                    }
+                    ~meslayer_close(%meslayermode);
+                case 7 :
+                    %meslayerinput = ~script17391(%meslayerinput);
+                    if (keyheld_shift = true) {
+                        %meslayerinput = ~script17397(%meslayerinput);
+                        %meslayer_caret = string_length(%meslayerinput);
+                        $int3 = 0;
+                    } else {
+                        resume_countdialog(~script17397(%meslayerinput));
+                    }
+                case 17 :
+                    %meslayerinput = ~script17393(%meslayerinput);
+                    if (keyheld_shift = true) {
+                        %meslayerinput = ~script17398(%meslayerinput);
+                        %meslayer_caret = string_length(%meslayerinput);
+                        $int3 = 0;
+                    } else {
+                        resume_countdialog_long(~script17398(%meslayerinput));
+                    }
+                case 8 :
+                    %last_namedialog = escape(%meslayerinput);
+                    %last_namedialog_init = true;
+                    resume_namedialog(%meslayerinput);
+                case 9 :
+                    if (compare(lowercase(%meslayerinput), lowercase(%loginscreen_password)) ! 0) {
+                        resume_stringdialog(%meslayerinput);
+                    } else {
+                        mes("Please do not enter your password here!");
+                    }
+                case 10 :
+                    %last_clanchannelowner = escape(%meslayerinput);
+                    %last_clanchannelowner_init = true;
+                    clan_joinchat(%meslayerinput);
+                case 15 :
+                    ~friendschat_kick(%meslayerinput);
+                case 16 :
+                    ~clan_chat_kick_find(%meslayerinput);
+            }
+        } else if (%meslayermode = 14) {
+            ~music_search_close_both;
+            return;
+        }
+        if ($int3 = 1) {
+            ~meslayer_close(0);
+            return;
+        }
+    case 13 :
+        if (~cancel_targetmode = true) {
+            return;
+        }
+        switch_int (%meslayermode) {
+            case 12 :
+                ~script1806(%clanwars_caller);
+                ~script1750(0);
+            case 14 :
+                ~music_search_close_both;
+            case default :
+                ~script1750(%meslayermode);
+        }
+        return;
+    case 96, 97, 98, 99, 102, 103 :
+        if (keyheld_shift = false) {
+            return;
+        }
+        %meslayer_caret = ~script1553($int0, %meslayer_caret, %meslayerinput);
+    case default :
+        switch_int (%meslayermode) {
+            case 1 :
+                if ($int0 = 83) {
+                    ~meslayer_close(1);
+                }
+                return;
+            case 6, 9 :
+                $int2 = 0;
+            case 7 :
+                $int2 = 6;
+            case 17 :
+                $int2 = 10;
+            case 13 :
+                $int2 = 5;
+            case 14 :
+                $int2 = 4;
+            case default :
+                $int2 = 2;
+        }
+        %meslayerinput, %meslayer_caret = ~script802(%meslayer_caret, %meslayerinput, $int2, $int0, $char1);
+}
+if_settext(escape(%meslayerinput), meslayer:mes_text2);
+~script1557;
+if (%meslayermode = 14) {
+    %music_searchstring = lowercase(%meslayerinput);
+    %playerdesign2_client_torso = true;
+    ~music_v3_refresh_both;
+}

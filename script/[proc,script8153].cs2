@@ -1,0 +1,99 @@
+// 8153
+[proc,script8153](enum $enum0, int $int1)
+if ($enum0 = null) {
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount($enum0);
+def_int $int5 = $int4;
+def_int $int6 = if_getwidth(toplevel_v2_parents_quickchildren:quickchild);
+cc_deleteall(toplevel_v2_parents_quickchildren:quickchild_build);
+cc_deleteall(toplevel_v2_parents_quickchildren:quickchild_click);
+~script13843(toplevel_v2_parents_quickchildren:quickchild_build, toplevel_v2_parents_quickchildren:quickchild_click, $enum0, 4);
+def_int $int7 = 36;
+def_int $int8 = 36;
+def_int $int9 = 4;
+def_int $int10 = 4;
+def_int $int11 = 4;
+def_int $int12 = 4;
+def_int $int13 = 4;
+def_int $int14 = 1;
+if ($enum0 = toplevel_v2_parent_social_children) {
+    $int14 = 2;
+    if (~script19316 = false) {
+        $int5 = calc($int5 - 2);
+    }
+    if (%toplevel_v2_chat_style = 1) {
+        $int5 = calc($int5 - 6);
+    }
+}
+def_int $int15 = calc($int5 / $int14);
+if (calc($int5 % $int14) > 0) {
+    $int15 = calc($int15 + 1);
+}
+if (%toplevel_v2_active_skinset = 1) {
+    $int7 = 32;
+    $int8 = 32;
+    $int9 = 4;
+    $int10 = 7;
+    $int12 = 0;
+    $int13 = 0;
+    $int11 = 0;
+}
+if ($int1 = 0) {
+    $int13 = calc($int13 + ($int15 - 1) * $int8);
+} else if ($int1 = 3) {
+    $int12 = calc($int12 + ($int15 - 1) * $int7);
+}
+def_int $int16 = 0;
+def_int $int17 = $int12;
+def_int $int18 = $int13;
+while ($int2 < $int4) {
+    if (cc_find(toplevel_v2_parents_quickchildren:quickchild_build, $int2) = true & .cc_find(toplevel_v2_parents_quickchildren:quickchild_click, $int2) = true) {
+        if (~script19633(enum(int, int, $enum0, $int2)) = false) {
+            cc_sethide(true);
+            .cc_sethide(true);
+        } else {
+            cc_setposition($int12, $int13, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setposition(calc($int12 + $int9), calc($int13 + $int10), ^setpos_abs_left, ^setpos_abs_top);
+            .cc_sethide(false);
+            $int16 = calc($int16 + 1);
+            switch_int ($int1) {
+                case 0 :
+                    if ($int16 >= $int14) {
+                        $int13 = calc($int13 - $int8);
+                        $int12 = $int17;
+                        $int16 = 0;
+                    } else {
+                        $int12 = calc($int12 + $int7);
+                    }
+                case 3 :
+                    if ($int16 >= $int14) {
+                        $int12 = calc($int12 - $int7);
+                        $int13 = $int18;
+                        $int16 = 0;
+                    } else {
+                        $int13 = calc($int13 + $int8);
+                    }
+                case 1 :
+                    if ($int16 >= $int14) {
+                        $int13 = calc($int13 + $int8);
+                        $int12 = $int17;
+                        $int16 = 0;
+                    } else {
+                        $int12 = calc($int12 + $int7);
+                    }
+                case 2 :
+                    if ($int16 >= $int14) {
+                        $int12 = calc($int12 + $int7);
+                        $int13 = $int18;
+                        $int16 = 0;
+                    } else {
+                        $int13 = calc($int13 + $int8);
+                    }
+            }
+        }
+    }
+    $int2 = calc($int2 + 1);
+}

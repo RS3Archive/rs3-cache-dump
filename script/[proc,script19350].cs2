@@ -1,0 +1,30 @@
+// 19350
+[proc,script19350](obj $obj0, int $int1, int $int2, inv $inv3, int $int4)
+def_int $int5 = %bankcert;
+def_obj $obj6 = null;
+if (~script19368($obj0) = false) {
+    return;
+}
+if (oc_cert($obj0) = $obj0) {
+    $int5 = 0;
+}
+if (oc_stackable($obj0) = true & ~script19585($inv3, $obj0, 0) ! -1) {
+    ~script19369($obj0, $int1, $int2, $inv3, -1, $int1, false);
+} else if ($int5 = 1 & ~script19585($inv3, oc_cert($obj0), 0) ! -1) {
+    ~script19369($obj0, $int1, $int2, $inv3, -1, $int1, false);
+} else if ($int4 ! -1 & ~script19589($inv3, $int4) > 0) {
+    $obj6 = ~script19588($inv3, $int4);
+    if (~script19362(oc_uncert($obj6)) = true) {
+        return;
+    }
+    if ($obj6 = $obj0 & oc_stackable($obj6) = true | $obj6 = oc_cert($obj0) & $int5 = 1) {
+        ~script19369($obj0, 1, $int2, $inv3, -1, $int1, false);
+    } else if (~script19366($int2, $inv3, $int4, $int4, false) = true) {
+        ~bank_swap_sound;
+    }
+    return;
+} else if (oc_stackable($obj0) = true | $int5 = 1) {
+    ~script19369($obj0, $int1, $int2, $inv3, $int4, $int1, false);
+} else {
+    ~script19369($obj0, 1, $int2, $inv3, $int4, $int1, false);
+}

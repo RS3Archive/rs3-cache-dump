@@ -1,0 +1,96 @@
+// 9355
+[proc,script9355](component $component0, struct $struct1, struct $struct2)
+if ($component0 = null | $struct1 = null | $struct2 = null) {
+    return;
+}
+if ($struct2 = rs3tli_rebuild_icon_button) {
+    if (if_find(if_getlayer($component0)) = true) {
+        $struct2 = cc_param(rs3tli_icon_struct);
+    }
+    if ($struct2 = null) {
+        return;
+    }
+} else if ($struct2 = rs3tli_undefined_icon_button) {
+    if (if_find(if_getlayer($component0)) = true) {
+        if (cc_param(rs3tli_icon_struct) ! null) {
+            $struct2 = cc_param(rs3tli_icon_struct);
+        } else {
+            cc_setparam(rs3tli_icon_struct, $struct2);
+        }
+    }
+} else if (if_find(if_getlayer($component0)) = true) {
+    cc_setparam(rs3tli_icon_struct, $struct2);
+}
+def_int $int3 = struct_param($struct1, rs3tli_button_layer_type);
+if (struct_param($struct2, rs3tli_button_layer_master_struct) ! null) {
+    $struct1 = ~script9926(struct_param($struct2, rs3tli_button_layer_master_struct), $int3);
+}
+if_setonvartransmit("script9991($component0, $struct1, rs3tli_rebuild_icon_button){toplevel_v2_skins_varp}", $component0);
+def_int $int4 = min(if_getwidth($component0), if_getheight($component0));
+if (struct_param($struct2, rs3tli_button_layer_master_struct) = null & $int4 >= 32) {
+    switch_int ($int3) {
+        case 1 :
+            $struct1 = rs3tli_32px_icon_button_on;
+        case 2 :
+            $struct1 = rs3tli_32px_icon_button_over;
+        case 3 :
+            $struct1 = rs3tli_32px_icon_button_hit;
+        case 4 :
+            $struct1 = rs3tli_32px_icon_button_selected;
+        case 5 :
+            $struct1 = rs3tli_32px_icon_button_disabled;
+    }
+}
+def_struct $struct5 = struct_param($struct1, rs3tli_button_layer_master_struct);
+if ($struct5 ! null) {
+    $struct1 = $struct5;
+}
+$struct1 = ~script9984($struct1, $int3);
+def_graphic $graphic6 = struct_param($struct1, rs3tli_button_graphic);
+def_int $int7 = struct_param($struct1, rs3tli_button_graphic_width);
+if ($int7 = 0) {
+    $int7 = if_getwidth($component0);
+}
+def_int $int8 = struct_param($struct1, rs3tli_button_graphic_height);
+if ($int8 = 0) {
+    $int8 = if_getheight($component0);
+}
+def_graphic $graphic9 = struct_param($struct2, rs3tli_icon_graphic_on);
+def_int $int10 = struct_param($struct2, rs3tli_icon_graphic_width);
+def_int $int11 = struct_param($struct2, rs3tli_icon_graphic_height);
+def_boolean $boolean12 = false;
+def_boolean $boolean13 = false;
+switch_int ($int3) {
+    case 2 :
+        if_setonmouseover("script8087(false, event_com)", $component0);
+        if_setonmouseleave("script8087(true, event_com)", $component0);
+        $boolean12 = true;
+        $graphic9 = struct_param($struct2, rs3tli_icon_graphic_over);
+    case 3 :
+        if_setonclick("script10016(event_com)", $component0);
+        if_setonrelease("script8087(true, event_com)", $component0);
+        if_setonmouseleave("script8087(true, event_com)", $component0);
+        $boolean12 = true;
+        $graphic9 = struct_param($struct2, rs3tli_icon_graphic_hit);
+    case 4 :
+        $boolean13 = true;
+        $graphic9 = struct_param($struct2, rs3tli_icon_graphic_selected);
+    case 5 :
+        if_setnoclickthrough(true, $component0);
+        $boolean13 = true;
+        $graphic9 = struct_param($struct2, rs3tli_icon_graphic_disabled);
+}
+cc_deleteall($component0);
+def_struct $struct14 = ~script12611($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic6);
+cc_sethide($boolean12);
+~script12591(6, $struct14);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize($int10, $int11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic9);
+cc_sethide($boolean12);
+if_sethide($boolean13, $component0);

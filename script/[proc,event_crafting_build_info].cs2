@@ -1,0 +1,56 @@
+// 15178
+[proc,event_crafting_build_info](obj $obj0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, obj $obj7, string $string0)
+if ($obj0 = null | $int1 <= 0) {
+    return;
+}
+if_settext(oc_name($obj0), event_crafting:info_object_name);
+if_setopbase(oc_name($obj0), event_crafting:give_button);
+if_setopbase(oc_name($obj7), event_crafting:skip_button);
+if_sethide(true, event_crafting:info_object_graphic);
+if_sethide(false, event_crafting:info_object_icon_holder);
+if_setobject($obj0, $int1, event_crafting:info_object);
+if_settext($string0, event_crafting:info_description_text);
+if_settext("<tostring_localised($int2, true)> available in your inventory.", event_crafting:info_stats_inventory_text);
+if (oc_param($obj0, nonbankable) = 1) {
+    if_settext("<oc_name($obj0)> isn't bankable.", event_crafting:info_stats_bank_text);
+} else {
+    if_settext("<tostring_localised($int3, true)> available in your bank.", event_crafting:info_stats_bank_text);
+}
+if_setobject($obj0, $int5, event_crafting:info_stats_required_graphic);
+if_setobject_nonum($obj7, 0, event_crafting:info_stats_skip_price_graphic);
+def_int $int8 = 0;
+if ($int6 = 1 & $int5 ! $int1) {
+    if_settext("You deposited <tostring_localised($int5, true)> and skipped the rest!", event_crafting:info_stats_required_text);
+    if_settext("You've already skipped this ingredient!", event_crafting:info_stats_skip_price_text);
+} else {
+    $int8 = ~script15125($obj0, calc($int1 - $int5));
+    if_settext("You've deposited <tostring_localised($int5, true)>/<tostring_localised($int1, true)>", event_crafting:info_stats_required_text);
+    if ($int6 = 1) {
+        if_settext("You've already completed this ingredient!", event_crafting:info_stats_skip_price_text);
+    } else {
+        if_settext("You can skip the remainder of this ingredient for : <tostring_localised($int8, true)> x <oc_name($obj7)>", event_crafting:info_stats_skip_price_text);
+    }
+}
+def_boolean $boolean9 = false;
+def_string $string1 = "";
+if ($obj0 = coins) {
+    $boolean9 = true;
+    if_setgraphic(icon_coins, event_crafting:info_stats_misc_icon);
+    $string1 = "coin pouch";
+} else if ($obj0 = event_crafting_currency) {
+    $boolean9 = true;
+    if_setgraphic(rs3_icon_money_64px, event_crafting:info_stats_misc_icon);
+    $string1 = "currency pouch";
+} else if (~script2551($obj0) = true) {
+    $boolean9 = true;
+    if_setgraphic("challenge_skill_icons_35px,15", event_crafting:info_stats_misc_icon);
+    $string1 = "metal bank";
+} else if (enum_hasoutput(obj, arch_material_list, $obj0) = true) {
+    $boolean9 = true;
+    if_setgraphic("challenge_skill_icons_35px,27", event_crafting:info_stats_misc_icon);
+    $string1 = "material storage";
+}
+if ($boolean9 = true) {
+    if_settext("<tostring_localised($int4, true)> available in your <$string1>.", event_crafting:info_stats_misc_text);
+}
+if_sethide(~not_bool($boolean9), event_crafting:info_stats_misc);

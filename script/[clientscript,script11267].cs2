@@ -1,0 +1,51 @@
+// 11267
+[clientscript,script11267](component $component0, enum $enum1, component $component2, component $component3, int $int4)
+def_int $int5 = 0;
+def_string $string0 = "";
+def_int $int6 = 15;
+while ($int5 < enum_getoutputcount($enum1)) {
+    $string0 = struct_param(enum(int, struct, $enum1, $int5), jmod_tools_outfit_name);
+    cc_create($component2, ^iftype_rectangle, $int5);
+    cc_setsize(0, $int6, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, calc($int5 * $int6), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    if (calc($int5 % 2) = 0) {
+        cc_setcolour(0x1c2c34);
+    } else {
+        cc_setcolour(0x071820);
+    }
+    cc_create($component0, ^iftype_text, $int5);
+    cc_setsize(0, $int6, ^setsize_minus, ^setsize_abs);
+    cc_setcolour(~script10495(3));
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 16777215)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(3))");
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setop(1, "Select");
+    cc_setopbase($string0);
+    cc_settext($string0);
+    $int5 = calc($int5 + 1);
+}
+def_int $int7 = 0;
+$int5 = 0;
+def_int $int8 = calc(if_getnextsubid($component0) - 1);
+def_int $intarray0(if_getnextsubid($component0));
+while ($int5 <= $int8) {
+    if (cc_find($component0, $int5) = true & string_length(cc_gettext) > 0) {
+        $intarray0($int7) = $int5;
+        $int7 = calc($int7 + 1);
+    }
+    $int5 = calc($int5 + 1);
+}
+if ($int7 > 1) {
+    ~script4424(intarray0, $component0, 0, calc($int7 - 1));
+}
+$int5 = 0;
+while ($int5 < $int7) {
+    if (cc_find($component0, $intarray0($int5)) = true) {
+        cc_setposition(0, calc($int6 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int5 = calc($int5 + 1);
+}
+if_setsize(0, calc($int6 * ($int5 + 1)), ^setsize_minus, ^setsize_abs, if_getparentlayer($component0));
+if_setparam_int(rs3tli_accordion_content_fix_height, calc($int6 * ($int5 + 1)), if_getparentlayer(if_getparentlayer($component0)));
+if_callonresize($component3);

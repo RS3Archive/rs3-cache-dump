@@ -1,0 +1,106 @@
+// 18096
+[proc,script18096](int $int0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_graphic $graphic8 = null;
+def_int $int9 = 0;
+switch_int ($int0) {
+    case 1 :
+        $component6 = bp3_splash_embedded:right_graphic;
+        $component2 = bp3_splash_embedded:right_holder;
+        $component3 = bp3_splash_embedded:right_title;
+        $component4 = bp3_splash_embedded:right_desc;
+        $component5 = bp3_splash_embedded:right_button_holder;
+        $component7 = bp3_splash_embedded:right_vfx_holder;
+        $graphic8 = bp3_vfx_spiral_gold;
+    case 2 :
+        $component6 = bp3_splash_embedded:left_graphic;
+        $component2 = bp3_splash_embedded:left_holder;
+        $component3 = bp3_splash_embedded:left_title;
+        $component4 = bp3_splash_embedded:left_desc;
+        $component5 = bp3_splash_embedded:left_button_holder;
+        $component7 = bp3_splash_embedded:left_vfx_holder;
+        $int9 = 16384;
+        $graphic8 = bp3_vfx_spiral_purple;
+    case default :
+        return;
+}
+def_boolean $boolean10 = ~script6431;
+def_int $int11 = 0;
+def_int $int12 = 0;
+cc_deleteall($component7);
+if (if_find($component7) = true) {
+    ~cc_add_graphic($component7, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 250, 250, ^setsize_abs, ^setsize_abs, $graphic8);
+    cc_set2dangle(calc($int9 + 32768));
+    cc_setontimer("script17942($component7, 0, -2000)");
+    ~cc_add_graphic($component7, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 250, 250, ^setsize_abs, ^setsize_abs, $graphic8);
+    cc_setontimer("script17942($component7, 1, -2000)");
+    cc_set2dangle($int9);
+}
+def_dbrow $dbrow13 = ~script17853;
+if ($dbrow13 = null) {
+    return;
+}
+cc_deleteall($component5);
+if (if_find($component5) = true) {
+    switch_int ($int1) {
+        case default :
+            if_sethide(true, $component2);
+            return;
+        case 0 :
+            if_settext("Premier<br>Hero Pass", $component3);
+            if_settext("Upgrade to Premier Hero Pass and earn over 100 rewards!", $component4);
+            if_setgraphic(bp3_icon_prem_128, $component6);
+            if ($boolean10 = true) {
+                $int12 = ~script18097(2, $int12);
+                $int12 = calc($int12 + 6);
+            }
+            $int12 = ~script18097(1, $int12);
+        case 1 :
+            if_settext("Premier Hero Pass Bundle", $component3);
+            if_settext("Purchase the Premier Hero Pass bundle and earn over 100 rewards and 1250 Emblems!", $component4);
+            if_setgraphic(bp3_icon_prem_128, $component6);
+            if ($boolean10 = true) {
+                $int12 = ~script18097(4, $int12);
+                $int12 = calc($int12 + 6);
+            }
+            $int12 = ~script18097(3, $int12);
+        case 2 :
+            if_settext("Underworld<br>Emblems", $component3);
+            if_settext("Purchase Emblems to spend on exclusive items in the Hero Store.", $component4);
+            ~script17927;
+            if_setgraphic(bp3_icon_2023_q3_emblem_128, $component6);
+            if ($boolean10 = true) {
+                $int12 = ~script18097(20, $int12);
+                $int12 = ~script18097(19, calc($int12 + 6));
+            } else {
+                $int12 = ~script18098(13, 15, $int12);
+                $int12 = ~script18099(17, calc($int12 + 6));
+            }
+        case 3 :
+            if_settext("Hero Pass<br>Levels", $component3);
+            if_settext("Purchase the Hero Pass Levels for instant access to Hero Pass rewards.", $component4);
+            if_setgraphic(bp3_icon_hero_points_128, $component6);
+            if ($boolean10 = true) {
+                $int12 = ~script18097(20, $int12);
+                $int12 = ~script18097(19, calc($int12 + 6));
+            } else {
+                $int11 = calc(~script17890($dbrow13) - ~script17862(dbrow_7906));
+                if ($int11 > 5) {
+                    $int12 = ~script18098(5, 7, $int12);
+                    if ($int11 > 20) {
+                        $int12 = ~script18098(9, 11, calc($int12 + 6));
+                    } else if ($int11 > 10) {
+                        $int12 = ~script18099(9, calc($int12 + 6));
+                    }
+                } else {
+                    $int12 = ~script18099(5, calc($int12 + 6));
+                }
+            }
+    }
+    if_sethide(false, $component2);
+}

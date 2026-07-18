@@ -1,0 +1,20 @@
+// 7516
+[clientscript,script7516]
+if_settext("0", rand_dnd_overlay:rand_dnd_score);
+if_settext("-", rand_dnd_overlay:rand_dnd_rank);
+def_string $string0 = "";
+def_string $string1 = "";
+if (compare(%rand_dnd_skiller_objective_string, "") = 0) {
+    $string0 = "Resource";
+} else {
+    $string0 = %rand_dnd_skiller_objective_string;
+}
+$string1 = "<$string0> - Collect <lowercase($string0)> you find within the sinkhole.";
+if_settext($string0, rand_dnd_overlay:skiller_text);
+if_setonmouserepeat("script8799($string1, event_com, -1)", rand_dnd_overlay:objective_1);
+if_setonmouseleave("script8805", rand_dnd_overlay:objective_1);
+if_setobject(rand_dnd_combat_totem, -1, rand_dnd_overlay:objective_2);
+if_setobject(rand_dnd_explore_totem, -1, rand_dnd_overlay:objective_3);
+if_sethide(true, rand_dnd_overlay:objective_1_tick);
+if_sethide(true, rand_dnd_overlay:objective_2_tick);
+if_sethide(true, rand_dnd_overlay:objective_3_tick);

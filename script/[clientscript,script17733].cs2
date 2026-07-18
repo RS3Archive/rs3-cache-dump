@@ -1,0 +1,31 @@
+// 17733
+[clientscript,script17733](dbrow $dbrow0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+switch_dbrow ($dbrow0) {
+    case skill_tree_necromancy_hub :
+        if_setonstattransmit("script17738{necromancy}", skill_tree:mainmodal_window_content);
+}
+%skill_tree_dbrow = $dbrow0;
+%skill_tree_level_index_selected_client = $int1;
+%skill_tree_node_index_selected_client = $int2;
+%skill_tree_points_progress_client = $int3;
+%skill_tree_points_max_progress_client = $int4;
+%skill_tree_points_available_client = $int5;
+%skill_tree_points_earned_client = $int6;
+%skill_tree_points_max_earned_client = $int7;
+def_string $string0 = db_getfield($dbrow0, skill_tree:col4, 0);
+switch_dbrow ($dbrow0) {
+    case skill_tree_necromancy_hub :
+        $string0 = "Earn <col=ffffff><~script17481($dbrow0, $int7)></col> by gaining Necromancy XP with combat.";
+        if_sethide(false, skill_tree:extra_value_layer);
+        if_setgraphic(skill_tree_icon_necromancy_souls, skill_tree:extra_value_icon);
+        if_setonvarctransmit("script17736{skill_tree_extra_value_client}", skill_tree:extra_value_text);
+        ~script3536("Total number of souls powering the vessel.", skill_tree:extra_value_layer, -1);
+}
+if_settext(db_getfield($dbrow0, skill_tree:col1, 0), skill_tree:tree_details_title_text);
+if_settext($string0, skill_tree:tree_details_body_text);
+if_setgraphic(db_getfield($dbrow0, skill_tree:col5, 0), skill_tree:points_available_icon);
+~script17741($dbrow0);
+~script13310(skill_tree:points_progress_bar_progress_layer, skill_tree:points_progress_bar_progress_mask_layer, 59, calc(8 * 1000));
+if_setonvarctransmit("script17735{skill_tree_points_available_client, skill_tree_points_earned_client, skill_tree_points_max_earned_client}", skill_tree:points_available_text);
+~script3536("Total number of Talent Points available.", skill_tree:points_available_layer, -1);
+if_setonvarctransmit("script17734{skill_tree_points_available_client, skill_tree_points_earned_client, skill_tree_points_max_earned_client}", skill_tree:points_earned_text);

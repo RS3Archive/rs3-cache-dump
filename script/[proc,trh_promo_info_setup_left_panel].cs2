@@ -1,0 +1,84 @@
+// 14432
+[proc,trh_promo_info_setup_left_panel](dbrow $dbrow0, struct $struct1)
+cc_deleteall(wheel_of_fortune:trh_promo_info_left_panel);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+~if_add_child_background(wheel_of_fortune:trh_promo_info_left_panel, 0, $int2, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, background_default, true);
+def_graphic $graphic7 = null;
+$graphic7, $int3, $int5 = db_getfield($dbrow0, trh_promo_info:col2, 0);
+def_string $string0 = db_getfield($dbrow0, trh_promo_info:col1, 0);
+~if_add_child_layer(wheel_of_fortune:trh_promo_info_left_panel, 1, $int2++, 0, 10, ^setpos_abs_centre, ^setpos_abs_top, 20, 0, ^setsize_minus, ^setsize_abs);
+def_int $int8 = cc_getwidth;
+$int4 = ~script15891($string0, calc($int8 - $int3), cinzel_13pt_bold, -1);
+cc_setsize(20, max($int5, calc($int4 + 25)), ^setsize_minus, ^setsize_abs);
+$int6 = calc(cc_getheight + 10 + 5);
+if ($graphic7 ! null) {
+    ~cc_add_child_graphic(1, $int2++, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, $int3, $int5, ^setsize_abs, ^setsize_abs, $graphic7);
+}
+~cc_add_child_text(1, $int2++, $int3, 0, ^setpos_abs_left, ^setpos_abs_top, calc($int3 + 10), 18, ^setsize_minus, ^setsize_abs, text_label_feature, db_getfield($dbrow0, trh_promo_info:col0, 0));
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+~cc_add_child_text(1, $int2++, $int3, 25, ^setpos_abs_left, ^setpos_abs_top, calc($int8 - $int3), $int4, ^setsize_abs, ^setsize_abs, text_label_standard, $string0);
+cc_setcolour(~script10495(0));
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+$int2 = 0;
+def_int $int9 = -1;
+def_int $int10 = db_getfieldcount($dbrow0, trh_promo_info:col4);
+$int4 = 19;
+$string0 = "- Promotion Type: <enum(int, string, trh_promo_info_promo_type, db_getfield($dbrow0, trh_promo_info:col3, 0))>";
+if ($int10 > 0) {
+    while (++$int9 < $int10) {
+        $string0 = append($string0, "<br>- <db_getfield($dbrow0, trh_promo_info:col4, $int9)>");
+    }
+    $int4 = ~script15891($string0, calc($int8 - 20 * 2), notosans_12, 19);
+}
+~if_add_child_layer(wheel_of_fortune:trh_promo_info_left_panel, 2, $int2++, 0, $int6, ^setpos_abs_centre, ^setpos_abs_top, 20, calc($int4 + 20), ^setsize_minus, ^setsize_abs);
+$int6 = calc($int6 + ($int4 + 20 + 10));
+~cc_add_child_rect(2, $int2++, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, rect_dark);
+~cc_add_child_text(2, $int2++, 0, 10, ^setpos_abs_centre, ^setpos_abs_top, 20, 0, ^setsize_minus, ^setsize_minus, text_body_default, $string0);
+cc_settextalign(^settextalign_left, ^settextalign_top, 19);
+cc_setcolour(^white);
+$int2 = 0;
+$string0 = db_getfield($dbrow0, trh_promo_info:col5, 0);
+if (string_length($string0) > 0) {
+    $int4 = ~script15891($string0, calc($int8 - 20), notosans_12, 19);
+    ~if_add_child_layer(wheel_of_fortune:trh_promo_info_left_panel, 3, $int2++, 0, $int6, ^setpos_abs_centre, ^setpos_abs_top, 20, calc($int4 + 17 + 20), ^setsize_minus, ^setsize_abs);
+    $int6 = calc($int6 + ($int4 + 10 + 17 + 20));
+    ~cc_add_child_rect(3, $int2++, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, rect_dark);
+    ~cc_add_child_text(3, $int2++, 10, 10, ^setpos_abs_left, ^setpos_abs_top, 20, 17, ^setsize_minus, ^setsize_abs, text_label_standard, "How to Play");
+    cc_setcolour(~script10495(0));
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    ~cc_add_child_text(3, $int2++, 10, calc(20 + 10), ^setpos_abs_left, ^setpos_abs_top, 20, $int4, ^setsize_minus, ^setsize_abs, text_body_default, $string0);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 19);
+    cc_setcolour(^white);
+    $int2 = 0;
+}
+$string0 = db_getfield($dbrow0, trh_promo_info:col7, 0);
+if (string_length($string0) > 0 & (playermember = true | db_getfield($dbrow0, trh_promo_info:col8, 0) = false)) {
+    $int4 = ~script15891($string0, calc($int8 - 20), notosans_12, 19);
+    ~if_add_child_layer(wheel_of_fortune:trh_promo_info_left_panel, 4, $int2++, 0, $int6, ^setpos_abs_centre, ^setpos_abs_top, 20, calc($int4 + 17 + 20), ^setsize_minus, ^setsize_abs);
+    ~cc_add_child_rect(4, $int2++, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, rect_dark);
+    ~cc_add_child_text(4, $int2++, 10, 10, ^setpos_abs_left, ^setpos_abs_top, 20, 17, ^setsize_minus, ^setsize_abs, text_label_standard, db_getfield($dbrow0, trh_promo_info:col6, 0));
+    cc_setcolour(~script10495(0));
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    ~cc_add_child_text(4, $int2++, 10, calc(20 + 10), ^setpos_abs_left, ^setpos_abs_top, 20, $int4, ^setsize_minus, ^setsize_abs, text_body_default, $string0);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 19);
+    cc_setcolour(^white);
+    $int2 = 0;
+}
+~if_add_child_layer(wheel_of_fortune:trh_promo_info_left_panel, 5, $int2++, 0, 55, ^setpos_abs_centre, ^setpos_abs_bottom, 20, 17, ^setsize_minus, ^setsize_abs);
+~cc_add_child_text(5, $int2++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 8200, 0, ^setsize_rel, ^setsize_minus, text_label_standard, "Ends in: ");
+cc_setcolour(~script10495(0));
+cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+~cc_add_child_text(5, $int2, 0, 0, ^setpos_abs_right, ^setpos_abs_top, 8184, 0, ^setsize_rel, ^setsize_minus, text_body_default, "");
+if ($struct1 = trh130_promo) {
+    cc_setontimer("script14055($int2)");
+} else {
+    cc_setontimer("script15692($int2)");
+}
+$int2 = 0;
+~if_add_child_button(wheel_of_fortune:trh_promo_info_left_panel, 6, $int2++, 0, 15, ^setpos_abs_centre, ^setpos_abs_bottom, 175, 35, ^setsize_abs, ^setsize_abs, button_action_positive, "Play");
+cc_setop(1, "Play");
+cc_setonop("script17421");

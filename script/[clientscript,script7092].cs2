@@ -1,0 +1,91 @@
+// 7092
+[clientscript,script7092]
+if (%makex2012_item_in_production = null | %makex2012_item_in_production = mcannonremains) {
+    return;
+}
+def_obj $obj0 = oc_param(%makex2012_item_in_production, recipe_non_dummy_obj);
+if ($obj0 = null) {
+    $obj0 = %makex2012_item_in_production;
+}
+def_int $int1 = ~script18374(%makex2012_item_in_production);
+if (oc_param(%makex2012_item_in_production, recipe_use_obj_override) = 1) {
+    $obj0 = %makex2012_recipe_obj_override;
+    $int1 = %makex2012_recipe_stack_size_override;
+}
+if ($int1 <= 1 & oc_param(%makex2012_item_in_production, recipe_batch_size) > 1) {
+    $int1 = oc_param(%makex2012_item_in_production, recipe_batch_size);
+}
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_string $string0 = "Make-X";
+if (%makex2012_production_title ! null) {
+    $int4 = enum(enum, int, makex2012_table_to_stat, %makex2012_production_title);
+    $string0 = enum(int, string, makex2012_all_tables_make_title, $int4);
+}
+if (oc_param(%makex2012_item_in_production, recipe_graphic) ! null) {
+    if_setgraphic(oc_param(%makex2012_item_in_production, recipe_graphic), makex2012_progress_dialogue:info_icon);
+    if_setsize(32, 32, ^setsize_abs, ^setsize_abs, makex2012_progress_dialogue:info_icon);
+    if_setposition(14, 12, ^setpos_abs_left, ^setpos_abs_top, makex2012_progress_dialogue:info_icon);
+} else {
+    if ($int1 > 1) {
+        if_setobject($obj0, $int1, makex2012_progress_dialogue:info_icon);
+    } else {
+        if_setobject_nonum($obj0, -1, makex2012_progress_dialogue:info_icon);
+    }
+    if_setsize(36, 32, ^setsize_abs, ^setsize_abs, makex2012_progress_dialogue:info_icon);
+    if_setposition(12, 12, ^setpos_abs_left, ^setpos_abs_top, makex2012_progress_dialogue:info_icon);
+}
+def_int $int5 = ~script7124(makex2012_progress_dialogue:info_name, $obj0, $int1);
+if_setsize(if_getwidth(makex2012_progress_dialogue:modal_dialog_window), max(165, calc(165 + ($int5 - 16))), ^setsize_abs, ^setsize_abs, makex2012_progress_dialogue:modal_dialog_window);
+~script8421(makex2012_progress_dialogue:modal_dialog_window_background, makex2012_progress_dialogue:modal_dialog_window_border, makex2012_progress_dialogue:modal_dialog_window_content, makex2012_progress_dialogue:modal_dialog_window_close_button, $string0, toplevel_v2_default_modal_dialogue_skin_data, 1018, 1, null, null);
+def_int $int6 = oc_param(%makex2012_item_in_production, recipe_xp_type_1);
+def_int $int7 = oc_param(%makex2012_item_in_production, recipe_xp_type_2);
+if ($int6 = 0) {
+    if_sethide(true, makex2012_progress_dialogue:xp_1);
+} else {
+    if_sethide(false, makex2012_progress_dialogue:xp_1);
+    if ($int7 = 0) {
+        if_setposition(170, 24, ^setpos_abs_left, ^setpos_abs_top, makex2012_progress_dialogue:xp_1);
+    } else {
+        if_setposition(135, 24, ^setpos_abs_left, ^setpos_abs_top, makex2012_progress_dialogue:xp_1);
+    }
+    if_setgraphic(enum(int, graphic, stat2icon_small, $int6), makex2012_progress_dialogue:xp_icon_1);
+    if (%makex2012_total_xp_1 = 0 & %makex2012_total_xp_2 = 0) {
+        ~script7102("0", makex2012_progress_dialogue:xp_amount_1);
+    }
+}
+if ($int7 = 0) {
+    if_sethide(true, makex2012_progress_dialogue:xp_2);
+} else {
+    if_sethide(false, makex2012_progress_dialogue:xp_2);
+    if ($int6 = 0) {
+        if_setposition(170, 24, ^setpos_abs_left, ^setpos_abs_top, makex2012_progress_dialogue:xp_2);
+    } else {
+        if_setposition(230, 24, ^setpos_abs_left, ^setpos_abs_top, makex2012_progress_dialogue:xp_2);
+    }
+    if_setgraphic(enum(int, graphic, stat2icon_small, $int7), makex2012_progress_dialogue:xp_icon_2);
+    if (%makex2012_total_xp_1 = 0 & %makex2012_total_xp_2 = 0) {
+        ~script7102("0", makex2012_progress_dialogue:xp_amount_2);
+    }
+}
+def_string $string1 = "";
+if (%makex2012_total_xp_1 = 0 & %makex2012_total_xp_2 = 0) {
+    ~aif_progressbar_set(0, makex2012_progress_dialogue:progress_bar_value_layer, null);
+    ~script4212(makex2012_progress_dialogue:progress_bar_text, "0/0", museo_sans_11pt_regular, ^white, 0);
+}
+if (~script6431 = false) {
+    if_sethide(false, makex2012_progress_dialogue:cancel_button);
+    if_sethide(true, makex2012_progress_dialogue:done_button);
+} else {
+    if_sethide(true, makex2012_progress_dialogue:cancel_button);
+    if_sethide(true, makex2012_progress_dialogue:done_button);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, makex2012_progress_dialogue:xp_and_progress_layers);
+    if_setsize(if_getwidth(makex2012_progress_dialogue:modal_dialog_window), calc(if_getheight(makex2012_progress_dialogue:modal_dialog_window) - 45), ^setsize_abs, ^setsize_abs, makex2012_progress_dialogue:modal_dialog_window);
+}
+if_setsize(if_getwidth(toplevel_v2:makex_progress_window), calc(if_getheight(makex2012_progress_dialogue:modal_dialog_window) + 35), ^setsize_abs, ^setsize_abs, toplevel_v2:makex_progress_window);
+if (%makex2012_production_dialog_minimized = 1) {
+    if_sethide(true, makex2012_progress_dialogue:modal_dialog_window);
+} else {
+    if_sethide(false, makex2012_progress_dialogue:modal_dialog_window);
+}

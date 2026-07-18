@@ -1,0 +1,62 @@
+// 4311
+[proc,script4311]
+def_int $int0 = ~script4309;
+def_int $int1 = ~script4293;
+def_int $int2 = -1;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = %clansettings_clanmate_settings_job;
+def_enum $enum8 = clan_int_to_job_title;
+def_string $string0 = "";
+def_boolean $boolean9 = true;
+def_boolean $boolean10 = true;
+if ($int0 = 1) {
+    $int2 = %clansettings_clanmate_settings_rank;
+}
+if_settext("Settings for: <%clansettings_clanmate_settings_name>", clansettings:clanmate_details_clanmate_name);
+switch_int (map_lang) {
+    case 1 :
+        $enum8 = clan_int_to_job_title_de;
+    case 2 :
+        $enum8 = clan_int_to_job_title_fr;
+    case 3 :
+        $enum8 = clan_int_to_job_title_pt;
+    case 6 :
+        $enum8 = clan_int_to_job_title_es_mx;
+}
+if (string_length(enum(int, string, $enum8, $int7)) = 0) {
+    $int7 = calc($int7 - 1);
+}
+if ($int0 = 0) {
+    $boolean9 = true;
+} else if (~script6518 = false | $int1 < $int2 | $int1 < 100) {
+    $boolean9 = true;
+} else if (~script6518 = true & $int1 >= $int2) {
+    $boolean9 = false;
+    $boolean10 = false;
+    $int3 = %clansettings_clanmate_sanctions_banned_walls;
+    $int5 = %clansettings_clanmate_sanctions_banned_keep;
+    $int4 = %clansettings_clanmate_sanctions_banned_island;
+    $int6 = %clansettings_clanmate_sanctions_muted;
+} else if ($int1 >= 126) {
+    $boolean9 = false;
+    $boolean10 = false;
+    $int3 = %clansettings_clanmate_sanctions_banned_walls;
+    $int5 = %clansettings_clanmate_sanctions_banned_keep;
+    $int4 = %clansettings_clanmate_sanctions_banned_island;
+    $int6 = %clansettings_clanmate_sanctions_muted;
+}
+~script13971(clansettings:save_build, clansettings:save_click, rs3tli_positive_button, "Save", $boolean9);
+~script13971(clansettings:kick_build, clansettings:kick_click, rs3tli_negative_button, "Kick", $boolean9);
+~script14140(clansettings:rank_build, clansettings:rank_click, clan_core_player_rank_int_to_rank, 126, "", %clansettings_clanmate_settings_rank, 0, $boolean10);
+~script14140(clansettings:job_build, clansettings:job_click, $enum8, enum_getoutputcount($enum8), "", $int7, 1, $boolean10);
+$string0 = text_switch($boolean9, "You may not currently change this setting.", "Ban this member from the Clan Citadel.");
+~static_checkbox_create_disable(clansettings:ban_citadel_build, clansettings:ban_citadel_click, "Ban from Citadel", $string0, $string0, $int3, $boolean9);
+$string0 = text_switch($boolean9, "You may not currently change this setting.", "Ban this member from the Clan Citadel's Keep.");
+~static_checkbox_create_disable(clansettings:ban_keep_build, clansettings:ban_keep_click, "Ban from Keep", $string0, $string0, $int5, $boolean9);
+$string0 = text_switch($boolean9, "You may not currently change this setting.", "Ban this member from the Citadel island.");
+~static_checkbox_create_disable(clansettings:ban_island_build, clansettings:ban_island_click, "Ban from Island", $string0, $string0, $int4, $boolean9);
+$string0 = text_switch($boolean9, "You may not currently change this setting.", "Mute this member in Clan Chat.");
+~static_checkbox_create_disable(clansettings:mute_build, clansettings:mute_click, "Mute", $string0, $string0, $int6, $boolean9);

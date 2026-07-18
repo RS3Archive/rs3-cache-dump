@@ -1,0 +1,21 @@
+// 13217
+[proc,script13217]
+def_string $string0 = "";
+if (if_find(mtxmgt_store:items_layer) = true) {
+    $string0 = cc_param(quicksort_string);
+}
+if (%p_dialog_mode = 8 & %p_dialog_listener = bank:text_input_listener) {
+    ~script13909;
+}
+if (%p_dialog_mode <= 0) {
+    %p_dialog_input = $string0;
+    %p_dialog_listener = mtxmgt_store:text_input_listener;
+    %p_dialog_mode = 8;
+    %p_dialog_maxchar = 18;
+    %meslayer_caret = ~script1553(103, %meslayer_caret, %p_dialog_input);
+    ~script13223($string0, clientclock);
+    ~script9833(mtxmgt_store:text_input_listener, mtxmgt_store:text_input_listen, mtxmgt_store:text_input_caret, mtxmgt_store:text_input_display, mtxmgt_store:text_input_clickout, 1, 0);
+    ~script7796(mtxmgt_store:text_input_border, ~script9984(rs3tli_text_entry_box, 4));
+    if_sethide(false, mtxmgt_store:filter_cancel);
+    if_setcolour(^white, mtxmgt_store:text_input_display);
+}

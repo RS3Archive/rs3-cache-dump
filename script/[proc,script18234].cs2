@@ -1,0 +1,32 @@
+// 18234
+[proc,script18234](int $int0)
+def_component $component1 = jobs_main:weekly_progress_time_remaining_text;
+def_string $string0 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int2, $int3, $int4 = ~time_countdown($int0, 0);
+if ($int2 > 0 | $int3 > 0 | $int4 > 0) {
+    if ($int2 = 0) {
+        $int2 = -1;
+        if ($int3 = 0) {
+            $int3 = -1;
+        }
+    } else {
+        $int4 = -1;
+    }
+    $string0 = ~script3382($int2, $int3, $int4, -1, 4, 0);
+} else {
+    $string0 = "Logout to Refresh";
+}
+if_settext($string0, $component1);
+if_settext($string0, jobs_main:reward_select_time_remaining_text);
+if_settext(~script17229, jobs_main:time_remaining_text);
+def_int $int5 = 0;
+def_int $int6 = ~script16317;
+def_string $string1 = ~challenge_blank_string(~challenge_blank_status);
+while (++$int5 <= $int6) {
+    if (~script16319($int5) = null & cc_findbycategory(jobs_main:button_graphics, calc($int5 - 1), 0) = 1) {
+        cc_settext($string1);
+    }
+}

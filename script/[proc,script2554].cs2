@@ -1,0 +1,48 @@
+// 2554
+[proc,script2554](component $component0, int $int1, graphic $graphic2, string $string0, string $string1, int $int3, int $int4)
+def_int $int5 = if_getnextsubid($component0);
+def_int $int6 = calc(if_getwidth($component0) / 5 * ($int1 - 2));
+cc_create($component0, ^iftype_graphic, $int5);
+cc_setposition($int6, 19, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+if (%toplevel_v2_active_skinset = 0) {
+    if ($int3 = 0) {
+        cc_setgraphic("rs3_btn_icon_24px,0");
+    } else {
+        cc_setgraphic("rs3_btn_icon_24px,4");
+    }
+} else if ($int3 = 0) {
+    cc_setgraphic("rs_legacy_btn_icon_24px,0");
+} else {
+    cc_setgraphic("rs_legacy_btn_icon_24px,4");
+}
+$int5 = calc($int5 + 1);
+cc_create($component0, ^iftype_graphic, $int5);
+cc_setposition($int6, 19, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+if ($graphic2 ! null) {
+    cc_setgraphic($graphic2);
+}
+$int5 = calc($int5 + 1);
+if ($int1 ! 2 | $int1 = 2 & $int3 = 0) {
+    cc_create($component0, ^iftype_text, $int5);
+    cc_setposition($int6, 42, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setsize(42, 15, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(0xd0cc82);
+    cc_settext($string0);
+} else {
+    cc_create($component0, ^iftype_graphic, $int5);
+    cc_setposition($int6, 42, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(0xd0cc82);
+    if ($int4 = 1) {
+        cc_setgraphic("aif_divination_trade_icons,1");
+    } else {
+        cc_setgraphic("aif_divination_trade_icons,0");
+    }
+}
+if (string_length($string1) > 0) {
+    cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+}

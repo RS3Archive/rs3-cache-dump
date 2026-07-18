@@ -1,0 +1,29 @@
+// 2698
+[clientscript,graphics_options_setwindowmode](int $int0, int $int1, int $int2, int $int3)
+if ($int0 = getwindowmode) {
+    return;
+}
+if (autosetup_getlevel ! 0) {
+    autosetup_setcustom;
+}
+if ($int0 ! 3) {
+    $int0 = 2;
+    setwindowmode(^windowmode_resizable);
+    setdefaultwindowmode(2);
+    if (%toplevel_v2_active_layout ! 5 & %toplevel_v2_active_layout ! -1) {
+        ~script709(%toplevel_v2_active_layout, $int0);
+        ~script8885(%toplevel_v2_active_layout);
+    }
+    ~graphics_options_rebuild(2, $int1, $int2, $int3);
+    %loginscreen_previousprofiling = 2;
+    autosetup_setcustom;
+    return;
+}
+if (fullscreen_modecount > %selectedresolution & fullscreen_enter(fullscreen_getmode(%selectedresolution)) = true) {
+    ~graphics_options_rebuild($int0, $int1, $int2, $int3);
+    return;
+}
+if ($int3 = 1) {
+    mes("Unable to enter fullscreen mode at that resolution.");
+}
+~graphics_options_rebuild($int0, $int1, $int2, $int3);

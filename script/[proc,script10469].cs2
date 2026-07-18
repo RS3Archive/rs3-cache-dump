@@ -1,0 +1,81 @@
+// 10469
+[proc,script10469](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(int, int)
+if ($int4 < 20) {
+    return($int1, $int3);
+}
+def_string $string0 = "";
+def_graphic $graphic9 = null;
+def_int $int10 = max(0, calc($int3 + $int5 - 8));
+def_int $int11 = max(0, min(100, scale($int6, $int7, 100)));
+if ($int5 < 20) {
+    $int10 = 0;
+}
+switch_int ($int8) {
+    case 16711680 :
+        $graphic9, $string0 = rs3_hud_combat_progress_bar_health, "Life Points";
+    case 16776960 :
+        $graphic9, $string0 = rs3_hud_combat_progress_bar_adrenaline, "Adrenaline";
+    case 65535 :
+        $graphic9, $string0 = rs3_hud_combat_progress_bar_summoning, "Summoning Points";
+    case 65280 :
+        $graphic9, $string0 = rs3_hud_combat_progress_bar_green, "Familiar spell points";
+    case 255 :
+        $graphic9, $string0 = rs3_hud_combat_progress_bar_prayer, "Prayer Points";
+    case default :
+        return($int1, $int3);
+}
+if (%toplevel_v2_active_skinset = 1 & ($int8 = 16711680 | $int8 = 255)) {
+    $int6 = calc($int6 / 10);
+    $int7 = calc($int7 / 10);
+}
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(rs3_hud_combat_progress_bar_backing_left);
+cc_setposition($int2, $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 8, ^setsize_abs, ^setsize_abs);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(rs3_hud_combat_progress_bar_backing_tile);
+cc_setposition(calc($int2 + 16), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int4 - 2 * 16), 8, ^setsize_abs, ^setsize_abs);
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+cc_setonmouseleave("script8805");
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(rs3_hud_combat_progress_bar_backing_right);
+cc_setposition(calc($int2 + $int4 - 16), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 8, ^setsize_abs, ^setsize_abs);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic($graphic9);
+cc_setposition(calc($int2 + 2), calc($int10 + (8 - 4) / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(max(0, scale($int11, 100, calc($int4 - 4))), 4, ^setsize_abs, ^setsize_abs);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(rs3_hud_combat_progress_bar_facing_left);
+cc_setposition($int2, $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 8, ^setsize_abs, ^setsize_abs);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(rs3_hud_combat_progress_bar_facing_tile);
+cc_setposition(calc($int2 + 16), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int4 - 2 * 16), 8, ^setsize_abs, ^setsize_abs);
+$int1 = calc($int1 + 1);
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setgraphic(rs3_hud_combat_progress_bar_facing_right);
+cc_setposition(calc($int2 + $int4 - 16), $int10, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(16, 8, ^setsize_abs, ^setsize_abs);
+$int1 = calc($int1 + 1);
+if ($int5 >= 20) {
+    $int10 = calc($int3 + $int5 - 20);
+    cc_create($component0, ^iftype_text, $int1);
+    cc_setposition(calc($int2 + 5), $int10, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int4 - 5), 12, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settextshadow(true);
+    cc_setcolour(~script10495(3));
+    cc_settext("<tostring($int6)>/<tostring($int7)>");
+    cc_setmaxlines(1);
+    $int1 = calc($int1 + 1);
+}
+return($int1, $int3);

@@ -1,0 +1,28 @@
+// 17598
+[proc,script17598](boolean $boolean0, enum $enum1, int $int2, int $int3)
+cc_setenabled($boolean0);
+if ($enum1 = null) {
+    return;
+}
+if ($int2 = -1) {
+    cc_combo_setentries($enum1);
+    if ($int3 >= 0 & $int3 < enum_getoutputcount($enum1)) {
+        cc_combo_select($int3, false);
+    }
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string0 = "";
+while ($int4 <= $int2) {
+    $string0 = enum(int, string, $enum1, $int4);
+    if (string_length($string0) > 0) {
+        cc_combo_addentry($int4, $string0);
+        if ($int4 = $int3) {
+            cc_combo_select($int5, false);
+        } else {
+            $int5 = calc($int5 + 1);
+        }
+    }
+    $int4 = calc($int4 + 1);
+}

@@ -1,0 +1,38 @@
+// 12674
+[clientscript,script12674]
+def_int $int0 = 5997;
+def_int $int1 = 0;
+while ($int1 < 27) {
+    if (~script12672($int0) = 1) {
+        if_setgraphic("mtxbeach16_map_icons,2", enum(int, component, mtxbeach16_get_treasure_component, $int1));
+        if_sethide(false, enum(int, component, mtxbeach16_get_line_component, $int1));
+    } else if (%atlum_day_tracker = $int0) {
+        if_setgraphic("mtxbeach16_map_icons,1", enum(int, component, mtxbeach16_get_treasure_component, $int1));
+        if_sethide(false, enum(int, component, mtxbeach16_get_line_component, $int1));
+    } else if (~script12673($int0) = 1) {
+        if (%mtxbeach18_bought_bond = 0) {
+            if_setgraphic("mtxbeach16_map_icons,0", enum(int, component, mtxbeach16_get_treasure_component, $int1));
+        } else {
+            if_setgraphic("mtxbeach16_map_icons,1", enum(int, component, mtxbeach16_get_treasure_component, $int1));
+        }
+        if_sethide(false, enum(int, component, mtxbeach16_get_line_component, $int1));
+    } else {
+        if_sethide(true, enum(int, component, mtxbeach16_get_treasure_component, $int1));
+        if_sethide(true, enum(int, component, mtxbeach16_get_line_component, $int1));
+    }
+    $int1 = calc($int1 + 1);
+    $int0 = calc($int0 + 1);
+}
+if (%mtxbeach18_bought_bond = 1) {
+    if_sethide(false, mtxbeach16_metaldetecting:redeem_button_disabled_layer);
+}
+switch_int (map_lang) {
+    case 0 :
+        if_setgraphic(mtxbeach16_treasure_text_en, mtxbeach16_metaldetecting:treasure_map_bond_text);
+    case 1 :
+        if_setgraphic(mtxbeach16_treasure_text_de, mtxbeach16_metaldetecting:treasure_map_bond_text);
+    case 2 :
+        if_setgraphic(mtxbeach16_treasure_text_fr, mtxbeach16_metaldetecting:treasure_map_bond_text);
+    case 3 :
+        if_setgraphic(mtxbeach16_treasure_text_pt, mtxbeach16_metaldetecting:treasure_map_bond_text);
+}

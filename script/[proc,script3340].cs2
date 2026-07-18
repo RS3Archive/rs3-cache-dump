@@ -1,0 +1,17 @@
+// 3340
+[proc,script3340]
+def_component $component0 = quest_wendle_secrets_deduction_notes:deduction_dropdown_build_layer;
+if (%quest_wendle_secrets_fern_spoken_to = 0 | %quest_wendle_secrets_sorrel_spoken_to = 0 | %quest_wendle_secrets_heywood_spoken_to = 0 | %quest_wendle_secrets_rowan_spoken_to = 0 | %quest_wendle_secrets_ash_spoken_to = 0 | %quest_wendle_secrets_heather_spoken_to = 0) {
+    if_sethide(false, quest_wendle_secrets_deduction_notes:not_enough_info_text);
+    if_sethide(true, $component0);
+} else {
+    if_sethide(true, quest_wendle_secrets_deduction_notes:not_enough_info_text);
+    if_sethide(false, $component0);
+}
+~if_add_child_button(quest_wendle_secrets_deduction_notes:check_button_build_layer, 0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_action_positive, "CHECK");
+cc_setop(1, "Check deductions");
+~script3341;
+if (~is_mobile_client = true) {
+    if_setscrollsize(0, 443, $component0);
+    ~rs3_scrollbar_vertical(quest_wendle_secrets_deduction_notes:deductions_scrollbar, $component0);
+}

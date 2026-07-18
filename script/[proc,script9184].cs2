@@ -1,0 +1,33 @@
+// 9184
+[proc,script9184]
+if (%dndtracker_always_switch_world = 1) {
+    return;
+}
+if (%omge_job_interface_id < 1) {
+    ~script6748;
+    return;
+}
+def_int $int0 = -1;
+def_enum $enum1 = null;
+def_int $int2 = 0;
+switch_int (%dndtracker_filter_selection) {
+    case 0, 1 :
+        $enum1 = uaui_minigames_all;
+    case 2 :
+        $enum1 = uaui_minigames_dnds;
+    case 3 :
+        $enum1 = uaui_minigames_all_minigames;
+    case 4 :
+        $enum1 = uaui_minigames_combat;
+    case 5 :
+        $enum1 = uaui_minigames_nocombat;
+}
+if ($enum1 = null) {
+    ~script6748;
+    return;
+}
+if (struct_param(enum(int, struct, $enum1, %omge_job_interface_id), challenge_theme_world) > 0) {
+    if_sethide(false, minigames_main:teleport_message);
+}
+if_sethide(false, minigames_main:checkbox_deselected_layer);
+if_sethide(true, minigames_main:checkbox_selected_layer);

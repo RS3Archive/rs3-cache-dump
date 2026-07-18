@@ -1,0 +1,10 @@
+// 19022
+[clientscript,script19022]
+def_int $int0 = ~script2915;
+if (%telemetry_show_health_warning = 0 | scale(%lifepoints, $int0, 100) > 20) {
+    if_sethide(true, toplevel_v2_status_effects:lifepoints_warning_graphic);
+    if_settrans(255, toplevel_v2_status_effects:lifepoints_warning_graphic);
+    return;
+}
+if_sethide(false, toplevel_v2_status_effects:lifepoints_warning_graphic);
+if_settrans(calc(255 - (120 - scale(%lifepoints, $int0, 100) * 5)), toplevel_v2_status_effects:lifepoints_warning_graphic);

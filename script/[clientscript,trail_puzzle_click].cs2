@@ -1,0 +1,42 @@
+// 106
+[clientscript,trail_puzzle_click](component $component0, int $int1, int $int2, inv $inv3)
+if ($int2 ! 1) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int4 < inv_size($inv3)) {
+    if (cc_find($component0, $int4) = true & cc_gethide = true) {
+        $int5 = $int4;
+    }
+    $int4 = calc($int4 + 1);
+}
+$int7 = calc($int1 / 5);
+$int6 = calc($int1 - $int7 * 5);
+if ($int5 = calc($int1 - 1) & $int6 > 0 & cc_find($component0, $int1) = true & .cc_find($component0, $int5) = true) {
+    sound_vorbis_volume(mah5_decoder_slide, 1, 0, 200);
+    cc_setposition(calc(56 * ($int6 - 1)), calc(56 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setposition(calc(56 * $int6), calc(56 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    return;
+}
+if ($int5 = calc($int1 + 1) & $int6 < 5 & cc_find($component0, $int1) = true & .cc_find($component0, $int5) = true) {
+    sound_vorbis_volume(mah5_decoder_slide, 1, 0, 200);
+    cc_setposition(calc(56 * ($int6 + 1)), calc(56 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setposition(calc(56 * $int6), calc(56 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    return;
+}
+if ($int5 = calc($int1 - 5) & $int7 > 0 & cc_find($component0, $int1) = true & .cc_find($component0, $int5) = true) {
+    sound_vorbis_volume(mah5_decoder_slide, 1, 0, 200);
+    cc_setposition(calc(56 * $int6), calc(56 * ($int7 - 1)), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setposition(calc(56 * $int6), calc(56 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    return;
+}
+if ($int5 = calc($int1 + 5) & $int7 < 5 & cc_find($component0, $int1) = true & .cc_find($component0, $int5) = true) {
+    sound_vorbis_volume(mah5_decoder_slide, 1, 0, 200);
+    cc_setposition(calc(56 * $int6), calc(56 * ($int7 + 1)), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setposition(calc(56 * $int6), calc(56 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    return;
+}

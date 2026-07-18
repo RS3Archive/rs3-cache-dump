@@ -1,0 +1,37 @@
+// 20543
+[proc,script20543](struct $struct0, int $int1)(int, int, int, int)
+def_struct $struct2 = ~script8418($struct0, $int1);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_component $component7 = struct_param($struct0, toplevel_v2_window_border_layer);
+def_component $component8 = struct_param($struct0, toplevel_v2_window_tabs_layer);
+def_component $component9 = struct_param($struct0, toplevel_v2_window_tabs_background_layer);
+if (if_gethide($component7) = false) {
+    $int3 = struct_param($struct2, toplevel_v2_window_titled_left_width);
+    $int4 = struct_param($struct2, toplevel_v2_window_titled_top_height);
+    $int5 = calc($int3 + struct_param($struct2, toplevel_v2_window_titled_right_width));
+    $int6 = calc($int4 + struct_param($struct2, toplevel_v2_window_titled_bottom_height));
+}
+if ($component8 ! null & $int1 = 0 & if_gethide($component8) = false) {
+    if (struct_param($struct2, toplevel_v2_window_titled_tab_mode) = 2) {
+        if (if_gethide($component7) = false) {
+            $int4 = calc($int4 + struct_param($struct2, toplevel_v2_window_titled_background_top_height));
+            $int6 = calc($int6 + struct_param($struct2, toplevel_v2_window_titled_background_top_height));
+        }
+        if ($component9 ! null & if_getheight($component9) > if_getheight($component8)) {
+            $int6 = calc($int6 + if_getheight($component9));
+            $int6 = calc($int6 - struct_param($struct2, toplevel_v2_window_titled_bottom_height));
+        } else {
+            $int6 = calc($int6 + if_getheight($component8));
+        }
+    } else {
+        $int4 = calc($int4 + struct_param($struct2, toplevel_v2_window_titled_tab_height) + struct_param($struct2, toplevel_v2_window_titled_background_top_height));
+        $int6 = calc($int6 + struct_param($struct2, toplevel_v2_window_titled_tab_height) + struct_param($struct2, toplevel_v2_window_titled_background_top_height));
+    }
+} else if (if_gethide($component7) = false) {
+    $int4 = calc($int4 + struct_param($struct2, toplevel_v2_window_titled_background_top_height));
+    $int6 = calc($int6 + struct_param($struct2, toplevel_v2_window_titled_background_top_height));
+}
+return($int3, $int4, $int5, $int6);

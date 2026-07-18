@@ -1,0 +1,32 @@
+// 15731
+[proc,script15731](int $int0, int $int1)(int)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int2 = 0;
+def_string $string6 = "";
+$string0, $string1, $string2, $string3, $string4, $string5, $int2, $string6 = shop_getproductdetails($int0, $int1);
+if (compare($string1, "") = 0) {
+    return(0);
+}
+def_dbrow $dbrow3 = null;
+$dbrow3 = ~script16590(platformtype, $string1);
+if ($dbrow3 = null) {
+    return(0);
+}
+def_int $int4 = shop_isproductavailable($int0, $int1);
+if (~script15747($int4, $dbrow3) = 0) {
+    return(0);
+}
+def_string $string7 = ~script20546($dbrow3);
+if (string_length($string7) > 0) {
+    $string0 = $string7;
+}
+~if_add_child_layer(mobile_shop_hard_currency:packages, ui_getcategory(if_getnextsubid(mobile_shop_hard_currency:packages)), ui_getdynid(if_getnextsubid(mobile_shop_hard_currency:packages)), 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 176, 176, ^setsize_abs, ^setsize_abs);
+cc_setonop("script15739($string3, $dbrow3, $string1, $int0, ~script3921($int1))");
+cc_setop(1, "Buy");
+~script20616(mobile_shop_hard_currency:packages, $string0, db_getfield($dbrow3, mobile_shop_feature_information:col5, 0), $string3, 1, db_getfield($dbrow3, mobile_shop_feature_information:col16, 0), 6, 6, ^setsize_minus, ^setsize_minus, true, false, false, 0);
+return(1);

@@ -1,0 +1,95 @@
+// 3799
+[proc,scrollbar_vertical_doscroll_existing](component $component0, component $component1, int $int2, int $int3, component $component4)
+def_int $int5 = calc(if_getscrollheight($component1) - if_getheight($component1));
+if ($int5 = 0) {
+    $int5 = 1;
+}
+if ($int2 < 0) {
+    $int2 = 0;
+}
+if ($int2 > $int5) {
+    $int2 = $int5;
+}
+def_int $int6 = if_getscrolly($component1);
+if_setscrollpos(if_getscrollx($component1), $int2, $component1);
+switch_component ($component1) {
+    case chatdefault:scrollarea :
+        %chat_lastscrollpos = $int2;
+        if (%varclientbit_41275 = 0 & ~script6431 = true) {
+            %toplevel_v2_mobile_chat_hide_time = calc(clientclock + 250);
+        }
+    case chatdefault2:scrollarea :
+        %chat_lastscrollpos_2 = $int2;
+    case chatdefault3:scrollarea :
+        %chat_lastscrollpos_3 = $int2;
+    case chatdefault4:scrollarea :
+        %chat_lastscrollpos_4 = $int2;
+    case chatdefault5:scrollarea :
+        %chat_lastscrollpos_5 = $int2;
+    case chatdefault6:scrollarea :
+        %chat_lastscrollpos_6 = $int2;
+    case chatdefault8:scrollarea :
+        %chat_lastscrollpos_8 = $int2;
+    case chat_group_ironman:scrollarea :
+        %chat_lastscrollpos_group_ironman = $int2;
+    case bank:bank_items_container :
+        ~bank_set_tab_scrollpos(%bank_current_tab, $int2);
+    case group_ironman_storage:clan_items_container :
+        %group_ironman_storage_last_scrollpos = $int2;
+    case lobbyscreen_pane_friendslist:chat_build :
+        %lobby_pmchat_lastscrollpos = $int2;
+    case lobbyscreen_pane_clanchat:chat_build :
+        %lobby_clanchat_lastscrollpos = $int2;
+    case lobbyscreen_pane_mobile_social:chat_build :
+        if (if_button_gettoggled(lobbyscreen_pane_mobile_social:friends_button) = true) {
+            %lobby_pmchat_lastscrollpos = $int2;
+        } else if (if_button_gettoggled(lobbyscreen_pane_mobile_social:clan_chat_button) = true) {
+            %lobby_clanchat_lastscrollpos = $int2;
+        }
+    case music_v3:jukebox :
+        %playerdesign2_client_jaw = $int2;
+    case music_v3_child:jukebox :
+        %playerdesign2_client_jaw = $int2;
+    case clan_field_setup:rules :
+        ~script5082($component1);
+    case telemetry:scroll_layer, toplevel_v2_parent_suboverlay_telemetry:scroll_layer :
+        ~telemetry_set_scroll($component1, $int2, $int3);
+    case mtxmgt_store:items_layer :
+        ~script13173($int6, $int2);
+    case dom_rewards:contents :
+        %dom_scrollpos = $int2;
+    case runepass:scrolling :
+        %runepass_target_scroll = 0;
+        %runepass_scroll_start = 0;
+        %runepass_last_scroll = if_getscrolly(runepass:scrolling);
+        if ($int3 = 0) {
+            if_setgraphic(runepass_icon_scroll_pressed, runepass:slider_yak);
+        } else {
+            if_setgraphic(runepass_icon_scroll_default, runepass:slider_yak);
+        }
+        ~script3660($int2);
+        return;
+    case marketplace_store:items_holder :
+        ~script20652($int2, $int5);
+    case mtx_front_end_bonds:redeem :
+        ~script20557($int2, $int5);
+}
+def_int $int7 = 0;
+if ($component4 ! null & if_find($component4) = true) {
+    $int7 = calc(if_getheight($component0) - cc_getheight - 10);
+    cc_setposition(cc_getx, calc(5 + scale($int2, $int5, $int7)), ^setpos_abs_left, ^setpos_abs_top);
+} else if (cc_find($component0, 1) = true) {
+    if (%toplevel_v2_active_skinset = 2) {
+        $int7 = calc(if_getheight($component0) - cc_getheight);
+        cc_setposition(4, scale($int2, $int5, $int7), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        $int7 = calc(if_getheight($component0) - 32 - cc_getheight - 10);
+        cc_setposition(0, calc(21 + scale($int2, $int5, $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (.cc_find($component0, 2) = true) {
+        .cc_setposition(0, calc(cc_gety - 5), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (.cc_find($component0, 3) = true) {
+        .cc_setposition(0, calc(cc_gety + cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

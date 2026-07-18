@@ -1,0 +1,28 @@
+// 10471
+[clientscript,script10471](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (%bank_tab_vertical = 1) {
+    $int1 = if_getscrolly(bank:tabs_dynamic);
+    $int2 = if_getscrollheight(bank:tabs_dynamic);
+} else {
+    $int1 = if_getscrollx(bank:tabs_dynamic);
+    $int2 = if_getscrollwidth(bank:tabs_dynamic);
+}
+if (calc($int1 % 48) ! 0) {
+    if ($int0 < 0) {
+        $int1 = calc($int1 - $int1 % 48);
+    } else {
+        $int1 = calc($int1 + $int1 % 48);
+    }
+} else {
+    $int1 = max(0, min($int2, calc($int1 + $int0 * 48)));
+}
+if (%bank_tab_vertical = 1) {
+    if_setscrollpos(0, $int1, bank:tabs_dynamic);
+    if_setscrollpos(0, $int1, bank:tabs_spacers);
+} else {
+    if_setscrollpos($int1, 0, bank:tabs_dynamic);
+    if_setscrollpos($int1, 0, bank:tabs_spacers);
+}
+~script10503;

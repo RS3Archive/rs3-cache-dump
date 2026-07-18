@@ -1,0 +1,46 @@
+// 4765
+[proc,script4765]
+def_struct $struct0 = ~trh_promo_current;
+def_string $string0 = struct_param($struct0, trh_bonus_feature_counter_title);
+def_string $string1 = struct_param($struct0, trh_bonus_feature_counter_label);
+def_boolean $boolean1 = false;
+def_boolean $boolean2 = false;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string2 = "";
+def_int $int6 = -1;
+switch_struct ($struct0) {
+    case trh155_promo :
+        $string0 = "Bonus Active";
+        $boolean2 = true;
+        if (%trh155_promo_bonus_remaining > 0) {
+            $int3 = 1;
+        } else {
+            $int3 = 0;
+        }
+        $int4, $int5 = %trh155_promo_bonus_remaining, 5;
+    case trh163_promo :
+        $int3 = %trh163_promo_bonus_active;
+        $int4, $int5 = %trh163_promo_bonus_chest_number, %trh163_promo_bonus_chest_count;
+    case trh175_promo :
+        $boolean2 = true;
+        $int3 = %trh175_promo_bonus_active;
+        $int4, $int5 = %trh175_promo_bonus_chest_number, %trh175_promo_bonus_chest_count;
+    case trh176_promo :
+        $boolean2 = true;
+        $int3 = %trh176_promo_bonus_active;
+        $int4, $int5 = %trh176_promo_bonus_chest_number, %trh176_promo_bonus_chest_count;
+}
+if ($int3 = 1) {
+    if_sethide($boolean1, wheel_of_fortune:bonus_feature_counter_layer);
+    if_sethide($boolean2, wheel_of_fortune:bonus_feature_info_layer);
+    if_settext($string0, wheel_of_fortune:bonus_feature_counter_title);
+    if_settext("<$string1>:", wheel_of_fortune:bonus_feature_counter_status_label);
+    if ($int4 > 0 & $int5 > 0) {
+        if_settext("<tostring($int4)>/<tostring($int5)>", wheel_of_fortune:bonus_feature_counter_status_text);
+    }
+} else {
+    if_sethide(true, wheel_of_fortune:bonus_feature_counter_layer);
+    if_sethide(true, wheel_of_fortune:bonus_feature_info_layer);
+}

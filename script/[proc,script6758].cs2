@@ -1,0 +1,68 @@
+// 6758
+[proc,script6758](int $int0, int $int1, int $int2, int $int3, component $component4, component $component5, component $component6, component $component7, component $component8)
+def_struct $struct9 = null;
+def_quest $quest10 = null;
+if_sethide(false, $component4);
+if ($int2 > 0 & $int2 < 60) {
+    if_setgraphic(enum(int, graphic, omge_reqhelp_icons, $int2), $component7);
+    if_settext(enum(int, string, statstring, $int2), $component5);
+    if_settext(tostring($int3), $component6);
+    if (stat_base(enum(int, stat, int_to_stat, $int2)) < $int3) {
+        if_setgraphic("aif_tick_cross_icon,1", $component8);
+        if_setcolour(^red, $component6);
+        if_setcolour(0x959595, $component5);
+        if_setonmouseover("script6759(event_com)", $component5);
+        if_setonmouseleave("script6760(event_com)", $component5);
+    } else {
+        if_setgraphic("aif_tick_cross_icon,0", $component8);
+        if_setcolour(^green, $component6);
+        if_setcolour(0x676767, $component5);
+    }
+} else if ($int2 = 60) {
+    $struct9 = ~task_get_data($int3);
+    if ($struct9 ! null) {
+        if_setgraphic("task_main_icon,0", $component7);
+        if_settext(struct_param($struct9, task_name), $component5);
+        if_settext("", $component6);
+        if (~task_get_progress($int3) ! 2) {
+            if_setgraphic("aif_tick_cross_icon,1", $component8);
+            if_setcolour(^red, $component6);
+            if_setcolour(0x959595, $component5);
+            if_setonmouseover("script6759(event_com)", $component5);
+            if_setonmouseleave("script6760(event_com)", $component5);
+        } else {
+            if_setgraphic("aif_tick_cross_icon,0", $component8);
+            if_setcolour(^green, $component6);
+            if_setcolour(0x676767, $component5);
+        }
+    }
+} else if ($int2 = 61) {
+    $quest10 = enum(int, quest, ql4_quests, $int3);
+    if_setgraphic(aif_quest_sml_icon, $component7);
+    if_settext(~quest_name($quest10), $component5);
+    if_settext("", $component6);
+    if (~ql4_getprogress($quest10) ! 2) {
+        if_setgraphic("aif_tick_cross_icon,1", $component8);
+        if_setcolour(^red, $component6);
+        if_setcolour(0x959595, $component5);
+        if_setonmouseover("script6759(event_com)", $component5);
+        if_setonmouseleave("script6760(event_com)", $component5);
+    } else {
+        if_setgraphic("aif_tick_cross_icon,0", $component8);
+        if_setcolour(^green, $component6);
+        if_setcolour(0x676767, $component5);
+    }
+} else if ($int2 = 62) {
+    if_setgraphic("aif_help_btn,0", $component7);
+    if_settext(removetags(~task_special_requirements($int0, $int1)), $component5);
+    if_settext("", $component6);
+    if (~task_special_requirements_met($int0, $int1) = false) {
+        if_setgraphic("aif_tick_cross_icon,1", $component8);
+        if_setcolour(^red, $component6);
+        if_setcolour(0x959595, $component5);
+    } else {
+        if_setgraphic("aif_tick_cross_icon,0", $component8);
+        if_setcolour(^green, $component6);
+        if_setcolour(0x676767, $component5);
+    }
+}

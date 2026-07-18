@@ -1,0 +1,51 @@
+// 10144
+[proc,script10144]
+def_boolean $boolean0 = ttv_webcam_supported;
+def_int $int1 = 0;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+if ($boolean0 = false) {
+    mes("No supported webcam detected.");
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_list_layer);
+    ~script10145;
+    return;
+}
+$int1 = ttv_webcam_getdevice_count;
+if ($int1 = 0) {
+    mes("No webcam detected. If you connect a webcam you must log out and back in to Twitch to detect it.");
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_layer);
+    ~script10145;
+    return;
+} else {
+    mes("Webcam detected.");
+    if ($int1 > 1) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_name_right);
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_name_left);
+    } else {
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_name_right);
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_name_left);
+    }
+    $int2, $string0, $string1 = ttv_webcam_getdevice_byindex(0);
+    if ($int2 = -1) {
+        ~script10145;
+    } else {
+        $int4, $int5, $int6, $int7, $int8 = ttv_webcam_getcap_byindex($int2, 0);
+        if ($int4 = -1) {
+            ~script10145;
+            return;
+        }
+        %twitch_webcam_idname = $string0;
+        %twitch_webcam_options_id = $int5;
+        if_settext($string1, toplevel_v2_parent_suboverlay_twitch:webcam_name);
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_layer);
+        if_settext("<tostring($int6)> x <tostring($int7)>, framerate: <tostring($int8)>", toplevel_v2_parent_suboverlay_twitch:webcam_options);
+    }
+}

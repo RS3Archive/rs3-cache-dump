@@ -1,0 +1,23 @@
+// 20184
+[clientscript,script20184]
+cc_deleteall(league_lobby_splash:contents_normal_scrolling);
+cc_deleteall(league_lobby_splash:contents_leagues_scrolling);
+if_setsize(500, 456, ^setsize_abs, ^setsize_aspect, league_lobby_splash:logo_wrapper);
+if_sethide(false, league_lobby_splash:flash);
+if_settrans(0, league_lobby_splash:flash);
+if_settrans(255, league_lobby_splash:logo);
+if_settrans(255, league_lobby_splash:logo_bg);
+if_settrans(255, league_lobby_splash:subheader_text);
+if_setgraphic(league_logo_500x456, league_lobby_splash:logo);
+~script20187(255);
+if_setontimer("script20186(clientclock)", league_lobby_splash:anim_listener);
+def_int $int0 = 16777215;
+def_string $string0 = "Leagues: CATALYST";
+def_string $string1 = "<col=<tostring($int0, 16)>><$string0></col> is an alternative game mode for <col=<tostring($int0, 16)>>RuneScape</col>, available from <col=<tostring($int0, 16)>><~fromdate(8601)></col> to <col=<tostring($int0, 16)>><~fromdate(8657)></col>.<br>You can switch between the League and RuneScape at any time by switching worlds.";
+def_int $int1 = if_getwidth(league_lobby_splash:subheader);
+def_int $int2 = calc(~script15891($string1, $int1, if_getfontmetrics(league_lobby_splash:subheader_text), 0) + 4);
+if_settext($string1, league_lobby_splash:subheader_text);
+if_setsize($int1, $int2, ^setsize_abs, ^setsize_abs, league_lobby_splash:subheader);
+if (playermember = true) {
+    if_sethide(true, league_lobby_splash:become_member);
+}

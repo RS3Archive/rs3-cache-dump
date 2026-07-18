@@ -1,0 +1,106 @@
+// 10419
+[proc,dynamic_checkbox_create_full](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5, string $string0, string $string1, string $string2, string $string3, int $int6, boolean $boolean7, int $int8, struct $struct9)(int, int)
+def_string $string4 = $string1;
+def_boolean $boolean10 = true;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = -1;
+if ($int6 < 1) {
+    $string4, $boolean10 = $string2, false;
+}
+def_struct $struct14 = struct_param($struct9, rs3tli_checkbox_off);
+if ($int6 >= 1) {
+    $struct14 = struct_param($struct9, rs3tli_checkbox_on);
+}
+def_struct $struct15 = struct_param($struct14, rs3tli_button_layer_master_struct);
+if ($struct15 ! null) {
+    $struct14 = $struct15;
+}
+def_struct $struct16 = ~script9984($struct14, 1);
+def_struct $struct17 = ~script9984($struct14, 2);
+def_struct $struct18 = $struct16;
+if ($boolean7 = true) {
+    $struct18 = ~script9984($struct14, 5);
+}
+if ($struct18 = null) {
+    return($int3, $int5);
+}
+if ($boolean7 = true & string_length($string3) > 0) {
+    if (compare(substring($string3, 0, 1), "*") = 0) {
+        if (string_length($string4) > 0) {
+            $string4 = "<$string4><substring($string3, 1, string_length($string3))>";
+        } else {
+            $string3 = "";
+        }
+    } else {
+        $string4 = $string3;
+    }
+}
+if (string_length($string0) > 0) {
+    $int11 = ~script7593($string0, calc($int4 - 20), museo_sans_11pt_regular, -1);
+    if ($int4 >= 50 & $int11 > 0) {
+        if ($int11 > if_getheight($component0)) {
+            $int11 = if_getheight($component0);
+            $int12 = max(1, calc($int11 / 12));
+        }
+        cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+        cc_setsize(calc($int4 - 20), $int11, ^setsize_abs, ^setsize_abs);
+        if ($int11 < 18) {
+            cc_setposition(calc($int2 + 20), calc($int3 + (18 - $int11) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setposition(calc($int2 + 20), $int3, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        cc_settext($string0);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 12);
+        cc_settextshadow(true);
+        if ($boolean7 = true) {
+            cc_setcolour(~script10495(5));
+            if (compare($string3, "") ! 0) {
+                cc_setonmouserepeat("script3876($string4, event_com, event_comsubid)");
+            }
+        } else {
+            cc_setcolour(~script10495(3));
+            cc_setonmouserepeat("script3876($string4, event_com, event_comsubid)");
+        }
+        cc_setmaxlines($int12);
+    } else {
+        $int11 = 0;
+    }
+}
+$int13 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int13);
+cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);
+if ($int11 > 18) {
+    cc_setposition($int2, calc($int3 + $int11 / 2 - 18 / 2), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+}
+cc_setparam(dynamic_checkbox_disabled, $boolean7);
+cc_setparam(dynamic_checkbox_selected, $boolean10);
+cc_setgraphic(struct_param($struct18, rs3tli_button_graphic));
+if ($int8 = 1) {
+    cc_create($component1, ^iftype_text, $int5);
+    cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);
+    if ($int11 > 18) {
+        cc_setposition($int2, calc($int3 + $int11 / 2 - 18 / 2), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if ($boolean7 = false) {
+        ~script14458($component1, $int5, $component0, $int13, $string1, $struct16, $string2, $struct17, $int6, $struct9);
+    } else {
+        cc_setonmouseover(null);
+        cc_setonmouseleave(null);
+        cc_setonclick(null);
+        cc_setonop(null);
+    }
+} else if ($boolean7 = false) {
+    ~script14457($component1, -1, $component0, $int13, $string1, $struct16, $string2, $struct17, $int6, $struct9, $component1);
+} else {
+    if_setonmouseover(null, $component1);
+    if_setonmouseleave(null, $component1);
+    if_setonclick(null, $component1);
+    if_setonop(null, $component1);
+}
+return(calc($int3 + max(18, $int11)), calc($int5 + 1));

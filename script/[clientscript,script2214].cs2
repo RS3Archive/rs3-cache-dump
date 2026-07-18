@@ -1,0 +1,18 @@
+// 2214
+[clientscript,script2214]
+if (%easter10_pushbarstatus = 1) {
+    if (if_getx(%easter10_currentmodel) < 256) {
+        if_setposition(calc(1 + if_getx(%easter10_currentmodel)), if_gety(%easter10_currentmodel), ^setpos_abs_left, ^setpos_abs_top, %easter10_currentmodel);
+    }
+    if (if_getx(%easter10_currentmodel) > 256) {
+        if_setposition(calc(if_getx(%easter10_currentmodel) - 1), if_gety(%easter10_currentmodel), ^setpos_abs_left, ^setpos_abs_top, %easter10_currentmodel);
+    }
+    if (if_gety(easter10_nuts:bar) > 70) {
+        if_setposition(if_getx(%easter10_currentmodel), calc(if_gety(%easter10_currentmodel) - 2), ^setpos_abs_left, ^setpos_abs_top, %easter10_currentmodel);
+        if_setposition(if_getx(easter10_nuts:bar), calc(if_gety(easter10_nuts:bar) - 2), ^setpos_abs_left, ^setpos_abs_top, easter10_nuts:bar);
+        if_setontimer("script2214", easter10_nuts:content);
+    } else {
+        if_sethide(true, %easter10_currentmodel);
+        if_setontimer("script2215", easter10_nuts:content);
+    }
+}

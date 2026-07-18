@@ -1,0 +1,30 @@
+// 18085
+[proc,script18085](dbrow $dbrow0, component $component1, int $int2)(int)
+def_int $int3 = ~script17903(%bp3_missions_interface_drawn_mission_slot);
+def_dbrow $dbrow4 = ~script17905(%bp3_missions_interface_drawn_mission_slot);
+def_int $int5 = db_getfield($dbrow0, bp3_mission:col5, 0);
+def_dbrow $dbrow6 = db_getfield($dbrow0, bp3_mission:col4:0, 0);
+def_int $int7 = 0;
+if (if_find($component1) = true) {
+    if ($int3 >= $int5 & $dbrow0 = $dbrow4) {
+        cc_createchild(^iftype_layer, $int7, 5);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        ~cc_add_child_text(5, $int7, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_gold_cinzel_bold_16pt, "Mission Completed");
+        $int7 = calc($int7 + 1);
+        $int2 = calc($int2 + 30);
+        ~cc_add_child_button(5, %bp3_missions_interface_drawn_mission_slot, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, 120, 30, ^setsize_abs, ^setsize_abs, ~script17989(22), "Claim");
+        ~script17954("Complete Mission", 0);
+        ~script7872(true, true, false, false);
+        cc_setop(1, "Complete Mission");
+        cc_setonop("script18086");
+        $int2 = calc($int2 + 40);
+    } else {
+        cc_createchild(^iftype_layer, $int7, 5);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+} else {
+    ~error("Cannot find parent layer when trying to populate BP3 missions info panel.");
+}
+return($int2);

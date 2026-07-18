@@ -1,0 +1,17 @@
+// 5952
+[proc,script5952]
+def_int $int0 = %lobbyscreen_member_expires;
+def_int $int1 = %lobbyscreen_current_minute;
+def_int $int2 = 0;
+if ($int2 = 0 & $int0 ! 0 & $int1 ! 0) {
+    $int2 = 1;
+}
+if ($int2 = 1) {
+    %lobby_lightbox_clock = 0;
+    ~lobby_popup_close;
+    if ($int0 > $int1) {
+        ~lobby_popup(10000, lobby_popup_positive_close, "Log In Members", "Use the continue button to log into a members world.", "loadingwheel,14", "", "Continue");
+    } else {
+        ~lobby_popup(10000, lobby_popup_positive_close, "Log In Free", "We can't find your subscription. Use the continue button to log into a free to play world.", "loadingwheel,15", "", "Continue");
+    }
+}

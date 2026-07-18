@@ -1,0 +1,29 @@
+// 20800
+[clientscript,script20800](component $component0, int $int1, string $string0, int $int2)
+switch_int ($int2) {
+    case 3 :
+        $string0 = "";
+    case 4 :
+        if (string_length($string0) < 2) {
+            $string0 = "";
+        }
+}
+if (compare(%construction_house_furniture_search, $string0) = 0) {
+    return;
+}
+%construction_house_furniture_search = $string0;
+%input_last_component = $component0;
+%input_last_subid = $int1;
+if (cc_find($component0, $int1) = true) {
+    cc_settext($string0);
+}
+switch_component ($component0) {
+    case house_furniture_makex:filters :
+        ~script20767;
+    case house_furniture_catalogue:filters :
+        ~script20748;
+    case house_furniture_trunk:filters :
+        ~script20830;
+    case default :
+        ~error("Unexpected component changing filter state.");
+}

@@ -1,0 +1,195 @@
+// 12115
+[proc,script12115](dbrow $dbrow0)(boolean)
+if ($dbrow0 = null) {
+    return(false);
+}
+if (db_getfield($dbrow0, bonds_package:col22, 0) = false & ~ironman_mode = true) {
+    return(false);
+}
+if (db_getfield($dbrow0, bonds_package:col25, 0) = false & ~script248 = true) {
+    return(false);
+}
+if (db_getfield($dbrow0, bonds_package:col23, 0) = false & playermember = false) {
+    return(false);
+}
+if (db_getfield($dbrow0, bonds_package:col24, 0) = false & playermember = true) {
+    return(false);
+}
+if (db_getfield($dbrow0, bonds_package:col26, 0) = true & ~script12961($dbrow0) = true) {
+    return(false);
+}
+def_int $int1 = db_getfield($dbrow0, bonds_package:col27, 0);
+def_int $int2 = db_getfield($dbrow0, bonds_package:col28, 0);
+if (%atlum_day_tracker < $int1 | %atlum_day_tracker > $int2) {
+    return(false);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (db_getfield($dbrow0, bonds_package:col18, 0) > 0 & $dbrow0 ! bonds_passcode_membership14) {
+    $int4 = calc(db_getfield($dbrow0, bonds_package:col18, 0) * 1440);
+    $int3 = ~script11174;
+    if (calc($int3 + $int4 + %bonds_temp_membership_time) > 1314000) {
+        return(false);
+    }
+}
+def_struct $struct5 = null;
+def_dbrow $dbrow6 = null;
+switch_dbrow ($dbrow0) {
+    case bonds_bp3_premier_pass :
+        if (~script17912 = true) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case bonds_bp3_premier_pass_bundle :
+        if (~script17912 = true & ~script17911(bonds_bp3_bux_1250) = true) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case bonds_bp3_5_levels, bonds_bp3_10_levels, bonds_bp3_20_levels, bonds_bp3_40_levels :
+        if (~script17913($dbrow0) = true) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case bonds_bp3_bux_625, bonds_bp3_bux_1250, bonds_bp3_bux_2500 :
+        if (~script17911($dbrow0) = true) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case bonds_yak_track_premier_pass, bonds_yak_track_4_tokens, bonds_yak_track_10_tokens :
+        if (~runepass_get_state(~script3608) ! 1) {
+            return(false);
+        } else if ($dbrow0 = bonds_yak_track_premier_pass & ~script3616 = true) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bonds_runemetrics1, bonds_runemetrics6, bonds_runemetrics12 :
+        if (~script15757 = true) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bonds_runemetrics2_premier_club_discounted :
+        return(false);
+    case bonds_timed_event_currency_5000, bonds_timed_event_currency_10000, bonds_timed_event_currency_20000 :
+        $struct5 = ~script14441;
+        if ($struct5 ! null & struct_param($struct5, timed_event_can_purchase_bond_packages) = 1) {
+            return(true);
+        }
+        $dbrow6 = ~script15143;
+        if ($dbrow6 ! null) {
+            return(true);
+        }
+        return(false);
+    case bonds_daily_keys_1_key_28_days :
+        return(false);
+        if (~script13087 = 1 & %mtx_daily_keys_stipend_mar2017_purchased = 0) {
+            return(true);
+        }
+        return(false);
+    case bonds_mhaw_may21_bundle :
+        return(false);
+        if (~script13033(timed_event_mhaw_may21) = 1 & %mhaw_may21_bundle_purchased = 0 & %bonds_mhaw_may21_bundle_purchased = 0) {
+            return(true);
+        }
+        return(false);
+    case bonds_premier_membership_12_month :
+        if (~script11568 = false) {
+            return(false);
+        }
+    case bonds_event_rsraffle_catchup :
+        return(~script16038);
+    case bonds_monthly_skilling_bundle_1 :
+        return(~script16079(%bonds_monthly_skilling_package_1_purchase_date, %bonds_monthly_skilling_package_1_purchase_volume, bonds_monthly_skilling_bundle_1));
+    case bonds_monthly_skilling_bundle_3 :
+        return(~script16079(%bonds_monthly_skilling_package_3_purchase_date, %bonds_monthly_skilling_package_3_purchase_volume, bonds_monthly_skilling_bundle_3));
+    case bonds_wmh_oct21_bundle :
+        return(~script4576);
+    case bonds_monthly_bundle_nov_21 :
+        return(~script16079(%bonds_monthly_skilling_package_1_purchase_date, %bonds_monthly_skilling_package_1_purchase_volume, bonds_monthly_bundle_nov_21));
+    case bond_package_bank_booster_bundle :
+        if (%atlum_day_tracker >= db_getfield(bond_package_bank_booster_bundle_sale, bonds_package:col27, 0) & %atlum_day_tracker <= db_getfield(bond_package_bank_booster_bundle_sale, bonds_package:col28, 0)) {
+            return(false);
+        }
+        if (%bond_package_bank_booster_bundle_unlocked = 1) {
+            return(false);
+        }
+        return(true);
+    case bond_package_bank_booster_bundle_sale :
+        if (%bond_package_bank_booster_bundle_unlocked = 1) {
+            return(false);
+        }
+        return(true);
+    case bond_package_callista_bundle :
+        if (~script10881(mtx134_pet) = 0) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case bond_package_tztot_bundle :
+        if (~script10881(mtx_pet_tzhaar_lizard) = 0) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case bond_package_dxp_item_bundle :
+        if (~script18945 = 1) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bond_package_dxp_daily_bundle :
+        if (%dxp_bundles_daily_bundle_purchased = 1) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bond_package_small_bank_and_preset_booster_bundle_members, bond_package_small_bank_and_preset_booster_bundle_f2p, bond_package_small_bank_and_preset_booster_bundle_members_sale, bond_package_small_bank_and_preset_booster_bundle_f2p_sale :
+        if (%mtx54_bank_space_unlocked15 = 1) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bond_package_xmas23_wrapping_paper :
+        if (%xmas24_package_double_wrapping_paper_unlocked = 1) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bond_package_easter24_bunny_ears :
+        return(~script18801);
+    case bond_package_easter24_currency_booster :
+        if (%easter24_currency_booster_unlocked = 1) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bond_package_xmas24_daily_key_bundle :
+        if (%xmas24_12_days_bundle_enabled = 0) {
+            return(false);
+        }
+        if (%xmas24_daily_keys_purchased = 1) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bonds_passcode_membership14 :
+        return(~script2102);
+    case bond_package_dxp_protean_bundle :
+        if (%dxp_bundles_nov25_protean_bond_purchased = 1) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case bonds_keys15, bonds_keys18 :
+        if (~script20055 = true) {
+            return(false);
+        } else {
+            return(true);
+        }
+}
+return(true);

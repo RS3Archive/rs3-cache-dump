@@ -1,0 +1,45 @@
+// 10834
+[clientscript,script10834]
+def_npc $npc0 = null;
+def_int $int1 = -1;
+if (%xmas2014_target_npc_interface > 0) {
+    $npc0 = struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_npc);
+    if_sethide(false, xmas2014:right_panel_delivery);
+    if_sethide(true, xmas2014:right_panel_default);
+    if_setnpcmodel($npc0, xmas2014:npc_model);
+    if_settext(struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_name), xmas2014:npc_name_text);
+    if_setontimer(null, xmas2014:npc_model);
+    if (%xmas2014_target_npc_interface ! 14) {
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, xmas2014:npc_model);
+        if_setmodelzoom(600, xmas2014:npc_model);
+        if_setposition(0, -40, ^setpos_abs_centre, ^setpos_abs_centre, xmas2014:npc_model);
+        if (%xmas2014_target_npc_interface = 4) {
+            if_setmodelanim(pnr_doric_idle, xmas2014:npc_model);
+        } else if (%xmas2014_target_npc_interface = 9) {
+            if_setmodelanim(mandrith_ready_sword_hilted, xmas2014:npc_model);
+        } else {
+            if_setmodelanim(struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_idle), xmas2014:npc_model);
+            if_setontimer("script10835(xmas2014:npc_model, struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_anim1), struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_anim2), 0, 0, struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_idle), calc(clientclock + 250 + randominc(500)))", xmas2014:npc_model);
+        }
+    } else {
+        if_setmodelzoom(2500, xmas2014:npc_model);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, xmas2014:npc_model);
+        if_setmodelanim(boss2_boss_idle, xmas2014:npc_model);
+        if_setontimer("script10835(xmas2014:npc_model, boss2_boss_fire_at_sky, boss2_boss_attack_magic, 1, 0, boss2_boss_idle, calc(clientclock + 250 + randominc(500)))", xmas2014:npc_model);
+    }
+    if_settext(struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_description), xmas2014:delivery_description);
+    if (map_members = false & struct_param(enum(int, struct, xmas2014_present_npcs, max(0, calc(%xmas2014_target_npc_interface - 1))), xmas2014_members) = 1) {
+        if_settext("Members only", xmas2014:deliver_text);
+        if_sethide(false, xmas2014:positive_button_disabled_layer);
+    } else if (%xmas2014_on_delivery = 1 & calc(%xmas2014_target_npc + 1) = %xmas2014_target_npc_interface) {
+        if_settext("Current target", xmas2014:deliver_text);
+        if_sethide(false, xmas2014:positive_button_disabled_layer);
+    } else {
+        if_settext("Set for delivery", xmas2014:deliver_text);
+        if_sethide(true, xmas2014:positive_button_disabled_layer);
+    }
+} else {
+    if_sethide(true, xmas2014:right_panel_delivery);
+    if_sethide(false, xmas2014:right_panel_default);
+    if_settext("Select a delivery target in the left panel for more information", xmas2014:right_panel_default_text);
+}

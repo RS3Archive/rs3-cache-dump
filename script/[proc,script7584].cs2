@@ -1,0 +1,66 @@
+// 7584
+[proc,script7584](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+switch_int ($int1) {
+    case 10747906 :
+        if (%tsd_main > 140 & $int2 = 0) {
+            return;
+        }
+        $int3 = 35;
+        $int4 = %tsd_assigned_wing1;
+    case 10747907 :
+        if (%tsd_main > 150 & $int2 = 0) {
+            return;
+        }
+        $int3 = 148;
+        $int4 = %tsd_assigned_wing2;
+    case 10747908 :
+        if (%tsd_main > 160 & $int2 = 0) {
+            return;
+        }
+        $int3 = 261;
+        $int4 = %tsd_assigned_wing3;
+    case 10747909 :
+        if (%tsd_main > 170 & $int2 = 0) {
+            return;
+        }
+        $int3 = 374;
+        $int4 = %tsd_assigned_wing4;
+    case default :
+        return;
+}
+switch_component ($component0) {
+    case tsd_assigning_overlay:death_drag_icon :
+        if ($int4 = 1 & $int2 = 0) {
+            return;
+        }
+    case tsd_assigning_overlay:thaerisk_drag_icon :
+        if ($int4 = 2 & $int2 = 0) {
+            return;
+        }
+    case tsd_assigning_overlay:valluta_drag_icon :
+        if ($int4 = 4 & $int2 = 0) {
+            return;
+        }
+    case tsd_assigning_overlay:cres_drag_icon :
+        if ($int4 = 3 & $int2 = 0) {
+            return;
+        }
+}
+if_setposition($int3, 63, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if ($int2 = 1) {
+    return;
+}
+switch_int ($int4) {
+    case 0 :
+        return;
+    case 1 :
+        ~script7585(tsd_assigning_overlay:death_drag_icon);
+    case 2 :
+        ~script7585(tsd_assigning_overlay:thaerisk_drag_icon);
+    case 4 :
+        ~script7585(tsd_assigning_overlay:valluta_drag_icon);
+    case 3 :
+        ~script7585(tsd_assigning_overlay:cres_drag_icon);
+}

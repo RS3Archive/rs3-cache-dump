@@ -1,0 +1,14 @@
+// 9851
+[proc,script9851](int $int0, struct $struct1)(boolean)
+def_dbrow $dbrow2 = ~script16023($int0);
+def_int $int3 = 0;
+if (db_getfield($dbrow2, weekend_events:col10, $int3) = -1) {
+    return(false);
+}
+while ($int3 <= calc(db_getfieldcount($dbrow2, weekend_events:col10) - 1) & db_getfield($dbrow2, weekend_events:col10, $int3) ! -1) {
+    if (db_getfield($dbrow2, weekend_events:col10, $int3) = struct_param($struct1, weekends_boss_spotlight_id)) {
+        return(true);
+    }
+    $int3 = calc($int3 + 1);
+}
+return(false);

@@ -1,0 +1,46 @@
+// 5847
+[proc,script5847]
+%6awe3_buy_quantity = min(%6awe3_buy_quantity, %6awe3_buy_max);
+def_string $string0 = tostring(%6awe3_buy_quantity);
+def_struct $struct0 = null;
+def_int $int1 = -1;
+def_int $int2 = 0;
+def_component $component3 = 6awe3_rewards:buy_text;
+switch_int (%6awe3_buy_type) {
+    case 0 :
+        if (%6awe3_xp_for_skill = -1) {
+            return;
+        }
+        switch_int (%6awe3_buy_id) {
+            case 0 :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for <tostring_localised(calc(%6awe3_buy_quantity * %6awe3_xp_for_skill / 10), true)> x Bonus Farming XP", $component3);
+            case 1 :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for <tostring_localised(calc(%6awe3_buy_quantity * %6awe3_xp_for_skill / 10), true)> x Bonus Mining XP", $component3);
+            case 2 :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for <tostring_localised(calc(%6awe3_buy_quantity * %6awe3_xp_for_skill / 10), true)> x Bonus Slayer XP", $component3);
+            case default :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for an unknown reward.", $component3);
+        }
+    case 1 :
+        switch_int (%6awe3_buy_id) {
+            case 0 :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for <tostring_localised(%6awe3_buy_quantity, true)> x Seedicide", $component3);
+            case 1 :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for <tostring_localised(%6awe3_buy_quantity, true)> x Slayer token", $component3);
+            case 2 :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for <tostring_localised(%6awe3_buy_quantity, true)> x Farming token", $component3);
+            case 3 :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for <tostring_localised(%6awe3_buy_quantity, true)> x Farmer's outfit piece", $component3);
+            case default :
+                if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for an unknown reward.", $component3);
+        }
+    case 2 :
+        $struct0 = enum(int, struct, 6awe3_ability_to_struct, %6awe3_buy_id);
+        if ($struct0 = null) {
+            if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for an unknown reward.", $component3);
+        } else {
+            if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for the ability: <struct_param($struct0, 6awe3_ability_name)>", $component3);
+        }
+    case default :
+        if_settext("Exchanging <tostring_localised(calc(%6awe3_buy_cost * %6awe3_buy_quantity), true)> renown for an unknown reward.", $component3);
+}

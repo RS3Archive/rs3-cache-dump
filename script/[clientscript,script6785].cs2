@@ -1,0 +1,17 @@
+// 6785
+[clientscript,script6785]
+if (%ql4_quest_viewing_perm = 0 | ~script7073(%ql4_quest_viewing_perm) = 2) {
+    if_sethide(true, quest_journal:accept_job_1);
+    if_sethide(true, quest_journal:accept_job_2);
+    return;
+}
+if_sethide(false, quest_journal:accept_job_1);
+if_sethide(false, quest_journal:accept_job_2);
+def_string $string0 = "Set Active";
+def_struct $struct0 = rs3tli_neutral_button;
+if (%quest_objective = %ql4_quest_viewing_perm) {
+    $string0 = "Active";
+    $struct0 = rs3tli_positive_button;
+}
+~script13969(quest_journal:accept_build_1, quest_journal:accept_click_1, $struct0, $string0);
+~script13969(quest_journal:accept_build_2, quest_journal:accept_click_2, $struct0, $string0);

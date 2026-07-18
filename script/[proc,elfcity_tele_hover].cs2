@@ -1,0 +1,115 @@
+// 10860
+[proc,elfcity_tele_hover](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_graphic $graphic4 = null;
+def_graphic $graphic5 = null;
+def_graphic $graphic6 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+switch_component ($component0) {
+    case atelf_teleports:elfcity_tele_lletya :
+        $int2 = 1;
+        $int3 = 1;
+        $graphic4 = "elfcity_icon_teleport_0,0";
+        $graphic5 = "elfcity_icon_teleport_0,1";
+        $graphic6 = "elfcity_icon_teleport_0,2";
+        $string0 = "Lletya";
+        $string1 = "This teleport will take you to the town of Lletya.";
+    case atelf_teleports:elfcity_tele_eluned :
+        $int2 = 1;
+        $int3 = 2;
+        $graphic4 = "elfcity_icon_teleport_1,0";
+        $graphic5 = "elfcity_icon_teleport_1,1";
+        $graphic6 = "elfcity_icon_teleport_1,2";
+        if (%seren_main < 90) {
+            $string0 = "Eluned";
+            $string1 = "This teleport will take you to Eluned's current location.";
+        } else {
+            $string0 = "Islwyn";
+            $string1 = "This teleport will take you to Islwyn in Prifddinas.";
+        }
+    case atelf_teleports:elfcity_tele_tyras :
+        $int2 = 2;
+        $int3 = 3;
+        $graphic4 = "elfcity_icon_teleport_2,0";
+        $graphic5 = "elfcity_icon_teleport_2,1";
+        $graphic6 = "elfcity_icon_teleport_2,2";
+        $string0 = "Tyras Camp";
+        $string1 = "This teleport will take you to the Tyras forces' encampment.";
+    case atelf_teleports:elfcity_tele_poison :
+        $int2 = 2;
+        $int3 = 4;
+        $graphic4 = "elfcity_icon_teleport_3,0";
+        $graphic5 = "elfcity_icon_teleport_3,1";
+        $graphic6 = "elfcity_icon_teleport_3,2";
+        $string0 = "Poison Waste";
+        $string1 = "This teleport will take you to the eastern edge of the Poison Waste.";
+    case atelf_teleports:elfcity_tele_death :
+        $int2 = 3;
+        $int3 = 5;
+        $graphic4 = "elfcity_icon_teleport_4,0";
+        $graphic5 = "elfcity_icon_teleport_4,1";
+        $graphic6 = "elfcity_icon_teleport_4,2";
+        $string0 = "Death Altar";
+        $string1 = "This teleport will take you to the Death Altar ruins.";
+    case atelf_teleports:elfcity_tele_elfcamp :
+        $int2 = 3;
+        $int3 = 6;
+        $graphic4 = "elfcity_icon_teleport_5,0";
+        $graphic5 = "elfcity_icon_teleport_5,1";
+        $graphic6 = "elfcity_icon_teleport_5,2";
+        $string0 = "Elf Camp";
+        $string1 = "This teleport will take you to the Iorwerth forces' encampment.";
+    case atelf_teleports:elfcity_tele_mushroom :
+        $int2 = 3;
+        $int3 = 7;
+        $graphic4 = "elfcity_icon_teleport_6,0";
+        $graphic5 = "elfcity_icon_teleport_6,1";
+        $graphic6 = "elfcity_icon_teleport_6,2";
+        $string0 = "Mushroom patch";
+        $string1 = "This teleport will take you to the mushroom patch.";
+    case atelf_teleports:elfcity_tele_resource :
+        $int2 = 4;
+        $int3 = 8;
+        $graphic4 = "elfcity_icon_teleport_6,0";
+        $graphic5 = "elfcity_icon_teleport_6,1";
+        $graphic6 = "elfcity_icon_teleport_6,2";
+        $string0 = "Harmony Pillars";
+        $string1 = "This teleport will take you to the Meilyr area of Prifddinas.";
+}
+if ($int1 = 1) {
+    if_settext($string0, atelf_teleports:elfcity_tele_name);
+    if ($int3 > 0 & ~is_mobile_client = false) {
+        $string1 = "<$string1><br>Keybind: <tostring($int3)>";
+    }
+    if_settext($string1, atelf_teleports:elfcity_tele_destination);
+} else {
+    if_settext("Teleport Destination", atelf_teleports:elfcity_tele_name);
+    if_settext("Hover over a teleport icon to learn where it leads.", atelf_teleports:elfcity_tele_destination);
+}
+if (~script10861($int2) = true) {
+    if ($int1 = 1) {
+        if_setgraphic($graphic5, $component0);
+    } else {
+        if_setgraphic($graphic4, $component0);
+    }
+    if_sethide(true, atelf_teleports:info_holder_locked);
+} else {
+    if_setgraphic($graphic6, $component0);
+    switch_int ($int2) {
+        case 1 :
+            if_settext("You can unlock this destination by completing all tasks in the Easy Tirannwn Task Set.", atelf_teleports:elfcity_tele_unlockhint);
+        case 2 :
+            if_settext("You can unlock this destination by completing all tasks in the Medium Tirannwn Task Set.", atelf_teleports:elfcity_tele_unlockhint);
+        case 3 :
+            if_settext("You can unlock this destination by completing all tasks in the Hard Tirannwn Task Set.", atelf_teleports:elfcity_tele_unlockhint);
+        case 4 :
+            if_settext("You can unlock this destination by completing all tasks in the Elite Tirannwn Task Set.", atelf_teleports:elfcity_tele_unlockhint);
+    }
+    if ($int1 = 1) {
+        if_sethide(false, atelf_teleports:info_holder_locked);
+    } else {
+        if_sethide(true, atelf_teleports:info_holder_locked);
+    }
+}

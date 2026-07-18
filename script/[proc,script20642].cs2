@@ -1,0 +1,68 @@
+// 20642
+[proc,script20642](int $int0)(int)
+def_dbrow $dbrow1 = db_findnext;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "";
+def_graphic $graphic4 = null;
+def_dbrow $dbrow5 = null;
+def_struct $struct6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_boolean $boolean9 = true;
+def_int $int10 = -1;
+def_boolean $boolean11 = false;
+def_int $int12 = 0;
+while ($dbrow1 ! null) {
+    if (db_getfieldcount($dbrow1, marketplace_store_item:col6) > 0) {
+        $struct6 = db_getfield($dbrow1, marketplace_store_item:col6, 0);
+    }
+    $int7 = db_getfield($dbrow1, marketplace_store_item:col7, 0);
+    $boolean9, $int10 = ~script20469($struct6, $dbrow1, $int7, 0);
+    if ($boolean9 = true | $boolean9 = false & $int10 = 1) {
+        $int3 = db_getfield($dbrow1, marketplace_store_item:col0, 0);
+        $string0 = db_getfield($dbrow1, marketplace_store_item:col3, 0);
+        $graphic4 = ~script20474($dbrow1);
+        if (db_getfieldcount($dbrow1, marketplace_store_item:col10) > 0) {
+            $dbrow5 = db_getfield($dbrow1, marketplace_store_item:col10, 0);
+        }
+        if (cc_find(marketplace_store:items_holder, $int0) = true) {
+            ~cc_add_child_layer(ui_getcategory(if_getnextsubid(marketplace_store:items_holder)), ui_getdynid(if_getnextsubid(marketplace_store:items_holder)), 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 176, 176, ^setsize_abs, ^setsize_abs);
+        }
+        if ($boolean9 = true) {
+            cc_setop(1, "Preview");
+            cc_setonop("script20643($int3)");
+        }
+        if ($struct6 ! null & struct_param($struct6, mtxmgt_pack_structs) ! null) {
+            $int12 = 1;
+        } else {
+            $int12 = 0;
+        }
+        $int8 = ~script20465($struct6, $int7);
+        if ($int8 = 0 & $int7 ! 1) {
+            $boolean11 = true;
+        } else {
+            $boolean11 = false;
+        }
+        $string1 = ~script20466($int8, $dbrow5, $int7);
+        if (db_getfieldcount($dbrow1, marketplace_store_item:col17) > 0) {
+            $string2 = db_getfield($dbrow1, marketplace_store_item:col17, 0);
+        } else {
+            $string2 = "";
+        }
+        ~script20616(marketplace_store:items_holder, $string0, $graphic4, $string1, $int7, $string2, 6, 6, ^setsize_minus, ^setsize_minus, $boolean9, $boolean11, ~script20658($struct6), $int12);
+        if ($boolean9 = false) {
+            ~cc_add_child_rect(ui_getcategory(if_getnextsubid(marketplace_store:items_holder)), ui_getdynid(if_getnextsubid(marketplace_store:items_holder)), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, rect_dark);
+            cc_setcolour(0x0f0d0d);
+            cc_settrans(75);
+            ~cc_add_child_text(ui_getcategory(if_getnextsubid(marketplace_store:items_holder)), ui_getdynid(if_getnextsubid(marketplace_store:items_holder)), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_title_section, "Owned");
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            cc_setcolour(^white);
+        }
+        $int2 = calc($int2 + 1);
+    }
+    $dbrow1 = db_findnext;
+}
+return($int2);

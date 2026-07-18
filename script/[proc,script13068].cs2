@@ -1,0 +1,51 @@
+// 13068
+[proc,script13068](int $int0)
+def_struct $struct1 = enum(int, struct, trh115_perks, $int0);
+def_component $component2 = enum(int, component, trh115_perk_layer_components, $int0);
+def_component $component3 = enum(int, component, trh115_perk_graphic_components, $int0);
+def_component $component4 = enum(int, component, trh115_perk_text_components, $int0);
+def_enum $enum5 = trh115_perk_graphics;
+def_enum $enum6 = enum(int, enum, $enum5, struct_param($struct1, trh115_perk_id));
+def_graphic $graphic7 = enum(int, graphic, $enum6, 0);
+def_graphic $graphic8 = enum(int, graphic, $enum6, 1);
+def_graphic $graphic9 = enum(int, graphic, $enum6, 2);
+def_graphic $graphic10 = enum(int, graphic, $enum6, 3);
+def_graphic $graphic11 = enum(int, graphic, $enum6, 4);
+def_component $component12 = null;
+def_component $component13 = null;
+def_int $int14 = 0;
+~script13072($struct1, $component2, -1);
+$int14 = ~script13070($int0);
+$component12, $component13 = ~script13071($int0);
+if (%trh115_active_perk = $int0) {
+    if (%trh115_perk_charge ! 0) {
+        if_settext(tostring(%trh115_perk_charge), $component4);
+    }
+    if_setgraphic($graphic9, $component3);
+    if_setonmouseover(null, $component3);
+    if_setonmouseleave(null, $component3);
+    if_sethide(true, $component12);
+    if_sethide(true, $component13);
+} else {
+    if_settext("", $component4);
+    if ($int14 = 0) {
+        if (%trh115_active_perk ! 0) {
+            if_setgraphic($graphic10, $component3);
+            if_setonmouseover(null, $component3);
+            if_setonmouseleave("graphic_swapper($component3, $graphic10)", $component3);
+        } else {
+            if_setgraphic($graphic7, $component3);
+            if_setonmouseover("graphic_swapper($component3, $graphic8)", $component3);
+            if_setonmouseleave("graphic_swapper($component3, $graphic7)", $component3);
+        }
+        if_sethide(true, $component12);
+        if_sethide(true, $component13);
+    } else {
+        if_setgraphic($graphic11, $component3);
+        if_sethide(false, $component12);
+        if_sethide(false, $component13);
+        if_setonmouseover(null, $component3);
+        if_setonmouseleave("graphic_swapper($component3, $graphic11)", $component3);
+        ~script13069($struct1, $int0);
+    }
+}

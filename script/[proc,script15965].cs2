@@ -1,0 +1,30 @@
+// 15965
+[proc,script15965](int $int0, boolean $boolean1, boolean $boolean2)
+def_component $component3 = ui_template:build_area;
+cc_deleteall($component3);
+if ($int0 = -1) {
+    ~cc_add_text($component3, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, "Use the dropdown to select a component type.<br><br>This will use a db_find() to find any interface_skin tables with a template_type column matching the chosen type.<br><br>Use the name of the stylesheet this outputs in the appropriate ~cc_add_ wrapper script, the cc_set_stylesheet command or stylesheet_set onload in interface editor.");
+    return;
+}
+if ($int0 = 24) {
+    if_settext("Fill mode", ui_template:disable);
+} else {
+    if_settext("Show disabled", ui_template:disable);
+}
+def_int $int4 = 1;
+if ($boolean2 = true) {
+    if_settext("Skin mode. Now: Mobile", ui_template:altskin);
+    $int4 = 2;
+} else {
+    if_settext("Skin mode. Now: Legacy", ui_template:altskin);
+}
+$boolean1 = ~negate_bool($boolean1);
+def_int $int5 = 0;
+switch_int ($int0) {
+    case 4 :
+        $int5 = db_find_with_count(interface_skin_text:col1, $int0);
+        ~script20492($component3, $int0, $boolean1, $int4, $int5);
+    case default :
+        $int5 = db_find_with_count(interface_skin:col1, $int0);
+        ~script20492($component3, $int0, $boolean1, $int4, $int5);
+}

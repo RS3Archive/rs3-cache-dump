@@ -1,0 +1,29 @@
+// 16808
+[proc,script16808](dbrow $dbrow0, boolean $boolean1)
+if ($dbrow0 = null) {
+    return;
+}
+if (db_getrowtable($dbrow0) ! minigame_ability) {
+    return;
+}
+def_component $component2 = db_getfield($dbrow0, minigame_ability:col3, 0);
+def_int $int3 = db_getfield($dbrow0, minigame_ability:col2, 0);
+def_string $string0 = "";
+def_string $string1 = null;
+def_graphic $graphic4 = null;
+def_component $component5 = null;
+if ($boolean1 = true & $int3 = 1) {
+    $string0 = db_getfield($dbrow0, minigame_ability:col8, 0);
+}
+cc_deleteall($component2);
+~cc_add_button_full($component2, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_default, $string0, $boolean1, true, false, false);
+if ($int3 = 0) {
+    $component5 = db_getfield($dbrow0, minigame_ability:col11, 0);
+    $graphic4 = db_getfield($dbrow0, minigame_ability:col10, 0);
+    if_setgraphic($graphic4, $component5);
+    if_sethide(~not_bool($boolean1), $component5);
+}
+$string1 = db_getfield($dbrow0, minigame_ability:col9, 0);
+if (string_length($string1) > 0) {
+    if_setonmouserepeat("script8799($string1, event_com, -1)", $component5);
+}

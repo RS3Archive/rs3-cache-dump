@@ -1,0 +1,61 @@
+// 676
+[clientscript,script676]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_struct $struct3 = null;
+def_int $int4 = 20;
+def_int $int5 = 4;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_obj $obj9 = null;
+while ($int1 < enum_getoutputcount(exchange_item_set_structs)) {
+    $struct3 = enum(int, struct, exchange_item_set_structs, $int1);
+    $int7 = struct_param($struct3, exchange_item_set_size);
+    $obj9 = struct_param($struct3, exchange_item_set_first_item);
+    if ($struct3 ! null & $obj9 ! null & $int7 > 0 & $obj9 = enum(int, obj, exchange_item_sets, $int0)) {
+        cc_create(exchange_itemsets_v2:title_layer, ^iftype_text, $int1);
+        cc_setsize(10, $int4, ^setsize_minus, ^setsize_abs);
+        cc_setposition(4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext(struct_param($struct3, exchange_item_set_title));
+        cc_settextfont(museo_sans_13pt_bold);
+        cc_setcolour(0xf0be79);
+        $int8 = calc($int7 + $int0);
+        $int5 = calc($int5 + $int4);
+        while ($int0 < enum_getoutputcount(exchange_item_sets) & $int0 < $int8) {
+            cc_create(exchange_itemsets_v2:stock_lay, ^iftype_graphic, $int0);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc(4 + 42 * $int6), $int5, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setobject(enum(int, obj, exchange_item_sets, $int0), -1);
+            cc_setopbase("<col=FF981F><oc_name(enum(int, obj, exchange_item_sets, $int0))>");
+            cc_setop(1, "Components");
+            cc_setop(2, "Exchange");
+            cc_setop(3, "Exchange-x");
+            cc_setop(4, "Examine");
+            cc_setoutline(1);
+            cc_setonmouserepeat("script8799(oc_name(enum(int, obj, exchange_item_sets, $int0)), event_com, event_comsubid)");
+            .cc_create(exchange_itemsets_v2:infinity_layer, ^iftype_graphic, $int0);
+            .cc_setsize(12, 6, ^setsize_abs, ^setsize_abs);
+            .cc_setposition(calc(4 + 42 * $int6), $int5, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setgraphic(shop_infinity_icon);
+            if ($int6 < 11) {
+                $int6 = calc($int6 + 1);
+            } else {
+                $int6 = 0;
+                if (calc($int0 + 1) < enum_getoutputcount(exchange_item_sets) & calc($int0 + 1) < $int8) {
+                    $int5 = calc($int5 + 36);
+                }
+            }
+            $int0 = calc($int0 + 1);
+        }
+    }
+    $int5 = calc($int5 + 36 + 8);
+    $int6 = 0;
+    $int7 = 0;
+    $obj9 = null;
+    $int1 = calc($int1 + 1);
+}
+$int5 = calc($int5 - 4);
+if_setscrollsize(0, $int5, exchange_itemsets_v2:scrolling_layer);
+~rs3_scrollbar_vertical(exchange_itemsets_v2:scrollbar_lay, exchange_itemsets_v2:scrolling_layer);

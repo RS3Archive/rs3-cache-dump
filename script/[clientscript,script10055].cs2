@@ -1,0 +1,14 @@
+// 10055
+[clientscript,script10055]
+if (~is_mobile_client = false) {
+    ~rs3_scrollbar_vertical(lobbyscreen_pane_friendslist:friends_build_layer_scroll, lobbyscreen_pane_friendslist:friends_main);
+    ~rs3_scrollbar_vertical(lobbyscreen_pane_friendslist:ignore_scroll, lobbyscreen_pane_friendslist:ignore_main);
+    ~rs3_scrollbar_vertical(lobbyscreen_pane_friendslist:chat_scroll, lobbyscreen_pane_friendslist:chat_build);
+    %lobby_pmchat_lastscrollpos = if_getheight(lobbyscreen_pane_friendslist:chat_build);
+    if_setontimer(null, lobbyscreen_pane_friendslist:main);
+    if_setontimer("script15593(0)", lobbyscreen_pane_friendslist:friends);
+    if_setontimer("script15594(0)", lobbyscreen_pane_friendslist:ignore);
+} else {
+    ~script17120;
+}
+%last_pm_received_sender = "";

@@ -1,0 +1,21 @@
+// 14913
+[proc,script14913](dbrow $dbrow0)(string)
+if ($dbrow0 = null) {
+    return("");
+}
+def_int $int1 = db_find_with_count(arch_excavation:col17:0, $dbrow0);
+def_dbrow $dbrow2 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int3 = -1;
+while (++$int3 < $int1) {
+    $dbrow2 = db_findnext;
+    $string0 = ~script14578($dbrow2);
+    if (string_length($string0) > 0) {
+        $string1 = "<$string1><$string0>, ";
+    }
+}
+if (string_length($string1) > 0) {
+    return(substring($string1, 0, calc(string_length($string1) - 2)));
+}
+return("None");

@@ -1,0 +1,471 @@
+// 7252
+[proc,script7252](int $int0)
+cc_deleteall(pop_ship:crew_layer_backgrounds);
+cc_deleteall(pop_ship:crew_layer_icons);
+cc_deleteall(pop_ship:crew_layer_levels);
+cc_deleteall(pop_ship:captain_layer_backgrounds);
+cc_deleteall(pop_ship:captain_layer_icons);
+cc_deleteall(pop_ship:captain_layer_levels);
+cc_deleteall(pop_ship:captain_roster_boxes);
+cc_deleteall(pop_ship:captain_roster_backgrounds);
+cc_deleteall(pop_ship:captain_roster_number_backgrounds);
+cc_deleteall(pop_ship:captain_roster_numbers);
+cc_deleteall(pop_ship:captain_roster_levels);
+cc_deleteall(pop_ship:crew_roster_boxes);
+cc_deleteall(pop_ship:crew_roster_backgrounds);
+cc_deleteall(pop_ship:crew_roster_number_backgrounds);
+cc_deleteall(pop_ship:crew_roster_numbers);
+cc_deleteall(pop_ship:crew_roster_levels);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = -1;
+def_boolean $boolean9 = false;
+def_boolean $boolean10 = false;
+if (%pop_crew_stat_obj ! null) {
+    $boolean10 = enum_hasoutput(obj, pop_captain_list, %pop_crew_stat_obj);
+}
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+$int12, $int13, $int14 = ~script7295($int0);
+def_int $int15 = 0;
+def_string $string0 = "-";
+def_string $string1 = "";
+def_string $string2 = "No crewman.";
+def_graphic $graphic16 = null;
+def_int $int17 = -1;
+while ($int1 < inv_size(pop_crew)) {
+    $obj7 = inv_getobj(pop_crew, $int1);
+    $int15 = ~script7311($int1);
+    switch_int ($int15) {
+        case 1 :
+            $int11 = %pop_captain_1_gender;
+        case 2 :
+            $int11 = %pop_captain_2_gender;
+        case 3 :
+            $int11 = %pop_captain_3_gender;
+        case 4 :
+            $int11 = %pop_captain_4_gender;
+        case 5 :
+            $int11 = %pop_captain_5_gender;
+    }
+    if ($obj7 ! null) {
+        $int17 = ~script7317(pop_crew, $int1);
+        $boolean9 = enum_hasoutput(obj, pop_captain_list, $obj7);
+        if ($boolean9 = true) {
+            if ($int1 >= $int12 & $int1 <= $int13 & testbit($int14, calc($int1 - $int12)) = ^true) {
+                cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+                cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+                if (%pop_ship_crew_selected_var = $int1) {
+                    cc_setgraphic("aif_pop_captain_icon_holder,2");
+                } else {
+                    cc_setgraphic("aif_pop_captain_icon_holder,0");
+                    $graphic16 = "aif_pop_captain_icon_holder,1";
+                    cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                    $graphic16 = "aif_pop_captain_icon_holder,0";
+                    cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                }
+                cc_setsize(55, 55, ^setsize_abs, ^setsize_abs);
+                cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+                cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+                cc_setgraphic(oc_param($obj7, pop_crew_graphic));
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setop(1, "Select");
+                cc_setopbase(oc_name($obj7));
+                if (~script6431 = true) {
+                    cc_setop(3, "Compare");
+                    cc_setonop("script3566($int1, 0, 0, 1, event_op)");
+                } else {
+                    cc_setonmouseover("script7290($int1, 0, 0, 1)");
+                    cc_setonmouseleave("script7289");
+                }
+                cc_setondragcomplete("script3565($int1, 0, 0, 1, event_com2)");
+                cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+                cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+                cc_settextfont(p11_full);
+                cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+                cc_settext(tostring($int17));
+                cc_setcolour(^white);
+                cc_settextshadow(true);
+                cc_setposition(10, 12, ^setpos_abs_centre, ^setpos_abs_centre);
+                cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+                cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+                cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+                cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+                cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+            } else if (~pop_crew_available($int1) = 1) {
+                cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+                cc_setposition(0, calc(1 + 10 + $int5 * 52), ^setpos_abs_centre, ^setpos_abs_top);
+                cc_setgraphic(oc_param($obj7, pop_crew_graphic));
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                if ($boolean10 = true | ~script1483 = 1) {
+                    cc_setop(1, "Assign");
+                } else {
+                    cc_setop(1, "");
+                }
+                if (~script6431 = true) {
+                    cc_setop(3, "Compare");
+                    cc_setonop("script3566($int1, 1, 0, 0, event_op)");
+                } else {
+                    cc_setonmouseover("script7290($int1, 1, 0, 0)");
+                    cc_setonmouseleave("script7289");
+                }
+                cc_setopbase(oc_name($obj7));
+                cc_setondragcomplete("script3565($int1, 1, 0, 0, event_com2)");
+                cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+                cc_setsize(55, 55, ^setsize_abs, ^setsize_abs);
+                cc_setgraphic("aif_pop_captain_icon_holder,0");
+                cc_setposition(0, calc(1 + $int5 * 52), ^setpos_abs_centre, ^setpos_abs_top);
+                $graphic16 = "aif_pop_captain_icon_holder,1";
+                cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                $graphic16 = "aif_pop_captain_icon_holder,0";
+                cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+                cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+                cc_setgraphic(aif_pop_ship_number_holder);
+                cc_setposition(-17, calc(1 + $int5 * 52), ^setpos_abs_centre, ^setpos_abs_top);
+                if ($int15 > 0 & $int15 < 5 & testbit(%pop_voyages_spaces, $int1) = ^true) {
+                    $string0 = "<col=F7EDB7><tostring($int15)>";
+                } else {
+                    $string0 = "<col=F7EDB7>-";
+                }
+                cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+                cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+                cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+                cc_settextfont(p11_full);
+                cc_settext($string0);
+                cc_setposition(-17, calc(1 + 1 + $int5 * 52), ^setpos_abs_centre, ^setpos_abs_top);
+                cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+                cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+                cc_settextfont(p11_full);
+                cc_settext(tostring($int17));
+                cc_setcolour(^white);
+                cc_settextshadow(true);
+                cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+                cc_setposition(10, calc(1 + 34 + $int5 * 52), ^setpos_abs_centre, ^setpos_abs_top);
+                $int5 = calc($int5 + 1);
+                cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+                if ($int1 > $int12 & $int1 <= $int13) {
+                    cc_setposition(calc(0 + 8 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+                    cc_setgraphic("aif_pop_crew_icons,22");
+                    cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                    cc_setop(1, "Select");
+                    cc_setopbase("None");
+                    if (~script6431 = true) {
+                        cc_setop(3, "Compare");
+                        cc_setonop("script3566($int1, 0, 0, 1, event_op)");
+                    } else {
+                        cc_setonmouseover("script7290($int1, 0, 0, 1)");
+                        cc_setonmouseleave("script7289");
+                    }
+                    cc_setondragcomplete("script3565($int1, 0, 0, 1, event_com2)");
+                }
+                cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+                if ($int1 > $int12 & $int1 <= $int13) {
+                    cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+                    if (%pop_ship_crew_selected_var = $int1) {
+                        cc_setgraphic("aif_pop_crew_icon_holder,2");
+                    } else {
+                        cc_setgraphic("aif_pop_crew_icon_holder,0");
+                        $graphic16 = "aif_pop_crew_icon_holder,1";
+                        cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                        $graphic16 = "aif_pop_crew_icon_holder,0";
+                        cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                    }
+                    cc_setposition(calc(0 + 3 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+                    $int4 = calc($int4 + 1);
+                }
+                cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+                cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+                cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+                cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+            } else {
+                cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+                cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+                cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+                cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+                cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+                cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+                cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+            }
+        } else if ($int1 >= $int12 & $int1 <= $int13 & testbit($int14, calc($int1 - $int12)) = ^true) {
+            cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+            cc_setgraphic(oc_param($obj7, pop_crew_graphic));
+            cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc(0 + 8 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+            cc_setop(1, "Select");
+            cc_setop(2, "Unassign");
+            cc_setopbase(oc_name($obj7));
+            if (~script6431 = true) {
+                cc_setop(3, "Compare");
+                cc_setonop("script3566($int1, 0, 0, 1, event_op)");
+            } else {
+                cc_setonmouseover("script7290($int1, 0, 0, 1)");
+                cc_setonmouseleave("script7289");
+            }
+            cc_setondragcomplete("script3565($int1, 0, 0, 1, event_com2)");
+            cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+            cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+            if (%pop_ship_crew_selected_var = $int1) {
+                cc_setgraphic("aif_pop_crew_icon_holder,2");
+                cc_setonmouseover(null);
+                cc_setonmouseleave(null);
+            } else {
+                cc_setgraphic("aif_pop_crew_icon_holder,0");
+                $graphic16 = "aif_pop_crew_icon_holder,1";
+                cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                $graphic16 = "aif_pop_crew_icon_holder,0";
+                cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+            }
+            cc_setposition(calc(0 + 3 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+            cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+            cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+            cc_settextfont(p11_full);
+            cc_settext(tostring($int17));
+            cc_setcolour(^white);
+            cc_settextshadow(true);
+            cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+            cc_setposition(calc(0 + 30 + $int4 * 52), 12, ^setpos_abs_left, ^setpos_abs_centre);
+            $int4 = calc($int4 + 1);
+            cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+            cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+            cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+            cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+            cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+        } else if (~pop_crew_available($int1) = 1) {
+            cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+            cc_setgraphic(oc_param($obj7, pop_crew_graphic));
+            cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+            if ($boolean10 = false | ~script1483 = 0) {
+                cc_setop(1, "Assign");
+            } else {
+                cc_setop(1, "");
+            }
+            if (~script6431 = true) {
+                cc_setop(3, "Compare");
+                cc_setonop("script3566($int1, 1, 0, 0, event_op)");
+            } else {
+                cc_setonmouseover("script7290($int1, 1, 0, 0)");
+                cc_setonmouseleave("script7289");
+            }
+            cc_setopbase(oc_name($obj7));
+            cc_setondragcomplete("script3565($int1, 1, 0, 0, event_com2)");
+            $int3 = calc($int6 % 5);
+            $int2 = calc($int6 / 5);
+            cc_setposition(calc(0 + 8 + $int3 * 52), calc(1 + 10 + $int2 * 52), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+            cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic("aif_pop_crew_icon_holder,0");
+            cc_setposition(calc(0 + 3 + $int3 * 52), calc(1 + 5 + $int2 * 52), ^setpos_abs_left, ^setpos_abs_top);
+            $graphic16 = "aif_pop_crew_icon_holder,1";
+            cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+            $graphic16 = "aif_pop_crew_icon_holder,0";
+            cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+            cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+            cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+            cc_settextfont(p11_full);
+            cc_settext(tostring($int17));
+            cc_setcolour(^white);
+            cc_settextshadow(true);
+            cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+            cc_setposition(calc(0 + 30 + $int3 * 52), calc(1 + 34 + $int2 * 52), ^setpos_abs_left, ^setpos_abs_top);
+            $int6 = calc($int6 + 1);
+            cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+            if ($int1 >= $int12 & $int1 <= $int13) {
+                cc_setgraphic("aif_pop_crew_icons,22");
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(calc(0 + 8 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+                cc_setop(1, "Select");
+                cc_setopbase("None");
+                if (~script6431 = true) {
+                    cc_setop(3, "Compare");
+                    cc_setonop("script3566($int1, 0, 0, 1, event_op)");
+                } else {
+                    cc_setonmouseover("script7290($int1, 0, 0, 1)");
+                    cc_setonmouseleave("script7289");
+                }
+                cc_setondragcomplete("script3565($int1, 0, 0, 1, event_com2)");
+            }
+            cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+            if ($int1 >= $int12 & $int1 <= $int13) {
+                cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+                if (%pop_ship_crew_selected_var = $int1) {
+                    cc_setgraphic("aif_pop_crew_icon_holder,2");
+                } else {
+                    cc_setgraphic("aif_pop_crew_icon_holder,0");
+                    $graphic16 = "aif_pop_crew_icon_holder,1";
+                    cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                    $graphic16 = "aif_pop_crew_icon_holder,0";
+                    cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+                }
+                cc_setposition(calc(0 + 3 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+                $int4 = calc($int4 + 1);
+            }
+            cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+            cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+            cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic(aif_pop_ship_number_holder);
+            cc_setposition(calc(0 + $int3 * 52), calc(1 + $int2 * 52), ^setpos_abs_left, ^setpos_abs_top);
+            if ($int15 > 0 & $int15 < 5 & testbit(%pop_voyages_spaces, $int1) = ^true) {
+                $string0 = "<col=F7EDB7><tostring($int15)>";
+            } else {
+                $string0 = "<col=F7EDB7>-";
+            }
+            cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+            cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            cc_settextfont(p11_full);
+            cc_settext($string0);
+            cc_setposition(calc(0 + $int3 * 52), calc(1 + 1 + $int2 * 52), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+            cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+            cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+        } else {
+            cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+            cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+            cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+            cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+            cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+            cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+            cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+        }
+    } else if ($int1 >= $int12 & $int1 <= $int13) {
+        cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+        cc_setposition(calc(0 + 8 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_setgraphic("aif_pop_crew_icons,22");
+        cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+        cc_setop(1, "Select");
+        cc_setopbase("None");
+        cc_setonmouseover("script7290($int1, 0, 0, 1)");
+        cc_setonmouseleave("script7289");
+        cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+        cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+        if (%pop_ship_crew_selected_var = $int1) {
+            cc_setgraphic("aif_pop_crew_icon_holder,2");
+        } else {
+            cc_setgraphic("aif_pop_crew_icon_holder,0");
+            $graphic16 = "aif_pop_crew_icon_holder,1";
+            cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+            $graphic16 = "aif_pop_crew_icon_holder,0";
+            cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+        }
+        cc_setposition(calc(0 + 3 + $int4 * 52), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+        $int4 = calc($int4 + 1);
+        cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+        cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+        cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+        cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+        cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+    } else {
+        cc_create(pop_ship:crew_layer_icons, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_layer_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_layer_levels, ^iftype_text, $int1);
+        cc_create(pop_ship:captain_layer_icons, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_layer_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_layer_levels, ^iftype_text, $int1);
+        cc_create(pop_ship:captain_roster_boxes, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_roster_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_roster_number_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:captain_roster_numbers, ^iftype_text, $int1);
+        cc_create(pop_ship:captain_roster_levels, ^iftype_text, $int1);
+        cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_roster_number_backgrounds, ^iftype_graphic, $int1);
+        cc_create(pop_ship:crew_roster_numbers, ^iftype_text, $int1);
+        cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+    }
+    $int1 = calc($int1 + 1);
+}
+cc_create(pop_ship:crew_roster_boxes, ^iftype_graphic, $int1);
+cc_setgraphic("aif_pop_crew_icons,21");
+cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+cc_setop(1, "Assign");
+cc_setopbase("None");
+cc_setonmouseover("script7290($int1, 0, 1, 1)");
+cc_setonmouseleave("script7289");
+$int3 = calc($int6 % 5);
+$int2 = calc($int6 / 5);
+cc_setposition(calc(0 + 8 + $int3 * 52), calc(1 + 10 + $int2 * 52), ^setpos_abs_left, ^setpos_abs_top);
+cc_create(pop_ship:crew_roster_backgrounds, ^iftype_graphic, $int1);
+cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("aif_pop_crew_icon_holder,0");
+cc_setposition(calc(0 + 3 + $int3 * 52), calc(1 + 5 + $int2 * 52), ^setpos_abs_left, ^setpos_abs_top);
+$graphic16 = "aif_pop_crew_icon_holder,1";
+cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+$graphic16 = "aif_pop_crew_icon_holder,0";
+cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic16)");
+cc_create(pop_ship:crew_roster_levels, ^iftype_text, $int1);
+$int6 = calc($int6 + 1);
+if (~script7294(%pop_ship_selected_var) = -1 & cc_find(pop_ship:captain_layer_icons, 0) = true) {
+    cc_setgraphic("aif_pop_crew_icons,22");
+    cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setop(1, "Select");
+    cc_setopbase("None");
+}
+if (~script7294($int0) = -1) {
+    if_sethide(true, pop_ship:crew_layer);
+    if_sethide(true, pop_ship:crew_roster);
+} else {
+    if_sethide(false, pop_ship:crew_layer);
+    if_sethide(false, pop_ship:crew_roster);
+}

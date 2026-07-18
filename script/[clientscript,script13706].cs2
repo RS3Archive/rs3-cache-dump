@@ -1,0 +1,49 @@
+// 13706
+[clientscript,script13706]
+def_int $int0 = 5703;
+def_int $int1 = 0;
+def_string $string0 = "You have already completed this element of the bar crawl.";
+if (%mtxfest17_crawl_state = 2) {
+    if_settext("Get the requested drink from each of the Inns before the 6th November to win 2 medium prismatic lamps. You will receive a small prismatic lamp for each task on the list you complete.", mtxfest17_beer_crawl:info_text);
+}
+while ($int1 < 18) {
+    if (~script13707($int0) = 1) {
+        if_sethide(false, enum(int, component, mtxfest17_get_tick_component, $int1));
+        if (%mtxfest17_crawl_state = 1) {
+            if_sethide(false, enum(int, component, mtxfest17_get_main_component, $int1));
+            if_sethide(true, enum(int, component, mtxfest17_get_main_component_free, $int1));
+        } else {
+            if_sethide(true, enum(int, component, mtxfest17_get_main_component, $int1));
+            if_sethide(false, enum(int, component, mtxfest17_get_main_component_free, $int1));
+        }
+        if_setonmouserepeat("script8799($string0, event_com, -1)", enum(int, component, mtxfest17_get_tick_component, $int1));
+    } else if (%atlum_day_tracker < $int0) {
+        $string0 = "This element has not been unlocked yet. Come back later.";
+        if (%mtxfest17_crawl_state = 1) {
+            if_sethide(false, enum(int, component, mtxfest17_get_mark_component, $int1));
+            if_sethide(true, enum(int, component, mtxfest17_get_main_component, $int1));
+            if_sethide(true, enum(int, component, mtxfest17_get_mark_component_free, $int1));
+            if_sethide(true, enum(int, component, mtxfest17_get_main_component_free, $int1));
+            if_setonmouserepeat("script8799($string0, event_com, -1)", enum(int, component, mtxfest17_get_mark_component, $int1));
+        } else {
+            if_sethide(false, enum(int, component, mtxfest17_get_mark_component_free, $int1));
+            if_sethide(true, enum(int, component, mtxfest17_get_main_component_free, $int1));
+            if_sethide(true, enum(int, component, mtxfest17_get_mark_component, $int1));
+            if_sethide(true, enum(int, component, mtxfest17_get_main_component, $int1));
+            if_setonmouserepeat("script8799($string0, event_com, -1)", enum(int, component, mtxfest17_get_mark_component_free, $int1));
+        }
+    } else if (%mtxfest17_crawl_state = 1) {
+        $string0 = enum(int, string, mtxfest17_get_tooltip, $int1);
+        if_sethide(false, enum(int, component, mtxfest17_get_main_component, $int1));
+        if_sethide(true, enum(int, component, mtxfest17_get_main_component_free, $int1));
+        if_setonmouserepeat("script8799($string0, event_com, -1)", enum(int, component, mtxfest17_get_main_component, $int1));
+    } else {
+        $string0 = enum(int, string, mtxfest17_get_tooltip_free, $int1);
+        if_sethide(false, enum(int, component, mtxfest17_get_main_component_free, $int1));
+        if_sethide(true, enum(int, component, mtxfest17_get_main_component, $int1));
+        if_setonmouserepeat("script8799($string0, event_com, -1)", enum(int, component, mtxfest17_get_main_component_free, $int1));
+    }
+    $string0 = "You have already completed this element of the bar crawl.";
+    $int1 = calc($int1 + 1);
+    $int0 = calc($int0 + 1);
+}

@@ -1,0 +1,39 @@
+// 9307
+[proc,script9307](intarray $intarray0, int $int1)(int)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_obj $obj8 = null;
+$int2, $int3 = ~script5788;
+while ($int4 <= 15) {
+    $int5 = $int2;
+    while ($int5 < $int3) {
+        if (cc_find(bank:bank_inv, $int5) = true) {
+            if ($int1 = 0) {
+                $obj8 = inv_getobj(bank, $int5);
+                $int6 = inv_getnum(bank, $int5);
+            } else {
+                $obj8 = cc_getinvobject;
+                $int6 = cc_getinvcount;
+            }
+            if ($obj8 ! null & $obj8 ! bank_empty_slot & $int6 = 0) {
+                cc_setparam(bank_filter_subcat, $int4);
+                $intarray0($int4) = calc($intarray0($int4) + 1);
+                $int7 = calc($int7 + 1);
+            } else {
+                cc_setparam(bank_filter_subcat, -1);
+            }
+        }
+        $int5 = calc($int5 + 1);
+    }
+    if ($int4 = 0) {
+        $int4 = 2;
+    } else {
+        $int4 = calc($int4 + 1);
+    }
+    $int2, $int3 = ~bank_get_tab_range(~script14372($int4));
+}
+return($int7);

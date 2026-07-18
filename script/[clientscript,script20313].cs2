@@ -1,0 +1,31 @@
+// 20313
+[clientscript,script20313](dbrow $dbrow0, int $int1)
+if ($dbrow0 = null | $int1 > 0 & calc(clientclock % 20) = 0) {
+    return;
+}
+def_int $int2 = db_getfield($dbrow0, league_task:col0, 0);
+def_achievement $achievement3 = db_getfield($dbrow0, league_task:col2, 0);
+if ($achievement3 = null) {
+    return;
+}
+def_string $string0 = ~script20131($dbrow0, $achievement3);
+if (cc_findbycategory(league_child_tasks:task_panel, ~script20173(calc(3000 * 4 + $int2))) = 1) {
+    cc_settext($string0);
+    if ($int1 >= 10) {
+        cc_setontimer(null);
+    } else {
+        cc_setontimer("script20313($dbrow0, calc($int1 + 1))");
+    }
+}
+if (cc_findbycategory(league_parent_tasks:task_panel, ~script20173(calc(3000 * 4 + $int2))) = 1) {
+    cc_settext($string0);
+    if ($int1 >= 10) {
+        cc_setontimer(null);
+    } else {
+        cc_setontimer("script20313($dbrow0, calc($int1 + 1))");
+    }
+}
+if (achievement_reqstate($achievement3) < 0 | $int1 > 0 & $int1 < 10) {
+    return;
+}
+~script20314($dbrow0);

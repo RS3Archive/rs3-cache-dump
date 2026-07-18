@@ -1,0 +1,258 @@
+// 3290
+[proc,script3290](obj $obj0, int $int1, int $int2, int $int3)(boolean, string)
+if ($obj0 = null) {
+    return(false, "");
+}
+if ($int1 < -1 | $int1 > 8) {
+    return(false, "");
+}
+if (oc_wearpos($obj0) = -1) {
+    return(false, "");
+}
+def_string $string0 = "";
+switch_int ($int1) {
+    case 1 :
+        $string0 = oc_param($obj0, wear_op1);
+    case 2 :
+        $string0 = oc_param($obj0, wear_op2);
+    case 3 :
+        $string0 = oc_param($obj0, wear_op3);
+    case 4 :
+        $string0 = oc_param($obj0, wear_op4);
+    case 5 :
+        $string0 = oc_param($obj0, wear_op5);
+    case 6 :
+        $string0 = oc_param($obj0, wear_op6);
+    case 7 :
+        $string0 = oc_param($obj0, wear_op7);
+    case 8 :
+        $string0 = oc_param($obj0, wear_op8);
+}
+if (~script4034($obj0) = true) {
+    switch_int ($int1) {
+        case 6 :
+            if (string_length(~script474(skillcape_max, 1)) > 0) {
+                return(true, ~script474(skillcape_max, 1));
+            }
+        case 7 :
+            if (string_length(~script474(skillcape_max, 2)) > 0) {
+                return(true, ~script474(skillcape_max, 2));
+            }
+        case 8 :
+            if (string_length(~script474(skillcape_max, 3)) > 0) {
+                return(true, ~script474(skillcape_max, 3));
+            }
+    }
+}
+if (oc_param($obj0, potion_struct) ! null | oc_param($obj0, invent_compactor_iscompacted) = true) {
+    switch_int ($int1) {
+        case -1, 0 :
+            return(true, "");
+        case 1 :
+            if ($int2 = 1) {
+                return(true, "Operate");
+            } else if (string_length($string0) > 0) {
+                return(true, $string0);
+            }
+        case 2, 3, 4, 5, 6, 7, 8 :
+            if ($int2 = 0 & string_length($string0) > 0) {
+                return(true, $string0);
+            }
+    }
+} else {
+    if ($int1 = 0) {
+        return(false, "");
+    }
+    switch_obj ($obj0) {
+        case quest_trail_charos_necklace :
+            if (%quest_trail_progress = 35 | %quest_trail_progress = 60) {
+                if (($int1 = 1 | $int1 = -1) & string_length($string0) > 0) {
+                    return(true, $string0);
+                }
+                if (($int1 = 2 | $int1 = -1) & string_length($string0) > 0) {
+                    return(true, $string0);
+                }
+            }
+        case skillcape_max, skillcape_max_hooded, skillcape_120_all, skillcape_120_all_hooded :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1, 2, 3, 7, 8 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 4 :
+                    if (string_length(~script474($obj0, 1)) > 0) {
+                        return(true, ~script474($obj0, 1));
+                    }
+                case 5 :
+                    if (string_length(~script474($obj0, 2)) > 0) {
+                        return(true, ~script474($obj0, 2));
+                    }
+                case 6 :
+                    if (string_length(~script474($obj0, 3)) > 0) {
+                        return(true, ~script474($obj0, 3));
+                    }
+            }
+        case njcapes_gatherer_cape, njcapes_combat_cape, njcapes_artisan_cape, njcapes_support_cape :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1, 2, 5, 6, 7, 8 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 3 :
+                    if (string_length(~script474($obj0, 1)) > 0) {
+                        return(true, ~script474($obj0, 1));
+                    }
+                case 4 :
+                    if (string_length(~script474($obj0, 2)) > 0) {
+                        return(true, ~script474($obj0, 2));
+                    }
+            }
+        case oct18_blackstone_shard :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1, 5, 6, 7, 8 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 2, 3, 4 :
+                    if (~event_state(oct18_halloween_event) = 2) {
+                        return(true, $string0);
+                    }
+            }
+        case alch_onyx_skill_necklace_used :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1 :
+                    return(true, enum(int, string, elf_max_skill_portal_names, %elfcity_max_guild_skill_portal_a));
+                case 2 :
+                    return(true, enum(int, string, elf_max_skill_portal_names, %elfcity_max_guild_skill_portal_b));
+                case 3, 4, 5, 6, 7, 8 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+            }
+        case hooks3_hood :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1 :
+                    if (%hooks3_toggle = 1) {
+                        return(true, enum(obj, string, hooks3_hood_teleport_location_names, %hooks3_previous_teleport));
+                    } else if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 2, 3, 4, 6 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 5 :
+                    if (%hooks3_toggle = 0) {
+                        return(true, enum(obj, string, hooks3_hood_teleport_location_names, %hooks3_previous_teleport));
+                    } else {
+                        return(true, "Activate");
+                    }
+            }
+        case trh33_ethereal_head_law, trh33_ethereal_head_blood, trh33_ethereal_head_death :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1 :
+                    if (%hooks3_toggle = 1) {
+                        return(true, enum(obj, string, hooks3_hood_teleport_location_names, %hooks3_previous_teleport));
+                    } else if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 2, 3, 6 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 4 :
+                    if (%hooks3_toggle = 0) {
+                        return(true, enum(obj, string, hooks3_hood_teleport_location_names, %hooks3_previous_teleport));
+                    } else {
+                        return(true, "Activate");
+                    }
+            }
+        case trh33_ethereal_head_infinity :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1 :
+                    if (%hooks3_toggle = 1) {
+                        return(true, enum(obj, string, hooks3_hood_teleport_location_names, %hooks3_previous_teleport));
+                    } else if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 2, 4, 5, 7 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+                case 6 :
+                    if (%hooks3_toggle = 0) {
+                        return(true, enum(obj, string, hooks3_hood_teleport_location_names, %hooks3_previous_teleport));
+                    } else {
+                        return(true, "Activate");
+                    }
+            }
+        case excalibur, atseer_excalibur, atseer_excalibur_augmented, atseer_excalibur_augmented_uncharged :
+            switch_int ($int1) {
+                case -1 :
+                    return(true, "");
+                case 1 :
+                    if ($int3 = 1 | %excalibur_toggle = 1 & $int3 = -1) {
+                        return(true, "Remove");
+                    } else {
+                        return(true, "Activate");
+                    }
+                case 2 :
+                    if ($int3 = 1 | %excalibur_toggle = 1 & $int3 = -1) {
+                        return(true, "Activate");
+                    } else {
+                        return(true, "Remove");
+                    }
+                case 3, 4, 5, 6, 7, 8 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+            }
+        case default :
+            switch_int ($int1) {
+                case -1 :
+                    if (string_length(oc_param($obj0, wear_op1)) > 0) {
+                        return(true, "");
+                    }
+                    if (string_length(oc_param($obj0, wear_op2)) > 0) {
+                        return(true, "");
+                    }
+                    if (string_length(oc_param($obj0, wear_op3)) > 0) {
+                        return(true, "");
+                    }
+                    if (string_length(oc_param($obj0, wear_op4)) > 0) {
+                        return(true, "");
+                    }
+                    if (string_length(oc_param($obj0, wear_op5)) > 0) {
+                        return(true, "");
+                    }
+                    if (string_length(oc_param($obj0, wear_op6)) > 0) {
+                        return(true, "");
+                    }
+                    if (string_length(oc_param($obj0, wear_op7)) > 0) {
+                        return(true, "");
+                    }
+                    if (string_length(oc_param($obj0, wear_op8)) > 0) {
+                        return(true, "");
+                    }
+                case 1, 2, 3, 4, 5, 6, 7, 8 :
+                    if (string_length($string0) > 0) {
+                        return(true, $string0);
+                    }
+            }
+    }
+}
+return(false, "");

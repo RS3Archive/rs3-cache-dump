@@ -1,0 +1,84 @@
+// 19520
+[proc,script19520](int $int0, int $int1)
+def_int $int2 = 44;
+if (~script6431 = true) {
+    $int2 = 52;
+}
+def_int $int3 = 0;
+def_int $int4 = ~script19579;
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_int $int7 = 8;
+def_int $int8 = 5;
+def_int $int9 = if_getwidth(group_ironman_storage:clan_items_container);
+def_int $int10 = 0;
+def_boolean $boolean11 = false;
+while ($int3 < $int4) {
+    if (cc_find(group_ironman_storage:clan_inv, $int3) = true) {
+        if ($int1 = 1) {
+            $obj5 = cc_getinvobject;
+            $int6 = cc_getinvcount;
+        } else {
+            $obj5 = inv_getobj(group_ironman_storage_clan_temp, $int3);
+            $int6 = inv_getnum(group_ironman_storage_clan_temp, $int3);
+        }
+        if ($obj5 ! null & $obj5 ! bank_empty_slot) {
+            switch_int ($int0) {
+                case 2 :
+                    $boolean11 = ~int_to_bool(oc_members($obj5));
+                case 3 :
+                    $boolean11 = ~int_to_bool(calc(1 - oc_members($obj5)));
+                case 5 :
+                    if (oc_tradeable($obj5) = true & oc_param($obj5, item_degrade_used) = 0) {
+                        $boolean11 = true;
+                    } else {
+                        $boolean11 = false;
+                    }
+                case 6 :
+                    if (oc_tradeable($obj5) = false | oc_param($obj5, item_degrade_used) = 1) {
+                        $boolean11 = true;
+                    } else {
+                        $boolean11 = false;
+                    }
+                case 7 :
+                    if ($obj5 ! null & $obj5 ! bank_empty_slot & $int6 = 0) {
+                        $boolean11 = true;
+                    } else {
+                        $boolean11 = false;
+                    }
+            }
+        } else {
+            $boolean11 = false;
+        }
+        if ($boolean11 = true) {
+            cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+            $int7 = calc($int7 + $int2);
+            if (calc($int7 + 36) >= $int9) {
+                $int7 = 8;
+                $int8 = calc($int8 + $int2);
+            }
+            $int10 = calc($int10 + 1);
+        } else {
+            cc_sethide(true);
+        }
+    }
+    $int3 = calc($int3 + 1);
+}
+if ($int7 = 8 & $int8 = 5) {
+    if_sethide(false, group_ironman_storage:message_nofilter);
+} else {
+    if_sethide(true, group_ironman_storage:message_nofilter);
+}
+while ($int3 < 200) {
+    if (cc_find(group_ironman_storage:clan_inv, $int3) = true) {
+        cc_sethide(true);
+    }
+    $int3 = calc($int3 + 1);
+}
+if_setscrollpos(0, 0, group_ironman_storage:clan_items_container);
+if ($int7 > 8) {
+    $int8 = calc($int8 + $int2);
+}
+~script19544($int8);
+~script19503($int10);

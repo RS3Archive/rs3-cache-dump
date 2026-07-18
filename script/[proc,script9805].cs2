@@ -1,0 +1,11 @@
+// 9805
+[proc,script9805](inv $inv0, obj $obj1)(int)
+def_int $int2 = 0;
+if (oc_category($obj1) ! trh_skill_dummy_crate) {
+    return(0);
+}
+while ($obj1 ! null) {
+    $int2 = calc($int2 + inv_total($inv0, $obj1) * oc_param($obj1, trh_skill_dummies_left));
+    $obj1 = oc_param($obj1, trh_skill_crate_next_item);
+}
+return($int2);

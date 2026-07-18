@@ -1,0 +1,38 @@
+// 11574
+[clientscript,trh50_skill_toggle](stat $stat0, component $component1, int $int2)
+if ($stat0 = invention & ~invent_skill_unlocked = false) {
+    return;
+}
+if ($stat0 = null) {
+    ~script426("You cannot select this option right now.", $component1, $int2, 1);
+    return;
+}
+def_int $int3 = enum(stat, int, stat_to_int, $stat0);
+if (%trh165_core_type_selected = 1) {
+    if (testbit(%trh50_skill_select_temp, $int3) = ^false) {
+        %trh50_skill_select_temp = setbit(%trh50_skill_select_temp, $int3);
+    } else {
+        %trh50_skill_select_temp = clearbit(%trh50_skill_select_temp, $int3);
+    }
+    if (cc_find($component1, $int2) = true) {
+        if (testbit(%trh50_skill_select_temp, $int3) = ^false) {
+            cc_setgraphic(null);
+        } else {
+            cc_setgraphic("mob_cross_icon,0");
+        }
+    }
+} else if (%trh165_core_type_selected = 2) {
+    if (testbit(%trh165_skill_select_temp, $int3) = ^false) {
+        %trh165_skill_select_temp = setbit(%trh165_skill_select_temp, $int3);
+    } else {
+        %trh165_skill_select_temp = clearbit(%trh165_skill_select_temp, $int3);
+    }
+    if (cc_find($component1, $int2) = true) {
+        if (testbit(%trh165_skill_select_temp, $int3) = ^false) {
+            cc_setgraphic(null);
+        } else {
+            cc_setgraphic("mob_cross_icon,0");
+        }
+    }
+}
+if_callonresize($component1);

@@ -1,0 +1,24 @@
+// 15543
+[clientscript,script15543](fontmetrics $fontmetrics0, fontmetrics $fontmetrics1, fontmetrics $fontmetrics2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_fontmetrics $fontmetrics5 = $fontmetrics2;
+def_int $int6 = 0;
+while ($int6 < 3) {
+    switch_int ($int6) {
+        case 0 :
+            $fontmetrics5 = $fontmetrics0;
+        case 1 :
+            $fontmetrics5 = $fontmetrics1;
+        case 2 :
+            $fontmetrics5 = $fontmetrics2;
+    }
+    $int3 = ~script7593(.cc_gettext, .cc_getwidth, $fontmetrics5, 0);
+    $int4 = parawidth(.cc_gettext, 9999, $fontmetrics5);
+    if ($int3 < .cc_getheight & $int4 < .cc_getwidth) {
+        .cc_settextfont($fontmetrics5);
+        return;
+    }
+    $int6 = calc($int6 + 1);
+}
+.cc_settextfont($fontmetrics2);

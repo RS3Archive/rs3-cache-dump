@@ -1,0 +1,74 @@
+// 15820
+[proc,script15820](dbrow $dbrow0, int $int1, struct $struct2, struct $struct3, struct $struct4, obj $obj5, int $int6, string $string0, string $string1, string $string2, string $string3, int $int7, int $int8)
+def_graphic $graphic9 = null;
+def_int $int10 = 0;
+def_dbrow $dbrow11 = null;
+def_string $string4 = "";
+def_string $string5 = "";
+switch_int (%mtx_front_end_confirm_shop_type) {
+    case 1 :
+        if ($dbrow0 ! null) {
+            if (db_getrowtable($dbrow0) = mobile_shop_feature_information) {
+                if (string_length($string0) = 0) {
+                    $string0 = db_getfield($dbrow0, mobile_shop_feature_information:col7, 0);
+                }
+                if (db_getfield($dbrow0, mobile_shop_feature_information:col14, 0) = 1 & (~script248 = true | %gamemode_seasonal_fss_registration_current_step = 3)) {
+                    $string1 = ~script14145($string1, "Warning", "You will not be able to use Treasure Hunter Keys until competitive mode is over. <~script16827>");
+                }
+                $string1 = ~script14145($string1, db_getfield($dbrow0, mobile_shop_feature_information:col8, 0), ~script11623(db_getfield($dbrow0, mobile_shop_feature_information:col9, 0), shop_getcategorydescription($int7)));
+                $string1 = ~script14145($string1, db_getfield($dbrow0, mobile_shop_feature_information:col10, 0), db_getfield($dbrow0, mobile_shop_feature_information:col11, 0));
+                $string1 = ~script14145($string1, "You currently own:", ~script14241(db_getfield($dbrow0, mobile_shop_feature_information:col14, 0)));
+                if_setonop("script15743($string3)", mtx_front_end_confirm:buy_button);
+            }
+            if_sethide(true, mtx_front_end_confirm:soft_currency_wrapper);
+            if_settext($string2, mtx_front_end_confirm:cash_buy_text);
+        }
+    case 0 :
+        $struct3, $struct4, $graphic9, $graphic9, $dbrow11 = db_getfield(mtx_front_end_spotlight_info, mtx_spotlight_data:col0, $int1);
+        if ($struct3 ! null) {
+            if ($int6 = -1 | $int6 = 0) {
+                $int6 = struct_param($struct3, mtxmgt_category);
+            }
+            $string1 = struct_param($struct3, marketplace_spotlight_description);
+            $string1 = ~script14145($string1, "", ~script16022($struct3, $int6));
+            if (struct_param($struct3, mtx_front_end_confirm_hide_restrictions) = 0) {
+                $string1 = ~script14145($string1, "", ~script15527($struct3, $int6));
+            }
+            if ($int1 ! -1) {
+                $string1 = ~script14145($string1, "Membership Benefits:", ~script16579($struct3, $int1));
+                $string2 = ~script12689($int1);
+            }
+        }
+        ~script11538(mtx_store_icon_currency_runecoins_025px, $string2);
+    case 2 :
+        if ($struct3 ! null) {
+            if ($int6 = -1 | $int6 = 0) {
+                $int6 = struct_param($struct3, mtxmgt_category);
+            }
+            $string1 = ~script14145($string1, "", ~script16022($struct3, $int6));
+            if (struct_param($struct3, mtx_front_end_confirm_hide_restrictions) = 0) {
+                $string1 = ~script14145($string1, "", ~script15527($struct3, $int6));
+            }
+        }
+        if ($struct2 ! null) {
+            $string1 = ~script14145($string1, "Membership Benefits:", ~script16579($struct2, -1));
+        }
+        if_setsize(20, 20, ^setsize_abs, ^setsize_abs, mtx_front_end_confirm:soft_currency_sprite);
+        ~script11538(struct_param(%rewardshop_struct, rewardshop_currency_sprite), $string2);
+}
+if ($struct3 ! null & $struct4 ! null & string_length($string0) = 0) {
+    $string0 = ~script11623(struct_param($struct4, mtxmgt_name), struct_param($struct3, mtxmgt_name));
+}
+if_settext($string0, mtx_front_end_confirm:item_name);
+if_settext($string1, mtx_front_end_confirm:item_desc);
+~script11539($struct3, $int6, $obj5, 1, $int8);
+~script16206($dbrow0);
+def_int $int12 = ~script15891($string1, if_getwidth(mtx_front_end_confirm:item_desc), if_getfontmetrics(mtx_front_end_confirm:item_desc), 0);
+if ($int12 >= if_getheight(mtx_front_end_confirm:item_description_scroll_layer)) {
+    if_setscrollsize(0, $int12, mtx_front_end_confirm:item_description_scroll_layer);
+    if_sethide(false, mtx_front_end_confirm:item_description_scrollbar);
+    ~rs3_scrollbar_vertical(mtx_front_end_confirm:item_description_scrollbar, mtx_front_end_confirm:item_description_scroll_layer);
+} else {
+    if_setscrollsize(0, 0, mtx_front_end_confirm:item_description_scroll_layer);
+    if_sethide(true, mtx_front_end_confirm:item_description_scrollbar);
+}

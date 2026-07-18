@@ -1,0 +1,29 @@
+// 3108
+[proc,script3108](struct $struct0)(string)
+if (struct_param($struct0, combatv2_ability_parent_stat) = 4 & struct_param($struct0, combatv2_type_of_spell) ! 5) {
+    if (struct_param($struct0, combatv2_is_hex_spell) = 1) {
+        return("Hex Spell<br>");
+    }
+    switch_int (struct_param($struct0, combatv2_which_element)) {
+        case 1 :
+            return("Air Spell<br>");
+        case 2 :
+            return("Water Spell<br>");
+        case 3 :
+            return("Earth Spell<br>");
+        case 4 :
+            return("Fire Spell<br>");
+        case default :
+            return("Spell<br>");
+    }
+} else if (struct_param($struct0, combatv2_ability_parent_stat) = 7) {
+    if (struct_param($struct0, combatv2_prayer_is_curse) = 1) {
+        return("Curse<br>");
+    } else {
+        return("Prayer<br>");
+    }
+} else if (struct_param($struct0, combatv2_ability_parent_stat) ! 1 & struct_param($struct0, combatv2_ability_parent_stat) ! 2 & struct_param($struct0, combatv2_ability_parent_stat) ! 5 & struct_param($struct0, combatv2_ability_parent_stat) ! 6 & struct_param($struct0, combatv2_ability_parent_stat) ! 3 & struct_param($struct0, combatv2_ability_parent_stat) ! 4 & struct_param($struct0, combatv2_ability_parent_stat) ! 29) {
+    return("");
+} else {
+    return("Basic Ability<br>");
+}

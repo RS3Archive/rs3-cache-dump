@@ -1,0 +1,150 @@
+// 13509
+[proc,script13509](int $int0, component $component1, int $int2, int $int3, int $int4, int $int5)
+if (~script8874 = false & $int0 ! 1008) {
+    ~script8306;
+    return;
+}
+%toplevel_v2_window_being_dragged = $int0;
+def_struct $struct6 = ~script10405($int0);
+def_component $component7 = struct_param($struct6, toplevel_v2_window_layer);
+def_component $component8 = struct_param($struct6, toplevel_v2_window_border_layer);
+def_component $component9 = struct_param($struct6, toplevel_v2_window_tabs_layer);
+def_component $component10 = struct_param($struct6, toplevel_v2_window_tabs_background_layer);
+def_component $component11 = struct_param($struct6, toplevel_v2_window_tabs_scroll_layer);
+def_component $component12 = ~script1886($int0);
+def_int $int13 = 0;
+def_int $int14 = 0;
+if ($component9 ! null) {
+    $int13 = if_getscrollwidth($component9);
+    $int14 = if_getscrollx($component9);
+}
+if (%toplevel_v2_audio_dragging <= 0) {
+    ~script6739(1);
+    %toplevel_v2_audio_dragging = 1;
+    ~script3380(0);
+    if_setnoclickthrough(false, $component7);
+    ~script3415(false, $component8);
+}
+def_boolean $boolean15 = true;
+if_sendtofront($component7);
+if_setonmouserepeat(null, $component8);
+def_int $int16 = 0;
+def_int $int17 = 0;
+$int16, $int17 = ~script8405($component12);
+if (cc_find($component1, $int2) = true) {
+    $int16 = calc($int16 + cc_getx - cc_getscrollx);
+    $int17 = calc($int17 + cc_gety - cc_getscrolly);
+}
+def_component $component18 = $component1;
+def_int $int19 = 0;
+if ($int5 = 1) {
+    while ($component18 ! $component7 & $component18 ! null) {
+        $int16 = calc($int16 + if_getx($component18) - if_getscrollx($component18));
+        $int17 = calc($int17 + if_gety($component18) - if_getscrolly($component18));
+        $component18 = if_getparentlayer($component18);
+        $int19 = calc($int19 + 1);
+    }
+}
+def_int $int20 = calc($int3 - $int16);
+def_int $int21 = calc($int4 - $int17);
+def_int $int22 = if_getwidth($component7);
+def_int $int23 = if_getheight($component7);
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 0;
+$int24, $int25 = ~script8405($component12);
+$int22, $int23 = ~script8716($int0);
+def_struct $struct28 = struct_param($struct6, toplevel_v2_window_size_struct);
+if ($struct28 ! null) {
+    $int26, $int27 = ~script20539(struct_param($struct6, toplevel_v2_window_size_struct));
+    if ($int22 < $int26) {
+        $int22 = max(if_getwidth($component7), $int26);
+    }
+    if ($int23 < $int27) {
+        $int23 = max(if_getheight($component7), $int27);
+    }
+} else if ($int22 <= 0 | $int23 <= 0) {
+    $int22 = if_getwidth($component7);
+    $int23 = if_getheight($component7);
+}
+def_int $int29 = calc($int24 + if_getwidth($component12) - if_getwidth($component7));
+def_int $int30 = calc($int25 + if_getheight($component12) - if_getheight($component7));
+$int20 = max($int24, min($int20, $int29));
+$int21 = max($int25, min($int21, $int30));
+if_setposition($int20, $int21, ^setpos_abs_left, ^setpos_abs_top, $component7);
+if_setsize($int22, $int23, ^setsize_abs, ^setsize_abs, $component7);
+~script8308($int0, ~script8717($int0), $int20, $int21, if_getwidth($component7), if_getheight($component7));
+def_struct $struct31 = ~script10405(%toplevel_v2_last_window_bar_over);
+def_struct $struct32 = ~script8418($struct31, 0);
+def_component $component33 = struct_param($struct31, toplevel_v2_window_layer);
+def_component $component34 = struct_param($struct31, toplevel_v2_window_tabs_layer);
+def_int $int35 = -1;
+if_sethide(false, $component7);
+~script8691(~script8717($int0));
+def_int $int36 = 0;
+def_int $int37 = 0;
+def_int $int38 = ~script8309($int0);
+if (%toplevel_v2_last_move_action_tab_target ! -1 & ($int38 ! 1 | $int38 = 1 & %toplevel_v2_last_move_action_tab_target ! %toplevel_v2_last_window_bar_over)) {
+    ~script2015($int0);
+    $int13 = if_getscrollwidth($component9);
+    $int14 = if_getscrollx($component9);
+    $int37 = 1;
+}
+switch_int ($int38) {
+    case 3 :
+        $int22, $int23 = -1, -1;
+        ~script8322($int0, false, rs3_feedback_icon_remove);
+    case 1 :
+        if ($int22 ! if_getwidth($component33) | $int23 ! if_getheight($component33)) {
+            if_setsize(if_getwidth($component33), if_getheight($component33), ^setsize_abs, ^setsize_abs, $component7);
+            $int37 = 1;
+        }
+        if (%toplevel_v2_last_move_action_tab_target = -1) {
+            if (%toplevel_v2_move_action_tab_insert_x_offset = -1) {
+                %toplevel_v2_move_action_tab_insert_x_offset = calc((0 - struct_param($struct32, toplevel_v2_window_titled_tab_width)) / 2);
+            }
+            %toplevel_v2_last_move_action_tab_target = %toplevel_v2_last_window_bar_over;
+            if (~script8374($component9) = 1) {
+                $int37 = 1;
+                ~script8378(0, $int0);
+            }
+            ~script2011($int0, %toplevel_v2_last_move_action_tab_target);
+            $int13 = if_getscrollwidth($component9);
+            $int14 = if_getscrollx($component9);
+            if_sendtofront($component7);
+            if_sendtoback($component33);
+        }
+        if_setposition(if_getx($component33), if_gety($component33), ^setpos_abs_left, ^setpos_abs_top, $component7);
+        if_setscrollsize($int13, if_getscrollheight($component9), $component9);
+        if_setscrollpos($int14, if_getscrolly($component9), $component9);
+        ~script2012($int0, %toplevel_v2_last_move_action_tab_target);
+        ~script8322($int0, true, rs3_feedback_icon_remove);
+    case 2 :
+        $int20, $int21, $int22, $int23 = ~script8717(%toplevel_v2_last_window_bar_over);
+        $int36 = 1;
+        ~script8322($int0, true, rs3_feedback_icon_remove);
+    case -1 :
+        ~script8322($int0, false, rs3_feedback_icon_invalid);
+    case default :
+        $int20, $int21, $int22, $int23, $boolean15 = ~script8382($int20, $int21, $int22, $int23, $int0, 1, 1);
+        ~script8322($int0, true, rs3_feedback_icon_remove);
+}
+if ($component9 ! null) {
+    if_setscrollsize($int13, if_getscrollheight($component9), $component9);
+    if_setscrollpos($int14, if_getscrolly($component9), $component9);
+}
+if ($int37 = 1) {
+    ~script8390($int0);
+}
+if ($int36 = 1) {
+    ~script8692;
+    ~script8693(~script8717($int0));
+} else {
+    ~script8694;
+}
+if ($int22 < 0 | $int23 < 0 | $int38 = -1) {
+    ~script8689;
+} else {
+    ~script8688($int20, $int21, $int22, $int23);
+}

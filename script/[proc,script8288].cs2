@@ -1,0 +1,147 @@
+// 8288
+[proc,script8288](int $int0)
+if (~script8293($int0, -1) = 1) {
+    return;
+}
+def_boolean $boolean1 = ~script8292($int0, -1);
+def_struct $struct2 = toplevel_v2_window_data_parent;
+def_struct $struct3 = ~script8418($struct2, 0);
+if ($struct3 = null) {
+    return;
+}
+def_struct $struct4 = ~script13415($int0);
+if ($struct4 = null) {
+    return;
+}
+def_component $component5 = struct_param($struct2, toplevel_v2_window_layer);
+if ($component5 = null) {
+    return;
+}
+def_component $component6 = struct_param($struct2, toplevel_v2_window_border_layer);
+if ($component6 = null) {
+    return;
+}
+def_component $component7 = struct_param($struct2, toplevel_v2_window_banner_layer);
+def_component $component8 = struct_param($struct2, toplevel_v2_window_banner_overlay_layer);
+def_component $component9 = struct_param($struct2, toplevel_v2_window_content_layer);
+if ($component9 = null) {
+    return;
+}
+def_component $component10 = struct_param($struct2, toplevel_v2_window_tabs_background_layer);
+def_int $int11 = struct_param($struct3, toplevel_v2_window_titled_left_width);
+def_int $int12 = struct_param($struct3, toplevel_v2_window_titled_right_width);
+def_int $int13 = struct_param($struct3, toplevel_v2_window_titled_top_height);
+def_int $int14 = struct_param($struct3, toplevel_v2_window_titled_bottom_height);
+def_int $int15 = 13;
+def_int $int16 = 32;
+def_int $int17 = 387;
+def_int $int18 = 110;
+def_int $int19 = ~script441(%toplevel_v2_parent_last_parent_index);
+def_struct $struct20 = null;
+if (%seasonal_event_active = 1 & $int0 = 4 & $int19 = 6) {
+    $struct20 = ~script14441;
+}
+if (%accessibility_full_screen_interfaces_enabled = 1) {
+    ~script20393(1, 2);
+}
+switch_int ($int0) {
+    case 3 :
+        if ($int19 = 3) {
+            if_triggerop(toplevel_v2:intern_notes_daily_challenge, -1, 1);
+        }
+    case 4 :
+        if ($int19 = 6 | %intern_notes_new_community_event > 0 & ~script14441 = null) {
+            if_triggerop(toplevel_v2:intern_notes_community_events, -1, 1);
+        }
+}
+def_overlayinterface $overlayinterface21 = struct_param($struct4, toplevel_v2_parent_banner_suboverlay);
+if (%toplevel_v2_active_skinset = 2 | %toplevel_v2_mobile_interface = 1) {
+    ~script10396($int0, $struct20);
+    if_setsize(742, 404, ^setsize_abs, ^setsize_abs, $component9);
+    if_setposition(0, 70, ^setpos_abs_centre, ^setpos_abs_top, $component9);
+    if_setposition(struct_param($struct3, toplevel_v2_window_titled_tab_background_side_width), 22, ^setpos_abs_left, ^setpos_abs_top, struct_param($struct2, toplevel_v2_window_tabs_layer));
+    if (if_find($component7) = true) {
+        cc_sethide(true);
+    }
+    if ($component8 ! null & if_find($component8) = true) {
+        cc_setposition(8, -44, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(calc($int17 * 2 - 8 - 8), $int18, ^setsize_abs, ^setsize_abs);
+        if ($overlayinterface21 = null | if_hassuboverlay($component8, $overlayinterface21) = false) {
+            cc_sethide(true);
+        }
+    }
+    ~script20393(1, 2);
+} else {
+    if_setsize(742, 450, ^setsize_abs, ^setsize_abs, $component9);
+    if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, $component9);
+    if_setposition(calc(struct_param($struct3, toplevel_v2_window_titled_tab_background_side_width) - 2), 66, ^setpos_abs_left, ^setpos_abs_top, struct_param($struct2, toplevel_v2_window_tabs_layer));
+    if_setposition(0, 66, ^setpos_abs_left, ^setpos_abs_top, $component10);
+    if_setsize(44, 102, ^setsize_minus, ^setsize_minus, struct_param($struct2, toplevel_v2_window_background_layer));
+    if_setposition(0, 4, ^setpos_abs_centre, ^setpos_abs_bottom, struct_param($struct2, toplevel_v2_window_background_layer));
+    ~script8289($int0, $struct20);
+    if ($component7 ! null & if_find($component7) = true) {
+        cc_setposition(0, 66, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(0, 38, ^setsize_minus, ^setsize_abs);
+        cc_sethide(false);
+        if (cc_find($component7, 0) = true) {
+            cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+            cc_setsize(44, 0, ^setsize_minus, ^setsize_minus);
+            cc_setgraphic(rs3_parent_banner_background);
+            cc_settiling(true);
+        }
+        if (cc_find($component7, 1) = true) {
+            cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(32, 0, ^setsize_abs, ^setsize_minus);
+            cc_setgraphic(rs3_parent_frame_side_tile);
+            cc_settiling(true);
+        }
+        if (cc_find($component7, 2) = true) {
+            cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+            cc_setsize(32, 0, ^setsize_abs, ^setsize_minus);
+            cc_setgraphic(rs3_parent_frame_side_tile);
+            cc_sethflip(true);
+            cc_settiling(true);
+        }
+        if ($component8 ! null & if_find($component8) = true) {
+            cc_setposition(20, 0, ^setpos_abs_right, ^setpos_abs_top);
+            cc_setsize(calc($int17 * 2 - 8 - 8), $int18, ^setsize_abs, ^setsize_abs);
+            if ($overlayinterface21 = null | if_hassuboverlay($component8, $overlayinterface21) = false) {
+                cc_sethide(true);
+            } else {
+                cc_sethide(false);
+            }
+        }
+    }
+    if (cc_find($component6, 0) = true) {
+        cc_sethide(true);
+    }
+}
+if_sethide(false, struct_param($struct2, toplevel_v2_window_tabs_layer));
+if_sethide(false, struct_param($struct2, toplevel_v2_window_tabs_background_layer));
+if_sethide(false, struct_param($struct2, toplevel_v2_window_background_layer));
+if_sethide(false, $component6);
+if ($int0 = 100) {
+    ~script8184(struct_param($struct2, toplevel_v2_window_tabs_layer), 0);
+} else {
+    ~script8184(struct_param($struct2, toplevel_v2_window_tabs_layer), 1);
+}
+~script8186(struct_param($struct2, toplevel_v2_window_tabs_layer));
+if (%toplevel_v2_mobile_interface = 0 & %toplevel_v2_active_skinset ! 2) {
+    if (cc_find($component6, 6) = true) {
+        cc_setsize($int11, calc($int14 + if_gety(struct_param($struct2, toplevel_v2_window_tabs_background_layer)) + if_getheight(struct_param($struct2, toplevel_v2_window_tabs_background_layer))), ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, $int14, ^setpos_abs_left, ^setpos_abs_bottom);
+    }
+    if (cc_find($component6, 7) = true) {
+        cc_setsize($int12, calc($int14 + if_gety(struct_param($struct2, toplevel_v2_window_tabs_background_layer)) + if_getheight(struct_param($struct2, toplevel_v2_window_tabs_background_layer))), ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, $int14, ^setpos_abs_right, ^setpos_abs_bottom);
+    }
+}
+if ($boolean1 = false) {
+    ~script8311(1001);
+    ~script6739(9);
+}
+if (%toplevel_v2_last_opened_parent_id = -1 | ~script8292(%toplevel_v2_last_opened_parent_id, %toplevel_v2_last_opened_parent_tab_id) = false & (%toplevel_v2_last_opened_parent_id ! $int0 | %toplevel_v2_last_opened_parent_tab_id ! $int19)) {
+    ~script189(%toplevel_v2_last_opened_parent_id, %toplevel_v2_last_opened_parent_tab_id);
+    %toplevel_v2_last_opened_parent_id = %toplevel_v2_parent_last_parent_index;
+    %toplevel_v2_last_opened_parent_tab_id = $int19;
+}

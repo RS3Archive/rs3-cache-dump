@@ -1,0 +1,52 @@
+// 18298
+[proc,script18298]
+def_int $int0 = ~script10903;
+def_struct $struct1 = null;
+def_struct $struct2 = null;
+def_struct $struct3 = null;
+def_struct $struct4 = null;
+$struct1, $struct2, $struct3, $struct4 = ~script18289;
+def_struct $struct5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_int $int8 = 0;
+while (++$int8 <= 4) {
+    switch_int ($int8) {
+        case 1 :
+            $struct5 = $struct1;
+            $component6 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_1_button;
+            $component7 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_1_graphic;
+        case 2 :
+            $struct5 = $struct2;
+            $component6 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_2_button;
+            $component7 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_2_graphic;
+        case 3 :
+            $struct5 = $struct3;
+            $component6 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_3_button;
+            $component7 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_3_graphic;
+        case 4 :
+            $struct5 = $struct4;
+            $component6 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_4_button;
+            $component7 = combatv2_ability_necromancy_conjure_undead_army_customisation:ability_4_graphic;
+    }
+    if ($struct5 ! null) {
+        if_setop(1, "Remove", $component6);
+        if_setopcursor(1, cursor_cross, $component6);
+        if (struct_param($struct5, combatv2_ability_is_members) = 1) {
+            if_setopbase("<col=F8D56B><struct_param($struct5, combatv2_ability_name)>", $component6);
+        } else {
+            if_setopbase("<col=B8D1D1><struct_param($struct5, combatv2_ability_name)>", $component6);
+        }
+        if_sethide(false, $component6);
+        if_setgraphic(struct_param($struct5, combatv2_ability_icon), $component7);
+    } else {
+        if_setop(1, "", $component6);
+        if_setopbase("", $component6);
+        if_sethide(true, $component6);
+        if ($int8 <= $int0) {
+            if_setgraphic(null, $component7);
+        } else {
+            if_setgraphic(~script11657(rs3_icon_lock_ability_book), $component7);
+        }
+    }
+}

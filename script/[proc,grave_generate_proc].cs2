@@ -1,0 +1,51 @@
+// 6937
+[proc,grave_generate_proc]
+if_setscrollsize(if_getheight(gravestone_loot:scrolling_layer), if_getwidth(gravestone_loot:scrolling_layer), gravestone_loot:scrolling_layer);
+cc_deleteall(gravestone_loot:build_area);
+cc_deleteall(gravestone_loot:click_area);
+cc_deleteall(gravestone_loot:scrollbar);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_obj $obj2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+while ($int0 < 47) {
+    $obj2 = inv_getobj(grave_gravestone_contents, $int0);
+    $int3 = inv_getnum(grave_gravestone_contents, $int0);
+    cc_create(gravestone_loot:click_area, ^iftype_graphic, $int0);
+    if ($obj2 ! null & $int3 > 0) {
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setobject($obj2, $int3);
+        $int4 = calc($int1 / 4);
+        $int5 = calc($int1 % 4);
+        $int6 = calc($int5 * 40 + 2);
+        $int7 = calc($int4 * 40 + 4);
+        cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setop(1, "Protect");
+        cc_setop(2, "Examine");
+        cc_setopbase(oc_name($obj2));
+        cc_setonmouserepeat("grave_item_tooltip($obj2, $int0)");
+        if ($int0 < %death_protected_items) {
+            cc_setop(1, "Deprotect");
+            cc_create(gravestone_loot:build_area, ^iftype_rectangle, $int0);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setfill(false);
+            ~script11024(1);
+        }
+        $int1 = calc($int1 + 1);
+    } else {
+        cc_sethide(true);
+    }
+    $int0 = calc($int0 + 1);
+}
+def_int $int8 = calc(($int1 / 4 + 1) * 40);
+if ($int8 < if_getheight(gravestone_loot:scrolling_layer)) {
+    $int8 = if_getheight(gravestone_loot:scrolling_layer);
+}
+if_setscrollsize(0, $int8, gravestone_loot:scrolling_layer);
+if_setscrollpos(0, 0, gravestone_loot:scrolling_layer);
+~scrollbar_vertical(gravestone_loot:scrollbar, gravestone_loot:scrolling_layer, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");

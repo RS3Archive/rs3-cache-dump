@@ -1,0 +1,27 @@
+// 16911
+[proc,script16911](int $int0, int $int1, int $int2, int $int3)
+def_component $component4 = ~script16916($int1);
+def_component $component5 = ~script16917($int1);
+def_component $component6 = ~script16916($int2);
+def_component $component7 = ~script16917($int2);
+if ($int0 < 50 | $int3 = 1) {
+    if_setparam_int(lobbyscreen_playerinfo_page_active, $int2, lobbyscreen_pane_playerinfo:rotator_buttons);
+    if_settrans(calc(255 - scale($int0, 50, 255)), $component7);
+    if ($int1 ! -1) {
+        if_settrans(scale($int0, 50, 255), $component5);
+    }
+    if (if_gettrans($component7) >= 128 | $int3 = 1) {
+        if ($int1 ! -1) {
+            if_sethide(true, $component4);
+        }
+        if_sethide(false, $component6);
+        ~script16905($int2);
+    }
+    if ($int3 = 0) {
+        if_setontimer("script16910(calc($int0 + 1), $int1, $int2)", lobbyscreen_pane_playerinfo:latest_update_layer);
+        return;
+    }
+}
+~script16908(true);
+if_setontimer(null, lobbyscreen_pane_playerinfo:latest_update_layer);
+if_setontimer("script16909($int2, 0)", lobbyscreen_pane_playerinfo:promo_layer);

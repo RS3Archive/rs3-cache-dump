@@ -1,0 +1,87 @@
+// 6172
+[proc,script6172](int $int0, int $int1)(int)
+def_struct $struct2 = enum(int, struct, rcsiphonxp_item_iterator, $int0);
+if ($struct2 = null) {
+    return($int1);
+}
+def_int $int3 = struct_param($struct2, rcsiphonxp_icon_xof);
+def_int $int4 = struct_param($struct2, rcsiphonxp_icon_yof);
+def_string $string0 = struct_param($struct2, rcsiphonxp_tooltip);
+def_graphic $graphic5 = "aif_runecrafting_bkgrd_button2,1";
+if (cc_find(rcsiphonxp_shop:items_buy_op_layer, $int0) = true) {
+    cc_setgraphic("aif_runecrafting_bkgrd_button2,0");
+    cc_setsize(84, 78, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setnoclickthrough(true);
+    cc_setonmouseover("graphic_swapper_child(event_com, event_comsubid, $graphic5)");
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    cc_setop(1, "Buy 1");
+    cc_setop(2, "Buy 2");
+    cc_setop(3, "Buy 5");
+    cc_setop(4, "Buy 10");
+    cc_setonop("script6171($int0, event_com)");
+    if (struct_param($struct2, rcsiphonxp_has_name2) = 0) {
+        cc_setopbase(struct_param($struct2, rcsiphonxp_name));
+        cc_create(rcsiphonxp_shop:items_buy_op_layer, ^iftype_text, $int1);
+        cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, calc($int4 - 30), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext(struct_param($struct2, rcsiphonxp_name));
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextfont(p12_full);
+        cc_settextshadow(false);
+        cc_setcolour(^white);
+        $int1 = calc($int1 + 1);
+        cc_setopbase(struct_param($struct2, rcsiphonxp_name));
+    } else {
+        cc_setopbase("<struct_param($struct2, rcsiphonxp_name)> <struct_param($struct2, rcsiphonxp_name2)>");
+        cc_create(rcsiphonxp_shop:items_buy_op_layer, ^iftype_text, $int1);
+        cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, calc($int4 - 37), ^setpos_abs_left, ^setpos_abs_top);
+        if (map_lang = 3 | map_lang = 2) {
+            cc_settext(struct_param($struct2, rcsiphonxp_name2));
+        } else {
+            cc_settext(struct_param($struct2, rcsiphonxp_name));
+        }
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextfont(p12_full);
+        cc_settextshadow(false);
+        cc_setcolour(^white);
+        $int1 = calc($int1 + 1);
+        cc_create(rcsiphonxp_shop:items_buy_op_layer, ^iftype_text, $int1);
+        cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, calc($int4 - 23), ^setpos_abs_left, ^setpos_abs_top);
+        if (map_lang = 3 | map_lang = 2) {
+            cc_settext(struct_param($struct2, rcsiphonxp_name));
+        } else {
+            cc_settext(struct_param($struct2, rcsiphonxp_name2));
+        }
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextfont(p12_full);
+        cc_settextshadow(false);
+        cc_setcolour(^white);
+        $int1 = calc($int1 + 1);
+        cc_setopbase(append(append(struct_param($struct2, rcsiphonxp_name), " "), struct_param($struct2, rcsiphonxp_name2)));
+    }
+    cc_create(rcsiphonxp_shop:items_buy_op_layer, ^iftype_text, $int1);
+    cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int3, calc($int4 + 82), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext("<struct_param($struct2, rcsiphonxp_price_string)> Points");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settextfont(b12_full);
+    cc_settextshadow(false);
+    cc_setcolour(0xfa8119);
+    $int1 = calc($int1 + 1);
+    cc_create(rcsiphonxp_shop:items_buy_op_layer, ^iftype_model, $int1);
+    cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+    cc_setmodel(struct_param($struct2, rcsiphonxp_model));
+    cc_setmodelangle(struct_param($struct2, rcsiphonxp_xof), struct_param($struct2, rcsiphonxp_yof), struct_param($struct2, rcsiphonxp_xrot), struct_param($struct2, rcsiphonxp_yrot), struct_param($struct2, rcsiphonxp_zrot), struct_param($struct2, rcsiphonxp_zoom));
+    if ($int0 < 4) {
+        cc_setretex(1, skillcape_attack, blank);
+    }
+    $int3 = calc($int3 + struct_param($struct2, rcsiphonxp_xof) + (84 - cc_getwidth) / 2);
+    $int4 = calc($int4 + struct_param($struct2, rcsiphonxp_yof) + (70 - cc_getheight) / 2);
+    cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setnoclickthrough(false);
+    $int1 = calc($int1 + 1);
+}
+return($int1);

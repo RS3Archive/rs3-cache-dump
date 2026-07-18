@@ -1,0 +1,19 @@
+// 15171
+[proc,script15171](boolean $boolean0)
+def_component $component1 = event_crafting:give_all_button;
+def_component $component2 = event_crafting:skip_all_button;
+cc_deleteall($component1);
+if_clearops($component1);
+cc_deleteall($component2);
+if_clearops($component2);
+if ($boolean0 = true) {
+    if_sethide(true, $component2);
+    ~script13969($component1, null, rs3tli_positive_button, "Claim");
+    if_setop(1, "Claim", $component1);
+} else {
+    ~script13969($component1, null, rs3tli_positive_button, "Give all");
+    if_setop(1, "Give all", $component1);
+    if_sethide(false, $component2);
+    ~script13969($component2, null, rs3tli_positive_button, "Skip all");
+    if_setop(1, "Skip all", $component2);
+}

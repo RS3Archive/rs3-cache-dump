@@ -1,0 +1,13 @@
+// 7536
+[clientscript,script7536](component $component0, int $int1, enum $enum2, struct $struct3)
+if ($enum2 = null | $struct3 = null) {
+    return;
+}
+sound_vorbis_volume(clans_interface_click, 1, 0, 200);
+def_int $int4 = calc(enum_getoutputcount($enum2) - 1);
+if_setobject_nonum(struct_param($struct3, slayer_contract_icon), 1, slayer_contracts_menu:confirm_model);
+def_string $string0 = "<col=ffffff><tostring(struct_param($struct3, slayer_contract_count))> x <enum(int, string, smki_critter_names, struct_param($struct3, slayer_contract_category))></col><br>";
+def_string $string1 = "<br><br>You need to carry the scroll to make progress on the contract. Kills that are counted towards this contract cannot also count towards a Slayer assignment.<br><br>You will receive Slayer XP for each contract kill: <col=ffffff><tostring(20)>%</col> of the amount you'd have received on a Slayer assignment.";
+~script7538($string0, $string1, $struct3, $int1);
+if_setonstattransmit("script7537($string0, $string1, $struct3, $int1){slayer}", slayer_contracts_menu:confirm_container);
+if_sethide(false, slayer_contracts_menu:confirm_layer);

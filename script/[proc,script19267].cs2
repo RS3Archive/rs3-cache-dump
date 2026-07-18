@@ -1,0 +1,16 @@
+// 19267
+[proc,script19267]
+def_struct $struct0 = ~script16161;
+if (%trh_dungeon_crawl_dungeon_dbrow = null | ~script19302(2) = false) {
+    if_setgraphic(struct_param($struct0, trh_promo_background), wheel_of_fortune:background);
+    return;
+}
+def_dbrow $dbrow1 = db_getfield(%trh_dungeon_crawl_dungeon_dbrow, trh_dungeon_crawl_dungeon:col1, 0);
+switch_dbtable (db_getrowtable(%trh_dungeon_crawl_dungeon_floor_dbrow)) {
+    case trh_dungeon_crawl_map :
+        if_setgraphic(db_getfield($dbrow1, trh_dungeon_crawl_theme:col6, 0), wheel_of_fortune:background);
+    case trh_dungeon_crawl_bonus_encounter :
+        if_setgraphic(db_getfield($dbrow1, trh_dungeon_crawl_theme:col7, 0), wheel_of_fortune:background);
+    case trh_dungeon_crawl_boss_encounter :
+        if_setgraphic(db_getfield($dbrow1, trh_dungeon_crawl_theme:col8, 0), wheel_of_fortune:background);
+}

@@ -1,0 +1,280 @@
+// 12199
+[clientscript,script12199](inv $inv0, int $int1, int $int2, int $int3)
+def_string $string0 = "";
+def_obj $obj4 = inv_getobj($inv0, $int1);
+if ($obj4 = null | oc_hasvarobj($obj4) = false) {
+    return;
+}
+def_int $int5 = 0;
+if (oc_param($obj4, invent_contraption_type) = 3) {
+    $int5 = 1;
+}
+if ($int3 = -1) {
+    if ($int5 = 1) {
+        $int3 = 0;
+    } else {
+        $int3 = 1;
+    }
+}
+def_obj $obj6 = oc_param($obj4, invent_charged_version);
+if ($obj6 = null) {
+    $obj6 = $obj4;
+}
+def_int $int7 = enum(fontmetrics, int, toplevel_v2_font_vspacings, if_getfontmetrics(invent_examine:item_name));
+if_settextalign(^settextalign_left, 3, $int7, invent_examine:item_name);
+if_settext(oc_name($obj6), invent_examine:item_name);
+if_setobject($obj6, 1, invent_examine:item_icon);
+def_int $int8 = inv_getvar($inv0, $int1, invent_obj_xp);
+def_int $int9 = ~invent_item_level($int8);
+def_int $int10 = 0;
+def_int $int11 = 0;
+if_settext(tostring($int9), invent_examine:stats_level);
+if_settext(tostring_localised($int8, true), invent_examine:stats_current_xp);
+$string0 = "Current XP: <tostring_localised($int8, true)>";
+if ($int9 < ~script12072) {
+    $int10 = ~script12074(calc($int9 + 1));
+    $int11 = ~script12074($int9);
+    $string0 = "<$string0><br>Next level: <tostring_localised($int10, true)><br>Remainder: <tostring_localised(calc($int10 - $int8), true)>";
+    if_setonmouserepeat(null, invent_examine:next_level_background);
+    if_sethide(false, invent_examine:stats_next_level);
+    if_sethide(true, invent_examine:stats_next_xp);
+    if_setsize(scale(calc(if_getwidth(invent_examine:stats_next_level) - 2), calc($int10 - $int11), calc($int8 - $int11)), 0, ^setsize_abs, ^setsize_minus, invent_examine:stats_next_level_progress);
+} else {
+    if_settext("-", invent_examine:stats_next_xp);
+    if_sethide(true, invent_examine:stats_next_level);
+    if_sethide(false, invent_examine:stats_next_xp);
+    if ($int9 < 20) {
+        $string0 = "<$string0><br>You do not know how to level a weapon above level <tostring(~script12072)>.";
+    } else {
+        $string0 = "<$string0><br>This item has reached the maximum level.";
+    }
+}
+if_setonmouserepeat("script3876($string0, event_com, -1)", invent_examine:next_level_background);
+def_int $int12 = %invent_combat_charge_drain;
+if ($int3 = 0) {
+    $int12 = $int2;
+    if_settext("Drain rate:<br>This item", invent_examine:current_equipment_title);
+    if ($int5 = 1) {
+        $string0 = "This section refers to drain rates when using this item for skilling.";
+    } else {
+        $string0 = "This section refers to drain rates when using this item alone.";
+    }
+} else {
+    if_settext("Drain rate:<br>Equipped items", invent_examine:current_equipment_title);
+    $string0 = "This section refers to all currently equipped augmented equipment.";
+}
+if_setonmouserepeat("script3876($string0, event_com, -1)", invent_examine:current_equipment_title);
+if (oc_param($obj4, item_degrade_use_alternate_var) = 1) {
+    if_settext("Charges used:", invent_examine:charge_drain);
+    if_settext(tostring_localised(~script670($inv0, $int1, $obj4), true), invent_examine:stats_charge_drain);
+    if_settext(tostring_localised(oc_param($obj4, item_degrade_maxdegrade), true), invent_examine:max_charge_value);
+    if_settext("n/a", invent_examine:total_drain_rate);
+    if_sethide(false, invent_examine:max_charge);
+    $string0 = "Once this item runs out of charge it will become broken. It is not possible to repair, only disassemble to gain item experience and materials.<br><br>Once all charges are used up, the item will be able to level up to <tostring_localised(min(10, ~script12072), true)>.";
+    if_setonmouserepeat("script3876($string0, event_com, -1)", invent_examine:charge_drain_layer);
+    if_setonmouserepeat("script3876($string0, event_com, -1)", invent_examine:max_charge);
+} else {
+    if_settext("Charge drain:", invent_examine:charge_drain);
+    if_settext("<~invent_charge_string(scale($int2, 6, 10), 2)>/s", invent_examine:stats_charge_drain);
+    if_settext("<~invent_charge_string(scale($int12, 6, 10), 2)>/s", invent_examine:total_drain_rate);
+    if_sethide(true, invent_examine:max_charge);
+}
+if_settext(~invent_charge_string(%invent_charge, 0), invent_examine:total_charge_stored);
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+if ($int12 > 0) {
+    if_settext(~script17049($int12, 7), invent_examine:total_time_left);
+    $string0 = "Approximate time remaining: <~script17049($int12, 1)>";
+    if_setonmouserepeat("script8799($string0, event_com, -1)", invent_examine:time_left_background);
+} else {
+    if_settext("n/a", invent_examine:total_time_left);
+    if_setonmouserepeat(null, invent_examine:time_left_background);
+}
+$string0 = "Maximum charge stored: <~invent_charge_string(~invent_max_charge, 0)>.";
+if_setonmouserepeat("script8799($string0, event_com, -1)", invent_examine:charge_stored_background);
+def_int $int16 = 1;
+if ($int3 = 1) {
+    $int16 = 0;
+}
+if_setonop("script12199($inv0, $int1, $int2, $int16)", invent_examine:change_display_active_layer);
+def_int $int17 = inv_getvar($inv0, $int1, invent_gizmo_1_perk_1);
+def_int $int18 = inv_getvar($inv0, $int1, invent_gizmo_1_perk_1_rank);
+def_int $int19 = inv_getvar($inv0, $int1, invent_gizmo_1_perk_2);
+def_int $int20 = inv_getvar($inv0, $int1, invent_gizmo_1_perk_2_rank);
+def_int $int21 = inv_getvar($inv0, $int1, invent_gizmo_2_perk_1);
+def_int $int22 = inv_getvar($inv0, $int1, invent_gizmo_2_perk_1_rank);
+def_int $int23 = inv_getvar($inv0, $int1, invent_gizmo_2_perk_2);
+def_int $int24 = inv_getvar($inv0, $int1, invent_gizmo_2_perk_2_rank);
+if_settext(~script14926(inv_getvar($inv0, $int1, invent_gizmo_1_class)), invent_examine:gizmo_1_class_text);
+if_settext(~script14926(inv_getvar($inv0, $int1, invent_gizmo_2_class)), invent_examine:gizmo_2_class_text);
+db_find(invent_perk_table:col0, $int17);
+def_dbrow $dbrow25 = db_findnext;
+def_int $int26 = db_getfield($dbrow25, invent_perk_table:col6, 0);
+~script12201($int17, $int18, invent_examine:perk_icon_1, invent_examine:perk_icon_overlay_1, invent_examine:perk_text_1, 0);
+if ($int26 > 1) {
+    ~script12201($int17, $int18, invent_examine:perk_icon_2, invent_examine:perk_icon_overlay_2, invent_examine:perk_text_2, 1);
+} else {
+    ~script12201($int19, $int20, invent_examine:perk_icon_2, invent_examine:perk_icon_overlay_2, invent_examine:perk_text_2, 0);
+}
+db_find(invent_perk_table:col0, $int21);
+$dbrow25 = db_findnext;
+$int26 = db_getfield($dbrow25, invent_perk_table:col6, 0);
+~script12201($int21, $int22, invent_examine:perk_icon_3, invent_examine:perk_icon_overlay_3, invent_examine:perk_text_3, 0);
+if ($int26 > 1) {
+    ~script12201($int21, $int22, invent_examine:perk_icon_4, invent_examine:perk_icon_overlay_4, invent_examine:perk_text_4, 1);
+} else {
+    ~script12201($int23, $int24, invent_examine:perk_icon_4, invent_examine:perk_icon_overlay_4, invent_examine:perk_text_4, 0);
+}
+def_string $string1 = "<col=ffffff>";
+def_string $string2 = "<col=aaaaaa>";
+$string0 = "<$string0><br>Disassembling this item gives extra Invention XP at level 2 and above, increasing with item level.<br><br>It also gains the following:<br>";
+if ($int9 >= 2) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 2: Disassembling this item has a 50% chance to return installed gizmos.</col><br>";
+if ($int9 >= 3) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 3: Disassembling this item gives double materials.</col><br>";
+if ($int9 >= 4) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 4: Disassembling this item never gives junk.</col><br>";
+if ($int9 >= 5) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 5: This item drains 10% less charge when used.</col><br>";
+if ($int9 >= 6) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 6: Disassembling this item gives triple materials</col><br>";
+if ($int9 >= 7) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 7: Disassembling this item gives an extra random uncommon material.</col><br>";
+if ($int9 >= 8) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 8: Disassembling this item returns all installed gizmos.</col><br>";
+if ($int9 >= 9) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 9: Disassembling this item gives quadruple materials.</col><br>";
+if ($int9 >= 10) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 10: Disassembling this item gives the maximum extra Invention XP.</col><br>";
+if ($int9 >= 12) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 12: Siphoning this item gives the maximum extra Invention XP.</col><br>";
+if ($int9 >= 13) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 13: Siphoning this item has a 50% chance to not consume the siphon.</col><br>";
+if ($int9 >= 14) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 14: This item drains 12.5% less charge when used.</col><br>";
+if ($int9 >= 15) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 15: This item can now be used with an Equipment separator.</col><br>";
+if ($int9 >= 16) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 16: Siphoning this item will no longer consume the siphon.</col><br>";
+if ($int9 >= 17) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 17: Using the Equipment separator on this item has a 25% chance to not consume the separator.</col><br>";
+if ($int9 >= 18) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 18: This item drains 15% less charge when used.</col><br>";
+if ($int9 >= 19) {
+    $string0 = "<$string0><$string1>";
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 19: Using the Equipment separator on this item has a 50% chance to not consume the separator.</col><br>";
+def_string $string3 = "";
+if ($int9 >= 20) {
+    $string0 = "<$string0><$string1>";
+    if (~script20178(~script12076($int17)) = true) {
+        if_sethide(false, invent_examine:perk_proc_chance_icon_1);
+        if_setposition(55, 0, ^setpos_abs_left, ^setpos_abs_top, invent_examine:perk_text_1);
+        $string3 = "<~invent_perk_get_name(~script12076($int17), $int18)> has a 10% increased chance to activate!";
+        if_setonmouserepeat("script8799($string3, event_com, -1)", invent_examine:perk_proc_chance_icon_1);
+    }
+    if (~script20178(~script12076($int19)) = true) {
+        if_sethide(false, invent_examine:perk_proc_chance_icon_2);
+        if_setposition(55, 0, ^setpos_abs_left, ^setpos_abs_top, invent_examine:perk_text_2);
+        $string3 = "<~invent_perk_get_name(~script12076($int19), $int20)> has a 10% increased chance to activate!";
+        if_setonmouserepeat("script8799($string3, event_com, -1)", invent_examine:perk_proc_chance_icon_2);
+    }
+    if (~script20178(~script12076($int21)) = true) {
+        if_sethide(false, invent_examine:perk_proc_chance_icon_3);
+        if_setposition(55, 0, ^setpos_abs_left, ^setpos_abs_top, invent_examine:perk_text_3);
+        $string3 = "<~invent_perk_get_name(~script12076($int21), $int22)> has a 10% increased chance to activate!";
+        if_setonmouserepeat("script8799($string3, event_com, -1)", invent_examine:perk_proc_chance_icon_3);
+    }
+    if (~script20178(~script12076($int23)) = true) {
+        if_sethide(false, invent_examine:perk_proc_chance_icon_4);
+        if_setposition(55, 0, ^setpos_abs_left, ^setpos_abs_top, invent_examine:perk_text_4);
+        $string3 = "<~invent_perk_get_name(~script12076($int23), $int24)> has a 10% increased chance to activate!";
+        if_setonmouserepeat("script8799($string3, event_com, -1)", invent_examine:perk_proc_chance_icon_4);
+    }
+} else {
+    $string0 = "<$string0><$string2>";
+}
+$string0 = "<$string0>Level 20: Helpful perks will activate 10% more frequently.</col><br>";
+if_setonop("script1259", invent_examine:info_button);
+if_settext($string0, invent_examine:level_desription);
+def_fontmetrics $fontmetrics27 = museo_sans_11pt_regular;
+if (~script6431 = true) {
+    $fontmetrics27 = museo_sans_13pt_regular;
+}
+if_settextfont($fontmetrics27, invent_examine:level_desription);
+if_setscrollsize(if_getwidth(invent_examine:text_frame), calc(10 + ~script7593($string0, if_getwidth(invent_examine:text_frame), $fontmetrics27, 0)), invent_examine:text_frame);
+~rs3_scrollbar_vertical(invent_examine:scroll_bar, invent_examine:text_frame);
+if (~script12066($obj6) = 1) {
+    if_setposition(83, 0, ^setpos_abs_left, ^setpos_abs_top, invent_examine:gizmo_layer_1);
+    if_sethide(true, invent_examine:gizmo_layer_2);
+} else {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, invent_examine:gizmo_layer_1);
+    if_sethide(false, invent_examine:gizmo_layer_2);
+}

@@ -1,0 +1,55 @@
+// 5903
+[clientscript,script5903]
+def_string $string0 = ~script2332(%bugreport_input, " ", "");
+def_string $string1 = ~script2332(%bugreport_repro, " ", "");
+def_string $string2 = lowercase($string0);
+def_string $string3 = lowercase($string1);
+if (string_length(%bugreport_input) < 1) {
+    ~script426("You need to enter bug information before you can submit your bug.", bugreport_interface:submit_button, -1, 0);
+    return;
+} else if (string_length(%bugreport_repro) < 1) {
+    ~script426("You need to enter bug reproduction steps before you can submit your bug.", bugreport_interface:submit_button, -1, 0);
+    return;
+}
+if (string_length(removetags(%bugreport_input)) > 500 | string_length(removetags(%bugreport_repro)) > 500) {
+    ~script426("Your bug information and reproduction steps can only be 500 characters long.", bugreport_interface:submit_button, -1, 0);
+    return;
+}
+def_int $int0 = scale(string_distance($string0, $string2), string_length($string0), 100);
+if ($int0 <= 90) {
+    $int0 = scale(string_distance($string1, $string3), string_length($string1), 100);
+}
+if ($int0 > 90) {
+    ~bugreport_input_close;
+    %bugreport_input = "";
+    %bugreport_repro = "";
+    %bugtrack_final_category = 0;
+    %bugtrack_main_category = 0;
+    ~script13463("<col=FF00>Thank you for submitting your bug report.");
+    return;
+}
+def_bugtemplate $bugtemplate1 = null;
+switch_int (%bugtrack_final_category) {
+    case default :
+        bug_report(bugtemplate_0, removetags(%bugreport_input), removetags(%bugreport_repro));
+    case 1 :
+        if (~script20117(%league_active_player) ! null) {
+            $bugtemplate1 = bugtemplate_44;
+        } else {
+            $bugtemplate1 = bugtemplate_42;
+        }
+        bug_report($bugtemplate1, removetags(%bugreport_input), removetags(%bugreport_repro));
+    case 2 :
+        if (~script20117(%league_active_player) ! null) {
+            $bugtemplate1 = bugtemplate_45;
+        } else {
+            $bugtemplate1 = bugtemplate_43;
+        }
+        bug_report($bugtemplate1, removetags(%bugreport_input), removetags(%bugreport_repro));
+}
+%bugreport_input = "";
+%bugreport_repro = "";
+%bugtrack_final_category = 0;
+%bugtrack_main_category = 0;
+~bugreport_input_close;
+~script13463("<col=FF00>Thank you for submitting your bug report.");

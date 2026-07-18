@@ -1,0 +1,38 @@
+// 3979
+[proc,script3979](int $int0)(int)
+if (~script16840(~date_runeday, 4) = true) {
+    return(1);
+}
+if ($int0 = -1) {
+    return(1);
+}
+def_quest $quest1 = enum(int, quest, ql4_quests, $int0);
+if ($quest1 = null) {
+    ~error("No .quest found for quest_ID #<tostring($int0)>.");
+    return(1);
+}
+if (~ironman_mode = true) {
+    return(1);
+}
+if (quest_param($quest1, quest_rewards_keys) = 0) {
+    return(1);
+}
+if (~quest_already_completed($quest1) = 1) {
+    return(1);
+}
+switch_int ($int0) {
+    case 85 :
+        if (%rag_quest_var = 6) {
+            return(1);
+        }
+    case 154 :
+        if (%rag2_quest_var = 11) {
+            return(1);
+        }
+    case 149 :
+        if (%glomem_bonus = 12) {
+            return(1);
+        }
+    case default :
+        return(0);
+}

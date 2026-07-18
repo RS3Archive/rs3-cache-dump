@@ -1,0 +1,45 @@
+// 10198
+[proc,script10198](component $component0, component $component1, component $component2, component $component3, int $int4, string $string0, string $string1, graphic $graphic5, int $int6)
+if_setsize(10, 39, ^setsize_minus, ^setsize_abs, $component0);
+if_setposition(5, calc(5 + $int4 * 40), ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_sethide(false, $component0);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component1);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_sethide(false, $component1);
+cc_deleteall($component1);
+def_int $int7 = 0;
+cc_create($component1, ^iftype_rectangle, $int7);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setfill(true);
+if (calc($int4 % 2) = 1) {
+    ~script10010(rs3_rect_dark);
+} else {
+    ~script10010(rs3_rect_light);
+}
+$int7 = calc($int7 + 1);
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($graphic5 ! null) {
+    cc_create($component1, ^iftype_graphic, $int7);
+    cc_setgraphic($graphic5);
+    $int8, $int9 = cc_getgraphicdimensions;
+    cc_setsize($int8, $int9, ^setsize_abs, ^setsize_abs);
+    cc_setposition(5, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int7 = calc($int7 + 1);
+    $int8 = calc($int8 + 10);
+}
+if ($int6 = 0) {
+    if_sethide(false, $component3);
+} else {
+    if_sethide(true, $component3);
+}
+cc_create($component1, ^iftype_text, $int7);
+cc_settext($string0);
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_setcolour(^white);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+cc_setsize(calc(if_getwidth($component2) + $int8 + 25), 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(calc($int8 + 5), 0, ^setpos_abs_left, ^setpos_abs_centre);
+$int7 = calc($int7 + 1);
+if_settext($string1, $component2);

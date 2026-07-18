@@ -1,0 +1,61 @@
+// 14427
+[proc,trh194_overlay_update]
+def_int $int0 = -1;
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+def_dbrow $dbrow4 = null;
+def_int $rgb5 = ^black;
+~trh194_set_chest;
+switch_int (%trh194_vault) {
+    case 71 :
+        $graphic1 = "trh194_progress_bar,1";
+        $graphic3 = trh194_emerald_lock;
+        $graphic2 = trh194_emerald_lock_open;
+        $dbrow4 = trh_prize_generation_emerald_vault_trh194;
+        $rgb5 = ^green;
+    case 72 :
+        $graphic1 = "trh194_progress_bar,2";
+        $graphic3 = trh194_ruby_lock;
+        $graphic2 = trh194_ruby_lock_open;
+        $dbrow4 = trh_prize_generation_ruby_vault_trh194;
+        $rgb5 = ^red;
+    case 73 :
+        $graphic1 = "trh194_progress_bar,3";
+        $graphic3 = trh194_diamond_lock;
+        $graphic2 = trh194_diamond_lock_open;
+        $dbrow4 = trh_prize_generation_diamond_vault_trh194;
+        $rgb5 = ^white;
+    case 67 :
+        $graphic1 = "trh194_progress_bar,1";
+        $graphic3 = trh194_emerald_lock;
+        $graphic2 = trh194_emerald_lock_open;
+        $dbrow4 = trh_prize_generation_emerald_vault_trh194;
+        $rgb5 = ^green;
+    case 68 :
+        $graphic1 = "trh194_progress_bar,2";
+        $graphic3 = trh194_ruby_lock;
+        $graphic2 = trh194_ruby_lock_open;
+        $dbrow4 = trh_prize_generation_ruby_vault_trh194;
+        $rgb5 = ^red;
+    case 69 :
+        $graphic1 = "trh194_progress_bar,3";
+        $graphic3 = trh194_diamond_lock;
+        $graphic2 = trh194_diamond_lock_open;
+        $dbrow4 = trh_prize_generation_diamond_vault_trh194;
+        $rgb5 = ^white;
+    case default :
+        return;
+}
+def_string $string0 = db_getfield(~trh_chest_get_dbrow(%trh194_vault), trh_chest:col1, 0);
+~script17417($dbrow4, trh194_overlay:prize_display_grid);
+if_setgraphic($graphic1, trh194_overlay:progress_bar_graphic);
+if_settext("You open your <$string0> and receive", trh194_overlay:prize_claim_title);
+if_setcolour($rgb5, trh194_overlay:light_flare);
+if_setcolour($rgb5, trh194_overlay:glow);
+if (%trh194_keys_required = 0) {
+    if_setgraphic($graphic2, trh194_overlay:progress_lock);
+} else {
+    if_setgraphic($graphic3, trh194_overlay:progress_lock);
+}
+~trh194_chest_setup;

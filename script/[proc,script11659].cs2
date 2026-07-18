@@ -1,0 +1,47 @@
+// 11659
+[proc,script11659](struct $struct0, int $int1)(string)
+if ($struct0 = null) {
+    return("");
+}
+if (struct_param($struct0, mtxmgt_preset_inv) ! null) {
+    return(~script13227($struct0));
+}
+def_string $string0 = struct_param($struct0, mtxmgt_name);
+if (compare($string0, "") ! 0) {
+    if ($int1 = 1) {
+        if (struct_param($struct0, gender_specific) = 0) {
+            $string0 = "<$string0> (Male)";
+        } else if (struct_param($struct0, gender_specific) = 1) {
+            $string0 = "<$string0> (Female)";
+        }
+    }
+    if (struct_param($struct0, mtxmgt_category) = 3) {
+        $string0 = append($string0, " Title");
+    }
+    return($string0);
+}
+def_struct $struct2 = null;
+def_int $int3 = -1;
+if (struct_param($struct0, mtxmgt_category) = 1) {
+    if ((struct_param($struct0, mtxmgt_subcat) = 1 | struct_param($struct0, mtxmgt_subcat) = 2) & gender = 1) {
+        $int3 = 1;
+        $struct2 = enum(int, struct, player_kit_head_struct_female, struct_param($struct0, mtxmgt_hair_id));
+    } else if ((struct_param($struct0, mtxmgt_subcat) = 1 | struct_param($struct0, mtxmgt_subcat) = 2) & gender = 0) {
+        $int3 = 0;
+        $struct2 = enum(int, struct, player_kit_head_struct_male, struct_param($struct0, mtxmgt_hair_id));
+    } else if (struct_param($struct0, mtxmgt_subcat) = 4 | struct_param($struct0, mtxmgt_subcat) = 3 & gender = 0) {
+        $int3 = 0;
+        $string0 = enum(int, string, player_kit_male_beard_names, struct_param($struct0, mtxmgt_hair_id));
+    }
+    if ($struct2 ! null) {
+        $string0 = struct_param($struct2, hair_name);
+    }
+    if ($int1 = 1) {
+        if ($int3 = 0) {
+            $string0 = "<$string0> (Male)";
+        } else if ($int3 = 1) {
+            $string0 = "<$string0> (Female)";
+        }
+    }
+}
+return($string0);

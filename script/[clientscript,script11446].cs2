@@ -1,0 +1,156 @@
+// 11446
+[clientscript,script11446]
+def_component $component0 = spotlight:build_layer_scroll;
+def_component $component1 = spotlight:items_build_layer;
+def_component $component2 = spotlight:items_click_layer;
+cc_deleteall($component1);
+cc_deleteall($component2);
+~script11445;
+if_sethide(true, spotlight:scroll_bar_layer);
+if_setscrollsize(0, 0, $component0);
+if_setscrollpos(0, 0, $component0);
+switch_enum (%spotlight_shop_enum) {
+    case spotlight_armour_items :
+        if_sethide(false, spotlight:armour_tab_selected_layer);
+    case spotlight_skill_gear_items :
+        if_sethide(false, spotlight:skill_gear_tab_selected_layer);
+    case spotlight_misc_items :
+        if_sethide(false, spotlight:misc_tab_selected_layer);
+    case spotlight_limited_edition_items :
+        if_sethide(false, spotlight:limited_tab_selected_layer);
+}
+def_int $int3 = enum_getoutputcount(%spotlight_shop_enum);
+def_int $int4 = calc($int3 / 2);
+if (calc($int3 % 2) ! 0) {
+    $int4 = calc($int4 + 1);
+}
+def_int $int5 = calc($int4 * (43 + 5));
+def_int $int6 = if_getwidth($component0);
+if ($int5 >= if_getheight($component0)) {
+    $int6 = calc($int6 - 16);
+}
+def_int $int7 = 0;
+def_int $int8 = calc($int6 / 2);
+def_int $int9 = 5;
+def_int $int10 = 5;
+def_int $int11 = calc($int8 - 5 * 2);
+def_int $int12 = 43;
+def_struct $struct13 = null;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_string $string0 = "Buy";
+def_string $string1 = "";
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_boolean $boolean22 = false;
+while ($int7 < $int3) {
+    $struct13 = enum(int, struct, %spotlight_shop_enum, $int7);
+    if ($struct13 = null) {
+        return;
+    }
+    if (struct_param($struct13, spotlight_item_limited_edition_start_date) = 0 | struct_param($struct13, spotlight_item_limited_edition_start_date) <= %atlum_day_tracker & (struct_param($struct13, spotlight_item_limited_edition_end_date) >= %atlum_day_tracker | struct_param($struct13, spotlight_item_limited_edition_end_date) = 1)) {
+        ~rs3_background_panel_dynamic($component1, rs3_content_container_active, $int9, $int10, $int11, $int12, null);
+        cc_create($component1, ^iftype_rectangle, if_getnextsubid($component1));
+        cc_setposition($int9, $int10, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int11, $int12, ^setsize_abs, ^setsize_abs);
+        $string1 = struct_param($struct13, spotlight_item_tooltip);
+        if (struct_param($struct13, spotlight_item_limited_edition_start_date) ! 0 & struct_param($struct13, spotlight_item_limited_edition_start_date) <= %atlum_day_tracker & struct_param($struct13, spotlight_item_limited_edition_end_date) >= %atlum_day_tracker) {
+            $int19, $int20, $int21 = date_runeday_todate(struct_param($struct13, spotlight_item_limited_edition_end_date));
+            $string1 = append($string1, "<br>This item will be in the store until <tostring($int19)> <enum(int, string, dob_months, $int20)> <tostring($int21)>");
+        }
+        if (struct_param($struct13, spotlight_item_ironman_check) = 1 & ~ironman_mode = true) {
+            $string1 = append($string1, "<br>This reward is not available in Ironman mode.");
+        }
+        cc_setonmouserepeat("script8801($string1, event_com, event_comsubid, ^settextalign_centre, ^settextalign_top, 0)");
+        cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+        cc_setposition(calc($int9 + 5), calc($int10 + 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(calc($int12 - 2), calc($int12 - 2), ^setsize_abs, ^setsize_abs);
+        cc_setobject_nonum(struct_param($struct13, spotlight_item), 5);
+        $int15 = calc(cc_getx + cc_getwidth + 5);
+        $int16 = cc_getwidth;
+        cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+        cc_setposition($int15, calc($int10 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(calc($int11 - $int16 - 5 - 50), 20, ^setsize_abs, ^setsize_abs);
+        cc_settextfont(museo_sans_11pt_regular_multiline);
+        cc_setcolour(~rgb_to_hex(255, 203, 5));
+        if (compare("", struct_param($struct13, spotlight_item_name)) ! 0) {
+            cc_settext(struct_param($struct13, spotlight_item_name));
+        } else {
+            cc_settext(oc_name(struct_param($struct13, spotlight_item)));
+        }
+        cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+        cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int15, calc($int10 + ($int12 - cc_getheight) - 5), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(rs3_minigame_currency_icon);
+        .cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+        .cc_setposition(calc(cc_getx + cc_getwidth + 5), calc($int10 + ($int12 - 12 - 5)), ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setsize(calc($int11 - $int16 - 5 - 50), 10, ^setsize_abs, ^setsize_abs);
+        .cc_settextfont(museo_sans_11pt_regular);
+        .cc_setcolour(~rgb_to_hex(255, 255, 255));
+        if ($struct13 = spotlight_misc_penance_blue_egg & %barbassault_unlocked_paint_blue = 1 | $struct13 = spotlight_misc_penance_yellow_egg & %barbassault_unlocked_paint_yellow = 1 | $struct13 = spotlight_misc_penance_white_egg & %barbassault_unlocked_paint_white = 1 | $struct13 = spotlight_misc_penance_green_egg & %barbassault_unlocked_paint_green = 1) {
+            .cc_settext("0");
+        } else {
+            .cc_settext(tostring(struct_param($struct13, spotlight_item_price)));
+        }
+        $string0 = "Buy";
+        switch_struct ($struct13) {
+            case spotlight_misc_penance_blue_egg :
+                if (%barbassault_unlocked_paint_blue = 1) {
+                    $string0 = "Re-colour";
+                }
+            case spotlight_misc_penance_yellow_egg :
+                if (%barbassault_unlocked_paint_yellow = 1) {
+                    $string0 = "Re-colour";
+                }
+            case spotlight_misc_penance_white_egg :
+                if (%barbassault_unlocked_paint_white = 1) {
+                    $string0 = "Re-colour";
+                }
+            case spotlight_misc_penance_green_egg :
+                if (%barbassault_unlocked_paint_green = 1) {
+                    $string0 = "Re-colour";
+                }
+        }
+        $boolean22 = false;
+        if (struct_param($struct13, spotlight_item_ironman_check) = 1) {
+            $boolean22 = ~ironman_mode;
+        }
+        if ($boolean22 = false) {
+            $boolean22 = ~script11447(struct_param($struct13, spotlight_item));
+        }
+        if (struct_param($struct13, spotlight_item_multiple) = 1) {
+            $int18 = ~script10410($component1, $component2, rs3tli_3x3_button, calc($int9 + ($int11 - 80 - 5 * 2)), calc($int10 + ($int12 - 20 - 5)), 80, 20, $int18, $boolean22, $string0);
+            if (cc_find($component2, calc($int18 - 1)) = true) {
+                cc_setop(1, "Select");
+                cc_setop(2, "Buy 10");
+                cc_setop(3, "Buy X");
+                cc_setop(4, "Buy Max");
+            }
+        } else {
+            $int18 = ~script10410($component1, $component2, rs3tli_3x3_button, calc($int9 + ($int11 - 80 - 5 * 2)), calc($int10 + ($int12 - 20 - 5)), 80, 20, $int18, $boolean22, $string0);
+        }
+        if (calc(++$int14 % 2) = 0) {
+            $int10 = calc($int10 + $int12 + 5);
+            $int9 = 5;
+        } else {
+            $int9 = calc($int8 + 5);
+        }
+    } else {
+        cc_create($component2, ^iftype_rectangle, $int18);
+        cc_sethide(true);
+        $int18 = calc($int18 + 1);
+    }
+    $int7 = calc($int7 + 1);
+}
+if (calc($int14 % 2) ! 0) {
+    $int10 = calc($int10 + $int12 + 5);
+}
+if ($int10 >= if_getheight($component0)) {
+    if_setscrollsize(0, $int10, $component0);
+    ~rs3_scrollbar_vertical(spotlight:scroll_bar_layer, $component0);
+    if_sethide(false, spotlight:scroll_bar_layer);
+}

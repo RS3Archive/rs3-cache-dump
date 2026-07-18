@@ -1,0 +1,28 @@
+// 17994
+[proc,script17994](dbrow $dbrow0)(graphic, graphic, graphic, graphic, graphic, graphic, graphic, graphic)
+def_graphic $graphic1 = container_topbar_centre;
+def_graphic $graphic2 = container_topbar_left;
+def_graphic $graphic3 = container_topbar_right;
+def_graphic $graphic4 = container_tabs_large;
+def_graphic $graphic5 = "btn_tab_large,0";
+def_graphic $graphic6 = "btn_tab_large,1";
+def_graphic $graphic7 = "btn_tab_large,2";
+def_graphic $graphic8 = null;
+switch_dbrow ($dbrow0) {
+    case mtx_bp3 :
+        if (%bp3_current_viewed_pass = null) {
+            ~error("Unable to find viewed pass.");
+        } else {
+            switch_int (db_getfield(%bp3_current_viewed_pass, bp3_table:col2, 0)) {
+                case 2 :
+                    $graphic1 = bp3_big_window_topbar_centre_blue;
+                    $graphic3 = bp3_big_window_topbar_right_blue;
+                    $graphic4 = bp3_big_window_tab_background_blue;
+                    $graphic5 = "bp3_big_window_btn_tab_large_blue,0";
+                    $graphic6 = "bp3_big_window_btn_tab_large_blue,1";
+                    $graphic7 = "bp3_big_window_btn_tab_large_blue,2";
+                    $graphic8 = bp3_big_window_background_blue;
+            }
+        }
+}
+return($graphic1, $graphic2, $graphic3, $graphic4, $graphic5, $graphic6, $graphic7, $graphic8);

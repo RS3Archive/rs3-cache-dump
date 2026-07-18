@@ -1,0 +1,13 @@
+// 19734
+[proc,script19734](int $int0)
+db_find(trh204_component_data:col0, $int0);
+def_dbrow $dbrow1 = db_findnext;
+def_component $component2 = db_getfield($dbrow1, trh204_component_data:col4, 0);
+if (~script19694($int0) = 1) {
+    if_sethide(true, $component2);
+}
+def_string $string0 = ~script985(%trh204_chests_remaining, "You have claimed all available prizes.", "You can claim 1 more free prize!", "You can claim <tostring(%trh204_chests_remaining)> more free prizes!");
+if_settext($string0, trh204_overlay:treasure_room_desc);
+if (%trh204_chests_remaining = 0) {
+    ~script19737;
+}

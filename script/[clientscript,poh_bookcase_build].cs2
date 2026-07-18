@@ -1,0 +1,63 @@
+// 1691
+[clientscript,poh_bookcase_build](component $component0, component $component1)
+def_int $int2 = 0;
+if (compare(%poh_bookcase_search, "") ! 0) {
+    $int2 = 1;
+} else {
+    if_settext("Interact here to search for a book", poh_bookcase:search_input_display);
+}
+if ($int2 = 1) {
+    ~script9554(poh_bookcase:mainmodal_window_background, poh_bookcase:mainmodal_window_border, poh_bookcase:mainmodal_window_content, "Searching for: <%poh_bookcase_search>", toplevel_v2_default_main_modal_skin_data);
+} else if (compare(%poh_library_owner, "") = 0) {
+    ~script9554(poh_bookcase:mainmodal_window_background, poh_bookcase:mainmodal_window_border, poh_bookcase:mainmodal_window_content, "Library", toplevel_v2_default_main_modal_skin_data);
+} else {
+    ~script9554(poh_bookcase:mainmodal_window_background, poh_bookcase:mainmodal_window_border, poh_bookcase:mainmodal_window_content, "Library of <%poh_library_owner>", toplevel_v2_default_main_modal_skin_data);
+}
+cc_deleteall($component0);
+def_int $int3 = 0;
+def_int $intarray0(288);
+def_int $int4 = 0;
+def_struct $struct5 = null;
+while ($int3 < 288) {
+    $struct5 = enum(int, struct, poh_bookcase, $int3);
+    cc_create($component0, ^iftype_rectangle, $int3);
+    if (~script1694($int3) = ^true & $struct5 ! null) {
+        if ($int2 = 0 | $int2 = 1 & string_indexof_string(lowercase(struct_param($struct5, poh_bookcase_displayname)), lowercase(%poh_bookcase_search), 0) ! -1) {
+            $intarray0($int4) = $int3;
+            $int4 = calc($int4 + 1);
+        } else {
+            cc_sethide(true);
+        }
+    } else {
+        cc_sethide(true);
+    }
+    $int3 = calc($int3 + 1);
+}
+if ($int4 = 0) {
+    if (cc_find($component0, 0) = true) {
+        ~script1692($component0, 0, -1, 0);
+    }
+    return;
+}
+~script1693(intarray0, 0, calc($int4 - 1));
+def_int $int6 = 0;
+def_int $int7 = -1;
+$int3 = 0;
+while ($int3 < $int4) {
+    if (cc_find($component0, $intarray0($int3)) = true) {
+        $int6, $int7 = ~script1692($component0, $int6, $intarray0($int3), $int3);
+    }
+    $int3 = calc($int3 + 1);
+}
+if ($int6 <= if_getheight($component0)) {
+    if_setscrollsize(0, 0, $component0);
+    cc_deleteall($component1);
+    if_sethide(true, $component1);
+} else {
+    if ($int7 ! -1 & cc_find($component0, $int7) = true) {
+        cc_delete;
+    }
+    if_setscrollsize(0, $int6, $component0);
+    if_sethide(false, $component1);
+    ~scrollbar_vertical($component1, $component0, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
+}

@@ -1,0 +1,26 @@
+// 16762
+[proc,script16762]
+def_dbrow $dbrow0 = ~script19150(trh182_promo);
+if ($dbrow0 = null) {
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = db_getfield($dbrow0, trh182_monsters:col6, 0);
+if ($int4 > 0) {
+    $int2, $int3 = ~script16726;
+    $int1 = calc($int3 * $int4);
+} else {
+    $int1 = db_getfield($dbrow0, trh182_monsters:col5, 0);
+}
+if (%trh182_monster_health > $int1) {
+    ~error("Monster HP is higher than its max hp, setting monster HP back to its Max.");
+    %trh182_monster_health = $int1;
+}
+if_settext(tostring_localised(%trh182_monster_health, true), trh_academy_shared_overlay:entity_progress_bar_text);
+def_int $int5 = scale(%trh182_monster_health, $int1, 100);
+def_int $int6 = scale(190, 100, $int5);
+if (if_getwidth(trh_academy_shared_overlay:entity_progress_bar_fill_holder) ! $int6) {
+    if_setsize($int6, 20, ^setsize_abs, ^setsize_abs, trh_academy_shared_overlay:entity_progress_bar_fill_holder);
+}

@@ -1,0 +1,40 @@
+// 6020
+[proc,script6020](int $int0)(int)
+def_int $int1 = -1;
+$int1 = activeclansettings_getaffinedslot(removetags(chat_playername_unfiltered));
+if ($int1 < 0) {
+    return(0);
+}
+if ($int0 = -1) {
+    $int0 = activeclansettings_getaffinedrank($int1);
+}
+switch_int ($int0) {
+    case 0 :
+        return(%clan_permissions_recruit_canstartmeeting);
+    case 1 :
+        return(%clan_permissions_corporal_canstartmeeting);
+    case 2 :
+        return(%clan_permissions_sergeant_canstartmeeting);
+    case 3 :
+        return(%clan_permissions_lieutenant_canstartmeeting);
+    case 4 :
+        return(%clan_permissions_captain_canstartmeeting);
+    case 5 :
+        return(%clan_permissions_general_canstartmeeting);
+    case 100 :
+        return(%clan_permissions_admin_canstartmeeting);
+    case 101 :
+        return(%clan_permissions_organiser_canstartmeeting);
+    case 102 :
+        return(%clan_permissions_coordinator_canstartmeeting);
+    case 103 :
+        return(%clan_permissions_overseer_canstartmeeting);
+    case 125 :
+        return(%clan_permissions_deputyowner_canstartmeeting);
+    case 126 :
+        return(1);
+    case 127 :
+        return(1);
+    case default :
+        return(0);
+}

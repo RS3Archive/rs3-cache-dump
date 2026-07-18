@@ -1,0 +1,159 @@
+// 7298
+[proc,script7298]
+cc_deleteall(pop_crew:crew_list_icon);
+cc_deleteall(pop_crew:crew_list_quality);
+def_int $int0 = 0;
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_string $string0 = "";
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_graphic $graphic9 = null;
+def_int $int10 = -1;
+%pop_crew_recruit_selected_var = -1;
+while ($int0 < inv_size(pop_crew)) {
+    $obj1 = inv_getobj(pop_crew, $int0);
+    $int2 = ~script7311($int0);
+    switch_int ($int2) {
+        case 1 :
+            $int6 = %pop_captain_1_gender;
+        case 2 :
+            $int6 = %pop_captain_2_gender;
+        case 3 :
+            $int6 = %pop_captain_3_gender;
+        case 4 :
+            $int6 = %pop_captain_4_gender;
+        case 5 :
+            $int6 = %pop_captain_5_gender;
+    }
+    if ($int2 > 0 & testbit(%pop_voyages_spaces, $int0) = ^true) {
+        $string0 = "<col=F7EDB7><tostring($int2)>";
+    } else {
+        $string0 = "<col=F7EDB7>-";
+    }
+    if ($obj1 ! null) {
+        $int10 = ~script7317(pop_crew, $int0);
+        if (enum_hasoutput(obj, pop_captain_list, $obj1) = true) {
+            cc_create(pop_crew:crew_list_icon, ^iftype_graphic, $int0);
+            cc_setgraphic(oc_param($obj1, pop_crew_graphic));
+            cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+            cc_setposition(18, calc(14 + $int5 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setop(1, "Info");
+            cc_setop(2, "Dismiss");
+            cc_setonop("script7301");
+            cc_create(pop_crew:crew_list_background, ^iftype_graphic, $int0);
+            if (%pop_crew_selected = $int0) {
+                cc_setgraphic("aif_pop_captain_icon_holder,2");
+            } else {
+                cc_setgraphic("aif_pop_captain_icon_holder,0");
+                $graphic9 = "aif_pop_captain_icon_holder,1";
+                cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic9)");
+                $graphic9 = "aif_pop_captain_icon_holder,0";
+                cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic9)");
+            }
+            cc_setsize(55, 55, ^setsize_abs, ^setsize_abs);
+            cc_setposition(8, calc(4 + $int5 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_crew:crew_list_number_background, ^iftype_graphic, $int0);
+            cc_setgraphic(aif_pop_ship_number_holder);
+            cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+            cc_setposition(9, calc(6 + $int5 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_crew:crew_list_number, ^iftype_text, $int0);
+            cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            cc_settextfont(p11_full);
+            cc_settext($string0);
+            cc_setposition(9, calc(7 + $int5 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_crew:crew_list_level, ^iftype_text, $int0);
+            cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+            cc_settextfont(p11_full);
+            cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+            cc_settext(tostring($int10));
+            cc_setcolour(^white);
+            cc_settextshadow(true);
+            cc_setposition(40, calc(38 + $int5 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            $int5 = calc($int5 + 1);
+        } else {
+            cc_create(pop_crew:crew_list_icon, ^iftype_graphic, $int0);
+            cc_setgraphic(oc_param($obj1, pop_crew_graphic));
+            cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+            $int8 = calc($int4 % 5);
+            $int7 = calc($int4 / 5);
+            cc_setposition(calc(74 + $int8 * 52), calc(14 + $int7 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setop(1, "Info");
+            cc_setop(2, "Dismiss");
+            cc_setonop("script7301");
+            cc_create(pop_crew:crew_list_background, ^iftype_graphic, $int0);
+            if (%pop_crew_selected = $int0) {
+                cc_setgraphic("aif_pop_crew_icon_holder,2");
+                cc_setonmouseover(null);
+                cc_setonmouseleave(null);
+            } else {
+                cc_setgraphic("aif_pop_crew_icon_holder,0");
+                $graphic9 = "aif_pop_crew_icon_holder,1";
+                cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic9)");
+                $graphic9 = "aif_pop_crew_icon_holder,0";
+                cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic9)");
+            }
+            cc_setsize(45, 45, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc(69 + $int8 * 52), calc(9 + $int7 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_crew:crew_list_number_background, ^iftype_graphic, $int0);
+            cc_setgraphic(aif_pop_ship_number_holder);
+            cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc(65 + $int8 * 52), calc(6 + $int7 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_crew:crew_list_number, ^iftype_text, $int0);
+            cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            cc_settextfont(p11_full);
+            cc_settext($string0);
+            cc_setposition(calc(65 + $int8 * 52), calc(7 + $int7 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            cc_create(pop_crew:crew_list_level, ^iftype_text, $int0);
+            cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+            cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+            cc_settextfont(p11_full);
+            cc_settext(tostring($int10));
+            cc_setcolour(^white);
+            cc_settextshadow(true);
+            cc_setposition(calc(96 + $int8 * 52), calc(38 + $int7 * 55), ^setpos_abs_left, ^setpos_abs_top);
+            $int4 = calc($int4 + 1);
+        }
+    } else {
+        cc_create(pop_crew:crew_list_icon, ^iftype_graphic, $int0);
+        cc_create(pop_crew:crew_list_background, ^iftype_graphic, $int0);
+        cc_create(pop_crew:crew_list_number_background, ^iftype_graphic, $int0);
+        cc_create(pop_crew:crew_list_number, ^iftype_text, $int0);
+        cc_create(pop_crew:crew_list_level, ^iftype_text, $int0);
+    }
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+while ($int0 < inv_size(pop_crew_recruit)) {
+    ~script7308($int0);
+    $int0 = calc($int0 + 1);
+}
+def_int $int11 = 0;
+def_int $int12 = 0;
+$int11, $int12 = ~script4187;
+def_string $string1 = "";
+if ($int11 = 0) {
+    $string1 = "<tostring($int12)>m";
+} else {
+    $string1 = "<tostring($int11)>h";
+}
+if (%pop_crew_rerolls > 0) {
+    if_settext("Rerolls available: <tostring(%pop_crew_rerolls)>", pop_crew:crew_rerolls);
+} else {
+    if_settext("New crew in <$string1>", pop_crew:crew_rerolls);
+}
+~script13993(pop_crew:add_crew_button, null, rs3tli_3x3_button, "Add 5 Rerolls (<tostring(%pop_port_item_1_quantity)>)");
+~script13994(pop_crew:add_crew_no, null, rs3tli_3x3_button, "Add 5 Rerolls (<tostring(%pop_port_item_1_quantity)>)", true);
+if (%pop_tutorial_progress < 63) {
+    if_sethide(false, pop_crew:add_crew_no);
+    if_sethide(true, pop_crew:reroll_layer_1);
+    if_sethide(true, pop_crew:reroll_layer_2);
+    if_sethide(true, pop_crew:reroll_layer_3);
+}
+~script1137;

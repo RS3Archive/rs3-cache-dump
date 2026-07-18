@@ -1,0 +1,18 @@
+// 12135
+[proc,invent_discovery_resolve_selected](int $int0, component $component1, component $component2)(int)
+def_int $int3 = calc($int0 + 1);
+if (testbit(%invent_discovery_rejected, $int0) = ^true) {
+    if_setgraphic(invention_icon_not_applicable, $component2);
+    if_sethide(false, $component2);
+    if_settrans(128, $component1);
+    if_sethide(false, $component1);
+    return(0);
+} else {
+    if_sethide(true, $component2);
+    if (~invent_discovery_is_selected($int3) = 1) {
+        if_sethide(true, $component1);
+    } else {
+        if_sethide(false, $component1);
+        if_settrans(0, $component1);
+    }
+}

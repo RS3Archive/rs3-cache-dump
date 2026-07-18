@@ -1,0 +1,39 @@
+// 99
+[clientscript,script99]
+def_int $int0 = 0;
+if (%pnr_conflict_value < 5) {
+    if_setsize(160, 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress2);
+    if (if_find(pnr_family_conflict:pnr_family_conflict_progress1) = true) {
+        $int0 = calc(%pnr_conflict_value * 32);
+        if (cc_getwidth < $int0) {
+            if_setsize(calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress1);
+        } else if (cc_getwidth > $int0) {
+            if_setsize(calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress1);
+        }
+    }
+} else if (%pnr_conflict_value > 5) {
+    if_setsize(160, 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress1);
+    if (if_find(pnr_family_conflict:pnr_family_conflict_progress2) = true) {
+        $int0 = calc((10 - %pnr_conflict_value) * 32);
+        if (cc_getwidth < $int0) {
+            if_setsize(calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress2);
+        } else if (cc_getwidth > $int0) {
+            if_setsize(calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress2);
+        }
+    }
+} else {
+    if (if_find(pnr_family_conflict:pnr_family_conflict_progress1) = true) {
+        if (cc_getwidth < 157) {
+            if_setsize(calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress1);
+        } else if (cc_getwidth > 157) {
+            if_setsize(calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress1);
+        }
+    }
+    if (if_find(pnr_family_conflict:pnr_family_conflict_progress2) = true) {
+        if (cc_getwidth < 157) {
+            if_setsize(calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress2);
+        } else if (cc_getwidth > 157) {
+            if_setsize(calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs, pnr_family_conflict:pnr_family_conflict_progress2);
+        }
+    }
+}

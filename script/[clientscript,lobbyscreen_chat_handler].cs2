@@ -1,0 +1,35 @@
+// 3405
+[clientscript,lobbyscreen_chat_handler](component $component0, component $component1, component $component2)
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_int $int8 = -1;
+def_boolean $boolean9 = ~is_mobile_client;
+$int3, $int4, $int5, $int6, $int7, $int8 = ~script15598;
+if ($boolean9 = false) {
+    if ($component0 ! null) {
+        ~script3054($component0, lobbyscreen_pane_friendslist:chat_build, lobbyscreen_pane_friendslist:chat_scroll);
+    }
+    if ($component2 ! null) {
+        ~script4567($component2, lobbyscreen_pane_friendschat:chat_build, lobbyscreen_pane_friendschat:chat_scroll);
+    }
+    if ($component1 ! null) {
+        ~script3173($component1, lobbyscreen_pane_clanchat:chat_build, lobbyscreen_pane_clanchat:chat_scroll);
+    }
+    if (if_gethide(lobbyscreen:friendslist_panel) = true & (%lobby_pmchat_lastcount ! $int3 | %lobby_pmchat_lastcount >= 200)) {
+        ~lobbyscreen_chat_notify(2, $int4);
+    }
+    if (if_gethide(lobbyscreen:clanchat_panel) = true & (%lobby_clanchat_lastcount ! $int5 | %lobby_clanchat_lastcount >= 200)) {
+        ~lobbyscreen_chat_notify(4, $int6);
+    }
+    if (if_gethide(lobbyscreen:friendschat_panel) = true & (%lobby_friendschat_lastcount ! $int7 | %lobby_friendschat_lastcount >= 200)) {
+        ~lobbyscreen_chat_notify(3, $int8);
+    }
+    %lobby_pmchat_lastcount = $int3;
+    %lobby_clanchat_lastcount = $int5;
+    %lobby_friendschat_lastcount = $int7;
+} else {
+    ~script3054(lobbyscreen_pane_mobile_social:chat, lobbyscreen_pane_mobile_social:chat_build, lobbyscreen_pane_mobile_social:chat_scroll);
+}

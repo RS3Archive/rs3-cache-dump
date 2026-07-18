@@ -1,0 +1,41 @@
+// 9223
+[clientscript,script9223](component $component0, int $int1, component $component2, int $int3)
+~script3843;
+if ($component0 ! toplevel_v2_worn:item_layer & $component0 ! toplevel_v2_parent_suboverlay_worn:item_layer & $component0 ! bank:item_layer) {
+    return;
+}
+if (~script7980($component2) ! -1) {
+    ~script7002($component0, $int1, $component2);
+    return;
+} else if (~script8053($component2) = true) {
+    return;
+}
+def_inv $inv4 = null;
+switch_component ($component2) {
+    case toplevel_v2_inventory:item_layer, toplevel_v2_parent_suboverlay_inventory:item_layer, bank:inventory_click :
+        $inv4 = inv;
+    case bank:bob_click :
+        return;
+    case default :
+        ~script8918($component0, worn, $int1, $component2, $int3);
+        return;
+}
+def_obj $obj5 = null;
+def_obj $obj6 = null;
+if ($inv4 ! null & cc_find($component0, $int1) = true) {
+    if ($int3 = -1) {
+        ~script9217($inv4, 0, cc_getinvobject, $int1);
+    } else if (.cc_find($component2, $int3) = true) {
+        $obj6 = cc_getinvobject;
+        $obj5 = .cc_getinvobject;
+        if ($obj5 = null) {
+            ~script9218($inv4, 0, $obj6, $int1, $int3);
+        } else if (oc_wearpos($obj6) = oc_wearpos($obj5)) {
+            ~wearobj($obj5, $inv4, $int3, 1);
+        } else if (oc_wearpos($obj5) ! -1 & (oc_wearpos($obj6) = 5 & oc_wearpos2($obj5) = 5 | oc_wearpos($obj6) = 3 & oc_wearpos2($obj5) = 3 | oc_wearpos2($obj6) = 5 & oc_wearpos($obj5) = 5 | oc_wearpos2($obj6) = 3 & oc_wearpos($obj5) = 3)) {
+            ~wearobj($obj5, $inv4, $int3, 1);
+        } else {
+            ~script9217($inv4, 0, cc_getinvobject, $int1);
+        }
+    }
+}

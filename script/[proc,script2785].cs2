@@ -1,0 +1,47 @@
+// 2785
+[proc,script2785](wma $wma0)(wma)
+switch_wma ($wma0) {
+    case tutorial3_1, tutorial3_2, tutorial3_3 :
+        if (%tutorial < 93) {
+            return(tutorial3_1);
+        }
+        if (%tutorial < 120) {
+            return(tutorial3_2);
+        }
+        return(tutorial3_3);
+    case carni_sewervariants :
+        %worldmap_focus = movecoord(0_28_99_0_0, 24, 0, 8);
+        return(ardougne_underground);
+    case arch_site_kharidet, arch_site_kharidet_partial_1 :
+        if (%arch_kharidet_mq_cell_controller < 2) {
+            return(arch_site_kharidet_partial_1);
+        }
+        return(arch_site_kharidet);
+    case arch_site_infernalsource, arch_site_infernalsource_partial_1, arch_site_infernalsource_partial_2 :
+        if (%arch_infernalsource_mq_cult < 6) {
+            return(arch_site_infernalsource_partial_1);
+        }
+        if (%arch_infernalsource_mq_circle < 3) {
+            return(arch_site_infernalsource_partial_2);
+        }
+        return(arch_site_infernalsource);
+    case arch_site_stormguard, arch_site_stormguard_workshop :
+        if (coordy(%worldmap_focus) >= 3) {
+            return(arch_site_stormguard_workshop);
+        }
+        return(arch_site_stormguard);
+    case arch_site_warforge, arch_site_warforge_partial_1 :
+        if (%arch_warforge_mq_crucible < 7) {
+            return(arch_site_warforge_partial_1);
+        }
+        return(arch_site_warforge);
+    case arch_site_orthen, arch_site_orthen_partial_1, arch_site_orthen_partial_2 :
+        if (%arch_orthen_mq_outpost_pylon < 12) {
+            return(arch_site_orthen_partial_1);
+        } else if (%arch_orthen_mq_xolo_power < 3) {
+            return(arch_site_orthen_partial_2);
+        } else {
+            return(arch_site_orthen);
+        }
+}
+return($wma0);

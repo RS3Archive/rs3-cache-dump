@@ -1,0 +1,31 @@
+// 12937
+[clientscript,script12937]
+def_struct $struct0 = ~script14441;
+$struct0 = summer_weeks_info;
+if_settext(struct_param($struct0, event_weekends_title), event_weekends:event_weekends_title);
+if_settext(struct_param($struct0, event_weekends_desc), event_weekends:event_weekends_description);
+def_int $int1 = 0;
+def_dbrow $dbrow2 = enum(int, dbrow, event_weekends_rows, $int1);
+def_int $int3 = enum_getoutputcount(event_weekends_rows);
+def_int $int4 = 356;
+def_int $int5 = max(40, min(60, calc($int4 / $int3)));
+def_int $int6 = max(0, min(8, calc(($int4 - $int5 * $int3) / ($int3 + 1))));
+$int4 = calc($int6 + 2);
+def_struct $struct7 = null;
+def_component $component8 = null;
+while ($int1 < $int3) {
+    $dbrow2 = enum(int, dbrow, event_weekends_rows, $int1);
+    if ($dbrow2 ! null) {
+        $struct7 = enum(int, struct, event_weekend_button, $int1);
+        $component8 = struct_param($struct7, rs3tli_button_layer);
+        if_sethide(false, $component8);
+        if ($component8 ! null) {
+            if_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top, $component8);
+            if_setsize(calc(4 + $int6 * 2), $int5, ^setsize_minus, ^setsize_abs, $component8);
+            if_settext(db_getfield($dbrow2, event_weekend:col2, 0), struct_param($struct7, event_button_date));
+            if_settext(db_getfield($dbrow2, event_weekend:col3, 0), struct_param($struct7, event_button_title));
+            $int4 = calc($int4 + ($int5 + $int6));
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

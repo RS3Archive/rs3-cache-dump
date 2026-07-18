@@ -1,0 +1,137 @@
+// 15841
+[proc,script15841](int $int0)
+def_string $string0 = ~script8521($int0);
+%chat_caret = string_length(escape($string0));
+if (~script6968($int0) = true) {
+    return;
+}
+def_boolean $boolean1 = ~is_mobile_client;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+$int2, $int3, $int4, $int5, $int6, $int7, $int8 = ~script4590;
+def_int $int10 = -1;
+def_int $int11 = -1;
+if (%toplevel_v2_quickchat_toggle = 0 & $boolean1 = false & string_length($string0) <= 0) {
+    ~script8517($int0);
+    switch_int ($int0) {
+        case 18 :
+            ~quickchat_open(0, "", $int0);
+        case 19 :
+            return;
+        case 20 :
+            ~quickchat_open(2, "", $int0);
+        case 21 :
+            ~quickchat_open(8, "", $int0);
+        case 22 :
+            ~quickchat_open(10, "", $int0);
+        case 23 :
+            ~quickchat_open(0, "", $int0);
+        case 25 :
+            if (%message_group_send_to_team = 0) {
+                ~quickchat_open(13, "", $int0);
+            } else {
+                ~quickchat_open(15, "", $int0);
+            }
+        case 46 :
+            ~quickchat_open(17, "", $int0);
+        case default :
+            return;
+    }
+} else {
+    if (compare($string0, "/?") = 0) {
+        ~script8527($int0);
+        ~script8522($int0, "");
+        ~script8517($int0);
+        return;
+    }
+    if ($boolean1 = false) {
+        if (compare($string0, "/") = 0) {
+            ~quickchat_open(2, "", $int0);
+        } else if (compare($string0, "//") = 0) {
+            ~quickchat_open(8, "", $int0);
+        } else if (compare($string0, "///") = 0) {
+            ~quickchat_open(10, "", $int0);
+        } else if (compare($string0, "////") = 0) {
+            ~quickchat_open(13, "", $int0);
+        } else if (compare($string0, "/////") = 0) {
+            ~quickchat_open(15, "", $int0);
+        } else if (compare($string0, "/#") = 0 & ~script19316 = true) {
+            ~quickchat_open(17, "", $int0);
+        }
+    }
+    $int10 = ~script8519($string0);
+    if ($int10 ! -1 & $int0 ! 24) {
+        %chat_caret = string_length($string0);
+        ~script8522($int0, "");
+        ~script8514($int0, $int10);
+        if ($int10 = 18 & %toplevel_v2_legacy_interface = 0 & (%toplevel_v2_mobile_interface = 1 | %toplevel_v2_chat_style = 0)) {
+            ~script8551($int10, 0);
+            ~script1558($int10, 0);
+        }
+        return;
+    } else {
+        $int11 = ~script8520($int0);
+        switch_int ($int11) {
+            case 1 :
+                if (compare("", clan_getchatdisplayname) = 0) {
+                    $int11 = -1;
+                    ~script7171($int0, "You aren't in a Friends Chat channel.");
+                }
+            case 2 :
+                if ($int2 < 0) {
+                    $int11 = -1;
+                    ~script7171($int0, "You aren't in a Clan Chat channel.");
+                } else if ($int3 < $int4) {
+                    $int11 = -1;
+                    mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your Clan Chat.");
+                } else if ($int5 = 1) {
+                    $int11 = -1;
+                    mes_typed(^chattype_clanmessage, 0, "You've been muted by your Clan and can't talk in your Clan Chat.");
+                }
+            case 3 :
+                if ($int6 < 0) {
+                    $int11 = -1;
+                    ~script7171($int0, "You aren't a guest in a visited Clan Chat channel.");
+                } else if ($int7 < $int8) {
+                    $int11 = -1;
+                    mes_typed(^chattype_clanguestmessage, 0, "Guests cannot chat in this Clan Chat channel.");
+                }
+            case 4, 5 :
+                if (player_group_find = false) {
+                    $int11 = -1;
+                    mes("You aren't in a group. You can create one using the button on this window.");
+                }
+            case 102 :
+                if (~script19316 = false | activeclanchannel_find_affined(1) = false) {
+                    $int11 = -1;
+                    mes("Group Ironman chat is currently unavailable.");
+                }
+        }
+        $string0 = ~script8521($int0);
+        if ($int11 ! -1 & string_length($string0) > 0) {
+            switch_int ($int11) {
+                case 101 :
+                case 100 :
+                    chat_sendprivate(%friendtomessage, $string0);
+                case 6 :
+                    $int9 = ttv_chat_sendmessage($string0);
+                case 2 :
+                    chat_setmode_affined_clan(0);
+                    chat_sendpublic($string0);
+                case 102 :
+                    chat_setmode_affined_clan(1);
+                    chat_sendpublic($string0);
+                case default :
+                    chat_setmode($int11);
+                    chat_sendpublic($string0);
+            }
+        }
+        ~script8517($int0);
+    }
+}

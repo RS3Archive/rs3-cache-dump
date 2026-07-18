@@ -1,0 +1,28 @@
+// 14956
+[clientscript,arch_material_storage_info_item_onop](obj $obj0)
+def_component $component1 = arch_material_storage_info:popup_info_build_layer;
+def_component $component2 = arch_material_storage_info:popup_info_scrolling_layer;
+def_component $component3 = arch_material_storage_info:popup_info_scrollbar_layer;
+cc_deleteall($component1);
+if_sethide(false, arch_material_storage_info:popup_window);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component2);
+if_settext(oc_name($obj0), arch_material_storage_info:popup_title);
+def_string $string0 = ~script14957($obj0);
+cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+cc_setsize(10, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settext($string0);
+cc_setcolour(^white);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+cc_settextshadow(true);
+def_int $int4 = ~script7593($string0, if_getwidth($component2), museo_sans_11pt_regular, 0);
+if ($int4 > if_getheight($component2)) {
+    if_setsize(calc(16 + 3), 0, ^setsize_minus, ^setsize_minus, $component2);
+    if_setscrollsize(0, max(if_getheight($component2), $int4), $component2);
+    if_setscrollpos(0, 0, $component2);
+    ~rs3_scrollbar_vertical($component3, $component2);
+} else {
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component2);
+    cc_deleteall($component3);
+}

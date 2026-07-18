@@ -1,0 +1,20 @@
+// 7246
+[proc,script7246](obj $obj0)(int)
+def_int $int1 = 0;
+def_int $int2 = max(1, oc_param($obj0, food_portions));
+if (oc_param($obj0, foodhealpercent) > 0) {
+    $int1 = scale(~script2916, 100, oc_param($obj0, foodhealpercent));
+}
+if (oc_param($obj0, food_heal) > 0) {
+    $int1 = calc($int1 + oc_param($obj0, food_heal));
+}
+if ($int1 > 0) {
+    return(calc($int1 / $int2));
+}
+if (oc_category($obj0) = invent_calorie_bomb_filled) {
+    $int1 = scale($int1, 100, 120);
+}
+if (oc_param($obj0, rand_item) = 1) {
+    return(calc($int1 / $int2));
+}
+return(calc(max(200, $int1) / $int2));

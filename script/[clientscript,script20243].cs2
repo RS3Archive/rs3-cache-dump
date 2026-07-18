@@ -1,0 +1,61 @@
+// 20243
+[clientscript,script20243](component $component0)
+def_dbrow $dbrow1 = ~script20117(%league_active_player);
+if (~script20132($dbrow1) = false) {
+    return;
+}
+def_var_int $var_int2 = db_getfield($dbrow1, league:col22, 0);
+def_int $int3 = db_getfield($dbrow1, league:col6, 0);
+def_int $int4 = var_reference_get($var_int2);
+def_dbrow $dbrow5 = db_getfield($dbrow1, league:col8, 0);
+def_int $int6 = db_getfieldcount($dbrow5, league_relic_list:col0);
+def_dbrow $dbrow7 = db_getfield($dbrow5, league_relic_list:col0, calc($int6 - 1));
+def_int $int8 = db_getfield($dbrow7, league_relic_tier:col2, 0);
+def_dbrow $dbrow9 = db_getfield($dbrow1, league:col10, 0);
+def_int $int10 = 12202555;
+def_int $int11 = 16464712;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+if ($int4 < $int8 & %league_relic_cache_next_tier_points ! 1048575) {
+    $int3 = $int8;
+    $int6 = db_getfieldcount($dbrow9, league_ranks:col0);
+}
+~if_add_child_graphic($component0, 0, $int14++, 5, 0, ^setpos_abs_left, ^setpos_abs_centre, 44, 40, ^setsize_abs, ^setsize_abs, rs3_icon_leagues_points);
+~if_add_child_layer($component0, 0, $int14++, 50, 12, ^setpos_abs_left, ^setpos_abs_bottom, 68, 18, ^setsize_minus, ^setsize_abs);
+$int14, $int15 = ~script20247(0, $int14, $int3, $int4, $int10, $int11, 0);
+~if_add_child_layer($component0, 0, $int14++, 48, 0, ^setpos_abs_left, ^setpos_abs_bottom, 48, 24, ^setsize_minus, ^setsize_abs);
+~cc_add_child_layer(0, $int14++, 6, 0, ^setpos_abs_left, ^setpos_abs_bottom, 16, 0, ^setsize_minus, ^setsize_minus);
+def_int $int16 = 0;
+def_string $string0 = "";
+if ($int4 < $int8) {
+    while ($int12 < $int6) {
+        $dbrow7 = db_getfield($dbrow5, league_relic_list:col0, $int12);
+        $int13 = db_getfield($dbrow7, league_relic_tier:col2, 0);
+        if ($int12 = 0) {
+            $string0 = "Relic Unlocks:<br>Tier <tostring(calc($int12 + 1))> requires <tostring_localised($int13, true)> points.";
+        } else {
+            $string0 = "<$string0><br>Tier <tostring(calc($int12 + 1))> requires <tostring_localised($int13, true)> points.";
+            $int16 = max(0, calc(scale($int13, $int3, $int15) - 9));
+            ~cc_add_child_graphic(0, $int14++, $int16, 0, ^setpos_abs_left, ^setpos_abs_bottom, 18, 24, ^setsize_abs, ^setsize_abs, "rs3_icon_leagues_progress_bar_marker_short,1");
+        }
+        $int12 = calc($int12 + 1);
+    }
+} else {
+    while ($int12 < $int6) {
+        $int13 = db_getfield($dbrow9, league_ranks:col0:0, $int12);
+        if ($int12 = 0) {
+            $string0 = "Trophy Unlocks:";
+        }
+        $string0 = "<$string0><br><db_getfield($dbrow9, league_ranks:col0:2, $int12)> requires <tostring_localised($int13, true)> points.";
+        $int16 = max(0, calc(scale($int13, $int3, $int15) - 9));
+        ~cc_add_child_graphic(0, $int14++, $int16, 0, ^setpos_abs_left, ^setpos_abs_bottom, 18, 24, ^setsize_abs, ^setsize_abs, "rs3_icon_leagues_progress_bar_marker_short,1");
+        $int12 = calc($int12 + 1);
+    }
+}
+cc_find_parent;
+cc_find_parent;
+~script3537($string0);
+~if_add_child_text($component0, 0, $int14++, 55, 2, ^setpos_abs_left, ^setpos_abs_top, 200, 20, ^setsize_abs, ^setsize_abs, text_label_standard, "<col=<tostring(~script10495(2), 16)>>League points</col>: <col=<tostring(~script10495(21), 16)>><tostring($int4)>");
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);

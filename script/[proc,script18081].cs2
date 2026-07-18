@@ -1,0 +1,28 @@
+// 18081
+[proc,script18081](dbrow $dbrow0, component $component1, int $int2)(int)
+def_dbrow $dbrow3 = db_getfield($dbrow0, bp3_mission:col2:0, 0);
+def_dbrow $dbrow4 = db_getfield($dbrow0, bp3_mission:col4:0, 0);
+def_int $int5 = ~script17902(%bp3_missions_interface_drawn_mission_slot);
+def_int $int6 = 0;
+if (if_find($component1) = true) {
+    cc_createchild(^iftype_layer, $int6, 1);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    $int2 = calc($int2 + ~script17952(1, $int6, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth($component1) - 30), ^setsize_abs, bp3_text_gold_cinzel_bold_16pt, db_getfield($dbrow0, bp3_mission:col0, 0), calc(if_getwidth($component1) - 30), cinzel_15pt_bold));
+    $int6 = calc($int6 + 1);
+    if (db_getfieldcount($dbrow3, bp3_task:col1) > 0) {
+        $int2 = calc($int2 + ~script17952(1, $int6, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth($component1) - 30), ^setsize_abs, bp3_text_white_notosans_14pt, db_getfield($dbrow3, bp3_task:col1, 0), calc(if_getwidth($component1) - 30), notosans_14));
+        $int6 = calc($int6 + 1);
+    }
+    if ($dbrow4 ! null) {
+        $int2 = calc($int2 + ~script17952(1, $int6, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, calc(if_getwidth($component1) - 30), ^setsize_abs, bp3_text_white_notosans_14pt, "Gain +<tostring(db_getfield($dbrow0, bp3_mission:col4:1, 0))>% mission progress whilst training <col=2EF8FF><db_getfield($dbrow4, bp3_task:col0, 0)></col>", calc(if_getwidth($component1) - 30), notosans_14));
+        $int6 = calc($int6 + 1);
+    }
+    $int2 = calc($int2 + 10);
+    ~cc_add_child_text(1, $int6, 10, $int2, ^setpos_abs_left, ^setpos_abs_top, 0, 30, ^setsize_minus, ^setsize_abs, bp3_text_white_notosans_14pt, "Mission Expires in: <~script18087($int5, 0, 0)>");
+    $int2 = calc($int2 + 40);
+    $int6 = calc($int6 + 1);
+} else {
+    ~error("Cannot find parent layer when trying to populate BP3 missions info panel.");
+}
+return($int2);

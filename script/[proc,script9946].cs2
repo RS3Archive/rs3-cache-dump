@@ -1,0 +1,101 @@
+// 9946
+[proc,script9946]
+if (%toplevel_v2_legacy_interface = 0) {
+    ~script8390(18);
+    return;
+}
+def_struct $struct0 = ~script10405(18);
+def_struct $struct1 = ~script10405(1019);
+def_struct $struct2 = ~script10405(1003);
+def_struct $struct3 = ~script10405(1032);
+def_struct $struct4 = ~script10405(1033);
+def_struct $struct5 = ~script10405(1009);
+def_struct $struct6 = ~script10405(1038);
+def_int $int7 = calc(if_getheight(toplevel_v2:viewport) - %chatbox_resize);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (if_gethide(struct_param($struct2, toplevel_v2_window_layer)) = false) {
+    $int8 = if_getheight(struct_param($struct2, toplevel_v2_window_layer));
+    if (%toplevel_v2_legacy_combat = 0) {
+        if (%combatv2_actionbar_current_bar2 > 0) {
+            $int9 = if_getheight(struct_param($struct3, toplevel_v2_window_layer));
+        }
+        if (%combatv2_actionbar_current_bar3 > 0) {
+            $int10 = if_getheight(struct_param($struct4, toplevel_v2_window_layer));
+        }
+    }
+}
+if (%toplevel_v2_splitpm = 1) {
+    $int7 = max($int7, calc(if_getheight(struct_param($struct1, toplevel_v2_window_layer)) + $int8));
+} else {
+    $int7 = max($int7, $int8);
+}
+def_int $setsize11 = ^setsize_minus;
+def_boolean $boolean12 = ~script9947;
+if ($boolean12 = true) {
+    $int7 = calc(28 + 3);
+    $setsize11 = ^setsize_abs;
+}
+if (%toplevel_v2_hud_hidden = 1 | ~script20655 = 1 | %toplevel_v2_legacy_combat = 1) {
+    if_sethide(true, struct_param($struct3, toplevel_v2_window_layer));
+    if_sethide(true, struct_param($struct4, toplevel_v2_window_layer));
+    $int9 = 0;
+    $int10 = 0;
+} else {
+    if (%combatv2_actionbar_current_bar2 = 0) {
+        if_sethide(true, struct_param($struct3, toplevel_v2_window_layer));
+        $int9 = 0;
+    } else {
+        if_sethide(false, struct_param($struct3, toplevel_v2_window_layer));
+    }
+    if (%combatv2_actionbar_current_bar3 = 0) {
+        if_sethide(true, struct_param($struct4, toplevel_v2_window_layer));
+        $int10 = 0;
+    } else {
+        if_sethide(false, struct_param($struct4, toplevel_v2_window_layer));
+    }
+}
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct0, toplevel_v2_window_layer));
+if_setsize(552, $int7, ^setsize_abs, $setsize11, struct_param($struct0, toplevel_v2_window_layer));
+$int7 = if_getheight(struct_param($struct0, toplevel_v2_window_layer));
+def_int $int13 = if_getwidth(toplevel_v2:background_colour);
+if ($int13 <= calc(552 * 2 + ~script19630(0))) {
+    if_setposition(0, calc($int7 + $int9 + $int10), ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct2, toplevel_v2_window_layer));
+    if_setposition(0, calc($int7 + $int10), ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct3, toplevel_v2_window_layer));
+    if_setposition(0, $int7, ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct4, toplevel_v2_window_layer));
+} else {
+    if_setposition(0, calc($int9 + $int10), ^setpos_abs_centre, ^setpos_abs_bottom, struct_param($struct2, toplevel_v2_window_layer));
+    if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_bottom, struct_param($struct3, toplevel_v2_window_layer));
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, struct_param($struct4, toplevel_v2_window_layer));
+    if_setposition(-135, calc($int8 + $int9 + $int10), ^setpos_abs_centre, ^setpos_abs_bottom, struct_param($struct5, toplevel_v2_window_layer));
+    if_setposition(135, calc($int8 + $int9 + $int10), ^setpos_abs_centre, ^setpos_abs_bottom, struct_param($struct6, toplevel_v2_window_layer));
+}
+if (%toplevel_v2_splitpm = 1) {
+    if (%chat_view = -1) {
+        if_sethide(true, struct_param($struct1, toplevel_v2_window_layer));
+    } else {
+        if ($boolean12 = true) {
+            if_setposition(0, calc(28 + if_getheight(~script8071)), ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct1, toplevel_v2_window_layer));
+        } else if ($int13 > calc(552 * 2 + ~script19630(0))) {
+            if_setposition(0, $int7, ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct1, toplevel_v2_window_layer));
+        } else {
+            if_setposition(0, calc($int7 + $int8 + $int9 + $int10), ^setpos_abs_left, ^setpos_abs_bottom, struct_param($struct1, toplevel_v2_window_layer));
+        }
+        if_setsize(552, 103, ^setsize_abs, ^setsize_abs, struct_param($struct1, toplevel_v2_window_layer));
+        if_sethide(false, struct_param($struct1, toplevel_v2_window_layer));
+    }
+} else {
+    if_sethide(true, struct_param($struct1, toplevel_v2_window_layer));
+}
+def_component $component14 = struct_param($struct0, toplevel_v2_window_border_layer);
+if (cc_find($component14, 9) = true) {
+    cc_setdragrenderbehaviour(3);
+    cc_setmouseovercursor(toplevel_v2_scale_vert);
+    cc_setdraggable(toplevel_v2:viewport, -1);
+    cc_setdragdeadtime(1);
+    cc_setdragdeadzone(1);
+    cc_setondrag("script9948(18, event_mousey, 0)");
+    cc_setondragcomplete("script9948(18, event_mousey, 1)");
+}
+~script8390(18);

@@ -1,0 +1,23 @@
+// 11063
+[clientscript,script11063]
+def_int $int0 = scale(300, 500, %boss_instance_noobs_trained);
+def_int $int1 = if_getwidth(boss_practice:progress_bar);
+def_int $int2 = calc($int0 - $int1);
+if ($int1 < $int0) {
+    if ($int2 >= 20) {
+        if_setsize(calc($int1 + 5), if_getheight(boss_practice:progress_bar), ^setsize_abs, ^setsize_abs, boss_practice:progress_bar);
+    } else {
+        if_setsize(calc($int1 + 1), if_getheight(boss_practice:progress_bar), ^setsize_abs, ^setsize_abs, boss_practice:progress_bar);
+    }
+    if (if_getwidth(boss_practice:progress_bar) >= 300) {
+        if_setgraphic("qbd_artifact_1,0", boss_practice:reward_4);
+    }
+    if (if_getwidth(boss_practice:progress_bar) >= 150) {
+        if_setgraphic("qbd_artifact_1,0", boss_practice:reward_2);
+    }
+    if (if_getwidth(boss_practice:progress_bar) >= 30) {
+        if_setgraphic("qbd_artifact_1,0", boss_practice:reward_1);
+    }
+} else {
+    if_setontimer(null, boss_practice:progress_bar_container);
+}

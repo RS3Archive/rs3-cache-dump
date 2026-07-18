@@ -1,0 +1,35 @@
+// 17196
+[clientscript,trh191_setup_reward_claim](int $int0)
+cc_deleteall(trh191:reward_draw_layer);
+def_dbrow $dbrow1 = enum(int, dbrow, trh191_crest_slot_to_dbrow, $int0);
+def_int $int2 = db_getfield($dbrow1, trh191_crest:col1, 0);
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = ~script17206($int2);
+def_int $int9 = 113;
+def_int $int10 = if_getnextsubid(trh191:reward_draw_layer);
+def_string $string0 = "";
+while (++$int3 <= $int2) {
+    $int4 = ~script6395($int0, $int3);
+    $obj5, $int6, $int7 = db_getfield($dbrow1, trh191_crest:col4, $int4);
+    $obj5 = ~script2($obj5);
+    ~cc_add_graphic(trh191:reward_draw_layer, $int10, $int8, 0, ^setpos_abs_left, ^setpos_abs_top, 90, 90, ^setsize_abs, ^setsize_abs, null);
+    cc_setobject_highres(~script17191($obj5));
+    if (~is_mobile_client = false) {
+        ~script14994($obj5, null, -1, $obj5, mtxmgt_store_temp, 1);
+    } else {
+        $string0 = "<oc_name($obj5)> x<tostring_localised($int6, true)>";
+        cc_setonclick("script7774($string0, event_com, event_comsubid, 0)");
+    }
+    $int10 = calc($int10 + 1);
+    ~cc_add_text(trh191:reward_draw_layer, $int10, calc($int8 - 10), 0, ^setpos_abs_left, ^setpos_abs_bottom, 110, 46, ^setsize_abs, ^setsize_abs, text_body_default, "<tostring($int6)>x <oc_name($obj5)>");
+    cc_setcolour(^white);
+    $int10 = calc($int10 + 1);
+    cc_settextfont(notosans_13);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 12);
+    $int8 = calc($int8 + $int9);
+}
+if_sethide(false, trh191:reward_claim_layer);

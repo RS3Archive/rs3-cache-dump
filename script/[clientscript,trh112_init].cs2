@@ -1,0 +1,40 @@
+// 12983
+[clientscript,trh112_init]
+def_int $int0 = 1;
+while ($int0 <= 16) {
+    if (~script12972($int0) = 1) {
+        if_sethide(false, enum(int, component, trh112_task_to_sticker, $int0));
+    }
+    $int0 = calc($int0 + 1);
+}
+if (%trh112_sticker_active = 1) {
+    if_setgraphic("trh112_star_ticket,2", trh112:use_goldstar_btn_graphic);
+} else {
+    if_setgraphic("trh112_star_ticket,0", trh112:use_goldstar_btn_graphic);
+}
+if_settext("Prestige <tostring(min(5, calc(%trh112_prestige + 1)))>/5", trh112:prestige_level);
+~script12988;
+switch_int (%trh112_prestige) {
+    case 1, 3 :
+        if_sethide(true, trh112:column_prize_prestige_model_1_1);
+        if_sethide(true, trh112:column_prize_prestige_model_1_2);
+        if_sethide(true, trh112:column_prize_prestige_model_2);
+        if_sethide(true, trh112:column_prize_prestige_model_3);
+        if_sethide(true, trh112:column_prize_prestige_model_4);
+        if_sethide(false, trh112:column_prize_model_1);
+        if_sethide(false, trh112:column_prize_model_2);
+        if_sethide(false, trh112:column_prize_model_3);
+        if_sethide(false, trh112:column_prize_model_4);
+        if_sethide(false, trh112:column_prize_model_4_amount);
+    case 0 :
+    case 2 :
+        if_setmodel(trh112_celebration_red_m_feet, trh112:column_prize_prestige_model_1_1);
+        if_setmodel(trh112_celebration_red_m_hands, trh112:column_prize_prestige_model_2);
+        if_setmodel(trh112_celebration_red_m_legs, trh112:column_prize_prestige_model_3);
+        if_setmodel(trh112_celebration_red_m_torso, trh112:column_prize_prestige_model_4);
+    case 4 :
+        if_setmodel(trh112_celebration_gray_m_feet, trh112:column_prize_prestige_model_1_1);
+        if_setmodel(trh112_celebration_gray_m_hands, trh112:column_prize_prestige_model_2);
+        if_setmodel(trh112_celebration_gray_m_legs, trh112:column_prize_prestige_model_3);
+        if_setmodel(trh112_celebration_gray_m_torso, trh112:column_prize_prestige_model_4);
+}

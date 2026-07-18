@@ -1,0 +1,38 @@
+// 2720
+[proc,buyprice](obj $obj0)(int)
+if ($obj0 = null) {
+    return(0);
+}
+$obj0 = oc_uncert($obj0);
+def_int $int1 = enum(obj, int, shop_exceptions_shopbuy_tokkul, $obj0);
+if (%currency = 2 & $int1 ! -1 & $int1 > 0) {
+    return($int1);
+}
+$int1 = enum(obj, int, shop_exceptions_shopbuy_trh13_magic_beans, $obj0);
+if (%currency = 4 & $int1 ! -1 & $int1 > 0) {
+    return($int1);
+}
+$int1 = enum(obj, int, shop_exceptions_shopbuy, $obj0);
+if ($int1 > 0 & %shop ! taxfree) {
+    return($int1);
+}
+if (oc_param($obj0, skillcape) = 1 | oc_param($obj0, skillcape_trimmed) = 1) {
+    if (oc_param($obj0, skillcape_master) = 1) {
+        return(120000);
+    } else {
+        return(99000);
+    }
+}
+if (~script1425(%shop) = 1) {
+    return(~script1426($obj0));
+} else if (%shop = taxfree) {
+    return(enum(obj, int, wilderness_shop_prices, $obj0));
+}
+$int1 = ~script17369($obj0);
+if (%currency = 2) {
+    $int1 = scale(3, 2, $int1);
+}
+if (oc_param($obj0, smithing_progress_needed) > 0) {
+    $int1 = calc($int1 * 10);
+}
+return(max($int1, 1));

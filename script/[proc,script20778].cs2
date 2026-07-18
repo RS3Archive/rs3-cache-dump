@@ -1,0 +1,37 @@
+// 20778
+[proc,script20778](int $int0)
+if (~script6431 = false) {
+    return;
+}
+def_boolean $boolean1 = true;
+def_boolean $boolean2 = true;
+if ($int0 = 1) {
+    if (%construction_house_mousespace_room_added_from_door = 0) {
+        if_setonclick("script20780(event_com)", toplevel_v2:gameview_window_content);
+        $boolean1 = false;
+        $boolean2 = false;
+    } else {
+        if_setonclick(null, toplevel_v2:gameview_window_content);
+        $boolean2 = true;
+        $boolean1 = false;
+    }
+} else {
+    if_setonclick(null, toplevel_v2:gameview_window_content);
+    if (%construction_house_mousespace_room_added_from_door = 1) {
+        $boolean1 = false;
+        $boolean2 = true;
+    } else if (~script20783(%construction_house_mousespace_locked_coord) = true) {
+        ~script20779(%construction_house_mousespace_locked_coord);
+        $boolean1 = true;
+        $boolean2 = true;
+    } else {
+        $boolean1 = true;
+        $boolean2 = false;
+    }
+}
+if (cc_findbycategory(poh_house_controls:instructions_build, 0, 0) = 1) {
+    cc_setenabled($boolean2);
+}
+if (cc_findbycategory(poh_house_controls:instructions_build, 1, 0) = 1) {
+    cc_setenabled($boolean1);
+}

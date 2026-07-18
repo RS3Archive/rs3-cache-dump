@@ -1,0 +1,20 @@
+// 19810
+[proc,script19810]
+def_obj $obj0 = null;
+def_int $int1 = 0;
+def_struct $struct2 = null;
+def_graphic $graphic3 = null;
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh205_overlay:prize_claim_preview_layer);
+if_sethide(true, trh205_overlay:prize_claim_joint_preview_layer);
+$obj0, $int1, $struct2, $graphic3 = ~script19764(0);
+~spinner_create(trh205_overlay:prize_claim_preview_preview_load, 3, -1);
+~script16663(trh205_prize_claim_preview_components, $obj0, $int1);
+def_int $int4 = 0;
+$int4, $obj0, $int1, $struct2, $graphic3 = ~script19766(%trh205_prize_option_chosen);
+if ($int4 = 1) {
+    if_sethide(false, trh205_overlay:prize_claim_joint_preview_layer);
+    if_setposition(-30, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh205_overlay:prize_claim_preview_layer);
+    ~script16663(trh205_prize_claim_joint_preview_components, $obj0, 1);
+    if_settext(append(if_gettext(db_getfield(trh205_prize_claim_preview_components, trh_prize_preview_components:col5, 0)), " & <oc_name($obj0)>"), db_getfield(trh205_prize_claim_preview_components, trh_prize_preview_components:col5, 0));
+}
+~script19797(trh205_select_button_default, trh205_select_button_rolloverselected, trh205_overlay:prize_claim_button_graphic, trh205_overlay:prize_claim_button_layer);

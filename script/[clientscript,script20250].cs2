@@ -1,0 +1,50 @@
+// 20250
+[clientscript,script20250]
+cc_deleteall(league_parent_ranks:table_contents);
+def_dbrow $dbrow0 = ~script20117(-1);
+if ($dbrow0 = null) {
+    return;
+}
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col10, 0);
+def_int $int2 = 0;
+def_int $int3 = db_getfieldcount($dbrow1, league_ranks:col0);
+def_int $int4 = if_getheight(league_parent_ranks:table_contents);
+def_int $int5 = calc(($int4 - 4 * ($int3 - 1)) / $int3);
+def_int $int6 = scale(36, 32, $int5);
+def_int $int7 = var_reference_get(db_getfield($dbrow0, league:col22, 0));
+def_int $int8 = 0;
+def_dbrow $dbrow9 = rect_light;
+def_dbrow $dbrow10 = text_body_default;
+def_obj $obj11 = null;
+def_int $int12 = -1;
+def_string $string0 = "";
+def_int $int13 = -1;
+def_string $string1 = "";
+while ($int2 < $int3) {
+    $int8, $obj11, $string1 = db_getfield($dbrow1, league_ranks:col0, $int2);
+    if ($int7 >= $int8) {
+        $dbrow9 = rect_selected;
+        $dbrow10 = text_title_body;
+        $int12 = $int2;
+    } else {
+        $dbrow9 = rect_medium;
+        $dbrow10 = text_body_default;
+    }
+    ~if_add_child_layer(league_parent_ranks:table_contents, $int2, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int5, ^setsize_minus, ^setsize_abs);
+    ~cc_add_child_rect($int2, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow9);
+    ~script17950($int2, 2, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, $int6, $int5, ^setsize_abs, ^setsize_abs, $obj11, 1);
+    ~cc_add_child_text($int2, 3, $int6, 0, ^setpos_abs_left, ^setpos_abs_centre, calc(200 - $int6), $int5, ^setsize_abs, ^setsize_abs, $dbrow10, $string1);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    ~cc_add_child_text($int2, 4, 204, 0, ^setpos_abs_left, ^setpos_abs_centre, 204, $int5, ^setsize_minus, ^setsize_abs, $dbrow10, tostring_localised($int8, true));
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    $int2 = calc($int2 + 1);
+}
+$int8, $obj11, $string1 = db_getfield($dbrow1, league_ranks:col0, ~clamp(calc($int12 + 1), 0, calc($int3 - 1)));
+if ($int12 = calc($int3 - 1)) {
+    $string0 = "You have unlocked all trophies!";
+} else {
+    $string0 = "<tostring_localised(calc($int8 - $int7), true)> more points needed to unlock the next trophy.";
+}
+if_settext($string0, league_parent_ranks:current_title);
+if_setobject_highres($obj11, league_parent_ranks:current_obj);
+if_settext("Trophies will be available as rewards in the main game once the League ends.", league_parent_ranks:disclaimer);

@@ -1,0 +1,73 @@
+// 12235
+[proc,script12235](component $component0, struct $struct1, int $int2)(int, int, int, int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+$int3, $int4, $int5, $int6 = ~script12005;
+def_int $int7 = 0;
+def_boolean $boolean8 = ~script6431;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if ($struct1 ! prayer_draw_prayers_quick_prayers & %prayer_client_showing_active_summary = 1) {
+    $int10 = calc(if_getheight(struct_param($struct1, prayer_child_active_only_layer)) + if_getheight(struct_param($struct1, prayer_child_stats)));
+}
+$int9 = calc($int9 + $int10);
+$int9 = calc($int9 + if_getheight(struct_param($struct1, prayer_child_bottom)));
+if ($component0 ! prayer_quick_preset_interface:prayer_buttons) {
+    if ($boolean8 = true) {
+        if_setposition(calc(16 / 2), $int10, ^setpos_abs_left, ^setpos_abs_top, struct_param($struct1, prayer_child_view));
+        if_setsize(16, $int9, ^setsize_minus, ^setsize_minus, struct_param($struct1, prayer_child_view));
+        if_sethide(false, struct_param($struct1, prayer_child_scrollbar));
+        if_setsize(0, if_getheight(struct_param($struct1, prayer_child_view)), ^setsize_minus, ^setsize_abs, struct_param($struct1, prayer_child_scrollbar));
+    } else if (%toplevel_v2_legacy_interface = 1 & $boolean8 = false) {
+        if_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top, struct_param($struct1, prayer_child_view));
+        if_setsize(16, $int9, ^setsize_minus, ^setsize_minus, struct_param($struct1, prayer_child_view));
+        if_sethide(true, struct_param($struct1, prayer_child_scrollbar));
+    } else {
+        if_setposition(calc(16 / 2), $int10, ^setpos_abs_left, ^setpos_abs_top, struct_param($struct1, prayer_child_view));
+        if_setsize(16, $int9, ^setsize_minus, ^setsize_minus, struct_param($struct1, prayer_child_view));
+        if_sethide(false, struct_param($struct1, prayer_child_scrollbar));
+        if_setsize(0, if_getheight(struct_param($struct1, prayer_child_view)), ^setsize_minus, ^setsize_abs, struct_param($struct1, prayer_child_scrollbar));
+    }
+}
+def_int $int11 = if_getwidth(struct_param($struct1, prayer_child_view));
+def_int $int12 = if_getheight(struct_param($struct1, prayer_child_view));
+def_int $int13 = calc($int12 - (2 + 2));
+def_int $int14 = $int5;
+def_int $int15 = max($int6, 1);
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+$int18, $int16, $int17 = ~script8107($int11, $int14);
+def_int $int19 = max(calc($int2 / $int18), 1);
+if (calc($int2 % $int18) > 0 & $int2 > $int18) {
+    $int19 = calc($int19 + 1);
+}
+$int19 = max(1, $int19);
+if (calc($int19 * $int15 - 2) > $int13) {
+    $int7 = 1;
+    if_setposition(0, $int10, ^setpos_abs_right, ^setpos_abs_top, struct_param($struct1, prayer_child_scrollbar));
+    if_setsize(16, if_getheight(struct_param($struct1, prayer_child_view)), ^setsize_abs, ^setsize_abs, struct_param($struct1, prayer_child_scrollbar));
+} else {
+    cc_deleteall(struct_param($struct1, prayer_child_scrollbar));
+    if (%toplevel_v2_legacy_interface = 1 & $boolean8 = false) {
+        if_setposition(0, $int10, ^setpos_abs_left, ^setpos_abs_top, struct_param($struct1, prayer_child_view));
+        if_setsize(0, $int9, ^setsize_minus, ^setsize_minus, struct_param($struct1, prayer_child_view));
+    }
+}
+$int11 = if_getwidth(struct_param($struct1, prayer_child_view));
+$int12 = if_getheight(struct_param($struct1, prayer_child_view));
+$int13 = calc($int12 - (2 + 2));
+$int18, $int16, $int17 = ~script8107($int11, $int14);
+$int19 = max(calc($int2 / $int18), 1);
+if (calc($int2 % $int18) > 0 & $int2 > $int18) {
+    $int19 = calc($int19 + 1);
+}
+$int19 = max(1, $int19);
+def_int $int20 = calc($int19 * $int15 + (2 + 2));
+if_setscrollsize(0, $int20, struct_param($struct1, prayer_child_view));
+if ($int7 = 1) {
+    ~prayer_refresh_scrollbar(struct_param($struct1, prayer_child_scrollbar), struct_param($struct1, prayer_child_view));
+}
+return($int15, $int17, $int16, $int18);

@@ -1,0 +1,28 @@
+// 19649
+[proc,script19649](int $int0, int $int1)(boolean)
+def_graphic $graphic2 = xmas_advent_streak_present_default;
+def_boolean $boolean3 = true;
+if ($int1 = 1) {
+    if (%trh164_prizes_claimed_on_day >= 15) {
+        $graphic2 = xmas_advent_streak_present_claimed_rollover;
+        if ($int0 = 1 & %trh164_streak_prizes_claimed_members = 1 | $int0 = 0 & %trh164_streak_prizes_claimed_f2p = 1) {
+            $boolean3 = false;
+        }
+    } else {
+        $graphic2 = xmas_advent_streak_present_default_rollover;
+    }
+} else if (%trh164_prizes_claimed_on_day >= 15) {
+    $graphic2 = xmas_advent_streak_present_claimed;
+    if ($int0 = 1 & %trh164_streak_prizes_claimed_members = 1 | $int0 = 0 & %trh164_streak_prizes_claimed_f2p = 1) {
+        $boolean3 = false;
+    }
+} else {
+    $graphic2 = xmas_advent_streak_present_default;
+}
+if ($int0 = 1) {
+    if_setgraphic($graphic2, xmas2019_advent:progress_members_present);
+    if_sethide($boolean3, xmas2019_advent:progress_members_tick);
+} else {
+    if_setgraphic($graphic2, xmas2019_advent:progress_f2p_present);
+    if_sethide($boolean3, xmas2019_advent:progress_f2p_tick);
+}

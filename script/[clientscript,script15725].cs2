@@ -1,0 +1,20 @@
+// 15725
+[clientscript,script15725]
+def_int $int0 = shop_requestdatastatus;
+if ($int0 <= 0) {
+    return;
+}
+def_component $component1 = mobile_shop_hard_currency:build_wrapper;
+if_setontimer(null, $component1);
+cc_deleteall($component1);
+if ($int0 = 2) {
+    cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_settextfont(museo_sans_13pt_regular);
+    cc_settext("The shop is currently not available.<br>Please try again later");
+    cc_setcolour(~rgb_to_hex(255, 0, 0));
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    return;
+}
+~mobile_shop_draw(%mobile_shop_current_tab_selected);

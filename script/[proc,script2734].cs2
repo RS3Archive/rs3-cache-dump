@@ -1,0 +1,17 @@
+// 2734
+[proc,script2734](obj $obj0, obj $obj1, int $int2, int $int3)(obj, int, int)
+switch_obj ($obj0) {
+    case iron_bar :
+        if (inv_getobj(worn, 12) = ring_of_forging & ($obj1 = iron_ore | $obj1 = smithing_hopper_dummy & $int2 = 3 | $obj1 = smithing_orebox_dummy & $int2 = 3)) {
+            $int3 = calc($int3 - 1);
+        }
+    case dinarrow_bik, dinarrow_ful, dinarrow_jas_demonbane, dinarrow_jas_dragonbane, dinarrow_wen :
+        switch_obj ($obj1) {
+            case egwd_bik_essence, egwd_wen_essence, egwd_ful_essence, egwd_jas_essence :
+                if (~script17423($obj0) = true) {
+                    return($obj1, $int2, 1);
+                }
+        }
+}
+$int3 = ~script20150($obj0, $int3);
+return($obj1, $int2, $int3);

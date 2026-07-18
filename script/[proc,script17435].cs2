@@ -1,0 +1,11 @@
+// 17435
+[proc,script17435](int $int0)(int)
+def_int $int1 = 0;
+def_dbrow $dbrow2 = ~trh181_get_modifier_dbrow($int0);
+if ($dbrow2 = null) {
+    ~error("Could not find crack chance for modifier ID <tostring($int0)>: setting to 100%");
+    $int1 = 100;
+} else {
+    $int1 = min(calc(db_getfield($dbrow2, trh181_modifier:col3, 0) * (%trh181_keys_used + 1)), 100);
+}
+return($int1);

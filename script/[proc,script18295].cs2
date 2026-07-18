@@ -1,0 +1,48 @@
+// 18295
+[proc,script18295](string $string0, int $int0)(string)
+def_int $int1 = ~script10903;
+$string0 = "<$string0><br>- Casts up to <col=ffffff><tostring($int1)></col> conjure abilities.";
+$string0 = "<$string0><br>- Consumes <col=ffffff>2x</col> <col=ffffff><oc_name(ectoplasm)></col> for each ability.";
+$string0 = "<$string0><br><br><col=ffffff>Undead Army";
+def_struct $struct2 = null;
+def_struct $struct3 = null;
+def_struct $struct4 = null;
+def_struct $struct5 = null;
+$struct2, $struct3, $struct4, $struct5 = ~script18289;
+if ($struct2 = null & $struct3 = null & $struct4 = null & $struct5 = null) {
+    return("<$string0><br>No abilities selected.</col>");
+}
+def_struct $struct6 = null;
+def_int $int7 = 0;
+while (++$int7 <= $int1) {
+    switch_int ($int7) {
+        case 1 :
+            $struct6 = $struct2;
+        case 2 :
+            $struct6 = $struct3;
+        case 3 :
+            $struct6 = $struct4;
+        case 4 :
+            $struct6 = $struct5;
+    }
+    if ($struct6 ! null) {
+        $string0 = "<$string0><br>- ";
+        switch_struct ($struct6) {
+            case combatv2_ability_necromancy_conjure_skeleton_warrior :
+                $string0 = "<$string0><sprite=34169><nbsp>";
+            case combatv2_ability_necromancy_conjure_putrid_zombie :
+                $string0 = "<$string0><sprite=34173><nbsp>";
+            case combatv2_ability_necromancy_conjure_vengeful_ghost :
+                $string0 = "<$string0><sprite=34171><nbsp>";
+            case combatv2_ability_necromancy_conjure_phantom_guardian :
+                $string0 = "<$string0><sprite=34175><nbsp>";
+        }
+        $string0 = "<$string0><col=ffffff><struct_param($struct6, combatv2_ability_name)></col>";
+        if (~script18287($struct6) = true) {
+            $string0 = "<$string0> (active)";
+        } else if (~script17694($struct6) > clientclock) {
+            $string0 = "<$string0> (unavailable)";
+        }
+    }
+}
+return($string0);

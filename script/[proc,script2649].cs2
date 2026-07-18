@@ -1,0 +1,23 @@
+// 2649
+[proc,script2649]
+def_int $int0 = userdetail_lobby_unreadmessages;
+def_string $string0 = "Messages";
+def_int $int1 = 0;
+def_string $string1 = "<tostring($int0)> Unread";
+def_string $string2 = "";
+if ($int0 = 0) {
+    $string2 = "You have no unread messages. Use this button to open your Message Centre.";
+} else {
+    $int1 = 1;
+    $string2 = append("You have <tostring($int0)> unread ", ~text_plural($int0, "message.", "messages."));
+    $string2 = append($string2, " Click here to open your Message Centre.");
+}
+if ($int1 = 1) {
+    if ($int0 < 100) {
+        ~script10017(lobbyscreen:message_button_layer, -1, 6, 0, tostring($int0), null);
+    } else {
+        ~script10017(lobbyscreen:message_button_layer, -1, 6, 0, "*", null);
+    }
+}
+~script10059($string0, $string1, $string2, lobbyscreen:button_message);
+if_setonbuttonpressed("lobbyscreen_link(2501)", lobbyscreen:button_message);

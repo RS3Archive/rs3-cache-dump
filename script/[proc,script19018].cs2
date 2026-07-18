@@ -1,0 +1,27 @@
+// 19018
+[proc,script19018](struct $struct0, int $int1, enum $enum2)
+def_struct $struct3 = enum(int, struct, $enum2, $int1);
+def_string $string0 = struct_param($struct3, trh142_prize_title);
+def_obj $obj4 = struct_param($struct3, trh142_prize_obj);
+def_graphic $graphic5 = struct_param($struct3, trh142_prize_graphic);
+if (if_find(trh119_buried_treasure_overlay:prize_graphic) = true) {
+    if ($obj4 ! null) {
+        if (string_length($string0) = 0) {
+            $string0 = "<oc_name($obj4)> - <oc_param($obj4, trh_extended_desc)>";
+        }
+        if (string_length($string0) = 0) {
+            $string0 = "<oc_name($obj4)> - <oc_desc($obj4)>";
+        }
+        cc_setobject_highres($obj4);
+    } else {
+        cc_setgraphic($graphic5);
+    }
+}
+if_settext($string0, trh119_buried_treasure_overlay:prize_title);
+%trh142_selected_prize_index = $int1;
+switch_struct ($struct0) {
+    case trh198_promo :
+        sound_vorbis_volume(necro_sfx_ui_misc_clicks_07, 1, 0, 150);
+    case default :
+        sound_vorbis_volume(select_shop_item, 1, 0, 150);
+}

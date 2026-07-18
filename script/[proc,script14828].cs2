@@ -1,0 +1,26 @@
+// 14828
+[proc,script14828]
+cc_deleteall(arch_journal:restoration_contents_build_layer);
+cc_deleteall(arch_journal:restoration_contents_control_layer);
+if (%arch_journal_restoration_filter_selected = -1) {
+    %arch_journal_restoration_filter_selected = 0;
+}
+def_dbrow $dbrow0 = enum(int, dbrow, arch_journal_restoration_filter_data, %arch_journal_restoration_filter_selected);
+if ($dbrow0 = null) {
+    return;
+}
+def_int $int1 = ~script14762(arch_journal:restoration_contents_build_layer, arch_journal:restoration_contents_control_layer, $dbrow0, 0, 0, if_getwidth(arch_journal:restoration_contents_build_layer), 0);
+def_int $int2 = db_getfieldcount($dbrow0, collection:col13);
+def_int $int3 = -1;
+while (++$int3 < $int2) {
+    if (cc_find(arch_journal:restoration_contents_control_layer, $int3) = true) {
+        db_find(arch_restoration:col6, db_getfield($dbrow0, collection:col13, $int3));
+        cc_setopcursor(1, cursor_info);
+        cc_setop(1, "Info");
+        cc_setonop("script14830(db_findnext)");
+    }
+}
+if_setscrollsize(0, max(if_getheight(arch_journal:restoration_contents_scrolling_layer), $int1), arch_journal:restoration_contents_scrolling_layer);
+if_setscrollpos(0, 0, arch_journal:restoration_contents_scrolling_layer);
+~rs3_scrollbar_vertical(arch_journal:restoration_contents_scrollbar_layer, arch_journal:restoration_contents_scrolling_layer);
+~script10428(arch_journal:restoration_filter_dropdown_build_layer, arch_journal:restoration_filter_dropdown_control_layer, arch_journal_restoration_filter, calc(enum_getoutputcount(arch_journal_restoration_filter) - 1), "Select a filter", %arch_journal_restoration_filter_selected, 0);

@@ -1,0 +1,101 @@
+// 12387
+[proc,script12387](int $int0)
+def_int $int1 = 1;
+def_int $int2 = 0;
+def_string $string0 = "Faction reputation rewards";
+def_enum $enum3 = enum(int, enum, gwd2_rep_unlock_desc_enums, $int0);
+if ($enum3 = null) {
+    return;
+}
+switch_int ($int0) {
+    case 1 :
+        $int2 = %gwd2_rep_seren;
+        $string0 = "Seren reputation";
+        if_setgraphic("gwd2_icon_god_symbol_50px,0", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,0", gwd2_rep:faction_icon_r);
+    case 2 :
+        $int2 = %gwd2_rep_sliske;
+        $string0 = "Sliske reputation";
+        if_setgraphic("gwd2_icon_god_symbol_50px,1", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,1", gwd2_rep:faction_icon_r);
+    case 3 :
+        $int2 = %gwd2_rep_zamorak;
+        $string0 = "Zamorak reputation";
+        if_setgraphic("gwd2_icon_god_symbol_50px,2", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,2", gwd2_rep:faction_icon_r);
+    case 4 :
+        $int2 = %gwd2_rep_zaros;
+        $string0 = "Zaros reputation";
+        if_setgraphic("gwd2_icon_god_symbol_50px,3", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,3", gwd2_rep:faction_icon_r);
+}
+%gwd2_current_faction_client = $int0;
+if_sethide(true, gwd2_rep:info_layer);
+~script9554(gwd2_rep:mainmodal_window_background, gwd2_rep:mainmodal_window_border, gwd2_rep:mainmodal_window_content, "<$string0> rewards", toplevel_v2_default_main_modal_skin_data);
+~script12392($int0);
+def_int $int4 = 1;
+def_int $int5 = 0;
+if (calc(%gwd2_rep_seren + %gwd2_rep_sliske + %gwd2_rep_zamorak + %gwd2_rep_zaros) >= calc(5000 * 4)) {
+    $int4 = 0;
+} else if ($int2 >= 5000) {
+    $int4 = 14;
+    $int5 = 11;
+} else if ($int2 >= 4500) {
+    $int4 = 13;
+    $int5 = 10;
+} else if ($int2 >= 4000) {
+    $int4 = 12;
+    $int5 = 9;
+} else if ($int2 >= 3500) {
+    $int4 = 11;
+    $int5 = 8;
+} else if ($int2 >= 3000) {
+    $int4 = 10;
+    $int5 = 7;
+} else if ($int2 >= 2500) {
+    $int4 = 9;
+    $int5 = 6;
+} else if ($int2 >= 2000) {
+    $int4 = 8;
+    $int5 = 5;
+} else if ($int2 >= 1500) {
+    $int4 = 7;
+    $int5 = 5;
+} else if ($int2 >= 1000) {
+    $int4 = 7;
+    $int5 = 4;
+} else if ($int2 >= 750) {
+    $int4 = 5;
+    $int5 = 3;
+} else if ($int2 >= 500) {
+    $int4 = 5;
+    $int5 = 3;
+} else if ($int2 >= 250) {
+    $int4 = 3;
+    $int5 = 2;
+} else if ($int2 >= 100) {
+    $int4 = 2;
+    $int5 = 1;
+}
+def_int $int6 = calc($int2 - enum(int, int, gwd2_rep_unlock_reqs, calc($int4 - 1)));
+def_string $string1 = "Unknown";
+def_int $int7 = calc(enum(int, int, gwd2_rep_unlock_reqs, $int4) - enum(int, int, gwd2_rep_unlock_reqs, calc($int4 - 1)));
+~script12388($int2, $int4);
+if ($int4 = 14) {
+    $int6 = calc(%gwd2_rep_seren + %gwd2_rep_sliske + %gwd2_rep_zamorak + %gwd2_rep_zaros);
+    $int7 = 20000;
+}
+if ($int4 = 0) {
+    $string1 = "All rewards unlocked!";
+    if_setsize(444, 9, ^setsize_abs, ^setsize_abs, gwd2_rep:overall_progress_front);
+} else {
+    if_setsize(calc(4 + 44 * ($int5 - 1)), 9, ^setsize_abs, ^setsize_abs, gwd2_rep:overall_progress_front);
+    $string1 = enum(int, string, gwd2_rep_unlock_names, $int4);
+    if ($int4 = 14) {
+        $string1 = "Next unlock: <$string1><br>Total Reputation: <tostring_localised($int6, true)>/<tostring_localised($int7, true)>";
+    } else {
+        $string1 = "Next unlock: <$string1><br>Progress: <tostring_localised($int6, true)>/<tostring_localised($int7, true)>";
+    }
+}
+if_settext($string1, gwd2_rep:next_unlock_text);
+if_settext("<$string0>: <tostring_localised(min(5000, $int2), true)>/<tostring_localised(5000, true)>", gwd2_rep:rep_total_text);

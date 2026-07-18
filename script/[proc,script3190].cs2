@@ -1,0 +1,27 @@
+// 3190
+[proc,script3190]
+def_component $component0 = lobbyscreen_report_abuse_stage2:mainmodal_window_background;
+def_component $component1 = lobbyscreen_report_abuse_stage2:mainmodal_window_border;
+def_component $component2 = lobbyscreen_report_abuse_stage2:mainmodal_window_content;
+def_struct $struct3 = toplevel_v2_nondragable_dialogue_skin_data;
+if_sethide(false, lobbyscreen:report_abuse_stage2);
+if (if_gethide(enum(int, component, lobby_panels_mobile, 4)) = false) {
+    ~script3161(0);
+}
+if (string_length(%lobbyscreen_report_abuse_name) > 0) {
+    ~script9554($component0, $component1, $component2, "Reporting: <%lobbyscreen_report_abuse_name>", $struct3);
+} else {
+    ~script9554($component0, $component1, $component2, "Report Player", $struct3);
+}
+if (playermod = 1 | %create_country = 1 | staffmodlevel > 0) {
+    ~script7886(lobbyscreen_report_abuse_stage2:mute_checkbox, true, true, %snapshot_mute);
+    if (playermodlevel = 5 | playermodlevel = 6) {
+        if_settext("Suggest to temporarily mute this player", lobbyscreen_report_abuse_stage2:mute_checkbox);
+    } else {
+        if_settext("Temporarily mute this player", lobbyscreen_report_abuse_stage2:mute_checkbox);
+    }
+    if_sethide(false, lobbyscreen_report_abuse_stage2:mute_checkbox);
+} else {
+    if_sethide(true, lobbyscreen_report_abuse_stage2:mute_checkbox);
+}
+if_setonkey("lobby_down_collapse(event_keycode)", lobbyscreen_report_abuse_stage2:mainmodal_window);

@@ -1,0 +1,69 @@
+// 3060
+[proc,lobbyscreen_tabswitch](int $int0)
+def_boolean $boolean1 = ~is_mobile_client;
+def_enum $enum2 = ~script17126;
+def_component $component3 = enum(int, component, $enum2, $int0);
+if ($component3 = null | if_gethide($component3) = false & $boolean1 = false) {
+    ~script15612;
+    return;
+}
+%lobby_current_tab = $int0;
+~script15628;
+~script15612;
+if_sethide(true, enum(int, component, $enum2, 0));
+if_sethide(true, enum(int, component, $enum2, 1));
+if_sethide(true, enum(int, component, $enum2, 2));
+if_sethide(true, enum(int, component, $enum2, 4));
+if_sethide(true, enum(int, component, $enum2, 3));
+if_sethide(true, enum(int, component, $enum2, 5));
+~lobbyscreen_input_close;
+if ($int0 ! 4) {
+    ~script3161(0);
+}
+if ($int0 ! 3) {
+    ~script4556(0);
+}
+if ($int0 = 2) {
+    if ($boolean1 = false) {
+        if_setontimer("script10055", lobbyscreen_pane_friendslist:main);
+    } else {
+        if_setontimer("script10055", lobbyscreen_pane_mobile_social:main);
+    }
+}
+if ($int0 = 1) {
+    ~script15639;
+    worldlist_pingworlds(true);
+} else {
+    worldlist_pingworlds(false);
+}
+if ($int0 = 5) {
+    if_sethide(true, lobbyscreen:bottom_bar);
+} else {
+    if (worldlist_fetch = false) {
+        if_setontimer("script13117(event_com)", lobbyscreen:current_world_timer);
+    } else {
+        ~script3116;
+    }
+    if_sethide(false, lobbyscreen:bottom_bar);
+}
+if_sethide(false, $component3);
+switch_int ($int0) {
+    case 2 :
+        if ($boolean1 = true) {
+            if_button_settoggled(false, lobbyscreen_pane_mobile_social:friends_chat_button);
+            if_button_settoggled(false, lobbyscreen_pane_mobile_social:clan_chat_button);
+        }
+    case 4 :
+        ~script3161(1);
+        if ($boolean1 = true) {
+            if_button_settoggled(false, lobbyscreen_pane_mobile_social:friends_button);
+            if_button_settoggled(false, lobbyscreen_pane_mobile_social:friends_chat_button);
+        }
+    case 3 :
+        ~script4556(1);
+        if ($boolean1 = true) {
+            if_button_settoggled(false, lobbyscreen_pane_mobile_social:friends_button);
+            if_button_settoggled(false, lobbyscreen_pane_mobile_social:clan_chat_button);
+        }
+}
+~script15600($int0);

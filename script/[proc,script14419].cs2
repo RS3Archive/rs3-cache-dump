@@ -1,0 +1,26 @@
+// 14419
+[proc,script14419](inv $inv0, obj $obj1, int $int2, string $string0)(string, string, string, string, string, string, string, string, string, string)
+def_string $string1 = oc_param($obj1, bank_extra_op1);
+def_string $string2 = oc_param($obj1, bank_extra_op2);
+def_string $string3 = ~script13687($string0);
+if ($inv0 = inv & string_length($string1) <= 0) {
+    if (oc_wearpos($obj1) ! -1 & oc_param($obj1, bank_wear_prevented) = false & enum(obj, boolean, unequippable_items_with_a_wearpos, $obj1) = false) {
+        $string1 = oc_iop($obj1, 2);
+    } else if ((oc_param($obj1, food_heal) > 0 | oc_param($obj1, foodhealpercent) > 0 | oc_param($obj1, food_healportion) > 0) & (oc_members($obj1) = 0 | %bank_player_is_member_now = true)) {
+        if (oc_category($obj1) = potion) {
+            $string1 = "Drink";
+        } else {
+            $string1 = "Eat";
+        }
+    }
+} else if ($inv0 = group_ironman_storage_player_inv_temp) {
+    $string1 = "";
+    $string2 = "";
+}
+if ($int2 > 5) {
+    return($string3, "<$string0>-1", "<$string0>-5", "<$string0>-10", "<$string0>-<tostring(%bank_move_x)>", "<$string0>-X", "<$string0>-All", $string1, $string2, "Examine");
+} else if ($int2 > 1) {
+    return($string3, "<$string0>-1", "<$string0>-5", "", "<$string0>-<tostring(%bank_move_x)>", "<$string0>-X", "<$string0>-All", $string1, $string2, "Examine");
+} else {
+    return("", "<$string0>-1", "", "", "", "", "", $string1, $string2, "Examine");
+}

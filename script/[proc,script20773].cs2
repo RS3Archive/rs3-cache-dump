@@ -1,0 +1,56 @@
+// 20773
+[proc,script20773](int $int0)
+def_component $component1 = house_furniture_makex:side_panel_model;
+def_component $component2 = house_furniture_makex:side_panel_model_container;
+def_int $int3 = calc(if_gety($component2) + if_getheight(house_furniture_makex:quantity_wrapper) + if_getheight(house_furniture_makex:make_button) + 192 + 4 * 4);
+if_setsize(216, 192, ^setsize_abs, ^setsize_abs, house_furniture_makex:side_panel_model_container);
+if_setsize(calc(4 * 2), $int3, ^setsize_minus, ^setsize_minus, house_furniture_makex:side_panel_scrolling);
+if_setsize(16, $int3, ^setsize_abs, ^setsize_minus, house_furniture_makex:side_panel_scrollbar);
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_dbrow $dbrow6 = null;
+if (%varclientbit_61228 ! -1) {
+    $dbrow6 = ~script11651(%varclientbit_61228);
+    if ($dbrow6 ! null) {
+        $obj5 = db_getfield($dbrow6, construction_house_furniture:col4, 0);
+    }
+}
+def_int $int7 = calc(~script11432(if_getfontmetrics(house_furniture_makex:info_requirements_header)) + 4);
+if_settext(oc_name($obj5), house_furniture_makex:info_object_name);
+if_setmaxlines(1, house_furniture_makex:info_object_name);
+~kr_arrow_toplevel(house_furniture_makex:info_object_name, fonts_notosans_regular, 1, 14, 12);
+if_setobject_highres($obj5, $component1);
+~script7126(house_furniture_makex:info_value, $obj5);
+def_int $int8 = calc(if_gety(house_furniture_makex:info_value) + if_getheight(house_furniture_makex:info_value));
+def_int $int9 = calc($int8 + 4);
+def_int $int10 = ~script7127($obj5, $int7, house_furniture_makex:info_requirements);
+def_int $int11 = ~script7129($obj5, $int7, house_furniture_makex:info_materials);
+if ($int10 <= $int7) {
+    if_sethide(true, house_furniture_makex:info_requirements);
+} else {
+    if_sethide(false, house_furniture_makex:info_requirements);
+    if_setposition(0, $int9, ^setpos_abs_centre, ^setpos_abs_top, house_furniture_makex:info_requirements);
+    $int9 = calc($int9 + $int10 + 4);
+}
+if ($int11 <= $int7) {
+    if_sethide(true, house_furniture_makex:info_materials);
+} else {
+    if_sethide(false, house_furniture_makex:info_materials);
+    if_setposition(0, $int9, ^setpos_abs_centre, ^setpos_abs_top, house_furniture_makex:info_materials);
+    $int9 = calc($int9 + $int11 + 4);
+}
+if_setscrollpos(0, 0, house_furniture_makex:side_panel_scrolling);
+~script19620(house_furniture_makex:side_panel_scrollbar, house_furniture_makex:side_panel_scrolling, $int9, null, -1, 0, -1, -1);
+def_boolean $boolean12 = ~script7105($obj5);
+def_int $int13 = ~script7108($obj5);
+if ($obj5 = null | $boolean12 = false | $int13 <= 0) {
+    ~static_slider_disabled(house_furniture_makex:slider_build, house_furniture_makex:slider_click, rs3tli_slider_bar, 0, 1, 0, true);
+    if_setenabled(false, house_furniture_makex:make_button);
+    return;
+}
+if (%construction_house_furniture_makex_quantity > 0) {
+    if_setenabled(true, house_furniture_makex:make_button);
+} else {
+    if_setenabled(false, house_furniture_makex:make_button);
+}
+~static_slider(house_furniture_makex:slider_build, house_furniture_makex:slider_click, rs3tli_slider_bar, 1, $int13, %construction_house_furniture_makex_quantity);

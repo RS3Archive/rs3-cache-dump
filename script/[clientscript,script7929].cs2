@@ -1,0 +1,34 @@
+// 7929
+[clientscript,script7929](component $component0, component $component1, int $int2, int $int3)
+if (clientclock > $int3) {
+    if (++$int2 > 7) {
+        $int2 = 0;
+    }
+    switch_int ($int2) {
+        case 0 :
+            if_setgraphic("rs3_login_throbber_large,0", $component0);
+        case 1 :
+            if_setgraphic("rs3_login_throbber_large,1", $component0);
+        case 2 :
+            if_setgraphic("rs3_login_throbber_large,2", $component0);
+        case 3 :
+            if_setgraphic("rs3_login_throbber_large,3", $component0);
+        case 4 :
+            if_setgraphic("rs3_login_throbber_large,4", $component0);
+        case 5 :
+            if_setgraphic("rs3_login_throbber_large,5", $component0);
+        case 6 :
+            if_setgraphic("rs3_login_throbber_large,6", $component0);
+        case 7 :
+            if_setgraphic("rs3_login_throbber_large,7", $component0);
+    }
+    $int3 = calc(clientclock + 20);
+}
+if_settext("<tostring(preload_percent)>%", $component1);
+if (preload_percent = 100) {
+    if_setontimer(null, $component1);
+    if_sethide(true, $component0);
+    if_sethide(true, $component1);
+} else {
+    if_setontimer("script7929($component0, $component1, $int2, $int3)", $component1);
+}

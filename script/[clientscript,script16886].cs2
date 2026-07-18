@@ -1,0 +1,16 @@
+// 16886
+[clientscript,script16886](component $component0, component $component1)
+def_string $string0 = "Transition Now";
+if ($component0 = gamemode_seasonal_transition:btn_panel & ~script1017 = true) {
+    if_setsize(20, 40, ^setsize_minus, ^setsize_abs, $component0);
+    ~if_add_child_layer($component0, 0, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+    ~cc_add_child_button(0, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 100, 0, ^setsize_minus, ^setsize_minus, button_action_neutral, "Continue Playing");
+    cc_setop(1, "Continue Playing");
+    $string0 = "Change Game Mode";
+} else {
+    if_setsize(310, 40, ^setsize_abs, ^setsize_abs, $component0);
+}
+~if_add_child_layer($component0, 1, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+~cc_add_child_button(1, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 100, 0, ^setsize_minus, ^setsize_minus, button_action_positive, $string0);
+cc_setop(1, "Transition Now");
+cc_setonbuttonpressed("gamemode_seasonal_transition_confirm_open($component1)");

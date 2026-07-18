@@ -1,0 +1,50 @@
+// 15321
+[proc,achievement_description](achievement $achievement0)(string)
+if ($achievement0 = null) {
+    return("");
+}
+def_string $string0 = achievement_getdesc($achievement0, 0);
+def_string $string1 = "";
+if (~ironman_mode = true) {
+    $string1 = achievement_getdesc($achievement0, 1);
+    if (string_length($string1) > 0) {
+        $string0 = $string1;
+    }
+    if (~script19316 = true) {
+        switch_int (%group_ironman_cache_group_size) {
+            case 2 :
+                $string1 = achievement_getdesc($achievement0, 2);
+            case 3 :
+                $string1 = achievement_getdesc($achievement0, 3);
+            case 4 :
+                $string1 = achievement_getdesc($achievement0, 4);
+            case 5 :
+                $string1 = achievement_getdesc($achievement0, 5);
+            case default :
+                $string1 = "";
+        }
+        if (string_length($string1) > 0) {
+            $string0 = $string1;
+        }
+    }
+}
+$string0 = ~script19842($achievement0, $string0);
+def_int $int1 = 0;
+if (enum_hasoutput(achievement, cheevo_dummy_meta_list, $achievement0) = true) {
+    $int1 = 1;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($int1 = 0) {
+    $int2, $int3 = ~achievement_tally($achievement0);
+    if ($int3 > 0) {
+        $string0 = append($string0, " (<tostring_localised($int2, true)>/<tostring_localised($int3, true)>)");
+    } else {
+        $int3 = ~script19622($achievement0);
+        if ($int3 > 1) {
+            $int2 = ~script19623($achievement0);
+            $string0 = append($string0, " (<tostring_localised($int2, true)>/<tostring_localised($int3, true)>)");
+        }
+    }
+}
+return($string0);

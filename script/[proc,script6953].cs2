@@ -1,0 +1,19 @@
+// 6953
+[proc,script6953]()(dbrow)
+def_int $int0 = 5;
+if ($int0 = 0) {
+    if (%trh189_selected_skin = 0) {
+        ~if_setgraphic(wheel_of_fortune:background, trh189_skin_select_background);
+        ~script10619(1);
+        $int0 = 2;
+    } else {
+        $int0 = %trh189_selected_skin;
+    }
+}
+db_find(trh189_promo_skin:col0, $int0);
+def_dbrow $dbrow1 = db_findnext;
+if ($dbrow1 = null) {
+    ~error("Promotion skin is null when getting fighter. Using default.");
+    $dbrow1 = trh189_promo_skin_phoenix;
+}
+return($dbrow1);

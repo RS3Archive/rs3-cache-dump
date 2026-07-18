@@ -1,0 +1,115 @@
+// 7333
+[proc,script7333]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 2;
+def_int $int5 = %pop_captain_n_gender;
+def_int $int6 = %pop_captain_n_firstname;
+def_int $int7 = %pop_captain_n_lastname;
+def_int $int8 = %pop_captain_n_hair;
+def_enum $enum9 = pop_captain_firstname_male;
+def_int $int10 = 2187;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+if ($int5 = 1) {
+    $enum9 = pop_captain_firstname_female;
+    $int10 = 2188;
+}
+def_npc $npc11 = ~script2356($int5, $int8, %pop_captain_n_skincol, %pop_captain_n_haircol);
+$string0 = append(enum(int, string, $enum9, $int6), append("<br>", enum(int, string, pop_captain_lastname, $int7)));
+$int0, $int1, $int2, $int3 = ~script7334;
+if ($int0 > 0) {
+    if_sethide(false, pop_hud:adventurer_1_layer);
+    if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, pop_hud:adventurer_1_layer);
+    if_settext(enum(int, string, pop_voyage_adventurers, $int0), pop_hud:adventurer_1_name);
+    if_setmodel(enum(int, model, pop_story_adventurer_heads, $int0), pop_hud:adventurer_1_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_hud:adventurer_1_model);
+    if ($int1 = 2) {
+        if_settext("In Port", pop_hud:adventurer_1_status);
+    } else if ($int1 = 3) {
+        if_settext("Under Way", pop_hud:adventurer_1_status);
+    }
+    $int4 = calc($int4 + if_getheight(pop_hud:adventurer_1_layer));
+} else {
+    if_sethide(true, pop_hud:adventurer_1_layer);
+}
+if ($int2 > 0) {
+    if_sethide(false, pop_hud:adventurer_2_layer);
+    if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, pop_hud:adventurer_2_layer);
+    if_settext(enum(int, string, pop_voyage_adventurers, $int2), pop_hud:adventurer_2_name);
+    if_setmodel(enum(int, model, pop_story_adventurer_heads, $int2), pop_hud:adventurer_2_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_hud:adventurer_2_model);
+    if ($int3 = 2) {
+        if_settext("In Port", pop_hud:adventurer_2_status);
+    } else if ($int3 = 3) {
+        if_settext("Under Way", pop_hud:adventurer_2_status);
+    }
+    $int4 = calc($int4 + if_getheight(pop_hud:adventurer_2_layer));
+} else {
+    if_sethide(true, pop_hud:adventurer_2_layer);
+}
+if (%pop_captain_n_firstname > 0) {
+    if_sethide(false, pop_hud:captain_layer);
+    if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, pop_hud:captain_layer);
+    if_settext($string0, pop_hud:captain_name);
+    if_setnpchead($npc11, pop_hud:captain_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_hud:captain_model);
+    $int4 = calc($int4 + if_getheight(pop_hud:captain_layer));
+} else {
+    if_sethide(true, pop_hud:captain_layer);
+}
+if (%pop_market_quantity > 0) {
+    if_sethide(false, pop_hud:smuggler_layer);
+    if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, pop_hud:smuggler_layer);
+    if_setmodel(pop_original_black_marketeer_chat, pop_hud:smuggler_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_hud:smuggler_model);
+    if_setgraphic(enum(int, graphic, pop_port_resource_icons, %pop_market_resource), pop_hud:smuggler_goods_icon);
+    if_setsize(17, 17, ^setsize_abs, ^setsize_abs, pop_hud:smuggler_goods_icon);
+    if_settext(enum(int, string, pop_voyage_rewards, %pop_market_resource), pop_hud:smuggler_goods);
+    if_settext("x <tostring(%pop_market_quantity)>", pop_hud:smuggler_quantity);
+    $int4 = calc($int4 + if_getheight(pop_hud:smuggler_layer));
+} else {
+    if_sethide(true, pop_hud:smuggler_layer);
+}
+if (%pop_trader_quantity > 0) {
+    $string1 = enum(int, string, pop_voyage_rewards, %pop_trader_selling);
+    $string2 = enum(int, string, pop_voyage_rewards, %pop_trader_wanted);
+    if_sethide(false, pop_hud:trader_layer);
+    if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, pop_hud:trader_layer);
+    if_setmodel(pop2_trader_npc_chat, pop_hud:trader_model);
+    if_setmodelanim(human_update_chathead_shifty_len1, pop_hud:trader_model);
+    if_setgraphic(enum(int, graphic, pop_port_reward_icons, %pop_trader_selling), pop_hud:trader_goods_icon);
+    if_setsize(17, 17, ^setsize_abs, ^setsize_abs, pop_hud:trader_goods_icon);
+    if_setgraphic(enum(int, graphic, pop_port_resource_icons, %pop_trader_wanted), pop_hud:trader_wants_icon);
+    if_setsize(17, 17, ^setsize_abs, ^setsize_abs, pop_hud:trader_wants_icon);
+    if_setonmouserepeat("script8799($string1, event_com, -1)", pop_hud:trader_goods_icon);
+    if_setonmouserepeat("script8799($string2, event_com, -1)", pop_hud:trader_wants_icon);
+    $int4 = calc($int4 + if_getheight(pop_hud:trader_layer));
+} else {
+    if_sethide(true, pop_hud:trader_layer);
+}
+$int4 = calc($int4 + 43);
+if_setsize(176, $int4, ^setsize_abs, ^setsize_abs, pop_hud:people_layer);
+if (%pop_tutorial_progress < 63) {
+    if_sethide(true, pop_hud:rerolls_layer);
+    return;
+}
+if_sethide(false, pop_hud:rerolls_layer);
+if_settext("x<tostring(%pop_port_item_4_quantity)>", pop_hud:adventurer_reroll_count);
+if (%pop_port_item_4_quantity < 1) {
+    if_sethide(false, pop_hud:adventurer_reroll_gone);
+} else {
+    if_sethide(true, pop_hud:adventurer_reroll_gone);
+}
+if_settext("x<tostring(%pop_port_item_3_quantity)>", pop_hud:captain_reroll_count);
+if (%pop_port_item_3_quantity < 1) {
+    if_sethide(false, pop_hud:captain_reroll_gone);
+} else {
+    if_sethide(true, pop_hud:captain_reroll_gone);
+}
+def_int $int12 = if_gety(pop_hud:people_layer);
+def_int $int13 = if_getheight(pop_hud:people_layer);
+def_int $int14 = if_getheight(pop_hud:container);

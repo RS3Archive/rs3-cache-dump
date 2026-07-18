@@ -1,0 +1,16 @@
+// 11682
+[proc,script11682](npc $npc0)(int)
+def_int $int1 = min(nc_param($npc0, lore_storage_space), inv_size(lore_bob));
+switch_npc ($npc0) {
+    case lore_pig_attack, lore_pig_attack_combat, lore_pig_bob, lore_pig_bob_combat, lore_pig_chat_combat, lore_pig_chat_other, lore_pig_pet, lore_pig_prayer, lore_pig_prayer_combat :
+        switch_int (%quest_bacon_tunnel_state) {
+            case 12, 13, 14 :
+                $int1 = calc($int1 + 4);
+            case 15, 16, 17 :
+                $int1 = calc($int1 + 18);
+        }
+}
+if (nc_param($npc0, mtxmgt_pet_legendary) = 1) {
+    $int1 = %mtx_pet_bob_size;
+}
+return($int1);

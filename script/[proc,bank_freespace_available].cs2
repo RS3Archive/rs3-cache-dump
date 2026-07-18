@@ -1,0 +1,26 @@
+// 3546
+[proc,bank_freespace_available](int $int0, int $int1)(boolean)
+if (playermember = true) {
+    if (~bank_freespace >= calc($int0 + $int1)) {
+        return(true);
+    }
+    return(false);
+}
+def_int $int2 = ~script5778;
+def_int $int3 = ~script14294;
+def_int $int4 = max(0, calc($int2 - $int3));
+if ($int0 > 0) {
+    if ($int4 < $int0) {
+        return(false);
+    }
+    if ($int4 >= calc($int0 + $int1)) {
+        return(true);
+    }
+}
+if ($int1 <= 0) {
+    return(true);
+}
+if (calc(~bank_get_members_size - ~script14337 - $int0 - $int1) >= 0) {
+    return(true);
+}
+return(false);

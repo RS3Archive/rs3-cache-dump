@@ -1,0 +1,34 @@
+// 11092
+[clientscript,script11092](struct $struct0, struct $struct1, int $int2, int $int3, int $int4)
+def_component $component5 = rewardshop:rewardshop_item_name;
+def_component $component6 = rewardshop:rewardshop_confirm_slot;
+def_component $component7 = rewardshop:rewardshop_confirm_msg;
+def_string $string0 = ~script13337($struct1);
+if_settext($string0, $component5);
+cc_deleteall($component6);
+cc_create($component6, ^iftype_graphic, 0);
+if (struct_param($struct1, rewardshop_icon) ! null) {
+    cc_setsize(min(struct_param($struct1, rewardshop_icon_x), 32), min(struct_param($struct1, rewardshop_icon_y), 32), ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(struct_param($struct1, rewardshop_icon));
+    if ($int2 > 1) {
+        if_settext("<$string0> X<tostring($int2)>", $component5);
+    }
+} else if (struct_param($struct1, rewardshop_obj) ! null) {
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject(~script14453($struct1, struct_param($struct1, rewardshop_obj)), $int2);
+}
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+sound_vorbis_volume(mtxoct18_plaguedr_bingo_stamp_active_2, 1, 0, 150);
+def_string $string1 = "This will cost you: <~script12658($struct0, $struct1, $int3, $int4, true, 0)>";
+if (struct_param($struct1, rewardshop_is_claimable) = 1) {
+    $string1 = "You are about to claim this item.";
+} else if (struct_param($struct1, rewardshop_is_upgrade) = 1) {
+    $string1 = "You are about to unlock this upgrade.";
+}
+def_string $string2 = struct_param($struct1, rewardshop_buy_warning);
+if (~script10080($struct1) = 1 & string_length($string2) > 0) {
+    $string2 = append("<br>", $string2);
+    $string1 = append($string1, $string2);
+}
+if_settext($string1, $component7);
+sound_vorbis_volume(mtxoct18_plaguedr_bingo_stamp_active_2, 1, 0, 150);

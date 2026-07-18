@@ -1,0 +1,41 @@
+// 13108
+[proc,script13108](struct $struct0, int $int1)(int)
+if ($struct0 = null) {
+    return(-1);
+}
+def_dbrow $dbrow2 = null;
+if (struct_param($struct0, mtxmgt_category) = 2) {
+    $dbrow2 = ~script15769($struct0);
+    if ($dbrow2 = null & $struct0 ! mtxmgt_store_return_max_subid) {
+        ~error("Non-null $item_struct lacks a dbrow - <struct_param($struct0, mtxmgt_name)>");
+        return(-1);
+    } else {
+        return(db_getfield($dbrow2, mtxmgt_cosmetic:col0, 0));
+    }
+}
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_enum $enum5 = null;
+def_int $int6 = 0;
+def_int $int7 = -1;
+while (++$int3 <= 6) {
+    if ($int1 = 1 | ~script13106(~script13156, $int3) = true) {
+        $int4 = -1;
+        while (++$int4 <= 21) {
+            $enum5 = enum(int, enum, mtxmgt_category_list, $int3);
+            $int4 = 21;
+            if ($enum5 ! null) {
+                $int6 = enum_getoutputcount($enum5);
+                if (enum_getreversecount(struct, $enum5, $struct0) = 0) {
+                    $int7 = calc($int7 + $int6);
+                } else {
+                    return(calc($int7 + 1 + enum_getreverseindex(struct, int, $enum5, $struct0, 0)));
+                }
+            }
+        }
+    }
+}
+if ($struct0 = mtxmgt_store_return_max_subid) {
+    return($int7);
+}
+return(-1);

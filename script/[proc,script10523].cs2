@@ -1,0 +1,21 @@
+// 10523
+[proc,script10523](component $component0, char $char1)(char)
+if (%p_dialog_mode = 9) {
+    switch_component ($component0) {
+        case text_input_dialog:text_input_listen, investigate:text_input_listen :
+            if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'\"£*+-/=?^_., ()[]:;|\\{}~@öäüëïÖÄÜßÁÀéíóúùàáçãõêôâîèûÉÊÈœÇÔåÅ", $char1, 0) = -1) {
+                $char1 = null;
+            }
+        case bonds_namechange_change:text_input_listen :
+            if (string_length(%p_dialog_input) = 0 & string_indexof_char("- _", $char1, 0) ! -1) {
+                $char1 = null;
+            } else if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789  _-", $char1, 0) = -1) {
+                $char1 = null;
+            }
+        case player_inspect_settings:text_input_listen :
+            if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'\"£*+-/=?^_., ()[]:;|\\{}~@öäüÖÄÜßÁéíóúàçãõêôâèûÉÊÈœÇÔåÅ", $char1, 0) = -1) {
+                $char1 = null;
+            }
+    }
+}
+return($char1);

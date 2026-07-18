@@ -1,0 +1,64 @@
+// 14677
+[proc,script14677](dbrow $dbrow0)(string)
+def_dbrow $dbrow1 = ~arch_qualification_get_data(calc(db_getfield($dbrow0, arch_researcher:col1, 0) + 1));
+def_string $string0 = "";
+switch_dbrow ($dbrow0) {
+    case arch_researcher_katarina, arch_researcher_dorian, arch_researcher_eduardo :
+        if (~ql4_getprogress(dig_site) ! 2 | %arch_qualification < 2) {
+            $string0 = ~quest_name(dig_site);
+            return("You must have completed the '<$string0>' quest before you can unlock this researcher, and also have achieved the '<db_getfield($dbrow1, arch_qualification:col1, 0)>' qualification.");
+        }
+        return("You can unlock this researcher by handing them a specific restored artefact.<br>You can find them at the Varrock Dig Site.");
+    case arch_researcher_alpheus, arch_researcher_eliza :
+        if (%dino_base_camp_tutorial < 30 | %arch_qualification < 3) {
+            return("You must have completed the Anachronia base camp tutorial before you can unlock this researcher, and also have achieved the '<db_getfield($dbrow1, arch_qualification:col1, 0)>' qualification.");
+        }
+        return("You can unlock this researcher by showing them a completed Anachronia totem.<br>You can find them at Anachronia base camp.");
+    case arch_researcher_tali :
+        $string0 = achievement_getname(cheevo_wendle_task_tanner);
+        if (%arch_qualification < 3) {
+            return("You can unlock this researcher by completing the '<$string0>' achievement, as well as achieving the '<db_getfield($dbrow1, arch_qualification:col1, 0)>' qualification.");
+        }
+        return("You can unlock this researcher by completing the '<$string0>' achievement.");
+    case arch_researcher_anna_jones :
+        if (~ql4_getprogress(what_lies_below) ! 2 | %arch_qualification < 5) {
+            $string0 = ~quest_name(what_lies_below);
+            return("You must have completed the '<$string0>' quest before you can unlock this researcher, and also have achieved the '<db_getfield($dbrow1, arch_qualification:col1, 0)>' qualification.");
+        }
+        return("You can unlock this researcher by talking to them.<br>You can find them on a bench east of Varrock.");
+    case arch_researcher_elissa_giovanni :
+        if (~ql4_getprogress(golem) ! 2 | %arch_qualification < 5) {
+            $string0 = ~quest_name(golem);
+            return("You must have completed the '<$string0>' quest before you can unlock this researcher, and also have achieved the '<db_getfield($dbrow1, arch_qualification:col1, 0)>' qualification.");
+        }
+        return("You can unlock this researcher by handing them a specific restored artefact.<br>You can find them at the Varrock Dig Site's north-east winch.");
+    case arch_researcher_asgarnia_smith :
+        if (~ql4_getprogress(desert_treasure) ! 2 | %arch_qualification < 5) {
+            $string0 = ~quest_name(desert_treasure);
+            return("You must have completed the '<$string0>' quest before you can unlock this researcher, and also have achieved the '<db_getfield($dbrow1, arch_qualification:col1, 0)>' qualification.");
+        }
+        return("You can unlock this researcher by handing them a specific restored artefact.<br>You can find them at the Bedabin Camp.");
+    case arch_researcher_dr_nabanik :
+        $string0 = ~cheevo_name(cheevo_archaeology_kharidet_mysteries);
+        return("You can unlock this researcher by completing the '<$string0>' achievement.");
+    case arch_researcher_vanescula :
+        $string0 = ~cheevo_name(cheevo_archaeology_everlight_mysteries);
+        return("You can unlock this researcher by completing the '<$string0>' achievement.");
+    case arch_researcher_movario :
+        $string0 = ~cheevo_name(cheevo_archaeology_infernalsource_mysteries);
+        return("You can unlock this researcher by completing the '<$string0>' achievement.");
+    case arch_researcher_geeka :
+        $string0 = ~cheevo_name(cheevo_archaeology_stormguard_mysteries);
+        return("You can unlock this researcher by completing the '<$string0>' achievement.");
+    case arch_researcher_zanik :
+        $string0 = ~cheevo_name(cheevo_archaeology_warforge_mysteries);
+        return("You can unlock this researcher by completing the '<$string0>' achievement.");
+    case arch_researcher_mr_mordaut :
+        $string0 = ~cheevo_name(cheevo_archaeology_orthen_mysteries);
+        return("You can unlock this researcher by completing the '<$string0>' achievement.");
+}
+if ($dbrow1 ! null) {
+    return("You can unlock this researcher by achieving the '<db_getfield($dbrow1, arch_qualification:col1, 0)>' qualification.");
+} else {
+    return("You can unlock this researcher by playing the game.");
+}

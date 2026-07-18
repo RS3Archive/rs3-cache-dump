@@ -1,0 +1,35 @@
+// 14778
+[proc,script14778](component $component0, int $int1, dbrow $dbrow2, int $int3, int $int4, int $int5, int $int6)(int)
+def_struct $struct7 = ~script9984(rs3tli_large_ring_background, 1);
+def_int $int8 = struct_param($struct7, rs3tli_button_graphic_width);
+def_int $int9 = $int3;
+def_int $int10 = $int4;
+~script11624($component0, null, rs3tli_large_ring_background, $int9, calc($int10 + 3), 0, 1);
+~script11624($component0, null, rs3tli_large_ring_foreground, calc($int8 + $int9), calc($int10 + 3), 0, 1);
+cc_create($component0, ^iftype_model, if_getnextsubid($component0));
+cc_setposition(calc($int9 + 3 + 55), calc($int10 + 3 + 57), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+cc_setmodelangle(0, 0, 40, 1882, 0, 2150);
+cc_setnpchead(db_getfield($dbrow2, collector:col2, 0));
+cc_setmodelanim(db_getfield($dbrow2, collector:col3, 0));
+$int9 = calc($int9 + (2 * 3 + 2 * $int8));
+$int10 = calc($int10 + 14);
+~cc_add_colour_text($component0, calc($int5 - $int9), 30, $int9, $int10, museo_sans_11pt_regular, db_getfield($dbrow2, collector:col1, 0), 16777215);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+~cc_add_colour_text($component0, calc($int5 - $int9), 30, $int9, $int10, museo_sans_11pt_regular, "Location: <~script14571($dbrow2)>", 16777215);
+cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+$int10 = calc($int10 + (30 + 5));
+$int6 = max($int6, calc(struct_param($struct7, rs3tli_button_graphic_height) + 2 * 3));
+~script6203($component0, calc($int5 - $int9), calc($int6 - 30 - 40 - 2 * 5), $int9, $int10, museo_sans_11pt_regular, ~script14570($dbrow2), 3);
+$int10 = calc($int6 - 40);
+~cc_add_colour_text($component0, calc($int5 - $int9), 40, $int9, $int10, museo_sans_11pt_regular, "Interests:", 16777215);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+def_int $int11 = -1;
+def_int $int12 = db_getfieldcount($dbrow2, collector:col6);
+def_int $int13 = -1;
+while (++$int11 < $int12) {
+    $int13 = db_getfield($dbrow2, collector:col6, $int11);
+    ~script7924($component0, if_getnextsubid($component0), 20, 20, calc($int9 + $int11 * 22), calc($int10 + 3 * 5), ~script14573($int13), false, false, false, 0);
+    cc_setonmouserepeat("script3876(~script14572($int13), event_com, event_comsubid)");
+}
+return($int6);

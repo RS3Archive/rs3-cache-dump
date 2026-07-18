@@ -1,0 +1,33 @@
+// 15353
+[proc,cheevo_op_category](component $component0, component $component1, int $int2)
+~script15357($component0, $component1, 0, 0);
+cc_deleteall(achievements_sub:build_layer);
+~cheevo_reset_dropdown;
+def_int $int3 = enum_getoutputcount(cheevo_categories);
+def_category $category4 = enum(int, category, cheevo_categories, $int2);
+if ($int2 = $int3) {
+    ~script15339;
+} else if (achievement_getsubcatcount($category4, -1) > 0) {
+    ~script15338($category4, null);
+} else {
+    ~script15365;
+}
+def_component $component5 = achievements_sub:subcategory_container;
+if_clearscripthooks($component5);
+def_int $int6 = 0;
+if (cc_find($component1, $int2) = true) {
+    $int6 = cc_gety;
+}
+if (calc(%cheevo_selected_cat_client - 1) = $int2 & if_gethide($component5) = false) {
+    ~script16145($component5);
+    ~script15356($component1, $int6);
+    return;
+}
+~script15351($int2, -1);
+~script16145($component5);
+def_enum $enum7 = enum(category, enum, cheevo_cat_to_subcat, $category4);
+if ($enum7 = null) {
+    ~script15356($component1, $int6);
+    return;
+}
+~script15355($component0, $component1, $enum7, $category4, $int2, $int6, 0);

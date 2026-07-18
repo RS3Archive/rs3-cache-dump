@@ -1,0 +1,37 @@
+// 17997
+[clientscript,script17997](dbrow $dbrow0)
+if (~script17880(dbrow_7906) = false) {
+    return;
+}
+if_sethide(false, bp3_track_tab:claim_all_layer);
+if_setonvartransmit("script17998($dbrow0){bp3_viewed_pass_xp, bp3_viewed_pass_bitset_0, bp3_viewed_pass_bitset_1, bp3_viewed_pass_bitset_2, bp3_viewed_pass_bitset_3, bp3_viewed_pass_purchased_prem, bp3_viewed_pass_repeatable_level_claim_count}", bp3_track_tab:claim_all_window);
+~script17982(100);
+~script17946(bp3_track_tab:claim_free_frame_background, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, bp3_info_panel);
+~script17946(bp3_track_tab:claim_premium_frame_background, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, bp3_info_panel_prem);
+cc_deleteall(bp3_track_tab:claim_all_button);
+~cc_add_button(bp3_track_tab:claim_all_button, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, ~script17989(26), "<col=E0D471>Claim All</col>");
+cc_settextfont(cinzel_15pt_bold);
+cc_setop(1, "Claim All");
+cc_deleteall(bp3_track_tab:claim_all_back_button);
+def_string $string0 = "Back";
+if (map_lang = 0) {
+    $string0 = "Back to Track";
+}
+~cc_add_button(bp3_track_tab:claim_all_back_button, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, ~script17989(24), "<col=E0D471><$string0></col>");
+cc_setop(1, $string0);
+cc_setonop("script17996");
+cc_settextfont(cinzel_15pt_bold);
+cc_deleteall(bp3_track_tab:claim_all_upgrade_button);
+def_dbrow $dbrow1 = ~script17989(27);
+if (%bp3_current_viewed_pass = ~script17854) {
+    $dbrow1 = bp3_purchase_button_desat;
+}
+if (~script17865($dbrow0) = false) {
+    ~cc_add_button(bp3_track_tab:claim_all_upgrade_button, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow1, "");
+    cc_setop(1, "Purchase Premier Hero Pass");
+    ~cc_add_text(bp3_track_tab:claim_all_upgrade_button, 2, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom, 0, 80, ^setsize_minus, ^setsize_abs, text_title_section, "Purchase Premier Hero Pass");
+    cc_settextfont(cinzel_15pt_bold);
+    cc_setcolour(0xe0d471);
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    cc_settextshadow(true);
+}

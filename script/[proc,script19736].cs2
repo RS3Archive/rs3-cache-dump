@@ -1,0 +1,15 @@
+// 19736
+[proc,script19736]
+if_scriptqueue_clear(trh204_overlay:treasure_room_full);
+if (%trh204_chests_remaining >= 4) {
+    switch_int (random(2)) {
+        case 0 :
+            sound_vorbis_rate(tarot_trove_card_shuffle_01, 1, 0, 240, random_sound_pitch(10, 10));
+        case 1 :
+            sound_vorbis_rate(tarot_trove_card_shuffle_02, 1, 0, 240, random_sound_pitch(10, 10));
+    }
+    if_sethide(true, trh204_overlay:treasure_room_desc);
+    if_scriptqueue_add(55, "show_component(trh204_overlay:treasure_room_desc)", trh204_overlay:treasure_room_full);
+} else {
+    if_sethide(false, trh204_overlay:treasure_room_desc);
+}

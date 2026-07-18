@@ -1,0 +1,52 @@
+// 16268
+[proc,script16268](int $int0, int $int1, int $int2, boolean $boolean3, struct $struct4, dbrow $dbrow5, int $int6, int $int7, int $int8)(int, boolean)
+def_int $int9 = ~skillguide_level($struct4, $dbrow5);
+def_boolean $boolean10 = ~skillguide_members($struct4, $dbrow5);
+def_obj $obj11 = ~skillguide_item($struct4, $dbrow5);
+def_string $string0 = ~skillguide_name($struct4, $dbrow5);
+def_int $int12 = 36;
+if ($obj11 ! null & oc_param($obj11, recipe_requirement_type_1) > 0 & oc_param($obj11, recipe_requirement_type_1) ! 62 & oc_param($obj11, recipe_requirement_type_2) = 0 & oc_param($obj11, recipe_requirement_type_1) = %skillguide_skill_clicked) {
+    $int9 = oc_param($obj11, recipe_requirement_value_1);
+    if (oc_param($obj11, recipe_is_members_only) = true | oc_members(oc_param($obj11, recipe_ingredient_type_1)) = 1 | oc_members(oc_param($obj11, recipe_ingredient_type_2)) = 1 | oc_members(oc_param($obj11, recipe_tool_type_1)) = 1 | oc_members($obj11) = 1) {
+        $boolean10 = true;
+    }
+}
+if ($boolean10 = true & $int8 = 1) {
+    $int12 = 0;
+}
+if ($int9 > $int6 & $int9 <= $int7) {
+    cc_create(skillguide:content_layer, ^iftype_graphic, $int0);
+    cc_setsize(590, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setonclick("script5697(event_comsubid, $struct4, $dbrow5)");
+    cc_setontimer("script5692(event_comsubid, $int2, $struct4, $dbrow5)");
+    cc_setparam_string(quicksort_string, $string0);
+    cc_setparam(quicksort_int, calc($int9 * $int1 + $int0));
+    cc_setparam(skillguide_struct, $struct4);
+    cc_setparam(skillguide_data, $dbrow5);
+    if ($boolean10 = true) {
+        cc_setgraphic("aif_skill_select_btn_1,2");
+    }
+    cc_create(skillguide:background_layer, ^iftype_graphic, if_getnextsubid(skillguide:background_layer));
+    cc_setsize(590, $int12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    $int2 = calc($int2 + 41);
+    switch_int (%toplevel_v2_active_skinset) {
+        case 2 :
+            if ($boolean3 = true) {
+                cc_setgraphic("aif_skill_select_btn_1_mobile,1");
+            } else {
+                cc_setgraphic("aif_skill_select_btn_1_mobile,0");
+            }
+        case default :
+            if ($boolean3 = true) {
+                cc_setgraphic("aif_skill_select_btn_1,1");
+            } else {
+                cc_setgraphic("aif_skill_select_btn_1,0");
+            }
+    }
+    if ($int12 > 0) {
+        $boolean3 = ~negate_bool($boolean3);
+    }
+}
+return($int2, $boolean3);

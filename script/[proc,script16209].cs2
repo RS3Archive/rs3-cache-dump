@@ -1,0 +1,175 @@
+// 16209
+[proc,script16209](int $int0, component $component1, component $component2, dbrow $dbrow3, string $string0, struct $struct4, struct $struct5, struct $struct6, struct $struct7, int $int8, int $int9)
+def_component $component10 = null;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_boolean $boolean16 = false;
+def_int $int17 = 0;
+def_int $int18 = 0;
+cc_deleteall($component2);
+def_component $component19 = null;
+def_component $component20 = null;
+def_int $int21 = 0;
+def_string $string1 = ~script17938($dbrow3);
+def_dbrow $dbrow22 = null;
+def_graphic $graphic23 = null;
+def_graphic $graphic24 = null;
+def_graphic $graphic25 = null;
+$graphic23, $graphic24, $graphic25 = ~script17993($dbrow3);
+~script17927;
+def_int $int26 = 6500;
+$int11 = ~script16211($dbrow3, $component2, $string1, $int11);
+if ($dbrow3 ! null) {
+    $int13 = db_getfieldcount($dbrow3, big_window_data:col1);
+    if (db_getfield($dbrow3, big_window_data:col2, 0) = true) {
+        if_setsize(if_getwidth($component2), 56, ^setsize_abs, ^setsize_abs, $component2);
+        if_setposition(0, 56, ^setpos_abs_left, ^setpos_abs_top, $component1);
+        $component19, $component20 = ~script3529($dbrow3, 0);
+        if_setsize(if_getwidth($component19), calc(if_getheight($component19) - 44), ^setsize_abs, ^setsize_abs, $component19);
+    } else {
+        $int21 = ~script17937($dbrow3);
+        while ($int12 < $int21) {
+            if ($int12 < $int13) {
+                $string0, $component10, $struct4, $struct5, $struct6, $struct7, $int8 = ~script11776($dbrow3, $int12);
+                $int14 = max(calc(parawidth($string0, 512, cinzel_18pt_bold) - 25 * 2), 0);
+                $boolean16 = false;
+                switch_dbrow ($dbrow3) {
+                    case mtx_front_end_info :
+                        if ($int12 = 6 & ~script10992 = false) {
+                            $boolean16 = true;
+                        }
+                        if ($int12 = 2 & ~script20064(0) = false) {
+                            $boolean16 = true;
+                        }
+                        if ($int12 = 7 & ~runepass_get_state(~runepass_get_current) = 0) {
+                            $boolean16 = true;
+                        }
+                        if ($int12 = 1 & ~script20110 = false) {
+                            $boolean16 = true;
+                        }
+                        if ($int12 ! 4 & if_gettop = lobbyscreen) {
+                            $boolean16 = true;
+                        }
+                    case mtx_bp3 :
+                        if ($int12 = 3 & (~script17852 = false | ~ironman_mode = true)) {
+                            $boolean16 = true;
+                        }
+                        if ($int12 = 1 & ~script17852 = false) {
+                            $boolean16 = true;
+                        }
+                }
+            } else {
+                $boolean16 = true;
+            }
+            if (~script16216($int8) = false) {
+                $boolean16 = true;
+            }
+            cc_create($component2, ^iftype_graphic, $int11);
+            cc_setgraphic($graphic23);
+            cc_setsize(45, 50, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int15, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+            if ($int12 ! $int9) {
+                cc_sethide(true);
+            } else {
+                cc_sethide($boolean16);
+            }
+            if ($boolean16 = false) {
+                $int15 = calc($int15 + 45);
+            }
+            $int11 = calc($int11 + 1);
+            cc_create($component2, ^iftype_graphic, $int11);
+            cc_setgraphic($graphic24);
+            cc_setsize($int14, 50, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int15, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+            if ($int12 ! $int9) {
+                cc_sethide(true);
+            } else {
+                cc_sethide($boolean16);
+            }
+            if ($boolean16 = false) {
+                $int15 = calc($int15 + $int14);
+            }
+            $int11 = calc($int11 + 1);
+            cc_create($component2, ^iftype_graphic, $int11);
+            if ($int12 = $int9) {
+                cc_setgraphic($graphic25);
+                cc_setsize(45, 50, ^setsize_abs, ^setsize_abs);
+                cc_setposition($int15, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+            } else {
+                cc_setgraphic(art_tab_divider);
+                cc_setsize(6, 27, ^setsize_abs, ^setsize_abs);
+                cc_setposition(calc($int15 + 42), calc(8 + 12), ^setpos_abs_left, ^setpos_abs_bottom);
+            }
+            if (calc($int12 + 1) = $int13 & $int12 ! $int9) {
+                cc_sethide(true);
+            } else {
+                cc_sethide($boolean16);
+            }
+            $int11 = calc($int11 + 1);
+            cc_create($component2, ^iftype_text, $int11);
+            cc_settextfont(cinzel_18pt_bold);
+            if ($int12 = $int9) {
+                cc_setcolour(0xe0d471);
+            } else {
+                cc_setcolour(0x80969f);
+                cc_setonmouseover("script16223($component2, $int11, 1)");
+                cc_setonmouseleave("script16223($component2, $int11, 0)");
+            }
+            cc_setsize(calc($int14 + 25 * 2), 44, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int15 - $int14 - 25), 12, ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 16);
+            cc_settext($string0);
+            cc_sethide($boolean16);
+            cc_setop(1, "Open");
+            if ($boolean16 = false) {
+                $int15 = calc($int15 + 45);
+            }
+            $int11 = calc($int11 + 1);
+            cc_create($component2, ^iftype_layer, $int11);
+            cc_setposition(calc($int15 - 12 - 4), calc(44 - 12), ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+            switch_dbrow ($dbrow3) {
+                case mtx_bp3 :
+                    if ($int12 = 1 & %intern_notes_bp3_perm_1 > 0) {
+                        if (platformtype = ^platformtype_apple | platformtype = ^platformtype_android) {
+                            $dbrow22 = intern_notes_mobile_ribbon_bp3_button;
+                        } else {
+                            $dbrow22 = intern_notes_parent_upgrades_and_extras_bp3_button;
+                        }
+                        ~script14933($component2, $int26, cc_getx, cc_gety, 20, 20, icon_notification_counter);
+                        cc_setonvartransmit("script17041($dbrow22, -1, 0, $component2, $int26, -1, cc_getwidth){intern_notes_temp_1, intern_notes_perm_1, intern_notes_bp3_perm_1}");
+                        $int26 = calc($int26 + 1);
+                        ~script14934($component2, $int26, 0, cc_getx, cc_gety, 20, 20);
+                        cc_setonvartransmit("script17041($dbrow22, -1, 1, $component2, $int26, -1, cc_getwidth){intern_notes_temp_1, intern_notes_perm_1, intern_notes_bp3_perm_1}");
+                        $int26 = calc($int26 + 1);
+                    }
+            }
+            $int11 = calc($int11 + 1);
+            $int12 = calc($int12 + 1);
+        }
+        if ($dbrow3 = mtx_bp3) {
+            cc_create($component2, ^iftype_text, $int26);
+            $int26 = calc($int26 + 1);
+            cc_setposition(10, 12, ^setpos_abs_right, ^setpos_abs_bottom);
+            cc_setsize(300, 44, ^setsize_abs, ^setsize_abs);
+            cc_settext(~script17972);
+            cc_settextfont(cinzel_18pt_bold);
+            cc_setcolour(0xe0d471);
+            cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+            cc_setonmisctransmit("script17973(event_com, event_comsubid)");
+        }
+    }
+    $string0, $component2, $struct4, $struct5, $struct6, $struct7, $int8 = ~script11776($dbrow3, $int9);
+}
+def_int $int27 = 110;
+def_int $int28 = 170;
+$int11 = ~script16210($struct4, $int11, 1, $component2, $int27);
+$int11 = ~script16210($struct5, $int11, 2, $component2, calc($int27 + $int28 * 1));
+$int11 = ~script16210($struct6, $int11, 3, $component2, calc($int27 + $int28 * 2));
+$int11 = ~script16210($struct7, $int11, 4, $component2, calc($int27 + $int28 * 3));
+if ($dbrow3 = mtx_bp3) {
+    ~script17974($int9);
+}

@@ -1,0 +1,38 @@
+// 4701
+[proc,script4701](int $int0, int $int1, int $int2, string $string0)
+%lobby_queue_id = $int1;
+%lobby_queue_world = $int2;
+%lobby_queue_host = $string0;
+if ($int0 = 1) {
+    if (%login_reply_last = 43 | %login_reply_last = 42) {
+        ~lobby_popup(%login_reply_last, lobby_popup_warning_negative, "Leave Queue", "Are you sure you wish to leave the queue for World <if_gettext(lobbyscreen:login_queue_world)>? You will lose your position if you do.", "loadingwheel,12", "Leave Queue", "Stay In Queue");
+        return;
+    }
+    ~script3141($int2, $string0);
+    if ($int1 > -1 & cc_find(lobbyscreen_pane_worldselect:ws_bg, $int1) = true) {
+        if_sethide(false, lobbyscreen_pane_worldselect:ws_selected_bg);
+        if_setposition(0, cc_gety, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:ws_selected_bg);
+    }
+    if (map_world = ~script20335(1)) {
+        if (cc_find(lobbyscreen_pane_worldselect:list_fav1, 1) = true) {
+            cc_sethide(false);
+        }
+    } else if (cc_find(lobbyscreen_pane_worldselect:list_fav1, 1) = true) {
+        cc_sethide(true);
+    }
+    if (map_world = ~script20335(2)) {
+        if (cc_find(lobbyscreen_pane_worldselect:list_fav2, 1) = true) {
+            cc_sethide(false);
+        }
+    } else if (cc_find(lobbyscreen_pane_worldselect:list_fav2, 1) = true) {
+        cc_sethide(true);
+    }
+    if (map_world = ~script20335(3)) {
+        if (cc_find(lobbyscreen_pane_worldselect:list_fav3, 1) = true) {
+            cc_sethide(false);
+        }
+    } else if (cc_find(lobbyscreen_pane_worldselect:list_fav3, 1) = true) {
+        cc_sethide(true);
+    }
+    ~lobbyscreen_loginbutton_text(true);
+}

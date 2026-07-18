@@ -1,0 +1,73 @@
+// 12258
+[clientscript,script12258]
+def_graphic $graphic0 = null;
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_obj $obj3 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int4 = 0;
+switch_int (%quest_nomel) {
+    case 120 :
+        $string0 = "Fire Blast";
+        $string1 = "Shield Dome";
+        $string2 = "Shadow Stalk";
+        $string3 = "Fire Blast<br>Blasts all nearby Rorarii with a powerful homing projectile.";
+        $string4 = "Shield Dome<br>Reduces all incoming damage and reflects damage from Gladii back at them, for a short duration.";
+        $string5 = "Shadow Stalk<br>Uses a copy of yourself to attack a nearby Scutarius from behind.";
+        $graphic0 = "aif_magic_standard_icons,31";
+        $graphic1 = "magic_icon_ancient_magicks,24";
+        $graphic2 = "aif_attrib_magic_icons_1,10";
+    case 130 :
+        $string0 = "Provoke";
+        $string1 = "Scythe";
+        $string2 = "Soul Reap";
+        $string3 = "Provoke<br>Taunts the construct to attack your current location.<br>Will only work due North, East, South and West of the construct.";
+        $string4 = "Scythe Swipe<br>Uses your scythe to attack the construct when in range.<br>Will release a trapped soul.";
+        $string5 = "Soul Reap<br>Releases a freed soul to weaken the construct.";
+        $graphic0 = "aif_attrib_defence_icons_1,2";
+        $obj3 = nomel_death_scythe;
+        $graphic2 = "prayer_icon_curses,23";
+    case 140 :
+        $string0 = "Soul Release";
+        $string2 = "Deflection Shield";
+        $string3 = "Soul Release<br>Releases all nearby souls in a wide area.<br>Release more souls than the construct to reduce its power.";
+        $string5 = "Deflection Shield<br>Reflects a powerful Soul Beam back at the construct.<br>The effectiveness of the shield depends on how many souls you have released.";
+        $obj3 = nomel_iccy_mace;
+        $graphic2 = "magic_icon_ancient_magicks,24";
+        $int4 = 1;
+}
+if_setop(1, $string0, nomel_transmog_overlay:ability_slot_1_graphic);
+if_setop(1, $string1, nomel_transmog_overlay:ability_slot_2_graphic);
+if_setop(1, $string2, nomel_transmog_overlay:ability_slot_3_graphic);
+if_setonmouserepeat("script8799($string3, event_com, -1)", nomel_transmog_overlay:ability_slot_0);
+if_setonmouserepeat("script8799($string4, event_com, -1)", nomel_transmog_overlay:ability_slot_1);
+if_setonmouserepeat("script8799($string5, event_com, -1)", nomel_transmog_overlay:ability_slot_2);
+if ($graphic0 ! null) {
+    if_setgraphic($graphic0, nomel_transmog_overlay:ability_slot_1_graphic);
+} else {
+    if_setobject_nonum($obj3, 0, nomel_transmog_overlay:ability_slot_1_graphic);
+}
+if ($graphic1 ! null) {
+    if_setgraphic($graphic1, nomel_transmog_overlay:ability_slot_2_graphic);
+} else {
+    if_setobject_nonum($obj3, 0, nomel_transmog_overlay:ability_slot_2_graphic);
+}
+if_setgraphic($graphic2, nomel_transmog_overlay:ability_slot_3_graphic);
+def_int $int5 = if_getwidth(nomel_transmog_overlay:bespoke_window);
+def_int $int6 = if_getheight(nomel_transmog_overlay:bespoke_window);
+if ($int4 = 1) {
+    $int6 = 112;
+    if_sethide(true, nomel_transmog_overlay:ability_slot_1);
+    if_setposition(24, if_gety(nomel_transmog_overlay:ability_slot_0), ^setpos_abs_left, ^setpos_abs_top, nomel_transmog_overlay:ability_slot_0);
+    if_setposition(calc(if_getx(nomel_transmog_overlay:ability_slot_0) + if_getwidth(nomel_transmog_overlay:ability_slot_0) + 4), if_gety(nomel_transmog_overlay:ability_slot_2), ^setpos_abs_left, ^setpos_abs_top, nomel_transmog_overlay:ability_slot_2);
+} else {
+    if_sethide(false, nomel_transmog_overlay:ability_slot_1);
+    if_setposition(6, if_gety(nomel_transmog_overlay:ability_slot_0), ^setpos_abs_left, ^setpos_abs_top, nomel_transmog_overlay:ability_slot_0);
+    if_setposition(102, if_gety(nomel_transmog_overlay:ability_slot_2), ^setpos_abs_left, ^setpos_abs_top, nomel_transmog_overlay:ability_slot_2);
+}
+if_setsize($int5, $int6, ^setsize_abs, ^setsize_abs, nomel_transmog_overlay:bespoke_window);

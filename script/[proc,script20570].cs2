@@ -1,0 +1,47 @@
+// 20570
+[proc,script20570](stat $stat0, component $component1, component $component2)
+def_int $int3 = enum(stat, int, stat_to_int, $stat0);
+def_string $string0 = enum(stat, string, stat_to_string, $stat0);
+def_string $string1 = "";
+def_int $int4 = ~script20568($stat0);
+def_enum $enum5 = stat2icon_small_off;
+if ($int4 = 1) {
+    $enum5 = stat2icon_small;
+}
+cc_deleteall($component1);
+def_struct $struct6 = rs3_icon_holder;
+def_struct $struct7 = rs3_icon_holder_selected;
+def_struct $struct8 = rs3_icon_holder_over;
+if ($int3 = %marketplace_bonus_xp_current_choice) {
+    ~rs3_background_panel($component2, $struct7);
+    if_setonmouseover(null, $component2);
+    if_setonmouseleave(null, $component2);
+} else {
+    ~rs3_background_panel($component2, $struct6);
+    if ($int4 = 1) {
+        if_setonmouseover("rs3_background_panel(event_com, $struct8)", $component2);
+        if_setonmouseleave("rs3_background_panel(event_com, $struct6)", $component2);
+    } else {
+        if_setonmouseover(null, $component2);
+        if_setonmouseleave(null, $component2);
+    }
+}
+def_int $int9 = 0;
+cc_create($component1, ^iftype_graphic, $int9);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(enum(int, graphic, $enum5, $int3));
+if ($int4 ! 1) {
+    if ($int4 = 0) {
+        $string0 = "<$string0> - Unavailable";
+    } else if ($int4 = 2) {
+        $string0 = "<$string0> - Bonus XP Cap has been reached";
+    } else if ($int4 = 3) {
+        $string0 = "<$string0> - 200m XP Cap has been reached.";
+    }
+    cc_settrans(150);
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component1);
+if_setop(1, "Choose", $component1);
+if_setopbase(enum(stat, string, stat_to_string, $stat0), $component1);
+if_setonop("script20571($stat0, $int3, $component1, $component2)", $component1);

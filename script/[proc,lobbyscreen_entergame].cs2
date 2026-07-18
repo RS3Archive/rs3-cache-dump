@@ -1,0 +1,52 @@
+// 3062
+[proc,lobbyscreen_entergame](component $component0)(boolean)
+def_int $int1 = 0;
+def_string $string0 = "";
+def_int $int2 = 0;
+def_string $string1 = "";
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string2 = "";
+if_sethide(true, lobbyscreen:email_validation);
+if (%login_reply_last = 42 | %login_reply_last = 43) {
+    return(false);
+}
+if (worldlist_fetch = false) {
+    ~lobbyscreen_loginbutton_text(false);
+    if_setontimer("lobbyscreen_entergame($component0)", $component0);
+    return(false);
+}
+$int1, $string0, $int2, $string1, $int3, $int4, $string2 = worldlist_specific(map_world);
+if ($int3 < 0) {
+    ~lobby_popup(-5, lobby_popup_warning, "Connection Failed", "Could not connect you to the chosen world. Please choose another.", "loadingwheel,9", "", "Back");
+    ~lobbyscreen_loginbutton_text(true);
+    if_setontimer(null, $component0);
+    return(false);
+}
+if (testbit($int1, 24) = ^true | %league_lobby_select_league_worlds = 1) {
+    if_triggerop(lobbyscreen:league_triggerop, -1, 1);
+}
+%lobby_newuserhack = false;
+~lobbyscreen_loginbutton_text(true);
+if_setontimer(null, $component0);
+~lobby_popup_close;
+%login_reply_last = -1;
+if (~script2727 = true & %loginscreen_pvp_warned = 0) {
+    if_sethide(false, lobbyscreen:pvp_warning);
+    sound_jingle_volume(jingle_9265, 0, 160);
+    return(false);
+}
+%loginscreen_hopblocked_time = 0;
+%lobby_video_ad_started = false;
+if (%lobbyscreen_world_switch > 0) {
+    ~script5861(%lobbyscreen_world_switch);
+}
+~lobbyscreen_loginbutton_text(false);
+lobby_entergame(%loginscreen_totp_auth, %loginscreen_remember_auth);
+def_int $int5 = detailget_soundvol;
+def_int $int6 = detailget_musicvol;
+def_int $int7 = detailget_bgsoundvol;
+def_int $int8 = detailget_speechvol;
+def_int $int9 = detailget_loginvol;
+if_setontimer("lobbyscreen_entergametimer($component0, map_world, $int5, $int6, $int7, $int8, $int9)", $component0);
+return(true);

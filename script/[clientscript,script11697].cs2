@@ -1,0 +1,34 @@
+// 11697
+[clientscript,script11697]
+def_string $string0 = "24";
+def_string $string1 = "48";
+if (%raid1_player_boss1_dead = 1) {
+    if_setcolour(0xc80000, raid1lock:bossbg1);
+    if_setcolour(0xc80000, raid1lock:bossbg2);
+} else {
+    if_setcolour(^green, raid1lock:bossbg1);
+    if_setcolour(^green, raid1lock:bossbg2);
+}
+if (%raid1_player_access_boss2 = 0) {
+    if_sethide(false, raid1lock:boss_lock2);
+    if_setcolour(0x646464, raid1lock:bossbg3);
+    if_setcolour(0x646464, raid1lock:bossbg4);
+} else {
+    if_sethide(true, raid1lock:boss_lock2);
+    if (%raid1_player_boss2_dead = 1) {
+        if_setcolour(0xc80000, raid1lock:bossbg3);
+        if_setcolour(0xc80000, raid1lock:bossbg4);
+    } else {
+        if_setcolour(^green, raid1lock:bossbg3);
+        if_setcolour(^green, raid1lock:bossbg4);
+    }
+}
+if_settext("You can only reset the Mazcab raid once every <text_switch(~script12950, $string0, $string1)> hours.<br>Ensure you wish to reset your progress before you continue!", raid1lock:raid1_text);
+def_string $string2 = "Boss progress can only be reset once every <text_switch(~script12950, $string0, $string1)> hours.";
+if_setonmouserepeat("script8799($string2, event_com, event_comsubid)", raid1lock:reset_locked_layer);
+if (%raid1_player_reset_used = 1) {
+    if_sethide(false, raid1lock:reset_locked_layer);
+} else {
+    if_sethide(true, raid1lock:reset_locked_layer);
+}
+if_sethide(true, raid1lock:reset_progress_layer);

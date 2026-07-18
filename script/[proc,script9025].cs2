@@ -1,0 +1,17 @@
+// 9025
+[proc,script9025](struct $struct0, quest $quest1, achievement $achievement2, dbrow $dbrow3, boolean $boolean4, int $int5, component $component6, component $component7, component $component8)
+if_settext(~crs_heading($struct0, $quest1, $achievement2, $dbrow3, $boolean4), $component6);
+if_setgraphic(db_getfield($dbrow3, crs_type:col2, 0), $component7);
+def_graphic $graphic9 = null;
+if ($struct0 ! null & struct_param($struct0, task_struct) ! null) {
+    $struct0 = struct_param($struct0, task_struct);
+}
+def_int $int10 = 0;
+if ($graphic9 = null) {
+    $int10 = db_getfieldcount($dbrow3, crs_type:col3);
+    if ($int5 > $int10) {
+        $int5 = $int10;
+    }
+    $graphic9 = db_getfield($dbrow3, crs_type:col3, $int5);
+}
+if_setgraphic($graphic9, $component8);

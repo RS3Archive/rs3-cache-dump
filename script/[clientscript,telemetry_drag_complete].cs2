@@ -1,0 +1,38 @@
+// 11834
+[clientscript,telemetry_drag_complete](int $int0, int $int1, component $component2, component $component3, int $int4)
+%varclientbit_29535 = 0;
+%telemetry_varc_drag_layer = null;
+if ($int4 = 1) {
+    if_sethide(true, telemetry:telemetry_highlight);
+} else if ($int4 = 2) {
+    if_sethide(true, toplevel_v2_parent_suboverlay_telemetry:telemetry_highlight);
+}
+def_int $int5 = if_getnextsubid($component3);
+def_int $int6 = 0;
+if ($int0 > -1) {
+    if (cc_find($component2, $int0) = true) {
+        if ($int1 = 1 & cc_param(telemetry_component_column) = -1) {
+            return;
+        } else if ($int1 = 2 & cc_param(telemetry_component_row) = -1) {
+            return;
+        }
+        while ($int6 < $int5) {
+            if (.cc_find($component3, $int6) = true) {
+                if ($int1 = 1 & .cc_param(telemetry_component_column) = cc_param(telemetry_component_column)) {
+                    .cc_setposition(cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                    .cc_settrans(0);
+                } else if ($int1 = 2 & .cc_param(telemetry_component_row) = cc_param(telemetry_component_row)) {
+                    if (.cc_param(telemetry_is_pin) = 1) {
+                        .cc_setposition(.cc_getx, calc(cc_gety + 27 / 2 - 8 / 2), ^setpos_abs_left, ^setpos_abs_top);
+                    } else {
+                        .cc_setposition(.cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                    }
+                    .cc_settrans(0);
+                }
+            }
+            $int6 = calc($int6 + 1);
+        }
+    }
+} else {
+    %varclientbit_29534 = 0;
+}

@@ -1,0 +1,16 @@
+// 12644
+[proc,cc_setanim](enum $enum0, int $int1, int $int2, int $int3, int $int4)
+if ($enum0 = null | enum_getoutputcount($enum0) < 1) {
+    cc_setparam(rs3tli_component_icon_animation_enum, null);
+    cc_setgraphic(null);
+    return;
+}
+cc_setparam(rs3tli_component_icon_animation_enum, $enum0);
+cc_setparam(rs3tli_component_icon_animation_type, $int1);
+$int2 = calc($int2 % enum_getoutputcount($enum0));
+cc_setparam(rs3tli_component_icon_animation_index, $int2);
+cc_setgraphic(enum(int, graphic, $enum0, $int2));
+$int3 = max(0, $int3);
+cc_setparam(rs3tli_component_icon_animation_delay, $int3);
+$int4 = calc(max(0, $int4) % ($int3 + 1));
+cc_setparam(rs3tli_component_icon_animation_clock, $int4);

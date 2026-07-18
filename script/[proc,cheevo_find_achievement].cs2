@@ -1,0 +1,38 @@
+// 13279
+[proc,cheevo_find_achievement](struct $struct0)(int, int)
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(cheevo_category_button_struct);
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_struct $struct7 = null;
+def_enum $enum8 = null;
+def_enum $enum9 = null;
+if (struct_param($struct0, cheevo_parent_chain_latest) ! null) {
+    $struct0 = struct_param($struct0, cheevo_parent_chain_latest);
+}
+while ($int1 < $int2 & $int3 = -1) {
+    $struct7 = enum(int, struct, cheevo_category_button_struct, $int1);
+    $enum9 = struct_param($struct7, cheevo_list);
+    if ($enum9 ! null & enum_hasoutput(struct, $enum9, $struct0) = true) {
+        $int3 = $int1;
+    }
+    $enum8 = struct_param($struct7, cheevo_subcategory_list);
+    if ($enum8 ! null & $int3 = -1) {
+        $int5 = 0;
+        $int6 = enum_getoutputcount($enum8);
+        while ($int5 < $int6 & $int3 = -1) {
+            $struct7 = enum(int, struct, $enum8, $int5);
+            $enum9 = struct_param($struct7, cheevo_list);
+            if ($enum9 ! null & enum_hasoutput(struct, $enum9, $struct0) = true) {
+                $int3 = $int1;
+                $int4 = $int5;
+                $int5 = $int6;
+            }
+            $int5 = calc($int5 + 1);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+return(calc($int3 + 1), $int4);

@@ -1,0 +1,29 @@
+// 7870
+[clientscript,script7870](component $component0, int $int1, int $int2, string $string0, int $int3, int $int4, int $int5, int $int6)
+if (%acc_create_rotation = 1) {
+    return;
+}
+def_component $component7 = $component0;
+if ($int1 = -1) {
+    $component7 = if_getlayer($component0);
+}
+if ($int4 = 1) {
+    if ($int1 = -1 & if_find($component0) = true | cc_find($component0, $int1) = true) {
+        .cc_create($component7, ^iftype_graphic, $int2);
+        .cc_setsize(calc(cc_getwidth + $int3), calc(cc_getheight + $int3), ^setsize_abs, ^setsize_abs);
+        .cc_setposition(calc(cc_getx - $int3 / 2), calc(cc_gety - $int3 / 2), ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setgraphic("rs3_character_interface_item_holder1,1");
+        .cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    }
+    if ($int5 ! -1) {
+        if_setontimer("script7865(calc(clientclock + 10), $int6, $int5)", acc_create:colours_menu);
+    }
+} else {
+    if (cc_find($component7, $int2) = true) {
+        cc_delete;
+    }
+    ~script8808;
+    if ($int5 ! -1) {
+        if_setontimer("script7864(calc(clientclock + 10), $int5)", acc_create:colours_menu);
+    }
+}

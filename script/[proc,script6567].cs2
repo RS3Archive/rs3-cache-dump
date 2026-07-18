@@ -1,0 +1,53 @@
+// 6567
+[proc,script6567]
+if (%wof_result_slot_client <= 0 | %wof_result_slot_client > 5) {
+    return;
+}
+if_setonmouseover(null, wheel_of_fortune:wheel_spin_button_active_layer_1);
+if_setonmouseleave(null, wheel_of_fortune:wheel_spin_button_active_layer_1);
+if_setonmouseover(null, wheel_of_fortune:wheel_spin_button_active_layer_2);
+if_setonmouseleave(null, wheel_of_fortune:wheel_spin_button_active_layer_2);
+if_setonmouseover(null, wheel_of_fortune:wheel_spin_button_active_layer_3);
+if_setonmouseleave(null, wheel_of_fortune:wheel_spin_button_active_layer_3);
+if_setonmouseover(null, wheel_of_fortune:wheel_spin_button_active_layer_4);
+if_setonmouseleave(null, wheel_of_fortune:wheel_spin_button_active_layer_4);
+if_setonmouseover(null, wheel_of_fortune:wheel_spin_button_active_layer_5);
+if_setonmouseleave(null, wheel_of_fortune:wheel_spin_button_active_layer_5);
+if_setmodelanim(trh_chest_open_multispin, wheel_of_fortune:chest_model_1);
+if_setmodelanim(trh_chest_open_multispin, wheel_of_fortune:chest_model_2);
+if_setmodelanim(trh_chest_open_multispin, wheel_of_fortune:chest_model_3);
+if_setmodelanim(trh_chest_open_multispin, wheel_of_fortune:chest_model_4);
+if_setmodelanim(trh_chest_open_multispin, wheel_of_fortune:chest_model_5);
+if_setontimer(null, wheel_of_fortune:chest_model_1);
+if_setontimer(null, wheel_of_fortune:chest_model_2);
+if_setontimer(null, wheel_of_fortune:chest_model_3);
+if_setontimer(null, wheel_of_fortune:chest_model_4);
+if_setontimer(null, wheel_of_fortune:chest_model_5);
+def_struct $struct0 = ~script16161;
+if (%trh_multispin_continue = 1) {
+    ~wof_show_reward;
+} else if (%wof_trh_interface_state = 2) {
+    %wof_trh_interface_state = 3;
+    if ($struct0 ! null & struct_param($struct0, trh_promo_uses_custom_reward_delay) = true) {
+        ~trh_reward_screen_delay(~script16774($struct0));
+    } else {
+        switch_int (%wof_paintover) {
+            case 34 :
+                if_setontimer("script5898(event_com, 300)", wheel_of_fortune:main_layer);
+            case 54 :
+                if (%trh169_slay_clicked = 1) {
+                    if_setmodelanim(mtxmay20_king_slime_death, trh169_overlay:trh169_slime_model);
+                    if_setontimer("script5898(event_com, 60)", wheel_of_fortune:main_layer);
+                } else {
+                    if_setontimer("script5898(event_com, 300)", wheel_of_fortune:main_layer);
+                }
+            case 56, 60 :
+                if_setontimer("script5898(event_com, 300)", wheel_of_fortune:main_layer);
+            case default :
+                if_setontimer("script5898(event_com, 0)", wheel_of_fortune:main_layer);
+        }
+    }
+}
+~wof_reward_clear;
+~wof_refresh_text;
+~script16198(false, 82116873);

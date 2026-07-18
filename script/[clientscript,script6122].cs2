@@ -1,0 +1,32 @@
+// 6122
+[clientscript,script6122]
+if (compare("", if_gettext(fremsaga_thok2_overlay:score_left)) = 0) {
+    if_settext(tostring(%fremsaga_thok2_killcount_thok), fremsaga_thok2_overlay:score_left);
+} else if (compare(tostring(%fremsaga_thok2_killcount_thok), if_gettext(fremsaga_thok2_overlay:score_left)) ! 0) {
+    if_settext(if_gettext(fremsaga_thok2_overlay:score_left), fremsaga_thok2_overlay:score_left_out);
+    if_setposition(58, -4, ^setpos_abs_left, ^setpos_abs_top, fremsaga_thok2_overlay:score_left_out);
+    if_setontimer("script6123(event_com, 14, 5)", fremsaga_thok2_overlay:score_left_out);
+    if_setposition(58, -22, ^setpos_abs_left, ^setpos_abs_top, fremsaga_thok2_overlay:score_left);
+    if_setontimer("script6123(event_com, -4, 5)", fremsaga_thok2_overlay:score_left);
+    if_settext(tostring(%fremsaga_thok2_killcount_thok), fremsaga_thok2_overlay:score_left);
+}
+if (compare("", if_gettext(fremsaga_thok2_overlay:score_right)) = 0) {
+    if_settext(tostring(%fremsaga_thok2_killcount_marmaros), fremsaga_thok2_overlay:score_right);
+}
+if (compare(tostring(%fremsaga_thok2_killcount_marmaros), if_gettext(fremsaga_thok2_overlay:score_right)) ! 0) {
+    if_settext(if_gettext(fremsaga_thok2_overlay:score_right), fremsaga_thok2_overlay:score_right_out);
+    if_setposition(394, -4, ^setpos_abs_left, ^setpos_abs_top, fremsaga_thok2_overlay:score_right_out);
+    if_setontimer("script6123(event_com, 14, 5)", fremsaga_thok2_overlay:score_right_out);
+    if_setposition(394, -22, ^setpos_abs_left, ^setpos_abs_top, fremsaga_thok2_overlay:score_right);
+    if_setontimer("script6123(event_com, -4, 5)", fremsaga_thok2_overlay:score_right);
+    if_settext(tostring(%fremsaga_thok2_killcount_marmaros), fremsaga_thok2_overlay:score_right);
+}
+def_int $int0 = calc(%fremsaga_thok2_killcount_thok - %fremsaga_thok2_killcount_marmaros);
+$int0 = max(min($int0, 4), calc(0 - 4));
+def_int $int1 = 16;
+def_int $int2 = 10;
+def_int $int3 = calc(if_getwidth(fremsaga_thok2_overlay:bar_layer) - ($int1 + $int2) * 2);
+def_int $int4 = calc($int3 / (4 * 2));
+if_setsize(calc($int2 + $int4 * (4 + $int0)), if_getheight(fremsaga_thok2_overlay:bar_fill_left), ^setsize_abs, ^setsize_abs, fremsaga_thok2_overlay:bar_fill_left);
+if_setsize(calc($int2 + $int4 * (4 - $int0)), if_getheight(fremsaga_thok2_overlay:bar_fill_right), ^setsize_abs, ^setsize_abs, fremsaga_thok2_overlay:bar_fill_right);
+if_setposition(calc($int1 + $int2 + $int4 * (4 + $int0) - 16), if_gety(fremsaga_thok2_overlay:bar_marker), ^setpos_abs_left, ^setpos_abs_top, fremsaga_thok2_overlay:bar_marker);

@@ -1,0 +1,40 @@
+// 19763
+[proc,script19763]()(boolean)
+def_int $int0 = %trh205_prize_option_chosen;
+def_int $int1 = 0;
+def_int $int2 = 0;
+if ($int0 = 1) {
+    $int1 = %trh205_reward_path_1_progress;
+    $int2 = %trh205_reward_path_1_prizes_claimed;
+} else {
+    $int1 = %trh205_reward_path_2_progress;
+    $int2 = %trh205_reward_path_2_prizes_claimed;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_dbrow $dbrow5 = null;
+def_dbrow $dbrow6 = null;
+def_int $int7 = 0;
+if ($int0 = 1) {
+    $dbrow5 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col5, 0);
+} else {
+    $dbrow5 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col6, 0);
+}
+$int3 = db_getfieldcount($dbrow5, trh205_reward_path:col0);
+if ($int2 >= $int3) {
+    $dbrow6 = db_getfield($dbrow5, trh205_reward_path:col1, 0);
+    $int4 = db_getfield($dbrow6, trh205_path_reward:col0, 0);
+} else {
+    $dbrow6 = db_getfield($dbrow5, trh205_reward_path:col0, $int2);
+    $int4 = db_getfield($dbrow6, trh205_path_reward:col0, 0);
+}
+if ($dbrow6 ! null) {
+    if ($int1 >= $int4) {
+        return(true);
+    } else {
+        return(false);
+    }
+} else {
+    ~error("Trying to check for bonus reward progress for the prize path but the reward dbrow is null");
+    return(false);
+}

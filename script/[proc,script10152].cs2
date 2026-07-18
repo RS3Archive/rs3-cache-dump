@@ -1,0 +1,33 @@
+// 10152
+[proc,script10152]
+def_int $int0 = 0;
+if (%varclientbit_23079 = 1) {
+    $int0 = ttv_stream_stop;
+    if_sethide(true, twitch_stream:live_status);
+    if_settext("Start Broadcast", toplevel_v2_parent_suboverlay_twitch:start_broadcast_button);
+    if_sethide(true, twitch_stream:countdown_text);
+    %varclientbit_23079 = 0;
+    mes("Broadcast stopped.");
+    sound_vorbis_volume(tli_click_01, 1, 0, 100);
+    ~script7698;
+    if_setgraphic("rs3_btn_twitch_play,0", twitch_stream:stream_status);
+    if_setontimer(null, twitch_stream:quality_listener_layer);
+    if_setontimer(null, twitch_stream:webcam_buttons);
+    if_sethide(true, twitch_stream:quality_warning);
+    if_sethide(true, twitch_stream:quality_error);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_deselected_disabled_layer);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_disabled_layer);
+} else {
+    %varclientbit_23079 = 1;
+    if_sethide(true, twitch_stream:live_status);
+    ~script8290(1);
+    ~script7698;
+    if_setgraphic("rs3_btn_twitch_stop,0", twitch_stream:stream_status);
+    if_setontimer("script10153(10)", twitch_stream:webcam_buttons);
+    if (%varclientbit_23068 > 0) {
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_disabled_layer);
+    } else {
+        if_sethide(false, toplevel_v2_parent_suboverlay_twitch:voice_checkbox_deselected_disabled_layer);
+    }
+    sound_vorbis_volume(tli_click_01, 1, 0, 100);
+}

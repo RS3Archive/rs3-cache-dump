@@ -1,0 +1,36 @@
+// 5147
+[proc,script5147](int $int0)(int)
+def_int $int1 = -1;
+$int1 = activeclansettings_getaffinedslot(removetags(chat_playername_unfiltered));
+if ($int1 < 0) {
+    return(0);
+}
+if ($int0 = -1) {
+    $int0 = activeclansettings_getaffinedrank($int1);
+}
+def_int $int2 = 0;
+if (clanprofile_find = true) {
+    $int2 = calc(%clan_core_next_update_minute - date_minutes);
+    if ($int2 < 360 & $int0 < 126) {
+        return(0);
+    }
+}
+switch_int ($int0) {
+    case 100 :
+        return(%clan_permissions_admin_candowngrade);
+    case 101 :
+        return(%clan_permissions_organiser_candowngrade);
+    case 102 :
+        return(%clan_permissions_coordinator_candowngrade);
+    case 103 :
+        return(%clan_permissions_overseer_candowngrade);
+    case 125 :
+        return(%clan_permissions_deputyowner_candowngrade);
+    case 126 :
+        return(1);
+    case 127 :
+        return(1);
+    case default :
+        return(0);
+}
+return(0);

@@ -1,0 +1,17 @@
+// 9038
+[proc,script9038](struct $struct0, int $int1)(int)
+if ($int1 < struct_param($struct0, trh_promo_first_run)) {
+    return(0);
+}
+if ($int1 >= struct_param($struct0, trh_promo_clearup)) {
+    return(3);
+}
+def_enum $enum2 = struct_param($struct0, trh_promo_dates);
+if ($enum2 ! null) {
+    if (enum_getreversecount(int, $enum2, $int1) > 0) {
+        return(1);
+    }
+} else if ($int1 >= struct_param($struct0, trh_promo_start) & $int1 <= struct_param($struct0, trh_promo_end)) {
+    return(1);
+}
+return(2);

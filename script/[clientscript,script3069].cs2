@@ -1,0 +1,66 @@
+// 3069
+[clientscript,script3069](component $component0, int $int1, struct $struct2)
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+switch_component ($component0) {
+    case settings:set_build :
+        $component3 = settings:popup_container;
+        $component4 = settings:popup_build;
+        $component5 = settings:popup_click;
+    case default :
+        return;
+}
+cc_deleteall($component4);
+cc_deleteall($component5);
+def_enum $enum6 = ~script10402(~script2790($struct2));
+def_enum $enum7 = ~script18947($struct2);
+if ($enum6 = null) {
+    return;
+}
+def_int $int8 = 0;
+def_int $int9 = enum_getoutputcount($enum6);
+def_int $int10 = 8;
+def_int $int11 = 8;
+def_int $int12 = calc((1 + ($int9 - 1) / 5) * 35 + 11);
+def_int $int13 = 0;
+def_string $string0 = "";
+def_int $int14 = 0;
+def_boolean $boolean15 = true;
+if (cc_find($component0, $int1) = true & .if_find($component3) = true) {
+    .cc_setsize(186, $int12, ^setsize_abs, ^setsize_abs);
+    $int14 = ~script3764;
+    if (cc_getwidth > 186) {
+        $int14 = calc($int14 + (cc_getwidth - 186) / 2);
+    }
+    if (calc(cc_gety + cc_getheight + 300) > if_getheight($component0)) {
+        .cc_setposition($int14, calc(~script3765 - $int12), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        .cc_setposition($int14, calc(~script3765 + cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    .cc_sethide(false);
+    .cc_setontimer("script3083(event_com)");
+}
+~script13990($component4, null, rs3tli_content_panel_blue);
+while ($int8 < $int9) {
+    $int13 = enum(int, int, $enum6, $int8);
+    if ($enum7 ! null) {
+        $string0 = enum(int, string, $enum7, $int8);
+    }
+    if ($int13 = -1) {
+        $int13 = 0;
+        $boolean15 = false;
+    } else {
+        $boolean15 = true;
+    }
+    ~script10066($component5, $int8, 30, 30, $int10, $int11, $int13, $boolean15, 0);
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    cc_setop(1, "Select");
+    cc_setonop("script3082($component3, $component0, $int1, $int13)");
+    $int8 = calc($int8 + 1);
+    $int10 = calc($int10 + 35);
+    if (calc($int10 + 35) > 186) {
+        $int10 = 8;
+        $int11 = calc($int11 + 35);
+    }
+}

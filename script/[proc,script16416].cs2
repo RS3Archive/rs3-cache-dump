@@ -1,0 +1,41 @@
+// 16416
+[proc,script16416](int $int0)
+if_sethide(true, uitutorial:arrow_below);
+if_sethide(true, uitutorial:arrow_above);
+if_sethide(true, uitutorial:arrow_left);
+if_sethide(true, uitutorial:arrow_right);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_component $component3 = null;
+while ($int2 <= 4) {
+    switch_int ($int2) {
+        case 0 :
+            $component3 = uitutorial:build_layer;
+        case 1 :
+            $component3 = uitutorial:background;
+        case 2 :
+            $component3 = uitutorial:border;
+        case 3 :
+            $component3 = uitutorial:close;
+        case 4 :
+            $component3 = uitutorial:page_contents;
+    }
+    $int1 = if_getnextsubid($component3);
+    while ($int1 >= 0) {
+        if (cc_find($component3, $int1) = true) {
+            cc_settrans($int0);
+        }
+        $int1 = calc($int1 - 1);
+    }
+    $int2 = calc($int2 + 1);
+}
+if_settrans($int0, uitutorial:flashy_icon);
+if_settrans($int0, uitutorial:build_back);
+if_settrans($int0, uitutorial:build_back_outline);
+if_settrans($int0, uitutorial:left_arrow_button);
+if_settrans($int0, uitutorial:left_arrow_graphic);
+if_settrans($int0, uitutorial:right_arrow_button);
+if_settrans($int0, uitutorial:right_arrow_graphic);
+if (if_find(uitutorial:ok_button) = true) {
+    cc_settrans($int0);
+}

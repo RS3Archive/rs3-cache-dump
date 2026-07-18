@@ -1,0 +1,49 @@
+// 13163
+[proc,script13163]
+if (%varclientbit_35134 = 1) {
+    if_sethide(false, mtxmgt_store:list_layer);
+    if_sethide(true, mtxmgt_store:ragdolls_layer);
+    if_sethide(true, mtxmgt_store:ragdolls_info_layer);
+    if (if_find(mtxmgt_store:preview_layer) = true) {
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+        cc_setsize(220, 0, ^setsize_minus, ^setsize_minus);
+    }
+    if_sethide(true, mtxmgt_store:preview_extra_layer);
+    if_sethide(true, mtxmgt_store:preview_extra_list_layer);
+    if_sethide(false, struct_param(enum(int, struct, mtxmgt_store_filter_button_structs, 5), rs3tli_button_selected_layer));
+    if_sethide(true, struct_param(enum(int, struct, mtxmgt_store_filter_button_structs, 6), rs3tli_button_selected_layer));
+    if (if_find(mtxmgt_store:recolour_noclickthru_layer) = true) {
+        cc_setsize(220, 0, ^setsize_abs, ^setsize_minus);
+    }
+} else {
+    if_sethide(true, mtxmgt_store:list_layer);
+    if_sethide(false, mtxmgt_store:ragdolls_layer);
+    if_sethide(false, mtxmgt_store:ragdolls_info_layer);
+    if (if_find(mtxmgt_store:preview_layer) = true) {
+        cc_setposition(2, calc(if_getheight(cc_getlayer) - if_gety(mtxmgt_store:buttons_layer) + 4 + 2), ^setpos_abs_right, ^setpos_abs_bottom);
+        cc_setsize(calc(220 - 2 * 2), calc(if_getheight(mtxmgt_store:preview_bg_layer) - 2 * 2), ^setsize_abs, ^setsize_abs);
+    }
+    if_sethide(true, mtxmgt_store:preview_extra_layer);
+    if_sethide(true, mtxmgt_store:preview_extra_list_layer);
+    if_sethide(true, struct_param(enum(int, struct, mtxmgt_store_filter_button_structs, 5), rs3tli_button_selected_layer));
+    if_sethide(false, struct_param(enum(int, struct, mtxmgt_store_filter_button_structs, 6), rs3tli_button_selected_layer));
+    if (if_find(mtxmgt_store:recolour_noclickthru_layer) = true) {
+        cc_setsize(220, 0, ^setsize_minus, ^setsize_minus);
+    }
+}
+if_setsize(8, 0, ^setsize_abs, ^setsize_abs, mtxmgt_store:ragdolls_scrollsize_layer);
+if (if_find(mtxmgt_store:ragdolls_scrollbar_layer) = true) {
+    cc_setparam(rs3tli_scrollbar_button_step, 8);
+    cc_setparam(rs3tli_scrollbar_button_cooldown, 10);
+    cc_setparam(rs3tli_scrollbar_wheel_step, 8);
+    cc_setparam(rs3tli_scrollbar_wheel_max_notches, 1);
+    cc_setparam(rs3tli_scrollbar_drag_grid, 8);
+}
+if (if_find(mtxmgt_store:scrollbar_layer) = true) {
+    cc_setparam(rs3tli_scrollbar_wheel_step, calc(3 * (20 + 4)));
+}
+if (if_find(mtxmgt_store:items_layer) = true) {
+    cc_setparam(mtxmgt_first_visible_index, -1);
+}
+~script13145(toplevel_v2_ragdoll_store_main:ragdoll_drag_layer, toplevel_v2_ragdoll_store_main:ragdoll_model);
+~script8471(toplevel_v2_store_worn:content_layer, mtxmgt_store_worn_display_preview);

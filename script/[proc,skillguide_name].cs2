@@ -1,0 +1,62 @@
+// 12095
+[proc,skillguide_name](struct $struct0, dbrow $dbrow1)(string)
+def_string $string0 = "";
+def_struct $struct2 = null;
+if ($struct0 ! null) {
+    $string0 = struct_param($struct0, skillguide_name);
+    if (string_length($string0) > 0) {
+        return($string0);
+    }
+    if (struct_param($struct0, skillguide_item) ! null) {
+        $string0 = oc_name(struct_param($struct0, skillguide_item));
+    }
+    $dbrow1 = struct_param($struct0, skillguide_data);
+    $struct2 = struct_param($struct0, skillguide_struct);
+}
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case invent_blueprint_table :
+            switch_int (db_getfield($dbrow1, invent_blueprint_table:col7, 0)) {
+                case 2 :
+                    $string0 = "Device: ";
+                case 1 :
+                    $string0 = "Material: ";
+                case 0 :
+                    $string0 = "Research: ";
+            }
+            if (string_length(struct_param($struct0, skillguide_name)) > 0) {
+                $string0 = "<$string0><struct_param($struct0, skillguide_name)>";
+            } else {
+                $string0 = "<$string0><db_getfield($dbrow1, invent_blueprint_table:col1, 0)>";
+            }
+        case arch_site :
+            switch_int (db_getfield($dbrow1, arch_site:col1, 0)) {
+                case 1 :
+                    $string0 = "Dig Site: ";
+                case 2 :
+                    $string0 = "Excavation Site: ";
+            }
+            $string0 = "<$string0><db_getfield($dbrow1, arch_site:col2, 0)>";
+        case arch_excavation :
+            if (db_getfield($dbrow1, arch_excavation:col1, 0) ! 2) {
+                $string0 = ~script14578($dbrow1);
+            }
+        case arch_relic :
+            $string0 = oc_name(db_getfield($dbrow1, arch_relic:col9, 0));
+        case necro_ritual_recipe :
+            $string0 = "Ritual: <db_getfield($dbrow1, necro_ritual_recipe:col0, 0)>";
+        case construction_house_furniture :
+            $string0 = db_getfield($dbrow1, construction_house_furniture:col1, 0);
+    }
+} else if ($struct2 ! null) {
+    if (struct_param($struct2, combatv2_ability_adrenaline_type) = 6) {
+        return("Passive: <struct_param($struct2, combatv2_ability_name)>");
+    }
+    if (struct_param($struct2, combatv2_ability_id) > 0) {
+        if (struct_param($struct2, combatv2_ability_parent_stat) = 29 & struct_param($struct2, combatv2_spell_classification) ! 11) {
+            return("Incantation: <struct_param($struct2, combatv2_ability_name)>");
+        }
+        return("Ability: <struct_param($struct2, combatv2_ability_name)>");
+    }
+}
+return($string0);

@@ -1,0 +1,120 @@
+// 12876
+[proc,script12876](struct $struct0)
+def_component $component1 = timed_event:progress_background_layer;
+def_int $int2 = 118095935;
+def_component $component3 = timed_event:left_container;
+def_component $component4 = timed_event:progress_value_graphic_layer;
+def_component $component5 = timed_event:progress_value_bounds_layer;
+def_component $component6 = timed_event:progress_join_layer;
+def_component $component7 = timed_event:progress_join_bar_layer;
+def_component $component8 = timed_event:progress_rewards_layer;
+def_enum $enum9 = struct_param($struct0, timed_event_titlegraphic);
+def_graphic $graphic10 = null;
+if ($enum9 ! null) {
+    $graphic10 = enum(int, graphic, $enum9, map_lang);
+}
+def_string $string0 = "";
+def_int $int11 = 0;
+if (struct_param($struct0, timed_event_compact_desc) = 1) {
+    if (struct_param($struct0, timed_event_show_name) = 1) {
+        if_settext("<col=FFF8C1><struct_param($struct0, timed_event_name)>", timed_event:compact_title);
+    }
+    if_settext(struct_param($struct0, timed_event_long_desc), timed_event:compact_desc);
+    if_sethide(true, timed_event:title_text);
+    if_sethide(true, timed_event:desc_container);
+    if_sethide(false, timed_event:compact_title);
+    if_sethide(false, timed_event:compact_desc);
+} else {
+    if (struct_param($struct0, timed_event_show_name) = 1) {
+        if_settext(struct_param($struct0, timed_event_name), timed_event:title_text);
+    }
+    if_sethide(true, timed_event:compact_title);
+    if_sethide(true, timed_event:compact_desc);
+    if_sethide(false, timed_event:title_text);
+    if_sethide(false, timed_event:desc_container);
+    if_setgraphic($graphic10, timed_event:title_graphic);
+    if_settext(struct_param($struct0, timed_event_desc), timed_event:summary_slogan);
+    if_settext(struct_param($struct0, timed_event_long_desc), timed_event:summary_desc);
+    if_setsize(65, ~script7593(if_gettext(timed_event:summary_desc), if_getwidth(timed_event:summary_desc), if_getfontmetrics(timed_event:summary_desc), 0), ^setsize_minus, ^setsize_abs, timed_event:summary_desc);
+    if_setsize(if_getwidth(timed_event:desc_container), calc(53 + if_getheight(timed_event:summary_desc)), ^setsize_abs, ^setsize_abs, timed_event:desc_container);
+}
+if_setgraphic(struct_param($struct0, timed_event_bg_graphic), timed_event:background_graphic);
+switch_struct (~script13032) {
+    case timed_event14, timed_event15, timed_event16, timed_event17 :
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:background_graphic);
+    case timed_event18 :
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:background_graphic);
+        while ($int11 < 6) {
+            if_setgraphic(enum(int, graphic, event18_skill_icons, $int11), enum(int, component, event_skill_off_icon_components, $int11));
+            if_settext(enum(int, string, event18_skill_names, $int11), enum(int, component, event_skill_off_name_components, $int11));
+            $int11 = calc($int11 + 1);
+        }
+    case timed_event_easter_2023 :
+        if_setsize(738, 0, ^setsize_abs, ^setsize_minus, timed_event:background_graphic);
+    case timed_event_mhaw_may21 :
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:background_graphic);
+        if (~ironman_mode = true) {
+            if_settext("Support our Charities by purchasing the Meditation bundle. For more information on CPSL Mind and Rise Above the Disorder please head to the Charities tab.<br><br>In the bundle you will receive:<br> The Cloak and Banner of Meditation", timed_event:summary_desc);
+            if_setsize(65, ~script7593(if_gettext(timed_event:summary_desc), if_getwidth(timed_event:summary_desc), if_getfontmetrics(timed_event:summary_desc), 0), ^setsize_minus, ^setsize_abs, timed_event:summary_desc);
+            if_setsize(if_getwidth(timed_event:desc_container), calc(53 + if_getheight(timed_event:summary_desc)), ^setsize_abs, ^setsize_abs, timed_event:desc_container);
+        }
+        if_sethide(false, timed_event:background_shader);
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:background_shader);
+        ~script3954;
+    case timed_event_mhaw_may22 :
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:background_graphic);
+        if (~ironman_mode = true | %mhaw_may22_power_bundles_purchased = 3) {
+            if_settext("Support our Charities by purchasing one of our Bundles. For more information on CPSL Mind and Rise Above the Disorder please head to the Charities tab.<br><br>Purchase the Cosmetic Equipment Bundle to claim a selection of items to help customise your avatar.<br><br>In the Cosmetic Equipment Bundle you will receive:<br>- 2 Dragon keepsake keys<br>- 1 Prismatic Dye<br>- 1 Chameleon Extract", timed_event:summary_desc);
+            if_setsize(65, ~script7593(if_gettext(timed_event:summary_desc), if_getwidth(timed_event:summary_desc), if_getfontmetrics(timed_event:summary_desc), 0), ^setsize_minus, ^setsize_abs, timed_event:summary_desc);
+            if_setsize(if_getwidth(timed_event:desc_container), calc(53 + if_getheight(timed_event:summary_desc)), ^setsize_abs, ^setsize_abs, timed_event:desc_container);
+        }
+        if_setposition(3, 20, ^setpos_abs_left, ^setpos_abs_bottom, timed_event:summary_desc);
+        if_sethide(false, timed_event:background_shader);
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:background_shader);
+    case timed_event_time_mage, timed_event_bee_tle :
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:universe);
+        if_setsize(688, 402, ^setsize_abs, ^setsize_abs, timed_event:background_graphic);
+    case default :
+        if_setsize(683, 314, ^setsize_abs, ^setsize_abs, timed_event:background_graphic);
+}
+$int11 = 0;
+if (struct_param($struct0, timed_event_type) = 0 | struct_param($struct0, timed_event_type) = 1) {
+    if (if_getnextsubid($component3) = 0) {
+        if_setonvartransmit("script12877($struct0){timed_event_main, timed_event_main}", $component3);
+        cc_create($component3, ^iftype_text, if_getnextsubid($component3));
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setposition(5, -15, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setcolour(~script10495(1));
+        cc_create($component3, ^iftype_text, if_getnextsubid($component3));
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setposition(120, -15, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setcolour(~script10495(3));
+        cc_create($component3, ^iftype_text, if_getnextsubid($component3));
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setposition(5, 15, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setcolour(~script10495(1));
+        cc_create($component3, ^iftype_text, if_getnextsubid($component3));
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_setposition(120, 15, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setcolour(~script10495(3));
+        if (struct_param($struct0, timed_event_currency) ! null) {
+            if_settext("The event has now ended and all currency<br>can be redeemed or converted for consumable rewards.", timed_event:event_ended_text);
+        }
+    }
+    if (cc_find($component3, 0) = true) {
+        cc_settext("Daily Progress:");
+    }
+    if (cc_find($component3, 2) = true) {
+        cc_settext("Limit Extender:");
+    }
+    ~script12878($struct0);
+    ~script15091($component5, $component4, $component6, $component7, $component8, $component1, $struct0);
+}

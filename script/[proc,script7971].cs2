@@ -1,0 +1,41 @@
+// 7971
+[proc,script7971](component $component0, int $int1, component $component2, int $int3, int $int4)
+def_graphic $graphic5 = null;
+if ($int1 ! -1) {
+    if (cc_find($component0, $int1) = true) {
+        if (cc_getinvobject ! null) {
+            if_setobject(cc_getinvobject, -1, $component2);
+            if_setsize(36, 32, ^setsize_abs, ^setsize_abs, $component2);
+            if_setposition(3, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+        } else {
+            if (cc_getgraphic = struct_param(magic_borrowed_power, combatv2_ability_icon)) {
+                return;
+            }
+            if_setgraphic(cc_getgraphic, $component2);
+            if_setsize(30, 30, ^setsize_abs, ^setsize_abs, $component2);
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+        }
+    }
+} else {
+    switch_component ($component0) {
+        case toplevel_v2_combat_bar:prayer_icon :
+            $graphic5 = struct_param(combatv2_prayer_quickprayers_dummy_struct, combatv2_ability_icon);
+            if_setgraphic($graphic5, $component2);
+            if_setsize(20, 20, ^setsize_abs, ^setsize_abs, $component2);
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+        case toplevel_v2_minimap:run_graphic :
+            if (%option_run = 0) {
+                $graphic5 = navigation_icon_energy_off;
+            } else {
+                $graphic5 = navigation_icon_energy_on;
+            }
+            if_setgraphic($graphic5, $component2);
+            if_setsize(22, 28, ^setsize_abs, ^setsize_abs, $component2);
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+        case toplevel_v2_combat_bar:health_icon :
+            $graphic5 = struct_param(combatv2_hp_button_dummy_struct, combatv2_ability_icon);
+            if_setgraphic($graphic5, $component2);
+            if_setsize(20, 20, ^setsize_abs, ^setsize_abs, $component2);
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+    }
+}

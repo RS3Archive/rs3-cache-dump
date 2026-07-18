@@ -1,0 +1,21 @@
+// 8211
+[clientscript,script8211](component $component0, component $component1, component $component2, string $string0, int $int3)
+if (clientclock < $int3) {
+    if (cc_find($component1, 0) = true) {
+        if (cc_gettrans > 0) {
+            ~script4161($component1, max(0, calc(cc_gettrans - 15)));
+        } else {
+            if_settext($string0, $component2);
+        }
+    }
+} else {
+    if_settext("", $component2);
+    if (cc_find($component1, 0) = true) {
+        if (cc_gettrans < 180) {
+            ~script4161($component1, min(180, calc(cc_gettrans + 15)));
+        } else {
+            if_setontimer(null, $component0);
+            if_sethide(true, $component0);
+        }
+    }
+}

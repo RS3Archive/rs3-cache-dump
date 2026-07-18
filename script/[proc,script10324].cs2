@@ -1,0 +1,38 @@
+// 10324
+[proc,script10324](int $int0, int $int1, string $string0, int $int2)
+if ($int0 = -1) {
+    return;
+}
+cc_setopbase($string0);
+if ($int0 ! $int1) {
+    if ($int2 = map_world) {
+        cc_setop(4, "Inspect");
+    }
+    if (friend_test($string0) = true) {
+        cc_setop(1, "Message");
+        cc_setop(9, "Remove friend");
+    } else if (ignore_test($string0) = true) {
+        cc_setop(9, "Remove ignore");
+    } else {
+        cc_setop(9, "Add friend");
+        cc_setop(10, "Add ignore");
+    }
+    if ($int2 ! -1 & $int2 ! map_world) {
+        cc_setop(5, "Switch world");
+    }
+}
+if (player_group_member_is_owner($int0) = true) {
+    cc_setop(7, "Set team");
+    if ($int0 ! $int1) {
+        cc_setop(6, "Set rank");
+        cc_setop(8, "Kick/ban");
+    }
+} else if (~script10279($int0) = true) {
+    cc_setop(7, "Set team");
+    if ($int0 ! $int1) {
+        cc_setop(8, "Kick/ban");
+    }
+} else if (~script10280($int0) = true) {
+    cc_setop(7, "Set team");
+}
+cc_setonop("script10325(event_com, $string0, event_op)");

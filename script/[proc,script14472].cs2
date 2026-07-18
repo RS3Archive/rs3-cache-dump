@@ -1,0 +1,33 @@
+// 14472
+[proc,script14472]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(6awe3_seedicide_build_component);
+def_int $int2 = 0;
+def_component $component3 = null;
+def_component $component4 = null;
+while ($int0 <= $int1) {
+    $int2 = ~script14447($int0);
+    $component3 = enum(int, component, 6awe3_seedicide_build_component, $int0);
+    $component4 = enum(int, component, 6awe3_seedicide_click_component, $int0);
+    if ($component3 ! null & $component4 ! null) {
+        ~static_checkbox_create($component3, $component4, "", "", "", $int2);
+    }
+    $int0 = calc($int0 + 1);
+}
+~script14473(6awe3_seedicide_bushes);
+~script14473(6awe3_seedicide_flowers);
+~script14473(6awe3_seedicide_herbs);
+~script14473(6awe3_seedicide_hop);
+~script14473(6awe3_seedicide_veg);
+~script14473(6awe3_seedicide_fruit_tree);
+~script14473(6awe3_seedicide_tree);
+~script14473(6awe3_seedicide_other);
+~script14473(6awe3_seedicide_ecosystem);
+if (%pof_rewards_seedicide_upgrade_unlocked = 0) {
+    if_settext("Seed collector<col=ff0000> - Purchased at the Ardougne Farmers' Market</col>", 6awe3_seedicide:seed_collector_title);
+    if_sethide(true, 6awe3_seedicide:seed_pickup_toggle_text);
+} else {
+    if_settext("Seed collector", 6awe3_seedicide:seed_collector_title);
+    if_sethide(false, 6awe3_seedicide:seed_pickup_toggle_text);
+}
+~static_checkbox_create_disable(6awe3_seedicide:seed_collector_toggle_build, 6awe3_seedicide:seed_collector_toggle_click, "", "", "", %pof_rewards_seedicide_collector, ~script6427(%pof_rewards_seedicide_upgrade_unlocked));

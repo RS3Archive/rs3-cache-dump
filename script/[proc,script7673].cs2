@@ -1,0 +1,57 @@
+// 7673
+[proc,script7673](int $int0, int $int1, string $string0, component $component2)(int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 12;
+def_int $int7 = -1;
+if ($component2 = bugreport_interface:input_text) {
+    $int7 = 92078095;
+} else if ($component2 = bugreport_interface:input_repro) {
+    $int7 = 92078107;
+}
+$int3 = string_indexof_char($string0, '>', calc($int1 - 1));
+switch_int ($int0) {
+    case 96 :
+        %bugreport_caret_lastindex = -1;
+        if (string_indexof_char($string0, '>', calc($int1 - 1)) = calc($int1 - 1) & string_indexof_char($string0, '<', calc($int1 - 4)) = calc($int1 - 4)) {
+            return(calc($int1 - 4));
+        }
+        return(max(calc($int1 - 1), 0));
+    case 97 :
+        %bugreport_caret_lastindex = -1;
+        if (string_indexof_char($string0, '<', $int1) = $int1 & string_indexof_char($string0, '>', calc($int1 + 3)) = calc($int1 + 3)) {
+            return(calc($int1 + 4));
+        }
+        return(min(calc($int1 + 1), string_length($string0)));
+    case 98 :
+        if (%bugreport_caret_lastindex ! -1 & %bugreport_caret_lastindex < $int1) {
+            $int3 = %bugreport_caret_lastindex;
+            %bugreport_caret_lastindex = $int1;
+            return($int3);
+        }
+        $int3, $int4 = if_getcharposatindex($int1, $component2);
+        $int4 = calc($int4 - $int6 * 2);
+        if ($int4 >= 0) {
+            $int5 = if_getcharindexatpos($int3, $int4, $component2);
+            return($int5);
+        } else {
+            return(0);
+        }
+    case 99 :
+        if (%bugreport_caret_lastindex ! -1 & %bugreport_caret_lastindex > $int1) {
+            $int3 = %bugreport_caret_lastindex;
+            %bugreport_caret_lastindex = $int1;
+            return($int3);
+        }
+        $int3, $int4 = if_getcharposatindex($int1, $component2);
+        if (calc($int4 + $int6) <= calc(paraheight($string0, if_getwidth($component2), museo_sans_11pt_regular) * 12)) {
+            $int5 = if_getcharindexatpos($int3, $int4, $component2);
+            return($int5);
+        } else {
+            return(string_length($string0));
+        }
+    case 102 :
+        return(0);
+}
+return(string_length($string0));

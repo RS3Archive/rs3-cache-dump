@@ -1,0 +1,88 @@
+// 19285
+[proc,script19285](int $int0)
+def_int $int1 = 0;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+switch_int ($int0) {
+    case 1 :
+        $int1 = %trh_dungeon_crawl_bonus_option_1_id;
+        $component2 = trh_dungeon_crawl_overlay:bonus_option_1_button_layer;
+        $component3 = trh_dungeon_crawl_overlay:bonus_option_1_button_graphic;
+        $component4 = trh_dungeon_crawl_overlay:bonus_option_1_modifier_layer;
+        $component5 = trh_dungeon_crawl_overlay:bonus_option_1_text;
+    case 2 :
+        $int1 = %trh_dungeon_crawl_bonus_option_2_id;
+        $component2 = trh_dungeon_crawl_overlay:bonus_option_2_button_layer;
+        $component3 = trh_dungeon_crawl_overlay:bonus_option_2_button_graphic;
+        $component4 = trh_dungeon_crawl_overlay:bonus_option_2_modifier_layer;
+        $component5 = trh_dungeon_crawl_overlay:bonus_option_2_text;
+}
+if ($int1 = 0) {
+    return;
+}
+def_dbrow $dbrow6 = ~script19215($int1);
+def_dbrow $dbrow7 = db_getfield(%trh_dungeon_crawl_dungeon_dbrow, trh_dungeon_crawl_dungeon:col1, 0);
+def_graphic $graphic8 = db_getfield($dbrow7, trh_dungeon_crawl_theme:col4:0, 0);
+def_graphic $graphic9 = db_getfield($dbrow7, trh_dungeon_crawl_theme:col4:1, 0);
+switch_int ($int0) {
+    case 1 :
+        if_setopbase("<col=B8D1D1>Rarity bonus</col>", $component2);
+    case 2 :
+        if_setopbase("<col=B8D1D1>Category bonus</col>", $component2);
+}
+if ($int0 = %trh_dungeon_crawl_bonus_option_selected) {
+    if_setgraphic(db_getfield($dbrow7, trh_dungeon_crawl_theme:col4:2, 0), $component3);
+    if_setonmouseover(null, $component2);
+    if_setonmouseleave(null, $component2);
+} else {
+    if (if_getgraphic($component3) ! $graphic9) {
+        if_setgraphic($graphic8, $component3);
+    }
+    if_setonmouseover("graphic_swapper($component3, $graphic9)", $component2);
+    if_setonmouseleave("graphic_swapper($component3, $graphic8)", $component2);
+}
+if ($int0 = 2) {
+    if_sethflip(true, $component3);
+}
+def_int $int10 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col1, 0);
+def_int $int11 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col2, 0);
+def_int $int12 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col3, 0);
+def_int $int13 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col4, 0);
+def_string $string0 = "";
+def_int $int14 = if_getwidth(if_getparentlayer($component4));
+if (($int11 > 1 | $int12 ! 0) & $int13 > 1) {
+    $int14 = calc($int14 / 2);
+}
+def_int $int15 = 0;
+$int15 = 1;
+~if_add_child_layer($component4, $int15, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, $int14, 0, ^setsize_abs, ^setsize_minus);
+cc_deleteallnested;
+if ($int11 > 1 | $int12 ! 0) {
+    if ($int11 > 1) {
+        ~cc_add_child_graphic_full($int15, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 61, 75, ^setsize_abs, ^setsize_abs, ~script19209($int11), false, false, false, 0);
+    } else if ($int12 ! 0) {
+        ~cc_add_child_graphic_full($int15, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 60, 60, ^setsize_abs, ^setsize_abs, enum(int, graphic, trh_category_icon, $int12), false, false, false, 0);
+    }
+}
+$int15 = 2;
+~if_add_child_layer($component4, $int15, 0, 0, 0, ^setpos_abs_right, ^setpos_abs_centre, $int14, 0, ^setsize_abs, ^setsize_minus);
+cc_deleteallnested;
+if ($int13 > 1) {
+    ~cc_add_child_graphic_full($int15, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 80, 80, ^setsize_abs, ^setsize_abs, ~script10980($int13), false, false, false, 0);
+}
+if ($int10 = 1) {
+    $string0 = "<col=FFFFFF>Next floor:</col>";
+} else if ($int10 > 1) {
+    $string0 = "<col=FFFFFF>Next <tostring($int10)> floors:</col>";
+}
+if ($int11 > 1) {
+    $string0 = "<$string0><br><~script10979($int11)><~script10876($int11)>+</col>";
+} else if ($int12 ! 0) {
+    $string0 = "<$string0><br><col=FFFF00><enum(int, string, trh_category_name, $int12)> category</col>";
+}
+if ($int13 > 1) {
+    $string0 = "<$string0><br><col=FF00>x<tostring($int13)> multiplier</col>";
+}
+if_settext($string0, $component5);

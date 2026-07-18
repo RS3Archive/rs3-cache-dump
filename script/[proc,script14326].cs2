@@ -1,0 +1,37 @@
+// 14326
+[proc,script14326](component $component0, component $component1, enum $enum2, int $int3, int $int4, int $int5)(int, int)
+def_int $int6 = enum_getoutputcount($enum2);
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+while ($int8 < $int6) {
+    $obj7 = enum(int, obj, $enum2, $int8);
+    ~script10410($component0, $component1, rs3tli_3x3_button, $int9, $int3, 48, 52, $int4, false, "");
+    if (cc_find($component1, $int4) = true) {
+        cc_setopbase("<col=FF981F><oc_name($obj7)></col>");
+        cc_setop(1, "Info");
+        cc_setop(2, "Buy 1");
+        cc_setop(3, "Buy 5");
+        cc_setop(4, "Buy 10");
+        cc_setop(5, "Buy 50");
+        cc_setop(6, "Buy 250");
+        cc_setop(10, "Examine");
+        cc_setonmouserepeat("script9564($obj7, event_com, event_comsubid)");
+    }
+    ~cc_add_object($component0, 36, 32, calc($int9 + 6), calc($int3 + 4), $obj7, -1);
+    ~script4512($component0, 12, 12, calc($int9 + 2), calc($int3 + 38), "km_shopitems,1");
+    ~cc_add_title_text($component0, 31, 12, calc($int9 + 14), calc($int3 + 38), museo_sans_11pt_regular, ~script940(~rand_buyprice($obj7)), 0);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    $int8 = calc($int8 + 1);
+    $int4 = calc($int4 + 1);
+    $int9 = calc($int9 + 52);
+    if (calc($int9 + 48) > $int5) {
+        $int9 = 0;
+        $int3 = calc($int3 + 56);
+    }
+}
+if ($int9 ! 0) {
+    $int9 = 0;
+    $int3 = calc($int3 + 52);
+}
+return($int8, $int3);

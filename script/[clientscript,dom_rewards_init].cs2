@@ -1,0 +1,103 @@
+// 2632
+[clientscript,dom_rewards_init]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(dom_rewards);
+def_int $int2 = 0;
+def_int $int3 = if_getwidth(dom_rewards:contents);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_struct $struct8 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "<str>";
+def_string $string3 = "";
+cc_deleteall(dom_rewards:build);
+cc_deleteall(dom_rewards:click);
+while ($int0 < $int1) {
+    $struct8 = enum(int, struct, dom_rewards, $int0);
+    $int7 = ~script2629($struct8);
+    $string0 = struct_param($struct8, dom_reward_name);
+    $string1 = struct_param($struct8, dom_reward_desc);
+    if ($int7 = 0) {
+        switch_struct ($struct8) {
+            case dom_reward_kill_100, dom_reward_kill_200, dom_reward_kill_300, dom_reward_kill_400_special :
+                $string0 = "<$string0> (<tostring(%dom_achieve_monsters_slain)>)";
+            case dom_reward_kill_500 :
+                $string0 = "<$string0> (<tostring(%dom_achieve_ascend_slain)>)";
+            case dom_reward_complete_25_1 :
+                $string1 = ~script2637($string1, %dom_achieve_monsters_slain, 450, "Defeat 450 bosses");
+                $string1 = ~script2636($string1, %dom_achieve_spectate, 0, "Spectate a match");
+                $string1 = ~script2636($string1, %dom_purchase_tally, 0, "<tostring(%dom_achieve_fights)> / 25 Climber, Endurance or Special fights.");
+            case dom_reward_complete_25_2 :
+                $string1 = ~script2637($string1, %dom_achieve_monsters_slain, 500, "Defeat 500 bosses");
+                $string1 = ~script2636($string1, %dom_purchase_tally, 0, "<tostring(%dom_achieve_fights)> / 25 Climber, Endurance or Special fights.");
+                $string1 = ~script2636($string1, %dom_boss_1_slain, 0, "Defeat Nomad");
+                $string1 = ~script2636($string1, %dom_boss_4_slain, 0, "Defeat Eruni, Leeuni and Ayuni");
+                $string1 = ~script2636($string1, %dom_boss_7_slain, 0, "Defeat The Untouchable");
+                $string1 = ~script2636($string1, %dom_boss_10_slain, 0, "Defeat Dagannoth Sentinels");
+                $string1 = ~script2636($string1, %dom_boss_13_slain, 0, "Defeat Balance Elemental");
+                $string1 = ~script2636($string1, %dom_boss_16_slain, 0, "Defeat Ice Demon");
+            case dom_reward_complete_25_3 :
+                $string1 = ~script2637($string1, %dom_achieve_monsters_slain, 500, "Defeat 500 bosses");
+                $string1 = ~script2636($string1, %dom_purchase_tally, 0, "<tostring(%dom_achieve_fights)> / 25 Climber, Endurance or Special fights.");
+                $string1 = ~script2636($string1, %dom_boss_3_slain, 0, "Defeat Decaying Avatar");
+                $string1 = ~script2636($string1, %dom_boss_6_slain, 0, "Defeat Second Dagannoth Mother");
+                $string1 = ~script2636($string1, %dom_boss_9_slain, 0, "Defeat The Everlasting and Illusive");
+                $string1 = ~script2636($string1, %dom_boss_12_slain, 0, "Defeat Nezikchened");
+                $string1 = ~script2636($string1, %dom_boss_15_slain, 0, "Defeat Arrav");
+                $string1 = ~script2636($string1, %dom_boss_18_slain, 0, "Defeat Giant Roc");
+            case dom_reward_complete_25_4 :
+                $string1 = ~script2637($string1, %dom_achieve_monsters_slain, 500, "Defeat 500 bosses");
+                $string1 = ~script2636($string1, %dom_purchase_tally, 0, "<tostring(%dom_achieve_fights)> / 25 Climber, Endurance or Special fights.");
+                $string1 = ~script2636($string1, %dom_boss_2_slain, 0, "Defeat Pest Queen");
+                $string1 = ~script2636($string1, %dom_boss_5_slain, 0, "Defeat Zenevivia");
+                $string1 = ~script2636($string1, %dom_boss_8_slain, 0, "Defeat Damis, Fareed, Kamil and Dessous");
+                $string1 = ~script2636($string1, %dom_boss_11_slain, 0, "Defeat Karamel and Gelatinnoth Mother");
+                $string1 = ~script2636($string1, %dom_boss_14_slain, 0, "Defeat Jungle Demon");
+                $string1 = ~script2636($string1, %dom_boss_17_slain, 0, "Defeat The Inadequacy");
+        }
+    } else if (struct_param($struct8, dom_reward_unlock_auto) = true) {
+        switch_int (struct_param($struct8, dom_reward_type)) {
+            case 1 :
+                $string1 = "<$string1><br>This will be applied automatically.";
+            case 2 :
+                $string1 = "<$string1><br>This item can now appear in the reward chest.";
+        }
+    }
+    $int4 = ~script7593($string0, calc($int3 - 130), museo_sans_11pt_regular, 0);
+    $int5 = ~script7593($string1, calc($int3 - 130), museo_sans_11pt_regular, 0);
+    $int6 = calc($int4 + $int5 + 8);
+    if ($int7 = 0) {
+        ~cc_add_rect_struct(dom_rewards:build, $int3, $int6, 0, $int2, true, rs3_rect_disabled);
+        ~script13980(dom_rewards:build, dom_rewards:click, rs3tli_positive_button, calc($int3 - 125), calc($int2 + $int6 / 2 - 14), 120, $int0, true, "Locked");
+        ~script6203(dom_rewards:build, calc($int3 - 130), $int4, 5, calc($int2 + 2), museo_sans_11pt_regular, $string0, 5);
+        ~script6203(dom_rewards:build, calc($int3 - 130), $int5, 5, calc($int2 + 4 + $int4), museo_sans_11pt_regular, $string1, 5);
+    } else {
+        ~script2682(dom_rewards:build, $int3, $int6, 0, $int2, true, $int0);
+        if (struct_param($struct8, dom_reward_unlock_auto) = true) {
+            ~script13980(dom_rewards:build, dom_rewards:click, rs3tli_neutral_button, calc($int3 - 125), calc($int2 + $int6 / 2 - 14), 120, $int0, false, "Unlocked");
+        } else {
+            ~script13980(dom_rewards:build, dom_rewards:click, rs3tli_positive_button, calc($int3 - 125), calc($int2 + $int6 / 2 - 14), 120, $int0, false, "Claim");
+        }
+        ~script6203(dom_rewards:build, calc($int3 - 130), $int4, 5, calc($int2 + 2), museo_sans_11pt_regular, $string0, 2);
+        ~script6203(dom_rewards:build, calc($int3 - 130), $int5, 5, calc($int2 + 4 + $int4), museo_sans_11pt_regular, $string1, 3);
+        if ($struct8 = dom_reward_kill_400_special & cc_find(dom_rewards:click, $int0) = true) {
+            cc_setop(1, "Buy 10");
+            cc_setop(2, "Buy 50");
+            cc_setop(3, "Buy 500");
+            cc_setop(4, "Buy X");
+        }
+    }
+    $int2 = calc($int2 + $int6 + 6);
+    $int0 = calc($int0 + 1);
+}
+if ($int2 > if_getheight(dom_rewards:contents)) {
+    if_setscrollpos(0, min(%dom_scrollpos, calc($int2 - if_getheight(dom_rewards:contents))), dom_rewards:contents);
+    if_setscrollsize(0, $int2, dom_rewards:contents);
+} else {
+    if_setscrollpos(0, 0, dom_rewards:contents);
+    if_setscrollsize(0, 0, dom_rewards:contents);
+}
+~rs3_scrollbar_vertical(dom_rewards:scrollbar, dom_rewards:contents);

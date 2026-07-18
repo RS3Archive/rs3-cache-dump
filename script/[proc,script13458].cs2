@@ -1,0 +1,177 @@
+// 13458
+[proc,script13458](int $int0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_graphic $graphic5 = null;
+def_graphic $graphic6 = null;
+def_component $component7 = null;
+def_int $int8 = -1;
+def_string $string0 = null;
+def_int $int9 = ~reputation_get_current_reputation_tier($int0);
+if ($int1 = 0) {
+    switch_int ($int0) {
+        case 1 :
+            $component2 = repmodal:circular_bar_layer_worker_graphic;
+        case 2 :
+            $component2 = repmodal:circular_bar_layer_imperial_graphic;
+        case 3 :
+            $component2 = repmodal:circular_bar_layer_merchant_graphic;
+        case 4 :
+            $component2 = repmodal:circular_bar_layer_ports_graphic;
+    }
+} else {
+    switch_int ($int0) {
+        case 1 :
+            $component2 = repmodal:circular_bar_layer_worker_graphic_secondary;
+        case 2 :
+            $component2 = repmodal:circular_bar_layer_imperial_graphic_secondary;
+        case 3 :
+            $component2 = repmodal:circular_bar_layer_merchant_graphic_secondary;
+        case 4 :
+            $component2 = repmodal:circular_bar_layer_ports_graphic_secondary;
+    }
+}
+switch_int ($int9) {
+    case 1 :
+        $graphic5 = "menaphos_icon_reputation_level,0";
+    case 2 :
+        $graphic5 = "menaphos_icon_reputation_level,1";
+    case 3 :
+        $graphic5 = "menaphos_icon_reputation_level,2";
+    case 4 :
+        $graphic5 = "menaphos_icon_reputation_level,3";
+    case 5 :
+        $graphic5 = "menaphos_icon_reputation_level,4";
+    case 6 :
+        $graphic5 = "menaphos_icon_reputation_level,5";
+    case 7 :
+        $graphic5 = "menaphos_icon_reputation_level,6";
+    case 8 :
+        $graphic5 = "menaphos_icon_reputation_level,7";
+    case 9 :
+        $graphic5 = "menaphos_icon_reputation_level,8";
+    case 10 :
+        $graphic5 = "menaphos_icon_reputation_level,9";
+}
+if ($component2 = null) {
+    return;
+}
+cc_create($component2, ^iftype_graphic, 0);
+cc_setsize(160, 160, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic($graphic5);
+if ($int1 = 0) {
+    switch_int ($int0) {
+        case 1 :
+            $component3 = repmodal:backlight_worker;
+            $component7 = repmodal:circular_bar_layer_worker;
+        case 2 :
+            $component3 = repmodal:backlight_imperial;
+            $component7 = repmodal:circular_bar_layer_imperial;
+        case 3 :
+            $component3 = repmodal:backlight_merchant;
+            $component7 = repmodal:circular_bar_layer_merchant;
+        case 4 :
+            $component3 = repmodal:backlight_ports;
+            $component7 = repmodal:circular_bar_layer_ports;
+    }
+    if_setonmouserepeat("script13490($component3, 0, $int0, 1)", $component7);
+    if_setonmouseleave("script13490($component3, 0, $int0, 0)", $component7);
+} else {
+    switch_int ($int0) {
+        case 1 :
+            $component3 = repmodal:backlight_worker_secondary;
+        case 2 :
+            $component3 = repmodal:backlight_imperial_secondary;
+        case 3 :
+            $component3 = repmodal:backlight_merchant_secondary;
+        case 4 :
+            $component3 = repmodal:backlight_ports_secondary;
+    }
+}
+cc_create($component3, ^iftype_graphic, 0);
+cc_setsize(160, 200, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, -20, ^setpos_abs_centre, ^setpos_abs_centre);
+if (%menaphos_currently_selected_faction = $int0) {
+    $graphic6 = "menaphos_btn_faction_reputation,2";
+} else {
+    $graphic6 = "menaphos_btn_faction_reputation,0";
+}
+cc_setgraphic($graphic6);
+if ($int1 = 0) {
+    switch_int ($int0) {
+        case 1 :
+            $component4 = repmodal:backlight_worker_text;
+            $string0 = "Worker";
+        case 2 :
+            $component4 = repmodal:backlight_imperial_text;
+            $string0 = "Imperial";
+        case 3 :
+            $component4 = repmodal:backlight_merchant_text;
+            $string0 = "Merchant";
+        case 4 :
+            $component4 = repmodal:backlight_ports_text;
+            $string0 = "Port";
+    }
+} else {
+    switch_int ($int0) {
+        case 1 :
+            $component4 = repmodal:backlight_worker_text_secondary;
+        case 2 :
+            $component4 = repmodal:backlight_imperial_text_secondary;
+        case 3 :
+            $component4 = repmodal:backlight_merchant_text_secondary;
+        case 4 :
+            $component4 = repmodal:backlight_ports_text_secondary;
+    }
+    $string0 = "";
+}
+cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+cc_setsize(200, 200, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, -105, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(cinzel_13pt_bold);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(~script10495(0));
+cc_settext($string0);
+if ($int1 = 0) {
+    switch_int ($int0) {
+        case 1 :
+            $component4 = repmodal:backlight_worker_text;
+        case 2 :
+            $component4 = repmodal:backlight_imperial_text;
+        case 3 :
+            $component4 = repmodal:backlight_merchant_text;
+        case 4 :
+            $component4 = repmodal:backlight_ports_text;
+    }
+} else {
+    switch_int ($int0) {
+        case 1 :
+            $component4 = repmodal:backlight_worker_text_secondary;
+        case 2 :
+            $component4 = repmodal:backlight_imperial_text_secondary;
+        case 3 :
+            $component4 = repmodal:backlight_merchant_text_secondary;
+        case 4 :
+            $component4 = repmodal:backlight_ports_text_secondary;
+    }
+}
+cc_create($component4, ^iftype_text, if_getnextsubid($component4));
+$string0 = tostring($int9);
+cc_setsize(200, 200, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 20, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(cinzel_25pt_bold_multiline);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(~script10495(0));
+cc_settext($string0);
+switch_int ($int0) {
+    case 1 :
+        cc_setonvartransmit("script13388($int0, $int1){menaphos_slave_faction_amount}");
+    case 2 :
+        cc_setonvartransmit("script13388($int0, $int1){menaphos_royal_faction_amount}");
+    case 3 :
+        cc_setonvartransmit("script13388($int0, $int1){menaphos_merchant_faction_amount}");
+    case 4 :
+        cc_setonvartransmit("script13388($int0, $int1){menaphos_sailor_faction_amount}");
+}

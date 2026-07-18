@@ -1,0 +1,17 @@
+// 8008
+[clientscript,move_component](component $component0, component $component1, component $component2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10)
+if ($int4 = 0) {
+    if_sethide(false, $component0);
+}
+if ($int4 < $int3) {
+    if_setposition(calc($int5 + $int7 * $int4), calc($int6 + $int8 * $int4), ^setpos_abs_left, ^setpos_abs_top, $component0);
+    if_setontimer("move_component($component0, $component1, $component2, $int3, calc($int4 + 1), $int5, $int6, $int7, $int8, $int9, $int10)", $component2);
+} else {
+    if_setposition(calc($int5 + $int7 * ($int4 - 1) + $int9), calc($int6 + $int8 * ($int4 - 1) + $int10), ^setpos_abs_left, ^setpos_abs_top, $component0);
+    if ($component1 ! null) {
+        if_sethide(false, $component1);
+    }
+    if_setontimer("move_component($component0, $component1, $component2, $int3, 0, $int5, $int6, $int7, $int8, $int9, $int10)", $component2);
+    if_sethide(true, $component0);
+    if_sethide(true, $component2);
+}

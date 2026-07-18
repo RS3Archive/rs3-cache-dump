@@ -1,0 +1,148 @@
+// 6794
+[proc,bank_withdraw](obj $obj0, int $int1, int $int2, inv $inv3, int $int4, int $int5, boolean $boolean6)(boolean)
+$int1 = min($int5, $int1);
+if ($obj0 = null | $int1 < 1) {
+    return(false);
+}
+def_boolean $boolean7 = false;
+if (%bankcert = 1 & $inv3 ! worn) {
+    if (oc_cert($obj0) = $obj0) {
+        ~bank_mes_spam("This item cannot be withdrawn as a note.");
+    } else {
+        $boolean7 = true;
+    }
+}
+$boolean6 = ~script5175($boolean6, $obj0);
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($inv3 = worn) {
+    $int9, $int1 = ~script6796($obj0, $int1, $int2, $int5, $boolean6);
+    if ($int9 ! 5 & ~bank_get_object($int2) ! $obj0) {
+        $int9 = 6;
+    }
+    switch_int ($int9) {
+        case 0 :
+            $int4 = oc_wearpos($obj0);
+            $int8 = 0;
+        case 8 :
+            $int4 = oc_wearpos($obj0);
+            $int8 = calc(^max_32bit_int - ~bank_get_invnum(worn, $int4));
+            if ($int8 >= $int1) {
+                $int8 = 0;
+            } else {
+                $int8 = calc($int1 - $int8);
+            }
+        case 5 :
+            ~bank_swap_sound;
+            return(true);
+        case 2, 9 :
+            $inv3 = inv;
+            $int4 = -1;
+            if (%bankcert = 1) {
+                if (oc_cert($obj0) = $obj0) {
+                    ~bank_mes_spam("This item cannot be withdrawn as a note.");
+                } else {
+                    $boolean7 = true;
+                }
+            }
+            ~script14188;
+        case default :
+            ~script14187;
+            ~bank_error_sound;
+            return(false);
+    }
+} else if ($inv3 = lore_bob) {
+    if (%follower_obj = null | %lore_npc_head = null) {
+        $int8 = $int1;
+    } else {
+        $int8 = ~script3970(bank, $obj0, $int1, null, $boolean7);
+        if ($int8 = $int1) {
+            ~script14187;
+            ~bank_error_sound;
+            return(false);
+        }
+        if (%follower_obj ! null & oc_category(%follower_obj) = mtx_pet & %mtx_bob_timer = 0 & %mtx_bob_half_timer = 0) {
+            ~bank_mes("Your legendary pet's Beast of Burden ability has expired.");
+            return(false);
+        }
+    }
+}
+if ($inv3 = inv) {
+    if ($obj0 = coins & ~bank_in_wilderness = 0) {
+        $int8 = ~script17405($int1);
+    } else if ($boolean7 = true) {
+        $int8 = ~bank_sideinv_itemspace($inv3, oc_cert($obj0), $int1, inv_size($inv3));
+    } else {
+        $int8 = ~bank_sideinv_itemspace($inv3, $obj0, $int1, inv_size($inv3));
+    }
+}
+if ($int8 >= $int1) {
+    ~script14187;
+    ~bank_error_sound;
+    ~bank_mes("You don't have enough inventory space.");
+    return(false);
+}
+if (~script6486 = true) {
+    ~bank_error_sound;
+    ~bank_mes("You can't do that whilst opening Group Ironman Storage.");
+    return(false);
+}
+def_int $int10 = $int2;
+def_int $int11 = $int1;
+$int1 = calc($int1 - $int8);
+if (oc_hasvarobj($obj0) = false) {
+    if ($obj0 ! coins) {
+        ~script14362($int2, $int5, $obj0, $int1, $inv3, $int4, $boolean7, $boolean6);
+    } else if ($inv3 = lore_bob | ~bank_in_wilderness = 1) {
+        ~script14362($int2, $int5, coins, $int1, $inv3, -1, false, $boolean6);
+    } else {
+        if ($int8 = 0) {
+            ~script17384($int2, $int5, $int1, $boolean6);
+        } else if ($int8 ! $int1) {
+            ~script17384($int2, $int5, calc($int1 - $int8), $boolean6);
+            ~script14362($int2, calc($int5 - $int1 - $int8), coins, $int8, $inv3, -1, false, $boolean6);
+        } else {
+            ~script14362($int2, $int5, coins, $int8, $inv3, -1, false, $boolean6);
+        }
+        if (~bank_get_num($int2) = calc($int5 - $int11)) {
+            $int8 = 0;
+        }
+    }
+    if ($int1 = $int5) {
+        ~script6961($int2, $obj0, $boolean6);
+    }
+} else {
+    if ($int2 = -1) {
+        $int2 = ~bank_find_bank($obj0, 0, 0);
+        if ($int2 = -1) {
+            return(false);
+        }
+    }
+    ~script14362($int2, 1, $obj0, 1, $inv3, $int4, false, $boolean6);
+    if (--$int1 > 0) {
+        ~script6795($int2, $obj0, $inv3, $int1, $boolean6);
+    } else {
+        ~script6961($int2, $obj0, $boolean6);
+    }
+}
+if ($int8 > 0) {
+    ~bank_error_sound;
+    ~bank_mes_spam("You don't have enough inventory space to withdraw that many.");
+} else {
+    ~bank_swap_sound;
+}
+switch_int ($int9) {
+    case 1 :
+        ~bank_mes("<oc_name($obj0)>: Moved to backpack as it requires a confirmation to equip.");
+    case 2 :
+        if (oc_wearpos($obj0) ! -1 & oc_param($obj0, bank_wear_prevented) = false & enum(obj, boolean, unequippable_items_with_a_wearpos, $obj0) = false) {
+            ~bank_mes("<oc_name($obj0)>: Moved to backpack as it can't be equipped.");
+        }
+    case 9 :
+        ~bank_mes("<oc_name($obj0)>: Moved to backpack as it can't be equipped from the bank.");
+}
+if (%follower_obj ! null) {
+    ~script14221($obj0);
+}
+~script14248($inv3, null, $obj0);
+return(true);

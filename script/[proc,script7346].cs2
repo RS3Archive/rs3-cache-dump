@@ -1,0 +1,327 @@
+// 7346
+[proc,script7346]
+def_component $component0 = text_tooltip:tooltip_dynamic_text;
+def_string $string0 = "";
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = cc_param(toplevel_v2_tooltip_param_int0);
+def_int $int5 = 1;
+def_int $int6 = 0;
+def_string $string1 = "";
+if ($int5 = 1) {
+    if (playermember = false) {
+        $string1 = "Membership<br>";
+    } else if (map_members = false) {
+        $string1 = "Log in to a Members' World<br>";
+    }
+}
+def_dbrow $dbrow7 = null;
+db_find(dino_game_setup_info:col3, $int4);
+$dbrow7 = db_findnext;
+if ($dbrow7 ! null) {
+    $string0 = db_getfield($dbrow7, dino_game_setup_info:col2, 0);
+    $int2, $int3 = db_getfield($dbrow7, dino_game_setup_info:col10, 0);
+    $obj1 = db_getfield($dbrow7, dino_game_setup_info:col9, 0);
+    if (stat_base(hunter) < $int2 | stat_base(slayer) < $int3 | map_members = false) {
+        $int6 = 0;
+    } else {
+        $int6 = 1;
+    }
+}
+def_int $int8 = 200;
+def_int $int9 = 50;
+def_int $int10 = 50;
+def_int $int11 = 145;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 1;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_fontmetrics $fontmetrics18 = museo_sans_11pt_regular;
+def_fontmetrics $fontmetrics19 = museo_sans_11pt_regular;
+if (~script6431 = true) {
+    $fontmetrics18 = museo_sans_13pt_regular;
+    $fontmetrics19 = museo_sans_13pt_regular;
+    $int8 = 300;
+}
+if (compare($string0, null) ! 0 & compare($string0, "") ! 0) {
+    cc_create($component0, ^iftype_text, $int17);
+    cc_setposition(4, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext($string0);
+    cc_setsize(calc(2 * 4), ~script7593(cc_gettext, calc($int8 - 2 * 4), cinzel_18pt_bold, enum(fontmetrics, int, toplevel_v2_font_heights, cinzel_18pt_bold)), ^setsize_minus, ^setsize_abs);
+    cc_settextfont(cinzel_18pt_bold);
+    if (map_members = false & $int5 = 1) {
+        cc_setcolour(0xeb2f2f);
+    } else {
+        cc_setcolour(~script10495(0));
+    }
+    cc_settextalign(^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, cinzel_18pt_bold));
+    $int17 = calc($int17 + 1);
+    $int12 = calc($int12 + cc_getheight + 2 * 2);
+    cc_create($component0, ^iftype_line, $int17);
+    cc_setposition(0, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_abs);
+    cc_setcolour(~script10495(8));
+    $int17 = calc($int17 + 1);
+    $int12 = calc($int12 + 1);
+    cc_create($component0, ^iftype_line, $int17);
+    cc_setposition(0, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_abs);
+    cc_setcolour(~script10495(7));
+    $int17 = calc($int17 + 1);
+    $int12 = calc($int12 + 1 + 2 * 2);
+}
+def_int $int20 = 0;
+def_int $int21 = 10;
+def_int $intarray0($int21);
+def_int $intarray1($int21);
+def_int $int22 = 0;
+while ($int20 < $int21 & $int22 = 0) {
+    if ($int20 = 0) {
+        $intarray0($int20) = 0;
+    } else {
+        $intarray0($int20) = calc($intarray1(calc($int20 - 1)) + 4);
+    }
+    $intarray1($int20) = string_indexof_string($string1, "<br>", $intarray0($int20));
+    if ($intarray1($int20) = -1) {
+        $int22 = 1;
+        $intarray1($int20) = string_length($string1);
+    } else {
+        $int20 = calc($int20 + 1);
+    }
+}
+$int21 = $int20;
+if (string_length($string1) > 0) {
+    $int20 = 0;
+    .cc_create($component0, ^iftype_rectangle, $int17);
+    .cc_setposition(0, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setfill(true);
+    if ($int15 = 1) {
+        .cc_setcolour(0x2e2825);
+    } else {
+        .cc_setcolour(0x24211e);
+    }
+    $int15 = calc(($int15 + 1) % 2);
+    $int17 = calc($int17 + 1);
+    $int12 = calc($int12 + 8);
+    cc_create($component0, ^iftype_text, $int17);
+    cc_setposition(4, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext("Requirements:");
+    cc_setsize(calc(2 * 4), ~script7593(cc_gettext, calc($int8 - 2 * 4), $fontmetrics18, 0), ^setsize_minus, ^setsize_abs);
+    cc_settextfont($fontmetrics18);
+    if (map_members = false & $int5 = 1) {
+        cc_setcolour(0xeb2f2f);
+    } else {
+        cc_setcolour(~script10495(3));
+    }
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $int17 = calc($int17 + 1);
+    $int12 = calc($int12 + cc_getheight + 8);
+    $int9 = 16;
+    $int10 = 16;
+    $int13 = calc(4 + $int9 + 4);
+    while ($int20 < $int21 & $int20 < 4) {
+        cc_create($component0, ^iftype_graphic, $int17);
+        cc_setposition(4, $int12, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+        if ($int20 = 3 & $int21 > 4) {
+            cc_setgraphic(rs3_contextual_input_plus);
+        } else {
+            cc_setgraphic(rs3_contextual_input_hollow);
+        }
+        $int17 = calc($int17 + 1);
+        cc_create($component0, ^iftype_text, $int17);
+        cc_setposition($int13, $int12, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext(substring($string1, $intarray0($int20), $intarray1($int20)));
+        $int14 = ~script7593(cc_gettext, calc($int8 - $int13 - 4), $fontmetrics19, 0);
+        if ($int14 < $int10) {
+            $int14 = $int10;
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        } else {
+            cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        }
+        cc_setsize(calc($int13 + 4), $int14, ^setsize_minus, ^setsize_abs);
+        cc_settextfont($fontmetrics19);
+        if (map_members = false & $int5 = 1) {
+            cc_setcolour(0xeb2f2f);
+        } else {
+            cc_setcolour(^white);
+        }
+        $int17 = calc($int17 + 1);
+        $int12 = calc($int12 + cc_getheight + 2);
+        $int20 = calc($int20 + 1);
+    }
+    $int12 = calc($int12 + 8);
+    .cc_setsize(0, calc($int12 - 2 - .cc_gety), ^setsize_minus, ^setsize_abs);
+}
+$int9 = 50;
+$int10 = 50;
+def_int $int23 = -1;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+.cc_create($component0, ^iftype_rectangle, $int17);
+.cc_setposition(0, $int12, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setfill(true);
+if ($int15 = 1) {
+    .cc_setcolour(0x2e2825);
+} else {
+    .cc_setcolour(0x24211e);
+}
+$int15 = calc(($int15 + 1) % 2);
+$int17 = calc($int17 + 1);
+$int9 = 35;
+$int10 = 35;
+$int16 = calc(($int8 - 2 * 4 - 4 * ($int9 + 1)) / 3);
+cc_create($component0, ^iftype_text, $int17);
+cc_settextfont(museo_sans_13pt_bold);
+cc_settext("Bait");
+cc_setsize($int11, ~script7593(cc_gettext, $int11, museo_sans_13pt_bold, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold)), ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold));
+$int13 = calc($int9 + 1 + $int16);
+$int24 = calc($int12 + 2);
+if (cc_getheight <= 15) {
+    $int12 = $int24;
+}
+cc_setposition($int13, $int12, ^setpos_abs_left, ^setpos_abs_top);
+if ($int6 = 0) {
+    cc_setcolour(0xeb2f2f);
+} else {
+    cc_setcolour(^white);
+}
+$int17 = calc($int17 + 1);
+$int12 = calc($int24 + enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold) + 5);
+$int9 = 30;
+$int10 = 30;
+$int16 = 5;
+cc_create($component0, ^iftype_graphic, $int17);
+cc_setposition($int13, calc($int12 - 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int9 + 1), calc($int10 + 1), ^setsize_abs, ^setsize_abs);
+cc_setgraphic(rs3_icon_slot_standard);
+$int17 = calc($int17 + 1);
+cc_create($component0, ^iftype_graphic, $int17);
+cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int13 + 2), calc($int12 + 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setobject($obj1, -1);
+$int17 = calc($int17 + 1);
+$int13 = calc($int13 + ($int9 + 1 + $int16));
+cc_create($component0, ^iftype_text, $int17);
+cc_setposition($int13, $int12, ^setpos_abs_left, ^setpos_abs_top);
+cc_settext(oc_name($obj1));
+cc_settextalign(^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics19));
+cc_setsize(105, $int10, ^setsize_minus, ^setsize_abs);
+cc_settextfont($fontmetrics19);
+if ($int6 = 0) {
+    cc_setcolour(0xeb2f2f);
+} else {
+    cc_setcolour(^white);
+}
+$int17 = calc($int17 + 1);
+$int12 = calc($int12 + ($int10 + 8));
+$int9 = 35;
+$int10 = 35;
+$int16 = calc(($int8 - 2 * 4 - 4 * ($int9 + 1)) / 3);
+cc_create($component0, ^iftype_text, $int17);
+cc_settextfont(museo_sans_13pt_bold);
+cc_settext("Rewards");
+cc_setsize($int11, ~script7593(cc_gettext, $int11, museo_sans_13pt_bold, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold)), ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold));
+$int13 = calc($int9 + 1 + $int16);
+cc_setposition($int13, $int12, ^setpos_abs_left, ^setpos_abs_top);
+if ($int6 = 0) {
+    cc_setcolour(0xeb2f2f);
+} else {
+    cc_setcolour(^white);
+}
+$int17 = calc($int17 + 1);
+$int12 = calc($int12 + (enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_13pt_bold) + 5));
+$int9 = 30;
+$int10 = 30;
+$int16 = 5;
+def_int $int27 = db_getfieldcount($dbrow7, dino_game_setup_info:col13);
+def_int $int28 = 0;
+def_obj $obj29 = null;
+while ($int28 < $int27) {
+    $obj29 = db_getfield($dbrow7, dino_game_setup_info:col13, $int28);
+    cc_create($component0, ^iftype_graphic, $int17);
+    cc_setposition($int13, calc($int12 - 1), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int9 + 1), calc($int10 + 1), ^setsize_abs, ^setsize_abs);
+    cc_setgraphic(rs3_icon_slot_standard);
+    $int17 = calc($int17 + 1);
+    cc_create($component0, ^iftype_graphic, $int17);
+    cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int13 + 2), calc($int12 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject($obj29, -1);
+    $int17 = calc($int17 + 1);
+    cc_create($component0, ^iftype_text, $int17);
+    cc_setposition(calc($int13 + $int9 + 1 + $int16), $int12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext(oc_name($obj29));
+    cc_settextalign(^settextalign_left, ^settextalign_centre, enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics19));
+    cc_setsize(105, $int10, ^setsize_minus, ^setsize_abs);
+    cc_settextfont($fontmetrics19);
+    if ($int6 = 0) {
+        cc_setcolour(0xeb2f2f);
+    } else {
+        cc_setcolour(^white);
+    }
+    $int17 = calc($int17 + 1);
+    $int12 = calc($int12 + ($int10 + 8));
+    $int25 = $int12;
+    $int28 = calc($int28 + 1);
+}
+$int9 = 35;
+$int10 = 35;
+$int16 = calc(($int8 - 2 * 4 - 4 * ($int9 + 1)) / 3);
+$int13 = 4;
+$int12 = $int24;
+cc_create($component0, ^iftype_graphic, $int17);
+cc_setposition($int13, calc($int12 - 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int9 + 1), calc($int10 + 1), ^setsize_abs, ^setsize_abs);
+cc_setgraphic(rs3_icon_slot_standard);
+$int17 = calc($int17 + 1);
+cc_create($component0, ^iftype_graphic, $int17);
+cc_setposition($int13, $int12, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(enum(int, graphic, stat2icon_medium, 23));
+$int17 = calc($int17 + 1);
+cc_create($component0, ^iftype_text, $int17);
+cc_setposition($int13, calc($int12 + $int10 + 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_settext("Lvl <tostring($int2)>");
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setsize(calc($int9 + 1), enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics19), ^setsize_abs, ^setsize_abs);
+cc_settextfont($fontmetrics19);
+if ($int6 = 0) {
+    cc_setcolour(0xeb2f2f);
+} else {
+    cc_setcolour(^white);
+}
+$int17 = calc($int17 + 1);
+$int12 = calc($int24 + $int10 + enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics19) + 8 + 2);
+cc_create($component0, ^iftype_graphic, $int17);
+cc_setposition($int13, calc($int12 - 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int9 + 1), calc($int10 + 1), ^setsize_abs, ^setsize_abs);
+cc_setgraphic(rs3_icon_slot_standard);
+$int17 = calc($int17 + 1);
+cc_create($component0, ^iftype_graphic, $int17);
+cc_setposition($int13, $int12, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(enum(int, graphic, stat2icon_medium, 20));
+$int17 = calc($int17 + 1);
+cc_create($component0, ^iftype_text, $int17);
+cc_setposition($int13, calc($int12 + $int10 + 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_settext("Lvl <tostring($int3)>");
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setsize(calc($int9 + 1), enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics19), ^setsize_abs, ^setsize_abs);
+cc_settextfont($fontmetrics19);
+if ($int6 = 0) {
+    cc_setcolour(0xeb2f2f);
+} else {
+    cc_setcolour(^white);
+}
+$int17 = calc($int17 + 1);
+$int12 = calc($int12 + ($int10 + enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics19) + 8 + 2));
+$int12 = max($int12, $int25);
+.cc_setsize(0, calc($int12 - 2 - .cc_gety), ^setsize_minus, ^setsize_abs);
+if_setsize($int8, calc($int12 - 2), ^setsize_abs, ^setsize_abs, $component0);

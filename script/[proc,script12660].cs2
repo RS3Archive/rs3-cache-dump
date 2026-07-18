@@ -1,0 +1,12 @@
+// 12660
+[proc,script12660](dbrow $dbrow0, int $int1)(int)
+if ($dbrow0 = null | $dbrow0 = mtx_no_sale_data | db_getfield($dbrow0, mtx_sale_data:col2, 0) = 0) {
+    return($int1);
+}
+if (%atlum_day_tracker < db_getfield($dbrow0, mtx_sale_data:col3, 0) | %atlum_day_tracker > db_getfield($dbrow0, mtx_sale_data:col4, 0)) {
+    return($int1);
+}
+if (playermember = false) {
+    return(db_getfield($dbrow0, mtx_sale_data:col0, 0));
+}
+return(db_getfield($dbrow0, mtx_sale_data:col1, 0));

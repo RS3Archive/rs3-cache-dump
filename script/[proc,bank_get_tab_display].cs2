@@ -1,0 +1,17 @@
+// 9642
+[proc,bank_get_tab_display](int $int0, int $int1, int $int2)(obj, int)
+def_int $int3 = ~script5797($int0);
+def_int $int4 = calc($int3 + $int1);
+def_obj $obj5 = null;
+while ($int3 < $int4) {
+    if ($int2 = 1 & cc_find(bank:bank_inv, $int3) = true) {
+        $obj5 = cc_getinvobject;
+    } else {
+        $obj5 = inv_getobj(bank, $int3);
+    }
+    if ($obj5 ! null & $obj5 ! bank_empty_slot) {
+        return($obj5, ^max_32bit_int);
+    }
+    $int3 = calc($int3 + 1);
+}
+return(bank_empty_slot, 0);

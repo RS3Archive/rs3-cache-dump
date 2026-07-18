@@ -1,0 +1,21 @@
+// 7668
+[clientscript,script7668](component $component0)
+def_int $int1 = 0;
+if (%flashing_int ! 1) {
+    if_setontimer(null, $component0);
+    if ($component0 = bugreport_interface:chars_left) {
+        ~component_flashtext_stop(92078109);
+        if_settext(tostring(calc(500 - string_length(removetags(%bugreport_input)))), $component0);
+    } else if ($component0 = bugreport_interface:chars_repro) {
+        ~component_flashtext_stop(92078094);
+        if_settext(tostring(calc(500 - string_length(removetags(%bugreport_repro)))), $component0);
+    }
+    return;
+}
+if (calc(clientclock % 40) < 20) {
+    if_settext("", $component0);
+} else if ($component0 = bugreport_interface:chars_left) {
+    if_settext(tostring(calc(500 - string_length(removetags(%bugreport_input)))), $component0);
+} else if ($component0 = bugreport_interface:chars_repro) {
+    if_settext(tostring(calc(500 - string_length(removetags(%bugreport_repro)))), $component0);
+}

@@ -1,0 +1,27 @@
+// 6511
+[clientscript,script6511](int $int0, int $int1, int $int2, int $int3, int $int4)
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic(icon_seren_artisan_trh158, vos_weekend:active_voice_graphic);
+        if_settext("Artisan", vos_weekend:active_voice_name);
+    case 2 :
+        if_setgraphic(icon_seren_combat_trh158, vos_weekend:active_voice_graphic);
+        if_settext("Combat", vos_weekend:active_voice_name);
+    case 3 :
+        if_setgraphic(icon_seren_gathering_trh158, vos_weekend:active_voice_graphic);
+        if_settext("Gathering", vos_weekend:active_voice_name);
+    case 4 :
+        if_setgraphic(icon_seren_support_trh158, vos_weekend:active_voice_graphic);
+        if_settext("Support", vos_weekend:active_voice_name);
+}
+def_int $int5 = calc($int3 % 1440 / 60);
+%vos_weekend_next_voice_minutes = 0;
+if ($int1 = 0) {
+    $int1 = 24;
+}
+if (calc($int1 - $int5) = 2) {
+    %vos_weekend_next_voice_minutes = 59;
+}
+%vos_weekend_next_voice_minutes = calc(%vos_weekend_next_voice_minutes + (60 - $int3 % 60));
+%vos_weekend_next_voice_seconds = $int4;
+if_setontimer("script6512", vos_weekend:active_voice_timer_layer);

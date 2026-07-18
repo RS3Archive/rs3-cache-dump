@@ -1,0 +1,31 @@
+// 12533
+[clientscript,script12533](int $int0, component $component1, component $component2, component $component3)
+def_enum $enum4 = enum(int, enum, invention_list_of_trees, %invent_tasks_opened);
+if ($enum4 = null) {
+    if_sethide(true, $component1);
+    return;
+}
+def_dbrow $dbrow5 = enum(int, dbrow, $enum4, $int0);
+if ($dbrow5 = null) {
+    if_sethide(true, $component1);
+    return;
+}
+if (if_find($component1) = true) {
+    cc_setparam(invent_client_techtree_dbrow, $dbrow5);
+}
+def_string $string0 = db_getfield($dbrow5, invent_blueprint_table:col1, 0);
+def_string $string1 = db_getfield($dbrow5, invent_blueprint_table:col3, 0);
+def_string $string2 = db_getfield($dbrow5, invent_blueprint_table:col4, 0);
+def_string $string3 = append($string0, append("<br>", $string1));
+if (string_length($string2) > 0) {
+    $string3 = append($string3, append("<br>", $string2));
+}
+if_setonmouserepeat("script8799($string3, $component1, -1)", $component1);
+def_component $component6 = invent_techtree:blueprint_price;
+def_int $int7 = db_getfield($dbrow5, invent_blueprint_table:col15, 0);
+def_string $string4 = tostring($int7);
+if_setonmouseover("text_swapper($component6, $string4)", $component1);
+if_setonmouseleave("text_swapper($component6, \"---\")", $component1);
+~invent_blueprint_setup_unlock($component1, $component2, $component3);
+if_setonvartransmit("invent_blueprint_setup_unlock($component1, $component2, $component3){invent_techtree_tier_unlocks}", $component1);
+if_setonop("invent_blueprint_selected($string0, $string1, $int7, $component1)", $component3);

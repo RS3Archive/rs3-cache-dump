@@ -1,0 +1,33 @@
+// 19653
+[proc,script19653](obj $obj0)(int)
+if ($obj0 = null) {
+    return(0);
+}
+def_int $int1 = oc_param($obj0, constitution_increase);
+if ($int1 > 0) {
+    return($int1);
+}
+if (~script17465($obj0) = false) {
+    return(0);
+}
+def_int $int2 = oc_param($obj0, combatv2_item_tier);
+if ($int2 = 0) {
+    $int2 = oc_param($obj0, wear_requires_stat_level1);
+}
+def_int $int3 = 0;
+switch_int (oc_wearpos($obj0)) {
+    case 0 :
+        $int3 = 10;
+    case 4 :
+        $int3 = 15;
+    case 7 :
+        $int3 = 15;
+    case 9 :
+        $int3 = 5;
+    case 10 :
+        $int3 = 5;
+    case default :
+        return(0);
+}
+$int1 = calc($int2 * $int3);
+return($int1);

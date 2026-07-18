@@ -1,0 +1,65 @@
+// 14793
+[proc,script14793](obj $obj0, int $int1, struct $struct2, component $component3, component $component4, int $int5)(int)
+def_int $int6 = 0;
+$int6 = ~script7960($obj0, archaeology);
+def_dbrow $dbrow7 = oc_param($obj0, arch_tool_stats_data);
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($dbrow7 ! null) {
+    $int8 = ~script14579($dbrow7);
+    $int9 = db_getfield($dbrow7, arch_tool_stats:col1, 0);
+}
+def_obj $obj10 = ~script14090(bronze_mattock);
+def_obj $obj11 = inv_getobj(worn, 3);
+if ($obj11 ! null & $obj10 ! null & ~script7960($obj11, archaeology) > ~script7960($obj10, archaeology)) {
+    $obj10 = $obj11;
+}
+def_int $int12 = ~script7960($obj10, archaeology);
+def_dbrow $dbrow13 = null;
+def_int $int14 = 0;
+def_int $int15 = 0;
+if ($obj10 ! null) {
+    $dbrow13 = oc_param($obj10, arch_tool_stats_data);
+    if ($dbrow13 ! null) {
+        $int14 = ~script14579($dbrow13);
+        $int15 = db_getfield(oc_param($obj10, arch_tool_stats_data), arch_tool_stats:col1, 0);
+    }
+}
+def_string $string0 = "";
+if ($obj10 = null) {
+    $string0 = "<col=FF00>";
+} else if ($int6 > $int12) {
+    $string0 = "<col=FF00>";
+} else if ($int6 < $int12) {
+    $string0 = "<col=FF0000>";
+} else {
+    $string0 = get_col_tag($int1);
+}
+if ($obj0 = league_1_pickaxe_mattock) {
+} else {
+    $int5 = ~script7235("Level : <$string0><tostring($int6)></col>", "", $struct2, $component3, $component4, $int5);
+}
+def_string $string1 = "";
+if ($dbrow7 ! null) {
+    if ($obj10 = null) {
+        $string0 = "<col=FF00>";
+    } else if ($int8 > $int14) {
+        $string0 = "<col=FF00>";
+    } else if ($int8 < $int14) {
+        $string0 = "<col=FF0000>";
+    } else {
+        $string0 = get_col_tag($int1);
+    }
+    $int5 = ~script7235("Precision : <$string0><tostring($int8)></col>", "", $struct2, $component3, $component4, $int5);
+    if ($obj10 = null) {
+        $string0 = "<col=FF00>";
+    } else if ($int9 > $int15) {
+        $string0 = "<col=FF00>";
+    } else if ($int9 < $int15) {
+        $string0 = "<col=FF0000>";
+    } else {
+        $string0 = get_col_tag($int1);
+    }
+    $int5 = ~script7235("Focus: <$string0><tostring($int9)></col>", "", $struct2, $component3, $component4, $int5);
+}
+return($int5);

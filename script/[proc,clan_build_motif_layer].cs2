@@ -1,0 +1,27 @@
+// 4393
+[proc,clan_build_motif_layer](component $component0, component $component1, enum $enum2)
+cc_deleteall($component0);
+def_int $int3 = 0;
+def_int $int4 = if_getwidth($component0);
+def_int $int5 = 5;
+def_int $int6 = 5;
+def_int $int7 = enum_getoutputcount($enum2);
+while ($int3 < $int7) {
+    cc_create($component0, ^iftype_graphic, $int3);
+    cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(enum(int, graphic, $enum2, calc($int3 + 1)));
+    cc_setop(1, "Select");
+    $int3 = calc($int3 + 1);
+    $int5 = calc($int5 + 65);
+    if (calc($int5 + 65) > $int4) {
+        $int5 = 5;
+        $int6 = calc($int6 + 60);
+    }
+}
+if ($int5 > 5) {
+    $int6 = calc($int6 + 60);
+}
+if_setscrollpos(0, 0, $component0);
+if_setscrollsize(0, $int6, $component0);
+~rs3_scrollbar_vertical($component1, $component0);

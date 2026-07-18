@@ -1,0 +1,34 @@
+// 9739
+[proc,script9739](dbrow $dbrow0, struct $struct1)(boolean)
+def_boolean $boolean2 = true;
+switch_dbrow ($dbrow0) {
+    case construction_house_portal_nexus_varrock_grand_exchange :
+        if (%atvar_easy_reward = 0) {
+            $boolean2 = false;
+        }
+    case construction_house_portal_nexus_varrock_north_altar :
+        if (%atvar_elite_reward = 0) {
+            $boolean2 = false;
+        }
+    case construction_house_portal_nexus_camelot_seers_village :
+        if (%atseer_hard_reward = 0) {
+            $boolean2 = false;
+        }
+    case construction_house_portal_nexus_watchtower_yanille :
+        if (%atar_hard_reward = 0) {
+            $boolean2 = false;
+        }
+    case construction_house_portal_nexus_wendlewick_farm :
+        if (~script18522(quest_wizard_child) = false) {
+            $boolean2 = false;
+        }
+}
+def_int $int3 = struct_param($struct1, combatv2_which_spellbook);
+if ($int3 = 2) {
+    if (quest_finished(lunar_diplomacy) = false) {
+        return(false);
+    }
+} else if ($int3 = 1 & quest_finished(desert_treasure) = false) {
+    return(false);
+}
+return($boolean2);

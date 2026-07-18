@@ -1,0 +1,72 @@
+// 4725
+[proc,script4725]
+def_int $int0 = 20316160;
+def_int $int1 = 20316161;
+def_component $component2 = clan_keep_theatre_actors:name_layer;
+def_int $int3 = 20316181;
+def_component $component4 = clan_keep_theatre_actors:remove_layer;
+def_component $component5 = clan_keep_theatre_actors:target_layer;
+def_component $component6 = clan_keep_theatre_actors:tooltip_trigger_layer;
+def_string $string0 = "";
+cc_deleteall($component2);
+cc_deleteall($component5);
+def_int $int7 = 15;
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_graphic $graphic10 = null;
+def_graphic $graphic11 = null;
+while ($int8 <= 15) {
+    $int9 = if_getnextsubid($component2);
+    cc_create($component2, ^iftype_text, $int9);
+    cc_setsize(5, $int7, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, calc($int9 * $int7), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext(~script5329($int8));
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour(0xbeb28c);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $graphic10 = "aif_audio_buttons_1,3";
+    $graphic11 = "aif_audio_buttons_1,4";
+    cc_create($component5, ^iftype_graphic, $int9);
+    cc_setgraphic($graphic10);
+    cc_setop(1, "Target");
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(18, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, $graphic11)");
+    cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, $graphic10)");
+    cc_settargetverb("Add Actor");
+    cc_settargetcursors(cursor_target, null);
+    cc_create($component6, ^iftype_rectangle, if_getnextsubid($component6));
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(18, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    $string0 = "Add someone to the actor list. Click this, then click on the person you would like to add.";
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    cc_setonmouseleave("script8805");
+    $graphic10 = "aif_audio_buttons_1,6";
+    $graphic11 = "aif_audio_buttons_1,7";
+    cc_create($component4, ^iftype_graphic, $int9);
+    cc_setgraphic($graphic10);
+    cc_setop(1, "Remove");
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(3, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, $graphic11)");
+    cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, $graphic10)");
+    cc_create($component6, ^iftype_rectangle, if_getnextsubid($component6));
+    cc_setsize(12, 13, ^setsize_abs, ^setsize_abs);
+    cc_setposition(3, calc(1 + $int9 * $int7), ^setpos_abs_right, ^setpos_abs_top);
+    $string0 = "Add someone to the actor list. Click this, then click on the person you would like to add.";
+    $string0 = "Remove this person from the actor list.";
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    cc_setonmouseleave("script8805");
+    $int8 = calc($int8 + 1);
+}
+if (%clan_stronghold_keep_theatre_stage_restricted = 0) {
+    $graphic10 = "aif_checkbox_large,5";
+    $graphic11 = "aif_checkbox_large,6";
+} else {
+    $graphic10 = "aif_checkbox_large,0";
+    $graphic11 = "aif_checkbox_large,1";
+}
+if_setgraphic($graphic10, clan_keep_theatre_actors:restrict_tick);
+if_setonmouseover("graphic_swapper(event_com, $graphic11)", clan_keep_theatre_actors:restrict_tick);
+if_setonmouseleave("graphic_swapper(event_com, $graphic10)", clan_keep_theatre_actors:restrict_tick);

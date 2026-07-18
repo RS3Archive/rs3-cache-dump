@@ -1,0 +1,43 @@
+// 2483
+[proc,script2483](inv $inv0, int $int1, obj $obj2, int $int3)(int)
+if ($int1 = -1) {
+    $int1 = ~script5797(%bank_current_tab);
+}
+def_int $int4 = $int1;
+def_int $int5 = ~script14337;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = ~bank_get_tab($int4);
+def_int $int9 = ~script14374($int8);
+if ($int9 = 1) {
+    $int9 = 0;
+}
+def_int $int10 = 0;
+$int6, $int7 = ~bank_get_tab_range($int9);
+while ($int10 <= 15) {
+    if (calc($int7 - $int6) > 0) {
+        $int4 = ~bank_find_placeholder($obj2, $int4, $int7);
+        if ($int4 >= $int7) {
+            $int4 = -1;
+        }
+        while ($int4 ! -1) {
+            ~script14363($inv0, -1, $obj2, $obj2, 1, $int4);
+            if (--$int3 <= 0) {
+                return(0);
+            }
+            $int4 = ~bank_find_placeholder($obj2, $int4, $int7);
+            if ($int4 > $int7) {
+                $int4 = -1;
+            }
+        }
+    }
+    if (++$int9 > 15) {
+        $int9 = 0;
+    } else if ($int9 = 1) {
+        $int9 = 2;
+    }
+    $int6, $int7 = ~bank_get_tab_range(~script14372($int9));
+    $int4 = $int6;
+    $int10 = calc($int10 + 1);
+}
+return($int3);

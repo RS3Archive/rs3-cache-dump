@@ -1,0 +1,99 @@
+// 7761
+[proc,crs_req_task_status](struct $struct0)(boolean)
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 1;
+def_int $int5 = 20;
+while ($int4 <= $int5) {
+    switch_int ($int4) {
+        case 1 :
+            if (~ironman_mode = false | struct_param($struct0, task_requirement_1_ironman_value) = 0) {
+                $int2 = struct_param($struct0, task_requirement_1_type);
+                $int3 = struct_param($struct0, task_requirement_1_value);
+            } else {
+                $int2 = struct_param($struct0, task_requirement_1_ironman_type);
+                $int3 = struct_param($struct0, task_requirement_1_ironman_value);
+            }
+        case 2 :
+            $int2 = struct_param($struct0, task_requirement_2_type);
+            $int3 = struct_param($struct0, task_requirement_2_value);
+        case 3 :
+            $int2 = struct_param($struct0, task_requirement_3_type);
+            $int3 = struct_param($struct0, task_requirement_3_value);
+        case 4 :
+            $int2 = struct_param($struct0, task_requirement_4_type);
+            $int3 = struct_param($struct0, task_requirement_4_value);
+        case 5 :
+            $int2 = struct_param($struct0, task_requirement_5_type);
+            $int3 = struct_param($struct0, task_requirement_5_value);
+        case 6 :
+            $int2 = struct_param($struct0, task_requirement_6_type);
+            $int3 = struct_param($struct0, task_requirement_6_value);
+        case 7 :
+            $int2 = struct_param($struct0, task_requirement_7_type);
+            $int3 = struct_param($struct0, task_requirement_7_value);
+        case 8 :
+            $int2 = struct_param($struct0, task_requirement_8_type);
+            $int3 = struct_param($struct0, task_requirement_8_value);
+        case 9 :
+            $int2 = struct_param($struct0, task_requirement_9_type);
+            $int3 = struct_param($struct0, task_requirement_9_value);
+        case 10 :
+            $int2 = struct_param($struct0, task_requirement_10_type);
+            $int3 = struct_param($struct0, task_requirement_10_value);
+        case 11 :
+            $int2 = struct_param($struct0, task_requirement_11_type);
+            $int3 = struct_param($struct0, task_requirement_11_value);
+        case 12 :
+            $int2 = struct_param($struct0, task_requirement_12_type);
+            $int3 = struct_param($struct0, task_requirement_12_value);
+        case 13 :
+            $int2 = struct_param($struct0, task_requirement_13_type);
+            $int3 = struct_param($struct0, task_requirement_13_value);
+        case 14 :
+            $int2 = struct_param($struct0, task_requirement_14_type);
+            $int3 = struct_param($struct0, task_requirement_14_value);
+        case 15 :
+            $int2 = struct_param($struct0, task_requirement_15_type);
+            $int3 = struct_param($struct0, task_requirement_15_value);
+        case 16 :
+            $int2 = struct_param($struct0, task_requirement_16_type);
+            $int3 = struct_param($struct0, task_requirement_16_value);
+        case 17 :
+            $int2 = struct_param($struct0, task_requirement_17_type);
+            $int3 = struct_param($struct0, task_requirement_17_value);
+        case 18 :
+            $int2 = struct_param($struct0, task_requirement_18_type);
+            $int3 = struct_param($struct0, task_requirement_18_value);
+        case 19 :
+            $int2 = struct_param($struct0, task_requirement_19_type);
+            $int3 = struct_param($struct0, task_requirement_19_value);
+        case 20 :
+            $int2 = struct_param($struct0, task_requirement_20_type);
+            $int3 = struct_param($struct0, task_requirement_20_value);
+    }
+    if ($int2 > 0 & $int2 < 60) {
+        if (stat_base(enum(int, stat, int_to_stat, $int2)) < $int3) {
+            return(false);
+        }
+    } else if ($int2 = 60) {
+        $struct1 = ~task_get_data($int3);
+        if ($struct1 = null) {
+            return(false);
+        }
+        if (~task_get_progress($int3) ! 2) {
+            return(false);
+        }
+    } else if ($int2 = 61 & ~script7073($int3) ! 2) {
+        return(false);
+    }
+    if ($int2 = 0) {
+        $int4 = calc($int5 + 1);
+    } else {
+        $int4 = calc($int4 + 1);
+    }
+}
+if (~comlevel < struct_param($struct0, task_combat_level_recommended)) {
+    return(false);
+}

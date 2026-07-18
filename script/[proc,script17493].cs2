@@ -1,0 +1,26 @@
+// 17493
+[proc,script17493](inv $inv0, obj $obj1, int $int2, int $int3)(string)
+def_int $int4 = inv_getvar($inv0, $int2, necro_soul_urn_monster_count);
+def_int $int5 = inv_getvar($inv0, $int2, necro_soul_urn_ritual_count);
+def_int $int6 = oc_param($obj1, necro_soul_urn_max_monster_count);
+def_int $int7 = oc_param($obj1, necro_soul_urn_max_ritual_count);
+def_string $string0 = oc_param($obj1, necro_soul_urn_monster_string);
+def_string $string1 = oc_param($obj1, necro_soul_urn_ritual_string);
+def_string $string2 = "";
+if ($int6 > 0 & ($int7 > 0 & $int5 < $int7 | $int7 = 0) | $int6 > 0 & $int4 >= $int6) {
+    $string2 = append($string2, "<tostring($int4)> / <tostring($int6)> <$string0> <~text_plural($int6, "soul", "souls")>");
+}
+if ($int6 > 0 & $int7 > 0 & ($int4 < $int6 & $int5 < $int7 | $int4 >= $int6 & $int5 >= $int7)) {
+    $string2 = append($string2, "<br>");
+}
+if ($int7 > 0 & ($int6 > 0 & $int4 < $int6 | $int6 = 0) | $int7 > 0 & $int5 >= $int7) {
+    $string2 = append($string2, "<tostring($int5)> / <tostring($int7)> <$string1> <~text_plural($int7, "soul", "souls")>");
+}
+if ($int6 = 0 & $int7 = 0) {
+    $string2 = append($string2, "<tostring($int4)> <$string0> <~text_plural($int4, "soul", "souls")>");
+    $string2 = append($string2, "<br><tostring($int5)> <$string1> <~text_plural($int5, "soul", "souls")>");
+}
+if ($int3 = 1 & ($int6 > 0 & $int4 >= $int6 | $int7 > 0 & $int5 >= $int7)) {
+    $string2 = append($string2, "<br><col=EB2F2F>This soul urn is full.");
+}
+return($string2);

@@ -1,0 +1,42 @@
+// 15675
+[proc,script15675]
+if (~script14236 = false) {
+    if_sethide(true, if_getparentlayer(preload_cache:base));
+    if_sethide(true, preload_cache:base);
+    ~script15673;
+    return;
+}
+def_int $int0 = 0;
+def_int $rgb1 = ^yellow;
+if (preload_download_complete = true) {
+    $int0 = scale(min(10, preload_progress), 10, 100);
+    if_settext("Verifying Cache (<tostring($int0)>% complete)", preload_cache:bar_text);
+} else {
+    $int0 = scale(calc(preload_progress - 10), 90, 100);
+    if ($int0 >= 100) {
+        if_sethide(true, if_getparentlayer(preload_cache:base));
+        if_sethide(true, preload_cache:base);
+        ~script15673;
+        return;
+    } else {
+        if ($int0 < 10) {
+            $rgb1 = 0x880000;
+        } else if ($int0 < 50) {
+            $rgb1 = 0x888800;
+        } else {
+            $rgb1 = 0x008800;
+        }
+        if_settext("Preparing Cache (<tostring($int0)>% downloaded - <tostring(preload_download_downloadedsize)>mb / <tostring(preload_download_totalsize)>mb (<tostring(preload_download_rate)>kb/s))", preload_cache:bar_text);
+    }
+}
+def_boolean $boolean2 = if_gethide(preload_cache:base);
+if ($boolean2 = false) {
+    $boolean2 = if_gethide(if_getparentlayer(preload_cache:base));
+}
+if_sethide(false, preload_cache:base);
+if_sethide(false, if_getparentlayer(preload_cache:base));
+if_setsize(scale(if_getwidth(preload_cache:bar_inner), 100, $int0), 0, ^setsize_abs, ^setsize_minus, preload_cache:bar_fill);
+if_setcolour($rgb1, preload_cache:bar_fill);
+if ($boolean2 = true) {
+    ~script15672;
+}

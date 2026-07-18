@@ -1,0 +1,59 @@
+// 15202
+[proc,script15202](int $int0)
+cc_deleteall(lunarfm_remotefarm:table_buildlayer);
+cc_deleteall(lunarfm_remotefarm:patchstate_buildlayer);
+cc_deleteall(lunarfm_remotefarm:curebtn_buildlayer);
+cc_deleteall(lunarfm_remotefarm:curebtn_clicklayer);
+cc_deleteall(lunarfm_remotefarm:fertilisebtn_buildlayer);
+cc_deleteall(lunarfm_remotefarm:fertilisebtn_clicklayer);
+cc_deleteall(lunarfm_remotefarm:divider_layer);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 2;
+def_int $int4 = 13;
+def_int $int5 = 0;
+def_int $int6 = 5;
+def_int $int7 = 50;
+def_int $int8 = 10;
+def_int $int9 = 3;
+def_int $int10 = 37;
+def_int $int11 = -1;
+def_enum $enum12 = enum(int, enum, remote_farm_patch_categories, $int0);
+def_int $int13 = enum_getoutputcount($enum12);
+def_string $string0 = enum(int, string, remote_farm_category_names, $int0);
+if ($int0 = 5) {
+    $string0 = "Herblore Habitat";
+}
+if_settext($string0, lunarfm_remotefarm:category_title);
+while ($int1 < $int13) {
+    $int2 = enum(int, int, $enum12, $int1);
+    cc_create(lunarfm_remotefarm:table_buildlayer, ^iftype_text, $int1);
+    cc_setposition($int6, calc($int3 + $int4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(~script10495(3));
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+    cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+    cc_settext(enum(int, string, mes_patch_place_names_lunar, $int2));
+    cc_create(lunarfm_remotefarm:patchstate_buildlayer, ^iftype_text, $int1);
+    cc_setposition($int9, calc($int3 + $int4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(^white);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+    cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+    cc_settext("Loading...");
+    cc_create(lunarfm_remotefarm:divider_layer, ^iftype_rectangle, if_getnextsubid(lunarfm_remotefarm:divider_layer));
+    cc_setsize(if_getwidth(lunarfm_remotefarm:divider_layer), $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    if (calc($int1 % 2) = 0) {
+        cc_setcolour(~script10495(12));
+    } else {
+        cc_setcolour(~script10495(9));
+    }
+    $int3 = calc($int3 + $int10);
+    $int1 = calc($int1 + 1);
+}
+if_setscrollsize(0, $int3, lunarfm_remotefarm:table_scroll_layer);
+~rs3_scrollbar_vertical(lunarfm_remotefarm:scrollbar, lunarfm_remotefarm:table_scroll_layer);

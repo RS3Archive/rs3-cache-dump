@@ -1,0 +1,25 @@
+// 12639
+[proc,script12639]
+def_enum $enum0 = cc_param(rs3tli_component_icon_animation_enum);
+def_int $int1 = -1;
+def_int $int2 = -1;
+if ($enum0 ! null) {
+    $int1 = enum_getoutputcount($enum0);
+    if ($int1 > 1) {
+        switch_int (cc_param(rs3tli_component_icon_animation_type)) {
+            case 0 :
+                if (cc_param(rs3tli_component_icon_animation_delay) > 0) {
+                    cc_setparam(rs3tli_component_icon_animation_clock, calc((cc_param(rs3tli_component_icon_animation_clock) + 1) % (cc_param(rs3tli_component_icon_animation_delay) + 1)));
+                    if (cc_param(rs3tli_component_icon_animation_clock) = 0) {
+                        $int2 = calc((cc_param(rs3tli_component_icon_animation_index) + 1) % $int1);
+                        cc_setparam(rs3tli_component_icon_animation_index, $int2);
+                        cc_setgraphic(enum(int, graphic, $enum0, $int2));
+                    }
+                } else {
+                    $int2 = calc((cc_param(rs3tli_component_icon_animation_index) + 1) % $int1);
+                    cc_setparam(rs3tli_component_icon_animation_index, $int2);
+                    cc_setgraphic(enum(int, graphic, $enum0, $int2));
+                }
+        }
+    }
+}

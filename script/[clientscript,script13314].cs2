@@ -1,0 +1,36 @@
+// 13314
+[clientscript,script13314](component $component0, component $component1, component $component2, component $component3, component $component4)
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = 131;
+if (if_find($component0) = true) {
+    $int8 = ~script12422($int8, 1000, cc_param(rs3tli_component_playback_rate));
+    $int5 = cc_param(rs3tli_progress_current);
+    $int6 = cc_param(rs3tli_progress_target);
+    $int7 = ~clamp(calc($int5 + ~clamp(calc($int6 - $int5), calc(0 - $int8), $int8)), 0, 65536);
+    cc_setparam(rs3tli_progress_current, $int7);
+    if (.cc_find($component1, 0) = true) {
+        .cc_set2dangle(max(calc(65536 - $int7), 32768));
+    }
+    if (.cc_find($component2, 0) = true) {
+        .cc_set2dangle(min(max(calc(65536 - $int7), 16384), 49152));
+    }
+    if (.cc_find($component3, 0) = true) {
+        .cc_set2dangle(min(calc(65536 - $int7), 32768));
+    }
+    if (.cc_find($component4, 0) = true) {
+        .cc_set2dangle(min(calc(65536 - $int7), 16384));
+    }
+    if ($int7 = 65536) {
+        if ($int5 = 65536) {
+            if (.cc_find($component4, 0) = true) {
+                .cc_set2dangle(max(calc(65536 - (clientclock - cc_param(rs3tli_component_last_update)) * $int8), 49152));
+            }
+        } else {
+            cc_setparam(rs3tli_component_last_update, clientclock);
+        }
+    } else {
+        cc_setparam(rs3tli_component_last_update, -1);
+    }
+}

@@ -1,0 +1,20 @@
+// 19930
+[proc,script19930](dbrow $dbrow0)(int)
+def_dbrow $dbrow1 = db_getfield($dbrow0, easter_egg_hunt_clue_table:col1, 0);
+def_int $int2 = ~script19932($dbrow1);
+def_dbrow $dbrow3 = db_getfield($dbrow1, easter_egg_hunt_hunt_table:col5, 0);
+def_dbrow $dbrow4 = null;
+if ($int2 ! 0) {
+    return($int2);
+}
+if ($dbrow3 ! null & $dbrow0 ! $dbrow3) {
+    $dbrow4 = db_getfield($dbrow0, easter_egg_hunt_clue_table:col5, 0);
+    if ($dbrow4 = null) {
+        ~error("No previous clue set for sequential, non first clue dbrow. Clue ID: <tostring(db_getfield($dbrow0, easter_egg_hunt_clue_table:col0, 0))>");
+        return(4);
+    }
+    if (~script19934($dbrow4) ! 1) {
+        return(4);
+    }
+}
+return(0);

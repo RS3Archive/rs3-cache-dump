@@ -1,0 +1,25 @@
+// 9704
+[proc,script9704](int $int0)
+if ($int0 = 0) {
+    %wof_trh_ticker_tape_slot = 0;
+} else {
+    %wof_trh_ticker_tape_slot = ~script5233(10);
+}
+def_int $int1 = 0;
+def_int $int2 = %wof_trh_ticker_tape_offset;
+while (++$int1 <= 10) {
+    ~script4767($int1, %wof_trh_ticker_tape_slot);
+    if_setposition($int2, 0, ^setpos_abs_left, ^setpos_abs_centre, ~script5819($int1));
+    $int2 = calc($int2 + 90);
+    if (++%wof_trh_ticker_tape_slot >= ~script16172) {
+        %wof_trh_ticker_tape_slot = 0;
+    }
+}
+if (~is_mobile_client = true) {
+    if_setonmouseleave(null, wheel_of_fortune:ticker_tape_viewport);
+    if_setdraggable(wheel_of_fortune:ticker_tape_viewport, -1, wheel_of_fortune:ticker_swipe_layer);
+    if_sethide(false, wheel_of_fortune:ticker_swipe_layer);
+} else {
+    if_sethide(true, wheel_of_fortune:ticker_swipe_layer);
+    ~script5821;
+}

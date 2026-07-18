@@ -1,0 +1,81 @@
+// 4697
+[clientscript,script4697](int $int0)
+def_int $int1 = clientclock;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int2 = 0;
+def_int $int3 = 1;
+if ($int1 >= calc($int0 + 200) | $int0 = 0) {
+    $int0 = $int1;
+    if (%loy_ballista_client < 1) {
+        $string0 = "Destroyed";
+    } else if (%loy_ballista_client < calc(5 / 2)) {
+        $string0 = "Under attack";
+    } else if (%loy_ballista_client < 5) {
+        $string0 = "Unlit ammo";
+    } else {
+        $string0 = "Fine";
+    }
+    if (%loy_oil_client < 1) {
+        $string1 = "Empty";
+    } else if (%loy_oil_client < calc(10 / 2)) {
+        $string1 = "Low";
+    } else if (%loy_oil_client < 10) {
+        $string1 = "Almost full";
+    } else {
+        $string1 = "Full";
+    }
+    if (%loy_spears_client = 1) {
+        $string2 = "1 broken";
+    } else if (%loy_spears_client > 0) {
+        $string2 = "<tostring(%loy_spears_client)> broken";
+    } else {
+        $string2 = "Repaired";
+    }
+    if (%loy_walls_client = 1) {
+        $string3 = "<tostring($int3)> broken";
+    } else if (%loy_walls_client > 0) {
+        $string3 = "<tostring(%loy_walls_client)> broken";
+    } else {
+        $string3 = "Repaired";
+    }
+    $int2 = calc(%loy_health_client / 2);
+    if_setsize(calc($int2 * 16384 / 100), if_getheight(loy_defence:progbar_fill), ^setsize_rel, ^setsize_abs, loy_defence:progbar_fill);
+    if ($int2 < 97) {
+        if_sethide(true, loy_defence:progbar_end_r);
+    }
+    $string4 = tostring(calc(%loy_trolls_client * 10));
+    if_settext("<tostring(%loy_time_client)> min", loy_defence:time);
+    if (%loy_specevent_client ! 0) {
+        if_sethide(false, loy_defence:spec_event);
+        switch_int (%loy_specevent_client) {
+            case 1 :
+                $string5 = "Clobbering Time!";
+            case 2 :
+                $string5 = "Slow-mo";
+            case 3 :
+                $string5 = "No Well";
+            case 4 :
+                $string5 = "Oil Spill";
+            case 5 :
+                $string5 = "Fire in the Hole!";
+            case 6 :
+                $string5 = "Armoured Trolls";
+        }
+    } else {
+        if_sethide(true, loy_defence:spec_event);
+    }
+    ~script4699(32768009, loy_defence:gfx_box_brown_0, loy_defence:gfx_box_blue_0, "Ballista", $string0);
+    ~script4699(32768003, loy_defence:gfx_box_brown_1, loy_defence:gfx_box_blue_1, "Oil", $string1);
+    ~script4699(32768005, loy_defence:gfx_box_brown_2, loy_defence:gfx_box_blue_2, "Barricades", $string2);
+    ~script4699(32768007, loy_defence:gfx_box_brown_3, loy_defence:gfx_box_blue_3, "Walls", $string3);
+    ~script4699(32768011, loy_defence:gfx_box_brown_4, loy_defence:gfx_box_blue_4, "Trolls", $string4);
+    if (%loy_specevent_client ! 0) {
+        ~script4699(32768013, loy_defence:gfx_box_brown_5, loy_defence:gfx_box_blue_5, "Troll Attack", $string5);
+    }
+}
+if_setontimer("script4697($int0)", loy_defence:ballista);

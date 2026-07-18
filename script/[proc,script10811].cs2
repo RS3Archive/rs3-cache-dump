@@ -1,0 +1,18 @@
+// 10811
+[proc,script10811]
+if (%mtxmgt_purchase_struct = null) {
+    return;
+}
+def_int $int0 = enum_getoutputcount(mtxmgt_purchase_currency_layers);
+def_int $int1 = 4;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_component $component4 = null;
+while ($int3 < $int0) {
+    $component4 = enum(int, component, mtxmgt_purchase_currency_layers, $int3);
+    if ($component4 ! null & if_find($component4) = true & cc_gethide = false) {
+        cc_setposition(cc_getx, $int2, ^setpos_abs_left, ^setpos_abs_top);
+        $int2 = calc($int2 + cc_getheight + $int1);
+    }
+    $int3 = calc($int3 + 1);
+}

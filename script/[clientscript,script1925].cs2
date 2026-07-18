@@ -1,0 +1,74 @@
+// 1925
+[clientscript,script1925](component $component0, int $int1, int $int2, int $int3, int $int4, struct $struct5)
+def_int $int6 = 0;
+def_int $int7 = calc($int4 + 1);
+def_graphic $graphic8 = decoration_progressbar_short_qps_inactive;
+def_graphic $graphic9 = container_unlock_qps_inactive;
+def_struct $struct10 = enum(int, struct, qps_if_tracks, $int3);
+if ($int2 = 0) {
+    switch_int ($int3) {
+        case 0 :
+            $int6 = calc(bitcount(%qps_unlocks_armour) * 25);
+        case 1 :
+            $int6 = calc(bitcount(%qps_unlocks_pet) * 25);
+        case 2 :
+            $int6 = calc(bitcount(%qps_unlocks_hub) * 25);
+    }
+    if (cc_find($component0, calc($int1 + 1)) = true) {
+        cc_settext("<tostring($int6)> / <tostring(struct_param($struct10, qps_if_track_cost))>");
+    }
+} else if ($int2 = 1) {
+    switch_int ($int3) {
+        case 0 :
+            if (bitcount(%qps_unlocks_armour) >= $int7) {
+                $graphic8 = decoration_progressbar_short_qps_active;
+            }
+        case 1 :
+            if (bitcount(%qps_unlocks_pet) >= $int7) {
+                $graphic8 = decoration_progressbar_short_qps_active;
+            }
+        case 2 :
+            if (bitcount(%qps_unlocks_hub) >= $int7) {
+                $graphic8 = decoration_progressbar_short_qps_active;
+            }
+        case 3 :
+            if (struct_param($struct5, qps_if_node_cost) < %qp) {
+                $graphic8 = decoration_progressbar_short_qps_active;
+            }
+    }
+    if ($int3 = %qps_shop_selected_track_id & $int4 <= %qps_shop_selected_node_id) {
+        $graphic8 = decoration_progressbar_short_qps_active;
+    }
+    if (cc_find($component0, calc($int1 + 0)) = true) {
+        cc_setgraphic($graphic8);
+    }
+} else if ($int2 = 2) {
+    switch_int ($int3) {
+        case 0 :
+            if (bitcount(%qps_unlocks_armour) >= $int7) {
+                $graphic9 = container_unlock_qps_active;
+            }
+        case 1 :
+            if (bitcount(%qps_unlocks_pet) >= $int7) {
+                $graphic9 = container_unlock_qps_active;
+            }
+        case 2 :
+            if (bitcount(%qps_unlocks_hub) >= $int7) {
+                $graphic9 = container_unlock_qps_active;
+            }
+        case 3 :
+            if (struct_param($struct5, qps_if_node_cost) < %qp) {
+                $graphic9 = container_unlock_qps_active;
+            }
+    }
+    if ($int3 = %qps_shop_selected_track_id) {
+        if ($int4 < %qps_shop_selected_node_id) {
+            $graphic9 = container_unlock_qps_active;
+        } else if ($int4 = %qps_shop_selected_node_id) {
+            $graphic9 = container_unlock_qps_highlight;
+        }
+    }
+    if (cc_find($component0, calc($int1 + 0)) = true) {
+        cc_setgraphic($graphic9);
+    }
+}

@@ -1,0 +1,43 @@
+// 6158
+[clientscript,script6158]
+if_settext(tostring_localised(%rcsiphonxp_reward_points_client, true), rcsiphonxp_main_overlay:points_amount);
+if_settext(tostring_localised(%rcsiphonxp_carried_points_client, true), rcsiphonxp_main_overlay:inventory_points_amount);
+switch_int (%rcsiphonxp_current_floor_client) {
+    case 1 :
+        if_setgraphic("aif_runecrafting_overlay_icons,3", rcsiphonxp_main_overlay:floor_icon);
+    case 2 :
+        if_setgraphic("aif_runecrafting_overlay_icons,4", rcsiphonxp_main_overlay:floor_icon);
+    case 3 :
+        if_setgraphic("aif_runecrafting_overlay_icons,5", rcsiphonxp_main_overlay:floor_icon);
+    case default :
+        if_setgraphic(login_cross, rcsiphonxp_main_overlay:floor_icon);
+}
+def_string $string0 = "Runesphere Active!";
+switch_int (%rcsiphonxp_runesphere_active_client) {
+    case 1 :
+        $string0 = "Runesphere Active on the Bottom Floor! (<enum(int, string, rcsiphonxp_multiball_int_to_string, %rcsiphonxp_runesphere_type_client)>)";
+    case 2 :
+        $string0 = "Runesphere Active on the Middle Floor! (<enum(int, string, rcsiphonxp_multiball_int_to_string, %rcsiphonxp_runesphere_type_client)>)";
+    case 3 :
+        $string0 = "Runesphere Active on the Top Floor! (<enum(int, string, rcsiphonxp_multiball_int_to_string, %rcsiphonxp_runesphere_type_client)>)";
+}
+if (%rcsiphonxp_runesphere_active_client ! 0) {
+    if_sethide(false, rcsiphonxp_main_overlay:runesphere);
+    if_setgraphic(enum(int, graphic, rcsiphonxp_multiball_int_to_graphic, %rcsiphonxp_runesphere_type_client), rcsiphonxp_main_overlay:runesphere_type);
+    if (%rcsiphonxp_runesphere_type_client = 0) {
+        if_setgraphic("aif_runecrafting_overlay_icons,6", rcsiphonxp_main_overlay:runesphere_icon);
+    }
+    if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", rcsiphonxp_main_overlay:runesphere_icon);
+    if_setonclick("script7774($string0, event_com, event_comsubid, 0)", rcsiphonxp_main_overlay:runesphere_icon);
+    if_setposition(100, 158, ^setpos_abs_right, ^setpos_abs_top, rcsiphonxp_main_overlay:wizard_icon_layer);
+} else {
+    if_sethide(true, rcsiphonxp_main_overlay:runesphere);
+    if_setgraphic(null, rcsiphonxp_main_overlay:runesphere_type);
+    if_setgraphic("aif_runecrafting_overlay_icons,2", rcsiphonxp_main_overlay:runesphere_type);
+    if_setposition(100, 120, ^setpos_abs_right, ^setpos_abs_top, rcsiphonxp_main_overlay:wizard_icon_layer);
+}
+if (%rcsiphonxp_wizard_calling_client = 1) {
+    if_sethide(false, rcsiphonxp_main_overlay:wizard_icon_layer);
+} else {
+    if_sethide(true, rcsiphonxp_main_overlay:wizard_icon_layer);
+}

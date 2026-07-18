@@ -1,0 +1,27 @@
+// 13017
+[proc,script13017](int $int0, int $int1, int $int2)
+%doublexp_week_minutes_remaining = 0;
+%doublexp_week_seconds_remaining = 0;
+%doublexp_personal_buff_minutes_remaining = 0;
+%doublexp_personal_buff_seconds_remaining = 0;
+def_int $int3 = addpercent($int0, -40);
+if ($int0 > 0) {
+    %doublexp_week_minutes_remaining = calc($int3 / 60);
+    %doublexp_week_seconds_remaining = calc($int3 % 60);
+}
+$int3 = addpercent($int1, -40);
+if ($int1 > 0) {
+    %doublexp_personal_buff_minutes_remaining = calc($int3 / 60);
+    %doublexp_personal_buff_seconds_remaining = calc($int3 % 60);
+}
+if ($int2 = 0 & calc($int0 + $int1) > 0) {
+    if_setontimer("script18163", doublexp_week:doublexp_timer);
+}
+~script12262($int2);
+if_settext(~script18166, doublexp_week:doublexp_timer);
+~script18167(0);
+if (map_members = false) {
+    if_settext("1.2x<br>XP", doublexp_week:doublexp_label);
+} else {
+    if_settext("2x<br>XP", doublexp_week:doublexp_label);
+}

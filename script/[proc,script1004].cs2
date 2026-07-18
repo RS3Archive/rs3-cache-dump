@@ -1,0 +1,14 @@
+// 1004
+[proc,script1004](obj $obj0)(string)
+def_dbrow $dbrow1 = oc_param($obj0, pof_animal_db);
+if ($dbrow1 = null) {
+    return("Unknown");
+}
+def_enum $enum2 = null;
+def_enum $enum3 = null;
+$enum2, $enum3 = db_getfield($dbrow1, pof_animal_table:col42, 0);
+if (invother_getvar(%tli_optext_inv, %tli_optext_slot, pof_obj_animal_gender) = 0) {
+    return(enum(int, string, $enum2, invother_getvar(%tli_optext_inv, %tli_optext_slot, pof_obj_animal_name)));
+} else {
+    return(enum(int, string, $enum3, invother_getvar(%tli_optext_inv, %tli_optext_slot, pof_obj_animal_name)));
+}

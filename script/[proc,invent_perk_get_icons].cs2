@@ -1,0 +1,28 @@
+// 12198
+[proc,invent_perk_get_icons](int $int0, int $int1)(graphic, graphic)
+if ($int0 = 0) {
+    return(null, null);
+}
+db_find(invent_perk_table:col0, $int0);
+def_dbrow $dbrow2 = db_findnext;
+if ($dbrow2 = null) {
+    return(null, null);
+}
+def_graphic $graphic3 = null;
+if (db_getfieldcount($dbrow2, invent_perk_table:col7) > 1) {
+    switch_int ($int1) {
+        case 1 :
+            $graphic3 = "invention_icon_perk_rank,1";
+        case 2 :
+            $graphic3 = "invention_icon_perk_rank,2";
+        case 3 :
+            $graphic3 = "invention_icon_perk_rank,3";
+        case 4 :
+            $graphic3 = "invention_icon_perk_rank,4";
+        case 5 :
+            $graphic3 = "invention_icon_perk_rank,5";
+        case 6 :
+            $graphic3 = "invention_icon_perk_rank,6";
+    }
+}
+return(db_getfield($dbrow2, invent_perk_table:col2, 0), $graphic3);

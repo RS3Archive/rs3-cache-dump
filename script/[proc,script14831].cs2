@@ -1,0 +1,23 @@
+// 14831
+[proc,script14831](dbrow $dbrow0)
+def_graphic $graphic1 = null;
+def_obj $obj2 = null;
+def_string $string0 = "???";
+def_string $string1 = "No information available.";
+def_string $string2 = "Unknown";
+def_string $string3 = "Unknown";
+if ($dbrow0 ! null) {
+    $graphic1 = db_getfield($dbrow0, arch_restoration:col2, 0);
+    $obj2 = db_getfield($dbrow0, arch_restoration:col6, 0);
+    $string0 = oc_name($obj2);
+    if (~script14500($obj2) > 0 & string_length(db_getfield($dbrow0, arch_restoration:col3, 0)) > 0) {
+        $string1 = db_getfield($dbrow0, arch_restoration:col3, 0);
+    }
+    $string2 = ~script14912($dbrow0);
+    $string3 = ~script14913($dbrow0);
+}
+if_setgraphic($graphic1, arch_journal:restoration_info_graphic);
+if_settext($string0, arch_journal:restoration_info_name_text);
+if_settext($string1, arch_journal:restoration_info_desc_text);
+if_settext($string2, arch_journal:restoration_info_collector_text);
+if_settext($string3, arch_journal:restoration_info_excavation_text);

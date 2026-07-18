@@ -1,0 +1,16 @@
+// 14479
+[proc,trh_validate_claim_destination](obj $obj0, int $int1)(int)
+def_int $int2 = 93;
+switch_int ($int1) {
+    case 1, 0 :
+        if (oc_param($obj0, nonbankable) = 1 | oc_param($obj0, trh_claim_disallow_bank) = 1 | oc_param($obj0, trh_claim_destination) = 2 | oc_param($obj0, trh_claim_inv_for_promo) = ~script16161) {
+            $int2 = 93;
+        } else {
+            $int2 = 95;
+        }
+    case 2 :
+        $int2 = 93;
+    case default :
+        ~error("Invalid claim destination in trh_validate_claim_destin, defaulting to inv.");
+}
+return($int2);

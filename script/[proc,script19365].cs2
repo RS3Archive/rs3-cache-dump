@@ -1,0 +1,34 @@
+// 19365
+[proc,script19365](obj $obj0)(boolean)
+if ($obj0 = null | ~script3996($obj0) = true) {
+    return(false);
+}
+if (oc_tradeable($obj0) = true) {
+    return(true);
+}
+if (enum_hasoutput(obj, group_ironman_storage_whitelist_item, $obj0) = true) {
+    return(true);
+}
+if (enum_hasoutput(category, group_ironman_storage_whitelist_category, oc_category($obj0)) = true) {
+    return(true);
+}
+if (enum_hasoutput(obj, group_ironman_storage_degrade_to_dust_whitelist, $obj0) = true) {
+    return(true);
+}
+if (oc_param($obj0, item_degrade_freshitem) = 1 | oc_param($obj0, item_degrade_broken_item) = 1) {
+    if (oc_tradeable($obj0) = true) {
+        return(true);
+    }
+    return(false);
+}
+def_obj $obj1 = oc_param($obj0, item_degrade_nextstate);
+if ($obj1 ! null) {
+    if (oc_param($obj1, item_degrade_freshitem) = 1 & oc_tradeable($obj1) = true) {
+        return(true);
+    }
+    $obj1 = oc_param($obj1, item_degrade_nextstate);
+    if ($obj1 ! null & oc_param($obj1, item_degrade_freshitem) = 1 & oc_tradeable($obj1) = true) {
+        return(true);
+    }
+}
+return(false);

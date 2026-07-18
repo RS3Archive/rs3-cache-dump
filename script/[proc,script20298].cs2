@@ -1,0 +1,18 @@
+// 20298
+[proc,script20298](achievement $achievement0)(boolean)
+def_int $int1 = 0;
+def_int $int2 = achievement_largest_prereq($achievement0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+while ($int1 < $int2) {
+    $int3 = 0;
+    $int4 = achievement_achievement_prereq_count($achievement0, $int1);
+    while ($int3 < $int4) {
+        if (achievement_category(achievement_achievement_prereq($achievement0, $int1, $int3)) ! league & achievement_achievement_prereq_met($achievement0, $int1, $int3) = false) {
+            return(true);
+        }
+        $int3 = calc($int3 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+return(false);

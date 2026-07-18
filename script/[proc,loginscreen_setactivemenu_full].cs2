@@ -1,0 +1,165 @@
+// 3239
+[proc,loginscreen_setactivemenu_full](int $int0, int $int1)
+def_int $int2 = ~login_getreply;
+if ($int1 = 0 & ($int2 = -3 | $int2 = 21 | $int2 = 1)) {
+    return;
+}
+sound_vorbis_volume(tli_click_01, 1, 0, 100);
+%loginscreen_focustime = clientclock;
+%tooltip_time = 0;
+if (%loginscreen_lastmenu ! 3 & %loginscreen_lastmenu ! 4 & %loginscreen_lastmenu ! 19) {
+    %loginscreen_lastmenu_options = %loginscreen_lastmenu;
+    if_setonop("loginscreen_setactivemenu(%loginscreen_lastmenu_options)", loginscreen_graphics_options:mainmodal_window_close_button);
+}
+if_sethide(true, loginscreen:driver_warning);
+if_sethide(true, loginscreen:32bit_warning);
+if_sethide(true, loginscreen:launcher_warning);
+if_sethide(true, loginscreen:options_firstrun);
+if_closesubclient(loginscreen:options_firstrun);
+if_sethide(true, loginscreen:tncs_layer);
+if_sethide(true, loginscreen:settings_layer);
+if_sethide(true, loginscreen:options);
+if_setonresize(null, loginscreen:options);
+if_setonresize(null, loginscreen_graphics_options:universe);
+if_sethide(true, loginscreen:windowmode_confirm);
+if (if_find(loginscreen:windowmode_confirm_yes) = true) {
+    cc_setonbuttonpressed(null);
+}
+if (if_find(loginscreen:windowmode_confirm_no) = true) {
+    cc_setonbuttonpressed(null);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "";
+def_int $int5 = 26;
+if ($int0 ! 3 & $int0 ! 4 & $int0 ! 19) {
+    if_sethide(true, loginscreen:oauth2_selection_panel);
+    if_sethide(true, loginscreen:oauth2_link_buttons);
+}
+~script15686;
+if_setonkey(null, loginscreen:background_layer);
+switch_int ($int0) {
+    case 8, 13, 4, 3, 14, 19, 18, 15 :
+        if_setonkey("loginscreen_keypress(event_keycode, event_keychar)", loginscreen:background_layer);
+}
+if ($int0 ! 18 & $int0 ! 0) {
+    if_sethide(false, loginscreen:right_hand_panel);
+}
+switch_int ($int0) {
+    case 20 :
+        ~script19989;
+    case 21 :
+        ~script4732;
+    case 12 :
+        ~script15676;
+        ~login_setfocus(12);
+        ~script12352;
+        if_sethide(false, loginscreen:driver_warning);
+    case 18 :
+        ~login_setfocus(18);
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, loginscreen:left_hand_panel);
+        if_sethide(true, loginscreen:right_hand_panel);
+        if_sethide(false, loginscreen:popup_windows);
+        if_sethide(false, loginscreen:tncs_layer);
+    case 0 :
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, loginscreen:left_hand_panel);
+        if_sethide(true, loginscreen:right_hand_panel);
+        ~firstrun;
+        if_sethide(false, loginscreen:options_firstrun);
+    case 8 :
+        ~script15676;
+        ~script15643;
+        %loginscreen_pvp_warned = 0;
+        if_setonclick("login_dologin", loginscreen:login_button);
+        ~script15687(8);
+        %loginscreen_focus_last = -1;
+        if (~is_mobile_client = false) {
+            ~login_open($int0);
+        }
+        ~login_resize;
+    case 16 :
+        sound_vorbis_volume(tli_click_01, 1, 0, 120);
+        ~script15676;
+        if (%login_reply_last = 1409) {
+            ~script7841;
+        } else {
+            if_sethide(false, loginscreen:oauth2_selection_panel);
+        }
+        ~script15644;
+        %loginscreen_pvp_warned = 0;
+        ~login_setfocus(16);
+        ~script15687(16);
+        %loginscreen_focus_last = -1;
+        ~login_resize;
+    case 17 :
+        ~script15676;
+        ~script15687(17);
+        ~login_setfocus(17);
+        if_opensubclient(loginscreen:steam, login_steam);
+        %loginscreen_focus_last = -1;
+        %loginscreen_pvp_warned = 0;
+        ~loginscreen_steam_panel_load;
+        ~login_resize;
+    case 9 :
+        ~script15676;
+        %loginscreen_username = %create_username;
+        %loginscreen_password = %create_password1;
+        %create_username = "";
+        %create_password1 = "";
+        %loginscreen_totp_auth = "";
+        %loginscreen_remember_auth = false;
+        ~login_dologin;
+    case 13 :
+        ~script15676;
+        ~login_setfocus(13);
+        ~script15687(13);
+        if (~is_mobile_client = false) {
+            if_settext("Welcome!", loginscreen:sso_welcome_text);
+        } else {
+            if_settext("Welcome back!", loginscreen:sso_welcome_text);
+        }
+        if (string_length(sso_displayname) = 0) {
+            if_settext("", loginscreen:sso_name);
+        } else {
+            if_settext("You are currently signed in as:<br><col=ffffff><sso_displayname></col>", loginscreen:sso_name);
+        }
+    case 3 :
+        sound_vorbis_volume(equip_baxe, 1, 0, 180);
+        ~login_setfocus(3);
+        ~script15655;
+    case 4 :
+        sound_vorbis_volume(tli_click_01, 1, 0, 120);
+        ~login_setfocus(4);
+        if_opensubclient(loginscreen:options, loginscreen_graphics_options);
+        ~graphics_options_init(0);
+        if_sethide(false, loginscreen:options);
+    case 7 :
+        ~login_setfocus(108);
+        if_sethide(false, loginscreen:windowmode_confirm);
+    case 14 :
+        ~script15676;
+        ~login_setfocus(14);
+        ~script15687(14);
+        if (~is_mobile_client = false) {
+            ~login_open(114);
+        }
+    case 15 :
+        ~script15676;
+        if_sethide(false, loginscreen:recovery_layer);
+        ~login_setfocus(15);
+        if (~is_mobile_client = false) {
+            ~login_open(113);
+        }
+    case 19 :
+        ~login_setfocus(19);
+        if_sethide(false, loginscreen:tncs_bottom_layer_popup);
+}
+if ($int0 ! 7) {
+    %loginscreen_lastmenu = $int0;
+}
+switch_int ($int0) {
+    case 3, 4, 14, 15, 19, 18 :
+        ~script9790(0);
+    case default :
+        ~script9790(1);
+}

@@ -1,0 +1,39 @@
+// 4640
+[proc,script4640](int $int0)
+if ($int0 = -1) {
+    return;
+}
+def_enum $enum1 = enum(int, enum, div_porter_category_to_enum, $int0);
+if ($enum1 = null) {
+    return;
+}
+def_component $component2 = div_porter:porter_list_build;
+cc_deleteall($component2);
+cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+~script2733($component2, cc_getid, 1);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(0, 13, ^setsize_minus, ^setsize_abs);
+cc_settextfont(museo_sans_13pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settext(enum(int, string, div_porter_categories, $int0));
+def_int $int3 = -1;
+def_int $int4 = enum_getoutputcount($enum1);
+def_int $int5 = 20;
+def_int $int6 = if_getwidth($component2);
+def_string $string0 = "";
+while (++$int3 < $int4) {
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    ~script2733($component2, cc_getid, 3);
+    cc_setposition(calc($int6 / 2 * ($int3 % 2)), $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(150, 16, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular_multiline);
+    cc_setmaxlines(1);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    $string0 = enum(int, string, $enum1, $int3);
+    cc_settext(~script3930($string0, 150, 1, museo_sans_11pt_regular_multiline));
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+    $int5 = calc($int5 + 16 * ($int3 % 2));
+}
+if_setscrollpos(0, 0, div_porter:porter_list_layer);
+if_setscrollsize(0, max(if_getheight(div_porter:porter_options_layer), calc($int5 + 16)), div_porter:porter_list_layer);
+~rs3_scrollbar_vertical(div_porter:porter_list_scroll, div_porter:porter_list_layer);

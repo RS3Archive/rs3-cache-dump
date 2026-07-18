@@ -1,0 +1,19 @@
+// 18156
+[proc,script18156](int $int0, int $int1)(int, string)
+if (~script12869(challenge_weekly_progression) < enum(int, int, challenge_weekly_progression_thresholds, $int1)) {
+    return(0, "You are not yet eligible to claim this reward.");
+}
+if (~script18141($int0, $int1) = 1) {
+    return(0, "You have already claimed this reward.");
+}
+switch_int (~script18149($int0)) {
+    case 2 :
+        if (playermember = false) {
+            return(0, "You must log into a members' world to claim this reward.");
+        }
+}
+if (%challenge_returner_active = 1) {
+    return(1, "Collect this progress reward.");
+} else {
+    return(1, "Collect this weekly progress reward.");
+}

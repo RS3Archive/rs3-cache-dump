@@ -1,0 +1,46 @@
+// 2582
+[proc,graphics_options_detailset](struct $struct0, int $int1, int $int2)(int)
+def_int $clientoption3 = struct_param($struct0, graphics_options_id);
+if (clientoption_exists($clientoption3) = false) {
+    switch_struct ($struct0) {
+        case graphics_options_fullscreenresolutions :
+            %selectedresolution = $int1;
+            if (getwindowmode = ^windowmode_fullscreen) {
+                if (fullscreen_enter(fullscreen_getmode($int1)) = true) {
+                    return(1);
+                }
+                return(0);
+            }
+            return(1);
+        case graphics_options_nxt_loading :
+            %loadingscreen_on = $int1;
+            ~script13878;
+            return(1);
+    }
+    return(0);
+}
+if (clientoption_canmod($clientoption3) = false) {
+    return(0);
+}
+switch_int ($clientoption3) {
+    case ^clientoption_max_foreground_fps :
+        $int1 = calc((1 + $int1) * 5);
+    case ^clientoption_max_background_fps :
+        $int1 = calc((1 + $int1) * 5);
+    case ^clientoption_interface_scale :
+        $int1 = enum(int, int, ogl_nxt_interface_scaling_value, $int1);
+    case ^clientoption_game_render_scale :
+        $int1 = calc(50 + $int1 * 10);
+}
+if (clientoption_canset($clientoption3, $int1) = 3) {
+    return(0);
+}
+clientoption_set($clientoption3, $int1);
+if ($clientoption3 = ^clientoption_custom_cursors) {
+    %option_cursor = ~int_to_bool($int1);
+    %accessibility_custom_cursor_enabled = $int1;
+} else if ($clientoption3 = ^clientoption_texturing) {
+    ~script15671;
+}
+~script2593;
+return(1);

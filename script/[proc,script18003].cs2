@@ -1,0 +1,46 @@
+// 18003
+[proc,script18003](component $component0, int $int1, int $int2, boolean $boolean3, boolean $boolean4, int $int5, int $int6, int $int7)
+def_string $string0 = "";
+def_boolean $boolean8 = true;
+if ($boolean3 = true) {
+    $string0 = "<col=00FF00>You've already claimed this reward.";
+    $boolean8 = false;
+} else {
+    if ($boolean4 = true & ~script17865(dbrow_7906) = false) {
+        if (string_length($string0) > 0) {
+            $string0 = "<$string0><br>";
+        }
+        $string0 = "<$string0>Premier Pass required";
+        $boolean8 = false;
+    }
+    if ($int5 = 1) {
+        if (string_length($string0) > 0) {
+            $string0 = "<$string0><br>";
+        }
+        $string0 = "<$string0>Level <tostring($int2)> required";
+        $boolean8 = false;
+    }
+}
+def_string $string1 = "Claim selected <~text_plural($int6, "reward", "rewards")>";
+$string1 = "Claim";
+def_int $int9 = 0;
+if ($boolean8 = true & if_find($component0) = true) {
+    switch_int ($int7) {
+        case 2 :
+            $int9 = ~script17893(%bp3_current_viewed_pass);
+            if ($int9 > 1) {
+                $string1 = append($string1, " (x<tostring_localised($int9, true)>)");
+            }
+            ~cc_add_child_button(0, $int2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, ~script17989(22), "<col=E0D471><$string1>");
+            cc_setop(1, $string1);
+            cc_settextfont(cinzel_15pt_bold);
+        case default :
+            ~cc_add_child_button(0, $int2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 30, 0, ^setsize_minus, ^setsize_minus, ~script17989(22), "<col=E0D471><$string1>");
+            cc_setop(1, $string1);
+            cc_settextfont(cinzel_15pt_bold);
+    }
+}
+if_sethide(~not_bool($boolean8), $component0);
+def_component $component10 = bp3_track_tab:reward_requirement_text;
+if_sethide($boolean8, $component10);
+if_settext($string0, $component10);

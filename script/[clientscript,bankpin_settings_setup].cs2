@@ -1,0 +1,122 @@
+// 4146
+[clientscript,bankpin_settings_setup]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (%bankpin_opened_from_bank = 0) {
+    if_sethide(true, bankpin_settings:bank_return);
+    if_setsize(180, 10, ^setsize_abs, ^setsize_minus, bankpin_settings:messagebox);
+} else {
+    if_sethide(false, bankpin_settings:bank_return);
+    if_setsize(180, 40, ^setsize_abs, ^setsize_minus, bankpin_settings:messagebox);
+}
+if (testbit(%playerdesign2_client_skincol, 31) = ^true) {
+    if_sethide(true, bankpin_settings:settings);
+    if_sethide(false, bankpin_settings:warnings);
+} else {
+    if_sethide(false, bankpin_settings:settings);
+    if_sethide(true, bankpin_settings:warnings);
+    if_sethide(true, bankpin_settings:button1);
+    if_sethide(true, bankpin_settings:button2);
+    if_sethide(true, bankpin_settings:button3);
+    if_sethide(true, bankpin_settings:button4);
+    switch_int (calc(%playerdesign2_client_skincol & 3)) {
+        case 0 :
+            if_settext("No PIN set", bankpin_settings:statusoutput);
+            if (%bankpin_eligible_for_authenticator = 1) {
+                $int1 = 3;
+            } else {
+                $int1 = 2;
+            }
+            while ($int0 < $int1) {
+                $int2 = calc($int0 * (26 + 4));
+                switch_int ($int0) {
+                    case 0 :
+                        ~script4147(bankpin_settings:button1, $int2, "Set a PIN");
+                    case 1 :
+                        ~script4147(bankpin_settings:button2, $int2, "Change recovery delay");
+                    case 2 :
+                        if (%bankpin_using_authenticator = 1) {
+                            ~script4147(bankpin_settings:button3, $int2, "Cancel Authenticator as a bank pin");
+                        } else {
+                            ~script4147(bankpin_settings:button3, $int2, "Use Authenticator as a bank pin");
+                        }
+                }
+                $int0 = calc($int0 + 1);
+            }
+        case default :
+            if_settext("You have a PIN", bankpin_settings:statusoutput);
+            if (%bankpin_eligible_for_authenticator = 1) {
+                $int1 = 4;
+            } else {
+                $int1 = 3;
+            }
+            while ($int0 < $int1) {
+                $int2 = calc($int0 * (26 + 4));
+                switch_int ($int0) {
+                    case 0 :
+                        ~script4147(bankpin_settings:button1, $int2, "Change your PIN");
+                    case 1 :
+                        ~script4147(bankpin_settings:button2, $int2, "Delete your PIN");
+                    case 2 :
+                        ~script4147(bankpin_settings:button3, $int2, "Change recovery delay");
+                    case 3 :
+                        if (%bankpin_using_authenticator = 1) {
+                            ~script4147(bankpin_settings:button4, $int2, "Cancel Authenticator as a bank pin");
+                        } else {
+                            ~script4147(bankpin_settings:button4, $int2, "Use Authenticator as a bank pin");
+                        }
+                }
+                $int0 = calc($int0 + 1);
+            }
+        case 3 :
+            if_settext("PIN coming soon", bankpin_settings:statusoutput);
+            if (%bankpin_eligible_for_authenticator = 1) {
+                $int1 = 2;
+            } else {
+                $int1 = 1;
+            }
+            while ($int0 < $int1) {
+                $int2 = calc($int0 * (26 + 4));
+                switch_int ($int0) {
+                    case 0 :
+                        ~script4147(bankpin_settings:button1, $int2, "Cancel the PIN");
+                    case 1 :
+                        if (%bankpin_using_authenticator = 1) {
+                            ~script4147(bankpin_settings:button2, $int2, "Cancel Authenticator as a bank pin");
+                        } else {
+                            ~script4147(bankpin_settings:button2, $int2, "Use Authenticator as a bank pin");
+                        }
+                }
+                $int0 = calc($int0 + 1);
+            }
+    }
+    if (testbit(%playerdesign2_client_skincol, 10) = ^true) {
+        if_settext("7 days", bankpin_settings:delayoutput);
+    } else {
+        if_settext("3 days", bankpin_settings:delayoutput);
+    }
+}
+cc_deleteall(bankpin_settings:message);
+cc_create(bankpin_settings:message, ^iftype_text, 0);
+cc_settextfont(museo_sans_11pt_regular_multiline);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settext(%bankpin_settings_message);
+if (calc(paraheight(%bankpin_settings_message, calc(if_getwidth(if_getlayer(bankpin_settings:message)) - 14), museo_sans_11pt_regular_multiline) * 11 + 5) <= if_getheight(bankpin_settings:message)) {
+    if_setsize(14, 40, ^setsize_minus, ^setsize_minus, bankpin_settings:message);
+    if_setscrollsize(0, 0, bankpin_settings:message);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    if_sethide(true, bankpin_settings:scrollbar);
+    return;
+}
+if_setsize(31, 40, ^setsize_minus, ^setsize_minus, bankpin_settings:message);
+def_int $int3 = calc(paraheight(%bankpin_settings_message, if_getwidth(bankpin_settings:message), museo_sans_11pt_regular_multiline) * 11 + 5);
+if_setscrollsize(0, $int3, bankpin_settings:message);
+if_setscrollpos(0, 0, bankpin_settings:message);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+if_sethide(false, bankpin_settings:scrollbar);
+~scrollbar_vertical(bankpin_settings:scrollbar, bankpin_settings:message, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

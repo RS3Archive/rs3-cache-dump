@@ -1,0 +1,35 @@
+// 11972
+[clientscript,script11972](component $component0)
+if (%varclientbit_30112 > 0) {
+    %varclientbit_30112 = calc((%varclientbit_30112 + 1) % 31);
+}
+def_int $int1 = if_getmodelangle_z($component0);
+if ($int1 = %tutisland_vault_target) {
+    return;
+}
+def_int $int2 = calc($int1 + 7);
+if ($int2 > 2047) {
+    $int2 = calc($int2 % 2048);
+    if ($int2 > %tutisland_vault_target) {
+        $int2 = %tutisland_vault_target;
+    }
+} else if ($int1 < %tutisland_vault_target) {
+    $int2 = min($int2, %tutisland_vault_target);
+}
+def_int $int3 = min(abs(calc(%tutisland_vault_target - $int2)), abs(calc(%tutisland_vault_target + 2048 - $int2)));
+def_int $int4 = calc($int1 - 7);
+if ($int4 < 0) {
+    $int4 = calc(2047 - abs($int4));
+    if ($int4 < %tutisland_vault_target) {
+        $int4 = %tutisland_vault_target;
+    }
+} else if ($int1 > %tutisland_vault_target) {
+    $int4 = max($int4, %tutisland_vault_target);
+}
+def_int $int5 = min(abs(calc(%tutisland_vault_target - $int4)), abs(calc(%tutisland_vault_target - 2048 - $int4)));
+if ($int3 < $int5) {
+    $int1 = $int2;
+} else {
+    $int1 = $int4;
+}
+if_setmodelangle(if_getmodelxof($component0), if_getmodelyof($component0), if_getmodelangle_x($component0), if_getmodelangle_y($component0), $int1, if_getmodelzoom($component0), $component0);

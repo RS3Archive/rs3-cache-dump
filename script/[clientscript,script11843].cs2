@@ -1,0 +1,29 @@
+// 11843
+[clientscript,script11843]
+def_int $int0 = if_getwidth(trh70_overlay:progress_bar);
+def_int $int1 = if_getwidth(trh70_overlay:progress_bar_foreground_layer);
+def_int $int2 = 0;
+def_int $int3 = calc($int1 / 1000);
+def_int $int4 = scale($int1, 1000, %trh70_corrupted_charge);
+if ($int0 < $int4) {
+    $int2 = min(calc($int0 + 2), $int4);
+} else if ($int0 > $int4) {
+    $int2 = max(calc($int0 - 2), $int4);
+} else {
+    if_setontimer(null, trh70_overlay:progress_bar);
+    return;
+}
+if ($int2 = 0) {
+    $int2 = 1;
+    if_setontimer(null, trh70_overlay:progress_bar);
+}
+if_setsize($int2, 0, ^setsize_abs, ^setsize_minus, trh70_overlay:progress_bar);
+if (%trh70_corrupted_charge >= 200) {
+    if_setgraphic("trh70_corrupt_chargebar_marker_01,1", trh70_overlay:reward_1);
+}
+if (%trh70_corrupted_charge >= 500) {
+    if_setgraphic("trh70_corrupt_chargebar_marker_02,1", trh70_overlay:reward_2);
+}
+if (%trh70_corrupted_charge >= 1000) {
+    if_setgraphic("trh70_corrupt_chargebar_marker_03,1", trh70_overlay:red_gem);
+}

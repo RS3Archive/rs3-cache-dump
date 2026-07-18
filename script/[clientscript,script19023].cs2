@@ -1,0 +1,15 @@
+// 19023
+[clientscript,script19023]
+if (%combatv2_debuff_resurrection_sickness_active <= 0 | %combatv2_debuff_resurrection_sickness_end_client <= clientclock) {
+    if_sethide(true, toplevel_v2_status_effects:resurrection_sickness_graphic);
+    if_settrans(255, toplevel_v2_status_effects:resurrection_sickness_graphic);
+    if_setontimer(null, toplevel_v2_status_effects:resurrection_sickness_layer);
+    return;
+}
+if_sethide(false, toplevel_v2_status_effects:resurrection_sickness_graphic);
+if (calc(%combatv2_debuff_resurrection_sickness_end_client - clientclock) < 30) {
+    if_settrans(calc(255 - scale(calc(%combatv2_debuff_resurrection_sickness_end_client - clientclock), 30, 255)), toplevel_v2_status_effects:resurrection_sickness_graphic);
+} else {
+    if_settrans(0, toplevel_v2_status_effects:resurrection_sickness_graphic);
+}
+if_setontimer("script19023", toplevel_v2_status_effects:resurrection_sickness_layer);

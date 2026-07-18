@@ -1,0 +1,62 @@
+// 1471
+[clientscript,script1471](component $component0, int $int1, int $int2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_dbrow $dbrow11 = ~script1479($int1, $int2);
+if ($dbrow11 = null) {
+    return;
+}
+if (%trail_shufflepattern = 0) {
+    return;
+}
+def_enum $enum12 = db_getfield($dbrow11, trail_track:col1, calc(%trail_shufflepattern - 1));
+if ($enum12 = null) {
+    return;
+}
+def_enum $enum13 = db_getfield($dbrow11, trail_track:col3, 0);
+if ($enum13 = null) {
+    return;
+}
+def_enum $enum14 = db_getfield($dbrow11, trail_track:col4, 0);
+if ($enum14 = null) {
+    return;
+}
+def_int $int15 = enum_getoutputcount($enum12);
+def_int $int16 = ~script1468($int2);
+if ($dbrow11 = null) {
+    return;
+}
+if (if_find($component0) = true) {
+    $int4 = enum(int, int, $enum12, calc(($int3 + $int16) % $int15));
+    $int10 = calc(($int4 + %trail_shufflerune) % enum_getoutputcount(int_to_rune));
+    if (cc_param(trail_knot_init) = 1 & cc_param(trail_knot_oldindex) = $int16) {
+        return;
+    }
+    cc_setparam_int(trail_knot_future, $int10);
+    if (cc_param(trail_knot_init) ! 1 | %trail_knot_skipanim = 1) {
+        cc_setparam(trail_knot_init, 1);
+        if_setobject(enum(int, obj, int_to_rune, $int10), -1, $component0);
+        cc_setparam_int(trail_knot_oldindex, $int16);
+        return;
+    }
+    $int5 = cc_param(trail_knot_posx);
+    $int6 = cc_param(trail_knot_posy);
+    $int8 = enum(int, int, $enum13, $int3);
+    $int9 = enum(int, int, $enum14, $int3);
+    cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int3 = 0) {
+        sound_vorbis_rate(wof_slide, 1, 0, 100, random_sound_pitch(10, 10));
+    }
+    $int7 = ~script1470($int16, cc_param(trail_knot_oldindex), $int15);
+    if ($int7 > 0) {
+        if_setontimer("script3627($component0, $int5, $int6, calc(24 * $int8), calc(24 * $int9), enum(int, obj, int_to_rune, $int10), $int10, 0, 18)", $component0);
+    } else {
+        if_setontimer("script3628($component0, $int5, $int6, calc(24 * $int8), calc(24 * $int9), enum(int, obj, int_to_rune, $int10), $int10, 0, 18)", $component0);
+    }
+    cc_setparam_int(trail_knot_oldindex, $int16);
+}

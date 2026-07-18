@@ -1,0 +1,51 @@
+// 17372
+[proc,script17372](long $long0, int $int0, int $int1)(string)
+def_int $int2 = 0;
+def_long $long1 = $long0;
+if ($long0 < 0) {
+    $long0 = calc($long0 * -1);
+    $long1 = $long0;
+    $int2 = 1;
+}
+if (calc($int0 % 3) ! 0 | $int0 > 15) {
+    ~error("tostring_long_maxchars_localised was called with an invalid value: <tostring($int0)>. Expected 3 / 6 / 9 / 12 / 15. Setting to 3.");
+    $int0 = 3;
+}
+def_int $int3 = ~script17138(calc($long0 / 1000000000));
+def_int $int4 = ~script17138(calc($long0 % 1000000000));
+def_int $int5 = 0;
+if ($int3 > 0) {
+    $int5 = calc(~script17374(1000000000) + ~script17374($int3));
+} else {
+    $int5 = ~script17374($int4);
+}
+def_int $int6 = 0;
+while ($int5 > $int0) {
+    $long0 = calc($long0 / 1000);
+    $int5 = calc($int5 - 3);
+    $int6 = calc($int6 + 1);
+}
+if ($int2 = 1) {
+    $long0 = calc($long0 * -1);
+}
+def_string $string0 = "";
+switch_int ($int6) {
+    case 0 :
+        $string0 = tostring_localised_long($long0, true);
+    case 1 :
+        $string0 = "<tostring_localised_long($long0, true)>K";
+    case 2 :
+        $string0 = "<tostring_localised_long($long0, true)>M";
+    case 3 :
+        $string0 = "<tostring_localised_long($long0, true)>B";
+    case 4 :
+        $string0 = "<tostring_localised_long($long0, true)>T";
+    case 5 :
+        $string0 = "<tostring_localised_long($long0, true)>Q";
+    case default :
+        $string0 = "Lots!";
+}
+if ($int1 = 0) {
+    return($string0);
+}
+return("<col=<tostring(~script17373($long1), 16)>><$string0></col>");

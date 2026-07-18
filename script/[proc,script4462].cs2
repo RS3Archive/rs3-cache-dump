@@ -1,0 +1,96 @@
+// 4462
+[proc,script4462](component $component0)
+def_struct $struct1 = ~clan_chat_get_struct($component0);
+def_component $component2 = struct_param($struct1, clan_ignore_list);
+def_component $component3 = struct_param($struct1, clan_ignore_scrolling);
+def_component $component4 = struct_param($struct1, clan_ignore_scrollbar);
+def_component $component5 = struct_param($struct1, clan_ignore_rect);
+def_component $component6 = struct_param($struct1, clan_ignore_info_text);
+def_component $component7 = struct_param($struct1, clan_ignore_info);
+def_component $component8 = struct_param($struct1, clan_ignore_buttons);
+def_component $component9 = struct_param($struct1, clan_ignore_buttons);
+def_component $component10 = clan_chat:clan_ignore_count_text;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_string $string0 = "";
+def_int $int13 = -1;
+def_int $int14 = -1;
+if (activeclansettings_find_affined(0) = true) {
+    $int12 = activeclansettings_getbannedcount;
+    if_settext("<col=EE7600>Clan Ban List</col> - <tostring($int12)>/100", $component10);
+    $int13 = activeclansettings_getaffinedslot(chat_playername_unfiltered);
+    if ($int13 < 0) {
+        return;
+    }
+    $int14 = activeclansettings_getaffinedrank($int13);
+    if ($int14 >= 100 | %clan_allow_all_to_view_ban_list_varclan = 1) {
+        if_settext("", $component6);
+        if_sethide(true, $component7);
+        while ($int11 < $int12) {
+            if (cc_find($component2, $int11) = true) {
+                $string0 = activeclansettings_getbanneddisplayname($int11);
+                cc_settext($string0);
+                cc_setopbase("<col=ffffff><$string0>");
+                cc_sethide(false);
+            }
+            if (cc_find($component5, $int11) = true) {
+                cc_sethide(false);
+            }
+            $int11 = calc($int11 + 1);
+        }
+        while ($int11 < 100) {
+            if (cc_find($component2, $int11) = true) {
+                cc_sethide(true);
+            }
+            if (cc_find($component5, $int11) = true) {
+                cc_sethide(true);
+            }
+            $int11 = calc($int11 + 1);
+        }
+    } else {
+        if_sethide(false, $component7);
+        if_settext("Your rank does not have permission to<br>view the ban list.", $component6);
+        while ($int11 < 100) {
+            if (cc_find($component2, $int11) = true) {
+                cc_sethide(true);
+            }
+            if (cc_find($component5, $int11) = true) {
+                cc_sethide(true);
+            }
+            $int11 = calc($int11 + 1);
+        }
+    }
+} else {
+    if_sethide(false, $component7);
+    if_settext("You must be part of a clan to<br>view the ban list.", $component6);
+    while ($int11 < 100) {
+        if (cc_find($component2, $int11) = true) {
+            cc_sethide(true);
+        }
+        if (cc_find($component5, $int11) = true) {
+            cc_sethide(true);
+        }
+        $int11 = calc($int11 + 1);
+    }
+}
+def_int $int15 = calc(19 * $int12);
+def_int $int16 = min(if_getscrolly($component3), if_getscrollheight($component3));
+if ($int15 > if_getheight($component3)) {
+    ~rs3_scrollbar_vertical($component4, $component3);
+    if_setscrollsize(0, $int15, $component3);
+    if_setscrollpos(0, $int16, $component3);
+    if_sethide(false, $component4);
+    if_setsize(16, 60, ^setsize_minus, ^setsize_minus, $component3);
+    ~scrollbar_resize($component4, $component3, $int16);
+} else {
+    if_sethide(true, $component4);
+    if_setsize(0, 60, ^setsize_minus, ^setsize_minus, $component3);
+    if_setscrollsize(0, 0, $component3);
+    if_setscrollpos(0, 0, $component3);
+    ~scrollbar_resize($component4, $component3, 0);
+}
+if (if_getwidth($component0) < 110) {
+    if_sethide(true, $component8);
+} else {
+    if_sethide(false, $component8);
+}

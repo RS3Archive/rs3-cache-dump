@@ -1,0 +1,170 @@
+// 15322
+[proc,achievement_tally](achievement $achievement0)(int, int)
+if ($achievement0 = null) {
+    return(0, 0);
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = achievement_getprogress($achievement0);
+switch_achievement ($achievement0) {
+    case cheevo_archaeology_research_i, cheevo_archaeology_research_ii, cheevo_archaeology_research_iii, cheevo_archaeology_research_iv, cheevo_archaeology_research_v, cheevo_archaeology_research_vi, cheevo_archaeology_research_vii :
+        $int1 = calc($int1 / 6000);
+        $int2 = calc($int2 / 6000);
+    case cheevo_richie_pet :
+        $int2 = calc(100 * 1000000);
+        $int1 = min($int2, calc(%pet_richie_wealth_millions * 1000000));
+        if ($int1 < $int2) {
+            $int1 = calc($int1 + %pet_richie_wealth_remainder);
+        }
+    case cheevo_zez_pet :
+        $int1 = achievement_total_runescore;
+        $int2 = 5000;
+    case cheevo_group_ironman_journey_tier_00_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(40 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_01_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(50 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_02_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(200 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_03_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(500 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_04_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(1000 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_05_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(1400 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_06_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(1800 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_07_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(2000 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_08_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(2150 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_09_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(2300 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_10_task_total_level :
+        $int1 = %group_ironman_achievement_total_player_cache_total_level;
+        $int2 = calc(2500 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_01_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(5 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_02_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(20 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_03_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(40 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_04_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(80 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_05_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(120 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_06_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(160 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_07_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(200 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_08_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(250 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_09_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(300 * max(2, %group_ironman_cache_group_size));
+    case cheevo_group_ironman_journey_tier_10_task_total_questpoints :
+        $int1 = %group_ironman_achievement_total_player_cache_total_questpoints;
+        $int2 = calc(375 * max(2, %group_ironman_cache_group_size));
+    case cheevo_mining_mine_ores :
+        $int1 = calc(%task_f4h_mine_tin + %task_omge_mining_mine_gems + %task_omge_mining_mine_adamantite_ore + %task_omge_mining_mine_luminite + %task_omge_mining_mine_runite_ore + %task_omge_mining_mine_orichalcite_ore + %task_omge_mining_mine_drakolith + %task_omge_mining_mine_necrite_ore + %task_omge_mining_mine_phasmatite + %task_omge_mining_mine_banite_ore + %task_omge_mining_mine_light_animica + %task_omge_mining_mine_dark_animica);
+        if (%task_omge_mining_mine_clay = 1 | %atlum_mine_clay = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_f4h_mine_essence = 1 | %atfrem_hard_essence = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_iron_ore = 1 | %atlum_mine_iron = 1 | %atvar_mine_iron = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%atvar_mine_limestone = 1 | %atelf_limestone = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_coal = 1 | %atlum_mine_coal = 1 | %atar_mine_coal = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_silver_ore = 1 | %atlum_mine_silver = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_mithril_ore = 1 | %atmo_med_mithril = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_sandstone = 1 | %memaphos_mine_rock_worker_dist = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_gold_ore = 1 | %atfal_mine_gold = 1 | %atjun_easy_gold = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_granite = 1 | %atdes_med_granite = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        $int2 = 22;
+    case cheevo_mining_mine_more_ores :
+        $int1 = calc(%task_omge_mining_mine_porcelain + %task_omge_mining_mine_platinum);
+        if (%task_omge_mining_mine_primal_novite = 1 | %mining_orebox_primal_novite_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_bathus = 1 | %mining_orebox_primal_bathus_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_marmaros = 1 | %mining_orebox_primal_marmaros_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_kratonium = 1 | %mining_orebox_primal_kratonium_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_fractite = 1 | %mining_orebox_primal_fractite_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_zephyrium = 1 | %mining_orebox_primal_zephyrium_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_argonite = 1 | %mining_orebox_primal_argonite_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_katagon = 1 | %mining_orebox_primal_katagon_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_gorgonite = 1 | %mining_orebox_primal_gorgonite_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%task_omge_mining_mine_primal_promethium = 1 | %mining_orebox_primal_promethium_upgraded > 0) {
+            $int1 = calc($int1 + 1);
+        }
+        $int2 = 12;
+    case cheevo_mob_armies_unlocked :
+        $int1 = 0;
+        if (%mob_rank >= 1 | %mob_title_rank_1_unlocked = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%mob_rank >= 100 | %mob_title_rank_2_unlocked = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%mob_rank >= 200 | %mob_title_rank_3_unlocked = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        if (%mob_rank >= 300 | %mob_title_rank_4_unlocked = 1) {
+            $int1 = calc($int1 + 1);
+        }
+        $int2 = 4;
+}
+if ($int1 > $int2) {
+    $int1 = $int2;
+}
+return($int1, $int2);

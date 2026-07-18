@@ -1,0 +1,25 @@
+// 11188
+[clientscript,trh_promo_info_toggle]
+if (if_hassubmodal(~script8074, wheel_of_fortune) = false | ~trh_controls_disabled(82116677) = true | ~script17301 = false) {
+    return;
+}
+if (~script18808 = true & %trh208_choosedays_current_promo = 0) {
+    ~script10943("Please select a promotion before viewing promotion information.", wheel_of_fortune:info_icon);
+    return;
+}
+sound_vorbis_volume(tli_click_01, 1, 0, 100);
+if (~script18482 = false) {
+    ~script18481;
+    ~script16198(true, 82116677);
+    ~wof_hotkey(1);
+} else {
+    if (~script17333 = true) {
+        ~script10943("Please claim your reward before viewing promotion information.", wheel_of_fortune:info_icon);
+        return;
+    }
+    if (struct_param(~script16161, trh_promo_uses_custom_reward_delay) = true & %trh_custom_reward_delay_in_progress = true) {
+        return;
+    }
+    ~trh_promo_info_open;
+}
+~script3904;

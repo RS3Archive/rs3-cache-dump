@@ -1,0 +1,14 @@
+// 12202
+[proc,script12202](string $string0, dbrow $dbrow0, int $int1)(string)
+if ($dbrow0 = null) {
+    return($string0);
+}
+if (db_getfieldcount($dbrow0, invent_perk_table:col5) = 0) {
+    return($string0);
+}
+def_string $string1 = "<br><br>Active perk: <col=ffffff><db_getfield($dbrow0, invent_perk_table:col1, 0)></col>";
+if ($int1 >= 1) {
+    $string1 = "<$string1> (rank <col=ffffff><tostring($int1)></col>)";
+}
+$string1 = "<$string1><br><db_getfield($dbrow0, invent_perk_table:col5, 0)>";
+return("<$string0><$string1>");

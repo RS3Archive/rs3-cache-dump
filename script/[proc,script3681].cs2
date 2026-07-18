@@ -1,0 +1,28 @@
+// 3681
+[proc,script3681](int $int0, component $component1)
+def_string $string0 = "Add to playlist";
+def_string $string1 = "Remove from playlist";
+cc_setop(1, "Play");
+if (%music_v3_loop_track = $int0 & %music_v3_loop_on = 1) {
+    cc_setcolour(^cyan);
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 65535)");
+    cc_setop(5, "Unloop");
+} else {
+    cc_setcolour(^green);
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 65280)");
+    cc_setop(5, "Loop");
+}
+.cc_sethide(false);
+if (~script3078($int0) = true) {
+    .cc_setgraphic("music_icons_new,1");
+    .cc_setop(4, $string1);
+    cc_setop(4, $string1);
+    .cc_setonmouserepeat("script8799($string1, $component1, -1)");
+    .cc_setonmouseleave("script8805");
+} else {
+    cc_setop(3, $string0);
+    .cc_setop(3, $string0);
+    .cc_setgraphic("music_icons_new,0");
+    .cc_setonmouserepeat("script8799($string0, $component1, -1)");
+    .cc_setonmouseleave("script8805");
+}

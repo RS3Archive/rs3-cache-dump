@@ -1,0 +1,23 @@
+// 7954
+[proc,script7954](coord $coord0)
+%worldmap_focus = $coord0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = worldmap_getdisplaycoord($coord0);
+if ($int1 < 0 | $int2 < 0) {
+    $coord0 = movecoord(0_0_0_0_0, coordx($coord0), ~script686(calc(coordy($coord0) - 1), 4), coordz($coord0));
+    $int1, $int2 = worldmap_getdisplaycoord($coord0);
+    if ($int1 < 0 | $int2 < 0) {
+        $coord0 = movecoord(0_0_0_0_0, coordx($coord0), ~script686(calc(coordy($coord0) - 1), 4), coordz($coord0));
+        $int1, $int2 = worldmap_getdisplaycoord($coord0);
+        if ($int1 < 0 | $int2 < 0) {
+            $coord0 = movecoord(0_0_0_0_0, coordx($coord0), ~script686(calc(coordy($coord0) - 1), 4), coordz($coord0));
+            $int1, $int2 = worldmap_getdisplaycoord($coord0);
+            if ($int1 < 0 | $int2 < 0) {
+                return;
+            }
+        }
+    }
+}
+$coord0 = movecoord(0_0_0_0_0, $int1, 0, $int2);
+~script7955($coord0);

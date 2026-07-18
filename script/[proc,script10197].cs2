@@ -1,0 +1,125 @@
+// 10197
+[proc,script10197](string $string0, string $string1, string $string2, string $string3, string $string4, graphic $graphic0, int $int1, string $string5, string $string6, graphic $graphic2, int $int3, string $string7, string $string8, graphic $graphic4, int $int5, string $string9, string $string10, graphic $graphic6, int $int7, string $string11, string $string12, graphic $graphic8, int $int9, string $string13, string $string14, graphic $graphic10, int $int11, string $string15, string $string16, graphic $graphic12, int $int13, string $string17, string $string18, graphic $graphic14, int $int15, int $int16)
+def_component $component17 = trh_dialog_select:root_layer;
+def_component $component18 = trh_dialog_select:background_layer;
+def_component $component19 = trh_dialog_select:frame_layer;
+def_component $component20 = trh_dialog_select:content_layer;
+def_component $component21 = trh_dialog_select:close_button_layer;
+def_component $component22 = trh_dialog_select:info_layer;
+def_component $component23 = trh_dialog_select:info_text;
+def_component $component24 = trh_dialog_select:select_panel;
+def_component $component25 = trh_dialog_select:checkbox_layer;
+def_component $component26 = trh_dialog_select:checkbox_text;
+if ($int16 = 1) {
+    $component17 = trh_dialog_select_overlay:root_layer;
+    $component18 = trh_dialog_select_overlay:background_layer;
+    $component19 = trh_dialog_select_overlay:frame_layer;
+    $component20 = trh_dialog_select_overlay:content_layer;
+    $component21 = trh_dialog_select_overlay:close_button_layer;
+    $component22 = trh_dialog_select_overlay:info_layer;
+    $component23 = trh_dialog_select_overlay:info_text;
+    $component24 = trh_dialog_select_overlay:select_panel;
+    $component25 = trh_dialog_select_overlay:checkbox_layer;
+    $component26 = trh_dialog_select_overlay:checkbox_text;
+}
+~script10200;
+def_int $int27 = 8;
+def_int $int28 = 1;
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_component $component31 = null;
+def_int $int32 = -1;
+def_int $int33 = 0;
+def_string $string19 = "";
+def_component $component34 = null;
+def_string $string20 = "";
+def_string $string21 = "";
+def_graphic $graphic35 = null;
+def_component $component36 = null;
+def_int $int37 = 0;
+def_component $component38 = null;
+while ($int28 <= $int27) {
+    $component31, $component36, $component34, $component38 = ~script10199($int28, $int16);
+    switch_int ($int28) {
+        case 1 :
+            $string21 = $string3;
+            $graphic35 = $graphic0;
+            $string20 = $string4;
+            $int37 = $int1;
+        case 2 :
+            $string21 = $string5;
+            $graphic35 = $graphic2;
+            $string20 = $string6;
+            $int37 = $int3;
+        case 3 :
+            $string21 = $string7;
+            $graphic35 = $graphic4;
+            $string20 = $string8;
+            $int37 = $int5;
+        case 4 :
+            $string21 = $string9;
+            $graphic35 = $graphic6;
+            $string20 = $string10;
+            $int37 = $int7;
+        case 5 :
+            $string21 = $string11;
+            $graphic35 = $graphic8;
+            $string20 = $string12;
+            $int37 = $int9;
+        case 6 :
+            $string21 = $string13;
+            $graphic35 = $graphic10;
+            $string20 = $string14;
+            $int37 = $int11;
+        case 7 :
+            $string21 = $string15;
+            $graphic35 = $graphic12;
+            $string20 = $string16;
+            $int37 = $int13;
+        case 8 :
+            $string21 = $string17;
+            $graphic35 = $graphic14;
+            $string20 = $string18;
+            $int37 = $int15;
+    }
+    if (string_length($string21) > 0) {
+        ~script10198($component31, $component36, $component34, $component38, $int29, $string21, $string20, $graphic35, $int37);
+        $int29 = calc($int29 + 1);
+    }
+    $int28 = calc($int28 + 1);
+}
+def_int $int39 = 420;
+def_int $int40 = calc($int29 * 40 + 10);
+if_setsize($int39, $int40, ^setsize_abs, ^setsize_abs, $component24);
+def_int $int41 = 0;
+def_int $int42 = 0;
+def_int $int43 = 10;
+if (string_length($string1) = 0) {
+    if_sethide(true, $component22);
+} else {
+    $int42 = calc($int39 - 10);
+    $int41 = calc(paraheight($string1, $int42, museo_sans_11pt_regular_multiline) * 13);
+    if_settext($string1, $component23);
+    $int41 = calc($int41 + 10);
+    if_setsize($int39, $int41, ^setsize_abs, ^setsize_abs, $component22);
+    $int43 = calc($int43 + $int41 + 10);
+    if_sethide(false, $component22);
+}
+if (string_length($string2) = 0) {
+    if_sethide(true, $component25);
+} else {
+    if_settext($string2, $component26);
+    if_setposition(10, calc($int43 - 5), ^setpos_abs_left, ^setpos_abs_top, $component25);
+    $int43 = calc($int43 + if_getheight($component25));
+    if_sethide(false, $component25);
+}
+$int40 = calc($int40 + $int43);
+if_setposition(10, $int43, ^setpos_abs_left, ^setpos_abs_top, $component24);
+$int39 = calc($int39 + 20);
+$int40 = calc($int40 + 4);
+def_struct $struct44 = toplevel_v2_default_main_modal_skin_data;
+$int40 = calc($int40 + struct_param($struct44, toplevel_v2_window_titled_top_height) + struct_param($struct44, toplevel_v2_window_titled_bottom_height));
+$int39 = calc($int39 + struct_param($struct44, toplevel_v2_window_titled_left_width) + struct_param($struct44, toplevel_v2_window_titled_right_width));
+if_setsize($int39, $int40, ^setsize_abs, ^setsize_abs, $component17);
+~script8421($component18, $component19, $component20, $component21, $string0, $struct44, -1, 1, null, null);
+~script14164;

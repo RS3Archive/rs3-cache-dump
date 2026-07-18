@@ -1,0 +1,69 @@
+// 1866
+[clientscript,worldmap_search_onkey](int $int0, char $char1, component $component2)
+if ($int0 = 84) {
+    if (%worldmap_jumpto_search ! null) {
+        worldmap_jumptodisplaycoord(%worldmap_jumpto_search);
+    }
+    %worldmap_findtext = "";
+    ~script308($component2);
+    return;
+} else if ($int0 = 13) {
+    if (~cancel_targetmode = true) {
+        return;
+    }
+    ~script308($component2);
+    return;
+} else if ($int0 ! 85 & char_isprintable($char1) = false) {
+    return;
+}
+def_string $string0 = removetags(~add_to_inputstring(%worldmap_findtext, 4, $int0, $char1));
+if (string_indexof_string($string0, "  ", 0) ! -1) {
+    return;
+}
+if (compare($string0, " ") = 0) {
+    return;
+}
+if (paraheight($string0, if_getwidth($component2), p11_full) > 1) {
+    return;
+}
+%worldmap_findtext = lowercase($string0);
+def_int $int3 = string_length(%worldmap_findtext);
+def_mapelement $mapelement4 = null;
+def_coord $coord5 = null;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_string $string1 = "";
+def_coord $coord8 = null;
+def_int $int9 = ^max_32bit_int;
+def_int $int10 = ^max_32bit_int;
+$mapelement4, $coord5 = worldmap_listelement_start;
+while ($mapelement4 ! null) {
+    $string0 = removetags(~script2332(mec_text($mapelement4), "<br>", " "));
+    $int6 = string_indexof_string(lowercase($string0), %worldmap_findtext, 0);
+    if ($int6 ! -1 & $int6 <= $int9) {
+        $int7 = string_length($string0);
+        if ($int7 < $int10) {
+            $string1, $coord8 = $string0, $coord5;
+            $int9, $int10 = $int6, $int7;
+        }
+    }
+    $mapelement4, $coord5 = worldmap_listelement_next;
+}
+if ($coord8 = null) {
+    %worldmap_jumpto_search = null;
+    if (parawidth(%worldmap_findtext, if_getwidth($component2), p11_full) > if_getwidth($component2)) {
+        if_settextalign(^settextalign_right, ^settextalign_centre, 0, $component2);
+    } else {
+        if_settextalign(^settextalign_left, ^settextalign_centre, 0, $component2);
+    }
+    if_settext("<col=ff0000><%worldmap_findtext></col>", $component2);
+    return;
+}
+$string0 = "";
+if ($int9 > 0) {
+    $string0 = substring($string1, 0, $int9);
+}
+$string0 = append($string0, "<col=ffffff><substring($string1, $int9, calc($int9 + $int3))></col>");
+$string0 = append($string0, substring($string1, calc($int9 + $int3), string_length($string1)));
+if_settext($string0, $component2);
+%worldmap_jumpto_search = $coord8;

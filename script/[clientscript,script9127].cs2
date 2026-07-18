@@ -1,0 +1,26 @@
+// 9127
+[clientscript,script9127](int $int0)
+if (%wishing_well_player_max_amount = 0) {
+    return;
+}
+def_int $int1 = %wishing_well_player_donate_count;
+switch_int ($int0) {
+    case 0 :
+        if (%wishing_well_player_donate_count ! %wishing_well_player_max_amount) {
+            sound_vorbis_volume(tli_click_01, 1, 0, 255);
+        } else {
+            sound_vorbis_volume(omge_error, 1, 0, 255);
+        }
+        %wishing_well_player_donate_count = min(%wishing_well_player_max_amount, calc(%wishing_well_player_donate_count + 1));
+    case 1 :
+        if (%wishing_well_player_donate_count ! 1) {
+            sound_vorbis_volume(tli_click_01, 1, 0, 255);
+        } else {
+            sound_vorbis_volume(omge_error, 1, 0, 255);
+        }
+        %wishing_well_player_donate_count = max(1, calc(%wishing_well_player_donate_count - 1));
+}
+if ($int1 ! %wishing_well_player_donate_count) {
+    ~script9126;
+    ~script8860;
+}

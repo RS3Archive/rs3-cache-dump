@@ -1,0 +1,102 @@
+// 15783
+[proc,script15783]
+def_dbrow $dbrow0 = null;
+def_boolean $boolean1 = false;
+def_boolean $boolean2 = false;
+def_boolean $boolean3 = false;
+def_boolean $boolean4 = false;
+def_enum $enum5 = null;
+def_struct $struct6 = null;
+def_component $component7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+if (%tut_gui_allowtransmit = true) {
+    if (~script15532(0) = false) {
+        return;
+    }
+    ~script3123;
+    switch_int (~tut_is) {
+        case 6 :
+            $dbrow0, $boolean1, $boolean2, $boolean3, $boolean4 = ~script15780;
+        case 7 :
+            $dbrow0, $boolean1, $boolean2, $boolean3, $boolean4 = ~script15787;
+        case default :
+            ~error("Unhandled ~tut_is=<tostring(%tut_is)>.");
+            return;
+    }
+    if (~script6431 = true) {
+        if ($dbrow0 ! null) {
+            $enum5 = db_getfield($dbrow0, tut_gui_ribbon:col1, 0);
+        }
+        if_sethide(true, mobile_ribbon_left:chat_wrapper);
+        if_sethide(true, toplevel_v2:chat_window_content);
+        if_sethide(true, mobile_ribbon_left:internal_notifications_escape_layer);
+        if_sethide(true, escape_menu_mobile:adventures_notification_layer);
+        if_sethide(true, mobile_ribbon_left:activity_tracker_wrapper);
+        if_sethide(true, mobile_ribbon_left:calendar_wrapper);
+        if_sethide(true, mobile_ribbon_left:event_hud_hide);
+        if_sethide(true, mobile_ribbon_left:secondary_event_hud_hide);
+        if (%varclientbit_44897 = 1) {
+            if_sethide(true, toplevel_v2:cheevo_tracker_window);
+        } else {
+            if_sethide(~not_bool($boolean1), toplevel_v2:cheevo_tracker_window);
+        }
+        $int8, $int9, $int10, $int11 = ~script2956;
+        if ($boolean2 = true) {
+            if_sethide(true, mobile_ribbon_left:home_screen_button);
+            if_sethide(false, toplevel_v2_mobile:tutorial_settings_layer);
+            if_setposition($int8, 0, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2_mobile:tutorial_settings_button);
+        } else {
+            if_sethide(true, mobile_ribbon_left:home_screen_button);
+            if_sethide(true, toplevel_v2_mobile:tutorial_settings_layer);
+        }
+        if_sethide(true, mobile_settings_button:world_map_button);
+        if_sethide(true, toplevel_v2_combat_bar_mobile:combat_toggle);
+        if ($boolean3 = true) {
+            if_sethide(false, mobile_settings_button:minimap_tween_layer);
+            if_sethide(false, mobile_settings_button:minimap_button);
+            if_sethide(false, mobile_settings_button:compass_layer);
+        } else {
+            if_sethide(true, mobile_settings_button:minimap_tween_layer);
+            if_sethide(true, mobile_settings_button:minimap_button);
+            if_sethide(true, mobile_settings_button:compass_layer);
+        }
+        if ($boolean4 = true) {
+            if_sethide(false, mobile_settings_button:home_teleport);
+        } else {
+            if_sethide(true, mobile_settings_button:home_teleport);
+        }
+    } else {
+        if ($dbrow0 ! null) {
+            $enum5 = db_getfield($dbrow0, tut_gui_ribbon:col2, 0);
+        }
+        if (%keyboard_manager_primary_enum ! keyboard_manager_tutorial) {
+            ~script8836(keyboard_manager_tutorial);
+        }
+        if_sethide(true, toplevel_v2_minimap:world_map);
+        if_sethide(true, toplevel_v2_minimap:xp_tracker);
+        if_sethide(true, toplevel_v2_minimap:slayer_counter);
+        if_sethide(true, toplevel_v2_minimap_classic:xp_tracker);
+        if_sethide(true, toplevel_v2_minimap_classic:slayer_counter);
+        if (~script9932(1003) = true) {
+            $struct6 = ~script10405(1003);
+        }
+        if ($struct6 ! null) {
+            $component7 = struct_param($struct6, toplevel_v2_window_layer);
+            if ($component7 ! null) {
+                if_sethide(true, $component7);
+            }
+        }
+        if ($boolean4 = true) {
+            if_sethide(false, toplevel_v2_minimap:home_teleport);
+        } else {
+            if_sethide(true, toplevel_v2_minimap:home_teleport);
+        }
+    }
+    if ($enum5 ! null & %tut_gui_ribbon ! $dbrow0) {
+        %tut_gui_ribbon = $dbrow0;
+        ~script15373($enum5);
+    }
+}

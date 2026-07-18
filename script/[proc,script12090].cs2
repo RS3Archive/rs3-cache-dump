@@ -1,0 +1,31 @@
+// 12090
+[proc,script12090](obj $obj0, int $int1, inv $inv2, int $int3)
+cc_clearops;
+if ($obj0 ! null) {
+    cc_setobject($obj0, $int1);
+    ~inventory_setophelds($obj0, 1, $int3, -1);
+    cc_setondrag("script9226(inv, event_com, event_comsubid)");
+    cc_setondragcomplete("inventory_drag(event_com, event_comsubid, event_com2, event_comsubid2)");
+    cc_setonop("script1620(event_com, event_comsubid, 100, 0, 8)");
+    cc_setonmouserepeat("script18403($obj0, $inv2, event_com, $int3)");
+    cc_setonmouseleave("script18404(event_com, $int3)");
+    cc_setdragrenderbehaviour(2);
+    if (~script6431 = false) {
+        cc_setdragdeadzone(5);
+        cc_setdragdeadtime(5);
+    } else {
+        cc_setdragdeadzone(20);
+        cc_setdragdeadtime(5);
+    }
+} else {
+    cc_setobject(null, 0);
+    cc_setondragcomplete(null);
+    cc_setonop(null);
+    cc_setonmouserepeat(null);
+    cc_setonmouseleave(null);
+    cc_settargetverb("");
+    cc_setopbase("");
+    cc_setdragrenderbehaviour(3);
+    cc_setdragdeadzone(10000);
+    cc_setdragdeadtime(10000);
+}

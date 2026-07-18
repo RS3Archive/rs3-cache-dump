@@ -1,0 +1,36 @@
+// 6672
+[proc,wof_button_setup_discard](obj $obj0, int $int1)
+def_struct $struct2 = ~trh_promo_current;
+def_obj $obj3 = trh125_currency;
+if ($struct2 ! null) {
+    if (%trh_prize_additional_obj = trh175_currency | %trh_prize_additional_obj = trh177_currency) {
+        $obj3 = %trh_prize_additional_obj;
+    } else if (struct_param($struct2, trh_promo_oddments) ! trh125_currency) {
+        if (%trh_prize_additional_obj ! null) {
+            $obj3 = %trh_prize_additional_obj;
+        } else {
+            $obj3 = struct_param($struct2, trh_promo_oddments);
+        }
+    }
+}
+def_boolean $boolean4 = true;
+def_string $string0 = "Convert your prize to : <oc_name($obj3)>.";
+def_string $string1 = "This prize cannot be converted to : <oc_name($obj3)>.";
+if (%wof_claim_state = 7) {
+    $string0 = "Treasure Hunter is not available at the moment. Please try later.";
+    $string1 = "Treasure Hunter is not available at the moment. Please try later.";
+    $boolean4 = false;
+} else if (%wof_claim_state = 10) {
+    $string0 = "Loading...";
+    $string1 = "Loading...";
+    $boolean4 = false;
+} else if (~script328($obj0) = 1) {
+    $boolean4 = false;
+}
+if_setop(1, "Convert to : <oc_name($obj3)>", wheel_of_fortune:reward_convert_button);
+if_setenabled($boolean4, wheel_of_fortune:reward_convert_button);
+if ($boolean4 = true) {
+    if_setonmouserepeat("script3876($string0, event_com, -1)", wheel_of_fortune:reward_convert_button);
+} else {
+    if_setonmouserepeat("script3876($string1, event_com, -1)", wheel_of_fortune:reward_convert_button);
+}

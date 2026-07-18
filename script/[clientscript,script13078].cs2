@@ -1,0 +1,28 @@
+// 13078
+[clientscript,script13078](int $int0)
+if (%peng_bttf_quest >= 80) {
+    return;
+}
+if (calc($int0 / 4) ! %peng_bttf_div_round) {
+    if (%peng_bttf_div_round >= 10) {
+        mes("You should reset the puzzle.");
+    } else {
+        mes("You must make your guess on row <tostring(calc(%peng_bttf_div_round + 1))>.");
+    }
+    return;
+}
+def_obj $obj1 = null;
+if (cc_find(peng_bttf_mastermind:board, $int0) = true) {
+    $obj1 = ~script13081(%peng_bttf_div_puzzle_energy_selection_client);
+    if ($obj1 = null) {
+        return;
+    }
+    cc_setobject($obj1, -1);
+    cc_setonmouserepeat("script3876(oc_name($obj1), peng_bttf_mastermind:selection, event_comsubid)");
+}
+switch_int (random(2)) {
+    case 0 :
+        sound_vorbis_volume(peng_bttf_mastermind_place_energy_1, 1, 0, 225);
+    case 1 :
+        sound_vorbis_volume(peng_bttf_mastermind_place_energy_2, 1, 0, 225);
+}

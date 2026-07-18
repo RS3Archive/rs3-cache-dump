@@ -1,0 +1,85 @@
+// 16468
+[proc,script16468](int $int0, component $component1)
+def_graphic $graphic2 = rs_minigame_barrows_bullet_active;
+def_string $string0 = "";
+def_quest $quest3 = null;
+switch_int ($int0) {
+    case default :
+        $string0 = "Ahrim";
+        if (%barrows_killed_ahrim = 1) {
+            $string0 = append("<str=a5c6d6>", $string0);
+            $graphic2 = rs_minigame_barrows_bullet_gravestone;
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){barrows_kills}");
+    case 1 :
+        $string0 = "Torag";
+        if (%barrows_killed_torag = 1) {
+            $string0 = append("<str=a5c6d6>", $string0);
+            $graphic2 = rs_minigame_barrows_bullet_gravestone;
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){barrows_kills}");
+    case 2 :
+        $string0 = "Dharok";
+        if (%barrows_killed_dharok = 1) {
+            $string0 = append("<str=a5c6d6>", $string0);
+            $graphic2 = rs_minigame_barrows_bullet_gravestone;
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){barrows_kills}");
+    case 3 :
+        $string0 = "Verac";
+        if (%barrows_killed_verac = 1) {
+            $string0 = append("<str=a5c6d6>", $string0);
+            $graphic2 = rs_minigame_barrows_bullet_gravestone;
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){barrows_kills}");
+    case 4 :
+        $string0 = "Guthan";
+        if (%barrows_killed_guthan = 1) {
+            $string0 = append("<str=a5c6d6>", $string0);
+            $graphic2 = rs_minigame_barrows_bullet_gravestone;
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){barrows_kills}");
+    case 5 :
+        $string0 = "Karil";
+        if (%barrows_killed_karil = 1) {
+            $string0 = append("<str=a5c6d6>", $string0);
+            $graphic2 = rs_minigame_barrows_bullet_gravestone;
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){barrows_kills}");
+    case 6 :
+        $quest3 = ritual_of_the_mahjarrat;
+        if (quest_finished($quest3) = false) {
+            $graphic2 = rs_minigame_barrows_bullet_locked;
+            $string0 = "Quest Required";
+        } else {
+            $string0 = "Akrisae";
+            if (%mah5_killed_barrows_akrisae = 1) {
+                $string0 = append("<str=a5c6d6>", $string0);
+                $graphic2 = rs_minigame_barrows_bullet_gravestone;
+            }
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){mah5_kills}");
+    case 7 :
+        $quest3 = kindred_spirits;
+        if (quest_finished($quest3) = false) {
+            $graphic2 = rs_minigame_barrows_bullet_locked;
+            $string0 = "Quest Required";
+        } else {
+            $string0 = "Linza";
+            if (%sister_killed_linza = 1) {
+                $string0 = append("<str=a5c6d6>", $string0);
+                $graphic2 = rs_minigame_barrows_bullet_gravestone;
+            }
+        }
+        cc_setonvartransmit("barrows_update_status($int0, $component1){sister_var}");
+}
+def_int $int4 = 13;
+if ($quest3 ! null & $graphic2 = rs_minigame_barrows_bullet_locked) {
+    ~script3537("To unlock this brother, you must complete the Quest: <quest_getname($quest3)>");
+    $int4 = calc($int4 + 16);
+}
+~cc_add_child_graphic(calc($int0 + 1), 1, 0, 0, ^setpos_abs_left, ^setpos_abs_centre, 11, 11, ^setsize_abs, ^setsize_abs, $graphic2);
+~cc_add_child_text(calc($int0 + 1), 2, 13, 0, ^setpos_abs_left, ^setpos_abs_centre, $int4, 0, ^setsize_minus, ^setsize_minus, text_body_small_print, $string0);
+if ($quest3 ! null & $graphic2 = rs_minigame_barrows_bullet_locked) {
+    ~cc_add_child_graphic(calc($int0 + 1), 3, 0, 0, ^setpos_abs_right, ^setpos_abs_centre, 16, 16, ^setsize_abs, ^setsize_abs, "rs3_icon_info_16px,0");
+}

@@ -1,0 +1,24 @@
+// 1348
+[clientscript,set_dial](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10)
+%safes_client_temp = 0;
+%safes_digit1 = $int3;
+%safes_digit2 = $int4;
+%safes_digit3 = $int5;
+%safes_digit4 = $int6;
+%safes_digit5 = $int7;
+%safes_digit6 = $int8;
+%safes_digit7 = $int9;
+%safes_digit8 = $int10;
+%safes_dialtype = $int0;
+~script1351(30015531);
+%safes_dialcount = $int1;
+%varclientbit_40360 = $int2;
+if (%varclientbit_40360 = 0) {
+    if_settrans(200, safes_if:notch);
+} else {
+    if_settrans(0, safes_if:notch);
+}
+if_settext("<tostring(%varclientbit_40355)>/<tostring(%safes_dialcount)>", safes_if:solved);
+if_settext("<tostring(%varclientbit_40359)>/<tostring(calc(%safes_dialcount * 2 - 1))>", safes_if:failed);
+if_setgraphic(struct_param(enum(int, struct, dial_enum, %safes_dialtype), safes_dial_graphic), safes_if:dial_digit);
+if_setontimer("dial_rotate(0)", safes_if:dial_digit);

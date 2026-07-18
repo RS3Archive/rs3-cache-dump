@@ -1,0 +1,25 @@
+// 12999
+[clientscript,script12999](int $int0, int $int1)
+def_int $int2 = if_getwidth(quest_endgame_portal_health:health_bar_red);
+def_int $int3 = calc(30 + scale(195, 100, calc(100 - $int1)));
+def_int $int4 = calc(225 - scale(195, 100, calc(100 - $int1)));
+def_int $int5 = 1;
+if ($int2 < $int0) {
+    if ($int2 < calc($int0 - 10)) {
+        $int5 = 5;
+    }
+    if_setsize(calc($int2 + $int5), 19, ^setsize_abs, ^setsize_abs, quest_endgame_portal_health:health_bar_red);
+    if_setsize(calc($int2 + $int5), 19, ^setsize_abs, ^setsize_abs, quest_endgame_portal_health:red_wave_effect);
+    if_setcolour(~rgb_to_hex($int3, $int4, 0), quest_endgame_portal_health:health_diamond_left);
+    if_setcolour(~rgb_to_hex($int3, $int4, 0), quest_endgame_portal_health:health_diamond_right);
+} else if ($int2 > $int0) {
+    if ($int2 > calc($int0 + 10)) {
+        $int5 = 5;
+    }
+    if_setsize(calc($int2 - $int5), 19, ^setsize_abs, ^setsize_abs, quest_endgame_portal_health:health_bar_red);
+    if_setsize(calc($int2 - $int5), 19, ^setsize_abs, ^setsize_abs, quest_endgame_portal_health:red_wave_effect);
+    if_setcolour(~rgb_to_hex($int3, $int4, 0), quest_endgame_portal_health:health_diamond_left);
+    if_setcolour(~rgb_to_hex($int3, $int4, 0), quest_endgame_portal_health:health_diamond_right);
+} else {
+    if_setontimer(null, quest_endgame_portal_health:health_diamond_left);
+}

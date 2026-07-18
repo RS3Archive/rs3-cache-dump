@@ -1,0 +1,29 @@
+// 18957
+[clientscript,script18957]
+if (%dxp_bundles_daily_bundle_purchased = 0) {
+    if_settext("<col=941212>You have not purchased this bundle.</col>", dxp_bundles_daily_bundle:claim_status_text);
+    if_settext("Buy", dxp_bundles_daily_bundle:claim_button);
+    if_setop(1, "Buy", dxp_bundles_daily_bundle:claim_button);
+    if_setenabled(true, dxp_bundles_daily_bundle:claim_button);
+} else if (%dxp_bundles_daily_bundle_last_runedate_claim = %atlum_day_tracker) {
+    if_settext("<col=00FF00>You have already claimed all available rewards for today.</col>", dxp_bundles_daily_bundle:claim_status_text);
+    if_settext("Claimed", dxp_bundles_daily_bundle:claim_button);
+    if_setop(1, "", dxp_bundles_daily_bundle:claim_button);
+    if_setenabled(false, dxp_bundles_daily_bundle:claim_button);
+} else {
+    if_settext("<col=00FF00>Your rewards are ready to claim!</col>", dxp_bundles_daily_bundle:claim_status_text);
+    if_settext("Claim", dxp_bundles_daily_bundle:claim_button);
+    if_setop(1, "Claim", dxp_bundles_daily_bundle:claim_button);
+    if_setenabled(true, dxp_bundles_daily_bundle:claim_button);
+}
+def_int $int0 = max(1, calc(%atlum_day_tracker - %dxp_bundles_daily_bundle_last_runedate_claim));
+def_int $int1 = calc(2 * $int0);
+def_int $int2 = calc(1 * $int0);
+def_int $int3 = calc(1 * $int0);
+def_int $int4 = calc(1 * $int0);
+def_int $int5 = calc(10 * $int0);
+def_int $int6 = calc(10 * $int0);
+def_int $int7 = calc(50 * $int0);
+def_int $int8 = calc(50 * $int0);
+def_string $string0 = "<tostring($int1)>x Earned Treasure Hunter key<br><tostring($int2)>x Large prismatic star<br><tostring($int3)>x Medium protean pack<br><tostring($int4)>x Medium skill dummy crate<br><tostring($int5)>x Advanced pulse core<br><tostring($int6)>x Cinder core<br><tostring($int7)>x Tight springs<br><tostring($int8)>x Silverhawk down";
+if_settext($string0, dxp_bundles_daily_bundle:reward_text);

@@ -1,0 +1,22 @@
+// 15361
+[clientscript,script15361]
+if (%cheevo_selected_cat_client = 0) {
+    ~script15365;
+    return;
+}
+def_int $int0 = enum_getoutputcount(cheevo_categories);
+def_category $category1 = null;
+def_category $category2 = null;
+def_enum $enum3 = null;
+if (calc(%cheevo_selected_cat_client - 1) = $int0) {
+    ~script15339;
+} else {
+    $category1 = enum(int, category, cheevo_categories, calc(%cheevo_selected_cat_client - 1));
+    if (%cheevo_selected_subcat_client > 0) {
+        $enum3 = enum(category, enum, cheevo_cat_to_subcat, $category1);
+        if ($enum3 ! null) {
+            $category2 = enum(int, category, $enum3, calc(%cheevo_selected_subcat_client - 1));
+        }
+    }
+    ~script15338($category1, $category2);
+}

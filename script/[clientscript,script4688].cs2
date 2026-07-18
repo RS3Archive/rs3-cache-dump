@@ -1,0 +1,67 @@
+// 4688
+[clientscript,script4688]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_component $component6 = null;
+def_int $int7 = 1;
+while ($int7 < 5) {
+    switch_int ($int7) {
+        case 1 :
+            $component6 = loy_defence_side:cooldown_1;
+            $int0 = %loy_def_cc_spec_1;
+            $int1 = enum(int, int, loy_boost_cost, $int7);
+            $component2 = loy_defence_side:icon_1;
+            $component3 = loy_defence_side:shading_rect_1;
+            $int4 = 36110340;
+            $int5 = 36110341;
+        case 2 :
+            $component6 = loy_defence_side:cooldown_2;
+            $int0 = %loy_def_cc_spec_2;
+            $int1 = enum(int, int, loy_boost_cost, $int7);
+            $component2 = loy_defence_side:icon_2;
+            $component3 = loy_defence_side:shading_rect_2;
+            $int4 = 36110348;
+            $int5 = 36110349;
+        case 3 :
+            $component6 = loy_defence_side:cooldown_3;
+            $int0 = %loy_def_cc_spec_3;
+            $int1 = enum(int, int, loy_boost_cost, $int7);
+            $component2 = loy_defence_side:icon_3;
+            $component3 = loy_defence_side:shading_rect_3;
+            $int4 = 36110356;
+            $int5 = 36110357;
+        case 4 :
+            $component6 = loy_defence_side:cooldown_4;
+            $int0 = %loy_def_cc_spec_4;
+            $int1 = enum(int, int, loy_boost_cost, $int7);
+            $component2 = loy_defence_side:icon_4;
+            $component3 = loy_defence_side:shading_rect_4;
+            $int4 = 36110365;
+            $int5 = 36110366;
+        case default :
+            return;
+    }
+    if (if_find($component6) = true) {
+        if ($int0 > 0) {
+            cc_sethide(false);
+            cc_setfill(true);
+            cc_setsize(cc_getwidth, calc($int0 * 26 / 100), ^setsize_abs, ^setsize_abs);
+        } else {
+            cc_sethide(true);
+            cc_setfill(false);
+            cc_setsize(cc_getwidth, 26, ^setsize_abs, ^setsize_abs);
+        }
+    }
+    if ($int0 > 0 | %loy_pl_boost_pts < $int1) {
+        if_sethide(false, $component3);
+    } else {
+        if_setcolour(^black, $component2);
+        if_sethide(true, $component3);
+    }
+    $int7 = calc($int7 + 1);
+}
+if_settext("Morale: <tostring(%loy_pl_boost_pts)>", loy_defence_side:command_points_text);

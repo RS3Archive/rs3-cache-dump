@@ -1,0 +1,17 @@
+// 11021
+[proc,script11021](component $component0)
+cc_deleteall($component0);
+def_int $int1 = ~script11022($component0);
+def_struct $struct2 = rs3tli_sort_ascending_icons;
+def_string $string0 = "Sort descending";
+if (~script1851 = $int1 | ~script1852 = $int1) {
+    $struct2, $string0 = rs3tli_sort_descending_icons, "Sort ascending";
+}
+cc_create($component0, ^iftype_graphic, 0);
+def_graphic $graphic3 = struct_param($struct2, rs3tli_icon_graphic_on);
+cc_setgraphic($graphic3);
+cc_setsize(struct_param($struct2, rs3tli_icon_graphic_width), struct_param($struct2, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setonmouseover("graphic_swapper($component0, struct_param($struct2, rs3tli_icon_graphic_over))");
+cc_setonmouseleave("graphic_swapper($component0, $graphic3)");
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");

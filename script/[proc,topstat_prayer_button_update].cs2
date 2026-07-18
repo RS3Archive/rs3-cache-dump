@@ -1,0 +1,27 @@
+// 2303
+[proc,topstat_prayer_button_update](component $component0, component $component1, graphic $graphic2, graphic $graphic3)
+def_string $string0 = "Turn quick prayers off";
+if (%topstat_prayer_button = 1) {
+    if_setgraphic($graphic2, $component0);
+    if (%prayer_mode = 1) {
+        $string0 = "Turn quick curses off";
+        if_setop(1, "Turn curses off", $component1);
+    } else {
+        if_setop(1, "Turn prayers off", $component1);
+    }
+} else {
+    $string0 = "Turn quick prayers on";
+    if_setgraphic($graphic3, $component0);
+    if (%prayer_mode = 1) {
+        $string0 = "Turn quick curses on";
+        if_setop(1, "Turn quick curses on", $component1);
+    } else {
+        if_setop(1, "Turn quick prayers on", $component1);
+    }
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", toplevel_v2_combat_bar:prayer_globe_layer);
+if_setonmouseleave("script8805", toplevel_v2_combat_bar:prayer_globe_layer);
+~script8051($component1);
+if (~script6431 = true) {
+    ~mobile_prayer_button_update;
+}

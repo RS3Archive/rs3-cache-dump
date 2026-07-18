@@ -1,0 +1,129 @@
+// 4506
+[clientscript,script4506](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, int $int13, int $int14, string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, string $string6, string $string7, string $string8, string $string9, string $string10, string $string11, string $string12)
+if (%varclientbit_40728 ! $int1) {
+    return;
+}
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_struct $struct17 = enum(int, struct, clock_events_masterlist, $int1);
+if ($int2 = -1) {
+    $int2 = struct_param($struct17, clock_events_header_category);
+}
+if ($int3 = -1) {
+    $int3 = struct_param($struct17, clock_events_date);
+}
+if ($int4 = -1) {
+    $int4 = struct_param($struct17, clock_events_time);
+}
+if ($int5 = -1) {
+    $int5 = struct_param($struct17, clock_events_duration);
+}
+if (string_length($string0) = 0) {
+    $string0 = struct_param($struct17, clock_events_who);
+}
+if ($int6 = -1) {
+    $int6 = struct_param($struct17, clock_events_type);
+}
+if (string_length($string1) = 0) {
+    $string1 = struct_param($struct17, clock_events_type_override);
+}
+if (string_length($string2) = 0) {
+    $string2 = struct_param($struct17, clock_events_type_description);
+}
+if ($int7 = -1) {
+    $int7 = struct_param($struct17, clock_events_location);
+}
+if (string_length($string3) = 0) {
+    $string3 = struct_param($struct17, clock_events_location_override);
+}
+if ($int8 = -1) {
+    $int8 = struct_param($struct17, clock_events_world);
+}
+if (string_length($string4) = 0) {
+    $string4 = struct_param($struct17, clock_events_world_override);
+}
+if (string_length($string5) = 0) {
+    $string5 = struct_param($struct17, clock_events_friendschat);
+}
+if (string_length($string6) = 0) {
+    $string6 = struct_param($struct17, clock_events_link);
+}
+if ($int9 = -1) {
+    $int9 = struct_param($struct17, clock_events_map_lang);
+}
+if ($int10 = -1) {
+    $int10 = struct_param($struct17, clock_events_broadcast);
+}
+if (string_length($string7) = 0) {
+    $string7 = struct_param($struct17, clock_events_broadcast_override);
+}
+if (string_length($string8) = 0) {
+    $string8 = struct_param($struct17, clock_events_tweet_who);
+}
+if (string_length($string9) = 0) {
+    $string9 = struct_param($struct17, clock_events_tweet_override);
+}
+if (string_length($string10) = 0) {
+    $string10 = struct_param($struct17, clock_events_lootscape);
+}
+if ($int11 = -1) {
+    $int11 = struct_param($struct17, clock_events_date_end);
+}
+if ($int12 = -1) {
+    $int12 = struct_param($struct17, clock_events_filter_category);
+}
+if (string_length($string12) = 0) {
+    switch_int (map_lang) {
+        case 1 :
+            $string12 = struct_param($struct17, clock_events_url_de);
+        case 2 :
+            $string12 = struct_param($struct17, clock_events_url_fr);
+        case 3 :
+            $string12 = struct_param($struct17, clock_events_url_pt);
+    }
+    if (string_length($string12) = 0) {
+        $string12 = struct_param($struct17, clock_events_url);
+    }
+    if (string_length($string12) > 0 & struct_param($struct17, clock_events_header_category) ! 302) {
+        $string12 = append($string12, "&utm_source=rs3-cal&utm_medium=in-game-link&utm_term=newspost");
+    }
+}
+if (string_length($string11) = 0) {
+    switch_int (map_lang) {
+        case 1 :
+            $string11 = struct_param($struct17, clock_events_url_module_de);
+        case 2 :
+            $string11 = struct_param($struct17, clock_events_url_module_fr);
+        case 3 :
+            $string11 = struct_param($struct17, clock_events_url_module_pt);
+    }
+    if (string_length($string11) = 0) {
+        $string11 = struct_param($struct17, clock_events_url_module);
+    }
+}
+if ($int13 = -1) {
+    $int13 = struct_param($struct17, clock_events_runeday);
+}
+if ($int14 = -1) {
+    $int14 = struct_param($struct17, clock_events_runeday_end);
+}
+if ($int13 ! $int14 & $int14 ! -1) {
+    $int15 = 1;
+    if ($int2 = 7) {
+        if ($int3 = date_runeday_fromdate(%igc_current_viewing_day, %igc_current_viewing_month, %igc_current_viewing_year)) {
+            $int16 = 1;
+        }
+    } else if ($int13 = date_runeday_fromdate(%igc_current_viewing_day, %igc_current_viewing_month, %igc_current_viewing_year)) {
+        $int16 = 1;
+    }
+}
+def_string $string13 = "<col=ffcb05><$string0></col><br><br><col=ffffff><$string2></col>";
+if (string_length($string1) = 0 & $int6 ! -1) {
+    $string1 = enum(int, string, clock_events_type, $int6);
+}
+if (string_length($string4) = 0 & $int8 ! -1) {
+    $string4 = tostring($int8);
+}
+if (string_length($string3) = 0 & $int7 ! -1) {
+    $string3 = enum(int, string, clock_events_location, $int7);
+}

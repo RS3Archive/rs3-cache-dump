@@ -1,0 +1,17 @@
+// 11372
+[clientscript,script11372](component $component0, component $component1, int $int2)
+def_int $int3 = 0;
+if (if_find($component0) = true) {
+    if (clientclock > $int2 | cc_gethide = true) {
+        cc_setontimer(null);
+        cc_settext("");
+        if_sethide(true, $component1);
+    } else {
+        $int3 = calc(1 + ($int2 - clientclock) / 50);
+        if ($int3 > 60) {
+            cc_settext("<tostring(calc($int3 / 60))>m");
+        } else {
+            cc_settext(tostring($int3));
+        }
+    }
+}

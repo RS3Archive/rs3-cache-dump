@@ -1,0 +1,69 @@
+// 2255
+[proc,script2255](int $int0, int $int1, component $component2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, component $component9)(int)
+if ($component2 = null) {
+    return(-1);
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+if ($int3 = -1) {
+    $int10 = ~script8407($component2);
+    $int11 = ~script8408($component2);
+    $int12 = if_getwidth($component2);
+    $int13 = if_getheight($component2);
+} else if (cc_find($component2, $int3) = true) {
+    $int10 = ~script6355;
+    $int11 = ~script6356;
+    $int12 = cc_getwidth;
+    $int13 = cc_getheight;
+} else {
+    return(-1);
+}
+def_int $int14 = 0;
+def_int $int15 = 0;
+if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, $component9);
+if ($int4 = 0 & calc($int11 - $int1) < 0) {
+    $int4 = 1;
+    $int6 = calc(0 - $int6);
+}
+if ($int4 = 1 & calc($int11 + $int13 + $int1) > if_getheight(toplevel_v2:viewport)) {
+    $int4 = 0;
+    $int6 = calc(0 - $int6);
+}
+if ($int4 = 3 & calc($int10 - $int0) < 0) {
+    $int4 = 2;
+    $int5 = calc(0 - $int5);
+}
+if ($int4 = 2 & calc($int10 + $int12 + $int0) > if_getwidth(toplevel_v2:viewport)) {
+    $int4 = 3;
+    $int5 = calc(0 - $int5);
+}
+if ($int4 = 0) {
+    $int15 = calc($int11 - $int1);
+} else if ($int4 = 1) {
+    $int15 = calc($int11 + $int13);
+}
+if ($int4 = 0 | $int4 = 1) {
+    if (calc($int10 + $int0) > if_getwidth(toplevel_v2:viewport)) {
+        $int14 = calc($int10 - $int0 + $int12);
+    } else {
+        $int14 = $int10;
+    }
+}
+if ($int4 = 3) {
+    $int14 = calc($int10 - $int0);
+} else if ($int4 = 2) {
+    $int14 = calc($int10 + $int12);
+}
+if ($int4 = 3 | $int4 = 2) {
+    if (calc($int11 + $int1) > if_getheight(toplevel_v2:viewport)) {
+        $int15 = calc($int11 - $int1 + $int13);
+    } else {
+        $int15 = $int11;
+    }
+}
+if_setposition(calc($int14 + $int5), calc($int15 + $int6), ^setpos_abs_left, ^setpos_abs_top, $component9);
+if_sethide(false, $component9);
+if_setontimer("script8789($component2, $int3, $component9, $int7, $int8)", $component9);
+return($int4);

@@ -1,0 +1,47 @@
+// 3353
+[proc,mobile_tooltip_draw](string $string0, component $component0, int $int1)
+def_component $component2 = minimenu:mobile_tooltip_background;
+def_struct $struct3 = enum(int, struct, minimenu_skin, %minimenu_skin);
+def_fontmetrics $fontmetrics4 = struct_param($struct3, minimenu_font);
+def_int $int5 = 270;
+def_int $int6 = calc(3 + paraheight($string0, calc($int5 - 3), $fontmetrics4) * enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics4));
+def_int $int7 = calc(if_getheight(minimenu:mobile_tooltip) + $int6 + 15);
+$int5 = calc($int5 + 10);
+def_int $int8 = 0;
+def_int $int9 = 0;
+cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setfill(true);
+cc_setcolour(struct_param($struct3, minimenu_backcolour));
+~script4512($component2, struct_param($struct3, minimenu_topside_width), $int6, 0, 0, struct_param($struct3, minimenu_topside));
+~cc_add_graphic_tile($component2, struct_param($struct3, minimenu_mainbottom), struct_param($struct3, minimenu_topside_width), 0, $int5, struct_param($struct3, minimenu_topside_width));
+~script10066($component2, if_getnextsubid($component2), calc($int5 - 6), calc($int6 + 6), 3, 3, 1444876, true, 50);
+if (if_getheight(minimenu:mobile_tooltip) > 0) {
+    ~cc_add_graphic_tile($component2, struct_param($struct3, minimenu_mainbottom), struct_param($struct3, minimenu_topside_width), calc($int6 + 5), $int5, struct_param($struct3, minimenu_topside_width));
+}
+~script7924($component2, if_getnextsubid($component2), struct_param($struct3, minimenu_topside_width), $int6, calc($int5 - struct_param($struct3, minimenu_topside_width)), 0, struct_param($struct3, minimenu_topside), true, false, false, 0);
+~cc_add_graphic_tile($component2, struct_param($struct3, minimenu_mainside), 0, $int6, struct_param($struct3, minimenu_topside_width), calc($int7 - $int6 - struct_param($struct3, minimenu_topside_width)));
+~script7924($component2, if_getnextsubid($component2), struct_param($struct3, minimenu_topside_width), calc($int7 - $int6 - struct_param($struct3, minimenu_topside_width)), calc($int5 - struct_param($struct3, minimenu_topside_width)), $int6, struct_param($struct3, minimenu_mainside), true, false, true, 0);
+~script4512($component2, struct_param($struct3, minimenu_maincorner_size), struct_param($struct3, minimenu_maincorner_size), 0, calc($int7 - struct_param($struct3, minimenu_maincorner_size)), struct_param($struct3, minimenu_maincorner));
+~cc_add_graphic_tile($component2, struct_param($struct3, minimenu_mainbottom), struct_param($struct3, minimenu_maincorner_size), calc($int7 - struct_param($struct3, minimenu_topside_width)), calc($int5 - 2 * struct_param($struct3, minimenu_maincorner_size)), struct_param($struct3, minimenu_topside_width));
+~script7924($component2, if_getnextsubid($component2), struct_param($struct3, minimenu_maincorner_size), struct_param($struct3, minimenu_maincorner_size), calc($int5 - struct_param($struct3, minimenu_maincorner_size)), calc($int7 - struct_param($struct3, minimenu_maincorner_size)), struct_param($struct3, minimenu_maincorner), true, false, false, 0);
+~script10629($component2, if_getnextsubid($component2), calc($int5 - 3), calc($int6 - 3), 0, 3, $string0, struct_param($struct3, minimenu_fontcolour), $fontmetrics4, ^settextalign_centre, ^settextalign_top, enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics4), false);
+$int8, $int9 = ~mobile_tooltip_position($int5, $int7, $component0, $int1);
+if_setscrollpos(0, 0, minimenu:mobile_tooltip_text);
+if (%mobile_zoom ! 0) {
+    if_setscrollsize(0, calc(if_getheight(minimenu:mobile_tooltip_text) + 20), minimenu:mobile_tooltip_text);
+    if (if_getheight(minimenu:mobile_tooltip_text) < $int7) {
+        if_sethide(true, minimenu:scroll_bar);
+    } else {
+        if_sethide(false, minimenu:scroll_bar);
+    }
+}
+if_setsize($int5, $int7, ^setsize_abs, ^setsize_abs, minimenu:mobile_tooltip);
+if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, minimenu:mobile_tooltip);
+if_setposition(0, calc($int6 + 9), ^setpos_abs_left, ^setpos_abs_top, minimenu:mobile_tooltip_text);
+if (%mobile_zoom ! 0) {
+    ~rs3_scrollbar_vertical(minimenu:scroll_bar, minimenu:mobile_tooltip_text);
+} else {
+    if_sethide(true, minimenu:scroll_bar);
+}

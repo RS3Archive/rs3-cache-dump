@@ -1,0 +1,30 @@
+// 8954
+[proc,script8954](struct $struct0, int $int1, string $string0)(string)
+def_string $string1 = "";
+def_string $string2 = "";
+if ($int1 = -1) {
+    $string2 = "Requirements:";
+    $string1 = ~cheevo_requirements_response($struct0);
+    $string1 = ~cheevo_quest_tooltip($string1, $struct0, $string0);
+    if (compare($string1, "") ! 0) {
+        $string2 = append($string2, "<br><$string1>");
+        $string2 = ~script13616($string2, $struct0);
+        if (compare($string0, "") ! 0) {
+            $string2 = append($string2, "<br><$string0>");
+        }
+    } else if (compare($string0, "") ! 0) {
+        $string2 = ~script13616($string2, $struct0);
+        $string2 = append($string2, "<br><$string0>");
+    } else {
+        $string2 = "";
+    }
+} else {
+    $string2 = ~cheevo_quest_tooltip($string2, $struct0, $string0);
+    if (compare(struct_param($struct0, task_step_1), "") ! 0 | compare(struct_param($struct0, task_step_1_mobile), "") ! 0 | compare(struct_param($struct0, task_information), "") ! 0 | compare(struct_param($struct0, task_information_mobile), "") ! 0) {
+        $string2 = ~script13616($string2, $struct0);
+        $string2 = append($string2, "<br><$string0>");
+    } else if (compare($string0, "") ! 0) {
+        $string2 = append($string2, "<br><$string0>");
+    }
+}
+return($string2);

@@ -1,0 +1,276 @@
+// 17226
+[proc,script17226](component $component0, component $component1, component $component2, component $component3, int $int4, dbrow $dbrow5, int $int6, int $int7, int $int8, int $int9)(int)
+if ($dbrow5 = null) {
+    return($int7);
+}
+def_int $int10 = calc(($int9 - 64) / 2);
+def_int $int11 = $int6;
+def_int $int12 = $int7;
+if ($int11 > 326) {
+    $int8 = calc($int8 - 15);
+}
+def_int $int13 = calc($int8 - 64 - 2 * $int10);
+def_boolean $boolean14 = ~script17209($dbrow5);
+def_boolean $boolean15 = false;
+def_string $string0 = "";
+$boolean15 = db_getfield($dbrow5, quest_fort_casefile_entry:col14, 0);
+if ($boolean15 = true) {
+    if ($boolean14 = true) {
+        $string0 = "You have discovered this clue by linking evidence to it.";
+    } else {
+        $string0 = "You need to link evidence to a crime scene to discover this clue.";
+    }
+} else if ($boolean14 = true) {
+    $string0 = "You have discovered this clue.";
+} else {
+    $string0 = "You have not yet discovered this clue.";
+}
+def_string $string1 = db_getfield($dbrow5, quest_fort_casefile_entry:col1, 0);
+if (string_length($string1) > 0) {
+    if ($boolean14 = false) {
+        if ($boolean15 = true) {
+            $string1 = "Link clues to unlock";
+        } else {
+            $string1 = "Not Found";
+        }
+    }
+    ~cc_add_text($component0, if_getnextsubid($component0), $int11, $int12, ^setpos_abs_left, ^setpos_abs_top, $int8, 16384, ^setsize_abs, ^setsize_rel, text_title_body, $string1);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_setcolour(^black);
+    cc_settextshadow(false);
+    $int12 = calc($int12 + ~script7593(cc_gettext, cc_getwidth, cc_getfontmetrics, 0));
+}
+def_string $string2 = "";
+if ($boolean14 = true) {
+    $string2 = db_getfield($dbrow5, quest_fort_casefile_entry:col12, 0);
+}
+if (string_length($string2) > 0) {
+    ~cc_add_text($component0, if_getnextsubid($component0), calc($int11 + $int10), $int12, ^setpos_abs_left, ^setpos_abs_top, $int8, 16384, ^setsize_abs, ^setsize_rel, text_body_default, $string2);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_setcolour(^black);
+    cc_settextshadow(false);
+    $int12 = calc($int12 + ~script7593(cc_gettext, cc_getwidth, cc_getfontmetrics, 0));
+}
+def_string $string3 = db_getfield($dbrow5, quest_fort_casefile_entry:col2, 0);
+def_string $string4 = db_getfield($dbrow5, quest_fort_casefile_entry:col3, 0);
+def_string $string5 = "";
+if ($boolean14 = true) {
+    $string5 = db_getfield($dbrow5, quest_fort_casefile_entry:col10, 0);
+}
+def_obj $obj16 = db_getfield($dbrow5, quest_fort_casefile_entry:col4, 0);
+def_npc $npc17 = db_getfield($dbrow5, quest_fort_casefile_entry:col5, 0);
+if (string_length($string5) = 0 & $obj16 ! null) {
+    $string5 = oc_desc($obj16);
+}
+def_int $int18 = db_getfield($dbrow5, quest_fort_casefile_entry:col6, 0);
+if ($int18 > -1) {
+    if (%quest_fort_main >= $int18) {
+        $int18 = 1;
+    } else {
+        $int18 = 0;
+    }
+} else {
+    $int18 = 0;
+}
+def_graphic $graphic19 = arch_journal_mystery_background_general;
+switch_int ($int4) {
+    case 1 :
+        $graphic19 = arch_journal_mystery_background_dragonkin;
+    case 2 :
+        $graphic19 = arch_journal_mystery_background_zaros;
+}
+def_seq $seq20 = null;
+def_int $int21 = db_getfield($dbrow5, quest_fort_casefile_entry:col7, 0);
+def_int $int22 = db_getfield($dbrow5, quest_fort_casefile_entry:col8, 0);
+def_int $int23 = db_getfield($dbrow5, quest_fort_casefile_entry:col9, 0);
+def_int $int24 = calc($int11 + $int10 + 64);
+def_int $int25 = 0;
+if ($obj16 ! null | $npc17 ! null) {
+    if ($boolean14 = true) {
+        if ($obj16 ! null) {
+            ~cc_add_graphic($component0, if_getnextsubid($component0), calc($int11 + $int10), $int12, ^setpos_abs_left, ^setpos_abs_top, 64, 64, ^setsize_abs, ^setsize_abs, $graphic19);
+            ~cc_add_obj_full($component0, if_getnextsubid($component0), calc($int11 + $int10 + $int10 + $int10), calc($int12 + $int10), ^setpos_abs_left, ^setpos_abs_top, 55, 55, ^setsize_abs, ^setsize_abs, $obj16, 0, 3, 0);
+            cc_setaspect(64, 64);
+        }
+        if ($npc17 ! null) {
+            $int24 = calc($int24 + ($int10 + 64));
+            ~cc_add_graphic($component0, if_getnextsubid($component0), calc($int11 + 64), $int12, ^setpos_abs_left, ^setpos_abs_top, 64, 64, ^setsize_abs, ^setsize_abs, $graphic19);
+            ~cc_add_model($component0, if_getnextsubid($component0), calc($int11 + 64 + $int10 + $int10 + $int10), calc($int12 + $int10 + $int10 + $int10), ^setpos_abs_left, ^setpos_abs_top, 55, 55, ^setsize_abs, ^setsize_abs);
+            ~script16108($npc17, $seq20, $int22, calc(~script7802($npc17) + $int23), 0, -512, 0, $int21);
+            ~cc_add_graphic($component0, if_getnextsubid($component0), calc($int11 + $int10), $int12, ^setpos_abs_left, ^setpos_abs_top, 64, 64, ^setsize_abs, ^setsize_abs, $graphic19);
+            ~cc_add_model($component0, if_getnextsubid($component0), calc($int11 + $int10 + $int10 + 2), calc($int12 + $int10 + $int10 + $int10), ^setpos_abs_left, ^setpos_abs_top, 55, 55, ^setsize_abs, ^setsize_abs);
+            ~script16108($npc17, $seq20, 0, calc(~script7802($npc17) + $int23), 0, 0, 0, $int21);
+            if ($int18 = 1) {
+                ~cc_add_graphic($component0, if_getnextsubid($component0), calc($int11 + 64 - $int10), calc($int12 + 34 / 2), ^setpos_abs_left, ^setpos_abs_top, 67, 34, ^setsize_abs, ^setsize_abs, aif_bandos_quest_cross);
+                cc_clearops;
+                ~script3537("This suspect is DECEASED.");
+                ~cc_add_graphic($component0, if_getnextsubid($component0), $int11, calc($int12 + 34 / 2), ^setpos_abs_left, ^setpos_abs_top, 67, 34, ^setsize_abs, ^setsize_abs, aif_bandos_quest_cross);
+                cc_clearops;
+                ~script3537("This suspect is DECEASED.");
+            }
+            if (string_length($string3) > 0) {
+                if ($boolean14 = false) {
+                    $string3 = "";
+                }
+                if (string_length($string4) > 0) {
+                    $string3 = append($string3, "<br>(");
+                    $string3 = append($string3, $string4);
+                    $string3 = append($string3, ")");
+                    ~cc_add_text($component0, if_getnextsubid($component0), $int24, $int12, ^setpos_abs_left, ^setpos_abs_top, calc($int13 - 64), 16384, ^setsize_abs, ^setsize_rel, text_body_default, $string3);
+                    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+                    cc_setcolour(^black);
+                    cc_settextshadow(false);
+                }
+                $int25 = ~script7593(cc_gettext, cc_getwidth, cc_getfontmetrics, 0);
+            }
+        }
+        if ($obj16 ! null & string_length($string5) > 0) {
+            ~cc_add_text($component0, if_getnextsubid($component0), $int24, calc($int12 + $int25), ^setpos_abs_left, ^setpos_abs_top, $int13, 16384, ^setsize_abs, ^setsize_rel, text_body_default, $string5);
+            cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+            cc_setcolour(^black);
+            cc_settextshadow(false);
+        }
+    } else if ($obj16 ! null | $npc17 ! null) {
+        ~cc_add_graphic($component0, if_getnextsubid($component0), calc($int11 + $int10), $int12, ^setpos_abs_left, ^setpos_abs_top, 64, 64, ^setsize_abs, ^setsize_abs, "arch_journal_mystery_progress,0");
+        if ($boolean15 = false) {
+            ~script3537("Discover this clue by exploring and investigating your fort.");
+        } else if ($obj16 ! null | $npc17 ! null) {
+            ~cc_add_graphic($component0, if_getnextsubid($component0), calc($int11 + 64 - 32 + 2), calc($int12 + 64 - 32 - 4), ^setpos_abs_left, ^setpos_abs_top, 32, 32, ^setsize_abs, ^setsize_abs, mad_may_16_icon_case_locked);
+            ~script3537("Discover this clue by linking another item of evidence to a suspect or scenery.");
+        }
+    }
+    $int12 = calc($int12 + 64);
+}
+def_boolean $boolean26 = db_getfield($dbrow5, quest_fort_casefile_entry:col15, 0);
+def_boolean $boolean27 = db_getfield($dbrow5, quest_fort_casefile_entry:col16, 0);
+if ($boolean14 = false) {
+    $boolean27 = false;
+}
+def_dbrow $dbrow28 = db_getfield($dbrow5, quest_fort_casefile_entry:col13, 0);
+def_int $int29 = 0;
+if ($boolean26 = true | $boolean27 = true | $dbrow28 ! null) {
+    $int29 = db_getfield($dbrow5, quest_fort_casefile_entry:col0, 0);
+    if ($int29 = -1) {
+        ~error("$title=<$string1> $desc=<$string5> has discuss, replay and/or links and needs a button_id!");
+        return($int7);
+    }
+}
+def_int $int30 = 0;
+if ($boolean26 = true & $boolean14 = true) {
+    ~cc_add_button_full($component1, $int29, calc($int11 + $int10), $int12, ^setpos_abs_left, ^setpos_abs_top, calc(64 * 2), calc(64 / 2), ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Discuss", true, true, false, false);
+    if ($int30 = 0) {
+        $int30 = calc(cc_getheight + $int10);
+    }
+    ~script10631("Discuss");
+    cc_setopbase($string1);
+    cc_setopcursor(1, cursor_talkto);
+    ~script3537("Discuss this clue with your investigative assistant.");
+}
+def_int $int31 = calc($int11 + $int10);
+if ($boolean27 = true) {
+    if ($int30 > 0) {
+        $int31 = calc($int31 + $int10 + 64 * 2);
+    }
+    ~cc_add_button_full($component2, $int29, $int31, $int12, ^setpos_abs_left, ^setpos_abs_top, calc(64 * 2), calc(64 / 2), ^setsize_abs, ^setsize_abs, button_action_positive, "Replay", true, true, false, false);
+    if ($int30 = 0) {
+        $int30 = calc(cc_getheight + $int10);
+    }
+    ~script10631("Replay");
+    cc_setopbase($string1);
+    cc_setopcursor(1, cursor_talkto);
+    ~script3537("Replay the conversation summarised in this testimony.");
+}
+def_boolean $boolean32 = false;
+def_string $string6 = "";
+def_string $string7 = "";
+def_int $int33 = 0;
+def_int $int34 = db_getfieldcount($dbrow5, quest_fort_casefile_entry:col13);
+def_int $int35 = 0;
+if ($int34 > 0) {
+    while (--$int34 >= 0) {
+        if (db_getfield($dbrow5, quest_fort_casefile_entry:col13, $int34) ! null & ~script17209(db_getfield($dbrow5, quest_fort_casefile_entry:col13, $int34)) = true) {
+            $int35 = calc($int35 + 1);
+        }
+    }
+}
+$int34 = db_getfieldcount($dbrow5, quest_fort_casefile_entry:col13);
+if ($boolean27 = false) {
+    if ($int30 > 0) {
+        $int31 = calc($int31 + $int10 + 64 * 2);
+    }
+    if ($dbrow28 ! null | $boolean15 = true) {
+        if ($dbrow28 = null) {
+            $dbrow28 = $dbrow5;
+            if (~script17209($dbrow28) = true) {
+                $int35 = calc($int35 + 1);
+            }
+        }
+        if ($boolean15 = true & $boolean14 = false) {
+            $boolean32 = false;
+            $string6 = "Locked";
+            $string7 = "Discover this clue by linking another item of evidence to a suspect or scenery.";
+        } else if ($boolean14 = false) {
+            $boolean32 = false;
+            $string6 = "Not Found";
+            $string7 = "You must first discover this clue";
+        } else if (%quest_fort_casefile_link_npc ! null & $boolean14 = true & $int35 < $int34) {
+            $boolean32 = true;
+            $string6 = "Link";
+            $string7 = "Show this evidence to this suspect.";
+        } else if (%quest_fort_casefile_link_loc ! null & $boolean14 = true & $int35 < $int34) {
+            $boolean32 = true;
+            $string6 = "Link";
+            $string7 = "Use this evidence on this scenery.";
+        } else if ($boolean14 = true & ~script17209($dbrow28) = false) {
+            $boolean32 = false;
+            $string6 = "Link";
+            $string7 = "Show this evidence to a suspect or use it on scenery to discover another clue.";
+        } else if ($boolean15 = true | $boolean14 = true & ~script17209($dbrow28) = true) {
+            $boolean32 = false;
+            $string6 = "Linked";
+            $string7 = "You have correctly linked this evidence to another item of evidence.";
+        }
+        if (string_length($string6) > 0) {
+            ~cc_add_button_full($component3, $int29, $int31, $int12, ^setpos_abs_left, ^setpos_abs_top, calc(64 * 2), calc(64 / 2), ^setsize_abs, ^setsize_abs, button_action_positive, $string6, $boolean32, true, false, false);
+            if ($int30 = 0) {
+                $int30 = calc(cc_getheight + $int10);
+            }
+            if ($boolean32 = false) {
+                cc_clearops;
+                ~script3537($string7);
+            } else {
+                ~script10631($string6);
+                cc_setopbase($string1);
+                cc_setopcursor(1, cursor_target);
+                if (~script6431 = false) {
+                    ~script3537($string7);
+                }
+            }
+        }
+    }
+}
+if ($int30 > 0) {
+    $int12 = calc($int12 + $int30);
+}
+if ($obj16 = null & string_length($string5) > 0) {
+    ~cc_add_text($component0, if_getnextsubid($component0), calc($int11 + $int10), $int12, ^setpos_abs_left, ^setpos_abs_top, $int8, 16384, ^setsize_abs, ^setsize_rel, text_body_default, $string5);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_setcolour(^black);
+    cc_settextshadow(false);
+    $int12 = calc($int12 + ~script7593(cc_gettext, cc_getwidth, cc_getfontmetrics, 0));
+}
+def_int $int36 = db_getfieldcount($dbrow5, quest_fort_casefile_entry:col11);
+def_string $string8 = "";
+def_int $int37 = -1;
+if ($boolean14 = true & $int36 > 0) {
+    while (++$int37 < $int36) {
+        $string8 = db_getfield($dbrow5, quest_fort_casefile_entry:col11, $int37);
+        ~cc_add_graphic($component0, if_getnextsubid($component0), calc($int11 + $int10), $int12, ^setpos_abs_left, ^setpos_abs_top, 15, 15, ^setsize_abs, ^setsize_abs, rs3_contextual_input_bullet);
+        ~cc_add_text($component0, if_getnextsubid($component0), calc($int11 + $int10 + 20), $int12, ^setpos_abs_left, ^setpos_abs_top, calc($int8 - 20), 16384, ^setsize_abs, ^setsize_rel, text_body_default, $string8);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_setcolour(^black);
+        cc_settextshadow(false);
+        $int12 = calc($int12 + ~script7593(cc_gettext, cc_getwidth, cc_getfontmetrics, 0));
+    }
+}
+return($int12);

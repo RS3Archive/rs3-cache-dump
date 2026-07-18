@@ -1,0 +1,107 @@
+// 7481
+[proc,script7481](int $int0, struct $struct1, int $int2)(int)
+def_string $string0 = "";
+def_string $string1 = "";
+def_obj $obj3 = null;
+def_string $string2 = "";
+if (struct_param($struct1, combatv2_requires_other_items) = 1) {
+    switch_struct ($struct1) {
+        case magic_slayer_dart :
+            if (~script7483 = true) {
+                $string0 = "<col=00ff00>";
+            } else {
+                $string0 = "<col=ff0000>";
+            }
+            $string1 = "<$string0>Staff</col>";
+            $obj3 = slayer_staff;
+            $string2 = oc_name($obj3);
+        case magic_polypore_strike :
+            switch_obj (inv_getobj(worn, 3)) {
+                case polypore_staff, polypore_staff_degraded_100, polypore_staff_degraded_50, polypore_staff_augmented :
+                    $string0 = "<col=00ff00>";
+                case default :
+                    $string0 = "<col=ff0000>";
+            }
+            $string1 = "<$string0>Staff</col>";
+            $obj3 = polypore_staff;
+            $string2 = oc_name($obj3);
+        case magic_air_orb, magic_earth_orb, magic_water_orb, magic_fire_orb :
+            if (inv_total(inv, stafforb) < 1) {
+                $string0 = "<col=ff0000>";
+            } else {
+                $string0 = "<col=00ff00>";
+            }
+            $string1 = "<$string0>Orb</col>";
+            $obj3 = stafforb;
+            $string2 = oc_name($obj3);
+        case magic_teleport_ape_atoll :
+            if (inv_total(inv, banana) < 1) {
+                $string0 = "<col=ff0000>";
+            } else {
+                $string0 = "<col=00ff00>";
+            }
+            $string1 = "<$string0>Banana</col>";
+            $obj3 = banana;
+            $string2 = oc_name($obj3);
+        case magic_plank_make :
+            $string1 = "<col=00ff00>Coins</col>";
+            $obj3 = coins_100;
+            $string2 = "100 Coins";
+        case magic_invent_analyse, magic_invent_disassemble :
+            if (~invent_toolbelt_unlocked(1) = 0) {
+                $string0 = "<col=ff0000>";
+            } else {
+                $string0 = "<col=00ff00>";
+            }
+            $string1 = "<$string0>Tool</col>";
+            $obj3 = invent_inventors_tools_dummy;
+            $string2 = oc_name($obj3);
+        case magic_bones_to_peaches, magic_bones_to_bananas :
+            if (~script10242 = 1) {
+                $string0 = "<col=00ff00>";
+            } else {
+                $string0 = "<col=ff0000>";
+            }
+            $string1 = "<$string0>Bones</col>";
+            $obj3 = bones;
+            $string2 = "Bones, burnt bones, bat bones, wolf bones, monkey bones or big bones";
+        case combatv2_ability_constitution_alchemical_hydrix_amulet :
+            if (oc_category(inv_getobj(worn, 2)) ! alchemical_hydrix_amulet) {
+                $string0 = "<col=ff0000>";
+            } else {
+                $string0 = "<col=00ff00>";
+            }
+            $string1 = "<$string0>Amulet</col>";
+            $obj3 = enchanted_alchemical_hydrix_amulet;
+            $string2 = oc_name($obj3);
+        case combatv2_ability_ranged_quiver_ammo_slot_1, combatv2_ability_ranged_quiver_ammo_slot_2 :
+            if (oc_category(inv_getobj(worn, 13)) ! quiver | oc_param(inv_getobj(worn, 13), quiver_capacity) < 2) {
+                $string0 = "<col=ff0000>";
+            } else {
+                $string0 = "<col=00ff00>";
+            }
+            $string1 = "<$string0>Quiver</col>";
+            $obj3 = atelf_quiver_easy;
+            $string2 = "A quiver that can hold multiple types of ammo.";
+    }
+    return(~script7482($string1, null, $obj3, $string2, ~script7484($int0, $int2)));
+}
+switch_struct ($struct1) {
+    case combatv2_ability_necromancy_soul_strike :
+        if (%combatv2_buff_necromancy_residual_soul_stacks >= 1) {
+            $string0 = "<col=00ff00>";
+        } else {
+            $string0 = "<col=ff0000>";
+        }
+        $string1 = "<$string0><tostring(1)></col>";
+        return(~script7482($string1, struct_param(combatv2_buff_necromancy_residual_soul, combatv2_ability_icon), null, "Requires <struct_param(combatv2_buff_necromancy_residual_soul, combatv2_ability_name)> stacks.", ~script7484($int0, $int2)));
+    case combatv2_ability_necromancy_volley_of_souls :
+        if (%combatv2_buff_necromancy_residual_soul_stacks >= 2) {
+            $string0 = "<col=00ff00>";
+        } else {
+            $string0 = "<col=ff0000>";
+        }
+        $string1 = "<$string0><tostring(2)>+</col>";
+        return(~script7482($string1, struct_param(combatv2_buff_necromancy_residual_soul, combatv2_ability_icon), null, "Requires <struct_param(combatv2_buff_necromancy_residual_soul, combatv2_ability_name)> stacks.", ~script7484($int0, $int2)));
+}
+return($int0);

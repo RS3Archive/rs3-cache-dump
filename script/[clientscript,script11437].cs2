@@ -1,0 +1,23 @@
+// 11437
+[clientscript,script11437](int $int0, component $component1, component $component2)
+def_int $int3 = 0;
+if ($int0 > 20000000) {
+    $int0 = 0;
+}
+if (~inzone(0_25_172_0_0, 3_42_189_63_63, coord) = false) {
+    if_setmodelangle(0, 0, 512, calc((if_getmodelangle_y($component1) - 30) % 2047), 40, 275, $component1);
+    if_sethide(true, $component2);
+} else if (calc(coordy(coord) - coordy(%trail_destcoord)) > 0) {
+    if_setmodelangle(0, 0, 512, calc((if_getmodelangle_y($component1) + 30) % 2047), 40, 275, $component1);
+    if_sethide(true, $component2);
+} else {
+    $int3 = ~rough_angle(coordx(coord), coordz(coord), coordx(%trail_destcoord), coordz(%trail_destcoord));
+    if ($int3 = -1) {
+        if_setmodelangle(0, 0, 0, 0, 40, 275, $component1);
+        if_sethide(false, $component2);
+    } else {
+        if_setmodelangle(0, 0, 512, calc(2047 * $int3 / 65535), 40, 275, $component1);
+        if_sethide(true, $component2);
+    }
+}
+if_setontimer("script11437(calc($int0 + 1), $component1, $component2)", $component1);

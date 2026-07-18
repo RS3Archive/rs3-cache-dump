@@ -1,0 +1,21 @@
+// 11045
+[clientscript,script11045]
+if (%combatv2_multiway_countdown < calc(clientclock + 30)) {
+    if_sethide(true, statusicons:wildy_multiway_countdown_units_middle);
+    if_sethide(true, statusicons:wildy_multiway_countdown_tens);
+    if_sethide(true, statusicons:wildy_multiway_countdown_units);
+    return;
+}
+def_int $int0 = max(1, calc((%combatv2_multiway_countdown - clientclock) / 50));
+if ($int0 > 9) {
+    if_sethide(true, statusicons:wildy_multiway_countdown_units_middle);
+    if_sethide(false, statusicons:wildy_multiway_countdown_tens);
+    if_sethide(false, statusicons:wildy_multiway_countdown_units);
+    if_setgraphic(~script11046(calc($int0 / 10)), statusicons:wildy_multiway_countdown_tens);
+    if_setgraphic(~script11046(calc($int0 % 10)), statusicons:wildy_multiway_countdown_units);
+} else {
+    if_sethide(false, statusicons:wildy_multiway_countdown_units_middle);
+    if_sethide(true, statusicons:wildy_multiway_countdown_tens);
+    if_sethide(true, statusicons:wildy_multiway_countdown_units);
+    if_setgraphic(~script11046($int0), statusicons:wildy_multiway_countdown_units_middle);
+}

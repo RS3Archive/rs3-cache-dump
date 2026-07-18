@@ -1,0 +1,116 @@
+// 336
+[clientscript,levelup_start]
+def_int $int0 = 0;
+if (%varclientbit_31168 = 0) {
+    return;
+}
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, levelup:info);
+if_setgraphic(enum(int, graphic, stat2icon, %varclientbit_31168), levelup:levelup_icon);
+if_settrans(0, levelup:levelup_icon);
+if_settrans(0, levelup:trim_left);
+if_settrans(0, levelup:trim_right);
+if_settrans(0, levelup:trim_centre);
+if_settrans(0, levelup:levelup_text);
+if_settrans(255, levelup:number_left);
+if_settrans(255, levelup:number_right);
+if_settrans(255, levelup:number_centre);
+if_settrans(0, levelup:wheel);
+if_settrans(0, levelup:levelup_bg);
+if_sethide(true, levelup:max_firework);
+if_sethide(true, levelup:firework_effect_delayed);
+if_sethide(true, levelup:firework_effect);
+def_int $int1 = 0;
+def_stat $stat2 = enum(int, stat, int_to_stat, %varclientbit_31168);
+if_setgraphic("aif_level_up_graphic_bkgd,0", levelup:levelup_bg);
+if_setgraphic("aif_level_up_text_box,1", levelup:trim_centre);
+if_setgraphic("aif_level_up_text_box,0", levelup:trim_left);
+if_setgraphic("aif_level_up_text_box,2", levelup:trim_right);
+if_set2dangle(0, levelup:wheel);
+switch_int (map_lang) {
+    case 1 :
+        if_setsize(240, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+        if_setgraphic("aif_level_up_text_language,0", levelup:levelup_text);
+    case 2 :
+        if_setsize(240, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+        if_setgraphic("aif_level_up_text_language,1", levelup:levelup_text);
+    case 3 :
+        if_setsize(220, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+        if_setgraphic("aif_level_up_text_language,2", levelup:levelup_text);
+    case 6 :
+        if_setsize(220, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+        if_setgraphic("aif_level_up_text_language,4", levelup:levelup_text);
+    case default :
+        if_setsize(150, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+        if_setgraphic("aif_level_up_text_language,3", levelup:levelup_text);
+}
+if (enum(stat, stat, stat_f2p_list, $stat2) = null) {
+    if_setgraphic("aif_level_up_graphic_bkgd_gold,0", levelup:levelup_bg);
+    if_setgraphic("aif_level_up_text_box_gold,1", levelup:trim_centre);
+    if_setgraphic("aif_level_up_text_box_gold,0", levelup:trim_left);
+    if_setgraphic("aif_level_up_text_box_gold,2", levelup:trim_right);
+    switch_int (map_lang) {
+        case 1 :
+            if_setsize(240, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+            if_setgraphic("aif_level_up_text_language_gold,0", levelup:levelup_text);
+        case 2 :
+            if_setsize(240, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+            if_setgraphic("aif_level_up_text_language_gold,1", levelup:levelup_text);
+        case 3 :
+            if_setsize(220, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+            if_setgraphic("aif_level_up_text_language_gold,2", levelup:levelup_text);
+        case 6 :
+            if_setsize(220, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+            if_setgraphic("aif_level_up_text_language_gold,4", levelup:levelup_text);
+        case default :
+            if_setsize(150, 33, ^setsize_abs, ^setsize_abs, levelup:text_layer);
+            if_setgraphic("aif_level_up_text_language_gold,3", levelup:levelup_text);
+    }
+}
+if_sethide(false, levelup:number_left);
+if_sethide(false, levelup:number_centre);
+if_sethide(false, levelup:number_right);
+if (%varclientbit_31169 < 10) {
+    if_setposition(0, 45, ^setpos_abs_centre, ^setpos_abs_top, levelup:number_left);
+    if_sethide(true, levelup:number_right);
+    if_sethide(true, levelup:number_centre);
+    ~levelup_setlevelgraphic(%varclientbit_31169, levelup:number_left);
+} else if (%varclientbit_31169 < 100) {
+    if_setposition(-10, 45, ^setpos_abs_centre, ^setpos_abs_top, levelup:number_left);
+    if_setposition(10, 45, ^setpos_abs_centre, ^setpos_abs_top, levelup:number_right);
+    ~levelup_setlevelgraphic(calc(%varclientbit_31169 / 10), levelup:number_left);
+    ~levelup_setlevelgraphic(calc(%varclientbit_31169 % 10), levelup:number_right);
+    if_sethide(true, levelup:number_centre);
+} else {
+    if_setposition(-20, 45, ^setpos_abs_centre, ^setpos_abs_top, levelup:number_left);
+    if_setposition(0, 45, ^setpos_abs_centre, ^setpos_abs_top, levelup:number_centre);
+    if_setposition(20, 45, ^setpos_abs_centre, ^setpos_abs_top, levelup:number_right);
+    ~levelup_setlevelgraphic(calc(%varclientbit_31169 / 100), levelup:number_left);
+    ~levelup_setlevelgraphic(calc((%varclientbit_31169 - 100) / 10), levelup:number_centre);
+    ~levelup_setlevelgraphic(calc(%varclientbit_31169 % 10), levelup:number_right);
+}
+if (%varclientbit_31169 = 99 | %varclientbit_31169 = 120) {
+    if_sethide(false, levelup:max_firework);
+    if_setmodel(level_up_fireworks_interface_golder, levelup:firework_effect);
+    $int0 = 8;
+} else {
+    if_setmodel(level_up_fireworks_interface_gold, levelup:firework_effect);
+}
+if (enum(stat, stat, stat_f2p_list, $stat2) = null) {
+    $int1 = 1;
+}
+if (%tut5_main = 30) {
+    if_setontimer("levelup_fadetimer(calc(clientclock + 100), calc(clientclock + 200), calc(clientclock + 5000000), %varclientbit_31168)", levelup:levelup_layer);
+} else {
+    if_setontimer("levelup_fadetimer(calc(clientclock + 100), calc(clientclock + 200), calc(clientclock + 500), %varclientbit_31168)", levelup:levelup_layer);
+}
+if_sethide(false, levelup:info);
+if_sethide(true, xp_popup:xp_ring_layer);
+def_int $int3 = random(150);
+def_int $int4 = random(50);
+if (calc(%varclientbit_31169 % 10) = 0) {
+    $int0 = 4;
+}
+if ($int0 > 0) {
+    if_setontimer("script337($int0, calc(clientclock + 25))", levelup:levelup_bg);
+}
+%skillguide_levelup_stat_client = 0;

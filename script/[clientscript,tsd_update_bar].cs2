@@ -1,0 +1,26 @@
+// 7557
+[clientscript,tsd_update_bar](component $component0)
+def_int $int1 = 0;
+def_component $component2 = tsd_unlocking_power:base;
+switch_component ($component0) {
+    case tsd_unlocking_power:good_fill :
+        $int1 = calc(%tsd_good * 11);
+        $component2 = tsd_unlocking_power:good_bar;
+    case tsd_unlocking_power:evil_fill :
+        $int1 = calc(%tsd_evil * 11);
+        $component2 = tsd_unlocking_power:evil_bar;
+    case tsd_unlocking_power:order_fill :
+        $int1 = calc(%tsd_order * 11);
+        $component2 = tsd_unlocking_power:order_bar;
+    case tsd_unlocking_power:chaos_fill :
+        $int1 = calc(%tsd_chaos * 11);
+        $component2 = tsd_unlocking_power:chaos_bar;
+}
+if ($int1 = 0) {
+    if_setsize(if_getwidth($component0), 0, ^setsize_abs, ^setsize_abs, $component0);
+} else {
+    if ($int1 > 128) {
+        $int1 = 128;
+    }
+    if_setontimer("tsd_update_bar_timer($int1, $component0, $component2)", $component2);
+}

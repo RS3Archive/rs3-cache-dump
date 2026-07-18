@@ -1,0 +1,43 @@
+// 11998
+[proc,script11998](struct $struct0, component $component1)
+def_int $int2 = 2;
+def_int $int3 = 0;
+def_component $component4 = null;
+def_component $component5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+if ($component1 = struct_param($struct0, prayer_child_filter)) {
+    $component4 = struct_param($struct0, prayer_child_filter_icon);
+    $component5 = struct_param($struct0, prayer_child_filter_title);
+    $int6 = if_getwidth($component5);
+    $int7 = scale(50, 100, 110);
+    ~script11999($component5, $component4, $component1, 0);
+    $int2 = 0;
+} else if ($component1 = struct_param($struct0, prayer_child_quick_prayers)) {
+    $component4 = struct_param($struct0, prayer_child_qp_icon);
+    $component5 = struct_param($struct0, prayer_child_qp_title);
+    $int6 = if_getwidth($component5);
+    $int7 = scale(50, 100, 110);
+    if (++$int6 >= calc($int7 * 2)) {
+        if_settext("Quick Prayers Setup", $component5);
+    } else if ($int6 >= $int7) {
+        if_settext("QP Setup", $component5);
+    } else {
+        if_settext("", $component5);
+    }
+} else {
+    return;
+}
+if ($struct0 = prayer_draw_prayers_sub_overlay) {
+    $int2 = calc($int2 + 10);
+}
+if ($int6 < $int7) {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component4);
+} else {
+    if_setposition(calc($int2 + $int3), 0, ^setpos_abs_left, ^setpos_abs_centre, $component4);
+    $int3 = calc($int3 + if_getwidth($component4));
+    if (if_find($component5) = true) {
+        cc_setposition(calc($int3 + $int2), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        cc_setsize(calc($int3 + $int2 * 2), 0, ^setsize_minus, ^setsize_minus);
+    }
+}

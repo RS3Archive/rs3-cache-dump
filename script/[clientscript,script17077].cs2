@@ -1,0 +1,29 @@
+// 17077
+[clientscript,script17077](dbrow $dbrow0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int2, $int3 = ~script3526($dbrow0);
+if ($int2 = -1) {
+    return;
+}
+unknown_command_44($int2);
+if (notifications_islocalscheduled($int2) = 1) {
+    switch_dbrow ($dbrow0) {
+        case default :
+            return;
+        case local_notification_event_d1_reminder, local_notification_event_d3_reminder :
+            if ($dbrow0 = local_notification_event_d3_reminder) {
+                $int4 = 2;
+            }
+            if (calc($int1 - %local_notification_first_login_runeday) > $int4) {
+                ~local_notification_cancel($dbrow0);
+            }
+        case local_notification_event_member_upsell :
+            if ($int1 = 1) {
+                ~local_notification_cancel($dbrow0);
+            }
+    }
+} else {
+    ~local_notification_cancel($dbrow0);
+}

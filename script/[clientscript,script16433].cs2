@@ -1,0 +1,57 @@
+// 16433
+[clientscript,script16433]
+db_listall(trh177_promo_bonus);
+def_dbrow $dbrow0 = db_findnext;
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_graphic $graphic3 = null;
+cc_deleteall(trh177_overlay:blackboard_item_list);
+def_int $int4 = 0;
+while ($dbrow0 ! null) {
+    if (~script16421($dbrow0) = true) {
+        $graphic3 = db_getfield($dbrow0, trh177_promo_bonus:col9, 0);
+        if ($graphic3 = trh177_2_green | $graphic3 = trh177_5_green) {
+            $int4 = 1;
+        } else {
+            $int4 = 0;
+        }
+        cc_create(trh177_overlay:blackboard_item_list, ^iftype_graphic, $int2);
+        $int2 = calc($int2 + 1);
+        if ($int4 = 1) {
+            cc_setposition(12, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            cc_setposition(7, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic($graphic3);
+        cc_sethide(false);
+        if ($int4 = 1) {
+            cc_create(trh177_overlay:blackboard_item_list, ^iftype_graphic, $int2);
+            $int2 = calc($int2 + 1);
+            cc_setposition(1, $int1, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
+            cc_setgraphic(trh177_x);
+            cc_sethide(false);
+        }
+        cc_create(trh177_overlay:blackboard_item_list, ^iftype_text, $int2);
+        $int2 = calc($int2 + 1);
+        cc_setposition(36, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(322, 20, ^setsize_abs, ^setsize_abs);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_settextfont(notosans_14);
+        cc_settext("<db_getfield($dbrow0, trh177_promo_bonus:col1, 0)> x <tostring(~script16425($dbrow0))>");
+        cc_sethide(false);
+        $int1 = calc($int1 + 22);
+    }
+    $dbrow0 = db_findnext;
+}
+if ($int1 > 0) {
+    cc_create(trh177_overlay:blackboard_item_list, ^iftype_graphic, $int2);
+    $int2 = calc($int2 + 1);
+    cc_setgraphic(trh177_spacer);
+    cc_setposition(23, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(17, calc($int1 + 10), ^setsize_abs, ^setsize_abs);
+    if_sethide(false, trh177_overlay:blackboard_item_list);
+}
+~script16432(trh177_overlay:main_chest);

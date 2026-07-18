@@ -1,0 +1,27 @@
+// 13612
+[clientscript,script13612](category $category0, component $component1, component $component2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_achievement $achievement5 = null;
+$int4 = achievement_findcategory($category0);
+$achievement5 = achievement_findnext;
+while ($achievement5 ! null) {
+    if (achievement_reqstate($achievement5) = -2) {
+        $int3 = calc($int3 + 1);
+    }
+    $achievement5 = achievement_findnext;
+}
+def_string $string0 = enum(category, string, cheevo_category_to_string, $category0);
+$string0 = "<$string0><br>[<tostring_localised($int3, true)> / <tostring_localised($int4, true)>]";
+def_struct $struct6 = enum(category, struct, cheevo_category_to_graphic_struct, $category0);
+~script13576($component2, $struct6);
+if_settext($string0, $component2);
+if_setgraphic(struct_param($struct6, rs3tli_icon_graphic_on), $component1);
+def_component $component7 = if_getparentlayer($component2);
+cc_deleteall($component7);
+if (enum(category, enum, cheevo_cat_to_subcat, $category0) ! null) {
+    cc_create($component7, ^iftype_graphic, 0);
+    cc_setposition(2, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic("rs3_icon_accordion,0");
+}

@@ -1,0 +1,63 @@
+// 17088
+[proc,death_update_tabs](int $int0)(string)
+if_button_settoggled(false, death:tab_overview);
+if_button_settoggled(false, death:tab_death);
+if_button_settoggled(false, death:tab_overflow);
+if_button_settoggled(false, death:tab_danger);
+def_string $string0 = "Death";
+def_string $string1 = "Death";
+switch_int (%death_last_tab) {
+    case 0 :
+        if_button_settoggled(true, death:tab_overview);
+        $string0 = "Death Cost Overview";
+        $string1 = "What happens when you die?";
+    case 1 :
+        if_button_settoggled(true, death:tab_death);
+        if (%death_open_inv_server = 1) {
+            $string0 = "Death Reclaim";
+            $string1 = "Pay to reclaim these items.";
+        } else if ($int0 = 3) {
+            $string0 = "Death Preview (Dangerous PvP)";
+            $string1 = "Items will not be stored with death.";
+        } else if ($int0 = 2) {
+            $string0 = "Death Preview (Safe Area)";
+            $string1 = "You are in a safe death area.";
+        } else {
+            $string0 = "Death Preview";
+            $string1 = "Reclaim costs if you died.";
+        }
+    case 2 :
+        if_button_settoggled(true, death:tab_overflow);
+        $string0 = "Overflow Storage";
+        $string1 = "Reclaim items from overflow.";
+    case 3 :
+        if_button_settoggled(true, death:tab_danger);
+        $string0 = "Death Preview";
+        $string1 = "If you died in dangerous PvP.";
+}
+~script16930(death:tab_overview, -1, 2, "View information about the death system.");
+if (%death_open_inv_server = 1) {
+    ~script16930(death:tab_death, -1, 2, "View items you can reclaim from death.");
+    if_setopbase("Item Reclaim", death:tab_death);
+} else {
+    ~script16930(death:tab_death, -1, 2, "View how much you would pay to reclaim items if you were to die where you are now.");
+    if_setopbase("Death Preview", death:tab_death);
+}
+~script16930(death:tab_overflow, -1, 2, "View your overflow storage.");
+~script16930(death:tab_danger, -1, 2, "View which items you would lose if you died in dangerous PvP.");
+~script9554(death:mainmodal_window_background, death:mainmodal_window_border, death:mainmodal_window_content, $string0, toplevel_v2_default_main_modal_skin_data);
+if (%death_price_transmit = 1) {
+    $string1 = "Loading...";
+}
+if_settext($string1, death:left_hand_title);
+if_setenabled(true, death:tab_overview);
+if_setenabled(true, death:tab_death);
+if_setenabled(true, death:tab_overflow);
+if (%death_open_inv_server = 1 | $int0 = 2 | $int0 = 3) {
+    if_setenabled(false, death:tab_danger);
+    if_setgraphic(rs_icon_death_ui_danger_area_disable, death:tab_icon_danger);
+} else {
+    if_setenabled(true, death:tab_danger);
+    if_setgraphic(rs_icon_death_ui_danger_area_active, death:tab_icon_danger);
+}
+~script17087(%death_overflow_selected);

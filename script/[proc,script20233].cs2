@@ -1,0 +1,61 @@
+// 20233
+[proc,script20233]
+def_string $string0 = "";
+def_graphic $graphic0 = null;
+def_int $int1 = calc(if_getwidth(league_onboarding:contents_linking_confirm) - 24);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 4;
+def_int $int5 = 0;
+def_int $int6 = 1;
+def_boolean $boolean7 = true;
+if_sethide(false, league_onboarding:contents_linking_confirm);
+if (%league_onboarding_step = 2 | %league_onboarding_step = 4) {
+    switch_int (%league_onboarding_name_status) {
+        case 0 :
+            $string0 = "Load success.";
+            $graphic0 = rs3_contextual_input_green_check_mark;
+            $int6 = 0;
+            if (.if_find(league_onboarding:name_lookup_listener) = true & .cc_param(rs3tli_component_anim_dir) ! 1) {
+                .cc_setparam(rs3tli_component_anim_dir, 1);
+                .cc_setontimer("script20234(clientclock)");
+            }
+        case 1 :
+            $string0 = "'<%league_onboarding_link_displayname_current_varc>' could not be found. Please try another name.";
+            $graphic0 = rs3_contextual_input_error;
+        case 2 :
+            $string0 = "Name look up timed out. Please try another name or try again later.";
+            $graphic0 = rs3_contextual_input_error;
+        case 3 :
+            $string0 = "Enter the display name of the account you wish to import rewards to.";
+            if (compare(lowercase(%league_onboarding_link_displayname_current_varc), lowercase(chat_playername_unfiltered)) = 0) {
+                $string0 = "You cannot nominate yourself! Please try another name or go back.";
+            }
+        case 4 :
+            $string0 = "Loading...";
+            $boolean7 = false;
+    }
+    if ($int6 = 1) {
+        if_setparam_int(rs3tli_component_anim_dir, 0, league_onboarding:name_lookup_listener);
+        if_setontimer(null, league_onboarding:name_lookup_listener);
+        if_setenabled(false, league_onboarding:confirm_link_alt);
+        if_sethide(true, league_onboarding:confirm_link_spinner);
+    }
+    $int2 = ~script15891($string0, if_getwidth(league_onboarding:linking_result), if_getfontmetrics(league_onboarding:linking_result), 0);
+    if_sethide(false, league_onboarding:confirm_link_alt);
+    if_sethide(true, league_onboarding:confirm_link_main);
+    if_sethide(false, league_onboarding:input_wrapper);
+    if_setgraphic($graphic0, league_onboarding:check_name_indicator);
+    if_sethide($boolean7, league_onboarding:check_name_spinner);
+    if_settext($string0, league_onboarding:linking_result);
+    if_setsize(0, $int2, ^setsize_minus, ^setsize_abs, league_onboarding:linking_result);
+    $int2 = calc(max(20, $int2) + 34);
+    if_setsize(8, $int2, ^setsize_minus, ^setsize_abs, league_onboarding:input_wrapper);
+    ~script20232(if_getheight(league_onboarding:contents_confirm_fixed), $int2);
+    ~script20227(league_onboarding:contents_confirm_scrollbar, league_onboarding:contents_confirm_scrolling, $int1, 0, 16, 0);
+} else {
+    if_sethide(true, league_onboarding:confirm_link_alt);
+    if_sethide(false, league_onboarding:confirm_link_main);
+    if_sethide(true, league_onboarding:input_wrapper);
+    ~script20226(league_onboarding:contents_confirm_scrollbar, league_onboarding:contents_confirm_scrolling, $int1, 0, 16, 0);
+}

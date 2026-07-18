@@ -1,0 +1,20 @@
+// 15122
+[proc,script15122](dbrow $dbrow0)(string)
+if ($dbrow0 = null) {
+    return("");
+}
+if (db_getrowtable($dbrow0) ! event_crafting_core_recipe) {
+    ~error("Invalid dbrow passed in, isn't part of the event_crafting_core_recipe table.");
+    return("");
+}
+if (db_getfieldcount($dbrow0, event_crafting_core_recipe:col2) > 0) {
+    return(db_getfield($dbrow0, event_crafting_core_recipe:col2, 0));
+}
+def_graphic $graphic1 = null;
+def_obj $obj2 = null;
+$obj2, $graphic1 = db_getfield($dbrow0, event_crafting_core_recipe:col1, 0);
+if ($obj2 = null) {
+    ~error("Mis-configured recipe, it doesn't have a display object OR a name override. ITs ID is <tostring(db_getfield($dbrow0, event_crafting_core_recipe:col0, 0))>");
+    return("");
+}
+return(oc_name($obj2));

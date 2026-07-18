@@ -1,0 +1,49 @@
+// 8572
+[proc,script8572](int $int0)
+def_string $string0 = enum(int, string, share_preset_enum_int_string, ~script2222($int0));
+def_string $string1 = "This is your left click option.";
+if (~script6431 = true) {
+    $string1 = "This is your tap option.";
+}
+def_graphic $graphic1 = hud_combat_btn_bin_over;
+def_graphic $graphic2 = hud_combat_btn_bin;
+def_graphic $graphic3 = hud_combat_btn_settings_over;
+def_graphic $graphic4 = hud_combat_btn_settings;
+def_string $string2 = "Edit preset name";
+cc_create(prayer_quick_preset_interface:preset_button_layer, ^iftype_rectangle, $int0);
+cc_setsize(220, 24, ^setsize_abs, ^setsize_abs);
+cc_setposition(30, calc(29 * $int0 + 5), ^setpos_abs_left, ^setpos_abs_top);
+cc_setop(1, "View preset");
+cc_setonop("script8496($int0)");
+cc_setfill(true);
+if (%prayer_quick_selected_preset = $int0) {
+    cc_setcolour(~script10495(15));
+} else {
+    cc_setcolour(~script10495(12));
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(9))");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(12))");
+}
+cc_create(prayer_quick_preset_interface:preset_name_layer, ^iftype_text, $int0);
+cc_settext($string0);
+cc_settextfont(museo_sans_13pt_bold);
+cc_setcolour(^white);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setsize(210, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(35, calc(29 * $int0 + 4), ^setpos_abs_left, ^setpos_abs_top);
+cc_create(prayer_quick_preset_interface:preset_rubbish_btn_layer, ^iftype_graphic, $int0);
+cc_setgraphic(hud_combat_btn_bin);
+cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+cc_setposition(229, calc(29 * $int0 + 8), ^setpos_abs_left, ^setpos_abs_top);
+cc_setop(1, "Remove preset");
+cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, $graphic1)");
+cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, $graphic2)");
+cc_create(prayer_quick_preset_interface:preset_edit_btn_layer, ^iftype_graphic, $int0);
+cc_setgraphic(hud_combat_btn_settings);
+cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+cc_setposition(209, calc(29 * $int0 + 8), ^setpos_abs_left, ^setpos_abs_top);
+cc_setop(1, "Edit preset");
+cc_setonop("script395($int0)");
+cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, $graphic3)");
+cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, $graphic4)");
+~script10428(prayer_quick_preset_interface:edit_dropdown_build, prayer_quick_preset_interface:edit_dropdown_click, share_preset_enum_int_string, enum_getoutputcount(share_preset_enum_int_string), "Edit preset name", ~script2222(%prayer_quick_selected_preset), 0);

@@ -1,0 +1,66 @@
+// 18002
+[proc,script18002](dbrow $dbrow0, boolean $boolean1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+def_obj $obj8 = null;
+def_struct $struct9 = null;
+def_dbrow $dbrow10 = null;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_graphic $graphic13 = null;
+$obj8, $struct9, $dbrow10, $int11, $int12, $graphic13 = ~script17884($dbrow0);
+def_component $component14 = bp3_track_tab:reward_track_level_layer;
+def_boolean $boolean15 = ~script17868(dbrow_7906, $int2);
+def_int $int16 = 1;
+def_int $int17 = ~script17890(%bp3_current_viewed_pass);
+if ($int2 <= ~script17862(dbrow_7906)) {
+    $int16 = 0;
+}
+if ($int4 <= 0 & $int6 <= 0) {
+    ~error("Level with 0 rewards at level <tostring($int2)>");
+}
+def_int $int18 = ~script17969(%bp3_current_viewed_pass, $int2, $int4, $int6);
+~script17927;
+if ($int7 = 0) {
+    ~script17978($int5, $component14, $int18, $int4, $int3, $boolean1, $int2, $boolean15, $int16, -1, -1, $int6);
+}
+if ($int7 = 0) {
+    ~script18022($int2, $boolean1, $boolean15, $int3, $int6);
+}
+def_component $component19 = bp3_track_tab:claim_selected_button;
+cc_deleteall($component19);
+switch_int ($int6) {
+    case 1 :
+        if_sethide(true, bp3_track_tab:reward_requirement_text);
+    case default :
+        ~script18003($component19, $int5, $int2, $boolean15, $boolean1, $int16, $int4, $int6);
+}
+~script17975($int5, $boolean1, $boolean15, $int16, $int4, $int3);
+if (cc_findbycategory(bp3_track_tab:previous_reward_button, 0, 0) = 1) {
+    if ($int2 = 1 & $int3 >= 0) {
+        ~script7872(false, true, false, false);
+    } else {
+        ~script7872(true, true, false, false);
+    }
+}
+if (cc_findbycategory(bp3_track_tab:next_reward_button, 0, 0) = 1) {
+    ~script17927;
+    if (($int2 > $int17 | $int6 = 2) & calc($int3 + 1) >= $int4 & $int6 ! 1) {
+        ~script7872(false, true, false, false);
+    } else {
+        ~script7872(true, true, false, false);
+    }
+}
+~script18005($dbrow0, $int6);
+def_component $component20 = bp3_track_tab:reward_info_level_text;
+def_component $component21 = bp3_track_tab:reward_info_level_graphic;
+switch_int ($int6) {
+    case 2, 1 :
+        if_setgraphic(~script17979($int6), $component21);
+        if_sethide(true, $component20);
+        if_setsize(~script17980($int6), ^setsize_abs, ^setsize_abs, $component21);
+        if_sethide(false, $component21);
+    case default :
+        if_settext(tostring($int2), $component20);
+        if_sethide(false, $component20);
+        if_sethide(true, $component21);
+}
+~script18004($dbrow0, $int6);

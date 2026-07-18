@@ -1,0 +1,18 @@
+// 17799
+[proc,script17799](dbrow $dbrow0, int $int1, component $component2)(int)
+def_int $int3 = db_getfieldcount($dbrow0, necro_ritual_recipe:col9);
+def_quest $quest4 = null;
+def_int $int5 = 0;
+def_graphic $graphic6 = "rs3_character_interface_register_ticks,1";
+def_int $int7 = -1;
+if ($int3 > 0) {
+    while (++$int7 < $int3) {
+        $quest4 = ~script17509($dbrow0, $int7);
+        $graphic6 = "rs3_character_interface_register_ticks,1";
+        if (~ql4_getprogress($quest4) ! 2) {
+            $graphic6 = "rs3_character_interface_register_ticks,2";
+        }
+        $int5 = calc($int5 + ~script17812($component2, calc($int1 + $int5), text_body_default, null, null, "Completed '<~quest_name($quest4)>'", 2, $graphic6));
+    }
+}
+return($int5);

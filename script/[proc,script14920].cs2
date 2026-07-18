@@ -1,0 +1,53 @@
+// 14920
+[proc,script14920](dbrow $dbrow0)
+def_component $component1 = arch_restoration_inspect:collection_info_build_layer;
+def_component $component2 = arch_restoration_inspect:collection_info_control_layer;
+cc_deleteall($component1);
+cc_deleteall($component2);
+def_obj $obj3 = db_getfield($dbrow0, arch_restoration:col6, 0);
+def_int $int4 = db_find_with_count(collection:col13, $obj3);
+if ($int4 > 0) {
+    $int4 = db_find_refine(collection:col2, 2);
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_dbrow $dbrow7 = null;
+def_int $int8 = 16777215;
+def_int $int9 = 0;
+def_int $int10 = -1;
+if ($int4 = 0) {
+    ~cc_add_colour_text($component1, calc(if_getwidth($component1) - 2 * 4), calc(if_getheight($component1) - 2 * 4), 4, 4, museo_sans_11pt_regular, "There are no collectors currently interested in this artefact.", 16777215);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+} else {
+    while (++$int10 < $int4) {
+        $dbrow7 = db_findnext;
+        if ($dbrow7 ! null) {
+            if (~script14499($dbrow7, $obj3) > 0) {
+                $int8 = 16777215;
+            } else {
+                $int8 = ~script10495(5);
+            }
+            $int5 = calc(if_getwidth($component1) - 4 * 4 - 50 - 26);
+            $int6 = max(36, calc(2 * 4 + ~script7593(db_getfield($dbrow7, collection:col4, 0), $int5, museo_sans_11pt_regular, enum(fontmetrics, int, toplevel_v2_font_vspacings, museo_sans_11pt_regular))));
+            ~script10066($component1, if_getnextsubid($component1), if_getwidth($component1), $int6, 0, $int9, 0, true, 0);
+            ~script10010(rs3_rect_dark);
+            ~cc_add_colour_text($component1, $int5, calc($int6 - 2 * 4), 4, calc($int9 + 4), museo_sans_11pt_regular, db_getfield($dbrow7, collection:col4, 0), $int8);
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+            if (~script14502($dbrow7) = 2) {
+                ~script7924($component1, if_getnextsubid($component1), 26, 26, calc(if_getwidth($component1) - 2 * 4 - 50 - 26), calc($int9 + 4), rs3_icon_account_checker_tick, false, false, false, 0);
+                ~script3537("<tostring(~script14504($dbrow7))>/<tostring(db_getfieldcount($dbrow7, collection:col13))>");
+            } else {
+                ~cc_add_colour_text($component1, 26, 26, calc(if_getwidth($component1) - 2 * 4 - 50 - 26), calc($int9 + 4), museo_sans_11pt_regular, "<tostring(~script14504($dbrow7))>/<tostring(db_getfieldcount($dbrow7, collection:col13))>", 16777215);
+                cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            }
+            ~script10410($component1, $component2, rs3tli_3x3_button, calc(if_getwidth($component1) - 4 - 50), calc($int9 + 4), 50, calc(36 - 2 * 4), $int10, false, "Info");
+            if (cc_find($component2, $int10) = true) {
+                cc_setonop("script14921($dbrow7)");
+            }
+            $int9 = calc($int9 + ($int6 + 4));
+        }
+    }
+}
+if_setscrollsize(0, max(if_getheight(arch_restoration_inspect:collection_info_scrolling_layer), calc($int9 - 4)), arch_restoration_inspect:collection_info_scrolling_layer);
+if_setscrollpos(0, 0, arch_restoration_inspect:collection_info_scrolling_layer);
+~rs3_scrollbar_vertical(arch_restoration_inspect:collection_info_scrollbar_layer, arch_restoration_inspect:collection_info_scrolling_layer);

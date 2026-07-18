@@ -1,0 +1,26 @@
+// 9696
+[proc,script9696](inv $inv0, int $int1, obj $obj2)(int)
+def_obj $obj3 = null;
+if ($inv0 = worn) {
+    $obj3 = inv_getobj(worn, 13);
+    if ($obj3 = null) {
+        return(-1);
+    }
+    if (oc_category($obj3) ! quiver) {
+        return(-1);
+    }
+}
+if (enum_getreversecount(obj, quiver_ammo_list, $obj2) = 0) {
+    return(-1);
+}
+def_int $int4 = enum_getreverseindex(obj, int, quiver_ammo_list, $obj2, 0);
+if (inv_getvar($inv0, $int1, quiver_ammo_slot_1_id) = $int4) {
+    return(0);
+}
+if (inv_getvar($inv0, $int1, quiver_ammo_slot_2_id) = $int4) {
+    return(1);
+}
+if (inv_getvar($inv0, $int1, quiver_ammo_slot_3_id) = $int4) {
+    return(2);
+}
+return(-1);

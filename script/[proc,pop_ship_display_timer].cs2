@@ -1,0 +1,14 @@
+// 7282
+[proc,pop_ship_display_timer]
+def_int $int0 = calc(%pop_voyage_list_timer - %pop_voyage_list_timer_started);
+def_int $int1 = calc($int0 / 60);
+def_int $int2 = calc($int0 % 60);
+def_string $string0 = tostring($int2);
+if ($int2 < 10) {
+    $string0 = append("0", $string0);
+}
+if (%pop_tutorial_progress < 63 | $int0 <= 0) {
+    if_settext("Soon...", pop_ship:underway_eta);
+} else {
+    if_settext("<tostring($int1)>:<$string0>", pop_ship:underway_eta);
+}

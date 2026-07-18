@@ -1,0 +1,19 @@
+// 13286
+[proc,cheevo_icon](struct $struct0)(graphic)
+if ($struct0 = null) {
+    return(null);
+}
+def_quest $quest1 = null;
+if (struct_param($struct0, quest_id) > 0) {
+    $quest1 = enum(int, quest, ql4_quests, struct_param($struct0, quest_id));
+    if ($quest1 ! null) {
+        return(~quest_icon($quest1));
+    }
+}
+if (~script6431 = true & struct_param($struct0, cheevo_icon_mobile) ! null) {
+    return(struct_param($struct0, cheevo_icon_mobile));
+} else if (%toplevel_v2_legacy_interface = 1 & struct_param($struct0, cheevo_icon_legacy) ! null) {
+    return(struct_param($struct0, cheevo_icon_legacy));
+} else {
+    return(struct_param($struct0, cheevo_icon));
+}

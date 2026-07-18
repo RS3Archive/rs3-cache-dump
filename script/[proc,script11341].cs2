@@ -1,0 +1,92 @@
+// 11341
+[proc,script11341](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+def_int $int7 = calc(5 * 4);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if_sethide(true, $component2);
+if_sethide(true, $component3);
+if_sethide(true, $component4);
+if_sethide(true, $component5);
+if_sethide(true, $component6);
+def_int $int11 = calc(%ability_book_window_combined_page * 4);
+switch_int (%ability_book_window_combined_page) {
+    case 0 :
+        if_sethide(false, $component2);
+        $int11 = calc($int11 + min(3, %ability_book_window_melee_category));
+    case 1 :
+        if_sethide(false, $component3);
+        $int11 = calc($int11 + min(3, %ability_book_window_ranged_category));
+    case 2 :
+        if_sethide(false, $component4);
+        if (%toplevel_v2_legacy_combat = 1) {
+            $int11 = calc($int11 + min(2, %ability_book_window_magic_category));
+        } else {
+            $int11 = calc($int11 + min(3, %ability_book_window_magic_category));
+        }
+    case 3 :
+        if_sethide(false, $component5);
+        $int11 = calc($int11 + min(3, %ability_book_window_necromancy_category));
+    case 4 :
+        if_sethide(false, $component6);
+        $int11 = calc($int11 + min(3, %ability_book_window_defcon_category));
+}
+cc_deleteall($component0);
+def_int $int12 = 20;
+def_int $int13 = 20;
+def_int $int14 = 3;
+def_int $int15 = 3;
+def_int $int16 = 22;
+def_int $int17 = 0;
+def_graphic $graphic18 = null;
+def_string $string0 = "";
+def_int $int19 = 0;
+if (%toplevel_v2_mobile_interface = 1) {
+    $int12 = 40;
+    $int13 = 40;
+    $int16 = 48;
+}
+def_component $component20 = null;
+def_component $component21 = null;
+def_component $component22 = null;
+def_component $component23 = null;
+def_component $component24 = null;
+def_component $component25 = null;
+while ($int8 < $int7) {
+    $int9 = calc($int8 / 4 + 1);
+    $graphic18, $string0 = ~script11343($int9, calc($int8 % 4));
+    if ($graphic18 ! null) {
+        ~script8441($component0, $int19, $int14, $int15, $int12, $int13, $graphic18);
+        if ($int10 ! $int9) {
+            $component20, $component21, $component22, $component23, $component24, $component25 = ~script11342($int19);
+            $int10 = $int9;
+        }
+        cc_setonop("script8432($component0, $component20, $component21, $component22, $component23, $component24, $component25, $int19)");
+        if (compare("", $string0) ! 0) {
+            cc_setop(1, $string0);
+            cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+            cc_setonmouseleave("script8805");
+        }
+        $int19 = calc($int19 + 1);
+        cc_create($component0, ^iftype_rectangle, $int19);
+        cc_setcolour(^white);
+        cc_setsize($int12, $int13, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int14, $int15, ^setpos_abs_left, ^setpos_abs_top);
+        if ($int8 ! $int11) {
+            cc_sethide(true);
+        }
+        $int19 = calc($int19 + 1);
+        if (calc(++$int17 % 9) = 0) {
+            $int14 = 3;
+            $int15 = calc($int15 + ($int13 + 3));
+        } else {
+            $int14 = calc($int14 + $int16);
+        }
+    } else {
+        cc_create($component0, ^iftype_graphic, $int19);
+        $int19 = calc($int19 + 1);
+        cc_create($component0, ^iftype_rectangle, $int19);
+        $int19 = calc($int19 + 1);
+    }
+    $int8 = calc($int8 + 1);
+}

@@ -1,0 +1,29 @@
+// 13455
+[proc,script13455](int $int0)
+def_component $component1 = null;
+def_graphic $graphic2 = null;
+def_string $string0 = "Change selected faction";
+switch_int ($int0) {
+    case 1 :
+        $component1 = repmodal:circular_bar_layer_worker_favourite;
+    case 2 :
+        $component1 = repmodal:circular_bar_layer_imperial_favourite;
+    case 3 :
+        $component1 = repmodal:circular_bar_layer_merchant_favourite;
+    case 4 :
+        $component1 = repmodal:circular_bar_layer_ports_favourite;
+}
+if ($int0 = %menaphos_currently_selected_faction) {
+    $graphic2 = "menaphos_icon_faction_favorite,3";
+} else {
+    $graphic2 = "menaphos_icon_faction_favorite,0";
+}
+if ($component1 = null) {
+    return;
+}
+cc_create($component1, ^iftype_graphic, 0);
+cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic2);
+cc_setonvartransmit("script13453{menaphos_perm_1}");
+~script8800($string0, $component1, 0);

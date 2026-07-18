@@ -1,0 +1,52 @@
+// 9719
+[proc,wof_button_setup_claim_bank](obj $obj0, int $int1)
+if (%wof_claim_to_bank = -1) {
+    return;
+}
+def_string $string0 = "Bank";
+def_string $string1 = "Claim to bank";
+def_boolean $boolean2 = false;
+def_string $string2 = "You do not have a prize to claim.";
+def_string $string3 = "You do not have a prize to claim.";
+if (%wof_reward_slot <= 0) {
+    $string2 = "You do not have a prize to claim.";
+    $string3 = "You do not have a prize to claim.";
+    $boolean2 = false;
+} else {
+    $string1 = "Claim to bank";
+    switch_int (%wof_claim_to_bank) {
+        case 3 :
+            if (oc_members($obj0) = 1 & map_members = false) {
+                $string2 = "Claim your prize to your bank. This is a members-only prize, so you will need to subscribe to use it.";
+            } else {
+                $string2 = "Claim your prize to your bank.";
+            }
+            $boolean2 = true;
+        case 4 :
+            $string3 = "Your bank doesn't have room for your prize at the moment.";
+            $string0 = "Bank Full";
+            $boolean2 = false;
+        case 11 :
+            $string2 = "Claim your prize to your bank.";
+            $string3 = "This prize cannot be banked.";
+            $string0 = "Can't Bank";
+        case 14 :
+            $string2 = "Claim your prize to your bank.";
+            $string3 = "Your bonus prize cannot be banked.";
+            $string0 = "Can't Bank";
+        case 7 :
+            $string2 = "Treasure Hunter is not available at the moment. Please try later.";
+            $string3 = "Treasure Hunter is not available at the moment. Please try later.";
+        case 10 :
+            $string2 = "Loading...";
+            $string3 = "Loading...";
+    }
+}
+if_setop(1, $string1, wheel_of_fortune:reward_claim_bank_button);
+if_setenabled($boolean2, wheel_of_fortune:reward_claim_bank_button);
+if ($boolean2 = true) {
+    if_setonmouserepeat("script3876($string2, event_com, -1)", wheel_of_fortune:reward_claim_bank_button);
+} else {
+    if_setonmouserepeat("script3876($string3, event_com, -1)", wheel_of_fortune:reward_claim_bank_button);
+}
+if_settext($string0, wheel_of_fortune:reward_claim_bank_button);

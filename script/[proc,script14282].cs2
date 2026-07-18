@@ -1,0 +1,16 @@
+// 14282
+[proc,script14282](struct $struct0)(string)
+def_stat $stat1 = struct_param($struct0, rewardshop_skill_stat);
+if (stat_base($stat1) < 25) {
+    return("Level 25 is required to exchange Commendations for experience.");
+}
+def_int $int2 = 0;
+switch_stat ($stat1) {
+    case attack, strength, defence, hitpoints :
+        $int2 = scale(pow(stat_base($stat1), 2), 400, 80);
+    case ranged, magic :
+        $int2 = scale(pow(stat_base($stat1), 2), 400, 77);
+    case prayer, summoning :
+        $int2 = scale(pow(stat_base($stat1), 2), 500, 26);
+}
+return("Each Commendation can be exchanged for <col=ffffff><tostring_localised($int2, true)></col> experience.<br> + 1% bonus when spending 10+ points at once.<br> + 10% bonus when spending 100+ points at once.");

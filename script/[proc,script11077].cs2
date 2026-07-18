@@ -1,0 +1,337 @@
+// 11077
+[proc,script11077](struct $struct0)(int)
+switch_struct ($struct0) {
+    case combatv2_ability_defence_revenge :
+        return(%combatv2_revenge_damage_scaler);
+    case combatv2_bslay_reaper_necklace_dummy_ability :
+        return(%bslay_reaper_necklace_stack_amount);
+    case combatv2_ability_constitution_storm_shards :
+        return(%combatv2_storm_shard_stacks_target);
+    case combatv2_ability_constitution_storm_sharded :
+        return(%storm_shard_stacks_player);
+    case magic_seren_shield_dome :
+        return(%seren_damage_reduction);
+    case magic_seren_ruby_dart_dummy :
+        return(%seren_ruby_buff);
+    case magic_seren_emerald_dart_dummy :
+        return(%seren_emerald_buff);
+    case combatv2_armour_break_ability :
+        return(%combatv2_armour_break);
+    case combatv2_gwd2_solo_green_dot_dummy_ability, combatv2_gwd2_solo_black_dot_dummy_ability, combatv2_gwd2_solo_red_dot_dummy_ability, combatv2_gwd2_solo_blue_dot_dummy_ability :
+        return(%gwd2_solo_exploding_dot_iterations);
+    case combatv2_dmbh_weapon_melee_special_dummy_ability :
+        return(%dmbh_weapon_melee_stacks);
+    case hlm_wyvern_cold_effect :
+        return(scale(%hlm_environment_effect, 255, 100));
+    case combatv2_adrenaline_debuff_dummy_ability :
+        return(%combatv2_adrenaline_debuff);
+    case combatv2_ability_constitution_transfigure :
+        return(scale(%6awe2_ability_tier_3_tracker, max(1, ~script2915), 100));
+    case combatv2_beastmaster_armour_debuff :
+        return(%raid1_beastmaster_debuff_1);
+    case combatv2_beastmaster_run_debuff :
+        return(%raid1_beastmaster_debuff_2);
+    case combatv2_beastmaster_combust_debuff :
+        return(%raid1_beastmaster_debuff_3);
+    case combatv2_yakamaru_drench_debuff, combatv2_beastmaster_rage_debuff :
+        return(%raid1_stacking_debuff);
+    case combatv2_attack_boosted_dummy_ability :
+        return(calc(stat(attack) - stat_base(attack)));
+    case combatv2_attack_nerfed_dummy_ability :
+        return(calc(stat_base(attack) - stat(attack)));
+    case combatv2_strength_boosted_dummy_ability :
+        return(calc(stat(strength) - stat_base(strength)));
+    case combatv2_strength_nerfed_dummy_ability :
+        return(calc(stat_base(strength) - stat(strength)));
+    case combatv2_defence_boosted_dummy_ability :
+        return(calc(stat(defence) - stat_base(defence)));
+    case combatv2_defence_nerfed_dummy_ability :
+        return(calc(stat_base(defence) - stat(defence)));
+    case combatv2_ranged_boosted_dummy_ability :
+        return(calc(stat(ranged) - stat_base(ranged)));
+    case combatv2_ranged_nerfed_dummy_ability :
+        return(calc(stat_base(ranged) - stat(ranged)));
+    case combatv2_magic_boosted_dummy_ability :
+        return(calc(stat(magic) - stat_base(magic)));
+    case combatv2_magic_nerfed_dummy_ability :
+        return(calc(stat_base(magic) - stat(magic)));
+    case combatv2_necromancy_boosted_dummy_ability :
+        return(calc(stat(necromancy) - stat_base(necromancy)));
+    case combatv2_necromancy_nerfed_dummy_ability :
+        return(calc(stat_base(necromancy) - stat(necromancy)));
+    case combatv2_aftershock_tracker :
+        return(scale(%invent_perk_aftershock_counter, 50000, 100));
+    case combatv2_clan_ava_buff_level :
+        return(%clan_avatar_buff_level);
+    case combatv2_detonate_chargeup :
+        return(scale(calc(%combatv2_magic_detonate_charges * 20), 100, 100));
+    case combatv2_nex2_rage_debuff :
+        return(%nex2_stack_tank_debuff);
+    case invent_perk_wise :
+        return(scale(%invent_perk_wise_dailycap, 500000, 100));
+    case sworlds_mutator_static :
+        return(calc(%sworlds_mutators_static_count * 10));
+    case sworlds_mutator_charged :
+        return(%sworlds_mutators_charged_count);
+    case combatv2_sworlds_punctured_dummy_ability :
+        return(%combatv2_player_puncture_count);
+    case combatv2_menaphos_corruption :
+        return(%menaphos_slayer_corrupt_stacks);
+    case combatv2_menaphos_soul_drain :
+        return(calc(stat_base(hitpoints) - stat(hitpoints)));
+    case divination_porter_active :
+        if (inv_getobj(worn, 2) = alch_onyx_skill_necklace_used & %grace_of_elves_porter_disabled = 0) {
+            if (oc_category(inv_getobj(worn, 17)) = div_sign_porter_active) {
+                return(calc(inv_getvar(worn, 2, invent_obj_charges) + inv_getvar(worn, 17, div_porter_charges)));
+            } else {
+                return(inv_getvar(worn, 2, invent_obj_charges));
+            }
+        } else if (oc_category(inv_getobj(worn, 17)) = div_sign_porter_active) {
+            return(inv_getvar(worn, 17, div_porter_charges));
+        }
+    case combatv2_jas_boost :
+        return(%combatv2_jas_boost);
+    case combatv2_tombs_boost :
+        return(calc(%tomb_clickable_stacks / 5));
+    case combatv2_menaphos_xpboost :
+        return(5);
+    case combatv2_ability_constitution_surging_onslaught :
+        return(%combatv2_onslaught_ticks);
+    case combatv2_cannon_ammo, combatv2_cannon_ammo_meteorite :
+        return(%rockthrower);
+    case combatv2_invent_genocidal :
+        return(scale(calc(%ss_original_count - %slayer_count), max(1, %ss_original_count), calc(50 / 10)));
+    case combatv2_topaz_debuff_dummy :
+        return(%combatv2_target_side_panel_player_topaz_debuff_stacks);
+    case combatv2_dsf_jellyfish_stun_dummy_ability :
+        return(%dsf_jellyfish_stun_stacks);
+    case combatv2_piratefinale_insanity :
+        return(min(4, %piratefinale_rabidjack_insanity_player));
+    case combatv2_piratefinale_drunkeness :
+        return(calc(-1 * max(-4, %piratefinale_rabidjack_insanity_player)));
+    case combatv2_solak_corruption_stacks :
+        return(%nature_boss_player_blight_stacks);
+    case combatv2_dungeon_aminishi_boss2_water_buff_dummy_ability :
+        return(%dungeon_aminishi_boss2_water_percent);
+    case combatv2_clan_ava_skillplot_level :
+        return(%clan_avatar_buff_skillplot);
+    case combatv2_adrenaline_urn :
+        return(calc(%oct18_adrenaline_urn_charges / 10));
+    case combatv2_incense_guam_dummy :
+        return(%incense_guam_potency);
+    case combatv2_incense_tarromin_dummy :
+        return(%incense_tarromin_potency);
+    case combatv2_incense_marrentill_dummy :
+        return(%incense_marrentill_potency);
+    case combatv2_incense_harralander_dummy :
+        return(%incense_harralander_potency);
+    case combatv2_incense_ranarr_dummy :
+        return(%incense_ranarr_potency);
+    case combatv2_incense_toadflax_dummy :
+        return(%incense_toadflax_potency);
+    case combatv2_incense_spirit_dummy :
+        return(%incense_spirit_potency);
+    case combatv2_incense_irit_dummy :
+        return(%incense_irit_potency);
+    case combatv2_incense_wergali_dummy :
+        return(%incense_wergali_potency);
+    case combatv2_incense_avantoe_dummy :
+        return(%incense_avantoe_potency);
+    case combatv2_incense_kwuarm_dummy :
+        return(%incense_kwuarm_potency);
+    case combatv2_incense_bloodweed_dummy :
+        return(%incense_bloodweed_potency);
+    case combatv2_incense_snapdragon_dummy :
+        return(%incense_snapdragon_potency);
+    case combatv2_incense_cadantine_dummy :
+        return(%incense_cadantine_potency);
+    case combatv2_incense_lantadyme_dummy :
+        return(%incense_lantadyme_potency);
+    case combatv2_incense_dwarf_dummy :
+        return(%incense_dwarf_potency);
+    case combatv2_incense_torstol_dummy :
+        return(%incense_torstol_potency);
+    case combatv2_incense_fellstalk_dummy :
+        return(%incense_fellstalk_potency);
+    case combatv2_clan_cup_timer :
+        return(%clan_cup_session_xp);
+    case combatv2_invent_perk_ruthless_dummy_ability :
+        return(%invent_perk_ruthless_stack_quantity);
+    case combatv2_arch_excavation_focus_dummy_ability :
+        return(%arch_excavation_focus_count);
+    case combatv2_halloween2020_famine_fresh_buff :
+        return(%halloween2020_famine_fresh_stacks);
+    case combatv2_halloween2020_famine_rotten_buff :
+        return(%halloween2020_famine_rotten_stacks);
+    case divination_gote_porter_disabled :
+        if (inv_getobj(worn, 2) = alch_onyx_skill_necklace_used & %grace_of_elves_porter_disabled = 1) {
+            return(inv_getvar(worn, 2, invent_obj_charges));
+        }
+    case skilling_offhand_measure_dummy_ability :
+        return(%skilling_offhand_measure_stacks);
+    case combatv2_boss_buff_dino_siphoned_energy :
+        return(%combatv2_boss_buff_dino_siphoned_energy_count);
+    case combatv2_buff_dino_boss_shadow_power :
+        return(%combatv2_buff_dino_boss_shadow_power_count);
+    case combatv2_buff_rexkings_ranged_corroded :
+        return(%combatv2_buff_rexkings_ranged_corroded_count);
+    case combatv2_buff_animate_dead :
+        return(%combatv2_magic_animate_dead_stacks);
+    case combatv2_quest_senntisten_darkness_stacks :
+        return(%quest_senntisten_shadow_damage_consecutive_hits);
+    case combatv2_buff_glacial_embrace :
+        return(%combatv2_buff_glacial_embrace_stacks);
+    case combatv2_buff_blood_tithe :
+        return(%combatv2_buff_blood_tithe_stacks);
+    case combatv2_egwd_wen_slayer_freeze_stacks :
+        return(%egwd_wen_slayer_freeze_stacks);
+    case combatv2_woodcutting_nerfed_dummy_ability :
+        return(calc(stat_base(woodcutting) - stat(woodcutting)));
+    case combatv2_mining_nerfed_dummy_ability :
+        return(calc(stat_base(mining) - stat(mining)));
+    case combatv2_fishing_nerfed_dummy_ability :
+        return(calc(stat_base(fishing) - stat(fishing)));
+    case combatv2_hunter_nerfed_dummy_ability :
+        return(calc(stat_base(hunter) - stat(hunter)));
+    case combatv2_buff_egwd_bik_magic_armour_shield :
+        return(%egwd_bik_magic_armour_shield);
+    case combatv2_egwd_bik_critical_arrow_buff_stacking :
+        return(%egwd_bik_critical_arrow_stacks);
+    case combatv2_buff_egwd_ful_boss_infernal_energy :
+        return(%combatv2_buff_egwd_ful_boss_infernal_energy_count);
+    case combatv2_buff_egwd_ful_boss_challengers_vengeance :
+        return(%combatv2_buff_egwd_ful_boss_challengers_vengeance_count);
+    case combatv2_debuff_egwd_ful_boss_infernal_burn :
+        return(%combatv2_debuff_egwd_ful_boss_infernal_burn_count);
+    case combatv2_debuff_egwd_ful_boss_searing_pain :
+        return(%combatv2_debuff_egwd_ful_boss_searing_pain_count);
+    case combatv2_debuff_egwd_ful_boss_heating_up :
+        return(%combatv2_debuff_egwd_ful_boss_heating_up_count);
+    case combatv2_boss_buff_sliske_mania :
+        return(%gwd2_sliske_boss_buffbar_mania);
+    case combatv2_boss_buff_sliske_delirium :
+        return(%gwd2_sliske_boss_buffbar_delirium);
+    case combatv2_boss_buff_sliske_rage :
+        return(%gwd2_sliske_boss_buffbar_rage);
+    case combatv2_boss_buff_nex2_damage_buff :
+        return(%nex2_buff_bar_enrage);
+    case combatv2_boss_buff_sb_adds :
+        return(%sb_buff_adds);
+    case combatv2_boss_buff_sb_acid :
+        return(%sb_buff_acid);
+    case combatv2_duel_arena_removal_agility_debuff :
+        return(%duel_arena_removal_agility_failed_obstacles);
+    case combatv2_duel_arena_removal_scarab_stack :
+        return(%duel_arena_removal_hunter_scarab_stack);
+    case combatv2_abyssal_parasite_bleed :
+        return(%abyssals_abyssal_parasite_count_player);
+    case quest_egw_finale_erebus_rift :
+        return(calc(4 * bitcount(%quest_egw_finale_erebus_mote_collection_var)));
+    case combatv2_dinarrow_bik_dummy_ability :
+        return(calc(%dinarrow_bik_pvp_debuff_stacks * 3));
+    case combatv2_dinarrow_wen_chill_dummy_ability :
+        return(%dinarrow_wen_buff_chill_stacks);
+    case combatv2_dinarrow_wen_precision_dummy_ability :
+        return(%dinarrow_wen_buff_chill_stacks_consumed);
+    case combatv2_egwd_zamorak_boss_infernus_choking :
+        return(%egwd_zamorak_boss_infernus_choking_stacks);
+    case combatv2_egwd_zamorak_boss_hellhound_bleed_debuff :
+        return(%egwd_zamorak_boss_hellhound_bleed_stacks);
+    case combatv2_egwd_zamorak_boss_flames_of_zamorak_eruption_stacks :
+        return(%egwd_zamorak_boss_hex_flames_of_zamorak_stacks);
+    case combatv2_egwd_zamorak_boss_buff_hex_twinshot :
+        return(%combatv2_debuff_egwd_zamorak_boss_hex_twinshot_stacks_client);
+    case combatv2_egwd_zamorak_boss_buff_hex_execute :
+        return(%combatv2_debuff_egwd_zamorak_boss_hex_execute_stacks_client);
+    case combatv2_egwd_zamorak_boss_buff_hex_shield_pen :
+        return(%combatv2_debuff_egwd_zamorak_boss_hex_shield_pen_stacks_client);
+    case combatv2_egwd_zamorak_boss_buff_hex_healing_reduction :
+        return(%combatv2_debuff_egwd_zamorak_boss_hex_healing_reduction_stacks_client);
+    case combatv2_egwd_zamorak_boss_buff_rune_haste :
+        return(%egwd_zamorak_boss_edict_haste_stacks);
+    case combatv2_egwd_zamorak_boss_buff_rune_balance_of_power :
+        return(%egwd_zamorak_boss_edict_balance_of_power_stacks);
+    case combatv2_egwd_zamorak_boss_buff_rune_guardians_triumph :
+        return(%egwd_zamorak_boss_edict_guardians_triumph_stacks);
+    case combatv2_egwd_zamorak_boss_buff_rune_anima_flow :
+        return(%egwd_zamorak_boss_edict_anima_flow_stacks);
+    case combatv2_buff_perfect_equilibrium :
+        return(%combatv2_buff_perfect_equilibrium_stacks);
+    case combatv2_ring_of_death_dummy_ability :
+        return(%combatv2_ring_of_death_end_client);
+    case combatv2_player_fort_perfect_build_dummy_ability :
+        return(%player_fort_building_current_perfect_build_multiplier);
+    case combatv2_buff_melee_bloodlust :
+        return(%combatv2_buff_melee_bloodlust_stacks);
+    case combatv2_buff_necromancy_necrosis :
+        return(%combatv2_buff_necromancy_necrosis_stacks);
+    case combatv2_buff_necromancy_residual_soul :
+        return(%combatv2_buff_necromancy_residual_soul_stacks);
+    case combatv2_buff_necromancy_spirit_skeleton_warrior :
+        return(%combatv2_buff_necromancy_spirit_skeleton_warrior_stacks);
+    case combatv2_buff_necromancy_spirit_phantom_guardian :
+        return(%combatv2_buff_necromancy_spirit_phantom_guardian_stacks);
+    case combatv2_buff_necromancy_bone_shield :
+        return(~script17460(%combatv2_buff_necromancy_bone_shield_ability_struct));
+    case combatv2_debuff_necromancy_bloated :
+        if (%combatv2_debuff_necromancy_bloated_iteration > 0) {
+            return(%combatv2_debuff_necromancy_bloated_iteration);
+        }
+    case combatv2_boss_buff_necromancy_necrosis :
+        return(%combatv2_boss_buff_necromancy_necrosis_stacks);
+    case combatv2_boss_buff_necromancy_residual_soul :
+        return(%combatv2_boss_buff_necromancy_residual_soul_stacks);
+    case combatv2_buff_necro_rasial_armguard_t95_passive :
+        return(calc(%combatv2_buff_necro_rasial_armguard_t95_passive_stacks % ~script17464));
+    case combatv2_buff_necro_devourer_armguard_t95_passive :
+        return(calc(%combatv2_buff_necro_devourer_armguard_t95_passive_stacks % ~script20086));
+    case combatv2_boss_buff_rasial_mainhand_passive :
+        return(calc(%combatv2_boss_buff_rasial_mainhand_passive_stacks % 6));
+    case combatv2_halloween23_candy_enhancer_powerup :
+        return(%halloween23_candy_enhancer_buff_stacks_powerup);
+    case combatv2_debuff_vorkath_necrotic :
+        return(%fort_boss_player_necrotic_debuff);
+    case combatv2_debuff_shattering_bones :
+        return(%combatv2_target_side_panel_target_shattering_bones_armour_reduction);
+    case combatv2_bonfire_fire_spirit_bonus_xp :
+        return(%bonfire_boost_var);
+    case combatv2_bonfire_fire_spirit_bonus_div_xp :
+        return(%bonfire_boost_div_var);
+    case combatv2_buff_weapon_passive_dark_burn :
+        return(%ninja_ww_sb_damage_stored);
+    case combatv2_buff_primordial_ice :
+        return(%combatv2_buff_primordial_ice_stacks);
+    case combatv2_buff_skilling_offhand_archaeology_effect :
+        return(%skilling_offhand_archaeology_buff_effect_stacks);
+    case combatv2_boss_buff_devourers_corruption :
+        return(%combatv2_boss_buff_devourers_corruption_stacks);
+    case combatv2_buff_magic_devourer_t95_passive_stacks :
+        return(%combatv2_buff_magic_devourer_t95_passive_stacks);
+    case combatv2_boss_buff_raid_rebirth1_wyrm_boss_coilspawn_bond :
+        return(%combatv2_boss_buff_raid_rebirth1_wyrm_boss_coilspawn_bond_stacks);
+    case combatv2_buff_resurrection :
+        return(%combatv2_buff_resurrection_stacks);
+    case combatv2_elidinis_boss_corruption :
+        return(%elidinis_boss_debuff_corruption_stacks);
+    case combatv2_buff_skilling_offhand_runecrafting :
+        return(%elidinis_boss_skilling_offhand_runecrafting_attuned_altar_streak);
+    case xmas24_wrapping_paper_boost_buff :
+        return(calc(%xmas24_boosters_used * 10));
+    case combatv2_quest_desert_leela_corruption :
+        return(%elidinis_boss_debuff_corruption_stacks);
+    case combatv2_debuff_amascut_boss_encounter_corruption :
+        return(%combatv2_debuff_amascut_boss_encounter_corruption_stacks);
+    case combatv2_debuff_amascut_boss_encounter_apmekens_burden :
+        return(%combatv2_debuff_amascut_boss_encounter_apmekens_burden_stacks);
+    case combatv2_buff_amascut_boss_altar_interceptor :
+        return(%combatv2_debuff_amascut_boss_encounter_altar_interceptor_stacks);
+    case combatv2_debuff_amascut_boss_shadow_core_fragment_stack :
+        return(%amascut_boss_shadow_core_fragment_stack);
+    case combatv2_slow_sum_connection_dummy_ability :
+        return(%slow_sum_connection_amount);
+    case combatv2_slow_sum_communion_dummy_ability :
+        return(%slow_sum_communion_amount);
+    case combatv2_fish_farm_wendle_growth_speed_buff :
+        return(%fish_farm_wendle_pools_active_at_start);
+}
+return(0);

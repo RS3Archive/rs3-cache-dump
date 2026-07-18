@@ -1,0 +1,79 @@
+// 6627
+[clientscript,script6627](component $component0)
+def_int $int1 = 100;
+def_inv $inv2 = boardgames_boardinv;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_obj $obj9 = null;
+def_component $component10 = peng_pow_bfish:pieces_blue;
+def_enum $enum11 = bship_gamepiece;
+if (%peng_pow_quest = 160) {
+    $enum11 = bship_gamepiece_final_battle;
+}
+def_obj $objarray0(enum_getoutputcount($enum11));
+while ($int6 < enum_getoutputcount($enum11)) {
+    $int3 = 0;
+    $obj9 = enum(int, obj, bship_gamepiece_obj, $int6);
+    if (inv_total(boardgames_boardinv, $obj9) = 0) {
+        while ($int3 < $int1) {
+            if (inv_getobj($inv2, $int3) = enum(obj, obj, bship_gamepiece_obj_exploded, $obj9)) {
+                cc_create($component0, ^iftype_graphic, $int4);
+                if (inv_getobj($inv2, calc($int3 + 1)) = enum(obj, obj, bship_gamepiece_obj_exploded, $obj9)) {
+                    $int5 = 1;
+                } else {
+                    $int5 = 2;
+                }
+                if ($int5 = 2) {
+                    if (enum(int, int, $enum11, $int6) = 1) {
+                        cc_setgraphic(aif_penguin_fish_tiny_vertical);
+                        $int7, $int8 = 20, 20;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 2) {
+                        cc_setgraphic(aif_penguin_fish_small_vertical);
+                        $int7, $int8 = 20, 40;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 3) {
+                        cc_setgraphic(aif_penguin_fish_medium_vertical);
+                        $int7, $int8 = 20, 60;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 4) {
+                        cc_setgraphic(aif_penguin_fish_large_vertical);
+                        $int7, $int8 = 20, 80;
+                    }
+                    cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+                }
+                if ($int5 = 1) {
+                    if (enum(int, int, $enum11, $int6) = 1) {
+                        cc_setgraphic(aif_penguin_fish_tiny);
+                        $int7, $int8 = 20, 20;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 2) {
+                        cc_setgraphic(aif_penguin_fish_small);
+                        $int7, $int8 = 40, 20;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 3) {
+                        cc_setgraphic(aif_penguin_fish_medium);
+                        $int7, $int8 = 60, 20;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 4) {
+                        cc_setgraphic(aif_penguin_fish_large);
+                        $int7, $int8 = 80, 20;
+                    }
+                    cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+                }
+                if (.cc_find($component10, $int3) = true) {
+                    cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                }
+                $int3 = $int1;
+                $int4 = calc($int4 + 1);
+            } else {
+                $int3 = calc($int3 + 1);
+            }
+        }
+    }
+    $int6 = calc($int6 + 1);
+}

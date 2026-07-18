@@ -1,0 +1,31 @@
+// 18235
+[proc,featured_content_get_combat]()(boolean, string, string, graphic)
+def_struct $struct0 = null;
+def_graphic $graphic1 = null;
+switch_int (random(3)) {
+    case 0 :
+        $graphic1 = rs3_challenge_melee;
+    case 1 :
+        $graphic1 = rs3_challenge_magic;
+    case 2 :
+        $graphic1 = rs3_challenge_ranged;
+}
+switch_int (%omge_featured_interface_combat_challenge) {
+    case 1 :
+        $struct0 = enum(int, struct, omge_challenges_combat, %omge_challenge_current_id_1);
+        return(false, ~challenge_name($struct0), struct_param($struct0, task_details), $graphic1);
+    case 2 :
+        $struct0 = enum(int, struct, omge_challenges_combat, %omge_challenge_current_id_2);
+        return(false, ~challenge_name($struct0), struct_param($struct0, task_details), $graphic1);
+    case 3 :
+        $struct0 = enum(int, struct, omge_challenges_combat, %omge_challenge_current_id_3);
+        return(false, ~challenge_name($struct0), struct_param($struct0, task_details), $graphic1);
+    case 4 :
+        $struct0 = enum(int, struct, omge_challenges_combat, %omge_challenge_current_id_4);
+        return(false, ~challenge_name($struct0), struct_param($struct0, task_details), $graphic1);
+    case 5 :
+        $struct0 = enum(int, struct, omge_challenges_combat, %omge_challenge_current_id_5);
+        return(false, ~challenge_name($struct0), struct_param($struct0, task_details), $graphic1);
+    case default :
+        return(true, "None available", "Click here to view daily challenges.", $graphic1);
+}

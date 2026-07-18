@@ -1,0 +1,25 @@
+// 20631
+[proc,script20631](int $int0)
+if ($int0 = 1) {
+    cc_deleteall(marketplace_store:categories_layer);
+}
+def_int $int1 = db_getfieldcount(marketplace_store, marketplace_store_data:col0);
+if ($int1 <= 0) {
+    ~error("Store has no side tabs so the left panel has not been drawn.");
+    return;
+}
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_string $string0 = "";
+while (++$int2 < $int1) {
+    $int3, $string0 = db_getfield(marketplace_store, marketplace_store_data:col0, $int2);
+    if (~script20473($int3) = true) {
+        if ($int0 = 1) {
+            ~script20618(marketplace_store:categories_layer, $int3, $string0);
+            cc_setonop("script20629($int3)");
+            ~script20632($int3);
+        } else if (cc_find(marketplace_store:categories_layer, $int3) = true) {
+            ~script20632($int3);
+        }
+    }
+}

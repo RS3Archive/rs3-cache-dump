@@ -1,0 +1,32 @@
+// 6422
+[clientscript,ss_main_fadeout](int $int0)
+def_string $string0 = "";
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int ($int0) {
+    case default :
+        return;
+    case 1 :
+        $string0 = "You can not send co-op Slayer invitations when in a group or while having a pending group invite.";
+        if_setonmouserepeat("script8799($string0, event_com, -1)", ss_main:invite_button);
+        $component1 = ss_main:invite_build;
+        $component2 = ss_main:invite_click;
+        if (cc_find($component1, 9) = true) {
+            $string0 = cc_gettext;
+        } else {
+            $string0 = "Invite Player";
+        }
+    case 2 :
+        $string0 = "You do not have any pending co-op Slayer invitations.";
+        if_setonmouserepeat("script8799($string0, event_com, -1)", ss_main:view_button);
+        $component1 = ss_main:view_build;
+        $component2 = ss_main:view_click;
+        $string0 = "View Invitation";
+    case 3 :
+        $string0 = "You are not currently in a co-op Slayer group.";
+        if_setonmouserepeat("script8799($string0, event_com, -1)", ss_main:leave_button);
+        $component1 = ss_main:leave_build;
+        $component2 = ss_main:leave_click;
+        $string0 = "Leave Group";
+}
+~script13994($component1, $component2, rs3tli_3x3_button, $string0, true);

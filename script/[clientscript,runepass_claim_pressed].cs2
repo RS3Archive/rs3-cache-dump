@@ -1,0 +1,24 @@
+// 3641
+[clientscript,runepass_claim_pressed](int $int0)
+def_dbrow $dbrow1 = ~runepass_get_current;
+if ($dbrow1 = null) {
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_struct $struct8 = null;
+def_int $int9 = db_getfieldcount($dbrow1, runepass_table:col20);
+$int5 = ~script3599($int0);
+while ($int2 < $int9 & $int3 <= $int0) {
+    $int3, $int4, $obj7, $struct8, $int6 = db_getfield($dbrow1, runepass_table:col20, $int2);
+    if ($int3 = $int0 & calc($int4 & %runepass_availability) ! 0 & calc($int4 & $int5) = 0) {
+        if_triggerop(runepass:claim_listener, -1, 1);
+        return;
+    }
+    $int2 = calc($int2 + 1);
+}
+~script3653($dbrow1);

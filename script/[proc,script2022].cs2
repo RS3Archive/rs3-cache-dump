@@ -1,0 +1,98 @@
+// 2022
+[proc,script2022]
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int0 = 0;
+if (~pop_ship_available(%pop_voyage_list_ship) = 0) {
+    ~aif_progressbar_set(0, pop_voyage_list:graft_chance_bar, pop_voyage_list:graft_chance);
+    ~aif_progressbar_set(0, pop_voyage_list:combat_chance_bar, pop_voyage_list:combat_chance);
+    ~aif_progressbar_set(0, pop_voyage_list:seafaring_chance_bar, pop_voyage_list:seafaring_chance);
+} else {
+    ~aif_progressbar_set(%pop_voyage_list_chance_graft, pop_voyage_list:graft_chance_bar, pop_voyage_list:graft_chance);
+    ~aif_progressbar_set(%pop_voyage_list_chance_combat, pop_voyage_list:combat_chance_bar, pop_voyage_list:combat_chance);
+    ~aif_progressbar_set(%pop_voyage_list_chance_seafaring, pop_voyage_list:seafaring_chance_bar, pop_voyage_list:seafaring_chance);
+    $string0 = tostring(%pop_voyage_list_ship_graft);
+    $string2 = tostring(%pop_voyage_list_ship_combat);
+    $string4 = tostring(%pop_voyage_list_ship_seafaring);
+    $int0 = min(min(%pop_voyage_list_chance_graft, %pop_voyage_list_chance_combat), %pop_voyage_list_chance_seafaring);
+}
+if (%pop_voyage_list_diff_graft > 0) {
+    $string1 = tostring(%pop_voyage_list_diff_graft);
+}
+if (%pop_voyage_list_diff_combat > 0) {
+    $string3 = tostring(%pop_voyage_list_diff_combat);
+}
+if (%pop_voyage_list_diff_seafaring > 0) {
+    $string5 = tostring(%pop_voyage_list_diff_seafaring);
+}
+if_settext($string0, pop_voyage_list:graft_ship);
+if_settext($string1, pop_voyage_list:graft_voyage);
+if_settext($string2, pop_voyage_list:combat_ship);
+if_settext($string3, pop_voyage_list:combat_voyage);
+if_settext($string4, pop_voyage_list:seafaring_ship);
+if_settext($string5, pop_voyage_list:seafaring_voyage);
+def_int $int1 = scale(10, 6, calc($int0 - 5));
+def_int $int2 = scale(200, 100, $int1);
+def_int $int3 = calc(200 - $int2);
+def_int $int4 = 20;
+if_settext("<tostring($int0)>%", pop_voyage_list:voyage_chance_total);
+if_setcolour(~rgb_to_hex($int3, $int2, $int4), pop_voyage_list:voyage_chance_total);
+def_int $int5 = 0;
+if (%pop_voyage_list_mode = 1) {
+    switch_int (%pop_voyage_list_selected) {
+        case 1 :
+            $int5 = %pop_voyage_story_1_id;
+        case 2 :
+            $int5 = %pop_voyage_story_2_id;
+        case 3 :
+            $int5 = %pop_voyage_story_3_id;
+    }
+} else {
+    switch_int (%pop_voyage_list_selected) {
+        case 1 :
+            $int5 = %pop_voyage_random_1_id;
+        case 2 :
+            $int5 = %pop_voyage_random_2_id;
+        case 3 :
+            $int5 = %pop_voyage_random_3_id;
+    }
+}
+def_struct $struct6 = enum(int, struct, pop_voyage_list, $int5);
+if ($struct6 ! null & struct_param($struct6, pop_voyage_type) = 7) {
+    if (~script1121(%pop_voyage_list_ship) = 1) {
+        if_sethide(false, pop_voyage_list:low_chance_warning);
+        if_settext("Your captain already has four traits and cannot gain any more.", pop_voyage_list:low_chance_warning);
+        if_sethide(true, pop_voyage_list:confirm_send);
+    } else if ($int0 < 35) {
+        if_sethide(false, pop_voyage_list:low_chance_warning);
+        if_settext("Warning: Your chances of success are low. You risk harsher penalties if the voyage fails.", pop_voyage_list:low_chance_warning);
+        if_sethide(true, pop_voyage_list:confirm_send);
+    } else {
+        if_sethide(true, pop_voyage_list:low_chance_warning);
+        if_sethide(false, pop_voyage_list:confirm_send);
+    }
+} else if ($struct6 ! null & struct_param($struct6, pop_voyage_type) = 5) {
+    if (~script3730 = 0) {
+        if_sethide(false, pop_voyage_list:low_chance_warning);
+        if_settext("Warning: The Scroll you have focused on is complete. Please view your Port Management page to change the scroll.", pop_voyage_list:low_chance_warning);
+        if_sethide(true, pop_voyage_list:confirm_send);
+    } else if ($int0 < 35) {
+        if_sethide(false, pop_voyage_list:low_chance_warning);
+        if_settext("Warning: Your chances of success are low. You risk harsher penalties if the voyage fails.", pop_voyage_list:low_chance_warning);
+        if_sethide(true, pop_voyage_list:confirm_send);
+    } else {
+        if_sethide(true, pop_voyage_list:low_chance_warning);
+        if_sethide(false, pop_voyage_list:confirm_send);
+    }
+} else if ($int0 < 35) {
+    if_sethide(false, pop_voyage_list:low_chance_warning);
+    if_settext("Warning: Your chances of success are low. You risk harsher penalties if the voyage fails.", pop_voyage_list:low_chance_warning);
+    if_sethide(true, pop_voyage_list:confirm_send);
+} else {
+    if_sethide(true, pop_voyage_list:low_chance_warning);
+    if_sethide(false, pop_voyage_list:confirm_send);
+}

@@ -1,0 +1,32 @@
+// 12130
+[clientscript,script12130](dbrow $dbrow0, int $int1, int $int2, int $int3, string $string0)
+if ($dbrow0 = null) {
+    if_settext("No Project", invent_discovery:subject_title);
+    if_settext("Select a project from the list on the left to begin.", invent_discovery:subject_extra_info);
+    if_setgraphic(invention_icon_no_blueprint, invent_discovery:subject_icon);
+    %invent_discovery_mode = 0;
+    return;
+}
+if_settext(db_getfield($dbrow0, invent_blueprint_table:col1, 0), invent_discovery:subject_title);
+if_settext($string0, invent_discovery:subject_extra_info);
+if_setgraphic(db_getfield($dbrow0, invent_blueprint_table:col5, 0), invent_discovery:subject_icon);
+%invent_blueprint_selected = $dbrow0;
+%invent_discovery_mode = 1;
+%invent_discovery_state_0_client = $int2;
+%invent_discovery_state_1_client = $int3;
+%invent_discovery_state_0 = $int2;
+%invent_discovery_state_1 = $int3;
+%invent_synchronise_client = $int1;
+if_setontimer(null, invent_discovery:workspace_layer);
+if_sethide(false, invent_discovery:blueprint_layer);
+if_sethide(false, invent_discovery:workspace_prototype_buttons);
+if_sethide(false, invent_discovery:workbench_parts_layer);
+if_sethide(true, invent_discovery:workspace_track_buttons);
+if_sethide(true, invent_discovery:workbench_track_layer);
+if_sethide(false, invent_discovery:workspace_layer);
+if_settext("Select five modules to build the prototype.", invent_discovery:instructions_text);
+if_setposition(0, 35, ^setpos_abs_centre, ^setpos_abs_centre, invent_discovery:blueprint_layer);
+if_setontimer(null, invent_discovery:blueprint_layer);
+~script12128;
+~invent_discovery_draw_cards;
+~script12145;

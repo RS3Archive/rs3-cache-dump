@@ -1,0 +1,25 @@
+// 10444
+[proc,dynamic_dropdown_hide]
+def_component $component0 = toplevel_v2:dropdown_panel;
+def_component $component1 = toplevel_v2:dropdown_list;
+switch_toplevelinterface (if_gettop) {
+    case default :
+        $component0 = toplevel_v2:dropdown_panel;
+        $component1 = toplevel_v2:dropdown_list;
+    case lobbyscreen :
+        $component0 = lobbyscreen:dropdown_panel;
+        $component1 = lobbyscreen:dropdown_list;
+    case loginscreen :
+        $component0 = loginscreen:dropdown_panel;
+        $component1 = loginscreen:dropdown_list;
+}
+if (if_find($component0) = true) {
+    cc_sethide(true);
+    cc_setontimer(null);
+    cc_setparam(dynamic_dropdown_below, true);
+    cc_setparam(dynamic_dropdown_component, null);
+    cc_setparam(dynamic_dropdown_subid, -1);
+    cc_setparam(dynamic_dropdown_enum, null);
+    cc_setparam(dynamic_dropdown_open, false);
+}
+cc_deleteall($component1);

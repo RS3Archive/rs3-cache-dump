@@ -1,0 +1,134 @@
+// 594
+[proc,script594](int $int0, obj $obj1, int $int2, long $long0)
+if (oc_param($obj1, convert_to_on_trade) ! null & $int0 = 0) {
+    $obj1 = oc_param($obj1, convert_to_on_trade);
+}
+if_setobject($obj1, -1, stockmarket:offeritem_model);
+def_string $string0 = null;
+def_string $string1 = null;
+def_string $string2 = null;
+def_int $int3 = 0;
+def_int $int4 = 51;
+if ($int0 = 0) {
+    if_setop(1, "Select", stockmarket:offeritem_backing);
+    if_settext("Buy Offer", stockmarket:offertype_text);
+    if_setgraphic("grand_exchange_misc_graphics,7", stockmarket:offertype_icon);
+    if_settext("+1", stockmarket:offercount_1_button_text);
+    if_setop(1, "Add 1", stockmarket:offercount_1);
+    if_setposition(-90, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_1_button_layer);
+    if_settext("+10", stockmarket:offercount_10_button_text);
+    if_setop(1, "Add 10", stockmarket:offercount_10);
+    if_setposition(-45, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_10_button_layer);
+    if_settext("+100", stockmarket:offercount_100_button_text);
+    if_setop(1, "Add 100", stockmarket:offercount_100);
+    if_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_100_button_layer);
+    if_settext("+1K", stockmarket:offercount_1000_button_text);
+    if_setop(1, "Add 1000", stockmarket:offercount_1000);
+    if_setposition(45, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_1000_button_layer);
+    if_sethide(false, stockmarket:offercount_limit_button_layer);
+    if ($obj1 ! null) {
+        if_setonmouserepeat("script9564($obj1, event_com, event_comsubid)", stockmarket:offeritem_model);
+    } else {
+        if_setonmouserepeat(null, stockmarket:offeritem_model);
+    }
+    if_setposition(0, if_gety(stockmarket:item_and_price), ^setpos_abs_left, ^setpos_abs_top, stockmarket:item_and_price);
+    if_setposition(0, if_gety(stockmarket:item_description), ^setpos_abs_right, ^setpos_abs_top, stockmarket:item_description);
+    $int3 = calc(if_getwidth(stockmarket:item_and_price) + 1);
+    if_setposition($int3, if_gety(stockmarket:separator_v4), ^setpos_abs_left, ^setpos_abs_top, stockmarket:separator_v4);
+    if_setposition(3, if_gety(stockmarket:separator_h5), ^setpos_abs_left, ^setpos_abs_top, stockmarket:separator_h5);
+} else {
+    if_clearops(stockmarket:offeritem_backing);
+    if_settext("Sell Offer", stockmarket:offertype_text);
+    if_setgraphic("grand_exchange_misc_graphics,6", stockmarket:offertype_icon);
+    if_settext("1", stockmarket:offercount_1_button_text);
+    if_setop(1, "Sell 1", stockmarket:offercount_1);
+    if_setposition(-66, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_1_button_layer);
+    if_settext("10", stockmarket:offercount_10_button_text);
+    if_setop(1, "Sell 10", stockmarket:offercount_10);
+    if_setposition(-22, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_10_button_layer);
+    if_settext("100", stockmarket:offercount_100_button_text);
+    if_setop(1, "Sell 100", stockmarket:offercount_100);
+    if_setposition(22, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_100_button_layer);
+    if_settext("ALL", stockmarket:offercount_1000_button_text);
+    if_setop(1, "Sell All", stockmarket:offercount_1000);
+    if_setposition(66, $int4, ^setpos_abs_centre, ^setpos_abs_top, stockmarket:offercount_1000_button_layer);
+    if_sethide(true, stockmarket:offercount_limit_button_layer);
+    if ($obj1 = null) {
+        $string2 = "Use your inventory to select an item to sell here";
+        if_setonmouserepeat("script8799($string2, event_com, event_comsubid)", stockmarket:offeritem_model);
+    } else {
+        if_setonmouserepeat("script9564($obj1, event_com, event_comsubid)", stockmarket:offeritem_model);
+    }
+    if_setposition(0, if_gety(stockmarket:item_description), ^setpos_abs_left, ^setpos_abs_top, stockmarket:item_description);
+    if_setposition(0, if_gety(stockmarket:item_and_price), ^setpos_abs_right, ^setpos_abs_top, stockmarket:item_and_price);
+    $int3 = calc(if_getwidth(stockmarket:item_and_price) + 1);
+    if_setposition($int3, if_gety(stockmarket:separator_v4), ^setpos_abs_right, ^setpos_abs_top, stockmarket:separator_v4);
+    if_setposition(4, if_gety(stockmarket:separator_h5), ^setpos_abs_right, ^setpos_abs_top, stockmarket:separator_h5);
+}
+if ($obj1 = null) {
+    if_settext("Choose an item to exchange", stockmarket:offeritem_name);
+    if_settext("N/A", stockmarket:offeritem_marketprice);
+    if (%stock_offertype = 0) {
+        if_settext(~mobile_text_get(2), stockmarket:offeritem_desc);
+    } else if (%stock_offertype = 1) {
+        if_settext("Select an item in your inventory to sell.", stockmarket:offeritem_desc);
+    }
+} else {
+    if_settext(~script18300($obj1), stockmarket:offeritem_name);
+    if (%stock_offeritem ! null) {
+        if_settext(tostring_localised_long(%stock_offeritem_marketprice, true), stockmarket:offeritem_marketprice);
+    } else {
+        if_settext("Retrieving details...", stockmarket:offeritem_desc);
+        if_settext("N/A", stockmarket:offeritem_marketprice);
+    }
+    if ($int2 > 0) {
+        ~script13971(stockmarket:makeofferbutton_build, stockmarket:makeofferbutton_click, rs3tli_positive_button, "Confirm Offer", false);
+    }
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if (if_find(stockmarket:offeritem_marketprice) = true & .if_find(stockmarket:offeritem_marketpriceicon) = true) {
+    $int6 = cc_getwidth;
+    $int7 = parawidth(cc_gettext, $int6, museo_sans_11pt_regular);
+    $int8 = .cc_getwidth;
+    $int5 = calc(($int6 - $int7) / 2 - ($int8 - 5));
+    .cc_setposition($int5, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (stockmarket_isofferempty(%stock_offerslot, 0) = true) {
+    if (%stock_offercount_timer <= 0) {
+        %stock_offercount_visible = %stock_offercount;
+        $int2 = %stock_offercount_visible;
+    }
+    if (%stock_offerprice_timer <= 0) {
+        %stock_offerprice_visible = %stock_offerprice;
+        $long0 = %stock_offerprice_visible;
+    }
+}
+if_settext(tostring_localised($int2, true), stockmarket:quantity_input_display);
+if_settext(tostring_localised_long($long0, true), stockmarket:price_input_display);
+def_long $long1 = -1;
+def_long $long2 = 0;
+if ($long0 <= 0 | $int2 <= 0) {
+    $long1 = 0;
+} else if ($long0 < calc(2147483649147483647 / int_to_long($int2))) {
+    $long1 = calc($long0 * int_to_long($int2));
+    $long2 = ~script12802(%stock_offerslot, $obj1, $int2, $long1, $int0);
+}
+def_boolean $boolean9 = true;
+if ($long1 = -1) {
+    if_settext("Too high!", stockmarket:totalvalue);
+} else if ($int0 = 1) {
+    if_settext("<tostring_localised_long(calc($long1 - $long2), true)> coins", stockmarket:totalvalue);
+    $string2 = "Minimum total value of sale.";
+    if ($long2 > 0) {
+        $string2 = "<$string2><br><br>A sales tariff of <tostring(2)>% applies to any items sold for 50 coins or more and is automatically applied.";
+        $boolean9 = false;
+    }
+} else {
+    $string2 = "Maximum total cost of purchase.";
+    if_settext("<tostring_localised_long($long1, true)> coins", stockmarket:totalvalue);
+}
+if_sethide($boolean9, stockmarket:totalvalue_tax_info);
+~script3536($string2, stockmarket:totalvalue_tax_tooltip, -1);

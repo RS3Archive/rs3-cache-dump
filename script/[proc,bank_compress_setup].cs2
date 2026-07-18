@@ -1,0 +1,23 @@
+// 14356
+[proc,bank_compress_setup](int $int0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 15;
+def_int $int4 = 0;
+def_int $int5 = 0;
+while ($int3 >= 2) {
+    $int1, $int2 = ~bank_get_tab_range($int3);
+    if ($int2 > $int1) {
+        $int4 = ~bank_freespace_range($int1, $int2);
+        if (~script6316($int3, calc(0 - $int4)) = true & $int0 > 2 & $int0 > $int3) {
+            $int0 = calc($int0 - 1);
+        }
+        $int5 = calc($int5 + $int4);
+    }
+    $int3 = calc($int3 - 1);
+}
+$int5 = calc($int5 + ~bank_freespace_range(~script5788));
+~bank_compress_inner;
+%bank_first_freeslot = -1;
+%bank_used_slots = calc(%bank_used_slots - $int5);
+return($int0);

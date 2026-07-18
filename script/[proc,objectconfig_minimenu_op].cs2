@@ -1,0 +1,79 @@
+// 5067
+[proc,objectconfig_minimenu_op]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(clan_field_elements);
+def_int $int2 = 0;
+while ($int0 < $int1) {
+    if (%clan_field_editor_type = $int0) {
+        $int2 = 1;
+    } else {
+        $int2 = 0;
+    }
+    if (enum_hasoutput(int, clan_field_elementlist_1, $int0) = true) {
+        ~script5059(clan_field_editor:menu_1, $int0, $int2);
+    }
+    if (enum_hasoutput(int, clan_field_elementlist_2, $int0) = true) {
+        ~script5059(clan_field_editor:menu_2, $int0, $int2);
+    }
+    if (enum_hasoutput(int, clan_field_elementlist_3, $int0) = true) {
+        ~script5059(clan_field_editor:menu_3, $int0, $int2);
+    }
+    if (enum_hasoutput(int, clan_field_elementlist_4, $int0) = true) {
+        ~script5059(clan_field_editor:menu_4, $int0, $int2);
+    }
+    $int0 = calc($int0 + 1);
+}
+cc_deleteall(clan_field_editor:details);
+cc_deleteall(clan_field_editor:options1);
+cc_deleteall(clan_field_editor:options2);
+cc_deleteall(clan_field_editor:options3);
+def_int $int3 = 0;
+def_struct $struct4 = enum(int, struct, clan_field_elements, %clan_field_editor_type);
+def_string $string0 = "";
+def_enum $enum5 = null;
+if ($struct4 ! null) {
+    if_settext(struct_param($struct4, clan_field_element_name), clan_field_editor:details_name);
+    if_setgraphic(struct_param($struct4, clan_field_element_graphic), clan_field_editor:details_graphic);
+    $string0 = struct_param($struct4, clan_field_element_desc);
+    if (struct_param($struct4, clan_field_element_category) = 1 & $struct4 ! clan_field_delete) {
+        $string0 = append($string0, "<br><br>Drag your mouse over the grid to fill an area with this element.");
+    }
+    $int3 = calc($int3 + ~script5068($string0, $int3));
+    $enum5 = struct_param($struct4, clan_field_element_option1);
+    if ($enum5 ! null) {
+        $int3 = calc($int3 + 5);
+        $int3 = calc($int3 + ~script5068(enum(int, string, $enum5, -1), $int3));
+        if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_top, clan_field_editor:options1);
+        $int3 = calc($int3 + ~script5069($enum5, clan_field_editor:options1, 1, %clan_field_editor_option1));
+    } else {
+        if_setsize(0, 0, ^setsize_minus, ^setsize_abs, clan_field_editor:options1);
+    }
+    $enum5 = struct_param($struct4, clan_field_element_option2);
+    if ($enum5 ! null) {
+        $int3 = calc($int3 + 5);
+        $int3 = calc($int3 + ~script5068(enum(int, string, $enum5, -1), $int3));
+        if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_top, clan_field_editor:options2);
+        $int3 = calc($int3 + ~script5069($enum5, clan_field_editor:options2, 2, %clan_field_editor_option2));
+    } else {
+        if_setsize(0, 0, ^setsize_minus, ^setsize_abs, clan_field_editor:options2);
+    }
+    $enum5 = struct_param($struct4, clan_field_element_option3);
+    if ($enum5 ! null) {
+        $int3 = calc($int3 + 5);
+        $int3 = calc($int3 + ~script5068(enum(int, string, $enum5, -1), $int3));
+        if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_top, clan_field_editor:options3);
+        $int3 = calc($int3 + ~script5069($enum5, clan_field_editor:options3, 3, %clan_field_editor_option3));
+    } else {
+        if_setsize(0, 0, ^setsize_minus, ^setsize_abs, clan_field_editor:options3);
+    }
+} else {
+    if_settext("", clan_field_editor:details_name);
+    if_setgraphic(null, clan_field_editor:details_graphic);
+}
+if ($int3 > if_getheight(clan_field_editor:details)) {
+    if_setscrollsize(0, $int3, clan_field_editor:details);
+} else {
+    if_setscrollsize(0, 0, clan_field_editor:details);
+}
+if_setscrollpos(0, min(if_getscrolly(clan_field_editor:details), $int3), clan_field_editor:details);
+~scrollbar_vertical(clan_field_editor:details_scroll, clan_field_editor:details, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");

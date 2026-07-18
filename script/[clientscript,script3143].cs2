@@ -1,0 +1,34 @@
+// 3143
+[clientscript,script3143](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if ($int2 = 0) {
+    if ($int3 = 1) {
+        $int4 = calc($int0 - $int1);
+        $int5 = calc($int4 / 1440);
+        $int6 = calc($int4 % 1440 / 60);
+        if_settext("Member", escape_menu_mobile:members_type);
+        if ($int5 = 0) {
+            if_settext("Expires in <~script11479(0, $int6, $int5)>", escape_menu_mobile:members_time);
+        } else {
+            if_settext("Expires in <tostring($int5)> days", escape_menu_mobile:members_time);
+        }
+        if_setgraphic(rs3_icon_members_102px, escape_menu_mobile:members_icon);
+        ~script6865(escape_menu_mobile:members_type, -1, 0);
+        ~script6865(escape_menu_mobile:members_time, -1, 6);
+    } else {
+        if_settext("Non-Member", escape_menu_mobile:members_type);
+        if_settext("", escape_menu_mobile:members_time);
+        if_setgraphic(rs3_icon_non_members_102px, escape_menu_mobile:members_icon);
+        ~script6865(escape_menu_mobile:members_type, -1, 0);
+    }
+} else {
+    if_settext("Member", escape_menu_mobile:members_type);
+    if_settext("", escape_menu_mobile:members_time);
+    if_setgraphic(rs3_icon_members_102px, escape_menu_mobile:members_icon);
+    ~script6865(escape_menu_mobile:members_type, -1, 0);
+    ~script6865(escape_menu_mobile:members_time, -1, 10611452);
+}
+if_settext(tostring(map_world), escape_menu_mobile:player_info_world_text);
+~script15949;

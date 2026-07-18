@@ -1,0 +1,118 @@
+// 18251
+[proc,script18251](int $int0, struct $struct1, int $int2)
+def_boolean $boolean3 = ~script6431;
+def_int $int4 = struct_param($struct1, challenge_type);
+if_sethide(false, jobs_main:pin_layer);
+if_sethide(false, jobs_main:tele_layer);
+if_sethide(false, jobs_main:objectives_layer);
+if_sethide(false, jobs_main:rewards_layer);
+if_sethide(false, jobs_main:buttons_layer);
+if_sethide(true, jobs_main:extra_info_layer);
+if_sethide(true, jobs_main:feedback_layer);
+if_sethide(playermember, jobs_main:membership_button);
+if_settext(~challenge_name($struct1), jobs_main:job_name);
+if_setsize(35, 35, ^setsize_abs, ^setsize_abs, jobs_main:info_skill_icon);
+if_setgraphic(struct_param($struct1, task_icon), jobs_main:info_skill_icon);
+def_string $string0 = struct_param($struct1, task_step_1);
+if ($boolean3 = true & string_length(struct_param($struct1, task_step_1_mobile)) > 0) {
+    $string0 = struct_param($struct1, task_step_1_mobile);
+}
+~script16248($string0, jobs_main:job_desc, -1);
+if_sethide(true, jobs_main:reward_layer);
+~script18255;
+if_setonvartransmit("script18254{challenge_weekly_progression_perm_2, omge_job_interface_skill, omge_job_interface_id, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_extras, challenge_current_1, challenge_current_2, challenge_current_3, challenge_current_4, challenge_current_5}", jobs_main:buttons_layer);
+~script18253($struct1, $int2);
+if_setonvartransmit("script18252($struct1, $int2){cheevo_tracker_var_3, cheevo_tracker_var_4, task_main, activity_tracker_card_4, activity_tracker_card_5}", jobs_main:track_button);
+def_string $string1 = "";
+if (playermember = true & ~ironman_mode = false & ~script16840(~date_runeday, 5) = false) {
+    if (string_length($string1) > 0) {
+        $string1 = append($string1, ", ");
+    }
+    $string1 = append($string1, "1 Treasure Hunter key");
+}
+if ($int4 = 0) {
+    if ($int0 = 1) {
+        if (string_length($string1) > 0) {
+            $string1 = append($string1, ", a Combat XP Lamp");
+        } else {
+            $string1 = append($string1, "A Combat XP Lamp");
+        }
+    } else {
+        if (string_length($string1) > 0) {
+            $string1 = append($string1, ", ");
+        }
+        $string1 = append($string1, "<enum(int, string, statstring, $int0)> XP");
+    }
+}
+if (struct_param($struct1, challenge_compensation) ! null) {
+    $string1 = append($string1, ", a Challenge Mystery Bag");
+}
+def_int $int5 = ~script16500($int2);
+def_int $int6 = ~script16501($int2);
+def_int $int7 = struct_param($struct1, challenge_target);
+def_string $string2 = ~challenge_details($struct1, $int5);
+def_int $int8 = 0;
+switch_int ($int2) {
+    case 1 :
+        $int8 = %omge_challenge_current_progress_1;
+    case 2 :
+        $int8 = %omge_challenge_current_progress_2;
+    case 3 :
+        $int8 = %omge_challenge_current_progress_3;
+    case 4 :
+        $int8 = %omge_challenge_current_progress_4;
+    case 5 :
+        $int8 = %omge_challenge_current_progress_5;
+}
+if ($int6 = 1) {
+    $int8 = min(calc($int7 + $int8), calc($int7 * 2));
+}
+if ($int5 = 1) {
+    $int7 = calc($int7 * 2);
+}
+def_graphic $graphic9 = null;
+def_string $string3 = "";
+def_string $string4 = "You can get up to 100 vis wax per day from Wizard Goldberg in the Runecrafting Guild.";
+switch_int ($int2) {
+    case 1, 2, 3, 4, 5 :
+        if ($int8 >= $int7 & ~script18262($int2) = 1) {
+            $graphic9 = ~cheevo_status_icon(-2);
+        }
+        if_setobject_nonum(runemach_vis, 0, jobs_main:extend_object);
+        ~script16248($string4, jobs_main:extend_object, -1);
+        if_setobject_nonum(runemach_vis, 0, jobs_main:reroll_object);
+        ~script16248($string4, jobs_main:reroll_object, -1);
+        $string3 = "The number of daily challenge tokens in your currency pouch.";
+        $string3 = append($string3, "<br>");
+        ~script16248($string3, jobs_main:currency_object, -1);
+    case default :
+        if (~script16319(6) = $struct1) {
+            $int8 = %omge_challenge_job_progress_1;
+        }
+        $graphic9 = null;
+        $string1 = "You will earn XP as you complete the Challenge, but only Daily Challenges give additional rewards.";
+}
+if (string_length($string1) = 0) {
+    $string1 = "None";
+}
+if_settext($string1, jobs_main:rewards);
+$string3 = "When you've completed a challenge, press the Claim Rewards button or hand in your challenge to a Challenge Mistress for your reward.";
+if ($graphic9 ! null) {
+    if_sethide(false, jobs_main:info_daily_stamp);
+    if_setgraphic($graphic9, jobs_main:info_daily_stamp);
+    if ($graphic9 = ~cheevo_status_icon(-2)) {
+        $string3 = "You've completed this challenge!<br>Press the Claim Rewards button or hand in your challenge to a Challenge Mistress for your reward.";
+    }
+    ~script16248($string3, jobs_main:info_daily_stamp, -1);
+} else {
+    if_sethide(true, jobs_main:info_daily_stamp);
+}
+if_settext($string2, jobs_main:job_desc);
+if_sethide(false, jobs_main:progress_layer);
+if_settext("<tostring($int8)> / <tostring($int7)>", jobs_main:progress_bar_text);
+if ($int7 ! 0) {
+    if_setsize(scale($int8, $int7, 16384), 16384, ^setsize_rel, ^setsize_rel, jobs_main:progress_bar_value_layer);
+} else {
+    if_setsize(16384, 16384, ^setsize_rel, ^setsize_rel, jobs_main:progress_bar_value_layer);
+}
+~script16248("Shows your progress in your current challenge.", jobs_main:progress_tooltip_layer, -1);

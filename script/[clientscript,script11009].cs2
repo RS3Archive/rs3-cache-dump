@@ -1,0 +1,44 @@
+// 11009
+[clientscript,script11009]
+cc_deleteall(mtxmgt:pet_food_bonus_progress);
+def_int $int0 = 68;
+def_int $int1 = 0;
+cc_create(mtxmgt:pet_food_bonus_progress, ^iftype_graphic, 0);
+cc_setsize(2, 6, ^setsize_abs, ^setsize_abs);
+cc_setposition(4, 3, ^setpos_abs_left, ^setpos_abs_top);
+if (%mtx_pet_food_end_time > 0) {
+    cc_setgraphic(quest_progress_bar_green_end);
+} else {
+    cc_setgraphic(quest_progress_bar_yellow_end);
+}
+if (%mtx_pet_food_end_time = 60) {
+    $int1 = $int0;
+} else if (%mtx_pet_food_end_time > 0) {
+    $int1 = calc($int0 / 60 * %mtx_pet_food_end_time);
+} else {
+    $int1 = 0;
+}
+if (%mtx_pet_food_end_time = 60) {
+    if_settext("<tostring(0)><tostring(1)>:<tostring(0)><tostring(0)>", mtxmgt:pet_food_bonus_time);
+} else if (%mtx_pet_food_end_time = 0) {
+    if_settext("No Bonus", mtxmgt:pet_food_bonus_time);
+} else if (%mtx_pet_food_end_time < 10) {
+    if_settext("<tostring(0)><tostring(0)>:<tostring(0)><tostring(%mtx_pet_food_end_time)>", mtxmgt:pet_food_bonus_time);
+} else {
+    if_settext("<tostring(0)><tostring(0)>:<tostring(%mtx_pet_food_end_time)>", mtxmgt:pet_food_bonus_time);
+}
+cc_create(mtxmgt:pet_food_bonus_progress, ^iftype_graphic, 1);
+cc_setsize(2, 6, ^setsize_abs, ^setsize_abs);
+cc_sethflip(true);
+cc_setposition(calc($int1 + cc_getwidth + 4), 3, ^setpos_abs_left, ^setpos_abs_top);
+if (%mtx_pet_food_end_time > 0) {
+    cc_setgraphic(quest_progress_bar_green_end);
+} else {
+    cc_setgraphic(quest_progress_bar_yellow_end);
+}
+if ($int1 ! 0) {
+    cc_create(mtxmgt:pet_food_bonus_progress, ^iftype_graphic, 2);
+    cc_setsize($int1, 6, ^setsize_abs, ^setsize_abs);
+    cc_setposition(6, 3, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(quest_progress_bar_green_tile);
+}

@@ -1,0 +1,53 @@
+// 7421
+[proc,script7421](dbrow $dbrow0, int $int1)(boolean)
+if ($int1 = 0 | $int1 > 300) {
+    return(false);
+}
+def_int $int2 = 0;
+def_string $string0 = "";
+def_int $int3 = 0;
+def_string $string1 = "";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string2 = "";
+$int2, $string0, $int3, $string1, $int4, $int5, $string2 = worldlist_specific($int1);
+if (testbit($int2, 12) = ^true) {
+    return(false);
+}
+if (testbit($int2, 30) = ^true & ~script16823 = false & staffmodlevel < 2) {
+    return(false);
+} else if (testbit($int2, 30) = ^false & ~script16823 = true & staffmodlevel < 2) {
+    return(false);
+}
+if (%league_lobby_select_league_worlds = 1 & $dbrow0 ! null & testbit($int2, 24) = ^false) {
+    return(false);
+} else if ((%league_lobby_select_league_worlds = 0 | $dbrow0 = null) & testbit($int2, 24) = ^true) {
+    return(false);
+}
+switch_int (%whop_displayfree) {
+    case 1 :
+        if (testbit($int2, 0) = ^false) {
+            return(false);
+        }
+    case 2 :
+        if (testbit($int2, 0) = ^true) {
+            return(false);
+        }
+}
+switch_int (%whop_displayloot) {
+    case 1 :
+        if (testbit($int2, 3) = ^false) {
+            return(false);
+        }
+    case 2 :
+        if (testbit($int2, 3) = ^true) {
+            return(false);
+        }
+}
+if (%whop_hide_legacy_only = 1 & testbit($int2, 22) = ^true) {
+    return(false);
+}
+if (%whop_hide_eoc_only = 1 & testbit($int2, 23) = ^true) {
+    return(false);
+}
+return(true);

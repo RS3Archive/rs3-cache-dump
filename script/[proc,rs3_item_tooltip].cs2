@@ -1,0 +1,77 @@
+// 10760
+[proc,rs3_item_tooltip](component $component0, component $component1, string $string0)(int)
+def_obj $obj2 = cc_param(toplevel_v2_tooltip_item);
+def_obj $obj3 = cc_param(toplevel_v2_tooltip_display_item);
+def_inv $inv4 = cc_param(toplevel_v2_tooltip_display_inv);
+def_int $int5 = cc_param(toplevel_v2_tooltip_type);
+def_struct $struct6 = cc_param(toplevel_v2_tooltip_param_struct);
+def_int $int7 = cc_param(toplevel_v2_tooltip_param_int0);
+def_int $int8 = cc_param(toplevel_v2_tooltip_param_int1);
+def_int $int9 = cc_param(toplevel_v2_tooltip_show_ragdoll);
+if ($obj2 = null & $obj3 = null) {
+    return(0);
+}
+def_string $string1 = oc_name($obj2);
+switch_obj ($obj2) {
+    case coins_2, coins_3, coins_4, coins_5, coins_25, coins_100, coins_250, coins_1000, coins_10000 :
+        $string1 = "Coins";
+    case tzhaar_token_2, tzhaar_token_3, tzhaar_token_4, tzhaar_token_5, tzhaar_token_25 :
+        $string1 = "Tokkul";
+    case hw14_bonfire_dummy :
+        $string1 = "Cremation ability";
+    case challenge_weekly_progression_tier1_reward :
+        if (%challenge_returner_active = 1) {
+            $string1 = "Tier 1 Returner Reward Chest";
+        }
+    case challenge_weekly_progression_tier2_reward :
+        if (%challenge_returner_active = 1) {
+            $string1 = "Tier 2 Returner Reward Chest";
+        }
+    case challenge_weekly_progression_tier3_reward :
+        if (%challenge_returner_active = 1) {
+            $string1 = "Tier 3 Returner Reward Chest";
+        }
+    case challenge_weekly_progression_tier4_reward :
+        if (%challenge_returner_active = 1) {
+            $string1 = "Tier 4 Returner Reward Chest";
+        }
+    case challenge_weekly_progression_tier5_reward :
+        if (%challenge_returner_active = 1) {
+            $string1 = "Tier 5 Returner Reward Chest";
+        }
+    case challenge_weekly_progression_tier6_reward :
+        if (%challenge_returner_active = 1) {
+            $string1 = "Tier 6 Returner Reward Chest";
+        }
+    case challenge_weekly_progression_tier7_reward :
+        if (%challenge_returner_active = 1) {
+            $string1 = "Tier 7 Returner Reward Chest";
+        }
+    case timed_event_time_mage_title :
+        $string1 = "'the Time Mage' title";
+    case timed_event_bee_tle_title :
+        $string1 = "'the Bee-rilliant' title";
+    case quest_wendle_sanguine_vial_oil_s_crushed_hedgehog_spines, quest_wendle_sanguine_vial_oil_s_crushed_hedgehog_spines_pressed_flower, quest_wendle_sanguine_antisanguine :
+        $string1 = "Antisanguine?";
+}
+def_int $int10 = ~script5828($string1, $obj2, optext_format_bold_title, optext_format_default, $component0, $component1, $obj3, $inv4);
+if (string_length($string0) > 0) {
+    $int10 = ~script7235($string0, "", optext_format_default, $component0, $component1, $int10);
+}
+switch_int ($int5) {
+    case 4 :
+        if ($struct6 ! null) {
+            $int10 = ~script12892($struct6, $obj2, $int7, $int8, optext_format_default, $component0, $component1, $int10);
+        }
+    case 13 :
+        if ($struct6 ! null) {
+            $int10 = ~script16244($obj2, $int7, $int8, optext_format_default, $component0, $component1, $int10);
+        }
+}
+if ($int9 ! 1 | $obj3 = $obj2) {
+    $obj3 = null;
+}
+if (~script13262($obj3) = true) {
+    $int10 = ~script13258(125, 155, $component0, $component1, $int10);
+}
+return($int10);

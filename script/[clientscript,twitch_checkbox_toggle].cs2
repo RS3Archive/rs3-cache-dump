@@ -1,0 +1,67 @@
+// 10135
+[clientscript,twitch_checkbox_toggle](component $component0, component $component1)
+def_boolean $boolean2 = false;
+def_boolean $boolean3 = false;
+if (%varclientbit_23079 = 1 & $component0 ! toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_layer & $component0 ! toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_vertical & $component0 ! toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_horizontal) {
+    mes("You can't change that while your broadcast is active");
+    sound_vorbis_volume(omge_error, 1, 0, 150);
+    return;
+}
+if (os_ismac = true & $component0 = toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_layer) {
+    mes("Webcams are not supported on Macs.");
+    sound_vorbis_volume(omge_error, 1, 0, 150);
+    return;
+}
+if (if_gethide($component0) = true) {
+    sound_vorbis_volume(tli_click_01, 1, 0, 100);
+    if_sethide(false, $component0);
+    if_sethide(true, $component1);
+    if ($component0 = toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_layer) {
+        %varclientbit_23068 = 1;
+    } else if ($component0 = toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_layer) {
+        if (string_length(%twitch_webcam_idname) > 1) {
+            %varclientbit_23069 = 1;
+            if_sethide(false, toplevel_v2_parent_suboverlay_twitch:webcam_list_layer);
+            ~script10149;
+        } else {
+            mes("No webcam detected. If you connect a webcam you must log out and back in to Twitch to detect it.");
+            if_sethide(false, toplevel_v2_parent_suboverlay_twitch:checkbox_selected_disabled_layer);
+        }
+    } else if ($component0 = toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_vertical) {
+        %varclientbit_23249 = 1;
+        if (%varclientbit_23250 > 0) {
+            $boolean3 = true;
+        }
+        ttv_webcam_flip($boolean3, true);
+    } else if ($component0 = toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_horizontal) {
+        %varclientbit_23250 = 1;
+        if (%varclientbit_23249 > 0) {
+            $boolean2 = true;
+        }
+        ttv_webcam_flip(true, $boolean2);
+    }
+} else {
+    sound_vorbis_volume(tli_click_01, 1, 0, 100);
+    if_sethide(true, $component0);
+    if_sethide(false, $component1);
+    if ($component0 = toplevel_v2_parent_suboverlay_twitch:voice_checkbox_selected_layer) {
+        %varclientbit_23068 = 0;
+    } else if ($component0 = toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_layer) {
+        %varclientbit_23069 = 0;
+        if_sethide(true, toplevel_v2_parent_suboverlay_twitch:webcam_list_layer);
+        ~script10150(0);
+    } else if ($component0 = toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_vertical) {
+        %varclientbit_23249 = 0;
+        if (%varclientbit_23250 > 0) {
+            $boolean3 = true;
+        }
+        ttv_webcam_flip($boolean3, false);
+    } else if ($component0 = toplevel_v2_parent_suboverlay_twitch:webcam_checkbox_selected_flip_horizontal) {
+        %varclientbit_23250 = 0;
+        if (%varclientbit_23249 > 0) {
+            $boolean2 = true;
+        }
+        ttv_webcam_flip(false, $boolean2);
+    }
+}
+~script7698;

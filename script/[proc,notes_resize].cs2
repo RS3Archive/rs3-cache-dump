@@ -1,0 +1,44 @@
+// 16543
+[proc,notes_resize](int $int0)
+def_component $component1 = ~script7799($int0, notes:main);
+def_component $component2 = ~script7799($int0, notes:drag);
+def_component $component3 = ~script7799($int0, notes:bottom);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $string0 = "";
+def_fontmetrics $fontmetrics9 = notosans_12;
+if_setsize(24, 8, ^setsize_minus, ^setsize_minus, $component2);
+def_int $int10 = calc(if_getwidth($component1) - 4);
+if (%toplevel_v2_mobile_interface = 1) {
+    $int6 = 40;
+}
+if (cc_findbycategory($component1, 0, 2) = 1) {
+    $fontmetrics9 = cc_getfontmetrics;
+}
+while ($int5 < 30) {
+    $string0 = ~notes_get_note($int5);
+    if (compare($string0, "") ! 0) {
+        $int7 = max($int6, ~script15891($string0, $int10, $fontmetrics9, 0));
+        $int7 = calc($int7 + 4);
+        if (cc_findbycategory($component1, $int5, 0) = 1) {
+            cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(0, $int7, ^setsize_minus, ^setsize_abs);
+            $int4 = calc($int4 + ($int7 + 4));
+            $int8 = calc($int8 + 1);
+        }
+    }
+    $int5 = calc($int5 + 1);
+}
+if ($int4 < if_getheight($component1) & $int8 > 0) {
+    if (cc_findbycategory($component1, calc($int8 - 1), 0) = 1) {
+        if_setsize(cc_getwidth, calc(if_getheight($component1) - (cc_gety + cc_getheight)), ^setsize_abs, ^setsize_abs, $component3);
+        if_setposition(cc_getx, calc(cc_gety + cc_getheight), ^setpos_abs_left, ^setpos_abs_top, $component3);
+        if_sethide(false, $component3);
+    }
+} else {
+    if_sethide(true, $component3);
+}
+~notes_scrollbar($int0, $int4);

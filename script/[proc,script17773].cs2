@@ -1,0 +1,29 @@
+// 17773
+[proc,script17773]()(int)
+def_component $component0 = necro_ritual_information:glyph_layer;
+def_component $component1 = necro_ritual_information:glyph_holding_layer;
+def_component $component2 = necro_ritual_information:glyph_title_layer;
+def_int $int3 = 18;
+def_int $int4 = calc(if_getwidth($component0) - if_getwidth($component2) - 8 * 2);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+if (if_getwidth(necro_ritual_information:glyph_layer) < calc(201 + 8 * 2)) {
+    $int4 = calc(if_getwidth(necro_ritual_information:glyph_layer) - 8 * 2);
+    if_setposition(8, calc($int3 + 8 * 2), ^setpos_abs_left, ^setpos_abs_top, $component1);
+    $int5 = calc($int5 + $int3);
+    $int7 = 2;
+} else {
+    if_setposition(calc(if_getwidth($component2) + 8 * 2), 8, ^setpos_abs_left, ^setpos_abs_top, $component1);
+}
+if_setsize($int4, $int3, ^setsize_abs, ^setsize_abs, $component1);
+$int6 = calc($int6 + ~script17774($int6, %necro_ritual_active_glyph_1_count, %necro_ritual_active_glyph_1_recipe_count, %necro_ritual_active_glyph_1_recipe, %necro_ritual_active_glyph_1_model));
+if (%necro_ritual_active_glyph_2_recipe_count > 0) {
+    $int6 = calc($int6 + ~script17774($int6, %necro_ritual_active_glyph_2_count, %necro_ritual_active_glyph_2_recipe_count, %necro_ritual_active_glyph_2_recipe, %necro_ritual_active_glyph_2_model));
+}
+if (%necro_ritual_active_glyph_3_recipe_count > 0) {
+    $int6 = calc($int6 + ~script17774($int6, %necro_ritual_active_glyph_3_count, %necro_ritual_active_glyph_3_recipe_count, %necro_ritual_active_glyph_3_recipe, %necro_ritual_active_glyph_3_model));
+}
+if_setsize(calc(if_getwidth(necro_ritual_information:content_layer) - if_getwidth($component0)), calc($int6 + 8 * (3 + $int7)), ^setsize_minus, ^setsize_abs, $component0);
+if_setsize($int4, calc($int5 + $int6), ^setsize_abs, ^setsize_abs, $component1);
+return(calc($int5 + $int6 + 8 * 4));

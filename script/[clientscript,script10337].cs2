@@ -1,0 +1,18 @@
+// 10337
+[clientscript,script10337]
+def_string $string0 = "Your group is registered for matchmaking.";
+def_string $string1 = "Toggle matchmaking.";
+def_graphic $graphic0 = "rs3_icon_grouping_system,11";
+def_int $int1 = 0;
+if (if_getgraphic(group_child:want_members_button) = $graphic0) {
+    $graphic0, $string0 = "rs3_icon_grouping_system,12", "Your group is not registered for matchmaking.";
+}
+if (player_group_find = true) {
+    if (%group_type = 999999) {
+        $int1, $graphic0, $string0, $string1 = 1, black_placeholder, "Open matchmaking interface.", "Open Grouping System";
+    }
+    ~script10339($graphic0, $string0, $string1);
+}
+if ($int1 = 1 & ~script8292(4, 4) = false) {
+    ~script8287(4, 4);
+}

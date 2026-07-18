@@ -1,0 +1,32 @@
+// 13497
+[clientscript,script13497](component $component0)
+def_int $int1 = 15;
+if (~script16112 = true) {
+    ~script14093($component0, -1, 28, ^setsize_minus, 4, ^setsize_abs, $int1, 2);
+    if_setop(1, "View information", lore_stats_side:header_holder);
+    return;
+}
+def_dbrow $dbrow2 = ~script16113;
+if ($dbrow2 = null) {
+    ~script15829(0);
+    return;
+}
+def_string $string0 = ~lore_if_info($dbrow2);
+if (compare($string0, "") = 0) {
+    return;
+}
+def_int $int3 = 4;
+def_int $int4 = calc(~script7593($string0, calc(if_getwidth($component0) - 2 * $int3), museo_sans_13pt_regular, 0) + 4 * $int3);
+if_setsize(28, $int4, ^setsize_minus, ^setsize_abs, $component0);
+~script7795(lore_stats_side:info_popup_bg, rs3_content_container_active, 0);
+cc_create(lore_stats_side:info_popup_text, ^iftype_text, 0);
+cc_setsize(calc(2 * $int3), calc(2 * $int3), ^setsize_minus, ^setsize_minus);
+cc_setposition($int3, calc(2 * $int3), ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(museo_sans_13pt_regular);
+cc_settextshadow(true);
+cc_settext($string0);
+cc_settextalign(^settextalign_centre, ^settextalign_bottom, 0);
+cc_setcolour(^white);
+if_setsize(28, 4, ^setsize_minus, ^setsize_abs, $component0);
+~script14093($component0, -1, 28, ^setsize_minus, $int4, ^setsize_abs, $int1, 2);
+if_setop(1, "Close information", lore_stats_side:header_holder);

@@ -1,0 +1,26 @@
+// 4692
+[clientscript,script4692](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_component ($component0) {
+    case loy_defence_side:ability_layer_1 :
+        $int2 = 1;
+    case loy_defence_side:ability_layer_2 :
+        $int2 = 2;
+    case loy_defence_side:ability_layer_3 :
+        $int2 = 3;
+    case loy_defence_side:ability_layer_4 :
+        $int2 = 4;
+    case default :
+        return;
+}
+def_string $string0 = enum(int, string, loy_boost_name, $int2);
+$string0 = "<$string0><br><enum(int, string, loy_boost_desc, $int2)>";
+$string0 = "<$string0><br>Cost: <tostring(enum(int, int, loy_boost_cost, $int2))>";
+$int1 = enum(int, int, loy_boost_cooldown, $int2);
+if ($int1 = 50) {
+    $string0 = "<$string0><br>Cooldown: 30 sec";
+} else {
+    $string0 = "<$string0><br>Cooldown: 1 min";
+}
+~script8800($string0, $component0, -1);

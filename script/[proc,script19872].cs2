@@ -1,0 +1,15 @@
+// 19872
+[proc,script19872]
+def_dbrow $dbrow0 = ~script19150(trh207_promo);
+if ($dbrow0 = null) {
+    return;
+}
+def_graphic $graphic1 = db_getfield($dbrow0, trh207_nodes:col24, 0);
+if_setgraphic($graphic1, trh_academy_shared_overlay:progress_bar_background);
+def_int $int2 = db_getfield($dbrow0, trh207_nodes:col6, 0);
+if_settext("<tostring_localised(max(0, calc($int2 - %trh207_node_progress_remaining)), true)>/<tostring_localised($int2, true)>", trh_academy_shared_overlay:entity_progress_bar_text);
+def_int $int3 = scale(max(0, calc($int2 - %trh207_node_progress_remaining)), $int2, 100);
+def_int $int4 = scale(190, 100, $int3);
+if (if_getwidth(trh_academy_shared_overlay:entity_progress_bar_fill_holder) ! $int4) {
+    if_setsize($int4, 20, ^setsize_abs, ^setsize_abs, trh_academy_shared_overlay:entity_progress_bar_fill_holder);
+}

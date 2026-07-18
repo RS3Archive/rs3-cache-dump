@@ -1,0 +1,48 @@
+// 4249
+[proc,script4249](string $string0, string $string1, component $component0, component $component1, component $component2, component $component3, component $component4, int $int5, int $int6)(int)
+def_fontmetrics $fontmetrics7 = museo_sans_11pt_regular_multiline;
+def_int $int8 = 20;
+if (~script6431 = true) {
+    $fontmetrics7 = museo_sans_13pt_regular;
+    $int8 = 25;
+}
+def_int $int9 = ~script10495(3);
+if_settext($string0, $component1);
+if_settextfont($fontmetrics7, $component1);
+if ($component3 ! null) {
+    if_setposition(0, 14, ^setpos_abs_left, ^setpos_abs_top, $component3);
+}
+def_int $int10 = if_getwidth($component0);
+def_int $int11 = max(calc(paraheight($string1, $int10, $fontmetrics7) * 16 + $int8), $int8);
+if_setposition(0, 18, ^setpos_abs_left, ^setpos_abs_top, $component2);
+switch_component ($component2) {
+    case quest_journal:start_point_text, quest_journal:series_text :
+        $int11 = max(calc(paraheight($string1, 410, $fontmetrics7) * 16 + $int8), $int8);
+        if_setsize(0, $int11, ^setsize_minus, ^setsize_abs, $component0);
+        if_setsize(410, 0, ^setsize_abs, ^setsize_minus, $component2);
+    case default :
+        if_setsize(0, $int11, ^setsize_minus, ^setsize_abs, $component0);
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component2);
+}
+if_settext($string1, $component2);
+if_settextfont($fontmetrics7, $component2);
+if_setcolour($int9, $component2);
+if_settextfont($fontmetrics7, $component0);
+if_setposition(0, $int6, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if ($component3 ! null) {
+    if ($int5 = 2) {
+        if_sethide(true, $component3);
+        if_sethide(false, $component2);
+        if_clearscripthooks($component3);
+    } else {
+        if_sethide(true, $component2);
+        if_sethide(false, $component3);
+        if ($component4 ! null) {
+            if_setsize(calc(stringwidth(if_gettext($component4), if_getfontmetrics($component4)) + 10), if_getheight($component3), ^setsize_abs, ^setsize_abs, $component3);
+        }
+        if_setonop("script4250($component3, $component2)", $component3);
+    }
+} else {
+    if_sethide(false, $component2);
+}
+return(calc($int6 + $int11));

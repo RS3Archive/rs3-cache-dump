@@ -1,0 +1,21 @@
+// 18122
+[proc,script18122]
+if_sethide(true, mtx_front_end_confirm:probabilities);
+if (%mtx_front_end_confirm_can_afford = 1) {
+    if_sethide(true, mtx_front_end_confirm:cannot_buy_text);
+    if_sethide(false, mtx_front_end_confirm:buy_container);
+} else {
+    switch_int (%mtx_front_end_confirm_shop_type) {
+        case 0 :
+            if_settext("You do not have enough RuneCoins.", mtx_front_end_confirm:cannot_buy_text);
+        case 2 :
+            if (%rewardshop_struct = null) {
+                ~error("Couldn't set the correct Oddments currency name when telling players they don't have enough of it, because %rewardshop_struct was null.");
+                if_settext("You cannot afford this item.", mtx_front_end_confirm:cannot_buy_text);
+            } else {
+                if_settext("You do not have enough <~script17844(%rewardshop_struct, 1)>.", mtx_front_end_confirm:cannot_buy_text);
+            }
+    }
+    if_sethide(false, mtx_front_end_confirm:cannot_buy_text);
+    if_sethide(true, mtx_front_end_confirm:buy_container);
+}

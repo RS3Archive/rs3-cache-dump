@@ -1,0 +1,39 @@
+// 17910
+[proc,script17910](dbrow $dbrow0, int $int1)(stat, struct, dbrow, int, npc, obj, int)
+def_int $int2 = db_getfieldcount($dbrow0, bp3_progression_type:col3);
+def_int $int3 = db_getfieldcount($dbrow0, bp3_progression_type:col4);
+def_int $int4 = db_getfieldcount($dbrow0, bp3_progression_type:col5);
+def_int $int5 = db_getfieldcount($dbrow0, bp3_progression_type:col6);
+def_int $int6 = db_getfieldcount($dbrow0, bp3_progression_type:col7);
+def_int $int7 = db_getfieldcount($dbrow0, bp3_progression_type:col8);
+def_stat $stat8 = null;
+def_struct $struct9 = null;
+def_dbrow $dbrow10 = null;
+def_int $int11 = -1;
+def_npc $npc12 = null;
+def_obj $obj13 = null;
+def_int $int14 = 0;
+if ($int2 > 0 & $int2 < $int1 | $int3 > 0 & $int3 < $int1 | $int4 > 0 & $int4 < $int1 | $int5 > 0 & $int5 < $int1 | $int6 > 0 & $int6 < $int1 | $int7 > 0 & $int7 < $int1) {
+    ~error("We don't have enough index's in dbrow <db_getfield($dbrow0, bp3_progression_type:col0, 0)>. We're looking for index <tostring($int1)>");
+    return($stat8, $struct9, $dbrow10, $int11, $npc12, $obj13, $int14);
+}
+if ($int2 > 0) {
+    $stat8 = db_getfield($dbrow0, bp3_progression_type:col3:0, $int1);
+    $int14 = db_getfield($dbrow0, bp3_progression_type:col3:1, $int1);
+} else if ($int3 > 0) {
+    $struct9 = db_getfield($dbrow0, bp3_progression_type:col4:0, $int1);
+    $int14 = db_getfield($dbrow0, bp3_progression_type:col4:1, $int1);
+} else if ($int4 > 0) {
+    $dbrow10 = db_getfield($dbrow0, bp3_progression_type:col5:0, $int1);
+    $int14 = db_getfield($dbrow0, bp3_progression_type:col5:1, $int1);
+} else if ($int5 > 0) {
+    $int11 = db_getfield($dbrow0, bp3_progression_type:col6:0, $int1);
+    $int14 = db_getfield($dbrow0, bp3_progression_type:col6:1, $int1);
+} else if ($int6 > 0) {
+    $npc12 = db_getfield($dbrow0, bp3_progression_type:col7:0, $int1);
+    $int14 = db_getfield($dbrow0, bp3_progression_type:col7:1, $int1);
+} else if ($int7 > 0) {
+    $obj13 = db_getfield($dbrow0, bp3_progression_type:col8:0, $int1);
+    $int14 = db_getfield($dbrow0, bp3_progression_type:col8:1, $int1);
+}
+return($stat8, $struct9, $dbrow10, $int11, $npc12, $obj13, $int14);

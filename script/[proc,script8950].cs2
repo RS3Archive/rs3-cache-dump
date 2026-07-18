@@ -1,0 +1,38 @@
+// 8950
+[proc,script8950](struct $struct0, boolean $boolean1)(string, string, cursor, boolean)
+def_string $string0 = "";
+def_string $string1 = "";
+def_cursor $cursor2 = null;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_boolean $boolean5 = false;
+if (struct_param($struct0, quest_id) > 0) {
+    $string0 = "View Quest";
+    if ($boolean1 = true) {
+        $string1 = "Tap for Quest Journal";
+    } else {
+        $string1 = "Click for Quest Journal";
+    }
+    $cursor2 = cursor_info;
+} else if (struct_param($struct0, bslay_id) > 0) {
+    $string0 = "View Boss";
+    if ($boolean1 = true) {
+        $string1 = "Tap for Boss Info";
+    } else {
+        $string1 = "Click for Boss Info";
+    }
+    $cursor2 = cursor_info;
+} else {
+    $int3, $int4 = ~cheevo_find_achievement($struct0);
+    if ($int3 >= 0 & $int4 ! -1) {
+        $string0 = "View Achievement";
+        if ($boolean1 = true) {
+            $string1 = "Tap for Achievement";
+        } else {
+            $string1 = "Click for Achievement";
+        }
+        $cursor2 = cursor_info;
+        $boolean5 = true;
+    }
+}
+return($string0, $string1, $cursor2, $boolean5);

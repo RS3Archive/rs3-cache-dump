@@ -1,0 +1,34 @@
+// 16531
+[proc,trh180_update_bonus_layer]
+def_dbrow $dbrow0 = null;
+def_string $string0 = "None";
+def_graphic $graphic1 = null;
+if (%trh180_current_bonus > 0) {
+    $dbrow0 = ~script16519(%trh180_current_bonus);
+    $string0 = db_getfield($dbrow0, trh180_promo_bonus:col1, 0);
+    $graphic1 = db_getfield($dbrow0, trh180_promo_bonus:col7, 0);
+    ~script3536(db_getfield($dbrow0, trh180_promo_bonus:col3, 0), trh180_overlay:current_bonus_content_layer, -1);
+}
+if_settext($string0, trh180_overlay:current_bonus_text);
+if_setgraphic($graphic1, trh180_overlay:current_egg);
+def_component $component2 = trh180_overlay:bonus_prize_model;
+if (%trh180_next_bonus > 0) {
+    $dbrow0 = ~script16519(%trh180_next_bonus);
+    $string0 = db_getfield($dbrow0, trh180_promo_bonus:col1, 0);
+    $graphic1 = db_getfield($dbrow0, trh180_promo_bonus:col7, 0);
+    ~script3536(db_getfield($dbrow0, trh180_promo_bonus:col3, 0), trh180_overlay:next_bonus_content_layer, -1);
+    if_setmodel(db_getfield($dbrow0, trh180_promo_bonus:col2, 0), $component2);
+    if (~script16513 = true) {
+        if_setmodelanim(easter22_egg_chest_idle, $component2);
+        if_setonmouseover("trh180_egg_mouseover($component2)", $component2);
+        if_setonmouseleave("trh180_egg_mouseleave($component2, easter22_egg_chest_idle)", $component2);
+    } else {
+        if_setmodelanim(null, $component2);
+        if_setonmouseover(null, $component2);
+        if_setonmouseleave(null, $component2);
+    }
+} else {
+    $string0 = "None";
+}
+if_settext($string0, trh180_overlay:next_bonus_text);
+if_setgraphic($graphic1, trh180_overlay:next_egg);

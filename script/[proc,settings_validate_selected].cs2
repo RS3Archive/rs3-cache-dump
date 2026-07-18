@@ -1,0 +1,39 @@
+// 2510
+[proc,settings_validate_selected](int $int0, int $int1)(int, int)
+def_dbrow $dbrow2 = enum(int, dbrow, settings_all_categories, $int0);
+def_dbrow $dbrow3 = enum(int, dbrow, settings_all_categories, $int1);
+if ($dbrow3 = null) {
+    return(~script2511);
+}
+~script20387;
+if (db_getfieldcount($dbrow3, settings_category:col3) = 0) {
+    switch_int (db_getfield($dbrow3, settings_category:col4, 0)) {
+        case 1 :
+            if (%toplevel_v2_mobile_interface = 1) {
+                return(~script2511);
+            }
+        case 2 :
+            if (%toplevel_v2_mobile_interface = 0) {
+                return(~script2511);
+            }
+        case 4 :
+            if (clienttype ! enhanced_ios) {
+                return(~script2511);
+            }
+        case 3 :
+            if (platformtype ! ^platformtype_steam) {
+                return(~script2511);
+            }
+        case 5 :
+            if (~script19316 = false) {
+                return(~script2511);
+            }
+        case 6 :
+            if (%league_active_player <= 0) {
+                return(~script2511);
+            }
+    }
+    return(~settings_validate_master($dbrow2, $dbrow3, $int0), $int1);
+}
+$dbrow3 = db_getfield($dbrow3, settings_category:col3, 0);
+return($int1, enum_getreverseindex(dbrow, int, settings_all_categories, $dbrow3, 0));

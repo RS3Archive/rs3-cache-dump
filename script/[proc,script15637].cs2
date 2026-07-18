@@ -1,0 +1,119 @@
+// 15637
+[proc,script15637](int $rgb0)
+def_int $int1 = 0;
+def_int $int2 = if_getwidth(lobbyscreen_pane_worldselect:list_area);
+def_int $int3 = 2;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+def_component $component9 = null;
+while ($int1 < 7) {
+    switch_int ($int1) {
+        case 0 :
+            $int5 = scale(83, 748, $int2);
+            $component6 = lobbyscreen_pane_worldselect:world_container;
+            $component7 = lobbyscreen_pane_worldselect:world;
+            $component8 = lobbyscreen_pane_worldselect:world_main_div_1;
+            $component9 = lobbyscreen_pane_worldselect:world_main_div;
+        case 1 :
+            $int5 = scale(75, 748, $int2);
+            $component6 = lobbyscreen_pane_worldselect:player_container;
+            $component7 = lobbyscreen_pane_worldselect:players;
+            $component8 = lobbyscreen_pane_worldselect:players_main_div_1;
+            $component9 = lobbyscreen_pane_worldselect:players_main_div;
+        case 2 :
+            $int5 = scale(207, 748, $int2);
+            $component6 = lobbyscreen_pane_worldselect:activity_container;
+            $component7 = lobbyscreen_pane_worldselect:activity;
+            $component8 = lobbyscreen_pane_worldselect:activity_main_div_1;
+            $component9 = lobbyscreen_pane_worldselect:activity_main_div;
+        case 3 :
+            $int5 = scale(202, 748, $int2);
+            $component6 = lobbyscreen_pane_worldselect:location_container;
+            $component7 = lobbyscreen_pane_worldselect:location;
+            $component8 = lobbyscreen_pane_worldselect:location_main_div_1;
+            $component9 = lobbyscreen_pane_worldselect:location_main_div;
+        case 4 :
+            $int5 = scale(75, 748, $int2);
+            $component6 = lobbyscreen_pane_worldselect:type_container;
+            $component7 = lobbyscreen_pane_worldselect:type;
+            $component8 = lobbyscreen_pane_worldselect:type_main_div_1;
+            $component9 = lobbyscreen_pane_worldselect:type_main_div;
+        case 5 :
+            $int5 = scale(40, 748, $int2);
+            $component6 = lobbyscreen_pane_worldselect:lootshare_container;
+            $component7 = lobbyscreen_pane_worldselect:lootshare;
+            $component8 = lobbyscreen_pane_worldselect:qchat_main_div_1;
+            $component9 = lobbyscreen_pane_worldselect:qchat_main_div;
+        case 6 :
+            $int5 = calc($int2 - $int4);
+            $component6 = lobbyscreen_pane_worldselect:ping_container;
+            $component7 = lobbyscreen_pane_worldselect:ping;
+            $component8 = null;
+            $component9 = null;
+    }
+    if ($component8 ! null) {
+        if_setcolour($rgb0, $component8);
+    }
+    if ($component9 ! null) {
+        if_setcolour($rgb0, $component9);
+    }
+    if_setsize($int5, 0, ^setsize_abs, ^setsize_minus, $component6);
+    if_setsize($int5, 0, ^setsize_abs, ^setsize_minus, $component7);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_top, $component6);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_top, $component7);
+    if ($component7 = lobbyscreen_pane_worldselect:location) {
+        if_setsize($int5, 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:location_flag);
+        if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:location_flag);
+    }
+    if ($component8 ! null & $component9 ! null) {
+        if_setposition(calc($int4 + $int5), 0, ^setpos_abs_left, ^setpos_abs_top, $component8);
+        if_setposition(calc($int4 + $int5), 0, ^setpos_abs_left, ^setpos_abs_top, $component9);
+    }
+    $int4 = calc($int4 + ($int5 + $int3));
+    $int1 = calc($int1 + 1);
+}
+def_fontmetrics $fontmetrics10 = museo_sans_11pt_regular;
+def_int $int11 = 15;
+def_int $int12 = 21;
+if (~is_mobile_client = true & if_getwidth(lobbyscreen_pane_worldselect:main) >= 900) {
+    $fontmetrics10 = museo_sans_13pt_regular;
+    $int11 = 24;
+    $int12 = 42;
+}
+if_setsize($int12, 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:fav);
+if_setposition(calc($int12 + $int3), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:world);
+if (~is_mobile_client = true) {
+    if_sethide(true, lobbyscreen_pane_worldselect:world_title);
+    if_sethide(true, lobbyscreen_pane_worldselect:player_title);
+    if_sethide(true, lobbyscreen_pane_worldselect:type_title);
+    if_sethide(false, lobbyscreen_pane_worldselect:world_graphic);
+    if_sethide(false, lobbyscreen_pane_worldselect:player_graphic);
+    if_sethide(false, lobbyscreen_pane_worldselect:type_graphic);
+    if_setgraphic(rs3_icon_lobby_mobile_lootshare, lobbyscreen_pane_worldselect:lootshare_title);
+    if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:world_graphic);
+    if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:player_graphic);
+    if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:type_graphic);
+} else {
+    if_settextfont($fontmetrics10, lobbyscreen_pane_worldselect:world_title);
+    if_settextfont($fontmetrics10, lobbyscreen_pane_worldselect:player_title);
+    if_settextfont($fontmetrics10, lobbyscreen_pane_worldselect:type_title);
+    if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre, lobbyscreen_pane_worldselect:world_title);
+    if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre, lobbyscreen_pane_worldselect:player_title);
+    if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre, lobbyscreen_pane_worldselect:type_title);
+}
+if_settextfont($fontmetrics10, lobbyscreen_pane_worldselect:activity_title);
+if_settextfont($fontmetrics10, lobbyscreen_pane_worldselect:location_title);
+if_settextfont($fontmetrics10, lobbyscreen_pane_worldselect:ping_title);
+if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre, lobbyscreen_pane_worldselect:activity_title);
+if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre, lobbyscreen_pane_worldselect:location_title);
+if_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre, lobbyscreen_pane_worldselect:ping_title);
+if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:world_icon_sort);
+if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:player_icon_sort);
+if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:type_icon_sort);
+if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:lootshare_icon_sort);
+if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:activity_icon_sort);
+if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:location_icon_sort);
+if_setsize($int11, $int11, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:ping_icon_sort);

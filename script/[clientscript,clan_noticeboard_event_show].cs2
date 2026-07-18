@@ -1,0 +1,50 @@
+// 4363
+[clientscript,clan_noticeboard_event_show](int $int0, string $string0, clanforumqfc $clanforumqfc0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if_settext($string0, clan_noticeboard:event_text);
+if_setgraphic("aif_notetabs,1", $component1);
+if (%clan_guest_noticeboard_open = 0) {
+    if ($clanforumqfc0 ! null) {
+        if_setonop("script4330($clanforumqfc0)", clan_noticeboard:qfc_button);
+        if_setop(1, "Select", clan_noticeboard:qfc_button);
+        if_sethide(false, clan_noticeboard:qfc_button_layer);
+    } else {
+        if_clearops(clan_noticeboard:qfc_button);
+        if_sethide(true, clan_noticeboard:qfc_button_layer);
+    }
+    if (activeclansettings_find_listened = true) {
+        if (~script9357(activeclansettings_getaffinedrank(activeclansettings_getaffinedslot(removetags(chat_playername_unfiltered)))) = 1) {
+            if_sethide(false, clan_noticeboard:broadcast_button_layer);
+        } else {
+            if_sethide(true, clan_noticeboard:broadcast_button_layer);
+        }
+    } else {
+        if_sethide(true, clan_noticeboard:broadcast_button_layer);
+    }
+}
+%clan_event_current_varp = $int0;
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_1);
+    case 2 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_2);
+    case 3 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_3);
+    case 4 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_4);
+    case 5 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_5);
+    case 6 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_6);
+    case 7 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_7);
+    case 8 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:event_8);
+}
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_1, 1);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_2, 2);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_3, 3);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_4, 4);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_5, 5);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_6, 6);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_7, 7);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:event_8, 8);

@@ -1,0 +1,26 @@
+// 12507
+[clientscript,script12507](component $component0)
+if (%toplevel_v2_gi_track_visible_inital_modulo = -1) {
+    if_setontimer(null, $component0);
+    return;
+}
+if (%toplevel_v2_gi_track_visible_inital_modulo = ^min_32bit_int) {
+    %toplevel_v2_gi_track_visible_inital_modulo = calc(clientclock % 3000);
+    ~script12511;
+    return;
+}
+def_int $int1 = calc((clientclock - %toplevel_v2_gi_track_visible_inital_modulo) % 3000);
+def_int $int2 = -1;
+if ($int1 = 0) {
+    ~script12512(-1);
+    ~script12511;
+    return;
+} else if (calc($int1 % 50) = 0) {
+    $int2 = calc($int1 / 50 - 1);
+    if ($int2 > 46) {
+        return;
+    }
+    if (~script12510($int2) = ^true) {
+        ~script12512($int2);
+    }
+}

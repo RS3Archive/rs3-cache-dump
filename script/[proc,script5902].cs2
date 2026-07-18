@@ -1,0 +1,29 @@
+// 5902
+[proc,script5902]
+def_string $string0 = "";
+switch_int (%bugtrack_main_category) {
+    case 1 :
+        $string0 = "Audio issues can include; sound effects, music tracks, voice over, missing audio, audio timing and similar issues.<br><br>Text issues include NPC dialogue/examines, tooltips, interface text, grammatical errors and similar issues.";
+    case 2 :
+        $string0 = "Graphical bugs relate to how something visually appears.<br><br>Issues can relate to missing polygons (causing invisible areas, gaps in outfits etc), z-fighting (flickering), clipping, stretching, animations not playing correctly and similar issues.";
+    case 3 :
+        $string0 = "This covers all other aspects of the game outside of audio, text and graphical. Anything that hinders your progression through content, systems not behaving as expected/intended, balancing issues, bug abuse, repeatable disconnects when interacting with content and anything else not covered by other categories.";
+    case 4 :
+        $string0 = "Billing issues are handled through the Jagex Support system.<br><br>Select continue to go there now.";
+    case 5 :
+        $string0 = "Lost item reports are handled through the Jagex Support system.<br><br>Select continue to go there now.";
+    case 6 :
+        $string0 = "Technical issues are handled through the Jagex Support system.<br><br>Issues can include client crashes, game unable to launch, issues which don't occur on another computer and similar issues.<br><br>Select continue to go there now.";
+    case default :
+        $string0 = "Select a category to view more information.";
+}
+if_settext($string0, report_choices_category_v2:cat_button_desc);
+~script13995(report_choices_category_v2:text_audio, null, rs3tli_3x3_button, "Text & Audio", ~equal_int(1, %bugtrack_main_category));
+~script13995(report_choices_category_v2:graphical, null, rs3tli_3x3_button, "Graphical", ~equal_int(2, %bugtrack_main_category));
+~script13995(report_choices_category_v2:gameplay, null, rs3tli_3x3_button, "Gameplay", ~equal_int(3, %bugtrack_main_category));
+~script13995(report_choices_category_v2:billing_issue, null, rs3tli_3x3_button, "Billing Issue", ~equal_int(4, %bugtrack_main_category));
+~script13995(report_choices_category_v2:lost_items, null, rs3tli_3x3_button, "Lost Items", ~equal_int(5, %bugtrack_main_category));
+~script13995(report_choices_category_v2:technical, null, rs3tli_3x3_button, "Technical", ~equal_int(6, %bugtrack_main_category));
+if (~script6431 = false) {
+    if_setsize(0, 229, ^setsize_minus, ^setsize_abs, bugreport_interface:universe);
+}

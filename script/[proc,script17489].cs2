@@ -1,0 +1,31 @@
+// 17489
+[proc,script17489](dbrow $dbrow0, int $int1, int $int2)(graphic)
+if ($dbrow0 = null | db_getrowtable($dbrow0) ! skill_tree_node) {
+    return(null);
+}
+def_graphic $graphic3 = null;
+if ($int1 = 0) {
+    if ($int2 = 0) {
+        $graphic3 = db_getfield($dbrow0, skill_tree_node:col5:0, 0);
+    } else if ($int2 = 1) {
+        $graphic3 = db_getfield($dbrow0, skill_tree_node:col6:0, 0);
+    }
+} else if ($int1 = 1) {
+    if ($int2 = 0) {
+        $graphic3 = db_getfield($dbrow0, skill_tree_node:col5:1, 0);
+    } else if ($int2 = 1) {
+        $graphic3 = db_getfield($dbrow0, skill_tree_node:col6:1, 0);
+    }
+}
+if ($graphic3 ! null) {
+    return($graphic3);
+}
+switch_int (db_getfield($dbrow0, skill_tree_node:col2, 0)) {
+    case 1 :
+        if ($int2 = 0) {
+            return(struct_param(db_getfield($dbrow0, skill_tree_node:col8, 0), combatv2_ability_icon_mobile));
+        } else if ($int2 = 1) {
+            return(struct_param(db_getfield($dbrow0, skill_tree_node:col8, 0), combatv2_ability_icon));
+        }
+}
+return(null);

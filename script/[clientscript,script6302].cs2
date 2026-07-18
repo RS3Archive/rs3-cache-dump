@@ -1,0 +1,74 @@
+// 6302
+[clientscript,script6302](int $int0, struct $struct1, component $component2, int $int3, int $int4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_graphic $graphic7 = null;
+def_string $string0 = "";
+$int5, $int6, $graphic7, $string0 = ~script11820($struct1, $int4);
+def_int $int8 = ~script7980($component2);
+def_component $component9 = ~script7974($int0, $int8);
+def_component $component10 = ~script7978($int0, $int8);
+def_component $component11 = ~script1601($int0, $int8);
+switch_component ($component2) {
+    case toplevel_v2_window_ability_book_melee:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_melee:abilities_layer, toplevel_v2_window_ability_book_melee:ability_flash_layer, toplevel_v2_window_ability_book_melee:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_ranged:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_ranged:abilities_layer, toplevel_v2_window_ability_book_ranged:ability_flash_layer, toplevel_v2_window_ability_book_ranged:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_magic:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_magic:abilities_layer, toplevel_v2_window_ability_book_magic:ability_flash_layer, toplevel_v2_window_ability_book_magic:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_magic_ability:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_magic_ability:abilities_layer, toplevel_v2_window_ability_book_magic_ability:ability_flash_layer, toplevel_v2_window_ability_book_magic_ability:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_magic_combat:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_magic_combat:abilities_layer, toplevel_v2_window_ability_book_magic_combat:ability_flash_layer, toplevel_v2_window_ability_book_magic_combat:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_magic_teleport:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_magic_teleport:abilities_layer, toplevel_v2_window_ability_book_magic_teleport:ability_flash_layer, toplevel_v2_window_ability_book_magic_teleport:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_magic_skilling:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_magic_skilling:abilities_layer, toplevel_v2_window_ability_book_magic_skilling:ability_flash_layer, toplevel_v2_window_ability_book_magic_skilling:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_necromancy:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_necromancy:abilities_layer, toplevel_v2_window_ability_book_necromancy:ability_flash_layer, toplevel_v2_window_ability_book_necromancy:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_necromancy_abilities:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_necromancy_abilities:abilities_layer, toplevel_v2_window_ability_book_necromancy_abilities:ability_flash_layer, toplevel_v2_window_ability_book_necromancy_abilities:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_necromancy_spells:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_necromancy_spells:abilities_layer, toplevel_v2_window_ability_book_necromancy_spells:ability_flash_layer, toplevel_v2_window_ability_book_necromancy_spells:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_defcon:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_defcon:abilities_layer, toplevel_v2_window_ability_book_defcon:ability_flash_layer, toplevel_v2_window_ability_book_defcon:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_defence:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_defence:abilities_layer, toplevel_v2_window_ability_book_defence:ability_flash_layer, toplevel_v2_window_ability_book_defence:cooldown_text_layer;
+    case toplevel_v2_window_ability_book_constitution:cooldown_layer :
+        $component9, $component10, $component11 = toplevel_v2_window_ability_book_constitution:abilities_layer, toplevel_v2_window_ability_book_constitution:ability_flash_layer, toplevel_v2_window_ability_book_constitution:cooldown_text_layer;
+}
+if ($int3 = -1 & if_find($component9) = true | cc_find($component9, $int3) = true) {
+    if (cc_param(toplevel_v2_ability_struct) ! $struct1 & (cc_param(toplevel_v2_ability_struct) = null | struct_param(cc_param(toplevel_v2_ability_struct), combatv2_ability_id) ! struct_param($struct1, combatv2_ability_id))) {
+        if ($int3 = -1 & if_find($component2) = true | cc_find($component2, $int3) = true) {
+            cc_setontimer(null);
+        }
+        ~script11819($component2, $component11, $component10, $int3, 4, "", null);
+        return;
+    } else if ($int5 >= $int6) {
+        if ($int4 = 0) {
+            $int4 = 2;
+        }
+        if (cc_param(toplevel_v2_cooldown_active) = true) {
+            cc_setparam(toplevel_v2_specific_cooldown, false);
+            cc_setparam(toplevel_v2_cooldown_active, false);
+            cc_setontimer(null);
+            return;
+        } else {
+            cc_setparam(toplevel_v2_specific_cooldown, false);
+            cc_setparam(toplevel_v2_cooldown_active, false);
+        }
+    }
+    if ($int6 = 0 | calc($int5 - $int6) >= calc(30 / 10)) {
+        $int4 = 4;
+        $string0 = "";
+        $graphic7 = null;
+    }
+    ~script11819($component2, $component11, $component10, $int3, $int4, $string0, $graphic7);
+}
+if ($int3 = -1 & if_find($component2) = true | cc_find($component2, $int3) = true) {
+    if ($int5 >= $int6) {
+        cc_setontimer(null);
+    } else {
+        cc_setontimer("script6302($int0, $struct1, $component2, $int3, 0)");
+    }
+}

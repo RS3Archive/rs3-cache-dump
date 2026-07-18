@@ -1,0 +1,118 @@
+// 6892
+[clientscript,duel3_confirm_stake]
+def_int $int0 = 0;
+def_obj $obj1 = null;
+def_int $int2 = 0;
+def_obj $objarray0(1);
+def_int $intarray1(1);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+while ($int0 < 1) {
+    $obj1 = inv_getobj(dueloffer, $int0);
+    if ($obj1 ! null) {
+        $obj1, $int2 = oc_uncert($obj1), inv_getnum(dueloffer, $int0);
+        $int4, $int5 = 0, 0;
+        while ($int4 < $int3 & $int5 = 0) {
+            if ($objarray0($int4) = $obj1) {
+                $intarray1($int4) = calc($intarray1($int4) + 1);
+                $int5 = 1;
+            }
+            $int4 = calc($int4 + 1);
+        }
+        if ($int5 = 0) {
+            $objarray0($int3) = $obj1;
+            $intarray1($int3) = $int2;
+            $int3 = calc($int3 + 1);
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+def_string $string0 = "";
+def_int $int6 = 1;
+if ($int3 > 0) {
+    $int4, $int6 = 0, 0;
+    while ($int4 < $int3) {
+        $string0 = ~script6893($intarray1($int4), $objarray0($int4), $string0);
+        $objarray0($int4) = null;
+        $intarray1($int4) = 0;
+        $int4 = calc($int4 + 1);
+    }
+    if_sethide(false, duel3_confirm:my_scrollbar);
+} else {
+    if_sethide(true, duel3_confirm:my_scrollbar);
+    $string0 = "Absolutely nothing";
+}
+~script6894($string0, duel3_confirm:my_stake, duel3_confirm:my_scrollbar, duel3_confirm:my_header);
+$int0, $int3 = 0, 0;
+while ($int0 < 1) {
+    $obj1 = invother_getobj(dueloffer, $int0);
+    if ($obj1 ! null) {
+        $obj1, $int2 = oc_uncert($obj1), invother_getnum(dueloffer, $int0);
+        $int4, $int5 = 0, 0;
+        while ($int4 < $int3 & $int5 = 0) {
+            if ($objarray0($int4) = $obj1) {
+                $intarray1($int4) = calc($intarray1($int4) + 1);
+                $int5 = 1;
+            }
+            $int4 = calc($int4 + 1);
+        }
+        if ($int5 = 0) {
+            $objarray0($int3) = $obj1;
+            $intarray1($int3) = $int2;
+            $int3 = calc($int3 + 1);
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+$string0 = "";
+def_int $int7 = 1;
+if ($int3 > 0) {
+    $int4, $int7 = 0, 0;
+    while ($int4 < $int3) {
+        $string0 = ~script6893($intarray1($int4), $objarray0($int4), $string0);
+        $objarray0($int4) = null;
+        $intarray1($int4) = 0;
+        $int4 = calc($int4 + 1);
+    }
+    if_sethide(false, duel3_confirm:their_scrollbar);
+} else {
+    $string0 = "<col=ff0000>Absolutely nothing</col>";
+    if_sethide(true, duel3_confirm:their_scrollbar);
+}
+~script6894($string0, duel3_confirm:their_stake, duel3_confirm:their_scrollbar, duel3_confirm:their_header);
+def_string $string1 = "";
+def_string $string2 = "";
+if ($int6 = 0) {
+    if (%worldswitcher_2ndfavfailed >= pow(10, 7)) {
+        $string1 = "<tostring_localised(calc(%worldswitcher_2ndfavfailed / pow(10, 6)), true)>M gp";
+    } else if (%worldswitcher_2ndfavfailed >= pow(10, 4)) {
+        $string1 = "<tostring_localised(calc(%worldswitcher_2ndfavfailed / pow(10, 3)), true)>K gp";
+    } else if (%worldswitcher_2ndfavfailed >= 0) {
+        $string1 = "<tostring_localised(%worldswitcher_2ndfavfailed, true)> gp";
+    } else {
+        $string1 = "Unknown value";
+    }
+}
+if ($int7 = 0) {
+    if (%vkq2_chem_slot >= pow(10, 7)) {
+        $string2 = "<tostring_localised(calc(%vkq2_chem_slot / pow(10, 6)), true)>M gp";
+    } else if (%vkq2_chem_slot >= pow(10, 4)) {
+        $string2 = "<tostring_localised(calc(%vkq2_chem_slot / pow(10, 3)), true)>K gp";
+    } else if (%vkq2_chem_slot >= 0) {
+        $string2 = "<tostring_localised(%vkq2_chem_slot, true)> gp";
+    } else {
+        $string2 = "Unknown value";
+    }
+}
+if (%worldswitcher_2ndfavfailed < 0 | %vkq2_chem_slot < 0) {
+    $string1, $string2 = "Your stake: <col=ff0000><$string1></col>", "Opponent's stake: <col=ff0000><$string2></col>";
+} else if (%worldswitcher_2ndfavfailed > %vkq2_chem_slot) {
+    $string1, $string2 = "Your stake: <$string1>", "Opponent's stake: <col=ff0000><$string2></col>";
+} else if (%worldswitcher_2ndfavfailed < %vkq2_chem_slot) {
+    $string1, $string2 = "Your stake: <col=ff0000><$string1></col>", "Opponent's stake: <$string2>";
+} else {
+    $string1, $string2 = "Your stake: <$string1>", "Opponent's stake: <$string2>";
+}
+if_settext($string1, duel3_confirm:my_header);
+if_settext($string2, duel3_confirm:their_header);

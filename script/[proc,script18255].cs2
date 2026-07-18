@@ -1,0 +1,28 @@
+// 18255
+[proc,script18255]
+def_int $int0 = ~script18160(%omge_job_interface_id);
+def_struct $struct1 = ~script16319($int0);
+if_sethide(true, jobs_main:reroll_layer);
+if_sethide(true, jobs_main:extend_layer);
+if (%currency_challenge > 0) {
+    ~script18256($struct1, $int0, jobs_main:currency_button, jobs_main:currency_layer_title);
+} else {
+    if_sethide(true, jobs_main:currency_layer);
+    if_setsize(0, 290, ^setsize_minus, ^setsize_abs, jobs_main:objectives_layer);
+    if_setsize(0, 125, ^setsize_minus, ^setsize_abs, jobs_main:objectives_progress_layer);
+    if_setposition(0, 140, ^setpos_abs_centre, ^setpos_abs_top, jobs_main:rewards_layer);
+    if_setsize(0, 125, ^setsize_minus, ^setsize_abs, jobs_main:rewards_layer);
+}
+return;
+if (~script17231($struct1) = 2) {
+    if_sethide(true, jobs_main:reroll_layer);
+    if_sethide(true, jobs_main:extend_layer);
+    if_sethide(true, jobs_main:currency_layer);
+} else {
+    if_sethide(false, jobs_main:reroll_layer);
+    if_sethide(false, jobs_main:extend_layer);
+    if_sethide(false, jobs_main:currency_layer);
+    ~script18256($struct1, $int0, jobs_main:reroll_button, jobs_main:reroll_layer_title);
+    ~script18256($struct1, $int0, jobs_main:extend_button, jobs_main:extend_layer_title);
+    ~script18256($struct1, $int0, jobs_main:currency_button, jobs_main:currency_layer_title);
+}

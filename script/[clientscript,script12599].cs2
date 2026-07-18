@@ -1,0 +1,41 @@
+// 12599
+[clientscript,script12599](component $component0, int $int1, int $int2, int $int3, int $int4)
+if ($component0 = null | $int3 < 1 | $int4 < 1 | $int1 < 2 | calc(2 + ($int3 + 1) * (3 + $int4)) <= $int1) {
+    return;
+}
+def_int $int5 = calc(($int1 - 2) / (3 + $int4) - 1);
+if ($int5 < 0) {
+    return;
+}
+def_string $string0 = "";
+def_component $component6 = if_getlayer($component0);
+if ($component6 ! null) {
+    $component6 = if_getlayer($component6);
+} else {
+    return;
+}
+def_int $int7 = if_getwidth($component6);
+def_int $int8 = $int4;
+def_int $int9 = calc(2 + ($int5 + 1) * (3 + $int4) + 3);
+while (--$int8 >= 0 & cc_find($component0, calc($int9 + $int8)) = true) {
+    if (cc_getwidth > 0 & calc(cc_getx + cc_getwidth) > $int7) {
+        $int8 = -1;
+    }
+}
+if ($int8 < -1) {
+    $string0 = ~script12292(~script12286($int2));
+    $int8 = -1;
+    while (++$int8 < $int4 & cc_find($component0, calc($int9 + $int8)) = true) {
+        if (cc_getwidth > 0) {
+            $string0 = "<$string0><br><enum(int, string, telemetry_all_statistics, cc_param(rs3tli_component_param_int0))>: <cc_gettext>";
+        }
+    }
+}
+$int8 = -1;
+while (++$int8 < $int4 & cc_find($component0, calc($int9 + $int8)) = true) {
+    cc_setonmouserepeat(null);
+}
+if (string_length($string0) ! 0 & cc_find($component0, calc($int9 - 3 + 2)) = true) {
+    cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+    ~script3877($string0, $component0, cc_getid);
+}

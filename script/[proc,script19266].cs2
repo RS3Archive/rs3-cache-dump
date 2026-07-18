@@ -1,0 +1,32 @@
+// 19266
+[proc,script19266]
+~wof_hotkey(1);
+~script19267;
+~script19272;
+if (%trh_dungeon_crawl_dungeon_dbrow = null) {
+    ~script19274;
+    ~script19275;
+    return;
+}
+~script19273;
+~script19278;
+if_sethide(true, trh_dungeon_crawl_overlay:map_layer);
+if_sethide(true, trh_dungeon_crawl_overlay:bonus_encounter_layer);
+if_sethide(true, trh_dungeon_crawl_overlay:boss_encounter_layer);
+if_sethide(true, trh_dungeon_crawl_overlay:rewards_layer);
+if (%trh_dungeon_crawl_map_reward_1_obj ! null | %trh_dungeon_crawl_map_reward_2_obj ! null | %trh_dungeon_crawl_map_reward_3_obj ! null) {
+    ~script19298;
+    if_sethide(false, trh_dungeon_crawl_overlay:rewards_layer);
+    return;
+}
+switch_dbtable (db_getrowtable(%trh_dungeon_crawl_dungeon_floor_dbrow)) {
+    case trh_dungeon_crawl_map :
+        ~script19279;
+        if_sethide(false, trh_dungeon_crawl_overlay:map_layer);
+    case trh_dungeon_crawl_bonus_encounter :
+        ~script19284;
+        if_sethide(false, trh_dungeon_crawl_overlay:bonus_encounter_layer);
+    case trh_dungeon_crawl_boss_encounter :
+        ~script19287;
+        if_sethide(false, trh_dungeon_crawl_overlay:boss_encounter_layer);
+}

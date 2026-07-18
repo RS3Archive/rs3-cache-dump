@@ -1,0 +1,70 @@
+// 2186
+[proc,script2186]
+def_component $component0 = fishcomp_reward_tackle_box_side:main_layer;
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1 = calc((if_getwidth($component0) - 36 * 4) / 3);
+$int2 = calc((if_getheight($component0) - 32 * 7) / 6);
+cc_deleteall(fishcomp_reward_tackle_box:render_layer);
+def_int $int3 = enum_getoutputcount(fishcomp_reward_slot_index_to_component);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_enum $enum8 = null;
+def_obj $obj9 = null;
+while ($int4 < $int3) {
+    if (if_find(enum(int, component, fishcomp_reward_slot_index_to_component, $int4)) = true) {
+        $int5 = calc(cc_getx + 2);
+        $int6 = cc_gety;
+        $enum8 = enum(int, enum, fishcomp_reward_slot_index_to_enum, $int4);
+        $int7 = ~script2187($int4);
+        cc_create(fishcomp_reward_tackle_box:render_layer, ^iftype_graphic, $int4);
+        cc_setposition(calc($int5 + 2), calc($int6 + 4), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setoutline(1);
+        if ($int7 ! 0) {
+            $obj9 = enum(int, obj, $enum8, $int7);
+            cc_setopbase(oc_name($obj9));
+            if ($enum8 = fishcomp_reward_fish_int_to_namedobj) {
+                cc_setop(1, "Telebank 1");
+                cc_setop(2, "Telebank 5");
+                cc_setop(3, "Telebank 10");
+                cc_setop(4, "Telebank All");
+                cc_setop(5, "Telebank X");
+                cc_setobject($obj9, ~script2188($int4));
+            } else {
+                cc_setop(1, "Withdraw 1");
+                if ($obj9 = urns_fishing5_rune | $obj9 = urns_fishing4_rune | $obj9 = urns_fishing3_rune | $obj9 = urns_fishing2_rune | $obj9 = urns_fishing1_rune) {
+                    cc_setop(2, "Withdraw 5");
+                    cc_setop(3, "Withdraw 10");
+                    cc_setop(4, "Withdraw All");
+                    cc_setop(5, "Withdraw X");
+                    cc_setobject($obj9, ~script14059($int4));
+                } else if ($enum8 = fishcomp_reward_bait_int_to_namedobj) {
+                    cc_setop(2, "Withdraw 5");
+                    cc_setop(3, "Withdraw 10");
+                    cc_setop(4, "Withdraw All");
+                    cc_setop(5, "Withdraw X");
+                    cc_setobject($obj9, ~script2188($int4));
+                } else {
+                    cc_setobject_nonum($obj9, 1);
+                }
+            }
+        }
+    } else {
+        mes("Nothing happens, as if something is wrong.");
+        return;
+    }
+    $int4 = calc($int4 + 1);
+}
+if (%fishcomp_telebanks = 1) {
+    if_settext("You have teleported <tostring(%fishcomp_telebanks)>/<tostring(~script7721)> raw fish to your bank today", fishcomp_reward_tackle_box:telebank_text);
+} else {
+    if_settext("You have teleported <tostring(%fishcomp_telebanks)>/<tostring(~script7721)> raw fish to your bank today", fishcomp_reward_tackle_box:telebank_text);
+}
+if (%fishcomp_telebanks >= ~script7721) {
+    if_setcolour(0xe1e1e1, fishcomp_reward_tackle_box:telebank_text);
+} else {
+    if_setcolour(0xf6b041, fishcomp_reward_tackle_box:telebank_text);
+}

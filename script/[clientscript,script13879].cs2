@@ -1,0 +1,17 @@
+// 13879
+[clientscript,script13879]
+if (%loading_screen_cycles++ >= 20) {
+    if (map_loadedpercent < 60 & map_loadingscreen_isopen = true & %loading_screen_disabled_override_until <= clientclock) {
+        if (~zoom_enabled = true) {
+            ~interface_zoom_reset;
+        }
+        ~script14987(false);
+        if_opensubclient(toplevel_v2:map_loaded_tracker, loading_screen);
+        if_setonkey("script736(event_keycode, event_keychar)", loading_screen:loading_rect);
+        if_setontimer("script8300(0)", toplevel_v2:map_loaded_tracker);
+        ~script19667;
+    } else {
+        if_setontimer("script8298", toplevel_v2:map_loaded_tracker);
+        ~script6556(5);
+    }
+}

@@ -1,0 +1,50 @@
+// 13406
+[proc,script13406](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(dbfilter)
+if (~script16260 = 0) {
+    return(db_filter_value(construction_house_furniture:col0, 261, ^filterop_eq, 0));
+}
+def_dbfilter $dbfilter9 = db_filter_value(construction_house_furniture:col0, 0, ^filterop_gte, 0);
+def_dbfilter $dbfilter10 = null;
+if ($int0 ! 63) {
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col5, $int0, ^filterop_eq, 0));
+}
+if ($int1 ! 127 & $int1 ! 126) {
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col6, $int1, ^filterop_eq, 0));
+}
+switch_int ($int3) {
+    case 1 :
+        $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col12, true, ^filterop_eq, 0));
+    case 2 :
+        $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col12, false, ^filterop_eq, 0));
+}
+switch_int ($int4) {
+    case 1 :
+        $dbfilter9 = db_filter_combine($dbfilter9, db_filter_column(construction_house_furniture:col17, construction_house_furniture:col18, ^filterop_gte));
+    case 2 :
+        $dbfilter9 = db_filter_combine($dbfilter9, db_filter_column(construction_house_furniture:col17, construction_house_furniture:col18, ^filterop_lt));
+}
+if ($int5 = 1) {
+    $dbfilter10 = db_filter_unknown(db_filter_value(construction_house_furniture:col16, dbrow_object_null, ^filterop_eq, 0));
+    $dbfilter9 = db_filter_combine($dbfilter9, $dbfilter10);
+}
+if ($int2 > 0 & $int2 < 120) {
+    if ($int6 = 1) {
+        $int2 = min($int2, stat(construction));
+    }
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col9, $int2, ^filterop_lte, 0));
+} else if ($int6 = 1 & stat(construction) < 120) {
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col9, stat(construction), ^filterop_lte, 0));
+}
+if ($int7 = 1) {
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col14, 0, ^filterop_gt, 0));
+}
+if ($int8 = 1) {
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col24, false, ^filterop_eq, 0));
+}
+if ($int8 = 2) {
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col26, false, ^filterop_eq, 0));
+}
+if ($int8 = 3) {
+    $dbfilter9 = db_filter_combine($dbfilter9, db_filter_value(construction_house_furniture:col25, false, ^filterop_eq, 0));
+}
+return($dbfilter9);

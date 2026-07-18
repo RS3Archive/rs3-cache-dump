@@ -1,0 +1,31 @@
+// 18133
+[proc,script18133](struct $struct0, int $int1)(int, string)
+def_int $int2 = ~script16500($int1);
+if ($int2 = 1) {
+    return(0, "You've already extended this challenge.");
+}
+if (struct_param($struct0, challenge_extendable) = 0 | struct_param($struct0, challenge_type) = 2) {
+    return(0, "This challenge cannot be extended.");
+}
+if (map_members = false) {
+    return(0, "This feature can only be used on a members' world.");
+}
+def_struct $struct3 = null;
+def_int $int4 = 1;
+def_int $int5 = 0;
+while ($int4 <= ~script16317) {
+    $struct3 = ~script16319($int4);
+    if ($struct3 ! null & ~script16442($int4) >= struct_param($struct3, challenge_target) & ~script18262($int4) = 1) {
+        if (~script16500($int4) = 1) {
+            $int5 = calc($int5 + 2);
+        } else {
+            $int5 = calc($int5 + 1);
+        }
+    }
+    $int4 = calc($int4 + 1);
+}
+if (calc(~script12869(challenge_weekly_progression) + $int5 * 100) < 2100) {
+    return(1, "Spend vis wax to double this challenge's XP, weekly progress and objective target.");
+} else {
+    return(1, "Spend vis wax to double this challenge's XP and objective target.");
+}

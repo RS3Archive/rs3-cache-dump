@@ -1,0 +1,52 @@
+// 11457
+[proc,death_build_object](int $int0, component $component1, obj $obj2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9)(int, int)
+if ($int0 = -1 & $component1 = null) {
+    return($int4, $int5);
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+if ($component1 ! null) {
+    if (calc($int4 + 39) > if_getwidth($component1)) {
+        $int4 = 0;
+        $int5 = calc($int5 + 39);
+    }
+    cc_create($component1, ^iftype_graphic, $int7);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    if ($obj2 ! null) {
+        if (oc_members($obj2) = 1 & map_members = false) {
+            $int10 = 1;
+        }
+        cc_setopbase("<col=FF981F><oc_name($obj2)>");
+        if ($int9 = 1 | $int9 = 3) {
+            if ($component1 = death:autosave_click) {
+                cc_setop(1, "Examine");
+            } else {
+                cc_setop(1, "Examine");
+            }
+        } else {
+            switch_component ($component1) {
+                case death:protect_click :
+                    cc_setop(1, "Examine");
+                case death:keep_click :
+                    cc_setop(1, "Examine");
+                case death:lost_click :
+                    cc_setop(1, "Examine");
+                case death:lost_bob_click :
+                    cc_setop(1, "Examine");
+                case death:autosave_click :
+                    cc_setop(1, "Examine");
+                case death:overflow_click :
+                    cc_setop(1, "Select");
+                    cc_setop(3, "Examine");
+                    cc_setonop("script17086(event_comsubid, event_op)");
+            }
+        }
+        cc_setobject($obj2, $int3);
+        cc_setonmouserepeat("death_item_tooltip(event_com, event_comsubid, $obj2, $int6, $int8, $int9)");
+        cc_setonmouseleave("script11471(event_com, event_comsubid)");
+        cc_setoutline(1);
+    }
+}
+$int4 = calc($int4 + 39);
+return($int4, $int5);

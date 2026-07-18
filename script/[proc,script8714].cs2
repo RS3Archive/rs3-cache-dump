@@ -1,0 +1,21 @@
+// 8714
+[proc,script8714](dbrow $dbrow0, boolean $boolean1, string $string0)(boolean, string)
+if ($dbrow0 = null) {
+    return(false, "");
+}
+def_int $int2 = 0;
+def_int $int3 = db_getfieldcount($dbrow0, teleport_destinations:col3);
+def_quest $quest4 = null;
+def_string $string1 = "";
+while ($int2 < $int3) {
+    $quest4 = db_getfield($dbrow0, teleport_destinations:col3, $int2);
+    if ($quest4 ! null) {
+        $string1 = quest_getname($quest4);
+        if (quest_finished($quest4) = false) {
+            $string0 = append($string0, "<br>- Complete the '<$string1>' quest");
+            $boolean1 = false;
+        }
+    }
+    $int2 = calc($int2 + 1);
+}
+return($boolean1, $string0);

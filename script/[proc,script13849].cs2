@@ -1,0 +1,32 @@
+// 13849
+[proc,script13849]
+if_sethide(true, toplevel_v2_ribbon_select:size_display_1);
+if_sethide(true, toplevel_v2_ribbon_select:size_display_2);
+if_sethide(true, toplevel_v2_ribbon_select:size_display_3);
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (if_find(toplevel_v2_ribbon:ribbon_root) = true) {
+    $int0 = cc_param(ribbon_last_drawn_count);
+    $int1 = min(cc_param(ribbon_last_drawn_count_max), 30);
+}
+def_int $int2 = calc(44 * ($int0 % 15) - 7);
+switch_int (calc($int0 / 15)) {
+    case 0 :
+        ~script13850(false, true, true, $int2, 0, 0);
+    case 1 :
+        ~script13850(false, false, true, 653, $int2, 0);
+    case 2 :
+        ~script13850(false, false, false, 653, 653, $int2);
+    case 3 :
+        ~script13850(false, false, false, 653, 653, 653);
+}
+if (~script6431 = true) {
+    if_sethide(true, toplevel_v2_ribbon_select:mode);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_ribbon_select:reset_button_layer);
+    if_settext("Ribbon Bar - Displays up to <tostring(8)> icons.", toplevel_v2_ribbon_select:ribbon_bar_title);
+} else {
+    if_sethide(false, toplevel_v2_ribbon_select:mode);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, toplevel_v2_ribbon_select:reset_button_layer);
+    ~static_checkbox_create(toplevel_v2_ribbon_select:checkbox_build, toplevel_v2_ribbon_select:checkbox_click, "Use custom ribbon", "", "", %varclientbit_42113);
+    if_settext("Ribbon Bar - Displays up to <tostring_localised($int1, true)> icons at current size.", toplevel_v2_ribbon_select:ribbon_bar_title);
+}

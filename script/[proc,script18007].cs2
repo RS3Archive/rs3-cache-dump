@@ -1,0 +1,56 @@
+// 18007
+[proc,script18007](dbrow $dbrow0, struct $struct1)
+if ($struct1 = null) {
+    return;
+}
+def_component $component2 = db_getfield($dbrow0, trh_prize_preview_components:col4, 0);
+def_component $component3 = db_getfield($dbrow0, trh_prize_preview_components:col2, 0);
+def_component $component4 = db_getfield($dbrow0, trh_prize_preview_components:col8, 0);
+def_component $component5 = db_getfield($dbrow0, trh_prize_preview_components:col0, 0);
+def_component $component6 = db_getfield($dbrow0, trh_prize_preview_components:col3, 0);
+def_component $component7 = db_getfield($dbrow0, trh_prize_preview_components:col9, 0);
+def_component $component8 = db_getfield($dbrow0, trh_prize_preview_components:col1, 0);
+if_sethide(true, $component7);
+if_sethide(true, $component8);
+if_sethide(true, $component4);
+if_sethide(false, $component6);
+def_npc $npc9 = null;
+def_bas $bas10 = null;
+def_int $int11 = -1;
+def_int $int12 = 5;
+~script17927;
+def_dbrow $dbrow13 = struct_param($struct1, mtxmgt_interface_positioning);
+switch_int (struct_param($struct1, mtxmgt_category)) {
+    case 2 :
+        if ($dbrow13 = null) {
+            $dbrow13 = bp3_outfit_positioning;
+        }
+        ~script17960($struct1, null, null, $component2, $component3, $component4, $component5, $component6, $dbrow13);
+    case 5 :
+        if ($dbrow13 = null) {
+            $dbrow13 = bp3_pet_positioning;
+        }
+        $npc9 = ~script17962($struct1);
+        if ($npc9 = null) {
+            ~error("Unable to find a pet npc.");
+            return;
+        }
+        $bas10 = ~script17961($npc9, $struct1);
+        if ($bas10 = null) {
+            ~error("Unable to find a pet bas for pet.");
+            return;
+        }
+        ~script17958($struct1, $npc9, $bas10, $component2, $component3, $component7, $component5, $component6, $int12, $dbrow13);
+    case 4 :
+        if ($dbrow13 = null) {
+            switch_int (struct_param($struct1, mtxmgt_subcat)) {
+                case 4 :
+                    $dbrow13 = bp3_overhead_icon_positioning;
+                case default :
+                    $dbrow13 = bp3_standing_anim_positioning;
+            }
+        }
+        ~script17956($struct1, $component2, $component3, $component8, $component5, $component6, $int12, $dbrow13);
+    case default :
+        ~error("This has been called without a valid mtxmgt category, we recieved <tostring(struct_param($struct1, mtxmgt_category))>");
+}

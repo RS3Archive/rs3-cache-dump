@@ -1,0 +1,15 @@
+// 5890
+[proc,script5890](component $component0, struct $struct1)
+if ($component0 = null | %combatv2_conservation_active = 0) {
+    ~script5892(toplevel_v2_combat_bar:just_used_flash);
+    return;
+}
+if (%combatv2_conservation_active = 1 & if_find(toplevel_v2_combat_bar:just_used_flash) = true & cc_param(combatv2_revolution_pulse_ability) ! $struct1) {
+    %combatv2_just_used_ability = null;
+    cc_sethide(false);
+    cc_setontimer("script5891(event_com, calc(clientclock + 30))");
+    cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(if_getx($component0) + 10), calc(if_gety($component0) + 10), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setparam(combatv2_revolution_pulse_ability, $struct1);
+    ~if_highlight_create(toplevel_v2_combat_bar:just_used_flash, 0xf0be79);
+}

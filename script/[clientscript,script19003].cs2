@@ -1,0 +1,31 @@
+// 19003
+[clientscript,script19003](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find($component0, $int1) = true) {
+    $int3 = cc_param(rstli_component_counter);
+    cc_setparam(rstli_component_counter, calc($int3 + 1));
+    if ($int3 < 0) {
+        return;
+    }
+    if (cc_gettrans ! 0) {
+        $int4 = calc(((~script12422(calc($int3 * 6), 1000, cc_param(rs3tli_component_transparency_playback_rate)) + cc_param(rs3tli_component_transparency_offset)) % 90 + 90) % 360);
+        $int5 = scale(enum(int, int, sin_deg2percentage_enum, $int4), 100, 255);
+        $int5 = min($int5, 254);
+        if ($int5 > cc_gettrans) {
+            $int5 = 0;
+        }
+        cc_settrans($int5);
+    }
+    $int6 = min(calc(cc_param(rs3tli_component_original_pos_y) + cc_param(rs3tli_component_speed_y) * $int3), cc_param(rs3tli_component_target_pos_y));
+    cc_setposition(cc_param(rs3tli_component_original_pos_x), $int6, cc_param(rs3tli_component_target_align_x), cc_param(rs3tli_component_target_align_y));
+    if ($int6 = cc_param(rs3tli_component_target_pos_y) & cc_gettrans = 0) {
+        cc_setontimer(null);
+        if (.cc_find($component0, calc($int1 + 1)) = true) {
+            .cc_setontimer("script19004($component0, calc($int1 + 1), $int2)");
+            .cc_sethide(false);
+        }
+    }
+}

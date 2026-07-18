@@ -1,0 +1,92 @@
+// 11096
+[proc,runepass_reward_cycle](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, component $component6)
+def_dbrow $dbrow7 = ~runepass_get_current;
+if ($dbrow7 = null) {
+    return;
+}
+def_int $int8 = 0;
+def_int $int9 = db_getfieldcount($dbrow7, runepass_table:col20);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_graphic $graphic12 = null;
+def_graphic $graphic13 = null;
+def_obj $obj14 = null;
+def_obj $obj15 = null;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_obj $obj21 = null;
+def_struct $struct22 = null;
+def_int $int23 = %runepass_availability;
+if (calc($int23 & 170) = 0) {
+    $int23 = calc($int23 * 3);
+}
+$int8 = $int1;
+while ($int8 < $int9 & $int16 <= $int0) {
+    $int16, $int17, $obj21, $struct22, $int18 = db_getfield($dbrow7, runepass_table:col20, $int8);
+    if (calc($int17 & 85) ! 0 & calc($int17 & %runepass_availability) ! 0) {
+        if ($int4 > 0) {
+            if ($int10 = $int2) {
+                $graphic12 = ~runepass_get_reward_graphic($struct22, $obj21, 0);
+                $obj14 = $obj21;
+                $int19 = $int18;
+            }
+            $int10 = calc($int10 + 1);
+        }
+    } else if (calc($int17 & $int23) ! 0 & $int5 > 0) {
+        if ($int11 = $int3) {
+            $graphic13 = ~runepass_get_reward_graphic($struct22, $obj21, 0);
+            $obj15 = $obj21;
+            $int20 = $int18;
+        }
+        $int11 = calc($int11 + 1);
+    }
+    $int8 = calc($int8 + 1);
+}
+if ($graphic12 ! null) {
+    $obj14 = null;
+} else {
+    $graphic12 = runepass_reward_s_chest;
+}
+if ($graphic13 ! null) {
+    $obj15 = null;
+} else {
+    $graphic13 = runepass_reward_s_chest;
+}
+if (cc_find($component6, calc($int0 * 11 + 1)) = true) {
+    cc_setgraphic($graphic12);
+}
+if (cc_find($component6, calc($int0 * 11 + 2)) = true) {
+    cc_setgraphic($graphic13);
+}
+if (cc_find($component6, calc($int0 * 11 + 4)) = true) {
+    cc_setobject($obj14, -1);
+}
+if (cc_find($component6, calc($int0 * 11 + 5)) = true) {
+    cc_setobject($obj15, -1);
+}
+if (cc_find($component6, calc($int0 * 11 + 9)) = true) {
+    cc_settext("<tostring($int19)>x");
+}
+if (cc_find($component6, calc($int0 * 11 + 10)) = true) {
+    cc_settext("<tostring($int20)>x");
+}
+if (calc($int2 + 1) = $int4) {
+    $int2 = 0;
+} else {
+    $int2 = calc($int2 + 1);
+}
+if (calc($int3 + 1) = $int5) {
+    $int3 = 0;
+} else {
+    $int3 = calc($int3 + 1);
+}
+if (cc_find($component6, calc($int0 * 11)) = true) {
+    if ($int0 >= %runepass_task_sets_completed) {
+        cc_setontimer("runepass_reward_cycle($int0, $int1, $int2, $int3, $int4, $int5, $component6)");
+    } else {
+        cc_setontimer(null);
+    }
+}

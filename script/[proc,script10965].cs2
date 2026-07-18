@@ -1,0 +1,41 @@
+// 10965
+[proc,script10965](int $int0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($int0 >= 200) {
+    $int3 = 35;
+    if ($int0 >= 400) {
+        $int3 = calc($int3 + 70);
+        if ($int0 >= 600) {
+            $int3 = calc($int3 + 120);
+            if ($int0 >= 1000) {
+                $int3 = calc($int3 + 100);
+                if ($int0 >= 1250) {
+                    $int3 = calc($int3 + 73);
+                } else {
+                    $int1 = calc((1250 - 1000) / 73);
+                    $int2 = min(calc(($int0 - 1000) / $int1), 73);
+                    $int3 = calc($int3 + min(calc($int2 + (73 - $int2) / 20), calc(73 - 1)));
+                }
+            } else {
+                $int1 = calc((1000 - 600) / 100);
+                $int2 = min(calc(($int0 - 600) / $int1), 100);
+                $int3 = calc($int3 + min(calc($int2 + (100 - $int2) / 20), calc(100 - 1)));
+            }
+        } else {
+            $int1 = calc((600 - 400) / 120);
+            $int2 = min(calc(($int0 - 400) / $int1), 120);
+            $int3 = calc($int3 + min(calc($int2 + (120 - $int2) / 20), calc(120 - 1)));
+        }
+    } else {
+        $int1 = calc((400 - 200) / 70);
+        $int2 = min(calc(($int0 - 200) / $int1), 70);
+        $int3 = calc($int3 + min(calc($int2 + (70 - $int2) / 20), calc(70 - 1)));
+    }
+} else {
+    $int1 = calc(200 / 35);
+    $int2 = min(calc($int0 / $int1), 35);
+    $int3 = min(calc($int2 + (35 - $int2) / 20), calc(35 - 1));
+}
+return($int3);

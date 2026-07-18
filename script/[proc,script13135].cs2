@@ -1,0 +1,48 @@
+// 13135
+[proc,script13135](component $component0, component $component1, component $component2, int $int3)
+def_boolean $boolean4 = keyheld_ctrl;
+def_boolean $boolean5 = keyheld_alt;
+def_boolean $boolean6 = keyheld_shift;
+switch_int ($int3) {
+    case 0, 1 :
+        if ($component0 ! null & $boolean4 = true) {
+            $boolean5 = false;
+            $boolean6 = false;
+        }
+    case 2, 3 :
+        if ($component1 ! null & $boolean5 = true) {
+            $boolean4 = false;
+            $boolean6 = false;
+        }
+    case 4, 5 :
+        if ($component2 ! null & $boolean6 = true) {
+            $boolean4 = false;
+            $boolean5 = false;
+        }
+}
+switch_int ($int3) {
+    case 2, 4 :
+        if ($component0 ! null & $boolean4 = true) {
+            $boolean5 = false;
+            $boolean6 = false;
+        }
+    case 0, 5 :
+        if ($component1 ! null & $boolean5 = true) {
+            $boolean4 = false;
+            $boolean6 = false;
+        }
+    case 1, 3 :
+        if ($component2 ! null & $boolean6 = true) {
+            $boolean4 = false;
+            $boolean5 = false;
+        }
+}
+if ($component0 ! null) {
+    if_sethide(~negate_bool($boolean4), $component0);
+}
+if ($component1 ! null) {
+    if_sethide(~negate_bool($boolean5), $component1);
+}
+if ($component2 ! null) {
+    if_sethide(~negate_bool($boolean6), $component2);
+}

@@ -1,0 +1,48 @@
+// 7518
+[proc,script7518](component $component0, int $int1)
+if_settext(~script7520(%rand_dnd_start_time), $component0);
+if (%rand_dnd_played_game = 0) {
+    switch_int (%rand_dnd_start_time) {
+        case 10 :
+            if_sethide(true, xp_popup:xp_popup_containing_layer);
+            ~script7521("Ready yourself in the start room by grabbing any equipment and food you need.");
+        case 25 :
+            if_sethide(false, xp_popup:xp_popup_containing_layer);
+            if_sethide(true, rand_dnd_overlay:newplayer_tip);
+        case 80 :
+            if_sethide(true, xp_popup:xp_popup_containing_layer);
+            ~script7521("Keep track of your objectives in the top-left. Deposit the most items to achieve rank 1!");
+        case 95 :
+            if_sethide(false, xp_popup:xp_popup_containing_layer);
+            if_sethide(true, rand_dnd_overlay:newplayer_tip);
+        case 130 :
+            if_sethide(true, xp_popup:xp_popup_containing_layer);
+            ~script7521("Collect cards to use in the treasure room. Each card has a different power, click one to examine your deck.");
+        case 145 :
+            if_sethide(false, xp_popup:xp_popup_containing_layer);
+            if_sethide(true, rand_dnd_overlay:newplayer_tip);
+        case 210 :
+            if_sethide(true, xp_popup:xp_popup_containing_layer);
+            ~script7521("Come first to start the treasure room with the huge lamp and earn a bonus card!");
+        case 225 :
+            if_sethide(false, xp_popup:xp_popup_containing_layer);
+            if_sethide(true, rand_dnd_overlay:newplayer_tip);
+        case 310 :
+            if_sethide(true, xp_popup:xp_popup_containing_layer);
+            ~script7521("Make sure you deposit items before the objective is complete, otherwise the items won't add to your score.");
+        case 325 :
+            if_sethide(false, xp_popup:xp_popup_containing_layer);
+            if_sethide(true, rand_dnd_overlay:newplayer_tip);
+        case 610 :
+            if_sethide(true, xp_popup:xp_popup_containing_layer);
+            ~script7521("Only 1 minute left! Make sure you deposit any items before time runs out!");
+        case 625 :
+            if_sethide(false, xp_popup:xp_popup_containing_layer);
+            if_sethide(true, rand_dnd_overlay:newplayer_tip);
+    }
+}
+if (%rand_dnd_start_time > 0) {
+    if_setontimer("script7519($component0, calc(clientclock + $int1))", $component0);
+} else {
+    if_setontimer(null, $component0);
+}

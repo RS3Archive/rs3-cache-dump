@@ -1,0 +1,23 @@
+// 7992
+[clientscript,script7992]
+if (calc(clientclock % 3000) ! 0) {
+    return;
+}
+def_int $int0 = ~graphics_options_detailget(graphics_options_nxt_vsync);
+if ($int0 = 1) {
+    if_setontimer(null, toplevel_v2:fps_monitor);
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int1, $int2, $int3 = fps_stats;
+if ($int3 < 30) {
+    return;
+}
+if ($int2 > 144) {
+    if_opensubclient(toplevel_v2:low_fps_layer, fps_warning);
+    %fps_shown_this_session = 1;
+    if_settext("It looks like you have a very high frame-rate at the moment which means your GPU may be doing more work than your monitor can display.<br><br>You might like to turn up your graphics settings [if they are not already on ultra], or turn on VSync which will reduce the extra work your GPU is doing.", fps_warning:info_text);
+    if_setonop("script132", fps_warning:button_op);
+}

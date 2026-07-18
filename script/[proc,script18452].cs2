@@ -1,0 +1,22 @@
+// 18452
+[proc,script18452]
+def_int $int0 = -1;
+def_int $int1 = ~script18421(null);
+def_int $int2 = 10;
+def_int $int3 = 7;
+def_component $component4 = buff_select_event:reward_layer;
+cc_deleteall($component4);
+while (++$int0 < $int1) {
+    $int2 = calc(12 + $int0 * 50);
+    cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+    cc_setgraphic(rs3_inventory_slot);
+    cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    if (%buff_select_event_reward_progress >= calc($int0 + 1)) {
+        cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+        cc_setgraphic(event_bonanza_icon_reward_token);
+        cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int2 + 3), calc($int3 + 3), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setonmouserepeat("script18460(event_com)");
+    }
+}

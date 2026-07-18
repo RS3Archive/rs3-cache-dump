@@ -1,0 +1,65 @@
+// 17070
+[clientscript,script17070](int $int0, int $int1, int $int2, int $int3, component $component4, component $component5, component $component6, component $component7, component $component8, int $int9)
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = calc(29 / $int0);
+def_int $int13 = calc($int12 * $int3 + $int2);
+def_graphic $graphic14 = "stats_background_button,0";
+def_graphic $graphic15 = "stats_background_button,1";
+def_graphic $graphic16 = april_fool24_benchsitting_icon;
+if ($int9 = 0) {
+    $int10 = ~script16491(%april_fools24_benchsitting_xp);
+} else {
+    $int11 = ~script16491(%april_fools24_player_inspect_benchsitting_xp);
+}
+cc_create($component4, ^iftype_graphic, 29);
+cc_setsize(60, 27, ^setsize_abs, ^setsize_abs);
+cc_setposition($int1, $int13, ^setpos_abs_left, ^setpos_abs_top);
+def_int $rgb17 = 0xff8c00;
+if (%option_stattrim = 1 & ($int9 = 1 & $int11 >= 99 | $int9 = 0 & $int10 >= 99)) {
+    $graphic14 = "stats_background_button,2";
+    $graphic15 = "stats_background_button,3";
+}
+cc_setgraphic($graphic14);
+cc_setonmouseover("cc_graphic_swapper(event_com, 29, $graphic15)");
+cc_setonmouseleave("cc_graphic_swapper(event_com, 29, $graphic14)");
+cc_create($component5, ^iftype_graphic, 29);
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition($int1, $int13, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic16);
+cc_create($component6, ^iftype_text, 29);
+cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int1 + 24), calc($int13 + 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour($rgb17);
+if ($int9 = 1) {
+    cc_settext(tostring($int11));
+} else {
+    cc_settext(tostring($int10));
+    cc_setonvartransmit("script17166(event_com, cc_getid){april_fools24_benchsitting_perm}");
+}
+cc_create($component7, ^iftype_text, 29);
+cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int1 + 39), calc($int13 + 14), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour($rgb17);
+if ($int9 = 1) {
+    cc_settext(tostring($int11));
+} else {
+    cc_settext(tostring($int10));
+    cc_setonvartransmit("script17167(event_com, cc_getid){april_fools24_benchsitting_perm}");
+}
+cc_create($component8, ^iftype_text, 29);
+cc_setsize(60, 27, ^setsize_abs, ^setsize_abs);
+cc_setposition($int1, $int13, ^setpos_abs_left, ^setpos_abs_top);
+if ($int9 = 0) {
+    cc_setop(1, "View Skillguide");
+}
+if (~script6431 = true) {
+    cc_setonclick("script7774(~script17410($int9), event_com, event_comsubid, 0)");
+    cc_setonvartransmit("script17201(event_com, cc_getid, $int9){april_fools24_benchsitting_perm}");
+} else {
+    cc_setonmouserepeat("script17168(event_com, event_comsubid, $int9)");
+}

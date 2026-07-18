@@ -1,0 +1,68 @@
+// 11391
+[proc,script11391]
+def_enum $enum0 = ~script11401;
+if ($enum0 = null) {
+    if_sethide(false, poh_costume_room:loading_layer);
+    return;
+}
+if_sethide(true, poh_costume_room:loading_layer);
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount($enum0);
+def_int $int3 = if_getwidth(poh_costume_room:scrolling_area);
+def_int $int4 = 8;
+def_int $int5 = 5;
+def_obj $obj6 = null;
+def_int $int7 = 40;
+def_int $int8 = 36;
+def_int $int9 = 36;
+def_int $int10 = 32;
+def_int $int11 = 3;
+def_int $int12 = 1;
+def_graphic $graphic13 = null;
+def_int $int14 = 0;
+if (~script6431 = true) {
+    $int7 = 44;
+    $int8 = 44;
+    $int9 = 44;
+    $int10 = 39;
+    $int11 = calc(($int7 - $int9) / 2);
+    $int12 = calc(($int8 - $int10) / 2);
+    $graphic13 = rs3_inventory_slot;
+} else if (%toplevel_v2_active_skinset ! 1) {
+    $graphic13 = rs3_inventory_slot;
+}
+while ($int1 < $int2) {
+    if (cc_find(poh_costume_room:click_area, $int1) = true & .cc_find(poh_costume_room:build_area, $int1) = true) {
+        $obj6 = enum(int, obj, $enum0, $int1);
+        if (~script5252($obj6) = true) {
+            if (calc($int4 + $int7 + 4) > $int3) {
+                $int4 = 8;
+                $int5 = calc($int5 + $int8 + 4);
+            }
+            cc_setposition(calc($int4 + $int11), calc($int5 + $int12), ^setpos_abs_left, ^setpos_abs_top);
+            if (~script11400($int1) = ^true) {
+                ~script11393($obj6, $int1);
+            } else {
+                cc_setontimer("script11392(event_com, event_comsubid, $obj6, $int1)");
+            }
+            .cc_setgraphic($graphic13);
+            .cc_settrans($int14);
+            .cc_setcolour(^black);
+            cc_sethide(false);
+            .cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_sethide(false);
+            $int4 = calc($int4 + $int7 + 4);
+        } else {
+            cc_sethide(true);
+            .cc_sethide(true);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+$int5 = calc($int5 + 36 + 5);
+if ($int5 >= if_getheight(poh_costume_room:scrolling_area)) {
+    if_setscrollsize(0, $int5, poh_costume_room:scrolling_area);
+} else {
+    if_setscrollsize(0, 0, poh_costume_room:scrolling_area);
+}
+~rs3_scrollbar_vertical(poh_costume_room:scrollbar, poh_costume_room:scrolling_area);

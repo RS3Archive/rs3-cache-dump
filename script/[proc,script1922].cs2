@@ -1,0 +1,28 @@
+// 1922
+[proc,script1922](component $component0, int $int1, int $int2, struct $struct3, int $int4, int $int5, int $int6, int $int7)
+def_int $int8 = if_getnextsubid($component0);
+def_int $int9 = calc($int1 + 1);
+def_graphic $graphic10 = decoration_progressbar_short_qps_inactive;
+switch_int ($int2) {
+    case 0 :
+        if (bitcount(%qps_unlocks_armour) >= $int9) {
+            $graphic10 = decoration_progressbar_short_qps_active;
+        }
+    case 1 :
+        if (bitcount(%qps_unlocks_pet) >= $int9) {
+            $graphic10 = decoration_progressbar_short_qps_active;
+        }
+    case 2 :
+        if (bitcount(%qps_unlocks_hub) >= $int9) {
+            $graphic10 = decoration_progressbar_short_qps_active;
+        }
+    case 3 :
+        if (struct_param($struct3, qps_if_node_cost) < %qp) {
+            $graphic10 = decoration_progressbar_short_qps_active;
+        }
+}
+cc_create($component0, ^iftype_graphic, $int8);
+cc_setonvartransmit("script1925($component0, $int8++, 1, $int2, $int1, $struct3){qps_unlocks_armour, qps_unlocks_pet, qps_unlocks_hub, qps_general_use_var}");
+cc_setsize($int6, $int7, ^setsize_abs, ^setsize_abs);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic10);

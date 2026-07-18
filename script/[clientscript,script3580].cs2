@@ -1,0 +1,24 @@
+// 3580
+[clientscript,script3580](int $int0, component $component1, component $component2)
+def_struct $struct3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = calc(if_getwidth($component1) - 4);
+$struct3 = ~reputation_get_reputation_struct($int0);
+$int4 = ~script13431($int0);
+$int5 = ~reputation_get_current_reputation_tier($int0);
+if ($int5 = calc(enum_getoutputcount(struct_param($struct3, reputation_tiers)) - 1)) {
+    if_setsize($int9, 4, ^setsize_abs, ^setsize_minus, $component2);
+} else {
+    $int6 = enum(int, int, struct_param($struct3, reputation_tiers), $int5);
+    $int7 = enum(int, int, struct_param($struct3, reputation_tiers), calc($int5 + 1));
+    $int8 = calc($int7 - $int6);
+    if ($int8 = 0) {
+        if_setsize($int9, 4, ^setsize_abs, ^setsize_minus, $component2);
+    } else {
+        if_setsize(scale(calc($int4 - $int6), $int8, $int9), 4, ^setsize_abs, ^setsize_minus, $component2);
+    }
+}

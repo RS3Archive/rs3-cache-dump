@@ -1,0 +1,117 @@
+// 5452
+[clientscript,script5452](dbrow $dbrow0, int $int1, int $int2)
+if ($int2 > 1) {
+    if (compare(if_gettext(pof_animal:showstats_farmhand_name), db_getfield($dbrow0, pof_farmhand:col0, 0)) = 0) {
+        if_sethide(true, pof_animal:showstats_farmhand_layer);
+    }
+    return;
+}
+if_sethide(false, pof_animal:showstats_farmhand_layer);
+if_setobject_nonum(db_getfield($dbrow0, pof_farmhand:col18, 0), 0, pof_animal:showstats_farmhand_model);
+if_setmodelzoom(db_getfield($dbrow0, pof_farmhand:col19, 0), pof_animal:showstats_farmhand_model);
+if_settext(db_getfield($dbrow0, pof_farmhand:col0, 0), pof_animal:showstats_farmhand_name);
+def_int $int3 = 0;
+def_dbrow $dbrow4 = null;
+def_string $string0 = "";
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_inv $inv9 = null;
+def_int $int10 = 0;
+$inv9, $int10 = ~script2645(db_getfield($dbrow0, pof_farmhand:col2, 0));
+def_dbrow $dbrow11 = ~script2646($inv9);
+if ($inv9 ! null) {
+    if ($int1 = 1) {
+        $string0 = "Current: <col=CC0000><db_getfield($dbrow11, pof_paddock:col8, 0)>.</col><br><br>";
+    } else {
+        $string0 = "Current: <col=00CC00><db_getfield($dbrow11, pof_paddock:col8, 0)>.</col><br><br>";
+    }
+} else {
+    $string0 = "Current: <col=00CC00>none.</col><br><br>";
+}
+def_int $int12 = db_getfieldcount($dbrow0, pof_farmhand:col17);
+if ($int12 = 0 & ~script2643($dbrow0) = 1) {
+    $string0 = "<$string0>Any pen.<br>";
+} else {
+    while ($int3 < $int12) {
+        $dbrow4 = db_getfield($dbrow0, pof_farmhand:col17, $int3);
+        if (db_getfield($dbrow4, pof_paddock:col5, 0) = true) {
+            $int5 = 1;
+        } else {
+            switch_int (db_getfield($dbrow4, pof_paddock:col2, 0)) {
+                case 1 :
+                    $int6 = 1;
+                case 2 :
+                    $int7 = 1;
+                case 3 :
+                    $int8 = 1;
+            }
+        }
+        $int3 = calc($int3 + 1);
+    }
+}
+if ($int5 = 1) {
+    $string0 = "<$string0>Breeding pens.<br>";
+}
+if ($int6 = 1) {
+    $string0 = "<$string0>Small pens.<br>";
+}
+if ($int7 = 1) {
+    $string0 = "<$string0>Medium pens.<br>";
+}
+if ($int8 = 1) {
+    $string0 = "<$string0>Large pens.<br>";
+}
+def_int $int13 = db_getfield($dbrow0, pof_farmhand:col13, 0);
+if ($int13 > 0) {
+    $string0 = "<$string0><tostring($int13)> beans per use.<br>";
+}
+$int13 = db_getfield($dbrow0, pof_farmhand:col14, 0);
+if ($int13 > 0) {
+    $string0 = "<$string0><tostring($int13)> beans per day.<br>";
+}
+$int13 = db_getfield($dbrow0, pof_farmhand:col15, 0);
+if ($int13 > 0) {
+    $string0 = "<$string0><tostring($int13)> beans per week.<br>";
+}
+$int13 = db_getfield($dbrow0, pof_farmhand:col16, 0);
+if ($int13 > 0) {
+    $string0 = "<$string0><tostring($int13)> beans per month.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col3, 0) = true) {
+    $string0 = "<$string0>Babysitter.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col11, 0) = true) {
+    $string0 = "<$string0>Collector.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col12, 0) = true) {
+    $string0 = "<$string0>Trapper.";
+}
+if (db_getfield($dbrow0, pof_farmhand:col4, 0) = 1) {
+    $string0 = "<$string0>Boosts happiness.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col5, 0) = 1) {
+    $string0 = "<$string0>Boosts health.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col6, 0) = 1) {
+    $string0 = "<$string0>Boosts breeding chance.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col8, 0) = 1) {
+    $string0 = "<$string0>Boosts xp.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col9, 0) = 1) {
+    $string0 = "<$string0>Boosts xp chance.<br>";
+}
+if (db_getfield($dbrow0, pof_farmhand:col10, 0) = 1) {
+    $string0 = "<$string0>Boosts materials.<br>";
+}
+if_settext($string0, pof_animal:showstats_farmhand_data);
+if_settext(db_getfield($dbrow0, pof_farmhand:col1, 0), pof_animal:showstats_farmhand_text);
+if ($int1 = 1) {
+    if_sethide(false, pof_animal:showstats_farmhand_add_button);
+    if_sethide(true, pof_animal:showstats_farmhand_remove_button);
+} else {
+    if_sethide(true, pof_animal:showstats_farmhand_add_button);
+    if_sethide(false, pof_animal:showstats_farmhand_remove_button);
+}

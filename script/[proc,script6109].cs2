@@ -1,0 +1,91 @@
+// 6109
+[proc,script6109](inv $inv0, component $component1, component $component2, component $component3, component $component4)
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component1);
+if_setsize(16, 0, ^setsize_abs, ^setsize_minus, $component4);
+def_int $int5 = inv_size($inv0);
+def_int $int6 = $int5;
+if ($inv0 = lore_bob) {
+    $int6 = min($int6, %group_inspect_target_bob_store_size);
+}
+def_int $int7 = if_getwidth($component1);
+def_int $int8 = if_getheight($component1);
+def_int $int9 = calc(36 + 2);
+def_int $int10 = calc(32 + 4 + 2);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+$int14, $int13, $int11, $int12, $int15 = ~script1899($int7, $int8, $int9, $int10, 16, $int6);
+def_int $int16 = calc($int10 * $int14);
+if ($int15 = 1) {
+    if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component1);
+} else {
+    cc_deleteall($component4);
+}
+def_int $intarray0($int13);
+def_int $int17 = 0;
+while ($int17 < $int13) {
+    $intarray0($int17) = ~script8108($int11, $int12, $int17);
+    $int17 = calc($int17 + 1);
+}
+$int17 = 0;
+def_int $int18 = 0;
+if ($int15 = 1) {
+    if_setscrollsize(0, $int16, $component1);
+    ~scrollbar_vertical($component4, $component1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setscrollsize(0, 0, $component1);
+}
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_obj $obj24 = null;
+def_int $int25 = 0;
+while ($int19 < $int6) {
+    $int20 = calc($int19 % $int13);
+    $int21 = calc($int19 / $int13);
+    $int22 = $intarray0($int20);
+    $int23 = calc($int21 * $int10 + 2);
+    if (cc_find($component2, $int19) = true) {
+        cc_setposition(calc($int22 - 1), calc($int23 - 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_sethide(false);
+    }
+    if (cc_find($component3, $int19) = true) {
+        cc_setposition(calc($int22 + 3), calc($int23 + 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_clearops;
+        $obj24 = invother_getobj($inv0, $int19);
+        $int25 = invother_getnum($inv0, $int19);
+        switch_obj ($obj24) {
+            case flowers_waterfall_quest_mixed, flowers_waterfall_quest_red, flowers_waterfall_quest_blue, flowers_waterfall_quest_yellow, flowers_waterfall_quest_purple, flowers_waterfall_quest_orange, flowers_waterfall_quest, flowers_waterfall_quest_white, flowers_waterfall_quest_black :
+                $obj24 = mithril_seed;
+        }
+        if ($obj24 ! null) {
+            cc_setobject($obj24, $int25);
+            cc_setopbase(oc_name($obj24));
+            cc_sethide(false);
+            cc_setop(10, "Examine<col=ff9040>");
+            cc_setonmouserepeat("script12093($obj24, inv, $int6)");
+            cc_setonmouseleave("script5495(null)");
+            cc_setoutline(1);
+        } else {
+            cc_setobject(null, 0);
+            cc_sethide(true);
+            cc_setopbase("");
+        }
+    }
+    $int19 = calc($int19 + 1);
+}
+while ($int19 < $int5) {
+    if (cc_find($component3, $int19) = true) {
+        cc_setobject(null, 0);
+        cc_sethide(true);
+        cc_setopbase("");
+    }
+    if (cc_find($component2, $int19) = true) {
+        cc_sethide(true);
+    }
+    $int19 = calc($int19 + 1);
+}

@@ -1,0 +1,21 @@
+// 8026
+[proc,script8026](obj $obj0)(obj)
+if ((oc_param($obj0, item_degrade_broken_item) = 1 | enum(obj, boolean, unequippable_items_with_a_wearpos, $obj0) = true | oc_param($obj0, bank_wear_prevented) = true) & $obj0 ! enchanted_onyx_blood_amulet_empty) {
+    return(null);
+}
+def_obj $obj1 = ~script8156($obj0);
+if (oc_param($obj0, item_degrade_freshitem) = 1) {
+    switch_category (oc_category($obj0)) {
+        case pop_scrimshaw :
+            $obj0 = oc_param($obj0, pop_untradeable_version);
+            if ($obj0 = null) {
+                $obj0 = oc_param($obj1, item_degrade_nextstate);
+            }
+            if ($obj0 ! null) {
+                $obj1 = $obj0;
+            }
+        case enchanted_silver_jewellery :
+            $obj1 = enum(obj, obj, enchanted_silver_new_to_used, $obj0);
+    }
+}
+return($obj1);

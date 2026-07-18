@@ -1,0 +1,67 @@
+// 20268
+[proc,script20268](dbrow $dbrow0)
+cc_deleteall(league_parent_relics:passive_info_contents);
+def_int $int1 = 0;
+def_int $int2 = db_getfieldcount($dbrow0, league_relic_list:col0);
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = if_getwidth(league_parent_relics:passive_info_contents);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_graphic $graphic10 = null;
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_int $int13 = 0;
+if (if_find(league_parent_relics:passive_info_contents) = true) {
+    while ($int1 < $int2) {
+        $dbrow3 = db_getfield($dbrow0, league_relic_list:col0, $int1);
+        $int4 = db_getfieldcount($dbrow3, league_relic_tier:col1);
+        if (%league_relic_cache_current_tier ! 63 & %league_relic_cache_current_tier >= $int1 & ~script20143($dbrow3, $int4) = true) {
+            $string0 = "Tier <tostring(calc($int1 + 1))> - Active!";
+            $graphic10 = lobby_icon_tick;
+        } else {
+            if ($int11 = -1) {
+                $int11 = $int5;
+            }
+            $string0 = "Tier <tostring(calc($int1 + 1))>";
+            $graphic10 = rs_fsw_ui_signup_bullet_secondary;
+        }
+        if ($int1 = %league_relic_selected_tier) {
+            $int12 = $int6;
+        }
+        $int5, $int6 = ~script19613(0, $int5, $int6, $int7, $string0);
+        $int8 = 0;
+        $int13 = 0;
+        $int9 = db_getfieldcount($dbrow3, league_relic_tier:col4);
+        while ($int8 < $int9) {
+            $string0 = db_getfield($dbrow3, league_relic_tier:col4:2, $int8);
+            if (string_length($string0) > 0) {
+                $int5, $int6 = ~script20339(0, $int5, $int6, $int7, 0, $string0, $graphic10, null, null);
+                $int13 = calc($int13 + 1);
+            }
+            $int8 = calc($int8 + 1);
+        }
+        $int8 = 0;
+        $int9 = db_getfieldcount($dbrow3, league_relic_tier:col6);
+        while ($int8 < $int9) {
+            $string0 = db_getfield($dbrow3, league_relic_tier:col6, $int8);
+            if (string_length($string0) > 0) {
+                $int5, $int6 = ~script20339(0, $int5, $int6, $int7, 0, $string0, $graphic10, null, null);
+                $int13 = calc($int13 + 1);
+            }
+            $int8 = calc($int8 + 1);
+        }
+        if ($int13 = 0) {
+            $int5, $int6 = ~script19615(0, $int5, $int6, $int7, "N/A");
+        }
+        if ($int1 = %league_relic_selected_tier) {
+            if_setposition(0, $int12, ^setpos_abs_centre, ^setpos_abs_top, league_parent_relics:highlight_passive);
+            if_setsize(0, calc($int6 - $int12), ^setsize_minus, ^setsize_abs, league_parent_relics:highlight_passive);
+        }
+        $int1 = calc($int1 + 1);
+    }
+}
+~script19620(league_parent_relics:passive_info_scrollbar, league_parent_relics:passive_info_scrolling, $int6, league_parent_relics:highlight_passive, -1, 1, -1, -1);

@@ -1,0 +1,29 @@
+// 18874
+[proc,script18874](dbrow $dbrow0, string $string0)(string)
+def_int $int1 = ~script18920($dbrow0, 4);
+if (string_length($string0) > 0) {
+    $string0 = append($string0, "<br>");
+}
+$string0 = append($string0, "Event Time: <~script18847($dbrow0, -1, -1)><br>");
+def_int $int2 = ~script18920($dbrow0, 17);
+def_string $string1 = ~script18921($dbrow0, 18);
+if (string_length($string1) > 0) {
+    $string0 = append($string0, "Location: <$string1><br>");
+} else if ($int2 > 0) {
+    $string0 = append($string0, "Location: <enum(int, string, clock_events_location, $int2)><br>");
+} else if ($int1 > 0) {
+    $string0 = append($string0, "Location: <enum(int, string, clock_events_location, $int1)><br>");
+}
+def_int $int3 = ~script18920($dbrow0, 19);
+if ($int3 > 0) {
+    $string0 = append($string0, "World: <tostring($int3)><br>");
+}
+def_string $string2 = ~script18921($dbrow0, 20);
+if (string_length($string2) > 0) {
+    $string0 = append($string0, "Host: <$string2><br>");
+}
+def_string $string3 = ~script18921($dbrow0, 21);
+if (string_length($string3) > 0) {
+    $string0 = append($string0, "Friends Chat: <$string3><br>");
+}
+return($string0);

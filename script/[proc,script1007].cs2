@@ -1,0 +1,15 @@
+// 1007
+[proc,script1007](obj $obj0)(string)
+def_dbrow $dbrow1 = oc_param($obj0, pof_animal_db);
+if ($dbrow1 = null) {
+    return("");
+}
+def_struct $struct2 = enum(int, struct, pof_animal_traits_slot_2, invother_getvar(%tli_optext_inv, %tli_optext_slot, pof_obj_animal_trait_2));
+if ($struct2 = pof_trait_animal_specific_trait_1) {
+    $struct2 = db_getfield($dbrow1, pof_animal_table:col39, 0);
+} else if ($struct2 = pof_trait_animal_specific_trait_2) {
+    $struct2 = db_getfield($dbrow1, pof_animal_table:col40, 0);
+} else if ($struct2 = pof_trait_animal_specific_trait_3) {
+    $struct2 = db_getfield($dbrow1, pof_animal_table:col41, 0);
+}
+return("Trait: <struct_param($struct2, pof_trait_name)>");

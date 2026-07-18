@@ -1,0 +1,31 @@
+// 12050
+[clientscript,script12050](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3, $int4 = ~script12538;
+if ($int3 < 0 | $int4 < 0) {
+    return;
+}
+if ($int3 = 3 & $int4 = 23) {
+    return;
+}
+while (cc_find($component0, $int1) = true) {
+    if (cc_param(quest_sister_maze_coord_x) = $int3 & cc_param(quest_sister_maze_coord_y) = $int4) {
+        cc_setcolour(^red);
+        $int2 = 1;
+    } else {
+        cc_setcolour(^white);
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($int2 = 0) {
+    cc_create($component0, ^iftype_rectangle, $int1);
+    cc_setsize(5, 5, ^setsize_abs, ^setsize_abs);
+    cc_setfill(true);
+    cc_setcolour(^white);
+    cc_setposition(calc($int3 * 5), calc($int4 * 5), ^setpos_abs_left, ^setpos_abs_bottom);
+    cc_setparam(quest_sister_maze_coord_x, $int3);
+    cc_setparam(quest_sister_maze_coord_y, $int4);
+}

@@ -1,0 +1,31 @@
+// 8773
+[clientscript,script8773](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_boolean $boolean6 = false;
+def_boolean $boolean7 = false;
+def_boolean $boolean8 = false;
+$boolean6, $boolean7, $boolean8 = get_mousebuttons;
+if ($boolean7 = false) {
+    return;
+}
+if (cam2_getcontrolmode ! 1 | %toplevel_v2_client_smooth_reset = 1) {
+    return;
+}
+if (~worldmap_is_open = true) {
+    return;
+}
+if (%camera_control_mode = 1 | %cutscene_status = 1 & %cutscene_allow_mousecam ! 1) {
+    return;
+}
+if (~machinima_camera_open = true) {
+    return;
+}
+if (~tut_is = 7 & ~script15532(0) = true & %tut7_main = 10) {
+    return;
+}
+if (calc(clientclock - $int5) > 1) {
+    $int3, $int4 = $int1, $int2;
+}
+def_int $int9 = max(min(calc(%toplevel_v2_camera_mouse_responce_vertical * ($int2 - $int4)), 3500), calc(0 - 3500));
+def_int $int10 = max(min(calc(%toplevel_v2_camera_mouse_responce_horizontal * ($int1 - $int3)), 16284), calc(0 - 16284));
+~script8768($int9, $int10);
+if_setonmouserepeat("script8773(event_com, event_mousex, event_mousey, $int1, $int2, clientclock)", $component0);

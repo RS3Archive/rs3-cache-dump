@@ -1,0 +1,28 @@
+// 12100
+[proc,skillguide_filter](struct $struct0, dbrow $dbrow1)(int)
+def_int $int2 = 0;
+if ($struct0 ! null) {
+    $int2 = struct_param($struct0, skillguide_filter);
+    $dbrow1 = struct_param($struct0, skillguide_data);
+}
+if ($dbrow1 ! null) {
+    switch_dbtable (db_getrowtable($dbrow1)) {
+        case invent_blueprint_table :
+            switch_int (db_getfield($dbrow1, invent_blueprint_table:col7, 0)) {
+                case 2 :
+                    $int2 = 4;
+                case 1 :
+                    $int2 = 3;
+                case 0 :
+                    $int2 = 2;
+                case 3 :
+                    $int2 = 5;
+            }
+            if (struct_param($struct0, skillguide_is_milestone) = true) {
+                $int2 = 1;
+            }
+        case construction_house_furniture :
+            $int2 = enum(int, int, skillguide_construction_category_to_filter, db_getfield($dbrow1, construction_house_furniture:col5, 0));
+    }
+}
+return($int2);

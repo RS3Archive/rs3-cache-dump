@@ -1,0 +1,25 @@
+// 11173
+[proc,script11173](dbrow $dbrow0)(boolean)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = db_getfield($dbrow0, mtx_premier_time_restricted_item:col0, 0);
+if (date_year < $int2) {
+    return(false);
+}
+if (date_year = $int2 & $int1 > ~date_month) {
+    return(false);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3, $int4 = db_getfield($dbrow0, mtx_premier_time_restricted_item:col1, 0);
+def_int $int5 = $int1;
+def_int $int6 = $int2;
+def_int $int7 = 0;
+while ($int6 = $int4 & $int5 <= $int3 | $int6 < $int4) {
+    $int7 = ~script11569($int6, $int5);
+    if ($int7 = 1 | $int7 = 2) {
+        return(true);
+    }
+    $int6, $int5 = ~script11170($int6, $int5);
+}
+return(false);

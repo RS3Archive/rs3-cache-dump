@@ -1,0 +1,17 @@
+// 2987
+[proc,script2987](int $int0, int $int1)
+def_dbrow $dbrow2 = enum(int, dbrow, settings_all_categories, $int0);
+if ($dbrow2 = null) {
+    return;
+}
+if ($int1 > db_getfieldcount($dbrow2, settings_category:col2)) {
+    return;
+}
+def_struct $struct3 = db_getfield($dbrow2, settings_category:col2, $int1);
+if ($struct3 = null) {
+    return;
+}
+switch_int (struct_param($struct3, control_type)) {
+    case 6, 7, 8 :
+        %settings_slider_selected = $struct3;
+}

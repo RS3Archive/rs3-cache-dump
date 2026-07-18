@@ -1,0 +1,169 @@
+// 20594
+[proc,script20594]
+if (~script20612 = false) {
+    if_sethide(false, marketplace_featured:unavailable_layer);
+    ~script1106;
+    ~script1108;
+    return;
+} else {
+    if_sethide(true, marketplace_featured:unavailable_layer);
+}
+def_int $int0 = -1;
+def_dbrow $dbrow1 = null;
+def_dbrow $dbrow2 = null;
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_component $component8 = marketplace_featured:fixed_slot_1;
+def_int $int9 = -1;
+def_string $string0 = "";
+def_graphic $graphic10 = null;
+def_struct $struct11 = null;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = -1;
+def_int $int16 = -1;
+def_string $string1 = null;
+def_string $string2 = "";
+def_int $int17 = 0;
+def_graphic $graphic18 = null;
+def_boolean $boolean19 = null;
+def_boolean $boolean20 = null;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_boolean $boolean25 = true;
+def_int $int26 = 0;
+def_dbrow $dbrow27 = null;
+def_boolean $boolean28 = false;
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+%marketplace_store_last_search = "";
+cc_deleteall(marketplace_featured:fixed_slot_1);
+cc_deleteall(marketplace_featured:fixed_slot_2);
+cc_deleteall(marketplace_featured:fixed_slot_3);
+cc_deleteall(marketplace_featured:fixed_slot_4);
+while (enum(int, dbrow, marketplace_featured_items_fixed_slot, ++$int0) ! null) {
+    $dbrow1 = enum(int, dbrow, marketplace_featured_items_fixed_slot, $int0);
+    $boolean19 = db_getfield($dbrow1, marketplace_featured_data:col14, 0);
+    $boolean20 = db_getfield($dbrow1, marketplace_featured_data:col13, 0);
+    $boolean28 = db_getfield($dbrow1, marketplace_featured_data:col16, 0);
+    $boolean25, $int26 = ~script20463($dbrow1);
+    $dbrow2 = db_getfield($dbrow1, marketplace_featured_data:col9, 0);
+    if ($dbrow2 ! null) {
+        $int12 = db_getfield($dbrow2, marketplace_store_item:col7, 0);
+        $struct11 = db_getfield($dbrow2, marketplace_store_item:col6, 0);
+        $int13 = ~script20458($struct11, $int12);
+    }
+    if ($int14 < 4 & ($boolean25 = true | $int26 = 1 & $boolean28 = false) & ($boolean19 = false | $boolean19 = true & playermember = false) & ($boolean20 = false | $boolean20 = true & playermember = true)) {
+        if ($int4 = 0) {
+            $int4 = 1;
+            $component8 = marketplace_featured:fixed_slot_1;
+            $int14 = calc($int14 + 1);
+        } else if ($int5 = 0) {
+            $int5 = 1;
+            $component8 = marketplace_featured:fixed_slot_2;
+            $int14 = calc($int14 + 1);
+        } else if ($int6 = 0) {
+            $int6 = 1;
+            $component8 = marketplace_featured:fixed_slot_3;
+            $int14 = calc($int14 + 1);
+        } else if ($int7 = 0) {
+            $int7 = 1;
+            $component8 = marketplace_featured:fixed_slot_4;
+            $int14 = calc($int14 + 1);
+            if (%ironman_enabled = 0) {
+                $dbrow1 = marketplace_featured_bxp_bundles;
+                $dbrow2 = null;
+                $boolean25 = true;
+                $int26 = -1;
+            }
+        }
+        ~if_add_child_layer($component8, ui_getcategory(if_getnextsubid($component8)), ui_getdynid(if_getnextsubid($component8)), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+        $graphic18 = db_getfield($dbrow1, marketplace_featured_data:col3, 0);
+        if ($dbrow2 ! null) {
+            $int9 = db_getfield($dbrow2, marketplace_store_item:col0, 0);
+            $string0 = db_getfield($dbrow2, marketplace_store_item:col3, 0);
+            $graphic10 = ~script20474($dbrow2);
+            $int13 = ~script20458($struct11, $int12);
+            if ($struct11 ! null & struct_param($struct11, mtxmgt_pack_structs) ! null) {
+                $int29 = 1;
+            } else {
+                $int29 = 0;
+            }
+            if ($int13 = 0 & $int12 ! 1) {
+                $boolean28 = true;
+            } else {
+                $boolean28 = false;
+            }
+            $string2 = ~script20466($int13, null, $int12);
+            ~cc_add_child_rect(ui_getcategory(if_getnextsubid($component8)), ui_getdynid(if_getnextsubid($component8)), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, rect_light);
+            if (db_getfieldcount($dbrow2, marketplace_store_item:col10) > 0) {
+                $dbrow3 = db_getfield($dbrow2, marketplace_store_item:col10, 0);
+            }
+            if ($int26 = 1 | %marketplace_in_progress_runecoin_purchase_item = $struct11) {
+                cc_setop(1, "");
+            } else {
+                cc_setop(1, "Preview");
+            }
+            ~script20616($component8, $string0, $graphic10, $string2, $int12, "", 6, 6, ^setsize_minus, ^setsize_minus, $boolean25, $boolean28, ~script20658($struct11), $int29);
+            if ($int26 = 1 | %marketplace_in_progress_runecoin_purchase_item = $struct11) {
+                ~cc_add_child_rect(ui_getcategory(if_getnextsubid($component8)), ui_getdynid(if_getnextsubid($component8)), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, rect_dark);
+                cc_setcolour(0x0f0d0d);
+                cc_settrans(75);
+                ~cc_add_child_text(ui_getcategory(if_getnextsubid($component8)), ui_getdynid(if_getnextsubid($component8)), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_title_section, "Owned");
+                cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+                cc_setcolour(^white);
+            }
+        } else {
+            if ($graphic18 = null) {
+                ~error("Featured item in position <tostring($int0)> has no store item or graphic provided. Defaulting.");
+                $dbrow1 = marketplace_featured_bxp_bundles;
+            }
+            ~script20617($component8, db_getfield($dbrow1, marketplace_featured_data:col0, 0), $graphic18, 0, 0, ^setsize_minus, ^setsize_minus, $boolean25);
+            if_setop(1, "Select", $component8);
+            if_setonop("script20596($component8, 0)", $component8);
+        }
+    }
+}
+$int0 = -1;
+while (enum(int, dbrow, marketplace_featured_items_carousel, ++$int0) ! null) {
+    $dbrow1 = enum(int, dbrow, marketplace_featured_items_carousel, $int0);
+    $boolean19 = db_getfield($dbrow1, marketplace_featured_data:col14, 0);
+    $boolean20 = db_getfield($dbrow1, marketplace_featured_data:col13, 0);
+    $int30 = db_getfield($dbrow1, marketplace_featured_data:col11, 0);
+    $int31 = db_getfield($dbrow1, marketplace_featured_data:col12, 0);
+    if ($dbrow1 ! null & $int21 < 3 & ($boolean19 = false | $boolean19 = true & playermember = false) & ($boolean20 = false | $boolean20 = true & playermember = true) & date_runeday >= $int30 & date_runeday <= $int31) {
+        if ($int22 = 0) {
+            $dbrow27 = $dbrow1;
+            $int22 = 1;
+            $component8 = marketplace_featured:carousel_1;
+            $int21 = calc($int21 + 1);
+        } else if ($int23 = 0) {
+            $int23 = 1;
+            $component8 = marketplace_featured:carousel_2;
+            $int21 = calc($int21 + 1);
+        } else if ($int24 = 0) {
+            $int24 = 1;
+            $component8 = marketplace_featured:carousel_3;
+            $int21 = calc($int21 + 1);
+        }
+        ~script20598($component8, $dbrow1);
+    }
+}
+if ($int21 = 2) {
+    $dbrow1 = $dbrow27;
+    $component8 = marketplace_featured:carousel_3;
+    ~script20598($component8, $dbrow1);
+}
+if ($int21 = 1) {
+    if_sethide(true, marketplace_featured:carousel_standard);
+    if_sethide(false, marketplace_featured:carousel_static);
+    ~script20598(marketplace_featured:carousel_static, $dbrow27);
+    ~script20595;
+}

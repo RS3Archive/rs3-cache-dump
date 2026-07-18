@@ -1,0 +1,224 @@
+// 10390
+[proc,script10390](struct $struct0, int $int1)(int)
+cc_deleteall(group_parent:req_build_area);
+if ($struct0 = null) {
+    return(0);
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = if_getwidth(group_parent:req_build_area);
+def_int $int5 = 40;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = struct_param($struct0, group_combat_req);
+def_int $int11 = struct_param($struct0, group_combat_req_rec);
+def_struct $struct12 = null;
+def_graphic $graphic13 = null;
+def_obj $obj14 = null;
+def_string $string0 = "";
+def_int $int15 = 1;
+def_int $int16 = -1;
+%group_req_met = true;
+if (map_members = false & struct_param($struct0, task_game) = 2) {
+    %group_req_met = false;
+    $int2, $int3 = ~script10391(0, null, rs3_icon_membership_upsell, "This content is only available on members' worlds.", $int2, $int3, $int4, $int5);
+    $int2, $int3 = 0, calc($int3 + $int5);
+}
+while ($int6 < 12) {
+    $int15, $graphic13, $obj14, $struct12 = 1, null, null, null;
+    switch_int ($int6) {
+        case 0 :
+            $int7, $int8 = struct_param($struct0, task_requirement_1_type), struct_param($struct0, task_requirement_1_value);
+        case 1 :
+            $int7, $int8 = struct_param($struct0, task_requirement_2_type), struct_param($struct0, task_requirement_2_value);
+        case 2 :
+            $int7, $int8 = struct_param($struct0, task_requirement_3_type), struct_param($struct0, task_requirement_3_value);
+        case 3 :
+            $int7, $int8 = struct_param($struct0, task_requirement_4_type), struct_param($struct0, task_requirement_4_value);
+        case 4 :
+            $int7, $int8 = struct_param($struct0, task_requirement_5_type), struct_param($struct0, task_requirement_5_value);
+        case 5 :
+            $int7, $int8 = struct_param($struct0, task_requirement_6_type), struct_param($struct0, task_requirement_6_value);
+        case 6 :
+            $int7, $int8 = struct_param($struct0, task_requirement_7_type), struct_param($struct0, task_requirement_7_value);
+        case 7 :
+            $int7, $int8 = struct_param($struct0, task_requirement_8_type), struct_param($struct0, task_requirement_8_value);
+        case 8 :
+            $int7, $int8 = struct_param($struct0, task_requirement_9_type), struct_param($struct0, task_requirement_9_value);
+        case 9 :
+            $int7, $int8 = struct_param($struct0, task_requirement_10_type), struct_param($struct0, task_requirement_10_value);
+        case 10 :
+            $int7, $int8 = struct_param($struct0, task_requirement_11_type), struct_param($struct0, task_requirement_11_value);
+        case 11 :
+            $int7, $int8 = struct_param($struct0, task_requirement_12_type), struct_param($struct0, task_requirement_12_value);
+    }
+    if ($int7 > 0 & $int7 < 60) {
+        $graphic13, $string0 = enum(int, graphic, stat2icon_medium, $int7), "You need level <tostring($int8)> in: <enum(int, string, statstring, $int7)>";
+        if (stat_base(enum(int, stat, int_to_stat, $int7)) < $int8) {
+            $int15 = 0;
+        }
+    } else {
+        switch_int ($int7) {
+            case 60 :
+                $struct12 = ~task_get_data($int8);
+                if ($struct12 ! null) {
+                    if (struct_param($struct12, quest_id) > 0) {
+                        $graphic13 = ~quest_icon(enum(int, quest, ql4_quests, struct_param($struct12, quest_id)));
+                    } else {
+                        $graphic13 = struct_param($struct12, task_icon);
+                    }
+                    $string0 = "You must have completed the task: '<struct_param($struct12, task_name)>'";
+                    if (~task_get_progress(struct_param($struct12, task_unique_id)) ! 2) {
+                        $int15 = 0;
+                    }
+                    $struct12 = null;
+                }
+            case 61 :
+                $graphic13 = ~quest_icon(enum(int, quest, ql4_quests, $int8));
+                $string0 = "You must have completed the quest: '<~script1525($int8)>'";
+                if (~script1524($int8) = false) {
+                    $int15 = 0;
+                }
+            case 62 :
+                if ($struct0 = group_tomb) {
+                    $graphic13 = ~quest_icon(enum(int, quest, ql4_quests, $int8));
+                    $string0 = "You must have received a warning about the contents of the tombs.";
+                    if (%tomb_played_game = 0) {
+                        $int15 = 0;
+                    }
+                } else if ($struct0 = group_rexkings) {
+                    $graphic13 = spell_icon_standard_teleport_dino_island;
+                    $string0 = "You must first travel to Anachronia, via the boat at the dig site east of Varrock.";
+                    if (%dino_onboarding_progress ! 50) {
+                        $int15 = 0;
+                    }
+                }
+            case 66 :
+                switch_struct ($struct0) {
+                    case group_dungeon_aminishi :
+                        if (~script680 = 0) {
+                            $int15 = 0;
+                        }
+                    case group_dungeon_dragonfort :
+                        if (~script735 = 0) {
+                            $int15 = 0;
+                        }
+                    case group_dungeon_ulthven :
+                        if (~dungeon_ulthven_requirements = 0) {
+                            $int15 = 0;
+                        }
+                    case group_dungeon_egwd_zamorak :
+                        if (~script16489 = 0) {
+                            $int15 = 0;
+                        }
+                }
+                $graphic13 = struct_param($struct0, task_icon);
+                if (compare(struct_param($struct0, task_step_1_mobile), "") ! 0 & ~script6431 = true) {
+                    $string0 = struct_param($struct0, task_step_1_mobile);
+                } else {
+                    $string0 = struct_param($struct0, task_step_1);
+                }
+            case 0 :
+                $int6 = 12;
+        }
+    }
+    $int6 = calc($int6 + 1);
+    if ($graphic13 ! null) {
+        $int2, $int3 = ~script10391($int15, $obj14, $graphic13, $string0, $int2, $int3, $int4, $int5);
+    }
+}
+if ($int1 = 8) {
+    $obj14, $string0 = barrows2_entry_totem, "One member of your group must own a barrows totem.";
+}
+if ($obj14 ! null) {
+    if ($obj14 = barrows2_entry_totem) {
+        $int15 = 1;
+    } else if (~obj_gettotal($obj14) > 0) {
+        $int15 = 1;
+    } else {
+        $int15 = 0;
+    }
+    $int2, $int3 = ~script10391($int15, $obj14, null, $string0, $int2, $int3, $int4, $int5);
+}
+if ($int10 ! -1 | $int11 ! -1) {
+    if ($int10 ! -1) {
+        $string0 = "You need a combat level of <tostring($int10)>";
+        if (~comlevel >= $int10) {
+            $int15 = 1;
+        } else {
+            $int15 = 0;
+        }
+    } else if ($int11 ! -1) {
+        if (%group_req_met = true) {
+            $int16 = 0;
+        }
+        $string0 = "It is recommended to have a combat level of <tostring($int11)>";
+        if (~comlevel >= $int11) {
+            $int15 = 1;
+        } else {
+            $int15 = 0;
+        }
+    }
+    $int2, $int3 = ~script10391($int15, null, "combaticons,4", $string0, $int2, $int3, $int4, $int5);
+    if ($int16 = 0) {
+        %group_req_met = true;
+    }
+}
+if ($int2 > 0) {
+    $int3 = calc($int3 + $int5);
+}
+$string0 = struct_param($struct0, group_bespoke_req);
+if (compare("", $string0) ! 0) {
+    $int15 = 1;
+    $int3 = ~script8891(group_parent:req_build_area, $string0, 0, $int3, 0);
+    switch_int ($int1) {
+        case 0 :
+            if (%rand_max_complexity_level = 1) {
+                $int15 = 0;
+            }
+        case 1, 2, 3, 4, 5 :
+            if (stat_base(agility) < 60 & stat_base(strength) < 60) {
+                $int15 = 0;
+            }
+            if (%godwars_palladin2 = 0) {
+                $int15 = 0;
+            }
+        case 15 :
+            if (%barbassault_arenanewb < 11) {
+                $int15 = 0;
+            }
+        case 16 :
+            if (%conq_done_tutorial = 0) {
+                $int15 = 0;
+            }
+        case 19 :
+            if (stat_base(firemaking) < 30 & stat_base(strength) < 30 & stat_base(agility) < 30 & stat_base(crafting) < 30) {
+                $int15 = 0;
+            }
+            if (stat_base(smithing) < 60 & ~script17400 < 2500) {
+                $int15 = 0;
+            }
+        case 20 :
+            if (%mob_tutorial_status < 28) {
+                $int15 = 0;
+            }
+        case 8, 24, 38 :
+            if (%morytania_entry_allowed = 0) {
+                $int15 = 0;
+            }
+    }
+    if ($int15 = 0) {
+        %group_req_met = false;
+        $int3 = ~script8891(group_parent:req_build_area, "<br>You do not meet this requirement.", 0, $int3, 1);
+    }
+}
+if (struct_param($struct0, group_en_only) = true & map_lang ! 0) {
+    %group_req_met = false;
+    $int3 = ~script8891(group_parent:req_build_area, "This content is only available on English worlds.", 0, $int3, 1);
+}
+if ($int3 = 0) {
+    $int3 = ~script8891(group_parent:req_build_area, "This content has no requirements.", 0, $int3, 0);
+}
+return(max($int3, 40));

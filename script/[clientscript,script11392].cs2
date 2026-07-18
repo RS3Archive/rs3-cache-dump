@@ -1,0 +1,82 @@
+// 11392
+[clientscript,script11392](component $component0, int $int1, obj $obj2, int $int3)
+def_int $int4 = 0;
+def_obj $obj5 = ~script11404($obj2);
+if ($obj5 ! null) {
+    $obj2 = $obj5;
+}
+def_obj $obj6 = null;
+def_obj $obj7 = null;
+def_obj $obj8 = null;
+def_obj $obj9 = null;
+def_obj $obj10 = null;
+def_obj $obj11 = null;
+def_obj $obj12 = null;
+def_obj $obj13 = null;
+def_obj $obj14 = null;
+$obj6, $obj7, $obj8, $obj9, $obj10, $obj11, $obj12, $obj13, $obj14 = ~script11405($obj2);
+def_obj $obj15 = null;
+def_string $string0 = "";
+def_int $int16 = 1;
+if (cc_find($component0, $int1) = true) {
+    while ($int4 < 9 & $int16 = 1) {
+        switch_int ($int4) {
+            case 0 :
+                $obj15 = $obj6;
+            case 1 :
+                $obj15 = $obj7;
+            case 2 :
+                $obj15 = $obj8;
+            case 3 :
+                $obj15 = $obj9;
+            case 4 :
+                $obj15 = $obj10;
+            case 5 :
+                $obj15 = $obj11;
+            case 6 :
+                $obj15 = $obj12;
+            case 7 :
+                $obj15 = $obj13;
+            case 8 :
+                $obj15 = $obj14;
+        }
+        if ($obj15 ! null) {
+            $obj5 = ~script11404($obj15);
+            if ($obj5 ! null) {
+                $obj15 = $obj5;
+            }
+            if (inv_total(inv, $obj15) = 0) {
+                $int16 = 0;
+            }
+        }
+        $int4 = calc($int4 + 1);
+    }
+    if ($int16 = 1 & %poh_costume_room_owner = 1) {
+        cc_settrans(%poh_costume_room_trans);
+        cc_setontimer("script11395(event_com, event_comsubid)");
+        ~script11394($obj2, $int3, 2);
+    } else {
+        cc_setontimer(null);
+        cc_settrans(210);
+        ~script11394($obj2, $int3, 0);
+    }
+}
+def_graphic $graphic17 = null;
+def_graphic $graphic18 = null;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $rgb21 = ^black;
+if (%toplevel_v2_active_skinset ! 1) {
+    $graphic17 = rs3_inventory_slot;
+    $graphic18 = rs3_icon_slot_highlight;
+}
+if (cc_find(poh_costume_room:build_area, $int1) = true) {
+    if ($int16 = 1 & %poh_costume_room_owner = 1) {
+        cc_setgraphic($graphic18);
+        cc_settrans($int20);
+        cc_setcolour($rgb21);
+    } else {
+        cc_setgraphic($graphic17);
+        cc_settrans($int19);
+    }
+}

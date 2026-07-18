@@ -1,0 +1,43 @@
+// 18189
+[proc,script18189](int $int0, string $string0, int $int1, int $int2, int $int3)(dbrow)
+if ($int0 > %mtxmgt_store_keepsake_slots_used) {
+    return(null);
+}
+if (testbit($int3, 1) = ^false) {
+    return(null);
+}
+db_filter_find(db_filter_combine(db_filter_value(mtxmgt_cosmetic:col8, 13, ^filterop_eq, 0), db_filter_value(mtxmgt_cosmetic:col17, 0, ^filterop_gte, 0)), mtxmgt_cosmetic:col17, true, -1, 0);
+def_dbrow $dbrow4 = db_find_get($int0++);
+def_obj $obj5 = null;
+def_int $int6 = 1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($dbrow4 ! null) {
+    $int6 = 1;
+    $obj5 = ~script15764($dbrow4);
+    if ($obj5 = null) {
+        return(null);
+    }
+    $int7 = oc_wearpos($obj5);
+    if (compare($string0, "") ! 0 & string_indexof_string(lowercase(oc_name($obj5)), $string0, 0) = -1) {
+        $int6 = 0;
+    }
+    if (testbit($int1, 19) = ^false & testbit($int1, $int7) = ^false) {
+        $int6 = 0;
+    }
+    if ($int7 = 3 | $int7 = 5) {
+        if ($int7 = 3) {
+            $int8 = 262142;
+        } else {
+            $int8 = 268173312;
+        }
+        if (calc($int2 & (enum(struct, int, mtxmgt_weapon_category_to_filter, oc_param($obj5, weapon_category)) & $int8)) = 0) {
+            $int6 = 0;
+        }
+    }
+    if ($int6 = 1) {
+        return($dbrow4);
+    }
+    $dbrow4 = db_find_get($int0++);
+}
+return(null);

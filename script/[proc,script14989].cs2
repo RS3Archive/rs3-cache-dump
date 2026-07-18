@@ -1,0 +1,40 @@
+// 14989
+[proc,script14989]
+if (~script6431 = false) {
+    return;
+}
+if (%mobile_fullscreen_interface_open = false | %combatv2_player_is_in_combat = 0 & %combatv2_npc_attacked = 0) {
+    %mobile_attack_warning_timer_running = 0;
+    if_setontimer(null, toplevel_v2:interface_zoom_under_attack_display);
+    if_sethide(true, toplevel_v2:interface_zoom_under_attack_display);
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (%mobile_attack_warning_timer_running = 1) {
+    $int0, $int1, $int2, $int3 = unknown_command_15;
+    if (%mobile_zoom = 0) {
+        $int2 = if_getwidth(toplevel_v2:background_colour);
+        $int3 = if_getheight(toplevel_v2:background_colour);
+    }
+    if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, toplevel_v2:interface_zoom_under_attack_display);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2:interface_zoom_under_attack_display);
+    return;
+}
+%mobile_attack_warning_timer_running = 1;
+if (if_find(toplevel_v2:interface_zoom_under_attack_lefttop) = true) {
+    cc_settrans(255);
+}
+if (if_find(toplevel_v2:interface_zoom_under_attack_righttop) = true) {
+    cc_settrans(255);
+}
+if (if_find(toplevel_v2:interface_zoom_under_attack_leftbottom) = true) {
+    cc_settrans(255);
+}
+if (if_find(toplevel_v2:interface_zoom_under_attack_rightbottom) = true) {
+    cc_settrans(255);
+}
+if_sethide(false, toplevel_v2:interface_zoom_under_attack_display);
+if_setontimer("script5708(toplevel_v2:interface_zoom_under_attack_display, 0)", toplevel_v2:interface_zoom_under_attack_display);

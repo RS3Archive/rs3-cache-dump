@@ -1,0 +1,28 @@
+// 18977
+[proc,script18977](dbrow $dbrow0)(string)
+if ($dbrow0 = null) {
+    return("");
+}
+def_obj $obj1 = null;
+if (db_getrowtable($dbrow0) = book) {
+    $obj1 = ~script18962($dbrow0);
+} else {
+    $obj1 = ~script18968($dbrow0);
+}
+def_int $int2 = db_find_with_count(arch_excavation:col16:0, $obj1);
+if ($int2 = 0) {
+    return("Found while solving this mystery.");
+}
+def_dbrow $dbrow3 = null;
+def_string $string0 = "Found within excavations:<br>";
+def_int $int4 = 0;
+def_int $int5 = -1;
+while (++$int5 < $int2) {
+    $dbrow3 = db_findnext;
+    if ($int4 > 0) {
+        $string0 = "<$string0><br>";
+    }
+    $string0 = "<$string0>- <~script14578($dbrow3)>";
+    $int4 = calc($int4 + 1);
+}
+return($string0);

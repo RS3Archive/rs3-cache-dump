@@ -1,0 +1,274 @@
+// 3276
+[clientscript,script3276]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 100;
+def_int $int9 = 25;
+def_int $int10 = 25;
+def_int $int11 = 50;
+def_int $int12 = 25;
+def_int $int13 = 25;
+def_int $int14 = 50;
+def_int $int15 = 25;
+def_int $int16 = 25;
+def_int $int17 = 50;
+def_int $int18 = 100;
+def_int $int19 = 50;
+def_int $int20 = 25;
+def_int $int21 = 150;
+def_int $int22 = 25;
+def_int $int23 = 100;
+def_int $int24 = 25;
+def_int $int25 = 100;
+def_int $int26 = 25;
+def_int $int27 = 50;
+def_int $int28 = 25;
+def_int $int29 = 50;
+def_int $int30 = 25;
+def_int $int31 = 25;
+def_int $int32 = 25;
+def_int $int33 = 150;
+def_int $int34 = 100;
+def_int $int35 = 200;
+def_int $int36 = 100;
+%rand_display_stage = 2000;
+%rand_rewards_fade = max(calc(%rand_rewards_fade - 2), 0);
+if_settrans(%rand_rewards_fade, rand_dungeon_rewards_v2:fade);
+if_settrans(0, rand_dungeon_rewards_v2:title_hide_1);
+if_settrans(0, rand_dungeon_rewards_v2:title_hide_2);
+if_settrans(0, rand_dungeon_rewards_v2:title_hide_3);
+def_int $int37 = 0;
+switch_int (%rand_dungeon_size_trans) {
+    case 3 :
+        $int37 = 50000;
+    case 2 :
+        $int37 = 25000;
+    case default :
+        $int37 = 0;
+}
+def_int $int38 = 0;
+switch_int (%rand_dungeon_size_trans) {
+    case 3 :
+        $int38 = scale(%rand_party_bonus_exploration, 10000, 36000);
+    case 2 :
+        $int38 = scale(%rand_party_bonus_exploration, 10000, 11000);
+    case default :
+        $int38 = scale(%rand_party_bonus_exploration, 10000, 6000);
+}
+$int3, $int4, $int5 = ~script3273;
+def_int $int39 = $int5;
+def_int $int40 = ~script3274;
+def_int $int41 = 600;
+def_int $int42 = calc(10000 - min(%rand_deaths, 4) * $int41);
+if (%rand_floor_buff_death_penalty_reduction_varc > 0) {
+    $int42 = min(10000, calc($int42 + %rand_floor_buff_death_penalty_reduction_varc * 1 * 100));
+}
+if (~script12953 = true | ~arch_relic_check_active(arch_relic_deathless) = true) {
+    $int42 = 10000;
+}
+if_sethide(false, rand_dungeon_rewards_v2:base_title_layer);
+if_sethide(false, rand_dungeon_rewards_v2:base_layer);
+if_sethide(false, rand_dungeon_rewards_v2:floor_layer);
+if_sethide(false, rand_dungeon_rewards_v2:floor_val);
+if_settext("Floor <tostring(%rand_party_current_floor_trans)>:", rand_dungeon_rewards_v2:floor_val);
+if_sethide(false, rand_dungeon_rewards_v2:floorflashbutton_layer);
+if_setsize(calc(if_getwidth(rand_dungeon_rewards_v2:floorflashbutton) + 5), calc(if_getheight(rand_dungeon_rewards_v2:floorflashbutton) + 5), ^setsize_abs, ^setsize_abs, rand_dungeon_rewards_v2:floorflashbutton);
+sound_synth(rand_interface_boom, 1, 0);
+if_settrans(min(255, calc(if_gettrans(rand_dungeon_rewards_v2:floorflashbutton) + 30)), rand_dungeon_rewards_v2:floorflashbutton);
+if_sethide(false, rand_dungeon_rewards_v2:floor_xp_val);
+if_settext(tostring(scale(calc((%rand_basefloor_varc + 5) / 10), 100, $int8)), rand_dungeon_rewards_v2:floor_xp_val);
+if_sethide(false, rand_dungeon_rewards_v2:floor_to_level_arrow);
+if_settrans(calc(255 - $int8 * 255 / 100), rand_dungeon_rewards_v2:floor_to_level_arrow);
+if_sethide(false, rand_dungeon_rewards_v2:level_layer);
+if_sethide(false, rand_dungeon_rewards_v2:level);
+if_settext("Level <tostring(%rand_dungeoneeringlevel_varc)>:", rand_dungeon_rewards_v2:level);
+if_sethide(false, rand_dungeon_rewards_v2:levelflashbutton_layer);
+if_setsize(calc(if_getwidth(rand_dungeon_rewards_v2:levelflashbutton) + 5), calc(if_getheight(rand_dungeon_rewards_v2:levelflashbutton) + 5), ^setsize_abs, ^setsize_abs, rand_dungeon_rewards_v2:levelflashbutton);
+if_settrans(255, rand_dungeon_rewards_v2:levelflashbutton);
+if_sethide(false, rand_dungeon_rewards_v2:level_xp_val);
+if_settext(tostring(scale(calc((%rand_baselevel_varc + 5) / 10), 100, $int8)), rand_dungeon_rewards_v2:level_xp_val);
+if_sethide(false, rand_dungeon_rewards_v2:level_to_total_arrow);
+if_settrans(calc(255 - $int8 * 255 / 100), rand_dungeon_rewards_v2:level_to_total_arrow);
+if_sethide(false, rand_dungeon_rewards_v2:total_base_layer);
+if_sethide(false, rand_dungeon_rewards_v2:total_floor_base);
+if_sethide(false, rand_dungeon_rewards_v2:totalflashbutton_layer);
+if_setsize(calc(if_getwidth(rand_dungeon_rewards_v2:totalflashbutton) + 5), calc(if_getheight(rand_dungeon_rewards_v2:totalflashbutton) + 5), ^setsize_abs, ^setsize_abs, rand_dungeon_rewards_v2:totalflashbutton);
+if_settrans(0, rand_dungeon_rewards_v2:totalflashbutton);
+if_sethide(false, rand_dungeon_rewards_v2:total_base_xp_val);
+if_settext(tostring(scale(calc((%rand_totalfloor_varc + 5) / 10), 100, $int8)), rand_dungeon_rewards_v2:total_base_xp_val);
+if_sethide(true, rand_dungeon_rewards_v2:base_flash);
+if_sethide(false, rand_dungeon_rewards_v2:total_layer);
+if_settext(tostring_localised(scale(calc((%rand_totalfloor_varc + 5) / 10), 100, $int8), true), rand_dungeon_rewards_v2:xp_value);
+if_settrans(255, rand_dungeon_rewards_v2:total_flash);
+if_sethide(false, rand_dungeon_rewards_v2:modifiers_title_layer);
+if_sethide(false, rand_dungeon_rewards_v2:modifiers_layer);
+if_sethide(false, rand_dungeon_rewards_v2:modifiers_flash);
+if_sethide(false, rand_dungeon_rewards_v2:dungeon_size_text);
+if_sethide(false, rand_dungeon_rewards_v2:small_dungeon_graphic);
+if_sethide(false, rand_dungeon_rewards_v2:medium_dungeon_graphic);
+if_sethide(false, rand_dungeon_rewards_v2:large_dungeon_graphic);
+if_sethide(false, rand_dungeon_rewards_v2:small_dungeon_text);
+if_sethide(false, rand_dungeon_rewards_v2:medium_dungeon_text);
+if_sethide(false, rand_dungeon_rewards_v2:large_dungeon_text);
+if_sethide(false, rand_dungeon_rewards_v2:dungeon_size_val);
+$int3, $int4, $int5 = ~script3273;
+if (%rand_dungeon_size_trans = 1) {
+    if_settrans(0, rand_dungeon_rewards_v2:small_dungeon_graphic);
+    if_settext("+<tostring(calc(0 / 100))>%", rand_dungeon_rewards_v2:dungeon_size_val);
+} else if (%rand_dungeon_size_trans = 2) {
+    if_settrans(0, rand_dungeon_rewards_v2:medium_dungeon_graphic);
+    if_settext("+<tostring(calc(25000 / 100))>%", rand_dungeon_rewards_v2:dungeon_size_val);
+} else if (%rand_dungeon_size_trans = 3) {
+    if_settrans(0, rand_dungeon_rewards_v2:large_dungeon_graphic);
+    if_settext("+<tostring(calc(50000 / 100))>%", rand_dungeon_rewards_v2:dungeon_size_val);
+}
+if_sethide(false, rand_dungeon_rewards_v2:bonus_rooms_text);
+if_sethide(false, rand_dungeon_rewards_v2:bonus_rooms_bar_layer);
+if_sethide(false, rand_dungeon_rewards_v2:bonus_rooms_val);
+if_setsize(scale(scale(%rand_party_bonus_exploration, 10000, 16384), 100, $int8), 16384, ^setsize_rel, ^setsize_rel, rand_dungeon_rewards_v2:bonus_rooms_bar);
+$int0 = calc(10000 + $int37);
+$int1 = calc(10000 + $int37 + $int38);
+if ($int1 >= $int0) {
+    if_settext("+<tostring(calc((scale($int8, 100, calc($int1 - $int0)) + 50) / 100))>%", rand_dungeon_rewards_v2:bonus_rooms_val);
+} else {
+    if_settext("<tostring(calc((scale($int8, 100, calc($int1 - $int0)) - 50) / 100))>%", rand_dungeon_rewards_v2:bonus_rooms_val);
+}
+if_settext("<tostring(calc(($int0 + scale($int8, 100, calc($int1 - $int0)) + 50) / 100))>%", rand_dungeon_rewards_v2:total_modifier_val);
+if_sethide(false, rand_dungeon_rewards_v2:difficulty_text);
+if_sethide(false, rand_dungeon_rewards_v2:difficulty_setting);
+if_sethide(false, rand_dungeon_rewards_v2:difficulty_to_percentage_arrow);
+if_sethide(false, rand_dungeon_rewards_v2:difficulty_to_percentage_arrow_1);
+if_sethide(false, rand_dungeon_rewards_v2:difficulty_val);
+if_settrans(calc(255 - $int8 * 255 / 100), rand_dungeon_rewards_v2:difficulty_to_percentage_arrow);
+if_settrans(calc(255 - $int8 * 255 / 100), rand_dungeon_rewards_v2:difficulty_to_percentage_arrow_1);
+$int3, $int4, $int5 = ~script3273;
+if_settext("<tostring($int3)> : <tostring($int4)>", rand_dungeon_rewards_v2:difficulty_setting);
+$int0 = calc(10000 + $int37 + $int38);
+$int1 = calc(10000 + $int37 + $int38 + $int39);
+if ($int1 >= $int0) {
+    if_settext("+<tostring(calc((scale($int8, 100, calc($int1 - $int0)) + 50) / 100))>%", rand_dungeon_rewards_v2:difficulty_val);
+} else {
+    if_settext("<tostring(calc((scale($int8, 100, calc($int1 - $int0)) - 50) / 100))>%", rand_dungeon_rewards_v2:difficulty_val);
+}
+if_sethide(false, rand_dungeon_rewards_v2:mobs_killed_text);
+if_sethide(false, rand_dungeon_rewards_v2:mobs_killed_val);
+$int0 = calc(10000 + $int37 + $int38 + $int39);
+$int1 = calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc);
+if ($int1 >= $int0) {
+    if_settext("+<tostring(calc((scale($int8, 100, calc($int1 - $int0)) + 50) / 100))>%", rand_dungeon_rewards_v2:mobs_killed_val);
+} else {
+    if_settext("<tostring(calc((scale($int8, 100, calc($int1 - $int0)) - 50) / 100))>%", rand_dungeon_rewards_v2:mobs_killed_val);
+}
+if_sethide(false, rand_dungeon_rewards_v2:floor_buff_text);
+if_sethide(false, rand_dungeon_rewards_v2:floor_buff_val);
+def_int $int43 = calc(%rand_floor_buff_floor_xp_boost_varc * 25 * 100);
+$int0 = calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc);
+$int1 = calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43);
+if_settext("+<tostring(calc(%rand_floor_buff_floor_xp_boost_varc * 25))>%", rand_dungeon_rewards_v2:floor_buff_val);
+if_sethide(false, rand_dungeon_rewards_v2:complexity_text);
+if_sethide(false, rand_dungeon_rewards_v2:complexity_setting);
+if_sethide(false, rand_dungeon_rewards_v2:complexity_to_percentage_arrow);
+if_sethide(false, rand_dungeon_rewards_v2:complexity_to_percentage_arrow_1);
+if_sethide(false, rand_dungeon_rewards_v2:complexity_val);
+if_settrans(calc(255 - $int8 * 255 / 100), rand_dungeon_rewards_v2:complexity_to_percentage_arrow);
+if_settrans(calc(255 - $int8 * 255 / 100), rand_dungeon_rewards_v2:complexity_to_percentage_arrow_1);
+if (%rand_party_complexity_level_trans = 2) {
+    if_settext("High", rand_dungeon_rewards_v2:complexity_setting);
+} else {
+    if_settext("Low", rand_dungeon_rewards_v2:complexity_setting);
+}
+$int0 = calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43);
+$int1 = scale(calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43), 10000, $int40);
+if ($int1 >= $int0) {
+    if_settext("+<tostring(calc((scale($int8, 100, calc($int1 - $int0)) + 50) / 100))>%", rand_dungeon_rewards_v2:complexity_val);
+} else {
+    if_settext("<tostring(calc(($int40 - 10000) / 100))>%", rand_dungeon_rewards_v2:complexity_val);
+}
+if_sethide(false, rand_dungeon_rewards_v2:deaths_text);
+if_sethide(false, rand_dungeon_rewards_v2:deaths_container);
+if_sethide(false, rand_dungeon_rewards_v2:deaths_val);
+if (%rand_deaths ! 0) {
+    switch_int (%rand_deaths) {
+        case 1 :
+            if_sethide(false, rand_dungeon_rewards_v2:skull_1);
+            if_setgraphic("rand_death_icon,0", rand_dungeon_rewards_v2:skull_1);
+        case 2 :
+            if_sethide(false, rand_dungeon_rewards_v2:skull_1);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_2);
+            if_setgraphic("rand_death_icon,1", rand_dungeon_rewards_v2:skull_1);
+            if_setgraphic("rand_death_icon,0", rand_dungeon_rewards_v2:skull_2);
+        case 3 :
+            if_sethide(false, rand_dungeon_rewards_v2:skull_1);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_2);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_3);
+            if_setgraphic("rand_death_icon,1", rand_dungeon_rewards_v2:skull_2);
+            if_setgraphic("rand_death_icon,0", rand_dungeon_rewards_v2:skull_3);
+        case 4 :
+            if_sethide(false, rand_dungeon_rewards_v2:skull_1);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_2);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_3);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_4);
+            if_setgraphic("rand_death_icon,1", rand_dungeon_rewards_v2:skull_3);
+            if_setgraphic("rand_death_icon,0", rand_dungeon_rewards_v2:skull_4);
+        case 5 :
+            if_sethide(false, rand_dungeon_rewards_v2:skull_1);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_2);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_3);
+            if_sethide(false, rand_dungeon_rewards_v2:skull_4);
+            if_setgraphic("rand_death_icon,1", rand_dungeon_rewards_v2:skull_4);
+    }
+} else {
+    if_settext("No deaths.", rand_dungeon_rewards_v2:deaths_val);
+    %rand_display_stage = calc(%rand_display_stage + 2);
+}
+$int0 = scale(calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43), 10000, $int40);
+$int1 = scale(scale(calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43), 10000, $int40), 10000, $int42);
+if ($int1 >= $int0) {
+    if_settext("+<tostring(calc((scale($int8, 100, calc($int1 - $int0)) + 50) / 100))>%", rand_dungeon_rewards_v2:deaths_val);
+} else {
+    if_settext("<tostring(calc(($int42 - 10000) / 100))>%", rand_dungeon_rewards_v2:deaths_val);
+}
+if_sethide(true, rand_dungeon_rewards_v2:modifiers_flash);
+if (%rand_nurf_amount_trans > 0) {
+    if_sethide(false, rand_dungeon_rewards_v2:xp_nerf_layer);
+    if_settext("Unbalanced party penalty: x<tostring(calc((10000 - %rand_nurf_amount_trans + 50) / 100))>%", rand_dungeon_rewards_v2:xp_nerf_text);
+}
+$int0 = scale(scale(calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43), 10000, $int40), 10000, $int42);
+$int1 = scale(scale(scale(calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43), 10000, $int40), 10000, $int42), 10000, calc(10000 - %rand_nurf_amount_trans));
+if_settext("<tostring(calc(($int0 + scale($int8, 100, calc($int1 - $int0)) + 50) / 100))>%", rand_dungeon_rewards_v2:total_modifier_val);
+def_int $int44 = calc(8192 + ($int1 - 10000) * 8192 / 60000);
+$int44 = calc(8192 - ($int44 - 8192) * (83 - $int8) / 83);
+if_setsize($int44, 16384, ^setsize_rel, ^setsize_rel, rand_dungeon_rewards_v2:total_modifier_bar);
+~script949(false);
+if_settext(tostring_localised(%rand_totalfloor_varc, true), rand_dungeon_rewards_v2:xp_value);
+$int0 = %rand_totalfloor_varc;
+$int1 = scale(scale(scale(scale(calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43), 10000, $int40), 10000, $int42), 10000, calc(10000 - %rand_nurf_amount_trans)), 10000, %rand_totalfloor_varc);
+if (calc($int8 % 5) = 0 & if_gety(rand_dungeon_rewards_v2:xp_nerf_layer) ! 138) {
+    if_setposition(if_getx(rand_dungeon_rewards_v2:xp_nerf_layer), calc(if_gety(rand_dungeon_rewards_v2:xp_nerf_layer) + 1), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:xp_nerf_layer);
+}
+if_setsize(183, scale(80, 100, $int8), ^setsize_abs, ^setsize_abs, rand_dungeon_rewards_v2:total_modifier_drainer_effect);
+if_settext("<tostring_localised(calc(($int0 + scale($int8, 100, calc($int1 - $int0)) + 5) / 10), true)>%", rand_dungeon_rewards_v2:xp_value);
+$int0 = %rand_totalfloor_varc;
+$int1 = scale(scale(scale(scale(calc(10000 + $int37 + $int38 + $int39 + %rand_pointsmod_varc + $int43), 10000, $int40), 10000, $int42), 10000, calc(10000 - %rand_nurf_amount_trans)), 10000, %rand_totalfloor_varc);
+def_int $int45 = calc(($int0 + scale($int8, 100, calc($int1 - $int0)) + 5) / 100 * 2);
+if (%rand_double_tokens_varc = true) {
+    if (calc(^max_32bit_int - $int45) >= 0) {
+        $int45 = calc($int45 * 2);
+    } else {
+        $int45 = ^max_32bit_int;
+    }
+}
+if (%rand_reward_tokens < 2000000000) {
+    if_settext("<tostring_localised($int45, true)>%", rand_dungeon_rewards_v2:tokens_count);
+} else {
+    if_settext("Max tokens", rand_dungeon_rewards_v2:tokens_count);
+}
+if_sethide(true, rand_dungeon_rewards_v2:totalflashbutton_layer);
+if_sethide(true, rand_dungeon_rewards_v2:levelflashbutton_layer);
+if_sethide(true, rand_dungeon_rewards_v2:floorflashbutton_layer);

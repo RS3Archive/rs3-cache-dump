@@ -1,0 +1,11 @@
+// 1108
+[proc,script1108]
+if (store_status = 2) {
+    if_settext("The Marketplace is currently unavailable. Please try again soon.", marketplace_featured:unavailable_text);
+    if_sethide(true, marketplace_featured:spinner_layer);
+} else {
+    if_settext("The Marketplace is currently initialising. Please wait.", marketplace_featured:unavailable_text);
+    if_sethide(false, marketplace_featured:spinner_layer);
+    if_scriptqueue_clear(marketplace_featured:universe);
+    if_scriptqueue_add(50, "script1114", marketplace_featured:universe);
+}

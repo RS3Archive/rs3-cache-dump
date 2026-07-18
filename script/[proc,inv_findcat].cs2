@@ -1,0 +1,18 @@
+// 12518
+[proc,inv_findcat](inv $inv0, category $category1, int $int2)(int)
+if ($inv0 = null) {
+    return(-1);
+}
+def_int $int3 = inv_size($inv0);
+if ($int2 < 0 | $int2 >= $int3) {
+    return(-1);
+}
+def_obj $obj4 = null;
+while ($int2 < $int3) {
+    $obj4 = inv_getobj($inv0, $int2);
+    if ($obj4 ! null & oc_category($obj4) = $category1) {
+        return($int2);
+    }
+    $int2 = calc($int2 + 1);
+}
+return(-1);

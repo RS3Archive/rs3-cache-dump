@@ -1,0 +1,60 @@
+// 174
+[proc,quickchat_open_setup](int $int0, string $string0, boolean $boolean1, int $int2)(boolean)
+if (~script6431 = true) {
+    mes("Quick Chat is currently disabled on mobile.");
+    return(false);
+}
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+if (%has_displayname_client = false) {
+    return(false);
+}
+if ($int0 = 2 & compare("", clan_getchatdisplayname) = 0) {
+    mes_typed(^chattype_friendschatnotification, 0, "You need to be in a Friends Chat channel to use Friends Channel Quick Chat.");
+    return(false);
+}
+if ($int0 = 8) {
+    $int3, $int4, $int5, $int6, $int7, $int8, $int9 = ~script4590;
+    if ($int3 < 0) {
+        mes_typed(^chattype_clanmessage, 0, "You need to be in a Clan to use Clan Channel Quick Chat.");
+        return(false);
+    } else if ($int4 < $int5) {
+        mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your Clan Chat.");
+        return(false);
+    } else if ($int6 = 1) {
+        mes_typed(^chattype_clanmessage, 0, "You've been muted by your Clan and can't talk in your Clan Chat.");
+        return(false);
+    }
+}
+if ($int0 = 10 & activeclanchannel_find_listened = false) {
+    mes_typed(^chattype_clanguestmessage, 0, "You need to be a guest in a Clan Channel to use Guest Clan Quick Chat.");
+    return(false);
+}
+if (($int0 = 13 | $int0 = 15) & player_group_find = false) {
+    mes_typed(128, 0, "You need to be in a group to use Group Quick Chat.");
+    return(false);
+}
+if ($int0 = 17 & (~script19316 = false | activeclanchannel_find_affined(1) = false)) {
+    mes_typed(^chattype_group_ironman_notification, 0, "Group Ironman chat is currently unavailable.");
+    return(false);
+}
+if_sethide(true, ~script8585($int2));
+if_sethide(false, ~script8586($int2));
+if_sethide(true, ~script8588($int2));
+if_sethide(true, ~script8590($int2));
+if_sethide(true, ~script8594($int2));
+if_sethide(false, ~script8598($int2));
+if_sethide(false, ~script8599($int2));
+if_sethide(true, ~script8600($int2));
+if_setscrollpos(0, 0, ~script8598($int2));
+~script8614($int2, $int0);
+~script8606($int2, $string0);
+~script8616($int2, $boolean1);
+~quickchat_focus($int2);
+if_setonclick("quickchat_set_focus($int2)", ~script8586($int2));
+return(true);

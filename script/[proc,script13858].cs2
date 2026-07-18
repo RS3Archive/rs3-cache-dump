@@ -1,0 +1,54 @@
+// 13858
+[proc,script13858](struct $struct0, int $int1, int $int2, int $int3, int $int4)(graphic)
+def_struct $struct5 = null;
+if ((%seasonal_event_active = 1 | %timed_event_active_client = 1) & $struct0 = toplevel_v2_parent_my_social) {
+    $struct5 = ~script14441;
+    if ($struct5 ! null) {
+        return(struct_param($struct5, ribbon_override_icon));
+    }
+}
+if (%league_active_player > 0 & $struct0 = toplevel_v2_window_data_cheevo_tracker) {
+    return(~script20122($int2, $int4));
+}
+def_dbrow $dbrow6 = null;
+def_graphic $graphic7 = null;
+def_int $int8 = 0;
+def_string $string0 = "";
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+if ($struct0 = toplevel_v2_parent_my_mtx) {
+    $dbrow6 = ~runepass_get_current;
+}
+if ($dbrow6 ! null & ~runepass_get_state($dbrow6) = 1) {
+    if (~script3612($dbrow6) = true) {
+        $graphic7 = db_getfield($dbrow6, runepass_table:col17, 0);
+    }
+    if ($graphic7 = null) {
+        $graphic7 = db_getfield($dbrow6, runepass_table:col16, 0);
+    }
+    if ($graphic7 ! null) {
+        return($graphic7);
+    }
+}
+def_graphic $graphic12 = null;
+if ($int4 = 0 & ~script6431 = true) {
+    if ($int3 = 4) {
+        $graphic12 = struct_param($struct0, toplevel_v2_window_tab_mobile_icon_selected);
+    } else {
+        $graphic12 = struct_param($struct0, toplevel_v2_window_tab_mobile_icon);
+    }
+    if ($graphic12 ! null) {
+        return($graphic12);
+    }
+}
+if ($struct0 = toplevel_v2_window_data_ability_melee) {
+    $int2 = 1;
+}
+if ($int2 = 1 & %toplevel_v2_legacy_interface = 1) {
+    $graphic12 = struct_param($struct0, toplevel_v2_window_tab_legacy_icon);
+    if ($graphic12 ! null) {
+        return($graphic12);
+    }
+}
+return(struct_param($struct0, toplevel_v2_window_tab_icon));

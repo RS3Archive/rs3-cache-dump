@@ -1,0 +1,57 @@
+// 9625
+[proc,script9625](component $component0, component $component1, enum $enum2, int $int3, int $int4, int $int5, int $int6, int $int7)(int)
+def_boolean $boolean8 = true;
+if ($int6 = 1) {
+    $boolean8 = false;
+}
+def_int $int9 = 1;
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_sethide($boolean8);
+cc_setparam_int(worldmap_category_type, 1);
+cc_setposition(calc($int9 * 7 + 3 / 2), calc($int4 + 18 / 2 - 14 / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+def_int $int10 = cc_getid;
+def_int $int11 = calc(cc_getx + cc_getwidth + 3);
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_sethide($boolean8);
+cc_settext(enum(int, string, $enum2, $int3));
+cc_setposition($int11, $int4, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc(cc_getx + 16 + 3 / 2), 18, ^setsize_minus, ^setsize_abs);
+cc_setcolour(~script10495(3));
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+.cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+.cc_sethide($boolean8);
+.cc_setposition(calc(3 / 2), calc($int4 + 18 / 2 - 16 / 2), ^setpos_abs_right, ^setpos_abs_top);
+.cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+if ($int7 = 1) {
+    .cc_setgraphic(rs3_btn_collapse_active);
+} else {
+    .cc_setgraphic(rs3_btn_expand_active);
+}
+.cc_setop(1, "Expand/Collapse");
+.cc_setonop("script9632($component0, $component1, $int10, $int5)");
+.cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+.cc_sethide($boolean8);
+.cc_sendtoback;
+.cc_setposition(calc(cc_getx - 3 / 2), $int4, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(.cc_getx, 18, ^setsize_minus, ^setsize_abs);
+.cc_setfill(true);
+.cc_setcolour(~script10495(9));
+.cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+.cc_sethide($boolean8);
+.cc_sendtoback;
+.cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(0, 18, ^setsize_minus, ^setsize_abs);
+.cc_settrans(255);
+.cc_setonmouseleave("worldmap_key_onmouseleave($component0, cc_getid, ~script10495(3))");
+.cc_setopbase("<col=ff9040><cc_gettext></col>");
+.cc_setop(1, "Highlight");
+.cc_setonop("script9629($component0, $int10)");
+.cc_setonmouseover("worldmap_key_onmouseover($component0, cc_getid, ~script10495(4))");
+if ($boolean8 = true) {
+    return($int4);
+} else {
+    return(calc($int4 + 18 + 5));
+}

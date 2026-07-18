@@ -1,0 +1,44 @@
+// 9526
+[clientscript,spinner_update](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 10;
+def_int $int3 = 0;
+def_int $int4 = 1;
+def_int $int5 = 1;
+def_string $string0 = "";
+if (cc_find($component0, 0) = true) {
+    cc_set2dangle(calc((0 - 1872) * (clientclock % (65536 / 1872))));
+    if (cc_param(spinner_current_progress) ! -1) {
+        $int3 = min(calc(cc_param(spinner_current_progress) + $int4), cc_param(spinner_target_progress));
+        cc_setparam(spinner_current_progress, $int3);
+        $string0 = append(tostring($int3), " %");
+        if ($int3 = 100) {
+            cc_setparam(spinner_target_transparency, 255);
+        }
+    }
+    $int1 = max(min(cc_param(spinner_target_transparency), 255), 0);
+    if ($int1 ! cc_gettrans) {
+        if ($int1 < cc_gettrans) {
+            $int1 = max(calc(cc_gettrans - $int2), $int1);
+        } else {
+            $int1 = min(calc(cc_gettrans + $int2), $int1);
+        }
+        cc_settrans($int1);
+        while (.cc_find($component0, $int5) = true) {
+            .cc_settrans($int1);
+            if ($int5 > 1) {
+                .cc_settext($string0);
+            }
+            $int5 = calc($int5 + 1);
+        }
+    } else if ($int1 = 255) {
+        cc_set2dangle(0);
+        if_sethide(true, $component0);
+    } else {
+        $int5 = 2;
+        while (.cc_find($component0, $int5) = true) {
+            .cc_settext($string0);
+            $int5 = calc($int5 + 1);
+        }
+    }
+}

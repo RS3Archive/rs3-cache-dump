@@ -1,0 +1,31 @@
+// 16430
+[clientscript,trh177_overlay_onload]
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int0 = 0;
+while ($int0 < 8) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int0);
+    $int0 = calc($int0 + 1);
+}
+if_setonvartransmit("script16435{trh177_parent, trh177_parent}", trh177_overlay:bonus_item_model_layer);
+if_setonvartransmit("script16433{trh177_bonus_var_1, trh177_bonus_var_2}", trh177_overlay:blackboard_item_list);
+db_listall(trh177_promo_bonus);
+def_dbrow $dbrow1 = db_findnext;
+def_component $component2 = null;
+def_material $material3 = null;
+while ($dbrow1 ! null) {
+    if (db_getfieldcount($dbrow1, trh177_promo_bonus:col10) > 0) {
+        $component2, $material3 = db_getfield($dbrow1, trh177_promo_bonus:col10, 0);
+        if (if_find($component2) = true) {
+            cc_setonop("script16434($dbrow1)");
+            cc_setop(1, "Examine");
+            cc_setopbase("<col=43BCBC><db_getfield($dbrow1, trh177_promo_bonus:col1, 0)></col>");
+            cc_setretex(0, mtx_parcel_sticker, $material3);
+            ~script16432($component2);
+        }
+    }
+    $dbrow1 = db_findnext;
+}
+~cc_add_button(trh177_overlay:seasonal_oddments_skip_button, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_default, tostring(500));
+cc_setop(1, "Purchase with Heartments");
+cc_setonop("trh177_overlay_op(3, 1)");
+~script13310(trh177_overlay:bonus_progress_bar, trh177_overlay:bonus_progress_mask_layer, 54, calc(8 * 1000));

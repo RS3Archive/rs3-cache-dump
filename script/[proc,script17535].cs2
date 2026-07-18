@@ -1,0 +1,19 @@
+// 17535
+[proc,script17535](dbrow $dbrow0)(boolean, string)
+def_boolean $boolean1 = true;
+def_string $string0 = "";
+def_int $int2 = db_getfieldcount($dbrow0, necro_ritual_recipe:col5);
+if ($int2 = 0) {
+    return($boolean1, $string0);
+}
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_stat $stat5 = null;
+while (++$int3 < $int2) {
+    $stat5, $int4 = ~script17506($dbrow0, $int3);
+    if (stat($stat5) < $int4) {
+        $string0 = append($string0, "<col=EB2F2F>You need level <tostring($int4)> <enum(stat, string, stat_to_string, $stat5)> for this ritual.<br>");
+        $boolean1 = false;
+    }
+}
+return($boolean1, $string0);

@@ -1,0 +1,18 @@
+// 1344
+[proc,trh_get_promo_dbrow](struct $struct0)(dbrow)
+if ($struct0 = null) {
+    return(trh_promo_categories_default);
+}
+def_dbrow $dbrow1 = ~script9304($struct0);
+switch_struct ($struct0) {
+    case trh179_promo :
+        $dbrow1 = ~script16600;
+}
+if ($struct0 ! trh208_promo & $dbrow1 = trh_promo_categories_default) {
+    ~error("Warning: promo data is using default values - the promo struct should have different data set: <~script16345($struct0)>");
+}
+if (db_getfieldcount($dbrow1, trh_promo_categories:col0) = 0) {
+    ~error("The dbrow defined for the current active promo exists but has no categories specified, falling back to default drop table.");
+    return(trh_promo_categories_default);
+}
+return($dbrow1);

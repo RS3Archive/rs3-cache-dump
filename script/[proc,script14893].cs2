@@ -1,0 +1,37 @@
+// 14893
+[proc,script14893](enum $enum0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+switch_enum ($enum0) {
+    case arch_research_general_list :
+        $component2 = arch_research_management:general_research_build_layer;
+        $component3 = arch_research_management:general_research_control_layer;
+    case arch_research_special_list :
+        $component2 = arch_research_management:special_research_build_layer;
+        $component3 = arch_research_management:special_research_control_layer;
+}
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int4 = enum_getoutputcount($enum0);
+def_dbrow $dbrow5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = -1;
+while (++$int8 < $int4) {
+    $dbrow5 = enum(int, dbrow, $enum0, $int8);
+    if (~script14669($dbrow5) = 1) {
+        $int6 = calc($int6 + 1);
+        $int7 = ~script14872($component2, $component3, $dbrow5, 0, $int7, if_getwidth($component2), $int8, ~equal_int($int8, $int1));
+        ~script14873($component2, $component3, $enum0, $int8);
+        if ($int8 < $int4) {
+            $int7 = calc($int7 + 1);
+        }
+    } else {
+        cc_create($component3, ^iftype_text, $int8);
+    }
+}
+if ($int6 = 0) {
+    ~cc_add_colour_text($component2, if_getwidth($component2), if_getheight($component2), 0, 0, museo_sans_11pt_regular, "No research available.", 16777215);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+}
+if_setscrollsize(0, max(if_getheight(if_getparentlayer($component2)), $int7), if_getparentlayer($component2));

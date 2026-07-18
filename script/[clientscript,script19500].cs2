@@ -1,0 +1,11 @@
+// 19500
+[clientscript,script19500](component $component0)
+if (%group_ironman_storage_timeout = 0) {
+    if_settext("Loading...", group_ironman_storage:save_changes_label);
+    return;
+}
+def_int $int1 = 0;
+if (if_find($component0) = true) {
+    cc_setparam(rs3tli_component_last_update, calc(clientclock + %group_ironman_storage_timeout * 30));
+    cc_setontimer("script19501(event_com)");
+}

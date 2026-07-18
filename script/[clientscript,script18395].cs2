@@ -1,0 +1,59 @@
+// 18395
+[clientscript,script18395]
+def_npc $npc0 = null;
+def_npc $npc1 = null;
+def_int $int2 = -1;
+if (%xmas23_present_delivery_target_npc_interface > 0) {
+    $npc0 = struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_npc);
+    $npc1 = struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_npc_interface_override);
+    if ($npc1 ! null) {
+        $npc0 = $npc1;
+    }
+    if_sethide(false, xmas23_present_delivery:right_panel_delivery);
+    if_sethide(true, xmas23_present_delivery:right_panel_default);
+    if_setnpcmodel($npc0, xmas23_present_delivery:npc_model);
+    if_settext(struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_name), xmas23_present_delivery:npc_name_text);
+    if_setontimer(null, xmas23_present_delivery:npc_model);
+    switch_int (%xmas23_present_delivery_target_npc_interface) {
+        case 14 :
+            if_setmodelzoom(3400, xmas23_present_delivery:npc_model);
+            if_setposition(0, -50, ^setpos_abs_centre, ^setpos_abs_centre, xmas23_present_delivery:npc_model);
+            if_setmodelanim(boss2_boss_idle, xmas23_present_delivery:npc_model);
+            if_setontimer("script18396(xmas23_present_delivery:npc_model, boss2_boss_fire_at_sky, boss2_boss_attack_magic, 1, 0, boss2_boss_idle, calc(clientclock + 250 + randominc(500)))", xmas23_present_delivery:npc_model);
+        case 5 :
+            if_setmodelzoom(2500, xmas23_present_delivery:npc_model);
+            if_setposition(0, -70, ^setpos_abs_centre, ^setpos_abs_centre, xmas23_present_delivery:npc_model);
+            if_setmodelanim(struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_idle), xmas23_present_delivery:npc_model);
+            if_setontimer("script18396(xmas23_present_delivery:npc_model, struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_anim1), struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_anim2), 0, 0, struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_idle), calc(clientclock + 250 + randominc(500)))", xmas23_present_delivery:npc_model);
+        case default :
+            if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, xmas23_present_delivery:npc_model);
+            if_setmodelzoom(600, xmas23_present_delivery:npc_model);
+            if_setposition(0, -40, ^setpos_abs_centre, ^setpos_abs_centre, xmas23_present_delivery:npc_model);
+            if (%xmas23_present_delivery_target_npc_interface = 4) {
+                if_setmodelanim(pnr_doric_idle, xmas23_present_delivery:npc_model);
+            } else {
+                if_setmodelanim(struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_idle), xmas23_present_delivery:npc_model);
+                if_setontimer("script18396(xmas23_present_delivery:npc_model, struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_anim1), struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_anim2), 0, 0, struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_idle), calc(clientclock + 250 + randominc(500)))", xmas23_present_delivery:npc_model);
+            }
+    }
+    if_settext(struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_description), xmas23_present_delivery:delivery_description);
+    if (%xmas23_quest_main = 35 & testbit(%xmas23_quest_present_delivery_progress, calc(%xmas23_present_delivery_target_npc_interface - 1)) = ^true) {
+        if_settext("Delivered", xmas23_present_delivery:deliver_text);
+        if_sethide(false, xmas23_present_delivery:positive_button_disabled_layer);
+        return;
+    }
+    if (map_members = false & struct_param(enum(int, struct, xmas23_present_delivery_npcs, max(0, calc(%xmas23_present_delivery_target_npc_interface - 1))), xmas23_present_delivery_members) = 1) {
+        if_settext("Members only", xmas23_present_delivery:deliver_text);
+        if_sethide(false, xmas23_present_delivery:positive_button_disabled_layer);
+    } else if (%xmas23_present_delivery_on_delivery = 1 & calc(%xmas23_present_delivery_target_npc + 1) = %xmas23_present_delivery_target_npc_interface) {
+        if_settext("Current target", xmas23_present_delivery:deliver_text);
+        if_sethide(false, xmas23_present_delivery:positive_button_disabled_layer);
+    } else {
+        if_settext("Set for delivery", xmas23_present_delivery:deliver_text);
+        if_sethide(true, xmas23_present_delivery:positive_button_disabled_layer);
+    }
+} else {
+    if_sethide(true, xmas23_present_delivery:right_panel_delivery);
+    if_sethide(false, xmas23_present_delivery:right_panel_default);
+    if_settext("Select a delivery target in the left panel for more information", xmas23_present_delivery:right_panel_default_text);
+}

@@ -1,0 +1,18 @@
+// 17058
+[clientscript,script17058](int $int0, component $component1)
+if ($int0 ! 0) {
+    $int0 = calc($int0 - 1);
+    if_setontimer("script17058($int0, $component1)", trh189_overlay:lunar_layer);
+    return;
+}
+if (%trh189_knight_needs_looted = 1) {
+    sound_vorbis_volume(loot_beam_spotanim_short_01, 1, 0, 150);
+    switch_component ($component1) {
+        case trh189_overlay:solar_armour :
+            if_sethide(false, trh189_overlay:solar_lootbeam_layer);
+        case trh189_overlay:lunar_armour :
+            if_sethide(false, trh189_overlay:lunar_lootbeam_layer);
+    }
+}
+if_setnpcmodel(null, $component1);
+if_setontimer(null, trh189_overlay:lunar_layer);

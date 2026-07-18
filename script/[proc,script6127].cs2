@@ -1,0 +1,34 @@
+// 6127
+[proc,script6127](int $int0)
+def_string $string0 = "";
+if (%quest_sliske2 = 65) {
+    if (~script6431 = true) {
+        $string0 = "- Place probes in the mind of your victim to invade their consciousness and steal their memories.<br>- Tap to move the scanning circle, to attempt to find the ideal positions for a probe. The faster it flashes, the better the placement of the probe.<br>- You may also make use of audio hints to help find the memory positions.<br>- Once you are happy with the location outlined by the circle tap on the circle to add one of your three probes.<br>- You will exit the mind of your victim when you have found a memory or used all three probes.";
+    } else {
+        $string0 = "- Place probes in the mind of your victim to invade their consciousness and steal their memories.<br>- Use the flashing hint circle to find the position of memories. When it flashes faster you are near a memory.<br>- You may also make use of audio hints to help find the memory positions.<br>- Click the screen to add one of your three probes in place.<br>- You will exit the mind of your victim when you have found a memory or used all three probes.";
+    }
+} else if (~script6431 = true) {
+    $string0 = "- Place probes in the mind of your victim to invade their consciousness and steal their memories.<br>- Place each in a perfect position to obtain a clear memory.<br>- Tap to move the scanning circle, to attempt to find the ideal positions for a probe. The faster it flashes, the better the placement of the probe.<br>- You may also make use of audio hints to help find the ideal positions.<br>- You have three probes to place.<br>- Once you are happy with the location outlined by the circle tap on the circle to add one of your three probes.<br>- You will exit the mind of your victim when you have placed all three probes.";
+} else {
+    $string0 = "- Place probes in the mind of your victim to invade their consciousness and steal their memories.<br>- Place each in a perfect position to obtain a clear memory.<br>- Use the flashing hint circle to find the ideal positions. A faster flash is better.<br>- You may also make use of audio hints to help find the ideal positions.<br>- You have three probes to place.<br>- Click the screen to add a probe in place.<br>- You will exit the mind of your victim when you have placed all three probes.";
+}
+def_int $int1 = 10;
+def_int $int2 = 16;
+def_int $int3 = calc(if_getwidth(fremsaga_bilrach_mind:help_text_content_layer) - $int1 * 2);
+def_int $int4 = paraheight($string0, $int3, p12_full);
+if_settextalign(^settextalign_left, ^settextalign_top, $int2, fremsaga_bilrach_mind:help_text);
+def_int $int5 = calc($int2 * $int4);
+if_setposition($int1, $int1, ^setpos_abs_left, ^setpos_abs_top, fremsaga_bilrach_mind:help_text);
+if_setsize($int3, $int5, ^setsize_abs, ^setsize_abs, fremsaga_bilrach_mind:help_text);
+if_settext($string0, fremsaga_bilrach_mind:help_text);
+def_int $int6 = calc($int5 + $int1 + $int1);
+if ($int6 < if_getheight(fremsaga_bilrach_mind:help_text_content_layer)) {
+    $int6 = if_getheight(fremsaga_bilrach_mind:help_text_content_layer);
+}
+if_setscrollsize(if_getwidth(fremsaga_bilrach_mind:help_text_content_layer), $int6, fremsaga_bilrach_mind:help_text_content_layer);
+~scrollbar_vertical(fremsaga_bilrach_mind:help_text_scrollbar, fremsaga_bilrach_mind:help_text_content_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if ($int0 = 1) {
+    if_sethide(false, fremsaga_bilrach_mind:help_bg_layer);
+} else {
+    if_sethide(true, fremsaga_bilrach_mind:help_bg_layer);
+}

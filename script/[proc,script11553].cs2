@@ -1,0 +1,16 @@
+// 11553
+[proc,script11553]()(string)
+if (~script11552 = 1) {
+    return("You have killed all of the champions you have access to this week.");
+}
+def_string $string0 = "You can still kill the following champions:<br>";
+def_int $int0 = 0;
+def_int $int1 = -1;
+while ($int0 < 16) {
+    $int1 = enum(int, int, champions_champions_level_order_to_var_int, $int0);
+    if ($int1 > -1 & testbit(%champions_unlocked, $int1) = ^true & testbit(%champions_defeated_weekly, $int1) = ^false) {
+        $string0 = "<$string0><br><col=ffffff> - <enum(int, string, champions_champions_by_level, $int0)></col>";
+    }
+    $int0 = calc($int0 + 1);
+}
+return($string0);

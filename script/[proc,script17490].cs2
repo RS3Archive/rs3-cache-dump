@@ -1,0 +1,88 @@
+// 17490
+[proc,script17490](dbrow $dbrow0)(boolean, string)
+def_boolean $boolean1 = true;
+def_string $string0 = "";
+def_struct $struct2 = db_getfield($dbrow0, skill_tree_node:col8, 0);
+switch_int (db_getfield($dbrow0, skill_tree_node:col2, 0)) {
+    case 1 :
+        if (struct_param($struct2, combatv2_ability_level_req) > 1) {
+            $string0 = "<$string0><br>- Level <col=ffffff><tostring(struct_param($struct2, combatv2_ability_level_req))></col> <enum(int, string, statstring, struct_param($struct2, combatv2_ability_parent_stat))>";
+            if (stat_base(~int_to_stat(struct_param($struct2, combatv2_ability_parent_stat))) < struct_param($struct2, combatv2_ability_level_req)) {
+                $boolean1 = false;
+            }
+        }
+}
+def_string $string1 = "";
+switch_dbrow ($dbrow0) {
+    case skill_tree_necromancy_hub_node_ability_command_skeleton_warrior :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_ability_conjure_skeleton_warrior)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_ability_conjure_skeleton_warrior) = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_command_putrid_zombie :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_ability_conjure_putrid_zombie)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_ability_conjure_putrid_zombie) = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_command_vengeful_ghost :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_ability_conjure_vengeful_ghost)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_ability_conjure_vengeful_ghost) = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_command_phantom_guardian :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_ability_conjure_phantom_guardian)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_ability_conjure_phantom_guardian) = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_life_transfer :
+        $string1 = ~quest_name(quest_necromancy_warlock);
+        $string0 = "<$string0><br>- Completed '<col=ffffff><$string1></col>' quest";
+        if (%quest_necromancy_warlock_main < 31) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_greater_bone_shield :
+        $string1 = ~quest_name(quest_necromancy_warlock);
+        $string0 = "<$string0><br>- Completed '<col=ffffff><$string1></col>' quest";
+        if (%quest_necromancy_warlock_main < 31) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_invoke_death :
+        $string1 = ~quest_name(quest_necromancy_warlock);
+        $string0 = "<$string0><br>- Completed '<col=ffffff><$string1></col>' quest";
+        if (%quest_necromancy_warlock_main < 31) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_darkness :
+        $string1 = ~quest_name(quest_necromancy_warlock);
+        $string0 = "<$string0><br>- Completed '<col=ffffff><$string1></col>' quest";
+        if (%quest_necromancy_warlock_main < 31) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_split_soul :
+        $string1 = ~quest_name(temple_at_senntisten);
+        $string0 = "<$string0><br>- Completed '<col=ffffff><$string1></col>' quest";
+        if (%mah4_main < 90 & ~script20162 = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_passive_spirit_pact_3 :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_passive_spirit_pact_2)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_passive_spirit_pact_2) = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_passive_spirit_pact_2 :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_passive_spirit_pact_1)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_passive_spirit_pact_1) = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_spectral_scythe_3 :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_ability_spectral_scythe_2)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_ability_spectral_scythe_2) = false) {
+            $boolean1 = false;
+        }
+    case skill_tree_necromancy_hub_node_ability_spectral_scythe_2 :
+        $string0 = "<$string0><br>- Unlocked '<col=ffffff><~script17486(skill_tree_necromancy_hub_node_ability_spectral_scythe)></col>'";
+        if (~script17492(skill_tree_necromancy_hub_node_ability_spectral_scythe) = false) {
+            $boolean1 = false;
+        }
+}
+return($boolean1, $string0);

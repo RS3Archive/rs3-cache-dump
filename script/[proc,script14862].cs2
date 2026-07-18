@@ -1,0 +1,22 @@
+// 14862
+[proc,script14862](int $int0, int $int1, int $int2)
+def_dbrow $dbrow3 = enum(int, dbrow, arch_relic_list, $int2);
+if ($dbrow3 = null) {
+    return;
+}
+def_dbrow $dbrow4 = ~script19772(%arch_relic_management_loadout_selected, $int1);
+switch_int ($int0) {
+    case 1 :
+        if_settext("Harnessing relic power: <db_getfield($dbrow3, arch_relic:col1, 0)>.", arch_relic_management:confirmation_info);
+        if ($int1 = 0) {
+            if_settext("Select a relic slot to harness this power into.", arch_relic_management:confirmation_summary);
+        } else {
+            if_settext("Chronote cost: <tostring_localised(~script14611($dbrow3), true)><br>Monolith energy: <tostring_localised(~script14612($dbrow3), true)><br>Are you sure you wish to continue?", arch_relic_management:confirmation_summary);
+            if ($dbrow4 ! null) {
+                if_settext("<if_gettext(arch_relic_management:confirmation_info)><br>Unharnessing relic power: <db_getfield($dbrow4, arch_relic:col1, 0)>.", arch_relic_management:confirmation_info);
+            }
+        }
+    case 2 :
+        if_settext("Unharnessing relic power: <db_getfield($dbrow3, arch_relic:col1, 0)>.", arch_relic_management:confirmation_info);
+        if_settext("Harnessing this relic power again will require the following:<br>Chronote cost: <tostring_localised(~script14611($dbrow3), true)><br>Monolith energy: <tostring_localised(~script14612($dbrow3), true)><br>Are you sure you wish to continue?", arch_relic_management:confirmation_summary);
+}

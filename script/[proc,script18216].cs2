@@ -1,0 +1,30 @@
+// 18216
+[proc,script18216](dbfilter $dbfilter0, int $int1)(dbfilter)
+def_int $intbool2 = testbit($int1, 1);
+def_int $intbool3 = testbit($int1, 3);
+def_int $intbool4 = testbit($int1, 6);
+def_dbfilter $dbfilter5 = null;
+if ($intbool2 = ^true) {
+    if ($intbool3 = ^true) {
+        if ($intbool4 = ^true) {
+        } else {
+            $dbfilter5 = db_filter_unknown(db_filter_combine(db_filter_unknown(~script18215), db_filter_unknown(~script18214)));
+        }
+    } else if ($intbool4 = ^true) {
+        $dbfilter5 = db_filter_unknown(db_filter_combine(db_filter_unknown(~script18215), ~script18214));
+    } else {
+        $dbfilter5 = ~script18215;
+    }
+} else if ($intbool3 = ^true) {
+    if ($intbool4 = ^true) {
+        $dbfilter5 = db_filter_unknown(~script18215);
+    } else {
+        $dbfilter5 = db_filter_combine(db_filter_unknown(~script18215), ~script18214);
+    }
+} else if ($intbool4 = ^true) {
+    $dbfilter5 = db_filter_combine(db_filter_unknown(~script18215), db_filter_unknown(~script18214));
+} else {
+    $dbfilter0 = db_filter_value(mtxmgt_cosmetic:col24, ^min_32bit_int, ^filterop_lt, 0);
+    $dbfilter5 = null;
+}
+return(~script18210($dbfilter0, $dbfilter5));

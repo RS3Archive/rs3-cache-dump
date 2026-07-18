@@ -1,0 +1,29 @@
+// 18768
+[clientscript,script18768](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_int ($int0) {
+    case 1 :
+        $int1 = 30;
+        $int2 = calc(30 / 2);
+    case 2 :
+        $int1 = calc(30 / 2);
+        $int2 = 30;
+        ~script18772("Cancelled");
+        ~script18773(0xc0c0c0);
+    case 3 :
+        $int1 = calc(2 * 30);
+        $int2 = 30;
+        ~script18772("Interrupted");
+        ~script18773(0xff3030);
+    case 4 :
+        $int1 = 30;
+        $int2 = calc(30 / 2);
+        ~script18772("Finished");
+}
+if ($int0 = 2 | $int0 = 3 | $int0 = 4) {
+    if_setontimer(null, combatv2_channel_bar:bar_progress_layer);
+    ~script18777;
+}
+%combatv2_channel_end_client = calc(clientclock + $int1);
+if_setontimer("script18769(event_com, $int0, max(1, $int2))", combatv2_channel_bar:universe);

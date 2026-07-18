@@ -1,0 +1,26 @@
+// 19478
+[clientscript,script19478](inv $inv0, int $int1, int $int2, int $int3)
+def_component $component4 = group_ironman_storage:inventory_click;
+def_obj $obj5 = null;
+%bank_deposit_all_or_swap_inprogress = 1;
+while ($int1 < $int2) {
+    if (cc_find($component4, $int1) = true) {
+        $obj5 = cc_getinvobject;
+        if ($obj5 = null) {
+            $int2 = min(calc($int2 + 1), $int3);
+        } else if (~script3802($obj5) = true) {
+            ~script19344($inv0, $obj5, 1, $int1, 0, 0);
+        } else {
+            ~script19344($inv0, $obj5, -1, $int1, 0, 0);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+%bank_deposit_all_or_swap_inprogress = 0;
+if ($int2 >= $int3) {
+    if_setontimer(null, group_ironman_storage:main_options);
+    ~script19513(1);
+    return;
+} else {
+    if_setontimer("script19478($inv0, $int2, min(calc($int2 + 5), $int3), $int3)", group_ironman_storage:main_options);
+}

@@ -1,0 +1,32 @@
+// 11031
+[clientscript,script11031](int $int0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = 0;
+switch_int ($int1) {
+    case 1 :
+        $component2 = trh55_world_event:saradomin_progress_graphic;
+        $component3 = trh55_world_event:saradomin_amount;
+        $int4 = %trh55_saradomin_currency;
+    case 2 :
+        $component2 = trh55_world_event:zamorak_progress_graphic;
+        $component3 = trh55_world_event:zamorak_amount;
+        $int4 = %trh55_zamorak_currency;
+    case 3 :
+        $component2 = trh55_world_event:armadyl_progress_graphic;
+        $component3 = trh55_world_event:armadyl_amount;
+        $int4 = %trh55_armadyl_currency;
+    case 4 :
+        $component2 = trh55_world_event:godless_progress_graphic;
+        $component3 = trh55_world_event:godless_amount;
+        $int4 = %trh55_godless_currency;
+    case default :
+        return;
+}
+def_int $int5 = calc($int4 / 10);
+def_int $int6 = calc($int5 + 133);
+if ($int4 >= 750) {
+    $int6 = calc($int6 + 4);
+}
+if_setsize($int6, $int6, ^setsize_abs, ^setsize_abs, $component2);
+if_settext(tostring($int4), $component3);

@@ -1,0 +1,33 @@
+// 9845
+[clientscript,script9845]
+def_string $string0 = "You can change your character name for free in:";
+def_string $string1 = "Don't want to wait? Redeem a Bond to change your name now.";
+def_string $string2 = "";
+def_string $string3 = "";
+if (%mtx_namechange_interface_temp = 0) {
+    $string2 = "Redeeming a Bond will consume it.";
+    $string3 = "Redeem bond";
+    if_sethide(false, bonds_namechange_redeem:info_layer);
+    if_sethide(false, bonds_namechange_redeem:cooldown_layer);
+} else if (%mtx_namechange_interface_temp = 1) {
+    $string1 = "You have purchased the ability to change your name early.<br>You have <tostring(%mtx_namechange_bypasses_temp)> early name <~text_plural(%mtx_namechange_bypasses_temp, "change", "changes")> remaining.";
+    $string3 = "Change name";
+    if_sethide(true, bonds_namechange_redeem:info_layer);
+    if_sethide(false, bonds_namechange_redeem:cooldown_layer);
+} else if (%mtx_namechange_interface_temp = 2) {
+    $string2 = "You don't have any Bonds to redeem.";
+    $string3 = "Buy Bonds";
+    if_sethide(false, bonds_namechange_redeem:info_layer);
+    if_sethide(false, bonds_namechange_redeem:cooldown_layer);
+}
+if_settext(%mtx_namechange_cooldown_string_temp, bonds_namechange_redeem:cooldown_text);
+if_settext($string0, bonds_namechange_redeem:namechange_info);
+if_settext($string1, bonds_namechange_redeem:namechange_info_secondary);
+if_settext($string2, bonds_namechange_redeem:namechange_warning);
+if (%bonds_count_total_untradable_across_all_inv < 1) {
+    if_sethide(true, bonds_namechange_redeem:untradeable_bond_layer);
+    if_sethide(false, bonds_namechange_redeem:tradeable_bond_layer);
+} else {
+    if_sethide(false, bonds_namechange_redeem:untradeable_bond_layer);
+    if_sethide(true, bonds_namechange_redeem:tradeable_bond_layer);
+}

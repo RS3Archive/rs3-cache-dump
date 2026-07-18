@@ -1,0 +1,27 @@
+// 11365
+[clientscript,mtx_pet_preview_init]
+def_int $int0 = 0;
+if (oc_param(%follower_obj, mtxmgt_pet_legendary) = 1) {
+    %mtxmgt_selected_subcat = 1;
+    $int0 = 1;
+} else if (oc_param(%follower_obj, mtxmgt_pet_companion) = 1) {
+    %mtxmgt_selected_subcat = 2;
+    $int0 = 1;
+} else if (oc_category(%follower_obj) = mtx_pet) {
+    if (oc_param(%follower_obj, mtxmgt_skill_pet) = 1) {
+        %mtxmgt_selected_subcat = 4;
+    } else if (oc_param(%follower_obj, mtxmgt_boss_pet) = 1) {
+        %mtxmgt_selected_subcat = 5;
+    } else {
+        %mtxmgt_selected_subcat = 3;
+    }
+    $int0 = 1;
+} else {
+    %mtxmgt_selected_subcat = 1;
+}
+~script6465(5, %mtxmgt_selected_subcat, 1);
+~script10993(%mtxmgt_selected_subcat);
+if (%follower_obj ! null & $int0 = 1) {
+    if_setondrag("script9319(event_com, mtxmgt:preview_pane, 0, 1)", mtxmgt:preview_pane_dragger);
+    if_setmouseovercursor(cursor_acc_create_rotate_small, mtxmgt:preview_pane_dragger);
+}

@@ -1,0 +1,75 @@
+// 4589
+[proc,script4589](component $component0)
+def_struct $struct1 = ~clan_chat_get_struct($component0);
+def_component $component2 = struct_param($struct1, clan_chat_drag);
+def_component $component3 = struct_param($struct1, clan_chat_kick_button);
+def_component $component4 = struct_param($struct1, clan_chat_kick_button_disabled);
+def_component $component5 = struct_param($struct1, clan_chat_check_resource);
+def_component $component6 = struct_param($struct1, clan_chat_check_resource_disabled);
+def_component $component7 = struct_param($struct1, clan_chat_rectangles);
+def_component $component8 = struct_param($struct1, clan_chat_clanlist);
+def_component $component9 = struct_param($struct1, clan_chat_clanlist_rank);
+def_component $component10 = struct_param($struct1, clan_chat_clanlist_world);
+def_component $component11 = struct_param($struct1, clan_chat_clanlist_worldicon);
+def_component $component12 = struct_param($struct1, clan_chat_clanlist_button);
+def_component $component13 = struct_param($struct1, clan_chat_info);
+def_component $component14 = struct_param($struct1, clan_chat_info_text);
+def_component $component15 = struct_param($struct1, clan_chat_clanlist_scrollbar);
+def_component $component16 = struct_param($struct1, clan_chat_join_affined_graphic);
+def_component $component17 = struct_param($struct1, clan_chat_join_affined_button);
+def_component $component18 = struct_param($struct1, clan_chat_selected_highlight);
+def_component $component19 = struct_param($struct1, clan_chat_clanlist_popout);
+def_component $component20 = struct_param($struct1, clan_chat_clan_name);
+def_component $component21 = struct_param($struct1, clan_chat_info_link);
+def_int $int22 = 0;
+while ($int22 < 600) {
+    if (cc_find($component8, $int22) = true) {
+        cc_sethide(true);
+    }
+    if (cc_find($component7, $int22) = true) {
+        cc_sethide(true);
+    }
+    if (cc_find($component9, $int22) = true) {
+        cc_sethide(true);
+    }
+    if (cc_find($component10, $int22) = true) {
+        cc_sethide(true);
+    }
+    if (cc_find($component11, $int22) = true) {
+        cc_sethide(true);
+    }
+    if (cc_find($component12, $int22) = true) {
+        cc_sethide(true);
+    }
+    $int22 = calc($int22 + 1);
+}
+if_sethide(true, $component2);
+if_sethide(false, $component13);
+if_settext(~mobile_text_get(4), $component14);
+if_settext("About Clans", $component21);
+if_setonclick("script10183", $component21);
+if_sethide(false, $component21);
+if_sethide(true, $component15);
+if_sethide(false, $component3);
+if_sethide(false, $component5);
+if (activeclanchannel_find_affined(0) = true) {
+    ~script4470($component3, $component4);
+    ~script5395($component5, $component6);
+} else {
+    if_sethide(false, $component4);
+    if_sethide(false, $component6);
+}
+if_setgraphic("aif_clanchat_icons,13", $component16);
+if_sethide(true, $component18);
+def_int $int23 = 19;
+if (~script6431 = true) {
+    $int23 = 27;
+}
+if_setsize(1, $int23, ^setsize_abs, ^setsize_abs, $component19);
+%clan_chat_selected_slot = -1;
+%clan_channel_selected_name = "";
+if_settext("", $component20);
+def_string $string0 = "Join your clan chat channel";
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component17);
+if_setonmouseleave("script8805", $component17);
+if_setop(1, "Join Clan Chat channel", $component17);

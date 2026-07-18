@@ -1,0 +1,39 @@
+// 5923
+[proc,trh154_chest_update](int $int0, int $int1, int $int2)
+%trh154_chest_clicked = 0;
+def_struct $struct3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+while (++$int9 < 3) {
+    switch_int ($int9) {
+        case 0 :
+            $struct3 = enum(int, struct, trh154_chests, $int0);
+            $component4 = trh154_overlay:chest_1_model;
+            $component5 = trh154_overlay:chest_1_click;
+        case 1 :
+            $struct3 = enum(int, struct, trh154_chests, $int1);
+            $component4 = trh154_overlay:chest_2_model;
+            $component5 = trh154_overlay:chest_2_click;
+        case 2 :
+            $struct3 = enum(int, struct, trh154_chests, $int2);
+            $component4 = trh154_overlay:chest_3_model;
+            $component5 = trh154_overlay:chest_3_click;
+    }
+    if_setmodel(struct_param($struct3, trh154_chest_model), $component4);
+    if ($struct3 = trh154_chest_gilded) {
+        if_setretex(1, mtx154_treasure_chest, mtx154_treasure_chest_gold, $component4);
+        if_setrecol(1, 31792, 9044, $component4);
+        if_setmodelzoom(570, $component4);
+    } else {
+        if_setretex(1, mtx154_treasure_chest_gold, mtx154_treasure_chest, $component4);
+        if_setrecol(1, 9044, 31792, $component4);
+        if_setmodelzoom(600, $component4);
+    }
+    if_setmodelanim(struct_param($struct3, trh154_chest_idle), $component4);
+    if_setonmouseover("trh154_chest_mouseover($component4, struct_param($struct3, trh154_chest_selected), struct_param($struct3, trh154_chest_name))", $component5);
+    if_setonmouseleave("trh154_chest_mouseleave($component4, struct_param($struct3, trh154_chest_idle))", $component5);
+}

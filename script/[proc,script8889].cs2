@@ -1,0 +1,26 @@
+// 8889
+[proc,script8889]
+if (lobby_entergamereply ! 0) {
+    return;
+}
+if (%evalid_rewards ! 0 & %evalid_existing_account_validation_state = 4) {
+    if_setonvartransmit(null, lobbyscreen:email_validation_listener);
+    ~script6190;
+}
+switch_int (%evalid_existing_account_validation_state) {
+    case 0 :
+        return;
+    case 1 :
+        ~script5940;
+    case 2 :
+        ~script6190;
+    case 3, 6 :
+        ~script5940;
+    case 4 :
+        if_setonvarctransmit(null, lobbyscreen:email_validation_listener);
+        ~script6192;
+    case 5 :
+        ~script5940;
+    case default :
+        ~script6190;
+}

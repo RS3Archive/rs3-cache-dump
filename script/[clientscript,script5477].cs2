@@ -1,0 +1,56 @@
+// 5477
+[clientscript,script5477]
+def_struct $struct0 = enum(int, struct, dom_boss_id_to_struct, %dom_boss_shown);
+def_string $string0 = struct_param($struct0, dom_boss_name);
+def_string $string1 = struct_param($struct0, dom_boss_desc);
+def_graphic $graphic1 = struct_param($struct0, dom_boss_thumbnail);
+def_string $string2 = "";
+def_int $int2 = 0;
+if (calc(clientclock % 4) = 0) {
+    if (struct_param($struct0, dom_arena_type) = 1) {
+        $string2 = "<col=F5B241>Arena</col>: Single-way combat.";
+    } else if (struct_param($struct0, dom_arena_type) = 2) {
+        $string2 = "<col=F5B241>Arena</col>: Multi-way combat.";
+    } else if (struct_param($struct0, dom_arena_type) = 3) {
+        $string2 = "<col=F5B241>Arena</col>: Single-way combat with small blocking pillars.";
+    } else if (struct_param($struct0, dom_arena_type) = 4) {
+        $string2 = "<col=F5B241>Arena</col>: Multi-way combat with large blocking pillars.";
+    } else if (struct_param($struct0, dom_arena_type) = 5) {
+        $string2 = "<col=F5B241>Arena</col>: Multi-way combat with podiums and small blocking pillars";
+    }
+    if_settext($string0, dom_climber:boss_assignment_name);
+    if_settext("<$string1><br><br><$string2>", dom_climber:boss_info_text);
+    ~script5475("<$string1><br><br><$string2>", dom_climber:boss_info_text, dom_climber:info_layer, dom_climber:scroll_layer);
+    if_setgraphic($graphic1, dom_climber:boss_graphic);
+    sound_vorbis_volume(dom_arena_climber_select, 1, 0, 255);
+    if (++%dom_boss_shown > 60) {
+        %dom_boss_shown = 1;
+    }
+    if (--%dom_boss_random_loop < 1) {
+        $struct0 = enum(int, struct, dom_boss_id_to_struct, %dom_boss_assignment);
+        $string0 = struct_param($struct0, dom_boss_name);
+        $string1 = struct_param($struct0, dom_boss_desc);
+        $graphic1 = struct_param($struct0, dom_boss_thumbnail);
+        if (struct_param($struct0, dom_arena_type) = 1) {
+            $string2 = "<col=F5B241>Arena</col>: Single-way combat.";
+        } else if (struct_param($struct0, dom_arena_type) = 2) {
+            $string2 = "<col=F5B241>Arena</col>: Multiway-combat.";
+        } else if (struct_param($struct0, dom_arena_type) = 3) {
+            $string2 = "<col=F5B241>Arena</col>: Single-way combat with small blocking pillars.";
+        } else if (struct_param($struct0, dom_arena_type) = 4) {
+            $string2 = "<col=F5B241>Arena</col>: Multi-way combat with large blocking pillars.";
+        } else if (struct_param($struct0, dom_arena_type) = 5) {
+            $string2 = "<col=F5B241>Arena</col>: Multi-way combat with podiums and small blocking pillars";
+        }
+        if_settext($string0, dom_climber:boss_assignment_name);
+        if_settext("<$string1><br><br><$string2>", dom_climber:boss_info_text);
+        ~script5475("<$string1><br><br><$string2>", dom_climber:boss_info_text, dom_climber:info_layer, dom_climber:scroll_layer);
+        if_setgraphic($graphic1, dom_climber:boss_graphic);
+        $int2 = min(1000000, ~script5459(1));
+        if_settext(tostring($int2), dom_climber:next_floor_points);
+        if_setontimer("script5478", dom_climber:background_1);
+        if_sethide(false, dom_climber:bottom_info_layer);
+        %dom_bottombar_zpos = -60;
+        if_setposition(0, %dom_bottombar_zpos, ^setpos_abs_centre, ^setpos_abs_bottom, dom_climber:bottom_info_layer);
+    }
+}

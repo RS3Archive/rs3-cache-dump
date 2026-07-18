@@ -1,0 +1,292 @@
+// 10045
+[proc,lobby_mtx_promo](component $component0, component $component1, component $component2, component $component3, int $int4)
+def_string $string0 = "";
+if_sethide(false, $component3);
+if_clearops($component0);
+if_setonop(null, $component0);
+if_setonclick(null, $component0);
+~script13264(-1, 0, $int4);
+def_enum $enum5 = motw_banners_sgs_slot_1;
+if ($int4 = 2) {
+    $enum5 = motw_banners_sgs_slot_2;
+}
+def_int $int6 = enum_getoutputcount($enum5);
+def_struct $structarray0(max($int6, enum_getoutputcount(motw_banners_sgs_default)));
+def_struct $struct7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $intarray1(4);
+def_int $int10 = 0;
+while ($int8 < $int6) {
+    $struct7 = enum(int, struct, $enum5, $int8);
+    if (~script17266($struct7) = true) {
+        $structarray0($int9) = $struct7;
+        $int9 = calc($int9 + 1);
+    }
+    $int8 = calc($int8 + 1);
+}
+if ($int9 = 0) {
+    $int6 = enum_getoutputcount(motw_banners_sgs_default);
+    $int8 = 0;
+    while ($int8 < $int6) {
+        $struct7 = enum(int, struct, motw_banners_sgs_default, $int8);
+        if (~script17266($struct7) = true) {
+            $structarray0($int9) = $struct7;
+            $int9 = calc($int9 + 1);
+        }
+        $int8 = calc($int8 + 1);
+    }
+    if ($int9 = 0) {
+        $struct7 = enum(int, struct, motw_banners_sgs_default, -1);
+    } else {
+        $struct7 = $structarray0(calc(%lobby_runeday % $int9));
+    }
+} else {
+    $struct7 = $structarray0(random($int9));
+}
+if (~script17266(motw_banner_secondary_charity_2025) = true & random(2) = 0) {
+    $struct7 = motw_banner_secondary_charity_2025;
+}
+switch_int (map_lang) {
+    case 1 :
+        $string2 = struct_param($struct7, motw_link_page_de);
+        $string3 = struct_param($struct7, motw_link_raw_de);
+        $string1 = struct_param($struct7, motw_link_module_de);
+    case 2 :
+        $string2 = struct_param($struct7, motw_link_page_fr);
+        $string3 = struct_param($struct7, motw_link_raw_fr);
+        $string1 = struct_param($struct7, motw_link_module_fr);
+    case 3 :
+        $string2 = struct_param($struct7, motw_link_page_pt);
+        $string3 = struct_param($struct7, motw_link_raw_pt);
+        $string1 = struct_param($struct7, motw_link_module_pt);
+}
+if (string_length($string2) = 0) {
+    $string2 = struct_param($struct7, motw_link_page);
+}
+if (string_length($string3) = 0) {
+    $string3 = struct_param($struct7, motw_link_raw);
+}
+if (string_length($string1) = 0) {
+    $string1 = struct_param($struct7, motw_link_module);
+}
+$string0 = struct_param($struct7, motw_title);
+$int9 = 0;
+switch_struct ($struct7) {
+    case motw_banner_sgs_ornateweaponry :
+        if (%mtx98_elegant_weapon_pack_melee_1h_unlocked = 0) {
+            $intarray1($int9++) = 1;
+        }
+        if (%mtx98_elegant_weapon_pack_melee_2h_unlocked = 0) {
+            $intarray1($int9++) = 2;
+        }
+        if (%mtx98_elegant_weapon_pack_magic_unlocked = 0) {
+            $intarray1($int9++) = 3;
+        }
+        if (%mtx98_elegant_weapon_pack_ranged_unlocked = 0) {
+            $intarray1($int9++) = 4;
+        }
+        switch_int ($intarray1(random($int9))) {
+            case 1 :
+                $string2 = "index?category=Packs&package=OrnateLightWeaponPack";
+            case 2 :
+                $string2 = "index?category=Packs&package=OrnateHeavyWeaponPack";
+            case 3 :
+                $string2 = "index?category=Packs&package=OrnateMagicWeaponPack";
+            case 4 :
+                $string2 = "index?category=Packs&package=OrnateRangedWeaponPack";
+        }
+    case motw_banner_sgs_faeweapons :
+        if (%mtx108_fae_weapon_pack_melee_1h_unlocked = 0) {
+            $intarray1($int9++) = 1;
+        }
+        if (%mtx108_fae_weapon_pack_melee_2h_unlocked = 0) {
+            $intarray1($int9++) = 2;
+        }
+        if (%mtx108_fae_weapon_pack_magic_unlocked = 0) {
+            $intarray1($int9++) = 3;
+        }
+        if (%mtx108_fae_weapon_pack_ranged_unlocked = 0) {
+            $intarray1($int9++) = 4;
+        }
+        switch_int ($intarray1(random($int9))) {
+            case 1 :
+                $string2 = "index?category=Packs&package=FaeLightWeaponPack";
+            case 2 :
+                $string2 = "index?category=Packs&package=FaeHeavyWeaponPack";
+            case 3 :
+                $string2 = "index?category=Packs&package=FaeMagicWeaponPack";
+            case 4 :
+                $string2 = "index?category=Packs&package=FaeRangedWeaponPack";
+        }
+    case motw_banner_sgs_manticoreweapons :
+        if (%mtx103_weapon_melee_unlocked = 0) {
+            $intarray1($int9++) = 1;
+        }
+        if (%mtx103_weapon_magic_unlocked = 0) {
+            $intarray1($int9++) = 2;
+        }
+        if (%mtx103_weapon_ranged_unlocked = 0) {
+            $intarray1($int9++) = 3;
+        }
+        switch_int ($intarray1(random($int9))) {
+            case 1 :
+                $string2 = "index?category=Packs&package=ManticoreMeleeWeaponPack";
+            case 2 :
+                $string2 = "index?category=Packs&package=ManticoreMagicWeaponPack";
+            case 3 :
+                $string2 = "index?category=Packs&package=ManticoreRangedWeaponPack";
+        }
+}
+if_setgraphic(~script19254($struct7, map_lang), $component0);
+switch_int (struct_param($struct7, motw_onclick)) {
+    case 1 :
+        if (string_length($string0) = 0) {
+            $string0 = "Treasure Hunter";
+        }
+        $int10 = 1;
+        ~script13264(1, 1, $int4);
+    case 2, 18 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        if_setop(1, "Select", $component0);
+        if_setonop("script13252", $component0);
+    case 3 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        if_setop(1, "Select", $component0);
+        if_setonop("script12374($string1, $string2, $string2, struct_param($struct7, motw_link_secure))", $component0);
+        if_setonclick("script9036", $component0);
+    case 9 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        if_setop(1, "Select", $component0);
+        if_setonop("script2827($string3, 0)", $component0);
+        if_setonclick("script9036", $component0);
+    case 4 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        if_setop(1, "Select", $component0);
+        if_setonop("script13252", $component0);
+    case 5 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        ~script13264(5, 1, $int4);
+    case 8 :
+        if (string_length($string0) = 0) {
+            $string0 = "Runecoins";
+        }
+        $int10 = 1;
+        ~script13264(8, 1, $int4);
+    case 10 :
+        if (string_length($string0) = 0) {
+            $string0 = "Bonds";
+        }
+        $int10 = 1;
+        ~script13264(10, 1, $int4);
+    case 12 :
+        if (string_length($string0) = 0) {
+            $string0 = "Hero Pass";
+        }
+        $int10 = 1;
+        ~script13264(12, 1, $int4);
+    case 13 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        if (platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex) {
+            ~script13264(14, 1, $int4);
+        } else {
+            if_setop(1, "Select", $component0);
+            if_setonop("script15228(19)", $component0);
+        }
+        if_setonclick("script9036", $component0);
+    case 14 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        ~script13264(14, 1, $int4);
+    case 19 :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+        $int10 = 1;
+        ~script13264(19, 1, $int4);
+    case 15 :
+        if (string_length($string0) = 0) {
+            $string0 = "Treasure Hunter";
+        }
+        $int10 = 1;
+        ~script13264(15, 1, $int4);
+    case 16 :
+        $int10 = 1;
+        ~script13264(16, 1, $int4);
+    case 17 :
+        $int10 = 1;
+        ~script13264(17, 1, $int4);
+    case default :
+        if (string_length($string0) = 0) {
+            $string0 = "Marketplace";
+        }
+}
+if (string_length($string0) > 0) {
+    if_settext($string0, $component1);
+}
+cc_deleteall($component2);
+if ($int10 = 1) {
+    return;
+}
+def_int $int11 = 0;
+def_int $int12 = if_getwidth($component2);
+def_int $int13 = 50;
+def_string $string4 = "";
+~script10047($component2, $int11++);
+$string4 = "Loyalty Points";
+cc_create($component2, ^iftype_text, $int11++);
+if (%mtxmgt_total_loyaltypoints > -1) {
+    cc_settext(tostring(%mtxmgt_total_loyaltypoints));
+}
+cc_setonvarctransmit("script10050(event_com, event_comsubid, 2){mtxmgt_total_loyaltypoints}");
+cc_setposition($int13, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(calc($int12 / 2 - $int13), 32, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_13pt_regular);
+cc_setcolour(~script10495(3));
+cc_settextshadow(true);
+.cc_create($component2, ^iftype_graphic, $int11++);
+.cc_setgraphic(rs3_icon_general_store_loyalty);
+.cc_setsize(34, 35, ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(cc_getx - 20 - .cc_getwidth / 2), -1, ^setpos_abs_left, ^setpos_abs_bottom);
+.cc_setonmouserepeat("script8799($string4, event_com, event_comsubid)");
+$string4 = "Runecoins";
+cc_create($component2, ^iftype_text, $int11++);
+if (%mtxmgt_total_runecoins > -1) {
+    cc_settext(tostring(%mtxmgt_total_runecoins));
+}
+cc_setonvarctransmit("script10050(event_com, event_comsubid, 3){mtxmgt_total_runecoins}");
+cc_setposition(calc($int12 / 2 + $int13), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(calc($int12 / 2 - $int13), 32, ^setsize_abs, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_13pt_regular);
+cc_setcolour(~script10495(3));
+cc_settextshadow(true);
+.cc_create($component2, ^iftype_graphic, $int11++);
+.cc_setgraphic(rs3_icon_general_store_runecoin);
+.cc_setsize(34, 35, ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(cc_getx - 20 - .cc_getwidth / 2), -1, ^setpos_abs_left, ^setpos_abs_bottom);
+.cc_setonmouserepeat("script8799($string4, event_com, event_comsubid)");

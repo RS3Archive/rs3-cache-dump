@@ -1,0 +1,23 @@
+// 20323
+[proc,script20323](component $component0, component $component1)
+if ($component1 ! league_parent_tasks:task_panel & %league_task_child_filter_depth < 8) {
+    switch_int (%league_task_child_filter_depth) {
+        case 5, 8 :
+            %league_task_child_filter_depth = calc(%league_task_child_filter_depth + 1);
+            if_setonresize("script20285", league_child_tasks:filter_deferred);
+            if_callonresize(league_child_tasks:filter_deferred);
+            return;
+    }
+}
+if_setscrollpos(0, 0, $component0);
+cc_deleteall($component0);
+cc_deleteall($component1);
+if ($component1 = league_parent_tasks:task_panel) {
+    if (string_length(%league_task_search_client) > 0) {
+        ~cc_add_text($component0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_title_section, "No tasks found matching the '<%league_task_search_client>' search.<br>Please try another search term or update your filters.");
+    } else {
+        ~cc_add_text($component0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_title_section, "No tasks found. Please try changing your filters.");
+    }
+} else {
+    ~cc_add_text($component0, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, text_title_section, "No tasks found for your current locality.");
+}

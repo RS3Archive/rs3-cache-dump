@@ -1,0 +1,35 @@
+// 12598
+[clientscript,script12598](int $int0, int $int1, int $int2, component $component3, int $int4)
+def_stat $stat5 = enum(int, stat, int_to_stat, $int2);
+def_int $int6 = enum_getoutputcount(toplevel_v2_stats_structs);
+def_int $int7 = -1;
+def_struct $struct8 = null;
+switch_int ($int0) {
+    case 1 :
+        return;
+        if (cc_find($component3, $int4) = true) {
+            cc_sethide(~negate_bool(cc_gethide));
+        }
+    case 2, 3, 4 :
+        if ($stat5 ! null) {
+            if ($component3 = telemetry:skill_draw_layer) {
+                $component3 = telemetry:skill_target_layer;
+            } else if ($component3 = toplevel_v2_parent_suboverlay_telemetry:skill_draw_layer) {
+                $component3 = toplevel_v2_parent_suboverlay_telemetry:skill_target_layer;
+            } else {
+                $component3 = null;
+            }
+            if ($component3 ! null) {
+                while (++$int7 < $int6) {
+                    $struct8 = enum(int, struct, toplevel_v2_stats_structs, $int7);
+                    if ($struct8 ! null & struct_param($struct8, toplevel_v2_stats_stat) = $stat5) {
+                        if_triggerop($component3, $int7, $int0);
+                        return;
+                    }
+                }
+            }
+        }
+    case 5 :
+        ~script8311(30);
+        ~script12296($int1, $int2);
+}

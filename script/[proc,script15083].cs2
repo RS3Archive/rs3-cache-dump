@@ -1,0 +1,128 @@
+// 15083
+[proc,script15083](component $component0, int $int1, int $int2, int $int3, int $int4, string $string0, int $int5, int $int6, graphic $graphic7, string $string1, string $string2, string $string3, struct $struct8, struct $struct9, int $int10, int $int11, int $int12, int $int13)
+if ($struct9 = mtx_spotlight_ccrm) {
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, mtx_front_end_spotlight:crm_braze);
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, mtx_front_end_spotlight:crm_braze);
+    return;
+}
+def_graphic $graphic14 = container_gold_large;
+def_graphic $graphic15 = container_overlay_large;
+def_graphic $graphic16 = mtx_store_package_large_background;
+def_int $int17 = 247;
+def_int $int18 = 281;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 10;
+def_dbrow $dbrow26 = big_window_title_text;
+def_int $int27 = 54;
+def_int $int28 = 0;
+def_int $int29 = 0;
+switch_int ($int5) {
+    case 2 :
+        $int25 = calc($int25 + 42);
+    case 4 :
+        $graphic14 = container_gold_large_purchased;
+    case 7 :
+        $graphic14 = container_gold_small;
+        $graphic15 = container_overlay_small;
+        $graphic16 = mtx_store_package_small_background;
+        $int4 = 205;
+        $int17 = 251;
+        $int18 = 149;
+        $int19 = -2;
+        $int20 = 1;
+        $int25 = calc($int2 - 5);
+        $dbrow26 = big_window_small_title_text;
+        $int27 = 20;
+    case 6 :
+        $graphic14 = container_gold_small_purchased;
+        $graphic15 = container_overlay_small;
+        $graphic16 = mtx_store_package_small_background;
+        $int4 = 205;
+        $int17 = 251;
+        $int18 = 149;
+        $int19 = -2;
+        $int20 = 1;
+        $int25 = calc($int2 - 5);
+        $dbrow26 = big_window_small_title_text;
+        $int27 = 20;
+        $struct8 = big_window_discount_banner_blue;
+}
+~if_add_child_layer($component0, $int6, $int21++, $int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $int3, $int4, ^setsize_abs, ^setsize_abs);
+cc_setop(1, $string0);
+cc_setopcursor(1, cursor_use);
+switch_int ($int5) {
+    case 1 :
+        cc_setonop(null);
+    case 2 :
+        cc_setonop(null);
+        cc_setnoclickthrough(true);
+    case 5, 7 :
+        cc_setonclick("script15823($int6, $int11, struct_param($struct9, rewardshop_obj))");
+    case 4 :
+        cc_setonop(null);
+        cc_setopcursor(1, null);
+    case 6 :
+        if (struct_param($struct9, marketplace_spotlight_allow_cooldown) = true) {
+            $int29, $int28 = ~script20060($struct9);
+            $string3 = "<tostring($int29)>h <tostring($int28)>m*";
+            cc_setonclick("script15823($int6, $int11, struct_param($struct9, rewardshop_obj))");
+        } else {
+            $string3 = "Unavailable";
+            cc_setonop(null);
+            cc_setopcursor(1, null);
+        }
+}
+if ($struct9 = mtx_spotlight_ccrm) {
+    if_sethide(false, mtx_front_end_spotlight:ccrm);
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, mtx_front_end_spotlight:ccrm);
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, mtx_front_end_spotlight:ccrm);
+    return;
+}
+~cc_add_child_graphic($int6, $int21++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $graphic16);
+~cc_add_child_graphic($int6, $int21++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $graphic7);
+~cc_add_child_graphic($int6, $int21++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $graphic14);
+~cc_add_child_graphic($int6, $int21++, $int19, $int20, ^setpos_abs_centre, ^setpos_abs_bottom, $int17, $int18, ^setsize_abs, ^setsize_abs, $graphic15);
+if (string_length($string2) > 0) {
+    $int23 = ~script15891($string2, calc($int3 - 30), cinzel_12pt_bold, 0);
+    $int24 = ~script15891($string1, calc($int3 - 20), cinzel_18pt_bold, 0);
+    ~cc_add_child_text($int6, $int21++, 15, 40, ^setpos_abs_left, ^setpos_abs_bottom, 30, $int23, ^setsize_minus, ^setsize_abs, big_window_desc_text, $string2);
+    ~cc_add_child_text($int6, $int21++, 10, calc(45 + $int23), ^setpos_abs_left, ^setpos_abs_bottom, 20, $int24, ^setsize_minus, ^setsize_abs, $dbrow26, $string1);
+} else {
+    ~cc_add_child_text($int6, $int21++, 10, 40, ^setpos_abs_left, ^setpos_abs_bottom, 20, $int27, ^setsize_minus, ^setsize_abs, $dbrow26, $string1);
+}
+if (string_length($string3) > 0) {
+    $int22 = calc(78 + 32 + ~script15084($string3, $int3, cinzel_18pt_bold));
+    ~if_add_child_layer($component0, $int6, $int21++, calc($int1 + 255 - $int22 + 22), $int25, ^setpos_abs_left, ^setpos_abs_top, $int22, 64, ^setsize_abs, ^setsize_abs);
+    ~cc_add_child_graphic($int6, $int21++, 0, 0, ^setpos_abs_right, ^setpos_abs_top, 32, 0, ^setsize_abs, ^setsize_minus, struct_param($struct8, big_window_discount_banner_right));
+    ~cc_add_child_graphic($int6, $int21++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 78, 0, ^setsize_abs, ^setsize_minus, struct_param($struct8, big_window_discount_banner_left));
+    ~cc_add_child_graphic($int6, $int21++, 78, 0, ^setpos_abs_left, ^setpos_abs_top, calc(78 + 32), 0, ^setsize_minus, ^setsize_minus, struct_param($struct8, big_window_discount_banner_tile));
+    ~cc_add_child_text($int6, $int21++, 20, 3, ^setpos_abs_right, ^setpos_abs_top, 60, 43, ^setsize_minus, ^setsize_abs, big_window_banner_text, $string3);
+}
+def_boolean $boolean30 = false;
+def_int $int31 = 0;
+def_string $string4 = "";
+if ($int11 >= 0) {
+    $boolean30, $string4 = ~script3917($struct9, $int10, $int11, $int12);
+    if ($boolean30 = true) {
+        $int31 = calc(0 - stringwidth("   <tostring($int12)>", cinzel_18pt_bold) / 2);
+    }
+    if ($int10 = 1) {
+        ~script20483($component0, $int6, $int21++, $int6, 0, 0, 60, ^setpos_abs_centre, ^setpos_abs_bottom, calc(255 - 80), 25, ^setsize_abs, ^setsize_abs, big_window_price_text, $string4, -1, ^settextalign_centre, ^settextalign_centre);
+    } else if ($int13 = 0) {
+        ~script7920($component0, $int6, $int21++, $int6, 0, calc($int31 - 14), 6, ^setpos_abs_centre, ^setpos_abs_bottom, 25, 25, ^setsize_abs, ^setsize_abs, mtx_store_icon_currency_runecoins_025px);
+        ~script10507($component0, $int6, $int21++, $int6, 0, calc(255 / 2 + $int31), 8, ^setpos_abs_left, ^setpos_abs_bottom, calc(255 / 2), 25, ^setsize_abs, ^setsize_abs, big_window_price_text, $string4);
+    } else if ($int11 > 0) {
+        ~script7920($component0, $int6, $int21++, $int6, 0, calc($int31 - 16), 6, ^setpos_abs_centre, ^setpos_abs_bottom, 30, 30, ^setsize_abs, ^setsize_abs, "rs3_bonds_icons_large,8");
+        ~script10507($component0, $int6, $int21++, $int6, 0, calc(255 / 2 + $int31), 10, ^setpos_abs_left, ^setpos_abs_bottom, calc(255 / 2), 25, ^setsize_abs, ^setsize_abs, big_window_price_text, $string4);
+    }
+} else {
+    $string4 = ~script20063($struct9);
+    if (string_length($string4) > 0) {
+        ~script20483($component0, $int6, $int21++, $int6, 0, 0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, calc(255 - 80), 25, ^setsize_abs, ^setsize_abs, big_window_price_text, $string4, -1, ^settextalign_centre, ^settextalign_centre);
+    }
+}

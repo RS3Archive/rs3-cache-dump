@@ -1,0 +1,49 @@
+// 10320
+[proc,script10320](component $component0)
+def_component $component1 = ~script10293($component0);
+def_component $component2 = ~script10304($component0);
+def_component $component3 = ~script10305($component0);
+def_component $component4 = ~script10310($component0);
+def_component $component5 = ~script10306($component0);
+def_component $component6 = ~script4244($component0);
+def_component $component7 = ~script10309($component0);
+def_int $int8 = player_group_banned_count;
+def_int $int9 = if_getheight($component1);
+def_int $int10 = if_getwidth($component1);
+def_int $int11 = 17;
+def_int $int12 = 0;
+def_string $string0 = "";
+cc_deleteall($component1);
+cc_deleteall($component3);
+cc_deleteall($component7);
+if_sethide(true, $component2);
+if_sethide(true, $component6);
+if_sethide(false, $component3);
+if_sethide(true, $component5);
+if_setsize(20, 33, ^setsize_minus, ^setsize_minus, $component4);
+if_setsize(if_getwidth($component7), 33, ^setsize_abs, ^setsize_minus, $component7);
+~script10629($component1, 0, $int10, 15, 0, 0, "Banned List", 15777401, museo_sans_13pt_regular, ^settextalign_centre, ^settextalign_centre, 13, true);
+def_int $int13 = ~script10275;
+def_boolean $boolean14 = false;
+if ($int13 ! -1) {
+    $boolean14 = ~script10279($int13);
+}
+while ($int12 < $int8) {
+    $string0 = player_group_banned_get_displayname($int12);
+    ~script10629($component3, $int12, calc($int10 - 10), 13, 5, $int11, $string0, 7705248, museo_sans_11pt_regular, ^settextalign_left, ^settextalign_centre, 13, true);
+    cc_setlinkplayergroup($int12, 0);
+    if ($boolean14 = true) {
+        cc_setop(6, "Unban <$string0>");
+    }
+    $int11 = calc($int11 + 14);
+    $int12 = calc($int12 + 1);
+}
+if ($int11 > $int9) {
+    if_setsize(20, 33, ^setsize_minus, ^setsize_minus, $component4);
+    if_setscrollsize(0, $int11, $component4);
+    ~scrollbar_vertical($component7, $component4, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setsize(0, 33, ^setsize_minus, ^setsize_minus, $component4);
+    if_setscrollpos(0, 0, $component4);
+    if_setscrollsize(0, 0, $component4);
+}

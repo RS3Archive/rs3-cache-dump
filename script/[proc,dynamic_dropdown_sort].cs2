@@ -1,0 +1,52 @@
+// 10441
+[proc,dynamic_dropdown_sort](enum $enum0, int $int1, int $int2)
+if ($enum0 = null) {
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = $int1;
+def_int $intarray0(calc($int4 + 1));
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_component $component7 = toplevel_v2:dropdown_list;
+def_component $component8 = toplevel_v2:dropdown_build;
+switch_toplevelinterface (if_gettop) {
+    case default :
+        $component7 = toplevel_v2:dropdown_list;
+        $component8 = toplevel_v2:dropdown_build;
+    case lobbyscreen :
+        $component7 = lobbyscreen:dropdown_list;
+        $component8 = lobbyscreen:dropdown_build;
+    case loginscreen :
+        $component7 = loginscreen:dropdown_list;
+        $component8 = loginscreen:dropdown_build;
+}
+while ($int3 <= $int4) {
+    if (cc_find($component7, $int3) = true & string_length(cc_gettext) > 0) {
+        $intarray0($int5) = $int3;
+        $int5 = calc($int5 + 1);
+    }
+    $int3 = calc($int3 + 1);
+}
+if ($int5 > 1) {
+    ~script4424(intarray0, $component7, 0, calc($int5 - 1));
+}
+$int3 = 0;
+while ($int3 < $int5) {
+    if (cc_find($component7, $intarray0($int3)) = true) {
+        cc_setposition(5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+        $int6 = calc($int6 + cc_getheight);
+    }
+    $int3 = calc($int3 + 1);
+}
+$int3 = -1;
+while (cc_find($component8, ++$int3) = true) {
+    if (.cc_find($component7, cc_param(dynamic_dropdown_enum_entry)) = true) {
+        if (cc_param(rs3tli_component_target_align_x) = 2) {
+            cc_setposition(0, .cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+        } else {
+            cc_setposition(cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        }
+    }
+}
+~dynamic_dropdown_highlight($component7, $int2);

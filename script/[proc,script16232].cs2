@@ -1,0 +1,126 @@
+// 16232
+[proc,script16232](component $component0, int $int1, struct $struct2, struct $struct3, struct $struct4, int $int5)
+if ($int1 = 0) {
+    ~script18126($component0);
+}
+if ($int5 = 1) {
+    ~script18125($component0, $int1, $struct3);
+    return;
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = calc(3 * 5);
+def_obj $obj9 = struct_param($struct3, rewardshop_obj);
+def_boolean $boolean10 = ~script13501($struct3);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+if (if_find($component0) = true) {
+    $int15 = cc_param(big_window_rewardshop_progress_card_count);
+}
+$int11 = calc($int1 * 10);
+cc_create($component0, ^iftype_graphic, $int11);
+cc_setgraphic(container_oddments_default);
+cc_setsize(126, 126, ^setsize_abs, ^setsize_abs);
+$int16 = calc($int1 + $int15 * (6 - 1));
+$int14 = calc($int16 % 3);
+$int6 = calc(20 + $int14 * 20 + $int14 * 126);
+def_int $int17 = struct_param($struct2, big_window_rewardshop_countdown_end_date);
+if (~date_runeday <= $int17) {
+    $int6 = calc($int6 + 20);
+}
+$int13 = calc($int16 % $int8 / 3);
+$int7 = calc(100 + $int16 / $int8 * 660 + $int13 * (660 / 5));
+cc_setposition($int7, $int6, ^setpos_abs_left, ^setpos_abs_top);
+$int11 = calc($int11 + 1);
+def_int $int18 = -1;
+def_int $int19 = -1;
+cc_create($component0, ^iftype_graphic, $int11);
+if (struct_param($struct3, rewardshop_icon) ! null) {
+    $int18 = calc($int7 + 126 / 2 - 72 / 2);
+    $int19 = calc($int6 + scale(126, 100, 2));
+    cc_setgraphic(struct_param($struct3, rewardshop_icon));
+    cc_setposition($int18, $int19, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(72, 72, ^setsize_abs, ^setsize_abs);
+} else if ($obj9 ! null) {
+    $int18 = calc($int7 + 126 / 2 - 44 / 2);
+    $int19 = calc($int6 + scale(126, 100, 12));
+    $obj9 = ~script14453($struct3, $obj9);
+    cc_setobject($obj9, struct_param($struct3, rewardshop_obj_count));
+    cc_setposition($int18, $int19, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(44, 39, ^setsize_abs, ^setsize_abs);
+}
+$int11 = calc($int11 + 1);
+def_graphic $graphic20 = struct_param($struct3, big_window_rewardshop_icon_overlay);
+if ($graphic20 ! null) {
+    cc_create($component0, ^iftype_graphic, $int11);
+    cc_setposition(calc($int7 + 2), calc($int6 + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(122, 72, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic($graphic20);
+}
+$int11 = calc($int11 + 1);
+def_string $string0 = ~script13337($struct3);
+def_int $int21 = struct_param($struct3, rewardshop_obj_count);
+$string0 = ~script325($int21, $string0, true, 0);
+$string0 = ~script3930($string0, calc(126 - 10), 2, cinzel_12pt_bold);
+cc_create($component0, ^iftype_text, $int11);
+cc_settext($string0);
+cc_settextfont(cinzel_12pt_bold);
+cc_setcolour(0xe0d471);
+cc_setsize(calc(126 - 10), scale(126, 100, 30), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 5), calc($int6 + scale(126, 100, 55)), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 10);
+$int11 = calc($int11 + 1);
+cc_create($component0, ^iftype_text, $int11);
+$int12 = ~script9095($struct3, $boolean10);
+if (playermember = false & struct_param($struct3, rewardshop_cost_f2p) > 0) {
+    $int12 = struct_param($struct3, rewardshop_cost_f2p);
+}
+def_string $string1 = tostring_localised($int12, true);
+if ($int12 = 0) {
+    $string1 = "FREE!";
+}
+cc_settext($string1);
+cc_settextfont(cinzel_15pt_bold);
+cc_setcolour(0xe0e0e0);
+cc_setsize(126, scale(126, 100, 15), ^setsize_abs, ^setsize_abs);
+cc_setposition($int7, calc($int6 + scale(126, 100, 83)), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 20);
+$int11 = calc($int11 + 1);
+cc_create($component0, ^iftype_graphic, $int11);
+cc_setgraphic(struct_param($struct2, rewardshop_currency_sprite));
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 10), calc($int6 + scale(126, 100, 83)), ^setpos_abs_left, ^setpos_abs_top);
+if ($int12 = 0) {
+    cc_sethide(true);
+}
+$int11 = calc($int11 + 1);
+cc_create($component0, ^iftype_graphic, $int11);
+cc_setgraphic(struct_param($struct4, big_window_discount_banner_left));
+cc_setsize(16, 28, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 126 - 16), calc($int6 - 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_sethide(true);
+$int11 = calc($int11 + 1);
+cc_create($component0, ^iftype_graphic, $int11);
+cc_setgraphic(struct_param($struct4, big_window_discount_banner_tile));
+cc_setsize(0, 28, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 126), calc($int6 - 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_sethide(true);
+$int11 = calc($int11 + 1);
+cc_create($component0, ^iftype_graphic, $int11);
+cc_setgraphic(struct_param($struct4, big_window_discount_banner_right));
+cc_setsize(12, 28, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 126), calc($int6 - 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_sethide(true);
+$int11 = calc($int11 + 1);
+cc_create($component0, ^iftype_text, $int11);
+cc_settextfont(cinzel_15pt_bold);
+cc_setcolour(^white);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setsize(0, 23, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 126), calc($int6 - 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_sethide(true);
+$int11 = calc($int11 + 1);

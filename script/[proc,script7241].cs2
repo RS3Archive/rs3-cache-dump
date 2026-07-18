@@ -1,0 +1,40 @@
+// 7241
+[proc,script7241](obj $obj0)(int)
+if ($obj0 = null) {
+    return(0);
+}
+if (oc_param($obj0, combatv2_generic_item) ! 0) {
+    if (oc_param($obj0, combatv2_genericdefence) > 0) {
+        return(9);
+    }
+    return(8);
+} else if (oc_wearpos($obj0) = 13) {
+    if (oc_param($obj0, ranged_strength) > 0) {
+        return(4);
+    }
+    if (oc_param($obj0, magic_supplies_air_runes) > 0 | oc_param($obj0, pvpwild_runepouch_size) > 0) {
+        return(10);
+    }
+    if (oc_category($obj0) = necromancy_nexus) {
+        return(13);
+    }
+} else if (oc_param($obj0, weapon_category) ! null) {
+    if (oc_param($obj0, combatv2_magic_weapon) ! 0) {
+        return(3);
+    } else if (oc_param($obj0, combatv2_ranged_weapon) ! 0) {
+        return(2);
+    } else if (oc_param($obj0, combatv2_melee_weapon) ! 0) {
+        return(1);
+    } else if (oc_param($obj0, combatv2_necromancy_weapon) ! 0) {
+        return(11);
+    }
+} else if (oc_param($obj0, combatv2_magic_item) ! 0) {
+    return(7);
+} else if (oc_param($obj0, combatv2_ranged_item) ! 0) {
+    return(6);
+} else if (oc_param($obj0, combatv2_melee_item) ! 0) {
+    return(5);
+} else if (oc_param($obj0, combatv2_necromancy_item) ! 0) {
+    return(12);
+}
+return(0);

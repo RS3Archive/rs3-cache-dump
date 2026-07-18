@@ -1,0 +1,25 @@
+// 18129
+[clientscript,script18129]
+def_string $string0 = "";
+def_string $string1 = "";
+def_graphic $graphic0 = null;
+def_boolean $boolean1 = false;
+if (~script17853 ! null) {
+    $string0 = db_getfield(~script17853, bp3_table:col0, 0);
+    $string1 = "Level up in the Hero Pass to unlock epic rewards!";
+    $graphic0 = rs3_featured_hero_pass;
+    if_sethide(true, featured_main:combat_title);
+    if_sethide(true, featured_main:combat_label);
+    if_settext("Hero Pass", featured_main:hero_pass_title_layer);
+    if_setgraphic($graphic0, featured_main:combat_graphic);
+    if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", featured_main:hero_pass_layer);
+    if_setonmouseleave("script8805", featured_main:hero_pass_layer);
+} else {
+    $boolean1, $string0, $string1, $graphic0 = ~featured_content_get_combat;
+    if_sethide($boolean1, featured_main:combat_daily_stamp);
+    if_settext($string0, featured_main:combat_title);
+    if_settext("", featured_main:hero_pass_title_layer);
+    if_setgraphic($graphic0, featured_main:combat_graphic);
+    if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", featured_main:hero_pass_layer);
+    if_setonmouseleave("script8805", featured_main:hero_pass_layer);
+}

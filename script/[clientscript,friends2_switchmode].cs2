@@ -1,0 +1,22 @@
+// 4553
+[clientscript,friends2_switchmode](int $int0, component $component1, component $component2, component $component3, component $component4)
+if_setontimer(null, $component1);
+if_setontimer(null, $component3);
+%friend_lastfilter = "";
+if ($int0 = 1) {
+    if_sethide(true, $component1);
+    if_sethide(false, $component3);
+    if_sethide(true, $component2);
+    if_sethide(false, $component4);
+    ~ignore_init($component3);
+    ~ignore_update($component3);
+    if_settext("Friends List<br>RuneScape <tostring(map_world)>", ~friends_title_text($component1));
+} else {
+    if_sethide(true, $component3);
+    if_sethide(false, $component1);
+    if_sethide(true, $component4);
+    if_sethide(false, $component2);
+    ~friend_init($component1);
+    ~friend_update($component1, %friends_line_pos);
+    if_settext("Ignore List", ~ignore_title_text($component3));
+}

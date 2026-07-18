@@ -1,0 +1,115 @@
+// 3118
+[proc,script3118](int $int0, component $component1, int $int2)
+def_int $int3 = 1;
+if ($int2 = -1) {
+    $int3 = 0;
+}
+cc_deleteall($component1);
+def_int $int4 = 0;
+def_string $string0 = "";
+def_int $int5 = 0;
+def_string $string1 = "";
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string2 = "";
+def_graphic $graphic10 = null;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+$int4, $string0, $int5, $string1, $int6, $int9, $string2 = worldlist_specific($int0);
+if_sethide(false, $component1);
+def_graphic $graphic14 = null;
+def_string $string3 = "";
+def_string $string4 = "";
+def_graphic $graphic15 = null;
+def_string $string5 = "";
+def_string $string6 = "";
+$graphic14, $string3, $string4, $int11, $graphic15, $int13, $graphic10, $string5, $string6 = ~script3117($int0, $int4, -1, $string0, $string1, $int6, $int5);
+def_int $int16 = 0;
+def_int $int17 = 21;
+def_int $int18 = 0;
+def_int $int19 = 4;
+def_int $int20 = 2;
+def_int $int21 = 0;
+def_int $int22 = 21;
+def_int $int23 = 16;
+def_fontmetrics $fontmetrics24 = museo_sans_11pt_regular;
+if (~is_mobile_client = true) {
+    $int17 = 42;
+    $int18 = 4;
+    $int19 = calc($int19 + 10);
+    $int20 = calc($int20 + 4);
+    $fontmetrics24 = museo_sans_13pt_regular;
+    $int22 = 42;
+    $int23 = 32;
+    if ($int11 = 16777215) {
+        $int12 = 7705248;
+    } else {
+        $int12 = $int11;
+    }
+    $int11 = 7705248;
+} else {
+    $int11 = 15777401;
+    $int12 = $int11;
+}
+if ($int3 = 0) {
+    if ($int0 = %worldselect_2ndfavourite) {
+        $int16 = 1;
+    }
+    $graphic10 = "rs3_icon_lobby_favorite_small,0";
+    ~script20333($component1, 0, $int17, 0, $int16);
+    ~script10066($component1, 1, 0, 21, 0, 0, 15777401, true, 0);
+    cc_setsize(0, $int17, ^setsize_minus, ^setsize_abs);
+    cc_setfill(false);
+    if (map_world = $int0) {
+        cc_sethide(false);
+    } else {
+        cc_sethide(true);
+    }
+    ~script7924($component1, 2, $int22, $int22, calc(if_getx(lobbyscreen_pane_worldselect:fav) + (if_getwidth(lobbyscreen_pane_worldselect:fav) - $int22) / 2), $int21, $graphic10, false, false, false, 0);
+    ~script10629($component1, 3, calc(if_getwidth($component1) - (if_getx(lobbyscreen_pane_worldselect:world) + 2)), $int17, calc(if_getx(lobbyscreen_pane_worldselect:world) + 2), 0, "World <tostring($int0)> is running in a different language or is unavailable.", $int11, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+    ~script10629($component1, 4, if_getwidth(lobbyscreen_pane_worldselect:ws_buttons_r), $int17, if_getx(lobbyscreen_pane_worldselect:ws_buttons_r), 0, "", 0, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+    ~script10629($component1, 5, if_getwidth(lobbyscreen_pane_worldselect:ws_buttons_l), $int17, if_getx(lobbyscreen_pane_worldselect:ws_buttons_l), 0, "", 0, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+    cc_setonmouseover("script3120($component1)");
+    cc_setonmouseleave("script3122($component1)");
+    cc_setop(1, "Remove");
+    cc_setopbase("Favourite");
+    cc_setonop("script3134(event_com, event_comsubid, $int0)");
+    cc_setonclick("script10036");
+    return;
+}
+if ($int0 = %worldselect_2ndfavourite) {
+    $int16 = 1;
+}
+~script20333($component1, 0, $int17, 0, $int16);
+~script10066($component1, 1, 0, 21, 0, 0, 15777401, true, 0);
+cc_setsize(0, $int17, ^setsize_minus, ^setsize_abs);
+cc_setfill(false);
+if (map_world = $int0) {
+    cc_sethide(false);
+} else {
+    cc_sethide(true);
+}
+~script7924($component1, 2, $int22, $int22, calc(if_getx(lobbyscreen_pane_worldselect:fav) + (if_getwidth(lobbyscreen_pane_worldselect:fav) - $int22) / 2), $int21, $graphic10, false, false, false, 0);
+~script7924($component1, 3, 0, 0, calc(if_getx(lobbyscreen_pane_worldselect:world_icon) + 2), 1, null, false, false, false, 0);
+~script10629($component1, 4, calc(if_getwidth(lobbyscreen_pane_worldselect:world) - 6), $int17, calc(if_getx(lobbyscreen_pane_worldselect:world) + 3), 0, tostring($int0), $int11, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+~script10629($component1, 5, calc(if_getwidth(lobbyscreen_pane_worldselect:players) - 6), $int17, calc(if_getx(lobbyscreen_pane_worldselect:players) + 3), 0, $string6, $int11, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+~script10629($component1, 6, calc(if_getwidth(lobbyscreen_pane_worldselect:activity) - 6), $int17, calc(if_getx(lobbyscreen_pane_worldselect:activity) + 3), 0, $string4, $int11, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+~script7924($component1, 7, 24, 12, calc(if_getx(lobbyscreen_pane_worldselect:location_flag) + 4), $int19, $graphic14, false, false, false, 0);
+~script10629($component1, 8, calc(if_getwidth(lobbyscreen_pane_worldselect:location) - 30), $int17, calc(if_getx(lobbyscreen_pane_worldselect:location) + 30), 0, $string3, $int11, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+~script10629($component1, 9, calc(if_getwidth(lobbyscreen_pane_worldselect:type) - 10), $int17, calc(if_getx(lobbyscreen_pane_worldselect:type) + 5), 0, $string5, $int12, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+~script7924($component1, 10, $int23, $int23, calc(if_getx(lobbyscreen_pane_worldselect:lootshare) + (if_getwidth(lobbyscreen_pane_worldselect:lootshare) - $int23) / 2), $int20, $graphic15, false, false, false, 0);
+~script10629($component1, 11, calc(if_getwidth(lobbyscreen_pane_worldselect:lootshare) - 10), $int17, calc(if_getx(lobbyscreen_pane_worldselect:ping) + 5), 0, tostring($int9), $int11, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+~script10629($component1, 12, if_getwidth(lobbyscreen_pane_worldselect:ws_buttons_r), $int17, if_getx(lobbyscreen_pane_worldselect:ws_buttons_r), 0, "", 0, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+cc_setop(1, "Select");
+cc_setopbase("World <tostring($int0)>");
+cc_setonop("script3129(event_op, $int2, $int0, $string2)");
+~script10629($component1, 13, if_getwidth(lobbyscreen_pane_worldselect:ws_buttons_l), $int17, if_getx(lobbyscreen_pane_worldselect:ws_buttons_l), 0, "", 0, $fontmetrics24, ^settextalign_left, ^settextalign_centre, 0, true);
+cc_setonmouseover("script3120($component1)");
+cc_setonmouseleave("script3122($component1)");
+cc_setop(1, "Remove");
+cc_setopbase("Favourite");
+cc_setonop("script3134(event_com, event_comsubid, $int0)");
+cc_setonclick("script10036");

@@ -1,0 +1,38 @@
+// 9638
+[proc,worldmap_key_toggle_all](component $component0, component $component1, component $component2, int $int3)
+def_int $int4 = $int3;
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int5 = 0 & cc_find($component0, $int4) = true) {
+    if (cc_param(worldmap_category_type) ! -1) {
+        if (cc_param(worldmap_category_empty) ! 1) {
+            if (cc_getgraphic = "rs3_btn_checkbox_small,2") {
+                cc_setgraphic("rs3_btn_checkbox_small,0");
+            } else {
+                $int5 = 1;
+            }
+        }
+    } else {
+        $int6 = ~worldmap_key_get_selected_bit(cc_param(worldmap_key_data_id));
+        if ($int6 = 1) {
+            ~script9628($component0, $int4, 0);
+        } else {
+            $int5 = 1;
+        }
+    }
+    $int4 = calc($int4 + 5);
+}
+if ($int5 = 1) {
+    %worldmap_selected_keys_int0 = -1;
+    %worldmap_selected_keys_int1 = -1;
+    %worldmap_selected_keys_int2 = -1;
+    %worldmap_selected_keys_int3 = -1;
+    %worldmap_selected_keys_int4 = -1;
+    %worldmap_selected_keys_int5 = -1;
+    switch_int (%worldmap_keysort) {
+        case 1 :
+            ~worldmap_key_build(1, $component0, $component1, $component2);
+        case default :
+            ~worldmap_key_build(0, $component0, $component1, $component2);
+    }
+}

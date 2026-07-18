@@ -1,0 +1,29 @@
+// 12603
+[proc,script12603]
+def_component $component0 = struct_param(~script10405(28), toplevel_v2_window_layer);
+if_setposition(calc(275 + 30), 0, ^setpos_abs_right, ^setpos_abs_top, $component0);
+def_component $component1 = struct_param(~script10405(28), toplevel_v2_window_content_layer);
+def_int $int2 = calc(if_getwidth($component0) - if_getwidth($component1));
+def_int $int3 = calc(if_getheight($component0) - if_getheight($component1));
+def_int $int4 = calc(%telemetry_last_legacy_content_width + $int2);
+def_int $int5 = calc(%telemetry_last_legacy_content_height + $int3);
+if ($int5 > 275) {
+    $int4 = calc($int4 + 16);
+}
+if_setsize($int4, min($int5, 275), ^setsize_abs, ^setsize_abs, $component0);
+def_int $int6 = 0;
+if (if_gethide($component0) = false) {
+    $int6 = $int4;
+}
+$component0 = struct_param(~script10405(1005), toplevel_v2_window_layer);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if (%toplevel_v2_legacy_combat = 1) {
+    if_setsize(calc(275 + $int6), calc(189 + 35), ^setsize_minus, ^setsize_minus, $component0);
+} else {
+    if_setsize(calc(275 + $int6), calc(189 + 35 + 76), ^setsize_minus, ^setsize_minus, $component0);
+}
+$component0 = struct_param(~script10405(1014), toplevel_v2_window_layer);
+if_setposition(calc(275 + $int6), 0, ^setpos_abs_right, ^setpos_abs_top, $component0);
+$component0 = struct_param(~script10405(1036), toplevel_v2_window_layer);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setsize(calc(275 + $int6), 189, ^setsize_minus, ^setsize_minus, $component0);

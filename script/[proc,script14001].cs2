@@ -1,0 +1,48 @@
+// 14001
+[proc,script14001](component $component0, struct $struct1, int $int2, boolean $boolean3, int $int4, int $int5)
+if ($struct1 = null) {
+    return;
+}
+def_struct $struct6 = struct_param($struct1, rs3tli_button_layer_master_struct);
+if ($struct6 ! null) {
+    $struct1 = $struct6;
+}
+def_struct $struct7 = ~script9984($struct1, 1);
+def_struct $struct8 = ~script9984($struct1, 2);
+def_struct $struct9 = ~script9984($struct1, 3);
+def_struct $struct10 = $struct7;
+def_boolean $boolean11 = ~mouse_over_component($component0, calc($int2 + 10));
+if ($int4 = 1) {
+    $struct7 = ~script9984($struct1, 4);
+    $struct8 = $struct7;
+    $struct10 = $struct7;
+} else if ($boolean3 = true) {
+    $struct7 = ~script9984($struct1, 5);
+    $struct10 = $struct7;
+} else if ($boolean11 = true & $struct8 ! null & $int4 ! -1) {
+    $struct10 = $struct8;
+}
+if (cc_find($component0, calc($int2 + 10)) = true) {
+    cc_setonvartransmit("script10412(event_com, event_comsubid, $struct1, $boolean3, $int2, $int4, $int5){toplevel_v2_skins_varp}");
+    if ($boolean3 = true) {
+        cc_setonmouseover(null);
+        cc_setonmouseleave(null);
+        cc_setonclick(null);
+        cc_setonrelease(null);
+    } else if ($struct7 ! null & $struct8 ! null) {
+        cc_setonmouseover("script10413(event_com, $struct8, $int2, true)");
+        cc_setonmouseleave("script10413(event_com, $struct7, $int2, false)");
+        if ($struct9 ! null) {
+            cc_setonclick("script14000(event_com, $struct9, $struct1, $int2, 1, $int4, $int5)");
+            cc_setonrelease("script10414(event_com, $struct7, $struct8, $int2)");
+        }
+    }
+}
+def_struct $struct12 = struct_param($struct1, rs3tli_button_struct_on);
+if ($struct12 = null | struct_param($struct12, rs3tli_button_graphic_width) = struct_param($struct10, rs3tli_button_graphic_width) & struct_param($struct12, rs3tli_button_graphic_height) = struct_param($struct10, rs3tli_button_graphic_height)) {
+    ~script10415($component0, $struct10, $int2, $boolean11);
+} else if ($int5 = 0) {
+    ~script14418($component0, $struct10, $int2, $boolean11);
+} else {
+    ~script14417($component0, $struct10, $int2, $boolean11);
+}

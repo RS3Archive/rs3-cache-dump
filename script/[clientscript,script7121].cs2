@@ -1,0 +1,29 @@
+// 7121
+[clientscript,script7121](obj $obj0, int $int1, graphic $graphic2)
+def_int $int3 = 0;
+def_vorbis $vorbis4 = null;
+if (%makex2012_active_recipe ! $obj0 & %makex2012_active_recipe ! null) {
+    %makex2012_active_recipe = $obj0;
+    if (~script7105($obj0) = true) {
+        %makex2012_max = ~script7108($obj0);
+    } else {
+        %makex2012_max = 0;
+    }
+    ~script7123;
+    ~script7143($int1, $graphic2);
+    if (oc_param($obj0, recipe_default_quantity) > 0) {
+        %makex2012_requestednumber = min(oc_param($obj0, recipe_default_quantity), %makex2012_max);
+    } else {
+        %makex2012_requestednumber = %makex2012_max;
+    }
+    ~script7147;
+    switch_int (random(3)) {
+        case 0 :
+            $vorbis4 = makex_ui_select_01;
+        case 1 :
+            $vorbis4 = makex_ui_select_02;
+        case 2 :
+            $vorbis4 = makex_ui_select_03;
+    }
+    sound_vorbis_rate($vorbis4, 1, 0, 80, random_sound_pitch(5, 10));
+}

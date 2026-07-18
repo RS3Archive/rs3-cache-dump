@@ -1,0 +1,89 @@
+// 4295
+[proc,clansettings_interface_refresh]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_boolean $boolean8 = ~not_bool(~script6518);
+def_boolean $boolean9 = ~not_bool(~script6519);
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+if (~script6518 = false) {
+    $boolean8 = true;
+}
+if (~script6519 = false) {
+    $boolean9 = true;
+}
+if (activeclansettings_find_affined(0) = true) {
+    ~script4329(clansettings:qfc_text);
+    if (activeclansettings_getranktalk = -1) {
+        $int1 = 1;
+    }
+    if (activeclansettings_getallowunaffined = true) {
+        $int2 = 1;
+    }
+    if (%clan_varclan_guest_pin_enabled = 1) {
+        $int3 = 1;
+    }
+    if (%clan_varclan_guest_level_check_enabled = 1) {
+        $int4 = 1;
+    }
+    if (%clan_varclan_clan_level_check_enabled = 1) {
+        $int5 = 1;
+    }
+    $int0 = calc(%clan_time_offset_varclan / 10 + 72);
+    if (%clan_homeworld_varclan = 0) {
+        $string1 = "Not Set";
+    }
+    if (clanprofile_find = true) {
+        $int6 = %clan_signpost_viewing_level_varclan;
+        $int7 = %clan_permissions_guest_access;
+    } else {
+        $string2 = "N/A";
+    }
+    $string0 = "Check this box to use the timezone offset to display event timings on the noticeboard. Uncheck to use standard game time (UTC).";
+    ~static_checkbox_create_disable(clansettings:time_build, clansettings:time_click, "Clan Time", $string0, $string0, %clan_events_time_varclan, $boolean9);
+    $string0 = "Check to allow guests into your clan chat channel.";
+    ~static_checkbox_create_disable(clansettings:guest_enter_build, clansettings:guest_enter_click, "Guests can enter chat", $string0, $string0, $int2, $boolean9);
+    $string0 = "Check to allow guests (and all ranks) to talk in your clan chat channel.";
+    ~static_checkbox_create_disable(clansettings:guest_talk_build, clansettings:guest_talk_click, "Guests can talk in chat", $string0, $string0, $int1, $boolean8);
+    if ($int3 = 1) {
+        $string0 = "Current guest PIN: <tostring(%clan_varclan_guest_pin)>";
+    } else {
+        $string0 = "Check to force guests to enter a PIN to join your clan chat channel (if checked you will be prompted to set a PIN).";
+    }
+    ~static_checkbox_create_disable(clansettings:guest_pin_build, clansettings:guest_pin_click, "Guest pin", $string0, $string0, $int3, $boolean9);
+    $string0 = "Check this box to indicate that your clan is recruiting. This will display on your clan information interface when a player clicks your vexillum and on your clan website.";
+    ~static_checkbox_create_disable(clansettings:recruiting_build, clansettings:recruiting_click, "Clan recruiting", $string0, $string0, %clan_is_recruiting_varclan, $boolean9);
+    if ($int4 = 1) {
+        $string0 = "Total level required to join Clan Chat as a guest: <tostring_localised(%clan_varclan_guest_level_check, true)>";
+    } else {
+        $string0 = "Check to force a clan guest to have reached a certain total level to be able to join your Clan Chat as a guest.";
+    }
+    ~static_checkbox_create_disable(clansettings:guest_level_check_build, clansettings:guest_level_check_click, "Total level for guests to join chat", $string0, $string0, $int4, $boolean9);
+    if ($int5 = 1) {
+        $string0 = "Total level required for someone to join your Clan: <tostring_localised(%clan_varclan_clan_level_check, true)>";
+    } else {
+        $string0 = "Check to force clan members to have reached a certain total level to join your clan.";
+    }
+    ~static_checkbox_create_disable(clansettings:clan_level_check_build, clansettings:clan_level_check_click, "Total level to join clan", $string0, $string0, $int5, $boolean9);
+    ~script14140(clansettings:filter_rank_build, clansettings:filter_rank_click, clan_core_int_to_filter_rank_plus_1, 127, "Select the ranks to display.", %clansettings_clanmate_filter_rank_plus_1, 0, false);
+    ~script14141(clansettings:world_build, clansettings:world_click, clan_noticeboard_event_world, calc(261 - 1), "Select a world to designate as your home (optional). This will appear on your clan information interface when a player clicks on your vexillum.", %clan_homeworld_varclan, 0, $boolean9, $string1);
+    ~script14140(clansettings:timezone_build, clansettings:timezone_click, clansettings_timezone_enum, 156, "Specify a time offset for your clan. Standard game time is UTC.", $int0, 0, $boolean9);
+    ~script14141(clansettings:signpost_build, clansettings:signpost_click, clan_signpost_viewing_permission, -1, "Select who can view the relationships set on your clan signpost.", $int6, 0, $boolean9, $string2);
+    ~script14141(clansettings:guestcitadel_build, clansettings:guestcitadel_click, clan_permissions_guest_access, -1, "Select where guests can go in your citadel. You must be in your citadel to change this.", $int7, 0, $boolean9, $string2);
+    ~script13971(clansettings:motto_build, clansettings:motto_click, rs3tli_neutral_button, "Motto Editor", $boolean8);
+    ~script13971(clansettings:motif_build, clansettings:motif_click, rs3tli_neutral_button, "Motif Editor", $boolean8);
+    ~script13971(clansettings:keyword_build, clansettings:keyword_click, rs3tli_neutral_button, "Keyword Editor", $boolean8);
+    ~script13971(clansettings:broadcast_build, clansettings:broadcast_click, rs3tli_neutral_button, "Broadcast Settings", $boolean8);
+    ~script13971(clansettings:reward_broadcast_button_build, clansettings:reward_broadcast_button_click, rs3tli_neutral_button, "Chat Broadcast Settings", $boolean8);
+    ~script13994(clansettings:qfc_edit_build, clansettings:qfc_edit_button, rs3tli_3x3_button, "Edit Thread ID", $boolean8);
+    ~script13991(clansettings:flag_build, clansettings:flag_button, rs3tli_3x3_button, $boolean8);
+    ~clansettings_list_build;
+}
+~script4310;

@@ -1,0 +1,34 @@
+// 9576
+[proc,script9576](component $component0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (if_find($component0) = true) {
+    $int3 = ~script9544(cc_getx, cc_getwidth, if_getwidth(cc_getparentlayer), cc_param(rs3tli_component_target_align_x));
+    $int4 = ~script9544(cc_gety, cc_getheight, if_getheight(cc_getparentlayer), cc_param(rs3tli_component_target_align_y));
+    if (cc_param(rs3tli_component_anim_dir) = 1) {
+        $int1 = calc(cc_param(rs3tli_component_target_pos_x) - $int3);
+        $int2 = calc(cc_param(rs3tli_component_target_pos_y) - $int4);
+    } else {
+        $int1 = calc(cc_param(rs3tli_component_initial_pos_x) - $int3);
+        $int2 = calc(cc_param(rs3tli_component_initial_pos_y) - $int4);
+    }
+    if ($int1 > 0) {
+        $int1 = min(cc_param(rs3tli_component_speed_x), $int1);
+    } else {
+        $int1 = max(calc(0 - cc_param(rs3tli_component_speed_x)), $int1);
+    }
+    if ($int2 > 0) {
+        $int2 = min(cc_param(rs3tli_component_speed_y), $int2);
+    } else {
+        $int2 = max(calc(0 - cc_param(rs3tli_component_speed_y)), $int2);
+    }
+    cc_setposition(calc($int3 + $int1), calc($int4 + $int2), cc_param(rs3tli_component_target_align_x), cc_param(rs3tli_component_target_align_y));
+    if ($int1 = 0 & $int2 = 0) {
+        return(0);
+    } else {
+        return(1);
+    }
+}
+return(0);

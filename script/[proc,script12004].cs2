@@ -1,0 +1,34 @@
+// 12004
+[proc,script12004](component $component0, string $string0, struct $struct1, struct $struct2, int $int3, enum $enum4)
+if (cc_find($component0, $int3) = true) {
+    if (~script6431 = false) {
+        cc_setdragdeadzone(5);
+        cc_setdragdeadtime(5);
+    } else {
+        cc_setdragdeadzone(20);
+        cc_setdragdeadtime(5);
+    }
+    cc_setclickmask(false);
+    if ($component0 = prayer_quick_preset_interface:prayer_buttons) {
+        cc_setop(1, "Toggle");
+        cc_setonop("script8499(event_com, event_comsubid)");
+        cc_setonmouserepeat("script8448($struct1, event_com, event_comsubid)");
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 1);
+        cc_setparam(toplevel_v2_tooltip_mobile_struct, $struct1);
+        cc_setonmouseleave("script8805");
+    } else {
+        cc_setop(1, $string0);
+        cc_setondragcomplete("script7001(event_com, event_comsubid, event_com2)");
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 1);
+        cc_setparam(toplevel_v2_tooltip_mobile_struct, $struct1);
+        cc_setonmouserepeat("script8448($struct1, event_com, event_comsubid)");
+        cc_setonstattransmit("prayer_statupdate($struct1, event_com, event_comsubid){prayer}");
+        cc_setonmouseleave("script8805");
+        cc_setonvartransmit("prayer_varupdate($component0, struct_param($struct2, prayer_child_glow), $int3, $struct1){prayer_base, prayer_base2, curse_base, curse_base_2}");
+        if (if_find(toplevel_v2_prayer:customise) = true) {
+            cc_sethide(false);
+            cc_setonvartransmit("prayer_statupdate_var($component0, $enum4){nex2_player_varp, nex2_player_varp, nex2_player_varp, seren_perm, kr_varp2, rand_rewards_01, combatv2_prayer_unlocked}");
+            cc_setonstattransmit("prayer_statupdate_var($component0, $enum4){prayer}");
+        }
+    }
+}

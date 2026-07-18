@@ -1,0 +1,51 @@
+// 11499
+[proc,script11499](int $int0, int $int1)(string)
+def_string $string0 = "-";
+if ($int1 = 0) {
+    return($string0);
+}
+def_stat $stat2 = enum(int, stat, int_to_stat, $int0);
+if ($stat2 = null) {
+    return($string0);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $intbool5 = 2;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_enum $enum9 = ~script12289($stat2);
+if (~script4036($int0) = ^true) {
+    $intbool5, $int3, $int4 = ~script4037($int0);
+    if ($intbool5 = ^true) {
+        $int6 = enum(int, int, $enum9, $int3);
+    } else {
+        $int6 = $int3;
+    }
+    $int7 = max(0, calc($int6 - stat_visible_xp_actual($stat2)));
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+if ($int7 = 0) {
+    if (%option_virtuallvl = 1) {
+        $int10 = enum(stat, int, vtlvl_stat_to_statcap, $stat2);
+    } else {
+        $int10 = enum(stat, int, stat_to_statcap, $stat2);
+    }
+    $int11 = ~script12294($stat2);
+    if ($int11 < $int10) {
+        $int6 = enum(int, int, $enum9, calc($int11 + 1));
+        $int7 = max(0, calc($int6 - stat_visible_xp_actual($stat2)));
+        if ($int7 = 0) {
+            return($string0);
+        }
+    } else {
+        return($string0);
+    }
+}
+$int8 = calc($int7 / $int1 * 60 + scale(calc($int7 % $int1), $int1, 60));
+if ($int8 > 0) {
+    return(~script12587(~script11025($int8)));
+} else {
+    return("<lt>1m");
+}

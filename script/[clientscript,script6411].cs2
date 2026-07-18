@@ -1,0 +1,51 @@
+// 6411
+[clientscript,script6411](component $component0, component $component1, enum $enum2)
+if ($enum2 = null | $component0 = null | $component1 = null) {
+    return;
+}
+cc_deleteall($component0);
+cc_deleteall($component1);
+def_int $int3 = enum_getoutputcount($enum2);
+def_int $int4 = 0;
+def_int $int5 = 5;
+def_int $int6 = -1;
+def_int $int7 = calc(if_getheight($component0) - 10);
+def_int $int8 = 0;
+def_int $int9 = 0;
+switch_enum ($enum2) {
+    case lore_familiar_settings :
+        $int6 = %lore_interface_selected_radio;
+    case lore_pet_settings :
+        $int6 = %lore_interface_selected_radio2;
+    case lore_legendary_pet_settings :
+        $int6 = %lore_interface_selected_radio3;
+}
+$int7 = calc($int7 - $int3 * 18);
+$int7 = calc(18 + $int7 / ($int3 - 1));
+while ($int4 < $int3) {
+    $int8 = enum(int, int, $enum2, $int4);
+    $int9 = if_getnextsubid($component0);
+    cc_create($component0, ^iftype_graphic, $int9);
+    cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);
+    cc_setposition(5, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int6 = $int8) {
+        cc_setgraphic(rs3_btn_radio_on);
+    } else {
+        cc_setgraphic(rs3_btn_radio_off);
+    }
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setsize(25, 18, ^setsize_minus, ^setsize_abs);
+    cc_setposition(30, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settext(enum(int, string, lore_settings_string, $int8));
+    cc_setonmouseover("script10496(event_com, event_comsubid, 4)");
+    cc_setonmouseleave("script10496(event_com, event_comsubid, 3)");
+    ~script11024(3);
+    cc_create($component1, ^iftype_text, $int4);
+    cc_setsize(10, 18, ^setsize_minus, ^setsize_abs);
+    cc_setposition(5, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setop(1, "Select");
+    cc_setonop("script6411($component0, $component1, $enum2)");
+    $int5 = calc($int5 + $int7);
+    $int4 = calc($int4 + 1);
+}

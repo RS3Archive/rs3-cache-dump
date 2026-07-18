@@ -1,0 +1,25 @@
+// 1706
+[proc,scrollbar_resize_horizontal](component $component0, component $component1, int $int2)
+def_int $int3 = if_getscrollwidth($component1);
+def_int $int4 = if_getwidth($component0);
+def_int $int5 = $int4;
+def_int $int6 = 0;
+if (cc_find($component0, 1) = true & %toplevel_v2_active_skinset ! 2 & cc_param(rs3tli_scrollbar_skin) ! 2) {
+    $int4 = calc($int4 - 32);
+}
+if ($int3 > 0) {
+    $int6 = calc($int5 * $int4 / $int3);
+} else {
+    $int6 = $int5;
+}
+if ($int6 < 10) {
+    $int6 = 10;
+}
+if (cc_find($component0, 1) = true) {
+    if (%toplevel_v2_active_skinset = 2 | cc_param(rs3tli_scrollbar_skin) = 2) {
+        cc_setsize($int6, 8, ^setsize_abs, ^setsize_abs);
+    } else {
+        cc_setsize(calc($int6 - 10), 16, ^setsize_abs, ^setsize_abs);
+    }
+    ~scrollbar_horizontal_doscroll($component0, $component1, $int2, 1);
+}

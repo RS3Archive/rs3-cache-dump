@@ -1,0 +1,19 @@
+// 8451
+[clientscript,script8451](component $component0)
+if ($component0 = toplevel_v2_inspect_worn_stats:main_layer) {
+    if_setsize(0, 378, ^setsize_minus, ^setsize_abs, $component0);
+    if_sethide(true, toplevel_v2_inspect_worn_stats:player_name_text);
+    if_setsize(if_getwidth(toplevel_v2_inspect_worn_stats:health_bar_bounds_layer), if_getheight(toplevel_v2_inspect_worn_stats:health_bar_graphic), ^setsize_abs, ^setsize_abs, toplevel_v2_inspect_worn_stats:health_bar_graphic);
+    if_setsize(if_getwidth(toplevel_v2_inspect_worn_stats:prayer_bar_bounds_layer), if_getheight(toplevel_v2_inspect_worn_stats:prayer_bar_graphic), ^setsize_abs, ^setsize_abs, toplevel_v2_inspect_worn_stats:prayer_bar_graphic);
+    if_setonvartransmit("script8453($component0){player_inspect_combatv2_mainhand_strength, player_inspect_combatv2_offhand_strength, player_inspect_combatv2_armour_rating}", $component0);
+    if_setoninvtransmit("script8453($component0){inspect_worn}", $component0);
+    if_setposition(if_getx(toplevel_v2_inspect_worn_stats:equip_info_layer), calc(if_gety(toplevel_v2_inspect_worn_stats:equip_info_layer) - 20), ^setpos_abs_left, ^setpos_abs_top, toplevel_v2_inspect_worn_stats:equip_info_layer);
+    if_setposition(if_getx(toplevel_v2_inspect_worn_stats:stats_box), calc(if_gety(toplevel_v2_inspect_worn_stats:stats_box) + 5), ^setpos_abs_left, ^setpos_abs_top, toplevel_v2_inspect_worn_stats:stats_box);
+    if_setsize(0, 10, ^setsize_minus, ^setsize_minus, toplevel_v2_inspect_worn_stats:stats_box_bg);
+} else {
+    if_setsize(274, 404, ^setsize_abs, ^setsize_abs, toplevel_v2_parent_suboverlay_worn_stats:main_layer);
+    if_sethide(false, toplevel_v2_parent_suboverlay_worn_stats:player_name_text);
+    if_setonvartransmit("script8453($component0){combatv2_mainhand_strength, combatv2_offhand_strength, combatv2_armour_rating}", $component0);
+    if_setoninvtransmit("script8453($component0){worn}", $component0);
+}
+~script8452($component0);

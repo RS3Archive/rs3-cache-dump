@@ -1,0 +1,26 @@
+// 18439
+[proc,script18439](struct $struct0)
+if ($struct0 = null) {
+    return;
+}
+if ($struct0 = timed_event_buff_select_event_jan24) {
+    ~script18440($struct0);
+} else {
+    if_sethide(true, buff_select_event:event_title_text_1);
+    if_sethide(true, buff_select_event:event_title_text_2);
+    if_sethide(false, buff_select_event:event_title_text);
+    if_settext(struct_param($struct0, timed_event_name), buff_select_event:event_title_text);
+    ~kr_arrow_toplevel(buff_select_event:event_title_text, fonts_cinzel_bold, 3, 28, 14);
+}
+def_string $string0 = "Activate one of three unique buffs. The effects of each will apply for 2 hours.<br><br>Three new buffs will be available every day.";
+if (if_find(buff_select_event:event_info) = true) {
+    if (~script18412 = true) {
+        $string0 = append($string0, struct_param($struct0, timed_event_reward_desc_ironman));
+    } else if (~script1526 = true) {
+        $string0 = append($string0, struct_param($struct0, timed_event_reward_desc_f2p));
+    } else {
+        $string0 = append($string0, struct_param($struct0, timed_event_reward_desc));
+    }
+    cc_settext($string0);
+    ~script16926(fonts_notosans_regular, 0, 12, 10);
+}

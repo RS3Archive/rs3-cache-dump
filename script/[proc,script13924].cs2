@@ -1,0 +1,31 @@
+// 13924
+[proc,script13924]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+%slide_puzzle_client0 = 0;
+%slide_puzzle_client1 = 0;
+%slide_puzzle_client2 = 0;
+%slide_puzzle_client3 = 0;
+%slide_puzzle_client4 = 0;
+cc_deleteall(slide_puzzle:puzzle_layer);
+cc_deleteall(slide_puzzle:puzzle_hint);
+cc_deleteall(slide_puzzle:puzzle_check);
+while ($int0 < 25) {
+    cc_create(slide_puzzle:puzzle_layer, ^iftype_graphic, $int0);
+    cc_setsize(49, 49, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(56 * $int1), calc(56 * $int2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setonclick("script13928($int0)");
+    cc_setop(1, "Move");
+    cc_create(slide_puzzle:puzzle_hint, ^iftype_graphic, $int0);
+    cc_setsize(49, 49, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(56 * $int1), calc(56 * $int2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_create(slide_puzzle:puzzle_check, ^iftype_rectangle, $int0);
+    cc_settrans(255);
+    cc_setsize(calc(49 + 4), calc(49 + 4), ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(56 * $int1), calc(56 * $int2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(^red);
+    cc_setfill(true);
+    $int1 = calc(++$int0 % 5);
+    $int2 = calc($int0 / 5);
+}

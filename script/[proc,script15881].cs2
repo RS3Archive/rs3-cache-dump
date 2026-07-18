@@ -1,0 +1,14 @@
+// 15881
+[proc,script15881]
+if (if_gethide(toplevel_v2_mobile:chat_panel) = true) {
+    if_settext("[<enum(int, string, mobile_chat_overlay_channel_to_string, ~script655(18))>]", chatdefault:mobile_channel_text);
+    if_setsize(calc(if_getwidth(chatdefault:mobile_channel_graphic) + stringwidth(if_gettext(chatdefault:mobile_channel_text), if_getfontmetrics(chatdefault:mobile_channel_text))), 0, ^setsize_abs, ^setsize_minus, chatdefault:mobile_channel_name);
+    if_setsize(if_getwidth(chatdefault:mobile_channel_name), 0, ^setsize_minus, ^setsize_minus, chatdefault:inputarea);
+    if_sethide(true, chatdefault:divider_graphic);
+    if_sethide(false, chatdefault:mobile_channel_name);
+} else {
+    if_sethide(false, chatdefault:divider_graphic);
+    if_sethide(false, chatdefault:player_input_wrapper);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, chatdefault:inputarea);
+    if_sethide(true, chatdefault:mobile_channel_name);
+}

@@ -1,0 +1,111 @@
+// 13393
+[proc,script13393](int $int0, int $int1, int $int2, int $int3, struct $struct4)(int, int, int, int, int, int, int, boolean)
+def_int $int5 = stringwidth(enum(int, string, minimenu_chooseoption, map_lang), struct_param($struct4, minimenu_font));
+def_int $int6 = $int5;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_string $string0 = "0";
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = $int2;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_string $string1 = "0";
+def_int $int16 = 0;
+def_boolean $boolean17 = ~script3085($int2);
+def_int $int18 = 0;
+def_int $int19 = 0;
+if ((~is_mobile_client = true & $int3 > 3 | ~is_mobile_client = false & $int2 > ~script20844($struct4)) & $boolean17 = false) {
+    while ($int12 < $int3) {
+        $int11, $string0 = unknown_command_28($int12);
+        if ($int11 > 1) {
+            $int6 = max($int6, stringwidth("<$string0><col=FFFFFF> <gt>", struct_param($struct4, minimenu_font)));
+            $int10 = max($int10, $int11);
+            $int9 = ~script13394($int9, $int12, $int11, $struct4);
+        } else {
+            $int15, $string1, $int16 = unknown_command_29($int12, 0);
+            $int6 = max($int6, stringwidth($string1, struct_param($struct4, minimenu_font)));
+        }
+        $int12 = calc($int12 + 1);
+    }
+    $int7 = calc(struct_param($struct4, minimenu_entry_draw_height) * $int3 + 3 + struct_param($struct4, minimenu_topheight));
+    $int10 = calc(struct_param($struct4, minimenu_entry_draw_height) * $int10 + 3 + struct_param($struct4, minimenu_topheight));
+} else {
+    $int6 = ~script13394($int6, -1, $int2, $struct4);
+    if (%mobile_zoom ! 0 & $int6 > 200) {
+        $int6 = 200;
+        $struct4 = minimenu_mobile_interface_scale;
+    }
+    if (%minimenu_entity_filter_on = 1) {
+        while ($int14 < $int2) {
+            $int15, $string1, $int16 = unknown_command_29(-1, $int14);
+            if (testbit(%minimenu_entity_filter, $int15) = ^true) {
+                $int13 = calc($int13 - 1);
+            }
+            $int14 = calc($int14 + 1);
+            $int18 = ~script7593($string1, $int6, struct_param($struct4, minimenu_font), 0);
+            if ($int18 > struct_param($struct4, minimenu_entry_draw_height)) {
+                $int19 = calc($int19 + ($int18 - struct_param($struct4, minimenu_entry_draw_height)));
+            }
+        }
+    }
+    $int7 = calc(struct_param($struct4, minimenu_entry_draw_height) * $int13 + struct_param($struct4, minimenu_topheight) + $int19 + struct_param($struct4, minimenu_padding_y));
+}
+if ($int9 > 0) {
+    $int9 = max($int9, $int6);
+    $int9 = calc($int9 + 18);
+}
+$int6 = calc($int6 + 18);
+$int8 = $int7;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_component $component22 = ~minimenu_get_root;
+def_int $int23 = if_getwidth($component22);
+def_int $int24 = if_getheight($component22);
+def_int $int25 = if_getwidth($component22);
+def_int $int26 = if_getheight($component22);
+if (%mobile_zoom ! 0) {
+    $int20, $int21, $int23, $int24 = unknown_command_15;
+}
+if (~script6431 = true) {
+    $int1 = calc(max($int21, calc($int1 - $int7 / 2)) + 10);
+}
+if (calc($int1 + $int7 + $int10) > calc($int24 + $int21)) {
+    if (calc($int7 + $int10) < calc($int24 / 2)) {
+        $int1 = max($int21, min($int1, calc($int24 - $int7 - $int10 - 10 + $int21)));
+    } else if (~script6431 = true) {
+        if ($int7 < calc($int24 / 2 - 10)) {
+            $int1 = max($int21, min($int1, calc($int24 - max($int7, $int10) - 10 + $int21)));
+        } else {
+            $int1 = max($int21, min($int1, calc($int24 / 2 - 10 + $int21)));
+        }
+        $int8 = $int7;
+        $int7 = min($int7, calc($int24 / 2 - 10));
+        $int6 = calc($int6 + 16);
+    } else {
+        if ($int7 > calc($int24 - 10)) {
+            $int8 = $int7;
+            $int7 = calc($int24 - 10);
+            $int6 = calc($int6 + 16);
+        }
+        $int1 = calc($int24 - 5 - $int7);
+    }
+}
+if (~script6431 = true) {
+    if ($int0 < calc($int25 / 2)) {
+        $int0 = calc($int0 + scale($int23, $int25, 70));
+    } else {
+        $int0 = calc($int0 - $int6 - scale($int23, $int25, 70));
+    }
+} else {
+    $int0 = calc($int0 - scale($int6, 2, 1));
+}
+if (calc($int0 + $int6 + $int9) > calc($int23 + $int20)) {
+    $int0 = calc($int23 - $int6 - $int9 + $int20);
+}
+if ($int0 < $int20) {
+    $int0 = $int20;
+}
+return($int0, $int1, $int6, $int7, $int8, $int9, $int10, $boolean17);

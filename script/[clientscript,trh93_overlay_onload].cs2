@@ -1,0 +1,22 @@
+// 12662
+[clientscript,trh93_overlay_onload]
+def_int $int0 = 210;
+if (%trh93_keys_used >= 5) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_1,1", trh93_overlay_new:marker_1);
+}
+if (%trh93_keys_used >= 15) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_2,1", trh93_overlay_new:marker_2);
+}
+if (%trh93_keys_used >= 35) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_3,1", trh93_overlay_new:marker_3);
+}
+if (%trh93_keys_used >= 60) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_4,1", trh93_overlay_new:marker_4);
+}
+if (%trh93_keys_used >= 100) {
+    if_setgraphic("trh93_bonus_xp_bar_marker_5,1", trh93_overlay_new:marker_5);
+}
+def_int $int1 = max(1, scale($int0, 100, %trh93_keys_used));
+def_int $int2 = scale($int1, $int0, 28);
+if_setsize(41, $int1, ^setsize_abs, ^setsize_abs, trh93_overlay_new:progress_bar_fill);
+if_setonvartransmit("trh93_update_progress_bar{trh93_var}", trh93_overlay_new:progress_bar_fill);

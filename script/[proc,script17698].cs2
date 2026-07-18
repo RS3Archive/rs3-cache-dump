@@ -1,0 +1,14 @@
+// 17698
+[proc,script17698](struct $struct0, int $int1)(string)
+def_int $int2 = struct_param($struct0, combatv2_ability_cooldown);
+if ($struct0 = combatv2_ability_constitution_special_attack | $struct0 = combatv2_ability_constitution_alchemical_hydrix_amulet) {
+    $int2 = ~script17463(~script15098(inv_getobj(worn, 3), $struct0));
+}
+def_int $int3 = $int2;
+switch_struct ($struct0) {
+    case combatv2_ability_constitution_guthix_blessing :
+        if (%invent_perk_brief_respite > 0) {
+            $int2 = calc($int2 - scale($int3, 100, calc(5 * %invent_perk_brief_respite)));
+        }
+}
+return(~script17699($int2, $int1));

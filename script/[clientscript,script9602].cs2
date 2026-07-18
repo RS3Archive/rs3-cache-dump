@@ -1,0 +1,81 @@
+// 9602
+[clientscript,script9602](component $component0, int $int1, int $int2)
+def_int $int3 = calc($int2 - date_minutes);
+def_string $string0 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_string $string1 = null;
+def_string $string2 = null;
+def_string $string3 = null;
+def_string $string4 = null;
+def_string $string5 = null;
+if ($int3 <= 0) {
+    $string0 = "";
+    switch_int ($int1) {
+        case 0 :
+            if_sethide(true, polls:polls_featured_gold_time);
+            if_settext("Closed", polls:polls_featured_gold_title);
+        case 1 :
+            if_sethide(true, polls:polls_featured_silver_time);
+            if_settext("Closed", polls:polls_featured_silver_title);
+        case 2 :
+            if_sethide(true, polls:polls_featured_bronze_time);
+            if_settext("Closed", polls:polls_featured_bronze_title);
+    }
+} else {
+    $int5 = calc($int3 / 10080);
+    $int4 = calc($int5 * 7);
+    $int6 = calc($int3 / 1440 - $int4);
+    $int4 = calc(($int4 + $int6) * 24);
+    $int7 = calc($int3 / 60 - $int4);
+    $int4 = calc(($int4 + $int7) * 60);
+    $int8 = calc($int3 - $int4);
+    if ($int5 = 1) {
+        $string1 = "1 week";
+    } else {
+        $string1 = "<tostring($int5)> weeks";
+    }
+    if ($int6 = 1) {
+        $string2 = "1 day";
+    } else {
+        $string2 = "<tostring($int6)> days";
+    }
+    if ($int7 = 1) {
+        $string3 = "1 hour";
+    } else {
+        $string3 = "<tostring($int7)> hours";
+    }
+    if ($int8 = 1) {
+        $string4 = "1 minute";
+    } else {
+        $string4 = "<tostring($int8)> minutes";
+    }
+    if ($int5 > 0) {
+        $string0 = "<$string1>, <$string2>";
+    } else if ($int6 > 0) {
+        $string0 = "<$string2>, <$string3>";
+    } else if ($int7 > 0) {
+        $string0 = "<$string3>, <$string4>";
+    } else if ($int8 = 1) {
+        $string0 = "1 minute";
+    } else {
+        $string0 = $string4;
+    }
+}
+switch_int ($int1) {
+    case 0 :
+        if_settext($string0, polls:polls_featured_gold_time);
+    case 1 :
+        if_settext($string0, polls:polls_featured_silver_time);
+    case 2 :
+        if_settext($string0, polls:polls_featured_bronze_time);
+}
+if ($int3 = 0) {
+    if_setontimer(null, $component0);
+} else {
+    if_setontimer("script9602($component0, $int1, $int2)", $component0);
+}

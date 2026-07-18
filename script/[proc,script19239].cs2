@@ -1,0 +1,23 @@
+// 19239
+[proc,script19239]
+def_int $int0 = ~script10495(2);
+def_int $int1 = ~script10495(0);
+def_int $int2 = ~script10495(21);
+def_string $string0 = ~script17015;
+def_string $string1 = "<col=<tostring($int0, 16)>>You are on team:</col> <col=<tostring($int1, 16)>><$string0></col>";
+if (%halloween24_team = 0 | ~script18522(quest_halloween24) = false) {
+    $string1 = "<col=<tostring($int0, 16)>>Complete the 'Field of Screams' quest to join The Horsemen.</col>";
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (%halloween25_ceremony_winner_week_1 = 0) {
+    $int3 = %halloween_hub_community_contribution_week_1_count;
+} else if (%halloween25_ceremony_winner_week_2 = 0) {
+    $int3 = %halloween_hub_community_contribution_week_2_count;
+} else if (%halloween25_ceremony_winner_week_3 = 0) {
+    $int3 = %halloween_hub_community_contribution_week_3_count;
+} else if (%halloween25_ceremony_winner_week_4 = 0) {
+    $int3 = %halloween_hub_community_contribution_week_4_count;
+}
+$int4 = calc(%halloween_hub_community_contribution_week_1_count + %halloween_hub_community_contribution_week_2_count + %halloween_hub_community_contribution_week_3_count + %halloween_hub_community_contribution_week_4_count);
+if_settext("<$string1><br><col=<tostring($int0, 16)>>Confections this week:</col> <col=<tostring($int2, 16)>><tostring_localised($int3, true)></col><br><col=<tostring($int0, 16)>>Confections this event:</col> <col=<tostring($int2, 16)>><tostring_localised($int4, true)></col>", halloween24:personal_summary_faction_text);

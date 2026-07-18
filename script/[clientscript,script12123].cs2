@@ -1,0 +1,50 @@
+// 12123
+[clientscript,script12123](component $component0, int $int1, dbrow $dbrow2, component $component3, int $int4, int $int5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+if (if_find(invent_discovery:side_popup_layer) = true) {
+    if (cc_param(invent_client_recipe) = $dbrow2) {
+        cc_setontimer("invent_discovery_popup_hide(event_com, calc(clientclock + 1), $component3, $int4, $int5)");
+        return;
+    } else {
+        $int6 = cc_param(invent_client_start_id);
+        $int7 = cc_param(invent_client_end_id);
+        while ($int6 < $int7) {
+            if (.cc_find($component3, $int6) = true) {
+                .cc_sethide(false);
+            }
+            $int6 = calc($int6 + 1);
+        }
+    }
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_component $component10 = null;
+cc_deleteall(invent_discovery:side_popup_layer);
+if (cc_find($component0, $int1) = true) {
+    $dbrow2 = cc_param(invent_client_recipe);
+    $int8 = calc(cc_getx + 5);
+    $int9 = cc_gety;
+    $component10 = cc_getlayer;
+    while ($component10 ! invent_discovery:side_content_layer) {
+        $int8 = calc($int8 + if_getx($component10));
+        $int9 = calc($int9 + if_gety($component10));
+        $component10 = if_getlayer($component10);
+    }
+    ~invent_discovery_create_card(invent_discovery:side_popup_layer, 0, null, 0, $int8, $int9, $dbrow2);
+    if (if_find(invent_discovery:side_popup_layer) = true) {
+        cc_setontimer("invent_discovery_popup_hide(event_com, calc(clientclock + 1), $component3, $int4, $int5)");
+        cc_setparam(invent_client_recipe, $dbrow2);
+        cc_setparam(invent_client_start_id, $int4);
+        cc_setparam(invent_client_end_id, $int5);
+    }
+} else {
+    return;
+}
+$int6 = $int4;
+while ($int6 < $int5) {
+    if (cc_find($component3, $int6) = true) {
+        cc_sethide(true);
+    }
+    $int6 = calc($int6 + 1);
+}

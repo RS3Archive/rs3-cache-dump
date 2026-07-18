@@ -1,0 +1,26 @@
+// 5733
+[proc,sworlds_challenge_interface_init]
+~script5736(sworlds_challenge_information:sworlds_challenge_gold_title_text, sworlds_challenge_information:sworlds_challenge_gold_reward_text, sworlds_challenge_information:sworlds_challenge_gold_details_text, 122159114);
+~script5736(sworlds_challenge_information:sworlds_challenge_silver_title_text, sworlds_challenge_information:sworlds_challenge_silver_reward_text, sworlds_challenge_information:sworlds_challenge_silver_details_text, 122159141);
+~script5736(sworlds_challenge_information:sworlds_challenge_bronze_title_text, sworlds_challenge_information:sworlds_challenge_bronze_reward_text, sworlds_challenge_information:sworlds_challenge_bronze_details_text, 122159124);
+if_setonvartransmit("script5737(sworlds_challenge_information:sworlds_challenge_gold_checkbox, sworlds_challenge_information:sworlds_challenge_gold_button_disabled_layer, %sworlds_reward_challenge_gold_complete){sworlds_reward_basevar3}", sworlds_challenge_information:sworlds_challenge_gold_details_text);
+if_setonvartransmit("script5737(sworlds_challenge_information:sworlds_challenge_silver_checkbox, sworlds_challenge_information:sworlds_challenge_silver_button_disabled_layer, %sworlds_reward_challenge_silver_complete){sworlds_reward_basevar3}", sworlds_challenge_information:sworlds_challenge_silver_details_text);
+if_setonvartransmit("script5737(sworlds_challenge_information:sworlds_challenge_bronze_checkbox, sworlds_challenge_information:sworlds_challenge_bronze_button_disabled_layer, %sworlds_reward_challenge_bronze_complete){sworlds_reward_basevar3}", sworlds_challenge_information:sworlds_challenge_bronze_details_text);
+def_int $int0 = 0;
+cc_create(sworlds_challenge_information:sworlds_challenge_time_remaining, ^iftype_text, 0);
+cc_settext("Time Remaining:");
+cc_setcolour(~script10495(0));
+cc_settextfont(cinzel_18pt_bold);
+cc_setsize(parawidth(cc_gettext, 1000, cc_getfontmetrics), 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(40, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+$int0 = calc(32 + cc_getwidth);
+.cc_create(sworlds_challenge_information:sworlds_challenge_time_remaining, ^iftype_text, 1);
+.cc_settext("X days  XX Hours  XX Minutes");
+.cc_settextfont(cinzel_18pt_bold);
+.cc_setcolour(~script10495(0));
+.cc_setsize(parawidth(.cc_gettext, 1000, .cc_getfontmetrics), 32, ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(cc_getx + cc_getwidth + 8), 0, ^setpos_abs_left, ^setpos_abs_centre);
+.cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+$int0 = calc($int0 + 32 + .cc_getwidth);
+if_setsize($int0, 32, ^setsize_abs, ^setsize_abs, sworlds_challenge_information:sworlds_challenge_time_remaining);

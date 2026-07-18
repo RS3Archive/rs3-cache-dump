@@ -1,0 +1,96 @@
+// 19278
+[proc,script19278]
+if_settext(db_getfield(%trh_dungeon_crawl_dungeon_dbrow, trh_dungeon_crawl_dungeon:col2, 0), trh_dungeon_crawl_overlay:overview_title_text);
+def_graphic $graphic0 = null;
+switch_int (%trh_dungeon_crawl_dungeon_floor_index) {
+    case 0 :
+        $graphic0 = trh_dungeon_crawl_overview_7_floor_layout_1;
+    case 1 :
+        $graphic0 = trh_dungeon_crawl_overview_7_floor_layout_2;
+    case 2 :
+        $graphic0 = trh_dungeon_crawl_overview_7_floor_layout_3;
+    case 3 :
+        $graphic0 = trh_dungeon_crawl_overview_7_floor_layout_4;
+    case 4 :
+        $graphic0 = trh_dungeon_crawl_overview_7_floor_layout_5;
+    case 5 :
+        $graphic0 = trh_dungeon_crawl_overview_7_floor_layout_6;
+    case 6 :
+        $graphic0 = trh_dungeon_crawl_overview_7_floor_layout_7;
+}
+if_setgraphic($graphic0, trh_dungeon_crawl_overlay:overview_floor_layout_graphic);
+def_graphic $graphic1 = trh_dungeon_crawl_overview_floor_selected;
+def_int $int2 = 46;
+def_int $int3 = 46;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 28;
+def_int $int7 = 28;
+def_int $int8 = db_getfieldcount(%trh_dungeon_crawl_dungeon_dbrow, trh_dungeon_crawl_dungeon:col3);
+def_dbrow $dbrow9 = null;
+def_int $int10 = -1;
+while (++$int10 < $int8) {
+    switch_int ($int10) {
+        case 0 :
+            $int4, $int5 = 0, 0;
+        case 1 :
+            $int4, $int5 = 17, 57;
+        case 2 :
+            $int4, $int5 = 95, 0;
+        case 3 :
+            $int4, $int5 = 80, 51;
+        case 4 :
+            $int4, $int5 = 0, 125;
+        case 5 :
+            $int4, $int5 = 103, 95;
+        case 6 :
+            $graphic1 = trh_dungeon_crawl_overview_special_floor_selected;
+            $int2, $int3 = 58, 58;
+            $int4, $int5 = 46, 150;
+            $int6, $int7 = 42, 42;
+    }
+    ~if_add_child_layer(trh_dungeon_crawl_overlay:overview_floor_layer, $int10, 0, $int4, $int5, ^setpos_abs_left, ^setpos_abs_top, $int2, $int3, ^setsize_abs, ^setsize_abs);
+    ~cc_add_child_graphic($int10, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, null);
+    if (%trh_dungeon_crawl_dungeon_floor_index = $int10) {
+        cc_setgraphic($graphic1);
+    }
+    $dbrow9 = db_getfield(%trh_dungeon_crawl_dungeon_dbrow, trh_dungeon_crawl_dungeon:col3, $int10);
+    ~cc_add_child_graphic($int10, 2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int6, $int7, ^setsize_abs, ^setsize_abs, null);
+    switch_dbtable (db_getrowtable($dbrow9)) {
+        case trh_dungeon_crawl_map :
+            ~script3537("Map");
+        case trh_dungeon_crawl_bonus_encounter :
+            ~script3537("Bonus Encounter");
+        case trh_dungeon_crawl_boss_encounter :
+            ~script3537("Boss Encounter");
+    }
+    if (%trh_dungeon_crawl_dungeon_floor_index >= $int10) {
+        switch_dbtable (db_getrowtable($dbrow9)) {
+            case trh_dungeon_crawl_map :
+                cc_setgraphic(trh_dungeon_crawl_overview_icon_map);
+            case trh_dungeon_crawl_bonus_encounter :
+                cc_setgraphic(trh_dungeon_crawl_overview_icon_bonus_encounter);
+            case trh_dungeon_crawl_boss_encounter :
+                cc_setgraphic(trh_dungeon_crawl_overview_icon_boss_encounter);
+        }
+    } else {
+        switch_dbtable (db_getrowtable($dbrow9)) {
+            case trh_dungeon_crawl_map :
+                cc_setgraphic(trh_dungeon_crawl_overview_icon_map_inactive);
+            case trh_dungeon_crawl_bonus_encounter :
+                cc_setgraphic(trh_dungeon_crawl_overview_icon_bonus_encounter_inactive);
+            case trh_dungeon_crawl_boss_encounter :
+                cc_setgraphic(trh_dungeon_crawl_overview_icon_boss_encounter_inactive);
+        }
+    }
+}
+def_obj $obj11 = null;
+def_int $int12 = 0;
+def_int $int13 = 1;
+def_int $int14 = 0;
+while (++$int14 <= 8) {
+    $obj11, $int12, $int13 = ~script19217($int14);
+    ~if_add_child_layer(trh_dungeon_crawl_overlay:overview_rewards_grid, $int14, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 35, 43, ^setsize_abs, ^setsize_abs);
+    ~cc_add_child_graphic($int14, 2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, ~script227($int13));
+    ~script3537(~script10876($int13));
+}

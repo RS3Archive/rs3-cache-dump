@@ -1,0 +1,40 @@
+// 17047
+[clientscript,trh189_overlay_setup]
+def_int $int0 = 0;
+cc_deleteall(wheel_of_fortune:fake_op);
+def_int $int1 = -1;
+while (++$int1 <= 30) {
+    cc_create(wheel_of_fortune:fake_op, ^iftype_graphic, $int1);
+}
+~script19904;
+def_dbrow $dbrow2 = ~script1626(1, %trh189_left_bonus_active);
+def_dbrow $dbrow3 = ~script1626(2, %trh189_right_bonus_active);
+~script11157($dbrow2, $dbrow3, 0);
+~script19909;
+~script17048;
+~spinner_create(trh189_overlay:equinox_preview_load, 3, -1);
+~spinner_create(trh189_overlay:load_preview, 3, -1);
+if (%trh189_prize_obj = null) {
+    ~script16663(trh189_prize_preview_components, ~script10513, 1);
+} else {
+    ~script16663(trh189_prize_preview_components, %trh189_prize_obj, %trh189_prize_amount);
+}
+if ($int0 = 1) {
+    $dbrow2 = ~script1626(1, 0);
+    if_setnpcmodel(db_getfield($dbrow2, trh189_fighter:col6, 0), trh189_overlay:chase_prize_npc_2);
+    if_setmodelangle(0, 0, 0, 512, 0, 800, trh189_overlay:chase_prize_npc_2);
+    if_setmodelanim(trh189_player_boulder_run_override, trh189_overlay:chase_prize_npc_2);
+    if_setnpcmodel(trh189_boulder_pet, trh189_overlay:chase_prize_npc_1);
+    if_setmodelangle(0, 0, 0, 512, 0, 800, trh189_overlay:chase_prize_npc_1);
+    if_setmodelanim(boulder_pet_run, trh189_overlay:chase_prize_npc_1);
+    if_setontimer("script11709(100, trh189_overlay:chase_prize_preview)", trh189_overlay:chase_prize_preview);
+}
+~script19028;
+if (~script20104 = 0) {
+    if_sethide(true, trh189_overlay:skin_select_button);
+    if_sethide(false, trh189_overlay:shop_button);
+}
+if (if_gethide(trh189_overlay:prize_claim_overlay) = false) {
+    if_sethide(true, trh189_overlay:skin_select_button);
+    if_sethide(true, trh189_overlay:shop_button);
+}

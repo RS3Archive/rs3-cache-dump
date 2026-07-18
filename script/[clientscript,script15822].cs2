@@ -1,0 +1,35 @@
+// 15822
+[clientscript,script15822](int $int0, int $int1)
+def_struct $struct2 = null;
+switch_int ($int1) {
+    case 0 :
+        if (~script12115(bonds_wmh_oct21_bundle) = true) {
+            $struct2 = mtx_spotlight_upsell_wmh_oct21_bundle;
+        } else if (playermember = true) {
+            $struct2 = mtx_spotlight_upsell_bonds;
+        } else {
+            $struct2 = mtx_spotlight_upsell_member;
+        }
+    case 1 :
+        if (~script12115(bonds_monthly_bundle_nov_21) = true) {
+            $struct2 = mtx_spotlight_upsell_bundles;
+        } else if (~is_mobile_client = true) {
+            $struct2 = mtx_spotlight_upsell_special_offers;
+        } else {
+            $struct2 = mtx_spotlight_upsell_runecoins;
+        }
+    case default :
+        return;
+}
+def_int $int3 = calc(100 + 2 * (255 + 30));
+def_component $component4 = mtx_front_end_spotlight:main_layer;
+def_int $int5 = 0;
+def_int $int6 = 0;
+~if_add_child_layer($component4, $int0, $int5++, $int3, calc(14 + $int0 % 2 * 225), ^setpos_abs_left, ^setpos_abs_top, 255, 205, ^setsize_abs, ^setsize_abs);
+cc_setop(1, "Select");
+cc_setopcursor(1, cursor_use);
+~cc_add_child_graphic($int0, $int5++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, mtx_store_package_small_background);
+~cc_add_child_graphic($int0, $int5++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, ~script3918($struct2));
+~cc_add_child_graphic($int0, $int5++, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, container_gold_small);
+~cc_add_child_graphic($int0, $int5++, 0, 55, ^setpos_abs_left, ^setpos_abs_top, 251, 149, ^setsize_abs, ^setsize_abs, container_overlay_small);
+~cc_add_child_text($int0, $int5++, 30, 4, ^setpos_abs_left, ^setpos_abs_bottom, 44, 32, ^setsize_minus, ^setsize_abs, big_window_title_text, struct_param($struct2, mtxmgt_name));

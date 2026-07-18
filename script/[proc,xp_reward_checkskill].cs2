@@ -1,0 +1,943 @@
+// 6035
+[proc,xp_reward_checkskill](stat $stat0, int $int1, obj $obj2, int $int3)(boolean)
+if ($obj2 = psr_xpblock_dummy) {
+    return(true);
+}
+if ($stat0 = null & ~script16690($stat0, $obj2) = false) {
+    if ($int3 = 1) {
+        mes("You cannot use this on the currently embargoed skill.");
+        sound_vorbis_volume(omge_error, 1, 0, 150);
+    }
+    return(false);
+}
+if (map_members = false & enum_hasoutput(stat, stat_p2p_list, $stat0) = true & stat_base($stat0) >= ~script12038($stat0) & oc_category($obj2) ! xpboosterstar & $obj2 ! trh26_dummy) {
+    if ($int3 = 1) {
+        if (playermember = false) {
+            mes("You have reached the maximum level for this skill in the free game. To gain more XP you must subscribe.");
+        } else {
+            mes("You have the reached the maximum level for this skill in the free game. To gain more XP you must log in to a members' world.");
+        }
+        sound_vorbis_volume(omge_error, 1, 0, 150);
+    }
+    return(false);
+}
+switch_stat ($stat0) {
+    case invention :
+        if (stat_base(smithing) < 80 | stat_base(divination) < 80 | stat_base(crafting) < 80) {
+            return(false);
+        }
+}
+if (stat_base($stat0) < $int1) {
+    if ($int3 = 1) {
+        mes("You must choose a skill in which you already have level <tostring($int1)>.");
+        sound_vorbis_volume(omge_error, 1, 0, 150);
+    }
+    return(false);
+}
+switch_obj ($obj2) {
+    case tutorial2_lamp :
+        switch_stat ($stat0) {
+            case attack, strength, defence, hitpoints, ranged, magic, mining, smithing, fishing, cooking, firemaking, woodcutting, prayer :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only use this lamp to increase a skill that you learned about while helping Sir Vant.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case wof_xpbooster_generic :
+        switch_stat ($stat0) {
+            case attack :
+                if (~obj_gettotal(wof_xpbooster_attack) > 0 | %wof_reward_object_id = 246) {
+                    return(false);
+                }
+            case strength :
+                if (~obj_gettotal(wof_xpbooster_strength) > 0 | %wof_reward_object_id = 248) {
+                    return(false);
+                }
+            case defence :
+                if (~obj_gettotal(wof_xpbooster_defence) > 0 | %wof_reward_object_id = 250) {
+                    return(false);
+                }
+            case ranged :
+                if (~obj_gettotal(wof_xpbooster_ranged) > 0 | %wof_reward_object_id = 252) {
+                    return(false);
+                }
+            case magic :
+                if (~obj_gettotal(wof_xpbooster_magic) > 0 | %wof_reward_object_id = 254) {
+                    return(false);
+                }
+            case prayer :
+                if (~obj_gettotal(wof_xpbooster_prayer) > 0 | %wof_reward_object_id = 256) {
+                    return(false);
+                }
+            case runecraft :
+                if (~obj_gettotal(wof_xpbooster_runecraft) > 0 | %wof_reward_object_id = 258) {
+                    return(false);
+                }
+            case construction :
+                if (~obj_gettotal(wof_xpbooster_construction) > 0 | %wof_reward_object_id = 260) {
+                    return(false);
+                }
+            case dungeoneering :
+                if (~obj_gettotal(wof_xpbooster_dungeoneering) > 0 | %wof_reward_object_id = 262) {
+                    return(false);
+                }
+            case hitpoints :
+                if (~obj_gettotal(wof_xpbooster_constitution) > 0 | %wof_reward_object_id = 264) {
+                    return(false);
+                }
+            case agility :
+                if (~obj_gettotal(wof_xpbooster_agility) > 0 | %wof_reward_object_id = 266) {
+                    return(false);
+                }
+            case herblore :
+                if (~obj_gettotal(wof_xpbooster_herblore) > 0 | %wof_reward_object_id = 268) {
+                    return(false);
+                }
+            case thieving :
+                if (~obj_gettotal(wof_xpbooster_thieving) > 0 | %wof_reward_object_id = 270) {
+                    return(false);
+                }
+            case crafting :
+                if (~obj_gettotal(wof_xpbooster_crafting) > 0 | %wof_reward_object_id = 272) {
+                    return(false);
+                }
+            case fletching :
+                if (~obj_gettotal(wof_xpbooster_fletching) > 0 | %wof_reward_object_id = 274) {
+                    return(false);
+                }
+            case slayer :
+                if (~obj_gettotal(wof_xpbooster_slayer) > 0 | %wof_reward_object_id = 276) {
+                    return(false);
+                }
+            case hunter :
+                if (~obj_gettotal(wof_xpbooster_hunter) > 0 | %wof_reward_object_id = 278) {
+                    return(false);
+                }
+            case mining :
+                if (~obj_gettotal(wof_xpbooster_mining) > 0 | %wof_reward_object_id = 280) {
+                    return(false);
+                }
+            case smithing :
+                if (~obj_gettotal(wof_xpbooster_smithing) > 0 | %wof_reward_object_id = 282) {
+                    return(false);
+                }
+            case fishing :
+                if (~obj_gettotal(wof_xpbooster_fishing) > 0 | %wof_reward_object_id = 284) {
+                    return(false);
+                }
+            case cooking :
+                if (~obj_gettotal(wof_xpbooster_cooking) > 0 | %wof_reward_object_id = 286) {
+                    return(false);
+                }
+            case firemaking :
+                if (~obj_gettotal(wof_xpbooster_firemaking) > 0 | %wof_reward_object_id = 288) {
+                    return(false);
+                }
+            case woodcutting :
+                if (~obj_gettotal(wof_xpbooster_woodcutting) > 0 | %wof_reward_object_id = 290) {
+                    return(false);
+                }
+            case farming :
+                if (~obj_gettotal(wof_xpbooster_farming) > 0 | %wof_reward_object_id = 292) {
+                    return(false);
+                }
+            case summoning :
+                if (~obj_gettotal(wof_xpbooster_summoning) > 0 | %wof_reward_object_id = 294) {
+                    return(false);
+                }
+            case divination :
+                if (~obj_gettotal(wof_xpbooster_divination) > 0 | %wof_reward_object_id = 590) {
+                    return(false);
+                }
+            case invention :
+                if (~obj_gettotal(wof_xpbooster_invention) > 0 | %wof_reward_object_id = 776) {
+                    return(false);
+                }
+        }
+    case wof_xpbooster_generic_prized :
+        switch_stat ($stat0) {
+            case attack :
+                if (~obj_gettotal(wof_xpbooster_attack_prized) > 0 | %wof_reward_object_id = 247) {
+                    return(false);
+                }
+            case strength :
+                if (~obj_gettotal(wof_xpbooster_strength_prized) > 0 | %wof_reward_object_id = 249) {
+                    return(false);
+                }
+            case defence :
+                if (~obj_gettotal(wof_xpbooster_defence_prized) > 0 | %wof_reward_object_id = 251) {
+                    return(false);
+                }
+            case ranged :
+                if (~obj_gettotal(wof_xpbooster_ranged_prized) > 0 | %wof_reward_object_id = 253) {
+                    return(false);
+                }
+            case magic :
+                if (~obj_gettotal(wof_xpbooster_magic_prized) > 0 | %wof_reward_object_id = 255) {
+                    return(false);
+                }
+            case prayer :
+                if (~obj_gettotal(wof_xpbooster_prayer_prized) > 0 | %wof_reward_object_id = 257) {
+                    return(false);
+                }
+            case runecraft :
+                if (~obj_gettotal(wof_xpbooster_runecraft_prized) > 0 | %wof_reward_object_id = 259) {
+                    return(false);
+                }
+            case construction :
+                if (~obj_gettotal(wof_xpbooster_construction_prized) > 0 | %wof_reward_object_id = 261) {
+                    return(false);
+                }
+            case dungeoneering :
+                if (~obj_gettotal(wof_xpbooster_dungeoneering_prized) > 0 | %wof_reward_object_id = 263) {
+                    return(false);
+                }
+            case hitpoints :
+                if (~obj_gettotal(wof_xpbooster_constitution_prized) > 0 | %wof_reward_object_id = 265) {
+                    return(false);
+                }
+            case agility :
+                if (~obj_gettotal(wof_xpbooster_agility_prized) > 0 | %wof_reward_object_id = 267) {
+                    return(false);
+                }
+            case herblore :
+                if (~obj_gettotal(wof_xpbooster_herblore_prized) > 0 | %wof_reward_object_id = 269) {
+                    return(false);
+                }
+            case thieving :
+                if (~obj_gettotal(wof_xpbooster_thieving_prized) > 0 | %wof_reward_object_id = 271) {
+                    return(false);
+                }
+            case crafting :
+                if (~obj_gettotal(wof_xpbooster_crafting_prized) > 0 | %wof_reward_object_id = 273) {
+                    return(false);
+                }
+            case fletching :
+                if (~obj_gettotal(wof_xpbooster_fletching_prized) > 0 | %wof_reward_object_id = 275) {
+                    return(false);
+                }
+            case slayer :
+                if (~obj_gettotal(wof_xpbooster_slayer_prized) > 0 | %wof_reward_object_id = 277) {
+                    return(false);
+                }
+            case hunter :
+                if (~obj_gettotal(wof_xpbooster_hunter_prized) > 0 | %wof_reward_object_id = 279) {
+                    return(false);
+                }
+            case mining :
+                if (~obj_gettotal(wof_xpbooster_mining_prized) > 0 | %wof_reward_object_id = 281) {
+                    return(false);
+                }
+            case smithing :
+                if (~obj_gettotal(wof_xpbooster_smithing_prized) > 0 | %wof_reward_object_id = 283) {
+                    return(false);
+                }
+            case fishing :
+                if (~obj_gettotal(wof_xpbooster_fishing_prized) > 0 | %wof_reward_object_id = 285) {
+                    return(false);
+                }
+            case cooking :
+                if (~obj_gettotal(wof_xpbooster_cooking_prized) > 0 | %wof_reward_object_id = 287) {
+                    return(false);
+                }
+            case firemaking :
+                if (~obj_gettotal(wof_xpbooster_firemaking_prized) > 0 | %wof_reward_object_id = 289) {
+                    return(false);
+                }
+            case woodcutting :
+                if (~obj_gettotal(wof_xpbooster_woodcutting_prized) > 0 | %wof_reward_object_id = 291) {
+                    return(false);
+                }
+            case farming :
+                if (~obj_gettotal(wof_xpbooster_farming_prized) > 0 | %wof_reward_object_id = 293) {
+                    return(false);
+                }
+            case summoning :
+                if (~obj_gettotal(wof_xpbooster_summoning_prized) > 0 | %wof_reward_object_id = 295) {
+                    return(false);
+                }
+            case divination :
+                if (~obj_gettotal(wof_xpbooster_divination_prized) > 0 | %wof_reward_object_id = 591) {
+                    return(false);
+                }
+            case invention :
+                if (~obj_gettotal(wof_xpbooster_invention_prized) > 0 | %wof_reward_object_id = 777) {
+                    return(false);
+                }
+        }
+    case cbtv2ca_reward_book :
+        switch_stat ($stat0) {
+            case attack, strength, defence, hitpoints, ranged, magic, prayer, summoning, herblore, slayer, necromancy :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only use this to increase combat related skills.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case csi_combat_lamp :
+        switch_stat ($stat0) {
+            case attack, strength, defence, hitpoints, ranged, magic, prayer, summoning, herblore, slayer, necromancy :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only use this to increase combat related skills.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case challenge_xp_lamp :
+        switch_stat ($stat0) {
+            case attack, strength, defence, hitpoints, ranged, magic, necromancy :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only choose a combat skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case sliske1_lamp_combat, nomel_lamp_combat :
+        switch_stat ($stat0) {
+            case attack, strength, defence, hitpoints, ranged, magic, necromancy :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only use this to increase basic combat skills.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case tpr_lamp_combat :
+        switch_stat ($stat0) {
+            case attack, strength, defence, hitpoints, ranged, magic, necromancy :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only choose a combat skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case wof33_pendant_love, wof33_pendant_hate :
+        switch_stat ($stat0) {
+            case attack :
+                if (%wof33_skill_available_attack = 0) {
+                    return(false);
+                }
+            case strength :
+                if (%wof33_skill_available_strength = 0) {
+                    return(false);
+                }
+            case ranged :
+                if (%wof33_skill_available_ranged = 0) {
+                    return(false);
+                }
+            case magic :
+                if (%wof33_skill_available_magic = 0) {
+                    return(false);
+                }
+            case defence :
+                if (%wof33_skill_available_defence = 0) {
+                    return(false);
+                }
+            case hitpoints :
+                if (%wof33_skill_available_constitution = 0) {
+                    return(false);
+                }
+            case prayer :
+                if (%wof33_skill_available_prayer = 0) {
+                    return(false);
+                }
+            case agility :
+                if (%wof33_skill_available_agility = 0) {
+                    return(false);
+                }
+            case herblore :
+                if (%wof33_skill_available_herblore = 0) {
+                    return(false);
+                }
+            case thieving :
+                if (%wof33_skill_available_thieving = 0) {
+                    return(false);
+                }
+            case crafting :
+                if (%wof33_skill_available_crafting = 0) {
+                    return(false);
+                }
+            case runecraft :
+                if (%wof33_skill_available_runecrafting = 0) {
+                    return(false);
+                }
+            case mining :
+                if (%wof33_skill_available_mining = 0) {
+                    return(false);
+                }
+            case smithing :
+                if (%wof33_skill_available_smithing = 0) {
+                    return(false);
+                }
+            case fishing :
+                if (%wof33_skill_available_fishing = 0) {
+                    return(false);
+                }
+            case cooking :
+                if (%wof33_skill_available_cooking = 0) {
+                    return(false);
+                }
+            case firemaking :
+                if (%wof33_skill_available_firemaking = 0) {
+                    return(false);
+                }
+            case woodcutting :
+                if (%wof33_skill_available_woodcutting = 0) {
+                    return(false);
+                }
+            case fletching :
+                if (%wof33_skill_available_fletching = 0) {
+                    return(false);
+                }
+            case slayer :
+                if (%wof33_skill_available_slayer = 0) {
+                    return(false);
+                }
+            case farming :
+                if (%wof33_skill_available_farming = 0) {
+                    return(false);
+                }
+            case construction :
+                if (%wof33_skill_available_construction = 0) {
+                    return(false);
+                }
+            case hunter :
+                if (%wof33_skill_available_hunter = 0) {
+                    return(false);
+                }
+            case summoning :
+                if (%wof33_skill_available_summoning = 0) {
+                    return(false);
+                }
+            case dungeoneering :
+                if (%wof33_skill_available_dungeoneering = 0) {
+                    return(false);
+                }
+            case divination :
+                if (%wof33_skill_available_divination = 0) {
+                    return(false);
+                }
+            case default :
+                return(false);
+        }
+    case slayer_contract_book :
+        switch_stat ($stat0) {
+            case hitpoints, attack, strength, defence, ranged, magic, necromancy :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only use this book to increase combat related skills.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case godem_combat_artifact :
+        switch_stat ($stat0) {
+            case hitpoints, attack, strength, defence, ranged, magic :
+            case default :
+                if ($int3 = 1) {
+                    mes("You may only improve combat related skills.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case godem_banner_armadyl_tier1 :
+        switch_stat ($stat0) {
+            case smithing, fishing, mining, runecraft, crafting, woodcutting, firemaking, fletching, construction, hunter, thieving, cooking, herblore, farming, divination, archaeology :
+            case default :
+                if ($int3 = 1) {
+                    mes("You can only boost certain non-combat skills with the banner.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+        }
+    case wof46_lamp_blue :
+        switch_stat ($stat0) {
+            case attack :
+                if (%wof46_combatxp_flag = 1) {
+                    return(false);
+                }
+            case dungeoneering, fishing :
+            case farming, thieving :
+                if (map_members = false) {
+                    return(false);
+                }
+            case default :
+                return(false);
+        }
+    case wof46_lamp_brown :
+        switch_stat ($stat0) {
+            case defence :
+                if (%wof46_combatxp_flag = 1) {
+                    return(false);
+                }
+            case mining, woodcutting :
+            case construction, herblore :
+                if (map_members = false) {
+                    return(false);
+                }
+            case default :
+                return(false);
+        }
+    case wof46_lamp_green :
+        switch_stat ($stat0) {
+            case magic :
+                if (%wof46_combatxp_flag = 1) {
+                    return(false);
+                }
+            case prayer, runecraft, hitpoints :
+            case summoning :
+                if (%wof46_combatxp_flag = 1 | map_members = false) {
+                    return(false);
+                }
+            case default :
+                return(false);
+        }
+    case wof46_lamp_red :
+        switch_stat ($stat0) {
+            case strength :
+                if (%wof46_combatxp_flag = 1) {
+                    return(false);
+                }
+            case cooking, firemaking :
+            case hunter, slayer :
+                if (map_members = false) {
+                    return(false);
+                }
+            case default :
+                return(false);
+        }
+    case wof46_lamp_white :
+        switch_stat ($stat0) {
+            case ranged :
+                if (%wof46_combatxp_flag = 1) {
+                    return(false);
+                }
+            case crafting, smithing :
+            case agility, fletching :
+                if (map_members = false) {
+                    return(false);
+                }
+            case default :
+                return(false);
+        }
+    case hotm_tuska_mask :
+        if (enum(stat, int, hotm_tuska_xp_selection, $stat0) > 0) {
+            return(true);
+        }
+        return(false);
+    case trh27_skill_card_attack :
+        if (testbit(%trh27_completed_skills, enum(stat, int, stat_to_int, $stat0)) = ^true) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case trh30_store_credit_dummy, trh30_roaming_store_credit_dummy :
+        if (~script212($stat0, stat_base($stat0), 1, 0) > 0) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case trh72_basic_tool :
+        switch_stat ($stat0) {
+            case mining, farming, woodcutting, herblore, prayer, construction, runecraft, divination, strength, thieving :
+            case default :
+                return(false);
+        }
+    case trh86_basic_tool :
+        switch_stat ($stat0) {
+            case farming, summoning, mining, hunter, prayer, construction, attack, ranged, defence, magic, strength :
+            case default :
+                return(false);
+        }
+    case trh94_basic_tool :
+        switch_stat ($stat0) {
+            case mining, divination, smithing, construction, crafting, agility, prayer, herblore, woodcutting, slayer :
+            case default :
+                return(false);
+        }
+    case trh117_basic_tool :
+        switch_stat ($stat0) {
+            case woodcutting, divination, strength, agility, cooking, construction, smithing, herblore, runecraft, crafting :
+            case default :
+                return(false);
+        }
+    case generic_xp_award_cache :
+        switch_stat ($stat0) {
+            case attack :
+                if (%xp_reward_attack > 0) {
+                    return(true);
+                }
+            case defence :
+                if (%xp_reward_defence > 0) {
+                    return(true);
+                }
+            case strength :
+                if (%xp_reward_strength > 0) {
+                    return(true);
+                }
+            case hitpoints :
+                if (%xp_reward_hitpoints > 0) {
+                    return(true);
+                }
+            case ranged :
+                if (%xp_reward_ranged > 0) {
+                    return(true);
+                }
+            case prayer :
+                if (%xp_reward_prayer > 0) {
+                    return(true);
+                }
+            case magic :
+                if (%xp_reward_magic > 0) {
+                    return(true);
+                }
+            case cooking :
+                if (%xp_reward_cooking > 0) {
+                    return(true);
+                }
+            case woodcutting :
+                if (%xp_reward_woodcutting > 0) {
+                    return(true);
+                }
+            case fletching :
+                if (%xp_reward_fletching > 0) {
+                    return(true);
+                }
+            case fishing :
+                if (%xp_reward_fishing > 0) {
+                    return(true);
+                }
+            case firemaking :
+                if (%xp_reward_firemaking > 0) {
+                    return(true);
+                }
+            case crafting :
+                if (%xp_reward_crafting > 0) {
+                    return(true);
+                }
+            case smithing :
+                if (%xp_reward_smithing > 0) {
+                    return(true);
+                }
+            case mining :
+                if (%xp_reward_mining > 0) {
+                    return(true);
+                }
+            case herblore :
+                if (%xp_reward_herblore > 0) {
+                    return(true);
+                }
+            case agility :
+                if (%xp_reward_agility > 0) {
+                    return(true);
+                }
+            case thieving :
+                if (%xp_reward_thieving > 0) {
+                    return(true);
+                }
+            case slayer :
+                if (%xp_reward_slayer > 0) {
+                    return(true);
+                }
+            case farming :
+                if (%xp_reward_farming > 0) {
+                    return(true);
+                }
+            case runecraft :
+                if (%xp_reward_runecraft > 0) {
+                    return(true);
+                }
+            case hunter :
+                if (%xp_reward_hunter > 0) {
+                    return(true);
+                }
+            case construction :
+                if (%xp_reward_construction > 0) {
+                    return(true);
+                }
+            case summoning :
+                if (%xp_reward_summoning > 0) {
+                    return(true);
+                }
+            case dungeoneering :
+                if (%xp_reward_dungeoneering > 0) {
+                    return(true);
+                }
+            case divination :
+                if (%xp_reward_divination > 0) {
+                    return(true);
+                }
+            case invention :
+                if (%xp_reward_invention > 0) {
+                    return(true);
+                }
+            case archaeology :
+                if (%xp_reward_archaeology > 0) {
+                    return(true);
+                }
+            case necromancy :
+                if (%xp_reward_necromancy > 0) {
+                    return(true);
+                }
+        }
+        return(false);
+    case event3_pendant_hate :
+        if (~script9121($stat0) = true) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case event3_pendant_love :
+        if (~script13031($stat0) = true) {
+            return(true);
+        } else {
+            return(false);
+        }
+    case xmas18_quest_impling_1, xmas18_quest_impling_2, xmas18_quest_impling_3, xmas18_quest_impling_4 :
+        if ($stat0 = invention) {
+            return(false);
+        }
+    case clan_skill_ring_uncharged :
+        return(~script6679($stat0, $int3));
+    case trh_consumable_bxp_exchanger :
+        if (~stat_bonus_xp($stat0) > 0) {
+            return(true);
+        }
+        return(false);
+    case trh_consumable_bxp_exchanger_give_bxp_dummy :
+        if ($stat0 = %trh_consumable_bxp_exchanger_skill_1) {
+            return(false);
+        }
+        if (~stat_bonus_xp($stat0) = 1000000000) {
+            return(false);
+        }
+        return(~skill_unlocked($stat0));
+}
+if (oc_param($obj2, statattack) = 1 | oc_param($obj2, statstrength) = 1 | oc_param($obj2, statdefence) = 1 | oc_param($obj2, statconstitution) = 1 | oc_param($obj2, statranged) = 1 | oc_param($obj2, statmagic) = 1 | oc_param($obj2, statprayer) = 1 | oc_param($obj2, statsummoning) = 1 | oc_param($obj2, statherblore) = 1 | oc_param($obj2, statslayer) = 1 | oc_param($obj2, statnecromancy) = 1) {
+    switch_stat ($stat0) {
+        case attack :
+            if (oc_param($obj2, statattack) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Attack skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case strength :
+            if (oc_param($obj2, statstrength) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Strength skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case defence :
+            if (oc_param($obj2, statdefence) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Defence skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case hitpoints :
+            if (oc_param($obj2, statconstitution) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Constitution skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case ranged :
+            if (oc_param($obj2, statranged) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Ranged skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case magic :
+            if (oc_param($obj2, statmagic) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Magic skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case prayer :
+            if (oc_param($obj2, statprayer) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Prayer skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case summoning :
+            if (oc_param($obj2, statsummoning) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Summoning skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case herblore :
+            if (oc_param($obj2, statherblore) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Herblore skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case slayer :
+            if (oc_param($obj2, statslayer) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Slayer skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case necromancy :
+            if (oc_param($obj2, statnecromancy) = 0) {
+                if ($int3 = 1) {
+                    mes("You cannot use this to increase your Necromancy skill.");
+                    sound_vorbis_volume(omge_error, 1, 0, 150);
+                }
+                return(false);
+            }
+        case default :
+            if ($int3 = 1) {
+                mes("You may only use this to increase combat related skills.");
+                sound_vorbis_volume(omge_error, 1, 0, 150);
+            }
+            return(false);
+    }
+}
+if (oc_param($obj2, can_award_xp) = 1) {
+    switch_stat ($stat0) {
+        case attack :
+            if (~script10926(attack, oc_param($obj2, can_award_xp_attack), $int3) = 0) {
+                return(false);
+            }
+        case strength :
+            if (~script10926(strength, oc_param($obj2, can_award_xp_strength), $int3) = 0) {
+                return(false);
+            }
+        case ranged :
+            if (~script10926(ranged, oc_param($obj2, can_award_xp_ranged), $int3) = 0) {
+                return(false);
+            }
+        case magic :
+            if (~script10926(magic, oc_param($obj2, can_award_xp_magic), $int3) = 0) {
+                return(false);
+            }
+        case defence :
+            if (~script10926(defence, oc_param($obj2, can_award_xp_defence), $int3) = 0) {
+                return(false);
+            }
+        case hitpoints :
+            if (~script10926(hitpoints, oc_param($obj2, can_award_xp_constitution), $int3) = 0) {
+                return(false);
+            }
+        case prayer :
+            if (~script10926(prayer, oc_param($obj2, can_award_xp_prayer), $int3) = 0) {
+                return(false);
+            }
+        case agility :
+            if (~script10926(agility, oc_param($obj2, can_award_xp_agility), $int3) = 0) {
+                return(false);
+            }
+        case herblore :
+            if (~script10926(herblore, oc_param($obj2, can_award_xp_herblore), $int3) = 0) {
+                return(false);
+            }
+        case thieving :
+            if (~script10926(thieving, oc_param($obj2, can_award_xp_thieving), $int3) = 0) {
+                return(false);
+            }
+        case crafting :
+            if (~script10926(crafting, oc_param($obj2, can_award_xp_crafting), $int3) = 0) {
+                return(false);
+            }
+        case runecraft :
+            if (~script10926(runecraft, oc_param($obj2, can_award_xp_runecraft), $int3) = 0) {
+                return(false);
+            }
+        case mining :
+            if (~script10926(mining, oc_param($obj2, can_award_xp_mining), $int3) = 0) {
+                return(false);
+            }
+        case smithing :
+            if (~script10926(smithing, oc_param($obj2, can_award_xp_smithing), $int3) = 0) {
+                return(false);
+            }
+        case fishing :
+            if (~script10926(fishing, oc_param($obj2, can_award_xp_fishing), $int3) = 0) {
+                return(false);
+            }
+        case cooking :
+            if (~script10926(cooking, oc_param($obj2, can_award_xp_cooking), $int3) = 0) {
+                return(false);
+            }
+        case firemaking :
+            if (~script10926(firemaking, oc_param($obj2, can_award_xp_firemaking), $int3) = 0) {
+                return(false);
+            }
+        case woodcutting :
+            if (~script10926(woodcutting, oc_param($obj2, can_award_xp_woodcutting), $int3) = 0) {
+                return(false);
+            }
+        case fletching :
+            if (~script10926(fletching, oc_param($obj2, can_award_xp_fletching), $int3) = 0) {
+                return(false);
+            }
+        case slayer :
+            if (~script10926(slayer, oc_param($obj2, can_award_xp_slayer), $int3) = 0) {
+                return(false);
+            }
+        case farming :
+            if (~script10926(farming, oc_param($obj2, can_award_xp_farming), $int3) = 0) {
+                return(false);
+            }
+        case construction :
+            if (~script10926(construction, oc_param($obj2, can_award_xp_construction), $int3) = 0) {
+                return(false);
+            }
+        case hunter :
+            if (~script10926(hunter, oc_param($obj2, can_award_xp_hunter), $int3) = 0) {
+                return(false);
+            }
+        case summoning :
+            if (~script10926(summoning, oc_param($obj2, can_award_xp_summoning), $int3) = 0) {
+                return(false);
+            }
+        case dungeoneering :
+            if (~script10926(dungeoneering, oc_param($obj2, can_award_xp_dungeoneering), $int3) = 0) {
+                return(false);
+            }
+        case divination :
+            if (~script10926(divination, oc_param($obj2, can_award_xp_divination), $int3) = 0) {
+                return(false);
+            }
+        case invention :
+            if (~script10926(invention, oc_param($obj2, can_award_xp_invention), $int3) = 0) {
+                return(false);
+            }
+        case archaeology :
+            if (~script10926(archaeology, oc_param($obj2, can_award_xp_archaeology), $int3) = 0) {
+                return(false);
+            }
+        case necromancy :
+            if (~script10926(necromancy, oc_param($obj2, can_award_xp_necromancy), $int3) = 0) {
+                return(false);
+            }
+    }
+}
+if ($int3 = 1) {
+    sound_vorbis_volume(clans_interface_click, 1, 0, 100);
+}
+return(true);

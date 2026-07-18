@@ -1,0 +1,37 @@
+// 18326
+[proc,script18326](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+def_int $int7 = if_getwidth(~script18321($component0, activity_progress_bar:progress_bar_red));
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_component $component11 = activity_progress_bar:marker1;
+while ($int10 ! -1) {
+    switch_int (++$int8) {
+        case 1 :
+            $int10 = $int1;
+            $component11 = ~script18321($component0, activity_progress_bar:marker1);
+        case 2 :
+            $int10 = $int2;
+            $component11 = ~script18321($component0, activity_progress_bar:marker2);
+        case 3 :
+            $int10 = $int3;
+            $component11 = ~script18321($component0, activity_progress_bar:marker3);
+        case 4 :
+            $int10 = $int4;
+            $component11 = ~script18321($component0, activity_progress_bar:marker4);
+        case 5 :
+            $int10 = $int5;
+            $component11 = ~script18321($component0, activity_progress_bar:marker5);
+        case default :
+            $component11 = null;
+            $int10 = -1;
+    }
+    if ($int10 > 0) {
+        $int9 = calc(scale($int7, $int6, $int10) - 7);
+        if_setposition($int9, 20, ^setpos_abs_left, ^setpos_abs_top, $component11);
+        if_setonmouserepeat("script17561($component0, $component11, $int10, $int6)", $component11);
+        if_sethide(false, $component11);
+    } else if ($component11 ! null) {
+        if_sethide(true, $component11);
+    }
+}

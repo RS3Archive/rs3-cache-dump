@@ -1,0 +1,111 @@
+// 14953
+[proc,arch_material_storage_info_build_list]
+def_component $component0 = arch_material_storage_info:build_layer;
+def_component $component1 = arch_material_storage_info:control_layer;
+def_component $component2 = arch_material_storage_info:scrolling_layer;
+def_component $component3 = arch_material_storage_info:scrollbar_layer;
+cc_deleteall($component0);
+cc_deleteall($component1);
+def_int $int4 = 0;
+def_int $int5 = enum_getoutputcount(arch_material_list);
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $intarray0($int5);
+def_int $intarray1($int5);
+def_dbrow $dbrow10 = null;
+def_int $int11 = -1;
+def_int $int12 = -1;
+while (++$int11 < $int5) {
+    $obj7 = enum(int, obj, arch_material_list, $int11);
+    if ($obj7 ! arch_material_training_metal & $obj7 ! arch_material_training_wood) {
+        $dbrow10 = oc_param($obj7, arch_excavation_data);
+        $intarray0($int6) = $int11;
+        if ($dbrow10 ! null) {
+            $intarray1($int6) = db_getfield($dbrow10, arch_excavation:col4, 0);
+        } else {
+            $intarray1($int6) = 1;
+        }
+        $int6 = calc($int6 + 1);
+    }
+    cc_create($component1, ^iftype_graphic, $int11);
+    cc_setparam_string(quicksort_string, lowercase(oc_name($obj7)));
+}
+array_sort($int6, 1, 0);
+$int11 = -1;
+while (++$int11 < $int6) {
+    $int12 = 1;
+    while ($int12 < calc($int6 - $int11) & $intarray1($int11) = $intarray1(calc($int11 + $int12))) {
+        $int12 = calc($int12 + 1);
+    }
+    if ($int12 > 1) {
+        ~script17567(intarray0, $component1, $int11, calc($int11 + $int12 - 1));
+        $int11 = calc($int11 + ($int12 - 1));
+    }
+}
+def_struct $struct13 = rs3tli_inv_icon_slot;
+def_int $int14 = 40;
+def_int $int15 = 36;
+def_int $int16 = 36;
+def_int $int17 = 32;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 2;
+$int18, $int19, $int20 = ~script12087(if_getwidth($component0), $int14, 5, 5);
+def_int $int22 = enum_getoutputcount(arch_material_culture_list);
+def_int $int23 = 0;
+def_string $string0 = "";
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = -1;
+$int11 = -1;
+while (++$int11 < $int22) {
+    $int23 = enum(int, int, arch_material_culture_list, $int11);
+    switch_int ($int23) {
+        case 0 :
+            $string0 = "Agnostic Materials";
+        case 1 :
+            $string0 = "Armadylean Materials";
+        case 2 :
+            $string0 = "Bandosian Materials";
+        case 3 :
+            $string0 = "Dragonkin Materials";
+        case 4 :
+            $string0 = "Guthixian Materials";
+        case 5 :
+            $string0 = "Saradominist Materials";
+        case 6 :
+            $string0 = "Zamorakian Materials";
+        case 7 :
+            $string0 = "Zarosian Materials";
+        case default :
+            $string0 = "";
+    }
+    if (string_length($string0) > 0) {
+        ~arch_material_storage_info_build_title($component0, $int20, $int4, $string0);
+        $int24 = calc($int4 + 30);
+        $int12 = -1;
+        $int27 = -1;
+        while (++$int12 < $int6) {
+            $obj7 = enum(int, obj, arch_material_list, $intarray0($int12));
+            if (oc_param($obj7, arch_culture) = $int23) {
+                $int27 = calc($int27 + 1);
+                $int25 = calc($int20 + $int27 % $int18 * $int19);
+                $int26 = calc($int24 + $int27 / $int18 * ($int14 + $int21));
+                ~script11624($component0, null, $struct13, $int25, $int26, 0, 1);
+                if (cc_find($component1, $intarray0($int12)) = true) {
+                    cc_setsize($int16, $int17, ^setsize_abs, ^setsize_abs);
+                    cc_setposition(calc($int25 + ($int14 - $int16) / 2 + 2), calc($int26 + ($int15 - $int17) / 2 + 1), ^setpos_abs_left, ^setpos_abs_top);
+                    ~arch_material_storage_info_update_item($obj7);
+                }
+            }
+        }
+        $int4 = calc($int26 + $int15 + 2 * $int21);
+    }
+}
+if_setscrollsize(0, max(if_getheight($component2), $int4), $component2);
+if_setscrollpos(0, if_getscrolly($component2), $component2);
+~rs3_scrollbar_vertical($component3, $component2);

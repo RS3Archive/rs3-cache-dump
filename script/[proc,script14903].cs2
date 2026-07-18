@@ -1,0 +1,30 @@
+// 14903
+[proc,script14903](component $component0, component $component1, enum $enum2, dbrow $dbrow3, int $int4, int $int5, int $int6, int $int7)
+def_string $string0 = db_getfield($dbrow3, arch_researcher:col2, 0);
+def_graphic $graphic8 = db_getfield($dbrow3, arch_researcher:col4, 0);
+def_int $int9 = ~script14670($dbrow3);
+def_int $int10 = 0;
+def_int $int11 = ~script14678($dbrow3);
+switch_int ($int9) {
+    case 0 :
+    case 1 :
+    case 2 :
+        $int10 = 180;
+    case 3 :
+        $string0 = "Unknown";
+        $graphic8 = null;
+}
+~script13998($component0, $component1, rs3tli_icon_holder_master, $int4, $int5, calc(60 + 8), 90, $int6, false, "", $int7);
+if (cc_find($component1, $int6) = true) {
+    cc_setopbase(db_getfield($dbrow3, arch_researcher:col2, 0));
+    cc_setopcursor(1, cursor_info);
+    cc_setop(1, "Info");
+    cc_setonop("script14891($enum2, $int6)");
+}
+~script7924($component0, if_getnextsubid($component0), calc(60 - 4), calc(60 - 4), calc($int4 + 2 + 5), calc($int5 + 2), $graphic8, false, false, false, $int10);
+~script6203($component0, calc(60 + 8 - 4), calc(30 - 2), calc($int4 + 2), calc($int5 + 60), notosans_11, $string0, 3);
+cc_setmaxlines(2);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if ($int11 > 0) {
+    ~script7924($component0, if_getnextsubid($component0), 16, 16, calc($int4 + 2), calc($int5 + 2), rs3_contextual_input_green_check_mark, false, false, false, 0);
+}

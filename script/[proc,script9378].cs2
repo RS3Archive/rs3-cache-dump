@@ -1,0 +1,141 @@
+// 9378
+[proc,script9378]
+if_setscrollpos(0, 0, activity_tracker_embedded_more_info:contents_wrapper);
+if_setscrollsize(0, 0, activity_tracker_embedded_more_info:contents_wrapper);
+cc_deleteall(activity_tracker_embedded_more_info:scrollbar_layer);
+if (%activity_tracker_parent_tracker_focus = 0) {
+    if_sethide(true, activity_tracker_embedded_more_info:contents_wrapper);
+    if_sethide(false, activity_tracker_embedded_more_info:nothing_tracked);
+    return;
+}
+if_sethide(false, activity_tracker_embedded_more_info:contents_wrapper);
+if_sethide(true, activity_tracker_embedded_more_info:nothing_tracked);
+def_component $component0 = activity_tracker_embedded_more_info:contents_build_layer;
+def_component $component1 = activity_tracker_embedded_more_info:contents_click_layer;
+cc_deleteall($component0);
+cc_deleteall($component1);
+def_int $int2 = if_getwidth($component0);
+def_string $string0 = "";
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = ~script8224(calc(%activity_tracker_parent_tracker_focus - 1));
+def_int $int6 = -1;
+def_achievement $achievement7 = null;
+if ($int5 ! 2) {
+    $int6 = ~script8226(calc(%activity_tracker_parent_tracker_focus - 1));
+} else {
+    $achievement7 = ~script15324(calc(%activity_tracker_parent_tracker_focus - 1));
+}
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(~activity_tracker_get_icon($int5, $int6, $achievement7));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(~activity_tracker_get_status_icon($int5, $int6, $achievement7));
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setposition(45, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(45, 40, ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setmaxlines(2);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settext(~activity_tracker_get_title($int5, $int6, $achievement7));
+~script2731($component0, cc_getid, 0);
+$int3 = calc(cc_gety + cc_getheight + 5);
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+~script2731($component0, cc_getid, 19);
+~script9389($component0, $int5, $int6, $achievement7);
+$string0 = ~activity_tracker_get_desc($int5, $int6, 1, $achievement7);
+$int4 = ~script7593($string0, $int2, museo_sans_11pt_regular, 0);
+cc_setsize(0, $int4, ^setsize_minus, ^setsize_abs);
+cc_settext($string0);
+$int3 = calc($int3 + (cc_getheight + 5));
+def_int $int8 = ~script9534($int5);
+def_int $int9 = 0;
+if ($int8 > 0) {
+    if (testbit($int8, 0) = ^true) {
+        cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+        cc_setposition(15, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(22, 5, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic("rs3_progress_bar_backing_22px,0");
+        $int9 = cc_getid;
+        cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+        cc_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setsize(calc(44 + 15 * 2), 5, ^setsize_minus, ^setsize_abs);
+        cc_setgraphic("rs3_progress_bar_backing_22px,1");
+        cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+        cc_setposition(15, $int3, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(22, 5, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic("rs3_progress_bar_backing_22px,2");
+        cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+        cc_setposition(calc(15 + 2), calc($int3 + 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic("rs3_progress_bar_green_12px,1");
+        ~activity_tracker_update_progress_bar($component0, $int9, $int5, $int6, $achievement7);
+        ~script9129($component0, $int9, $int5, $int6, $achievement7);
+        $int3 = calc($int3 + (5 + 5));
+    }
+    if (testbit($int8, 1) = ^true) {
+        cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+        cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        $string0 = ~script9536($int5, $int6, $achievement7);
+        $int4 = ~script7593($string0, $int2, cc_getfontmetrics, 0);
+        cc_setsize(10, $int4, ^setsize_minus, ^setsize_abs);
+        ~script2731($component0, cc_getid, 19);
+        cc_settext($string0);
+        $int3 = calc($int3 + (cc_getheight + 5));
+    }
+}
+def_string $string1 = "";
+def_string $string2 = "";
+switch_int ($int5) {
+    case 1 :
+        $string1 = "Overview";
+        $string2 = "Journal";
+    case 2 :
+        $string1 = "Achievements";
+    case 3 :
+        $string1 = "Paths";
+    case 4 :
+        $string1 = "Challenges";
+    case 5 :
+        $string1 = "Skill Guide";
+    case 6 :
+        $string1 = "Minigames";
+    case 9 :
+        $string1 = "Yak Track";
+    case 10 :
+        $string1 = "Hero Pass";
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+if (compare($string1, "") ! 0) {
+    $int10 = calc($int2 / 2);
+    $int11 = calc($int10 - 150 / 2);
+    $int12 = calc(~script7593($string1, 150, museo_sans_11pt_regular, 0) + 12);
+    $int15 = $int12;
+    if (compare($string2, "") ! 0) {
+        $int14 = calc(~script7593($string2, 150, museo_sans_11pt_regular, 0) + 12);
+        $int15 = max($int12, $int14);
+        $int11 = calc($int10 - (150 * 2 + 12) / 2);
+        $int13 = calc($int11 + 150 + 12);
+    }
+    $int16 = ~script10410($component0, $component1, rs3tli_3x3_button, $int11, $int3, 150, $int12, $int16, false, $string1);
+    $int16 = ~script10410($component0, $component1, rs3tli_3x3_button, $int13, $int3, 150, $int14, $int16, false, $string2);
+    $int3 = calc($int3 + ($int15 + 5));
+}
+$int3 = ~activity_tracker_draw_rewards($component0, $int3, $int5, $int6, $achievement7);
+if ($int3 > if_getheight($component0)) {
+    if_setscrollsize(0, $int3, activity_tracker_embedded_more_info:contents_wrapper);
+    ~rs3_scrollbar_vertical(activity_tracker_embedded_more_info:scrollbar_layer, activity_tracker_embedded_more_info:contents_wrapper);
+}

@@ -1,0 +1,67 @@
+// 20604
+[proc,script20604](struct $struct0, int $int1, graphic $graphic2, int $int3, int $int4, int $int5)
+def_component $component6 = marketplace_preview:load_preview;
+def_component $component7 = marketplace_preview:preview_dragger;
+def_component $component8 = marketplace_preview:ragdoll_model;
+def_component $component9 = marketplace_preview:preview_panel_main_layer;
+def_component $component10 = marketplace_preview:pet_layer;
+def_component $component11 = marketplace_preview:preview_anim_layer;
+def_component $component12 = marketplace_preview:preview_graphic;
+def_component $component13 = marketplace_preview:recolour_button_layer;
+def_component $component14 = marketplace_preview:recolour_panel;
+def_component $component15 = marketplace_preview:variant_buttons_layer;
+if_setontimer(null, $component9);
+if_sethide(false, $component6);
+if_sethide(true, $component8);
+if_sethide(true, $component10);
+if_sethide(true, $component11);
+if_sethide(true, $component12);
+if ($int5 = 1) {
+    if_sethide(true, $component13);
+    if_sethide(true, $component14);
+}
+if_sethide(true, $component15);
+if_setontimer(null, marketplace_preview:ragdoll_model);
+def_npc $npc16 = null;
+def_dbrow $dbrow17 = null;
+if ($struct0 ! null) {
+    $dbrow17 = struct_param($struct0, mtxmgt_interface_positioning);
+    if (struct_param($struct0, marketplace_preview_recolourable) = true & $int5 = 1) {
+        if_sethide(false, $component13);
+        ~script18910(mtxmgt_recolours, marketplace_preview:recolour_buttons, marketplace_preview:recolour_buttons_inactive, 28, 30, 5);
+    }
+}
+switch_int ($int1) {
+    case 2 :
+        ~script17960($struct0, null, null, $component6, $component7, $component8, $component9, $component6, $dbrow17);
+    case 5 :
+        $npc16 = ~script17962($struct0);
+        ~script17958($struct0, $npc16, ~script17961($npc16, $struct0), $component6, $component7, $component10, $component9, $component6, 50, $dbrow17);
+        if ($struct0 ! null & struct_param($struct0, marketplace_preview_recolourable) = true) {
+            ~script19031($int4, $component10);
+        }
+    case 4 :
+        ~script18695($struct0, $component6, $component7, $component11, $component9, $component6, 0, $dbrow17, 0);
+        if ($struct0 ! null & struct_param($struct0, mtxmgt_preview_npc_list) ! null) {
+            ~script19714(4, $struct0, $dbrow17, struct_param($struct0, mtxmgt_preview_npc_list));
+        }
+    case default :
+        if_sethide(true, $component6);
+        if ($graphic2 ! null) {
+            if_setgraphic($graphic2, $component12);
+            if_sethide(false, $component12);
+        } else {
+            if_sethide(true, $component9);
+            if_setsize(0, 0, ^setsize_minus, ^setsize_minus, marketplace_preview:right_panel_holder);
+        }
+}
+def_string $string0 = "";
+if ($struct0 ! null) {
+    $string0 = struct_param($struct0, mtxmgt_name);
+}
+if ($int3 = 1 & string_length($string0) > 0) {
+    if_settext($string0, marketplace_preview:preview_panel_item_name);
+    if_sethide(false, marketplace_preview:preview_panel_item_name);
+} else {
+    if_sethide(true, marketplace_preview:preview_panel_item_name);
+}

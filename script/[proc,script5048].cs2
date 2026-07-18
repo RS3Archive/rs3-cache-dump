@@ -1,0 +1,12 @@
+// 5048
+[proc,script5048]
+def_int $int0 = calc(%hw10_cutscene * (112 + 2 + 2));
+def_int $int1 = 0;
+while ($int1 < 200) {
+    if (cc_find(clan_field_editor:elements, $int1) = true) {
+        cc_setsize(calc(%hw10_cutscene * cc_param(clan_field_element_w) - 1), calc(%hw10_cutscene * cc_param(clan_field_element_h) - 1), ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc((cc_param(clan_field_element_x) + 2) * %hw10_cutscene), calc($int0 - ((cc_param(clan_field_element_z) + 2) * %hw10_cutscene + 1 + cc_getheight)), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int1 = calc($int1 + 1);
+}
+if_setposition(scale(max(calc(%hw10_cutscene - 3), 0), max(calc(21 - 3), 1), calc(if_getwidth(if_getlayer(clan_field_editor:zoom_scrubber)) - if_getwidth(clan_field_editor:zoom_scrubber))), 0, ^setpos_abs_left, ^setpos_abs_centre, clan_field_editor:zoom_scrubber);

@@ -1,0 +1,48 @@
+// 14110
+[proc,script14110](enum $enum0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)(int, boolean)
+def_struct $struct7 = enum(int, struct, $enum0, $int2);
+if ($struct7 = null) {
+    return($int5, false);
+}
+def_obj $obj8 = struct_param($struct7, toolbelt_object);
+if ($obj8 = null) {
+    return($int5, false);
+}
+def_boolean $boolean9 = ~check_toolbelt($obj8);
+if (struct_param($struct7, toolbelt_upgradeable) = true) {
+    $obj8 = ~script14090($obj8);
+}
+def_string $string0 = oc_name($obj8);
+if ($boolean9 = true) {
+    $int5 = ~script10410(toolbelt_v2:toolbelt_build_layer, toolbelt_v2:toolbelt_click_layer, rs3tli_3x3_available_icon_button, $int3, $int4, 40, 40, $int5, false, "");
+} else {
+    $int5 = ~script10410(toolbelt_v2:toolbelt_build_layer, toolbelt_v2:toolbelt_click_layer, rs3tli_3x3_unavailable_icon_button, $int3, $int4, 40, 40, $int5, false, "");
+    $string0 = "<$string0> - Not stored";
+}
+def_string $string1 = "<col=B8D1D1>";
+if (oc_members($obj8) = 1) {
+    $string1 = "<col=F8D56B>";
+}
+cc_setop(1, "View <$string1><oc_name($obj8)></col>");
+cc_setonop("toolbelt_info_panel($struct7, $obj8, $boolean9, $int4, calc($int4 - (14 + 20)), event_op)");
+if (struct_param($struct7, toolbelt_allow_remove) = 1 & $boolean9 = true) {
+    cc_setop(2, "Remove <$string1><oc_name($obj8)></col>");
+} else if ($obj8 = trail_sextant & $boolean9 = true) {
+    cc_setop(2, "Look through <$string1><oc_name($obj8)></col>");
+} else if ($obj8 = season2022_infernus_puzzle_box & $boolean9 = true) {
+    cc_setop(2, "Inspect <$string1><oc_name($obj8)></col>");
+}
+def_int $int10 = if_getnextsubid(toolbelt_v2:toolbelt_build_layer);
+cc_setonvartransmit("script14134($enum0, $int2, $int4, $int5, $int10){toolbelt_struct, toolbelt_member_tools, toolbelt_free_tools, toolbelt_slayer_tools, invent_state_0, toolbelt_rand_tools}");
+cc_create(toolbelt_v2:toolbelt_build_layer, ^iftype_graphic, $int10);
+cc_setposition(calc($int3 + 4), calc($int4 + 4), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+cc_setobject($obj8, -1);
+cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+cc_setop(1, "Info");
+if ($boolean9 = false | map_members = false & oc_members($obj8) = 1) {
+    cc_setcolour(0x545454);
+} else {
+    cc_setcolour(^white);
+}
+return($int5, $boolean9);

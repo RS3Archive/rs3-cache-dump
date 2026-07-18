@@ -1,0 +1,117 @@
+// 16234
+[proc,script16234](struct $struct0, int $int1, struct $struct2, int $int3, component $component4, int $int5, int $int6, int $int7, int $int8)
+if ($int7 = 1) {
+    ~script18127($struct0, $int1, $component4, $struct2, $int8);
+    return;
+}
+def_boolean $boolean9 = true;
+def_boolean $boolean10 = false;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_string $string2 = "";
+def_int $int13 = 0;
+def_graphic $graphic14 = container_oddments_disabled;
+def_int $int15 = 0;
+def_boolean $boolean16 = struct_param($struct2, rewardshop_buy_x_first);
+if ($struct0 = trh125_reward_shop_struct) {
+    $graphic14 = container_gold_small_purchased;
+    $int15 = calc(~script16237($int1, 0, $struct0) + 1);
+}
+$string0, $string1, $string2, $boolean9, $boolean10, $int12, $int11 = ~script11532($struct0, $struct2, 1, $int5, $int6, $int8);
+if (string_length($string0) > 0 & cc_find($component4, ~script16237($int1, 4, $struct0)) = true) {
+    cc_settext($string0);
+}
+if (($int5 = 1 | $int5 = 2) & cc_find($component4, ~script16237($int1, 5, $struct0)) = true) {
+    cc_sethide(true);
+}
+if ($int5 ! 2 & string_length($string2) = 0 & $int3 ! -1) {
+    $string2 = "<tostring_localised($int3, true)> left";
+}
+if (string_length($string2) > 0) {
+    $int13 = parawidth($string2, 512, cinzel_15pt_bold);
+    if (cc_find($component4, ~script16237($int1, 6, $struct0)) = true) {
+        cc_setposition(calc(cc_getx - $int13), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        cc_sethide(false);
+    }
+    if (cc_find($component4, ~script16237($int1, 7, $struct0)) = true) {
+        cc_setposition(calc(cc_getx - $int13), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int13, cc_getheight, ^setsize_abs, ^setsize_abs);
+        cc_sethide(false);
+    }
+    if (cc_find($component4, ~script16237($int1, 8, $struct0)) = true) {
+        cc_sethide(false);
+        cc_sendtofront;
+    }
+    if (cc_find($component4, ~script16237($int1, 9, $struct0)) = true) {
+        cc_setposition(calc(cc_getx - $int13), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize($int13, cc_getheight, ^setsize_abs, ^setsize_abs);
+        cc_settext($string2);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_sethide(false);
+    }
+}
+if (cc_find($component4, ~script16237($int1, 0, $struct0)) = true) {
+    if ($boolean9 = false) {
+        cc_setop(1, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_1), $boolean16));
+        cc_setopcursor(1, cursor_use);
+        if (struct_param($struct2, rewardshop_buy_option_2) ! -1 | struct_param($struct2, rewardshop_buy_option_3) ! -1 | struct_param($struct2, rewardshop_buy_option_4) ! -1) {
+            if (~script6431 = true) {
+                $string1 = "There are more buy options if you tap and hold.";
+            } else {
+                $string1 = "There are more buy options if you right-click.";
+            }
+            if (struct_param($struct2, rewardshop_buy_option_2) ! -1) {
+                cc_setop(2, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_2), false));
+            }
+            if (struct_param($struct2, rewardshop_buy_option_3) ! -1) {
+                cc_setop(3, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_3), false));
+                if ($boolean16 = false) {
+                    cc_setop(4, ~script12793($struct2, -1, true));
+                }
+            }
+            if (struct_param($struct2, rewardshop_buy_option_4) ! -1) {
+                cc_setop(4, ~script12793($struct2, struct_param($struct2, rewardshop_buy_option_4), false));
+                if ($boolean16 = false) {
+                    cc_setop(5, ~script12793($struct2, -1, true));
+                }
+            }
+        }
+        if ($boolean10 = true) {
+            if ($struct0 = trh125_reward_shop_struct) {
+                if (.cc_find($component4, $int15) = true) {
+                    .cc_setgraphic($graphic14);
+                    .cc_setonmouseover(null);
+                    .cc_setonmouseleave(null);
+                    .cc_setonclick("cc_graphic_swapper($component4, $int15, container_gold_small_pressed)");
+                    .cc_setonrelease("cc_graphic_swapper($component4, $int15, $graphic14)");
+                }
+            } else {
+                cc_setgraphic($graphic14);
+            }
+        }
+    } else {
+        cc_clearops;
+        if ($struct0 = trh125_reward_shop_struct) {
+            if (.cc_find($component4, $int15) = true) {
+                .cc_setgraphic($graphic14);
+                .cc_setonmouseover(null);
+                .cc_setonmouseleave(null);
+                .cc_setonclick(null);
+                .cc_setonrelease(null);
+            }
+        } else {
+            cc_setgraphic($graphic14);
+        }
+    }
+    if (~script6431 = true) {
+        if ($boolean9 = true & string_length($string1) > 0) {
+            cc_setonclick("script16235($string1, event_com, event_comsubid, $int11)");
+        } else {
+            cc_setonclick(null);
+        }
+    }
+    cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+    cc_sendtoback;
+}

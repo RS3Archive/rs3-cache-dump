@@ -1,0 +1,41 @@
+// 1099
+[proc,script1099](int $int0)(int)
+cc_deleteall(rand_party_side_new:party_layer);
+def_int $int1 = 120;
+if (~is_mobile_client = true) {
+    $int1 = 160;
+}
+def_int $int2 = calc(($int1 - 10) / 5);
+if_setsize(0, $int1, ^setsize_minus, ^setsize_abs, rand_party_side_new:party_layer);
+if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, rand_party_side_new:party_layer);
+if_setposition(0, calc(2 + $int2), ^setpos_abs_centre, ^setpos_abs_top, rand_party_side_new:devider);
+if_setposition(0, calc(2 + $int2 * 2), ^setpos_abs_centre, ^setpos_abs_top, rand_party_side_new:devider_1);
+if_setposition(0, calc(2 + $int2 * 3), ^setpos_abs_centre, ^setpos_abs_top, rand_party_side_new:devider_2);
+if_setposition(0, calc(2 + $int2 * 4), ^setpos_abs_centre, ^setpos_abs_top, rand_party_side_new:devider_3);
+def_int $int3 = 6;
+def_component $component4 = rand_party_side_new:mem1_name;
+def_int $int5 = 0;
+while ($int5 < 5) {
+    switch_int ($int5) {
+        case 0 :
+            $component4 = rand_party_side_new:mem1_name;
+        case 1 :
+            $component4 = rand_party_side_new:mem2_name;
+        case 2 :
+            $component4 = rand_party_side_new:mem3_name;
+        case 3 :
+            $component4 = rand_party_side_new:mem4_name;
+        case 4 :
+            $component4 = rand_party_side_new:mem5_name;
+    }
+    if_setposition(30, calc($int3 - 3), ^setpos_abs_left, ^setpos_abs_top, $component4);
+    if_setsize(60, $int2, ^setsize_minus, ^setsize_abs, $component4);
+    if (~script6431 = true) {
+        if_settextfont(museo_sans_13pt_regular, $component4);
+    } else {
+        if_settextfont(museo_sans_11pt_regular, $component4);
+    }
+    $int3 = calc($int3 + $int2);
+    $int5 = calc($int5 + 1);
+}
+return(calc($int0 + $int1));

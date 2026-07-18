@@ -1,0 +1,45 @@
+// 16810
+[proc,minigame_ability_cooldown_set](dbrow $dbrow0)
+if ($dbrow0 = null) {
+    return;
+}
+if (db_getrowtable($dbrow0) ! minigame_ability) {
+    return;
+}
+def_int $int1 = db_getfield($dbrow0, minigame_ability:col6, 0);
+def_int $int2 = db_getfield($dbrow0, minigame_ability:col1, 0);
+switch_dbrow ($dbrow0) {
+    case minigame_ability_halloween_spin :
+        if (%halloween2022_buff_skeleton_unlocked = 1) {
+            $int2 = calc($int2 / 2);
+        }
+        %halloween2021_combat_ability_1_cooldown_client = calc(clientclock + $int2 * 30);
+    case minigame_ability_halloween_leap :
+        if (%halloween2022_buff_skeleton_unlocked = 1) {
+            $int2 = calc($int2 / 2);
+        }
+        %halloween2021_combat_ability_2_cooldown_client = calc(clientclock + $int2 * 30);
+    case minigame_ability_halloween_harvest :
+        if (%halloween2022_buff_skeleton_unlocked = 1) {
+            $int2 = calc($int2 / 2);
+        }
+        %halloween2021_combat_ability_3_cooldown_client = calc(clientclock + $int2 * 30);
+    case minigame_ability_halloween_annihilate :
+        if (%halloween2022_buff_skeleton_unlocked = 1) {
+            $int2 = calc($int2 / 2);
+        }
+        %halloween2021_combat_ability_4_cooldown_client = calc(clientclock + $int2 * 30);
+    case default :
+        switch_int ($int1) {
+            case 1 :
+                %minigame_ability_1_cooldown_finished_timestamp_client = calc(clientclock + $int2 * 30);
+            case 2 :
+                %minigame_ability_2_cooldown_finished_timestamp_client = calc(clientclock + $int2 * 30);
+            case 3 :
+                %minigame_ability_3_cooldown_finished_timestamp_client = calc(clientclock + $int2 * 30);
+            case 4 :
+                %minigame_ability_4_cooldown_finished_timestamp_client = calc(clientclock + $int2 * 30);
+            case default :
+                ~error("Undefined variable slot <tostring($int1)> in minigame_ability_cooldown_set.");
+        }
+}

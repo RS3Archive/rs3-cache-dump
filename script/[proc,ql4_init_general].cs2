@@ -1,0 +1,86 @@
+// 2160
+[proc,ql4_init_general](component $component0, int $int1)
+def_struct $struct2 = enum(int, struct, ql4_intstruct_lists, $int1);
+if ($struct2 = null) {
+    return;
+}
+def_enum $enum3 = struct_param($struct2, ql4_list_enum);
+if ($enum3 = null) {
+    return;
+}
+def_component $component4 = ~script12681($component0);
+def_component $component5 = ~ql4_layer_scrollbar($component0);
+cc_deleteall($component4);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_quest $quest8 = null;
+def_int $int9 = -1;
+def_int $int10 = 0;
+def_int $int11 = 15;
+def_fontmetrics $fontmetrics12 = museo_sans_11pt_regular;
+def_int $int13 = 20;
+def_fontmetrics $fontmetrics14 = cinzel_13pt_bold;
+if (~script6431 = true) {
+    $int11 = 30;
+    $fontmetrics12 = museo_sans_13pt_regular;
+    $int13 = 20;
+    $fontmetrics14 = cinzel_13pt_bold;
+}
+%ql4_sort_mode = %ql4_perm_sort;
+%ql4_reverse_list = %ql4_perm_reverse;
+%ql4_filter_done = %ql4_perm_donefilter;
+%ql4_filter_doable = %ql4_perm_filter;
+%ql4_filter_miniquests = %ql4_perm_hideminiquests;
+%ql4_filter_fullquests = %ql4_perm_hidefullquests;
+%ql4_questcount = enum_getoutputcount($enum3);
+def_string $string0 = "";
+def_int $int15 = 0;
+def_int $int16 = calc(if_getwidth($component4) - 20);
+def_int $int17 = ~script11432($fontmetrics12);
+def_boolean $boolean18 = ~script6431;
+while ($int7 < %ql4_questcount) {
+    $quest8 = enum(int, quest, $enum3, $int6);
+    cc_create($component4, ^iftype_text, $int6);
+    if ($quest8 ! null) {
+        $int7 = calc($int7 + 1);
+        $int10 = ~ql4_getprogress($quest8);
+        $string0 = ~quest_sortname($quest8);
+        if ($boolean18 = true) {
+            $int15 = calc($int11 - $int17 + $int17 * max(1, min(2, paraheight($string0, $int16, $fontmetrics12))));
+            cc_setmaxlines(2);
+        } else {
+            $int15 = $int11;
+            cc_setmaxlines(1);
+        }
+        cc_setsize(20, $int15, ^setsize_minus, ^setsize_abs);
+        cc_setcolour(0x222222);
+        cc_settextfont($fontmetrics12);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settextshadow(true);
+        cc_settext($string0);
+        if ($int9 = -1 & $quest8 = tutorial_3 & $int1 = 1) {
+            $int9 = cc_getid;
+        }
+    } else {
+        cc_sethide(true);
+    }
+    $int6 = calc($int6 + 1);
+}
+%ql4_topquestid = calc($int6 - 1);
+while ($int6 < calc(%ql4_topquestid + 80)) {
+    cc_create($component4, ^iftype_text, $int6);
+    cc_settextfont($fontmetrics14);
+    cc_setsize(0, $int13, ^setsize_minus, ^setsize_abs);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext("");
+    cc_setcolour(~script10495(1));
+    cc_sethide(true);
+    cc_settextshadow(true);
+    cc_setmaxlines(1);
+    $int6 = calc($int6 + 1);
+}
+~ql4_sort($component0, $int1, %ql4_sort_mode, %ql4_reverse_list, %ql4_filter_doable, %ql4_filter_done, %ql4_filter_fullquests, %ql4_filter_miniquests);
+~scrollbar_vertical($component5, $component4, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if ($int9 ! -1) {
+    ~script214($component4, $int9);
+}

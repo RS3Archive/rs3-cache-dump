@@ -1,0 +1,14 @@
+// 3106
+[clientscript,script3106]
+def_int $int0 = ttv_library_request;
+def_int $int1 = 0;
+if ($int0 = 3) {
+    if_settext("Oops! Something went wrong. Please close the interface and try again in 5 minutes.", toplevel_v2_parent_suboverlay_twitch:twitch_dll_text);
+    ~script3147;
+} else if ($int0 = 100) {
+    if_setontimer(null, toplevel_v2_parent_suboverlay_twitch:main_layer);
+    ~script10118;
+} else {
+    if_settext("Fetching streaming updates...", toplevel_v2_parent_suboverlay_twitch:twitch_dll_text);
+    ~script9528(toplevel_v2_parent_suboverlay_twitch:api_spinner_build, $int0);
+}

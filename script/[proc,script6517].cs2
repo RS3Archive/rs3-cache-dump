@@ -1,0 +1,28 @@
+// 6517
+[proc,script6517]
+def_int $int0 = -1;
+def_int $int1 = enum_getoutputcount(trh158_skill_components);
+def_enum $enum2 = null;
+def_string $string0 = "";
+switch_int (%trh158_th_last_vos_roll) {
+    case 1 :
+        $enum2 = trh158_artisan_skill_names;
+    case 2 :
+        $enum2 = trh158_combat_skill_names;
+    case 3 :
+        $enum2 = trh158_gathering_skill_names;
+    case 4 :
+        $enum2 = trh158_support_skill_names;
+    case default :
+        return;
+}
+while (++$int0 < $int1) {
+    $string0 = enum(int, string, $enum2, $int0);
+    if (string_length($string0) > 0) {
+        if_setonmouseover("script12111($string0, event_com, -1)", enum(int, component, trh158_skill_components, $int0));
+        if_setonmouseleave("script8805", enum(int, component, trh158_skill_components, $int0));
+    } else {
+        if_setonmouseover(null, enum(int, component, trh158_skill_components, $int0));
+        if_setonmouseleave(null, enum(int, component, trh158_skill_components, $int0));
+    }
+}

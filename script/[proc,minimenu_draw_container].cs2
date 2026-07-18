@@ -1,0 +1,27 @@
+// 13636
+[proc,minimenu_draw_container](int $int0, int $int1, int $int2, struct $struct3, component $component4, component $component5, string $string0)
+if_setscrollsize($int0, calc($int2 - struct_param($struct3, minimenu_topheight)), $component4);
+if_setsize($int0, calc($int1 - struct_param($struct3, minimenu_topheight) - 2), ^setsize_abs, ^setsize_abs, $component4);
+if_setposition(0, struct_param($struct3, minimenu_topheight), ^setpos_abs_left, ^setpos_abs_top, $component4);
+if ($int1 ! $int2) {
+    ~rs3_scrollbar_vertical(minimenu:menu_scroll_bar_layer, $component4);
+    if_setparam_int(rs3tli_scrollbar_button_cooldown, 4, minimenu:menu_scroll_bar_layer);
+    if_setparam_int(rs3tli_scrollbar_button_step, 15, minimenu:menu_scroll_bar_layer);
+    if (~is_mobile_client = true) {
+        ~script14182($component4);
+        if_setonrelease("script3711($component4, event_com)", ~minimenu_get_root);
+    }
+    if_sethide(false, minimenu:menu_scroll_down_layer);
+    if_sethide(false, minimenu:menu_scroll_up_layer);
+}
+if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, $component5);
+~script4512($component5, struct_param($struct3, minimenu_topside_width), struct_param($struct3, minimenu_topheight), 0, 0, struct_param($struct3, minimenu_topside));
+~cc_add_graphic_tile($component5, struct_param($struct3, minimenu_topmid), struct_param($struct3, minimenu_topside_width), 0, calc($int0 - 2 * struct_param($struct3, minimenu_topside_width)), struct_param($struct3, minimenu_topheight));
+~script7924($component5, if_getnextsubid($component5), struct_param($struct3, minimenu_topside_width), struct_param($struct3, minimenu_topheight), calc($int0 - struct_param($struct3, minimenu_topside_width)), 0, struct_param($struct3, minimenu_topside), true, false, false, 0);
+~script10629($component5, if_getnextsubid($component5), calc($int0 - 3), calc(struct_param($struct3, minimenu_topheight) - 3), struct_param($struct3, minimenu_padding_x), 3, $string0, struct_param($struct3, minimenu_fontcolour), struct_param($struct3, minimenu_font), ^settextalign_left, ^settextalign_top, 0, false);
+~script10066($component5, if_getnextsubid($component5), $int0, calc($int1 - struct_param($struct3, minimenu_topheight)), 0, struct_param($struct3, minimenu_topheight), struct_param($struct3, minimenu_backcolour), true, struct_param($struct3, minimenu_backtransparency));
+~cc_add_graphic_tile($component5, struct_param($struct3, minimenu_mainside), 0, struct_param($struct3, minimenu_topheight), struct_param($struct3, minimenu_topside_width), calc($int1 - struct_param($struct3, minimenu_topheight) - struct_param($struct3, minimenu_topside_width)));
+~script7924($component5, if_getnextsubid($component5), struct_param($struct3, minimenu_topside_width), calc($int1 - struct_param($struct3, minimenu_topheight) - struct_param($struct3, minimenu_topside_width)), calc($int0 - struct_param($struct3, minimenu_topside_width)), struct_param($struct3, minimenu_topheight), struct_param($struct3, minimenu_mainside), true, false, true, 0);
+~script4512($component5, struct_param($struct3, minimenu_maincorner_size), struct_param($struct3, minimenu_maincorner_size), 0, calc($int1 - struct_param($struct3, minimenu_maincorner_size)), struct_param($struct3, minimenu_maincorner));
+~cc_add_graphic_tile($component5, struct_param($struct3, minimenu_mainbottom), struct_param($struct3, minimenu_maincorner_size), calc($int1 - struct_param($struct3, minimenu_topside_width)), calc($int0 - 2 * struct_param($struct3, minimenu_maincorner_size)), struct_param($struct3, minimenu_topside_width));
+~script7924($component5, if_getnextsubid($component5), struct_param($struct3, minimenu_maincorner_size), struct_param($struct3, minimenu_maincorner_size), calc($int0 - struct_param($struct3, minimenu_maincorner_size)), calc($int1 - struct_param($struct3, minimenu_maincorner_size)), struct_param($struct3, minimenu_maincorner), true, false, false, 0);

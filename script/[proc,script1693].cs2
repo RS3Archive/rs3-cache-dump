@@ -1,0 +1,55 @@
+// 1693
+[proc,script1693](intarray $intarray0, int $int1, int $int2)
+def_int $int3 = calc(($int1 + $int2) / 2);
+def_int $int4 = $intarray0($int3);
+$intarray0($int3) = $intarray0($int2);
+$intarray0($int2) = $int4;
+def_int $int5 = $int1;
+def_int $int6 = $int1;
+def_int $int7 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_struct $struct8 = null;
+def_struct $struct9 = null;
+def_quest $quest10 = null;
+while ($int6 < $int2) {
+    $struct8 = enum(int, struct, poh_bookcase, $intarray0($int6));
+    $struct9 = $struct8;
+    if ($struct8 ! null) {
+        $quest10 = struct_param($struct8, poh_bookcase_quest);
+        if ($quest10 ! null) {
+            $string0 = ~quest_sortname($quest10);
+        } else {
+            $string0 = append(".", struct_param($struct9, poh_bookcase_displayname));
+        }
+    } else {
+        $string0 = "";
+    }
+    $struct8 = enum(int, struct, poh_bookcase, $int4);
+    $struct9 = $struct8;
+    if ($struct8 ! null) {
+        $quest10 = struct_param($struct8, poh_bookcase_quest);
+        if ($quest10 ! null) {
+            $string1 = ~quest_sortname($quest10);
+        } else {
+            $string1 = append(".", struct_param($struct9, poh_bookcase_displayname));
+        }
+    } else {
+        $string1 = "";
+    }
+    if (compare($string0, $string1) < calc($int6 & 1)) {
+        $int7 = $intarray0($int6);
+        $intarray0($int6) = $intarray0($int5);
+        $intarray0($int5) = $int7;
+        $int5 = calc($int5 + 1);
+    }
+    $int6 = calc($int6 + 1);
+}
+$intarray0($int2) = $intarray0($int5);
+$intarray0($int5) = $int4;
+if ($int1 < calc($int5 - 1)) {
+    ~script1693(intarray0, $int1, calc($int5 - 1));
+}
+if (calc($int5 + 1) < $int2) {
+    ~script1693(intarray0, calc($int5 + 1), $int2);
+}

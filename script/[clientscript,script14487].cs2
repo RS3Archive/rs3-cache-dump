@@ -1,0 +1,41 @@
+// 14487
+[clientscript,script14487](dbrow $dbrow0, int $int1)
+if_sethide(false, bonds_gratz:generic_redeem_layer);
+if_sethide(true, bonds_gratz:confirm_button);
+def_int $int2 = db_getfield($dbrow0, bonds_package:col19, 0);
+if_setgraphic(db_getfield($dbrow0, bonds_package:col11, 0), bonds_gratz:generic_graphic);
+if (~telemetry_member = 0) {
+    if_sethide(true, bonds_gratz:generic_redeem_confirm_button);
+    if_sethide(false, bonds_gratz:generic_redeem_buttons_layer);
+}
+switch_int ($int1) {
+    case 1 :
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+        return;
+    case 2 :
+        if_settext("You've gained <tostring($int2)> <~text_plural($int2, "month", "months")> of <br>RuneMetrics Pro.", bonds_gratz:generic_text1);
+        if (~telemetry_member = 1) {
+            if_sethide(true, bonds_gratz:generic_text2);
+        } else {
+            if_settext("Some features will not be available until <br>you log out and log back in.", bonds_gratz:generic_text2);
+        }
+        ~script13463("You've gained <tostring($int2)> months of RuneMetrics Pro.");
+    case 3 :
+        if_settext("You've gained <tostring($int2)> <~text_plural($int2, "month", "months")> of <br>RuneMetrics Pro.", bonds_gratz:generic_text1);
+        if_settext("It will be added to your account shortly.", bonds_gratz:generic_text2);
+        ~script13463("Your RuneMetrics Pro will be added to your account shortly.");
+    case 4 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request.", bonds_gratz:generic_text1);
+        if_settext("Please try again later.", bonds_gratz:generic_text2);
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+        return;
+    case 5 :
+        if_sethide(true, bonds_gratz:firework_layer);
+        ~script9554(bonds_gratz:background, bonds_gratz:border, bonds_gratz:content, "Sorry", toplevel_v2_default_main_modal_skin_data);
+        if_settext("We were unable to process your request.", bonds_gratz:generic_text1);
+        if_settext("Please try again later.", bonds_gratz:generic_text2);
+        ~script1296("Sorry, we were unable to process your request. Please try again later.");
+        return;
+}

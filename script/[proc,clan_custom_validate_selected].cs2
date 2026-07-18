@@ -1,0 +1,83 @@
+// 4830
+[proc,clan_custom_validate_selected](int $int0)(int)
+def_enum $enum1 = null;
+def_enum $enum2 = null;
+def_enum $enum3 = null;
+def_enum $enum4 = null;
+def_enum $enum5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+switch_int ($int0) {
+    case 1 :
+        $int6 = %clan_custom_slot_1_type_varp;
+        $int7 = %clan_custom_slot_1_tier_varp;
+        $int9 = %clan_custom_slot_1_options1_varp;
+        $int10 = %clan_custom_slot_1_options2_varp;
+        $int11 = %clan_custom_slot_1_options3_varp;
+        $int12 = %clan_custom_slot_1_resource_id_varp;
+    case 2 :
+        $int6 = %clan_custom_slot_2_type_varp;
+        $int7 = %clan_custom_slot_2_tier_varp;
+        $int9 = %clan_custom_slot_2_options1_varp;
+        $int10 = %clan_custom_slot_2_options2_varp;
+        $int11 = %clan_custom_slot_2_options3_varp;
+        $int12 = %clan_custom_slot_2_resource_id_varp;
+    case 3 :
+        $int6 = %clan_custom_slot_3_type_varp;
+        $int7 = %clan_custom_slot_3_tier_varp;
+        $int9 = %clan_custom_slot_3_options1_varp;
+        $int10 = %clan_custom_slot_3_options2_varp;
+        $int11 = %clan_custom_slot_3_options3_varp;
+        $int12 = %clan_custom_slot_3_resource_id_varp;
+}
+if ($int12 = 1) {
+    return(5);
+}
+if ($int6 = 0) {
+    return(-1);
+}
+$enum1 = enum(int, enum, clan_custom_category_enums, $int6);
+if ($enum1 = null) {
+    return(-1);
+}
+if ($int7 > 0 & $int7 <= 3) {
+    $enum2 = enum(int, enum, $enum1, $int7);
+    if ($enum2 ! null) {
+        $enum3 = enum(int, enum, $enum2, 1);
+        $enum4 = enum(int, enum, $enum2, 2);
+        $enum5 = enum(int, enum, $enum2, 3);
+        if ($enum3 ! null) {
+            if ($int9 > 0 & $int9 <= enum_getoutputcount($enum3)) {
+                if (%clan_stronghold_tier >= struct_param(enum(int, struct, $enum3, $int9), clan_custom_if_tier)) {
+                    if ($enum4 = null) {
+                    } else if ($int10 > 0 & $int10 <= enum_getoutputcount($enum4)) {
+                        if (%clan_stronghold_tier < struct_param(enum(int, struct, $enum4, $int10), clan_custom_if_tier)) {
+                            return(2);
+                        }
+                    } else {
+                        return(3);
+                    }
+                    if ($enum5 = null) {
+                    } else if ($int11 > 0 & $int11 <= enum_getoutputcount($enum5)) {
+                        if (%clan_stronghold_tier < struct_param(enum(int, struct, $enum5, $int11), clan_custom_if_tier)) {
+                            return(2);
+                        }
+                    } else {
+                        return(3);
+                    }
+                    return(1);
+                } else {
+                    return(2);
+                }
+            } else {
+                return(3);
+            }
+        }
+    }
+}
+return(-1);

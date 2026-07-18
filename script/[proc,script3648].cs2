@@ -1,0 +1,101 @@
+// 3648
+[proc,script3648](int $int0)
+def_dbrow $dbrow1 = ~runepass_get_current;
+if ($dbrow1 = null) {
+    return;
+}
+def_int $int2 = db_getfield($dbrow1, runepass_table:col21, 0);
+def_int $int3 = 0;
+if ($int0 >= $int2) {
+    $int0 = calc($int2 - 1);
+}
+if ($int0 = calc($int2 - 1)) {
+    $int3 = 1;
+}
+%runepass_viewing_task_set = $int0;
+if_setonvartransmit("runepass_task_selected($int0, 0){runepass_task_progress_0, runepass_task_progress_1}", runepass:task_info_listener);
+def_int $int4 = 0;
+def_int $int5 = db_getfieldcount($dbrow1, runepass_table:col19);
+def_int $int6 = db_getfield($dbrow1, runepass_table:col29, 0);
+def_string $string0 = "A";
+if ($int6 = 1 & $int3 = 1) {
+    if_setgraphic(panel_main_single, runepass:task_panel_back);
+    if_settext("¶", runepass:task_num);
+    if_settext("Complete the task to get the rewards!<br>This task can be repeated until the event ends.", runepass:task_objective);
+    if_sethide(true, runepass:task_b_container);
+    $string0 = "";
+} else {
+    if_setgraphic(panel_main, runepass:task_panel_back);
+    if_settext(tostring(calc($int0 + 1)), runepass:task_num);
+    if_settext("Complete either task to get the rewards!", runepass:task_objective);
+    if_sethide(false, runepass:task_b_container);
+}
+cc_deleteall(runepass:task_specifics);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_dbrow $dbrow11 = null;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = -1;
+def_int $int15 = -1;
+def_string $string1 = "";
+if_sethide(true, runepass:task_a_info_on);
+if_sethide(false, runepass:task_a_info_off);
+if_sethide(true, runepass:task_b_info_on);
+if_sethide(false, runepass:task_b_info_off);
+~script3536("Premier reward", runepass:shield_graphic, -1);
+if (%runepass_active_info_index = -1 | $int0 ! %runepass_task_sets_completed) {
+    if (%runepass_active_info_index ! -1) {
+        ~runepass_sound_slide;
+    }
+    ~script9033;
+} else {
+    ~runepass_sound_slide;
+    ~script9034;
+}
+~script15071($int0);
+if_setonvartransmit("script15070($int0){cheevo_tracker_var_3, cheevo_tracker_var_4, task_main, activity_tracker_card_4, activity_tracker_card_5}", runepass:task_tracker_listener);
+~script3780(runepass:skip_button);
+if ($int0 = %runepass_task_sets_completed) {
+    if_sethide(false, runepass:task_a_info_hover);
+    if_sethide(false, runepass:task_b_info_hover);
+    if_setcolour(^white, runepass:task_a_info_on);
+    if_setcolour(^white, runepass:task_a_info_off);
+    if_setcolour(^white, runepass:task_b_info_on);
+    if_setcolour(^white, runepass:task_b_info_off);
+    if (%runepass_active_info_index = 0) {
+        if_sethide(true, runepass:task_a_info_on);
+        if_sethide(false, runepass:task_a_info_off);
+    }
+    if (%runepass_active_info_index = 1) {
+        if_sethide(true, runepass:task_b_info_on);
+        if_sethide(false, runepass:task_b_info_off);
+    }
+    ~script3647($int0, %runepass_cached_task_dbrow_0, $string0, ~script3605(0), ~script3603(0), ~script3606(0, 0), ~script3606(0, 1), runepass:task_a_title, runepass:progress_a, runepass:task_a_bound, runepass:progress_a_text_under, runepass:progress_a_text_over, 0);
+    ~script3650(runepass:task_breakdown_title, runepass:task_specifics, %runepass_active_info_index);
+    ~script3647($int0, %runepass_cached_task_dbrow_1, "B", ~script3605(1), ~script3603(1), ~script3606(1, 0), ~script3606(1, 1), runepass:task_b_title, runepass:progress_b, runepass:task_b_bound, runepass:progress_b_text_under, runepass:progress_b_text_over, 1);
+} else {
+    if_sethide(true, runepass:task_a_info_hover);
+    if_sethide(true, runepass:task_b_info_hover);
+    if_setcolour(0x666666, runepass:task_a_info_on);
+    if_setcolour(0x666666, runepass:task_a_info_off);
+    if_setcolour(0x666666, runepass:task_b_info_on);
+    if_setcolour(0x666666, runepass:task_b_info_off);
+    %runepass_active_info_index = -1;
+    while ($int7 < 2 & $int4 < $int5) {
+        $int9, $int10, $dbrow11, $int12, $int13 = ~script3656($int0, $int4);
+        if ($int9 = $int0 & $dbrow11 ! null & calc($int10 & %runepass_availability) ! 0) {
+            switch_int ($int7) {
+                case 0 :
+                    ~script3647($int0, $dbrow11, $string0, 1, 1, -1, -1, runepass:task_a_title, runepass:progress_a, runepass:task_a_bound, runepass:progress_a_text_under, runepass:progress_a_text_over, 0);
+                case 1 :
+                    ~script3647($int0, $dbrow11, "B", 1, 1, -1, -1, runepass:task_b_title, runepass:progress_b, runepass:task_b_bound, runepass:progress_b_text_under, runepass:progress_b_text_over, 1);
+            }
+            $int7 = calc($int7 + 1);
+        }
+        $int4 = calc($int4 + 1);
+    }
+}
+~script3645($int0, 0, runepass:task_reward_pic, runepass:task_reward_obj, runepass:task_reward_name, runepass:task_reward_premium_only, runepass:task_reward_left_arrow, runepass:task_reward_right_arrow, 0, runepass:task_reward_number, 0);

@@ -1,0 +1,33 @@
+// 16446
+[proc,script16446](string $string0)
+def_string $string1 = "<br>";
+def_int $int0 = string_indexof_string($string0, $string1, 0);
+if ($int0 = -1) {
+    $string1 = ": ";
+    $int0 = string_indexof_string($string0, $string1, 0);
+}
+def_string $string2 = $string0;
+def_string $string3 = "";
+if ($int0 ! -1) {
+    $string2 = substring($string0, 0, $int0);
+    $string3 = substring($string0, calc($int0 + string_length($string1)), string_length($string0));
+}
+if (string_length($string2) = 0 & string_length($string3) = 0) {
+    return;
+}
+def_component $component1 = text_tooltip:tooltip_dynamic_text;
+def_int $int2 = min(calc(480 - 2 * 4), parawidth($string2, 1000, cinzel_18pt_bold));
+if (string_length($string3) > 0) {
+    $int2 = max($int2, min(calc(480 - 2 * 4), parawidth($string3, 1000, museo_sans_13pt_bold)));
+}
+$int2 = calc($int2 + 2 * 4);
+def_int $int3 = ~script14747($component1, 0, 0, $int2, $string2, -1, 0);
+def_int $int4 = -1;
+if (string_length($string3) > 0) {
+    $int3 = ~script14748($component1, 0, $int3);
+    $int4, $int3 = ~script14749($component1, 0, $int3, 0, 0);
+    $int3 = ~script14757($component1, 4, $int3, calc($int2 - 4), $string3, -1);
+    $int3 = calc($int3 + 8);
+    ~script14750($component1, $int4, $int3, 0);
+}
+if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, $component1);

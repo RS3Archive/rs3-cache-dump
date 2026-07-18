@@ -1,0 +1,18 @@
+// 10870
+[clientscript,script10870]
+def_int $int0 = scale(150, 30, min(30, %xmas2014_snowboard_power_req));
+def_int $int1 = if_getwidth(xmas2014_snowboard_prep:power_bar);
+def_int $int2 = 1;
+if ($int1 < $int0) {
+    if (calc($int0 - $int1) > 10) {
+        $int2 = 5;
+    }
+    if_setsize(calc($int1 + $int2), 17, ^setsize_abs, ^setsize_abs, xmas2014_snowboard_prep:power_bar);
+} else if ($int1 > $int0) {
+    if (calc($int1 - $int0) > 10) {
+        $int2 = 5;
+    }
+    if_setsize(calc($int1 - $int2), 17, ^setsize_abs, ^setsize_abs, xmas2014_snowboard_prep:power_bar);
+}
+def_int $int3 = scale($int1, 150, 100);
+if_settext("Required: <tostring($int3)>%", xmas2014_snowboard_prep:power_text);

@@ -1,0 +1,46 @@
+// 5118
+[clientscript,script5118](component $component0)
+%player_kit_colour_client = -1;
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = calc(126 + 1);
+while ($int2 <= $int3) {
+    cc_create(clan_meetings_tentcontrol:options, ^iftype_rectangle, if_getnextsubid(clan_meetings_tentcontrol:options));
+    cc_setsize(0, 14, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settrans(255);
+    .cc_create(clan_meetings_tentcontrol:options, ^iftype_graphic, if_getnextsubid(clan_meetings_tentcontrol:options));
+    .cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(5, calc($int1 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    $string0 = enum(int, string, clan_offset_rank_int_to_rank_plus, $int2);
+    if (string_length($string0) > 0) {
+        .cc_create(clan_meetings_tentcontrol:options, ^iftype_text, if_getnextsubid(clan_meetings_tentcontrol:options));
+        .cc_setsize(22, 14, ^setsize_minus, ^setsize_abs);
+        .cc_setposition(0, $int1, ^setpos_abs_right, ^setpos_abs_top);
+        .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        .cc_settextfont(p11_full);
+        .cc_settextshadow(true);
+        .cc_settext($string0);
+        cc_setop(1, $string0);
+        cc_setonop("script5119($int2)");
+        $int1 = calc($int1 + cc_getheight);
+    } else {
+        cc_sethide(true);
+        .cc_sethide(true);
+        .cc_create(clan_meetings_tentcontrol:options, ^iftype_text, if_getnextsubid(clan_meetings_tentcontrol:options));
+        .cc_sethide(true);
+    }
+    $int2 = calc($int2 + 1);
+}
+if ($int1 > if_getheight(clan_meetings_tentcontrol:options)) {
+    if_setscrollsize(0, $int1, clan_meetings_tentcontrol:options);
+} else {
+    if_setscrollsize(0, 0, clan_meetings_tentcontrol:options);
+}
+if_setscrollpos(0, 0, clan_meetings_tentcontrol:options);
+~scrollbar_vertical(clan_meetings_tentcontrol:options_scrollbar, clan_meetings_tentcontrol:options, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
+~script5121;
+if_setonvartransmit("script5120{rand_temp_int_26}", $component0);
+~script5124;
+if_setonvarctransmit("script5123{ql4_cs_maparrow_state}", $component0);

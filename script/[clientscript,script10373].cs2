@@ -1,0 +1,17 @@
+// 10373
+[clientscript,script10373](int $int0)
+def_int $int1 = %group_combat_player;
+%group_combat_player = max(%group_min_combat, min(%group_max_combat, calc(%group_combat_player + $int0)));
+def_vorbis $vorbis2 = null;
+if ($int1 ! %group_combat_player) {
+    ~script10379;
+    switch_int (random(3)) {
+        case 0 :
+            $vorbis2 = makex_ui_slide_ticker_01;
+        case 1 :
+            $vorbis2 = makex_ui_slide_ticker_02;
+        case 2 :
+            $vorbis2 = makex_ui_slide_ticker_02;
+    }
+    sound_vorbis_rate($vorbis2, 1, 0, 20, random_sound_pitch(5, 10));
+}

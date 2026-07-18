@@ -1,0 +1,26 @@
+// 15160
+[proc,event_crafting_update_counter](int $int0, int $int1)
+def_dbrow $dbrow2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if ($int1 = -1) {
+    $int1 = %event_crafting_current_event_id;
+}
+$dbrow2 = ~script15118($int1);
+$int5 = date_runeday;
+$int3, $int4 = ~script15149($dbrow2);
+if ($int4 = -1 | $int5 < $int3) {
+    if_sethide(true, event_crafting:info_overlay_time_left_container);
+    return;
+}
+if_sethide(false, event_crafting:info_overlay_time_left_container);
+if ($int5 > $int4) {
+    if_settext("Event over", event_crafting:info_overlay_time_left_text);
+    return;
+}
+$int6, $int7, $int8 = ~time_countdown($int4, 1);
+if_settext("<tostring($int6)> Days, <tostring($int7)> hrs, <tostring($int8)> mins", event_crafting:info_overlay_time_left_text);

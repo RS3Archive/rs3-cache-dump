@@ -1,0 +1,85 @@
+// 12733
+[proc,script12733]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "Travel";
+def_component $component5 = null;
+def_graphic $graphic6 = null;
+$int0, $int1, $int2 = ~script12705(%trh104_current_node);
+$int3, $int4 = ~trh104_get_progress;
+if ($int2 = 1) {
+    $int0 = min(calc($int0 + 1), 8);
+}
+$component5 = trh104_overlay:east;
+if (calc(%trh104_current_map + 1) < $int0 & calc(%trh104_current_map + 1) < 8) {
+    $graphic6 = "aif_pop_arrow_icon_large,0";
+    if_setop(1, "Travel", $component5);
+    if_setgraphic($graphic6, $component5);
+    if_setonmouseover("script12734($component5, 1)", $component5);
+    if_setonmouseleave("script12734($component5, 0)", $component5);
+    if_setonmouserepeat("script8799($string0, event_com, -1)", $component5);
+} else {
+    $string0 = "Unlock all treasures within the area to move on.";
+    if (calc(%trh104_current_map + 1) = 8) {
+        $graphic6 = null;
+        if_setonmouserepeat(null, $component5);
+    } else {
+        $graphic6 = "aif_pop_arrow_icon_large,2";
+        if_setonmouserepeat("script8799($string0, event_com, -1)", $component5);
+    }
+    if_setop(1, "", $component5);
+    if_setgraphic($graphic6, $component5);
+    if_setonmouseover(null, $component5);
+    if_setonmouseleave(null, $component5);
+}
+$string0 = "Travel";
+$component5 = trh104_overlay:west;
+if (%trh104_current_map > 0) {
+    $graphic6 = "aif_pop_arrow_icon_large,0";
+    if_setop(1, "Travel", $component5);
+    if_setgraphic($graphic6, $component5);
+    if_setonmouseover("script12734($component5, 1)", $component5);
+    if_setonmouseleave("script12734($component5, 0)", $component5);
+    if_setonmouserepeat("script8799($string0, event_com, -1)", $component5);
+} else {
+    $string0 = "";
+    if_setop(1, "", $component5);
+    if_setgraphic(null, $component5);
+    if_setonmouseover(null, $component5);
+    if_setonmouseleave(null, $component5);
+    if_setonmouserepeat(null, $component5);
+}
+if (%trh104_tokens > 0 & calc(%trh104_current_map + 1) = $int0 & %trh104_current_node ! 45) {
+    if_sethide(true, trh104_overlay:positive_button_disabled_layer);
+} else {
+    if_sethide(false, trh104_overlay:positive_button_disabled_layer);
+}
+if_sethide(true, trh104_overlay:title1);
+if_sethide(true, trh104_overlay:title2);
+if_sethide(true, trh104_overlay:title3);
+if_sethide(true, trh104_overlay:title4);
+if_sethide(true, trh104_overlay:title5);
+if_sethide(true, trh104_overlay:title6);
+if_sethide(true, trh104_overlay:title7);
+if_sethide(true, trh104_overlay:title8);
+switch_int (%trh104_current_map) {
+    case 0 :
+        if_sethide(false, trh104_overlay:title1);
+    case 1 :
+        if_sethide(false, trh104_overlay:title2);
+    case 2 :
+        if_sethide(false, trh104_overlay:title3);
+    case 3 :
+        if_sethide(false, trh104_overlay:title4);
+    case 4 :
+        if_sethide(false, trh104_overlay:title5);
+    case 5 :
+        if_sethide(false, trh104_overlay:title6);
+    case 6 :
+        if_sethide(false, trh104_overlay:title7);
+    case 7 :
+        if_sethide(false, trh104_overlay:title8);
+}

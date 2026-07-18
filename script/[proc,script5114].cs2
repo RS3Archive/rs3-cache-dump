@@ -1,0 +1,44 @@
+// 5114
+[proc,script5114](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, int $int6)
+if_sethide(true, clan_signpost:default_details_text);
+if_settext(if_gettext($component0), clan_signpost:rel_name_text);
+if_setgraphic(if_getgraphic($component1), clan_signpost:rel_logo_gfx1);
+if_setgraphic(if_getgraphic($component2), clan_signpost:rel_logo_gfx2);
+if_setcolour(if_getcolour($component1), clan_signpost:rel_logo_gfx1);
+if_setcolour(if_getcolour($component2), clan_signpost:rel_logo_gfx2);
+if_setcolour(if_getcolour($component3), clan_signpost:rel_colour1);
+if_setcolour(if_getcolour($component4), clan_signpost:rel_colour2);
+def_string $string0 = "";
+switch_graphic (if_getgraphic($component5)) {
+    case "clans_portaicons_small,0" :
+        if_setgraphic("clans_portaicons_large,0", clan_signpost:relationship_icon);
+        $string0 = "This clan is flagged as a nemesis.";
+    case "clans_portaicons_small,1" :
+        if_setgraphic("clans_portaicons_large,1", clan_signpost:relationship_icon);
+        $string0 = "This clan is flagged as an enemy.";
+    case "clans_portaicons_small,2" :
+        if_setgraphic("clans_portaicons_large,2", clan_signpost:relationship_icon);
+        $string0 = "This clan is flagged as neutral.";
+    case "clans_portaicons_small,3" :
+        if_setgraphic("clans_portaicons_large,3", clan_signpost:relationship_icon);
+        $string0 = "This clan is flagged as a friend.";
+    case "clans_portaicons_small,4" :
+        if_setgraphic("clans_portaicons_large,4", clan_signpost:relationship_icon);
+        $string0 = "This clan is flagged as an ally.";
+}
+if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", clan_signpost:relationship_icon);
+~script5106;
+if ($int6 = 1) {
+    if (if_gethide(clan_signpost:edit_layer) = true) {
+        if_sethide(false, clan_signpost:details_layer);
+    } else {
+        if_sethide(false, clan_signpost:edit_layer);
+    }
+    if_sethide(true, clan_signpost:nemesis_selected_layer);
+    if_sethide(true, clan_signpost:enemy_selected_layer);
+    if_sethide(true, clan_signpost:neutral_selected_layer);
+    if_sethide(true, clan_signpost:friend_selected_layer);
+    if_sethide(true, clan_signpost:ally_selected_layer);
+} else {
+    if_sethide(false, clan_signpost:details_panel_tab_layer);
+}

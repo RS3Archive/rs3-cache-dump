@@ -1,0 +1,39 @@
+// 19780
+[clientscript,script19780]
+db_listall(trh205_promo_bonus);
+def_dbrow $dbrow0 = db_findnext;
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_graphic $graphic3 = null;
+cc_deleteall(trh205_overlay:blackboard_item_list);
+while ($dbrow0 ! null) {
+    if (~script19752($dbrow0) = true) {
+        $graphic3 = db_getfield($dbrow0, trh205_promo_bonus:col9, 0);
+        cc_create(trh205_overlay:blackboard_item_list, ^iftype_graphic, $int2);
+        $int2 = calc($int2 + 1);
+        cc_setposition(7, calc($int1 + 16), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic($graphic3);
+        cc_sethide(false);
+        cc_create(trh205_overlay:blackboard_item_list, ^iftype_text, $int2);
+        $int2 = calc($int2 + 1);
+        cc_setposition(36, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(322, 50, ^setsize_abs, ^setsize_abs);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_settextfont(notosans_14);
+        cc_settext("<db_getfield($dbrow0, trh205_promo_bonus:col1, 0)> x <tostring(~script19759($dbrow0))>");
+        cc_sethide(false);
+        $int1 = calc($int1 + 46);
+    }
+    $dbrow0 = db_findnext;
+}
+if ($int1 > 0) {
+    cc_create(trh205_overlay:blackboard_item_list, ^iftype_graphic, $int2);
+    $int2 = calc($int2 + 1);
+    cc_setgraphic(trh177_spacer);
+    cc_setposition(23, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(17, calc($int1 + 10), ^setsize_abs, ^setsize_abs);
+    if_sethide(false, trh205_overlay:blackboard_item_list);
+}
+~script19779(trh205_overlay:main_chest);

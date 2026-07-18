@@ -1,0 +1,27 @@
+// 11427
+[proc,script11427](component $component0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+if ($component0 = null) {
+    return;
+}
+if (if_find($component0) = true) {
+    $component2 = cc_param(combatv2_buff_prev_container);
+    $component3 = cc_param(combatv2_buff_next_container);
+    cc_setparam(combatv2_buff_prev_container, null);
+    cc_setparam(combatv2_buff_next_container, null);
+    if ($component2 ! null & .if_find($component2) = true) {
+        if (.cc_param(combatv2_buff_head) = true) {
+            if ($int1 = 1) {
+                .cc_setparam(combatv2_buff_active_head, $component3);
+            } else {
+                .cc_setparam(combatv2_buff_inactive_head, $component3);
+            }
+        } else {
+            .cc_setparam(combatv2_buff_next_container, $component3);
+        }
+    }
+    if ($component3 ! null & .if_find($component3) = true) {
+        .cc_setparam(combatv2_buff_prev_container, $component2);
+    }
+}

@@ -1,0 +1,14 @@
+// 18966
+[proc,script18966](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(1);
+}
+def_int $int1 = db_getfield($dbrow0, memory:col0, 0);
+if ($int1 < 0) {
+    return(1);
+}
+switch_int (calc($int1 / 32)) {
+    case 0 :
+        return(testbit(%memory_unlock_1, calc($int1 % 32)));
+}
+return(0);

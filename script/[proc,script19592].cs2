@@ -1,0 +1,36 @@
+// 19592
+[proc,script19592](obj $obj0, int $int1, int $int2)(int)
+if (oc_param($obj0, nonbankable) = 1 | oc_param($obj0, rand_item) = 1) {
+    return($int1);
+}
+def_int $int3 = 0;
+if (~script3802($obj0) = true) {
+    while ($int3 < $int2) {
+        if (.cc_find(group_ironman_storage:clan_inv, $int3) = true & (.cc_getinvobject = bank_empty_slot | .cc_getinvobject = $obj0 & .cc_getinvcount = 0) & --$int1 = 0) {
+            return(0);
+        }
+        $int3 = calc($int3 + 1);
+    }
+    return($int1);
+}
+def_int $int4 = 0;
+def_obj $obj5 = null;
+while ($int3 < $int2) {
+    if (.cc_find(group_ironman_storage:clan_inv, $int3) = true) {
+        $obj5 = .cc_getinvobject;
+        if ($obj5 = $obj0) {
+            $int4 = calc(^max_32bit_int - .cc_getinvcount - $int1);
+            if ($int4 < 0) {
+                return(calc(0 - $int4));
+            }
+            return(0);
+        } else if ($obj5 = bank_empty_slot) {
+            $int4 = 1;
+        }
+    }
+    $int3 = calc($int3 + 1);
+}
+if ($int4 = 1) {
+    return(0);
+}
+return($int1);

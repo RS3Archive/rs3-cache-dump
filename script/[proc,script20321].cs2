@@ -1,0 +1,38 @@
+// 20321
+[proc,script20321]
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
+if ($dbrow0 = null) {
+    return;
+}
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col11, 0);
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = 20;
+def_int $int5 = 0;
+if (cc_find(league_parent_tasks:filters, 0) = false) {
+    $int5 = 1;
+    ~cc_add_text(league_parent_tasks:filters, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 16, ^setsize_minus, ^setsize_abs, text_title_body, "Filters");
+}
+$int4 = ~script20322(0, $int4, "Tier", db_getfield($dbrow1, league_task_settings:col0:0, 0), db_getfield($dbrow1, league_task_settings:col0:1, 0));
+if (db_getfieldcount($dbrow1, league_task_settings:col1) > 0) {
+    $int4 = ~script20322(1, $int4, "Type", db_getfield($dbrow1, league_task_settings:col1, 0));
+}
+if (db_getfieldcount($dbrow1, league_task_settings:col2) > 0) {
+    $int4 = ~script20322(2, $int4, "Locality", db_getfield($dbrow1, league_task_settings:col2, 0));
+}
+if (db_getfieldcount($dbrow1, league_task_settings:col3) > 0) {
+    $int4 = ~script20322(3, $int4, "Progress", db_getfield($dbrow1, league_task_settings:col3, 0));
+}
+if (db_getfieldcount($dbrow1, league_task_settings:col4) > 0) {
+    $int4 = ~script20322(4, $int4, "Requirements", db_getfield($dbrow1, league_task_settings:col4, 0));
+}
+if (db_getfieldcount($dbrow1, league_task_settings:col5) > 0) {
+    if ($int5 = 1) {
+        ~cc_add_text(league_parent_tasks:filters, if_getnextsubid(league_parent_tasks:filters), 0, calc($int4 + 4), ^setpos_abs_left, ^setpos_abs_top, 0, 16, ^setsize_minus, ^setsize_abs, text_title_body, "Group by");
+        $int4 = calc($int4 + 24);
+    }
+    $int4 = ~script20322(5, $int4, "", db_getfield($dbrow1, league_task_settings:col5, 0));
+}
+if ($int4 ! -1) {
+    ~script19620(league_parent_tasks:filter_scrollbar, league_parent_tasks:filters, $int4, null, -1, 0, 0, 0);
+}

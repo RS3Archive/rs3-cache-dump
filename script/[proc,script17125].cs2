@@ -1,0 +1,26 @@
+// 17125
+[proc,script17125](int $int0)
+if (%lobbyscreen_friendlist_selected_friend = $int0) {
+    ~script17130(lobbyscreen_pane_mobile_social:join_player_button, false, true, false, false);
+    if (cc_find(lobbyscreen_pane_mobile_social:player_list_content_bg, $int0) = true) {
+        if (calc($int0 % 2) = 0) {
+            ~script1341(rs3_rect_light);
+        } else {
+            ~script1341(rs3_rect_dark);
+        }
+    }
+    %lobbyscreen_friendlist_selected_friend = -1;
+} else {
+    ~script17130(lobbyscreen_pane_mobile_social:join_player_button, true, true, false, false);
+    if (%lobbyscreen_friendlist_selected_friend ! -1 & cc_find(lobbyscreen_pane_mobile_social:player_list_content_bg, %lobbyscreen_friendlist_selected_friend) = true) {
+        if (calc(%lobbyscreen_friendlist_selected_friend % 2) = 0) {
+            ~script1341(rs3_rect_light);
+        } else {
+            ~script1341(rs3_rect_dark);
+        }
+    }
+    if (cc_find(lobbyscreen_pane_mobile_social:player_list_content_bg, $int0) = true) {
+        ~script1341(rs3_rect_selected);
+    }
+    %lobbyscreen_friendlist_selected_friend = $int0;
+}

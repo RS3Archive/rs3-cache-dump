@@ -1,0 +1,25 @@
+// 980
+[proc,script980](struct $struct0, int $int1)
+def_enum $enum2 = struct_param($struct0, rsraffle_prize_list);
+def_struct $struct3 = enum(int, struct, $enum2, $int1);
+def_string $string0 = "";
+def_int $int4 = struct_param($struct3, rsraffle_prize_chance);
+def_int $int5 = ~script16026(22, %rsraffle_current_runeday);
+~script16040($struct0, $int1);
+if_setposition(0, calc($int1 * (40 + 1)), ^setpos_abs_left, ^setpos_abs_top, rsraffle:active_button);
+~script994($struct3, rsraffle:prize_model);
+~script13969(rsraffle:centre_panel_title_background, null, rs3tli_subtitle_holder_basic_background_redgold, struct_param($struct3, rsraffle_prize_name));
+if (string_length(%rsraffle_category_prize_name_list_client) = 0) {
+    $string0 = ~script16049($struct3);
+} else {
+    $string0 = %rsraffle_category_prize_name_list_client;
+    %rsraffle_category_prize_name_list_client = "";
+}
+def_string $string1 = struct_param($struct3, rsraffle_prize_description);
+if (struct_param($struct3, rsraffle_prize_object_name_list) ! null) {
+    $string1 = "<$string1> (<$string0>).";
+}
+if_settext($string1, rsraffle:prize_description);
+if_settext("Chance per ticket: 1/<tostring_localised($int4, true)>", rsraffle:prize_available);
+~script13969(rsraffle:enter_button_build, rsraffle:enter_button_click, rs3tli_positive_button, "Enter Lucky Dip");
+if_settext("Days left: <tostring_localised(max(0, $int5), true)>", rsraffle:time_text);

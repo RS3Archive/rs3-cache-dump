@@ -1,0 +1,65 @@
+// 7765
+[proc,crs_req_status](struct $struct0, quest $quest1, achievement $achievement2)(int)
+def_int $int3 = 0;
+if ($struct0 = null & $quest1 = null & $achievement2 = null) {
+    return($int3);
+}
+if ($struct0 ! null & struct_param($struct0, task_struct) ! null) {
+    $struct0 = struct_param($struct0, task_struct);
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = ~script7663($struct0, $quest1, $achievement2);
+switch_int ($int7) {
+    case 2 :
+        if ($achievement2 ! null) {
+            $int3 = achievement_reqstate($achievement2);
+        }
+    case 1 :
+        if ($quest1 ! null) {
+            if (~script18524($quest1) = false) {
+                $int3 = -1;
+            } else {
+                switch_int (~ql4_getprogress($quest1)) {
+                    case 2 :
+                        $int3 = -2;
+                    case default :
+                        $int3 = 0;
+                }
+            }
+        }
+    case 6, 0 :
+        if (~crs_req_task_status($struct0) = false) {
+            $int3 = -1;
+        } else {
+            $int3 = 0;
+        }
+    case 4 :
+        $int3 = 0;
+    case 8 :
+        if (struct_param($struct0, bslay_combat_req) > ~comlevel) {
+            $int3 = -1;
+        } else if (~script16088($struct0) = 0) {
+            $int3 = -1;
+        }
+        if ($int3 = -2) {
+            $int3 = 0;
+        }
+    case 7 :
+        $int3 = 0;
+    case 3 :
+        if (~cheevo_requirements_met($struct0) = 0) {
+            $int3 = -1;
+        } else {
+            $int4, $int5, $int6 = ~cheevo_tally_enum(struct_param($struct0, cheevo_path_enum));
+            if ($int4 >= $int5) {
+                $int3 = -2;
+            } else {
+                $int3, $struct0 = ~script6301($struct0, 0, -1);
+            }
+        }
+    case default :
+        ~error("Unhandled struct of system #<tostring($int7)> in [proc,crs_req_status]. Can't get reqs");
+}
+return($int3);

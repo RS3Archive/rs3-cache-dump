@@ -1,0 +1,28 @@
+// 15935
+[proc,script15935](obj $obj0, inv $inv1, int $int2, struct $struct3, component $component4, component $component5, int $int6, string $string0)(int)
+if (inv_getobj($inv1, $int2) ! $obj0 | inv_getnum($inv1, $int2) = 0) {
+    return($int6);
+}
+if (oc_hasvarobj($obj0) = false) {
+    return($int6);
+}
+def_int $intarray0(4);
+def_int $intarray1(4);
+$intarray0(0) = inv_getvar($inv1, $int2, invent_gizmo_1_perk_1);
+$intarray0(1) = inv_getvar($inv1, $int2, invent_gizmo_1_perk_2);
+$intarray0(2) = inv_getvar($inv1, $int2, invent_gizmo_2_perk_1);
+$intarray0(3) = inv_getvar($inv1, $int2, invent_gizmo_2_perk_2);
+$intarray1(0) = inv_getvar($inv1, $int2, invent_gizmo_1_perk_1_rank);
+$intarray1(1) = inv_getvar($inv1, $int2, invent_gizmo_1_perk_2_rank);
+$intarray1(2) = inv_getvar($inv1, $int2, invent_gizmo_2_perk_1_rank);
+$intarray1(3) = inv_getvar($inv1, $int2, invent_gizmo_2_perk_2_rank);
+def_int $int7 = 0;
+def_string $string1 = "";
+while ($int7 < 4) {
+    $string1 = ~script15936($intarray0($int7), $intarray1($int7));
+    if (compare($string1, "") ! 0) {
+        $int6 = ~script7235($string1, $string0, $struct3, $component4, $component5, $int6);
+    }
+    $int7 = calc($int7 + 1);
+}
+return($int6);

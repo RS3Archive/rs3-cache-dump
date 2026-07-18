@@ -1,0 +1,59 @@
+// 12007
+[proc,script12007](struct $struct0)(int)
+if (stat_base(prayer) < struct_param($struct0, combatv2_ability_level_req)) {
+    return(0);
+}
+if (map_members = false & struct_param($struct0, combatv2_ability_is_members) = 1) {
+    return(0);
+}
+if (struct_param($struct0, combatv2_skill_requirement_1) ! null & stat_base(struct_param($struct0, combatv2_skill_requirement_1)) < struct_param($struct0, combatv2_skill_requirement_level_1)) {
+    return(0);
+}
+if (struct_param($struct0, combatv2_skill_requirement_2) ! null & stat_base(struct_param($struct0, combatv2_skill_requirement_2)) < struct_param($struct0, combatv2_skill_requirement_level_2)) {
+    return(0);
+}
+if (struct_param($struct0, combatv2_skill_requirement_3) ! null & stat_base(struct_param($struct0, combatv2_skill_requirement_3)) < struct_param($struct0, combatv2_skill_requirement_level_3)) {
+    return(0);
+}
+if (struct_param($struct0, combatv2_skill_requirement_4) ! null & stat_base(struct_param($struct0, combatv2_skill_requirement_4)) < struct_param($struct0, combatv2_skill_requirement_level_4)) {
+    return(0);
+}
+switch_struct ($struct0) {
+    case combatv2_prayer_rapid_renewal :
+        return(%rand_reward_rapid_renewal_prayer);
+    case combatv2_curse_overhead_anguish :
+        return(%nex2_overhead_anguish_prayer_unlocked);
+    case combatv2_curse_overhead_torment :
+        return(%nex2_overhead_torment_prayer_unlocked);
+    case combatv2_curse_overhead_turmoil :
+        return(%nex2_overhead_turmoil_prayer_unlocked);
+    case combatv2_curse_chronicle_attraction, combatv2_curse_darkform, combatv2_curse_fortitude, combatv2_curse_lightform, combatv2_curse_soullink, combatv2_curse_superheat_form, combatv2_curse_teamwork_protection :
+        return(~bool_to_int(~script20177));
+    case combatv2_prayer_augury, combatv2_prayer_rigour, combatv2_prayer_piety, combatv2_prayer_chivalry :
+        if (%kr_knightwaves_state ! 8) {
+            return(0);
+        }
+    case combatv2_prayer_hand_of_judgement, combatv2_prayer_hand_of_fate, combatv2_prayer_hand_of_doom :
+        return(%combatv2_prayer_hand_of_judgement_unlocked);
+    case combatv2_prayer_decay, combatv2_prayer_hastened_decay, combatv2_prayer_accelerated_decay :
+        return(%combatv2_prayer_decay_unlocked);
+    case combatv2_prayer_sanctity :
+        return(%combatv2_prayer_sanctity_unlocked);
+    case combatv2_curse_sap_necromancy_attack :
+        return(%combatv2_curse_sap_necromancy_attack_unlocked);
+    case combatv2_curse_sap_necromancy_strength :
+        return(%combatv2_curse_sap_necromancy_strength_unlocked);
+    case combatv2_curse_leech_necromancy_attack :
+        return(%combatv2_curse_leech_necromancy_attack_unlocked);
+    case combatv2_curse_leech_necromancy_strength :
+        return(%combatv2_curse_leech_necromancy_strength_unlocked);
+    case combatv2_curse_sorrow :
+        return(%combatv2_curse_sorrow_unlocked);
+    case combatv2_curse_ruination :
+        return(%combatv2_curse_ruination_unlocked);
+    case combatv2_prayer_divine_rage :
+        return(%combatv2_prayer_divine_rage_unlocked);
+    case combatv2_prayer_eclipsed_soul :
+        return(%combatv2_prayer_eclipsed_soul_unlocked);
+}
+return(1);

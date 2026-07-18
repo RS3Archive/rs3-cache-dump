@@ -1,0 +1,195 @@
+// 3014
+[proc,script3014](int $int0)
+def_int $int1 = enum_getoutputcount(motw_banners_primary_1);
+def_int $int2 = enum_getoutputcount(motw_banners_primary_1_defaults);
+def_struct $structarray0(max($int1, $int2));
+def_struct $struct3 = null;
+def_struct $struct4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+~script10592(null, 0);
+~script10593(0);
+if_setonop(null, lobbyscreen_pane_playerinfo:message_of_the_week);
+if_setonop(null, lobbyscreen_pane_playerinfo:special_gfx);
+if_setop(1, "", lobbyscreen_pane_playerinfo:special_gfx);
+if_setontimer(null, lobbyscreen:bonus_xp_counter);
+cc_deleteall(lobbyscreen_pane_playerinfo:message_of_the_week_dynamic);
+if_settext("", lobbyscreen_pane_playerinfo:message_text1);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_boolean $boolean9 = false;
+$int7, $int8, $boolean9 = userdetail_lobby_membership;
+def_int $int10 = calc(date_runeday - %lobbyscreen_account_creation_runeday);
+def_string $string0 = "";
+if (%evalid_existing_account_validation_state ! 4 & $int10 <= 5 & %email_validation_validated = 2) {
+    $int10 = calc(5 - $int10);
+    if ($int10 > 1) {
+        if_settext("You have <tostring($int10)> days until you need to validate your email address.", lobbyscreen_pane_playerinfo:message_text1);
+    } else {
+        if_settext("You have one day until you need to validate your email address.", lobbyscreen_pane_playerinfo:message_text1);
+    }
+    if_settextfont(cinzel_18pt_bold, lobbyscreen_pane_playerinfo:message_text1);
+    if_setcolour(^black, lobbyscreen_pane_playerinfo:message_text1);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 22, lobbyscreen_pane_playerinfo:message_text1);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen_pane_playerinfo:message_text1);
+    if_setsize(200, 10, ^setsize_minus, ^setsize_minus, lobbyscreen_pane_playerinfo:message_text1);
+    if_setgraphic(rs3_lobby_primary_default_banner, lobbyscreen_pane_playerinfo:special_gfx);
+    return;
+}
+if_setsize(345, 35, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_playerinfo:message_text1);
+if_setposition(231, 5, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_playerinfo:message_text1);
+if_setcolour(0x0e1903, lobbyscreen_pane_playerinfo:message_text1);
+if_settextfont(welcome_font_large, lobbyscreen_pane_playerinfo:message_text1);
+if_settextalign(^settextalign_centre, ^settextalign_bottom, 0, lobbyscreen_pane_playerinfo:message_text1);
+if_settext("", lobbyscreen_pane_playerinfo:message_text2);
+if_setposition(231, 46, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_playerinfo:message_text2);
+if_setsize(345, 70, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_playerinfo:message_text2);
+if_setcolour(0x0e1903, lobbyscreen_pane_playerinfo:message_text2);
+def_int $int11 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "Featured Content";
+if_settext($string4, lobbyscreen_pane_playerinfo:main_banner_title_text);
+if ($int0 = 1 & ~script18461(crm_braze_lobby_main) = true) {
+    ~script18464(crm_braze_lobby_main);
+} else if (%lobby_runeday = 8829 & date_minutes >= calc(date_minutes_fromruneday(8829) + 720) | %lobby_runeday > 8829 | %lobby_runeday < 7922 | random(2) = 0 & %lobby_runeday >= 7924 | %lobby_show_countdown = 0) {
+    if (%lobby_runeday > 0) {
+        while ($int5 < $int1) {
+            $struct3 = enum(int, struct, motw_banners_primary_1, $int5);
+            if (~script17266($struct3) = true) {
+                switch_struct ($struct3) {
+                    case motw_banner_primary1_dxpw :
+                        $struct4 = $struct3;
+                }
+                $structarray0($int6) = $struct3;
+                $int6 = calc($int6 + 1);
+            }
+            $int5 = calc($int5 + 1);
+        }
+    }
+    if ($struct4 ! null) {
+        $struct3 = $struct4;
+    } else if ($int6 = 0) {
+        $struct3 = enum(int, struct, motw_banners_primary_1, -1);
+        if ($struct3 = motw_banner_primary1_default) {
+            $struct3 = enum(int, struct, motw_banners_primary_1_defaults, calc(%lobby_runeday % $int2));
+            $string4 = "Featured Content";
+        }
+    } else {
+        $struct3 = $structarray0(random($int6));
+    }
+    switch_int (map_lang) {
+        case 1 :
+            $string2 = struct_param($struct3, motw_link_page_de);
+            $string3 = struct_param($struct3, motw_link_raw_de);
+            $string1 = struct_param($struct3, motw_link_module_de);
+        case 2 :
+            $string2 = struct_param($struct3, motw_link_page_fr);
+            $string3 = struct_param($struct3, motw_link_raw_fr);
+            $string1 = struct_param($struct3, motw_link_module_fr);
+        case 3 :
+            $string2 = struct_param($struct3, motw_link_page_pt);
+            $string3 = struct_param($struct3, motw_link_raw_pt);
+            $string1 = struct_param($struct3, motw_link_module_pt);
+    }
+    if (string_length($string2) = 0) {
+        $string2 = struct_param($struct3, motw_link_page);
+    }
+    if (string_length($string3) = 0) {
+        $string3 = struct_param($struct3, motw_link_raw);
+    }
+    if (string_length($string1) = 0) {
+        $string1 = struct_param($struct3, motw_link_module);
+    }
+    if (string_length(struct_param($struct3, motw_title)) > 0) {
+        $string4 = struct_param($struct3, motw_title);
+    }
+    if (string_length($string4) > 0) {
+        if_settext($string4, lobbyscreen_pane_playerinfo:main_banner_title_text);
+    }
+    switch_int (map_lang) {
+        case 0 :
+            $int5 = 1;
+            if (struct_param($struct3, motw_banner_en_2_random) ! null) {
+                $int5 = calc($int5 + 1);
+                if (struct_param($struct3, motw_banner_en_3_random) ! null) {
+                    $int5 = calc($int5 + 1);
+                    if (struct_param($struct3, motw_banner_en_4_random) ! null) {
+                        $int5 = calc($int5 + 1);
+                    }
+                }
+            }
+            switch_int (random($int5)) {
+                case 0 :
+                    if_setgraphic(~script19254($struct3, 0), lobbyscreen_pane_playerinfo:special_gfx);
+                case 1 :
+                    if_setgraphic(struct_param($struct3, motw_banner_en_2_random), lobbyscreen_pane_playerinfo:special_gfx);
+                case 2 :
+                    if_setgraphic(struct_param($struct3, motw_banner_en_3_random), lobbyscreen_pane_playerinfo:special_gfx);
+                case 3 :
+                    if_setgraphic(struct_param($struct3, motw_banner_en_4_random), lobbyscreen_pane_playerinfo:special_gfx);
+            }
+        case default :
+            if_setgraphic(~script19254($struct3, map_lang), lobbyscreen_pane_playerinfo:special_gfx);
+    }
+    if_settext($string4, lobbyscreen_pane_playerinfo:main_banner_title_text);
+    ~script10593(1);
+    switch_int (struct_param($struct3, motw_onclick)) {
+        case 1 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_trh, 1);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_open_trh);
+        case 2, 18 :
+            if_setop(1, "Select", lobbyscreen_pane_playerinfo:special_gfx);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:special_gfx);
+        case 3 :
+            if_setop(1, "Select", lobbyscreen_pane_playerinfo:special_gfx);
+            if (struct_param($struct3, motw_link_secure) = true) {
+                if_setonop("script3434($string1, $string2)", lobbyscreen_pane_playerinfo:special_gfx);
+            } else {
+                if_setonop("script7397($string1, $string2)", lobbyscreen_pane_playerinfo:special_gfx);
+            }
+        case 9 :
+            if_setop(1, "Select", lobbyscreen_pane_playerinfo:special_gfx);
+            if_setonop("script2828($string3)", lobbyscreen_pane_playerinfo:special_gfx);
+        case 4 :
+            if_setop(1, "Select", lobbyscreen_pane_playerinfo:special_gfx);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:special_gfx);
+        case 5 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_tle, 1);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_open_tle);
+        case 7 :
+            if_setop(1, "Select", lobbyscreen_pane_playerinfo:special_gfx);
+        case 8 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_runecoins, 1);
+        case 10 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_managebonds, 1);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_open_managebonds);
+        case 12 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_bp3, 1);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_open_bp3);
+        case 13 :
+            if (platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex) {
+                ~script10592(lobbyscreen_pane_playerinfo:motw_open_mtxspotlight, 1);
+                if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_open_mtxspotlight);
+            } else {
+                if_setop(1, "Select", lobbyscreen_pane_playerinfo:special_gfx);
+                if_setonop("script15228(19)", lobbyscreen_pane_playerinfo:special_gfx);
+            }
+        case 14 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_mtxspotlight, 1);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_open_mtxspotlight);
+        case 19 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_mobile_shop, 1);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_open_mobile_shop);
+        case 15 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_open_keys, 1);
+        case 11 :
+            ~script10592(lobbyscreen_pane_playerinfo:motw_latestcontent, 1);
+            if_setonop("script13252", lobbyscreen_pane_playerinfo:motw_latestcontent);
+    }
+} else {
+    $int11 = calc(date_minutes_fromruneday(8829) + 720 - 1);
+    ~script3568(lobbyscreen_pane_playerinfo:message_of_the_week_dynamic, lobbyscreen:bonus_xp_counter, $int11, date_minutes, -1, -1, 0, 0);
+    if_setontimer("script12275(lobbyscreen_pane_playerinfo:message_of_the_week_dynamic, lobbyscreen:bonus_xp_counter, $int11, date_minutes, -1, -1, 0, 0)", lobbyscreen:bonus_xp_counter);
+}

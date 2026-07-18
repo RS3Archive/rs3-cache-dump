@@ -1,0 +1,81 @@
+// 15663
+[proc,script15663](string $string0, int $int0, int $int1, int $int2, string $string1)
+if (if_gethide(loginscreen:login_progress_popup) = false) {
+    return;
+}
+if (%loginscreen_focus ! 102) {
+    %loginscreen_focus_last = %loginscreen_focus;
+}
+~login_setfocus(102);
+~script15687(%loginscreen_focus);
+def_string $string2 = if_gettext(loginscreen:username);
+if_sethide(true, loginscreen:login_progress_popup_username);
+if_sethide(true, loginscreen:login_progress_popup_password);
+if_sethide(true, loginscreen:login_progress_3rdparty_text);
+if_settext($string0, loginscreen:login_progress_text);
+if ($int2 = -1) {
+    if ($int1 = 0) {
+        if (compare($string2, "") = 0 & sso_available = true) {
+            $string2 = sso_displayname;
+            if (compare($string2, "") ! 0) {
+                if_settext(sso_displayname, loginscreen:login_progress_popup_username_text);
+            }
+        }
+    } else if (~is_mobile_client = false) {
+        if_sethide(false, loginscreen:login_progress_3rdparty_text);
+    }
+}
+if (if_gethide(loginscreen:login_progress_3rdparty_text) = true) {
+    if_setposition(0, 83, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:login_progress_popup_throbber_layer);
+    if_setposition(0, 148, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:login_progress_text);
+} else {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:login_progress_popup_throbber_layer);
+    if_setposition(0, 75, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:login_progress_text);
+}
+%throbber_last = calc(clientclock + 5);
+if_setgraphic(null, loginscreen:login_progress_popup_throbber);
+def_component $component3 = loginscreen:login_progress_popup_throbber_layer;
+if ($component3 ! null) {
+    if (cc_find($component3, 0) = true) {
+        if (cc_getgraphic = rs3_loading_spinner_default_backing) {
+            cc_sethide(false);
+        }
+        if (cc_find($component3, 1) = true & cc_getgraphic = rs3_loading_spinner_default) {
+            cc_sethide(false);
+            cc_set2dangle(0);
+        }
+    } else {
+        cc_create($component3, ^iftype_graphic, 0);
+        .cc_create($component3, ^iftype_graphic, 1);
+        cc_setgraphic(rs3_loading_spinner_default_backing);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+        .cc_setgraphic(rs3_loading_spinner_default);
+        .cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        .cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    }
+}
+if_setontimer("login_popup_throbber($component3)", $component3);
+if_settext($string1, loginscreen:login_progress_popup_cancel);
+if (if_find(loginscreen:login_progress_popup_cancel) = true) {
+    if ($int2 = -1) {
+        cc_sethide(false);
+        cc_setonbuttonpressed("login_abort($int0)");
+    } else {
+        cc_sethide(false);
+        switch_int ($int2) {
+            case 0 :
+                cc_setonbuttonpressed("login_steam_abort");
+            case 1 :
+                cc_setonbuttonpressed("script15257");
+            case 2 :
+                cc_setonbuttonpressed("loginscreen_steam_error_abort(1)");
+            case 3 :
+                cc_setonbuttonpressed("loginscreen_steam_error_abort(2)");
+            case 4 :
+                cc_setonbuttonpressed("loginscreen_steam_error_abort(4)");
+            case default :
+                cc_sethide(true);
+        }
+    }
+}

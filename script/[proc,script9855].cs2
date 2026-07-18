@@ -1,0 +1,66 @@
+// 9855
+[proc,script9855](component $component0, int $int1, int $int2, int $int3, obj $obj4, int $int5, int $int6, int $int7, int $int8, boolean $boolean9)
+def_int $int10 = $int6;
+def_int $int11 = min(6, $int1);
+def_int $int12 = 90;
+if ($int6 >= 6) {
+    $int12 = calc($int12 * 2);
+    $int11 = calc($int1 - 6);
+    $int10 = calc($int6 - 6);
+}
+def_int $int13 = calc((504 - $int11 * 65 - ($int11 - 1) * 15) / 2);
+def_int $int14 = calc($int13 + $int10 * (65 + 15));
+def_int $int15 = ~script3506($int2);
+def_string $string0 = "<tostring($int5)>x <oc_name($obj4)>";
+if ($int15 > %atlum_day_tracker) {
+    $string0 = append($string0, "<br> Claimable on: <~script3507($int15)>");
+}
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(65, 65, ^setsize_abs, ^setsize_abs);
+cc_setposition($int14, $int12, ^setpos_abs_left, ^setpos_abs_top);
+if ($int15 = %atlum_day_tracker) {
+    cc_setgraphic(container_active_prize_daily);
+} else {
+    cc_setgraphic(container_default_prize_daily);
+}
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+cc_setposition($int14, $int12, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour(^white);
+cc_settextfont(cinzel_15pt_bold);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settext(tostring(calc($int6 + 1)));
+if ($boolean9 = false & %ironman_enabled = 1) {
+    if ($int15 >= %atlum_day_tracker) {
+        %daily_rewards_missed_ironman_count = calc(%daily_rewards_missed_ironman_count + 1);
+    }
+    return;
+}
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+if ($int15 <= %atlum_day_tracker) {
+    if (~script9961($int6) = 1) {
+        cc_setgraphic(icon_tick_daily);
+    } else {
+        cc_setgraphic(icon_cross_daily);
+    }
+    cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int14 + 18), calc($int12 + 18), ^setpos_abs_left, ^setpos_abs_top);
+}
+if ($int15 >= %atlum_day_tracker & ~script9961($int6) ! 1) {
+    cc_setobject($obj4, $int5);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int14 + 16), calc($int12 + 17), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setop(1, "Info");
+    cc_setopcursor(1, cursor_info);
+    cc_setonop("script7774($string0, event_com, event_comsubid, 0)");
+}
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int14 + 45), calc($int12 + 45), ^setpos_abs_left, ^setpos_abs_top);
+if ($int8 ! -1 & $int15 >= %atlum_day_tracker & ~script9961($int6) ! 1) {
+    if (%daily_rewards_claim_count >= $int8) {
+        cc_setgraphic(icon_multiplier_x2);
+    } else if (calc($int6 - $int7 - %daily_rewards_missed_ironman_count) >= $int3) {
+        cc_setgraphic(icon_multiplier_x2_grey);
+    }
+}

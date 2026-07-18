@@ -1,0 +1,25 @@
+// 3639
+[clientscript,runepass_setup_interface]
+if (~is_mobile_client = true) {
+    ~script8179;
+} else {
+    if_sethide(true, runepass:back_button_arrow);
+}
+def_dbrow $dbrow0 = ~runepass_get_current;
+if ($dbrow0 = null) {
+    return;
+}
+if_setscrollsize(0, 11115, runepass:scrolling);
+if_setsize(0, calc(11115 / 2), ^setsize_minus, ^setsize_abs, runepass:back_parallax_low);
+if_setsize(0, calc(11115 * 2), ^setsize_minus, ^setsize_abs, runepass:back_parallax_high);
+~runepass_setup_interface($dbrow0);
+~script3648(%runepass_task_sets_completed);
+~runepass_build_background($dbrow0);
+if (%runepass_seen_tutorial = 0) {
+    if_sethide(false, runepass:welcome);
+} else if (%runepass_seen_tut_panels = 0) {
+    if_sethide(false, runepass:tutorial);
+}
+if_setontimer("script15208($dbrow0)", runepass:time_remaining_layer);
+~script9065;
+~script15209($dbrow0);

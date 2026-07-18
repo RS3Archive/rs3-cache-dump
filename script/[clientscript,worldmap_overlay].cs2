@@ -1,0 +1,85 @@
+// 2045
+[clientscript,worldmap_overlay](component $component0, component $component1, int $int2, int $int3, int $int4)
+if ($component1 = null) {
+    $component1 = ~script8101;
+}
+if (worldmap_isloaded = false) {
+    ~worldmap_overlay_clear($component0);
+    return;
+}
+def_int $int5 = if_getwidth($component1);
+if ($int5 <= 0) {
+    return;
+}
+if (if_getwidth($component0) <= 0) {
+    return;
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int6, $int7 = worldmap_getsize;
+if ($int6 <= 0) {
+    return;
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int8, $int9 = worldmap_getdisplayposition;
+def_int $int10 = calc($int9 + $int7 / 2);
+def_int $int11 = calc($int9 - $int7 / 2);
+def_int $int12 = calc($int8 + $int6 / 2);
+def_int $int13 = calc($int8 - $int6 / 2);
+$int13 = calc($int13 + scale($int6, $int5, calc($int5 - if_getwidth($component0))));
+if ($int8 ! $int2 | $int9 ! $int3 | $int7 ! $int4) {
+    if_setontimer("worldmap_overlay($component0, $component1, $int8, $int9, $int7)", $component0);
+    ~worldmap_elements_update($component0, $int10, $int11, $int12, $int13);
+}
+if (%worldmap_yah_hidden = 0) {
+    ~worldmap_arrow_update(worldmap_v2_ui:you_are_here, %worldmap_player_coord, "You are here", worldmap_overlay_style_default, $component0, $int10, $int11, $int12, $int13);
+} else {
+    cc_deleteall(worldmap_v2_ui:you_are_here);
+}
+~worldmap_arrow_update(worldmap_v2_ui:arrow0, %worldmap_arrow0_coord, %worldmap_arrow0_text, %worldmap_arrow0_style, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow1, %worldmap_arrow1_coord, %worldmap_arrow1_text, %worldmap_arrow1_style, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow2, %worldmap_arrow2_coord, %worldmap_arrow2_text, %worldmap_arrow2_style, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow3, %worldmap_arrow3_coord, %worldmap_arrow3_text, %worldmap_arrow3_style, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow_gravestone, %worldmap_arrowgravestone_coord, %worldmap_arrowgravestone_text, %worldmap_arrowgravestone_style, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow_newcontent, %worldmap_arrownewcontent_coord, %worldmap_arrownewcontent_text, %worldmap_arrownewcontent_style, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow_waypoint, %playerdesign2_col, "Your marker", worldmap_overlay_style_questpointer, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow_raid_demon_boss, %dnd_summon_boss_client_location, "", worldmap_overlay_style_demonpointer, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow_wildy_events, %wildy_events_client_location, "", worldmap_overlay_style_wildy_events, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow_jmod_event, %event_marker_location_client, "J-Mod", worldmap_overlay_style_jmodpointer, $component0, $int10, $int11, $int12, $int13);
+~worldmap_arrow_update(worldmap_v2_ui:arrow_holidayevent, %worldmap_holidayevent_arrow_location, "", worldmap_overlay_style_holidaypointer, $component0, $int10, $int11, $int12, $int13);
+if (%runepass_cached_dbrow ! null) {
+    ~worldmap_arrow_update(worldmap_v2_ui:arrow_holidayevent, 0_45_55_0_0, "", worldmap_overlay_style_runepass, $component0, $int10, $int11, $int12, $int13);
+}
+if (playermember = false) {
+    if (worldmap_getcurrentmap = main) {
+        ~script9331(worldmap_v2_ui:upsell0, worldmap_overlay_upsell_morytania, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell1, worldmap_overlay_upsell_kharidiandesert, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell2, worldmap_overlay_upsell_karamja, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell3, worldmap_overlay_upsell_feldiphills, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell4, worldmap_overlay_upsell_tirannwn, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell5, worldmap_overlay_upsell_kandarin, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell6, worldmap_overlay_upsell_fremennikprovince, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell7, worldmap_overlay_upsell_mosleharmless, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell8, worldmap_overlay_upsell_apeatoll, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell9, worldmap_overlay_upsell_trolllands, $component0, $int10, $int11, $int12, $int13);
+        ~script9331(worldmap_v2_ui:upsell10, worldmap_overlay_upsell_dinosaur_island, $component0, $int10, $int11, $int12, $int13);
+    } else {
+        cc_deleteall(worldmap_v2_ui:upsell0);
+        cc_deleteall(worldmap_v2_ui:upsell1);
+        cc_deleteall(worldmap_v2_ui:upsell2);
+        cc_deleteall(worldmap_v2_ui:upsell3);
+        cc_deleteall(worldmap_v2_ui:upsell4);
+        cc_deleteall(worldmap_v2_ui:upsell5);
+        cc_deleteall(worldmap_v2_ui:upsell6);
+        cc_deleteall(worldmap_v2_ui:upsell7);
+        cc_deleteall(worldmap_v2_ui:upsell8);
+        cc_deleteall(worldmap_v2_ui:upsell9);
+        cc_deleteall(worldmap_v2_ui:upsell10);
+    }
+}
+if (worldmap_getcurrentmap = main) {
+    ~script9331(worldmap_v2_ui:newcontent_upsell0, ~script13350, $component0, $int10, $int11, $int12, $int13);
+} else {
+    cc_deleteall(worldmap_v2_ui:newcontent_upsell0);
+}

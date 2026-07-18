@@ -1,0 +1,141 @@
+// 2433
+[proc,quickchat_onkey_standard](int $key0, char $char1, int $int2)
+def_component $component3 = ~script8599($int2);
+def_enum $enum4 = ~script8602($int2);
+def_int $int5 = 0;
+def_component $component6 = enum(int, component, $enum4, $int5);
+while ($component6 ! null & if_gethide($component6) = false) {
+    $int5 = calc($int5 + 1);
+    $component6 = enum(int, component, $enum4, $int5);
+}
+$int5 = max(0, calc($int5 - 1));
+$component6 = enum(int, component, $enum4, $int5);
+def_int $int7 = if_getnextsubid($component6);
+def_chatcat $chatcat8 = null;
+def_chatphrase $chatphrase9 = null;
+if (if_find($component6) = true) {
+    $chatcat8 = cc_param(toplevel_v2_chat_quickchat_rootcat);
+    $chatphrase9 = cc_param(toplevel_v2_chat_quickchat_rootphrase);
+}
+def_component $component10 = enum(int, component, ~script8603($int2), $int5);
+def_int $int11 = 0;
+def_int $int12 = 0;
+switch_int ($key0) {
+    case ^key_page_up :
+        if ($int7 = 0) {
+            return;
+        }
+        if (cc_find($component10, ~script8617($int2)) = true) {
+            cc_sethide(true);
+        }
+        if (~script8617($int2) <= 0) {
+            ~script8618($int2, calc($int7 - 1));
+        } else {
+            ~script8618($int2, calc(~script8617($int2) - 1));
+        }
+        if (cc_find($component10, ~script8617($int2)) = true & cc_gethide = true) {
+            cc_sethide(false);
+            cc_setcolour(0x577e45);
+        }
+        return;
+    case ^key_page_down :
+        if ($int7 = 0) {
+            return;
+        }
+        if (cc_find($component10, ~script8617($int2)) = true) {
+            cc_sethide(true);
+        }
+        if (~script8617($int2) = calc($int7 - 1)) {
+            ~script8618($int2, 0);
+        } else {
+            ~script8618($int2, calc(~script8617($int2) + 1));
+        }
+        if (cc_find($component10, ~script8617($int2)) = true & cc_gethide = true) {
+            cc_sethide(false);
+            cc_setcolour(0x577e45);
+        }
+        return;
+    case ^key_return :
+        if (~script8617($int2) < 0) {
+            if ($int5 = 0) {
+                ~quickchat_enter_search($component6, enum(int, component, ~script8603($int2), $int5), ~script8617($int2), calc($int5 + 1), $int2);
+            }
+        } else if ($chatcat8 ! null) {
+            $int11 = chatcat_getsubcatcount($chatcat8);
+            $int12 = chatcat_getphrasecount($chatcat8);
+            if (~script8617($int2) = calc($int11 + $int12)) {
+                if ($int5 = 0 & ~script1036 ! null & cc_find($component6, ~script8617($int2)) = true) {
+                    ~quickchat_menu_select($component6, enum(int, component, ~script8603($int2), $int5), ~script8617($int2), $component3, calc($int5 + 1), ~script1036, $int2);
+                }
+            } else if (~script8617($int2) < $int11) {
+                ~quickchat_menu_select($component6, enum(int, component, ~script8603($int2), $int5), ~script8617($int2), $component3, calc($int5 + 1), chatcat_getsubcat($chatcat8, ~script8617($int2)), $int2);
+            } else if (~script8617($int2) < calc($int11 + $int12)) {
+                ~quickchat_phrase($component3, chatcat_getphrase($chatcat8, calc(~script8617($int2) - $int11)), $int5, $int2);
+            } else {
+                ~quickchat_enter_search($component6, enum(int, component, ~script8603($int2), $int5), ~script8617($int2), calc($int5 + 1), $int2);
+            }
+        } else if ($chatphrase9 ! null) {
+            $int11 = 0;
+            $int12 = chatphrase_getautoresponsecount($chatphrase9);
+            ~quickchat_phrase($component3, chatphrase_getautoresponse($chatphrase9, ~script8617($int2)), $int5, $int2);
+        }
+        return;
+    case ^key_home :
+        ~quickchat_open(~script8613($int2), ~script8605($int2), $int2);
+        return;
+    case ^key_escape :
+        ~quickchat_close($int2);
+        return;
+    case ^key_backspace :
+        if ($int5 > 0) {
+            ~quickchat_return($component3, calc($int5 - 1), $int2);
+            return;
+        }
+}
+if (char_isalphanumeric($char1) = false) {
+    return;
+}
+$char1 = char_touppercase($char1);
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_char $char15 = null;
+if ($chatcat8 ! null) {
+    $int11 = chatcat_getsubcatcount($chatcat8);
+    $int12 = chatcat_getphrasecount($chatcat8);
+    if ($int5 = 0 & compare("X", append_char("", $char1)) = 0 & ~script1036 ! null) {
+        $int13 = calc($int11 + $int12);
+        if (cc_find(enum(int, component, ~script8602($int2), $int5), $int13) = true) {
+            ~quickchat_menu_select(enum(int, component, ~script8602($int2), $int5), enum(int, component, ~script8603($int2), $int5), $int13, $component3, calc($int5 + 1), ~script1036, $int2);
+        }
+        return;
+    }
+    $int13 = 0;
+    while ($int14 < $int11) {
+        $char15 = char_touppercase(chatcat_getsubcatshortcut($chatcat8, $int14));
+        if ($char15 = $char1) {
+            ~quickchat_menu_select(enum(int, component, ~script8602($int2), $int5), enum(int, component, ~script8603($int2), $int5), $int13, $component3, calc($int5 + 1), chatcat_getsubcat($chatcat8, $int13), $int2);
+            return;
+        }
+        $int13 = calc($int13 + 1);
+        $int14 = calc($int14 + 1);
+    }
+} else {
+    $int11 = 0;
+    $int12 = chatphrase_getautoresponsecount($chatphrase9);
+}
+if (char_isnumeric($char1) = false) {
+    return;
+}
+def_int $int16 = string_indexof_char("0123456789", $char1, 0);
+if ($int16 = 0) {
+    $int16 = 10;
+}
+if ($int16 > $int12) {
+    return;
+}
+$int13 = calc($int16 - 1);
+if ($chatcat8 ! null) {
+    ~quickchat_phrase($component3, chatcat_getphrase($chatcat8, $int13), $int5, $int2);
+} else if ($chatphrase9 ! null) {
+    ~quickchat_phrase($component3, chatphrase_getautoresponse($chatphrase9, $int13), $int5, $int2);
+}

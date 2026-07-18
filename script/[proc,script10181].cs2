@@ -1,0 +1,120 @@
+// 10181
+[proc,script10181](int $int0, int $int1)
+def_int $int2 = 24;
+switch_int ($int0) {
+    case 0 :
+        %clan_list_sort_layer = clan_camp_list:clan_name;
+    case 1 :
+        %clan_list_sort_layer = clan_camp_list:clan_name;
+    case 2 :
+        %clan_list_sort_layer = clan_camp_list:clan_rep;
+    case 3 :
+        %clan_list_sort_layer = clan_camp_list:clan_rep;
+    case 4 :
+        %clan_list_sort_layer = clan_camp_list:clan_size;
+    case 5 :
+        %clan_list_sort_layer = clan_camp_list:clan_size;
+    case 6 :
+        %clan_list_sort_layer = clan_camp_list:clan_recruiting_text;
+    case 7 :
+        %clan_list_sort_layer = clan_camp_list:clan_recruiting_text;
+    case 8 :
+        %clan_list_sort_layer = clan_camp_list:clan_citadel_text;
+    case 9 :
+        %clan_list_sort_layer = clan_camp_list:clan_citadel_text;
+    case default :
+        %clan_list_sort_layer = clan_camp_list:clan_name;
+}
+def_int $intarray0(if_getnextsubid(%clan_list_sort_layer));
+%clan_list_sort_order = $int1;
+def_component $componentarray1(10);
+$componentarray1(0) = clan_camp_list:sort_name_desc_button_active_layer;
+$componentarray1(1) = clan_camp_list:sort_name_asc_button_active_layer;
+$componentarray1(2) = clan_camp_list:sort_rep_desc_button_active_layer;
+$componentarray1(3) = clan_camp_list:sort_rep_asc_button_active_layer;
+$componentarray1(4) = clan_camp_list:sort_size_desc_button_active_layer;
+$componentarray1(5) = clan_camp_list:sort_size_asc_button_active_layer;
+$componentarray1(6) = clan_camp_list:sort_recruiting_desc_button_active_layer;
+$componentarray1(7) = clan_camp_list:sort_recruiting_asc_button_active_layer;
+$componentarray1(8) = clan_camp_list:sort_citadel_desc_button_active_layer;
+$componentarray1(9) = clan_camp_list:sort_citadel_asc_button_active_layer;
+def_component $componentarray2(10);
+$componentarray2(0) = clan_camp_list:sort_name_desc_button_selected_layer;
+$componentarray2(1) = clan_camp_list:sort_name_asc_button_selected_layer;
+$componentarray2(2) = clan_camp_list:sort_rep_desc_button_selected_layer;
+$componentarray2(3) = clan_camp_list:sort_rep_asc_button_selected_layer;
+$componentarray2(4) = clan_camp_list:sort_size_desc_button_selected_layer;
+$componentarray2(5) = clan_camp_list:sort_size_asc_button_selected_layer;
+$componentarray2(6) = clan_camp_list:sort_recruiting_desc_button_selected_layer;
+$componentarray2(7) = clan_camp_list:sort_recruiting_asc_button_selected_layer;
+$componentarray2(8) = clan_camp_list:sort_citadel_desc_button_selected_layer;
+$componentarray2(9) = clan_camp_list:sort_citadel_asc_button_selected_layer;
+def_component $componentarray3(10);
+$componentarray3(0) = clan_camp_list:sort_name_desc_button_layer;
+$componentarray3(1) = clan_camp_list:sort_name_asc_button_layer;
+$componentarray3(2) = clan_camp_list:sort_rep_desc_button_layer;
+$componentarray3(3) = clan_camp_list:sort_rep_asc_button_layer;
+$componentarray3(4) = clan_camp_list:sort_size_desc_button_layer;
+$componentarray3(5) = clan_camp_list:sort_size_asc_button_layer;
+$componentarray3(6) = clan_camp_list:sort_recruiting_desc_button_layer;
+$componentarray3(7) = clan_camp_list:sort_recruiting_asc_button_layer;
+$componentarray3(8) = clan_camp_list:sort_citadel_desc_button_layer;
+$componentarray3(9) = clan_camp_list:sort_citadel_asc_button_layer;
+def_int $int3 = 0;
+while ($int3 < 10) {
+    if_sethide(true, $componentarray2($int3));
+    $int3 = calc($int3 + 1);
+}
+$int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = calc(if_getnextsubid(%clan_list_sort_layer) - 1);
+while ($int3 <= $int5) {
+    if (cc_find(%clan_list_sort_layer, $int3) = true & string_length(cc_gettext) > 0) {
+        $intarray0($int4) = $int3;
+        $int4 = calc($int4 + 1);
+    }
+    $int3 = calc($int3 + 1);
+}
+if ($int4 > 1) {
+    if (%clan_list_sort_order = 1) {
+        ~script4424(intarray0, %clan_list_sort_layer, 0, calc($int4 - 1));
+    } else {
+        ~script4425(intarray0, %clan_list_sort_layer, 0, calc($int4 - 1));
+    }
+}
+$int3 = 0;
+while ($int3 < $int4) {
+    if (cc_find(clan_camp_list:clan_name, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find(clan_camp_list:clan_rep, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find(clan_camp_list:clan_size, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find(clan_camp_list:clan_recruiting, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3 + 5), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    if (cc_find(clan_camp_list:clan_recruiting_text, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3 + 5), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    if (cc_find(clan_camp_list:clan_citadel, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3 + 5), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    if (cc_find(clan_camp_list:clan_citadel_text, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3 + 5), ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    if (cc_find(clan_camp_list:more_button, $intarray0($int3)) = true) {
+        cc_setposition(0, calc($int2 * $int3), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int3 = calc($int3 + 1);
+}
+if_sethide(true, $componentarray3($int0));
+if (calc($int0 % 2) = 0) {
+    if_sethide(false, $componentarray3(calc($int0 + 1)));
+    if_sethide(false, $componentarray2(calc($int0 + 1)));
+} else {
+    if_sethide(false, $componentarray3(calc($int0 - 1)));
+    if_sethide(false, $componentarray2(calc($int0 - 1)));
+}

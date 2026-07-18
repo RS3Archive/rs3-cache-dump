@@ -1,0 +1,94 @@
+// 20293
+[proc,script20293](int $int0, component $component1, component $component2, component $component3, int $int4)
+cc_deleteall($component2);
+cc_deleteall($component1);
+def_dbrow $dbrow5 = ~script20117(%league_active_player);
+if (~script20132($dbrow5) = false) {
+    ~script20323($component2, $component1);
+    return;
+}
+def_dbrow $dbrow6 = db_getfield($dbrow5, league:col11, 0);
+def_int $int7 = 1;
+if ($int0 = 1) {
+    %varclientbit_58403 = ~clamp(%varclientbit_58403, 0, db_getfieldcount($dbrow6, league_task_settings:col6));
+    $int7 = %varclientbit_58403;
+}
+def_dbrow $dbrow8 = db_getfield($dbrow6, league_task_settings:col6, $int7);
+def_enum $enum9 = db_getfield($dbrow6, league_task_settings:col0:2, 0);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+if (db_getrowtable($dbrow8) = graphics_dropdown) {
+    $int11 = calc(db_getfieldcount($dbrow8, graphics_dropdown:col0) - 1);
+} else {
+    $int11 = db_getfieldcount($dbrow8, league_task_order:col1);
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_graphic $graphic13 = null;
+def_int $int14 = 0;
+def_graphic $graphic15 = "rs3_icon_accordion,3";
+while ($int10 < $int11) {
+    if (db_getrowtable($dbrow8) = graphics_dropdown) {
+        $int12 = calc(200 + $int10);
+        $string0, $graphic13 = db_getfield($dbrow8, graphics_dropdown:col0, calc($int10 + 1));
+        $string1 = tostring(enum(int, int, $enum9, calc($int10 + 1)));
+    } else {
+        $int12 = calc(200 + db_getfield($dbrow8, league_task_order:col1:0, $int10));
+        $graphic13 = db_getfield($dbrow8, league_task_order:col1:1, $int10);
+        $string0 = db_getfield($dbrow8, league_task_order:col1:2, $int10);
+        $string1 = tostring(enum(int, int, $enum9, $int10));
+    }
+    if (if_exists($int12, 0, $component1) = 0) {
+        $int14 = ~script20171($int7, calc($int12 - 200));
+        ~if_add_child_panel($component1, $int12, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 40, ^setsize_minus, ^setsize_abs, true, 4);
+        cc_setparam(league_task_cat_full_height, 40);
+        cc_setparam(league_task_cat_entries, 0);
+        cc_setparam(league_task_cat_entries_global, 0);
+        ~cc_add_child_layer($int12, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 40, ^setsize_minus, ^setsize_abs);
+        cc_sendtofront;
+        ~cc_add_child_button($int12, 2, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_default, "");
+        if ($int14 = 1) {
+            $graphic15 = "rs3_icon_accordion,0";
+            cc_setop(1, "Expand");
+        } else {
+            $graphic15 = "rs3_icon_accordion,3";
+            cc_setop(1, "Collapse");
+        }
+        cc_setonbuttonpressed("script20311($component1, $component2, $component3, $int12, $int7)");
+        cc_setonscrollwheel("scrollbar_vertical_wheel($component3, $component2, event_mousey)");
+        ~cc_add_child_graphic($int12, 3, 2, 0, ^setpos_abs_left, ^setpos_abs_centre, 30, 30, ^setsize_abs, ^setsize_abs, $graphic13);
+        if ($int7 = 0) {
+            ~cc_add_child_text($int12, 4, 35, 2, ^setpos_abs_left, ^setpos_abs_top, 85, 7373, ^setsize_minus, ^setsize_rel, text_label_standard, $string0);
+            ~cc_add_child_text($int12, 5, 35, 2, ^setpos_abs_left, ^setpos_abs_bottom, 85, 7373, ^setsize_minus, ^setsize_rel, text_subtitle_body, "<$string1> points per task completed.");
+        } else {
+            ~cc_add_child_text($int12, 4, 35, 0, ^setpos_abs_left, ^setpos_abs_centre, 85, 0, ^setsize_minus, ^setsize_minus, text_label_standard, $string0);
+        }
+        ~cc_add_child_graphic($int12, 6, 2, 0, ^setpos_abs_right, ^setpos_abs_centre, 13, 13, ^setsize_abs, ^setsize_abs, $graphic15);
+        ~cc_add_child_text($int12, 7, 17, 0, ^setpos_abs_right, ^setpos_abs_centre, 25, 0, ^setsize_abs, ^setsize_minus, text_body_small_print, "");
+        cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    }
+    $int10 = calc($int10 + 1);
+}
+def_dbfilter $dbfilter16 = null;
+if ($int0 = 1) {
+    $dbfilter16 = ~script20169(%varclientbit_58393, %varclientbit_58395, %varclientbit_58397, %varclientbit_58399, 0);
+} else {
+    $dbfilter16 = ~script20168(db_getfield($dbrow5, league:col20, 0));
+    %league_task_child_last_w = if_getwidth(league_child_tasks:main);
+    %league_task_child_last_h = if_getheight(league_child_tasks:main);
+}
+def_int $int17 = 0;
+def_int $int18 = 0;
+switch_int ($int7) {
+    case 1 :
+        unknown_command_77($dbfilter16, league_task:col5, true);
+        $int18 = ~script20294($component1, $dbrow8, $int7);
+    case default :
+        unknown_command_77($dbfilter16, league_task:col6, true);
+        $int18 = ~script20295($component1, $int7);
+}
+if ($int18 = 0) {
+    ~script20309($component1, $component2, $component3);
+}
+~rs3_scrollbar_vertical($component3, $component2);

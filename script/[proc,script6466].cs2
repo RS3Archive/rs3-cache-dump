@@ -1,0 +1,145 @@
+// 6466
+[proc,script6466](struct $struct0, int $int1, int $int2, int $int3, int $int4)(int, int)
+def_int $int5 = struct_param($struct0, mtxmgt_category);
+def_int $int6 = struct_param($struct0, mtxmgt_subcat);
+if ($int5 ! 2 & $int3 = 0) {
+    return($int1, $int2);
+}
+if (gender = 0 & $int5 = 1 & ($int6 = 1 | $int6 = 2) & struct_param($struct0, mtxmgt_hair_id) ! 0 & enum(int, struct, player_kit_head_struct_male, struct_param($struct0, mtxmgt_hair_id)) = hair_m_struct_bald) {
+    return($int1, $int2);
+}
+def_component $component7 = enum(int, component, mtxmgt_subcat_lists, $int6);
+if ($component7 = null) {
+    return($int1, $int2);
+}
+if ($int4 = 1) {
+    $component7 = enum(int, component, mtxmgt_subcat_lists, 22);
+}
+def_int $int8 = if_getnextsubid($component7);
+def_enum $enum9 = null;
+def_int $int10 = -1;
+if ($int5 ! 2) {
+    $enum9 = enum(int, enum, mtxmgt_category_list, $int5);
+    if ($enum9 ! null & enum_getreversecount(struct, $enum9, $struct0) > 0) {
+        $int10 = calc(enum_getreverseindex(struct, int, $enum9, $struct0, 0) * 3);
+        while ($int8 < $int10) {
+            cc_create($component7, ^iftype_graphic, $int8);
+            cc_create($component7, ^iftype_text, calc($int8 + 1));
+            cc_create($component7, ^iftype_graphic, calc($int8 + 2));
+            $int8 = calc($int8 + 3);
+        }
+    }
+}
+def_graphic $graphic11 = "rs3_btn_wardrobe_selection,2";
+def_graphic $graphic12 = "rs3_btn_wardrobe_selection,3";
+def_int $rgb13 = 0xe3d7cf;
+def_int $int14 = -1;
+def_int $int15 = -1;
+def_int $int16 = -1;
+def_int $int17 = -1;
+def_int $int18 = 1426;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = -1;
+if (~script6488($struct0) = 0) {
+    if (~script7388($struct0) = 1) {
+        $graphic11 = "rs3_btn_wardrobe_selection,6";
+        $graphic12 = "rs3_btn_wardrobe_selection,7";
+        $rgb13 = 0x8e8e8e;
+    } else {
+        $graphic11 = "rs3_btn_wardrobe_selection,0";
+        $graphic12 = "rs3_btn_wardrobe_selection,1";
+        $rgb13 = 0x8e8e8e;
+    }
+} else if (~script6489($struct0) = 1) {
+    $graphic11 = "rs3_btn_wardrobe_selection,4";
+    $graphic12 = "rs3_btn_wardrobe_selection,5";
+    $rgb13 = 0xf0be79;
+} else if (~script7388($struct0) = 1) {
+    $graphic11 = "rs3_btn_wardrobe_selection,7";
+    $graphic12 = "rs3_btn_wardrobe_selection,8";
+    $rgb13 = 0xf0be79;
+}
+if ($int5 = 3 & ~script19681($struct0) ! null) {
+    $graphic11 = "rs3_btn_wardrobe_selection,2";
+    $graphic12 = "rs3_btn_wardrobe_selection,3";
+    $rgb13 = 0xe3d7cf;
+}
+def_int $int22 = 0;
+switch_int ($int5) {
+    case 1 :
+        $int22 = 155;
+    case 5 :
+        $int22 = 205;
+    case default :
+        $int22 = 225;
+}
+cc_create($component7, ^iftype_graphic, $int8);
+cc_setgraphic($graphic11);
+if ($int3 = 1) {
+    cc_setsize(calc($int22 - 10), calc(26 - 0), ^setsize_abs, ^setsize_abs);
+} else {
+    cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+}
+cc_setposition(calc($int2 * $int22 + ($int22 - cc_getwidth) / 2), calc($int1 + (26 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setop(1, "Preview");
+if ($graphic11 = "rs3_btn_wardrobe_selection,4" & $int5 ! 1 & $int5 ! 5) {
+    cc_setop(2, "Deactivate");
+} else if ($int19 = 0 & $int20 = 0 & ($graphic11 = "rs3_btn_wardrobe_selection,2" | $graphic11 = "rs3_btn_wardrobe_selection,7") & $int5 ! 5 & ($int5 ! 3 | ~script18366($struct0) = false)) {
+    cc_setop(2, "Activate");
+} else if ($int5 = 5 & struct_param($struct0, mtxmgt_pet_recolour_op2) = 1) {
+    cc_setop(2, "Recolour");
+} else {
+    cc_setop(2, "");
+}
+cc_setonop("script6480(event_com, event_comsubid)");
+cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic12)");
+cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic11)");
+def_string $string0 = "";
+def_string $string1 = "";
+def_enum $enum23 = null;
+if ($int5 = 1) {
+    if ($int6 = 1 | $int6 = 2) {
+        if (gender = 1) {
+            $enum23 = player_kit_head_struct_female;
+        } else {
+            $enum23 = player_kit_head_struct_male;
+        }
+        $string0 = struct_param(enum(int, struct, $enum23, struct_param($struct0, mtxmgt_hair_id)), hair_name);
+    } else if ($int6 = 3 | $int6 = 4) {
+        $string0 = enum(int, string, player_kit_male_beard_names, struct_param($struct0, mtxmgt_hair_id));
+    }
+} else if ($int6 = 19) {
+    if (~script9964($struct0) = null) {
+        $string0 = struct_param($struct0, mtxmgt_name);
+    } else {
+        $string0 = "Cosmetic <lowercase(oc_name(~script9964($struct0)))>";
+        if (string_length($string0) > 27) {
+            $string1 = $string0;
+            $string0 = "<substring($string0, 0, 24)>...";
+        }
+    }
+} else {
+    $string0 = struct_param($struct0, mtxmgt_name);
+}
+cc_create($component7, ^iftype_text, calc($int8 + 1));
+cc_settext($string0);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour($rgb13);
+if ($int3 = 1) {
+    cc_setsize(calc($int22 - 10), calc(26 - 0), ^setsize_abs, ^setsize_abs);
+} else {
+    cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+}
+cc_setposition(calc($int2 * $int22 + ($int22 - cc_getwidth) / 2), calc($int1 + (26 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+if (string_length($string1) > 1) {
+    ~script14990(0, $string1);
+}
+if ($int3 = 1) {
+    if_setsize(0, calc($int1 + 26), ^setsize_minus, ^setsize_abs, $component7);
+    $int1 = calc($int1 + 26);
+} else {
+    if_setsize(0, $int1, ^setsize_minus, ^setsize_abs, $component7);
+}
+return($int1, $int2);

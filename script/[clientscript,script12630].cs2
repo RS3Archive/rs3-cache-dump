@@ -1,0 +1,24 @@
+// 12630
+[clientscript,script12630](component $component0)
+def_int $int1 = calc(33 - 1);
+def_int $int2 = 0;
+if (calc(clientclock % 50) = 0 & .if_find($component0) = true) {
+    while (cc_find($component0, ++$int1) = true) {
+        if (calc(cc_getx + cc_getwidth) < 1 | cc_getx >= .cc_getwidth | calc(cc_gety + cc_getheight) < 1 | cc_gety >= .cc_getheight) {
+            $int2 = calc($int2 + 1);
+        }
+    }
+    if (if_getnextsubid($component0) = calc($int2 + 33)) {
+        $int1 = calc(33 - 1);
+        while (cc_find($component0, ++$int1) = true) {
+            cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+            cc_setparam(rs3tli_component_anchor_pos_x, ^min_32bit_int);
+            cc_setparam(rs3tli_component_anchor_pos_y, ^min_32bit_int);
+            cc_setparam(rs3tli_component_target_pos_x, -1);
+            cc_setparam(rs3tli_component_target_pos_y, -1);
+            cc_setparam(rs3tli_component_mpixel_x, 0);
+            cc_setparam(rs3tli_component_mpixel_y, 0);
+            ~cc_setspeed(~script12641(2000, calc((cc_getid - 33) * 4)));
+        }
+    }
+}

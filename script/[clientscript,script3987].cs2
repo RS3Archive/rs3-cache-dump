@@ -1,0 +1,31 @@
+// 3987
+[clientscript,script3987]
+def_int $int0 = 0;
+def_int $int1 = 1;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+cc_deleteall(mtxfair17_chinchompa:grid_layer);
+while ($int1 <= 30) {
+    cc_create(mtxfair17_chinchompa:grid_layer, ^iftype_graphic, $int0);
+    cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    if (~script3986($int1) = 0) {
+        cc_setgraphic(enum(int, graphic, mtxfair17_chinchompa_graphic, $int1));
+        cc_setonmouserepeat("cc_graphic_swapper(mtxfair17_chinchompa:grid_layer, $int0, enum(int, graphic, mtxfair17_chinchompa_graphic_over, $int1))");
+        cc_setonmouseleave("cc_graphic_swapper(mtxfair17_chinchompa:grid_layer, $int0, enum(int, graphic, mtxfair17_chinchompa_graphic, $int1))");
+    } else {
+        cc_setgraphic("mtxfair17_chompahunt_tiles,12");
+    }
+    cc_setop(1, "Search");
+    if (calc($int1 % 5) = 0) {
+        $int2 = 0;
+        $int3 = calc($int3 + 50);
+    } else {
+        $int2 = calc($int2 + 50);
+    }
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}
+~script3995;
+~script3990;

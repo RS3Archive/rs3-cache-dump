@@ -1,0 +1,14 @@
+// 8245
+[proc,script8245]()(int)
+def_int $int0 = 1;
+def_enum $enum1 = weekends_boss_spotlight_events;
+def_int $int2 = enum_getoutputcount($enum1);
+def_dbrow $dbrow3 = null;
+while ($int0 <= $int2) {
+    $dbrow3 = enum(int, dbrow, $enum1, $int0);
+    if ($dbrow3 ! null & (~script11205($dbrow3) = true | ~date_runeday >= date_runeday_fromdate(db_getfield($dbrow3, weekend_events:col4, 0)) & ~date_runeday <= date_runeday_fromdate(db_getfield($dbrow3, weekend_events:col5, 0)))) {
+        return($int0);
+    }
+    $int0 = calc($int0 + 1);
+}
+return(-1);

@@ -1,0 +1,51 @@
+// 9716
+[proc,script9716](obj $obj0, inv $inv1, int $int2, component $component3, component $component4, int $int5, int $int6)(int)
+if (inv_getobj($inv1, $int2) ! $obj0 | inv_getnum($inv1, $int2) = 0) {
+    return($int5);
+}
+if (oc_hasvarobj($obj0) = false) {
+    return($int5);
+}
+def_int $int7 = 0;
+if ($int5 > 0 & cc_find($component4, calc($int5 - 1)) = true) {
+    $int7 = calc(cc_gety + cc_getheight);
+}
+def_int $int8 = 0;
+def_int $int9 = oc_param($obj0, quiver_capacity);
+def_int $int10 = -1;
+while (++$int10 < $int9) {
+    if (~script9693($inv1, $int2, $int10) > 0) {
+        $int8 = calc($int8 + 1);
+    }
+}
+if ($int8 = 0) {
+    return($int5);
+}
+def_int $int11 = 2;
+def_int $int12 = if_getwidth($component3);
+def_int $int13 = calc($int8 * (36 + $int11) - $int11 + 2 * 16);
+if ($int12 < $int13) {
+    $int12 = min($int13, 300);
+}
+def_int $int14 = calc(32 + $int7 + 16);
+if_setsize($int12, $int14, ^setsize_abs, ^setsize_abs, $component3);
+def_int $int15 = calc((36 - $int8 * (36 + $int11) + $int11) / 2);
+$int7 = calc($int7 + $int11);
+def_obj $obj16 = null;
+def_int $int17 = 0;
+def_int $int18 = inv_getvar($inv1, $int2, quiver_active_ammo_slot);
+$int10 = -1;
+while (++$int10 < $int9) {
+    $obj16, $int17 = ~script9689($inv1, $int2, $int10);
+    if ($obj16 ! null) {
+        cc_create($component4, ^iftype_graphic, $int5++);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int15, $int7, ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setobject_alwaysnum($obj16, $int17);
+        if ($int8 > 1 & $int18 = $int10) {
+            cc_setoutline(2);
+        }
+        $int15 = calc($int15 + (36 + $int11));
+    }
+}
+return($int5);

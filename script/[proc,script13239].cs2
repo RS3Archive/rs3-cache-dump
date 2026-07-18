@@ -1,0 +1,86 @@
+// 13239
+[proc,script13239](int $int0, struct $struct1, component $component2, component $component3, int $int4, int $int5, int $int6, int $int7, int $int8)(int, int)
+def_int $int9 = ~script10495(9);
+def_int $int10 = ~script10495(12);
+def_int $int11 = ~script10495(16);
+def_int $int12 = 2;
+def_int $int13 = calc(27 + 2 * $int12);
+def_int $int14 = -1;
+def_int $int15 = -1;
+def_graphic $graphic16 = null;
+def_string $string0 = null;
+def_string $string1 = null;
+def_int $int17 = calc(250 + 27 + 4 * 2);
+if ($int7 = 0) {
+    if (~script13109($int5) = true) {
+        $int14, $int15 = ~script13110($int5);
+    }
+    if ($int8 ! 0) {
+        $graphic16 = enum(int, graphic, mtxmgt_purchase_category_icons, 2);
+    } else if (enum(int, graphic, mtxmgt_purchase_worn_slot_icons, $int5) ! null) {
+        $graphic16 = enum(int, graphic, mtxmgt_purchase_worn_slot_icons, $int5);
+    } else {
+        $graphic16 = enum(int, graphic, mtxmgt_purchase_category_icons, 2);
+    }
+    .cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+    .cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+    .cc_setposition($int12, calc($int4 + ($int13 - .cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setgraphic($graphic16);
+    cc_create($component3, ^iftype_text, if_getnextsubid($component3));
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setposition(calc(.cc_getx + 27 + 5), $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc(250 - cc_getx - $int12), $int13, ^setsize_abs, ^setsize_abs);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setcolour(~script10495(3));
+    if ($struct1 = mtx_keepsake_not_found) {
+        $string0 = oc_name(inv_getobj(mtxmgt_store_worn_display_preview, $int5));
+    } else {
+        $string0 = ~script11659($struct1, 1);
+    }
+    $string1 = ~script3930($string0, cc_getwidth, 1, cc_getfontmetrics);
+    if (compare($string0, $string1) ! 0) {
+        cc_settext($string1);
+        ~script14990(2, $string0);
+    } else {
+        cc_settext($string0);
+    }
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+    cc_setposition(250, calc($int4 + $int12), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int17, 27, ^setsize_minus, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(~script10495(6));
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext(~script3930(~script13099($struct1), calc(if_getwidth($component2) - $int17), $int13, cc_getfontmetrics));
+}
+.cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
+.cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(0, $int13, ^setsize_minus, ^setsize_abs);
+if ($int6 = 0) {
+    .cc_setcolour($int9);
+    $int6 = 1;
+} else {
+    .cc_setcolour($int10);
+    $int6 = 0;
+}
+.cc_setfill(true);
+.cc_sendtoback;
+if ($int8 = 0) {
+    .cc_setcolour($int11);
+    if (cc_find($component3, calc(if_getnextsubid($component3) - 1)) = true) {
+        cc_setcolour(~script10495(5));
+    }
+} else if ($int8 = 2) {
+    .cc_setcolour($int11);
+    if (cc_find($component3, calc(if_getnextsubid($component3) - 1)) = true) {
+        cc_setcolour(~script10495(5));
+    }
+} else if ($int8 = 4) {
+    cc_create(mtxmgt_store_checkout:checkout_checkmark_layer, ^iftype_graphic, if_getnextsubid(mtxmgt_store_checkout:checkout_checkmark_layer));
+    cc_setgraphic(rs3_contextual_input_green_check_mark);
+    cc_setsize(27, 27, ^setsize_abs, ^setsize_abs);
+    cc_setposition(2, $int4, ^setpos_abs_right, ^setpos_abs_top);
+}
+$int4 = calc($int4 + $int13 + $int12);
+return($int4, $int6);

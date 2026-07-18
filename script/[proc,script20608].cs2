@@ -1,0 +1,46 @@
+// 20608
+[proc,script20608](struct $struct0, int $int1)(string)
+~script20464;
+if ($struct0 = null) {
+    return("");
+}
+if (struct_param($struct0, mtxmgt_pack_structs) ! null) {
+    return("");
+}
+def_string $string0 = "";
+def_dbrow $dbrow2 = null;
+def_int $int3 = -1;
+def_obj $obj4 = null;
+switch_int ($int1) {
+    case 2 :
+        $dbrow2 = ~script15769($struct0);
+        if (db_getfield($dbrow2, mtxmgt_cosmetic:col6, 0) = 20 & db_getfieldcount($dbrow2, mtxmgt_cosmetic:col13) > 0) {
+            $int3 = db_filter_find(db_filter_combine(db_filter_combine(unknown_command_79(db_filter_value(mtxmgt_cosmetic:col14, db_getfield($dbrow2, mtxmgt_cosmetic:col13, 0), ^filterop_eq, 0), db_filter_value(mtxmgt_cosmetic:col13, db_getfield($dbrow2, mtxmgt_cosmetic:col13, 0), ^filterop_eq, 0)), db_filter_unknown(db_filter_value(mtxmgt_cosmetic:col6, 20, ^filterop_eq, 0))), db_filter_value(mtxmgt_cosmetic:col21, 0, ^filterop_eq, 0)), mtxmgt_cosmetic:col6, true, -1, 0);
+            $dbrow2 = db_findnext;
+            if ($int3 > 1) {
+                $string0 = "This outfit contains:";
+            }
+            while ($dbrow2 ! null) {
+                $obj4 = db_getfield($dbrow2, mtxmgt_cosmetic:col4, 0);
+                if ($obj4 ! null) {
+                    $string0 = "<$string0><br>- <oc_name($obj4)>";
+                }
+                $dbrow2 = db_findnext;
+            }
+        }
+        if (struct_param($struct0, marketplace_preview_recolourable) = true) {
+            $string0 = "<$string0><br><br>This <~text_plural($int3, "override", "outfit")> can be recoloured.";
+        }
+    case 5 :
+        $string0 = enum(int, string, mtx_front_end_confirm_pet_subcat_details_strings, struct_param($struct0, mtxmgt_subcat));
+        if (struct_param($struct0, marketplace_preview_recolourable) = true) {
+            $string0 = "<$string0><br><br>This pet can be recoloured.";
+        }
+    case 4 :
+        if (struct_param($struct0, mtxmgt_subcat) = 7 & struct_param($struct0, mtxmgt_preview_npc_list) ! null & enum_getoutputcount(struct_param($struct0, mtxmgt_preview_npc_list)) > 1) {
+            $string0 = "One of these variants will be selected at random each time you use the ability.";
+        }
+    case default :
+        return("");
+}
+return($string0);

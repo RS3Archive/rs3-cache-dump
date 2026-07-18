@@ -1,0 +1,25 @@
+// 12414
+[clientscript,trh89_interface_init]
+if_settext("<tostring(%trh89_sum_total)>/<tostring(2000)>", trh89_rc_summoning_rifts:summoning_progress_bar_text);
+if_settext("<tostring(%trh89_rc_total)>/<tostring(2000)>", trh89_rc_summoning_rifts:runecrafting_progress_bar_text);
+if (%trh89_rc_total >= 2000) {
+    if_sethide(true, trh89_rc_summoning_rifts:unlock_2_graphic_disabled);
+}
+if (%trh89_sum_total >= 2000) {
+    if_sethide(true, trh89_rc_summoning_rifts:unlock_1_graphic_disabled);
+}
+def_int $int0 = if_getwidth(trh89_rc_summoning_rifts:summoning_background_layer);
+def_int $int1 = calc($int0 * 100 / 2000);
+def_int $int2 = 0;
+if (%trh89_rc_total = 2000) {
+    if_setsize($int0, 0, ^setsize_abs, ^setsize_minus, trh89_rc_summoning_rifts:runecrafting_progress_bar);
+} else {
+    $int2 = calc($int1 * %trh89_rc_total / 100);
+    if_setsize($int2, 21, ^setsize_abs, ^setsize_abs, trh89_rc_summoning_rifts:runecrafting_progress_bar);
+}
+if (%trh89_sum_total = 2000) {
+    if_setsize($int0, 0, ^setsize_abs, ^setsize_minus, trh89_rc_summoning_rifts:summoning_progress_bar);
+} else {
+    $int2 = calc($int1 * %trh89_sum_total / 100);
+    if_setsize($int2, 21, ^setsize_abs, ^setsize_abs, trh89_rc_summoning_rifts:summoning_progress_bar);
+}

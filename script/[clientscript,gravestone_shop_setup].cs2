@@ -1,0 +1,27 @@
+// 681
+[clientscript,gravestone_shop_setup](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+cc_deleteall($component0);
+if_setscrollpos(0, 0, $component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+if_settext("Gravestones", $component6);
+if_settext("Please make your selection from the list.", $component7);
+if_settext("None selected.", $component4);
+if_settext("None selected.", $component5);
+~gravestone_shop_createbutton($component0, 0, 0, $component2, $component3, $component4, $component5, $component6, $component7);
+def_int $int8 = 1;
+def_int $int9 = 0;
+while ($int9 <= 26) {
+    if (testbit(%gravestone_transmit, $int9) = ^true) {
+        ~gravestone_shop_createbutton($component0, calc($int9 + 1), $int8, $component2, $component3, $component4, $component5, $component6, $component7);
+        $int8 = calc($int8 + 1);
+    }
+    $int9 = calc($int9 + 1);
+}
+def_int $int10 = calc((if_getwidth($component0) - 164) / 2);
+def_int $int11 = calc($int10 + (146 + $int10) * $int8);
+if ($int11 > if_getheight($component0)) {
+    if_setscrollsize(0, $int11, $component0);
+    ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+}

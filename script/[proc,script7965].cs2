@@ -1,0 +1,22 @@
+// 7965
+[proc,script7965](struct $struct0)(boolean)
+def_obj $obj1 = null;
+if ($struct0 ! null & (struct_param($struct0, combatv2_ability_always_target_cast) = true | struct_param($struct0, combatv2_requires_target_foe) = 1 & (%npctarget = null & %playertarget = null | %combatv2_manual_casting = 1))) {
+    $obj1 = inv_getobj(worn, 3);
+    if ($obj1 ! null) {
+        if (oc_param($obj1, combatv2_special_attack_base_item) ! null) {
+            $obj1 = oc_param($obj1, combatv2_special_attack_base_item);
+        }
+        if ($struct0 = combatv2_ability_constitution_special_attack & oc_param($obj1, combatv2_no_target_special_attack) = 1) {
+            return(false);
+        }
+    }
+    switch_int (struct_param($struct0, combatv2_type_of_spell)) {
+        case 2, 1, 4 :
+            return(false);
+        case default :
+            return(true);
+    }
+} else {
+    return(false);
+}

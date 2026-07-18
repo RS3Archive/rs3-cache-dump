@@ -1,0 +1,57 @@
+// 4920
+[clientscript,clan_stronghold_main_refresh_countdown]
+def_component $component0 = null;
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int (%clan_stronghold_main_map_mode) {
+    case 0 :
+        $component0 = clan_stronghold_main_map:member_count_text;
+        $component1 = clan_stronghold_main_map:build_time_text;
+        $component2 = clan_stronghold_main_map:member_display_blue_layer;
+    case 1, 3, 4 :
+        $component0 = clan_stronghold_main_buildings:member_count_text;
+        $component1 = clan_stronghold_main_buildings:build_time_text;
+        $component2 = clan_stronghold_main_buildings:member_display_blue_layer;
+    case 2, 5 :
+        $component0 = clan_stronghold_main_decor:member_count_text;
+        $component1 = clan_stronghold_main_decor:build_time_text;
+        $component2 = clan_stronghold_main_decor:member_display_blue_layer;
+    case 6 :
+        $component0 = clan_stronghold_main_resources:member_count_text;
+        $component1 = clan_stronghold_main_resources:build_time_text;
+        $component2 = clan_stronghold_main_resources:member_display_blue_layer;
+}
+def_string $string0 = "";
+if (%clan_stronghold_update_days = 0 & %clan_stronghold_update_hours < 6 & %clan_stronghold_update_hours = 0 & %clan_stronghold_update_minutes < 20) {
+} else {
+}
+if (%clan_stronghold_update_days = 0 & %clan_stronghold_update_hours = 0 & %clan_stronghold_update_minutes = 0) {
+    if_settext("Due!", $component1);
+    return;
+}
+if (%clan_stronghold_update_days > 0) {
+    $string0 = append($string0, "<tostring(%clan_stronghold_update_days)>d ");
+}
+if (%clan_stronghold_update_hours > 0) {
+    $string0 = append($string0, "<tostring(%clan_stronghold_update_hours)>h ");
+}
+if (%clan_stronghold_update_minutes > 0) {
+    $string0 = append($string0, "<tostring(%clan_stronghold_update_minutes)>m");
+}
+if_settext($string0, $component1);
+def_string $string1 = "";
+if (clanprofile_find = true) {
+    if_settext(tostring(%clan_core_members_visited_varclan), $component0);
+    if (calc(%clan_stronghold_tier - %clan_stronghold_down) = 7) {
+        if_setcolour(0x28c851, $component0);
+        $string1 = "Number of clan members who have visited your citadel.";
+    } else if (~script4786(calc(%clan_stronghold_tier - %clan_stronghold_down)) = 1) {
+        if_setcolour(0x28c851, $component0);
+        $string1 = "Sufficient clan members have visited to allow upgrades.";
+    } else {
+        if_setcolour(0xc4312d, $component0);
+        $string1 = "More clan members must visit your citadel to allow upgrades.";
+    }
+    if_setonmouserepeat("script8799($string1, event_com, event_comsubid)", $component2);
+}
+return;

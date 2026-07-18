@@ -1,0 +1,31 @@
+// 20640
+[proc,script20640](int $int0)(int, int)
+def_int $int1 = -1;
+def_int $int2 = db_getfieldcount(marketplace_store, marketplace_store_data:col0);
+def_int $int3 = 0;
+def_string $string0 = "";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while (++$int1 < $int2) {
+    $int3, $string0 = db_getfield(marketplace_store, marketplace_store_data:col0, $int1);
+    if ($int3 ! 0) {
+        $int4 = db_filter_find(~script20644($int3, false), marketplace_store_item:col0, false, -1, 0);
+        if ($int4 > 0) {
+            $int8 = $int0;
+            $int0 = calc($int0 + 20);
+            $int5 = ~script20635($int0);
+            $int6 = ~script20642($int5);
+            $int0 = ~script20637($int0, $int6, $int5);
+            if ($int6 > 0) {
+                ~script20641(~script20651($int3), $int8);
+                $int7 = calc($int7 + $int6);
+            } else {
+                $int0 = $int8;
+            }
+        }
+    }
+}
+return($int0, $int7);

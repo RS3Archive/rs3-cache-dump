@@ -1,0 +1,55 @@
+// 15204
+[proc,script15204](int $int0, int $int1, int $int2)(string)
+def_string $string0 = "";
+def_int $int3 = 0;
+%farming_current_patch = $int0;
+if (%farming_current_patch <= 3 | %farming_current_patch = 48 | %farming_current_patch = 155 | %farming_current_patch = 172 | %farming_current_patch = 175) {
+    if (enum(int, int, farming_keys_trees_claimxp, $int2) > 0) {
+        $int3 = 1;
+    }
+} else if (%farming_current_patch <= 7 | %farming_current_patch = 49 | %farming_current_patch = 162 | %farming_current_patch = 176 | %farming_current_patch = 148) {
+    if (enum(int, int, farming_keys_fruit_trees_claimxp, $int1) > 0) {
+        $int3 = 1;
+    }
+} else if (%farming_current_patch = 153) {
+    if ($int1 = 44) {
+        $int3 = 1;
+    }
+} else if (%farming_current_patch = 31 & $int1 = 34) {
+    $int3 = 1;
+}
+switch_int ($int1) {
+    case 1 :
+        $string0 = "Empty";
+    case 9 :
+        $string0 = "Has a Grape Vine Frame";
+    case 2 :
+        $string0 = "Full of weeds";
+    case 3 :
+        $string0 = "Growing";
+    case 32 :
+        if ($int3 = 1) {
+            $string0 = "Ready for a health check";
+        } else {
+            $string0 = "<col=00ff00>Produce is fully grown</col>";
+        }
+    case 4 :
+        $string0 = "<col=00ff00>Growing fruit</col>";
+    case 5 :
+        $string0 = "Just a tree stump";
+    case 7 :
+        $string0 = "<col=ffb000>Can be watered</col>";
+    case 33 :
+        $string0 = "<col=ff7000>Is diseased!</col>";
+    case 34 :
+        $string0 = "<col=ff3000>Is dead!</col>";
+    case 6 :
+        $string0 = "Has a scarecrow in it";
+    case 10 :
+        $string0 = "Has a Sprinkler MK1 in it";
+    case 16 :
+        $string0 = "Not yet built";
+    case default :
+        $string0 = "Needs attention";
+}
+return($string0);

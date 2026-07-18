@@ -1,0 +1,12 @@
+// 14049
+[clientscript,script14049]
+def_int $int0 = min(500, max(150, parawidth(if_gettext(deep_sea_generic_fish_overlay:title_text), 500, if_getfontmetrics(deep_sea_generic_fish_overlay:title_text))));
+if ($int0 > 150) {
+    $int0 = calc($int0 + 6);
+}
+if_setsize($int0, if_getheight(deep_sea_generic_fish_overlay:bespoke_window), ^setsize_abs, ^setsize_abs, deep_sea_generic_fish_overlay:bespoke_window);
+def_string $string0 = "Your streak increases as you fling fish in quick succession.<br>This will reset if you idle for too long.";
+def_string $string1 = "Your bonus increases as you reach streak milestones.<br>This will reset if you idle for too long.";
+if_setonvartransmit("script14050{dsf_temp_1_unprotected_transmit, dsf_temp_2_transmit, dsf_temp_2_transmit}", deep_sea_generic_fish_overlay:bespoke_window);
+if_setonmouserepeat("script3876($string0, event_com, -1)", deep_sea_generic_fish_overlay:streak_label);
+if_setonmouserepeat("script3876($string1, event_com, -1)", deep_sea_generic_fish_overlay:bonus_label);

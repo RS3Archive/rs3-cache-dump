@@ -1,0 +1,19 @@
+// 16732
+[proc,script16732](dbrow $dbrow0, int $int1)(obj, int)
+def_obj $obj2 = null;
+def_int $int3 = -1;
+if (db_getrowtable($dbrow0) ! progression_track) {
+    ~error("Invalid Table, Expecting progression_track");
+    return($obj2, $int3);
+}
+def_int $int4 = db_getfieldcount($dbrow0, progression_track:col1);
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int6 < $int4 & $int5 <= $int1) {
+    $obj2, $int3, $int5 = db_getfield($dbrow0, progression_track:col1, $int6);
+    if ($int5 = $int1) {
+        return($obj2, $int3);
+    }
+    $int6 = calc($int6 + 1);
+}
+return(null, -1);

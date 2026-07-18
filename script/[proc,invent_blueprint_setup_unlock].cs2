@@ -1,0 +1,62 @@
+// 12536
+[proc,invent_blueprint_setup_unlock](component $component0, component $component1, component $component2)
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+if (if_find($component0) = true) {
+    $dbrow3 = cc_param(invent_client_techtree_dbrow);
+}
+if ($dbrow3 = null) {
+    return;
+}
+def_int $int6 = 1;
+def_int $int7 = 0;
+def_int $int8 = db_getfield($dbrow3, invent_blueprint_table:col14, 0);
+$int4, $int5 = db_getfield($dbrow3, invent_blueprint_table:col13, 0);
+def_int $int9 = db_getfield($dbrow3, invent_blueprint_table:col9, 0);
+switch_int ($int8) {
+    case 1 :
+        $int6 = 1;
+    case 2 :
+        $int6 = %invent_techtree_tier1_unlocked;
+    case 3 :
+        $int6 = %invent_techtree_tier2_unlocked;
+    case 4 :
+        $int6 = %invent_techtree_tier3_unlocked;
+}
+if (stat(invention) >= $int9 & $int6 > 0) {
+    if (~invent_techtree_unlocked($int4, $int5) = 0) {
+        $int7 = 1;
+    } else {
+        $int7 = 2;
+    }
+} else {
+    $int7 = 0;
+}
+if (if_find($component0) = true) {
+    cc_setparam(invent_client_techtree_unlocked, $int7);
+}
+cc_deleteall($component1);
+cc_create($component1, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if ($int7 = 0) {
+    cc_setgraphic("rs3_icon_slot_invention_tech_tree,4");
+} else if ($int7 = 1) {
+    cc_setgraphic("rs3_icon_slot_invention_tech_tree,2");
+} else if ($int7 = 2) {
+    cc_setgraphic("rs3_icon_slot_invention_tech_tree,0");
+    if_setonop(null, $component2);
+}
+cc_create($component1, ^iftype_graphic, 1);
+cc_setsize(20, 20, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(db_getfield($dbrow3, invent_blueprint_table:col5, 0));
+if ($int7 = 0) {
+    cc_create($component1, ^iftype_rectangle, 2);
+    cc_setsize(20, 20, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setfill(true);
+    cc_setcolour(~rgb_to_hex(128, 128, 128));
+    cc_settrans(128);
+}

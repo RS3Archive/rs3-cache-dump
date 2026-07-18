@@ -1,0 +1,21 @@
+// 1427
+[clientscript,script1427](component $component0)
+if (%cutscene_status = 1) {
+    if_sethide(true, $component0);
+    return;
+}
+if (%chat_v3_toggle_background = 1) {
+    return;
+}
+def_int $int1 = ~script2042;
+if (%chat_v3_update_fade_to_black = 1) {
+    if ($int1 < 140) {
+        if_setgraphic(gradient_vignette_heavy_white_4_3, $component0);
+    } else {
+        if_setgraphic(gradient_vignette_heavy_white_16_9, $component0);
+    }
+    if_settrans(125, $component0);
+    return;
+}
+%chat_v3_update_fade_to_black = 1;
+if_setontimer("script1952($component0, 0)", $component0);

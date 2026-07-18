@@ -1,0 +1,65 @@
+// 2193
+[proc,ql4_getprogress](quest $quest0)(int)
+if ($quest0 = null) {
+    ~error("Quest .quest missing. Cannot determine quest_id.");
+    return(0);
+}
+switch_quest ($quest0) {
+    case creature_of_fenkenstrain :
+        if (%fenk_quest > 6) {
+            return(2);
+        }
+        if (%fenk_quest = 0 & %fenk_read_signpost = 0) {
+            return(0);
+        }
+        return(1);
+    case death_plateau :
+        if (%death_equiproom >= 80) {
+            return(2);
+        } else {
+            return(~script2157(%death_quest, 65));
+        }
+    case druidic_ritual :
+        if (%druidquest >= 4) {
+            return(2);
+        } else {
+            return(~script2157(%druid_quest_2, 8));
+        }
+    case elemental_workshop_i :
+        if (testbit(%elemental_workshop_bits, 20) = ^true) {
+            return(2);
+        } else if (testbit(%elemental_workshop_bits, 1) = ^false) {
+            return(0);
+        } else {
+            return(1);
+        }
+    case tutorial_3 :
+        return(~script2157(%tutorial, 1000));
+    case shilo_village :
+        if (%zombiequeen = 0 & ~obj_gettotal(mosol_wampum_belt) > 0) {
+            return(1);
+        } else {
+            return(~script2157(%zombiequeen, 15));
+        }
+    case underground_pass :
+        if (%upass = 10) {
+            return(2);
+        } else if (testbit(%ibanmulti, 11) = ^false) {
+            return(0);
+        } else {
+            return(1);
+        }
+    case wolf_whistle :
+        if (%wolf_quest >= 110) {
+            return(2);
+        } else {
+            return(~script2157(%wolf_quest_2, 35));
+        }
+    case default :
+        if (quest_finished($quest0) = true) {
+            return(2);
+        } else if (quest_started($quest0) = true) {
+            return(1);
+        }
+}
+return(0);

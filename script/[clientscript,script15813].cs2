@@ -1,0 +1,17 @@
+// 15813
+[clientscript,script15813](component $component0)
+def_enum $enum1 = logout_warning_overlay_fakeop_id_to_component;
+def_int $int2 = enum_getoutputcount($enum1);
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+def_int $int3 = 1;
+def_component $component4 = null;
+while ($int3 <= $int2) {
+    cc_create($component0, ^iftype_graphic, $int3);
+    $component4 = enum(int, component, $enum1, $int3);
+    if ($component4 ! null) {
+        if_setonop("script15814(event_com, event_op, $component0)", $component4);
+        if_setop(1, enum(component, string, logout_warning_overlay_component_to_fakeop_text, $component4), $component4);
+    }
+    $int3 = calc($int3 + 1);
+}

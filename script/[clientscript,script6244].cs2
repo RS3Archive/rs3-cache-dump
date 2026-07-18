@@ -1,0 +1,14 @@
+// 6244
+[clientscript,script6244]
+%qbd2_phase_damage = calc(%qbd2_phase_damage - 25000 / 50);
+def_int $int0 = max(1, calc(100 - scale(%qbd2_phase_damage, 25000, 100)));
+if (%qbd2_phase_damage <= 0) {
+    %qbd2_phase_damage = 0;
+    if_setontimer(null, qbd2_energybar:layer_bar_bounds);
+    if_sethide(false, qbd2_energybar:layer_bar_text);
+    if_settext(tostring_localised(calc(25000 - %qbd2_phase_damage), true), qbd2_energybar:layer_bar_text);
+} else {
+    ~aif_progressbar_set($int0, qbd2_energybar:layer_bar_green, null);
+    if_sethide(false, qbd2_energybar:layer_bar_text);
+    if_settext(tostring_localised(calc(25000 - %qbd2_phase_damage), true), qbd2_energybar:layer_bar_text);
+}

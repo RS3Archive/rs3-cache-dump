@@ -1,0 +1,47 @@
+// 11388
+[clientscript,script11388]
+def_int $int0 = 40;
+def_int $int1 = 36;
+def_int $int2 = 36;
+def_int $int3 = 32;
+def_graphic $graphic4 = null;
+def_int $int5 = 0;
+if (~script6431 = true) {
+    $int0 = 44;
+    $int1 = 44;
+    $int2 = 44;
+    $int3 = 39;
+}
+if (%toplevel_v2_active_skinset ! 1) {
+    $graphic4 = rs3_inventory_slot;
+}
+~script3288;
+cc_deleteall(poh_costume_room:click_area);
+cc_deleteall(poh_costume_room:build_area);
+def_enum $enum6 = ~script11401;
+if ($enum6 = null) {
+    if_setontimer("script11388", poh_costume_room:mainmodal_window_content);
+    if_sethide(false, poh_costume_room:loading_layer);
+    return;
+}
+def_int $int7 = 0;
+def_int $int8 = enum_getoutputcount($enum6);
+while ($int7 < $int8) {
+    cc_create(poh_costume_room:click_area, ^iftype_graphic, $int7);
+    cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+    cc_sethide(true);
+    cc_create(poh_costume_room:build_area, ^iftype_graphic, $int7);
+    cc_setsize($int0, $int1, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic($graphic4);
+    cc_settrans($int5);
+    cc_sethide(true);
+    $int7 = calc($int7 + 1);
+}
+%poh_costume_room_trans = 105;
+if_setontimer("script11396(2)", poh_costume_room:mainmodal_window_content);
+if_setonvartransmit("script11388{poh_costume_room_menu}", poh_costume_room:rebuild_listener);
+if_setonvartransmit("script11390{poh_ownership_special, poh_ownership_1, poh_ownership_2, poh_ownership_3, poh_ownership_4, poh_ownership_5, poh_ownership_6, poh_ownership_7}", poh_costume_room:mainmodal_window_content);
+if_setoninvtransmit("script5247{inv}", poh_costume_room:mainmodal_window_content);
+~script11391;
+~script11398(-1);
+~script15069(1);

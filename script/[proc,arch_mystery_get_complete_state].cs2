@@ -1,0 +1,16 @@
+// 14588
+[proc,arch_mystery_get_complete_state](dbrow $dbrow0)(int)
+if ($dbrow0 = null) {
+    return(^true);
+}
+def_int $int1 = db_getfield($dbrow0, arch_mystery:col0, 0);
+if ($int1 < 0) {
+    return(^true);
+}
+switch_int (calc($int1 / 32)) {
+    case 0 :
+        return(testbit(%arch_mystery_complete_1, $int1));
+    case 1 :
+        return(testbit(%arch_mystery_complete_2, $int1));
+}
+return(^false);

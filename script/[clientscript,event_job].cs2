@@ -1,0 +1,36 @@
+// 15614
+[clientscript,event_job](component $component0)
+def_string $string0 = "";
+if (if_gethide(lobbyscreen:popup) = true) {
+    switch_int (%lobbyscreen_entry_checks) {
+        case 0 :
+            if (~is_mobile_client = true) {
+                switch_int (unknown_command_41) {
+                    case 0 :
+                        %lobbyscreen_entry_checks = calc(%lobbyscreen_entry_checks + 1);
+                    case 1 :
+                        ~lobby_popup(10005, lobby_popup_positive_action, "Pending Transaction", "Pending transactions found!<br><br>Do you wish to apply them now?", "loadingwheel,9", "Yes", "No");
+                    case 2 :
+                        ~lobby_popup(10006, lobby_popup_negative_close, "Pending Transaction", "Attempting to apply transactions", rs3_loading_spinner_default, "", "Cancel");
+                    case 3 :
+                        ~lobby_popup(10007, lobby_popup_warning_positive_action, "Pending Transaction", "Pending transaction failed to apply.<br><br>Do you wish to try again?", "loadingwheel,11", "Yes", "No");
+                    case 4 :
+                        ~lobby_popup(10007, lobby_popup_positive_close, "Pending Transaction", "Transactions applied!", "loadingwheel,8", "", "OK");
+                }
+            } else {
+                %lobbyscreen_entry_checks = calc(%lobbyscreen_entry_checks + 1);
+            }
+        case 1 :
+            $string0 = ~script2781;
+            if (string_length($string0) > 0) {
+                if (~is_mobile_client = false) {
+                    ~lobby_popup(-3000, lobby_popup_warning_positive_action, "Credit Card Expiry", $string0, "loadingwheel,9", "Re-Subscribe Now", "Close");
+                } else {
+                    ~lobby_popup(-3000, lobby_popup_warning_positive_action, "Credit Card Expiry", $string0, "loadingwheel,9", "", "Close");
+                }
+            }
+            %lobbyscreen_entry_checks = calc(%lobbyscreen_entry_checks + 1);
+        case default :
+            if_setontimer(null, $component0);
+    }
+}

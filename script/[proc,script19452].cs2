@@ -1,0 +1,57 @@
+// 19452
+[proc,script19452]
+def_string $string0 = activeclanchannel_getclanname;
+def_string $string1 = "<~script19387><nbsp><sprite=34560>";
+def_string $string2 = ~script19324(%group_ironman_cache_ruleset, %group_ironman_hiscore_ineligible);
+def_string $string3 = ~script19388;
+def_string $string4 = tostring(%group_ironman_clan_group_size);
+def_boolean $boolean0 = true;
+def_string $string5 = "Rename";
+def_boolean $boolean1 = ~script6427(%group_ironman_is_leaving_group);
+def_string $string6 = "Leave";
+def_boolean $boolean2 = false;
+def_string $string7 = "Downgrade";
+def_int $int3 = activeclansettings_getcurrentowner_slot;
+def_int $int4 = activeclansettings_getaffinedslot(removetags(chat_playername_unfiltered));
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int5, $int6, $int7 = ~script19415(12, $int4);
+if (calc(date_minutes - %group_ironman_cache_rename_minute) < calc(1440 * 28)) {
+    $boolean0 = false;
+} else if (activeclansettings_getaffinedcount = 1) {
+    $string5 = "Rename";
+} else if ($int5 > 0) {
+    if ($int3 = $int4) {
+        if ($int6 = 1) {
+            if ($int5 < $int7) {
+                $string5 = "Rename <sprite=13165>";
+            } else {
+                $string5 = "Rename <sprite=13165><sprite=21748>";
+            }
+        } else {
+            $string5 = "Rename <sprite=21748>";
+        }
+    } else if ($int6 = 1) {
+        $string5 = "Rename <sprite=13165>";
+        $boolean0 = true;
+    } else {
+        $string5 = "Rename <sprite=21748>";
+    }
+}
+if (~script19320 = true | %group_ironman_clan_hiscore_ineligible = 0) {
+    $int5, $int6, $int7 = ~script19415(11, $int4);
+    if (activeclansettings_getaffinedcount = 1) {
+        $string7 = "Downgrade";
+        $boolean2 = true;
+    } else if ($int6 = 0) {
+        if ($int5 > 0) {
+            $string7 = "Downgrade <sprite=21748>";
+        }
+        $boolean2 = true;
+    } else {
+        $string7 = "Downgrade <sprite=13165>";
+        $boolean2 = true;
+    }
+}
+~script19454($string0, $string1, $string2, $string3, $string4, $boolean0, $string5, $boolean1, $string6, $boolean2, $string7);

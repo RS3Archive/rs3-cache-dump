@@ -1,0 +1,46 @@
+// 2477
+[proc,script2477]
+def_int $int0 = 0;
+def_obj $obj1 = null;
+def_component $component2 = toolbelt_v2_keyring:key_layer;
+def_int $int3 = 5;
+def_string $string0 = "";
+def_int $intbool4 = ^false;
+while ($int0 < 15) {
+    $obj1 = ~script2261($int0);
+    if ($obj1 ! null) {
+        cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setobject($obj1, -1);
+        cc_setposition(7, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        $intbool4 = ~script2388($int0);
+        if ($intbool4 = ^false) {
+            $string0 = "Not stored";
+            cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+            cc_setcolour(0xa9a9a9);
+        }
+        cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+        cc_setsize(440, 30, ^setsize_abs, ^setsize_abs);
+        if ($intbool4 = ^true) {
+            cc_settext(oc_name($obj1));
+        } else {
+            cc_settext("<oc_name($obj1)> - Not stored");
+        }
+        cc_setposition(calc(10 + 36), $int3, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(museo_sans_13pt_regular);
+        cc_settextshadow(true);
+        cc_setcolour(^white);
+        cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+        cc_setsize(410, 30, ^setsize_abs, ^setsize_abs);
+        cc_settext(oc_param($obj1, toolbelt_key_description));
+        cc_settextshadow(true);
+        cc_setposition(calc(10 + 36), calc($int3 + 18), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(museo_sans_11pt_regular);
+        cc_setcolour(~script10495(3));
+        $int3 = calc($int3 + 45);
+    }
+    $int0 = calc($int0 + 1);
+}
+$int3 = calc($int3 + 5);
+if_setscrollsize(0, max(if_getheight($component2), $int3), $component2);
+~rs3_scrollbar_vertical(toolbelt_v2_keyring:scrollbar_layer, $component2);

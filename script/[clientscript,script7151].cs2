@@ -1,0 +1,44 @@
+// 7151
+[clientscript,script7151]
+def_component $component0 = dino_herb_bag:herb_layer;
+def_int $int1 = enum_getoutputcount(dino_reward_herb_bag_herbs);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_string $string0 = "";
+cc_deleteall($component0);
+while ($int2 < $int1) {
+    $int4 = calc(41 * ($int2 % 5));
+    $int5 = calc(37 * ($int2 / 5));
+    $obj7 = enum(int, obj, dino_reward_herb_bag_herbs, $int2);
+    $int3 = ~script6645($obj7);
+    cc_create($component0, ^iftype_graphic, $int6++);
+    cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(rs3_inventory_slot);
+    cc_setoutline(1);
+    cc_create($component0, ^iftype_graphic, $int6++);
+    cc_setposition(calc($int4 + 3), calc($int5 + 3), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    if ($int3 > 0) {
+        cc_setobject_alwaysnum($obj7, $int3);
+        cc_settrans(0);
+        cc_setop(1, "Withdraw");
+        cc_setop(2, "Withdraw-all");
+    } else {
+        cc_setobject($obj7, $int3);
+        cc_settrans(175);
+    }
+    cc_setop(10, "Examine");
+    $string0 = oc_name($obj7);
+    cc_setopbase("<col=FF981F><$string0>");
+    cc_setonmouserepeat("script5495($obj7)");
+    cc_setonmouseleave("script5495(null)");
+    $int2 = calc($int2 + 1);
+}
+if_setoninvtransmit("script7151{dino_reward_herb_bag}", $component0);
+if_setonvartransmit("script7151{dino_herb_bag_1, dino_herb_bag_2, dino_herb_bag_3, dino_herb_bag_4, dino_herb_bag_5}", $component0);
+if_setonvartransmit("script7152{dino_herb_bag_grey_out}", dino_herb_bag:inv_content_player_inv);

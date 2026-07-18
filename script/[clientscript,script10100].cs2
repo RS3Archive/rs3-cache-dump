@@ -1,0 +1,35 @@
+// 10100
+[clientscript,script10100](int $int0, component $component1, int $int2, int $int3)
+def_int $int4 = if_getx($component1);
+def_int $int5 = if_gety($component1);
+def_int $int6 = 1;
+if ($component1 = sb_overlay:big_spider) {
+    $int6 = 2;
+}
+switch_int ($int0) {
+    case 0 :
+        if ($int4 > -30) {
+            $int4 = calc($int4 - $int6);
+        } else {
+            if_setontimer(null, sb_overlay:spider_controller);
+        }
+    case 1 :
+        if ($int4 < $int2) {
+            $int4 = calc($int4 + $int6);
+        } else {
+            if_setontimer(null, sb_overlay:spider_controller);
+        }
+    case 2 :
+        if ($int5 > -30) {
+            $int5 = calc($int5 - $int6);
+        } else {
+            if_setontimer(null, sb_overlay:spider_controller);
+        }
+    case 3 :
+        if ($int5 < $int3) {
+            $int5 = calc($int5 + $int6);
+        } else {
+            if_setontimer(null, sb_overlay:spider_controller);
+        }
+}
+if_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top, $component1);

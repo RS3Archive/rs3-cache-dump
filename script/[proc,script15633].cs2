@@ -1,0 +1,45 @@
+// 15633
+[proc,script15633]
+def_component $component0 = lobbyscreen_pane_playerinfo:mobile_extra_offset;
+def_component $component1 = lobbyscreen_pane_playerinfo:promo_layer;
+def_component $component2 = lobbyscreen_pane_playerinfo:promo_offset;
+def_component $component3 = lobbyscreen_pane_playerinfo:news_layer;
+def_component $component4 = lobbyscreen_pane_playerinfo:latest_update_layer;
+def_component $component5 = lobbyscreen_pane_playerinfo:rotator_buttons;
+def_component $component6 = lobbyscreen_pane_playerinfo:latest_promotion_layer;
+def_int $int7 = 30;
+def_int $int8 = 30;
+def_int $int9 = 24;
+def_int $int10 = 482;
+def_int $int11 = 148;
+def_int $int12 = 233;
+def_int $int13 = 104;
+def_int $int14 = 13;
+def_int $int15 = calc(if_getwidth($component0) - if_getwidth($component3) - $int14);
+def_int $int16 = if_getheight($component0);
+def_int $int17 = $int15;
+def_int $int18 = 0;
+def_int $int19 = 10;
+def_int $int20 = 0;
+def_int $int21 = 0;
+while ($int20 < 200) {
+    $int18 = calc($int8 + $int9 + $int7);
+    $int18 = calc($int18 + scale($int15, $int10, $int11));
+    $int18 = calc($int18 + scale($int15, $int10, $int13));
+    if ($int18 <= $int16) {
+        $int20 = calc($int20 + 200);
+    } else {
+        $int15 = calc($int15 - $int19);
+    }
+    $int20 = calc($int20 + 1);
+}
+if_setsize($int17, 0, ^setsize_abs, ^setsize_minus, $component1);
+if_setsize($int15, $int18, ^setsize_abs, ^setsize_abs, $component2);
+def_int $int22 = calc(scale($int15, $int10, $int11) + $int8);
+if_setsize(0, $int22, ^setsize_minus, ^setsize_abs, $component4);
+if_setposition(0, $int22, ^setpos_abs_centre, ^setpos_abs_top, $component5);
+if_setposition(0, calc($int22 + $int7), ^setpos_abs_left, ^setpos_abs_top, $component6);
+$int22 = calc(scale($int15, $int10, $int13) + $int9);
+if_setsize(0, $int22, ^setsize_minus, ^setsize_abs, $component6);
+~script16881(lobbyscreen_pane_playerinfo:fss_current_contents);
+~script16881(lobbyscreen_pane_playerinfo:fss_next_contents);

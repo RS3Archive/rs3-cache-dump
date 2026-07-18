@@ -1,0 +1,25 @@
+// 12754
+[clientscript,script12754](obj $obj0, string $string0)
+def_component $component1 = cruc_dm_overlay:history1_text;
+def_component $component2 = cruc_dm_overlay:history1_icon;
+if (++%cruc_dm_last_history_slot = 3) {
+    %cruc_dm_last_history_slot = 0;
+}
+switch_int (%cruc_dm_last_history_slot) {
+    case 0 :
+        $component1 = cruc_dm_overlay:history1_text;
+        $component2 = cruc_dm_overlay:history1_icon;
+    case 1 :
+        $component1 = cruc_dm_overlay:history2_text;
+        $component2 = cruc_dm_overlay:history2_icon;
+    case 2 :
+        $component1 = cruc_dm_overlay:history3_text;
+        $component2 = cruc_dm_overlay:history3_icon;
+}
+if ($component1 ! null) {
+    if_settrans(0, $component1);
+    if_settrans(0, $component2);
+    if_settext($string0, $component1);
+    if_setobject($obj0, 1, $component2);
+    if_setontimer("script12755($component1, $component2, calc(clientclock + 500))", $component1);
+}

@@ -1,0 +1,40 @@
+// 3747
+[clientscript,script3747](component $component0, component $component1)
+def_int $int2 = 0;
+def_graphic $graphic3 = "rs3_btn_checkbox,1";
+def_int $int4 = -1;
+while ($int2 <= enum_getoutputcount(clan_admin_mes_data)) {
+    $int4 = enum(int, int, clan_admin_mes_data, $int2);
+    if (cc_find($component0, $int2) = true) {
+        if (~script3749($int4) = 1) {
+            cc_setgraphic("rs3_btn_checkbox,2");
+            cc_setonop("graphic_swapper_dynamic(event_com, event_comsubid, $graphic3)");
+        } else {
+            $graphic3 = "rs3_btn_checkbox,2";
+            cc_setgraphic("rs3_btn_checkbox,1");
+            cc_setonop("graphic_swapper_dynamic(event_com, event_comsubid, $graphic3)");
+        }
+    }
+    $int2 = calc($int2 + 1);
+}
+def_int $int5 = 0;
+def_string $string0 = "";
+while (enum(int, int, clan_admin_mes_category_ids, $int5) ! -1) {
+    if (.cc_find($component1, $int5) = true) {
+        if (~script3751($int5) = 1) {
+            $string0 = "Click here to deselect all messages in this section.";
+            $graphic3 = "rs3_btn_checkbox,1";
+            .cc_setgraphic("rs3_btn_checkbox,2");
+            .cc_setonop("graphic_swapper_dynamic(event_com, event_comsubid, $graphic3)");
+            .cc_setop(1, "Deselect All");
+        } else {
+            $string0 = "Click here to select all messages in this section.";
+            $graphic3 = "rs3_btn_checkbox,2";
+            .cc_setgraphic("rs3_btn_checkbox,1");
+            .cc_setonop("graphic_swapper_dynamic(event_com, event_comsubid, $graphic3)");
+            .cc_setop(1, "Select All");
+        }
+        .cc_setonmouserepeat("script8799($string0, $component1, $int5)");
+    }
+    $int5 = calc($int5 + 1);
+}

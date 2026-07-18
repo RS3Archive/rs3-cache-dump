@@ -1,0 +1,19 @@
+// 11061
+[clientscript,script11061](int $int0, int $int1, seq $seq2, seq $seq3, model $model4, npc $npc5)
+if (cc_find(bslay_boss_info:boss_desc_wrapper, $int1) = true) {
+    if ($int0 = 1) {
+        cc_setgraphic("aif_button_eye_view,1");
+    } else if ($int0 = 0) {
+        cc_setgraphic("aif_button_eye_view,0");
+    } else {
+        if ($npc5 ! null) {
+            if_setnpcmodel($npc5, bslay_boss_info:boss_model);
+        }
+        if (cc_find(bslay_boss_info:boss_model_wrapper, 0) = true) {
+            cc_sethide(false);
+            cc_setmodel($model4);
+            cc_setmodelanim($seq3);
+        }
+        if_setmodelanim($seq2, bslay_boss_info:boss_model);
+    }
+}

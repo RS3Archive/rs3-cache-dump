@@ -1,0 +1,80 @@
+// 12192
+[clientscript,script12192](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+~script12196(false);
+def_component $component7 = invent_gizmo:result_feedback;
+cc_deleteall($component7);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = calc(if_getwidth(invent_gizmo:result_feedback_layer) - 24);
+def_dbrow $dbrow12 = null;
+def_string $string0 = null;
+if ($int0 = 0) {
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "No effect", rs3tli_font_13pt_title);
+    $int9 = calc($int9 + 10);
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "Despite much effort, you can't seem to add any effects to your gizmo, and it is completely nonfunctional!<br><br>You manage to safely remove your materials.", rs3tli_default_font_dynamic);
+    $int9 = calc($int9 + 10);
+} else {
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "Success!", rs3tli_font_13pt_title);
+    $int9 = calc($int9 + 10);
+    if ($int2 > 0) {
+        $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "You created a gizmo with the following perks:", rs3tli_default_font_dynamic);
+    } else {
+        $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "You created a gizmo with the following perk:", rs3tli_default_font_dynamic);
+    }
+    $int9 = calc($int9 + 10);
+    $dbrow12 = ~script12076($int0);
+    $string0 = "<col=ffff00><~invent_perk_get_name_range($dbrow12, $int1, -1)></col>";
+    $string0 = "<$string0><br><db_getfield($dbrow12, invent_perk_table:col4, 0)>";
+    $int8, $int9 = ~script176($component7, $int8, $int10, $int9, $int11, db_getfield($dbrow12, invent_perk_table:col2, 0), 32, 32, $string0, rs3tli_default_font_dynamic);
+    $int9 = calc($int9 + 10);
+    if ($int2 > 0) {
+        $dbrow12 = ~script12076($int2);
+        $string0 = "<col=ffff00><~invent_perk_get_name_range($dbrow12, $int3, -1)></col>";
+        $string0 = "<$string0><br><db_getfield($dbrow12, invent_perk_table:col4, 0)>";
+        $int8, $int9 = ~script176($component7, $int8, $int10, $int9, $int11, db_getfield($dbrow12, invent_perk_table:col2, 0), 32, 32, $string0, rs3tli_default_font_dynamic);
+        $int9 = calc($int9 + 10);
+    }
+    $int9 = calc($int9 + 10);
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "Materials used: <~invent_gizmo_materials_used>", rs3tli_default_font_dynamic);
+    $int9 = calc($int9 + 10);
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "You gained <tostring_localised(calc($int4 / 10), true)> Invention XP", rs3tli_default_font_dynamic);
+    $int9 = calc($int9 + 10);
+}
+~script19620(invent_gizmo:result_feedback_scrollbar, $component7, $int9, null, -1, 0, 8, 8);
+if ($int6 > 0) {
+    if ($int5 > 0) {
+        if_sethide(true, invent_gizmo:repeat_button_disabled_layer);
+    } else {
+        if_sethide(false, invent_gizmo:repeat_button_disabled_layer);
+    }
+    if_sethide(true, invent_gizmo:restart_button_disabled_layer);
+} else {
+    if_sethide(false, invent_gizmo:repeat_button_disabled_layer);
+    if_sethide(false, invent_gizmo:restart_button_disabled_layer);
+}
+$component7 = invent_gizmo:repeat_layer;
+cc_deleteall($component7);
+$int8 = 0;
+$int9 = 5;
+$int10 = 5;
+$int11 = calc(if_getwidth($component7) - 10);
+def_int $int13 = min($int6, $int5);
+if ($int13 > 0) {
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "You have enough materials to repeat this <tostring($int13)> more <~text_plural($int13, "time", "times")>.", rs3tli_default_font_dynamic);
+    $int9 = calc($int9 + 10);
+} else if ($int6 = 0) {
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "You do not have any more gizmo shells.", rs3tli_default_font_dynamic);
+    $int9 = calc($int9 + 10);
+} else {
+    $int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "You do not have enough materials to repeat this.", rs3tli_default_font_dynamic);
+    $int9 = calc($int9 + 10);
+}
+$component7 = invent_gizmo:restart_layer;
+cc_deleteall($component7);
+$int8 = 0;
+$int9 = 5;
+$int10 = 5;
+$string0 = ~text_plural($int6, "gizmo shell", "gizmo shells");
+$int8, $int9 = ~script12086($component7, $int8, $int10, $int9, $int11, "You have <tostring($int6)> more <$string0> available.", rs3tli_default_font_dynamic);
+$int9 = calc($int9 + 10);

@@ -1,0 +1,80 @@
+// 2190
+[proc,lobbyscreen_input_full](string $string0, string $string1, int $int0, int $int1, string $string2, string $string3, int $int2)
+def_int $int3 = 80;
+if ($int1 ! -1 & $int1 ! 6 & string_length($string0) <= 0) {
+    return;
+} else if (($int1 = -1 | $int1 = 6) & string_length($string0) <= 0) {
+    $string0 = $string1;
+}
+~lobbyscreen_input_clear;
+~script9554(lobbyscreen_input:bg, lobbyscreen_input:border, lobbyscreen_input:content, $string0, toplevel_v2_nondragable_dialogue_skin_data);
+%lobbyscreen_input = $string1;
+if ($int0 = 1) {
+    if_settext(escape(%lobbyscreen_input), lobbyscreen_input:text);
+} else {
+    if_settext(%lobbyscreen_input, lobbyscreen_input:text);
+}
+def_boolean $boolean4 = ~is_mobile_client;
+def_string $string4 = "Done";
+def_string $string5 = "Cancel";
+def_int $int5 = 350;
+if ($int1 = 6 | $int1 = 10) {
+    $string4 = "Yes";
+    $string5 = "No";
+} else if ($int1 = 0) {
+    $int5 = 485;
+    %private_message_in_progress = true;
+}
+if_settext($string4, lobbyscreen_input:positive);
+if_setop(1, $string4, lobbyscreen_input:positive);
+if_setonop("lobbyscreen_input_ok($int1, $string2)", lobbyscreen_input:positive);
+if_settext($string5, lobbyscreen_input:neutral);
+if_setop(1, $string5, lobbyscreen_input:neutral);
+if_setsize($int5, 175, ^setsize_abs, ^setsize_abs, lobbyscreen_input:window);
+if ($boolean4 = true) {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen_input:window);
+} else {
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen_input:window);
+}
+if ($int2 = 0) {
+    if_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen_input:positive);
+    if_sethide(true, lobbyscreen_input:neutral);
+} else {
+    if_setposition(-75, 5, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen_input:positive);
+    if_setposition(75, 5, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen_input:neutral);
+    if_sethide(false, lobbyscreen_input:neutral);
+}
+if_sethide(false, lobbyscreen:input);
+def_int $int6 = 0;
+switch_int ($int1) {
+    case 1, 2, 3, 4, 5, 7, 9 :
+        $int6 = 2;
+        $int3 = 12;
+    case 0 :
+        $int3 = 255;
+    case 6 :
+        $int3 = 500;
+}
+def_enum $enum7 = ~script17126;
+if (if_gethide(enum(int, component, $enum7, 4)) = false) {
+    ~script3161(0);
+} else if (if_gethide(enum(int, component, $enum7, 3)) = false) {
+    ~script4556(0);
+}
+if_setonkey("lobbyscreen_input_keyboard(event_keycode, event_keychar, event_com, $int6, $int1, $string2)", lobbyscreen_input:text);
+%lobbyscreen_last_max_chars = $int3;
+~script1566(0, $string1, $int3);
+if ($int1 ! -1 & $int1 ! 6) {
+    %lobby_caret = string_length(%lobbyscreen_input);
+    if_setonclick("script1874(event_mousex, lobbyscreen_input:text, lobbyscreen_input:caret)", lobbyscreen_input:text);
+    ~script1875(lobbyscreen_input:text, lobbyscreen_input:caret, %lobbyscreen_input);
+    if_sethide(true, lobbyscreen_input:caret);
+    if_sethide(false, lobbyscreen_input:box_container);
+} else {
+    %lobby_caret = 0;
+    if_sethide(true, lobbyscreen_input:box_container);
+    if (string_length($string3) > 0 & string_length(%lobbyscreen_input) > 0) {
+        if_settext("<u=AED0E0><$string3></u>", lobbyscreen_input:link);
+        if_sethide(false, lobbyscreen_input:link);
+    }
+}

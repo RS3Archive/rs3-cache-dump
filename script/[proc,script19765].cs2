@@ -1,0 +1,36 @@
+// 19765
+[proc,script19765](int $int0, int $int1)(obj, int, struct, graphic, dbrow)
+if ($int0 = 0) {
+    $int0 = 1;
+}
+def_int $int2 = 0;
+def_dbrow $dbrow3 = null;
+def_int $int4 = 0;
+def_dbrow $dbrow5 = null;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = 1;
+def_struct $struct9 = null;
+def_graphic $graphic10 = null;
+switch_int ($int0) {
+    case 1 :
+        $dbrow3 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col5, 0);
+    case 2 :
+        $dbrow3 = db_getfield(trh205_val2025_reward_path, trh205_reward_path_data:col6, 0);
+    case 3 :
+        $int6, $obj7, $int8, $struct9, $graphic10 = db_getfield(trh205_val2025_duo_rewards, trh205_path_duo_rewards:col0, $int1);
+        return($obj7, $int8, $struct9, $graphic10, $dbrow5);
+}
+$int4 = db_getfieldcount($dbrow3, trh205_reward_path:col0);
+if ($int1 >= $int4) {
+    $dbrow5 = db_getfield($dbrow3, trh205_reward_path:col1, 0);
+} else {
+    $dbrow5 = db_getfield($dbrow3, trh205_reward_path:col0, $int1);
+}
+if ($dbrow5 ! null) {
+    $obj7, $int8 = db_getfield($dbrow5, trh205_path_reward:col1, 0);
+    $struct9, $graphic10 = db_getfield($dbrow5, trh205_path_reward:col2, 0);
+} else {
+    ~error("Reward dbrow is null when attempting to get trh205 reward.");
+}
+return($obj7, $int8, $struct9, $graphic10, $dbrow5);

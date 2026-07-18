@@ -1,0 +1,13 @@
+// 10224
+[worldmapelementmouserepeat,_](mapelement $mapelement0, int $int1, int $int2)
+cc_deleteall(worldmap_v2_ui:mapelement_mouseover_layer);
+if (%worldmap_tooltips_hidden = 1 | if_hassub(toplevel_v2:worldmap_ui_layer) = false) {
+    return;
+}
+cc_create(worldmap_v2_ui:mapelement_mouseover_layer, ^iftype_graphic, 0);
+cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3, $int4 = ~script8405(worldmap_v2_ui:mapelement_mouseover_layer);
+cc_setposition(calc($int1 - $int3 - cc_getwidth / 2), calc($int2 - $int4 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+~worldmap_elements_mouserepeat($mapelement0);

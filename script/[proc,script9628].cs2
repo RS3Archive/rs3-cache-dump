@@ -1,0 +1,42 @@
+// 9628
+[proc,script9628](component $component0, int $int1, int $int2)
+def_int $int3 = -1;
+def_struct $struct4 = null;
+def_category $category5 = null;
+def_int $int6 = -1;
+if (cc_find($component0, $int1) = true) {
+    $int3 = cc_param(worldmap_key_data_id);
+    $struct4 = enum(int, struct, worldmap_key_data, $int3);
+    if ($struct4 ! null & enum_getreversecount(struct, worldmap_mec2data, $struct4) = 1) {
+        $category5 = enum_getreverseindex(struct, category, worldmap_mec2data, $struct4, 0);
+    }
+    $int6 = ~worldmap_key_get_selected_bit($int3);
+    if ($int2 ! -1 & $int2 ! calc(1 - $int6)) {
+        return;
+    }
+    if ($int6 = 0) {
+        cc_setgraphic("rs3_btn_checkbox_small,2");
+        if ($category5 ! null) {
+            worldmap_disableelementcategory($category5, false);
+            worldmap_flashelementcategory($category5);
+        }
+        if (cc_find($component0, calc($int1 + 3)) = true & .cc_find($component0, calc($int1 + 2)) = true) {
+            if ($int2 ! -1) {
+                .cc_setcolour(~script10495(4));
+            }
+            cc_setonmouseleave("worldmap_key_onmouseleave($component0, .cc_getid, ~script10495(4))");
+        }
+    } else if ($int6 = 1) {
+        cc_setgraphic("rs3_btn_checkbox_small,0");
+        if ($category5 ! null) {
+            worldmap_disableelementcategory($category5, true);
+        }
+        if (cc_find($component0, calc($int1 + 3)) = true & .cc_find($component0, calc($int1 + 2)) = true) {
+            if ($int2 ! -1) {
+                .cc_setcolour(~script10495(5));
+            }
+            cc_setonmouseleave("worldmap_key_onmouseleave($component0, .cc_getid, ~script10495(5))");
+        }
+    }
+    ~worldmap_key_toggle_selected_bit($int3);
+}

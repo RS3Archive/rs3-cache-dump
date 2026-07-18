@@ -1,0 +1,73 @@
+// 7653
+[proc,tostring_decimal](int $int0, int $int1, int $int2, int $int3, int $int4)(string)
+if ($int0 = 0) {
+    return("0");
+}
+if ($int1 = 0) {
+    return(tostring_localised($int0, true));
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int2 = min($int2, $int1);
+if ($int1 > $int2) {
+    if ($int3 = 0 | $int3 = 2) {
+        $int7 = pow(10, calc($int1 - $int2));
+        $int0 = calc($int0 / $int7);
+        $int1 = $int2;
+    } else {
+        $int7 = pow(10, calc($int1 - $int2 - 1));
+        if ($int0 > 0) {
+            if (calc($int0 / $int7 % 10) >= 5) {
+                $int0 = calc($int0 + 10 * $int7);
+            }
+        } else if (calc($int0 / $int7 % 10) <= -5) {
+            $int0 = calc($int0 - 10 * $int7);
+        }
+        $int0 = calc($int0 / ($int7 * 10));
+        $int1 = $int2;
+    }
+}
+if ($int3 ! 2 & $int3 ! 3) {
+    while ($int1 > 0 & calc($int0 % 10) = 0) {
+        $int1 = calc($int1 - 1);
+        $int0 = calc($int0 / 10);
+    }
+}
+$int5, $int6 = ~script362($int0, $int1);
+def_string $string0 = "";
+def_int $int8 = 0;
+$int7 = $int6;
+if ($int1 > 0) {
+    if ($int3 ! 2 & $int3 ! 3) {
+        if ($int6 ! 0) {
+            while ($int7 > 0) {
+                $int7 = calc($int7 / 10);
+                $int8 = calc($int8 + 1);
+            }
+            $int8 = calc($int1 - $int8);
+            while ($int8 > 0) {
+                $string0 = append($string0, "0");
+                $int8 = calc($int8 - 1);
+            }
+        }
+    } else {
+        if ($int6 = 0) {
+            $int8 = calc($int8 + 1);
+        } else {
+            while ($int7 > 0) {
+                $int7 = calc($int7 / 10);
+                $int8 = calc($int8 + 1);
+            }
+        }
+        $int8 = calc($int1 - $int8);
+        while ($int8 > 0) {
+            $string0 = append($string0, "0");
+            $int8 = calc($int8 - 1);
+        }
+    }
+}
+if ($int4 = 1 & $int6 = 0) {
+    return(tostring_localised($int5, true));
+}
+return("<tostring_localised($int5, true)><~script8002><$string0><tostring($int6)>");

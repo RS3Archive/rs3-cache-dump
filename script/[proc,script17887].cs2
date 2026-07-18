@@ -1,0 +1,71 @@
+// 17887
+[proc,script17887](obj $obj0, struct $struct1, dbrow $dbrow2, int $int3, int $int4, graphic $graphic5)(string)
+def_string $string0 = "";
+def_string $string1 = "";
+def_struct $struct6 = null;
+if ($struct1 ! null) {
+    $string1 = ~script17935($struct1);
+}
+switch_int ($int4) {
+    case default :
+        ~error("No name specified for data.");
+    case 0 :
+        $string0 = oc_desc($obj0);
+        if (string_length($string0) = 0) {
+            $string0 = oc_param($obj0, trh_extended_desc);
+        }
+    case 1 :
+        if ($struct1 = null) {
+            return($string0);
+        }
+        switch_int (struct_param($struct1, mtxmgt_category)) {
+            case 2 :
+                $string0 = "Unlocks the '<$string1>' cosmetic override.";
+            case 5 :
+                switch_int (struct_param($struct1, mtxmgt_subcat)) {
+                    case 2 :
+                        $string0 = "Unlocks the '<$string1>' companion pet.";
+                    case 3 :
+                        $string0 = "Unlocks the '<$string1>' follower pet.";
+                    case default :
+                        $string0 = "Unlocks the '<$string1>' pet.";
+                }
+            case 4 :
+                switch_int (struct_param($struct1, mtxmgt_subcat)) {
+                    case 7 :
+                        $struct6 = struct_param($struct1, ability_struct);
+                        if ($struct6 ! null) {
+                            $string0 = "Unlocks the '<$string1>' ability override for the <struct_param($struct6, combatv2_ability_name)> ability.";
+                        } else {
+                            $string0 = "Unlocks the '<$string1>' ability override.";
+                        }
+                        if (struct_param($struct1, mtxmgt_preview_npc_list) ! null) {
+                            $string0 = append($string0, "<br>This override has multiple variants. You are viewing a random variant.");
+                        }
+                    case 0 :
+                        $string0 = "Unlocks the '<$string1>' tool override.";
+                    case 4 :
+                        $string0 = "Unlocks the '<$string1>' overhead skilling icon.";
+                }
+            case 3 :
+                $string0 = append("Unlocks the '<$string1>' title.<br>", ~player_title_get(struct_param($struct1, mtxmgt_title_id), gender));
+            case default :
+                ~error("Unsupported mtxmgt reward");
+        }
+    case 3 :
+        return("A currency used to purchase items within the Hero Store.");
+    case 4, 5 :
+        if ($dbrow2 = null) {
+            return($string0);
+        }
+        $string0 = "<~script17916($dbrow2)><br>";
+        $string0 = append($string0, "Expires at the end of this pass.");
+        if ($int4 = 4) {
+            $string0 = append($string0, "<br>Can be activated in the buffs tab.");
+        } else {
+            $string0 = append($string0, "<br>Find out more in the buffs tab.");
+        }
+    case 6 :
+        return("Boosts you by <tostring(10)> levels in the next Hero Pass. This reward will automatically be applied when you login to the next Hero Pass for the first time.");
+}
+return($string0);

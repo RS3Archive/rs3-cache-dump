@@ -1,0 +1,41 @@
+// 7286
+[clientscript,script7286]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int0, $int1, $int2 = ~script7295(%pop_ship_selected_var);
+def_int $int3 = 0;
+if (%pop_ship_crew_selected_var >= $int0 & %pop_ship_crew_selected_var <= $int1 & testbit($int2, calc(%pop_ship_crew_selected_var - $int0)) = ^true) {
+    $int3 = 1;
+}
+if (%pop_crew_stat_obj = null | $int3 = 0) {
+    if_setgraphic(null, pop_ship:selected_crew_icon);
+    if (%pop_ship_crew_selected_var = $int0) {
+        if_settext("No Captain", pop_ship:selected_crew_name);
+    } else {
+        if_settext("Empty Crew slot", pop_ship:selected_crew_name);
+    }
+    if_settext("", pop_ship:selected_crew_level);
+    if_settext("", pop_ship:selected_crew_speed);
+    if_settext("", pop_ship:selected_crew_graft);
+    if_settext("", pop_ship:selected_crew_combat);
+    if_settext("", pop_ship:selected_crew_seafaring);
+    if_settext("", pop_ship:selected_crew_trait);
+    return;
+}
+if_settext(%pop_crew_stat_name, pop_ship:selected_crew_name);
+if_settext(tostring(%pop_crew_stat_speed), pop_ship:selected_crew_speed);
+if_settext(tostring(%pop_crew_stat_graft), pop_ship:selected_crew_graft);
+if_settext(tostring(%pop_crew_stat_combat), pop_ship:selected_crew_combat);
+if_settext(tostring(%pop_crew_stat_seafaring), pop_ship:selected_crew_seafaring);
+if_settext("Level <tostring(%pop_crew_stat_level)>", pop_ship:selected_crew_level);
+if_setgraphic(oc_param(%pop_crew_stat_obj, pop_crew_graphic), pop_ship:selected_crew_icon);
+if_settext(%pop_crew_stat_trait, pop_ship:selected_crew_trait);
+if (compare(%pop_crew_stat_trait_tooltip, "") ! 0) {
+    if_setonmouserepeat("script8799(%pop_crew_stat_trait_tooltip, event_com, -1)", pop_ship:selected_crew_trait);
+    if_setonmouseover("text_colour_swapper(event_com, 16686339)", pop_ship:selected_crew_trait);
+} else {
+    if_setonmouserepeat(null, pop_ship:selected_crew_trait);
+    if_setonmouseover(null, pop_ship:selected_crew_trait);
+}
+if_setonmouseleave("script7287", pop_ship:selected_crew_trait);

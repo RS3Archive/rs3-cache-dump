@@ -1,0 +1,26 @@
+// 11926
+[clientscript,script11926]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_boolean $boolean2 = false;
+if (%lobby_crm_active = true) {
+    return;
+}
+if (%lobbyscreen_bonds_price > 0) {
+    $int0, $int1, $boolean2 = userdetail_lobby_membership;
+    if ((playermember = false | $boolean2 = false & $int1 < 2880) & random(2) = 0 & ~script13491(%lobby_runeday) = false & %lobbyscreen_coins_count >= %lobbyscreen_bonds_price) {
+        switch_int (map_lang) {
+            case 0 :
+                if_setgraphic(rs3_lobby_primary_default_bonds_buy_now_en, lobbyscreen_pane_playerinfo:special_gfx);
+            case 1 :
+                if_setgraphic(rs3_lobby_primary_default_bonds_buy_now_de, lobbyscreen_pane_playerinfo:special_gfx);
+            case 2 :
+                if_setgraphic(rs3_lobby_primary_default_bonds_buy_now_fr, lobbyscreen_pane_playerinfo:special_gfx);
+            case 3 :
+                if_setgraphic(rs3_lobby_primary_default_bonds_buy_now_pt, lobbyscreen_pane_playerinfo:special_gfx);
+        }
+        if_setonclick("script13252", lobbyscreen_pane_playerinfo:special_gfx);
+        ~script10592(lobbyscreen_pane_playerinfo:buy_bonds_with_coins_layer, 1);
+        ~script10593(1);
+    }
+}

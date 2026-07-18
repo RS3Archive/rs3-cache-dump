@@ -1,0 +1,46 @@
+// 18467
+[clientscript,script18467](component $component0, int $int1, int $int2)
+def_component $component3 = null;
+def_component $component4 = null;
+switch_int ($int1) {
+    case 2 :
+        if (cc_find($component0, 0) = true & cc_crmview_contains("mtx_type") = true) {
+            switch_int ($int2) {
+                case 0 :
+                    $component3 = lobbyscreen_pane_playerinfo:bottom_left_overlay_layer;
+                case 2 :
+                    $component3 = lobbyscreen_pane_playerinfo:bottom_right_overlay_layer;
+                case default :
+                    ~error("Campagin contains mtx_type keyword but campagin slot is unexpected. No valid overlay_layer to draw mtx_currency.");
+                    $component3 = null;
+            }
+            if ($component3 ! null) {
+                switch_int (cc_crmview_getint("mtx_type")) {
+                    case 1 :
+                    case 2 :
+                        ~script18478($component3);
+                    case default :
+                        ~error("Unknown mtx_type when trying to draw lobby overlay for slot <tostring($int2)>.");
+                }
+            }
+        }
+        if (cc_find($component0, 0) = true & cc_crmview_contains("title_text") = true) {
+            switch_int ($int2) {
+                case 0 :
+                    $component4 = lobbyscreen_pane_playerinfo:bottom_left_title_text;
+                case 2 :
+                    $component4 = lobbyscreen_pane_playerinfo:bottom_right_title_text;
+                case 1 :
+                    $component4 = lobbyscreen_pane_playerinfo:bottom_centre_title_text;
+                case default :
+                    ~error("Unexpected lobby slot when trying to find the slot's title component.");
+                    $component3 = null;
+            }
+            if_settext(cc_crmview_getstring("title_text"), $component4);
+        }
+    case 3, 4, 5, 6 :
+        if (cc_find($component0, 0) = true) {
+            cc_delete;
+        }
+        ~script10038($int2, 0, 0);
+}

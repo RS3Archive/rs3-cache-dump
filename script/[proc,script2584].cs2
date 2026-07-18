@@ -1,0 +1,79 @@
+// 2584
+[proc,script2584](dbrow $dbrow0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, component $component13, component $component14, component $component15, int $int16, int $int17)
+def_int $int18 = db_getfieldcount($dbrow0, accordian_builder:col0);
+if ($int18 > 10) {
+    return;
+}
+def_int $int19 = 0;
+def_string $string0 = "";
+def_enum $enum20 = null;
+def_component $component21 = null;
+def_component $component22 = null;
+def_component $component23 = null;
+if_sethide(true, $component1);
+if_sethide(true, $component4);
+if_sethide(true, $component7);
+if_sethide(true, $component10);
+if_sethide(true, $component13);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_setposition(0, 50, ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_setposition(0, 100, ^setpos_abs_left, ^setpos_abs_top, $component7);
+if_setposition(0, 150, ^setpos_abs_left, ^setpos_abs_top, $component10);
+if_setposition(0, 200, ^setpos_abs_left, ^setpos_abs_top, $component13);
+if_setsize(0, 50, ^setsize_minus, ^setsize_abs, $component1);
+if_setsize(0, 50, ^setsize_minus, ^setsize_abs, $component4);
+if_setsize(0, 50, ^setsize_minus, ^setsize_abs, $component7);
+if_setsize(0, 50, ^setsize_minus, ^setsize_abs, $component10);
+if_setsize(0, 50, ^setsize_minus, ^setsize_abs, $component13);
+if_setparam_int(rs3tli_accordion_content_fix_height, 0, $component1);
+if_setparam_int(rs3tli_accordion_content_fix_height, 0, $component4);
+if_setparam_int(rs3tli_accordion_content_fix_height, 0, $component7);
+if_setparam_int(rs3tli_accordion_content_fix_height, 0, $component10);
+if_setparam_int(rs3tli_accordion_content_fix_height, 0, $component13);
+if ($int17 = 1) {
+    if_setscrollpos(0, 0, if_getparentlayer($component1));
+}
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 1;
+def_int $int27 = 1;
+while ($int19 < $int18) {
+    $string0, $enum20 = db_getfield($dbrow0, accordian_builder:col0, $int19);
+    switch_int ($int19) {
+        case 0 :
+            $component21 = $component1;
+            $component22 = $component2;
+            $component23 = $component3;
+        case 1 :
+            $component21 = $component4;
+            $component22 = $component5;
+            $component23 = $component6;
+        case 2 :
+            $component21 = $component7;
+            $component22 = $component8;
+            $component23 = $component9;
+        case 3 :
+            $component21 = $component10;
+            $component22 = $component11;
+            $component23 = $component12;
+        case 4 :
+            $component21 = $component13;
+            $component22 = $component14;
+            $component23 = $component15;
+    }
+    if (.cc_find($component23, 1) = true) {
+        $int27 = 0;
+    } else {
+        $int27 = 1;
+    }
+    cc_deleteall($component23);
+    if_sethide(false, $component21);
+    if_settext($string0, $component22);
+    $int24 = ~smithing_interface_build_grid($enum20, if_getnextsubid($component23), $component23, $int16);
+    if_setparam_int(rs3tli_accordion_content_fix_height, $int24, $component21);
+    if ($int27 = 1) {
+        ~script9582($component21, 0, 0);
+    }
+    $int19 = calc($int19 + 1);
+}
+~script9581(if_getparentlayer($component21));

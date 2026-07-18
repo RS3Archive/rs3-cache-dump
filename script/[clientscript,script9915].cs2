@@ -1,0 +1,64 @@
+// 9915
+[clientscript,script9915](int $int0, int $int1, int $int2)
+if (%tutorial < 1000) {
+    mes("You can't do this while in the tutorial.");
+    return;
+}
+if (%task_priority_mode = 1) {
+    mes("You cannot change your chat filters while you are in the tutorial as you might miss important messages that will help with your progress.");
+    return;
+}
+switch_int ($int0) {
+    case 1 :
+        if (%chat_view = $int2) {
+            %chat_view = -1;
+            ~script9946;
+        } else if (%chat_view = -1) {
+            %chat_view = $int2;
+            ~script9946;
+        } else {
+            %chat_view = $int2;
+        }
+        ~script9912($int2);
+        ~script10268($int2);
+    case 2 :
+        if ($int2 = 1) {
+            %chat_v2_hide_public = 0;
+        }
+        ~script9914($int2, 1, 0);
+    case 3 :
+        if ($int2 = 1) {
+            %chat_v2_hide_public = 0;
+        }
+        ~script9914($int2, 1, 1);
+    case 4 :
+        switch_int ($int2) {
+            case 0 :
+                %toplevel_v2_chat1_game = 0;
+            case 1 :
+                if ($int2 = 1) {
+                    %chat_v2_hide_public = 0;
+                }
+                ~script9914($int2, 0, 0);
+            case 2 :
+                %toplevel_v2_chat1_private = 0;
+                chat_setfilter(chat_getfilter_public, ^chatfilter_off, chat_getfilter_trade);
+            case 3 :
+                %toplevel_v2_chat1_friends = 0;
+            case 4 :
+                %toplevel_v2_chat1_clan = 0;
+            case 5 :
+                %toplevel_v2_chat1_otherclan = 0;
+            case 6 :
+                %toplevel_v2_chat1_requests = 0;
+            case 15 :
+                %toplevel_v2_chat1_group = 0;
+            case 16 :
+                %toplevel_v2_chat1_group_ironman = 0;
+        }
+    case 5 :
+        if ($int2 = 1) {
+            %chat_v2_hide_public = 1;
+        }
+}
+~chat_v2_rebuildchatbox($int1);

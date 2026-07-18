@@ -1,0 +1,12 @@
+// 18209
+[proc,script18209]()(dbfilter)
+def_dbfilter $dbfilter0 = db_filter_value(mtxmgt_cosmetic:col21, 0, ^filterop_eq, 0);
+switch_int (gender) {
+    case 0 :
+        $dbfilter0 = db_filter_combine($dbfilter0, db_filter_unknown(db_filter_value(mtxmgt_cosmetic:col19, 1, ^filterop_eq, 0)));
+    case 1 :
+        $dbfilter0 = db_filter_combine($dbfilter0, db_filter_unknown(db_filter_value(mtxmgt_cosmetic:col19, 0, ^filterop_eq, 0)));
+    case -1, 2 :
+        $dbfilter0 = db_filter_combine($dbfilter0, db_filter_value(mtxmgt_cosmetic:col19, 2, ^filterop_eq, 0));
+}
+return($dbfilter0);

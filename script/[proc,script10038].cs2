@@ -1,0 +1,88 @@
+// 10038
+[proc,script10038](int $int0, int $int1, int $int2)
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_int $int7 = -1;
+def_dbrow $dbrow8 = null;
+switch_int ($int0) {
+    case 0 :
+        $dbrow8 = crm_braze_lobby_secondary_left;
+    case 1 :
+        $dbrow8 = crm_braze_lobby_secondary_main;
+    case 2 :
+        $dbrow8 = crm_braze_lobby_secondary_right;
+    case default :
+        ~error("Unexpected slot type when setting the secondary slots in the lobby.");
+        return;
+}
+if ($int2 = -1) {
+    switch_int ($int0) {
+        case 0 :
+            $dbrow8 = crm_braze_lobby_secondary_left;
+        case 1 :
+            $dbrow8 = crm_braze_lobby_secondary_main;
+        case 2 :
+            $dbrow8 = crm_braze_lobby_secondary_right;
+        case default :
+            ~error("Unexpected slot type when setting the secondary slots in the lobby.");
+            return;
+    }
+    if (~script18461($dbrow8) = true) {
+        ~script18464($dbrow8);
+    } else {
+        if (cc_find(db_getfield($dbrow8, crm_braze:col0, 0), 0) = true) {
+            cc_delete;
+        }
+        ~script10038($int0, 0, 0);
+    }
+    ~script10051;
+    return;
+} else {
+    switch_int ($int0) {
+        case 0 :
+            if_setonvarctransmit("script10037(0, %lobby_left_crm_type){lobby_left_crm_type}", lobbyscreen_pane_playerinfo:bottom_left);
+            $component3 = lobbyscreen_pane_playerinfo:bottom_left_graphic;
+            $component4 = lobbyscreen_pane_playerinfo:bottom_left_title_text;
+            $component5 = lobbyscreen_pane_playerinfo:bottom_left_overlay_layer;
+            $component6 = lobbyscreen_pane_playerinfo:bottom_left_highlight_layer;
+            $int7 = 2;
+        case 1 :
+            if_setonvarctransmit("script10037(1, %lobby_centre_crm_type){lobby_centre_crm_type}", lobbyscreen_pane_playerinfo:bottom_centre);
+            $component3 = lobbyscreen_pane_playerinfo:bottom_centre_graphic;
+            $component4 = lobbyscreen_pane_playerinfo:bottom_centre_title_text;
+            $component5 = lobbyscreen_pane_playerinfo:bottom_centre_overlay_layer;
+            $component6 = lobbyscreen_pane_playerinfo:bottom_centre_highlight_layer;
+        case 2 :
+            if_setonvarctransmit("script10037(2, %lobby_right_crm_type){lobby_right_crm_type}", lobbyscreen_pane_playerinfo:bottom_right);
+            $component3 = lobbyscreen_pane_playerinfo:bottom_right_graphic;
+            $component4 = lobbyscreen_pane_playerinfo:bottom_right_title_text;
+            $component5 = lobbyscreen_pane_playerinfo:bottom_right_overlay_layer;
+            $component6 = lobbyscreen_pane_playerinfo:bottom_right_highlight_layer;
+            $int7 = 2;
+        case default :
+            return;
+    }
+}
+~script4161($component6, 255);
+if_setontimer(null, $component6);
+if_sethide(true, $component6);
+if_setop(1, "", $component3);
+if_setonop(null, $component3);
+if_setonmouserepeat(null, $component3);
+if_setonclick(null, $component3);
+switch_int ($int7) {
+    case 0 :
+        ~lobby_custom_promo($component3, $component4, $component5, $component6, $int0);
+    case 1 :
+        ~script10041($component3, $component4, $component5, $component6, $int0);
+    case 2 :
+        ~lobby_mtx_promo($component3, $component4, $component5, $component6, $int0);
+    case -1 :
+        ~lobby_content_promo($component3, $component4, $component5, $component6, $int0);
+}
+if ($int0 = 0) {
+    cc_deleteall($component5);
+}
+~script10051;

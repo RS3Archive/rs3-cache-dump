@@ -1,0 +1,23 @@
+// 20428
+[proc,script20428](dbrow $dbrow0)(obj, obj, string)
+def_obj $obj1 = null;
+def_obj $obj2 = null;
+def_string $string0 = "";
+def_stat $stat3 = db_getfield($dbrow0, anniversary_skillcapes_skills:col1, 0);
+def_int $int4 = db_getfield($dbrow0, anniversary_skillcapes_skills:col2, 0);
+def_int $int5 = ~script20429($stat3);
+if (stat_base_actual($stat3) >= 99 & $int5 = 0) {
+    $obj1 = enum(stat, obj, skillcape_stat_to_obj, $stat3);
+    $obj2 = enum(stat, obj, skillcape_inverted_stat_to_obj, $stat3);
+    if (~script20430 = 1) {
+        $obj1 = enum(stat, obj, skillcape_stat_to_obj_trimmed, $stat3);
+        $obj2 = enum(stat, obj, skillcape_inverted_stat_to_obj_trimmed, $stat3);
+    }
+    $obj1 = enum(obj, obj, skillcape_hooded_version, $obj1);
+    $string0 = oc_name($obj2);
+} else if ($int5 = 1) {
+    $obj1 = enum(int, obj, int_to_master_skillcape, $int4);
+    $obj2 = enum(int, obj, int_to_master_skillcape_inverted, $int4);
+    $string0 = oc_name($obj2);
+}
+return($obj1, $obj2, $string0);

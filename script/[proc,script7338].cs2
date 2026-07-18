@@ -1,0 +1,127 @@
+// 7338
+[proc,script7338](enum $enum0, int $int1, int $int2, int $int3, int $int4)(int, int)
+def_struct $struct5 = enum(int, struct, $enum0, $int1);
+def_component $component6 = pop_port_upgrade:content_layer;
+if ($struct5 = null) {
+    return(0, 0);
+}
+def_int $int7 = calc($int3 / 100);
+def_int $int8 = 0;
+switch_int ($int4) {
+    case 0 :
+        if (%pop3_port_hotspot_15_id < 3 & %pop3_port_hotspot_15_id < calc($int7 - 1)) {
+            $int8 = 1;
+        }
+        if (%pop3_port_hotspot_1_id > $int7 & $int7 < 4) {
+            $int8 = 3;
+        }
+        if (%pop3_port_hotspot_1_id = $int7) {
+            $int8 = 2;
+        }
+    case 1 :
+        if (%pop_port_hotspot_18_id < calc($int7 - 1)) {
+            $int8 = 1;
+        }
+        if (%pop_port_hotspot_4_id = $int7) {
+            $int8 = 2;
+        }
+        if (%pop_port_hotspot_4_id > $int7) {
+            $int8 = 3;
+        }
+    case 2 :
+        if (%pop_port_hotspot_20_id < calc($int7 - 1)) {
+            $int8 = 1;
+        }
+        if (%pop_port_hotspot_5_id = $int7) {
+            $int8 = 2;
+        }
+        if (%pop_port_hotspot_5_id > $int7) {
+            $int8 = 3;
+        }
+    case 5 :
+        if (%pop3_port_hotspot_17_id < calc($int7 - 1)) {
+            $int8 = 1;
+        }
+        if (%pop3_port_hotspot_3_id = $int7) {
+            $int8 = 2;
+        }
+        if (%pop3_port_hotspot_3_id > $int7) {
+            $int8 = 3;
+        }
+    case 4 :
+        if (%pop3_port_hotspot_16_id < 3 & %pop3_port_hotspot_16_id < calc($int7 - 1)) {
+            $int8 = 1;
+        }
+        if (%pop3_port_hotspot_2_id = $int7) {
+            $int8 = 2;
+        }
+        if (%pop3_port_hotspot_2_id > $int7 & $int7 < 3) {
+            $int8 = 3;
+        }
+    case 3 :
+        if (%pop3_port_hotspot_19_id < 3 & %pop3_port_hotspot_19_id < calc($int7 - 1)) {
+            $int8 = 1;
+        }
+        if (%pop3_port_hotspot_6_id = $int7) {
+            $int8 = 2;
+        }
+        if (%pop3_port_hotspot_6_id > $int7 & $int7 < 3) {
+            $int8 = 3;
+        }
+    case 13 :
+        if (%pop_port_hotspot_7_id = $int7) {
+            $int8 = 2;
+        }
+    case 10 :
+        if (%pop2_port_hotspot_8_id = $int7) {
+            $int8 = 2;
+        }
+    case 11 :
+        if (%pop2_port_hotspot_9_id = $int7) {
+            $int8 = 2;
+        }
+    case 12 :
+        if (%pop2_port_hotspot_10_id = $int7) {
+            $int8 = 2;
+        }
+    case 6 :
+        if (%pop_port_hotspot_11_id = $int7) {
+            $int8 = 2;
+        }
+    case 7 :
+        if (%pop_port_hotspot_12_id = $int7) {
+            $int8 = 2;
+        }
+    case 8 :
+        if (%pop_port_hotspot_13_id = $int7) {
+            $int8 = 2;
+        }
+    case 9 :
+        if (%pop_port_hotspot_14_id = $int7) {
+            $int8 = 2;
+        }
+}
+if ($int8 = 1) {
+    return($int2, $int3);
+}
+cc_create($component6, ^iftype_graphic, $int2);
+$int2 = calc($int2 + 1);
+if ($int8 = 2) {
+    cc_setgraphic("aif_tick_cross_icon,0");
+} else if ($int8 = 3) {
+    cc_setgraphic("aif_pop_ship_manager_item_tab,3");
+} else {
+    cc_setgraphic("aif_pop_ship_manager_item_tab,0");
+}
+if ($int8 = 0) {
+    cc_setonmouseover("pop_ship_item_hover(0, 1, event_com, event_comsubid)");
+    cc_setonmouseleave("pop_ship_item_hover(0, 0, event_com, event_comsubid)");
+}
+cc_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(438, 96, ^setsize_abs, ^setsize_abs);
+if ($int8 = 0) {
+    cc_setop(1, "Upgrade to");
+}
+def_string $string0 = struct_param($struct5, pop_upgrade_name);
+cc_setopbase(append("<col=ffcc00>", $string0));
+return($int2, calc($int3 + 100));

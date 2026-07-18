@@ -1,0 +1,38 @@
+// 19100
+[clientscript,script19100]
+cc_deleteall(trh199_overlay:reward_grid);
+if (%trh199_active_blueprint = 0) {
+    return;
+}
+def_dbrow $dbrow0 = ~script19067(%trh199_active_blueprint);
+def_int $int1 = max(1, db_getfieldcount($dbrow0, trh199_blueprint:col4));
+def_component $component2 = trh199_overlay:reward_grid;
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_obj $obj5 = null;
+def_int $int6 = 1;
+def_struct $struct7 = null;
+def_int $int8 = 1;
+while (++$int3 < $int1) {
+    ~cc_add_layer($component2, $int3, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 80, 42, ^setsize_abs, ^setsize_abs);
+    cc_setop(1, "Preview");
+    cc_setopcursor(1, cursor_info);
+    cc_setonop("script19090($int3)");
+    ~script7920($component2, calc($int3 + 1), $int4, 0, $int3, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 80, 42, ^setsize_abs, ^setsize_abs, trh199_preview_square);
+    $int4 = calc($int4 + 1);
+    $obj5, $int6 = ~script19077($dbrow0, $int3);
+    ~script3537(oc_name($obj5));
+    ~script9862($component2, calc($int3 + 1), $int4, 0, $int3, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 36, 34, ^setsize_abs, ^setsize_abs, $obj5, 1);
+    $struct7 = oc_param($obj5, mtxmgt_item_struct);
+    if ($struct7 ! null & ~script6488($struct7) = 1) {
+        $int4 = calc($int4 + 1);
+        ~script7920($component2, calc($int3 + 1), $int4, 0, $int3, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs, trh199_icon_tick);
+    } else if ($int8 = 1) {
+        if (cc_findbycategory(trh199_overlay:reward_grid, calc($int3 + 1), 0) = 1) {
+            cc_setgraphic(trh199_preview_square_current);
+        }
+        if_settext(oc_name($obj5), trh199_overlay:current_crafting_text);
+        $int8 = 0;
+    }
+    $int4 = 0;
+}

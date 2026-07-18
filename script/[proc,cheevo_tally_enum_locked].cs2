@@ -1,0 +1,30 @@
+// 8219
+[proc,cheevo_tally_enum_locked](enum $enum0)(int, int, int)
+if ($enum0 = null) {
+    ~error("cheevo_tally_enum - $cheevo_list is null!!!!");
+    return(0, 0, 0);
+}
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount($enum0);
+if ($int2 <= 0) {
+    ~error("cheevo_tally_enum - $cheevo_list is empty!!!!");
+    return(0, 0, 0);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_struct $struct6 = null;
+while ($int1 < $int2) {
+    $struct6 = enum(int, struct, $enum0, $int1);
+    if ($struct6 ! null) {
+        if (~cheevo_obtain_progress($struct6) = -1) {
+            $int4 = calc($int4 + 1);
+            $int3 = calc($int3 + 1);
+            $int5 = calc($int5 + struct_param($struct6, cheevo_runescore));
+        } else if (struct_param($struct6, cheevo_hidden) = 0) {
+            $int4 = calc($int4 + 1);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+return($int3, $int4, $int5);

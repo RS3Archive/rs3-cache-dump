@@ -1,0 +1,114 @@
+// 10993
+[proc,script10993](int $int0)
+if (%mtxmgt_selected_tab_subcat = $int0) {
+    return;
+}
+def_component $component1 = enum(int, component, mtxmgt_subcat_headers, $int0);
+def_component $component2 = null;
+if (%mtxmgt_selected_tab_subcat ! -1) {
+    $component2 = enum(int, component, mtxmgt_subcat_headers, %mtxmgt_selected_tab_subcat);
+}
+def_component $component3 = enum(int, component, mtxmgt_subcat_lists, $int0);
+def_int $int4 = 0;
+while ($int4 < enum_getoutputcount(mtxmgt_subcat_headers)) {
+    if ($int4 = $int0) {
+        ~script6465(%mtxmgt_selected_category, $int4, 1);
+    } else {
+        ~script6465(%mtxmgt_selected_category, $int4, 0);
+    }
+    $int4 = calc($int4 + 1);
+}
+def_int $int5 = 1;
+if ($component3 ! null) {
+    sound_vorbis_volume(tli_click_01, 1, 0, 100);
+    if_sethide(true, $component3);
+    ~script7494;
+    ~script7491($int0, %mtxmgt_show_all, 0, %mtxmgt_search_save);
+    $int5 = 0;
+    if_sethide(false, $component3);
+    if ($component2 ! null & cc_find($component2, 0) = true) {
+        cc_setgraphic("rs3_btn_challenge_select,0");
+    }
+    ~script6470($component3);
+    %mtxmgt_selected_tab_subcat = $int0;
+    if_setscrollpos(0, 0, mtxmgt:list_contents);
+}
+if (%mtxmgt_selected_category = 1) {
+    ~script6876(1);
+}
+if (%mtxmgt_selected_category = 2) {
+    ~script10653(0, $int5);
+    if_sethide(true, mtxmgt:head_slot_active);
+    if_sethide(true, mtxmgt:back_slot_active);
+    if_sethide(true, mtxmgt:neck_slot_active);
+    if_sethide(true, mtxmgt:mainhand_slot_active);
+    if_sethide(true, mtxmgt:torso_slot_active);
+    if_sethide(true, mtxmgt:offhand_slot_active);
+    if_sethide(true, mtxmgt:legs_slot_active);
+    if_sethide(true, mtxmgt:hands_slot_active);
+    if_sethide(true, mtxmgt:feet_slot_active);
+    if_sethide(true, mtxmgt:effects_slot_active);
+    if_sethide(true, mtxmgt:wings_slot_active);
+    if_sethide(true, mtxmgt:all_items_active);
+    if_sethide(true, mtxmgt:keepsake_items_active);
+    if_sethide(true, mtxmgt:clear_items_active);
+    if_setgraphic("rs3_icon_wardrobe_item,0", mtxmgt:head_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,2", mtxmgt:back_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,4", mtxmgt:neck_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,6", mtxmgt:mainhand_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,8", mtxmgt:torso_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,10", mtxmgt:offhand_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,12", mtxmgt:legs_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,14", mtxmgt:hands_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,16", mtxmgt:feet_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,18", mtxmgt:effects_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,20", mtxmgt:wings_slot_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,22", mtxmgt:all_items_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,24", mtxmgt:keepsake_items_icon);
+    if_setgraphic("rs3_icon_wardrobe_item,26", mtxmgt:clear_items_icon);
+    switch_int (%mtxmgt_selected_tab_subcat) {
+        case 0 :
+            if_setgraphic("rs3_icon_wardrobe_item,1", mtxmgt:head_slot_icon);
+            if_sethide(false, mtxmgt:head_slot_active);
+        case 1 :
+            if_setgraphic("rs3_icon_wardrobe_item,3", mtxmgt:back_slot_icon);
+            if_sethide(false, mtxmgt:back_slot_active);
+        case 2 :
+            if_setgraphic("rs3_icon_wardrobe_item,5", mtxmgt:neck_slot_icon);
+            if_sethide(false, mtxmgt:neck_slot_active);
+        case 3 :
+            if_setgraphic("rs3_icon_wardrobe_item,7", mtxmgt:mainhand_slot_icon);
+            if_sethide(false, mtxmgt:mainhand_slot_active);
+        case 4 :
+            if_setgraphic("rs3_icon_wardrobe_item,9", mtxmgt:torso_slot_icon);
+            if_sethide(false, mtxmgt:torso_slot_active);
+        case 5 :
+            if_setgraphic("rs3_icon_wardrobe_item,11", mtxmgt:offhand_slot_icon);
+            if_sethide(false, mtxmgt:offhand_slot_active);
+        case 7 :
+            if_setgraphic("rs3_icon_wardrobe_item,13", mtxmgt:legs_slot_icon);
+            if_sethide(false, mtxmgt:legs_slot_active);
+        case 9 :
+            if_setgraphic("rs3_icon_wardrobe_item,15", mtxmgt:hands_slot_icon);
+            if_sethide(false, mtxmgt:hands_slot_active);
+        case 10 :
+            if_setgraphic("rs3_icon_wardrobe_item,17", mtxmgt:feet_slot_icon);
+            if_sethide(false, mtxmgt:feet_slot_active);
+        case 14 :
+            if_setgraphic("rs3_icon_wardrobe_item,19", mtxmgt:effects_slot_icon);
+            if_sethide(false, mtxmgt:effects_slot_active);
+        case 18 :
+            if_setgraphic("rs3_icon_wardrobe_item,21", mtxmgt:wings_slot_icon);
+            if_sethide(false, mtxmgt:wings_slot_active);
+        case 20 :
+            if_setgraphic("rs3_icon_wardrobe_item,23", mtxmgt:all_items_icon);
+            if_sethide(false, mtxmgt:all_items_active);
+        case 19 :
+            if_setgraphic("rs3_icon_wardrobe_item,25", mtxmgt:keepsake_items_icon);
+            if_sethide(false, mtxmgt:keepsake_items_active);
+        case 21 :
+            if_setgraphic("rs3_icon_wardrobe_item,27", mtxmgt:clear_items_icon);
+            if_sethide(false, mtxmgt:clear_items_active);
+    }
+    ~script6876(2);
+}

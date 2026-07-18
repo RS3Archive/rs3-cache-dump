@@ -1,0 +1,35 @@
+// 13864
+[proc,script13864](int $int0)
+if (~machinima_camera_open = true) {
+    return;
+}
+if (~tut_is = 7 & ~script15532(0) = true & %tut7_main = 10 & $int0 <= 8) {
+    return;
+}
+if (cam2_getcontrolmode ! 1 | %toplevel_v2_client_smooth_reset = 1 | %camera_control_mode = 1 | %cutscene_status = 1 & %cutscene_allow_mousecam ! 1) {
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+switch_int ($int0) {
+    case 1, 5 :
+        $int2 = %toplevel_v2_camera_keyboard_responce_horizontal;
+    case 2, 6 :
+        $int2 = calc(0 - %toplevel_v2_camera_keyboard_responce_horizontal);
+    case 3, 7 :
+        $int1 = %toplevel_v2_camera_keyboard_responce_vertical;
+    case 4, 8 :
+        $int1 = calc(0 - %toplevel_v2_camera_keyboard_responce_vertical);
+    case 9 :
+        $int3 = -1;
+    case 10 :
+        $int3 = 1;
+    case default :
+        return;
+}
+if ($int0 = 9 | $int0 = 10) {
+    ~script8775($int3);
+} else if (%camera_disable_cursorcam ! 1) {
+    ~script8768($int1, $int2);
+}

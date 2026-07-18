@@ -1,0 +1,83 @@
+// 459
+[proc,script459](int $int0, int $int1, int $int2, component $component3, component $component4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($int2 < 300) {
+    $string0 = tostring($int2);
+    $string1 = "RuneScape <$string0>";
+    $int5 = 28;
+    $string1, $int8, $int9 = ~script6305($string1, $int2);
+} else if ($int2 >= 300 & $int2 < 600) {
+    $string0 = tostring($int2);
+    $string1 = "Old School <tostring($int2)>";
+    $int5 = 28;
+} else if ($int2 < 1100 | $int2 > 6000) {
+    $string0 = "World <tostring($int2)>";
+    $string1 = $string0;
+    $int5 = 0;
+} else if ($int2 >= 1100 & $int2 <= 5000) {
+    $string0 = "Lobby";
+    $string1 = "Lobby";
+    $int5 = 0;
+} else {
+    $string0 = "Classic <tostring(calc($int2 - 5000))>";
+    $string1 = $string0;
+    $int5 = 0;
+}
+$int6 = stringwidth($string0, museo_sans_11pt_regular);
+if ($int5 = 0 | $int0 < calc($int6 + $int5)) {
+    $int7 = 0;
+    cc_sethide(true);
+} else {
+    $int7 = $int5;
+    if ($int2 >= 300 & $int2 < 600) {
+        cc_setgraphic("rs3_icon_world_select_game_flags,3");
+    } else if ($int8 = -1) {
+        if ($int9 >= 0) {
+            cc_setgraphic(enum(int, graphic, geopip_flag, $int9));
+        } else {
+            cc_setgraphic("rs3_icon_world_select_game_flags,0");
+        }
+    } else if (testbit($int8, 24) = ^true) {
+        cc_setgraphic("rs3_icon_world_select_game_flags,4");
+    } else if (testbit($int8, 16) = ^true) {
+        cc_setgraphic("rs3_icon_world_select_game_flags,1");
+    } else {
+        cc_setgraphic(enum(int, graphic, geopip_flag, $int9));
+    }
+    if (~script6431 = true) {
+        $int1 = calc($int1 + (27 / 2 - cc_getheight / 2));
+    } else {
+        $int1 = calc($int1 + (19 / 2 - cc_getheight / 2));
+    }
+    cc_setposition(2, $int1, ^setpos_abs_left, ^setpos_abs_top);
+    if (~script6431 = false) {
+        cc_setonmouserepeat("script3125($string1, event_com, event_comsubid, $component3, $component4)");
+    } else {
+        cc_setonclick("script3125($string1, event_com, event_comsubid, $component3, $component4)");
+    }
+    cc_sethide(false);
+}
+if ($int0 < $int6) {
+    $string0 = "...";
+}
+if ($int2 = map_world) {
+    .cc_setcolour(0x3cb71e);
+} else {
+    .cc_setcolour(0xffff64);
+}
+.cc_setmaxlines(1);
+.cc_settext($string0);
+.cc_setsize($int0, 19, ^setsize_abs, ^setsize_abs);
+.cc_setposition($int7, $int1, ^setpos_abs_left, ^setpos_abs_top);
+if (~script6431 = false) {
+    .cc_setonmouserepeat("script3125($string1, event_com, event_comsubid, $component3, $component4)");
+} else {
+    .cc_setonclick("script3125($string1, event_com, event_comsubid, $component3, $component4)");
+}
+.cc_sethide(false);

@@ -1,0 +1,54 @@
+// 13262
+[proc,script13262](obj $obj0)(boolean)
+def_struct $struct1 = null;
+def_int $int2 = -1;
+def_dbrow $dbrow3 = null;
+def_string $string0 = "";
+if ($obj0 ! null) {
+    $struct1 = oc_param($obj0, mtxmgt_item_struct);
+}
+if ($struct1 ! null) {
+    $string0 = struct_param($struct1, mtxmgt_name);
+    $int2 = ~script13108($struct1, 1);
+    $dbrow3 = ~script15768($int2);
+}
+def_struct $struct4 = toplevel_v2_ragdoll_store_tooltip;
+def_component $component5 = struct_param($struct4, toplevel_v2_ragdoll_suboverlay_layer);
+def_component $component6 = struct_param($struct4, toplevel_v2_ragdoll_model_component);
+def_component $component7 = struct_param($struct4, toplevel_v2_ragdoll_layer);
+def_component $component8 = struct_param($struct4, toplevel_v2_ragdoll_loading_layer);
+def_component $component9 = struct_param($struct4, toplevel_v2_ragdoll_drag_layer);
+def_int $int10 = -1;
+def_struct $struct11 = null;
+def_graphic $graphic12 = null;
+if ($component6 ! null & $component5 ! null & if_find($component5) = true) {
+    if ($int2 = -1) {
+        cc_sethide(true);
+    } else {
+        cc_sethide(false);
+        if (cc_param(mtxmgt_target_preview_subid) ! $int2) {
+            cc_setparam(mtxmgt_category, struct_param($struct1, mtxmgt_category));
+            cc_setparam(mtxmgt_subcat, struct_param($struct1, mtxmgt_subcat));
+            cc_setparam(mtxmgt_source, struct_param($struct1, mtxmgt_source));
+            cc_setparam(toplevel_v2_tooltip_display_item, $obj0);
+            cc_setparam(mtxmgt_target_preview_subid, $int2);
+            cc_setparam(mtxmgt_current_preview_subid, -1);
+            cc_setparam(rs3tli_component_last_update, -1);
+            if (cc_param(mtxmgt_category) = 2) {
+                $int10 = cc_param(mtxmgt_subcat);
+            }
+            $struct11, $struct11, $graphic12 = ~script13178(cc_param(mtxmgt_item_dbrow));
+            ~script33($component7, $graphic12);
+            if ($component9 ! null) {
+                if_sethide(true, $component9);
+            }
+            if_sethide(true, $component6);
+            if_setmodel(null, $component6);
+            ~script9531($component8, 255);
+            ~spinner_show($component8);
+            ~script13146($component6, $int10, $dbrow3);
+        }
+        return(true);
+    }
+}
+return(false);

@@ -1,0 +1,267 @@
+// 3904
+[proc,script3904]
+if (if_gethide(wheel_of_fortune:trh_promo_info) = false | if_gethide(wheel_of_fortune:splash_screen) = false) {
+    if_sethide(true, wheel_of_fortune:banner_layer);
+    return;
+} else {
+    if_sethide(false, wheel_of_fortune:banner_layer);
+}
+cc_deleteall(wheel_of_fortune:background_holder);
+if (~trh_promo_current = trh130_promo) {
+    if_sethide(false, wheel_of_fortune:full_overlay_layer);
+    if_sethide(false, wheel_of_fortune:foreground_layer);
+}
+if (~script18808 = false) {
+    if_sethide(true, wheel_of_fortune:full_overlay_layer);
+}
+def_struct $struct0 = ~script16161;
+if (struct_param($struct0, trh_replace_frame) = 0) {
+    if (~script18373 = true) {
+        if_sethide(true, wheel_of_fortune:frame);
+        if_sethide(false, wheel_of_fortune:frame_xmas);
+    }
+    if_setsize(40, 248, ^setsize_minus, ^setsize_minus, wheel_of_fortune:overlay_layer);
+    if_setsize(758, 356, ^setsize_abs, ^setsize_abs, wheel_of_fortune:banner_layer);
+    if_setposition(0, 100, ^setpos_abs_centre, ^setpos_abs_top, wheel_of_fortune:banner_layer);
+} else {
+    if_setgraphic(trh173_mosaic_crystal_main_window, wheel_of_fortune:frame);
+    if_setsize(40, 223, ^setsize_minus, ^setsize_minus, wheel_of_fortune:overlay_layer);
+    if_setsize(758, 375, ^setsize_abs, ^setsize_abs, wheel_of_fortune:banner_layer);
+    if_setposition(0, 105, ^setpos_abs_centre, ^setpos_abs_top, wheel_of_fortune:banner_layer);
+}
+~script4751;
+~script7780;
+if ($struct0 ! null) {
+    if_setgraphic(struct_param($struct0, trh_promo_background), wheel_of_fortune:background);
+    if (struct_param($struct0, trh_promo_hide_ticker) = true) {
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    }
+}
+switch_int (%wof_paintover) {
+    case 43 :
+        if_setgraphic(trh32_background, wheel_of_fortune:background);
+    case 37 :
+        if_setgraphic(background_time_to_train_trh, wheel_of_fortune:background);
+        if (~script830 = false) {
+            if (if_gethide(wheel_of_fortune:play_again_layer) = true) {
+                if_sethide(false, wheel_of_fortune:ticker_tape_viewport);
+            }
+        } else {
+            if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        }
+    case 7, 9 :
+        if_setgraphic(background_wonderbar_trh, wheel_of_fortune:background);
+        if_setmodelanim(trh_chest_closed_idle, trh54_guaranteed_quality:chest_1_model);
+        if_setmodelanim(trh_chest_closed_idle, trh54_guaranteed_quality:chest_2_model);
+        if_setmodelanim(trh_chest_closed_idle, trh54_guaranteed_quality:chest_3_model);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+    case 8 :
+        ~trh62_chest_setup;
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setgraphic(trh163_background, wheel_of_fortune:background);
+    case 11 :
+        if (if_gethide(wheel_of_fortune:trh_promo_info) = false) {
+            if_setgraphic(th_background_stage_3, wheel_of_fortune:background);
+        } else {
+            if_setgraphic(th_background_advent2018, wheel_of_fortune:background);
+        }
+        if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_1);
+        if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_2);
+        if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_3);
+        if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_4);
+        if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_5);
+    case 39 :
+        if_setgraphic(background_lava_lamps, wheel_of_fortune:background);
+    case 13 :
+        if_setgraphic(trh_background_stage_summer_2016, wheel_of_fortune:background);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+    case 14 :
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+    case 15 :
+        if (%wof_reward_slot > 0) {
+            if_sethide(true, wheel_of_fortune:banner_layer);
+        } else {
+            if_sethide(false, wheel_of_fortune:banner_layer);
+        }
+        if (~trh_state(trh151_promo) = 1) {
+            if (if_gethide(wheel_of_fortune:trh_promo_info) = false) {
+                if_setgraphic(th_background_stage_3, wheel_of_fortune:background);
+            } else {
+                if_setgraphic(th_background_advent2018, wheel_of_fortune:background);
+            }
+            if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_1);
+            if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_2);
+            if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_3);
+            if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_4);
+            if_setmodel(trh_chest_snow_2018, wheel_of_fortune:chest_model_5);
+        }
+    case 18 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh109_update_background;
+    case 19 :
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+    case 20, 29, 41, 57, 84 :
+        ~script19019($struct0);
+    case 23 :
+        if_sethide(false, wheel_of_fortune:banner_layer);
+    case 24 :
+        if_setgraphic(trh129_background, wheel_of_fortune:background);
+    case 22 :
+    case 35 :
+        if_setgraphic(background_prismania, wheel_of_fortune:background);
+    case 28 :
+        if_sethide(false, wheel_of_fortune:banner_layer);
+        if_setgraphic(background_gemstacks, wheel_of_fortune:background);
+    case 32 :
+        if_setgraphic(trh147_background_extended, wheel_of_fortune:background);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 30 :
+        if_setgraphic(trh148_bg, wheel_of_fortune:background);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 33 :
+        if_setgraphic(trh152_background, wheel_of_fortune:background);
+    case 34 :
+        ~trh153_chest_update;
+        if_setmodelanim(trh153_festive_firewoks_idle, trh153_overlay:chest_1_model);
+        if_setmodelanim(trh153_festive_firewoks_idle, trh153_overlay:chest_2_model);
+        if_setmodelanim(trh153_festive_firewoks_idle, trh153_overlay:chest_3_model);
+        if_setmodelanim(trh153_festive_firewoks_idle, trh153_overlay:chest_4_model);
+    case 36 :
+        if_setmodelanim(trh_chest_closed_idle, trh154_overlay:chest_1_model);
+        if_setmodelanim(trh_chest_closed_idle, trh154_overlay:chest_2_model);
+        if_setmodelanim(trh_chest_closed_idle, trh154_overlay:chest_3_model);
+        if_setgraphic(trh154_background, wheel_of_fortune:background);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+    case 38 :
+        if_sethide(false, wheel_of_fortune:banner_layer);
+        ~trh155_update_glow;
+    case 40 :
+        if_setgraphic(background_glitterbomb_trh, wheel_of_fortune:background);
+    case 42 :
+        if_setgraphic(treasurehunter_trh158_bg, wheel_of_fortune:background);
+    case 44 :
+        if_setgraphic(background_celestial_lanterns_trh, wheel_of_fortune:background);
+    case 45 :
+        if_setgraphic(background_background_fire_promo_trh, wheel_of_fortune:background);
+    case 46 :
+        ~trh161_update_background;
+    case 48 :
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(true, wheel_of_fortune:chest_layer_1);
+        if_setgraphic(background_trh_catwalk_sameowrai, wheel_of_fortune:background);
+        if_setposition(-5, 5, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:midground_layer);
+    case 47 :
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setposition(0, -18, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:midground_layer);
+        ~trh163_update_background(%trh163_promo_bonus_active);
+    case 49 :
+        if_setposition(-5, 5, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:midground_layer);
+    case 51 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setgraphic(background_trh_goneyaking, wheel_of_fortune:background);
+    case 52 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setgraphic(background_spoilt, wheel_of_fortune:background);
+    case 53 :
+        ~script19063(~int_to_bool(~script19061));
+    case 54 :
+        %trh169_slay_clicked = 0;
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setgraphic(trh169_background, wheel_of_fortune:background);
+    case 55 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setgraphic(background_smouldering_vs_supernova_trh, wheel_of_fortune:background);
+    case 56 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setgraphic(trh171_background, wheel_of_fortune:background);
+    case 59 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 60 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setgraphic(background_gift_of_the_creators, wheel_of_fortune:background);
+    case 61 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh175_update_background;
+    case 62 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh176_update_background;
+    case 63 :
+        if_setgraphic(trh177_cherry_bg, wheel_of_fortune:background);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 64 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh178_set_chest;
+        ~trh178_update_background;
+    case 65 :
+        if_setonvartransmit("trh179_background_redraw{trh179_perm_var}", wheel_of_fortune:background_holder);
+        ~trh179_update_background;
+    case 66 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh180_update_background;
+    case 67 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 68 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~script19172(trh182_promo);
+    case 69 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh183_update_background;
+    case 71 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_setposition(121, 40, ^setpos_abs_left, ^setpos_abs_top, wheel_of_fortune:wheel_spin_button_layer_1);
+        if_setsize(165, 145, ^setsize_abs, ^setsize_abs, wheel_of_fortune:wheel_spin_button_layer_1);
+        ~trh185_update_background;
+    case 72 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+    case 73 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 75 :
+        ~trh189_update_background;
+    case 76 :
+        ~trh190_update_background;
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+    case 78 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 79 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh194_set_chest;
+        ~trh194_update_background;
+    case 82 :
+        if_setgraphic(trh196_background, wheel_of_fortune:background);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 83 :
+        ~trh197_update_background;
+    case 87 :
+        if_setsize(760, 356, ^setsize_abs, ^setsize_abs, wheel_of_fortune:banner_layer);
+        ~script19267;
+    case 88 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~script19172(trh203_promo);
+    case 89 :
+        ~trh204_update_background;
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+    case 90 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh205_update_background;
+    case 91 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~script19172(trh207_promo);
+    case 92 :
+        if_setgraphic(trh208_bg, wheel_of_fortune:background);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+    case 93 :
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        ~trh209_update_background;
+    case default :
+        if_sethide(false, wheel_of_fortune:foreground_layer);
+}

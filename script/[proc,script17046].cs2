@@ -1,0 +1,18 @@
+// 17046
+[proc,script17046](int $int0, int $int1, component $component2, int $int3, int $int4, int $int5)
+def_dbrow $dbrow6 = null;
+if (cc_find($component2, $int1) = true) {
+    cc_setposition(calc($int4 + 12), calc(scale(1, 6, $int5) - 8), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(scale(1, 3, $int5), scale(1, 3, $int5), ^setsize_abs, ^setsize_abs);
+    if (enum_hasoutput(int, ribbon_real_parent_id, %toplevel_v2_parent_last_parent_index) = true) {
+        db_find(intern_notes_dbrow:col2, enum_getreverseindex(int, int, ribbon_real_parent_id, %toplevel_v2_parent_last_parent_index, 0));
+        if (db_findnext ! null) {
+            db_find_refine(intern_notes_dbrow:col3, calc($int3 + 1));
+            $dbrow6 = db_findnext;
+            if ($dbrow6 ! null & ~script17032($dbrow6) > 0) {
+                cc_setonvartransmit("script17041($dbrow6, -1, $int0, $component2, $int1, -1, cc_getwidth){intern_notes_temp_1, intern_notes_perm_1, intern_notes_bp3_perm_1}");
+                cc_sethide(false);
+            }
+        }
+    }
+}

@@ -1,0 +1,131 @@
+// 12774
+[clientscript,currency_onload]
+~script3521;
+def_int $int0 = 0;
+def_int $int1 = db_find_with_count(currency_table:col6, 1);
+def_int $intarray0($int1);
+def_int $intarray1($int1);
+def_dbrow $dbrow2 = db_findnext;
+while ($dbrow2 ! null) {
+    $intarray0($int0) = db_getfield($dbrow2, currency_table:col0, 0);
+    $int0 = calc($int0 + 1);
+    $dbrow2 = db_findnext;
+}
+array_sort($int1, 0, 1);
+$int0 = 0;
+def_int $int3 = -1;
+def_dbrow $dbrow4 = null;
+def_component $component5 = null;
+def_int $int6 = 0;
+while ($int0 < $int1) {
+    $int3 = $intarray0($int0);
+    db_find(currency_table:col0, $int3);
+    $dbrow4 = db_findnext;
+    switch_int (db_getfield($dbrow4, currency_table:col7, 0)) {
+        case 1 :
+            $component5 = currency:accordion_dnd_content_layer;
+        case 2 :
+            $component5 = currency:accordion_minigames_content_layer;
+        case 3 :
+            $component5 = currency:accordion_seasonal_content_layer;
+        case default :
+            $component5 = currency:accordion_standard_content_layer;
+    }
+    $int6 = if_getnextsubid($component5);
+    while ($int6 < $int3) {
+        cc_create($component5, ^iftype_graphic, $int6);
+        $int6 = if_getnextsubid($component5);
+    }
+    cc_create($component5, ^iftype_graphic, $int3);
+    cc_setparam(currency_client_dbrow, $dbrow4);
+    cc_setop(1, "Favourite");
+    if (string_length(db_getfield($dbrow4, currency_table:col8, 0)) ! 0) {
+        cc_setop(2, db_getfield($dbrow4, currency_table:col8, 0));
+    }
+    if (string_length(db_getfield($dbrow4, currency_table:col9, 0)) ! 0) {
+        cc_setop(3, db_getfield($dbrow4, currency_table:col9, 0));
+    }
+    if (db_getfield($dbrow4, currency_table:col1, 0) = 1) {
+        cc_setop(4, "Withdraw");
+        cc_setop(10, "Examine");
+    }
+    $int0 = calc($int0 + 1);
+}
+def_int $int7 = 5;
+def_int $int8 = 5;
+def_int $int9 = 40;
+def_int $int10 = 55;
+def_int $int11 = 0;
+def_int $int12 = 40;
+$int11, $int12, $int7 = ~script12087(calc(if_getwidth(currency:accordion_standard_content_layer) - 16), $int9, 5, 9);
+def_int $int13 = 0;
+def_int $int14 = $int8;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int17 = 0;
+def_int $int18 = 4;
+while ($int18 > 0) {
+    switch_int ($int18) {
+        case 4 :
+            $component5 = currency:accordion_standard_content_layer;
+        case 3 :
+            $component5 = currency:accordion_dnd_content_layer;
+        case 2 :
+            $component5 = currency:accordion_minigames_content_layer;
+        case 1 :
+            $component5 = currency:accordion_seasonal_content_layer;
+    }
+    $int15 = 0;
+    $int0 = 0;
+    while ($int0 < if_getnextsubid($component5)) {
+        if (cc_find($component5, $int0) = true) {
+            $dbrow4 = cc_param(currency_client_dbrow);
+            $int3 = db_getfield($dbrow4, currency_table:col0, 0);
+            if ($dbrow4 ! null) {
+                $int16 = ~currency_pouch_total($dbrow4);
+                if ($dbrow4 = currency_livid_points) {
+                    $int16 = calc($int16 * 10);
+                }
+                $string0 = ~script11601($int16, true);
+                $int13 = calc($int7 + $int15 % $int11 * $int12);
+                $int14 = calc($int8 + $int15 / $int11 * ($int10 + $int8));
+                $int15 = calc($int15 + 1);
+                .cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
+                .cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setgraphic("rs3_icon_slot_40px,0");
+                .cc_setsize($int9, $int9, ^setsize_abs, ^setsize_abs);
+                $string1 = append(~currency_name($dbrow4), ": <tostring_localised($int16, true)>");
+                ~script14990(2, $string1);
+                cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+                cc_setposition(calc($int13 + 4), calc($int14 + 4), ^setpos_abs_left, ^setpos_abs_top);
+                if (db_getfield($dbrow4, currency_table:col4, 0) ! null) {
+                    cc_setobject_nonum(db_getfield($dbrow4, currency_table:col4, 0), 1000);
+                    cc_setopbase("<~script4033(db_getfield($dbrow4, currency_table:col4, 0))><~currency_name($dbrow4)>");
+                } else if (db_getfield($dbrow4, currency_table:col3, 0) ! null) {
+                    cc_setgraphic(db_getfield($dbrow4, currency_table:col3, 0));
+                    cc_setopbase("<~script4033(currency_pouch_dummy)><~currency_name($dbrow4)>");
+                }
+                cc_sendtofront;
+                .cc_create($component5, ^iftype_text, if_getnextsubid($component5));
+                .cc_setcolour(^white);
+                .cc_setonvartransmit("script12775(event_com, event_comsubid, $int0){toplevel_v2_skins_varp, currency_favourites_varp, currency_favourites_varp_2}");
+                .cc_setsize(40, 15, ^setsize_abs, ^setsize_abs);
+                .cc_setposition($int13, calc($int14 + $int10 - 15), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+                .cc_settext($string0);
+                .cc_settextfont(museo_sans_11pt_regular_multiline);
+                .cc_settextshadow(true);
+            }
+        }
+        $int0 = calc($int0 + 1);
+    }
+    $int14 = calc($int14 + ($int10 + $int8));
+    ~script9582(if_getparentlayer($component5), $int14, $int14);
+    if_setsize(0, if_getheight(currency:accordion_standard_group_layer), ^setsize_minus, ^setsize_abs, currency:accordion_standard_group_layer);
+    if_setsize(0, if_getheight(currency:accordion_dnd_group_layer), ^setsize_minus, ^setsize_abs, currency:accordion_dnd_group_layer);
+    if_setsize(0, if_getheight(currency:accordion_minigames_group_layer), ^setsize_minus, ^setsize_abs, currency:accordion_minigames_group_layer);
+    if_setsize(0, if_getheight(currency:accordion_seasonal_group_layer), ^setsize_minus, ^setsize_abs, currency:accordion_seasonal_group_layer);
+    $int18 = calc($int18 - 1);
+}

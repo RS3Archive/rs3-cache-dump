@@ -1,0 +1,22 @@
+// 17778
+[proc,script17778](int $int0, int $int1, int $int2, component $component3)(int)
+def_int $int4 = ~script17542(~script17497(%necro_ritual_active_site));
+def_int $int5 = 0;
+def_obj $obj6 = null;
+def_int $int7 = 0;
+def_int $int8 = db_getfieldcount(%necro_ritual_active_recipe, necro_ritual_recipe:col15);
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = -1;
+while (++$int11 < $int8) {
+    $int5, $obj6, $int7 = ~script17516(%necro_ritual_active_recipe, $int11);
+    $int7 = ~script17832($obj6, $int7);
+    if ($int5 = $int4) {
+        $int9 = calc($int1 * paraheight(" <tostring($int7)> <oc_name($obj6)>", calc($int2 - 18), notosans_12));
+        ~cc_add_obj($component3, if_getnextsubid($component3), 0, calc($int0 + $int10), ^setpos_abs_left, ^setpos_abs_top, 18, 18, ^setsize_abs, ^setsize_abs, $obj6, $int7);
+        ~cc_add_text($component3, if_getnextsubid($component3), 18, calc($int0 + $int10), ^setpos_abs_left, ^setpos_abs_top, calc($int2 - 18), $int9, ^setsize_abs, ^setsize_abs, text_body_default, " <tostring($int7)> <oc_name($obj6)>");
+        ~script2731($component3, cc_getid, 2);
+        $int10 = calc($int10 + cc_getheight);
+    }
+}
+return($int10);

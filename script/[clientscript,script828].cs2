@@ -1,0 +1,52 @@
+// 828
+[clientscript,script828](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, component $component13, component $component14, component $component15)
+~script2872($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8, $component9, $component10, $component11, $component12, $component13, $component14, $component15);
+def_int $int16 = 1624;
+if (date_runeday < 5038) {
+    $int16 = calc($int16 - 1);
+}
+def_int $intarray0(calc($int16 + 1));
+def_int $int17 = 0;
+if (%playerdesign2_client_torso = false | %playerdesign2_client_torso = null) {
+    %music_searchstring = "";
+    %playerdesign2_client_torso = true;
+}
+while ($int17 <= $int16) {
+    $intarray0($int17) = $int17;
+    cc_create($component1, ^iftype_text, calc($int17 * 2));
+    cc_create($component1, ^iftype_graphic, calc($int17 * 2 + 1));
+    $int17 = calc($int17 + 1);
+}
+~script520(intarray0, 0, $int16, music_id_to_sortname);
+if_setparam_int(nextcomid, -1, $component10);
+if_setmaxlines(1, $component10);
+$int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+while ($int18 <= $int16) {
+    $int17 = $intarray0($int18);
+    if (cc_find($component1, calc($int17 * 2)) = true & .cc_find($component1, calc($int17 * 2 + 1)) = true) {
+        if (enum(int, midi, music_id_to_midi, $int17) ! silence_1_minute & enum(int, int, non_unlockable_music_id, $int17) = 0) {
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+            cc_settext(enum_string(music_id_to_display_name, $int17));
+            cc_setsize(15, 15, ^setsize_minus, ^setsize_abs);
+            cc_setopbase(enum_string(music_id_to_display_name, $int17));
+            .cc_setopbase(enum_string(music_id_to_display_name, $int17));
+            cc_settextshadow(false);
+            cc_settextfont(p11_full);
+            cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 16777215)");
+            .cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+            cc_setmaxlines(1);
+            if ($int19 = 0) {
+                if_setparam_int(nextcomid, $int17, $component10);
+                $int19 = 1;
+            }
+        }
+        if ($int18 < $int16) {
+            cc_setparam_int(nextcomid, $intarray0(calc($int18 + 1)));
+        }
+    }
+    $int18 = calc($int18 + 1);
+}
+~rs3_scrollbar_vertical($component2, $component1);
+~music_v3_refresh($component3, $component4, $component10, $component1, $component2, $component11, $component12);

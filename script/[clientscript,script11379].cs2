@@ -1,0 +1,95 @@
+// 11379
+[clientscript,script11379]
+def_component $component0 = poh_aqua_fishlist:fish_list;
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = ~script10495(7);
+def_int $int4 = ~script10495(8);
+def_int $int5 = ~script10495(2);
+def_int $int6 = calc(if_getwidth($component0) / 2);
+if_setcolour($int5, poh_aqua_fishlist:header);
+cc_deleteall($component0);
+cc_deleteall(poh_aqua_fishlist:prawn_ball_list);
+while ($int1 < enum_getoutputcount(poh_aqua_fishlist_names)) {
+    $int2 = enum(int, int, poh_aqua_fishlist_order, $int1);
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setposition(calc($int6 * ($int1 % 2)), calc(20 * ($int1 / 2)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int6, 20, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    if (testbit(%poh_aqua_allfish_intank, $int2) = ^true) {
+        cc_setcolour(^green);
+        $string0 = "You have found and added this fish to the aquarium.";
+    } else if (testbit(%poh_aqua_all_fish_found, $int2) = ^true) {
+        cc_setcolour(^white);
+        $string0 = "You have found this fish, but it still needs to be added to your aquarium.";
+    } else {
+        cc_setcolour(0x707070);
+        $string0 = "You still need to find this fish.";
+    }
+    ~script3537($string0);
+    cc_settextshadow(true);
+    cc_settext(enum(int, string, poh_aqua_fishlist_names, $int2));
+    $int1 = calc($int1 + 1);
+}
+cc_create($component0, ^iftype_line, if_getnextsubid($component0));
+cc_setposition(0, calc(20 * (($int1 + $int1 % 2) / 2) - 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour($int4);
+cc_setsize(1, 0, ^setsize_minus, ^setsize_abs);
+cc_create($component0, ^iftype_line, if_getnextsubid($component0));
+cc_setposition(0, calc(20 * (($int1 + $int1 % 2) / 2) - 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour($int3);
+cc_setsize(1, 0, ^setsize_minus, ^setsize_abs);
+$int1 = 0;
+while ($int1 < 4) {
+    cc_create(poh_aqua_fishlist:prawn_ball_list, ^iftype_text, $int1);
+    cc_setposition(calc($int6 * ($int1 % 2)), calc(20 * ($int1 / 2)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int6, 20, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settextshadow(true);
+    switch_int ($int1) {
+        case 0 :
+            cc_settext("Found 1 prawn ball");
+            if (%poh_aqua_prawnball_total >= 1) {
+                cc_setcolour(^white);
+            } else {
+                cc_setcolour(0x707070);
+            }
+        case 1 :
+            cc_settext("Found 20 prawn balls");
+            if (%poh_aqua_prawnball_total >= 20) {
+                cc_setcolour(^white);
+            } else {
+                cc_setcolour(0x707070);
+            }
+        case 2 :
+            cc_settext("Found 100 prawn balls");
+            if (%poh_aqua_prawnball_total >= 100) {
+                cc_setcolour(^white);
+            } else {
+                cc_setcolour(0x707070);
+            }
+        case 3 :
+            cc_settext("Found 200 prawn balls");
+            if (%poh_aqua_prawnball_total >= 200) {
+                cc_setcolour(^white);
+            } else {
+                cc_setcolour(0x707070);
+            }
+    }
+    $int1 = calc($int1 + 1);
+}
+cc_create(poh_aqua_fishlist:prawn_ball_list, ^iftype_text, if_getnextsubid(poh_aqua_fishlist:prawn_ball_list));
+cc_setposition(0, calc(20 * (($int1 + $int1 % 2) / 2)), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(0, 20, ^setsize_minus, ^setsize_abs);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(^white);
+cc_settextshadow(true);
+if (%poh_aqua_prawnball_total >= 200) {
+    cc_settext("Prawn balls found: 200+");
+} else {
+    cc_settext("Prawn balls found: <tostring(%poh_aqua_prawnball_total)>");
+}

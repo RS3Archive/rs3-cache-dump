@@ -1,0 +1,44 @@
+// 8447
+[proc,script8447](struct $struct0)
+if ($struct0 = null) {
+    return;
+}
+$struct0 = ~script8247($struct0);
+def_struct $struct1 = ~script9094;
+if_sethide(false, struct_param($struct1, toplevel_v2_ability_tooltip_clear_icon));
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+$string0, $string1, $string2, $int2, $int3 = ~script967($struct0, 1, 1, 1);
+if_setgraphic(struct_param($struct0, combatv2_ability_icon), struct_param($struct1, toplevel_v2_ability_tooltip_icon));
+if (string_length($string2) <= 0) {
+    if_settext($string0, struct_param($struct1, toplevel_v2_ability_tooltip_name_text));
+} else {
+    if_settext("<$string0> - <$string2>", struct_param($struct1, toplevel_v2_ability_tooltip_name_text));
+}
+if (if_find(struct_param($struct1, toplevel_v2_ability_tooltip_desc_text)) = true & .if_find(struct_param($struct1, toplevel_v2_ability_tooltip_desc_layer)) = true) {
+    cc_settext($string1);
+    cc_setsize(10, calc(paraheight(cc_gettext, cc_getwidth, cc_getfontmetrics) * 14), ^setsize_minus, ^setsize_abs);
+    if (cc_getheight > .cc_getheight) {
+        if_setsize(16, 0, ^setsize_minus, ^setsize_minus, struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrolling_layer));
+        if_setsize(16, 0, ^setsize_abs, ^setsize_minus, struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrollbar_layer));
+        if_setscrollpos(0, 0, struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrolling_layer));
+        if_setscrollsize(0, cc_getheight, struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrolling_layer));
+        ~rs3_scrollbar_vertical(struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrollbar_layer), struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrolling_layer));
+    } else {
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrolling_layer));
+        cc_deleteall(struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrollbar_layer));
+        if_setscrollpos(0, 0, struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrolling_layer));
+        if_setscrollsize(0, 0, struct_param($struct1, toplevel_v2_ability_tooltip_desc_scrolling_layer));
+    }
+}
+~script3124($struct0, $struct1);
+~script15405($struct0, struct_param($struct1, toplevel_v2_ability_tooltip_target_type_icon));
+def_int $int4 = ~script7473($struct0, $int2, $int3, 0);
+if ($int4 > 0) {
+    if_sethide(true, struct_param($struct1, toplevel_v2_ability_tooltip_powers_help));
+} else {
+    if_sethide(false, struct_param($struct1, toplevel_v2_ability_tooltip_powers_help));
+}

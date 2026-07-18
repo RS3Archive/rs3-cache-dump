@@ -1,0 +1,81 @@
+// 153
+[proc,interface_inv_update_big](component $component0, inv $inv1, int $int2, int $int3, int $int4, component $component5, string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, string $string6, string $string7, string $string8, int $int6)
+cc_deleteall($component0);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if ($int2 > 1) {
+    if (if_getscrollwidth($component0) > 0) {
+        $int7 = calc((if_getscrollwidth($component0) - 36 * $int2) / ($int2 - 1));
+        $int9 = calc((if_getscrollwidth($component0) - 40 * $int2) / ($int2 - 1));
+    } else {
+        $int7 = calc((if_getwidth($component0) - 36 * $int2) / ($int2 - 1));
+        $int9 = calc((if_getwidth($component0) - 40 * $int2) / ($int2 - 1));
+    }
+}
+if ($int3 > 1) {
+    if (if_getscrollheight($component0) > 0) {
+        $int8 = calc((if_getscrollheight($component0) - 32 * $int3) / ($int3 - 1));
+        $int10 = calc((if_getscrollheight($component0) - 36 * $int3) / ($int3 - 1));
+    } else {
+        $int8 = calc((if_getheight($component0) - 32 * $int3) / ($int3 - 1));
+        $int10 = calc((if_getheight($component0) - 36 * $int3) / ($int3 - 1));
+    }
+}
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = calc($int2 * $int3);
+def_int $int16 = 36;
+def_int $int17 = 32;
+def_int $int18 = 2;
+def_int $int19 = 2;
+if ($int6 = 1) {
+    $int7 = $int9;
+    $int8 = $int10;
+    $int16 = 40;
+    $int17 = 36;
+    $int18 = 4;
+}
+while ($int11 < $int15) {
+    $int13 = calc(($int16 + $int7) * ($int11 % $int2));
+    $int14 = calc($int11 / $int2 * ($int17 + $int8));
+    cc_create($component0, ^iftype_graphic, $int12);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    ~interface_inv_draw_slot_big($inv1, $int11, $component0, $int12, $int4, $component5, $string0, $string1, $string2, $string3, $string4, $string5, $string6, $string7, $string8);
+    if ($int6 = 1) {
+        cc_setposition(calc($int13 + $int18), calc($int14 + $int19), ^setpos_abs_left, ^setpos_abs_top);
+    } else {
+        cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int12 = calc($int12 + 1);
+    $int11 = calc($int11 + 1);
+}
+if ($int6 = 1) {
+    $int11 = 0;
+    while ($int11 < $int15) {
+        $int13 = calc(($int16 + $int9) * ($int11 % $int2));
+        $int14 = calc($int11 / $int2 * ($int17 + $int10));
+        cc_create($component0, ^iftype_graphic, $int12);
+        cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(rs3_inventory_slot);
+        cc_sendtoback;
+        $int12 = calc($int12 + 1);
+        $int11 = calc($int11 + 1);
+    }
+}
+if ($inv1 = inv) {
+    switch_component ($component0) {
+        case invent_machine_management:inv_inv :
+            ~script13669;
+        case invent_gizmo_bag:inv_contents_layer :
+            ~script13654;
+        case dino_herb_bag:inv_contents_layer :
+            ~script7153;
+        case bait_box:inv_contents_layer :
+            ~script20704;
+    }
+}

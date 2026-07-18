@@ -1,0 +1,50 @@
+// 1306
+[proc,script1306](boolean $boolean0, int $int1)
+if ($boolean0 = true) {
+    %toplevel_v2_hud_hidden = 1;
+    %chat_view = -1;
+    ~script8869;
+    if (%toplevel_v2_mobile_interface = 1) {
+        ~script13893(1);
+    } else if (%toplevel_v2_legacy_interface = 1) {
+        ~script9944;
+    }
+    clientoption_set(^clientoption_custom_cursors, 0);
+} else {
+    %toplevel_v2_hud_hidden = 0;
+    %chat_view = 0;
+    ~script2464;
+    ~script2466;
+    clientoption_set(^clientoption_custom_cursors, ~bool_to_int(%option_cursor));
+}
+if_sethide($boolean0, toplevel_v2:optext_layer);
+if_sethide($boolean0, toplevel_v2:fullscreen_pop_ups);
+if_sethide($boolean0, toplevel_v2:warning_overlays);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (if_find(toplevel_v2:camera_controls) = true) {
+    cc_setnoclickthrough($boolean0);
+}
+if ($boolean0 = true & $int1 = 1) {
+    if_sethide(false, toplevel_v2:cutscene_skip_info);
+    if (%cutscene_hide_esc_graphic = 1) {
+        if_sethide(true, toplevel_v2:cutscene_skip_icon);
+        if_sethide(true, toplevel_v2:cutscene_skip_text);
+    } else if (~script6431 = true) {
+        if_sethide(true, toplevel_v2:cutscene_skip_icon);
+        if_sethide(false, toplevel_v2:cutscene_skip_text);
+        if_settext("Tap here to skip cutscene", toplevel_v2:cutscene_skip_text);
+        $int2, $int2, $int3, $int4 = ~script2956;
+        if_setposition($int3, $int4, ^setpos_abs_right, ^setpos_abs_bottom, toplevel_v2:cutscene_skip_info);
+    } else {
+        if_sethide(false, toplevel_v2:cutscene_skip_icon);
+        if_sethide(false, toplevel_v2:cutscene_skip_text);
+        if_settext("Skip Cutscene", toplevel_v2:cutscene_skip_text);
+    }
+    ~script8841(33, 1);
+} else {
+    if_sethide(true, toplevel_v2:cutscene_skip_info);
+    ~script8841(33, 0);
+}
+~script8702(-1, 9);

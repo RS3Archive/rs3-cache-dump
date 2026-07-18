@@ -1,0 +1,29 @@
+// 16873
+[proc,script16873](component $component0, component $component1, int $int2)
+def_int $int3 = 0;
+def_string $string0 = "";
+if (~script16838($int2) = ~script16837($int2)) {
+    $int3 = 16384;
+    switch_int ($int2) {
+        case 1 :
+            $string0 = "<tostring_localised(500, true)>/<tostring_localised(500, true)>";
+        case 2 :
+            $string0 = "<tostring_localised(50, true)>/<tostring_localised(50, true)>";
+        case 3 :
+            $string0 = "<tostring_localised(2000, true)>/<tostring_localised(2000, true)>";
+    }
+} else {
+    switch_int ($int2) {
+        case 1 :
+            $int3 = scale(calc(~skilltotal_actual % 500), 500, 16384);
+            $string0 = "<tostring_localised(calc(~skilltotal_actual % 500), true)>/<tostring_localised(500, true)>";
+        case 2 :
+            $int3 = scale(calc(%qp % 50), 50, 16384);
+            $string0 = "<tostring_localised(calc(%qp % 50), true)>/<tostring_localised(50, true)>";
+        case 3 :
+            $int3 = scale(calc(%cheevo_runescore % 2000), 2000, 16384);
+            $string0 = "<tostring_localised(calc(%cheevo_runescore % 2000), true)>/<tostring_localised(2000, true)>";
+    }
+}
+if_setsize($int3, if_getheight($component0), ^setsize_rel, ^setsize_abs, $component0);
+if_settext($string0, $component1);

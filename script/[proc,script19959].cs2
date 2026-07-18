@@ -1,0 +1,61 @@
+// 19959
+[proc,script19959]
+def_enum $enum0 = ~script20008;
+def_int $int1 = enum_getoutputcount($enum0);
+def_int $int2 = -1;
+def_component $component3 = trh208_overlay:promo_selection_layer;
+def_int $int4 = 0;
+def_int $setposh5 = ^setpos_abs_left;
+def_int $setposv6 = ^setpos_abs_top;
+def_struct $struct7 = null;
+def_graphic $graphic8 = null;
+def_int $int9 = map_lang;
+while (++$int2 < $int1) {
+    $struct7 = enum(int, struct, $enum0, $int2);
+    if (if_find(trh208_overlay:promo_selection_layer) = true) {
+        if (calc(($int2 + 1) % 2) = 0) {
+            $setposh5 = ^setpos_abs_right;
+        } else {
+            $setposh5 = ^setpos_abs_left;
+        }
+        if ($int2 > 1) {
+            $setposv6 = ^setpos_abs_bottom;
+            if (calc($int1 % 2) > 0) {
+                $setposh5 = ^setpos_abs_centre;
+            }
+        } else {
+            $setposv6 = ^setpos_abs_top;
+        }
+        ~cc_add_layer($component3, $int2, 0, 0, $setposh5, $setposv6, 270, 129, ^setsize_abs, ^setsize_abs);
+        cc_setop(1, "Select");
+        cc_setonop("script19960($int2)");
+        cc_setopcursor(1, cursor_use);
+        ~script7920($component3, calc($int2 + 1), $int4, 0, $int2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, trh208_default);
+        cc_setonmouseover("script19964(calc($int2 + 1), $int4)");
+        cc_setonmouseleave("script19965(calc($int2 + 1), $int4)");
+        $int4 = calc($int4 + 1);
+        switch_int ($int9) {
+            case 0 :
+                $graphic8 = struct_param($struct7, motw_banner_en);
+            case 1 :
+                $graphic8 = struct_param($struct7, motw_banner_de);
+            case 2 :
+                $graphic8 = struct_param($struct7, motw_banner_fr);
+            case 3 :
+                $graphic8 = struct_param($struct7, motw_banner_pt);
+        }
+        ~script7920($component3, calc($int2 + 1), $int4, 0, $int2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 259, 117, ^setsize_abs, ^setsize_abs, $graphic8);
+        $int4 = 0;
+    }
+}
+switch_int ($int9) {
+    case 0 :
+        if_setgraphic(struct_param(trh208_promo, trh_promo_banner_en), trh_choosedays_overlay:back_background);
+    case 1 :
+        if_setgraphic(struct_param(trh208_promo, trh_promo_banner_de), trh_choosedays_overlay:back_background);
+    case 2 :
+        if_setgraphic(struct_param(trh208_promo, trh_promo_banner_fr), trh_choosedays_overlay:back_background);
+    case 3 :
+        if_setgraphic(struct_param(trh208_promo, trh_promo_banner_pt), trh_choosedays_overlay:back_background);
+}
+~script19963;

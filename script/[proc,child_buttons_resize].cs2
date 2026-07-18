@@ -1,0 +1,85 @@
+// 16559
+[proc,child_buttons_resize](component $component0, int $int1)
+def_enum $enum2 = enum(int, enum, child_options_enum, $int1);
+if ($enum2 = null) {
+    return;
+}
+if (cc_find($component0, 0) = false) {
+    ~child_buttons_init($component0, $int1);
+}
+def_boolean $boolean3 = false;
+def_boolean $boolean4 = false;
+def_string $string0 = "";
+def_dbrow $dbrow5 = null;
+def_int $int6 = if_getwidth($component0);
+def_int $rgb7 = ^black;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = enum_getoutputcount($enum2);
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 3;
+def_int $int16 = 24;
+def_fontmetrics $fontmetrics17 = museo_sans_11pt_regular;
+if (~script6431 = true) {
+    $int16 = 32;
+    $fontmetrics17 = museo_sans_13pt_regular;
+}
+$boolean3, $int9 = ~script16562($enum2, $int6, $component0);
+if ($boolean3 = false) {
+    $int12 = calc($int16 + $int15);
+} else {
+    $int12 = calc(($int6 - $int9) / 2);
+}
+while ($int10 < $int11) {
+    $dbrow5 = enum(int, dbrow, $enum2, $int10);
+    if ($boolean3 = false & db_getfield($dbrow5, child_options:col7, 0) = false) {
+        $boolean4 = true;
+    } else {
+        $boolean4 = ~negate_bool(~script16564($dbrow5, $component0));
+    }
+    $int14 = ~script16565($dbrow5, $component0);
+    switch_int ($int14) {
+        case 0 :
+            if (cc_findbycategory($component0, $int10, 0) = 1) {
+                cc_setposition($int12, 0, ^setpos_abs_left, ^setpos_abs_top);
+                cc_sethide($boolean4);
+                if ($boolean4 = false) {
+                    $int12 = calc($int12 + ($int16 + $int15));
+                }
+            }
+        case 3 :
+            if (cc_findbycategory($component0, $int10, 0) = 1) {
+                cc_setposition($int12, 0, ^setpos_abs_left, ^setpos_abs_top);
+                cc_sethide($boolean4);
+                if ($boolean4 = false) {
+                    $int12 = calc($int12 + (cc_getwidth + $int15));
+                }
+            }
+        case 1 :
+            $string0, $rgb7 = ~script17399(%money_pouch_display);
+            $int8 = stringwidth($string0, $fontmetrics17);
+            if (cc_findbycategory($component0, $int10, 0) = 1) {
+                cc_setsize($int8, cc_getheight, ^setsize_abs, ^setsize_abs);
+                cc_setposition($int12, 0, ^setpos_abs_left, ^setpos_abs_top);
+                cc_sethide($boolean4);
+            }
+            if (cc_findbycategory($component0, $int10, 1) = 1) {
+                cc_settext($string0);
+                cc_setcolour($rgb7);
+                $string0 = "You currently have <br><tostring_localised_long(%money_pouch_display, true)> <~script17379(%money_pouch_display, "coin", "coins")>.";
+                cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
+            }
+            $int12 = calc($int12 + ($int8 + 4));
+        case 2 :
+            $string0, $rgb7 = ~script16568($dbrow5, $int14);
+            $int8 = ~script16561($component0, $int10, $string0, $rgb7, $int12, $boolean4);
+            $int12 = calc($int12 + ($int8 + $int15));
+    }
+    $int10 = calc($int10 + 1);
+}
+if (cc_findbycategory($component0, $int10, 0) = 1) {
+    cc_sethide($boolean3);
+}

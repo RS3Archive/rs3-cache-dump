@@ -1,0 +1,17 @@
+// 1952
+[clientscript,script1952](component $component0, int $int1)
+if (%chat_v3_toggle_background = 1) {
+    return;
+}
+def_int $int2 = ~tween($int1, 50, 0, 130, 0);
+if (if_find($component0) = true) {
+    if_settrans(calc(255 - $int2), $component0);
+    if ($int1 >= 50) {
+        if_setontimer(null, $component0);
+        return;
+    }
+    $int1 = calc($int1 + 1);
+    if_setontimer("script1952($component0, $int1)", $component0);
+} else {
+    if_setontimer(null, $component0);
+}

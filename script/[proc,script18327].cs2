@@ -1,0 +1,49 @@
+// 18327
+[proc,script18327](obj $obj0)(boolean)
+if ($obj0 = null | oc_param($obj0, item_degrade_freshitem) = 0) {
+    return(false);
+}
+def_int $int1 = 0;
+def_obj $obj2 = null;
+def_obj $obj3 = null;
+while ($int1 <= 7) {
+    switch_int ($int1) {
+        case 0 :
+            $obj2 = $obj0;
+        case 1 :
+            $obj2 = oc_param($obj0, trail14_dye_result_barrows);
+        case 2 :
+            $obj2 = oc_param($obj0, trail14_dye_result_shadow);
+        case 3 :
+            $obj2 = oc_param($obj0, trail14_dye_result_thirdage);
+        case 4 :
+            $obj2 = oc_param($obj0, dye_result_blood);
+        case 5 :
+            $obj2 = oc_param($obj0, dye_result_ice);
+        case 6 :
+            $obj2 = oc_param($obj0, dye_result_aurora);
+        case 7 :
+            $obj2 = oc_param($obj0, dye_result_soul);
+        case default :
+            return(false);
+    }
+    if ($obj2 ! null) {
+        if (inv_total(worn, $obj2) > 0) {
+            return(true);
+        }
+        $obj3 = oc_param($obj2, item_degrade_nextstate);
+        if ($obj3 ! null & inv_total(worn, $obj3) > 0) {
+            return(true);
+        }
+        $obj3 = oc_param($obj2, invent_augmented_version);
+        if ($obj3 ! null & inv_total(worn, $obj3) > 0) {
+            return(true);
+        }
+        $obj3 = oc_param($obj2, invent_nonstandard_augmented_version);
+        if ($obj3 ! null & inv_total(worn, $obj3) > 0) {
+            return(true);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+return(false);

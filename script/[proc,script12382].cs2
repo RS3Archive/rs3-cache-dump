@@ -1,0 +1,51 @@
+// 12382
+[proc,script12382](int $int0, int $int1)
+%gwd2_kc_buff_sliske_client = $int0;
+if (%gwd2_slim_kc_interface = true) {
+    if_sethide(true, gwd2_overlay:gwd2_overlay_window);
+    if_sethide(false, gwd2_overlay:gwd2_overlay_window_slim);
+} else {
+    if_sethide(false, gwd2_overlay:gwd2_overlay_window);
+    if_sethide(true, gwd2_overlay:gwd2_overlay_window_slim);
+}
+if_setgraphic(enum(int, graphic, gwd2_overlay_number1_graphic, $int0), gwd2_overlay:buff_num1);
+if_setgraphic(enum(int, graphic, gwd2_overlay_number2_graphic, $int0), gwd2_overlay:buff_num2);
+def_int $int2 = 20;
+if (inv_getobj(worn, 17) = fotg2_mah_shard) {
+    $int2 = scale(20, 100, 150);
+}
+def_int $int3 = calc(92 + scale(92, 400, scale(100, $int2, $int0)));
+def_int $int4 = 36;
+if ($int0 > 0) {
+    if (%gwd2_slim_kc_interface = true) {
+        if_sethide(false, gwd2_overlay:buff_timer_layer_1);
+        if ($int1 = 1) {
+            %gwd2_kc_buff_end_time = calc(clientclock + 30 * 30);
+            if_setontimer("script12384(clientclock, %gwd2_kc_buff_end_time)", gwd2_overlay:main);
+        }
+    } else {
+        if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, gwd2_overlay:buff_num_layer);
+        if_setontimer("script12383(0, 30, $int3, $int4, 16)", gwd2_overlay:buff_num_layer);
+        if_sethide(false, gwd2_overlay:buff_timer_layer);
+        if ($int1 = 1) {
+            %gwd2_kc_buff_end_time = calc(clientclock + 30 * 30);
+            if_setontimer("script12384(clientclock, %gwd2_kc_buff_end_time)", gwd2_overlay:main);
+        }
+    }
+} else {
+    if_sethide(true, gwd2_overlay:buff_timer_layer);
+    if_sethide(true, gwd2_overlay:buff_timer_layer_1);
+}
+if ($int0 = $int2) {
+    if_setcolour(^red, gwd2_overlay:buff_num1);
+    if_setcolour(^red, gwd2_overlay:buff_num2);
+    if_setcolour(^red, gwd2_overlay:buff_num3);
+    if_setcolour(^red, gwd2_overlay:buff_percent);
+    if_settext("<col=FFFFFF>Multiplier: <col=FF0000><tostring(calc(100 + 10 * $int0))>%</col>", gwd2_overlay:buff_text_1);
+} else {
+    if_setcolour(^white, gwd2_overlay:buff_num1);
+    if_setcolour(^white, gwd2_overlay:buff_num2);
+    if_setcolour(^white, gwd2_overlay:buff_num3);
+    if_setcolour(^white, gwd2_overlay:buff_percent);
+    if_settext("<col=FFFFFF>Multiplier: <col=FFFFFF><tostring(calc(100 + 10 * $int0))>%</col>", gwd2_overlay:buff_text_1);
+}

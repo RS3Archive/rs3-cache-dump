@@ -1,0 +1,42 @@
+// 6875
+[proc,script6875]
+if (%mtxmgt_selected_item = -1 | %mtxmgt_selected_item = 1023) {
+    ~script18487;
+    return;
+}
+def_int $int0 = 13777;
+def_graphic $graphic1 = "mtx_colourpickerbox,3";
+def_graphic $graphic2 = "mtx_colourpickerbox,2";
+def_graphic $graphic3 = "mtx_colourpickerbox,1";
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = calc(enum_getoutputcount(player_kit_hair_index_to_basecolour) - 1);
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int7 = -1;
+while ($int6 >= 0) {
+    if (cc_find(mtxmgt:colours, calc($int6 * 2 + 1)) = true) {
+        $int7 = enum(int, int, player_kit_hair_index_to_basecolour, $int6);
+        $string1 = enum(int, string, player_kit_hair_colour_name, $int6);
+        if (%mtxmgt_haircol1 = $int7 & %mtxmgt_haircol2 = $int7 & %mtxmgt_enable_secondary_colour = 1) {
+            cc_setgraphic($graphic1);
+            $string0 = "Set colour to <$string1>.";
+        } else if (%mtxmgt_haircol1 = $int7) {
+            if (%mtxmgt_enable_secondary_colour = 1) {
+                cc_setgraphic($graphic2);
+                $string0 = "Click again to set secondary colour.";
+            } else {
+                cc_setgraphic($graphic1);
+                $string0 = "Set colour to <$string1>.";
+            }
+        } else if (%mtxmgt_enable_secondary_colour = 1 & %mtxmgt_haircol2 = $int7) {
+            cc_setgraphic($graphic3);
+            $string0 = "Click again to set primary colour.";
+        } else {
+            cc_setgraphic("mtx_colourpickerbox,0");
+            $string0 = "Set colour to <$string1>.";
+        }
+        ~script14990(0, $string0);
+    }
+    $int6 = calc($int6 - 1);
+}

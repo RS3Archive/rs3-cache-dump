@@ -1,0 +1,36 @@
+// 14071
+[proc,bank_filter_setup](int $int0)
+~script9313;
+if ($int0 = 1) {
+    ~script13572;
+}
+if (%bank_filter = 0) {
+    if (%bank_searchmode_client = false) {
+        if (cc_find(bank:border_layer, 14) = true) {
+            cc_settext("Bank of Gielinor");
+        }
+        ~script9303;
+        if_sethide(true, bank:bottom_panel_cancel);
+    }
+    if_sethide(true, bank:message_nofilter);
+    if ($int0 = 1) {
+        ~script10239;
+        ~bank_build_tabs(1);
+        ~script9324(1);
+    }
+    return;
+}
+if (cc_find(bank:border_layer, 14) = true) {
+    cc_settext("Bank of Gielinor (<enum(int, string, bank_filter_title, %bank_filter)>)");
+} else {
+    if_setontimer("script14072", bank:content);
+}
+if ($int0 = 1) {
+    ~script10239;
+    ~bank_build_tabs(1);
+    ~script9324(1);
+}
+if_sethide(false, bank:bottom_panel_cancel);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, bank:bottom_panel_cancel);
+~script13993(bank:bottom_panel_cancel, null, rs3tli_30px_button_3x3, "Clear Filter");
+if_setonop("bank_filter_clear", bank:bottom_panel_cancel_button);

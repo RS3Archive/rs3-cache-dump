@@ -1,0 +1,9 @@
+// 3793
+[proc,inv_itemspace2](inv $inv0, obj $obj1, int $int2, int $int3)(int)
+def_int $int4 = 0;
+if (oc_stackable($obj1) = true | oc_uncert($obj1) ! $obj1) {
+    $int4 = max(0, calc($int2 - (^max_32bit_int - inv_total($inv0, $obj1))));
+} else {
+    $int4 = max(0, calc($int2 - inv_freespace($inv0) - inv_size($inv0) - $int3));
+}
+return($int4);

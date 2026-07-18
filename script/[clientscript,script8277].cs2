@@ -1,0 +1,29 @@
+// 8277
+[clientscript,script8277](component $component0, component $component1, component $component2, component $component3, component $component4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_quest $quest10 = null;
+def_int $int11 = ~quest_max;
+while ($int8 <= $int11) {
+    $quest10 = enum(int, quest, ql4_quests, $int8);
+    if ($quest10 ! null & ~script18798($quest10) = 0) {
+        switch_int (~ql4_getprogress($quest10)) {
+            case 2 :
+                $int7 = calc($int7 + 1);
+            case 1 :
+                $int6 = calc($int6 + 1);
+            case 0 :
+                $int5 = calc($int5 + 1);
+        }
+        $int9 = calc($int9 + 1);
+    }
+    $int8 = calc($int8 + 1);
+}
+if_settext("<tostring($int5)> / <tostring($int9)>", $component0);
+if_settext("<tostring($int6)> / <tostring($int9)>", $component1);
+if_settext("<tostring($int7)> / <tostring($int9)>", $component3);
+if_setsize(scale($int7, $int9, 16384), 0, ^setsize_rel, ^setsize_minus, $component4);
+if_setsize(scale(calc($int7 + $int6), $int9, 16384), 0, ^setsize_rel, ^setsize_minus, $component2);

@@ -1,0 +1,73 @@
+// 2957
+[proc,script2957](int $int0, int $int1, int $int2)
+cc_deleteall(settings:cat_build);
+cc_deleteall(settings:cat_click);
+cc_deleteall(settings:set_link);
+cc_deleteall(settings:set_build);
+cc_deleteall(settings:set_click);
+cc_deleteall(settings:set_value);
+cc_deleteall(settings:spinner);
+if_sethide(true, settings:shop_warning_buy_box);
+if_sethide(true, settings:shop_warning_sell_box);
+if_sethide(true, settings:loot_beam_value_box);
+if_sethide(true, settings:loading);
+def_enum $enum3 = ~script20382;
+def_int $int4 = 0;
+def_component $component5 = settings:search_input;
+def_int $int6 = string_length(if_gettext($component5));
+$int0, $int1 = ~settings_validate_selected($int0, $int1);
+def_int $int7 = 0;
+def_int $int8 = enum_getoutputcount($enum3);
+def_int $int9 = 0;
+def_int $int10 = if_getwidth(settings:cat_scrolling);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_dbrow $dbrow14 = null;
+def_dbrow $dbrow15 = null;
+def_dbrow $dbrow16 = enum(int, dbrow, settings_all_categories, $int1);
+def_dbrow $dbrow17 = enum(int, dbrow, settings_all_categories, $int0);
+while ($int7 < $int8) {
+    $dbrow14 = enum(int, dbrow, $enum3, $int7);
+    $int13 = db_getfieldcount($dbrow14, settings_category:col3);
+    if ($int6 >= 2) {
+        $int11 = ~script2971($dbrow14, 0, $int11, $int10, -3);
+    } else if ($int13 = 0) {
+        $int11 = ~script2971($dbrow14, 0, $int11, $int10, $int1);
+    } else if ($dbrow17 ! $dbrow14 | %settings_collapsed = 1 | ~script2972($dbrow14, $int13, $dbrow16) = false) {
+        $int11 = ~script2971($dbrow14, 0, $int11, $int10, -1);
+    } else {
+        $int11 = ~script2971($dbrow14, 0, $int11, $int10, -2);
+        $int12 = 0;
+        while ($int12 < $int13) {
+            $dbrow15 = db_getfield($dbrow14, settings_category:col3, $int12);
+            $int11 = ~script2971($dbrow15, 10, $int11, calc($int10 - 10), $int1);
+            $int12 = calc($int12 + 1);
+        }
+    }
+    $int7 = calc($int7 + 1);
+}
+if_setscrollsize(0, $int11, settings:cat_scrolling);
+~rs3_scrollbar_vertical(settings:cat_scrollbar, settings:cat_scrolling);
+if ($int6 >= 2) {
+    ~script9394($component5, $int2, $enum3);
+    return;
+}
+$dbrow14 = enum(int, dbrow, settings_all_categories, $int1);
+if ($dbrow14 = null) {
+    return;
+}
+$int10 = if_getwidth(settings:set_scrolling);
+def_string $string0 = db_getfield($dbrow14, settings_category:col0, 0);
+def_string $string1 = db_getfield($dbrow14, settings_category:col1, 0);
+def_int $int18 = ~script20478($string0, $int10, text_title_section, 0);
+def_int $int19 = ~script20478($string1, $int10, text_subtitle_body, 0);
+~cc_add_text(settings:set_build, if_getnextsubid(settings:set_build), 0, 0, ^setpos_abs_left, ^setpos_abs_top, $int10, $int18, ^setsize_abs, ^setsize_abs, text_title_section, $string0);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+~cc_add_text(settings:set_build, if_getnextsubid(settings:set_build), 4, calc($int18 + 4), ^setpos_abs_left, ^setpos_abs_top, calc($int10 - 2 * 4), $int19, ^setsize_abs, ^setsize_abs, text_subtitle_body, $string1);
+$int11 = calc($int18 + 4);
+if (string_length($string1) > 0) {
+    $int11 = calc($int11 + $int19 + 4);
+}
+$int11 = ~script2970(settings:set_build, settings:set_click, settings:set_value, $dbrow14, $int1, $int11, $int10);
+~script5713($int2, $int11);

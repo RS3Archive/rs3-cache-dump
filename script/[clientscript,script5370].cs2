@@ -1,0 +1,34 @@
+// 5370
+[clientscript,script5370](int $int0, int $int1, string $string0, string $string1)
+if ($int0 = 1) {
+    if_sethide(true, agidad_overlay:numbers);
+} else {
+    if_sethide(false, agidad_overlay:numbers);
+}
+if ($int1 = 1) {
+    if_sethide(true, agidad_overlay:timerbar);
+} else {
+    if_sethide(false, agidad_overlay:timerbar);
+}
+if_settext($string0, agidad_overlay:event_name);
+if_settext($string1, agidad_overlay:event_desc);
+def_int $int2 = stringwidth($string1, museo_sans_13pt_regular);
+if_setsize(calc($int2 + 16), if_getheight(agidad_overlay:desc), ^setsize_abs, ^setsize_abs, agidad_overlay:desc);
+$int2 = stringwidth($string0, museo_sans_13pt_regular);
+if_setsize(calc($int2 + 16), if_getheight(agidad_overlay:title), ^setsize_abs, ^setsize_abs, agidad_overlay:title);
+$int2 = max(if_getwidth(agidad_overlay:desc), if_getwidth(agidad_overlay:title));
+if ($int1 = 0) {
+    $int2 = max($int2, if_getwidth(agidad_overlay:timerbar));
+}
+if ($int0 = 0) {
+    $int2 = max($int2, if_getwidth(agidad_overlay:numbers));
+}
+if_setsize(calc($int2 + 48), if_getheight(agidad_overlay:overlay), ^setsize_abs, ^setsize_abs, agidad_overlay:overlay);
+def_int $int3 = calc(if_getheight(agidad_overlay:desc) + if_getheight(agidad_overlay:title));
+if ($int1 = 0) {
+    $int3 = calc($int3 + if_getheight(agidad_overlay:timerbar));
+}
+if_setsize(if_getwidth(agidad_overlay:overlay), $int3, ^setsize_abs, ^setsize_abs, agidad_overlay:overlay);
+if ($int0 = 0) {
+    if_setposition(0, calc(7 + if_getheight(agidad_overlay:overlay)), ^setpos_abs_centre, ^setpos_abs_top, agidad_overlay:numbers);
+}

@@ -1,0 +1,60 @@
+// 3902
+[proc,inventory_drag](component $component0, int $int1, component $component2, int $int3)
+if (~script6431 = true) {
+    if_sethide(true, toplevel_v2_mobile:inv_drag_options_window);
+    unknown_command_26(false);
+}
+~script3843;
+switch_component ($component0) {
+    case toplevel_v2_inventory:item_layer, toplevel_v2_parent_suboverlay_inventory:item_layer, bank:inventory_click, bank:bob_click, group_ironman_storage:inventory_click :
+    case default :
+        return;
+}
+if (~script7980($component2) ! -1) {
+    ~script7002($component0, $int1, $component2);
+    return;
+} else if (~script8053($component2) = true) {
+    return;
+}
+if ($component0 = group_ironman_storage:inventory_click & $component2 ! group_ironman_storage:clan_inv) {
+    return;
+}
+def_inv $inv4 = inv;
+if (%bank_player_has_bob > 0 & %bank_current_inv = 1) {
+    $inv4 = lore_bob;
+}
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_int $int7 = 1;
+switch_component ($component2) {
+    case toplevel_v2_inventory:item_layer, toplevel_v2_parent_suboverlay_inventory:item_layer :
+        if (cc_find($component0, $int1) = true & .cc_find($component2, $int3) = true) {
+            $obj5, $int6 = cc_getinvobject, cc_getinvcount;
+            ~script9230(.cc_getinvobject, .cc_getinvcount);
+            if (cc_find($component2, $int3) = true) {
+                ~script9230($obj5, $int6);
+            }
+        }
+    case lore_stats_side:inventory_invlayer :
+        ~script11679(inv, $component0, $int1, lore_bob, $component2, $int3);
+    case toplevel_v2_worn:item_layer, toplevel_v2_parent_suboverlay_worn:item_layer, toplevel_v2_worn:scrolling_layer, toplevel_v2_parent_suboverlay_worn:scrolling_layer, bank:item_layer, bank:worn_tab_click :
+        if ($component0 = bank:bob_click) {
+            return;
+        }
+        if (cc_find($component0, $int1) = true) {
+            if (cc_getinvobject ! null) {
+                $int7 = oc_param(cc_getinvobject, bank_extra_wear_op_slot);
+            }
+            if (($component0 ! bank:inventory_click | ~script5730($int7, cc_getinvobject, $int1) = true) & (~script10906 = false | oc_param(cc_getinvobject, bank_wear_prevented) = false & enum(obj, boolean, unequippable_items_with_a_wearpos, cc_getinvobject) = false)) {
+                ~wearobj(cc_getinvobject, inv, $int1, 1);
+            }
+        }
+    case mtxmgt_store:item_button_0_layer, mtxmgt_store:item_button_1_layer, mtxmgt_store:item_button_2_layer, mtxmgt_store:item_button_3_layer, mtxmgt_store:item_button_4_layer, mtxmgt_store:item_button_5_layer, mtxmgt_store:item_button_6_layer, mtxmgt_store:item_button_7_layer, mtxmgt_store:item_button_8_layer, mtxmgt_store:item_button_9_layer, mtxmgt_store:item_button_10_layer, mtxmgt_store:item_button_11_layer, mtxmgt_store:item_button_12_layer, mtxmgt_store:item_button_13_layer, mtxmgt_store:item_button_14_layer, mtxmgt_store:item_button_15_layer, mtxmgt_store:item_button_16_layer, mtxmgt_store:item_button_17_layer, mtxmgt_store:item_button_18_layer, mtxmgt_store:item_button_19_layer :
+        if (cc_find($component0, $int1) = true) {
+            ~script13189($component2, inv, $int1, cc_getinvobject, cc_getinvcount);
+        }
+    case group_ironman_storage:clan_inv :
+        ~script19481($component0, group_ironman_storage_player_inv_temp, $int1, $component2, $int3);
+    case default :
+        ~script8918($component0, $inv4, $int1, $component2, $int3);
+}

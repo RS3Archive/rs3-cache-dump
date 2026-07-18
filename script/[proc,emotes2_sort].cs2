@@ -1,0 +1,111 @@
+// 4716
+[proc,emotes2_sort](component $component0, component $component1, enum $enum2, int $int3)
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_struct $struct6 = null;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_string $string0 = "";
+def_boolean $boolean9 = true;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = enum_getoutputcount($enum2);
+def_int $int13 = if_getwidth($component0);
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = -1;
+def_int $int17 = 0;
+def_int $int18 = 13;
+if (%emote_display_mode = 1) {
+    if (%toplevel_v2_mobile_interface = 1) {
+        $int14 = 1;
+        $int18 = 30;
+    } else {
+        $int14, $int13, $int17 = ~script8107($int13, 112);
+    }
+} else {
+    $int14, $int13, $int17 = ~script8107($int13, 43);
+}
+def_int $int19 = 1;
+while (++$int4 < $int12) {
+    $int19 = 0;
+    $struct6 = enum(int, struct, $enum2, $int4);
+    if (cc_find($component0, $int4) = true) {
+        $boolean9 = cc_param(emotes2_client_unlocked);
+        if (%emote_display_mode = 1) {
+            cc_setsize(107, $int18, ^setsize_abs, ^setsize_abs);
+        } else {
+            cc_setsize(48, 48, ^setsize_abs, ^setsize_abs);
+        }
+        if ($int3 = 0) {
+            $int19 = 1;
+            if ((struct_param($struct6, emotes2_tag1) = 13 | struct_param($struct6, emotes2_tag1) = 14) & %worldmap_modifier ! 2) {
+                $int19 = 0;
+            }
+            if (struct_param($struct6, emotes2_hide_when_locked) ! 0 & $boolean9 = false) {
+                $int19 = 0;
+            }
+        } else if ($int3 = 1) {
+            if ($boolean9 = true) {
+                $int19 = 1;
+            }
+            if ((struct_param($struct6, emotes2_tag1) = 13 | struct_param($struct6, emotes2_tag1) = 14) & %worldmap_modifier ! 2) {
+                $int19 = 0;
+            }
+        } else if ($int3 = struct_param($struct6, emotes2_tag1)) {
+            $int19 = 1;
+        } else if ($int3 = struct_param($struct6, emotes2_tag2)) {
+            $int19 = 1;
+        } else if ($int3 = struct_param($struct6, emotes2_tag3)) {
+            $int19 = 1;
+        } else if ($int3 = struct_param($struct6, emotes2_tag4)) {
+            $int19 = 1;
+        } else if ($int3 = struct_param($struct6, emotes2_tag5)) {
+            $int19 = 1;
+        }
+        if ((struct_param($struct6, emotes2_hide_when_locked) = 2 | %atlum_day_tracker < struct_param($struct6, release_date) | %atlum_day_tracker > struct_param($struct6, withdraw_date)) & $boolean9 = false) {
+            $int19 = 0;
+        }
+        if (struct_param($struct6, emote_group_ironman_only) = true & ~script19316 = false) {
+            $int19 = 0;
+        }
+        if ($int19 = 1) {
+            cc_sethide(false);
+            if (%emote_display_mode = 1) {
+                if ($int14 > 1) {
+                    $int15 = calc($int5 % $int14);
+                    if ($int15 = 0) {
+                        $int16 = calc($int16 + 1);
+                    }
+                    $int10 = ~script8108($int13, $int17, $int15);
+                } else {
+                    $int16 = calc($int16 + 1);
+                    cc_setsize(0, $int18, ^setsize_minus, ^setsize_abs);
+                }
+                $int11 = calc($int18 * $int16);
+                cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
+                $int5 = calc($int5 + 1);
+            } else {
+                $int15 = calc($int5 % $int14);
+                if ($int15 = 0) {
+                    $int16 = calc($int16 + 1);
+                }
+                $int10 = ~script8108($int13, $int17, $int15);
+                $int11 = calc(58 * $int16);
+                cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
+                $int5 = calc($int5 + 1);
+            }
+        } else {
+            cc_sethide(true);
+        }
+    }
+}
+def_int $int20 = calc($int11 + 58);
+if (%emote_display_mode = 1) {
+    $int20 = calc($int11 + $int18);
+}
+if_setscrollsize(0, $int20, $component0);
+if_sethide(false, $component1);
+~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+%emote_last_list = $enum2;
+%emote_last_sort = $int3;

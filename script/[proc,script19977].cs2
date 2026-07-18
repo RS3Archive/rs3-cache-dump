@@ -1,0 +1,48 @@
+// 19977
+[proc,script19977](struct $struct0, int $int1, int $int2)
+~script6876(1);
+cc_deleteall(mtxmgt:hair_recolour_buttons);
+def_dbrow $dbrow3 = null;
+def_struct $struct4 = null;
+if ($struct0 = null) {
+    return;
+}
+$struct4 = struct_param($struct0, mtxmgt_hair_recolour_parent);
+if ($struct4 ! null) {
+    $struct0 = $struct4;
+}
+$dbrow3 = struct_param($struct0, mtxmgt_hair_recolour_data);
+if ($dbrow3 = null) {
+    return;
+}
+def_int $int5 = db_getfieldcount($dbrow3, mtxmgt_bespoke_hair_recolour_data:col0);
+def_int $int6 = min(calc($int5 + db_getfieldcount($dbrow3, mtxmgt_bespoke_hair_recolour_data:col1)), calc(8 * 2));
+def_int $rgb7 = ^black;
+def_int $rgb8 = ^black;
+def_string $string0 = "0";
+def_struct $struct9 = null;
+def_int $int10 = 0;
+while ($int10 < $int6) {
+    if ($int10 < $int5) {
+        $rgb7, $string0, $struct9 = db_getfield($dbrow3, mtxmgt_bespoke_hair_recolour_data:col0, $int10);
+    } else {
+        $rgb7, $rgb8, $string0, $struct9 = db_getfield($dbrow3, mtxmgt_bespoke_hair_recolour_data:col1, calc($int10 - $int5));
+    }
+    ~if_add_child_layer(mtxmgt:hair_recolour_buttons, $int10, 0, calc($int10 / 8 * 26), calc($int10 % 8 * 26), ^setpos_abs_right, ^setpos_abs_top, 24, 24, ^setsize_abs, ^setsize_abs);
+    ~cc_add_child_button($int10, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_default, "");
+    cc_setop(1, "Select");
+    cc_setopcursor(1, cursor_use);
+    ~script3537($string0);
+    ~cc_add_child_rect($int10, 2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 4, 4, ^setsize_minus, ^setsize_minus, rect_light);
+    cc_setcolour($rgb7);
+    cc_setfill(true);
+    if ($int10 >= $int5) {
+        ~cc_add_child_rect($int10, 3, 2, 0, ^setpos_abs_right, ^setpos_abs_centre, 10, 4, ^setsize_abs, ^setsize_minus, rect_light);
+        cc_setcolour($rgb8);
+        cc_setfill(true);
+    }
+    if (~script6488($struct9) = 0) {
+        ~cc_add_child_graphic($int10, 4, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 6, 6, ^setsize_minus, ^setsize_minus, rs3_icon_lock_33px);
+    }
+    $int10 = calc($int10 + 1);
+}

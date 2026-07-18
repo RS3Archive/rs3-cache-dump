@@ -1,0 +1,185 @@
+// 3869
+[clientscript,script3869]
+if_settext("Closest lodestone: <col=FFFFFF><struct_param(enum(int, struct, thas_index_to_struct, struct_param(%bslay_monster_struct, bslay_lod_coord)), combatv2_ability_name)></col>", bslay_boss_info:lodestone_text);
+if_settext(struct_param(%bslay_monster_struct, bslay_name), bslay_boss_info:boss_name);
+if_settext("Recommended Combat Level: <col=FFFFFF><tostring(struct_param(%bslay_monster_struct, bslay_combat_req))></col>", bslay_boss_info:boss_rec_cbl_text);
+if_settext("Recommended Group Size: <col=FFFFFF><tostring(struct_param(%bslay_monster_struct, bslay_group_size))></col>", bslay_boss_info:group_size_text);
+~script11074;
+cc_deleteall(bslay_boss_info:boss_req_build_layer);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string0 = "";
+def_int $int6 = 1;
+def_obj $obj7 = null;
+def_graphic $graphic8 = null;
+def_struct $struct9 = null;
+if (struct_param(%bslay_monster_struct, cheevo_game) ! 1 & map_members = false) {
+    $int0, $int1 = ~bslay_req_add(0, null, "rs3_icon_members_32px,0", "To fight this boss, you must log into a members' world.", $int0, $int1);
+}
+while ($int2 < 12) {
+    $int6, $obj7, $graphic8, $struct9 = 1, null, null, null;
+    switch_int ($int2) {
+        case 0 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_1_type), struct_param(%bslay_monster_struct, task_requirement_1_value);
+        case 1 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_2_type), struct_param(%bslay_monster_struct, task_requirement_2_value);
+        case 2 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_3_type), struct_param(%bslay_monster_struct, task_requirement_3_value);
+        case 3 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_4_type), struct_param(%bslay_monster_struct, task_requirement_4_value);
+        case 4 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_5_type), struct_param(%bslay_monster_struct, task_requirement_5_value);
+        case 5 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_6_type), struct_param(%bslay_monster_struct, task_requirement_6_value);
+        case 6 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_7_type), struct_param(%bslay_monster_struct, task_requirement_7_value);
+        case 7 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_8_type), struct_param(%bslay_monster_struct, task_requirement_8_value);
+        case 8 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_9_type), struct_param(%bslay_monster_struct, task_requirement_9_value);
+        case 9 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_10_type), struct_param(%bslay_monster_struct, task_requirement_10_value);
+        case 10 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_11_type), struct_param(%bslay_monster_struct, task_requirement_11_value);
+        case 11 :
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_12_type), struct_param(%bslay_monster_struct, task_requirement_12_value);
+    }
+    if ($int3 > 0 & $int3 < 60) {
+        $graphic8, $string0 = enum(int, graphic, stat2icon_medium, $int3), "You must have level <tostring($int4)> <enum(int, string, statstring, $int3)>.";
+        if (stat_base(enum(int, stat, int_to_stat, $int3)) < $int4) {
+            $int6 = 0;
+        }
+    } else if ($int3 = 60) {
+        $struct9 = ~task_get_data($int4);
+        if ($struct9 ! null) {
+            if (struct_param($struct9, quest_id) > 0) {
+                $graphic8 = ~quest_icon(enum(int, quest, ql4_quests, struct_param($struct9, quest_id)));
+            } else {
+                $graphic8 = struct_param($struct9, task_icon);
+            }
+            $string0 = "You must complete the task: '<struct_param($struct9, task_name)>'.";
+            if (~task_get_progress(struct_param($struct9, task_unique_id)) ! 2) {
+                $int6 = 0;
+            }
+            $struct9 = null;
+        }
+    } else if ($int3 = 61) {
+        $graphic8 = ~quest_icon(enum(int, quest, ql4_quests, $int4));
+        $string0 = "You must complete the quest: '<~quest_name(enum(int, quest, ql4_quests, $int4))>'";
+        $string0 = append($string0, ".");
+        if (~script1524($int4) = false) {
+            $int6 = 0;
+        }
+    } else if ($int3 = 66) {
+        $graphic8 = achievement_icon_default;
+        $string0 = "You must complete the elite dungeon: ";
+        switch_int ($int4) {
+            case 49 :
+                $string0 = append($string0, "The Temple of Aminishi");
+            case 50 :
+                $string0 = append($string0, "The Dragonkin Laboratory");
+            case 51 :
+                $string0 = append($string0, "The Shadow Reef");
+            case 57 :
+                $string0 = append($string0, "The Zamorakian Undercity");
+        }
+    } else if ($int3 = 62) {
+        $int6, $obj7, $graphic8, $string0 = ~script16084($int4);
+    }
+    if ($int3 = 0) {
+        $int2 = 12;
+    } else {
+        $int2 = calc($int2 + 1);
+    }
+    if ($graphic8 ! null | $obj7 ! null) {
+        $int0, $int1 = ~bslay_req_add($int6, $obj7, $graphic8, $string0, $int0, $int1);
+    }
+}
+cc_deleteall(bslay_boss_info:scroll_layer);
+if_setscrollpos(0, 0, bslay_boss_info:boss_req_build_layer);
+if (calc($int1 + 36) > if_getheight(bslay_boss_info:boss_req_build_layer)) {
+    if_setscrollsize(0, calc($int1 + 36), bslay_boss_info:boss_req_build_layer);
+    ~rs3_scrollbar_vertical(bslay_boss_info:scroll_layer, bslay_boss_info:boss_req_build_layer);
+} else {
+    if_setscrollsize(0, 0, bslay_boss_info:boss_req_build_layer);
+}
+if (if_getnextsubid(bslay_boss_info:boss_req_build_layer) = 0) {
+    cc_create(bslay_boss_info:boss_req_build_layer, ^iftype_text, if_getnextsubid(bslay_boss_info:boss_req_build_layer));
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_settext("There are no special requirements.");
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_setcolour(~script10495(3));
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+}
+if (struct_param(%bslay_monster_struct, bslay_back_drop) ! null) {
+    if_setgraphic(struct_param(%bslay_monster_struct, bslay_back_drop), bslay_boss_info:npc_background);
+} else {
+    if_setgraphic(null, bslay_boss_info:npc_background);
+}
+if_setnpcmodel(struct_param(%bslay_monster_struct, bslay_npc), bslay_boss_info:boss_model);
+if_setmodelanim(bas_getanim_ready(%blsay_monster_bas), bslay_boss_info:boss_model);
+if_setmodelangle(0, struct_param(%bslay_monster_struct, bslay_yoffset), 0, 0, 0, struct_param(%bslay_monster_struct, bslay_zoom), bslay_boss_info:boss_model);
+if_settext("Combat Level: <col=FFFFFF><tostring(struct_param(%bslay_monster_struct, bslay_combat_level))></col>", bslay_boss_info:boss_combat_level);
+def_string $string1 = "";
+~script12274;
+if_setposition(75, 0, ^setpos_abs_right, ^setpos_abs_centre, bslay_boss_info:boss_timed_death);
+if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre, bslay_boss_info:boss_death);
+if_sethide(true, bslay_boss_info:boss_death_hardmode);
+def_int $int10 = -1;
+def_int $int11 = -1;
+$int10, $int11 = ~script15912(%bslay_monster_struct);
+$string0 = "Total kills: ";
+switch_int ($int10) {
+    case 2 :
+        $string0 = "Total solo mode kills: ";
+    case 3 :
+        $string0 = "Total duo mode kills: ";
+    case 4 :
+        $string0 = "Total group mode kills: ";
+    case 5 :
+        $string0 = "Total enrage mode kills: ";
+}
+if (%bslay_monster_kill_count = 60000) {
+    $string1 = "<col=FF0000>Lots!</col>";
+} else {
+    $string1 = tostring_localised(%bslay_monster_kill_count, true);
+}
+$string0 = append($string0, $string1);
+if_setonmouserepeat("script8799($string0, bslay_boss_info:boss_death_graphic, -1)", bslay_boss_info:boss_death);
+if_settext($string1, bslay_boss_info:boss_death_count);
+def_graphic $graphic12 = null;
+if (%bslay_monster_kill_count_hardmode ! -1) {
+    $graphic12 = ~script15909(%bslay_monster_struct);
+    switch_int ($int11) {
+        case 1 :
+            $string0 = "Total hard mode kills: ";
+        case 2 :
+            $string0 = "Total solo mode kills: ";
+        case 3 :
+            $string0 = "Total duo mode kills: ";
+        case 4 :
+            $string0 = "Total group mode kills: ";
+        case 5 :
+            $string0 = "Total enrage mode kills: ";
+    }
+    if (%bslay_monster_kill_count_hardmode = 60000) {
+        $string1 = "<col=FF0000>Lots!</col>";
+    } else {
+        $string1 = tostring_localised(%bslay_monster_kill_count_hardmode, true);
+    }
+    $string0 = append($string0, $string1);
+    if_setonmouserepeat("script8799($string0, bslay_boss_info:boss_death_graphic, -1)", bslay_boss_info:boss_death_hardmode);
+    if_settext($string1, bslay_boss_info:boss_death_count_hardmode);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, bslay_boss_info:boss_timed_death);
+    if_setposition(75, 0, ^setpos_abs_right, ^setpos_abs_centre, bslay_boss_info:boss_death);
+    if_sethide(false, bslay_boss_info:boss_death_hardmode);
+    if_setgraphic($graphic12, bslay_boss_info:boss_death_hardmode_graphic);
+}
+cc_deleteall(bslay_boss_info:boss_loot_build_layer);
+~bslay_rewards_build(bslay_boss_info:boss_loot_build_layer, bslay_boss_info:boss_loot_scrollbar_layer, bslay_boss_info:boss_loot_wrapper, %bslay_monster_struct, 0, 0, 0);
+if_sethide(false, bslay_boss_info:boss_info_wrapper);

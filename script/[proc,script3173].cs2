@@ -1,0 +1,60 @@
+// 3173
+[proc,script3173](component $component0, component $component1, component $component2)
+if (minimenuopen($component1, -1) = true) {
+    if_setontimer("script3172($component0, $component1, $component2)", $component0);
+    return;
+}
+cc_deleteall($component1);
+def_string $string0 = "<col=7fa9ff>";
+def_string $string1 = "<col=ff5256>";
+def_int $int3 = 0;
+def_int $int4 = ~script1960;
+def_int $int5 = $int4;
+def_int $int6 = 0;
+def_int $chattype7 = ^chattype_gamemessage;
+def_int $int8 = 0;
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_chatphrase $chatphrase9 = null;
+def_string $string7 = "";
+def_int $int10 = -1;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_boolean $boolean13 = ~is_mobile_client;
+def_int $int14 = -1;
+$chattype7, $string2, $int8, $string3, $string4, $string5, $string6, $chatphrase9, $string7, $int10, $int14 = chat_gethistory_byuid($int4);
+while ($int6 < 100 & $chattype7 ! null) {
+    $string2 = ~script11298($string2);
+    switch_int ($chattype7) {
+        case ^chattype_clanmessage, ^chattype_snapshotfeedback :
+            if ($int14 <= 0) {
+                $int3, $int11 = ~script3174($component1, $int3, "<$string2><$string7>", 0, "", "", $chattype7, $int8, $boolean13);
+            }
+        case ^chattype_clanchat, ^chattype_clanguestchat :
+            if ($int14 = 0) {
+                $int3, $int11 = ~script3174($component1, $int3, "<$string2>[<$string0><$string6></col>] <$string3>: <$string1><$string7>", 1, $string3, $string4, $chattype7, $int8, $boolean13);
+            }
+        case ^chattype_quickchat_clanchat :
+            $int3, $int11 = ~script3174($component1, $int3, "<$string2>[<$string0><$string6></col>] <$string3>: <$string1><$string7>", 1, $string3, $string4, $chattype7, $int8, $boolean13);
+        case ^chattype_system_broadcast :
+            if (string_length(enum(int, string, chat_v2_urls, $int8)) > 0) {
+                $int12 = 1;
+            } else {
+                $int12 = 0;
+            }
+            $int3, $int11 = ~script3174($component1, $int3, "<$string2><col=FF0000><$string7></col>", $int12, "", "", $chattype7, $int8, $boolean13);
+        case 146 :
+            if (staffmodlevel >= 2) {
+                $int3, $int11 = ~script3174($component1, $int3, "<$string2><col=FF0000><$string7></col>", 0, "", "", $chattype7, $int8, $boolean13);
+            }
+    }
+    $int6 = calc($int6 + 1);
+    $chattype7, $string2, $int8, $string3, $string4, $string5, $string6, $chatphrase9, $string7, $int10, $int14 = chat_gethistory_byuid(--$int4);
+}
+%toplevel_v2_chat_last_uid = $int5;
+~script17127($component1, $component2, $int11, calc(%lobby_clanchat_lastscrollpos + if_getscrollheight($component1) - %lobby_clanchat_lastscrollsize));
+%lobby_clanchat_lastscrollpos = if_getscrolly($component1);
+%lobby_clanchat_lastscrollsize = if_getscrollheight($component1);

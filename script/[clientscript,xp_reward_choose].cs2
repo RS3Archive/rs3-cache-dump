@@ -1,0 +1,15 @@
+// 6040
+[clientscript,xp_reward_choose](stat $stat0, int $int1, component $component2, component $component3)
+if (~xp_reward_checkskill($stat0, %xp_reward_minlevel, %xp_reward_item, 1) = false) {
+    return;
+}
+%xp_reward_currentchoice = $int1;
+def_int $int4 = calc(enum_getoutputcount(xp_reward_buttonlist) - 1);
+while ($int4 >= 0) {
+    $component2 = enum(int, component, xp_reward_buttonlist, $int4);
+    if ($component2 ! null) {
+        if_callonresize($component2);
+    }
+    $int4 = calc($int4 - 1);
+}
+if_callonresize($component3);

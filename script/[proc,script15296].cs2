@@ -1,0 +1,52 @@
+// 15296
+[proc,script15296](dbrow $dbrow0, component $component1)
+if ($dbrow0 = null | $component1 = null) {
+    return;
+}
+def_int $int2 = -1;
+def_int $int3 = 0;
+cc_deleteall($component1);
+def_int $int4 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int5 = 0;
+def_obj $obj6 = null;
+def_int $int7 = 0;
+def_int $int8 = 16777215;
+while (++$int2 < 7) {
+    $string0, $string1, $int5, $obj6, $int7 = db_getfield($dbrow0, trh171_modifier_data:col0, ~trh171_get_modifier($int2));
+    cc_create($component1, ^iftype_text, $int4);
+    cc_setop(1, "Select");
+    cc_setonop("script15297(event_comsubid, 1)");
+    cc_setopcursor(1, cursor_use);
+    cc_setposition(0, calc(32 * $int3), ^setpos_abs_centre, ^setpos_abs_top);
+    if (%trh171_active_slot = $int2) {
+        if_sethide(false, trh171_overlay:modifier_selected);
+        if_setposition(0, calc(32 * $int3), ^setpos_abs_centre, ^setpos_abs_top, trh171_overlay:modifier_selected);
+        if_setsize(4, 32, ^setsize_minus, ^setsize_abs, trh171_overlay:modifier_selected);
+    }
+    $int3 = calc($int3 + 1);
+    switch_int ($int5) {
+        case 0 :
+            $int8 = 16777215;
+        case 1 :
+            $int8 = 15260188;
+        case 2 :
+            $int8 = 15240220;
+        case 3 :
+            $int8 = 15214876;
+        case 4 :
+            $int8 = 12066024;
+    }
+    if ($int2 < 2) {
+        $int8 = ~script10495(2);
+    }
+    cc_setcolour($int8);
+    cc_settext($string0);
+    cc_settextfont(cinzel_12pt_bold);
+    cc_setsize(16, 32, ^setsize_minus, ^setsize_abs);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setonmouseover("script12111($string1, event_com, $int4)");
+    cc_setonmouseleave("script8805");
+    $int4 = calc($int4 + 1);
+}

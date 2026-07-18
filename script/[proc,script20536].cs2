@@ -1,0 +1,52 @@
+// 20536
+[proc,script20536](component $component0, struct $struct1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = struct_param($struct1, toplevel_v2_window_titled_tab_width);
+def_int $int7 = struct_param($struct1, toplevel_v2_window_titled_tab_height);
+def_int $int8 = struct_param($struct1, toplevel_v2_window_titled_tab_x_offset);
+def_int $int9 = struct_param($struct1, toplevel_v2_window_titled_tab_y_offset);
+def_int $int10 = ~script8374($component0);
+def_int $int11 = max(1, calc(if_getwidth($component0) / $int6));
+def_int $int12 = max(1, calc($int10 / $int11 + min(1, calc($int10 % $int11))));
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = $int2;
+def_int $int21 = calc($int2 + $int3);
+while ($int13 < $int10) {
+    $int5 = $int4;
+    if ($int13 >= $int3 & $int13 < calc($int3 + $int2)) {
+        $int15, $int14 = ~script20535($int10, $int11, $int12, $int19);
+        $int19 = calc($int19 + 1);
+    } else if ($int13 < $int3) {
+        $int15, $int14 = ~script20535($int10, $int11, $int12, $int20);
+        $int20 = calc($int20 + 1);
+        $int5 = 1;
+    } else {
+        $int15, $int14 = ~script20535($int10, $int11, $int12, $int21);
+        $int21 = calc($int21 + 1);
+    }
+    $int16 = calc($int14 * $int6);
+    $int17 = calc($int15 * $int7);
+    $int18 = calc($int13 * 4);
+    if (cc_find($component0, $int18) = true & $int5 = 0) {
+        $int16 = calc($int16 - ($int16 - cc_getx) / 2);
+        $int17 = calc($int17 - ($int17 - cc_gety) / 2);
+    }
+    if (cc_find($component0, $int18) = true) {
+        cc_setposition($int16, $int17, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (cc_find($component0, calc($int18 + 1)) = true) {
+        cc_setposition(calc($int16 + $int8), calc($int17 + ($int7 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+        if (.cc_find($component0, calc($int18 + 2)) = true) {
+            .cc_setposition(calc($int16 + min(cc_getwidth, cc_getheight) / 2), calc($int17 + cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+        }
+        if (.cc_find($component0, calc($int18 + 3)) = true) {
+            .cc_setposition(calc($int16 + min(cc_getwidth, cc_getheight) / 2), calc($int17 + cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+        }
+    }
+    $int13 = calc($int13 + 1);
+}

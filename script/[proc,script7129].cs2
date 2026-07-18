@@ -1,0 +1,150 @@
+// 7129
+[proc,script7129](obj $obj0, int $int1, component $component2)(int)
+if ($obj0 = null) {
+    return(0);
+}
+def_int $int3 = 0;
+def_int $int4 = 2;
+def_int $int5 = $int1;
+def_int $int6 = 0;
+def_int $int7 = scale(3, 4, 32);
+def_int $int8 = scale(3, 4, 36);
+cc_deleteall($component2);
+$int5, $int3 = ~script7130($obj0, $int3, $int5, $component2);
+$int3 = if_getnextsubid($component2);
+def_obj $obj9 = oc_param($obj0, recipe_ingredient_type_1);
+def_int $int10 = ~makex2012_get_ingredient_number($obj0, 1);
+def_boolean $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_1);
+def_boolean $boolean12 = oc_param($obj0, recipe_ingredient_1_scale_stack);
+def_struct $struct13 = oc_param($obj0, recipe_ingredient_1_multiple);
+def_boolean $boolean14 = false;
+def_int $int15 = oc_param($obj0, recipe_ingredient_extra_info_1);
+def_int $int16 = struct_param($struct13, recipe_ingredient_extra_info_1);
+def_int $int17 = 1;
+def_int $int18 = 0;
+def_boolean $boolean19 = ~script7112($obj0);
+def_int $int20 = 1;
+while ($obj9 ! null | $struct13 ! null) {
+    if ($struct13 ! null) {
+        $obj9 = struct_param($struct13, recipe_ingredient_type_1);
+        $int10 = struct_param($struct13, recipe_ingredient_number_1);
+        if ($obj9 ! null & $int10 ! 0) {
+            $obj9, $int16, $int10 = ~script2734($obj0, $obj9, $int16, $int10);
+            $int5 = calc($int5 + $int4);
+            if (oc_param($obj0, recipe_no_mixmatch) = true) {
+                $int18, $boolean14 = ~script2961($obj0, $struct13, $boolean19);
+            } else {
+                $int18 = ~script7111($struct13, $boolean19);
+                if ($int18 >= $int10 | $int18 = -1) {
+                    $boolean14 = true;
+                } else {
+                    $boolean14 = false;
+                }
+            }
+            $obj9 = struct_param($struct13, recipe_ingredient_type_1);
+            $int10 = struct_param($struct13, recipe_ingredient_number_1);
+            $obj9, $int16, $int10 = ~script2734($obj0, $obj9, $int16, $int10);
+            if (struct_param($struct13, recipe_ingredient_1_scale_stack) = false) {
+                $int10 = calc($int10 * ~script18374($obj0));
+            }
+            $int3, $int5 = ~makex2012_draw_ingredient($obj0, 3, $int5, 1, 2, $obj9, $struct13, $int15, $int10, $int18, $boolean14, $component2, $int3);
+            $int5 = calc($int5 + $int4);
+        }
+    } else if ($int10 ! 0) {
+        $obj9, $int15, $int10 = ~script2734($obj0, $obj9, $int15, $int10);
+        $int5 = calc($int5 + $int4);
+        if ($int10 = -1) {
+            $int10 = 1;
+        }
+        if ($boolean11 = true) {
+            $int18 = ~script7115($obj0, $int10, $obj9, $int15, true);
+        } else {
+            $int18 = ~script7115($obj0, -1, $obj9, $int15, true);
+        }
+        if ($int18 >= $int10 | $int18 = -1) {
+            $boolean14 = true;
+        } else {
+            $boolean14 = false;
+        }
+        if ($boolean12 = false) {
+            $int10 = calc($int10 * ~script18374($obj0));
+        }
+        $int3, $int5 = ~makex2012_draw_ingredient($obj0, 3, $int5, 1, 2, $obj9, null, $int15, $int10, $int18, $boolean14, $component2, $int3);
+        $int5 = calc($int5 + $int4);
+    }
+    switch_int (++$int17) {
+        case 2 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_2);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 2));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_2);
+            $boolean12 = oc_param($obj0, recipe_ingredient_2_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_2_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_2);
+        case 3 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_3);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 3));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_3);
+            $boolean12 = oc_param($obj0, recipe_ingredient_3_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_3_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_3);
+        case 4 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_4);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 4));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_4);
+            $boolean12 = oc_param($obj0, recipe_ingredient_4_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_4_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_4);
+        case 5 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_5);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 5));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_5);
+            $boolean12 = oc_param($obj0, recipe_ingredient_5_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_5_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_5);
+        case 6 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_6);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 6));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_6);
+            $boolean12 = oc_param($obj0, recipe_ingredient_6_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_6_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_6);
+        case 7 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_7);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 7));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_7);
+            $boolean12 = oc_param($obj0, recipe_ingredient_7_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_7_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_7);
+        case 8 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_8);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 8));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_8);
+            $boolean12 = oc_param($obj0, recipe_ingredient_8_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_8_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_8);
+        case 9 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_9);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 9));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_9);
+            $boolean12 = oc_param($obj0, recipe_ingredient_9_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_9_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_9);
+        case 10 :
+            $obj9 = oc_param($obj0, recipe_ingredient_type_10);
+            $int10 = max(0, ~makex2012_get_ingredient_number($obj0, 10));
+            $boolean11 = oc_param($obj0, recipe_ingredient_extra_amount_check_10);
+            $boolean12 = oc_param($obj0, recipe_ingredient_10_scale_stack);
+            $struct13 = oc_param($obj0, recipe_ingredient_10_multiple);
+            $int15 = oc_param($obj0, recipe_ingredient_extra_info_10);
+        case default :
+            $obj9 = null;
+            $struct13 = null;
+    }
+}
+if ($int5 = $int4) {
+    $int5 = 0;
+} else {
+    $int5 = calc($int5 + 10);
+}
+if_setsize(if_getwidth($component2), $int5, ^setsize_abs, ^setsize_abs, $component2);
+return($int5);

@@ -1,0 +1,135 @@
+// 10227
+[proc,script10227](int $int0, dbrow $dbrow1)(boolean, string)
+def_string $string0 = "";
+def_boolean $boolean2 = true;
+if (map_members = false & ~script10755($int0) = false) {
+    return(false, "You need to be a member to teleport here.");
+} else if ($dbrow1 = null) {
+    ~error("DBROW is null for ID <tostring($int0)>.");
+    return(false, "You can't teleport to that destination.");
+}
+switch_int ($int0) {
+    case 17 :
+        if (%troll_quest < 20 | %godwars_palladin1 = 0 | stat(agility) < 70 | stat(ranged) < 70 | stat(hitpoints) < 70 | stat(strength) < 70) {
+            $boolean2 = false;
+        }
+    case 16 :
+        if (%troll_quest < 20 | %godwars_palladin1 = 0 | stat(hitpoints) < 70 | stat(agility) < 60 & stat(strength) < 60) {
+            $boolean2 = false;
+        }
+    case 14 :
+        if (%troll_quest < 20 | %godwars_palladin1 = 0 | stat(strength) < 70) {
+            $boolean2 = false;
+        }
+    case 13 :
+        if (%troll_quest < 20 | %godwars_palladin1 = 0 | stat(agility) < 70) {
+            $boolean2 = false;
+        }
+    case 15 :
+        if (%troll_quest < 20 | %godwars_palladin1 = 0 | stat(ranged) < 70 | stat(agility) < 60 & stat(strength) < 60) {
+            $boolean2 = false;
+        }
+    case 1 :
+        if (%dsd_quest < 10) {
+            $boolean2 = false;
+        }
+    case 2 :
+        if (%mah5_main < 400) {
+            $boolean2 = false;
+        }
+    case 3 :
+        if (%luc2_main_quest < 910) {
+            $boolean2 = false;
+        }
+    case 4 :
+    case 5 :
+    case 6 :
+        if (%morytania_entry_allowed = 0) {
+            $boolean2 = false;
+        }
+    case 7 :
+    case 8 :
+        if (%sum2_quest < 35) {
+            $boolean2 = false;
+        }
+    case 9 :
+    case 10 :
+        if (%qbd1_main < 75) {
+            $boolean2 = false;
+        }
+    case 11 :
+    case 12 :
+    case 18 :
+    case 19 :
+        if (%morytania_entry_allowed = 0) {
+            $boolean2 = false;
+        }
+    case 20 :
+    case 21 :
+    case 22 :
+    case 23 :
+    case 24 :
+    case 25 :
+    case 26 :
+    case 27 :
+    case 28 :
+        if (~script680 = 0) {
+            $boolean2 = false;
+        }
+    case 29 :
+    case 30 :
+    case 31 :
+    case 32 :
+    case 33 :
+    case 34 :
+        if (%dino_boss_miniquest < 100) {
+            $boolean2 = false;
+        }
+    case 35 :
+        if (%dino_onboarding_progress < 50) {
+            $boolean2 = false;
+        }
+    case 38 :
+    case 41 :
+        if (%quest_necromancy_hermod_main < 40 & ~script1858(13) = false) {
+            $boolean2 = false;
+        }
+    case 42 :
+        if (~ql4_getquestcomplete(quest_fort_epilogue) = false & ~script20165 = false) {
+            $boolean2 = false;
+        }
+    case 43 :
+        if (~ql4_getquestcomplete(quest_rebirth_sanctum) = false) {
+            $boolean2 = false;
+        }
+    case 44 :
+        if (~ql4_getquestcomplete(quest_amascut) = false & ~script20164 = false) {
+            $boolean2 = false;
+        }
+    case 45 :
+        if (~ql4_getquestcomplete(quest_desert_finale) = false & ~script20163 = false) {
+            $boolean2 = false;
+        }
+        if (~script20180 = false) {
+            $boolean2 = false;
+        }
+    case 46 :
+        if (stat(dungeoneering) < 40) {
+            $boolean2 = false;
+        }
+    case 47 :
+        if (~ql4_getquestcomplete(quest_wendle_connections) = false) {
+            $boolean2 = false;
+        }
+    case 48 :
+        if (~ql4_getquestcomplete(quest_wendle_sanguine) = false) {
+            $boolean2 = false;
+        }
+}
+if ($boolean2 = false) {
+    $string0 = db_getfield($dbrow1, pvm_portal_destination:col4, 0);
+    if ($int0 = 45 & ~script20180 = false) {
+        $string0 = "This focus requires access to Menaphos.";
+    }
+}
+return($boolean2, $string0);

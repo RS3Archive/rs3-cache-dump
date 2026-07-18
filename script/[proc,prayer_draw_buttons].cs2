@@ -1,0 +1,65 @@
+// 12233
+[proc,prayer_draw_buttons](component $component0, struct $struct1, int $int2, int $int3, int $int4, int $int5, int $int6)
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_enum $enum11 = ~prayer_mode_enum($component0);
+def_int $int12 = enum_getoutputcount($enum11);
+def_int $int13 = if_getwidth(struct_param($struct1, prayer_child_view));
+def_int $int14 = if_getheight(struct_param($struct1, prayer_child_view));
+def_int $int15 = 0;
+def_int $int16 = -1;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_string $string0 = "";
+def_graphic $graphic20 = null;
+def_graphic $graphic21 = null;
+def_graphic $graphic22 = null;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_struct $struct25 = null;
+def_int $int26 = 1;
+$int7, $int8, $int9, $int10 = ~script12005;
+def_int $intarray0($int2);
+def_int $int27 = 0;
+while ($int27 < $int2) {
+    $intarray0($int27) = ~script8108($int3, $int4, $int27);
+    $int27 = calc($int27 + 1);
+}
+while ($int24 < $int12 & $int15 < $int6) {
+    $int26 = 1;
+    $struct25, $int17, $string0, $graphic20, $graphic21, $graphic22, $int23 = ~script12003($enum11, $int24);
+    cc_create($component0, ^iftype_graphic, $int24);
+    cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+    cc_setposition($intarray0(calc($int15 % $int2)), calc($int15 / $int2 * $int5 + 3), ^setpos_abs_left, ^setpos_abs_top);
+    $int18 = ~prayer_set_graphics($struct25, $component0, $int24);
+    $int19 = ~script12248($int24);
+    if ($struct1 = prayer_draw_prayers_quick_prayers) {
+        ~script12004($component0, $string0, $struct25, $struct1, $int24, $enum11);
+    } else {
+        if (%prayer_client_showing_active_summary = 0 & %prayer_client_current_filter = 1 & $int18 = 0) {
+            $int26 = 0;
+        }
+        if (%prayer_client_showing_active_summary = 1 & $int17 = 0 & $int19 = 0) {
+            $int26 = 0;
+        }
+        if ($int26 = 1) {
+            cc_sethide(false);
+            ~script12004($component0, $string0, $struct25, $struct1, $int24, $enum11);
+        } else {
+            cc_sethide(true);
+        }
+    }
+    cc_create(struct_param($struct1, prayer_child_glow), ^iftype_graphic, $int24);
+    cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($intarray0(calc($int15 % $int2)) - 2), calc($int15 / $int2 * $int5 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    if ($component0 ! prayer_quick_preset_interface:prayer_buttons & cc_find(struct_param($struct1, prayer_child_glow), $int24) = true) {
+        cc_setgraphic($graphic20);
+    }
+    if ($struct1 = prayer_draw_prayers_quick_prayers | $int26 = 1) {
+        $int15 = calc($int15 + 1);
+    }
+    $int24 = calc($int24 + 1);
+}

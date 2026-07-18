@@ -1,0 +1,54 @@
+// 9413
+[proc,script9413](int $int0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+def_component $component9 = null;
+def_int $int10 = 0;
+def_struct $struct11 = enum(int, struct, 6awe2_shop_struct, $int0);
+def_int $int12 = struct_param($struct11, 6awe2_price);
+$component2, $component3, $component4, $component5, $int10, $component6, $component7, $component8, $component9 = ~script9409($int0);
+if ($int1 = 1) {
+    $int10 = 1;
+}
+if ($int10 = 1 & struct_param($struct11, 6awe2_god_armour) = 1) {
+    $int12 = scale(40, 100, $int12);
+}
+if (%6awe2_shop_discount = 1) {
+    $int12 = scale(95, 100, $int12);
+}
+def_int $int13 = struct_param($struct11, 6awe2_token_required);
+if ($int10 = 1) {
+    if (struct_param($struct11, 6awe2_notanobject) = 1) {
+        ~script9415($component6, $component7, $component8, $component9, $component3, $int12, $struct11, $int10);
+        if_settext("PURCHASED", $component9);
+        return;
+    } else {
+        if (struct_param($struct11, 6awe2_god_armour) = 1) {
+            if_settext("RECLAIM", $component9);
+        }
+        if (%6awe2_reward_currency < $int12 | calc(%6awe2_token_level - 1) < $int13) {
+            ~script9415($component6, $component7, $component8, $component9, $component3, $int12, $struct11, $int10);
+            return;
+        } else if ($int1 = 1) {
+            ~script9415($component6, $component7, $component8, $component9, $component3, $int12, $struct11, 1);
+            return;
+        }
+    }
+} else if (%6awe2_reward_currency < $int12 | calc(%6awe2_token_level - 1) < $int13) {
+    ~script9415($component6, $component7, $component8, $component9, $component3, $int12, $struct11, $int10);
+    return;
+}
+if (~script9414($struct11) = 1) {
+    ~script9415($component6, $component7, $component8, $component9, $component3, $int12, $struct11, 1);
+    return;
+}
+if (struct_param($struct11, 6awe2_notanobject) = 0 & inv_freespace(inv) = 0) {
+    ~script9415($component6, $component7, $component8, $component9, $component3, $int12, $struct11, $int10);
+    return;
+}
+~script9416($component6, $component7, $component8, $component9, $component3, $int12, $struct11, $int10);

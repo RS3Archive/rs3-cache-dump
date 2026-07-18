@@ -1,0 +1,178 @@
+// 8247
+[proc,script8247](struct $struct0)(struct)
+def_int $int1 = 0;
+def_int $int2 = -1;
+def_int $int3 = 9;
+if ($struct0 ! null & struct_param($struct0, combatv2_ability_can_be_overridden) = true) {
+    switch_struct ($struct0) {
+        case combatv2_ability_necromancy_conjure_skeleton_warrior :
+            if (%combatv2_ability_necromancy_conjure_skeleton_warrior_active = 1 & %combatv2_ability_necromancy_command_skeleton_warrior_unlocked = 1) {
+                return(combatv2_ability_necromancy_command_skeleton_warrior);
+            }
+            return(combatv2_ability_necromancy_conjure_skeleton_warrior);
+        case combatv2_ability_necromancy_conjure_putrid_zombie :
+            if (%combatv2_ability_necromancy_conjure_putrid_zombie_active = 1 & %combatv2_ability_necromancy_command_putrid_zombie_unlocked = 1) {
+                return(combatv2_ability_necromancy_command_putrid_zombie);
+            }
+            return(combatv2_ability_necromancy_conjure_putrid_zombie);
+        case combatv2_ability_necromancy_conjure_vengeful_ghost :
+            if (%combatv2_ability_necromancy_conjure_vengeful_ghost_active = 1 & %combatv2_ability_necromancy_command_vengeful_ghost_unlocked = 1) {
+                return(combatv2_ability_necromancy_command_vengeful_ghost);
+            }
+            return(combatv2_ability_necromancy_conjure_vengeful_ghost);
+        case combatv2_ability_necromancy_conjure_phantom_guardian :
+            if (%combatv2_ability_necromancy_conjure_phantom_guardian_active = 1 & %combatv2_ability_necromancy_command_phantom_guardian_unlocked = 1) {
+                return(combatv2_ability_necromancy_command_phantom_guardian);
+            }
+            return(combatv2_ability_necromancy_conjure_phantom_guardian);
+        case combatv2_ability_necromancy_spectral_scythe, combatv2_ability_necromancy_spectral_scythe_recast_1, combatv2_ability_necromancy_spectral_scythe_recast_2 :
+            if (%combatv2_ability_necromancy_spectral_scythe_recast_1_active = 1) {
+                return(combatv2_ability_necromancy_spectral_scythe_recast_1);
+            }
+            if (%combatv2_ability_necromancy_spectral_scythe_recast_2_active = 1) {
+                return(combatv2_ability_necromancy_spectral_scythe_recast_2);
+            }
+            return(combatv2_ability_necromancy_spectral_scythe);
+        case combatv2_ability_strength_dismember, combatv2_ability_melee_dismember_recast_1, combatv2_ability_melee_dismember_recast_2 :
+            if (%combatv2_ability_melee_dismember_recast_1_active = 1) {
+                return(combatv2_ability_melee_dismember_recast_1);
+            }
+            if (%combatv2_ability_melee_dismember_recast_2_active = 1) {
+                return(combatv2_ability_melee_dismember_recast_2);
+            }
+            return(combatv2_ability_strength_dismember);
+        case combatv2_ability_strength_assault, combatv2_ability_strength_assault_bloodlust :
+            if (~script8744 = true) {
+                return(combatv2_ability_strength_assault_bloodlust);
+            }
+            return(combatv2_ability_strength_assault);
+        case combatv2_ability_attack_whirlwind, combatv2_ability_attack_whirlwind_bloodlust :
+            if (~script8744 = true) {
+                return(combatv2_ability_attack_whirlwind_bloodlust);
+            }
+            return(combatv2_ability_attack_whirlwind);
+    }
+    $int2 = struct_param($struct0, combatv2_ability_id);
+    $int3 = struct_param($struct0, combatv2_ability_parent_stat);
+    $int1 = ~script8248($int3, $int2);
+    switch_int ($int3) {
+        case 8 :
+        case 1 :
+            switch_int ($int2) {
+                case 4 :
+                    if ($int1 = 1) {
+                        if (~script8744 = true) {
+                            return(combatv2_ability_attack_flurry_override_bloodlust);
+                        } else {
+                            return(combatv2_ability_attack_flurry_override);
+                        }
+                    } else if (~script8744 = true) {
+                        return(combatv2_ability_attack_flurry_bloodlust);
+                    }
+                    return(combatv2_ability_attack_flurry);
+                case 1 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_attack_charge_override);
+                    } else {
+                        return(combatv2_ability_attack_charge);
+                    }
+                case 29 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_attack_bladed_dive);
+                    } else {
+                        return(combatv2_ability_attack_dive);
+                    }
+                case 10 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_strength_fury_override);
+                    } else {
+                        return(combatv2_ability_strength_fury);
+                    }
+            }
+        case 3 :
+            switch_int ($int2) {
+                case 5 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_ranged_greater_ricochet);
+                    } else {
+                        return(combatv2_ability_ranged_ricochet);
+                    }
+                case 10 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_ranged_deaths_shroud);
+                    } else {
+                        return(combatv2_ability_ranged_deaths_swiftness);
+                    }
+            }
+        case 4 :
+            switch_int ($int2) {
+                case 158 :
+                    if ($int1 = 1) {
+                        return(magic_dung_home_teleport_override);
+                    } else {
+                        return(magic_dung_home_teleport);
+                    }
+                case 154 :
+                    if (%zaros_spellbook = 1) {
+                        return(magic_seren_spellbook_swap);
+                    } else {
+                        return(magic_spellbook_swap);
+                    }
+                case 197 :
+                    if (%zaros_spellbook = 1) {
+                        return(magic_seren_spellbook_swap_normal);
+                    } else {
+                        return(magic_spellbook_swap_normal);
+                    }
+                case 185 :
+                    if (%zaros_spellbook = 2) {
+                        return(magic_spellbook_swap);
+                    } else {
+                        return(magic_seren_spellbook_swap);
+                    }
+                case 195 :
+                    if (%zaros_spellbook = 2) {
+                        return(magic_spellbook_swap_normal);
+                    } else {
+                        return(magic_seren_spellbook_swap_normal);
+                    }
+                case 6 :
+                    return(combatv2_ability_magic_dragonbreath);
+                case 165 :
+                    switch_int ($int1) {
+                        case 1 :
+                            return(combatv2_ability_magic_sonic_boom);
+                        case 2 :
+                            return(combatv2_ability_magic_greater_sonic_wave);
+                    }
+                case 166 :
+                    switch_int ($int1) {
+                        case 1 :
+                            return(combatv2_ability_magic_concentrated_blast);
+                        case 2 :
+                            return(combatv2_ability_magic_greater_concentrated_blast);
+                    }
+                case 5 :
+                    return(combatv2_ability_magic_combust);
+                case 4 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_magic_greater_chain);
+                    } else {
+                        return(combatv2_ability_magic_chain);
+                    }
+                case 1 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_magic_blood_tithe_wrack);
+                    } else {
+                        return(combatv2_ability_magic_chastise);
+                    }
+                case 164 :
+                    if ($int1 = 1) {
+                        return(combatv2_ability_magic_solar_charge);
+                    } else {
+                        return(combatv2_ability_magic_sunshine);
+                    }
+            }
+    }
+}
+return($struct0);

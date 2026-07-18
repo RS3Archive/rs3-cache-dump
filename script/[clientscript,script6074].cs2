@@ -1,0 +1,45 @@
+// 6074
+[clientscript,script6074](int $int0)
+def_int $int1 = %shop_last_viewed_buyamt;
+def_int $int2 = ^max_32bit_int;
+def_obj $obj3 = null;
+def_int $int4 = 0;
+if (%shop_last_viewed_inventory ! null & %shop_last_viewed_slot ! -1) {
+    $obj3 = inv_getobj(%shop_last_viewed_inventory, %shop_last_viewed_slot);
+    if (%shop_last_viewed_inventory = inv) {
+        $int2 = 500;
+        $int4 = ~sellprice(%currency, $obj3, %shop);
+    } else {
+        $int4 = ~buyprice($obj3);
+    }
+    if (%shop = naffstaffshop & $obj3 = battlestaff) {
+        $int2 = ~battlestaff_number;
+    } else if ($obj3 ! null) {
+        $int2 = min($int2, inv_total(%shop_last_viewed_inventory, $obj3));
+        if (oc_stackable($obj3) = false & %shop_last_viewed_inventory ! inv) {
+            $int2 = min($int2, inv_freespace(inv));
+        }
+    } else {
+        $int2 = 1;
+    }
+}
+if ($int4 > 0) {
+    $int2 = min($int2, calc(^max_32bit_int / $int4));
+}
+if ($int0 > 0) {
+    if ($int0 > $int2) {
+        $int1 = $int2;
+        if_settext(~script940($int1), shop_main:selected_quantity);
+        return;
+    }
+    if (calc(^max_32bit_int - $int1) < $int0) {
+        $int1 = $int2;
+        if_settext(~script940($int1), shop_main:selected_quantity);
+        return;
+    } else {
+        $int1 = min(calc($int1 + $int0), $int2);
+    }
+} else {
+    $int1 = min($int2, max(1, calc($int1 + $int0)));
+}
+if_settext(~script940($int1), shop_main:selected_quantity);

@@ -1,0 +1,41 @@
+// 20436
+[proc,script20436](dbrow $dbrow0, string $string0)(boolean, boolean, string)
+def_stat $stat1 = db_getfield($dbrow0, anniversary_skillcapes_skills:col1, 0);
+def_int $int2 = db_getfield($dbrow0, anniversary_skillcapes_skills:col2, 0);
+def_int $int3 = var_reference_get(db_getfield($dbrow0, anniversary_skillcapes_skills:col3, 0));
+def_string $string1 = oc_name(enum(stat, obj, skillcape_inverted_stat_to_obj, $stat1));
+if (~script20430 = 1) {
+    $string1 = oc_name(enum(stat, obj, skillcape_inverted_stat_to_obj_trimmed, $stat1));
+}
+def_int $int4 = var_reference_get(db_getfield($dbrow0, anniversary_skillcapes_skills:col4, 0));
+def_string $string2 = oc_name(enum(int, obj, int_to_master_skillcape_inverted, $int2));
+def_int $int5 = enum(stat, int, stat_to_statcap, $stat1);
+def_string $string3 = "virtual level 120";
+def_int $int6 = ~script20429($stat1);
+def_int $int7 = ~script20447;
+if (map_members = false) {
+    return(false, true, "You must be on a members' world to unlock this cape.");
+}
+if (~script20449 = 1) {
+    if ($int3 = 1 & $int4 = 0 & $int6 = 1 & ~script20431($int2) = 1) {
+        return(true, false, "As you have already earned your <$string1> this year, you can now earn your <$string2>!");
+    } else {
+        return(false, true, "You have already focussed on four skills this year.");
+    }
+}
+if ($int3 = 1 & $int4 = 1) {
+    return(false, true, "You have already unlocked the <$string1> and <$string2>.");
+}
+if (stat_base_actual($stat1) < 99) {
+    return(false, true, "You need to have achieved level 99 <$string0> to unlock the <$string1>.");
+}
+if ($int6 = 0 & $int3 = 1) {
+    if ($int5 = 120) {
+        $string3 = "level 120";
+    }
+    return(false, true, "You have already unlocked the <$string1>. You need to have achieved <$string3> <$string0> to unlock the <$string2>.");
+}
+if ($int7 = 1) {
+    return(false, true, "You have earned all the capes you can this year.");
+}
+return(true, false, "");

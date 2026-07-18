@@ -1,0 +1,17 @@
+// 9324
+[proc,script9324](int $int0)
+if (%bank_searchmode_client = true) {
+    ~bank_show_search(%bank_lastsearchstring, $int0);
+    ~diango_search_item(%bank_lastsearchstring, bank:diango_inv);
+} else if (%bank_filter ! 0) {
+    switch_int (%bank_filter) {
+        case default :
+            ~bank_filter_simple(%bank_filter, $int0);
+        case 4, 1, 7 :
+            ~bank_filter_complex(%bank_filter, $int0);
+    }
+} else if (%bank_current_tab = 1) {
+    ~bank_show_all;
+} else {
+    ~bank_show_tab(%bank_current_tab);
+}

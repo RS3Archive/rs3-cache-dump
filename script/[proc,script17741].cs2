@@ -1,0 +1,33 @@
+// 17741
+[proc,script17741](dbrow $dbrow0)
+if ($dbrow0 = null) {
+    return;
+}
+if (db_getrowtable($dbrow0) ! skill_tree) {
+    ~error("Invalid skill tree");
+    return;
+}
+cc_deleteall(skill_tree:tree_content_build_layer);
+cc_deleteall(skill_tree:tree_content_control_layer);
+if_setgraphic(db_getfield($dbrow0, skill_tree:col2, 0), skill_tree:background_graphic);
+def_int $int1 = db_getfieldcount($dbrow0, skill_tree:col6);
+if ($int1 > 7) {
+    ~error("Skill tree exceeds max level count - count: <tostring($int1)> (max: <tostring(7)>)");
+    $int1 = 7;
+}
+def_int $int2 = 1;
+def_boolean $boolean3 = true;
+def_int $int4 = -1;
+while (++$int4 < $int1) {
+    $boolean3 = ~script17742(skill_tree:tree_content_build_layer, skill_tree:tree_content_control_layer, $dbrow0, $int4, $int2, 0, calc($int4 * 52 + ($int4 + 1) * 5), ^setpos_abs_centre, ^setpos_abs_bottom, calc(2 * 8), 52, ^setsize_minus, ^setsize_abs);
+    if ($boolean3 = false) {
+        $int2 = 0;
+    }
+}
+def_dbrow $dbrow5 = null;
+def_dbrow $dbrow6 = null;
+if (%skill_tree_level_index_selected_client ! -1 & %skill_tree_node_index_selected_client ! -1) {
+    $dbrow5 = db_getfield($dbrow0, skill_tree:col6, %skill_tree_level_index_selected_client);
+    $dbrow6 = db_getfield($dbrow5, skill_tree_level:col1, %skill_tree_node_index_selected_client);
+}
+~script17747($dbrow5, $dbrow6);

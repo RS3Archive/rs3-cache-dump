@@ -1,0 +1,37 @@
+// 11116
+[proc,script11116](int $int0)
+def_component $component1 = easter15_combine_overlay:egg_content_layer;
+cc_deleteall($component1);
+def_int $int2 = 0;
+def_obj $obj3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string0 = "";
+while ($int2 < enum_getoutputcount(easter15_egg_lookup)) {
+    cc_create($component1, ^iftype_graphic, $int2);
+    $obj3 = enum(int, obj, easter15_egg_lookup, $int2);
+    $int4 = inv_total(inv, $obj3);
+    cc_setposition(calc($int5 % 6 * 44 + $int5 / 6 * 22 + 30), calc($int5 / 6 * 44 + 26), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    if ($int0 = 3 | $int0 = 1) {
+        cc_setobject($obj3, $int4);
+    } else {
+        cc_setobject($obj3, -1);
+    }
+    if ($int4 > 0) {
+        cc_setonmouserepeat("script8799(oc_name($obj3), event_com, event_comsubid)");
+        cc_setop(1, "Add to machine");
+    } else {
+        $string0 = "<oc_name($obj3)><br>You don't have any of these eggs.";
+        cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+        cc_settrans(196);
+    }
+    ~rs3_background_panel_dynamic(easter15_combine_overlay:egg_icon_holders, rs3_icon_holder, calc($int5 % 6 * 44 + $int5 / 6 * 22 + 22), calc($int5 / 6 * 44 + 18), 40, 40, ^white);
+    $int5 = calc($int5 + 1);
+    $int2 = calc($int2 + 1);
+}
+if ($int0 = 3 | $int0 = 1) {
+    if_settext("Which egg do you want to start with?", easter15_combine_overlay:egg_title);
+} else {
+    if_settext("Which egg's effect do you want to apply?", easter15_combine_overlay:egg_title);
+}

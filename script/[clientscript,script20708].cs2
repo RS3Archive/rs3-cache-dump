@@ -1,0 +1,43 @@
+// 20708
+[clientscript,script20708](component $component0, int $int1, component $component2, int $int3)
+if (~script6431 = true) {
+    unknown_command_26(false);
+}
+if_sethide(true, construction_house_furniture_portal_nexus_configure:available_delete);
+if (%construction_house_furniture_portal_nexus_drag_com = null) {
+    return;
+}
+def_int $int4 = 1;
+switch_component ($component2) {
+    case construction_house_furniture_portal_nexus_configure:available_delete :
+        ~script10544(ui_getcategory($int1));
+    case construction_house_furniture_portal_nexus_configure:available_scrolling :
+        if ($component0 = construction_house_furniture_portal_nexus_configure:available_scrolling) {
+            $int4 = 0;
+        } else {
+            ~script10544(ui_getcategory($int1));
+        }
+    case construction_house_furniture_portal_nexus_configure:active_scrolling :
+        if ($component0 = construction_house_furniture_portal_nexus_configure:available_scrolling) {
+            if (~script11067 ! -1) {
+                ~script10163(ui_getcategory($int1), ui_getcategory($int3));
+            }
+        } else {
+            ~script10164(ui_getcategory($int1), ui_getcategory($int3));
+            %construction_house_furniture_portal_nexus_changes_pending = 1;
+        }
+    case construction_house_furniture_portal_nexus_configure:portal_layer :
+        if ($component0 = construction_house_furniture_portal_nexus_configure:active_scrolling) {
+            %construction_house_furniture_portal_nexus_active_default = ~script11076(ui_getcategory($int1));
+            ~script16297;
+        }
+    case default :
+        $int4 = 0;
+}
+~script20709;
+%construction_house_furniture_portal_nexus_drag_com = null;
+%construction_house_furniture_portal_nexus_drag_id = -1;
+if ($int4 = 1) {
+    ~script16832;
+    ~script16292;
+}

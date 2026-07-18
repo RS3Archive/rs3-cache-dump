@@ -1,0 +1,23 @@
+// 16658
+[proc,script16658](seq $seq0, npc $npc1, string $string0, string $string1, string $string2, vorbis $vorbis2, boolean $boolean3)
+def_string $string3 = append($string0, $string2);
+if (~script5633(3) = 1) {
+    if_sethide(false, audio_sequence:audio_sequence_unmute);
+}
+if ($vorbis2 ! null) {
+    sound_speech_volume($vorbis2, 1, 0, 255);
+}
+if ($boolean3 = true) {
+    if_settrans(255, image_sequence:text);
+} else {
+    if_settrans(0, image_sequence:text);
+}
+if_settext($string2, image_sequence:text);
+if ($npc1 ! null) {
+    if_setnpchead($npc1, audio_sequence:audio_sequence_chathead_model);
+    if_setmodelanim($seq0, audio_sequence:audio_sequence_chathead_model);
+    if_settext($string1, audio_sequence:audio_sequence_npc_name);
+} else {
+    if_sethide(true, audio_sequence:audio_sequence_npc_name);
+}
+mes($string3);

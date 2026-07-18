@@ -1,0 +1,11 @@
+// 1873
+[proc,lobby_hop_abort]
+if (%loginscreen_hopblocked_time > 0) {
+    if (%lobby_video_ad_started = true) {
+        video_advert_force_remove;
+        %lobby_video_ad_started = false;
+    }
+    ~lobbyscreen_loginbutton_text(true);
+    if_setontimer(null, lobbyscreen:login_button);
+    ~lobby_popup_close;
+}

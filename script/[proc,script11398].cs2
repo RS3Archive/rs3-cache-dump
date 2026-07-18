@@ -1,0 +1,138 @@
+// 11398
+[proc,script11398](int $int0)
+def_enum $enum1 = ~script11401;
+if ($enum1 = null) {
+    ~script11399;
+    return;
+}
+if ($int0 = -1) {
+    $int0 = calc(%poh_costume_room_selected - 1);
+}
+if ($int0 < 0) {
+    ~script11399;
+    return;
+}
+def_obj $obj2 = enum(int, obj, $enum1, $int0);
+if ($obj2 = null) {
+    ~script11399;
+    return;
+}
+cc_deleteall(poh_costume_room:set_build_area);
+def_int $intbool3 = ~script11400($int0);
+def_obj $obj4 = null;
+if ($intbool3 = ^false) {
+    $obj4 = ~script11404($obj2);
+    if ($obj4 ! null) {
+        $obj2 = $obj4;
+    }
+} else {
+    $obj4 = ~script11403($obj2);
+    if ($obj4 ! null) {
+        $obj2 = $obj4;
+    }
+}
+def_obj $obj5 = null;
+def_obj $obj6 = null;
+def_obj $obj7 = null;
+def_obj $obj8 = null;
+def_obj $obj9 = null;
+def_obj $obj10 = null;
+def_obj $obj11 = null;
+def_obj $obj12 = null;
+def_obj $obj13 = null;
+$obj5, $obj6, $obj7, $obj8, $obj9, $obj10, $obj11, $obj12, $obj13 = ~script11405($obj2);
+def_int $int14 = 0;
+def_int $int15 = 9;
+def_int $int16 = 8;
+def_int $int17 = 5;
+def_int $int18 = if_getwidth(poh_costume_room:set_build_area);
+def_obj $obj19 = null;
+def_int $int20 = 1;
+def_boolean $boolean21 = false;
+def_string $string0 = "";
+def_int $int22 = 40;
+def_int $int23 = 36;
+def_int $int24 = 36;
+def_int $int25 = 32;
+if (~script6431 = true) {
+    $int22 = 44;
+    $int23 = 44;
+    $int24 = 44;
+    $int25 = 39;
+}
+while ($int14 < $int15) {
+    switch_int ($int14) {
+        case 0 :
+            $obj19 = $obj5;
+        case 1 :
+            $obj19 = $obj6;
+        case 2 :
+            $obj19 = $obj7;
+        case 3 :
+            $obj19 = $obj8;
+        case 4 :
+            $obj19 = $obj9;
+        case 5 :
+            $obj19 = $obj10;
+        case 6 :
+            $obj19 = $obj11;
+        case 7 :
+            $obj19 = $obj12;
+        case 8 :
+            $obj19 = $obj13;
+    }
+    cc_create(poh_costume_room:set_build_area, ^iftype_graphic, $int14);
+    if ($obj19 ! null) {
+        if ($intbool3 = ^false) {
+            $obj4 = ~script11404($obj19);
+        } else {
+            $obj4 = ~script11403($obj19);
+        }
+        if ($obj4 ! null) {
+            $obj19 = $obj4;
+        }
+        if (calc($int16 + $int22) > $int18) {
+            $int16 = 8;
+            $int17 = calc($int17 + $int23);
+        }
+        cc_setsize($int24, $int25, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int16, $int17, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setobject_nonum($obj19, 1);
+        ~script14738($obj19);
+        $int16 = calc($int16 + $int22);
+        if ($intbool3 = ^false & inv_total(inv, $obj19) = 0) {
+            $int20 = 0;
+        }
+    }
+    $int14 = calc($int14 + 1);
+}
+if ($intbool3 = ^false) {
+    $obj4 = ~script11404($obj2);
+    if ($obj4 ! null) {
+        $obj2 = $obj4;
+    }
+    if_settext(oc_name($obj2), poh_costume_room:name_text);
+    if_settext("The following items are part of this set:", poh_costume_room:set_text);
+    $string0 = "Deposit";
+    if (%poh_costume_room_owner = 0) {
+        $boolean21 = true;
+    } else if ($int20 = 0) {
+        $boolean21 = true;
+    } else {
+        $boolean21 = false;
+    }
+} else {
+    $obj4 = ~script11403($obj2);
+    if ($obj4 ! null) {
+        $obj2 = $obj4;
+    }
+    if_settext(oc_name($obj2), poh_costume_room:name_text);
+    if_settext("The following items are part of this set:", poh_costume_room:set_text);
+    $string0 = "Withdraw";
+    if (%poh_costume_room_owner = 0) {
+        $boolean21 = true;
+    } else {
+        $boolean21 = false;
+    }
+}
+~script13971(poh_costume_room:deposit_build, poh_costume_room:deposit_click, rs3tli_positive_button, $string0, $boolean21);

@@ -1,0 +1,56 @@
+// 15528
+[clientscript,trh_promo_info_setup_item_info](obj $obj0, int $int1, graphic $graphic2, string $string0, int $int3, string $string1, int $int4, int $int5, boolean $boolean6)
+cc_deleteall(wheel_of_fortune:trh_promo_info_popup_layer_content);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = calc(if_getwidth(wheel_of_fortune:trh_promo_info_popup_layer_content) - 20);
+if_sethide(false, wheel_of_fortune:trh_promo_info_popup_layer);
+~if_add_child_layer(wheel_of_fortune:trh_promo_info_popup_layer_content, 0, $int7++, 0, $int10, ^setpos_abs_centre, ^setpos_abs_top, 0, 90, ^setsize_minus, ^setsize_abs);
+$int10 = calc($int10 + 90);
+def_graphic $graphic13 = ~script8948($int3);
+def_int $int14 = 0;
+def_int $int15 = 0;
+if ($obj0 ! dbrow_object_null & $int3 ! 10 | ~script17027($int3, $boolean6) = true) {
+    $int14 = ~script16708(wheel_of_fortune:trh_promo_info_popup_layer_content, $int3, $graphic13, 0, calc($int7++ + $int15), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 74, 90, ^setsize_abs, ^setsize_abs);
+    if ($int14 <= 0) {
+        ~cc_add_child_graphic(0, calc($int7++ + $int15), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 74, 90, ^setsize_abs, ^setsize_abs, $graphic13);
+    } else {
+        $int15 = calc($int15 + $int14);
+        $int14 = 0;
+    }
+}
+~cc_add_child_graphic(0, calc($int7++ + $int15), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $int4, $int5, ^setsize_abs, ^setsize_abs, null);
+if ($obj0 ! dbrow_object_null) {
+    cc_setobject($obj0, $int1);
+} else {
+    cc_setgraphic($graphic2);
+}
+$int7 = 0;
+~if_add_child_layer(wheel_of_fortune:trh_promo_info_popup_layer_content, 1, $int7++, 0, $int10, ^setpos_abs_centre, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+$int8 = ~script15891($string0, $int12, cinzel_18pt_bold, 27);
+~cc_add_child_text(1, $int7++, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 20, $int8, ^setsize_minus, ^setsize_abs, text_label_feature, $string0);
+cc_setcolour(~script10495(0));
+$int8 = calc($int8 + 10);
+def_int $int16 = $int8;
+~cc_add_child_text(1, $int7++, 0, $int8, ^setpos_abs_centre, ^setpos_abs_top, 20, 0, ^setsize_minus, ^setsize_abs, text_body_default, $string1);
+$int8 = ~script15891($string1, $int12, notosans_12, 19);
+cc_setsize(20, $int8, ^setsize_minus, ^setsize_abs);
+cc_settextalign(^settextalign_left, ^settextalign_top, 19);
+cc_setcolour(^white);
+$int16 = calc($int16 + ($int8 + 20));
+if (cc_findbycategory(wheel_of_fortune:trh_promo_info_popup_layer_content, 1, 0) = 1) {
+    cc_setsize(0, $int16, ^setsize_minus, ^setsize_abs);
+    $int10 = calc($int10 + $int16);
+}
+$int7 = 0;
+~if_add_child_button(wheel_of_fortune:trh_promo_info_popup_layer_content, 2, $int7++, 0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, 175, 35, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Back");
+cc_setop(1, "Back");
+cc_setonop("script15647");
+$int10 = calc($int10 + (35 + 10));
+def_int $int17 = calc($int10 - if_getheight(wheel_of_fortune:trh_promo_info_popup_layer_content));
+if ($int17 > 0) {
+    if_setsize(if_getwidth(wheel_of_fortune:trh_promo_info_popup_layer_content_container), calc(if_getheight(wheel_of_fortune:trh_promo_info_popup_layer_content_container) + $int17), ^setsize_abs, ^setsize_abs, wheel_of_fortune:trh_promo_info_popup_layer_content_container);
+}

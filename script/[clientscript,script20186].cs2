@@ -1,0 +1,48 @@
+// 20186
+[clientscript,script20186](int $int0)
+def_int $int1 = calc(clientclock - $int0);
+def_int $int2 = if_getwidth(league_lobby_splash:logo_wrapper);
+def_int $int3 = scale($int2, 500, 456);
+def_int $int4 = 0;
+if ($int1 < 50) {
+    if ($int1 < 1) {
+        ~script4161(league_lobby_splash:bg, 255);
+        ~script4161(league_lobby_splash:border, 255);
+    }
+    if_settrans(scale(255, 50, $int1), league_lobby_splash:flash);
+} else if ($int1 < 150) {
+    $int1 = calc($int1 - 50);
+    if_settrans(255, league_lobby_splash:flash);
+    if_setgraphic(league_logo_500x456, league_lobby_splash:logo);
+    if_settrans(calc(255 - scale(255, 100, $int1)), league_lobby_splash:logo);
+    if_settrans(calc(255 - scale(255, 100, $int1)), league_lobby_splash:logo_bg);
+} else if ($int1 < 250) {
+    if_settrans(0, league_lobby_splash:logo);
+    if_settrans(0, league_lobby_splash:logo_bg);
+    $int1 = calc($int1 - 150);
+    $int4 = calc(255 - scale(255, 100, $int1));
+    if_settrans($int4, league_lobby_splash:subheader_text);
+    ~script4161(league_lobby_splash:bg, $int4);
+    ~script4161(league_lobby_splash:border, $int4);
+} else if ($int1 < 350) {
+    if_settrans(0, league_lobby_splash:subheader_text);
+    ~script4161(league_lobby_splash:bg, 0);
+    ~script4161(league_lobby_splash:border, 0);
+    $int1 = calc($int1 - 250);
+    $int2 = calc(500 - scale(500, 200, $int1));
+} else if ($int1 < 450) {
+    if ($int1 = 351) {
+        ~script20188;
+    }
+    $int1 = calc($int1 - 350);
+    ~script20187(calc(255 - scale(255, 100, $int1)));
+} else {
+    ~script20187(0);
+    if_setontimer(null, league_lobby_splash:anim_listener);
+}
+if_setsize(700, calc($int3 - 20), ^setsize_abs, ^setsize_minus, league_lobby_splash:panels_bg);
+if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, league_lobby_splash:logo_wrapper);
+if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_top, league_lobby_splash:subheader);
+$int3 = calc($int3 + if_getheight(league_lobby_splash:subheader) + 4 * 2);
+if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_top, league_lobby_splash:contents);
+if_setsize(640, $int3, ^setsize_abs, ^setsize_minus, league_lobby_splash:contents);

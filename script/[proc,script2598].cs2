@@ -1,0 +1,92 @@
+// 2598
+[proc,script2598]
+def_obj $obj0 = null;
+if (%smithing_interface_material_dbrow_selected = null) {
+    mes("ERROR, %smithing_interface_material_dbrow_selected is null.");
+    return;
+}
+if (%smithing_interface_base_object_selected = null) {
+    mes("ERROR, %smithing_interface_base_object_selected is null");
+    return;
+}
+if (%smithing_interface_upgrade_selected < 0) {
+    mes("ERROR, %smithing_interface_upgrade_selected is null");
+    return;
+}
+def_int $int1 = oc_param(%smithing_interface_base_object_selected, smithing_max_upgrades);
+switch_int ($int1) {
+    case 0 :
+        if_sethide(true, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
+    case 1 :
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
+    case 2 :
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
+    case 3 :
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
+    case 4 :
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
+    case 5 :
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_5_button);
+}
+if (db_getfieldcount(%smithing_interface_material_dbrow_selected, accordian_builder:col1) > 0) {
+    if ($int1 > 0) {
+        if_sethide(false, ms_smithing_makex:info_upgrade_burial_button);
+    } else {
+        if_sethide(true, ms_smithing_makex:info_upgrade_burial_button);
+        if (%smithing_interface_upgrade_selected = 50) {
+            %smithing_interface_upgrade_selected = $int1;
+        }
+    }
+} else {
+    if_sethide(true, ms_smithing_makex:info_upgrade_burial_button);
+    if (%smithing_interface_upgrade_selected = 50) {
+        %smithing_interface_upgrade_selected = $int1;
+    }
+}
+if (%smithing_interface_upgrade_selected = 50) {
+    $int1 = 50;
+}
+%smithing_interface_upgrade_selected = min($int1, %smithing_interface_upgrade_selected);
+$obj0 = ~script2542(%smithing_interface_base_object_selected, %smithing_interface_upgrade_selected);
+if ($obj0 = null) {
+    mes("ERROR, can't find upgrade.");
+    $obj0 = %smithing_interface_base_object_selected;
+}
+switch_obj ($obj0) {
+    case adamant_burial_set, rune_burial_set, orikalkum_burial_set, necronium_burial_set, bane_burial_set, elder_rune_burial_set, primal_burial_set :
+        if_sethide(true, ms_smithing_makex:info_upgrade_base_button);
+    case default :
+        if_sethide(false, ms_smithing_makex:info_upgrade_base_button);
+}
+if (oc_param($obj0, recipe_make_stack_size) > 1) {
+    if_settext("<oc_name($obj0)> x<tostring(~script18374($obj0))>", ms_smithing_makex:info_object_name);
+} else {
+    if_settext(oc_name($obj0), ms_smithing_makex:info_object_name);
+}
+~script2609(%smithing_interface_upgrade_selected);
+~script2605($obj0);
+~smithing_draw_slider;

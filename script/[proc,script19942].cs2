@@ -1,0 +1,42 @@
+// 19942
+[proc,script19942]
+def_int $int0 = ~script19933(easter26_egg_hunt_world_week_1);
+def_int $int1 = ~script19933(easter26_egg_hunt_world_week_2);
+def_int $int2 = ~script19933(easter26_egg_hunt_world_week_3);
+def_int $int3 = ~script19933(easter25_egg_hunt_community_week_1);
+def_int $int4 = ~script19933(easter25_egg_hunt_community_week_2);
+def_int $int5 = db_getfield(easter26_egg_hunt_world_week_1, easter_egg_hunt_hunt_table:col1, 0);
+def_int $int6 = db_getfield(easter26_egg_hunt_world_week_1, easter_egg_hunt_hunt_table:col3, 0);
+def_int $int7 = max(0, calc($int6 - ~date_runeday));
+def_int $int8 = ~script10495(2);
+def_int $int9 = ~script10495(0);
+def_int $int10 = ~script10495(21);
+if_settext("Hunt for the Golden Eggs", easter_egg_hunt:header_text);
+if_settext("<col=<tostring($int8, 16)>>Nougat Bunny has hidden a bunch of golden eggs around Gielinor for you to find!</col>", easter_egg_hunt:event_info_header_text);
+if_settext("<col=<tostring($int9, 16)>>Follow the clues</col><col=<tostring($int8, 16)>> to find golden eggs in the Gielinor Egg Hunt.", easter_egg_hunt:event_info_text);
+if_settext("<col=2DBA14>Event runs:</col> <col=<tostring($int8, 16)>><~script19937($int5)> - <~script19937($int6)></col>", easter_egg_hunt:event_date_text);
+if_settext("<col=F99222>Time remaining:</col> <col=<tostring($int8, 16)>><tostring($int7)> <~text_plural($int7, "day", "days")></col>", easter_egg_hunt:event_time_text);
+if_settext("Gielinor Egg Hunt", easter_egg_hunt:world_progress_header_text);
+if_settext("Week 1", easter_egg_hunt:world_progress_week_1_text);
+if_settext("Week 2", easter_egg_hunt:world_progress_week_2_text);
+if_settext("Week 3", easter_egg_hunt:world_progress_week_3_text);
+if_settext("<tostring($int0)> / <tostring(~script19935(easter26_egg_hunt_world_week_1))>", easter_egg_hunt:world_progress_bar_1_text);
+if_settext("<tostring($int1)> / <tostring(~script19935(easter26_egg_hunt_world_week_2))>", easter_egg_hunt:world_progress_bar_2_text);
+if_settext("<tostring($int2)> / <tostring(~script19935(easter26_egg_hunt_world_week_3))>", easter_egg_hunt:world_progress_bar_3_text);
+if (~script7148 = 1) {
+    if_settext("Community Egg Hunt", easter_egg_hunt:community_progress_header_text);
+    if_settext("Week 1", easter_egg_hunt:community_progress_week_1_text);
+    if_settext("Week 2", easter_egg_hunt:community_progress_week_2_text);
+    if_settext("<tostring($int3)> / <tostring(~script19935(easter25_egg_hunt_community_week_1))>", easter_egg_hunt:community_progress_bar_1_text);
+    if_settext("<tostring($int4)> / <tostring(~script19935(easter25_egg_hunt_community_week_2))>", easter_egg_hunt:community_progress_bar_2_text);
+    if_settext("<col=<tostring($int8, 16)>>Egg points:</col> <col=<tostring($int10, 16)>><tostring(%currency_egg_points)></col>", easter_egg_hunt:currency_text);
+}
+def_int $int11 = calc(if_getwidth(easter_egg_hunt:world_progress_bar_1_fill) / 7);
+def_int $int12 = calc(if_getwidth(easter_egg_hunt:community_progress_bar_1_fill) / 5);
+def_int $int13 = if_getheight(easter_egg_hunt:world_progress_bar_1_fill);
+if_setsize(calc($int11 * $int0), $int13, ^setsize_abs, ^setsize_abs, easter_egg_hunt:world_progress_bar_1_fill);
+if_setsize(calc($int11 * $int1), $int13, ^setsize_abs, ^setsize_abs, easter_egg_hunt:world_progress_bar_2_fill);
+if_setsize(calc($int11 * $int2), $int13, ^setsize_abs, ^setsize_abs, easter_egg_hunt:world_progress_bar_3_fill);
+if_setsize(calc($int12 * $int3), $int13, ^setsize_abs, ^setsize_abs, easter_egg_hunt:community_progress_bar_1_fill);
+if_setsize(calc($int12 * $int4), $int13, ^setsize_abs, ^setsize_abs, easter_egg_hunt:community_progress_bar_2_fill);
+~script19946;

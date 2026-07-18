@@ -1,0 +1,38 @@
+// 6372
+[proc,if_highlight_cc](int $int0, int $int1)
+def_component $component2 = enum(int, component, if_highlight_channel_control, $int0);
+def_component $component3 = if_getparentlayer($component2);
+def_component $component4 = enum(int, component, if_highlight_channel_display, $int0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+if (~script6375 = true) {
+    $int5, $int6, $int7, $int8 = ~script13137;
+    $int5 = calc($int5 + $int7 / 2);
+    $int6 = calc($int6 + $int8 / 2);
+    $int7 = max(20, calc($int7 + 2));
+    $int8 = max(20, calc($int8 + 2));
+    if (if_find($component4) = true) {
+        if ($int1 = 184 & ~script8292(4, -1) = false) {
+            ~script13873($component3, $int5, $int6);
+        } else {
+            cc_sethide(false);
+            $int9, $int10, $int11 = ~script6373($int7, $int8);
+            cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int5 - cc_getwidth / 2), calc($int6 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
+            ~if_highlight_settrans($int11, $int0);
+            if (.cc_find($component3, 0) = true) {
+                .cc_delete;
+            }
+        }
+    }
+} else {
+    if (.cc_find($component3, 0) = true) {
+        .cc_delete;
+    }
+    if_sethide(true, $component4);
+}

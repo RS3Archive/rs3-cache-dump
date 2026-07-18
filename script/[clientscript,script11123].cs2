@@ -1,0 +1,25 @@
+// 11123
+[clientscript,script11123](string $string0)
+def_component $component0 = easter15_egg_select:egg_panel;
+cc_deleteall($component0);
+def_int $int1 = 0;
+def_obj $obj2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+while ($int1 < enum_getoutputcount(easter15_egg_lookup)) {
+    cc_create($component0, ^iftype_graphic, $int1);
+    $obj2 = enum(int, obj, easter15_egg_lookup, $int1);
+    $int3 = inv_total(inv, $obj2);
+    if ($int3 > 0) {
+        cc_setposition(calc($int4 * 44 + 8), 4, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setobject($obj2, $int3);
+        cc_setonmouserepeat("script8799(oc_name($obj2), event_com, event_comsubid)");
+        $int4 = calc($int4 + 1);
+    } else {
+        cc_sethide(true);
+    }
+    $int1 = calc($int1 + 1);
+}
+if_setsize(calc($int4 * 44 + 4), 50, ^setsize_abs, ^setsize_abs, $component0);
+if_settext($string0, easter15_egg_select:message);

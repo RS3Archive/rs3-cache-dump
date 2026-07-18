@@ -1,0 +1,23 @@
+// 19195
+[proc,script19195](boolean $boolean0, int $int1, obj $obj2, int $int3)
+def_string $string0 = "";
+def_struct $struct4 = oc_param($obj2, mtxmgt_item_struct);
+if ($boolean0 = false) {
+    if ($struct4 ! null) {
+        $string0 = "At character level <tostring($int1)> you'll unlock: <~script19200($struct4)>.";
+    } else {
+        $string0 = "At character level <tostring($int1)> you'll unlock: <tostring($int3)> x <oc_name($obj2)>.";
+    }
+} else if ($struct4 ! null) {
+    $string0 = "At character level <tostring($int1)> you unlocked: <~script19200($struct4)>.";
+} else {
+    $string0 = "At character level <tostring($int1)> you unlocked: <tostring($int3)> x <oc_name($obj2)>.";
+}
+if (~script6431 = true) {
+    cc_setonop("script7774($string0, event_com, event_comsubid, 0)");
+    cc_setop(1, "Info");
+} else if ($boolean0 = false & oc_param($obj2, mtxmgt_item_struct) ! null & oc_param($obj2, mtxmgt_category) ! 4) {
+    ~script14994(null, null, -1, $obj2, mtxmgt_store_temp, 1);
+} else {
+    cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+}

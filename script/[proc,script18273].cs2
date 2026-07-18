@@ -1,0 +1,66 @@
+// 18273
+[proc,script18273](component $component0)
+cc_deleteall($component0);
+def_int $int1 = db_listall(headicons_emote);
+if (%emotes_overhead_filter > 1) {
+    $int1 = db_find_refine(headicons_emote:col2, %emotes_overhead_filter);
+}
+def_dbrow $dbrow2 = db_findnext;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "This emote has other appearances available. Right click to customise.";
+if (~script6431 = true) {
+    $string3 = "This emote has other appearances available. Long press to customise.";
+}
+while ($dbrow2 ! null) {
+    if (db_getfieldcount($dbrow2, headicons_emote:col8) <= 0) {
+        $int5 = ~script17716($dbrow2);
+        if ($int5 > 0) {
+            $dbrow2 = ~script18779($dbrow2);
+        }
+        $int3 = db_getfield($dbrow2, headicons_emote:col3, 0);
+        $int4, $string1 = ~script450($dbrow2);
+        $string0 = ~script18302($dbrow2);
+        $string2 = $string0;
+        if (%emotes_overhead_filter ! 1 | $int4 = 1) {
+            if (%emote_display_mode = 0) {
+                ~if_add_child_graphic($component0, $int3, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, ~script18301($dbrow2));
+                cc_setop(1, $string0);
+                if ($int5 > 0) {
+                    cc_setop(2, "Customise");
+                    $string2 = append($string2, "<br><$string3>");
+                }
+                cc_setonmouserepeat("script8799($string2, event_com, event_comsubid)");
+                if ($int4 = 0) {
+                    cc_setcolour(0x404040);
+                } else {
+                    cc_setcolour(^white);
+                }
+            } else {
+                ~if_add_child_text($component0, $int3, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, $string0);
+                cc_setop(1, $string0);
+                if ($int5 > 0) {
+                    cc_setop(2, "Customise");
+                    $string2 = append($string2, "<br><$string3>");
+                }
+                cc_setonmouserepeat("script8799($string2, event_com, event_comsubid)");
+                if ($int4 = 0) {
+                    ~script11024(3);
+                } else {
+                    ~script11024(5);
+                }
+            }
+        }
+    } else {
+        $int1 = calc($int1 - 1);
+    }
+    $dbrow2 = db_findnext;
+}
+if_setparam_int(emotes2_overhead_draw_count, $int1, $component0);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component0);
+~script5863($component0);

@@ -1,0 +1,16 @@
+// 17504
+[proc,script17504](dbrow $dbrow0, int $int1, int $int2)(obj, int)
+if (~script17495("necro_ritual_recipe_to_recipe_focus_get", $dbrow0) = true) {
+    return(null, 0);
+}
+if ($int2 ! -1) {
+    return(db_getfield($dbrow0, necro_ritual_recipe:col3:0, $int2), db_getfield($dbrow0, necro_ritual_recipe:col3:1, $int2));
+}
+def_int $int3 = ~script17505($dbrow0);
+def_int $int4 = -1;
+while (++$int4 < $int3) {
+    if (~script17503($dbrow0, $int4) = $int1) {
+        return(db_getfield($dbrow0, necro_ritual_recipe:col3:0, $int4), db_getfield($dbrow0, necro_ritual_recipe:col3:1, $int4));
+    }
+}
+return(null, 0);

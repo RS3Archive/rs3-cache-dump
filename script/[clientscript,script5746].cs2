@@ -1,0 +1,39 @@
+// 5746
+[clientscript,script5746](component $component0, int $int1, int $int2, int $int3)
+def_int $int4 = -1;
+if (cc_find($component0, $int1) = true) {
+    $int4 = cc_param(sworlds_challenge_subid_of_outline_rect);
+}
+def_int $int5 = -1;
+def_int $int6 = -1;
+while ($int5++ < $int2) {
+    if (cc_find($component0, $int5) = true) {
+        $int6 = cc_param(sworlds_challenge_subid_of_outline_rect);
+        if ($int6 ! -1 & cc_find($component0, $int6) = true) {
+            if ($int5 = $int1) {
+                cc_sethide(false);
+            } else {
+                cc_sethide(true);
+            }
+        }
+    }
+}
+def_struct $struct7 = null;
+def_string $string0 = null;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$struct7 = ~sworlds_get_challenge_var($int3);
+$int8, $int9 = ~script5752($int3);
+if ($int8 = 1) {
+    $string0 = "You have completed this challenge for this week. Check the minigames tracker in the adventures interface to see when it will reset.";
+} else if (struct_param($struct7, sworlds_challenge_seeded) = true) {
+    if_sethide(true, sworld_start:challenge_start_button_disabled_layer);
+    if_sethide(false, sworld_start:challenge_start_button_active_layer);
+    if_setonmouserepeat(null, sworld_start:challenge_start_button_disabled_layer);
+    return;
+} else {
+    $string0 = "You cannot start this challenge from this portal. Please use the other portal.";
+}
+~script3536($string0, sworld_start:challenge_start_button_disabled_layer, -1);
+if_sethide(false, sworld_start:challenge_start_button_disabled_layer);
+if_sethide(true, sworld_start:challenge_start_button_active_layer);

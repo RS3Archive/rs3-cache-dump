@@ -1,0 +1,60 @@
+// 10931
+[clientscript,script10931](int $int0, int $int1, int $int2, int $int3, int $int4, string $string0, string $string1, string $string2, string $string3)
+def_component $component5 = null;
+def_component $component6 = null;
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int7 = 0;
+def_string $string6 = "Sticky post";
+def_int $int8 = 0;
+if_sethide(true, lobbyscreen_pane_playerinfo:no_news);
+if_sethide(false, lobbyscreen_pane_playerinfo:news_build_layer);
+def_fontmetrics $fontmetrics9 = notosans_bold_12;
+def_fontmetrics $fontmetrics10 = notosans_11;
+def_int $int11 = 15;
+def_int $int12 = 12;
+def_int $int13 = 92;
+if (~is_mobile_client = true) {
+    $fontmetrics9 = notosans_bold_15;
+    $fontmetrics10 = notosans_13;
+    $int12 = 14;
+    $int13 = 102;
+}
+if ($int2 ! -1 | $int3 ! -1) {
+    $component6 = enum(int, component, lobby_news_article_to_build_layer_component, $int0);
+    if_setsize(0, $int13, ^setsize_minus, ^setsize_abs, if_getparentlayer($component6));
+    cc_deleteall($component6);
+    if ($int2 ! -1) {
+        $string4 = enum(int, string, lobby_cat_to_string, $int2);
+    } else if ($int3 ! -1) {
+        $string4 = enum(int, string, lobby_cat_to_string, $int3);
+    }
+    $component5 = enum(int, component, lobby_news_article_to_bg_component, $int0);
+    ~script10934($component5, $int0);
+    if ($int4 = 1) {
+        $int8 = 26;
+    } else {
+        $int8 = 10;
+    }
+    ~cc_add_title_text($component6, $int8, 30, 4, 4, $fontmetrics9, $string0, 1);
+    cc_settextalign(^settextalign_left, ^settextalign_top, $int11);
+    cc_setmaxlines(2);
+    ~script2681($component6, 10, 40, 4, 36, $fontmetrics10, $string1, 1);
+    cc_settextalign(^settextalign_left, ^settextalign_top, $int12);
+    cc_setmaxlines(3);
+    ~script6203($component6, 150, 16, 4, 5, $fontmetrics10, $string4, 5);
+    cc_settextalign(^settextalign_left, ^settextalign_bottom, $int12);
+    cc_setposition(4, 4, ^setpos_abs_left, ^setpos_abs_bottom);
+    cc_setparam_int(lobbyscreen_player_info_cat_id, $int2);
+    cc_setparam_int(lobbyscreen_player_info_new_cat_id, $int3);
+    ~script6203($component6, 150, 16, 4, 4, $fontmetrics10, $string3, 5);
+    cc_settextalign(^settextalign_right, ^settextalign_bottom, $int12);
+    cc_setposition(4, 4, ^setpos_abs_right, ^setpos_abs_bottom);
+    if_setonop("script10932($string2)", $component5);
+    if ($int4 = 1) {
+        cc_create($component6, ^iftype_graphic, if_getnextsubid($component6));
+        cc_setgraphic(rs3_icon_lobby_pinned);
+        cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+        cc_setposition(4, 4, ^setpos_abs_right, ^setpos_abs_top);
+    }
+}

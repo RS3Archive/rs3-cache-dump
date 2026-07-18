@@ -1,0 +1,31 @@
+// 16191
+[clientscript,script16191](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, component $component9, component $component10, component $component11)
+if (cc_findbycategory($component0, $int1, $int2) = 1 & .cc_findbycategory($component0, $int3, $int4) = 1) {
+    if (cc_getheight > $int7) {
+        sound_vorbis_rate(tli_close_parent_01, 1, 0, 160, random_sound_pitch(15, 15));
+        if_setscrollsize(0, calc(if_getscrollheight($component0) - (cc_getheight - $int7)), $component9);
+        cc_setsize(0, $int7, ^setsize_minus, ^setsize_abs);
+        .cc_settext("+");
+        .cc_setop(1, "Expand");
+        if (.cc_findbycategory($component0, $int5, $int6) = 1) {
+            sound_vorbis_rate(tli_grab_child_01, 1, 0, 100, random_sound_pitch(10, 10));
+            .cc_setop(1, "Expand");
+        }
+    } else {
+        sound_vorbis_rate(tli_click_open_parent_01, 1, 0, 160, random_sound_pitch(15, 15));
+        if_setscrollsize(0, calc(if_getscrollheight($component0) + ($int8 - cc_getheight)), $component9);
+        cc_setsize(0, $int8, ^setsize_minus, ^setsize_abs);
+        .cc_settext("-");
+        .cc_setop(1, "Collapse");
+        if (.cc_findbycategory($component0, $int5, $int6) = 1) {
+            sound_vorbis_rate(tli_close_child_01, 1, 0, 100, random_sound_pitch(10, 10));
+            .cc_setop(1, "Collapse");
+        }
+    }
+}
+~scrollbar_resize($component10, $component0, if_getscrolly($component0));
+if (if_getscrollheight($component0) > calc(if_getheight($component11) - 30)) {
+    if_sethide(false, $component10);
+} else {
+    if_sethide(true, $component10);
+}

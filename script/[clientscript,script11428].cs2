@@ -1,0 +1,36 @@
+// 11428
+[clientscript,script11428](component $component0)
+def_int $int1 = 0;
+def_component $component2 = null;
+if ($component0 = buff_bar:buff_render_layer) {
+    mes("Testing buff bar");
+} else if ($component0 = debuff_bar:buff_render_layer) {
+    mes("Testing debuff bar");
+}
+if (if_find($component0) = true) {
+    if (cc_param(combatv2_buff_head) = true) {
+        $component2 = cc_param(combatv2_buff_inactive_head);
+        while (.if_find($component2) = true) {
+            if (++$int1 > 50) {
+                mes("CIRCULAR LOOP FOUND IN-ACTIVE LIST!!");
+                return;
+            }
+            $component2 = .cc_param(combatv2_buff_next_container);
+        }
+        mes("Inactive list is of size <tostring($int1)>");
+        $int1 = 0;
+        $component2 = cc_param(combatv2_buff_active_head);
+        while (.if_find($component2) = true) {
+            if (++$int1 > 50) {
+                mes("CIRCULAR LOOP FOUND IN ACTIVE LIST!!");
+                return;
+            }
+            $component2 = .cc_param(combatv2_buff_next_container);
+        }
+        mes("Active list is of size <tostring($int1)>");
+    } else {
+        mes("Component is not head");
+    }
+} else {
+    mes("Cannot find head");
+}

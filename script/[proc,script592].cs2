@@ -1,0 +1,28 @@
+// 592
+[proc,script592]
+def_int $int0 = if_getwidth(bank:share_preset_quick_buttons);
+def_int $int1 = max(0, calc(($int0 - 180) / 7));
+def_int $int2 = $int1;
+def_int $int3 = 0;
+def_int $int4 = calc(1 + 9 * %share_preset_bank_button_page);
+def_int $int5 = 1;
+def_int $int6 = calc(30 + $int2);
+$int2 = max($int2, 4);
+def_int $int7 = $int2;
+$int1 = $int2;
+cc_deleteall(bank:share_quick_click);
+cc_deleteall(bank:share_quick_build);
+cc_deleteall(bank:share_quick_disabled);
+cc_create(bank:share_quick_click, ^iftype_text, 0);
+while ($int5 <= 9 & $int4 < 19) {
+    ~script15924($int5, $int2, $int3);
+    if ($int5 = 5) {
+        $int2 = $int7;
+        $int3 = calc($int3 + (30 + 4));
+    } else {
+        $int2 = calc($int2 + $int6);
+    }
+    $int4 = calc($int4 + 1);
+    $int5 = calc($int5 + 1);
+}
+~script15923($int1, $int6);

@@ -1,0 +1,41 @@
+// 8906
+[proc,bank_tab_click](int $int0, int $int1)
+def_int $int2 = ~script14372($int1);
+if (~bank_get_tab_size($int2) <= 0) {
+    return;
+}
+switch_int ($int0) {
+    case 1 :
+        if (%bank_searchmode_client = true) {
+            ~script13909;
+            if (%bank_current_tab = $int2) {
+                ~script9324(1);
+            }
+        }
+        if (%bank_current_tab = $int2) {
+            ~bank_set_tab_scrollpos(%bank_current_tab, 0);
+            ~scrollbar_ondrag_doscroll(bank:scrollbar, bank:bank_items_container, 0, 1);
+            ~bank_build_tabs(1);
+        } else {
+            %bank_current_tab = $int2;
+            %bank_tab_rebuild_delay = 50;
+            if (%bank_first_freeslot ! -1) {
+                ~bank_compress_rebuild;
+            }
+            if_sethide(true, bank:custom_tab_panel);
+            ~script10239;
+            ~script9324(1);
+            ~bank_build_tabs(1);
+        }
+    case 2 :
+        if ($int1 = 1) {
+            ~script13352;
+            if_sethide(true, bank:custom_tab_panel);
+        } else {
+            if_setonclick("script8910($int1, $int2)", bank:confirm_drop_button);
+        }
+    case 3 :
+        if ($int1 ! 1) {
+            ~script8907($int2);
+        }
+}

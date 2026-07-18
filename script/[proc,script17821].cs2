@@ -1,0 +1,82 @@
+// 17821
+[proc,script17821](boolean $boolean0)
+def_dbrow $dbrow1 = ~script10061;
+def_dbrow $dbrow2 = null;
+def_int $int3 = 2;
+def_obj $obj4 = null;
+def_int $int5 = 0;
+def_boolean $boolean6 = false;
+def_int $int7 = 0;
+def_int $int8 = -1;
+def_component $component9 = null;
+def_int $int10 = -1;
+def_obj $obj11 = null;
+if_sethide(true, trh187_overlay:or_3);
+if_sethide(true, trh187_overlay:or_2);
+if_sethide(true, trh187_overlay:or_1);
+if_sethide(true, trh187_overlay:prize_1);
+if_sethide(true, trh187_overlay:prize_2);
+if_sethide(true, trh187_overlay:prize_3);
+if_sethide(true, trh187_overlay:prize_4);
+while (++$int10 < db_getfieldcount($dbrow1, trh187_contract_reward_setup:col5)) {
+    $obj4, $int5, $int8, $boolean6 = db_getfield($dbrow1, trh187_contract_reward_setup:col5, $int10);
+    $obj11 = $obj4;
+    if ($obj4 ! null) {
+        switch_int ($int5) {
+            case 1 :
+                $component9 = trh187_overlay:prize_1;
+                if (%trh187_next_prize_temp ! null) {
+                    $obj11 = %trh187_next_prize_temp;
+                    $dbrow2 = ~script20351(~script20349);
+                    if (~script15109 = true) {
+                        $int3 = 3;
+                    }
+                }
+            case 2 :
+                $component9 = trh187_overlay:prize_2;
+                if (%trh187_next_prize_temp_2 ! null) {
+                    $obj11 = %trh187_next_prize_temp_2;
+                    $dbrow2 = ~script20351($obj4);
+                    $int3 = 3;
+                }
+            case 3 :
+                $component9 = trh187_overlay:prize_3;
+            case 4 :
+                $component9 = trh187_overlay:prize_4;
+        }
+        if ($int8 = 0) {
+            $int8 = -1;
+        }
+        if_setobject($obj11, $int8, $component9);
+        if ($component9 ! null) {
+            if_sethide(false, $component9);
+        }
+        if ($boolean6 = true & $dbrow2 ! null) {
+            if_setop(1, "Select", $component9);
+            if_setopcursor(1, cursor_use, $component9);
+            if_setonop("script17822($obj11, $component9, $dbrow2, $int3)", $component9);
+            if_sethide(false, $component9);
+        }
+    }
+}
+~script12679($boolean0);
+if (calc($int10 - 1) > 3) {
+    if_sethide(false, trh187_overlay:or_3);
+    if_sethide(false, trh187_overlay:or_2);
+    if_sethide(false, trh187_overlay:or_1);
+}
+if (calc($int10 - 1) = 2) {
+    if_sethide(false, trh187_overlay:or_2);
+    if_sethide(false, trh187_overlay:or_1);
+}
+if (calc($int10 - 1) = 1) {
+    if_sethide(false, trh187_overlay:or_1);
+}
+switch_int ($int10) {
+    case 1 :
+        if_setposition(115, 287, ^setpos_abs_centre, ^setpos_abs_top, trh187_overlay:upcoming_prize);
+    case 2 :
+        if_setposition(60, 287, ^setpos_abs_centre, ^setpos_abs_top, trh187_overlay:upcoming_prize);
+    case 3 :
+        if_setposition(40, 287, ^setpos_abs_centre, ^setpos_abs_top, trh187_overlay:upcoming_prize);
+}

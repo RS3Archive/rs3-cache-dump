@@ -1,0 +1,18 @@
+// 370
+[clientscript,script370]
+def_int $int0 = -1;
+def_int $int1 = 0;
+while (++$int0 < 17) {
+    switch_int ($int0) {
+        case default :
+            $int1 = testbit(%menaphos_impling_toggle, $int0);
+        case 16 :
+            if (getbit_range(%menaphos_impling_toggle, 1, 15) = 0) {
+                $int1 = 0;
+            } else {
+                $int1 = 1;
+            }
+    }
+    if_sethide(~int_to_bool(calc(1 - $int1)), enum(int, component, menaphos_impling_component_deselected, $int0));
+    if_sethide(~int_to_bool($int1), enum(int, component, menaphos_impling_component_selected, $int0));
+}

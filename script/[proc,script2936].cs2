@@ -1,0 +1,30 @@
+// 2936
+[proc,script2936](struct $struct0)(int)
+def_int $int1 = ~script7379($struct0);
+switch_struct ($struct0) {
+    case combatv2_ability_magic_tsunami :
+        if (%combatv2_buff_glacial_embrace_stacks > 0) {
+            $int1 = calc(1000 - 120 * %combatv2_buff_glacial_embrace_stacks);
+        }
+    case combatv2_ability_ranged_headshot :
+        $int1 = struct_param($struct0, combatv2_ability_adrenaline_req);
+    case combatv2_ability_attack_overpower :
+        $int1 = struct_param($struct0, combatv2_ability_adrenaline_req);
+    case combatv2_ability_magic_overload :
+        $int1 = struct_param($struct0, combatv2_ability_adrenaline_req);
+    case combatv2_ability_necromancy_death_skulls :
+        $int1 = struct_param($struct0, combatv2_ability_adrenaline_req);
+}
+switch_int (struct_param($struct0, combatv2_ability_parent_stat)) {
+    case 4 :
+        if ($int1 > 0 & %combatv2_buff_magic_greater_flow_charged_active = 1) {
+            $int1 = max(0, calc($int1 - 450));
+        } else if ($int1 > 0 & %combatv2_buff_magic_flow_charged_active = 1) {
+            $int1 = max(0, calc($int1 - 350));
+        } else if ($int1 > 0 & %combatv2_buff_magic_greater_flow_active = 1) {
+            $int1 = max(0, calc($int1 - 200));
+        } else if ($int1 > 0 & %combatv2_buff_magic_flow_active = 1) {
+            $int1 = max(0, calc($int1 - 100));
+        }
+}
+return(max(0, $int1));

@@ -1,0 +1,461 @@
+// 13302
+[proc,cheevo_special_requirements](int $int0)(int, string)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_string $string0 = "";
+def_int $int5 = 1;
+def_int $int6 = 0;
+def_int $int7 = %qp;
+def_int $int8 = %qp_total;
+def_string $string1 = "";
+def_struct $struct9 = enum(int, struct, cheevo_id_to_struct, $int0);
+if ($struct9 = null) {
+    ~error("Achievement #<tostring($int0)> needs to be added to [cheevo_id_to_struct_enum].");
+    return(0, "");
+}
+if (struct_param($struct9, bslay_id) > 0) {
+    $int5, $string0 = ~bslay_special_requirements($struct9);
+    return($int5, $string0);
+}
+switch_int ($int0) {
+    case 23, 249, 1213, 1094, 167, 961, 147, 294, 1737 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %fairyring_use, "Access to the fairy ring network");
+    case 12 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %peng_spy_explain, "Larry or Chuck must explain the purpose of Penguin Hide and Seek");
+    case 49 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %emote_music, "Unlock 500 music tracks in order to perform the Air Guitar emote");
+    case 1105 :
+        if (%dom_achieve_monsters_slain >= 450) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Kill at least 450 monsters in the Dominion Tower");
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %dom_achieve_spectate, "Spectate a match in the Dominion Tower");
+    case 1107 :
+        if (%enakh_quest >= 30) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(39));
+    case 1117 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, ~script7472(1), "Complete all non-Rumble achievements in the Dominion Tower, including killing Sunfreet");
+    case 1181 :
+        if (%acs_quest >= 75) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(181));
+    case 1146 :
+        if (stat_base_actual(smithing) >= 7 | stat_base_actual(crafting) >= 8) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13295(7, 14, 8, 11));
+    case 1168 :
+        if (~ironman_mode = true) {
+            if (stat_base_actual(dungeoneering) >= 35) {
+                $int6 = 1;
+            }
+            $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_skill(35, 25));
+            $int6 = 0;
+            if (~ql4_getprogress(waterfall) = 2) {
+                $int6 = 1;
+            }
+            $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest(50));
+        }
+    case 177, 1835 :
+        if (%brut_craft_ship > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the Firemaking section of Otto Godblessed's barbarian training");
+    case 178 :
+        if (%brut_fishing_s > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the Fishing section of Otto Godblessed's barbarian training");
+    case 180, 1795 :
+        if (%brut_craft_ship > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the Firemaking section of Otto Godblessed's barbarian training");
+    case 316 :
+        if (%brut_fishing_s > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the Fishing section of Otto Godblessed's barbarian training");
+    case 321 :
+        if (%brut_craft_ship > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the Firemaking section of Otto Godblessed's barbarian training");
+    case 322 :
+        if (%brut_smith_hasta > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the Smithing section of Otto Godblessed's barbarian training");
+    case 323 :
+        if (%brut_herb_potion > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the Herblore section of Otto Godblessed's barbarian training");
+    case 417 :
+        if (~script13303(1) > 0) {
+            $int6 = 1;
+        }
+        if (inv_total(worn, evq_axe) > 0) {
+            $int6 = 1;
+        }
+        if (%kharshai_progress >= 5) {
+            $string1 = "Wield Balmung. Obtain Balmung from Kharshai. (";
+            $string1 = append($string1, ~script13301("Koschei's Troubles"));
+            $string1 = append($string1, ")");
+            $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, $string1);
+        } else if (%evq_quest >= 126) {
+            $string1 = "Wield Balmung. Obtain Balmung from Queen Sigrid. (";
+            $string1 = append($string1, ~cheevo_req_quest_partial(49));
+            $string1 = append($string1, ")");
+            $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, $string1);
+        } else {
+            $string1 = "Wield Balmung. Obtain Balmung from Brundt the Chieftain. (";
+            $string1 = append($string1, ~cheevo_req_quest_partial(163));
+            $string1 = append($string1, ")");
+            $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, $string1);
+        }
+    case 107 :
+        if (%dragonquest >= 2 & %dragonslayer_instructions_shield = 0 | %dragonquest >= 10) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(4));
+    case 980 :
+        if (stat_base_actual(attack) >= 70 | stat_base_actual(ranged) >= 70 | stat_base_actual(magic) >= 70) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13296(70, 1, 70, 3, 70, 4));
+    case 982 :
+        if (%myq5_main >= 110) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(184));
+    case 991 :
+        if (~script6034 >= 500) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Achieve a combined level of at least 500 for your Temple Trekking companions");
+    case 990 :
+        if (%brut_fishing_s > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Begin the relevant section of Otto Godblessed's barbarian training");
+        $int6 = 0;
+        if (%myreque_2_quest >= 50) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(64));
+    case 248, 1707 :
+        if (%kr_knightwaves_state >= 8) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Complete the Knight Waves in Camelot");
+    case 1205, 1210, 1211, 1212, 1219, 1220, 1222, 1223, 1227 :
+        if (%regicide_quest >= 9) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(89));
+    case 1207 :
+        if (%regicide_quest > 12) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(89));
+    case 1209 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %thas_active_tirranwn, "Unlock the Tirannwn lodestone");
+    case 1217 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %atelf_easy_reward, "Claim the rewards from the easy Tirannwn achievement");
+    case 1218, 1224 :
+        if (%mourning_quest >= 2) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(76));
+    case 1249 :
+        if (~script13271(99) = 1 | $int7 >= $int8) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Achieve 99 in a skill or complete all quests");
+    case 1251 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %tpr_seren_crest_unlocked, "Earn the Crest of Seren");
+    case 1253, 1927, 1888 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, ~script13273(90), "Have at least 90 in every non-elite skill");
+    case 1258 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %elfcity_recipe_unlock_comboranging, "Unlock this recipe");
+    case 1226 :
+        if (%seren_main < 95) {
+            $string1 = "Talk to Eluned after completing ";
+            $string1 = append($string1, ~cheevo_req_quest_name(161));
+            $int5, $string0 = ~cheevo_special_string($int5, $string0, %wtl_eluned_chanted_seed, $string1);
+        } else {
+            $string1 = "Talk to Islwyn, in Prifddinas, after completing ";
+            $string1 = append($string1, ~cheevo_req_quest_name(215));
+            $int5, $string0 = ~cheevo_special_string($int5, $string0, %wtl_eluned_chanted_seed, $string1);
+        }
+    case 276, 1792 :
+        if (%qp >= 33) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Quest Points: 33 (to enter the Champions' Guild)");
+    case 281 :
+        if (%atvar_emote_meta >= 15) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Unlock all four emotes by completing levels of the Stronghold of Security");
+    case 285 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, %vm_necklace, "Learn the secret of the Senntisten necklace");
+    case 1704 :
+        if (%mah5_main >= 140) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(176));
+    case 1981 :
+        if (%feud_var > 12) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(45));
+    case 1975 :
+        if (stat_base_actual(mining) >= 65 | stat_base_actual(agility) >= 65 | stat_base_actual(divination) >= 65) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13296(65, 13, 65, 8, 65, 26));
+    case 1973 :
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, ~script13274(50), "50 in all F2P skills");
+    case 1961 :
+        if (~cheevo_obtain_progress(cheevo_stay_secure) = -2) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Complete the Stronghold of Security");
+    case 1956 :
+        $int6 = 0;
+        if (%tpr_main >= 35) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(10));
+    case 1955 :
+        if (%ash1_main >= 80) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(202));
+    case 1953 :
+        if (%brut_craft_ship > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Access to the Ancient Cavern");
+        $int6 = 0;
+        if (%fairyring_permission >= 2) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Permission to use the fairy ring network");
+    case 1945 :
+        if (%thzfe_makecuredisease > 0) {
+            $int6 = 1;
+        }
+        $string1 = "Learn from Sithik Ints how to cure disease during the ";
+        $string1 = append($string1, ~cheevo_req_quest_name(25));
+        $string1 = append($string1, " quest");
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, $string1);
+    case 1944 :
+        if (%luc2_main_quest >= 150) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(145));
+    case 1924 :
+        if (%tmf_main >= 70) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(203));
+    case 1918 :
+        if (%golem_a >= 6) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(55));
+    case 1917 :
+        if (stat_base_actual(attack) >= 75 | stat_base_actual(ranged) >= 75 | stat_base_actual(magic) >= 75 | stat_base_actual(hitpoints) >= 91) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13297(75, 1, 75, 3, 75, 4, 91, 6));
+    case 1903 :
+        if (%motwl_main >= 20) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(148));
+    case 1902 :
+        if (%mm_main >= 4) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(73));
+    case 1863 :
+        if (%brut_craft_ship > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Access to the Ancient Cavern");
+    case 1837 :
+        if (stat_base_actual(attack) >= 55 | stat_base_actual(ranged) >= 55 | stat_base_actual(strength) >= 55) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13296(55, 1, 55, 3, 55, 2));
+        $int6 = 0;
+        if (stat_base_actual(cooking) >= 13 | stat_base_actual(smithing) >= 14) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13295(13, 16, 14, 14));
+        $int6 = 0;
+        if (stat_base_actual(fishing) >= 30 | stat_base_actual(mining) >= 30 | stat_base_actual(woodcutting) >= 30) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13296(30, 15, 30, 13, 30, 18));
+        $int6 = 0;
+        if (stat_base_actual(firemaking) >= 40 | stat_base_actual(crafting) >= 40) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13295(40, 17, 40, 11));
+        $int6 = 0;
+        if (stat_base_actual(thieving) >= 45 | stat_base_actual(hunter) >= 50) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13295(45, 10, 50, 23));
+        $int6 = 0;
+        if (calc(stat_base_actual(summoning) + stat_base_actual(magic) + stat_base_actual(prayer) + stat_base_actual(runecraft)) >= 200) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "A combined total of 200 Summoning, Magic, Prayer and Runecrafting");
+        $int6 = 0;
+        if (stat_base_actual(woodcutting) >= 30) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_skill(30, 18));
+        $int6 = 0;
+        if (stat_base_actual(fishing) >= 30) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_skill(30, 15));
+        $int6 = 0;
+        if (stat_base_actual(mining) >= 30) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_skill(30, 13));
+        $int6 = 0;
+        if (stat_base_actual(woodcutting) >= 60 | stat_base_actual(fishing) >= 60 | stat_base_actual(mining) >= 60) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13296(60, 18, 60, 15, 60, 13));
+    case 380 :
+        if (~skilltotal >= 40) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Total skill level: 40 or above");
+    case 410 :
+        if (~skilltotal >= 60) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Total skill level: 60 or above");
+    case 3165, 3167, 3164, 3126, 3135, 3137, 3141, 3146, 3147, 3154, 3157 :
+        if (stat_base_actual(strength) >= 60 | stat_base_actual(agility) >= 60) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Access to the God Wars dungeon");
+    case 3133, 3153 :
+        if (~obj_gettotal(gwd2_solo_entrance_key_completed) > 0 | %gwd2_solo_central_door_unlocked = 1) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "You must have found all parts and assembled the Ancient Sigil");
+    case 3184 :
+        if (stat_base_actual(smithing) >= 70 | stat_base_actual(construction) >= 59) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13295(70, 14, 59, 22));
+    case 3271, 3276, 3281 :
+        if (%q200_soa_phoenix >= 35 | %q200_soa_blackarm >= 45) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(210));
+    case 3278 :
+        if (stat_base_actual(smithing) >= 10 | stat_base_actual(crafting) >= 12) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~script13295(10, 14, 12, 11));
+    case 3275 :
+        if (%q200_coa_dye_thessalia = 1) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(213));
+        $int6 = 0;
+        if (~obj_gettotal(q200_cadava) > 0) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "Cadava potion");
+    case 3288 :
+        if (%q200_coa_dye_thessalia = 1) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(213));
+    case 3277 :
+        if (%q200_dov >= 25) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(212));
+    case 3279 :
+        if (%q200_coa >= 40) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(213));
+    case 3287 :
+        if (%q200_dov >= 100) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, ~cheevo_req_quest_partial(213));
+    case 818, 819, 820, 822 :
+        if (~comlevel >= struct_param($struct9, task_combat_level_recommended)) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "You need a combat level of at least <tostring(struct_param($struct9, task_combat_level_recommended))>");
+    case 928, 933 :
+        if (%fremsaga_skaldrun >= 3) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "You need to find and free Skaldrun from the frozen floors in Daemonheim.");
+    case 4037 :
+        if (~script3550 = false) {
+            $int6 = 1;
+        } else if (%cheevo_path_wealth_coins = 1) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "You need to pick up coins dropped by a monster defeated by you.");
+    case 4038, 4039, 4040 :
+        if (~script3550 = false) {
+            $int6 = 1;
+        } else if (%cheevo_path_prayer_bones = 1) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "You need to pick up bones dropped by a monster defeated by you.");
+    case 4041, 4042, 4043, 4044, 4045, 4046, 4047 :
+        if (~script3550 = false) {
+            $int6 = 1;
+        } else if (%cheevo_path_agility_unlocked = 1) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "You need to complete the Burthorpe introduction path or start a lap of the Burthorpe agility course.");
+    case 4051, 4052, 4053 :
+        if (~script3550 = false) {
+            $int6 = 1;
+        } else if (%cheevo_path_hunter_unlocked = 1) {
+            $int6 = 1;
+        }
+        $int5, $string0 = ~cheevo_special_string($int5, $string0, $int6, "You need to complete the Burthorpe introduction path or buy a bird snare.");
+    case default :
+        if (struct_param($struct9, quest_id) > 0) {
+            $string0 = ~cheevo_req_quest_name(struct_param($struct9, quest_id));
+            ~error("Achievement #<tostring($int0)> (.quest: <$string0>) has param=quest_requires_special,true but no case in [proc,cheevo_special_requirements].");
+        } else {
+            $string0 = struct_param($struct9, cheevo_name);
+            ~error("Achievement #<tostring($int0)> (<$string0>)'s special requirement case is missing from [proc,cheevo_special_requirements].");
+        }
+        return(0, "");
+}
+if (string_length($string0) > 0) {
+    $string0 = "<$string0><br>";
+}
+return($int5, $string0);

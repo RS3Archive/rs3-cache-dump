@@ -1,0 +1,47 @@
+// 1994
+[clientscript,script1994](component $component0, int $int1, int $int2, int $int3)
+cc_deleteall($component0);
+def_int $int4 = 66;
+def_int $int5 = 96;
+def_int $int6 = calc(($int1 - clientclock) / 50);
+if ($int6 < 0) {
+    if_setontimer(null, $component0);
+    return;
+}
+if ($int6 < 10) {
+    if ($int6 = 0) {
+        $int4 = 576;
+    }
+    if ($int6 ! $int2) {
+        sound_vorbis_volume(loyalty_shop_category, 1, 0, 200);
+        cc_create($component0, ^iftype_graphic, 0);
+        cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setgraphic(~script1995($int6, 0));
+        $int2 = $int6;
+        $int3 = 100;
+        if ($int6 = 0) {
+            sound_vorbis_volume(megagames_whistle, 1, 0, 100);
+            sound_vorbis_volume(loyalty_shop_open, 1, 0, 155);
+        }
+    } else {
+        $int3 = calc($int3 - 2);
+        $int4 = scale($int4, 100, $int3);
+        $int5 = scale($int5, 100, $int3);
+        cc_create($component0, ^iftype_graphic, 0);
+        cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setgraphic(~script1995($int6, 0));
+        $int2 = $int6;
+    }
+} else {
+    cc_create($component0, ^iftype_graphic, 0);
+    cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(-1 * $int4), 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setgraphic(~script1995(calc($int6 / 10), 0));
+    cc_create($component0, ^iftype_graphic, 1);
+    cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setgraphic(~script1995(calc($int6 % 10), 1));
+}
+if_setontimer("script1994($component0, $int1, $int6, $int3)", town_ingame_hud:countdown_layer);

@@ -1,0 +1,41 @@
+// 14842
+[proc,script14842](enum $enum0)
+cc_deleteall(arch_journal:research_build_layer);
+cc_deleteall(arch_journal:research_control_layer);
+~script14814(arch_journal:research_scrolling_layer, if_getscrollheight(arch_journal:research_scrolling_layer), -1, arch_journal:research_page_num_left, arch_journal:research_page_num_right);
+if_setscrollpos(0, 0, arch_journal:research_scrolling_layer);
+if ($enum0 = null) {
+    return;
+}
+def_dbrow $dbrow1 = null;
+def_int $int2 = enum_getoutputcount($enum0);
+def_int $int3 = 0;
+def_int $int4 = 55;
+if (if_getheight(arch_journal:mainmodal_window) >= 550) {
+    $int4 = 75;
+}
+def_int $int5 = if_getheight(arch_journal:research_scrolling_layer);
+def_int $int6 = $int5;
+def_int $int7 = -1;
+while (++$int7 < $int2) {
+    $dbrow1 = enum(int, dbrow, $enum0, $int7);
+    if ($int7 > 0 & calc($int7 % 2) = 0) {
+        if (calc($int7 % (2 * 2)) = 0) {
+            $int3 = 0;
+            $int4 = calc($int4 - (180 + 20) * 2 + $int5);
+            $int6 = calc($int6 + $int5);
+        } else {
+            $int3 = calc(if_getwidth(arch_journal:research_build_layer) - 326);
+            $int4 = calc($int4 - (180 + 20) * 2);
+        }
+    }
+    ~arch_research_build_info(arch_journal:research_build_layer, 44892185, $dbrow1, $int3, $int4, 326, 180, if_getnextsubid(arch_journal:research_control_layer));
+    $int4 = calc($int4 + (180 + 20));
+}
+if_setscrollsize(0, $int6, arch_journal:research_scrolling_layer);
+if ($int6 > $int5) {
+    if_sethide(false, arch_journal:research_navigation_layer);
+    ~script14812(arch_journal:research_scrolling_layer, $int5, arch_journal:research_navigate_left, arch_journal:research_page_num_left, arch_journal:research_navigate_right, arch_journal:research_page_num_right);
+} else {
+    if_sethide(true, arch_journal:research_navigation_layer);
+}

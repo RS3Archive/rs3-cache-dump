@@ -1,0 +1,28 @@
+// 4431
+[clientscript,script4431](component $component0)
+def_struct $struct1 = ~clan_chat_get_struct($component0);
+def_component $component2 = struct_param($struct1, clan_chat_list_parent);
+def_component $component3 = struct_param($struct1, clan_chat_join_affined_graphic);
+def_string $string0 = "";
+def_component $component4 = struct_param($struct1, clan_chat_clanlist);
+if (activeclanchannel_find_affined(0) = true) {
+    if_setontimer(null, $component2);
+    ~clan_chat_onclansettingstransmit($component0);
+    if_setonclansettingstransmit("clan_chat_onclansettingstransmit($component0)", $component0);
+    if_setonclanchanneltransmit("clan_chat_onclansettingstransmit($component0)", $component0);
+    if_setonplayergrouptransmit("clan_chat_onclantransmit($component0, $component4)", $component2);
+    if_setonclanchanneltransmit("clan_chat_onclantransmit($component0, $component4)", $component2);
+    if_setonfriendtransmit("clan_chat_onclantransmit($component0, $component4)", $component2);
+    if_setonclantransmit("clan_chat_onclantransmit($component0, $component4)", $component2);
+    if_setgraphic("aif_clanchat_icons,12", $component3);
+} else {
+    ~clan_chat_clearlist($component0);
+    $string0 = "Join Clan Chat channel.";
+    if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", clan_chat:clan_join_affinedchat_button);
+    if_setonmouseleave("script8805", clan_chat:clan_join_affinedchat_button);
+    if_setop(1, "Join Clan Chat channel", clan_chat:clan_join_affinedchat_button);
+    if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_clan_chat:clan_join_affinedchat_button);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_clan_chat:clan_join_affinedchat_button);
+    if_setop(1, "Join Clan Chat channel", toplevel_v2_parent_suboverlay_clan_chat:clan_join_affinedchat_button);
+    ~script4589($component0);
+}

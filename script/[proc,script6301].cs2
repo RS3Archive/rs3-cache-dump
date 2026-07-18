@@ -1,0 +1,33 @@
+// 6301
+[proc,script6301](struct $struct0, int $int1, int $int2)(int, struct)
+if ($struct0 = null) {
+    ~error("Null path struct encountered.");
+    return(-1, null);
+}
+def_enum $enum3 = struct_param($struct0, cheevo_path_enum);
+if ($enum3 = null) {
+    ~error("No cheevo_path_enum param found on path struct '<struct_param($struct0, cheevo_path_name)>'.");
+    return(-1, null);
+}
+def_int $int4 = 0;
+def_int $int5 = enum_getoutputcount($enum3);
+def_struct $struct6 = null;
+def_int $int7 = 0;
+if ($struct6 = null) {
+    while ($int4 < $int5) {
+        $struct6 = enum(int, struct, $enum3, $int4);
+        if ($struct6 = null) {
+            ~error("Couldn't find cheevo.");
+            return(-1, null);
+        }
+        $int7 = ~cheevo_obtain_progress($struct6);
+        if (($int1 = 0 | $int2 = 0) & $int7 >= 0) {
+            return($int7, $struct6);
+        } else if ($int7 = $int1 | $int7 = $int2) {
+            return($int7, $struct6);
+        } else {
+            $int4 = calc($int4 + 1);
+        }
+    }
+}
+return(-1, null);

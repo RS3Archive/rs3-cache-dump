@@ -1,0 +1,32 @@
+// 20211
+[proc,script20211](int $int0)
+switch_int (%league_onboarding_step) {
+    case 0 :
+        if_sethide(false, league_onboarding:contents_splash);
+        if_sethide(true, league_onboarding:contents_linking);
+        if_sethide(true, league_onboarding:contents_linking_confirm);
+    case 1 :
+        if_sethide(true, league_onboarding:contents_splash);
+        if_sethide(false, league_onboarding:contents_linking);
+        if_sethide(true, league_onboarding:contents_linking_confirm);
+    case 3 :
+        if_sethide(true, league_onboarding:contents_splash);
+        if_sethide(true, league_onboarding:contents_linking);
+        if_sethide(false, league_onboarding:contents_linking_confirm);
+        if ($int0 = 1) {
+            ~script20230;
+        }
+    case 2, 4 :
+        if_sethide(true, league_onboarding:contents_splash);
+        if_sethide(true, league_onboarding:contents_linking);
+        if_sethide(false, league_onboarding:contents_linking_confirm);
+        if ($int0 = 1) {
+            ~script20230;
+        }
+    case 5 :
+        if_sethide(true, league_onboarding:contents_splash);
+        if_sethide(true, league_onboarding:contents_linking);
+        if_sethide(true, league_onboarding:contents_linking_confirm);
+    case default :
+        ~error("Unrecognised onboarding step: <tostring(%league_onboarding_step)>");
+}

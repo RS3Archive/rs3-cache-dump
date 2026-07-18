@@ -1,0 +1,23 @@
+// 3999
+[proc,script3999](obj $obj0)(int)
+if (playermember = true) {
+    return(~bank_get_members_size);
+}
+if (oc_members(oc_uncert($obj0)) = 1) {
+    return(~bank_get_members_size);
+}
+def_int $int1 = ~script5778;
+def_int $int2 = ~script14294;
+def_int $int3 = ~script14337;
+def_int $int4 = 0;
+if ($int2 < $int1) {
+    $int4 = calc($int3 + ($int1 - $int2));
+    if (%bank_first_freeslot ! -1) {
+        $int4 = calc($int4 - ~bank_freespace_range(%bank_first_freeslot, $int3));
+    }
+    if ($int4 < ~bank_get_members_size) {
+        return($int4);
+    }
+    return(~bank_get_members_size);
+}
+return($int1);

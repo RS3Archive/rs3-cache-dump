@@ -1,0 +1,61 @@
+// 1258
+[proc,script1258](enum $enum0, int $int1)(int)
+def_int $clientoption2 = ^clientoption_ambient_occlusion;
+switch_enum ($enum0) {
+    case graphics_opt_brightness :
+        $clientoption2 = ^clientoption_brightness;
+    case ogl_nxt_top_shadows_quality :
+        $clientoption2 = ^clientoption_shadow_quality;
+    case ogl_nxt_vsync :
+        $clientoption2 = ^clientoption_v_sync;
+    case ogl_nxt_top_antialiasing :
+        $clientoption2 = ^clientoption_antialiasing_mode;
+    case ogl_nxt_top_antialiasing_quality :
+        $clientoption2 = ^clientoption_antialiasing_quality;
+    case ogl_nxt_top_cursor_scale :
+        $clientoption2 = 42;
+    case ogl_nxt_reflections, graphics_opt_reflections :
+        $clientoption2 = ^clientoption_reflections;
+    case ogl_nxt_lighting_quality, ogl_top_high_low_lighting_detail :
+        $clientoption2 = ^clientoption_lighting_quality;
+    case ogl_nxt_ambient_occlusion :
+        $clientoption2 = ^clientoption_ambient_occlusion;
+    case ogl_nxt_top_bloom :
+        $clientoption2 = ^clientoption_bloom;
+    case ogl_nxt_textures :
+        $clientoption2 = ^clientoption_texturing;
+    case ogl_nxt_anisotropic_filtering, graphics_opt_anisotropic_mobile :
+        $clientoption2 = ^clientoption_anisotropic_filtering;
+    case ogl_nxt_volumetric_lighting :
+        $clientoption2 = ^clientoption_volumetric_lighting;
+    case ogl_nxt_fg_fps_caps, graphics_opt_fps_mobile :
+        $clientoption2 = ^clientoption_max_foreground_fps;
+        $int1 = calc((1 + $int1) * 5);
+    case ogl_nxt_bg_fps_caps :
+        $clientoption2 = ^clientoption_max_background_fps;
+        $int1 = calc((1 + $int1) * 5);
+    case ogl_top_on_off :
+        $clientoption2 = ^clientoption_ground_decor;
+    case ogl_top_dof :
+        $clientoption2 = ^clientoption_dof;
+    case ogl_top_highest_high_med_low :
+        $clientoption2 = ^clientoption_draw_distance;
+    case ogl_top_roofs :
+        $clientoption2 = ^clientoption_remove_roof;
+    case ogl_nxt_interface_scaling :
+        $clientoption2 = ^clientoption_interface_scale;
+        $int1 = enum(int, int, ogl_nxt_interface_scaling_value, $int1);
+    case ogl_nxt_render_scaling :
+        $clientoption2 = ^clientoption_game_render_scale;
+        $int1 = calc(50 + $int1 * 10);
+    case ogl_default_player_model :
+        $clientoption2 = ^clientoption_custom_player_model_count;
+    case ogl_nxt_particle_quality :
+        $clientoption2 = ^clientoption_particle_quality;
+    case default :
+        return(0);
+}
+if (clientoption_canset($clientoption2, $int1) = 3) {
+    return(0);
+}
+return(1);

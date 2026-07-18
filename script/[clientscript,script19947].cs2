@@ -1,0 +1,31 @@
+// 19947
+[clientscript,script19947](int $int0)
+if (cc_find(easter_egg_hunt:clue_list_clue_layer, $int0) = true) {
+    ~script7872(true, true, true, true);
+}
+def_dbrow $dbrow1 = null;
+def_dbrow $dbrow2 = easter26_egg_hunt_world_week_1;
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = -1;
+switch_int (%easter_egg_hunt_dropdown) {
+    case 1 :
+        $dbrow2 = easter26_egg_hunt_world_week_2;
+    case 2 :
+        $dbrow2 = easter26_egg_hunt_world_week_3;
+    case 3 :
+        $dbrow2 = easter25_egg_hunt_community_week_1;
+    case 4 :
+        $dbrow2 = easter25_egg_hunt_community_week_2;
+}
+$int3 = db_filter_find(db_filter_value(easter_egg_hunt_clue_table:col1, $dbrow2, ^filterop_eq, 0), easter_egg_hunt_clue_table:col0, true, -1, 0);
+while (++$int5 < $int3) {
+    $dbrow1 = db_findnext;
+    if ($dbrow1 ! null) {
+        $int4 = db_getfield($dbrow1, easter_egg_hunt_clue_table:col0, 0);
+        if (cc_find(easter_egg_hunt:clue_list_clue_layer, $int4) = true & $int4 ! $int0) {
+            ~script7872(true, true, true, false);
+        }
+    }
+}
+~script19948($int0);

@@ -1,0 +1,46 @@
+// 10880
+[proc,script10880](string $string0, int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = ~script10495(3);
+def_string $string1 = "";
+if ($int3 = 1) {
+    $int4 = 16777215;
+}
+cc_create(mtx76_scoreboard:name_column, ^iftype_text, calc($int1 - 1));
+cc_setsize(0, 25, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, calc(26 * ($int1 - 1)), ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour($int4);
+cc_settext($string0);
+cc_create(mtx76_scoreboard:total_dmg_column, ^iftype_text, calc($int1 - 1));
+cc_setsize(0, 25, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, calc(26 * ($int1 - 1)), ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour($int4);
+cc_settext(tostring_localised($int0, true));
+cc_create(mtx76_scoreboard:dpm_column, ^iftype_text, calc($int1 - 1));
+cc_setsize(0, 25, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, calc(26 * ($int1 - 1)), ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextfont(museo_sans_11pt_regular);
+cc_setcolour($int4);
+cc_settext(tostring_localised(calc($int0 / 3), true));
+cc_create(mtx76_scoreboard:dmg_icon_layer, ^iftype_graphic, calc($int1 - 1));
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+switch_int ($int2) {
+    case 0 :
+        cc_setgraphic("staticons,0");
+        $string1 = "Most of the damage done by this player was done with melee.";
+    case 1 :
+        cc_setgraphic("staticons,3");
+        $string1 = "Most of the damage done by this player was done with ranged.";
+    case 2 :
+        cc_setgraphic("staticons,5");
+        $string1 = "Most of the damage done by this player was done with magic.";
+    case 3 :
+        cc_setgraphic("skill_icon_necromancy_25px,0");
+        $string1 = "Most of the damage done by this player was done with necromancy.";
+}
+cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
+cc_setposition(0, calc(26 * ($int1 - 1)), ^setpos_abs_centre, ^setpos_abs_top);

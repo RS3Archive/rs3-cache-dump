@@ -1,0 +1,75 @@
+// 9179
+[proc,script9179](struct $struct0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($int2 = 1 & ~script9178(struct_param($struct0, task_unique_id)) = 0 | struct_param($struct0, dndtracker_hide_if_unmet_reqs) = 1 & ~task_requirements_fulfilled(struct_param($struct0, task_unique_id)) = false) {
+    cc_create(minigames_main:button_tracker_icons, ^iftype_graphic, $int1);
+    cc_sethide(true);
+    cc_create(minigames_main:button_tracker_labels, ^iftype_text, $int1);
+    cc_sethide(true);
+} else {
+    $int3, $int4 = ~script9132(struct_param($struct0, task_unique_id));
+    cc_create(minigames_main:button_tracker_icons, ^iftype_graphic, $int1);
+    switch_int ($int3) {
+        case 0 :
+            cc_setgraphic("rs3_dnd_mini_games_icons,2");
+        case 1 :
+            cc_setgraphic("rs3_dnd_mini_games_icons,2");
+        case 2, 5 :
+            cc_setgraphic("rs3_dnd_mini_games_icons,4");
+        case 3, 6, 7 :
+            cc_setgraphic("rs3_dnd_mini_games_icons,5");
+        case 4 :
+            cc_setgraphic("rs3_dnd_mini_games_icons,2");
+        case -1 :
+            cc_setgraphic("rs3_dnd_mini_games_icons,3");
+    }
+    cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
+    cc_setonmouseleave("script8805");
+    cc_setonmouserepeat("trh56_list_build_challenge(event_com, event_comsubid)");
+    cc_create(minigames_main:button_tracker_labels, ^iftype_text, $int1);
+    cc_settextfont(museo_sans_11pt_regular);
+    switch_int ($int3) {
+        case 0 :
+            cc_setcolour(0xffcb08);
+            cc_settext("Ready");
+        case 1 :
+            cc_setcolour(0xffcb08);
+            cc_settext(~script9171($int4, 1));
+        case 2, 5 :
+            cc_setcolour(^white);
+            cc_settext(~script9171($int4, 1));
+        case 3, 7 :
+            cc_setcolour(0x7d7c7b);
+            cc_settext(~script9171($int4, 1));
+        case 6 :
+            cc_setcolour(0x7d7c7b);
+            cc_settext("--:--");
+        case 4 :
+            cc_setcolour(0xffcb08);
+            cc_settext(~script9171($int4, 1));
+        case -1 :
+            cc_setcolour(^black);
+            cc_settext("Locked");
+    }
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+    cc_setsize(60, 43, ^setsize_abs, ^setsize_abs);
+    cc_setonmouseleave("script8805");
+    cc_setonmouserepeat("trh56_list_build_challenge(event_com, event_comsubid)");
+}
+if (cc_find(minigames_main:button_labels, $int1) = true) {
+    switch_int ($int3) {
+        case 0 :
+            cc_setcolour(0xffcb08);
+        case 1 :
+            cc_setcolour(0xffcb08);
+        case 2, 5 :
+            cc_setcolour(^white);
+        case 3, 6, 7 :
+            cc_setcolour(0x7d7c7b);
+        case 4 :
+            cc_setcolour(0xffcb08);
+        case -1 :
+            cc_setcolour(^black);
+    }
+}

@@ -1,0 +1,132 @@
+// 11403
+[proc,script11403](obj $obj0)(obj)
+def_int $int1 = 0;
+switch_obj ($obj0) {
+    case wilderness_cape_1 :
+        return(enum(int, obj, poh_wilderness_capes, %poh_costume_cape_wilderness));
+    case nom_blue_cape :
+        if (%poh_costume_cape_soul_wars = 1) {
+            return(nom_blue_cape);
+        } else if (%poh_costume_cape_soul_wars = 2) {
+            return(nom_red_cape);
+        }
+    case vkq3_reward_torso_grey :
+        if (%vkq3_armour_colour = 1) {
+            return(vkq3_reward_torso_white);
+        } else if (%vkq3_armour_colour = 2) {
+            return(vkq3_reward_torso_grey);
+        } else {
+            return(vkq3_reward_torso_black);
+        }
+    case vkq3_reward_legs_grey :
+        if (%vkq3_armour_colour = 1) {
+            return(vkq3_reward_legs_white);
+        } else if (%vkq3_armour_colour = 2) {
+            return(vkq3_reward_legs_grey);
+        } else {
+            return(vkq3_reward_legs_black);
+        }
+    case macro_princess_torso :
+        if (gender = 1) {
+            return(macro_princess_torso);
+        } else {
+            return(macro_prince_torso);
+        }
+    case castlewars_armour_body :
+        if (%poh_costume_armour_castlewars_2 = 1) {
+            return(enum(int, obj, poh_castlewars_armour, 4));
+        } else {
+            return(enum(int, obj, poh_castlewars_armour, %poh_costume_armour_castlewars));
+        }
+    case pc14_reward_torso_grey_upgraded :
+        if (%vkq3_armour_colour = 1) {
+            return(pc14_reward_torso_white_upgraded);
+        } else if (%vkq3_armour_colour = 2) {
+            return(pc14_reward_torso_grey_upgraded);
+        } else {
+            return(pc14_reward_torso_black_upgraded);
+        }
+    case pc14_reward_legs_grey_upgraded :
+        if (%vkq3_armour_colour = 1) {
+            return(pc14_reward_legs_black_upgraded);
+        } else if (%vkq3_armour_colour = 2) {
+            return(pc14_reward_legs_grey_upgraded);
+        } else {
+            return(pc14_reward_legs_white_upgraded);
+        }
+    case hw14_ghost_hunter_torso_tier1 :
+        if (stat_base(defence) < 50) {
+            return(hw14_ghost_hunter_torso_tier1);
+        } else if (stat_base(defence) < 70 | map_members = false) {
+            return(hw14_ghost_hunter_torso_tier2);
+        } else {
+            return(hw14_ghost_hunter_torso_tier3);
+        }
+    case hw14_ghost_hunter_cape_tier1 :
+        if (stat_base(defence) < 50) {
+            return(hw14_ghost_hunter_cape_tier1);
+        } else if (stat_base(defence) < 70 | map_members = false) {
+            return(hw14_ghost_hunter_cape_tier2);
+        } else {
+            return(hw14_ghost_hunter_cape_tier3);
+        }
+    case hw14_ghost_hunter_helm_tier1 :
+        if (stat_base(defence) < 50) {
+            return(hw14_ghost_hunter_helm_tier1);
+        } else if (stat_base(defence) < 70 | map_members = false) {
+            return(hw14_ghost_hunter_helm_tier2);
+        } else {
+            return(hw14_ghost_hunter_helm_tier3);
+        }
+    case hw14_ghost_hunter_legs_tier1 :
+        if (stat_base(defence) < 50) {
+            return(hw14_ghost_hunter_legs_tier1);
+        } else if (stat_base(defence) < 70 | map_members = false) {
+            return(hw14_ghost_hunter_legs_tier2);
+        } else {
+            return(hw14_ghost_hunter_legs_tier3);
+        }
+    case skillcape_completionist, skillcape_completionist_insane :
+        $int1 = 1;
+        if (%poh_costume_cape_completionist = 1) {
+            $obj0 = skillcape_completionist;
+        } else if (%poh_costume_cape_completionist = 2) {
+            $obj0 = skillcape_completionist_insane;
+        }
+}
+switch_category (oc_category($obj0)) {
+    case loy_costume_arabian :
+        return($obj0);
+    case loy_costume_japanese :
+        return($obj0);
+    case loy_costume_viking :
+        return($obj0);
+    case loy_costume_jungle :
+        return($obj0);
+}
+def_obj $obj2 = null;
+if (~script10622 > 1) {
+    $obj2 = enum(obj, obj, poh_costume_room_capes_trimmed, $obj0);
+    if ($obj2 ! null) {
+        if (testbit(%skillcape_hooded_capes, enum(obj, int, skillcape_to_int, $obj2)) = ^true) {
+            return(enum(obj, obj, skillcape_hooded_version, $obj2));
+        } else {
+            return($obj2);
+        }
+    }
+}
+if (enum(obj, obj, skillcape_hooded_version, $obj0) ! null) {
+    if (testbit(%skillcape_hooded_capes, enum(obj, int, skillcape_to_int, $obj0)) = ^true) {
+        return(enum(obj, obj, skillcape_hooded_version, $obj0));
+    }
+    if (testbit(%skillcape_hooded_distinction_capes, enum(obj, int, skillcape_to_int, $obj0)) = ^true) {
+        return(enum(obj, obj, skillcape_hooded_version, $obj0));
+    }
+}
+if (gender = 1 & enum(obj, obj, poh_costume_room_skirt_equivalent, $obj0) ! null) {
+    return(enum(obj, obj, poh_costume_room_skirt_equivalent, $obj0));
+}
+if ($int1 = 1) {
+    return($obj0);
+}
+return(null);

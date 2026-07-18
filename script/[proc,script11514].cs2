@@ -1,0 +1,42 @@
+// 11514
+[proc,script11514](component $component0, component $component1, int $int2, int $int3, int $int4, int $int5)(int)
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+def_int $int6 = calc(10 + 40 * ($int2 % 8));
+def_int $int7 = calc(10 + $int4 * ($int2 / 8));
+cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+def_int $int8 = if_getnextsubid($component1);
+def_int $int9 = $int3;
+def_int $int10 = 0;
+def_struct $struct11 = rs3_icon_holder;
+if ($int3 = 16777215) {
+    cc_setop(1, "Choose");
+    cc_setonmouserepeat("script8799(\"Choose\", $component1, $int8)");
+} else {
+    cc_setop(1, "Select");
+    cc_setonmouserepeat("script8799(\"Select\", $component1, $int8)");
+    cc_setop(2, "Change");
+}
+if ($int9 = %mtxmgt_colour_last_selected) {
+    $int10 = 1;
+    $struct11 = rs3_icon_holder_selected;
+} else {
+    cc_setonmouserepeat("script11516($component1, $int8, $int9, rs3_icon_holder_over)");
+    cc_setonmouseleave("script11516($component1, $int8, $int9, rs3_icon_holder)");
+}
+cc_setonvarctransmit("script11518($component0, cc_getid, $component1, $int8, $int9, $int10, 1){mtxmgt_colour_last_selected}");
+$int2 = calc($int2 + 1);
+~rs3_background_panel_dynamic($component1, $struct11, calc($int6 - 4), calc($int7 - 4), 28, 28, null);
+$int8 = if_getnextsubid($component1);
+if ($int3 = 16777215) {
+    cc_create($component1, ^iftype_graphic, $int8);
+    cc_setgraphic(mtxmgt_colour_wheel_icon);
+} else {
+    cc_create($component1, ^iftype_rectangle, $int8);
+    cc_setcolour(hsvtorgb($int3));
+    cc_setfill(true);
+}
+cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+$int8 = calc($int8 + 1);
+return($int2);

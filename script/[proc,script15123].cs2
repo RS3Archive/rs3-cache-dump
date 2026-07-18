@@ -1,0 +1,27 @@
+// 15123
+[proc,script15123](dbrow $dbrow0)(string)
+def_string $string0 = "";
+if ($dbrow0 = null) {
+    return("");
+}
+if (db_getrowtable($dbrow0) ! event_crafting_core_recipe) {
+    ~error("Invalid dbrow passed in, isn't part of the event_crafting_core_recipe table.");
+    return("");
+}
+if (db_getfieldcount($dbrow0, event_crafting_core_recipe:col3) > 0) {
+    $string0 = db_getfield($dbrow0, event_crafting_core_recipe:col3, 0);
+}
+def_graphic $graphic1 = null;
+def_obj $obj2 = null;
+$obj2, $graphic1 = db_getfield($dbrow0, event_crafting_core_recipe:col1, 0);
+if ($obj2 = null) {
+    ~error("Mis-configured recipe, it doesn't have a display object OR a desc override. ITs ID is <tostring(db_getfield($dbrow0, event_crafting_core_recipe:col0, 0))>");
+    return("");
+}
+if (string_length($string0) <= 0) {
+    $string0 = oc_desc($obj2);
+}
+if (oc_category($obj2) = event_crafting_buff) {
+    $string0 = "<$string0> This item will expire at the end of this event, make sure to use it before then!";
+}
+return($string0);

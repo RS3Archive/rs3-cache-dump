@@ -1,0 +1,127 @@
+// 13188
+[proc,script13188](int $int0, int $int1)
+def_struct $struct2 = enum(int, struct, mtxmgt_store_snapshot_to_ragdoll_struct, $int0);
+if ($struct2 = null) {
+    return;
+}
+def_component $component3 = struct_param($struct2, toplevel_v2_ragdoll_suboverlay_layer);
+def_component $component4 = struct_param($struct2, toplevel_v2_ragdoll_model_component);
+def_component $component5 = struct_param($struct2, toplevel_v2_ragdoll_loading_layer);
+def_component $component6 = mtxmgt_store:preview_overlay_layer;
+def_int $int7 = 0;
+def_int $int8 = if_getwidth($component6);
+def_int $int9 = 0;
+def_string $string0 = "";
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = -1;
+def_int $int13 = -1;
+def_int $int14 = 0;
+def_dbrow $dbrow15 = null;
+if ($int0 = 1) {
+    cc_deleteall($component6);
+    if (.if_find(mtxmgt_store:deselect_button_layer) = true) {
+        $int14 = .cc_getwidth;
+        $int8 = calc($int8 - ($int14 + 2) * 2);
+        cc_create($component6, ^iftype_text, $int9++);
+        cc_settextfont(cinzel_18pt_bold);
+        cc_settextshadow(true);
+        cc_setposition(calc($int14 + 2), $int7, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(calc(cc_getx * 2), enum(fontmetrics, int, toplevel_v2_font_heights, cc_getfontmetrics), ^setsize_minus, ^setsize_abs);
+        cc_settext(~script3930("Preview", cc_getwidth, 1, cc_getfontmetrics));
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_setcolour(~script10495(0));
+        $int7 = calc($int7 + (cc_getheight + 8));
+        .cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+        .cc_sethide(false);
+        if (.if_find(mtxmgt_store:clear_button_layer) = true) {
+            .cc_setposition(0, calc($int14 + 2), ^setpos_abs_right, ^setpos_abs_top);
+            .cc_sethide(false);
+        }
+        if (.if_find(mtxmgt_store:hide_button_layer) = true) {
+            .cc_setposition(0, calc(($int14 + 2) * 2), ^setpos_abs_right, ^setpos_abs_top);
+            .cc_sethide(false);
+        }
+        if (.if_find(mtxmgt_store:recolour_button_layer) = true) {
+            .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_sethide(false);
+        }
+    }
+    cc_create($component6, ^iftype_text, $int9++);
+    cc_settextfont(museo_sans_13pt_bold);
+    cc_settextshadow(true);
+    switch_int ($int1) {
+        case -4 :
+            $string0 = "No customisation";
+        case -2 :
+            $string0 = "No customisation";
+            $int11 = 1;
+        case -3 :
+            $string0 = "Hide all";
+            $int10 = 1;
+            $int11 = 1;
+        case -1 :
+            $string0 = "Current outfit";
+            $int10 = 1;
+        case -5 :
+            $string0 = "Custom outfit";
+            $int10 = 1;
+            $int11 = 1;
+        case default :
+            $dbrow15 = ~script15768($int1);
+            if ($dbrow15 ! null) {
+                if (db_getfield($dbrow15, mtxmgt_cosmetic:col5, 0) = 2) {
+                    if (db_getfield($dbrow15, mtxmgt_cosmetic:col6, 0) = 20) {
+                        $string0 = ~script18200($dbrow15);
+                    } else {
+                        $string0 = "Custom outfit";
+                    }
+                    $int10 = 1;
+                    $int11 = 1;
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
+    }
+    cc_settext(~script3930($string0, $int8, 1, cc_getfontmetrics));
+    if (compare(cc_gettext, $string0) ! 0) {
+        ~script14990(2, $string0);
+    }
+    cc_setposition(calc($int14 + 2), $int7, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setsize(calc(cc_getx * 2), ~script7593(cc_gettext, $int8, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
+    cc_setcolour(~script10495(2));
+    $int7 = calc($int7 + (cc_getheight + 8));
+    if (if_find(mtxmgt_store:clear_button_disabled_layer) = true) {
+        if ($int10 = 1) {
+            cc_sethide(true);
+        } else {
+            cc_sethide(false);
+        }
+    }
+    if (if_find(mtxmgt_store:hide_button_disabled_layer) = true) {
+        if ($int1 = -3) {
+            cc_sethide(false);
+        } else {
+            cc_sethide(true);
+        }
+    }
+    if (if_find(mtxmgt_store:deselect_button_disabled_layer) = true & .if_find(mtxmgt_store:apply_button_disabled_layer) = true) {
+        if ($int11 = 1) {
+            cc_sethide(true);
+            .cc_sethide(true);
+        } else {
+            cc_sethide(false);
+            .cc_sethide(false);
+        }
+    }
+} else if ($int1 > -1 & $component3 ! null & if_find($component3) = true & $int1 = cc_param(mtxmgt_target_preview_subid)) {
+    cc_setparam(mtxmgt_current_preview_subid, $int1);
+    if ($component4 ! null) {
+        if_sethide(false, $component4);
+    }
+    ~spinner_hide($component5);
+    ~script13145(struct_param($struct2, toplevel_v2_ragdoll_drag_layer), $component4);
+}

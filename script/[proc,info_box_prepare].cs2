@@ -1,0 +1,44 @@
+// 7775
+[proc,info_box_prepare](int $int0, string $string0, int $int1, long $long0, int $int2, int $int3, int $int4, int $int5)(int, int)
+%info_box_type = $int1;
+def_fontmetrics $fontmetrics6 = museo_sans_13pt_bold;
+if (~script6431 = true) {
+    $fontmetrics6 = museo_sans_15pt_bold;
+}
+def_int $int7 = 202;
+def_int $int8 = 180;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (~script6431 = true) {
+    $int7 = 302;
+    $int8 = 230;
+}
+def_component $component11 = ~script15709($int0);
+if (if_find($component11) = true) {
+    cc_setontimer(null);
+    cc_setontimer("info_box_coord_timer(~info_box_timeout($string0))");
+    $int7 = min($int7, calc(22 + parawidth($string0, $int8, $fontmetrics6)));
+    $int7 = max($int7, calc(45 + parawidth("= <tostring_localised($int3, true)> coins", $int8, $fontmetrics6)));
+    $int7 = max($int7, calc(45 + parawidth("~<tostring_localised_long($long0, true)> coins", $int8, $fontmetrics6)));
+    $int9 = calc(22 + 15 * paraheight($string0, $int8, $fontmetrics6));
+    if ($int1 = 2) {
+        if ($long0 > 0) {
+            $int10 = calc($int10 + 25);
+        } else if ($int4 >= 0 & $int5 >= 0) {
+            $int10 = calc($int10 + 25);
+        }
+        if ($int3 > 0) {
+            $int10 = calc($int10 + 25);
+        }
+        if ($int2 >= 0) {
+            $int10 = calc($int10 + 25);
+        }
+        $int9 = calc($int9 + $int10);
+    }
+    if (string_length($string0) > 0) {
+        cc_setsize($int7, $int9, ^setsize_abs, ^setsize_abs);
+    }
+    ~info_box_coord_build($component11, $int0, $string0, $int7, $int9, $int1, $int10, $long0, $int2, $int3, $int4, $int5);
+    if_setsize($int7, $int9, ^setsize_abs, ^setsize_abs, $component11);
+}
+return($int7, $int9);

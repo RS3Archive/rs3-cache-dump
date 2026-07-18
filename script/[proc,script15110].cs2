@@ -1,0 +1,50 @@
+// 15110
+[proc,script15110](struct $struct0, int $int1, int $int2, dbrow $dbrow3)(int)
+if ($dbrow3 = null) {
+    ~error("We are trying to bulid the TRH prizes but got a null $promo_data dbrow, falling back to default table.");
+    $dbrow3 = trh_promo_categories_default;
+}
+if (db_getfieldcount($dbrow3, trh_promo_categories:col0) = 0) {
+    ~error("The non-null dbrow we are using to generate TRH prizes has no categories specified on it, falling back to the default table.");
+    $dbrow3 = trh_promo_categories_default;
+}
+def_int $int4 = db_getfieldcount($dbrow3, trh_promo_categories:col0);
+def_int $int5 = 0;
+def_int $intarray0(max($int4, db_getfieldcount(trh_promo_categories_default, trh_promo_categories:col0)));
+def_int $intarray1(max($int4, db_getfieldcount(trh_promo_categories_default, trh_promo_categories:col0)));
+def_int $int6 = 0;
+def_dbrow $dbrow7 = null;
+def_int $int8 = 0;
+def_int $int9 = -1;
+while (++$int9 < $int4) {
+    $int5, $dbrow7, $int8 = db_getfield($dbrow3, trh_promo_categories:col0, $int9);
+    if (($int1 = 1 & ~script16734($int5) = true | $int1 = 0) & ($int2 = -1 | ~script403($int2, $dbrow7) = true)) {
+        $int6 = calc($int6 + ~script16165($int5, $dbrow3, $struct0));
+    }
+    $intarray0($int9) = $int6;
+    $intarray1($int9) = $int5;
+}
+if ($int6 = 0) {
+    ~error("We found a dbrow defined for the current promo but it had no prize data, so are now using the default drop table.");
+    $dbrow3 = trh_promo_categories_default;
+    $int5 = 0;
+    $int9 = -1;
+    $int4 = db_getfieldcount($dbrow3, trh_promo_categories:col0);
+    while (++$int9 < $int4) {
+        $int5, $dbrow7, $int8 = db_getfield($dbrow3, trh_promo_categories:col0, $int9);
+        if ($int1 = 1 & ~script16734($int5) = true | $int1 = 0) {
+            $int6 = calc($int6 + ~script16165($int5, $dbrow3, $struct0));
+        }
+        $intarray0($int9) = $int6;
+        $intarray1($int9) = $int5;
+    }
+}
+def_int $int10 = random($int6);
+$int9 = -1;
+while (++$int9 < $int4) {
+    if ($int10 < $intarray0($int9)) {
+        return($intarray1($int9));
+    }
+}
+~error("we were unable to roll a category into a player's slot, going to the specified fallback of: <tostring(db_getfield($dbrow3, trh_promo_categories:col4, 0))>");
+return(db_getfield($dbrow3, trh_promo_categories:col4, 0));

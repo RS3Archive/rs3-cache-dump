@@ -1,0 +1,258 @@
+// 4864
+[proc,script4864]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 0;
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_graphic $graphic32 = null;
+def_string $string0 = "";
+def_int $int33 = 0;
+def_int $int34 = 0;
+def_int $int35 = 0;
+def_int $int36 = 0;
+def_int $int37 = 0;
+def_int $int38 = 0;
+def_int $int39 = 0;
+def_int $int40 = 0;
+def_string $string1 = "";
+def_string $string2 = "You do not have permission from your clan to set the primary resource target.";
+def_string $string3 = "Toggle whether this resource is the primary resource target.";
+def_string $string4 = "You do not have permission from your clan to set resource target amounts.";
+def_string $string5 = "Set a target amount of this resource to be collected.";
+def_int $int41 = -1;
+def_int $intarray0(10);
+def_int $int42 = 0;
+def_int $int43 = 0;
+def_int $int44 = 0;
+if (clanprofile_find = true) {
+    $int12, $int13, $int14, $int16, $int17, $int15 = ~script4797;
+    while ($int3 <= 31) {
+        $int4 = ~script4790($int3);
+        if ($int4 > 0) {
+            $graphic32, $string0, $int33, $int34, $int35, $int36, $int37, $int38 = ~clan_build_job_info($int4);
+            $int6, $int7, $int8, $int10, $int11, $int9 = ~clan_build_job_cost($int4, $int33);
+            $int5 = ~script4975($int4);
+            if ($int5 = 3) {
+                $int18 = calc($int18 + $int6);
+                $int19 = calc($int19 + $int7);
+                $int20 = calc($int20 + $int8);
+                $int22 = calc($int22 + $int10);
+                $int23 = calc($int23 + $int11);
+                $int21 = calc($int21 + $int9);
+                $int6, $int7, $int8, $int10, $int11, $int9 = ~script4793($int36, $int37);
+                $int26 = calc($int26 + $int6);
+                $int27 = calc($int27 + $int7);
+                $int28 = calc($int28 + $int8);
+                $int30 = calc($int30 + $int10);
+                $int31 = calc($int31 + $int11);
+                $int29 = calc($int29 + $int9);
+            }
+        }
+        $int3 = calc($int3 + 1);
+    }
+    $int18 = calc($int18 - $int26);
+    $int19 = calc($int19 - $int27);
+    $int20 = calc($int20 - $int28);
+    $int23 = calc($int23 - $int31);
+    $int22 = calc($int22 - $int30);
+    $int21 = calc($int21 - $int29);
+    $int39 = %clan_stronghold_primary_goal;
+    if ($int39 > 0) {
+        switch_int (%clan_stronghold_primary_goal) {
+            case 1 :
+                $int24 = %clan_stronghold_timber_goal;
+            case 2 :
+                $int24 = %clan_stronghold_stone_goal;
+            case 3 :
+                $int24 = %clan_stronghold_charcoal_goal;
+            case 4 :
+                $int24 = %clan_stronghold_ore_goal;
+            case 5 :
+                $int24 = %clan_stronghold_bars_goal;
+            case 6 :
+                $int24 = %clan_stronghold_precious_ore_goal;
+            case 7 :
+                $int24 = %clan_stronghold_precious_bars_goal;
+            case 9 :
+                $int24 = %clan_stronghold_rations_goal;
+            case 8 :
+                $int24 = %clan_stronghold_cloth_goal;
+            case 10 :
+                $int24 = %clan_stronghold_minions_goal;
+        }
+        $string1 = "<tostring($int24)> <enum(int, string, clan_resources_int2string, $int39)>";
+    } else {
+        $string1 = "No target set";
+    }
+    $intarray0(0) = max(calc(%clan_stronghold_timber / 100), calc($int12 + $int18));
+    $intarray0(1) = max(calc(%clan_stronghold_stone / 100), calc($int13 + $int19));
+    $intarray0(2) = max(calc(%clan_stronghold_bars / 100), calc($int14 + $int20));
+    $intarray0(3) = max(calc(%clan_stronghold_precious_bars / 100), calc($int15 + $int21));
+    $intarray0(4) = max(calc(%clan_stronghold_rations / 100), calc($int16 + $int22));
+    $intarray0(5) = max(calc(%clan_stronghold_cloth / 100), calc($int17 + $int23));
+    $intarray0(6) = max(calc(%clan_stronghold_charcoal / 100), %clan_stronghold_charcoal_goal);
+    $intarray0(7) = max(calc(%clan_stronghold_ore / 100), %clan_stronghold_ore_goal);
+    $intarray0(8) = max(calc(%clan_stronghold_precious_ore / 100), %clan_stronghold_precious_ore_goal);
+    $intarray0(9) = max(calc(%clan_stronghold_minions / 100), %clan_stronghold_minions_goal);
+    while ($int42 < 10) {
+        if ($intarray0($int42) > $int43) {
+            $int43 = $intarray0($int42);
+        }
+        $int42 = calc($int42 + 1);
+    }
+    ~script4866(1, %clan_stronghold_timber, $int12, $int18, $int26, $int43);
+    ~script4866(2, %clan_stronghold_stone, $int13, $int19, $int27, $int43);
+    ~script4866(3, %clan_stronghold_charcoal, 0, 0, 0, $int43);
+    ~script4866(4, %clan_stronghold_ore, 0, 0, 0, $int43);
+    ~script4866(5, %clan_stronghold_bars, $int14, $int20, $int28, $int43);
+    ~script4866(6, %clan_stronghold_precious_ore, 0, 0, 0, $int43);
+    ~script4866(7, %clan_stronghold_precious_bars, $int15, $int21, $int29, $int43);
+    ~script4866(8, %clan_stronghold_cloth, $int17, $int23, $int31, $int43);
+    ~script4866(9, %clan_stronghold_rations, $int16, $int22, $int30, $int43);
+    ~script4866(10, %clan_stronghold_minions, 0, 0, 0, $int43);
+    if_settext($string1, clan_stronghold_main_resources:primary_target_txt);
+    switch_int (%clan_stronghold_main_selected_resource) {
+        case 1 :
+            if_setgraphic("aif_clan_resource_icons,5", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 2 :
+            if_setgraphic("aif_clan_resource_icons,4", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 3 :
+            if_setgraphic("aif_clan_resource_icons,8", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 4 :
+            if_setgraphic("aif_clan_resource_icons,2", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 5 :
+            if_setgraphic("aif_clan_resource_icons,1", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 6 :
+            if_setgraphic("aif_clan_resource_icons,3", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 7 :
+            if_setgraphic("aif_clan_resource_icons,0", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 8 :
+            if_setgraphic("aif_clan_resource_icons,7", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 9 :
+            if_setgraphic("aif_clan_resource_icons,6", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case 10 :
+            if_setgraphic("aif_clan_resource_icons,9", clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+        case default :
+            if_setgraphic(null, clan_stronghold_main_resources:resource_details_resource_icon_graphic);
+    }
+    switch_int (%clan_stronghold_main_selected_resource) {
+        case 1 :
+            $int40 = %clan_stronghold_timber_goal;
+        case 2 :
+            $int40 = %clan_stronghold_stone_goal;
+        case 3 :
+            $int40 = %clan_stronghold_charcoal_goal;
+        case 4 :
+            $int40 = %clan_stronghold_ore_goal;
+        case 5 :
+            $int40 = %clan_stronghold_bars_goal;
+        case 6 :
+            $int40 = %clan_stronghold_precious_ore_goal;
+        case 7 :
+            $int40 = %clan_stronghold_precious_bars_goal;
+        case 8 :
+            $int40 = %clan_stronghold_cloth_goal;
+        case 9 :
+            $int40 = %clan_stronghold_rations_goal;
+        case 10 :
+            $int40 = %clan_stronghold_minions_goal;
+    }
+    if ($int40 > 0) {
+        $string1 = tostring($int40);
+    } else {
+        $string1 = "No target set";
+    }
+    if (%clan_stronghold_main_selected_resource > 0) {
+        if_sethide(false, clan_stronghold_main_resources:resource_details_panel);
+        if_sethide(true, clan_stronghold_main_resources:resource_details_select_text);
+        if_settext(enum(int, string, clan_resources_int2string, %clan_stronghold_main_selected_resource), clan_stronghold_main_resources:resource_name);
+        if_settext($string1, clan_stronghold_main_resources:resource_details_amount_txt);
+        if (~script5956(%clan_stronghold_main_selected_resource) = 1 | ~script5956(%clan_stronghold_main_selected_resource) = 2) {
+            if_setgraphic("aif_checkbox_small,1", clan_stronghold_main_resources:lock_on_target_checkbox);
+            if_setgraphic("aif_checkbox_small,3", clan_stronghold_main_resources:manual_lock_checkbox);
+        }
+        if (~script5956(%clan_stronghold_main_selected_resource) = 3) {
+            if_setgraphic("aif_checkbox_small,1", clan_stronghold_main_resources:manual_lock_checkbox);
+            if_setgraphic("aif_checkbox_small,3", clan_stronghold_main_resources:lock_on_target_checkbox);
+        }
+        if (~script5956(%clan_stronghold_main_selected_resource) = 0) {
+            if_setgraphic("aif_checkbox_small,3", clan_stronghold_main_resources:manual_lock_checkbox);
+            if_setgraphic("aif_checkbox_small,3", clan_stronghold_main_resources:lock_on_target_checkbox);
+        }
+        $string3 = "Toggle whether this skill plot will lock when the resource target is reached. It will automatically unlock once all resource targets are hit.";
+        if_setonmouserepeat("script8799($string3, event_com, event_comsubid)", clan_stronghold_main_resources:lock_on_target_checkbox);
+        $string3 = "Toggle whether this skill plot is locked. If this is checked, the plot will stay locked until manually unlocked.";
+        if_setonmouserepeat("script8799($string3, event_com, event_comsubid)", clan_stronghold_main_resources:manual_lock_checkbox);
+        if (%clan_stronghold_primary_goal = %clan_stronghold_main_selected_resource) {
+            if (~script5224(-1) = 1) {
+                if_setgraphic("aif_checkbox_small,0", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+                $string3 = "Toggle whether this resource is the primary resource target.";
+                if_setop(1, "Make Primary Target", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+            } else {
+                if_setgraphic("aif_checkbox_small,3", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+                $string3 = "You do not have permission from your clan to set the primary resource target.";
+                if_setop(1, "", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+            }
+        } else if (~script5224(-1) = 1) {
+            if (~script5214(%clan_stronghold_main_selected_resource) <= %clan_stronghold_tier) {
+                if_setgraphic("aif_checkbox_small,4", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+                $string3 = "Toggle whether this resource is the primary resource target.";
+                if_setop(1, "Make Primary Target", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+            } else {
+                if_setgraphic("aif_checkbox_small,7", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+                $string3 = "This resource will become available at citadel tier <tostring(~script5214(%clan_stronghold_main_selected_resource))>.";
+                if_setop(1, "", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+            }
+        } else {
+            if_setgraphic("aif_checkbox_small,7", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+            $string3 = "You do not have permission from your clan to set the primary resource target.";
+            if_setop(1, "", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+        }
+        if_setonmouserepeat("script8799($string3, event_com, event_comsubid)", clan_stronghold_main_resources:primary_target_checkbox_graphic);
+        if_sethide(false, clan_stronghold_main_resources:set_resource_target_button_disabled_layer);
+        if_setonmouserepeat("script8799($string5, event_com, event_comsubid)", clan_stronghold_main_resources:set_resource_target_button_active_layer);
+        if (~script5224(-1) = 1) {
+            if (~script5214(%clan_stronghold_main_selected_resource) <= %clan_stronghold_tier) {
+                if_sethide(true, clan_stronghold_main_resources:set_resource_target_button_disabled_layer);
+            } else {
+                if_sethide(false, clan_stronghold_main_resources:set_resource_target_button_disabled_layer);
+                $string4 = "This resource will become available at citadel tier <tostring(~script5214(%clan_stronghold_main_selected_resource))>.";
+            }
+        } else {
+            if_sethide(false, clan_stronghold_main_resources:set_resource_target_button_disabled_layer);
+            $string4 = "You do not have permission from your clan to set resource targets.";
+        }
+        if_setonmouserepeat("script8799($string4, event_com, event_comsubid)", clan_stronghold_main_resources:set_resource_target_button_disabled_layer);
+    } else {
+        if_sethide(true, clan_stronghold_main_resources:resource_details_panel);
+        if_sethide(false, clan_stronghold_main_resources:resource_details_select_text);
+    }
+}

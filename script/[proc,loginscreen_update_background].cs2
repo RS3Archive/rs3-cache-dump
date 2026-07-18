@@ -1,0 +1,67 @@
+// 13389
+[proc,loginscreen_update_background](component $component0, component $component1, int $int2)
+if (enum(int, struct, loginscreen_backgrounds, $int2) = loginscreen_background_default) {
+    $int2 = 0;
+}
+if ($int2 = 112) {
+    $int2 = 109;
+}
+def_int $int3 = $int2;
+def_int $int4 = 0;
+if ($int2 = 111) {
+    %loginscreen_background_random = 1;
+    $int3 = ~script13386(loginscreen_backgrounds);
+} else {
+    %loginscreen_background_random = 0;
+}
+def_struct $struct5 = enum(int, struct, loginscreen_backgrounds, $int3);
+def_enum $enum6 = null;
+if ($struct5 ! null) {
+    $enum6 = struct_param($struct5, loginscreen_background_enum);
+    if ($enum6 ! null) {
+        $int4 = ~script13386($enum6);
+    }
+}
+$struct5 = enum(int, struct, loginscreen_backgrounds, $int2);
+$enum6 = null;
+def_struct $struct7 = null;
+if ($struct5 ! null & $int3 = %loginscreen_background) {
+    $enum6 = struct_param($struct5, loginscreen_background_enum);
+    if ($int2 = %loginscreen_background & %loginscreen_background_random = 0 & $enum6 = null) {
+        return;
+    }
+    if ($enum6 ! null) {
+        $struct7 = enum(int, struct, $enum6, ^max_32bit_int);
+    }
+    if ($struct7 ! null & $component1 = loginscreen:background_fader) {
+        if_sethide(false, loginscreen:background_fader_image);
+        if_sethide(false, loginscreen:nxt_background_fade_layer);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_0), loginscreen:nxt_background_graphic_fade_0);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_1), loginscreen:nxt_background_graphic_fade_1);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_2), loginscreen:nxt_background_graphic_fade_2);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_3), loginscreen:nxt_background_graphic_fade_3);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_4), loginscreen:nxt_background_graphic_fade_4);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_5), loginscreen:nxt_background_graphic_fade_5);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_6), loginscreen:nxt_background_graphic_fade_6);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_7), loginscreen:nxt_background_graphic_fade_7);
+        if_setgraphic(struct_param($struct7, loginscreen_background_nxt_8), loginscreen:nxt_background_graphic_fade_8);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_0);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_1);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_2);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_3);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_4);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_5);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_6);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_7);
+        if_settrans(255, loginscreen:nxt_background_graphic_fade_8);
+    }
+}
+if ($int2 = %loginscreen_background & %loginscreen_background_random = 0 & $enum6 = null) {
+    return;
+}
+if ($component1 ! null) {
+    if_sethide(false, $component1);
+    if_settrans(255, $component1);
+}
+if_setontimer("loginscreen_background_fade_out($component0, $component1, clientclock, $int2, $int3, $int4, $struct7)", $component1);
+if_setontimer(null, $component0);

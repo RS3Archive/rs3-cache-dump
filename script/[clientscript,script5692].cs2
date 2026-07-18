@@ -1,0 +1,123 @@
+// 5692
+[clientscript,script5692](int $int0, int $int1, struct $struct2, dbrow $dbrow3)
+.cc_create(skillguide:image_layer, ^iftype_graphic, if_getnextsubid(skillguide:image_layer));
+.cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+.cc_setposition(3, calc($int1 + 2), ^setpos_abs_left, ^setpos_abs_top);
+def_int $int4 = 0;
+if ($struct2 ! null) {
+    $dbrow3 = struct_param($struct2, skillguide_data);
+    if (struct_param($struct2, skillguide_info_derived) = 1) {
+        $int4 = 1;
+    }
+}
+def_obj $obj5 = ~skillguide_item($struct2, $dbrow3);
+def_stat $stat6 = enum(int, stat, int_to_stat, ~skillguide_skill($struct2, $dbrow3));
+def_int $int7 = ~skillguide_level($struct2, $dbrow3);
+def_boolean $boolean8 = ~skillguide_members($struct2, $dbrow3);
+def_string $string0 = ~skillguide_name($struct2, $dbrow3);
+def_string $string1 = ~skillguide_info($struct2, $dbrow3);
+if ($obj5 ! null) {
+    if (string_length($string0) < 1) {
+        $string0 = oc_name($obj5);
+    }
+    if (oc_param($obj5, recipe_requirement_type_1) > 0 & oc_param($obj5, recipe_requirement_type_1) ! 62 & oc_param($obj5, recipe_requirement_type_2) = 0 & oc_param($obj5, recipe_requirement_type_1) = %skillguide_skill_clicked) {
+        $stat6 = enum(int, stat, int_to_stat, oc_param($obj5, recipe_requirement_type_1));
+        $int7 = oc_param($obj5, recipe_requirement_value_1);
+        if (oc_param($obj5, recipe_is_members_only) = true | oc_members(oc_param($obj5, recipe_ingredient_type_1)) = 1 | oc_members(oc_param($obj5, recipe_ingredient_type_2)) = 1 | oc_members(oc_param($obj5, recipe_tool_type_1)) = 1 | oc_members($obj5) = 1) {
+            $boolean8 = true;
+        }
+    }
+}
+if ($stat6 ! null & ~script11863($stat6) < $int7) {
+    .cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    .cc_setgraphic(aif_locked_button_icon);
+    .cc_setposition(6, calc($int1 + 5), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setonmouseover("script5693(event_comsubid, 1)");
+    .cc_setonmouseleave("script5694");
+} else if ($obj5 = null) {
+    .cc_setgraphic(~skillguide_item_graphic($struct2, $dbrow3));
+    .cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+} else {
+    .cc_setobject($obj5, -1);
+    ~script14739($obj5);
+}
+.cc_create(skillguide:image_layer, ^iftype_text, if_getnextsubid(skillguide:image_layer));
+.cc_setposition(35, $int1, ^setpos_abs_left, ^setpos_abs_top);
+.cc_settextfont(museo_sans_13pt_regular);
+.cc_settextshadow(true);
+if ($int7 = 0) {
+    .cc_settext("");
+} else {
+    .cc_settext(tostring($int7));
+}
+.cc_setcolour(0xdb9000);
+.cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+.cc_setsize(32, 36, ^setsize_abs, ^setsize_abs);
+if ($boolean8 = true) {
+    .cc_create(skillguide:image_layer, ^iftype_text, if_getnextsubid(skillguide:image_layer));
+    .cc_setposition(74, calc($int1 + 9), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setsize(25, 20, ^setsize_abs, ^setsize_abs);
+    .cc_setonmouseover("script5693(event_comsubid, 0)");
+    .cc_setonmouseleave("script5694");
+}
+.cc_create(skillguide:image_layer, ^iftype_text, if_getnextsubid(skillguide:image_layer));
+.cc_setposition(105, $int1, ^setpos_abs_left, ^setpos_abs_top);
+.cc_settext($string0);
+if ($struct2 ! null & (compare("", struct_param($struct2, skillguide_extrareq)) ! 0 | struct_param($struct2, skillguide_data) ! null & (db_getrowtable(struct_param($struct2, skillguide_data)) = invent_blueprint_table | db_getrowtable(struct_param($struct2, skillguide_data)) = arch_relic))) {
+    .cc_setsize(455, 17, ^setsize_abs, ^setsize_abs);
+    if (stringwidth($string0, museo_sans_13pt_regular) <= 455) {
+        .cc_settextfont(museo_sans_13pt_regular);
+    } else {
+        .cc_settextfont(museo_sans_11pt_regular);
+    }
+    .cc_setmaxlines(1);
+} else {
+    .cc_setsize(455, 36, ^setsize_abs, ^setsize_abs);
+    if (paraheight($string0, 455, museo_sans_13pt_regular) <= 2) {
+        .cc_settextfont(museo_sans_13pt_regular);
+    } else {
+        .cc_settextfont(museo_sans_11pt_regular);
+    }
+    .cc_setmaxlines(2);
+}
+.cc_settextshadow(true);
+.cc_setcolour(0xe6be78);
+.cc_settextalign(^settextalign_centre, ^settextalign_centre, 12);
+if ($struct2 ! null & compare("", struct_param($struct2, skillguide_extrareq_mobile)) ! 0 & ~script6431 = true) {
+    ~script14716($int1, struct_param($struct2, skillguide_extrareq_mobile));
+} else if ($struct2 ! null & compare("", struct_param($struct2, skillguide_extrareq)) ! 0) {
+    ~script14716($int1, struct_param($struct2, skillguide_extrareq));
+} else if ($dbrow3 ! null) {
+    switch_dbtable (db_getrowtable($dbrow3)) {
+        case invent_blueprint_table :
+            if (~script12058($dbrow3) = 1) {
+                ~script14716($int1, "Discovered");
+            } else if (db_getfieldcount($dbrow3, invent_blueprint_table:col13) > 0) {
+                ~script14716($int1, "Also requires: <~script12051($dbrow3, 0)> Technology");
+            }
+        case arch_relic :
+            if (~arch_relic_get_unlock_state($dbrow3) = ^true) {
+                ~script14716($int1, "Ancient power unlocked");
+            }
+    }
+}
+if ($int4 = 0 & $dbrow3 ! null) {
+    switch_dbtable (db_getrowtable($dbrow3)) {
+        case invent_blueprint_table, arch_site, arch_excavation, arch_relic, necro_ritual_recipe :
+            $int4 = 1;
+    }
+}
+def_graphic $graphic9 = "sept16_icon_info_tab,1";
+def_graphic $graphic10 = "sept16_icon_info_tab,0";
+if ($int4 = 1 | string_length($string1) > 0) {
+    .cc_create(skillguide:image_layer, ^iftype_graphic, if_getnextsubid(skillguide:image_layer));
+    .cc_setposition(5, calc($int1 + 8), ^setpos_abs_right, ^setpos_abs_top);
+    .cc_setgraphic("sept16_icon_info_tab,0");
+    .cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+    .cc_setonmouseover("graphic_swapper_dynamic(event_com, event_comsubid, $graphic9)");
+    .cc_setonmouseleave("graphic_swapper_dynamic(event_com, event_comsubid, $graphic10)");
+}
+if (cc_find(skillguide:content_layer, $int0) = true) {
+    cc_setposition(5, $int1, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setontimer(null);
+}

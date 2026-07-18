@@ -1,0 +1,21 @@
+// 16266
+[proc,script16266]()(boolean)
+if (%input_last_component = null) {
+    return(false);
+}
+if (%construction_house_edit_mode_state = 1) {
+    return(false);
+}
+if (%input_last_subid = -1 & .if_find(%input_last_component) = true | .cc_find(%input_last_component, %input_last_subid) = true) {
+    if (string_length(.cc_gettext) > 0) {
+        .cc_focus;
+        .cc_settext("");
+        if_unfocus;
+        %input_last_component = null;
+        %input_last_subid = -1;
+        return(true);
+    }
+    %input_last_component = null;
+    %input_last_subid = -1;
+}
+return(false);

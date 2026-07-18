@@ -1,0 +1,17 @@
+// 17384
+[proc,script17384](int $int0, int $int1, int $int2, boolean $boolean3)
+if (cc_find(bank:bank_inv, $int0) = true) {
+    if ($int2 >= $int1) {
+        if ($boolean3 = true) {
+            ~script13796(coins, 0);
+        } else {
+            ~script13796(null, 0);
+        }
+    } else {
+        ~script13796(coins, calc($int1 - $int2));
+    }
+}
+def_long $long0 = int_to_long($int2);
+def_string $string0 = ~script17372(calc(~pouch_total + $long0), 9, 1);
+if_settext("Coin Pouch: <$string0>", bank:coin_value);
+~money_pouch_update_anim($long0, 1, 0);

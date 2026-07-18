@@ -1,0 +1,15 @@
+// 7841
+[proc,script7841]
+switch_int (%loginscreen_remember_single_signon) {
+    case 5 :
+        if_settext("Quickly sign-in to your existing account by linking with Google", loginscreen:oauth2_link_desc);
+        if_sethide(false, loginscreen:oauth2_link_buttons);
+    case 6 :
+        if_settext("Quickly sign-in to your existing account by linking with Apple", loginscreen:oauth2_link_desc);
+        if_sethide(false, loginscreen:oauth2_link_buttons);
+    case default :
+        if_sethide(false, loginscreen:oauth2_selection_panel);
+        return;
+}
+~cc_add_button(loginscreen:oauth2_account_link, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_action_neutral, "Link Account");
+cc_setonbuttonpressed("script7842(2)");

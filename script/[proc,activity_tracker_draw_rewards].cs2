@@ -1,0 +1,38 @@
+// 9391
+[proc,activity_tracker_draw_rewards](component $component0, int $int1, int $int2, int $int3, achievement $achievement4)(int)
+def_string $string0 = "";
+def_struct $struct5 = null;
+def_quest $quest6 = null;
+switch_int ($int2) {
+    case 2 :
+        $string0 = ~script19862($achievement4);
+    case 3 :
+        $struct5 = enum(int, struct, cheevo_id_to_struct, $int3);
+        if ($struct5 ! null) {
+            if (struct_param($struct5, quest_id) > 0) {
+                $quest6 = enum(int, quest, ql4_quests, $int3);
+                if ($quest6 ! null) {
+                    $string0 = ~script2134($quest6, "", "");
+                }
+            } else {
+                $string0 = struct_param($struct5, cheevo_rewards);
+            }
+        }
+    case 1 :
+        $quest6 = enum(int, quest, ql4_quests, $int3);
+        if ($quest6 ! null) {
+            $string0 = ~script2134($quest6, "", "");
+        }
+}
+if (compare($string0, "") ! 0) {
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(0, 16, ^setsize_minus, ^setsize_abs);
+    cc_settextfont(museo_sans_11pt_regular);
+    ~script2731($component0, cc_getid, 2);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext("Rewards");
+    $int1 = calc($int1 + (cc_getheight + 5));
+    $int1 = ~activity_tracker_build_rewards($component0, $string0, $int1);
+}
+return($int1);

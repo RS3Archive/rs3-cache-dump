@@ -1,0 +1,103 @@
+// 13005
+[clientscript,script13005](int $int0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_enum $enum3 = null;
+def_enum $enum4 = null;
+def_string $string0 = "";
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+switch_int ($int0) {
+    case 71958546 :
+        $component1 = clan_noticeboard_event_edit:event_world_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_world_dropdown_click;
+        $enum3 = clan_noticeboard_event_world;
+        $string0 = "Select the world number the event is to take place.";
+        $int6 = ~script13010(%clan_event_current_varp);
+    case 71958549 :
+        $component1 = clan_noticeboard_event_edit:event_time_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_time_dropdown_click;
+        $enum3 = clan_noticeboard_event_time;
+        $string0 = "Select the time the event is to take place.";
+        $int7 = 233;
+        $int6 = ~script13011(%clan_event_current_varp);
+    case 71958554 :
+        $component1 = clan_noticeboard_event_edit:event_day_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_day_dropdown_click;
+        $enum3 = clan_noticeboard_event_day;
+        $string0 = "Select the day of the month the event is to take place.";
+        $int6, $int9, $int10 = ~script13013(%clan_event_current_varp);
+        if (calc($int6 + $int9 + $int10) = 0 & %clan_event_day_varp > 0) {
+            $int6 = %clan_event_day_varp;
+        }
+    case 71958558 :
+        $component1 = clan_noticeboard_event_edit:event_month_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_month_dropdown_click;
+        $enum3 = clan_noticeboard_event_month;
+        $string0 = "Select the month the event is to take place.";
+        $int8, $int6, $int10 = ~script13013(%clan_event_current_varp);
+        if (calc($int8 + $int6 + $int10) = 0 & %clan_event_month_varp > 0) {
+            $int6 = %clan_event_month_varp;
+        }
+    case 71958562 :
+        $component1 = clan_noticeboard_event_edit:event_year_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_year_dropdown_click;
+        $enum3 = clan_noticeboard_event_year;
+        $string0 = "Select the year the event is to take place.";
+        $int7 = 30;
+        $int8, $int9, $int6 = ~script13013(%clan_event_current_varp);
+        if (calc($int8 + $int9 + $int6) = 0 & %clan_event_year_varp > 0) {
+            $int6 = %clan_event_year_varp;
+        }
+        $int6 = calc($int6 - 2000);
+    case 71958539 :
+        $component1 = clan_noticeboard_event_edit:event_attendees_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_attendees_dropdown_click;
+        $enum3 = clan_offset_rank_int_to_rank_plus;
+        $string0 = "Select which rank (and above) this event is for.";
+        $int7 = 126;
+        $int6 = ~script13008(%clan_event_current_varp);
+    case 71958541 :
+        $component1 = clan_noticeboard_event_edit:event_place_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_place_dropdown_click;
+        $enum3 = clan_noticeboard_event_place;
+        $string0 = "Select the location the event is to take place.";
+        $int5 = 1;
+        $int6 = ~script13012(%clan_event_current_varp);
+        if ($int6 = 0) {
+            $int6 = calc($int6 + 1);
+        }
+    case 71958577 :
+        $component1 = clan_noticeboard_event_edit:event_type_dropdown_build;
+        $component2 = clan_noticeboard_event_edit:event_type_dropdown_click;
+        $enum3 = clan_noticeboard_event_type;
+        $string0 = "Select the type of event.";
+        $int5 = 1;
+        $int6 = ~script13009(%clan_event_current_varp);
+        $enum4 = enum(int, enum, clan_noticeboard_event_subtype_id, $int6);
+        cc_deleteall(clan_noticeboard_event_edit:event_subtype_dropdown_build);
+        if_clearops(clan_noticeboard_event_edit:event_subtype_dropdown_click);
+        if_setonop(null, clan_noticeboard_event_edit:event_subtype_dropdown_click);
+        if ($enum4 = null) {
+            ~script13971(clan_noticeboard_event_edit:event_subtype_dropdown_build, null, rs3_dropdown, "No subcategories.", true);
+        } else if (~script13007(%clan_event_current_varp) = 0) {
+            ~script3376(clan_noticeboard_event_edit:event_subtype_dropdown_build, clan_noticeboard_event_edit:event_subtype_dropdown_click, 0, 0, if_getwidth(clan_noticeboard_event_edit:event_subtype_dropdown_click), -1, $enum4, null, enum_getoutputcount($enum4), "Select the sub type of event.", ~script13007(%clan_event_current_varp), 0, 0, "Select", false);
+        } else {
+            ~script10428(clan_noticeboard_event_edit:event_subtype_dropdown_build, clan_noticeboard_event_edit:event_subtype_dropdown_click, $enum4, enum_getoutputcount($enum4), "Select the sub type of event.", ~script13007(%clan_event_current_varp), $int5);
+        }
+    case default :
+        return;
+}
+if ($int7 = -1) {
+    $int7 = calc(enum_getoutputcount($enum3) + 1);
+}
+if ($int6 <= 0) {
+    ~script3376($component1, $component2, 0, 0, if_getwidth($component2), -1, $enum3, null, $int7, $string0, $int6, 0, 0, "Select", false);
+} else {
+    ~script10428($component1, $component2, $enum3, $int7, $string0, $int6, $int5);
+}

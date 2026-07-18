@@ -1,0 +1,37 @@
+// 5040
+[proc,script5040]
+cc_deleteall(clan_field_editor:elements);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_struct $struct2 = null;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = 200;
+if (clanprofile_find = true) {
+    while ($int0 < 200) {
+        cc_create(clan_field_editor:elements, ^iftype_graphic, $int0);
+        $int1, $int3, $int4, $int5 = ~script5019($int0);
+        if ($int1 ! 0) {
+            $struct2 = enum(int, struct, clan_field_elements, $int1);
+            if ($struct2 ! null) {
+                cc_setgraphic(struct_param($struct2, clan_field_element_graphic));
+                if (struct_param($struct2, clan_field_element_category) = 1) {
+                    cc_settiling(true);
+                } else {
+                    cc_settiling(false);
+                }
+                ~script5041($struct2, $int3, $int4, $int5);
+                $int6 = calc($int6 - 1);
+            } else {
+                cc_sethide(true);
+            }
+        } else {
+            cc_sethide(true);
+        }
+        $int0 = calc($int0 + 1);
+    }
+    if_settext(tostring($int6), clan_field_editor:used);
+} else {
+    if_settext("...", clan_field_editor:used);
+}

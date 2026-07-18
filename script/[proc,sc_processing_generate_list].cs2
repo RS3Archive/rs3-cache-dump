@@ -1,0 +1,25 @@
+// 14302
+[proc,sc_processing_generate_list](enum $enum0)
+if ($enum0 = null) {
+    return;
+}
+def_int $int1 = enum_getoutputcount($enum0);
+def_int $int2 = 0;
+def_int $int3 = calc(if_getwidth(sc_processing:item_contents) - 10);
+def_int $int4 = 5;
+def_int $int5 = calc((if_getheight(sc_processing:item_contents) - 10) / $int1);
+def_int $int6 = 0;
+cc_deleteall(sc_processing:item_build);
+cc_deleteall(sc_processing:item_click);
+while ($int2 < $int1) {
+    $int6 = enum(int, int, $enum0, $int2);
+    ~script10410(sc_processing:item_build, sc_processing:item_click, rs3tli_3x3_button, 5, $int4, $int3, 20, $int2, false, enum(int, string, sc_item_name, $int6));
+    if (cc_find(sc_processing:item_click, $int2) = true) {
+        cc_setop(1, "Make 1");
+        cc_setop(2, "Make 5");
+        cc_setop(3, "Make X");
+        cc_setop(4, "Make All");
+    }
+    $int4 = calc($int4 + $int5);
+    $int2 = calc($int2 + 1);
+}

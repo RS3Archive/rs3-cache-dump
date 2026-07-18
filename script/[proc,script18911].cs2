@@ -1,0 +1,47 @@
+// 18911
+[proc,script18911](dbfilter $dbfilter0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, dbrow $dbrow7, int $int8)(int)
+def_dbrow $dbrow9 = null;
+def_int $int10 = -1;
+def_int $int11 = 0;
+def_int $int12 = -1;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+if ($dbfilter0 ! null) {
+    db_filter_find($dbfilter0, calendar_entry:col2, true, -1, 0);
+}
+while ($int15 < $int1) {
+    $dbrow9 = db_findnext;
+    $int10 = ~script18919($dbrow9);
+    if ($int10 = -1) {
+        $int13 = db_getfield($dbrow9, calendar_entry:col2, 0);
+        $int14 = db_getfield($dbrow9, calendar_entry:col3, 0);
+        ~script18913($dbrow9, $int5, $int13, $int14, $int3, $int4, $int6, $dbrow7);
+        if ($int8 = 0) {
+            $int5 = calc($int5 + (41 + 4));
+        }
+    }
+    $int15 = calc($int15 + 1);
+}
+while ($int2 > 0 & $int16 <= 19) {
+    $dbrow9 = ~script18916($int16, $int6);
+    $int11 = ~script18920($dbrow9, -1);
+    $int12 = ~script18920($dbrow9, 22);
+    if ($int11 = 0 & ($int12 = 100 | $int12 = map_lang)) {
+        $int13 = ~script18920($dbrow9, 0);
+        $int14 = ~script18920($dbrow9, 1);
+        if ($int13 < %calendar_current_monday_shown & $int14 < %calendar_current_monday_shown | $int13 > $int4 & $int14 > $int4) {
+        } else {
+            ~script18913($dbrow9, $int5, $int13, $int14, $int3, $int4, $int6, $dbrow7);
+            if ($int8 = 0) {
+                $int5 = calc($int5 + (41 + 4));
+            }
+        }
+    }
+    $int16 = calc($int16 + 1);
+}
+if ($int8 = 1) {
+    $int5 = calc($int5 + (41 + 4));
+}
+return($int5);

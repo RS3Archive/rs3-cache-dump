@@ -1,0 +1,37 @@
+// 11744
+[proc,script11744]
+def_component $component0 = ~script623(8);
+def_component $component1 = ~script10(8);
+def_string $string0 = "Lent item";
+def_string $string1 = "Still on loan";
+def_obj $obj2 = inv_getobj(lent_items, 0);
+if ($obj2 = null) {
+    if_sethide(false, stockmarket:lending_layer_hide);
+    if_setobject(null, -1, stockmarket:lending_item);
+    if_settext("", stockmarket:lending_indicator);
+    if_setopbase(null, stockmarket:lending_item);
+    if_setop(1, null, stockmarket:lending_item);
+    return;
+}
+if_sethide(true, stockmarket:lending_layer_hide);
+if_setobject($obj2, -1, stockmarket:lending_item);
+if_setopbase("<col=ff9040><oc_name($obj2)></col>", stockmarket:lending_item);
+def_graphic $graphic3 = "bank_slot,3";
+if_setonmouseover("graphic_swapper(stockmarket:lending_item_bg, $graphic3)", stockmarket:lending_item_bg);
+$graphic3 = rs3_inventory_slot;
+if_setonmouseleave("graphic_swapper(stockmarket:lending_item_bg, $graphic3)", stockmarket:lending_item_bg);
+def_string $string2 = "";
+if (%lending_mydebtor ! null | %lending_retrievetime > 0) {
+    if_settrans(200, stockmarket:lending_item);
+    if_setcolour(^red, stockmarket:lending_indicator);
+    $string2 = "Demand";
+} else {
+    if_settrans(0, stockmarket:lending_item);
+    if_setcolour(0x00df00, stockmarket:lending_indicator);
+    $string1 = "Available";
+    $string2 = "Reclaim";
+}
+if_setop(1, $string2, stockmarket:lending_item);
+if_setonmouserepeat("script8799($string2, stockmarket:lending_item, -1)", stockmarket:lending_item);
+if_setonmouseleave("script8805", stockmarket:lending_item);
+if_settext($string1, stockmarket:lending_indicator);

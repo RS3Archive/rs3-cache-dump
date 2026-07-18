@@ -1,0 +1,23 @@
+// 16715
+[clientscript,script16715](int $int0, int $int1, component $component2, int $int3)
+def_seq $seq4 = trh_chest_open_state_level_one_a;
+if (%trh183_chests_frozen = 1) {
+    switch_int ($int1) {
+        case 1 :
+            if (%trh183_chests_frozen_claimed_1 = 1) {
+                $seq4 = trh_chest_closed_idle;
+            }
+        case 2 :
+            if (%trh183_chests_frozen_claimed_2 = 1) {
+                $seq4 = trh_chest_closed_idle;
+            }
+        case 3 :
+            if (%trh183_chests_frozen_claimed_3 = 1) {
+                $seq4 = trh_chest_closed_idle;
+            }
+    }
+}
+if ($int0 = -1 | calc(clientclock - $int0) >= $int3) {
+    if_setmodelanim($seq4, $component2);
+    if_setontimer(null, $component2);
+}

@@ -1,0 +1,46 @@
+// 20168
+[proc,script20168](enum $enum0)(dbfilter)
+def_dbfilter $dbfilter1 = null;
+if (%league_task_league_tutorial = 0) {
+    %league_task_child_filter_depth = -1;
+    return(db_filter_value(league_task:col0, 0, ^filterop_eq, 0));
+}
+def_int $int2 = %league_current_locality;
+while (%league_task_child_filter_depth <= 8) {
+    $dbfilter1 = null;
+    switch_int (%league_task_child_filter_depth) {
+        case 0 :
+            $dbfilter1 = ~script20169(1, 0, 11, 2, 1);
+        case 1 :
+            $dbfilter1 = ~script20169(6, 0, 11, 2, 1);
+        case 3 :
+            $int2 = enum(int, int, $enum0, %league_current_locality);
+            if ($int2 ! -1 & $int2 ! %league_current_locality) {
+                $dbfilter1 = ~script20169(1, 0, $int2, 2, 1);
+            }
+        case 4 :
+            $dbfilter1 = ~script20169(1, 0, 13, 2, 1);
+        case 2 :
+            $dbfilter1 = ~script20169(0, 0, 11, 2, 1);
+        case 5 :
+            $dbfilter1 = ~script20169(0, 0, 11, 2, 1);
+        case 6 :
+            $int2 = enum(int, int, $enum0, %league_current_locality);
+            if ($int2 ! -1 & $int2 ! %league_current_locality) {
+                $dbfilter1 = ~script20169(0, 0, $int2, 2, 1);
+            }
+        case 7 :
+            $dbfilter1 = ~script20169(0, 0, 13, 2, 1);
+        case 8 :
+            $dbfilter1 = ~script20169(0, 0, 13, 2, 1);
+    }
+    if ($dbfilter1 ! null) {
+        unknown_command_77($dbfilter1, league_task:col6, true);
+        if (db_findnext ! null) {
+            return($dbfilter1);
+        }
+    }
+    %league_task_child_filter_depth = calc(%league_task_child_filter_depth + 1);
+}
+$dbfilter1 = ~script20169(0, 0, 13, 2, 1);
+return($dbfilter1);

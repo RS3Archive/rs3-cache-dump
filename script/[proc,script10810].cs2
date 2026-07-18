@@ -1,0 +1,33 @@
+// 10810
+[proc,script10810]
+def_component $component0 = mtxmgt_purchase:loyaltypoints_layer;
+def_component $component1 = mtxmgt_purchase:loyaltypoints_bg_layer;
+def_component $component2 = mtxmgt_purchase:loyaltypoints_content_layer;
+def_component $component3 = mtxmgt_purchase:loyaltypoints_button_text;
+def_component $component4 = mtxmgt_purchase:loyaltypoints_button_disabled_layer;
+def_component $component5 = mtxmgt_purchase:buy_runecoins_button_layer;
+cc_deleteall($component2);
+def_int $int6 = -1;
+if (%mtxmgt_purchase_struct ! null) {
+    $int6 = ~script10814(%mtxmgt_purchase_lp_price);
+}
+if ($int6 ! -1) {
+    ~script10812($component2, $component5, rs3_icon_general_store_loyalty, null, 34, 35, "Loyalty Points", $int6, %mtxmgt_total_loyaltypoints, 1);
+    if (%mtxmgt_total_loyaltypoints < $int6) {
+        ~rs3_background_panel($component1, rs3_content_container_inactive);
+        if_sethide(false, $component4);
+    } else {
+        ~rs3_background_panel($component1, rs3_content_container_active);
+        if_sethide(true, $component4);
+        if ($int6 = 0) {
+            if_settext("Claim", $component3);
+        } else {
+            if_settext("Buy", $component3);
+        }
+    }
+    if_sethide(false, $component0);
+    if_setonvarctransmit("script10808{mtxmgt_total_loyaltypoints}", $component0);
+} else {
+    if_sethide(true, $component0);
+    if_setonvarctransmit(null, $component0);
+}

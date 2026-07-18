@@ -1,0 +1,131 @@
+// 13241
+[proc,script13241]
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = calc(4 * 2);
+def_int $int6 = calc(if_getwidth(mtxmgt_store_tutorial:tutorial_text_layer) / 2);
+def_int $int7 = calc(20 * 2);
+cc_deleteall(mtxmgt_store_tutorial:tutorial_text_layer);
+cc_deleteall(mtxmgt_store_tutorial:tutorial_button_layer);
+def_int $int8 = 0;
+def_component $component9 = mtxmgt_store:filter_button_4_layer;
+def_component $component10 = mtxmgt_store:filter_button_3_layer;
+def_int $int11 = if_getx($component9);
+$int5 = calc(20 * 2 + 4 * 3 + 10);
+while ($int8 < 5) {
+    cc_create(mtxmgt_store_tutorial:tutorial_text_layer, ^iftype_text, if_getnextsubid(mtxmgt_store_tutorial:tutorial_text_layer));
+    cc_settext(enum(int, string, mtxmgt_store_tutorial_filter_descriptions, $int8));
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(~script10495(3));
+    cc_setposition($int11, calc(4 + $int5), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int6 - cc_getx), ~script7593(cc_gettext, calc($int6 - cc_getx), cc_getfontmetrics, 0), ^setsize_abs, ^setsize_abs);
+    $int5 = calc(cc_gety + cc_getheight + 10);
+    $int11 = calc(if_getx($component10) - $int8 * (24 + 4));
+    .cc_create(mtxmgt_store_tutorial:tutorial_button_layer, ^iftype_rectangle, if_getnextsubid(mtxmgt_store_tutorial:tutorial_button_layer));
+    .cc_setposition(calc(cc_getx + 10), calc(20 + 4), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setsize(4, calc(cc_gety - 20 - 4), ^setsize_abs, ^setsize_abs);
+    .cc_setcolour(~script10495(3));
+    .cc_settrans(80);
+    .cc_setfill(true);
+    $int8 = calc($int8 + 1);
+}
+def_int $int12 = 0;
+$int5 = 100;
+while ($int12 < 5) {
+    .cc_create(mtxmgt_store_tutorial:tutorial_button_layer, ^iftype_graphic, if_getnextsubid(mtxmgt_store_tutorial:tutorial_button_layer));
+    .cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(4, calc($int5 + 4), ^setpos_abs_right, ^setpos_abs_top);
+    .cc_setgraphic(enum(int, graphic, mtxmgt_store_tutorial_slot_borders, $int12));
+    if (.cc_getgraphic = rs3_icon_slot_standard) {
+        .cc_settrans(80);
+    }
+    cc_create(mtxmgt_store_tutorial:tutorial_button_layer, ^iftype_graphic, if_getnextsubid(mtxmgt_store_tutorial:tutorial_button_layer));
+    cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(.cc_getx + 2), calc(.cc_gety + 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(~script8478(mtxmgt_store_worn_display_preview, 0, enum(int, int, mtxmgt_store_tutorial_slot_icons, $int12)));
+    if ($int12 = 0) {
+        cc_settrans(127);
+    } else {
+        cc_settrans(0);
+    }
+    if ($int12 = 3) {
+        ~script10017(mtxmgt_store_tutorial:tutorial_button_layer, .cc_getid, -1, 5, null, mtxmgt_store_tutorial:tutorial_button_layer);
+    }
+    $int6 = 220;
+    if (~script6431 = true) {
+        cc_settext(enum(int, string, mtxmgt_store_tutorial_slot_descriptions_mobile, $int12));
+    } else {
+        cc_create(mtxmgt_store_tutorial:tutorial_text_layer, ^iftype_text, if_getnextsubid(mtxmgt_store_tutorial:tutorial_text_layer));
+    }
+    cc_settext(enum(int, string, mtxmgt_store_tutorial_slot_descriptions, $int12));
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(~script10495(3));
+    cc_setsize($int6, ~script7593(cc_gettext, $int6, cc_getfontmetrics, 0), ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(if_getwidth(mtxmgt_store_tutorial:tutorial_button_layer) - .cc_getx + 4), calc(.cc_gety + .cc_getheight / 2 - cc_getheight / 2), ^setpos_abs_right, ^setpos_abs_top);
+    cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    $int5 = calc($int5 + 32 + 10);
+    $int12 = calc($int12 + 1);
+}
+cc_create(mtxmgt_store_tutorial:tutorial_text_layer, ^iftype_text, if_getnextsubid(mtxmgt_store_tutorial:tutorial_text_layer));
+cc_settext("Switch between the list and grid view");
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextshadow(true);
+cc_setcolour(~script10495(3));
+cc_setsize($int6, ~script7593(cc_gettext, $int6, cc_getfontmetrics, 0), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc(220 + 4 * 4), calc(24 / 4), ^setpos_abs_left, ^setpos_abs_top);
+.cc_create(mtxmgt_store_tutorial:tutorial_button_layer, ^iftype_rectangle, if_getnextsubid(mtxmgt_store_tutorial:tutorial_button_layer));
+.cc_setposition(220, calc(24 / 2 - 4 / 2), ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(calc(4 * 3), 4, ^setsize_abs, ^setsize_abs);
+.cc_setcolour(~script10495(3));
+.cc_settrans(80);
+.cc_setfill(true);
+cc_create(mtxmgt_store_tutorial:tutorial_text_layer, ^iftype_text, if_getnextsubid(mtxmgt_store_tutorial:tutorial_text_layer));
+cc_settext("Interact here to search for a specific item");
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextshadow(true);
+cc_setcolour(~script10495(3));
+cc_setsize($int6, ~script7593(cc_gettext, $int6, cc_getfontmetrics, 0), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc(220 + 4 * 4), calc(24 + 4 + 24 / 4), ^setpos_abs_left, ^setpos_abs_top);
+.cc_create(mtxmgt_store_tutorial:tutorial_button_layer, ^iftype_rectangle, if_getnextsubid(mtxmgt_store_tutorial:tutorial_button_layer));
+.cc_setposition(220, calc(3 * 24 / 2 + 4 / 2), ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(calc(4 * 3), 4, ^setsize_abs, ^setsize_abs);
+.cc_setcolour(~script10495(3));
+.cc_settrans(80);
+.cc_setfill(true);
+cc_create(mtxmgt_store_tutorial:tutorial_button_layer, ^iftype_graphic, if_getnextsubid(mtxmgt_store_tutorial:tutorial_button_layer));
+cc_setsize(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_width), struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
+cc_setposition(4, 3, ^setpos_abs_right, ^setpos_abs_top);
+cc_setgraphic(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_on));
+.cc_create(mtxmgt_store_tutorial:tutorial_text_layer, ^iftype_text, if_getnextsubid(mtxmgt_store_tutorial:tutorial_text_layer));
+if (~script6431 = true) {
+    .cc_settext("Undo all slots.");
+} else {
+    .cc_settext("Undo all slots. You can also CTRL+Click individual slots to undo them.");
+}
+.cc_settextfont(museo_sans_11pt_regular);
+.cc_settextshadow(true);
+.cc_setcolour(~script10495(3));
+.cc_setsize($int6, ~script7593(.cc_gettext, $int6, .cc_getfontmetrics, 0), ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(if_getwidth(mtxmgt_store_tutorial:tutorial_button_layer) - cc_getx + 4), cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+.cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+cc_create(mtxmgt_store_tutorial:tutorial_button_layer, ^iftype_graphic, if_getnextsubid(mtxmgt_store_tutorial:tutorial_button_layer));
+cc_setsize(struct_param(mtxmgt_store_clear_icons, rs3tli_icon_graphic_width), struct_param(mtxmgt_store_clear_icons, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
+cc_setposition(4, calc(3 + 20 * 2 + 4), ^setpos_abs_right, ^setpos_abs_top);
+cc_setgraphic(struct_param(mtxmgt_store_clear_icons, rs3tli_icon_graphic_on));
+.cc_create(mtxmgt_store_tutorial:tutorial_text_layer, ^iftype_text, if_getnextsubid(mtxmgt_store_tutorial:tutorial_text_layer));
+if (~script6431 = true) {
+    .cc_settext("Clear all slots. You can also press and hold on the individual slots to clear them.");
+} else {
+    .cc_settext("Clear all slots. You can also right click individual slots to clear them.");
+}
+.cc_settextfont(museo_sans_11pt_regular);
+.cc_settextshadow(true);
+.cc_setcolour(~script10495(3));
+.cc_setsize($int6, ~script7593(.cc_gettext, $int6, .cc_getfontmetrics, 0), ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(if_getwidth(mtxmgt_store_tutorial:tutorial_button_layer) - cc_getx + 4), cc_gety, ^setpos_abs_right, ^setpos_abs_top);
+.cc_settextalign(^settextalign_right, ^settextalign_top, 0);

@@ -1,0 +1,87 @@
+// 3009
+[proc,machinima_setup_state](coord $coord0)
+def_coord $coord1 = $coord0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 25;
+def_int $int11 = 25;
+def_int $int12 = 25;
+def_int $int13 = 25;
+def_int $int14 = 25;
+def_int $int15 = -1;
+if (has_nxt = true) {
+    if (cam2_getcontrolmode = 1) {
+        cam2_setdepthplanes(250, 20000);
+    }
+    $int10 = max(25, calc(clientoption_get(^clientoption_draw_distance) * 25));
+    $int11 = $int10;
+    $int12 = $int10;
+    $int13 = $int10;
+    $int14 = $int10;
+}
+def_string $string0 = "";
+switch_int (%machinima_livecamera_camera_type) {
+    case 0, 2 :
+        $string0 = "<col=FFFFFF>Esc</col>: Exit<br><br><col=ffffff>F2</col>: Toggle Chat Window<br><col=ffffff>Spc</col>: Toggle Help Window<br><br><col=ffffff>W,A,S,D</col>: Move Camera Forwards/Backwards/Strafe Left/Strafe Right<br><br><col=ffffff>R,F</col>: Move Camera Up/Down<br><br><col=ffffff>Middle Click and DRAG</col> with the mouse to rotate the camera.";
+        if (has_nxt = true) {
+            $string0 = append($string0, "<br><br>You can also use an Xbox compatible controller.");
+        }
+        if_settext($string0, machinima_livecamera:info3_text);
+        if_sethide(false, machinima_livecamera:pos_move_speed);
+        cam2_setpositionmode(0);
+        cam2_setlookatmode(3);
+        cam2_setpositionpointcollision(true);
+        switch_int (facing_fine) {
+            case 0 :
+                $int9 = -2;
+            case 2048 :
+                $int9 = -2;
+                $int8 = -2;
+            case 4096 :
+                $int8 = -2;
+            case 6144 :
+                $int9 = 2;
+                $int8 = -2;
+            case 8192 :
+                $int9 = 2;
+            case 10240 :
+                $int9 = 2;
+                $int8 = 2;
+            case 12288 :
+                $int8 = 2;
+            case 14336 :
+                $int9 = -2;
+                $int8 = 2;
+        }
+        $coord1 = movecoord(coord, $int8, 0, $int9);
+        $int2 = coordx_fine(coord_gridtofine($coord0, true));
+        $int4 = coordz_fine(coord_gridtofine($coord0, true));
+        $int5 = coordx_fine(coord_gridtofine($coord1, true));
+        $int7 = coordz_fine(coord_gridtofine($coord1, true));
+        $int8 = calc($int2 - $int5);
+        $int9 = calc($int4 - $int7);
+        if (%machinima_livecamera_camera_type = 2) {
+            $int8 = calc($int8 / 4 * -1);
+            $int9 = calc($int9 / 4 * -1);
+            cam2_setpositionpoint_point(movecoord_fine(coord_gridtofine($coord0, true), coordlevel_fine(coord_gridtofine($coord0, true)), $int8, -100000, $int9));
+            if_setontimer("script3010(0, event_com)", machinima_livecamera:keylistener_layer);
+            cam2_setlookatorientation_maxdistanceclamping(coord_gridtofine($coord1, true), $int10, $int11, $int13, $int12, $int14, $int15);
+        } else {
+            cam2_setpositionpoint_point(coord_gridtofine($coord1, true));
+            cam2_setlookatorientation_maxdistanceclamping(coord_gridtofine($coord0, true), $int10, $int11, $int13, $int12, $int14, $int15);
+        }
+        cam2_setlookatorientation_vector($int8, 0, $int9);
+    case 1 :
+        if_settext("<col=FFFFFF>Esc</col>: Exit<br><br><col=ffffff>F2</col>: Toggle Chat Window<br><col=ffffff>Spc</col>: Toggle Help Window<br><br><col=ffffff>Middle Click and DRAG</col> with the mouse to rotate the camera.", machinima_livecamera:info3_text);
+        if_sethide(true, machinima_livecamera:pos_move_speed);
+        %machinima_livecamera_selfie_zoom = calc(1200 + (1860 - 1200) / 2);
+        cam2_setpositionentity_player(0, 0, %machinima_livecamera_selfie_zoom, 0, 0, false, 0, 100);
+        cam2_setlookatentity_player(0, 600, 0, false);
+        cam2_setcollisionmode(false, false);
+}

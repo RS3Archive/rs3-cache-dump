@@ -1,0 +1,19 @@
+// 3533
+[proc,local_notifications_create](dbrow $dbrow0, int $int1)(int)
+def_string $string0 = db_getfield($dbrow0, local_notification_event:col0, 0);
+def_string $string1 = db_getfield($dbrow0, local_notification_event:col1, 0);
+def_int $int2 = db_getfield($dbrow0, local_notification_event:col3, 0);
+$int1 = calc($int1 + db_getfield($dbrow0, local_notification_event:col4, 0));
+$int1 = calc($int1 + 60);
+def_int $int3 = db_getfield($dbrow0, local_notification_event:col2, 0);
+db_find(local_notification_group:col0, $int3);
+def_dbrow $dbrow4 = db_findnext;
+def_string $string2 = "";
+if ($dbrow4 = null) {
+    $string2 = "Runescape";
+    $int3 = 4;
+} else {
+    $string2 = db_getfield($dbrow4, local_notification_group:col1, 0);
+}
+def_int $int5 = notifications_sendgroupedlocal($string0, $string1, $int2, $int3, $string2, $int1);
+return($int5);

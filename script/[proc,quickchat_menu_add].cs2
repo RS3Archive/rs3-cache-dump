@@ -1,0 +1,185 @@
+// 1062
+[proc,quickchat_menu_add](component $component0, int $int1, chatcat $chatcat2, chatcat $chatcat3, int $int4, int $int5)
+def_component $component6 = enum(int, component, ~script8602($int5), $int1);
+def_component $component7 = enum(int, component, ~script8603($int5), $int1);
+cc_deleteall($component6);
+cc_deleteall($component7);
+if ($component6 = null) {
+    return;
+}
+cc_create($component0, ^iftype_text, $int1);
+cc_setcolour(^white);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+def_string $string0 = chatcat_getdesc($chatcat2);
+cc_setopbase($string0);
+cc_setonop("quickchat_return($component0, $int1, $int5)");
+cc_setop(1, "Return to: ");
+if ($int1 > 0) {
+    $string0 = " <$string0> <img=<2>>";
+} else if (~script8613($int5) = 1) {
+    $string0 = " To <~script8605($int5)>: <col=10F010><$string0> <img=<2>>";
+} else if (~script8613($int5) = 2) {
+    $string0 = " [<col=6464A0><clan_getchatdisplayname><col=FFFFFF>]: <col=10F010><$string0> <img=<2>>";
+} else if (~script8613($int5) = 8) {
+    if (activeclanchannel_find_affined(0) = true) {
+        $string0 = " [<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0> <img=<2>>";
+    }
+} else if (~script8613($int5) = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = " [<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0> <img=<2>>";
+    }
+} else if (~script8613($int5) = 13) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0><player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int5) = 15) {
+    if (player_group_find = true) {
+        $string0 = "[<col=6464A0>(Team)<player_group_get_displayname><col=FFFFFF>]: <col=10F010><$string0>";
+    }
+} else if (~script8613($int5) = 17) {
+    if (activeclanchannel_find_affined(1) = true) {
+        $string0 = " [<col=6464A0><activeclanchannel_getclanname><col=FFFFFF>]: <col=10F010><$string0> <img=<2>>";
+    }
+} else {
+    $string0 = " <$string0> <img=<2>>";
+}
+cc_settext($string0);
+cc_settextshadow(true);
+cc_setsize(calc(parawidth($string0, if_getwidth($component0), museo_sans_11pt_regular) + 4), if_getheight($component0), ^setsize_abs, ^setsize_abs);
+cc_setonmouseover("script1080(~script8601($int5), $int1)");
+cc_setonmouseleave("script1081(~script8601($int5), $int1)");
+.cc_create(~script8601($int5), ^iftype_rectangle, $int1);
+.cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+.cc_setcolour(0x577e45);
+.cc_setfill(true);
+.cc_sethide(true);
+if_sethide(false, $component6);
+def_int $int8 = chatcat_getsubcatcount($chatcat2);
+def_int $int9 = chatcat_getphrasecount($chatcat2);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_chatcat $chatcat14 = null;
+def_chatphrase $chatphrase15 = null;
+def_char $char16 = null;
+def_int $int17 = 0;
+while ($int10 < $int8) {
+    cc_create($component6, ^iftype_text, $int11);
+    cc_setcolour(^white);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $chatcat14 = chatcat_getsubcat($chatcat2, $int10);
+    $string0 = chatcat_getdesc($chatcat14);
+    cc_setonop("quickchat_menu_select($component6, $component7, $int11, $component0, calc($int1 + 1), $chatcat14, $int5)");
+    cc_setopbase($string0);
+    cc_setop(1, "Select: ");
+    cc_setonmouseover("script1082($int1, $component7, $int11, $int5)");
+    cc_setonmouseleave("script1083($int1, $component7, $int11, $int5)");
+    $char16 = char_touppercase(chatcat_getsubcatshortcut($chatcat2, $int10));
+    if (char_isalphanumeric($char16) = true) {
+        $string0 = "<col=F01010><append_char("", $char16)>. <col=FFFFFF><$string0> <img=<2>>";
+    } else {
+        $string0 = "<$string0> <img=<2>>";
+    }
+    cc_settext($string0);
+    cc_settextshadow(true);
+    $int12 = parawidth($string0, if_getwidth($component0), museo_sans_11pt_regular);
+    if ($int12 > $int13) {
+        $int13 = $int12;
+    }
+    $int10 = calc($int10 + 1);
+    $int11 = calc($int11 + 1);
+}
+$int10 = 0;
+while ($int10 < $int9) {
+    cc_create($component6, ^iftype_text, $int11);
+    cc_setcolour(^white);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $chatphrase15 = chatcat_getphrase($chatcat2, $int10);
+    $string0 = chatphrase_gettext($chatphrase15);
+    cc_setonop("quickchat_phrase($component0, $chatphrase15, $int1, $int5)");
+    cc_setopbase($string0);
+    cc_setop(1, "Send: ");
+    cc_setonmouseover("script1082($int1, $component7, $int11, $int5)");
+    cc_setonmouseleave("script1083($int1, $component7, $int11, $int5)");
+    if ($int10 < 10) {
+        $string0 = "<col=F01010><tostring(calc(($int10 + 1) % 10))>. <col=FFFFFF><$string0>";
+    }
+    cc_settext($string0);
+    cc_settextshadow(true);
+    $int12 = parawidth($string0, if_getwidth($component0), museo_sans_11pt_regular);
+    if ($int12 > $int13) {
+        $int13 = $int12;
+    }
+    $int10 = calc($int10 + 1);
+    $int11 = calc($int11 + 1);
+}
+if ($chatcat3 ! null) {
+    cc_create($component6, ^iftype_text, $int11);
+    cc_setcolour(^white);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    $string0 = chatcat_getdesc($chatcat3);
+    cc_setonop("quickchat_menu_select($component6, $component7, $int11, $component0, calc($int1 + 1), $chatcat3, $int5)");
+    cc_setopbase($string0);
+    cc_setop(1, "Select: ");
+    cc_setonmouseover("script1082($int1, $component7, $int11, $int5)");
+    cc_setonmouseleave("script1083($int1, $component7, $int11, $int5)");
+    $string0 = "<col=F01010>X. <col=FFFFFF><$string0> <img=<2>>";
+    cc_settext($string0);
+    cc_settextshadow(true);
+    $int12 = parawidth($string0, if_getwidth($component0), museo_sans_11pt_regular);
+    if ($int12 > $int13) {
+        $int13 = $int12;
+    }
+    $int11 = calc($int11 + 1);
+}
+if ($int4 = 1) {
+    cc_create($component6, ^iftype_text, $int11);
+    cc_setcolour(^white);
+    cc_settextfont(museo_sans_11pt_regular);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_setonop("quickchat_enter_search($component6, $component7, $int11, $int1, $int5)");
+    cc_setopbase("Search phrases");
+    cc_setop(1, "Select: ");
+    cc_setonmouseover("script1082($int1, $component7, $int11, $int5)");
+    cc_setonmouseleave("script1083($int1, $component7, $int11, $int5)");
+    cc_settext("<col=F01010>Enter. <col=FFFFFF>Search <img=<2>>");
+    cc_settextshadow(true);
+    $int12 = parawidth($string0, if_getwidth($component0), museo_sans_11pt_regular);
+    if ($int12 > $int13) {
+        $int13 = $int12;
+    }
+    $int11 = calc($int11 + 1);
+}
+if (if_find($component6) = true) {
+    cc_setparam(toplevel_v2_chat_quickchat_rootcat, $chatcat2);
+    cc_setparam(toplevel_v2_chat_quickchat_rootphrase, null);
+}
+$int10 = 0;
+def_int $int18 = 0;
+while (cc_find($component6, $int10) = true) {
+    if (calc($int17 * 14 + 14) > if_getheight($component6)) {
+        $int18 = calc($int18 + $int13 + 4);
+        $int17 = 0;
+    }
+    cc_setsize($int13, 14, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int18 + 2), calc($int17 * 14), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_create($component7, ^iftype_rectangle, $int10);
+    .cc_setsize(calc(cc_getwidth + 4), cc_getheight, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(calc(cc_getx - 2), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setcolour(0x577e45);
+    .cc_setfill(true);
+    .cc_sethide(true);
+    $int10 = calc($int10 + 1);
+    $int17 = calc($int17 + 1);
+}
+$int18 = calc($int18 + $int13 + 4);
+def_component $component19 = if_getlayer($component6);
+if_setsize($int18, 0, ^setsize_abs, ^setsize_minus, $component6);
+if_setsize($int18, 0, ^setsize_abs, ^setsize_minus, $component7);
+if_setposition(calc(if_getx($component6) + $int18), 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, ~script8602($int5), calc($int1 + 1)));
+~quickchat_return($component0, $int1, $int5);

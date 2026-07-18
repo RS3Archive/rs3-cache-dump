@@ -1,0 +1,118 @@
+// 3337
+[proc,levelup_unlocks](int $int0, int $int1)
+def_int $int2 = 0;
+switch_int ($int0) {
+    case 1 :
+        $int2 = %lvl_attack_before_levelup_varc;
+    case 2 :
+        $int2 = %lvl_strength_before_levelup_varc;
+    case 5 :
+        $int2 = %lvl_defence_before_levelup_varc;
+    case 3 :
+        $int2 = %lvl_ranged_before_levelup_varc;
+    case 7 :
+        $int2 = %lvl_prayer_before_levelup_varc;
+    case 4 :
+        $int2 = %lvl_magic_before_levelup_varc;
+    case 6 :
+        $int2 = %lvl_hitpoints_before_levelup_varc;
+    case 8 :
+        $int2 = %lvl_agility_before_levelup_varc;
+    case 9 :
+        $int2 = %lvl_herblore_before_levelup_varc;
+    case 10 :
+        $int2 = %lvl_thieving_before_levelup_varc;
+    case 11 :
+        $int2 = %lvl_crafting_before_levelup_varc;
+    case 19 :
+        $int2 = %lvl_fletching_before_levelup_varc;
+    case 13 :
+        $int2 = %lvl_mining_before_levelup_varc;
+    case 14 :
+        $int2 = %lvl_smithing_before_levelup_varc;
+    case 15 :
+        $int2 = %lvl_fishing_before_levelup_varc;
+    case 16 :
+        $int2 = %lvl_cooking_before_levelup_varc;
+    case 17 :
+        $int2 = %lvl_firemaking_before_levelup_varc;
+    case 18 :
+        $int2 = %lvl_woodcutting_before_levelup_varc;
+    case 12 :
+        $int2 = %lvl_runecraft_before_levelup_varc;
+    case 20 :
+        $int2 = %lvl_slayer_before_levelup_varc;
+    case 21 :
+        $int2 = %lvl_farming_before_levelup_varc;
+    case 22 :
+        $int2 = %lvl_construction_before_levelup_varc;
+    case 23 :
+        $int2 = %lvl_hunter_before_levelup_varc;
+    case 24 :
+        $int2 = %lvl_summoning_before_levelup_varc;
+    case 25 :
+        $int2 = %lvl_dungeoneering_before_levelup_varc;
+    case 26 :
+        $int2 = %lvl_divination_before_levelup_varc;
+    case 27 :
+        $int2 = %lvl_invention_before_levelup_varc;
+    case 28 :
+        $int2 = %lvl_archaeology_before_levelup_varc;
+    case 29 :
+        $int2 = %lvl_necromancy_before_levelup_varc;
+    case default :
+        return;
+}
+def_stat $stat3 = enum(int, stat, int_to_stat, $int0);
+def_int $int4 = stat_base($stat3);
+def_enum $enum5 = enum(int, enum, skillguide_skills, $int0);
+def_int $int6 = enum_getoutputcount($enum5);
+def_stat $stat7 = enum(int, stat, int_to_stat, $int0);
+$stat7 = enum(stat, stat, stat_f2p_list, $stat7);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_struct $struct10 = null;
+def_string $string0 = "";
+def_dbfilter $dbfilter11 = null;
+def_dbrow $dbrow12 = null;
+$int1 = calc($int1 / 5);
+if ($int4 > $int2 & $int4 <= 120) {
+    $string0 = ~script16836($int2, $stat3);
+    if (string_length($string0) > 0) {
+        ~levelup_custom_unlock($string0, $int9, $int1);
+        $int9 = calc($int9 + 1);
+    }
+    switch_int ($int0) {
+        case 1, 2, 5, 3, 7, 4, 6, 24, 29 :
+            if (%lvl_combat_level_change = 1) {
+                %lvl_combat_level_change = 0;
+                ~levelup_custom_unlock("Increased Combat level!", $int9, $int1);
+                $int9 = calc($int9 + 1);
+            }
+    }
+    if ($int0 = 7 | $int0 = 6) {
+        if ($int0 = 7) {
+            ~levelup_custom_unlock("More prayer points!", $int9, $int1);
+        } else {
+            ~levelup_custom_unlock("More lifepoints!", $int9, $int1);
+        }
+        $int9 = calc($int9 + 1);
+    }
+    while ($int8 < $int6 & $int9 < 5) {
+        $struct10 = enum(int, struct, $enum5, $int8);
+        $int9 = ~script16267($struct10, null, $int9, $int2, $int4, $int1);
+        $int8 = calc($int8 + 1);
+    }
+    if ($int9 < 5) {
+        switch_stat ($stat3) {
+            case construction :
+                $dbfilter11 = ~script20817($int2, $int4);
+                unknown_command_77($dbfilter11, construction_house_furniture:col9, true);
+                $dbrow12 = db_findnext;
+                while ($dbrow12 ! null & $int9 < 5) {
+                    $int9 = ~script16267(null, $dbrow12, $int9, $int2, $int4, $int1);
+                    $dbrow12 = db_findnext;
+                }
+        }
+    }
+}

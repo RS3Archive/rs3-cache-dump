@@ -1,0 +1,39 @@
+// 6707
+[proc,script6707](int $int0, int $int1, component $component2, component $component3, component $component4, component $component5, int $int6, int $int7, int $int8)
+db_find(dino_base_camp_building:col0, $int0);
+def_dbrow $dbrow9 = db_findnext;
+if ($dbrow9 = null) {
+    return;
+}
+def_int $int10 = ~script6061($int0);
+def_int $int11 = ~script6062($int0);
+if ($int0 = $int1) {
+    ~script13998($component4, $component5, rs3tli_content_container, $int6, $int7, 228, 80, $int8, false, "", 1);
+    cc_setopcursor(1, cursor_use);
+} else {
+    ~script10410($component4, $component5, rs3tli_content_container, $int6, $int7, 228, 80, $int8, false, "");
+    cc_setopcursor(1, cursor_use);
+}
+cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+cc_setsize(150, 24, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int6 + 5), calc($int7 + 5), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(museo_sans_13pt_regular);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+~script2733($component2, cc_getid, 3);
+cc_settext(db_getfield($dbrow9, dino_base_camp_building:col1, 0));
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setgraphic(db_getfield($dbrow9, dino_base_camp_building:col3, min($int10, calc($int11 - 1))));
+cc_setsize(64, 64, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int6 + 156), calc($int7 + 8), ^setpos_abs_left, ^setpos_abs_top);
+def_int $int12 = 1;
+while ($int12 <= $int11) {
+    cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+    if ($int10 >= $int12) {
+        cc_setgraphic("world_select_stars,0");
+    } else {
+        cc_setgraphic("world_select_stars,1");
+    }
+    cc_setsize(19, 18, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int6 + 4 + ($int12 - 1) * 20), calc($int7 + 50), ^setpos_abs_left, ^setpos_abs_top);
+    $int12 = calc($int12 + 1);
+}

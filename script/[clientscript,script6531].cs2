@@ -1,0 +1,25 @@
+// 6531
+[clientscript,script6531](component $component0, int $int1, int $int2)
+if (calc(clientclock % 50) ! 0) {
+    return;
+}
+def_int $int3 = calc(date_minutes_fromruneday(calc($int2 + 1)) - date_minutes);
+def_int $int4 = calc($int3 / 1440);
+def_int $int5 = calc($int3 % 1440 / 60);
+def_int $int6 = calc($int3 % 60);
+def_string $string0 = tostring($int4);
+def_string $string1 = tostring($int5);
+def_string $string2 = tostring($int6);
+if (string_length($string0) = 1) {
+    $string0 = append("0", $string0);
+}
+if (string_length($string1) = 1) {
+    $string1 = append("0", $string1);
+}
+if (string_length($string2) = 1) {
+    $string2 = append("0", $string2);
+}
+def_string $string3 = "<$string0>D <$string1>H <$string2>M";
+if (cc_find($component0, $int1) = true) {
+    cc_settext($string3);
+}

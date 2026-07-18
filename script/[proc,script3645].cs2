@@ -1,0 +1,75 @@
+// 3645
+[proc,script3645](int $int0, int $int1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, int $int8, component $component9, int $int10)
+def_int $int11 = %runepass_availability;
+if (calc($int11 & 170) = 0) {
+    $int11 = calc($int11 * 3);
+}
+def_dbrow $dbrow12 = ~runepass_get_current;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_obj $obj18 = null;
+def_struct $struct19 = null;
+def_int $int20 = 0;
+def_int $int21 = db_getfieldcount($dbrow12, runepass_table:col20);
+def_int $int22 = -1;
+def_string $string0 = "";
+if_sethide(true, $component5);
+if_settext("", $component4);
+if_setgraphic(null, $component2);
+if_setobject(null, -1, $component3);
+while ($int20 < $int21 & $int14 <= $int0) {
+    $int14, $int15, $obj18, $struct19, $int17 = db_getfield($dbrow12, runepass_table:col20, $int20);
+    if ($int22 ! $int14) {
+        $int16 = ~script3599($int14);
+        $int22 = $int14;
+    }
+    if ($int14 = $int0 & ($obj18 ! null & $obj18 ! runepass_null | $struct19 ! null & $struct19 ! runepass_null) & (calc($int15 & %runepass_availability) ! 0 | $int10 = 0 & calc($int15 & $int11) ! 0) & ($int10 = 0 | calc($int16 & $int15) = 0)) {
+        if ($int13 = $int1) {
+            if ($obj18 ! null & $obj18 ! runepass_null) {
+                $string0 = "<tostring($int17)> x <oc_name($obj18)>";
+            }
+            if ($struct19 ! null & $struct19 ! runepass_null) {
+                $string0 = ~runepass_get_reward_string($struct19, 1);
+            }
+            if_setcolour(0xfbde83, $component4);
+            if (calc($int16 & $int15) ! 0) {
+                if_setcolour(^green, $component4);
+                $string0 = "<$string0> - Claimed";
+            } else if (calc($int15 & %runepass_availability) = 0) {
+                if_sethide(false, $component5);
+            }
+            if_settext($string0, $component4);
+            if (~runepass_get_reward_graphic($struct19, $obj18, 0) = null) {
+                if_setgraphic(runepass_reward_s_chest, $component2);
+                if_setobject($obj18, -1, $component3);
+            } else {
+                if_setgraphic(~runepass_get_reward_graphic($struct19, $obj18, 0), $component2);
+            }
+        }
+        $struct19 = null;
+        $obj18 = null;
+        $int13 = calc($int13 + 1);
+    }
+    $int20 = calc($int20 + 1);
+}
+$int1 = max(0, min($int1, calc($int13 - 1)));
+if ($int13 = 0) {
+    if_settext("None", $component9);
+} else {
+    if_settext("<tostring(calc($int1 + 1))>/<tostring($int13)>", $component9);
+}
+if_sethide(false, $component6);
+if_sethide(false, $component7);
+if ($int1 = 0) {
+    if_sethide(true, $component6);
+}
+if ($int1 = calc($int13 - 1) | $int13 = 0) {
+    if_sethide(true, $component7);
+}
+if_setopcursor(1, cursor_use, $component6);
+if_setopcursor(1, cursor_use, $component7);
+if_setonop("runepass_reward_arrow($int0, calc($int1 - 1), $int8)", $component6);
+if_setonop("runepass_reward_arrow($int0, calc($int1 + 1), $int8)", $component7);

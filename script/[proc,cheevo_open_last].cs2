@@ -1,0 +1,25 @@
+// 9962
+[proc,cheevo_open_last](component $component0, component $component1)
+if (%cheevo_goto_achievement ! null) {
+    return;
+}
+def_int $int2 = calc(%cheevo_last_cat_varp - 1);
+def_int $int3 = calc(%cheevo_last_subcat_varp - 1);
+def_category $category4 = null;
+def_enum $enum5 = null;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if ($int2 > -1) {
+    $int8 = calc(2 + ($int2 + 1) * (45 + 2));
+    $category4 = enum(int, category, cheevo_categories, $int2);
+    ~cheevo_op_category($component0, $component1, $int2);
+    if ($int3 >= 0) {
+        $enum5 = enum(category, enum, cheevo_cat_to_subcat, $category4);
+        %cheevo_selected_subcat_client = calc($int3 + 1);
+        ~script15355($component0, $component1, $enum5, $category4, $int2, $int8, 1);
+    } else {
+        %cheevo_selected_subcat_client = -1;
+    }
+    %cheevo_selected_cat_client = calc($int2 + 1);
+}

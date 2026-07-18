@@ -1,0 +1,26 @@
+// 1919
+[proc,script1919](component $component0, int $int1, struct $struct2, int $int3, int $int4, int $int5)
+def_int $int6 = if_getnextsubid($component0);
+def_int $int7 = 0;
+def_graphic $graphic8 = struct_param($struct2, qps_if_graphic);
+switch_int ($int1) {
+    case 0 :
+        $int7 = calc(bitcount(%qps_unlocks_armour) * 25);
+    case 1 :
+        $int7 = calc(bitcount(%qps_unlocks_pet) * 25);
+    case 2 :
+        $int7 = calc(bitcount(%qps_unlocks_hub) * 25);
+}
+cc_create($component0, ^iftype_graphic, $int6);
+cc_setonvartransmit("script1925($component0, $int6++, 0, $int1, 0, null){qps_unlocks_armour, qps_unlocks_pet, qps_unlocks_hub, qps_general_use_var}");
+cc_setsize(42, 42, ^setsize_abs, ^setsize_abs);
+cc_setposition($int3, calc($int4 + $int1 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic8);
+cc_setonmouserepeat("script3876(struct_param($struct2, qps_if_track_tooltip), event_com, event_comsubid)");
+cc_create($component0, ^iftype_text, $int6);
+cc_setsize(42, calc(42 / 2), ^setsize_abs, ^setsize_abs);
+cc_setposition($int3, calc($int4 + 42 + $int1 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(museo_sans_11pt_regular);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settext("<tostring($int7)> / <tostring(struct_param($struct2, qps_if_track_cost))>");
+cc_setcolour(~script10495(3));

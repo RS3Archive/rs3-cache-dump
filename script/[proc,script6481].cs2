@@ -1,0 +1,23 @@
+// 6481
+[proc,script6481](component $component0, int $int1)
+if ($component0 = null) {
+    return;
+}
+%mtxmgt_last_selected_component = $component0;
+%mtxmgt_last_selected_comsubid = $int1;
+def_component $component2 = mtxmgt:selected_item;
+if (cc_find($component0, $int1) = true) {
+    %mtxmgt_last_selected_subcat = cc_getparentlayer;
+    if (%mtxmgt_last_selected_subcat = enum(int, component, mtxmgt_subcat_lists, %mtxmgt_selected_tab_subcat)) {
+        if_sethide(false, $component2);
+        if_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs, $component2);
+        if_setposition(cc_getx, calc(cc_gety + if_gety(cc_getparentlayer)), ^setpos_abs_left, ^setpos_abs_top, $component2);
+        if (cc_gethide = true) {
+            if_sethide(true, $component2);
+        }
+    } else {
+        %mtxmgt_last_selected_subcat = enum(int, component, mtxmgt_subcat_lists, %mtxmgt_selected_tab_subcat);
+    }
+} else {
+    if_sethide(true, $component2);
+}

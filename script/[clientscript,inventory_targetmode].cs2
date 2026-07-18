@@ -1,0 +1,29 @@
+// 1615
+[clientscript,inventory_targetmode](int $int0, component $component1, int $int2)
+if ($int0 = 1) {
+    if (inv_getobj(inv, $int2) = null) {
+        if (cc_find($component1, $int2) = true) {
+            cc_setontimer("script791($component1, $int2, calc(clientclock + 5))");
+        }
+        return;
+    }
+    if (cc_find($component1, $int2) = true) {
+        cc_setoutline(2);
+        if (cc_gettrans ! 0) {
+            cc_setontimer("script1621($component1, $int2, 0, 8)");
+        } else {
+            cc_setontimer(null);
+        }
+    }
+    %inventory_target = calc(1 + $int2);
+} else {
+    if (cc_find($component1, $int2) = true) {
+        cc_setoutline(1);
+        if (cc_gettrans ! 0) {
+            cc_setontimer("script1621($component1, $int2, 0, 8)");
+        } else {
+            cc_setontimer(null);
+        }
+    }
+    %inventory_target = 0;
+}

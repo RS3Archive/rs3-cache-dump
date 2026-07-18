@@ -1,0 +1,54 @@
+// 17545
+[clientscript,script17545](component $component0)
+def_component $component1 = ~script18321($component0, activity_progress_bar:container);
+def_component $component2 = ~script18321($component0, activity_progress_bar:progress_diamond_left);
+def_component $component3 = ~script18321($component0, activity_progress_bar:progress_bar_fill);
+def_component $component4 = ~script18321($component0, activity_progress_bar:progress_bar_fill_underlay);
+def_component $component5 = ~script18321($component0, activity_progress_bar:progress_bar);
+def_component $component6 = ~script18321($component0, activity_progress_bar:progress_markers);
+def_struct $struct7 = %activity_progress_bar_active_struct;
+def_int $int8 = %activity_progress_bar_active_progress;
+def_int $int9 = %activity_progress_bar_active_max_progress;
+def_int $int10 = 0;
+if ($struct7 ! null & struct_param($struct7, activity_progress_bar_second_healthbar) ! null & $component1 ! activity_progress_bar:container) {
+    $struct7 = struct_param($struct7, activity_progress_bar_second_healthbar);
+    $int8 = %activity_progress_bar_extension_second_health_bar_progress;
+    $int9 = %activity_progress_bar_extension_second_health_bar_max_progress;
+    $int10 = 1;
+}
+if ($int9 < 1) {
+    return;
+}
+def_int $int11 = scale($int8, $int9, 100);
+def_int $rgb12 = struct_param($struct7, activity_progress_bar_colour);
+def_int $rgb13 = struct_param($struct7, activity_progress_bar_underlay_colour);
+def_int $rgb14 = struct_param($struct7, activity_progress_bar_secondary_colour);
+if ($int10 = 0) {
+    if (%activity_progress_bar_active_max_shield > 0 & %activity_progress_bar_active_shield > 0) {
+        $int11 = scale(%activity_progress_bar_active_shield, %activity_progress_bar_active_max_shield, 100);
+        if_setcolour(struct_param($struct7, activity_progress_bar_shield_colour), $component3);
+    } else if (%activity_progress_bar_active_secondary_max_progress > 0 & %activity_progress_bar_active_secondary_progress > 0) {
+        $int11 = scale(%activity_progress_bar_active_secondary_progress, %activity_progress_bar_active_secondary_max_progress, 100);
+        if (%activity_progress_bar_active_secondary_progress_bar_colour_override ! null) {
+            $rgb14 = %activity_progress_bar_active_secondary_progress_bar_colour_override;
+        }
+        if_setcolour($rgb14, $component3);
+    } else {
+        if (%activity_progress_bar_active_primary_progress_bar_colour_override ! null) {
+            $rgb14 = %activity_progress_bar_active_primary_progress_bar_colour_override;
+        }
+        $int11 = scale($int8, $int9, 100);
+        if_setcolour($rgb12, $component3);
+    }
+} else {
+    if_setcolour($rgb12, $component3);
+}
+if (struct_param($struct7, activity_progress_bar_underlay_colour) ! -1) {
+    if_sethide(false, $component4);
+    if_setcolour($rgb13, $component4);
+}
+def_int $int15 = calc(scale(if_getwidth($component6), 100, $int11) + 3);
+if (if_getwidth($component5) ! $int15) {
+    if_setsize($int15, 33, ^setsize_abs, ^setsize_abs, $component5);
+    if_setontimer("script17546($component0, $int15, $int11)", $component2);
+}

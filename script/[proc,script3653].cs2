@@ -1,0 +1,50 @@
+// 3653
+[proc,script3653](dbrow $dbrow0)
+if ($dbrow0 = null) {
+    $dbrow0 = ~runepass_get_current;
+}
+if ($dbrow0 = null) {
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = db_getfieldcount($dbrow0, runepass_table:col14);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_boolean $boolean6 = true;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_obj $obj13 = null;
+def_struct $struct14 = null;
+def_int $int15 = db_getfieldcount($dbrow0, runepass_table:col20);
+$int2, $int4, $int5 = db_getfield($dbrow0, runepass_table:col13, 0);
+while ($int1 < $int3) {
+    if ($int1 < %runepass_task_sets_completed) {
+        $boolean6 = false;
+    } else {
+        $boolean6 = true;
+    }
+    $int7 = 1;
+    $int11 = ~script3599($int1);
+    $int9, $int10, $obj13, $struct14, $int12 = db_getfield($dbrow0, runepass_table:col20, $int8);
+    while ($int8 < $int15 & $int9 < $int1) {
+        $int8 = calc($int8 + 1);
+        $int9, $int10, $obj13, $struct14, $int12 = db_getfield($dbrow0, runepass_table:col20, $int8);
+    }
+    while ($int8 < $int15 & $int9 = $int1) {
+        if ($int7 = 1 & calc(%runepass_availability & $int10) ! 0 & calc($int10 & $int11) = 0) {
+            $int7 = 0;
+        }
+        if (++$int8 < $int15) {
+            $int9, $int10, $obj13, $struct14, $int12 = db_getfield($dbrow0, runepass_table:col20, $int8);
+        }
+    }
+    ~script3657($int1, 41549847, runepass:click, runepass:claim_build, runepass:claim_click, runepass:reward_build, runepass:reward_click, $boolean6, $int7, false);
+    $int1 = calc($int1 + 1);
+}
+if_setscrollpos(0, %runepass_last_scroll, runepass:scrolling);
+~script3620(%runepass_task_sets_completed, 0);

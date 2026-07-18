@@ -1,0 +1,50 @@
+// 15306
+[proc,script15306]
+def_int $int0 = 0;
+def_int $int1 = ~script20087;
+if (%slayer_pod_fourth_room_purchased = 1) {
+    if_sethide(true, slayer_dungeon:room_unlock_subtitle);
+    if_sethide(false, slayer_dungeon:hotspot_icon_16);
+    if_sethide(false, slayer_dungeon:hotspot_icon_17);
+    if_sethide(false, slayer_dungeon:hotspot_icon_18);
+    if_sethide(false, slayer_dungeon:hotspot_icon_19);
+    if_sethide(false, slayer_dungeon:hotspot_icon_20);
+    if_sethide(false, slayer_dungeon:hotspot_graphic_16);
+    if_sethide(false, slayer_dungeon:hotspot_graphic_17);
+    if_sethide(false, slayer_dungeon:hotspot_graphic_18);
+    if_sethide(false, slayer_dungeon:hotspot_graphic_19);
+    if_sethide(false, slayer_dungeon:hotspot_graphic_20);
+} else {
+    if_sethide(false, slayer_dungeon:room_unlock_subtitle);
+    if_sethide(true, slayer_dungeon:hotspot_icon_16);
+    if_sethide(true, slayer_dungeon:hotspot_icon_17);
+    if_sethide(true, slayer_dungeon:hotspot_icon_18);
+    if_sethide(true, slayer_dungeon:hotspot_icon_19);
+    if_sethide(true, slayer_dungeon:hotspot_icon_20);
+    if_sethide(true, slayer_dungeon:hotspot_graphic_16);
+    if_sethide(true, slayer_dungeon:hotspot_graphic_17);
+    if_sethide(true, slayer_dungeon:hotspot_graphic_18);
+    if_sethide(true, slayer_dungeon:hotspot_graphic_19);
+    if_sethide(true, slayer_dungeon:hotspot_graphic_20);
+}
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_npc $npc4 = null;
+def_struct $struct5 = null;
+def_obj $obj6 = null;
+while (++$int0 <= $int1) {
+    $int2 = ~script15302($int0);
+    $int3 = ~script15303($int0);
+    if ($int2 > 0) {
+        $npc4 = enum(int, npc, slayer_pod_npc_list, $int2);
+        $struct5 = enum(npc, struct, slayer_pod_monster_struct, $npc4);
+        $obj6 = struct_param($struct5, slayer_pod_obj);
+        if_setobject_nonum($obj6, 0, ~script15312($int0));
+        ~script15313($int0, 1);
+        if_setopbase("<col=ff9040><struct_param($struct5, slayer_pod_name)>", ~script15314($int0));
+    } else {
+        if_setobject(null, 0, ~script15312($int0));
+        ~script15313($int0, 0);
+        if_setopbase("", ~script15314($int0));
+    }
+}

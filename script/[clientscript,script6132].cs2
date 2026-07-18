@@ -1,0 +1,32 @@
+// 6132
+[clientscript,script6132]
+if (~script6431 = false) {
+    if (%fremsaga_bilrach_mind_cursor_timeout = 0) {
+        return;
+    }
+    if (--%fremsaga_bilrach_mind_cursor_timeout = 0) {
+        if_sethide(true, fremsaga_bilrach_mind:cursor_layer);
+        return;
+    }
+}
+if (%fremsaga_bilrach_mind_probe_placed = 0) {
+    if_sethide(false, fremsaga_bilrach_mind:cursor_layer);
+}
+if_setposition(calc(%fremsaga_bilrach_mind_mouse_x - if_getwidth(fremsaga_bilrach_mind:cursor_layer) / 2), calc(%fremsaga_bilrach_mind_mouse_y - if_getheight(fremsaga_bilrach_mind:cursor_layer) / 2), ^setpos_abs_left, ^setpos_abs_top, fremsaga_bilrach_mind:cursor_layer);
+def_int $int0 = 9999;
+if (if_gethide(fremsaga_bilrach_mind:mind_button1) = false) {
+    $int0 = min(~script6133(%fremsaga_bilrach_mind_mouse_x, %fremsaga_bilrach_mind_mouse_y, %fremsaga_bilrach_mind_p1_x, %fremsaga_bilrach_mind_p1_y), $int0);
+}
+if (if_gethide(fremsaga_bilrach_mind:mind_button2) = false) {
+    $int0 = min(~script6133(%fremsaga_bilrach_mind_mouse_x, %fremsaga_bilrach_mind_mouse_y, %fremsaga_bilrach_mind_p2_x, %fremsaga_bilrach_mind_p2_y), $int0);
+}
+if (if_gethide(fremsaga_bilrach_mind:mind_button3) = false) {
+    $int0 = min(~script6133(%fremsaga_bilrach_mind_mouse_x, %fremsaga_bilrach_mind_mouse_y, %fremsaga_bilrach_mind_p3_x, %fremsaga_bilrach_mind_p3_y), $int0);
+}
+def_int $int1 = 4;
+if ($int0 < 400) {
+    $int1 = 12;
+} else if ($int0 < 1600) {
+    $int1 = 8;
+}
+if_setontimer("script6134($int1)", fremsaga_bilrach_mind:cursor_layer);

@@ -1,0 +1,24 @@
+// 7658
+[proc,bugreport_input]
+if (string_length(%bugreport_input) > 0) {
+    if_settext(%bugreport_input, bugreport_interface:input_text);
+}
+if (string_length(%bugreport_repro) > 0) {
+    if_settext(%bugreport_repro, bugreport_interface:input_repro);
+}
+%bugreport_input_focus = 1;
+~script8841(17, 1);
+%bugreport_caret = string_length(%bugreport_input);
+%bugreport_caret_repro = string_length(%bugreport_repro);
+%bugreport_caret1_pos = 0;
+%bugreport_caret2_pos = 0;
+%bugreport_caret_lastindex = -1;
+if_setonclick("script7669(event_mousex, event_mousey, bugreport_interface:input_text, bugreport_interface:input_caret)", bugreport_interface:input_text);
+if_setonclick("script7669(event_mousex, event_mousey, bugreport_interface:input_repro, bugreport_interface:repro_caret)", bugreport_interface:input_repro);
+~script1566(0, %bugreport_input, 0);
+~script7671(bugreport_interface:input_text, bugreport_interface:input_caret, %bugreport_input);
+~script7671(bugreport_interface:input_repro, bugreport_interface:repro_caret, %bugreport_repro);
+if_sethide(true, bugreport_interface:input_caret);
+if_sethide(true, bugreport_interface:repro_caret);
+if_settext(tostring(calc(500 - string_length(removetags(%bugreport_input)))), bugreport_interface:chars_left);
+if_settext(tostring(calc(500 - string_length(removetags(%bugreport_repro)))), bugreport_interface:chars_repro);

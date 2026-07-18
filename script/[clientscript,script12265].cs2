@@ -1,0 +1,45 @@
+// 12265
+[clientscript,script12265]
+def_int $int0 = if_getwidth(quest_nomel_interrogation:health_foreground);
+def_int $int1 = if_getwidth(quest_nomel_interrogation:willpower_foreground);
+def_int $int2 = if_getwidth(quest_nomel_interrogation:sanity_foreground);
+def_int $int3 = scale(%quest_nomel_torture_health, 10, 100);
+def_int $int4 = scale(%quest_nomel_torture_willpower, 10, 100);
+def_int $int5 = scale(%quest_nomel_torture_sanity, 10, 100);
+if ($int0 > $int3) {
+    $int0 = max(0, calc($int0 - 1));
+} else if ($int0 < $int3) {
+    $int0 = min(100, calc($int0 + 1));
+}
+if ($int1 > $int4) {
+    $int1 = max(0, calc($int1 - 1));
+} else if ($int1 < $int4) {
+    $int1 = min(100, calc($int1 + 1));
+}
+if ($int2 > $int5) {
+    $int2 = max(0, calc($int2 - 1));
+} else if ($int2 < $int5) {
+    $int2 = min(100, calc($int2 + 1));
+}
+if_setsize($int0, if_getheight(quest_nomel_interrogation:health_foreground), ^setsize_abs, ^setsize_abs, quest_nomel_interrogation:health_foreground);
+if_setsize($int1, if_getheight(quest_nomel_interrogation:willpower_foreground), ^setsize_abs, ^setsize_abs, quest_nomel_interrogation:willpower_foreground);
+if_setsize($int2, if_getheight(quest_nomel_interrogation:sanity_foreground), ^setsize_abs, ^setsize_abs, quest_nomel_interrogation:sanity_foreground);
+if (%quest_nomel_torture_fear > %quest_nomel_torture_trust) {
+    if (%quest_nomel_torture_fear >= 10) {
+        if_setmodelanim(human_update_chathead_fear_extreme_len4, quest_nomel_interrogation:chathead);
+    } else if (%quest_nomel_torture_fear >= 5) {
+        if_setmodelanim(human_update_chathead_fear_normal_len1, quest_nomel_interrogation:chathead);
+    } else {
+        if_setmodelanim(human_update_chathead_fear_subtle_len1, quest_nomel_interrogation:chathead);
+    }
+} else if (%quest_nomel_torture_fear < %quest_nomel_torture_trust) {
+    if (%quest_nomel_torture_trust >= 10) {
+        if_setmodelanim(human_update_chathead_happy_extreme_len4, quest_nomel_interrogation:chathead);
+    } else if (%quest_nomel_torture_trust >= 5) {
+        if_setmodelanim(human_update_chathead_happy_normal_len1, quest_nomel_interrogation:chathead);
+    } else {
+        if_setmodelanim(human_update_chathead_happy_subtle_len1, quest_nomel_interrogation:chathead);
+    }
+} else {
+    if_setmodelanim(human_update_chathead_neutral_idle, quest_nomel_interrogation:chathead);
+}

@@ -1,0 +1,77 @@
+// 1840
+[proc,worldmap_createline](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int)
+def_boolean $boolean6 = true;
+if ($int5 = 1) {
+    $boolean6 = false;
+}
+def_struct $struct7 = enum(int, struct, worldmap_key_data, $int1);
+if ($struct7 = null) {
+    return($int2, -1);
+}
+def_string $string0 = struct_param($struct7, worldmap_key_title);
+def_category $category8 = null;
+if (enum_getreversecount(struct, worldmap_mec2data, $struct7) = 1) {
+    $category8 = enum_getreverseindex(struct, category, worldmap_mec2data, $struct7, 0);
+}
+def_int $int9 = ~worldmap_key_get_selected_bit($int1);
+if ($int9 = -1) {
+    return($int2, -1);
+}
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_sethide($boolean6);
+cc_setparam_int(worldmap_key_data_id, $int1);
+def_int $int10 = cc_getid;
+cc_setposition(calc($int3 * 7 + 3 / 2), calc($int2 + 18 / 2 - 14 / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+def_int $int11 = calc(cc_getx + cc_getwidth + 3);
+if ($int9 = 1) {
+    cc_setgraphic("rs3_btn_checkbox_small,2");
+} else {
+    cc_setgraphic("rs3_btn_checkbox_small,0");
+}
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_sethide($boolean6);
+.cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+.cc_sethide($boolean6);
+cc_setposition($int11, calc($int2 + 18 / 2 - 23 / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(23, 23, ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(cc_getx + cc_getwidth + 3), $int2, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(calc(.cc_getx + 3 / 2), 18, ^setsize_minus, ^setsize_abs);
+def_graphic $graphic12 = null;
+def_enum $enum13 = struct_param($struct7, worldmap_key_graphic_lookup);
+if ($enum13 ! null) {
+    $graphic12 = enum(int, graphic, $enum13, %toplevel_v2_mapicons_toggle);
+}
+cc_setgraphic($graphic12);
+.cc_setcolour(~script10495(4));
+.cc_settextfont(museo_sans_11pt_regular);
+.cc_settextshadow(true);
+.cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+.cc_settext($string0);
+cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+cc_sethide($boolean6);
+cc_sendtoback;
+cc_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(0, 18, ^setsize_minus, ^setsize_abs);
+cc_settrans(255);
+if ($category8 ! null) {
+    if ($int9 = 1) {
+        worldmap_disableelementcategory($category8, false);
+        .cc_setcolour(~script10495(4));
+        cc_setonmouseleave("worldmap_key_onmouseleave($component0, .cc_getid, ~script10495(4))");
+    } else {
+        worldmap_disableelementcategory($category8, true);
+        .cc_setcolour(~script10495(5));
+        cc_setonmouseleave("worldmap_key_onmouseleave($component0, .cc_getid, ~script10495(5))");
+    }
+    cc_setopbase("<col=ff9040><$string0></col>");
+    cc_setop(1, "Highlight");
+    cc_setonop("worldmap_flashelementcategory($category8, $component0, $int10, $int4)");
+    cc_setonmouseover("worldmap_key_onmouseover($component0, .cc_getid, ~script10495(4))");
+}
+.cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+if ($boolean6 = true) {
+    return($int2, $int9);
+} else {
+    return(calc($int2 + 18 + 5), $int9);
+}

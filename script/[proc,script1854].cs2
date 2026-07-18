@@ -1,0 +1,16 @@
+// 1854
+[proc,script1854](dbrow $dbrow0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = db_getfieldcount($dbrow0, league_ranks:col0);
+def_int $int4 = 0;
+while ($int2 < $int3) {
+    $int4 = db_getfield($dbrow0, league_ranks:col0:0, $int2);
+    if ($int1 < $int4) {
+        %league_relic_cache_next_trophy_tier = $int2;
+        %league_relic_cache_next_trophy_points = $int4;
+        return;
+    }
+    $int2 = calc($int2 + 1);
+}
+%league_relic_cache_next_trophy_tier = $int2;
+%league_relic_cache_next_trophy_points = 1048575;

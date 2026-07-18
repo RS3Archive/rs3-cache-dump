@@ -1,0 +1,30 @@
+// 13569
+[proc,cheevo_get_check_var_total](struct $struct0)(int)
+def_int $int1 = struct_param($struct0, cheevo_check_var_total);
+def_string $string0 = "";
+if ($int1 = -1337) {
+    switch_struct ($struct0) {
+        case cheevo_all_quests :
+            return(%qp_total);
+        case cheevo_all_music :
+            return(~script13496);
+        case cheevo_reaper_crew :
+            return(calc(pow(2, enum_getoutputcount(struct_param($struct0, cheevo_meta_list))) - 1));
+        case cheevo_all_skills :
+            return(calc(pow(2, enum_getoutputcount(stat_to_int)) - 1));
+        case cheevo_slayer_codex :
+            return(~script13639);
+        case cheevo_archaeology_collection_all :
+            return(enum_getoutputcount(cheevo_archaeology_collection_list));
+        case default :
+            $string0 = ~cheevo_name($struct0);
+            ~error("<col=FF0000>cheevo_get_check_var_total - Achievement #<tostring(struct_param($struct0, cheevo_unique_id))> <$string0> does not have a return case.");
+            return(0);
+    }
+} else if (struct_param($struct0, cheevo_check_type) = 1) {
+    if (struct_param($struct0, cheevo_meta_list) ! null) {
+        $int1 = enum_getoutputcount(struct_param($struct0, cheevo_meta_list));
+    }
+    return(calc(pow(2, $int1) - 1));
+}
+return($int1);

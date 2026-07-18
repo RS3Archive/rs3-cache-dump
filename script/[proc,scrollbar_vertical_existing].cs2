@@ -1,0 +1,31 @@
+// 3784
+[proc,scrollbar_vertical_existing](component $component0, component $component1, component $component2)
+def_int $int3 = if_getscrollheight($component2);
+def_int $int4 = if_getheight($component1);
+def_int $int5 = if_getheight($component0);
+def_int $int6 = if_getscrolly($component2);
+def_int $int7 = 0;
+def_int $int8 = 0;
+if ($int6 > 0) {
+    $int7 = calc($int3 - if_getheight($component2));
+    if ($int7 = 0) {
+        $int7 = 1;
+    }
+    if ($int6 > $int7) {
+        if_setscrollpos(if_getscrollx($component2), $int7, $component2);
+        $int6 = $int7;
+    }
+    $int8 = scale($int6, $int7, calc($int4 - $int5));
+    $int8 = min(max($int8, 0), calc($int4 - $int5));
+}
+if_setonclick("scrollbar_vertical_jump_existing($component1, $component2, event_mousey, $component0)", $component1);
+if ($component0 ! null & if_find($component0) = true | cc_find($component1, 1) = true) {
+    cc_setdraggable($component1, -1);
+    cc_setdragrenderbehaviour(3);
+    cc_setondrag("scrollbar_vertical_drag_existing($component1, $component2, event_mousey, 0, $component0)");
+    cc_setondragcomplete("scrollbar_vertical_drag_existing($component1, $component2, event_mousey, 1, $component0)");
+}
+if_setonscrollwheel("scrollbar_vertical_wheel_existing($component1, $component2, event_mousey, $component0)", $component1);
+if_setonscrollwheel("scrollbar_vertical_wheel_existing($component1, $component2, event_mousey, $component0)", $component2);
+~script3800($component1, $component2, $component0);
+return;

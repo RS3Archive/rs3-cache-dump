@@ -1,0 +1,32 @@
+// 9758
+[proc,script9758](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 100;
+switch_component ($component0) {
+    case wc_update09_sawmill_wagon:short_count :
+        $int1 = %wc_update09_actual_short;
+        $int2 = %wc_update09_target_short;
+    case wc_update09_sawmill_wagon:long_count :
+        $int1 = %wc_update09_actual_long;
+        $int2 = %wc_update09_target_long;
+    case wc_update09_sawmill_wagon:diag_count :
+        $int1 = %wc_update09_actual_diag;
+        $int2 = %wc_update09_target_diag;
+    case wc_update09_sawmill_wagon:tooth_count :
+        $int1 = %wc_update09_actual_tooth;
+        $int2 = %wc_update09_target_tooth;
+    case wc_update09_sawmill_wagon:groove_count :
+        $int1 = %wc_update09_actual_groove;
+        $int2 = %wc_update09_target_groove;
+    case wc_update09_sawmill_wagon:curve_count :
+        $int1 = %wc_update09_actual_curve;
+        $int2 = %wc_update09_target_curve;
+}
+if_settext("x <tostring($int1)>", $component0);
+if ($int1 < calc(($int2 + 1) * 5)) {
+    if_setcolour(0xff3300, $component0);
+} else if ($int1 = calc(($int2 + 1) * 5)) {
+    if_setcolour(0xffcd00, $component0);
+} else {
+    if_setcolour(0x00cc00, $component0);
+}
