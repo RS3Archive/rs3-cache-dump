@@ -1,19 +1,31 @@
 // 16293
 [proc,script16293]
-def_boolean $boolean0 = ~int_to_bool(%construction_house_furniture_portal_nexus_changes_pending);
-if_setenabled($boolean0, construction_house_furniture_portal_nexus_configure:save);
-if_setenabled($boolean0, construction_house_furniture_portal_nexus_configure:cancel);
-switch_int (%construction_house_furniture_portal_nexus_tier) {
-    case 4 :
-        if_setobject_highres(construction_house_furniture_portal_nexus_t4, construction_house_furniture_portal_nexus_configure:portal);
-    case 3 :
-        if_setobject_highres(construction_house_furniture_portal_nexus_t3, construction_house_furniture_portal_nexus_configure:portal);
-    case 2 :
-        if_setobject_highres(construction_house_furniture_portal_nexus_t2, construction_house_furniture_portal_nexus_configure:portal);
-    case default :
-        if_setobject_highres(construction_house_furniture_portal_nexus_t1, construction_house_furniture_portal_nexus_configure:portal);
+def_boolean $boolean0 = ~int_to_bool(%varplayerbit_61265);
+def_dbrow $dbrow1 = null;
+def_obj $obj2 = null;
+if_setenabled($boolean0, interface_1499:com_21);
+if_setenabled($boolean0, interface_1499:com_22);
+if (%varclient_8476 > 0) {
+    $dbrow1 = ~script11651(%varclient_8476);
+    if ($dbrow1 ! null) {
+        $obj2 = db_getfield($dbrow1, dbtable_370:col4, 0);
+    }
 }
-if (%construction_house_furniture_portal_nexus_tier > 0) {
-    cc_deleteall(construction_house_furniture_portal_nexus_configure:active_scrolling);
+if ($obj2 ! null) {
+    if_setobject_highres($obj2, interface_1499:com_13);
+} else {
+    switch_int (%varplayerbit_61266) {
+        case 4 :
+            if_setobject_highres(obj_62475, interface_1499:com_13);
+        case 3 :
+            if_setobject_highres(obj_62473, interface_1499:com_13);
+        case 2 :
+            if_setobject_highres(obj_62471, interface_1499:com_13);
+        case default :
+            if_setobject_highres(obj_62469, interface_1499:com_13);
+    }
+}
+if (%varplayerbit_61266 > 0) {
+    cc_deleteall(interface_1499:com_36);
     ~script17837;
 }

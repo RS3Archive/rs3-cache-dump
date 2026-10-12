@@ -1,0 +1,30 @@
+// 21051
+[clientscript,script21051]
+def_dbrow $dbrow0 = ~script20117(%varplayer_12314);
+if (~script20132($dbrow0) = false) {
+    return;
+}
+def_dbrow $dbrow1 = ~script20938($dbrow0);
+def_dbrow $dbrow2 = db_getfield($dbrow1, dbtable_327:col0, %varplayerbit_58407);
+if ($dbrow2 = null) {
+    return;
+}
+def_boolean $boolean3 = db_getfield($dbrow2, dbtable_328:col3, 0);
+def_string $string0 = "Relic choices are permanent.<br><br>This is your final chance to change your mind.<br><br>You are about to activate:";
+if (%varplayerbit_61493 = 1) {
+    $string0 = "You will have limited opportunities to reset your choice of Blessings.<br><br>This is your final chance to change your mind.<br><br>You are about to activate:";
+}
+def_string $string1 = "Unlock";
+if (playermember = true | $boolean3 = false) {
+    if_sethide(false, interface_1443:com_27);
+    if_sethide(true, interface_1443:com_26);
+    if_settext($string0, interface_1443:com_42);
+    if_setontimer("script21096(clientclock, interface_1443:com_45, interface_1443:com_46, $string1)", interface_1443:com_45);
+    if_sethide(false, interface_1443:com_46);
+    if_settext("5...", interface_1443:com_45);
+    if_setenabled(false, interface_1443:com_45);
+    if_setenabled(false, interface_1443:com_38);
+} else {
+    ~script21097($dbrow2);
+    return;
+}

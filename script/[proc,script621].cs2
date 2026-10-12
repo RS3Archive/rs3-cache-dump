@@ -1,56 +1,63 @@
 // 621
 [proc,script621]
-def_string $string0 = "";
 ~script622;
-if (%stock_offerslot = -1 | stockmarket_isofferempty(%stock_offerslot, 0) = true & %stock_offertype = -1) {
-    if_sethide(false, stockmarket:summarylayer);
+if (%varplayer_138 = -1 | stockmarket_isofferempty(%varplayer_138, 0) = true & %varplayer_139 = -1) {
+    if_sethide(false, interface_105:com_11);
     ~script628;
-    if_setoninvtransmit(null, stockmarket:runninglayer);
-    %stock_offerprice_timer = 0;
-    %stock_offercount_timer = 0;
+    if_setoninvtransmit(null, interface_105:com_197);
+    %varclient_83 = 0;
+    %varclient_82 = 0;
     return;
 }
-if (stockmarket_isofferempty(%stock_offerslot, 0) = false) {
-    if_sethide(false, stockmarket:offerlayer);
-    if_sethide(false, stockmarket:runninglayer);
-    ~script594(stockmarket_getoffertype(%stock_offerslot, 0), stockmarket_getofferitem(%stock_offerslot, 0), stockmarket_getoffercount(%stock_offerslot, 0), stockmarket_getofferprice(%stock_offerslot, 0));
-    ~script593(%stock_offerslot);
-    if (stockmarket_isofferfinished(%stock_offerslot, 0) = true | %stock_buyscreen_viewmode = 1) {
-        if_sethide(true, stockmarket:editmode_buysell_screen);
+~script20887;
+if (stockmarket_isofferempty(%varplayer_138, 0) = false) {
+    if_sethide(false, interface_105:com_130);
+    if_sethide(false, interface_105:com_197);
+    ~script594(stockmarket_getoffertype(%varplayer_138, 0), stockmarket_getofferitem(%varplayer_138, 0), stockmarket_getoffercount(%varplayer_138, 0), stockmarket_getofferprice(%varplayer_138, 0));
+    ~script593(%varplayer_138);
+    if (stockmarket_isofferfinished(%varplayer_138, 0) = true) {
+        if_setenabled(false, interface_105:com_212);
+        if_setenabled(false, interface_105:com_213);
+        if_sethide(true, interface_105:com_161);
+        if_sethide(true, interface_105:com_163);
+        if_sethide(true, interface_105:com_212);
+        if_sethide(true, interface_105:com_213);
     } else {
-        if_sethide(false, stockmarket:editmode_buysell_screen);
+        if_setenabled(false, interface_105:com_212);
+        if_setenabled(false, interface_105:com_213);
+        if_sethide(false, interface_105:com_161);
+        if_sethide(false, interface_105:com_163);
+        if_sethide(true, interface_105:com_212);
+        if_sethide(false, interface_105:com_213);
     }
     ~script15021;
+    if (%varclient_83 > 0 | %varclient_82 > 0) {
+        ~script15038(%varclient_84, %varclient_85, 0);
+    } else {
+        ~script15038(%varplayer_136, %varplayer_137, 0);
+    }
 } else {
-    if (%stock_offeritem = null) {
-        %stock_search_height = 0;
-        %stock_search_scroll_pos = 0;
-        if_sethide(true, stockmarket:favourite_holder);
+    if (%varplayer_135 = null) {
+        %varclient_6789 = 0;
+        %varclient_6790 = 0;
+        if_sethide(true, interface_105:com_142);
     } else {
         ~script15021;
     }
-    if_sethide(false, stockmarket:offerlayer);
-    if_sethide(false, stockmarket:newofferlayer);
-    ~script13971(stockmarket:makeofferbutton_build, stockmarket:makeofferbutton_click, rs3tli_positive_button, "Confirm Offer", true);
-    if_sethide(false, stockmarket:quantity_buttons);
-    if_sethide(false, stockmarket:price_buttons);
-    switch_int (%stock_buyscreen_viewmode) {
-        case 0 :
-            if_sethide(true, stockmarket:editmode_buysell_screen);
-        case 1 :
-            if_sethide(true, stockmarket:editmode_buysell_screen);
+    if_sethide(false, interface_105:com_130);
+    if_sethide(false, interface_105:com_9);
+    if_setenabled(false, interface_105:com_212);
+    if_setenabled(false, interface_105:com_213);
+    if_sethide(false, interface_105:com_212);
+    if_sethide(true, interface_105:com_213);
+    if_sethide(false, interface_105:com_161);
+    if_sethide(false, interface_105:com_163);
+    if (%varplayer_139 = 0) {
+        if_sethide(false, interface_105:com_10);
     }
-    if (%stock_offertype = 0) {
-        if (%stock_buyscreen_viewmode = 0) {
-            if_sethide(false, stockmarket:search_layer);
-        }
-        $string0 = "Maximum total cost of purchase";
+    if (%varclient_83 > 0 | %varclient_82 > 0) {
+        ~script15038(%varclient_84, %varclient_85, 0);
     } else {
-        $string0 = "Minimum total value of sale";
-    }
-    if (%stock_offerprice_timer > 0 | %stock_offercount_timer > 0) {
-        ~script15038(%stock_offercount_visible, %stock_offerprice_visible, 0);
-    } else {
-        ~script15038(%stock_offercount, %stock_offerprice, 0);
+        ~script15038(%varplayer_136, %varplayer_137, 0);
     }
 }

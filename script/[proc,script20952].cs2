@@ -1,0 +1,35 @@
+// 20952
+[proc,script20952]
+def_dbrow $dbrow0 = ~script20117(%varplayer_12314);
+if ($dbrow0 = null) {
+    ~error("Attempted lookup without an active league: <tostring(%varplayer_12314)>");
+    return;
+}
+def_dbrow $dbrow1 = db_getfield($dbrow0, dbtable_326:col10, 0);
+if ($dbrow1 = null) {
+    return;
+}
+def_dbrow $dbrow2 = null;
+def_int $int3 = 0;
+def_int $int4 = db_getfieldcount($dbrow1, dbtable_327:col0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int3 < $int4) {
+    $dbrow2 = db_getfield($dbrow1, dbtable_327:col0, $int3);
+    $int6 = db_getfield($dbrow2, dbtable_328:col2, 0);
+    if (%varplayerbit_61497 < $int6) {
+        if ($int3 = 0) {
+            %varplayerbit_61499 = 15;
+        } else {
+            %varplayerbit_61499 = calc($int3 - 1);
+        }
+        %varplayerbit_1668 = $int5;
+        %varplayerbit_61498 = $int6;
+        return;
+    }
+    $int5 = $int6;
+    $int3 = calc($int3 + 1);
+}
+%varplayerbit_61499 = calc($int3 - 1);
+%varplayerbit_1668 = 255;
+%varplayerbit_61498 = 255;

@@ -1,18 +1,24 @@
 // 15052
-[proc,script15052](obj $obj0)
-if (%p_dialog_listener ! stockmarket:search_input_listener) {
-    if_triggerop(stockmarket:search_obj_select_no_search_box_focus, -1, 1);
-    %stock_resend_obj_server_timer = 10;
-    if_setontimer("script15061($obj0)", stockmarket:makeofferbutton);
+[proc,script15052](obj $obj0, int $int1)
+def_boolean $boolean2 = ~script20893;
+if ($boolean2 = false) {
+    if_triggerop(interface_105:com_228, -1, 1);
+    %varclient_6787 = 10;
+    if_setontimer("script15061($obj0)", interface_105:com_212);
 }
 ~script15054;
-if (%p_dialog_listener ! stockmarket:search_input_listener) {
-    ~script15060(%stock_search_save, $obj0, 0);
-} else {
-    ~script15060(%p_dialog_input, $obj0, 0);
+if ($int1 <= 0) {
+    if ($boolean2 = false & string_length(%varclient_6788) > 0) {
+        ~script15060(%varclient_6788, $obj0, 0);
+    } else if (if_find(interface_105:com_225) = true) {
+        ~script15060(cc_gettext, $obj0, 0);
+    }
 }
-if (%stock_offeritem ! $obj0) {
-    %stock_offeritem = $obj0;
+if (%varplayer_135 ! $obj0) {
+    %varplayer_135 = $obj0;
     ~script621;
-    ~script15036(0, 1, 1, 1, 1);
+    ~script15036(0, 1, 1, 1, 1, 1);
+    if ($int1 = 1 | $int1 = 2) {
+        ~script20898(0);
+    }
 }

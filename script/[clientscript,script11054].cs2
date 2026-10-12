@@ -1,51 +1,25 @@
 // 11054
 [clientscript,script11054]
-def_struct $struct0 = struct_param(%boss_instance_struct, boss_instance_bossslayer_link);
-def_int $int1 = struct_param(%boss_instance_struct, boss_instance_boss_cost);
+def_struct $struct0 = struct_param(%varplayer_5144, param_4829);
 if ($struct0 ! null) {
-    if (struct_param($struct0, bslay_back_drop) ! null) {
-        if_setgraphic(struct_param($struct0, bslay_back_drop), boss_instance:npc_background);
+    if (struct_param($struct0, param_3038) ! null) {
+        if_setgraphic(struct_param($struct0, param_3038), interface_1591:com_0);
     } else {
-        if_setgraphic(null, boss_instance:npc_background);
+        if_setgraphic(null, interface_1591:com_0);
     }
-    if_setnpcmodel(struct_param($struct0, bslay_npc), boss_instance:boss_model);
-    if_setmodelanim(bas_getanim_ready(%boss_instance_bas), boss_instance:boss_model);
-    if_setmodelangle(0, struct_param($struct0, bslay_yoffset), 0, 0, 0, struct_param($struct0, bslay_zoom), boss_instance:boss_model);
+    if_setnpcmodel(struct_param($struct0, param_1347), interface_1591:com_2);
+    if_setmodelanim(bas_getanim_ready(%varclient_4737), interface_1591:com_2);
+    if_setmodelangle(0, struct_param($struct0, param_3041), 0, 0, 0, struct_param($struct0, param_3040), interface_1591:com_2);
 }
-if (struct_param(%boss_instance_struct, boss_instance_boss_cost) > 0) {
-    if_sethide(false, boss_instance:coin_req);
-    if_setobject_nonum(coins, 10000, boss_instance:coins_graphic);
-    if (%bslay_instance_cost = 1) {
-        $int1 = scale($int1, 100, 75);
-    }
-    if (%boss_instance_weekend_fee_reduction = 1) {
-        $int1 = scale($int1, 100, 50);
-    }
-    if (~script19320 = true) {
-        $int1 = 0;
-    }
-    if ($int1 > 0) {
-        if_settext(~script940($int1), boss_instance:coin_text);
+if (struct_param(%varplayer_5144, param_4827) ! null) {
+    if_sethide(false, interface_1591:com_17);
+    if_setobject(struct_param(%varplayer_5144, param_4827), -1, interface_1591:com_6);
+    if_settext(tostring(struct_param(%varplayer_5144, param_4828)), interface_1591:com_7);
+    if (inv_total(inv_93, struct_param(%varplayer_5144, param_4827)) >= struct_param(%varplayer_5144, param_4828)) {
+        if_setcolour(0x32ff32, interface_1591:com_7);
     } else {
-        if_settext("Free", boss_instance:coin_text);
-    }
-    if (~script17401 >= $int1) {
-        if_setcolour(0x32ff32, boss_instance:coin_text);
-    } else {
-        if_setcolour(0xff3232, boss_instance:coin_text);
+        if_setcolour(0xff3232, interface_1591:com_7);
     }
 } else {
-    if_sethide(true, boss_instance:coin_req);
-}
-if (struct_param(%boss_instance_struct, boss_instance_special_start_item) ! null) {
-    if_sethide(false, boss_instance:item_req);
-    if_setobject(struct_param(%boss_instance_struct, boss_instance_special_start_item), -1, boss_instance:item_graphic);
-    if_settext(tostring(struct_param(%boss_instance_struct, boss_instance_special_start_item_quantity)), boss_instance:item_text);
-    if (inv_total(inv, struct_param(%boss_instance_struct, boss_instance_special_start_item)) >= struct_param(%boss_instance_struct, boss_instance_special_start_item_quantity)) {
-        if_setcolour(0x32ff32, boss_instance:item_text);
-    } else {
-        if_setcolour(0xff3232, boss_instance:item_text);
-    }
-} else {
-    if_sethide(true, boss_instance:item_req);
+    if_sethide(true, interface_1591:com_17);
 }

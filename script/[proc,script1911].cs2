@@ -1,27 +1,35 @@
 // 1911
 [proc,script1911]
-def_int $int0 = enum(int, int, qps_if_reward_qp, %qps_shop_selected_reward_index);
-def_int $int1 = enum(int, int, qps_if_reward_qp, calc(%qps_shop_selected_reward_index - 1));
-def_int $int2 = -1;
-def_int $int3 = 0;
-def_enum $enum4 = enum(int, enum, qps_if_reward_lists, $int0);
-def_int $int5 = enum_getoutputcount($enum4);
+def_enum $enum0 = enum_14541;
+if (~script3825 = true) {
+    $enum0 = enum_13468;
+}
+def_int $int1 = enum(int, int, $enum0, %varplayerbit_42079);
+def_int $int2 = enum(int, int, $enum0, calc(%varplayerbit_42079 - 1));
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_enum $enum5 = enum_14542;
+if (~script3825 = true) {
+    $enum5 = enum_13474;
+}
+def_enum $enum6 = enum(int, enum, $enum5, $int1);
+def_int $int7 = enum_getoutputcount($enum6);
 def_string $string0 = "";
-def_struct $struct6 = null;
-cc_deleteall(qps:tab1_track_build);
-cc_deleteall(qps:tab1_track_click);
-if_settext(tostring($int1), qps:tab1_header_progress_low);
-if_settext(tostring($int0), qps:tab1_header_progress_high);
-if_settext("<col=C2B77C><tostring(%qp)></col> / <tostring(%qp_total)>", qps:tab1_header_info_text);
-if (%qps_shop_selected_reward_index = %qps_shop_next_reward_index) {
-    $string0 = ~text_plural($int5, "Earn quest points to claim more rewards! Your next reward is at <tostring($int0)> QP:", "Earn quest points to claim more rewards! Your next rewards are at <tostring($int0)> QP:");
+def_struct $struct8 = null;
+cc_deleteall(interface_267:com_35);
+cc_deleteall(interface_267:com_36);
+if_settext(tostring($int2), interface_267:com_17);
+if_settext(tostring($int1), interface_267:com_19);
+if_settext("<col=C2B77C><tostring(%varplayer_1297)></col> / <tostring(%varplayer_423)>", interface_267:com_26);
+if (%varplayerbit_42079 = %varplayerbit_42078) {
+    $string0 = ~text_plural($int7, "Earn quest points to claim more rewards! Your next reward is at <tostring($int1)> QP:", "Earn quest points to claim more rewards! Your next rewards are at <tostring($int1)> QP:");
 } else {
-    $string0 = "Earn quest points to claim more rewards! Your previous rewards at <tostring($int0)> QP were:";
+    $string0 = "Earn quest points to claim more rewards! Your previous rewards at <tostring($int1)> QP were:";
 }
-if_settext($string0, qps:tab1_track_title);
-while (++$int2 < $int5) {
-    $struct6 = enum(int, struct, $enum4, $int2);
-    $int3 = calc(270 - ($int5 - 1) * 80);
-    ~script1924(qps:tab1_track_build, qps:tab1_track_click, $int2, -1, $struct6, calc($int3 + 160 * $int2), 30, 140, 140, 0, true);
+if_settext($string0, interface_267:com_28);
+while (++$int3 < $int7) {
+    $struct8 = enum(int, struct, $enum6, $int3);
+    $int4 = calc(270 - ($int7 - 1) * 80);
+    ~script1924(interface_267:com_35, interface_267:com_36, $int3, -1, $struct8, calc($int4 + 160 * $int3), 30, 140, 140, 0, true);
 }
-if_setonvartransmit("script1910{qps_interface_var}", qps:tab1_track);
+if_setonvartransmit("script1910{varplayer_8159}", interface_267:com_34);

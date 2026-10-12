@@ -1,0 +1,67 @@
+// 21105
+[proc,script21105](obj $obj0, inv $inv1, int $int2, struct $struct3, component $component4, component $component5, int $int6, string $string0)(int)
+if (inv_getobj($inv1, $int2) ! $obj0 | inv_getnum($inv1, $int2) = 0) {
+    return($int6);
+}
+def_inv $inv7 = inv_1010;
+def_int $int8 = calc(inv_size($inv7) - inv_freespace($inv7));
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $intarray0(84);
+def_int $intarray1(84);
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+while ($int13 < 84) {
+    $int13 = calc($int13 + 1);
+    $int11 = 0;
+    while ($int11 < $int8) {
+        $int9 = inv_getvar($inv7, $int11, varobjectbit_30215);
+        $int10 = inv_getvar($inv7, $int11, varobjectbit_30216);
+        if ($int9 = $int13) {
+            $intarray0($int13) = $int9;
+            $intarray1($int13) = max($intarray1($int13), $int10);
+            $int12 = calc($int12 + 1);
+        }
+        $int9 = inv_getvar($inv7, $int11, varobjectbit_30217);
+        $int10 = inv_getvar($inv7, $int11, varobjectbit_30218);
+        if ($int9 = $int13) {
+            $intarray0($int13) = $int9;
+            $intarray1($int13) = max($intarray1($int13), $int10);
+            $int12 = calc($int12 + 1);
+        }
+        $int9 = inv_getvar($inv7, $int11, varobjectbit_30219);
+        $int10 = inv_getvar($inv7, $int11, varobjectbit_30220);
+        if ($int9 = $int13) {
+            $intarray0($int13) = $int9;
+            $intarray1($int13) = max($intarray1($int13), $int10);
+            $int12 = calc($int12 + 1);
+        }
+        $int9 = inv_getvar($inv7, $int11, varobjectbit_30221);
+        $int10 = inv_getvar($inv7, $int11, varobjectbit_30222);
+        if ($int9 = $int13) {
+            $intarray0($int13) = $int9;
+            $intarray1($int13) = max($intarray1($int13), $int10);
+            $int12 = calc($int12 + 1);
+        }
+        $int11 = calc($int11 + 1);
+    }
+}
+def_int $int14 = 0;
+def_string $string1 = "";
+$int6 = ~script7235("Stored Perks:", $string0, $struct3, $component4, $component5, $int6);
+if ($int12 = 0) {
+    $int6 = ~script7235("None!", $string0, $struct3, $component4, $component5, $int6);
+    return($int6);
+}
+while ($int14 < 84) {
+    if (enum_hasoutput(int, enum_13420, $intarray0($int14)) = false) {
+        $intarray1($int14) = calc(($intarray1($int14) + 0) * 2);
+    }
+    $string1 = ~script15936($intarray0($int14), $intarray1($int14));
+    if (compare($string1, "") ! 0) {
+        $int6 = ~script7235($string1, $string0, $struct3, $component4, $component5, $int6);
+    }
+    $int14 = calc($int14 + 1);
+}
+return($int6);

@@ -1,6 +1,25 @@
 // 20150
-[proc,script20150](obj $obj0, int $int1)(int)
-if (%league_active_player > 0 & %league_relic_arch_restoration_half_cost = 1 & oc_category($obj0) = arch_restoration_restored) {
-    $int1 = max(1, calc($int1 / 2));
+[proc,script20150](obj $obj0, obj $obj1, int $int2)(int)
+if (%varplayer_12314 > 0) {
+    switch_category (oc_category($obj1)) {
+        case category_3028 :
+            if (%varplayerbit_61570 = 1) {
+                $int2 = max(1, calc($int2 / 2));
+            }
+        case default :
+            switch_category (oc_category($obj0)) {
+                case category_4609 :
+                    if (%varplayerbit_58420 = 1) {
+                        $int2 = max(1, calc($int2 / 2));
+                    }
+                case default :
+                    switch_obj ($obj0) {
+                        case obj_55638, obj_55639, obj_55640, obj_55647, obj_55648, obj_55649, obj_55644, obj_55645, obj_55646, obj_55641, obj_55642, obj_55643, obj_55659, obj_55660, obj_55661, obj_55656, obj_55657, obj_55658, obj_55650, obj_55651, obj_55652, obj_55653, obj_55654, obj_55655, obj_55662, obj_55663, obj_55664, obj_55665, obj_55666 :
+                            if (~script20969 = true) {
+                                $int2 = -1;
+                            }
+                    }
+            }
+    }
 }
-return($int1);
+return($int2);

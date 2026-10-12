@@ -1,0 +1,57 @@
+// 20898
+[proc,script20898](int $int0)(boolean)
+if (string_length(%varclient_6788) > 0) {
+    return(false);
+}
+if (%varplayerbit_19000 ! 1) {
+    return(false);
+}
+if (%varplayer_13480 = null & inv_size(inv_890) = inv_freespace(inv_890)) {
+    return(false);
+}
+if_sethide(true, interface_105:com_224);
+cc_deleteall(interface_105:com_229);
+cc_deleteall(interface_105:com_230);
+if_settext("", interface_105:com_225);
+def_component $component1 = interface_105:com_229;
+def_component $component2 = interface_105:com_230;
+def_component $component3 = interface_105:com_222;
+def_int $int4 = 0;
+def_int $int5 = 5;
+def_int $int6 = 0;
+def_int $int7 = if_getwidth($component3);
+def_int $int8 = calc(($int7 - 4 * 5) / 3);
+def_int $int9 = 50;
+def_int $int10 = calc(50 / 2 - 32 / 2);
+def_int $int11 = calc($int8 - 36 - 5 * 2);
+if (%varplayer_13480 ! null) {
+    $int5, $int6 = ~script20899($component1, $int5, $int6, $int9, "Recent searches:");
+    $int5, $int6, $int4 = ~script20900($component1, $component2, $int5, $int6, $int8, $int9, %varplayer_135, %varplayer_13480, $int10, $int11, 1);
+    $int5, $int6, $int4 = ~script20900($component1, $component2, $int5, $int6, $int8, $int9, %varplayer_135, %varplayer_13481, $int10, $int11, 1);
+    $int5, $int6, $int4 = ~script20900($component1, $component2, $int5, $int6, $int8, $int9, %varplayer_135, %varplayer_13482, $int10, $int11, 1);
+}
+def_int $int12 = 0;
+def_int $int13 = inv_size(inv_890);
+if (inv_freespace(inv_890) < $int13) {
+    $int5, $int6 = ~script20899($component1, $int5, $int6, $int9, "Favourites:");
+    while ($int12 < $int13) {
+        $int5, $int6, $int4 = ~script20900($component1, $component2, $int5, $int6, $int8, $int9, %varplayer_135, inv_getobj(inv_890, $int12), $int10, $int11, 2);
+        $int12 = calc($int12 + 1);
+    }
+}
+def_int $int14 = 0;
+while (cc_find($component2, $int14++) = true) {
+    cc_setobject_nonum(cc_param(param_4677), 1);
+}
+if ($int5 > 5) {
+    $int6 = calc($int6 + $int9 + 5);
+}
+%varclient_6789 = $int6;
+if ($int0 = 1) {
+    %varclient_6790 = 0;
+} else {
+    %varclient_6790 = if_getscrolly($component3);
+}
+~script11702(%varclient_6789, %varclient_6790);
+if_setonvartransmit("script20897{varplayer_13480, varplayer_13481, varplayer_13482}", $component3);
+return(true);

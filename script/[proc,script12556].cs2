@@ -1,0 +1,34 @@
+// 12556
+[proc,script12556]
+def_int $int0 = 0;
+def_int $int1 = enum_getoutputcount(enum_13250);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_obj $obj7 = null;
+def_int $int8 = -1;
+while ($int0 < $int1) {
+    $obj7 = enum(int, obj, enum_13250, $int0);
+    $int8 = ~script21001($obj7);
+    if ($int8 ! -1) {
+        $int2 = inv_getnum(inv_1011, $int8);
+        if ($int2 > 0) {
+            $int6 = 1;
+            $int3 = ~bank_itemspace2($obj7, $int2);
+            $int4 = calc($int2 - $int3);
+            if (~bank_deposit(inv_1011, $obj7, $int4, $int8) = 1) {
+                $int5 = 1;
+            }
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+if ($int6 = 0) {
+    ~bank_mes("The herb bag is already empty.");
+} else if ($int5 = 0) {
+    ~bank_mes("You don't have enough space in your bank to do that.");
+} else {
+    ~bank_mes_spam("You empty the herbs to your bank.");
+}

@@ -1,30 +1,17 @@
 // 3554
-[proc,script3554](int $int0)(int)
-switch_int ($int0) {
-    case 0 :
-        return(%wordgame_temp_char_1_status);
-    case 1 :
-        return(%wordgame_temp_char_2_status);
-    case 2 :
-        return(%wordgame_temp_char_3_status);
-    case 3 :
-        return(%wordgame_temp_char_4_status);
-    case 4 :
-        return(%wordgame_temp_char_5_status);
-    case 5 :
-        return(%wordgame_temp_char_6_status);
-    case 6 :
-        return(%wordgame_temp_char_7_status);
-    case 7 :
-        return(%wordgame_temp_char_8_status);
-    case 8 :
-        return(%wordgame_temp_char_9_status);
-    case 9 :
-        return(%wordgame_temp_char_10_status);
-    case 10 :
-        return(%wordgame_temp_char_11_status);
-    case 11 :
-        return(%wordgame_temp_char_12_status);
-    case default :
-        return(-1);
+[proc,script3554](dbrow $dbrow0)(boolean)
+if ($dbrow0 = null) {
+    return(false);
 }
+def_boolean $boolean1 = db_getfield($dbrow0, dbtable_346:col14, 0);
+def_boolean $boolean2 = db_getfield($dbrow0, dbtable_346:col13, 0);
+if ($boolean1 = false & $boolean2 = false) {
+    return(true);
+}
+if ($boolean1 = true & playermember = true) {
+    return(false);
+}
+if ($boolean2 = true & playermember = false) {
+    return(false);
+}
+return(true);

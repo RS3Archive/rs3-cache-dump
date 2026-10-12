@@ -1,0 +1,16 @@
+// 21083
+[proc,script21083](dbrow $dbrow0, int $int1)(int)
+def_int $int2 = db_getfield($dbrow0, dbtable_327:col1, 0);
+def_var_int $var_int3 = null;
+def_string $string0 = "";
+if ($int2 > 0) {
+    $var_int3 = db_getfield($dbrow0, dbtable_327:col2, 0);
+    $string0 = "<col=<tostring(~script10495(2), 16)>>Resets remaining</col>: <col=<tostring(~script10495(21), 16)>><tostring(var_reference_get($var_int3))>/<tostring($int2)></col>";
+    ~cc_add_child_button(0, $int1++, 22, 0, ^setpos_abs_right, ^setpos_abs_top, 75, 20, ^setsize_abs, ^setsize_abs, dbrow_4476, "Reset");
+    cc_setop(1, "Reset");
+    if (var_reference_get($var_int3) <= 0 | ~script20939($dbrow0) = false) {
+        cc_setenabled(false);
+    }
+    ~cc_add_child_text(0, $int1++, calc(97 + 4), 0, ^setpos_abs_right, ^setpos_abs_top, stringwidth($string0, fontmetrics_26), 20, ^setsize_abs, ^setsize_abs, dbrow_2100, $string0);
+}
+return($int1);

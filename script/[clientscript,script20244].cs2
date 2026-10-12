@@ -1,44 +1,78 @@
 // 20244
 [clientscript,script20244](component $component0)
-def_dbrow $dbrow1 = ~script20117(%league_active_player);
+def_dbrow $dbrow1 = ~script20117(%varplayer_12314);
 if (~script20132($dbrow1) = false) {
     return;
 }
-if (%league_relic_cache_next_tier_points = 0) {
+if (%varplayerbit_58406 = 0 | %varplayerbit_61498 = 0) {
+    ~script20147;
     if_setontimer("script20244($component0)", $component0);
     return;
 } else {
     if_setontimer(null, $component0);
 }
-def_int $int2 = 12202555;
-def_int $int3 = 16464712;
-def_enum $enum4 = db_getfield($dbrow1, league:col18, 0);
-def_int $int5 = 0;
-def_int $int6 = %league_task_completed_total;
+def_int $int2 = 4227654;
+def_int $int3 = 6734126;
+def_string $string0 = "";
+def_int $int4 = 86;
+def_int $int5 = 90;
+def_int $int6 = 2;
 cc_deleteall($component0);
-def_var_int $var_int7 = db_getfield($dbrow1, league:col22, 0);
-def_int $int8 = calc(%league_relic_cache_next_tier_points - %league_relic_cache_current_tier_points);
-def_int $int9 = calc(var_reference_get($var_int7) - %league_relic_cache_current_tier_points);
-def_int $int10 = ~script20245;
-def_string $string0 = "<tostring_localised($int9, true)> / <tostring_localised($int8, true)> gained before the next relic unlock.";
-if ($int10 ! -1) {
+def_var_int $var_int7 = db_getfield($dbrow1, dbtable_326:col28, 0);
+def_int $int8 = calc(%varplayerbit_58406 - %varplayerbit_58405);
+def_int $int9 = calc(var_reference_get($var_int7) - %varplayerbit_58405);
+def_int $int10 = %varplayerbit_61493;
+%varplayerbit_61493 = 0;
+def_int $int11 = ~script20245;
+if ($int11 ! -1) {
     $string0 = "A relic is ready to unlock!";
-    ~script20246($component0, 0, 0, $int9, $int9, rs3_icon_leagues_points_unlock, $string0, $int2, $int3);
+    ~script20246($component0, 0, $int6, 1, 1, rs3_icon_leagues_points, $string0, $int2, $int3);
+    $int6 = calc($int6 + 26);
 } else {
+    $string0 = "Earn <tostring_localised(calc($int8 - $int9), true)> points to unlock the next relic.";
     if ($int9 < 0) {
-        $string0 = "";
-    }
-    ~script20246($component0, 0, 0, $int8, $int9, rs3_icon_leagues_points_progress, $string0, $int2, $int3);
-}
-if (~script20129 = true) {
-    if (%league_locality_unlock_count = 0) {
-        $int5 = enum(int, int, $enum4, %league_locality_unlock_count);
-    } else if (%league_locality_unlock_count < enum_getoutputcount($enum4)) {
-        $int6 = enum(int, int, $enum4, calc(%league_locality_unlock_count - 1));
-        $int5 = calc(enum(int, int, $enum4, %league_locality_unlock_count) - $int6);
-        $int6 = calc(%league_task_completed_total - $int6);
+        $int4 = calc($int4 - 28);
+        $int5 = calc($int5 - 28);
     } else {
-        $int5 = db_getfield($dbrow1, league:col7, 0);
+        ~script20246($component0, 0, $int6, $int8, $int9, rs3_icon_leagues_points, $string0, $int2, $int3);
+        $int6 = calc($int6 + 26);
     }
-    ~script20246($component0, 1, 28, $int5, $int6, "aif_toplevel_worldmap_btn,0", "", $int2, $int3);
 }
+%varplayerbit_61493 = 1;
+$int11 = ~script3979;
+$int8 = calc(%varplayerbit_61498 - %varplayerbit_1668);
+$int9 = calc(%varplayerbit_61497 - %varplayerbit_1668);
+if ($int11 ! -1) {
+    $string0 = "A blessing is ready to unlock!";
+    ~script20246($component0, 1, $int6, 1, 1, rs3_icon_leagues_combat_points, $string0, $int2, $int3);
+    $int6 = calc($int6 + 28);
+} else {
+    $string0 = "Complete <tostring_localised(calc($int8 - $int9), true)> blessing tasks to unlock the next blessing.";
+    if ($int9 < 0) {
+        $int4 = calc($int4 - 28);
+        $int5 = calc($int5 - 28);
+    } else {
+        ~script20246($component0, 1, $int6, $int8, $int9, rs3_icon_leagues_combat_points, $string0, $int2, $int3);
+        $int6 = calc($int6 + 28);
+    }
+}
+def_enum $enum12 = db_getfield($dbrow1, dbtable_326:col22, 0);
+def_int $int13 = 0;
+def_int $int14 = %varplayerbit_58389;
+if (~script3977(%varplayerbit_58388, $enum12) = true) {
+    $int13 = enum(int, int, $enum12, %varplayerbit_58388);
+    if ($int14 > $int13) {
+        $string0 = "A region is ready to unlock!";
+    } else {
+        $string0 = "Complete <tostring_localised(calc($int13 - $int14), true)> tasks to unlock the next region.";
+    }
+    ~script20246($component0, 2, $int6, $int13, $int14, "aif_toplevel_worldmap_btn,0", $string0, $int2, $int3);
+    $int6 = calc($int6 + 28);
+} else {
+    $int4 = calc($int4 - 32);
+    $int5 = calc($int5 - 32);
+}
+if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, interface_1361:com_10);
+if_setposition(0, $int5, ^setpos_abs_centre, ^setpos_abs_top, interface_1361:com_11);
+if_setsize(0, calc(125 - (90 - $int5)), ^setsize_minus, ^setsize_minus, interface_1361:com_11);
+%varplayerbit_61493 = $int10;

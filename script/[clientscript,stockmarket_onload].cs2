@@ -1,31 +1,15 @@
 // 585
 [clientscript,stockmarket_onload]
-if_setonvartransmit("script588{stock_offeritem}", stockmarket:offerlayer);
-if_setonstocktransmit("stockmarket_onstocktransmit", stockmarket:stocktransmit_layer);
-if_setonvartransmit("script11743{lending_mydebtor, lending_retrievetime}", stockmarket:lending_container);
-if_setoninvtransmit("script11743{lent_items}", stockmarket:lending_container);
+if_setonvartransmit("script588{varplayer_135}", interface_105:com_130);
+if_setonstocktransmit("stockmarket_onstocktransmit", interface_105:com_1);
+if_setonvartransmit("script11743{varplayer_429, varplayer_431}", interface_105:com_124);
+if_setoninvtransmit("script11743{inv_540}", interface_105:com_124);
 ~script8841(82, 1);
-if_settext(~mobile_text_get(1), stockmarket:search_input_display);
 if (map_lang = 1) {
     ~script15026;
 }
-if (compare(%p_dialog_input, "") ! 0 & %p_dialog_listener = stockmarket:search_input_listener) {
-    if_settext(escape(%p_dialog_input), stockmarket:search_input_display);
-    if_sethide(false, stockmarket:search_input_clickout);
-    if_setonclick("stockmarket_clear_search", stockmarket:search_input_clickout);
-    if (%stock_offeritem = null) {
-        ~stockmarket_search_init;
-    }
-    ~script11700(%stock_offeritem);
-} else if (compare(%stock_search_save, "") ! 0) {
-    if (%p_dialog_listener = stockmarket:search_input_listener) {
-        %p_dialog_input = %stock_search_save;
-    }
-    if_settext(escape(%stock_search_save), stockmarket:search_input_display);
-    if_sethide(false, stockmarket:search_input_clickout);
-    if_setonclick("stockmarket_clear_search", stockmarket:search_input_clickout);
-    ~script11700(%stock_offeritem);
-} else {
-    %stock_search_save = "";
-}
+~script20891;
 ~script621;
+def_string $string0 = "Item prices";
+def_string $string1 = "<sprite=1158><col=FFFFFF> Market price</col> is the value of an item, determined by long-term trends in player trades.<br><br><sprite=14929><col=FFFFFF> Recent trading price</col> is an average value of the last 10 trades of an item. This will change much more rapidly than market price and is generally less reliable. It is recommended to use it as an additional information source rather than a set price.";
+~script14740($string0, $string1, interface_105:com_148, -1);

@@ -1,0 +1,40 @@
+// 21081
+[clientscript,script21081](component $component0)
+def_dbrow $dbrow1 = ~script20117(%varplayer_12314);
+if (~script20132($dbrow1) = false) {
+    return;
+}
+cc_deleteall($component0);
+def_int $int2 = %varplayerbit_58389;
+def_int $int3 = 400;
+def_enum $enum4 = enum_9287;
+def_int $int5 = 0;
+def_int $int6 = enum_getoutputcount($enum4);
+def_int $int7 = 4227654;
+def_int $int8 = 6734126;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+~if_add_child_graphic($component0, 0, $int10++, 5, 0, ^setpos_abs_left, ^setpos_abs_centre, 45, 40, ^setsize_abs, ^setsize_abs, rs3_icon_leagues_points);
+~if_add_child_layer($component0, 0, $int10++, 50, 12, ^setpos_abs_left, ^setpos_abs_bottom, 68, 18, ^setsize_minus, ^setsize_abs);
+$int10, $int11 = ~script20247(0, $int10, $int3, $int2, $int7, $int8, 0);
+~if_add_child_layer($component0, 0, $int10++, 48, 0, ^setpos_abs_left, ^setpos_abs_bottom, 48, 24, ^setsize_minus, ^setsize_abs);
+~cc_add_child_layer(0, $int10++, 6, 0, ^setpos_abs_left, ^setpos_abs_bottom, 16, 0, ^setsize_minus, ^setsize_minus);
+def_int $int12 = 0;
+def_string $string0 = "";
+while ($int9 < $int6) {
+    $int5 = enum(int, int, $enum4, $int9);
+    if ($int9 = 0) {
+        $string0 = "Region Unlocks:<br>Karamja requires <tostring_localised($int5, true)> tasks.";
+    } else {
+        $string0 = "<$string0><br>Region <tostring(calc($int9 + 1))> requires <tostring_localised($int5, true)> tasks.";
+    }
+    $int12 = max(0, calc(scale($int5, $int3, $int11) - 9));
+    ~cc_add_child_graphic(0, $int10++, $int12, 0, ^setpos_abs_left, ^setpos_abs_bottom, 18, 24, ^setsize_abs, ^setsize_abs, rs3_icon_leagues_progress_bar_marker);
+    $int9 = calc($int9 + 1);
+}
+cc_find_parent;
+cc_find_parent;
+~script3537($string0);
+~if_add_child_text($component0, 0, $int10++, 55, 2, ^setpos_abs_left, ^setpos_abs_top, 200, 20, ^setsize_abs, ^setsize_abs, dbrow_2141, "<col=<tostring(~script10495(2), 16)>>League tasks completed</col>: <col=<tostring(~script10495(21), 16)>><tostring_localised($int2, true)>");
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);

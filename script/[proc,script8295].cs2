@@ -1,13 +1,12 @@
 // 8295
-[proc,script8295](dbrow $dbrow0)(boolean)
-if ($dbrow0 = null) {
-    return(false);
+[proc,script8295](int $int0, int $int1, long $long0, long $long1)(string)
+def_long $long2 = calc($long1 - $long0);
+if ($long0 > $long1) {
+    $long2 = calc($long0 - $long1);
 }
-def_boolean $boolean1 = db_getfield($dbrow0, marketplace_featured_data:col14, 0);
-def_boolean $boolean2 = db_getfield($dbrow0, marketplace_featured_data:col13, 0);
-def_int $int3 = db_getfield($dbrow0, marketplace_featured_data:col11, 0);
-def_int $int4 = db_getfield($dbrow0, marketplace_featured_data:col12, 0);
-if (($boolean1 = false | $boolean1 = true & playermember = false) & ($boolean2 = false | $boolean2 = true & playermember = true) & date_runeday >= $int3 & date_runeday <= $int4) {
-    return(true);
-}
-return(false);
+def_int $int2 = ~script17138(calc($long2 % 60));
+$long2 = calc($long2 / 60);
+def_int $int3 = ~script17138(calc($long2 / 1440));
+def_int $int4 = ~script17138(calc($long2 % 1440 / 60));
+def_int $int5 = ~script17138(calc($long2 % 60));
+return(~script3382($int3, $int4, $int5, $int2, $int0, $int1));

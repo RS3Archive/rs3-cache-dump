@@ -1,22 +1,32 @@
 // 20267
-[proc,script20267](dbrow $dbrow0, int $int1, int $int2, int $int3)(int, int)
-def_int $int4 = 0;
-def_int $int5 = db_getfieldcount($dbrow0, league_relic:col5);
+[proc,script20267](dbrow $dbrow0, dbrow $dbrow1, int $int2, int $int3, int $int4)(int, int)
+def_int $int5 = 0;
+def_int $int6 = db_getfieldcount($dbrow0, dbtable_329:col10);
 def_string $string0 = "";
-while ($int4 < $int5) {
-    $string0 = db_getfield($dbrow0, league_relic:col5:3, $int4);
-    if (string_length($string0) > 0 & db_getfield($dbrow0, league_relic:col5:2, $int4) = false) {
-        $int1, $int2 = ~script19617(0, $int1, $int2, $int3, 1, $string0);
+while ($int5 < $int6) {
+    $string0 = db_getfield($dbrow0, dbtable_329:col10:3, $int5);
+    if (string_length($string0) > 0 & db_getfield($dbrow0, dbtable_329:col10:2, $int5) = false) {
+        $int2, $int3 = ~script19617(0, $int2, $int3, $int4, 1, $string0);
     }
-    $int4 = calc($int4 + 1);
+    $int5 = calc($int5 + 1);
 }
-$int4 = 0;
-$int5 = db_getfieldcount($dbrow0, league_relic:col7);
-while ($int4 < $int5) {
-    $string0 = db_getfield($dbrow0, league_relic:col7, $int4);
+$int5 = 0;
+$int6 = db_getfieldcount($dbrow0, dbtable_329:col13);
+while ($int5 < $int6) {
+    $string0 = db_getfield($dbrow0, dbtable_329:col13, $int5);
     if (string_length($string0) > 0) {
-        $int1, $int2 = ~script19617(0, $int1, $int2, $int3, 1, $string0);
+        $int2, $int3 = ~script19617(0, $int2, $int3, $int4, 1, $string0);
     }
-    $int4 = calc($int4 + 1);
+    $int5 = calc($int5 + 1);
 }
-return($int1, $int2);
+if (map_members = false & db_getfield($dbrow1, dbtable_328:col3, 0) = false) {
+    switch_int (%varplayerbit_61493) {
+        case 0 :
+            $int2, $int3 = ~script19615(0, $int2, $int3, $int4, "Note: Some relic effects may not be available on non-member worlds.");
+        case 1 :
+            $int2, $int3 = ~script19615(0, $int2, $int3, $int4, "Note: Some blessing effects may not be available on non-member worlds.");
+        case default :
+            $int2, $int3 = ~script19615(0, $int2, $int3, $int4, "Note: Some effects may not be available on non-member worlds.");
+    }
+}
+return($int2, $int3);

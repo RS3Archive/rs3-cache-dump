@@ -6,21 +6,33 @@ if ($int2 = 0 & ~script20614($struct0) = false) {
     }
     return(false, 0);
 }
-if ($dbrow1 ! null & db_getrowtable($dbrow1) = marketplace_store_item & ~script20473(db_getfield($dbrow1, marketplace_store_item:col1, 0)) = false) {
+if ($dbrow1 ! null & db_getrowtable($dbrow1) = dbtable_348 & ~script20473(db_getfield($dbrow1, dbtable_348:col1, 0)) = false) {
     if ($int3 = 1) {
         ~script1296("This item is not available to purchase.");
     }
     return(false, 0);
 }
 if ($int2 = 1) {
-    return(true, -1);
-}
-if ($int2 = 0 & $struct0 ! null & %marketplace_in_progress_runecoin_purchase_item = $struct0) {
-    if (struct_param($struct0, mtxmgt_category) ! 6) {
+    if ($struct0 ! null & ~script6488($struct0) = 1) {
+        if ($int3 = 1) {
+            ~script1296("This item is not available to purchase.");
+        }
         return(false, 1);
     }
-    if (struct_param($struct0, mtxmgt_subcat) ! 2) {
-        return(false, 1);
+    return(true, -1);
+}
+if ($int2 = 0 & $struct0 ! null & %varplayer_12587 = $struct0) {
+    switch_int (struct_param($struct0, param_2531)) {
+        case 6 :
+            if (struct_param($struct0, param_2532) ! 2) {
+                return(false, 1);
+            }
+        case 7 :
+            if (struct_param($struct0, param_2532) ! 1) {
+                return(false, 1);
+            }
+        case default :
+            return(false, 1);
     }
 }
 if ($int2 = 2 & $dbrow1 ! null & ~script5725($dbrow1) = false) {
@@ -34,6 +46,14 @@ if ($struct0 ! null & ~script6488($struct0) = 1) {
         ~script1296("This item is not available to purchase.");
     }
     return(false, 1);
+}
+def_boolean $boolean4 = false;
+def_boolean $boolean5 = false;
+if ($dbrow1 ! null & db_getrowtable($dbrow1) = dbtable_348) {
+    $boolean4, $boolean5 = ~script20849($dbrow1);
+    if ($boolean4 = true & $boolean5 = false) {
+        return(false, 3);
+    }
 }
 if (~script7149($dbrow1) = false) {
     return(false, 0);
