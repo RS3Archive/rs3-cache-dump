@@ -11,10 +11,10 @@ if ($int0 = 2) {
     return;
 }
 if (worldlist_fetch = false) {
-    if_setontimer("script3067($int0, $int1)", interface_906:com_92);
+    if_setontimer("script3067($int0, $int1)", lobbyscreen:login_favs);
     return;
 } else {
-    if_setontimer(null, interface_906:com_92);
+    if_setontimer(null, lobbyscreen:login_favs);
 }
 def_int $int2 = 0;
 def_int $int3 = 0;
@@ -47,22 +47,22 @@ if ($int2 > 0) {
     if (map_world ! $int2) {
         if (testbit($int3, 30) = ^true & ~script16823 = false & staffmodlevel < 2) {
             ~lobbyscreen_loginbutton_text(true);
-            ~lobby_popup(-5, dbrow_4036, "Connection Failed", "You do not have access to Fresh Start Worlds. Please select a different world and try again.", "loadingwheel,9", "", "Back");
+            ~lobby_popup(-5, lobby_popup_warning, "Connection Failed", "You do not have access to Fresh Start Worlds. Please select a different world and try again.", "loadingwheel,9", "", "Back");
         } else if (testbit($int3, 30) = ^false & ~script16823 = true & staffmodlevel < 2) {
             ~lobbyscreen_loginbutton_text(true);
-            ~lobby_popup(-5, dbrow_4036, "Connection Failed", "You only have access to Fresh Start Worlds. Please select a different world and try again.", "loadingwheel,9", "", "Back");
+            ~lobby_popup(-5, lobby_popup_warning, "Connection Failed", "You only have access to Fresh Start Worlds. Please select a different world and try again.", "loadingwheel,9", "", "Back");
         } else if (worldlist_switch($int2, $string2) = true) {
-            %varclient_547 = 0;
+            %loginscreen_pvp_warned = 0;
             ~lobbyscreen_loginbutton_text(true);
-            ~lobbyscreen_entergame(interface_906:com_81);
+            ~lobbyscreen_entergame(lobbyscreen:login_button);
             ~script3116;
         } else {
             ~lobbyscreen_loginbutton_text(true);
-            ~lobby_popup(-5, dbrow_4036, "Connection Failed", "Could not connect you to the chosen world. Please choose another.", "loadingwheel,9", "", "Back");
+            ~lobby_popup(-5, lobby_popup_warning, "Connection Failed", "Could not connect you to the chosen world. Please choose another.", "loadingwheel,9", "", "Back");
         }
     } else {
-        ~lobbyscreen_entergame(interface_906:com_81);
+        ~lobbyscreen_entergame(lobbyscreen:login_button);
     }
 } else {
-    ~lobby_popup(-5, dbrow_4036, "Connection Failed", "World <tostring($int7)> is running in a different language or is unavailable.", "loadingwheel,9", "", "Back");
+    ~lobby_popup(-5, lobby_popup_warning, "Connection Failed", "World <tostring($int7)> is running in a different language or is unavailable.", "loadingwheel,9", "", "Back");
 }

@@ -9,11 +9,11 @@ if (create_reply = -3) {
 if (create_email_validate_reply = -3) {
     return;
 }
-if ($int0 = 13 & %varclient_174 ! 111) {
+if ($int0 = 13 & %loginscreen_focus ! 111) {
     ~script7879;
     return;
 }
-if (if_gethide(interface_1420:com_187) = false) {
+if (if_gethide(acc_create:escape_confirm) = false) {
     return;
 }
 def_string $string0 = "";
@@ -23,32 +23,32 @@ def_int $int4 = 0;
 def_int $int5 = 0;
 def_string $string1 = "";
 $string1 = append_char($string1, $char1);
-if (%varclient_174 = 111) {
+if (%loginscreen_focus = 111) {
     switch_int ($int0) {
         case 13, 84 :
-            if (string_length(%varclient_2563) > 0 & $int0 = 13) {
-                %varclient_2563 = "";
+            if (string_length(%create_displayname) > 0 & $int0 = 13) {
+                %create_displayname = "";
             } else {
-                if_sethide(true, interface_786:com_16);
-                if_sethide(true, interface_786:com_13);
-                %varclient_174 = -1;
+                if_sethide(true, acc_create_name:name_input_caret);
+                if_sethide(true, acc_create_name:name_highlight_rect);
+                %loginscreen_focus = -1;
                 ~script1594;
                 return;
             }
         case 96, 97, 98, 99, 102, 103 :
             if (string_indexof_char("124678", $char1, 0) = -1) {
-                %varclient_1099 = ~script1553($int0, %varclient_1099, %varclient_2563);
-                ~script3218(interface_786:com_14, interface_786:com_15, interface_786:com_16, %varclient_2563, 111);
+                %login_caret = ~script1553($int0, %login_caret, %create_displayname);
+                ~script3218(acc_create_name:name_input_layer, acc_create_name:name_input_text, acc_create_name:name_input_caret, %create_displayname, 111);
                 return;
             }
     }
-    if (string_length(%varclient_2563) >= 12 & $int0 ! 85 & $int0 ! 101 & $int0 ! 13) {
+    if (string_length(%create_displayname) >= 12 & $int0 ! 85 & $int0 ! 101 & $int0 ! 13) {
         return;
     }
     if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789  _-", $char1, 0) ! -1 | $int0 = 85 | $int0 = 101 | $int0 = 13) {
-        %varclient_2563, %varclient_1099 = ~script802(%varclient_1099, %varclient_2563, 3, $int0, $char1);
-        if_settext(%varclient_2563, interface_786:com_15);
-        ~script3218(interface_786:com_14, interface_786:com_15, interface_786:com_16, %varclient_2563, 111);
+        %create_displayname, %login_caret = ~script802(%login_caret, %create_displayname, 3, $int0, $char1);
+        if_settext(%create_displayname, acc_create_name:name_input_text);
+        ~script3218(acc_create_name:name_input_layer, acc_create_name:name_input_text, acc_create_name:name_input_caret, %create_displayname, 111);
         ~create_validate_displayname(0, 1);
     }
     return;

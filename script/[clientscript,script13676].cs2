@@ -1,12 +1,12 @@
 // 13676
 [clientscript,script13676](component $component0)
-if (%varplayerbit_37614 = 0) {
+if (%invent_machine_id = 0) {
     return;
 }
-db_find(dbtable_22:col0, %varplayerbit_37614);
+db_find(invent_machine_table:col0, %invent_machine_id);
 def_dbrow $dbrow1 = db_findnext;
 def_int $int2 = ~script21123($dbrow1);
-def_int $int3 = db_getfield($dbrow1, dbtable_22:col10, 0);
+def_int $int3 = db_getfield($dbrow1, invent_machine_table:col10, 0);
 def_string $string0 = "The amount of time until your machine has processed all of your items.<br>This machine processes <tostring_localised($int2, true)> items per hour.";
 if ($int3 = 2) {
     $string0 = "<$string0><br>It also processes some items in batches, for example arrows.";
@@ -15,47 +15,47 @@ def_obj $obj4 = null;
 def_int $int5 = 0;
 def_obj $obj6 = null;
 def_int $int7 = 0;
-def_int $int8 = db_getfieldcount($dbrow1, dbtable_22:col19);
-def_int $int9 = db_getfield($dbrow1, dbtable_22:col22, 0);
+def_int $int8 = db_getfieldcount($dbrow1, invent_machine_table:col19);
+def_int $int9 = db_getfield($dbrow1, invent_machine_table:col22, 0);
 def_int $int10 = 0;
 def_int $int11 = 0;
-$int10, $int11 = ~script13641(%varplayerbit_37615);
+$int10, $int11 = ~script13641(%invent_hotspot_id);
 def_int $int12 = 100;
 def_int $int13 = 100;
 def_int $int14 = 100;
 def_int $int15 = 0;
 def_int $int16 = 0;
-if ($int3 = 2 & %varplayerbit_48814 > 0) {
-    $int16 = scale(%varplayerbit_48814, $int2, 100);
+if ($int3 = 2 & %invent_machine_batches_stored > 0) {
+    $int16 = scale(%invent_machine_batches_stored, $int2, 100);
 } else {
-    $int16 = scale(%varplayer_7270, $int2, 100);
+    $int16 = scale(%invent_machine_amount_stored, $int2, 100);
 }
 if (calc($int16 % 100) > 0) {
     $int16 = calc($int16 + 100);
 }
 $int16 = calc($int16 / 100);
-$int16 = calc($int16 * db_getfield($dbrow1, dbtable_22:col22, 0));
+$int16 = calc($int16 * db_getfield($dbrow1, invent_machine_table:col22, 0));
 if ($int8 > 0) {
-    $obj4, $int5 = db_getfield($dbrow1, dbtable_22:col19, 0);
+    $obj4, $int5 = db_getfield($dbrow1, invent_machine_table:col19, 0);
     if ($int8 > 1) {
-        $obj6, $int7 = db_getfield($dbrow1, dbtable_22:col19, 1);
+        $obj6, $int7 = db_getfield($dbrow1, invent_machine_table:col19, 1);
     }
 }
-if (%varplayer_7270 > 0) {
+if (%invent_machine_amount_stored > 0) {
     if ($obj4 ! null) {
-        $int12 = calc(100 * %varplayerbit_37616 / ($int5 * %varplayer_7270));
+        $int12 = calc(100 * %invent_machine_secondary_1 / ($int5 * %invent_machine_amount_stored));
     }
     if ($obj6 ! null) {
-        $int13 = calc(100 * %varplayerbit_37617 / ($int7 * %varplayer_7270));
+        $int13 = calc(100 * %invent_machine_secondary_2 / ($int7 * %invent_machine_amount_stored));
     }
     if ($int16 = 0) {
-        if (%varplayerbit_37590 = 0 & ~script20979 = false) {
+        if (%invent_machine_charge_stored = 0 & ~script20979 = false) {
             $int14 = 0;
         } else {
             $int14 = 100;
         }
     } else {
-        $int14 = scale(%varplayerbit_37590, $int16, 100);
+        $int14 = scale(%invent_machine_charge_stored, $int16, 100);
     }
     if ($int12 < 100) {
         $int15 = 1;
@@ -73,7 +73,7 @@ if (%varplayer_7270 > 0) {
             $int15 = 1;
             $string0 = "<$string0><br><col=ff0000>Your machine will run for longer if you add more of the following:</col>";
         }
-        $string0 = "<$string0><br><col=ff0000><oc_name(obj_36390)></col>";
+        $string0 = "<$string0><br><col=ff0000><oc_name(invent_divine_charge)></col>";
     }
 }
-~script13651($string0, $component0, -1, ^settextalign_centre, ^settextalign_top, calc(enum(fontmetrics, int, enum_8549, fontmetrics_27) + 2));
+~script13651($string0, $component0, -1, ^settextalign_centre, ^settextalign_top, calc(enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular_multiline) + 2));

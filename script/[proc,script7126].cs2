@@ -1,13 +1,13 @@
 // 7126
 [proc,script7126](component $component0, obj $obj1)
 def_int $int2 = 0;
-def_int $int3 = oc_param($obj1, param_2696);
+def_int $int3 = oc_param($obj1, recipe_xp_type_1);
 def_int $int4 = 1;
 def_int $int5 = 0;
 def_string $string0 = "";
 def_string $string1 = "";
 def_graphic $graphic6 = null;
-if (oc_param($obj1, param_3037) = false) {
+if (oc_param($obj1, recipe_xp_scale_stack_1) = false) {
     $int4 = ~script18374($obj1);
 } else {
     $int4 = 1;
@@ -22,15 +22,15 @@ if (map_lang = 3) {
 cc_deleteall($component0);
 if ($int3 ! 0) {
     $int5 = 0;
-    $int7 = oc_param($obj1, param_2697);
-    if ($obj1 = obj_33769) {
+    $int7 = oc_param($obj1, recipe_xp_value_1);
+    if ($obj1 = trh40_battleship_royal) {
         $int7 = calc(~script2181(2, construction, 0) / 2);
-    } else if (oc_param($obj1, param_223) ! null) {
-        $int7 = ~script9883(oc_param($obj1, param_223));
-    } else if (oc_category($obj1) = category_5769) {
+    } else if (oc_param($obj1, poh_obj) ! null) {
+        $int7 = ~script9883(oc_param($obj1, poh_obj));
+    } else if (oc_category($obj1) = construction_house_furniture) {
         $int7 = ~script16259($obj1);
     }
-    $graphic6 = enum(int, graphic, enum_371, $int3);
+    $graphic6 = enum(int, graphic, stat2icon_small, $int3);
     $int7 = ~makex2012_get_item_xp($obj1, $int7, $int4, 1);
     $int8, $int9 = ~script362($int7, 1);
     $string0 = ~script361($int7, 1);
@@ -38,9 +38,9 @@ if ($int3 ! 0) {
         $string0 = append($string0, "xp");
     }
     if ($int9 > 0) {
-        $string1 = "<tostring_localised($int8, true)><~script8002><tostring($int9)> <enum(int, string, enum_108, $int3)> Experience";
+        $string1 = "<tostring_localised($int8, true)><~script8002><tostring($int9)> <enum(int, string, statstring, $int3)> Experience";
     } else {
-        $string1 = "<tostring_localised($int8, true)> <enum(int, string, enum_108, $int3)> Experience";
+        $string1 = "<tostring_localised($int8, true)> <enum(int, string, statstring, $int3)> Experience";
     }
 } else {
     $int5 = 1;
@@ -55,30 +55,30 @@ $string0 = "-";
 $string1 = "";
 $int8 = 0;
 $int9 = 0;
-$int3 = oc_param($obj1, param_2698);
-if (oc_param($obj1, param_2996) = false) {
+$int3 = oc_param($obj1, recipe_xp_type_2);
+if (oc_param($obj1, recipe_xp_scale_stack_2) = false) {
     $int4 = ~script18374($obj1);
 } else {
     $int4 = 1;
 }
 if ($int3 ! 0) {
     $int5 = 0;
-    $int7 = oc_param($obj1, param_2699);
+    $int7 = oc_param($obj1, recipe_xp_value_2);
     if (~script7166($obj1) = true) {
         $int7 = calc($int4 * $int7 / 10000);
     } else {
         $int7 = ~makex2012_get_item_xp($obj1, $int7, $int4, 2);
     }
-    $graphic6 = enum(int, graphic, enum_371, $int3);
+    $graphic6 = enum(int, graphic, stat2icon_small, $int3);
     $int8, $int9 = ~script362($int7, 1);
     $string0 = ~script361($int7, 1);
     if (map_lang ! 3 | string_length($string0) <= 5) {
         $string0 = append($string0, "xp");
     }
     if ($int9 > 0) {
-        $string1 = "<tostring_localised($int8, true)><~script8002><tostring($int9)> <enum(int, string, enum_108, $int3)> Experience";
+        $string1 = "<tostring_localised($int8, true)><~script8002><tostring($int9)> <enum(int, string, statstring, $int3)> Experience";
     } else {
-        $string1 = "<tostring_localised($int8, true)> <enum(int, string, enum_108, $int3)> Experience";
+        $string1 = "<tostring_localised($int8, true)> <enum(int, string, statstring, $int3)> Experience";
     }
 } else {
     $int5 = 1;
@@ -91,8 +91,8 @@ $int5 = 1;
 $graphic6 = null;
 $string0 = "-";
 $string1 = "";
-if (oc_param($obj1, param_2989) ! null) {
-    $obj1 = oc_param($obj1, param_2989);
+if (oc_param($obj1, recipe_non_dummy_obj) ! null) {
+    $obj1 = oc_param($obj1, recipe_non_dummy_obj);
 }
 $int4 = ~script18374($obj1);
 def_int $int11 = 0;
@@ -118,9 +118,9 @@ if (~script17369($obj1) > 0) {
         $int11 = calc($int4 * max(1, scale(~script17369($obj1), 100, 30)));
         $string5 = ~script940($int11);
         $string2 = "<$string2>: <tostring_localised($int11, true)>";
-        if (%varclient_2224 ! -1) {
+        if (%makex2012_recipe_ge_price ! -1) {
             $int14 = 0;
-            $long0 = calc(int_to_long($int4) * %varclient_2224);
+            $long0 = calc(int_to_long($int4) * %makex2012_recipe_ge_price);
             $string6 = ~script17370($long0);
             $string3 = "<$string3>: <tostring_localised_long($long0, true)>";
         } else {
@@ -135,7 +135,7 @@ if (~script17369($obj1) > 0) {
         $string5 = "-";
         $string6 = "-";
     }
-    if (oc_param($obj1, param_689) = 0) {
+    if (oc_param($obj1, no_alchemy) = 0) {
         $int13 = 0;
         if (stat_base(magic) >= 55) {
             $int11 = calc($int4 * scale(60, 100, ~script17369($obj1)));

@@ -6,12 +6,12 @@ def_graphic $graphic2 = null;
 def_string $string1 = "";
 def_string $string2 = "Assign";
 if ($dbrow0 ! null) {
-    if_sethide(true, interface_693:com_97);
-    if_sethide(false, interface_693:com_96);
-    $dbrow1 = ~arch_qualification_get_data(db_getfield($dbrow0, dbtable_91:col1, 0));
-    $string0 = db_getfield($dbrow0, dbtable_91:col2, 0);
-    $graphic2 = db_getfield($dbrow0, dbtable_91:col5, 0);
-    $string1 = db_getfield($dbrow1, dbtable_93:col1, 0);
+    if_sethide(true, arch_research_management:researcher_info_filler);
+    if_sethide(false, arch_research_management:researcher_info_content_layer);
+    $dbrow1 = ~arch_qualification_get_data(db_getfield($dbrow0, arch_researcher:col1, 0));
+    $string0 = db_getfield($dbrow0, arch_researcher:col2, 0);
+    $graphic2 = db_getfield($dbrow0, arch_researcher:col5, 0);
+    $string1 = db_getfield($dbrow1, arch_qualification:col1, 0);
     switch_int (~script14670($dbrow0)) {
         case 1 :
             $string2 = "Unassign";
@@ -23,24 +23,24 @@ if ($dbrow0 ! null) {
             $string1 = "-";
             $string2 = "";
     }
-    if_settext($string0, interface_693:com_98);
-    if_settext($string1, interface_693:com_99);
-    if_setgraphic($graphic2, interface_693:com_116);
-    if_settext("+<tostring_localised(~script14675($dbrow0), true)>%", interface_693:com_105);
-    if_settext("+<tostring_localised(~script14676($dbrow0), true)>%", interface_693:com_185);
-    if_settext(db_getfield($dbrow0, dbtable_91:col3, 0), interface_693:com_112);
-    if_settext(~script14681(db_getfield($dbrow0, dbtable_91:col8, 0)), interface_693:com_113);
-    if_settext(~script14682(db_getfield($dbrow0, dbtable_91:col8, 0)), interface_693:com_114);
+    if_settext($string0, arch_research_management:researcher_info_name);
+    if_settext($string1, arch_research_management:researcher_info_qualification);
+    if_setgraphic($graphic2, arch_research_management:researcher_info_icon_graphic);
+    if_settext("+<tostring_localised(~script14675($dbrow0), true)>%", arch_research_management:researcher_info_speed_modifier);
+    if_settext("+<tostring_localised(~script14676($dbrow0), true)>%", arch_research_management:researcher_info_cost_modifier);
+    if_settext(db_getfield($dbrow0, arch_researcher:col3, 0), arch_research_management:researcher_info_bio);
+    if_settext(~script14681(db_getfield($dbrow0, arch_researcher:col8, 0)), arch_research_management:researcher_info_perk_name);
+    if_settext(~script14682(db_getfield($dbrow0, arch_researcher:col8, 0)), arch_research_management:researcher_info_perk_description);
     if (string_length($string2) > 0) {
-        if_sethide(false, interface_693:com_110);
-        if_sethide(true, interface_693:com_109);
-        ~script13969(interface_693:com_186, interface_693:com_187, struct_28553, $string2);
+        if_sethide(false, arch_research_management:researcher_info_button_layer);
+        if_sethide(true, arch_research_management:researcher_info_unlock);
+        ~script13969(arch_research_management:researcher_info_button_build_layer, arch_research_management:researcher_info_button_control_layer, rs3tli_positive_button, $string2);
     } else {
-        if_sethide(true, interface_693:com_110);
-        if_sethide(false, interface_693:com_109);
-        if_settext(~script14677($dbrow0), interface_693:com_109);
+        if_sethide(true, arch_research_management:researcher_info_button_layer);
+        if_sethide(false, arch_research_management:researcher_info_unlock);
+        if_settext(~script14677($dbrow0), arch_research_management:researcher_info_unlock);
     }
 } else {
-    if_sethide(false, interface_693:com_97);
-    if_sethide(true, interface_693:com_96);
+    if_sethide(false, arch_research_management:researcher_info_filler);
+    if_sethide(true, arch_research_management:researcher_info_content_layer);
 }

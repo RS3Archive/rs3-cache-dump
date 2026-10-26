@@ -1,28 +1,28 @@
 // 17084
 [clientscript,script17084](component $component0)
-def_int $int1 = %varplayerbit_52406;
+def_int $int1 = %death_last_tab;
 switch_component ($component0) {
-    case interface_1626:com_19 :
-        %varplayerbit_52406 = 0;
-    case interface_1626:com_80 :
-        %varplayerbit_52406 = 1;
-    case interface_1626:com_82 :
-        %varplayerbit_52406 = 2;
-    case interface_1626:com_84 :
-        %varplayerbit_52406 = 3;
+    case death:tab_overview :
+        %death_last_tab = 0;
+    case death:tab_death :
+        %death_last_tab = 1;
+    case death:tab_overflow :
+        %death_last_tab = 2;
+    case death:tab_danger :
+        %death_last_tab = 3;
     case default :
         return;
 }
-if ($int1 = %varplayerbit_52406) {
-    ~death_update_tabs(~script12799(~death_get_type, 1, 0, %varplayerbit_1675));
+if ($int1 = %death_last_tab) {
+    ~death_update_tabs(~script12799(~death_get_type, 1, 0, %deathkeep_info_dangermode));
     return;
 }
 switch_int ($int1) {
     case 0, 1 :
-        if (%varplayerbit_52406 = 2 | %varplayerbit_52406 = 3) {
-            %varplayerbit_28117 = 1;
+        if (%death_last_tab = 2 | %death_last_tab = 3) {
+            %death_price_transmit = 1;
         }
     case 2, 3 :
-        %varplayerbit_28117 = 1;
+        %death_price_transmit = 1;
 }
 ~death_build;

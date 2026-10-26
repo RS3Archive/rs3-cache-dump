@@ -1,32 +1,32 @@
 // 9841
 [proc,script9841](int $int0)
-if (%varclient_4200 = null) {
+if (%rhino_client_question = null) {
     return;
 }
-def_int $int1 = struct_param(%varclient_4200, param_4326);
+def_int $int1 = struct_param(%rhino_client_question, rhino_correct_answer);
 def_string $string0 = "";
 switch_int ($int0) {
     case 0 :
-        $string0 = struct_param(%varclient_4200, param_4322);
+        $string0 = struct_param(%rhino_client_question, rhino_answer_1);
     case 1 :
-        $string0 = struct_param(%varclient_4200, param_4323);
+        $string0 = struct_param(%rhino_client_question, rhino_answer_2);
     case 2 :
-        $string0 = struct_param(%varclient_4200, param_4324);
+        $string0 = struct_param(%rhino_client_question, rhino_answer_3);
     case 3 :
-        $string0 = struct_param(%varclient_4200, param_4325);
+        $string0 = struct_param(%rhino_client_question, rhino_answer_4);
 }
 if ($int0 = $int1) {
-    if_settext("Correct", interface_1350:com_13);
-    if_settext("It was indeed<br><$string0>", interface_1350:com_14);
-    if_sethide(false, interface_1350:com_1);
+    if_settext("Correct", rhino_awareness:rhino_answered_title);
+    if_settext("It was indeed<br><$string0>", rhino_awareness:rhino_answered_text);
+    if_sethide(false, rhino_awareness:rhino_answered_question_popup);
 } else {
-    if_sethide(false, interface_1350:com_10);
-    if_settext("Incorrect", interface_1350:com_13);
-    if_settext("You will have to wait 1 minute until you can try again.", interface_1350:com_14);
-    if_sethide(false, interface_1350:com_1);
-    if (%varclient_4199 < clientclock) {
-        %varclient_4198 = 60;
-        %varclient_4199 = calc(clientclock + %varclient_4198 * 50);
+    if_sethide(false, rhino_awareness:todays_rhino_wrong_answer);
+    if_settext("Incorrect", rhino_awareness:rhino_answered_title);
+    if_settext("You will have to wait 1 minute until you can try again.", rhino_awareness:rhino_answered_text);
+    if_sethide(false, rhino_awareness:rhino_answered_question_popup);
+    if (%rhino_client_end_time < clientclock) {
+        %rhino_client_time_remaining = 60;
+        %rhino_client_end_time = calc(clientclock + %rhino_client_time_remaining * 50);
         ~script9842;
     }
 }

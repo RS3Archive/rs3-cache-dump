@@ -10,19 +10,19 @@ def_int $int6 = stockmarket_getoffercount($int0, 0);
 def_int $int7 = stockmarket_getoffercompletedcount($int0, 0);
 def_obj $obj8 = stockmarket_getofferitem($int0, 0);
 def_long $long0 = stockmarket_getofferprice($int0, 0);
-if (oc_param($obj8, param_3758) ! null & $int5 = 0) {
-    $obj8 = oc_param($obj8, param_3758);
+if (oc_param($obj8, convert_to_on_trade) ! null & $int5 = 0) {
+    $obj8 = oc_param($obj8, convert_to_on_trade);
 }
 def_string $string0 = "";
 if (stockmarket_isofferempty($int0, 0) = true) {
     $string0 = "Slot <tostring(calc($int0 + 1))>";
-    ~rs3_background_panel($component2, struct_21361);
+    ~rs3_background_panel($component2, rs3_content_container_active);
 } else if (stockmarket_getoffertype($int0, 0) = 0) {
     $string0 = "<tostring(calc($int0 + 1))> - Buy";
-    ~rs3_background_panel($component2, struct_52671);
+    ~rs3_background_panel($component2, rs3_content_container_selected);
 } else {
     $string0 = "<tostring(calc($int0 + 1))> - Sell";
-    ~rs3_background_panel($component2, struct_52670);
+    ~rs3_background_panel($component2, rs3_content_container_mouseover);
 }
 cc_create($component1, ^iftype_rectangle, 0);
 cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
@@ -34,7 +34,7 @@ cc_create($component1, ^iftype_text, 1);
 cc_setposition(0, 4, ^setpos_abs_centre, ^setpos_abs_top);
 cc_setsize(8, 18, ^setsize_minus, ^setsize_abs);
 cc_settext($string0);
-cc_settextfont(fontmetrics_28);
+cc_settextfont(museo_sans_13pt_regular);
 cc_settextshadow(true);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 ~script2731($component1, 1, 1);
@@ -47,7 +47,7 @@ if (stockmarket_isofferempty($int0, 0) = true) {
     if_setonop(null, $component1);
     if_setonmouserepeat(null, $component1);
     if ($int0 >= 3 & playermember = false) {
-        ~rs3_background_panel($component2, struct_21362);
+        ~rs3_background_panel($component2, rs3_content_container_inactive);
         ~script2731($component1, 1, 5);
     }
 } else {
@@ -57,14 +57,14 @@ if (stockmarket_isofferempty($int0, 0) = true) {
     if_setonmouserepeat("script10009($string0, event_com, event_comsubid)", $component1);
     if (stockmarket_isofferfinished($int0, 0) = false) {
         if_setop(2, "Abort Offer", $component1);
-        if (%varplayerbit_16220 > 0) {
-            if_setop(4, "Quick Edit (-<tostring(%varplayerbit_16220)>%)", $component1);
+        if (%exchange_setting_bigger_dec_percent > 0) {
+            if_setop(4, "Quick Edit (-<tostring(%exchange_setting_bigger_dec_percent)>%)", $component1);
         }
         if_setop(5, "Quick Edit (-<tostring($int10)>%)", $component1);
         if_setop(6, "Set to Market Price", $component1);
         if_setop(7, "Quick Edit (+<tostring($int10)>%)", $component1);
-        if (%varplayerbit_16219 > 0) {
-            if_setop(8, "Quick Edit (+<tostring(%varplayerbit_16219)>%)", $component1);
+        if (%exchange_setting_bigger_inc_percent > 0) {
+            if_setop(8, "Quick Edit (+<tostring(%exchange_setting_bigger_inc_percent)>%)", $component1);
         }
     } else if (stockmarket_isofferempty($int0, 0) = false) {
         if_setop(2, "Collect and repeat", $component1);
@@ -100,7 +100,7 @@ if (stockmarket_isofferempty($int0, 0) = true) {
         .cc_create($component1, ^iftype_text, $int9);
         .cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
         .cc_setsize(calc($int3 - 14), 15, ^setsize_abs, ^setsize_abs);
-        .cc_settextfont(fontmetrics_26);
+        .cc_settextfont(museo_sans_11pt_regular);
         .cc_setcolour(0xdbd884);
         .cc_settext("Submitting...");
         .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
@@ -146,24 +146,24 @@ if (stockmarket_isofferempty($int0, 0) = true) {
     cc_setposition(48, 30, ^setpos_abs_left, ^setpos_abs_top);
     $string0 = ~script18300($obj8);
     $int17 = calc($int3 - 53);
-    $int16 = parawidth($string0, $int17, fontmetrics_27);
+    $int16 = parawidth($string0, $int17, museo_sans_11pt_regular_multiline);
     if ($int16 > $int17) {
         $int11 = string_length($string0);
         while ($int16 > $int17 & $int11 > 0) {
             $int11 = calc($int11 - 1);
             $string0 = "<substring($string0, 0, $int11)>...";
-            $int16 = parawidth($string0, $int17, fontmetrics_27);
+            $int16 = parawidth($string0, $int17, museo_sans_11pt_regular_multiline);
         }
     }
     $int9 = calc($int9 + 1);
-    $int4 = calc(paraheight($string0, $int17, fontmetrics_27) * 14);
+    $int4 = calc(paraheight($string0, $int17, museo_sans_11pt_regular_multiline) * 14);
     $string0 = ~script18300($obj8);
     if ($int4 < 56) {
         $int4 = 56;
     }
     cc_setsize($int17, $int4, ^setsize_abs, ^setsize_abs);
     cc_setcolour(0xf0be79);
-    cc_settextfont(fontmetrics_27);
+    cc_settextfont(museo_sans_11pt_regular_multiline);
     cc_settextalign(^settextalign_left, ^settextalign_top, 14);
     cc_settextshadow(true);
     cc_settext($string0);
@@ -172,7 +172,7 @@ if (stockmarket_isofferempty($int0, 0) = true) {
     cc_setposition(6, 70, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(40, 15, ^setsize_abs, ^setsize_abs);
     cc_setcolour(^white);
-    cc_settextfont(fontmetrics_26);
+    cc_settextfont(museo_sans_11pt_regular);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
     cc_settextshadow(true);
     if ($long0 < 10000) {

@@ -1,46 +1,46 @@
 // 19706
 [proc,script19706]()(int)
-cc_deleteall(interface_1475:com_38);
-cc_deleteall(interface_1475:com_39);
-cc_deleteall(interface_1475:com_27);
+cc_deleteall(toplevel_v2_edit_mode:interface_sharing_build);
+cc_deleteall(toplevel_v2_edit_mode:interface_sharing_click);
+cc_deleteall(toplevel_v2_edit_mode:interface_sharing_scrollbar);
 if (~script19705 = false) {
-    if_sethide(true, interface_1475:com_24);
-    if_settext("", interface_1475:com_32);
+    if_sethide(true, toplevel_v2_edit_mode:interface_sharing_contents);
+    if_settext("", toplevel_v2_edit_mode:interface_sharing_player_input);
     return(0);
 }
-if_sethide(false, interface_1475:com_24);
-if_settext(%varclient_8264, interface_1475:com_32);
+if_sethide(false, toplevel_v2_edit_mode:interface_sharing_contents);
+if_settext(%interface_sharing_source_name_client, toplevel_v2_edit_mode:interface_sharing_player_input);
 def_int $int0 = -1;
 def_int $int1 = 0;
-def_int $int2 = enum_getoutputcount(enum_10781);
+def_int $int2 = enum_getoutputcount(toplevel_v2_layout_ids_save);
 def_int $int3 = 18;
 def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 24;
-def_int $int7 = if_getwidth(interface_1475:com_26);
+def_int $int7 = if_getwidth(toplevel_v2_edit_mode:interface_sharing_scrolling);
 def_int $int8 = 19;
 def_string $string0 = "";
 def_string $string1 = "";
 def_boolean $boolean9 = false;
-if_settext("Load <%varclient_8264> Layouts:", interface_1475:com_25);
+if_settext("Load <%interface_sharing_source_name_client> Layouts:", toplevel_v2_edit_mode:load_interface_sharing);
 while ($int0 < $int2) {
     if (~script19689($int3) = 1) {
         $int4 = ~script19690($int3);
         $int5 = ~script19691($int3);
         if ($int4 <= 0 | $int5 <= 0) {
             $string0 = ~script453($int3, 0, 0, 0);
-            $string1 = "Resolution unavailable. <%varclient_8264> may not be sharing resolution or the preset was saved before resolution information was tracked.";
+            $string1 = "Resolution unavailable. <%interface_sharing_source_name_client> may not be sharing resolution or the preset was saved before resolution information was tracked.";
         } else {
             $string0 = "<~script453($int3, 0, 0, 0)> (<tostring_localised($int4, true)> x <tostring_localised($int5, true)>)";
             $string1 = "<$string0> resolution (width x height) when preset was saved.";
         }
-        if ($int3 = %varplayer_12049 | $int3 = 18 & %varplayer_12049 = 8) {
+        if ($int3 = %interface_sharing_chosen_layout_id | $int3 = 18 & %interface_sharing_chosen_layout_id = 8) {
             $boolean9 = true;
         } else {
             $boolean9 = false;
         }
-        ~cc_add_button_full(interface_1475:com_38, $int3, 0, $int1, ^setpos_abs_left, ^setpos_abs_top, $int7, $int6, ^setsize_abs, ^setsize_abs, dbrow_4476, $string0, true, true, true, $boolean9);
-        cc_create(interface_1475:com_39, ^iftype_text, $int3);
+        ~cc_add_button_full(toplevel_v2_edit_mode:interface_sharing_build, $int3, 0, $int1, ^setpos_abs_left, ^setpos_abs_top, $int7, $int6, ^setsize_abs, ^setsize_abs, button_cornered_neutral, $string0, true, true, true, $boolean9);
+        cc_create(toplevel_v2_edit_mode:interface_sharing_click, ^iftype_text, $int3);
         cc_setsize($int7, $int6, ^setsize_abs, ^setsize_abs);
         cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);
         cc_setop(1, "Load");
@@ -50,8 +50,8 @@ while ($int0 < $int2) {
         $int1 = calc($int1 + ($int6 + 4));
     }
     $int0 = calc($int0 + 1);
-    $int3 = enum(int, int, enum_10781, $int0);
+    $int3 = enum(int, int, toplevel_v2_layout_ids_save, $int0);
 }
-if_setsize(0, min(159, calc($int1 + $int8)), ^setsize_minus, ^setsize_abs, interface_1475:com_24);
-~script19620(interface_1475:com_27, interface_1475:com_26, $int1, null, -1, 0, 0, $int8);
+if_setsize(0, min(159, calc($int1 + $int8)), ^setsize_minus, ^setsize_abs, toplevel_v2_edit_mode:interface_sharing_contents);
+~script19620(toplevel_v2_edit_mode:interface_sharing_scrollbar, toplevel_v2_edit_mode:interface_sharing_scrolling, $int1, null, -1, 0, 0, $int8);
 return(calc($int1 + $int8));

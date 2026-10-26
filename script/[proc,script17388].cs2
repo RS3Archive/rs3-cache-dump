@@ -1,32 +1,32 @@
 // 17388
 [proc,script17388](int $int0, int $int1)
 def_int $int2 = 0;
-if (%varplayer_139 = 1) {
-    if (oc_cert(%varplayer_135) ! %varplayer_135) {
-        $int2 = ~script11882(inv_total(inv_93, %varplayer_135), inv_total(inv_93, oc_cert(%varplayer_135)));
+if (%stock_offertype = 1) {
+    if (oc_cert(%stock_offeritem) ! %stock_offeritem) {
+        $int2 = ~script11882(inv_total(inv, %stock_offeritem), inv_total(inv, oc_cert(%stock_offeritem)));
     } else {
-        $int2 = inv_total(inv_93, %varplayer_135);
+        $int2 = inv_total(inv, %stock_offeritem);
     }
-    if (%varplayer_138 ! -1 & stockmarket_isofferempty(%varplayer_138, 0) = false & %varplayer_135 = stockmarket_getofferitem(%varplayer_138, 0)) {
-        $int2 = calc($int2 + (stockmarket_getoffercount(%varplayer_138, 0) - stockmarket_getoffercompletedcount(%varplayer_138, 0)));
+    if (%stock_offerslot ! -1 & stockmarket_isofferempty(%stock_offerslot, 0) = false & %stock_offeritem = stockmarket_getofferitem(%stock_offerslot, 0)) {
+        $int2 = calc($int2 + (stockmarket_getoffercount(%stock_offerslot, 0) - stockmarket_getoffercompletedcount(%stock_offerslot, 0)));
     }
     if ($int0 = 1000) {
-        %varclient_84 = $int2;
+        %stock_offercount_visible = $int2;
     } else if ($int1 = 1) {
-        %varclient_84 = min($int2, $int0);
-    } else if (calc(^max_32bit_int - $int0 - %varclient_84) >= 0) {
-        %varclient_84 = min($int2, calc(%varclient_84 + $int0));
+        %stock_offercount_visible = min($int2, $int0);
+    } else if (calc(^max_32bit_int - $int0 - %stock_offercount_visible) >= 0) {
+        %stock_offercount_visible = min($int2, calc(%stock_offercount_visible + $int0));
     } else {
-        %varclient_84 = ^max_32bit_int;
+        %stock_offercount_visible = ^max_32bit_int;
     }
 } else {
-    if (%varclient_84 = 1 & $int0 > 1) {
+    if (%stock_offercount_visible = 1 & $int0 > 1) {
         $int0 = calc($int0 - 1);
     }
-    if (calc(^max_32bit_int - $int0 - %varclient_84) >= 0) {
-        %varclient_84 = calc(%varclient_84 + $int0);
+    if (calc(^max_32bit_int - $int0 - %stock_offercount_visible) >= 0) {
+        %stock_offercount_visible = calc(%stock_offercount_visible + $int0);
     } else {
-        %varclient_84 = ^max_32bit_int;
+        %stock_offercount_visible = ^max_32bit_int;
     }
 }
-~script15038(%varclient_84, %varclient_85, 1);
+~script15038(%stock_offercount_visible, %stock_offerprice_visible, 1);

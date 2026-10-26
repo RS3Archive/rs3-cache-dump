@@ -1,0 +1,105 @@
+// 21244
+[proc,script21244](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string0 = "";
+def_graphic $graphic3 = null;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_boolean $boolean26 = false;
+def_boolean $boolean27 = false;
+def_boolean $boolean28 = false;
+def_int $int29 = calc((24 - 20) / 2);
+cc_deleteall(toplevel_v2_plugin_content:plugin_buttons_layer);
+cc_deleteall(toplevel_v2_plugin_content:info_layer);
+if ($int0 = 1) {
+    cc_deleteall(toplevel_v2_plugin_content:plugin_content);
+}
+$int12, $int13, $int14 = ~script21252;
+if (plugin_getunavailable(-1) = true) {
+    ~script20480(toplevel_v2_plugin_content:info_layer, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, "The Plugin Hub and all plugins are currently disabled. Please try again later.", -1, ^settextalign_centre, ^settextalign_centre);
+    return;
+}
+if (~script21164(pluginapi_auth_state) ! 8) {
+    ~script20480(toplevel_v2_plugin_content:info_layer, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, "Visit the Plugin Hub using the button below to authenticate with mod.io, then you may install and enable plugins.", -1, ^settextalign_centre, ^settextalign_centre);
+    return;
+}
+if ($int12 <= 0) {
+    ~script20480(toplevel_v2_plugin_content:info_layer, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, "Visit the Plugin Hub using the button below to install or enable plugins. Their quick-access settings may then be displayed here.", -1, ^settextalign_centre, ^settextalign_centre);
+    return;
+}
+if ($int13 <= 0) {
+    ~script20480(toplevel_v2_plugin_content:info_layer, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, "None of your installed plugins are enabled.<br><br>Visit the Plugin Hub using the button below to enable your plugins.", -1, ^settextalign_centre, ^settextalign_centre);
+    return;
+}
+if ($int14 <= 0) {
+    ~script20480(toplevel_v2_plugin_content:info_layer, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, "None of your enabled plugins populate this window.<br><br>Visit the Plugin Hub using the button below to install or enable other plugins.", -1, ^settextalign_centre, ^settextalign_centre);
+    return;
+}
+$int6, $int4, $int5, $int7, $int8, $int9 = ~script21249;
+~script21250($int6, $int4, $int5);
+$int17, $int15, $int16, $int18, $int19, $boolean27, $boolean28 = ~script21246($int14, $int9, %plugin_ribbon_scroll_pos);
+%plugin_ribbon_scroll_pos = $int17;
+$int10 = 0;
+$int11 = 0;
+if ($boolean27 = true) {
+    $int23, $int24 = ~script21245($int20, $int7, $int10, $int11, $int6);
+    ~script21247(toplevel_v2_plugin_content:plugin_buttons_layer, $int23, $int24, $int6, -1, $int18, "Previous");
+    $int20 = calc($int20 + 1);
+}
+while ($int1 < $int12) {
+    $int2 = plugin_installed_get($int1);
+    if (~script21253($int2) = true) {
+        if ($int22 >= $int17 & $int21 < $int15) {
+            $string0 = plugin_info_string($int2, 6, -1);
+            $int23, $int24 = ~script21245($int20, $int7, $int10, $int11, $int6);
+            $int25 = if_getnextsubid(toplevel_v2_plugin_content:plugin_buttons_layer);
+            if ($int2 = %plugin_ribbon_plugin_open_id) {
+                $boolean26 = true;
+            } else {
+                $boolean26 = false;
+            }
+            ~cc_add_button_full(toplevel_v2_plugin_content:plugin_buttons_layer, $int25, $int23, $int24, ^setpos_abs_left, ^setpos_abs_top, 24, 24, ^setsize_abs, ^setsize_abs, button_icon_neutral, "", true, true, true, $boolean26);
+            if (cc_find(toplevel_v2_plugin_content:plugin_buttons_layer, $int25) = true) {
+                cc_setopbase($string0);
+                cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
+                cc_setop(1, "Open");
+                cc_setonop("script21251($int2, event_com, event_comsubid)");
+                cc_setnoclickthrough(true);
+                cc_setparam(plugin_api_plugin_id, $int2);
+                if ($graphic3 = null) {
+                    cc_settext(~script21254($string0));
+                }
+            }
+            ~cc_add_graphic(toplevel_v2_plugin_content:plugin_buttons_layer, if_getnextsubid(toplevel_v2_plugin_content:plugin_buttons_layer), calc($int23 + $int29), calc($int24 + $int29), ^setpos_abs_left, ^setpos_abs_top, 20, 20, ^setsize_abs, ^setsize_abs, $graphic3);
+            $int21 = calc($int21 + 1);
+            $int20 = calc($int20 + 1);
+        }
+        $int22 = calc($int22 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($boolean28 = true) {
+    $int23, $int24 = ~script21245($int20, $int7, $int10, $int11, $int6);
+    ~script21247(toplevel_v2_plugin_content:plugin_buttons_layer, $int23, $int24, $int6, 1, $int19, "Next");
+}

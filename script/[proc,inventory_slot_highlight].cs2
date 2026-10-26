@@ -3,19 +3,19 @@
 if ($int0 = -1 | $component1 = null | $component3 = null) {
     return;
 }
-if ($int0 = 94 & %varclient_3822 ! null) {
-    $int2 = oc_wearpos(%varclient_3822);
+if ($int0 = 94 & %inv_obj_being_dragged ! null) {
+    $int2 = oc_wearpos(%inv_obj_being_dragged);
     if ($int2 = 17) {
         $int2 = 17;
     }
 }
-%varclient_4135 = $component3;
-%varclient_4136 = $int2;
-if (%varclient_3822 = null | %varclient_3823 = null | $int4 = 0) {
+%inv_highlight_component = $component3;
+%inv_slot_being_highlighted_1 = $int2;
+if (%inv_obj_being_dragged = null | %inv_inv_being_dragged = null | $int4 = 0) {
     if (cc_find($component3, $int2) = true) {
         cc_sethide(true);
     }
-    %varclient_4136 = -1;
+    %inv_slot_being_highlighted_1 = -1;
     if_setonmouserepeat(null, $component1);
     return;
 }
@@ -23,26 +23,26 @@ def_obj $obj6 = null;
 def_int $rgb7 = 0xf0be79;
 if (cc_find($component1, $int2) = true) {
     if ($int0 = 94) {
-        if (%varclient_3823 ! inv_94) {
+        if (%inv_inv_being_dragged ! worn) {
             $obj6 = cc_getinvobject;
-            if (oc_wearpos(%varclient_3822) = -1 | $int5 = 1 & ~wearprevent(%varclient_3822) ! 0 | $int5 = 0 & ~script3848(%varclient_3822, null) ! 0) {
+            if (oc_wearpos(%inv_obj_being_dragged) = -1 | $int5 = 1 & ~wearprevent(%inv_obj_being_dragged) ! 0 | $int5 = 0 & ~script3848(%inv_obj_being_dragged, null) ! 0) {
                 $rgb7 = ^red;
             }
         }
-    } else if (%varclient_3823 ! inv_93) {
+    } else if (%inv_inv_being_dragged ! inv) {
         $obj6 = cc_getinvobject;
-        if ($int5 = 1 & ~script9224(%varclient_3822, $obj6) = 1 | $int5 = 0 & ~script3851(%varclient_3822, $obj6) = 1) {
+        if ($int5 = 1 & ~script9224(%inv_obj_being_dragged, $obj6) = 1 | $int5 = 0 & ~script3851(%inv_obj_being_dragged, $obj6) = 1) {
             $rgb7 = ^red;
         }
     }
 } else {
     if_setonmouserepeat(null, $component1);
-    %varclient_4136 = -1;
+    %inv_slot_being_highlighted_1 = -1;
     return;
 }
 if (cc_find($component3, $int2) = true) {
     if ($rgb7 = ^red) {
-        if_setonmouserepeat("script3901($int0, $component1, $int2, $component3, calc(clientclock + 25), %varclient_3822, %varclient_3823)", $component1);
+        if_setonmouserepeat("script3901($int0, $component1, $int2, $component3, calc(clientclock + 25), %inv_obj_being_dragged, %inv_inv_being_dragged)", $component1);
     } else {
         if_setonmouserepeat(null, $component1);
     }

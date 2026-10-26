@@ -1,0 +1,156 @@
+// 21209
+[proc,script21209](component $component0, int $int1, int $int2)(boolean)
+if (plugin_getunavailable($int2) = true) {
+    return(false);
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_string $string4 = "";
+$string0, $string1, $string2, $string3, $int3, $int4, $string4 = ~script21153($int2);
+if (string_length(%plugin_hub_last_search) >= 2 & string_indexof_string(lowercase($string0), %plugin_hub_last_search, 0) = -1) {
+    return(false);
+}
+def_boolean $boolean5 = ~int_to_bool(plugin_info_int($int2, 3, -1));
+def_string $string5 = "Enabled";
+if ($boolean5 = false) {
+    $string5 = "Disabled";
+}
+def_int $int6 = calc(2500 * 1 + $int1);
+def_int $int7 = calc(2500 * 2 + $int1);
+def_int $int8 = calc(2500 * 3 + $int1);
+def_int $int9 = calc(2500 * 4 + $int1);
+def_int $int10 = calc(2500 * 5 + $int1);
+def_int $int11 = calc(2500 * 6 + $int1);
+def_int $int12 = calc(2500 * 7 + $int1);
+def_int $int13 = calc(2500 * 8 + $int1);
+def_int $int14 = calc(2500 * 9 + $int1);
+def_int $int15 = calc(2500 * 10 + $int1);
+def_int $int16 = calc(2500 * 11 + $int1);
+def_int $int17 = calc(2500 * 12 + $int1);
+def_int $int18 = calc(2500 * 13 + $int1);
+def_int $int19 = calc(2500 * 14 + $int1);
+def_int $int20 = calc(2500 * 15 + $int1);
+def_int $int21 = calc(2500 * 16 + $int1);
+def_int $int22 = calc(2500 * 17 + $int1);
+def_int $int23 = calc(2500 * 18 + $int1);
+def_int $int24 = calc(2500 * 19 + $int1);
+def_int $int25 = calc(2500 * 20 + $int1);
+def_int $int26 = calc(2500 * 21 + $int1);
+def_int $int27 = calc(2500 * 22 + $int1);
+def_int $int28 = calc(2500 * 23 + $int1);
+def_int $int29 = calc(2500 * 24 + $int1);
+def_int $int30 = calc(2500 * 25 + $int1);
+def_int $int31 = 4;
+def_string $string6 = "";
+def_string $string7 = "There are no settings available for this plugin.";
+def_boolean $boolean32 = ~script21221($int2);
+def_string $string8 = "This plugin has required permissions that must be accepted before it can be enabled.";
+if (cc_find($component0, $int1) = true) {
+    ~script16109(~script21130($int6), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $int1, false);
+    cc_setonpluginstatusevent("script21215($int2, $component0, $int1, event_mousex, event_mousey)");
+    ~cc_add_child_graphic(~script21130($int10), 4, 0, ^setpos_abs_left, ^setpos_abs_centre, 112, 63, ^setsize_abs, ^setsize_abs, null);
+    cc_setgraphicname($string3);
+    ~cc_add_child_text(~script21130($int7), 120, 4, ^setpos_abs_left, ^setpos_abs_top, 300, 18, ^setsize_abs, ^setsize_abs, text_subtitle_body, $string0);
+    ~cc_add_child_text(~script21130($int8), 4, 4, ^setpos_abs_right, ^setpos_abs_top, 170, 16, ^setsize_abs, ^setsize_abs, text_body_default, "by <$string1>");
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    ~cc_add_child_text(~script21130($int9), 120, 6, ^setpos_abs_left, ^setpos_abs_bottom, 170, 16, ^setsize_abs, ^setsize_abs, text_body_default, "Loading...");
+    if ($boolean32 = true & ~script21236($int2) = false) {
+        ~cc_add_child_checkbox_full(~script21130($int11), 120, calc(22 + 2), ^setpos_abs_left, ^setpos_abs_top, 200, 20, ^setsize_abs, ^setsize_abs, checkbox_default_left_aligned, $string5, false, true, $boolean5);
+        cc_setonmouserepeat("script8799($string8, event_com, event_comsubid)");
+        cc_setonmouseleave("script8805");
+    } else {
+        ~cc_add_child_checkbox_full(~script21130($int11), 120, calc(22 + 2), ^setpos_abs_left, ^setpos_abs_top, 200, 20, ^setsize_abs, ^setsize_abs, checkbox_default_left_aligned, $string5, true, true, $boolean5);
+        cc_setop(1, "Toggle <$string0>");
+        cc_setonop("script21212($int2, $string0, $boolean5, $component0, cc_getid)");
+    }
+    if (cc_find($component0, $int1) = true) {
+        ~cc_add_child_layer(~script21130($int25), $int31, 4, ^setpos_abs_right, ^setpos_abs_bottom, 24, 24, ^setsize_abs, ^setsize_abs);
+        ~cc_add_child_button(~script21130($int26), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_icon_neutral, "");
+        cc_setop(1, "Remove <$string0>");
+        cc_setonop("script21216(event_com, $int1, $int2, $string0)");
+        ~cc_add_child_graphic(~script21130($int27), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_remove);
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_remove)");
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_remove)");
+        $string6 = "Remove <$string0>.";
+        cc_setonmouserepeat("script8799($string6, event_com, event_comsubid)");
+    }
+    $int31 = calc($int31 + (24 + 4));
+    if (cc_find($component0, $int1) = true) {
+        ~cc_add_child_layer(~script21130($int22), $int31, 4, ^setpos_abs_right, ^setpos_abs_bottom, 24, 24, ^setsize_abs, ^setsize_abs);
+        ~cc_add_child_button(~script21130($int23), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_icon_neutral, "");
+        if ($boolean5 = false | plugin_info_int($int2, 26, -1) = 0) {
+            ~script7872(false, true, false, false);
+            cc_setonmouserepeat("script8799($string7, event_com, event_comsubid)");
+            cc_setonmouseleave("script8805");
+            ~cc_add_child_graphic(~script21130($int24), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_settings_disabled);
+        } else {
+            cc_setop(1, "Settings");
+            cc_setonop("script21220($int2, $string3, $string0)");
+            ~cc_add_child_graphic(~script21130($int24), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_settings_active);
+            cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_settings_active)");
+            cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_settings_active)");
+            $string6 = "Open settings for <$string0>.";
+            cc_setonmouserepeat("script8799($string6, event_com, event_comsubid)");
+        }
+    }
+    $int31 = calc($int31 + (24 + 4));
+    if (cc_find($component0, $int1) = true) {
+        ~cc_add_child_layer(~script21130($int19), $int31, 4, ^setpos_abs_right, ^setpos_abs_bottom, 24, 24, ^setsize_abs, ^setsize_abs);
+        ~cc_add_child_button(~script21130($int20), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_icon_neutral, "");
+        cc_setop(1, "Report <$string0>");
+        cc_setonop("script21218(event_com, event_comsubid, $int2, $string4)");
+        ~cc_add_child_graphic(~script21130($int21), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_report);
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_report)");
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_report)");
+        $string6 = "Report <$string0> on Mod.io.";
+        cc_setonmouserepeat("script8799($string6, event_com, event_comsubid)");
+    }
+    $int31 = calc($int31 + (24 + 4));
+    if (cc_find($component0, $int1) = true) {
+        ~cc_add_child_layer(~script21130($int16), $int31, 4, ^setpos_abs_right, ^setpos_abs_bottom, 24, 24, ^setsize_abs, ^setsize_abs);
+        ~cc_add_child_button(~script21130($int17), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_icon_neutral, "");
+        cc_setop(1, "More Information");
+        cc_setonop("script21152(event_com, 2, $int2, $string4)");
+        ~cc_add_child_graphic(~script21130($int18), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_info);
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_info)");
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_info)");
+        $string6 = "Visit Mod.io for more information about <$string0>.";
+        cc_setonmouserepeat("script8799($string6, event_com, event_comsubid)");
+    }
+    $int31 = calc($int31 + (24 + 4));
+    if ($boolean32 = true) {
+        if (cc_find($component0, $int1) = true) {
+            ~cc_add_child_layer(~script21130($int28), $int31, 4, ^setpos_abs_right, ^setpos_abs_bottom, 24, 24, ^setsize_abs, ^setsize_abs);
+            ~cc_add_child_button(~script21130($int29), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_icon_neutral, "");
+            cc_setop(1, "Manage permissions");
+            cc_setonop("script21223($int2, $string0)");
+            ~cc_add_child_graphic(~script21130($int30), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_permissions);
+            cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_permissions)");
+            cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_permissions)");
+            $string6 = "Manage permissions for <$string0>.";
+            cc_setonmouserepeat("script8799($string6, event_com, event_comsubid)");
+        }
+        $int31 = calc($int31 + (24 + 4));
+    }
+    if (cc_find($component0, $int1) = true) {
+        cc_setontimer("script21211(event_com, $int2, $int1)");
+        ~cc_add_child_text(~script21130($int12), calc($int31 + 24 + 4 + 10), 6, ^setpos_abs_right, ^setpos_abs_bottom, 170, 16, ^setsize_abs, ^setsize_abs, text_body_default, "");
+        cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+        cc_sethide(true);
+        ~cc_add_child_layer(~script21130($int13), $int31, 4, ^setpos_abs_right, ^setpos_abs_bottom, 24, 24, ^setsize_abs, ^setsize_abs);
+        cc_sethide(true);
+        ~cc_add_child_button(~script21130($int14), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_icon_neutral, "");
+        cc_setop(1, "Update <$string0>");
+        cc_setonop("script21219(event_com, $int1, $int2, $string0)");
+        ~cc_add_child_graphic(~script21130($int15), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_update);
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_update)");
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_update)");
+        $string6 = "Update <$string0>.";
+        cc_setonmouserepeat("script8799($string6, event_com, event_comsubid)");
+    }
+}
+return(true);

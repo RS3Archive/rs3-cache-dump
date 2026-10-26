@@ -1,35 +1,35 @@
 // 1911
 [proc,script1911]
-def_enum $enum0 = enum_14541;
+def_enum $enum0 = qps_if_reward_qp;
 if (~script3825 = true) {
-    $enum0 = enum_13468;
+    $enum0 = qps_if_reward_qp_league;
 }
-def_int $int1 = enum(int, int, $enum0, %varplayerbit_42079);
-def_int $int2 = enum(int, int, $enum0, calc(%varplayerbit_42079 - 1));
+def_int $int1 = enum(int, int, $enum0, %qps_shop_selected_reward_index);
+def_int $int2 = enum(int, int, $enum0, calc(%qps_shop_selected_reward_index - 1));
 def_int $int3 = -1;
 def_int $int4 = 0;
-def_enum $enum5 = enum_14542;
+def_enum $enum5 = qps_if_reward_lists;
 if (~script3825 = true) {
-    $enum5 = enum_13474;
+    $enum5 = qps_if_reward_lists_league;
 }
 def_enum $enum6 = enum(int, enum, $enum5, $int1);
 def_int $int7 = enum_getoutputcount($enum6);
 def_string $string0 = "";
 def_struct $struct8 = null;
-cc_deleteall(interface_267:com_35);
-cc_deleteall(interface_267:com_36);
-if_settext(tostring($int2), interface_267:com_17);
-if_settext(tostring($int1), interface_267:com_19);
-if_settext("<col=C2B77C><tostring(%varplayer_1297)></col> / <tostring(%varplayer_423)>", interface_267:com_26);
-if (%varplayerbit_42079 = %varplayerbit_42078) {
+cc_deleteall(qps:tab1_track_build);
+cc_deleteall(qps:tab1_track_click);
+if_settext(tostring($int2), qps:tab1_header_progress_low);
+if_settext(tostring($int1), qps:tab1_header_progress_high);
+if_settext("<col=C2B77C><tostring(%qp)></col> / <tostring(%qp_total)>", qps:tab1_header_info_text);
+if (%qps_shop_selected_reward_index = %qps_shop_next_reward_index) {
     $string0 = ~text_plural($int7, "Earn quest points to claim more rewards! Your next reward is at <tostring($int1)> QP:", "Earn quest points to claim more rewards! Your next rewards are at <tostring($int1)> QP:");
 } else {
     $string0 = "Earn quest points to claim more rewards! Your previous rewards at <tostring($int1)> QP were:";
 }
-if_settext($string0, interface_267:com_28);
+if_settext($string0, qps:tab1_track_title);
 while (++$int3 < $int7) {
     $struct8 = enum(int, struct, $enum6, $int3);
     $int4 = calc(270 - ($int7 - 1) * 80);
-    ~script1924(interface_267:com_35, interface_267:com_36, $int3, -1, $struct8, calc($int4 + 160 * $int3), 30, 140, 140, 0, true);
+    ~script1924(qps:tab1_track_build, qps:tab1_track_click, $int3, -1, $struct8, calc($int4 + 160 * $int3), 30, 140, 140, 0, true);
 }
-if_setonvartransmit("script1910{varplayer_8159}", interface_267:com_34);
+if_setonvartransmit("script1910{qps_interface_var}", qps:tab1_track);

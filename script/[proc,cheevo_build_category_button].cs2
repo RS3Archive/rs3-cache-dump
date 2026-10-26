@@ -16,30 +16,30 @@ while ($achievement8 ! null) {
     }
     $achievement8 = achievement_findnext;
 }
-def_string $string0 = enum(category, string, enum_16073, $category2);
-def_graphic $graphic9 = enum(category, graphic, enum_16074, $category2);
+def_string $string0 = enum(category, string, cheevo_category_to_string, $category2);
+def_graphic $graphic9 = enum(category, graphic, cheevo_category_to_graphic_graphic, $category2);
 def_int $int10 = if_getwidth($component0);
 cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize($int10, 45, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top);
-cc_setparam(param_7162, $int3);
+cc_setparam(cheevo_cat_intial_y, $int3);
 cc_setgraphic(null);
-def_int $int11 = enum_getoutputcount(enum_16072);
+def_int $int11 = enum_getoutputcount(cheevo_categories);
 if ($category2 ! null) {
-    $int11 = enum_getreverseindex(category, int, enum_16072, $category2, 0);
+    $int11 = enum_getreverseindex(category, int, cheevo_categories, $category2, 0);
 }
-def_struct $struct12 = struct_28556;
+def_struct $struct12 = rs3tli_3x3_button;
 ~script10410($component0, $component1, $struct12, 3, $int3, calc($int10 - 6), 45, $int11, false, "");
 if (cc_find($component0, calc(if_getnextsubid($component0) - 1)) = true) {
     cc_setonrelease(null);
 }
 if (cc_find($component1, $int11) = true) {
     cc_setonclick("cheevo_click_category($component0, $component1, $struct12, cc_getid)");
-    cc_setonvartransmit("script15349($component0, $component1, $struct12, cc_getid){varplayer_9607}");
+    cc_setonvartransmit("script15349($component0, $component1, $struct12, cc_getid){cheevo_goto_achievement}");
     cc_setonop("cheevo_op_category($component0, $component1, cc_getid)");
     cc_setop(1, "Select");
     cc_setopbase($string0);
-    if_setparam_int(param_9209, cc_getid, $component1);
+    if_setparam_int(cheevo_ui_last_click_id, cc_getid, $component1);
 }
 cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(28, 28, ^setsize_abs, ^setsize_abs);
@@ -49,7 +49,7 @@ $string0 = append($string0, "<br>[<tostring_localised($int5, true)> / <tostring_
 cc_create($component0, ^iftype_text, if_getnextsubid($component0));
 cc_setsize(36, 41, ^setsize_minus, ^setsize_abs);
 cc_setposition(40, calc($int3 + 2), ^setpos_abs_left, ^setpos_abs_top);
-cc_settextfont(fontmetrics_27);
+cc_settextfont(museo_sans_11pt_regular_multiline);
 cc_setcolour(~script10495(2));
 cc_settext($string0);
 cc_settextshadow(true);
@@ -57,5 +57,5 @@ cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setposition(10, calc($int3 + (45 - 13) / 2), ^setpos_abs_right, ^setpos_abs_top);
 cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
-cc_setonvartransmit("script15348($component0, cc_getid, $category2){varplayer_7120}");
+cc_setonvartransmit("script15348($component0, cc_getid, $category2){cheevo_misc_varp}");
 return(true);

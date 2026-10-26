@@ -1,92 +1,92 @@
 // 2598
 [proc,script2598]
 def_obj $obj0 = null;
-if (%varplayer_8332 = null) {
+if (%smithing_interface_material_dbrow_selected = null) {
     mes("ERROR, %smithing_interface_material_dbrow_selected is null.");
     return;
 }
-if (%varplayer_8333 = null) {
+if (%smithing_interface_base_object_selected = null) {
     mes("ERROR, %smithing_interface_base_object_selected is null");
     return;
 }
-if (%varplayerbit_43239 < 0) {
+if (%smithing_interface_upgrade_selected < 0) {
     mes("ERROR, %smithing_interface_upgrade_selected is null");
     return;
 }
-def_int $int1 = oc_param(%varplayer_8333, param_7805);
+def_int $int1 = oc_param(%smithing_interface_base_object_selected, smithing_max_upgrades);
 switch_int ($int1) {
     case 0 :
-        if_sethide(true, interface_37:com_7);
-        if_sethide(true, interface_37:com_8);
-        if_sethide(true, interface_37:com_9);
-        if_sethide(true, interface_37:com_10);
-        if_sethide(true, interface_37:com_11);
+        if_sethide(true, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
     case 1 :
-        if_sethide(false, interface_37:com_7);
-        if_sethide(true, interface_37:com_8);
-        if_sethide(true, interface_37:com_9);
-        if_sethide(true, interface_37:com_10);
-        if_sethide(true, interface_37:com_11);
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
     case 2 :
-        if_sethide(false, interface_37:com_7);
-        if_sethide(false, interface_37:com_8);
-        if_sethide(true, interface_37:com_9);
-        if_sethide(true, interface_37:com_10);
-        if_sethide(true, interface_37:com_11);
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
     case 3 :
-        if_sethide(false, interface_37:com_7);
-        if_sethide(false, interface_37:com_8);
-        if_sethide(false, interface_37:com_9);
-        if_sethide(true, interface_37:com_10);
-        if_sethide(true, interface_37:com_11);
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
     case 4 :
-        if_sethide(false, interface_37:com_7);
-        if_sethide(false, interface_37:com_8);
-        if_sethide(false, interface_37:com_9);
-        if_sethide(false, interface_37:com_10);
-        if_sethide(true, interface_37:com_11);
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(true, ms_smithing_makex:info_upgrade_5_button);
     case 5 :
-        if_sethide(false, interface_37:com_7);
-        if_sethide(false, interface_37:com_8);
-        if_sethide(false, interface_37:com_9);
-        if_sethide(false, interface_37:com_10);
-        if_sethide(false, interface_37:com_11);
+        if_sethide(false, ms_smithing_makex:info_upgrade_1_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_2_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_3_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_4_button);
+        if_sethide(false, ms_smithing_makex:info_upgrade_5_button);
 }
-if (db_getfieldcount(%varplayer_8332, dbtable_112:col1) > 0) {
+if (db_getfieldcount(%smithing_interface_material_dbrow_selected, accordian_builder:col1) > 0) {
     if ($int1 > 0) {
-        if_sethide(false, interface_37:com_12);
+        if_sethide(false, ms_smithing_makex:info_upgrade_burial_button);
     } else {
-        if_sethide(true, interface_37:com_12);
-        if (%varplayerbit_43239 = 50) {
-            %varplayerbit_43239 = $int1;
+        if_sethide(true, ms_smithing_makex:info_upgrade_burial_button);
+        if (%smithing_interface_upgrade_selected = 50) {
+            %smithing_interface_upgrade_selected = $int1;
         }
     }
 } else {
-    if_sethide(true, interface_37:com_12);
-    if (%varplayerbit_43239 = 50) {
-        %varplayerbit_43239 = $int1;
+    if_sethide(true, ms_smithing_makex:info_upgrade_burial_button);
+    if (%smithing_interface_upgrade_selected = 50) {
+        %smithing_interface_upgrade_selected = $int1;
     }
 }
-if (%varplayerbit_43239 = 50) {
+if (%smithing_interface_upgrade_selected = 50) {
     $int1 = 50;
 }
-%varplayerbit_43239 = min($int1, %varplayerbit_43239);
-$obj0 = ~script2542(%varplayer_8333, %varplayerbit_43239);
+%smithing_interface_upgrade_selected = min($int1, %smithing_interface_upgrade_selected);
+$obj0 = ~script2542(%smithing_interface_base_object_selected, %smithing_interface_upgrade_selected);
 if ($obj0 = null) {
     mes("ERROR, can't find upgrade.");
-    $obj0 = %varplayer_8333;
+    $obj0 = %smithing_interface_base_object_selected;
 }
 switch_obj ($obj0) {
-    case obj_45435, obj_45436, obj_45437, obj_45438, obj_45439, obj_45440, obj_57437 :
-        if_sethide(true, interface_37:com_6);
+    case adamant_burial_set, rune_burial_set, orikalkum_burial_set, necronium_burial_set, bane_burial_set, elder_rune_burial_set, primal_burial_set :
+        if_sethide(true, ms_smithing_makex:info_upgrade_base_button);
     case default :
-        if_sethide(false, interface_37:com_6);
+        if_sethide(false, ms_smithing_makex:info_upgrade_base_button);
 }
-if (oc_param($obj0, param_2653) > 1) {
-    if_settext("<oc_name($obj0)> x<tostring(~script18374($obj0))>", interface_37:com_40);
+if (oc_param($obj0, recipe_make_stack_size) > 1) {
+    if_settext("<oc_name($obj0)> x<tostring(~script18374($obj0))>", ms_smithing_makex:info_object_name);
 } else {
-    if_settext(oc_name($obj0), interface_37:com_40);
+    if_settext(oc_name($obj0), ms_smithing_makex:info_object_name);
 }
-~script2609(%varplayerbit_43239);
+~script2609(%smithing_interface_upgrade_selected);
 ~script2605($obj0);
 ~smithing_draw_slider;

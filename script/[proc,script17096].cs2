@@ -2,12 +2,12 @@
 [proc,script17096]
 def_int $int0 = 0;
 def_int $int1 = 0;
-def_int $int2 = if_getwidth(interface_1626:com_74);
+def_int $int2 = if_getwidth(death:info_scrolling);
 def_string $string0 = "<col=<tostring(~script10495(4), 16)>>";
-if (%varplayerbit_1675 = 2) {
+if (%deathkeep_info_dangermode = 2) {
     $int1 = ~script17099($int0++, $int1, $int2, "Safe Area");
-    if (string_length(%varclient_2368) > 0) {
-        $int1 = ~script17100($int0++, $int1, $int2, %varclient_2368);
+    if (string_length(%deathkeep_info_safearea) > 0) {
+        $int1 = ~script17100($int0++, $int1, $int2, %deathkeep_info_safearea);
     } else {
         $int1 = ~script17100($int0++, $int1, $int2, "You are currently in a safe area. Upon death, you will keep all of your items.");
     }
@@ -16,14 +16,14 @@ if (%varplayerbit_1675 = 2) {
 if (~hardcore_mode = true) {
     $int1 = ~script17099($int0++, $int1, $int2, "Hardcore Ironman");
     $int1 = ~script17100($int0++, $int1, $int2, "As a Hardcore Ironman, special rules apply.");
-    $int1 = ~script17098($int0++, $int1, $int2, 0, "You have used <tostring(%varplayerbit_25402)> lives.");
-    $int1 = ~script17098($int0++, $int1, $int2, 0, "You have unlocked <tostring(%varplayerbit_25403)> lives.");
-    if (%varplayerbit_25403 < 2) {
+    $int1 = ~script17098($int0++, $int1, $int2, 0, "You have used <tostring(%hardcore_livesused)> lives.");
+    $int1 = ~script17098($int0++, $int1, $int2, 0, "You have unlocked <tostring(%hardcore_livesunlocked)> lives.");
+    if (%hardcore_livesunlocked < 2) {
         $int1 = ~script17100($int0++, $int1, $int2, "Additional lives can be purchased from Mr Ex:");
-        if (%varplayerbit_25403 <= 0) {
+        if (%hardcore_livesunlocked <= 0) {
             $int1 = ~script17098($int0++, $int1, $int2, 0, "100,000 coins after skill total 1,000.");
         }
-        if (%varplayerbit_25403 <= 1) {
+        if (%hardcore_livesunlocked <= 1) {
             $int1 = ~script17098($int0++, $int1, $int2, 0, "10,000,000 coins after skill total 1,600.");
         }
     }
@@ -45,10 +45,10 @@ $int1 = ~script17098($int0++, $int1, $int2, 0, "Normal death: Protected items ar
 $int1 = ~script17098($int0++, $int1, $int2, 0, "Dangerous PvP: Protected items are kept and all others are dropped.");
 $int1 = ~script17099($int0++, calc($int1 + 5), $int2, "Boosting Protection");
 $int1 = ~script17100($int0++, $int1, $int2, "Protection can be boosted to a maximum of five items. Each effect can boost protection by one.<br>");
-$int0, $int1, $int3 = ~script17097($int0, $int1, $int2, $string0, $int3, 0, enum_16771, "These effects are available on all worlds:");
-$int0, $int1, $int3 = ~script17097($int0, $int1, $int2, $string0, $int3, 0, enum_16772, "These effects are available only in members' worlds:");
-$int0, $int1, $int3 = ~script17097($int0, $int1, $int2, $string0, $int3, 0, enum_16773, "These effects are available only in members' worlds, and do not work in dangerous situations:");
-$int1 = ~script17101($int0++, $int1, $int2, 16, 36, enum_16776, enum_16777, enum_16778);
+$int0, $int1, $int3 = ~script17097($int0, $int1, $int2, $string0, $int3, 0, death_info_bullet_points_f2p, "These effects are available on all worlds:");
+$int0, $int1, $int3 = ~script17097($int0, $int1, $int2, $string0, $int3, 0, death_info_bullet_points_p2p, "These effects are available only in members' worlds:");
+$int0, $int1, $int3 = ~script17097($int0, $int1, $int2, $string0, $int3, 0, death_info_bullet_points_pvp, "These effects are available only in members' worlds, and do not work in dangerous situations:");
+$int1 = ~script17101($int0++, $int1, $int2, 16, 36, death_info_protect_sprites, death_info_protect_sprites_tooltip, death_info_protect_objects);
 if ($int3 ! $int4) {
     if (~death_get_type = 2) {
         $int1 = ~script17100($int0++, $int1, $int2, "<col=00ff00>[ACTIVE]</col> effects would be used if they are still active upon death.<br><col=EED202>[BACKUP]</col> effects would be used if a previous effect was deactivated.");
@@ -59,9 +59,9 @@ if ($int3 ! $int4) {
 $int1 = ~script17099($int0++, calc($int1 + 5), $int2, "Dangerous Situations");
 $int1 = ~script17100($int0++, $int1, $int2, "In dangerous areas, you protect <$string0>zero</col> items before boosts are applied, and your items will not be saved.<br>Dangerous areas include:");
 $int1 = ~script17098($int0++, $int1, $int2, 0, ~script17104(1));
-$int1 = ~script17101($int0++, $int1, $int2, 16, 25, enum_16774, enum_16775, null);
+$int1 = ~script17101($int0++, $int1, $int2, 16, 25, death_info_skull_sprites, death_info_skull_sprites_tooltip, null);
 $int1 = ~script17098($int0++, $int1, $int2, 0, ~script17104(2));
 $int1 = ~script17098($int0++, $int1, $int2, 0, ~script17104(3));
 $int1 = ~script17098($int0++, $int1, $int2, 0, ~script17104(4));
-if_setscrollsize(0, $int1, interface_1626:com_74);
-~rs3_scrollbar_vertical(interface_1626:com_75, interface_1626:com_74);
+if_setscrollsize(0, $int1, death:info_scrolling);
+~rs3_scrollbar_vertical(death:info_scrollbar, death:info_scrolling);

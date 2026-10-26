@@ -1,10 +1,10 @@
 // 1613
 [clientscript,inventory_init](component $component0, int $int1)
 if ($int1 = 1) {
-    %varclient_1031 = 0;
-    if_setonvartransmit("inventory_init(event_com, 0){varplayer_1293}", $component0);
+    %inventory_target = 0;
+    if_setonvartransmit("inventory_init(event_com, 0){tutorial4}", $component0);
 }
-def_int $int2 = inv_size(inv_93);
+def_int $int2 = inv_size(inv);
 def_int $int3 = calc($int2 * 2 - 1);
 def_int $int4 = 0;
 def_boolean $boolean5 = ~script6431;
@@ -37,16 +37,16 @@ def_int $int6 = calc($int2 / 4);
 def_int $int7 = calc((if_getwidth($component0) - 4 * 36) / 3);
 def_int $int8 = calc((if_getheight($component0) - $int6 * 32) / 6);
 def_obj $obj9 = null;
-$int3 = calc(%varclient_1031 - 1);
+$int3 = calc(%inventory_target - 1);
 $int4 = 0;
 while ($int4 < $int2) {
     if (cc_find($component0, $int4) = true) {
         cc_clearops;
         cc_setposition(calc($int4 % 4 * (36 + $int7)), calc($int4 / 4 * (32 + $int8)), ^setpos_abs_left, ^setpos_abs_top);
-        $obj9 = inv_getobj(inv_93, $int4);
+        $obj9 = inv_getobj(inv, $int4);
         if ($obj9 ! null) {
             cc_sethide(false);
-            cc_setobject($obj9, inv_getnum(inv_93, $int4));
+            cc_setobject($obj9, inv_getnum(inv, $int4));
             if ($int4 = $int3) {
                 cc_setoutline(2);
             } else {
@@ -54,7 +54,7 @@ while ($int4 < $int2) {
             }
             ~inventory_setophelds($obj9, 1, $int4, -1);
             cc_setdraggable($component0, -1);
-            cc_setonmouserepeat("script12093($obj9, inv_93, $int4)");
+            cc_setonmouserepeat("script12093($obj9, inv, $int4)");
             cc_setonmouseleave("script5495(null)");
         } else {
             cc_sethide(true);
@@ -62,7 +62,7 @@ while ($int4 < $int2) {
             cc_setobject(null, 0);
             cc_setoutline(1);
             if ($int4 = $int3) {
-                %varclient_1031 = 0;
+                %inventory_target = 0;
             }
         }
     }

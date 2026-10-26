@@ -1,9 +1,9 @@
 // 18511
 [proc,script18511](component $component0, int $int1)
 ~script18512;
-def_int $int2 = calc(%varclient_7382 / 60 / 24);
-def_int $int3 = calc(%varclient_7382 / 60 - $int2 * 24);
-def_int $int4 = calc(%varclient_7382 % 60);
+def_int $int2 = calc(%trh_banner_reward_track_time_minutes / 60 / 24);
+def_int $int3 = calc(%trh_banner_reward_track_time_minutes / 60 - $int2 * 24);
+def_int $int4 = calc(%trh_banner_reward_track_time_minutes % 60);
 def_string $string0 = "Time Remaining: ";
 def_string $string1 = "<tostring($int2)> <~text_plural($int2, "Day", "Days")>";
 def_string $string2 = "<tostring($int3)> <~text_plural($int3, "Hour", "Hours")>";
@@ -20,14 +20,14 @@ if ($int2 >= 1) {
     $struct5 = ~script18493;
     $struct6 = ~trh_promo_on_date(calc($int1 + 1));
     if ($struct6 ! $struct5) {
-        if ($struct6 ! null & struct_param($struct6, param_9075) ! null) {
+        if ($struct6 ! null & struct_param($struct6, trh_banner_reward_track) ! null) {
             $string0 = "Relog to refresh!";
         } else {
             $string0 = "Reward Track finished!";
         }
     } else if (~script18497($struct5, ~script18499($struct5, calc($int1 + 1))) > 0) {
         $string0 = "Refresh or relog for the next reward!";
-        if_sethide(false, interface_1253:com_346);
+        if_sethide(false, wheel_of_fortune:trh_banner_reward_track_day_refresh);
     } else {
         $string0 = "Finished!";
     }

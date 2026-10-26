@@ -2,12 +2,12 @@
 [proc,diango_items](component $component0)
 cc_deleteall($component0);
 def_int $int1 = if_getwidth($component0);
-def_int $int2 = enum_getoutputcount(enum_6245);
-def_int $int3 = calc($int2 + enum_getoutputcount(enum_8842));
-def_enum $enum4 = enum_6245;
-if (%varplayer_9167 = 1) {
-    $enum4 = enum_14535;
-    $int3 = enum_getoutputcount(enum_14535);
+def_int $int2 = enum_getoutputcount(diango_items);
+def_int $int3 = calc($int2 + enum_getoutputcount(trh_diango_recoverable_items));
+def_enum $enum4 = diango_items;
+if (%diango_interface_mode = 1) {
+    $enum4 = qps_storage_chest_items;
+    $int3 = enum_getoutputcount(qps_storage_chest_items);
     $int2 = $int3;
 }
 def_int $int5 = 0;
@@ -29,7 +29,7 @@ while ($int5 < $int3) {
         $obj8 = enum(int, obj, $enum4, $int5);
     } else {
         $int10 = 1;
-        $obj8 = enum(int, obj, enum_8842, calc($int5 - $int2));
+        $obj8 = enum(int, obj, trh_diango_recoverable_items, calc($int5 - $int2));
     }
     cc_create($component0, ^iftype_graphic, $int5);
     if (~script14437($obj8, $int10) = true) {
@@ -40,7 +40,7 @@ while ($int5 < $int3) {
         cc_setobject($obj8, $int9);
         cc_setop(1, "Retrieve");
         switch_category (oc_category($obj8)) {
-            case category_2739, category_3226, category_3227, category_3228, category_3229, category_3311, category_3312, category_3313, category_3314, category_3497, category_3498, category_3499, category_3500, category_3698, category_3699, category_3700, category_3701, category_3858, category_3856, category_3857, category_3859, category_3992, category_3993, category_3994, category_3995, category_3996, category_4097, category_4098, category_4099, category_4100, category_4158, category_4159, category_4155, category_4156, category_4157, category_4174, category_4175, category_4176, category_4177, category_4361, category_4362, category_4363, category_4364, category_4475, category_4610, category_4611, category_4917, category_5468 :
+            case wof_skill_set_item, trh19_blue_golem, trh19_green_golem, trh19_red_golem, trh19_magic_golem, trh33_ethereal_law, trh33_ethereal_blood, trh33_ethereal_death, trh33_ethereal_infinity, trh48_shark_normal, trh48_shark_tiger, trh48_shark_burnt, trh48_shark_fury, trh75_outfit_energy, trh75_outfit_chronicle, trh75_outfit_memory, trh75_outfit_elder, trh90_outfit_desert, trh90_outfit_keldagrim, trh90_outfit_prifddinas, trh90_outfit_master, trh103_outfit_frozen, trh103_outfit_furnished, trh103_outfit_abandoned, trh103_outfit_occult, trh103_outfit_warped, trh113_elite_woodcutting_v1_outfit, trh113_elite_woodcutting_v2_outfit, trh113_elite_woodcutting_v3_outfit, trh113_elite_woodcutting_v4_outfit, ramble_lumberjack_set, tt2_construction_set, golden_mining_set, black_ibis_set, master_runecrafter_set, trh127_desert_outfit, trh127_jungle_outfit, trh127_arctic_outfit, trh127_volcanic_outfit, pof_rewards_trh_outfit_animals, pof_rewards_trh_outfit_crops, pof_rewards_trh_outfit_trees, pof_rewards_trh_outfit_master, elr2_hunter_outfit, arch_skilling_outfit, arch_elite_skilling_outfit, con_elite_skilling_outfit, necro_skilling_outfit :
                 cc_setop(2, "Retrieve all outfit pieces");
         }
         cc_setop(10, "Examine");
@@ -48,8 +48,8 @@ while ($int5 < $int3) {
         cc_setoutline(1);
         cc_setonmouserepeat("script5495($obj8)");
         cc_setonmouseleave("script5495(null)");
-        cc_setparam(param_7540, 0);
-        cc_setparam(param_7541, $obj8);
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 0);
+        cc_setparam(toplevel_v2_tooltip_mobile_item, $obj8);
         ~script14420($obj8);
         $int6 = calc($int6 + $int13);
         if (calc($int6 + $int11) >= $int1) {
@@ -63,21 +63,21 @@ if ($int6 = 0 & $int7 = 0) {
     cc_create($component0, ^iftype_text, if_getnextsubid($component0));
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
-    cc_settextfont(fontmetrics_26);
+    cc_settextfont(museo_sans_11pt_regular);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_setcolour(^white);
     cc_settextshadow(true);
     cc_settext("Nothing to retrieve.");
 }
-if ($component0 = interface_1387:com_38) {
+if ($component0 = diango_items:holiday_items) {
     if ($int6 > 8) {
         $int7 = calc($int7 + $int13);
     }
-    if ($int7 > if_getheight(interface_1387:com_38)) {
-        if_setscrollsize(0, $int7, interface_1387:com_38);
-        ~scrollbar_resize(interface_1387:com_39, interface_1387:com_38, if_getscrolly(interface_1387:com_38));
+    if ($int7 > if_getheight(diango_items:holiday_items)) {
+        if_setscrollsize(0, $int7, diango_items:holiday_items);
+        ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, if_getscrolly(diango_items:holiday_items));
     } else {
-        if_setscrollsize(0, 0, interface_1387:com_38);
-        ~scrollbar_resize(interface_1387:com_39, interface_1387:com_38, 0);
+        if_setscrollsize(0, 0, diango_items:holiday_items);
+        ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, 0);
     }
 }

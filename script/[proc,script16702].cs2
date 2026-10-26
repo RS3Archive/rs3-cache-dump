@@ -1,25 +1,25 @@
 // 16702
 [proc,script16702](component $component0, boolean $boolean1)
-def_component $component2 = interface_998:com_25;
-def_component $component3 = interface_998:com_9;
-def_component $component4 = interface_998:com_27;
-def_component $component5 = interface_998:com_16;
-switch_inv (%varplayer_10581) {
-    case inv_995 :
-        $component2 = interface_486:com_30;
-        $component3 = interface_486:com_9;
-        $component4 = interface_486:com_32;
-        $component5 = interface_486:com_21;
+def_component $component2 = modal_storage:inventory_obj_build_layer;
+def_component $component3 = modal_storage:storage_obj_build_layer;
+def_component $component4 = modal_storage:inventory_window_highlight;
+def_component $component5 = modal_storage:storage_window_highlight;
+switch_inv (%modal_storage_active_inv) {
+    case rand_storage :
+        $component2 = rand_storage:inventory_obj_build_layer;
+        $component3 = rand_storage:storage_obj_build_layer;
+        $component4 = rand_storage:inventory_window_highlight;
+        $component5 = rand_storage:storage_window_highlight;
 }
-if (%varclient_7070 = 1) {
+if (%modal_storage_drag_in_progress = 1) {
     if ($component0 = $component2) {
         if_sethide($boolean1, $component4);
     } else if ($component0 = $component3) {
         if_sethide($boolean1, $component5);
     }
 }
-if ($component0 ! %varclient_7071 & $boolean1 = false) {
-    %varclient_7071 = $component0;
+if ($component0 ! %modal_storage_drag_current_inv_com & $boolean1 = false) {
+    %modal_storage_drag_current_inv_com = $component0;
 } else if ($boolean1 = true) {
-    %varclient_7071 = null;
+    %modal_storage_drag_current_inv_com = null;
 }

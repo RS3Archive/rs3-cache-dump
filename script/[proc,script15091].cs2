@@ -12,11 +12,11 @@ cc_deleteall($component2);
 cc_deleteall($component3);
 def_int $int15 = calc(if_getwidth($component5) - 50);
 def_int $int16 = calc(if_getwidth($component0) / 100);
-def_dbrow $dbrow17 = struct_param($struct6, param_9245);
-def_enum $enum18 = struct_param($struct6, param_6146);
+def_dbrow $dbrow17 = struct_param($struct6, timed_event_reward_track);
+def_enum $enum18 = struct_param($struct6, timed_event_rewards);
 def_int $int19 = 0;
 if ($dbrow17 ! null) {
-    $int19 = db_getfieldcount($dbrow17, dbtable_316:col1);
+    $int19 = db_getfieldcount($dbrow17, timed_event_reward_track:col1);
 } else if ($enum18 ! null) {
     $int19 = enum_getoutputcount($enum18);
 } else {
@@ -31,27 +31,27 @@ def_model $model24 = null;
 def_enum $enum25 = null;
 def_enum $enum26 = null;
 if ($enum18 ! null) {
-    $enum25 = struct_param($struct6, param_6147);
-    $enum26 = struct_param($struct6, param_6148);
+    $enum25 = struct_param($struct6, timed_event_thresholds);
+    $enum26 = struct_param($struct6, timed_event_quantities);
 }
 def_struct $struct27 = null;
 cc_deleteall($component5);
 cc_deleteall($component4);
-def_int $int28 = min(scale($int14, calc(struct_param($struct6, param_6142) * struct_param($struct6, param_6144)), if_getwidth($component0)), if_getwidth($component0));
+def_int $int28 = min(scale($int14, calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier)), if_getwidth($component0)), if_getwidth($component0));
 if (if_getnextsubid($component0) = 0) {
     cc_create($component0, ^iftype_text, if_getnextsubid($component0));
-    cc_settextfont(fontmetrics_31);
+    cc_settextfont(museo_sans_15pt_bold);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setcolour(^white);
     cc_settextshadow(true);
 }
-if (cc_find($component0, 0) = true & struct_param($struct6, param_78) = false) {
-    if (struct_param($struct6, param_4926) = 1) {
-        cc_settext("<tostring_localised($int14, true)>/<tostring_localised(calc(struct_param($struct6, param_6142) * struct_param($struct6, param_6144)), true)>");
+if (cc_find($component0, 0) = true & struct_param($struct6, timed_event_hide_numbers) = false) {
+    if (struct_param($struct6, timed_event_text_progress_divider) = 1) {
+        cc_settext("<tostring_localised($int14, true)>/<tostring_localised(calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier)), true)>");
     } else {
-        cc_settext("<tostring_localised(calc($int14 / struct_param($struct6, param_4926)), true)>/<tostring_localised(calc(struct_param($struct6, param_6142) * struct_param($struct6, param_6144) / struct_param($struct6, param_4926)), true)>");
+        cc_settext("<tostring_localised(calc($int14 / struct_param($struct6, timed_event_text_progress_divider)), true)>/<tostring_localised(calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier) / struct_param($struct6, timed_event_text_progress_divider)), true)>");
     }
 }
 if (if_getnextsubid($component1) = 0) {
@@ -59,7 +59,7 @@ if (if_getnextsubid($component1) = 0) {
     cc_setgraphic("rs3_progress_bar_green_12px,0");
     cc_setsize(12, 0, ^setsize_abs, ^setsize_minus);
     cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setonvartransmit("script12874($struct6){varplayer_6626}");
+    cc_setonvartransmit("script12874($struct6){timed_event_temp}");
     cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
     cc_setgraphic("rs3_progress_bar_green_12px,1");
     cc_setposition(calc($int8 + 12), $int9, ^setpos_abs_left, ^setpos_abs_top);
@@ -92,11 +92,11 @@ while ($int7 < $int19) {
         $int11 = enum(int, int, $enum25, $int7);
         $int12 = enum(int, int, $enum26, $int7);
     }
-    $graphic23 = oc_param($obj20, param_6276);
-    $model24 = oc_param($obj20, param_4916);
+    $graphic23 = oc_param($obj20, timed_event_reward_graphic);
+    $model24 = oc_param($obj20, timed_event_reward_model_claimed);
     $int13 = ~script12879($struct6, $int7);
     $int8 = $int16;
-    $int8 = calc($int8 * scale($int11, calc(struct_param($struct6, param_6142) * struct_param($struct6, param_6144)), 100));
+    $int8 = calc($int8 * scale($int11, calc(struct_param($struct6, timed_event_target) * struct_param($struct6, timed_event_currency_multiplier)), 100));
     if ($int7 ! calc($int19 - 1) & if_getnextsubid($component5) ! calc($int19 + 2)) {
         cc_create($component5, ^iftype_graphic, if_getnextsubid($component5));
         cc_setgraphic(trh72_progress_bar_back_link);
@@ -117,43 +117,43 @@ while ($int7 < $int19) {
     }
     if (if_getnextsubid($component4) = $int10) {
         if ($int14 >= $int11 & $int13 = 0) {
-            $struct27 = struct_28303;
-            if (oc_param($obj20, param_4909) ! null) {
-                $graphic23 = oc_param($obj20, param_4909);
+            $struct27 = rs3_icon_holder_selected;
+            if (oc_param($obj20, timed_event_reward_graphic_unclaimed) ! null) {
+                $graphic23 = oc_param($obj20, timed_event_reward_graphic_unclaimed);
             }
-            $model24 = oc_param($obj20, param_4915);
+            $model24 = oc_param($obj20, timed_event_reward_model_unclaimed);
         } else {
-            $struct27 = struct_29356;
+            $struct27 = rs3_icon_holder_action_selected;
             if ($int14 < $int11) {
-                $struct27 = struct_21363;
+                $struct27 = rs3_icon_holder;
                 $int13 = 2;
-                if (oc_param($obj20, param_4912) ! null) {
-                    $graphic23 = oc_param($obj20, param_4912);
+                if (oc_param($obj20, timed_event_reward_graphic_locked) ! null) {
+                    $graphic23 = oc_param($obj20, timed_event_reward_graphic_locked);
                 }
-                $model24 = oc_param($obj20, param_4917);
+                $model24 = oc_param($obj20, timed_event_reward_model_locked);
             }
         }
-        if (struct_param($struct6, param_4927) = true & oc_param($obj20, param_4927) = true) {
+        if (struct_param($struct6, timed_event_show_reward_background_panel) = true & oc_param($obj20, timed_event_show_reward_background_panel) = true) {
             ~rs3_background_panel_dynamic($component4, $struct27, calc($int8 - 20), $int9, calc(36 + 4), calc(32 + 4), null);
         }
         if ($model24 = null) {
             cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
-            cc_setsize(oc_param($obj20, param_4913), oc_param($obj20, param_4914), ^setsize_abs, ^setsize_abs);
+            cc_setsize(oc_param($obj20, timed_event_reward_graphic_width), oc_param($obj20, timed_event_reward_graphic_height), ^setsize_abs, ^setsize_abs);
             if ($graphic23 = null) {
                 cc_setobject($obj20, $int12);
                 cc_setposition(calc($int8 - 16), calc($int9 + 2), ^setpos_abs_left, ^setpos_abs_top);
             } else {
                 cc_setgraphic($graphic23);
-                cc_setposition(calc($int8 + oc_param($obj20, param_4924)), calc($int9 + oc_param($obj20, param_4925)), ^setpos_abs_left, ^setpos_abs_top);
-                cc_setsize(oc_param($obj20, param_4913), oc_param($obj20, param_4914), ^setsize_abs, ^setsize_abs);
+                cc_setposition(calc($int8 + oc_param($obj20, timed_event_reward_xoffset)), calc($int9 + oc_param($obj20, timed_event_reward_yoffset)), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setsize(oc_param($obj20, timed_event_reward_graphic_width), oc_param($obj20, timed_event_reward_graphic_height), ^setsize_abs, ^setsize_abs);
             }
             $int10 = ~script15824($struct6, $component4, $graphic23, $obj20, $int12, $int11, $int13);
         } else {
             cc_create($component4, ^iftype_model, if_getnextsubid($component4));
             cc_setsize(40, 44, ^setsize_abs, ^setsize_abs);
-            cc_setposition(calc($int8 + oc_param($obj20, param_4924)), calc($int9 + oc_param($obj20, param_4925)), ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_setposition(calc($int8 + oc_param($obj20, timed_event_reward_xoffset)), calc($int9 + oc_param($obj20, timed_event_reward_yoffset)), ^setpos_abs_left, ^setpos_abs_bottom);
             cc_setmodel($model24);
-            cc_setmodelangle(0, oc_param($obj20, param_4925), oc_param($obj20, param_4918), oc_param($obj20, param_4919), oc_param($obj20, param_4922), oc_param($obj20, param_4923));
+            cc_setmodelangle(0, oc_param($obj20, timed_event_reward_yoffset), oc_param($obj20, timed_event_reward_model_xangle), oc_param($obj20, timed_event_reward_model_yangle), oc_param($obj20, timed_event_reward_model_zangle), oc_param($obj20, timed_event_reward_model_zoom));
             $int10 = ~script15824($struct6, $component4, $graphic23, $obj20, $int12, $int11, $int13);
         }
     }

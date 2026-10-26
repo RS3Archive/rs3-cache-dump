@@ -2,7 +2,7 @@
 [clientscript,bank_deposit_inv_timer](inv $inv0, int $int1, int $int2, int $int3)
 def_component $component4 = ~bank_get_inv_component($inv0);
 def_obj $obj5 = null;
-%varplayerbit_45912 = 1;
+%bank_deposit_all_or_swap_inprogress = 1;
 while ($int1 < $int2) {
     if (cc_find($component4, $int1) = true) {
         $obj5 = cc_getinvobject;
@@ -15,15 +15,15 @@ while ($int1 < $int2) {
         }
     }
     $int1 = calc($int1 + 1);
-    if ($obj5 ! null & oc_category($obj5) = category_4448) {
+    if ($obj5 ! null & oc_category($obj5) = mining_orebox) {
         $int2 = $int1;
     }
 }
-%varplayerbit_45912 = 0;
+%bank_deposit_all_or_swap_inprogress = 0;
 if ($int2 >= $int3) {
-    if_setontimer(null, interface_517:com_37);
+    if_setontimer(null, bank:main_options);
     ~script9318(1);
     return;
 } else {
-    if_setontimer("bank_deposit_inv_timer($inv0, $int2, min(calc($int2 + 5), $int3), $int3)", interface_517:com_37);
+    if_setontimer("bank_deposit_inv_timer($inv0, $int2, min(calc($int2 + 5), $int3), $int3)", bank:main_options);
 }

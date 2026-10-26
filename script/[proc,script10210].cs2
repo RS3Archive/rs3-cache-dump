@@ -6,11 +6,11 @@ if ($int7 = -3 & $int8 = 1) {
     if (map_world ! -1) {
         $string0 = "Joining World <tostring(map_world)>";
     }
-    ~lobby_popup($int7, dbrow_4035, $string0, "Please Wait", rs3_loading_spinner_default, "", "");
-    %varclient_1100 = -3;
+    ~lobby_popup($int7, lobby_popup_default, $string0, "Please Wait", rs3_loading_spinner_default, "", "");
+    %login_reply_last = -3;
     return;
 }
-if (%varclient_1100 = -3 & $int8 = 1) {
+if (%login_reply_last = -3 & $int8 = 1) {
     ~lobby_popup_close;
 }
 def_int $int9 = 0;
@@ -27,23 +27,23 @@ if ($int7 = 21) {
         if_setontimer("lobbyscreen_entergamelogin($component0, $int1, $int2, $int3, $int4, $int5, $int6)", $component0);
     }
     ~lobbyscreen_mute_volume;
-    %varclient_1100 = 21;
+    %login_reply_last = 21;
     ~lobbyscreen_loginbutton_text(false);
-    if (%varclient_200 = 0 & %varclient_1745 = false) {
-        %varclient_200 = login_hoptime;
+    if (%loginscreen_hopblocked_time = 0 & %lobby_video_ad_started = false) {
+        %loginscreen_hopblocked_time = login_hoptime;
         if (playermember = false & video_advert_play(6) = true) {
-            %varclient_1745 = true;
+            %lobby_video_ad_started = true;
         }
     }
-    if (%varclient_200 > 0) {
-        %varclient_200 = calc(%varclient_200 - 1);
-        if (%varclient_1745 = true & %varclient_200 = 0 & video_advert_has_finished = false) {
+    if (%loginscreen_hopblocked_time > 0) {
+        %loginscreen_hopblocked_time = calc(%loginscreen_hopblocked_time - 1);
+        if (%lobby_video_ad_started = true & %loginscreen_hopblocked_time = 0 & video_advert_has_finished = false) {
             video_advert_allow_skip;
         }
     }
-    if (%varclient_200 <= 0 & (%varclient_1745 = false | video_advert_has_finished = true)) {
+    if (%loginscreen_hopblocked_time <= 0 & (%lobby_video_ad_started = false | video_advert_has_finished = true)) {
         if (worldlist_fetch = false) {
-            %varclient_200 = 1;
+            %loginscreen_hopblocked_time = 1;
             return;
         }
         if ($int1 > 0) {
@@ -53,11 +53,11 @@ if ($int7 = 21) {
             }
         }
         if_setontimer(null, $component0);
-        if (%varclient_1745 = true) {
+        if (%lobby_video_ad_started = true) {
             video_advert_force_remove;
-            %varclient_1745 = false;
+            %lobby_video_ad_started = false;
         }
-        if (%varclient_1745 = false | video_advert_has_finished = true) {
+        if (%lobby_video_ad_started = false | video_advert_has_finished = true) {
             detail_soundvol($int2);
             detail_bgsoundvol($int4);
             detail_speechvol($int5);
@@ -66,37 +66,37 @@ if ($int7 = 21) {
         ~lobbyscreen_entergame($component0);
         return;
     }
-    $int9 = calc(%varclient_200 / 50);
+    $int9 = calc(%loginscreen_hopblocked_time / 50);
     if ($int9 = 1) {
         $string1 = "You have only just left another world. Your profile will be transferred in<br>1 second.";
     } else {
         $string1 = "You have only just left another world. Your profile will be transferred in<br><tostring($int9)> seconds.";
     }
-    if (if_gethide(interface_906:com_151) = true) {
-        ~lobby_popup($int7, dbrow_4042, "World Change", $string1, "loadingwheel,12", "Abort Login", "");
+    if (if_gethide(lobbyscreen:popup) = true) {
+        ~lobby_popup($int7, lobby_popup_negative_action, "World Change", $string1, "loadingwheel,12", "Abort Login", "");
     } else {
         ~lobby_popup_text_update($string1);
     }
     return;
 }
 if ($int7 = 42) {
-    if_sethide(false, interface_906:com_84);
-    if_settext(tostring($int1), interface_906:com_87);
-    if_settext(tostring(login_queue_position), interface_906:com_89);
-    if (%varclient_1100 ! 42 & %varclient_1100 ! 43 & %varclient_1100 ! -1) {
-        ~lobby_popup($int7, dbrow_4039, "World Full", "World <tostring($int1)> is currently full.<br><br>You have been added to the queue for this world.", "loadingwheel,12", "", "OK");
+    if_sethide(false, lobbyscreen:login_queue_info);
+    if_settext(tostring($int1), lobbyscreen:login_queue_world);
+    if_settext(tostring(login_queue_position), lobbyscreen:login_queue_position);
+    if (%login_reply_last ! 42 & %login_reply_last ! 43 & %login_reply_last ! -1) {
+        ~lobby_popup($int7, lobby_popup_warning_positive_close, "World Full", "World <tostring($int1)> is currently full.<br><br>You have been added to the queue for this world.", "loadingwheel,12", "", "OK");
     }
-    %varclient_1100 = 42;
+    %login_reply_last = 42;
     return;
 } else if ($int7 = 43) {
-    if_settext(tostring($int1), interface_906:com_87);
-    if_settext(tostring(login_queue_position), interface_906:com_89);
-    %varclient_1100 = 43;
+    if_settext(tostring($int1), lobbyscreen:login_queue_world);
+    if_settext(tostring(login_queue_position), lobbyscreen:login_queue_position);
+    %login_reply_last = 43;
     return;
 } else {
-    if_sethide(true, interface_906:com_84);
+    if_sethide(true, lobbyscreen:login_queue_info);
 }
-if ($component0 = interface_906:com_0 | $component0 = interface_906:com_20) {
+if ($component0 = lobbyscreen:base | $component0 = lobbyscreen:straight_through) {
     ~lobbyscreen_load;
 }
 ~lobby_popup_close;
@@ -310,7 +310,7 @@ switch_int ($int7) {
         $string6 = "";
     case 47, 51 :
         $string0 = "You need to validate your email address to log in.";
-        if_sethide(false, interface_906:com_148);
+        if_sethide(false, lobbyscreen:email_validation);
     case 48 :
         if (~is_mobile_client = true) {
             $string0 = "Your game session has now ended.<br><br>To play again, please close the app and wait 5 minutes before reloading it. ";
@@ -341,7 +341,7 @@ switch_int ($int7) {
     case 54 :
         $string0 = "Activity on this account has been exceeded.<br><br>Please try again tomorrow.";
     case 38 :
-        $string0 = "Your account does not currently have access to the NXT Beta.";
+        $string0 = "Your account does not currently have access to this Beta.";
     case 60 :
         $string0 = "Connection timed out. Please try again.";
     case 61 :
@@ -349,5 +349,5 @@ switch_int ($int7) {
     case default :
         $string0 = "Unexpected server response. Please try using a different world.";
 }
-if_triggerop(interface_906:com_3, -1, 1);
-~lobby_popup($int7, dbrow_4035, "Login Failed", $string0, $graphic14, $string5, $string6);
+if_triggerop(lobbyscreen:clear_autoworld_triggerop, -1, 1);
+~lobby_popup($int7, lobby_popup_default, "Login Failed", $string0, $graphic14, $string5, $string6);

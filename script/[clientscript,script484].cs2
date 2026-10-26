@@ -7,121 +7,121 @@ def_int $int4 = 0;
 def_int $int5 = 0;
 def_string $string0 = "";
 if_setcolour(^white, $component0);
-switch_int (%varplayerbit_5388) {
+switch_int (%conq_current_unit_purchase_slot) {
     case default :
         return;
     case 1 :
-        $npc1 = ~script486(%varplayerbit_5396);
+        $npc1 = ~script486(%conq_unit_1_type);
     case 2 :
-        $npc1 = ~script486(%varplayerbit_5397);
+        $npc1 = ~script486(%conq_unit_2_type);
     case 3 :
-        $npc1 = ~script486(%varplayerbit_5402);
+        $npc1 = ~script486(%conq_unit_3_type);
     case 4 :
-        $npc1 = ~script486(%varplayerbit_5403);
+        $npc1 = ~script486(%conq_unit_4_type);
     case 5 :
-        $npc1 = ~script486(%varplayerbit_5406);
+        $npc1 = ~script486(%conq_unit_5_type);
     case 6 :
-        $npc1 = ~script486(%varplayerbit_5407);
+        $npc1 = ~script486(%conq_unit_6_type);
     case 7 :
-        $npc1 = ~script486(%varplayerbit_5408);
+        $npc1 = ~script486(%conq_unit_7_type);
     case 8 :
-        $npc1 = ~script486(%varplayerbit_5409);
+        $npc1 = ~script486(%conq_unit_8_type);
     case 9 :
-        $npc1 = ~script486(%varplayerbit_5410);
+        $npc1 = ~script486(%conq_unit_9_type);
     case 10 :
-        $npc1 = ~script486(%varplayerbit_5411);
+        $npc1 = ~script486(%conq_unit_10_type);
 }
 switch_component ($component0) {
     case default :
         return;
-    case interface_1015:com_105 :
+    case conq_buy_army:no_unit :
         $npc2 = ~script486(0);
-    case interface_1015:com_30 :
+    case conq_buy_army:scout :
         $npc2 = ~script486(1);
-    case interface_1015:com_34 :
+    case conq_buy_army:footman :
         $npc2 = ~script486(2);
-    case interface_1015:com_35 :
+    case conq_buy_army:halbadier :
         $npc2 = ~script486(3);
-    case interface_1015:com_36 :
+    case conq_buy_army:archer :
         $npc2 = ~script486(4);
-    case interface_1015:com_102 :
+    case conq_buy_army:mage :
         $npc2 = ~script486(5);
-    case interface_1015:com_103 :
+    case conq_buy_army:knight :
         $npc2 = ~script486(6);
-    case interface_1015:com_104 :
+    case conq_buy_army:champion :
         $npc2 = ~script486(7);
 }
 if ($npc1 = null) {
-    if_sethide(true, interface_1015:com_38);
-    if_sethide(false, interface_1015:com_78);
-    if_setgraphic(nc_param($npc2, param_1148), interface_1015:com_59);
-    if_settext(nc_param($npc2, param_1139), interface_1015:com_57);
-    if_settext("Movement: <col=ffffff><tostring(nc_param($npc2, param_1134))>", interface_1015:com_83);
-    if_settext("Damage: <col=ffffff><tostring(calc(nc_param($npc2, param_1135) * 100))>", interface_1015:com_84);
-    if_settext("Health: <col=ffffff><tostring(calc(nc_param($npc2, param_1136) * 100))>", interface_1015:com_85);
-    if_settext("Range: <col=ffffff><tostring(nc_param($npc2, param_1137))>", interface_1015:com_86);
-    if_settext("Cost: <col=ffffff><tostring(nc_param($npc2, param_1138))>", interface_1015:com_87);
+    if_sethide(true, conq_buy_army:no_unit_selected_text);
+    if_sethide(false, conq_buy_army:purchase_current_details_layer);
+    if_setgraphic(nc_param($npc2, conq_unit_icon), conq_buy_army:current_unit_image);
+    if_settext(nc_param($npc2, conq_unit_name), conq_buy_army:unit_type_text);
+    if_settext("Movement: <col=ffffff><tostring(nc_param($npc2, conq_unit_movement))>", conq_buy_army:unit_movement_text);
+    if_settext("Damage: <col=ffffff><tostring(calc(nc_param($npc2, conq_unit_damage) * 100))>", conq_buy_army:unit_damage_text);
+    if_settext("Health: <col=ffffff><tostring(calc(nc_param($npc2, conq_unit_health) * 100))>", conq_buy_army:unit_health_text);
+    if_settext("Range: <col=ffffff><tostring(nc_param($npc2, conq_unit_range))>", conq_buy_army:unit_range_text);
+    if_settext("Cost: <col=ffffff><tostring(nc_param($npc2, conq_unit_cost))>", conq_buy_army:unit_cost_text);
 } else if ($npc1 ! $npc2) {
-    if_setgraphic(nc_param($npc2, param_1148), interface_1015:com_59);
-    if_settext(append(if_gettext(interface_1015:com_57), " ~ <nc_param($npc2, param_1139)>"), interface_1015:com_57);
-    $int3 = nc_param($npc1, param_1134);
-    $int4 = nc_param($npc2, param_1134);
+    if_setgraphic(nc_param($npc2, conq_unit_icon), conq_buy_army:current_unit_image);
+    if_settext(append(if_gettext(conq_buy_army:unit_type_text), " ~ <nc_param($npc2, conq_unit_name)>"), conq_buy_army:unit_type_text);
+    $int3 = nc_param($npc1, conq_unit_movement);
+    $int4 = nc_param($npc2, conq_unit_movement);
     if ($int3 < $int4) {
         $int5 = calc($int4 - $int3);
-        $string0 = " ~ <tostring(nc_param($npc2, param_1134))> (<col=00c800>+<tostring($int5)></col>)";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_movement))> (<col=00c800>+<tostring($int5)></col>)";
     } else if ($int3 > $int4) {
         $int5 = calc($int3 - $int4);
-        $string0 = " ~ <tostring(nc_param($npc2, param_1134))> (<col=c80000>-<tostring($int5)></col>)";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_movement))> (<col=c80000>-<tostring($int5)></col>)";
     } else {
-        $string0 = " ~ <tostring(nc_param($npc2, param_1134))>";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_movement))>";
     }
-    if_settext(append(if_gettext(interface_1015:com_83), $string0), interface_1015:com_83);
-    $int3 = nc_param($npc1, param_1135);
-    $int4 = nc_param($npc2, param_1135);
+    if_settext(append(if_gettext(conq_buy_army:unit_movement_text), $string0), conq_buy_army:unit_movement_text);
+    $int3 = nc_param($npc1, conq_unit_damage);
+    $int4 = nc_param($npc2, conq_unit_damage);
     if ($int3 < $int4) {
         $int5 = calc($int4 - $int3);
-        $string0 = " ~ <tostring(calc(nc_param($npc2, param_1135) * 100))> (<col=00c800>+<tostring(calc($int5 * 100))></col>)";
+        $string0 = " ~ <tostring(calc(nc_param($npc2, conq_unit_damage) * 100))> (<col=00c800>+<tostring(calc($int5 * 100))></col>)";
     } else if ($int3 > $int4) {
         $int5 = calc($int3 - $int4);
-        $string0 = " ~ <tostring(calc(nc_param($npc2, param_1135) * 100))> (<col=c80000>-<tostring(calc($int5 * 100))></col>)";
+        $string0 = " ~ <tostring(calc(nc_param($npc2, conq_unit_damage) * 100))> (<col=c80000>-<tostring(calc($int5 * 100))></col>)";
     } else {
-        $string0 = " ~ <tostring(calc(nc_param($npc2, param_1135) * 100))>";
+        $string0 = " ~ <tostring(calc(nc_param($npc2, conq_unit_damage) * 100))>";
     }
-    if_settext(append(if_gettext(interface_1015:com_84), $string0), interface_1015:com_84);
-    $int3 = nc_param($npc1, param_1136);
-    $int4 = nc_param($npc2, param_1136);
+    if_settext(append(if_gettext(conq_buy_army:unit_damage_text), $string0), conq_buy_army:unit_damage_text);
+    $int3 = nc_param($npc1, conq_unit_health);
+    $int4 = nc_param($npc2, conq_unit_health);
     if ($int3 < $int4) {
         $int5 = calc($int4 - $int3);
-        $string0 = " ~ <tostring(calc(nc_param($npc2, param_1136) * 100))> (<col=00c800>+<tostring(calc($int5 * 100))></col>)";
+        $string0 = " ~ <tostring(calc(nc_param($npc2, conq_unit_health) * 100))> (<col=00c800>+<tostring(calc($int5 * 100))></col>)";
     } else if ($int3 > $int4) {
         $int5 = calc($int3 - $int4);
-        $string0 = " ~ <tostring(calc(nc_param($npc2, param_1136) * 100))> (<col=c80000>-<tostring(calc($int5 * 100))></col>)";
+        $string0 = " ~ <tostring(calc(nc_param($npc2, conq_unit_health) * 100))> (<col=c80000>-<tostring(calc($int5 * 100))></col>)";
     } else {
-        $string0 = " ~ <tostring(calc(nc_param($npc2, param_1136) * 100))>";
+        $string0 = " ~ <tostring(calc(nc_param($npc2, conq_unit_health) * 100))>";
     }
-    if_settext(append(if_gettext(interface_1015:com_85), $string0), interface_1015:com_85);
-    $int3 = nc_param($npc1, param_1137);
-    $int4 = nc_param($npc2, param_1137);
+    if_settext(append(if_gettext(conq_buy_army:unit_health_text), $string0), conq_buy_army:unit_health_text);
+    $int3 = nc_param($npc1, conq_unit_range);
+    $int4 = nc_param($npc2, conq_unit_range);
     if ($int3 < $int4) {
         $int5 = calc($int4 - $int3);
-        $string0 = " ~ <tostring(nc_param($npc2, param_1137))> (<col=00c800>+<tostring($int5)></col>)";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_range))> (<col=00c800>+<tostring($int5)></col>)";
     } else if ($int3 > $int4) {
         $int5 = calc($int3 - $int4);
-        $string0 = " ~ <tostring(nc_param($npc2, param_1137))> (<col=c80000>-<tostring($int5)></col>)";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_range))> (<col=c80000>-<tostring($int5)></col>)";
     } else {
-        $string0 = " ~ <tostring(nc_param($npc2, param_1137))>";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_range))>";
     }
-    if_settext(append(if_gettext(interface_1015:com_86), $string0), interface_1015:com_86);
-    $int3 = nc_param($npc1, param_1138);
-    $int4 = nc_param($npc2, param_1138);
+    if_settext(append(if_gettext(conq_buy_army:unit_range_text), $string0), conq_buy_army:unit_range_text);
+    $int3 = nc_param($npc1, conq_unit_cost);
+    $int4 = nc_param($npc2, conq_unit_cost);
     if ($int3 < $int4) {
         $int5 = calc($int4 - $int3);
-        $string0 = " ~ <tostring(nc_param($npc2, param_1138))> (<col=c80000>+<tostring($int5)></col>)";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_cost))> (<col=c80000>+<tostring($int5)></col>)";
     } else if ($int3 > $int4) {
         $int5 = calc($int3 - $int4);
-        $string0 = " ~ <tostring(nc_param($npc2, param_1138))> (<col=00c800>-<tostring($int5)></col>)";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_cost))> (<col=00c800>-<tostring($int5)></col>)";
     } else {
-        $string0 = " ~ <tostring(nc_param($npc2, param_1138))>";
+        $string0 = " ~ <tostring(nc_param($npc2, conq_unit_cost))>";
     }
-    if_settext(append(if_gettext(interface_1015:com_87), $string0), interface_1015:com_87);
+    if_settext(append(if_gettext(conq_buy_army:unit_cost_text), $string0), conq_buy_army:unit_cost_text);
 }

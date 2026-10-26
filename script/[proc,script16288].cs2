@@ -1,9 +1,9 @@
 // 16288
 [proc,script16288]
-if (%varplayerbit_61266 < 1) {
+if (%construction_house_furniture_portal_nexus_tier < 1) {
     return;
 }
-def_component $component0 = interface_1143:com_5;
+def_component $component0 = construction_house_furniture_portal_nexus:active_scrolling;
 def_int $int1 = 0;
 def_dbrow $dbrow2 = null;
 def_int $int3 = 0;
@@ -18,18 +18,18 @@ def_int $int9 = ~script10664;
 while ($int1 < $int9) {
     $dbrow2 = ~script9925($int1);
     if ($dbrow2 ! null) {
-        $struct5 = db_getfield($dbrow2, dbtable_376:col2, 0);
-        $string0 = db_getfield($dbrow2, dbtable_376:col1, 0);
-        $int4 = enum(int, int, enum_8822, $int1);
-        $string1 = "<enum(int, string, enum_6747, $int4)>.";
+        $struct5 = db_getfield($dbrow2, construction_house_portal_nexus_teleport_destinations:col2, 0);
+        $string0 = db_getfield($dbrow2, construction_house_portal_nexus_teleport_destinations:col1, 0);
+        $int4 = enum(int, int, keyboard_manager_default_long_list_keys, $int1);
+        $string1 = "<enum(int, string, combatv2_keycode_to_string, $int4)>.";
         $boolean6 = ~int_to_bool(~script15411($struct5));
         if ($boolean6 = true) {
             $boolean6 = ~script9739($dbrow2, $struct5);
         }
         if ($boolean6 = false) {
-            $dbrow7 = dbrow_18461;
+            $dbrow7 = text_body_default_disabled;
         } else {
-            $dbrow7 = dbrow_2100;
+            $dbrow7 = text_body_default;
         }
         ~if_add_child_layer($component0, $int1, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 34, ^setsize_minus, ^setsize_abs);
         cc_setop(1, "Teleport");
@@ -39,7 +39,7 @@ while ($int1 < $int9) {
             cc_setonmouseover("cc_setcolour(event_com, event_comsubid, 0x403c39)");
             cc_setonmouseleave("cc_setcolour(event_com, event_comsubid, cc_getcolour)");
         }
-        ~cc_add_child_text($int1, 4, 2, 0, ^setpos_abs_left, ^setpos_abs_centre, 34, 2, ^setsize_minus, ^setsize_minus, dbrow_17467, $string1);
+        ~cc_add_child_text($int1, 4, 2, 0, ^setpos_abs_left, ^setpos_abs_centre, 34, 2, ^setsize_minus, ^setsize_minus, text_body_emphasis, $string1);
         ~cc_add_child_graphic($int1, 5, 20, 0, ^setpos_abs_left, ^setpos_abs_centre, 30, 30, ^setsize_abs, ^setsize_abs, null);
         ~script20638($struct5, $boolean6);
         ~cc_add_child_text($int1, 6, 2, 0, ^setpos_abs_right, ^setpos_abs_centre, 58, 2, ^setsize_minus, ^setsize_minus, $dbrow7, $string0);
@@ -49,4 +49,4 @@ while ($int1 < $int9) {
     }
     $int1 = calc($int1 + 1);
 }
-~script19620(interface_1143:com_6, $component0, $int8, null, 0, 0, 0, 0);
+~script19620(construction_house_furniture_portal_nexus:active_scrollbar, $component0, $int8, null, 0, 0, 0, 0);

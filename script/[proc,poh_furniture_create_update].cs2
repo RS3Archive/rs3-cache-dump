@@ -2,8 +2,8 @@
 [proc,poh_furniture_create_update](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
 cc_deleteall($component1);
 cc_deleteall($component5);
-def_obj $obj7 = inv_getobj(inv_398, calc($int0 - 1));
-if ($obj7 = null | $obj7 = obj_8245) {
+def_obj $obj7 = inv_getobj(poh_furniture_menu_inv, calc($int0 - 1));
+if ($obj7 = null | $obj7 = poh_null_furniture_object) {
     if_sethide(true, $component2);
     if_sethide(true, $component3);
     if_sethide(true, $component4);
@@ -22,15 +22,15 @@ cc_setoutline(1);
 cc_create($component5, ^iftype_text, 1);
 cc_setsize(60, calc(32 + 4), ^setsize_abs, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
-cc_settextfont(fontmetrics_27);
+cc_settextfont(museo_sans_11pt_regular_multiline);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setcolour(~script10495(3));
 cc_settextshadow(true);
-cc_settext("Level <tostring(oc_param($obj7, param_23))>");
+cc_settext("Level <tostring(oc_param($obj7, levelrequire))>");
 cc_create($component5, ^iftype_text, 2);
 cc_setsize(60, 12, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
-cc_settextfont(fontmetrics_27);
+cc_settextfont(museo_sans_11pt_regular_multiline);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_setcolour(~script10495(3));
 cc_settextshadow(true);
@@ -38,27 +38,27 @@ cc_settext(~script3930("<tostring_localised($int0, true)>. <oc_name($obj7)>", cc
 cc_create($component5, ^iftype_text, 3);
 cc_setsize(60, 12, ^setsize_minus, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
-cc_settextfont(fontmetrics_27);
+cc_settextfont(museo_sans_11pt_regular_multiline);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_setcolour(~script10495(3));
 cc_settextshadow(true);
-def_string $string0 = oc_param($obj7, param_2522);
+def_string $string0 = oc_param($obj7, poh_cost_overridetext);
 if (string_length($string0) <= 0) {
-    $string0 = ~poh_furniture_create_addingredient("", oc_param($obj7, param_211), oc_param($obj7, param_212));
-    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, param_213), oc_param($obj7, param_214));
-    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, param_215), oc_param($obj7, param_216));
-    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, param_217), oc_param($obj7, param_218));
-    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, param_219), oc_param($obj7, param_220));
-    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, param_221), oc_param($obj7, param_222));
+    $string0 = ~poh_furniture_create_addingredient("", oc_param($obj7, poh_cost1_obj), oc_param($obj7, poh_cost1_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost2_obj), oc_param($obj7, poh_cost2_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost3_obj), oc_param($obj7, poh_cost3_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost4_obj), oc_param($obj7, poh_cost4_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost5_obj), oc_param($obj7, poh_cost5_count));
+    $string0 = ~poh_furniture_create_addingredient($string0, oc_param($obj7, poh_cost6_obj), oc_param($obj7, poh_cost6_count));
 }
 cc_settext($string0);
-if (testbit(%varclient_841, $int0) = ^false) {
-    ~script13994($component2, null, struct_28556, "", true);
+if (testbit(%mob_client_squad_rank, $int0) = ^false) {
+    ~script13994($component2, null, rs3tli_3x3_button, "", true);
 } else {
-    ~script13994($component2, null, struct_28556, "", false);
+    ~script13994($component2, null, rs3tli_3x3_button, "", false);
 }
 def_int $int8 = 0;
-if (testbit(%varclient_841, 0) = ^true) {
+if (testbit(%mob_client_squad_rank, 0) = ^true) {
     $int8 = 1;
 }
 cc_create($component1, ^iftype_text, 0);

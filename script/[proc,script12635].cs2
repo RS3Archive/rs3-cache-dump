@@ -1,7 +1,7 @@
 // 12635
 [proc,script12635](int $int0, int $int1, int $setposh2, int $setposv3, int $int4, int $int5)
-def_int $int6 = cc_param(param_5926);
-def_int $int7 = cc_param(param_5927);
+def_int $int6 = cc_param(rs3tli_component_target_pos_x);
+def_int $int7 = cc_param(rs3tli_component_target_pos_y);
 if ($int6 = -1) {
     $int6 = $int0;
 }
@@ -16,21 +16,21 @@ def_int $int12 = 0;
 def_int $int13 = 0;
 def_int $int14 = -1;
 def_int $int15 = -1;
-switch_int (cc_param(param_5828)) {
+switch_int (cc_param(rs3tli_component_velocity_type)) {
     case 0, 1 :
-        $int8 = cc_param(param_5829);
-        $int9 = cc_param(param_5830);
-        if (cc_param(param_5828) = 1) {
-            $int10 = cc_param(param_5831);
-            $int11 = cc_param(param_5832);
+        $int8 = cc_param(rs3tli_component_speed_x);
+        $int9 = cc_param(rs3tli_component_speed_y);
+        if (cc_param(rs3tli_component_velocity_type) = 1) {
+            $int10 = cc_param(rs3tli_component_acceleration_x);
+            $int11 = cc_param(rs3tli_component_acceleration_y);
             if ($int10 ! 0 | $int11 ! 0) {
                 ~cc_setspeed(~script11882($int8, $int10), ~script11882($int9, $int11));
                 $int8 = ~script11882($int8, calc($int10 / 2));
                 $int9 = ~script11882($int9, calc($int11 / 2));
             }
         }
-        $int8 = ~script11882($int8, cc_param(param_5833));
-        $int9 = ~script11882($int9, cc_param(param_5834));
+        $int8 = ~script11882($int8, cc_param(rs3tli_component_mpixel_x));
+        $int9 = ~script11882($int9, cc_param(rs3tli_component_mpixel_y));
         $int6 = calc($int6 * 1000);
         $int7 = calc($int7 * 1000);
         if ($setposh2 = ^setpos_abs_right) {
@@ -43,7 +43,7 @@ switch_int (cc_param(param_5828)) {
         } else {
             $int7 = calc($int7 + $int9);
         }
-        if (cc_param(param_5847) ! -1) {
+        if (cc_param(rs3tli_component_collision_type) ! -1) {
             $int4 = calc($int4 * 1000);
             $int5 = calc($int5 * 1000);
             switch_int ($setposh2) {
@@ -72,7 +72,7 @@ switch_int (cc_param(param_5828)) {
                     }
             }
             if ($int12 = 1) {
-                cc_setparam(param_5829, ~invert(cc_param(param_5829)));
+                cc_setparam(rs3tli_component_speed_x, ~invert(cc_param(rs3tli_component_speed_x)));
             }
             $int12 = 0;
             switch_int ($setposv3) {
@@ -103,17 +103,17 @@ switch_int (cc_param(param_5828)) {
                     }
             }
             if ($int12 = 1) {
-                cc_setparam(param_5830, ~invert(cc_param(param_5830)));
+                cc_setparam(rs3tli_component_speed_y, ~invert(cc_param(rs3tli_component_speed_y)));
             }
-            if ($int13 = 1 & cc_param(param_5847) = 1) {
-                cc_setparam(param_5830, calc(cc_param(param_5830) / 2));
-                cc_setparam(param_5829, calc(cc_param(param_5829) / 2));
+            if ($int13 = 1 & cc_param(rs3tli_component_collision_type) = 1) {
+                cc_setparam(rs3tli_component_speed_y, calc(cc_param(rs3tli_component_speed_y) / 2));
+                cc_setparam(rs3tli_component_speed_x, calc(cc_param(rs3tli_component_speed_x) / 2));
             }
         }
-        cc_setparam(param_5833, calc($int6 % 1000));
-        cc_setparam(param_5834, calc($int7 % 1000));
+        cc_setparam(rs3tli_component_mpixel_x, calc($int6 % 1000));
+        cc_setparam(rs3tli_component_mpixel_y, calc($int7 % 1000));
         $int6 = calc($int6 / 1000);
         $int7 = calc($int7 / 1000);
-        cc_setparam(param_5926, $int6);
-        cc_setparam(param_5927, $int7);
+        cc_setparam(rs3tli_component_target_pos_x, $int6);
+        cc_setparam(rs3tli_component_target_pos_y, $int7);
 }

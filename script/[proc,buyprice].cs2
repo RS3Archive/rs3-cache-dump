@@ -4,41 +4,41 @@ if ($obj0 = null) {
     return(0);
 }
 $obj0 = oc_uncert($obj0);
-def_int $int1 = enum(obj, int, enum_731, $obj0);
-if (%varplayer_306 = 2 & $int1 ! -1 & $int1 > 0) {
+def_int $int1 = enum(obj, int, shop_exceptions_shopbuy_tokkul, $obj0);
+if (%currency = 2 & $int1 ! -1 & $int1 > 0) {
     return($int1);
 }
-$int1 = enum(obj, int, enum_3295, $obj0);
-if (%varplayer_306 = 4 & $int1 ! -1 & $int1 > 0) {
+$int1 = enum(obj, int, shop_exceptions_shopbuy_trh13_magic_beans, $obj0);
+if (%currency = 4 & $int1 ! -1 & $int1 > 0) {
     return($int1);
 }
-$int1 = enum(obj, int, enum_733, $obj0);
-if ($int1 > 0 & %varplayer_304 ! inv_41) {
+$int1 = enum(obj, int, shop_exceptions_shopbuy, $obj0);
+if ($int1 > 0 & %shop ! taxfree) {
     return($int1);
 }
-if (oc_param($obj0, param_258) = 1 | oc_param($obj0, param_259) = 1) {
-    if (oc_param($obj0, param_4244) = 1) {
+if (oc_param($obj0, skillcape) = 1 | oc_param($obj0, skillcape_trimmed) = 1) {
+    if (oc_param($obj0, skillcape_master) = 1) {
         return(120000);
     } else {
         return(99000);
     }
 }
-if (~script1425(%varplayer_304) = 1) {
+if (~script1425(%shop) = 1) {
     return(~script1426($obj0));
-} else if (%varplayer_304 = inv_41) {
-    return(enum(obj, int, enum_11498, $obj0));
+} else if (%shop = taxfree) {
+    return(enum(obj, int, wilderness_shop_prices, $obj0));
 }
 $int1 = ~script17369($obj0);
-if (%varplayer_306 = 2) {
+if (%currency = 2) {
     $int1 = scale(3, 2, $int1);
 }
-if (oc_param($obj0, param_7801) > 0) {
+if (oc_param($obj0, smithing_progress_needed) > 0) {
     $int1 = calc($int1 * 10);
 }
-switch_inv (%varplayer_304) {
-    case inv_1016 :
+switch_inv (%shop) {
+    case heathervein_grocer :
         $int1 = scale($int1, 100, 250);
-    case inv_1017 :
+    case heathervein_fish_trader :
         $int1 = scale($int1, 100, 200);
 }
 return(max($int1, 1));

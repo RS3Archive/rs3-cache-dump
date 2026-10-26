@@ -7,33 +7,33 @@ def_component $component4 = null;
 def_component $component5 = null;
 switch_int ($int0) {
     case 1 :
-        $int1 = %varplayerbit_56173;
-        $component2 = interface_1290:com_43;
-        $component3 = interface_1290:com_39;
-        $component4 = interface_1290:com_218;
-        $component5 = interface_1290:com_219;
+        $int1 = %trh_dungeon_crawl_bonus_option_1_id;
+        $component2 = trh_dungeon_crawl_overlay:bonus_option_1_button_layer;
+        $component3 = trh_dungeon_crawl_overlay:bonus_option_1_button_graphic;
+        $component4 = trh_dungeon_crawl_overlay:bonus_option_1_modifier_layer;
+        $component5 = trh_dungeon_crawl_overlay:bonus_option_1_text;
     case 2 :
-        $int1 = %varplayerbit_56174;
-        $component2 = interface_1290:com_182;
-        $component3 = interface_1290:com_42;
-        $component4 = interface_1290:com_180;
-        $component5 = interface_1290:com_181;
+        $int1 = %trh_dungeon_crawl_bonus_option_2_id;
+        $component2 = trh_dungeon_crawl_overlay:bonus_option_2_button_layer;
+        $component3 = trh_dungeon_crawl_overlay:bonus_option_2_button_graphic;
+        $component4 = trh_dungeon_crawl_overlay:bonus_option_2_modifier_layer;
+        $component5 = trh_dungeon_crawl_overlay:bonus_option_2_text;
 }
 if ($int1 = 0) {
     return;
 }
 def_dbrow $dbrow6 = ~script19215($int1);
-def_dbrow $dbrow7 = db_getfield(%varplayer_11901, dbtable_297:col1, 0);
-def_graphic $graphic8 = db_getfield($dbrow7, dbtable_296:col4:0, 0);
-def_graphic $graphic9 = db_getfield($dbrow7, dbtable_296:col4:1, 0);
+def_dbrow $dbrow7 = db_getfield(%trh_dungeon_crawl_dungeon_dbrow, trh_dungeon_crawl_dungeon:col1, 0);
+def_graphic $graphic8 = db_getfield($dbrow7, trh_dungeon_crawl_theme:col4:0, 0);
+def_graphic $graphic9 = db_getfield($dbrow7, trh_dungeon_crawl_theme:col4:1, 0);
 switch_int ($int0) {
     case 1 :
         if_setopbase("<col=B8D1D1>Rarity bonus</col>", $component2);
     case 2 :
         if_setopbase("<col=B8D1D1>Category bonus</col>", $component2);
 }
-if ($int0 = %varplayer_11904) {
-    if_setgraphic(db_getfield($dbrow7, dbtable_296:col4:2, 0), $component3);
+if ($int0 = %trh_dungeon_crawl_bonus_option_selected) {
+    if_setgraphic(db_getfield($dbrow7, trh_dungeon_crawl_theme:col4:2, 0), $component3);
     if_setonmouseover(null, $component2);
     if_setonmouseleave(null, $component2);
 } else {
@@ -46,10 +46,10 @@ if ($int0 = %varplayer_11904) {
 if ($int0 = 2) {
     if_sethflip(true, $component3);
 }
-def_int $int10 = db_getfield($dbrow6, dbtable_301:col1, 0);
-def_int $int11 = db_getfield($dbrow6, dbtable_301:col2, 0);
-def_int $int12 = db_getfield($dbrow6, dbtable_301:col3, 0);
-def_int $int13 = db_getfield($dbrow6, dbtable_301:col4, 0);
+def_int $int10 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col1, 0);
+def_int $int11 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col2, 0);
+def_int $int12 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col3, 0);
+def_int $int13 = db_getfield($dbrow6, trh_dungeon_crawl_bonus:col4, 0);
 def_string $string0 = "";
 def_int $int14 = if_getwidth(if_getparentlayer($component4));
 if (($int11 > 1 | $int12 ! 0) & $int13 > 1) {
@@ -63,7 +63,7 @@ if ($int11 > 1 | $int12 ! 0) {
     if ($int11 > 1) {
         ~cc_add_child_graphic_full($int15, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 61, 75, ^setsize_abs, ^setsize_abs, ~script19209($int11), false, false, false, 0);
     } else if ($int12 ! 0) {
-        ~cc_add_child_graphic_full($int15, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 60, 60, ^setsize_abs, ^setsize_abs, enum(int, graphic, enum_16540, $int12), false, false, false, 0);
+        ~cc_add_child_graphic_full($int15, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 60, 60, ^setsize_abs, ^setsize_abs, enum(int, graphic, trh_category_icon, $int12), false, false, false, 0);
     }
 }
 $int15 = 2;
@@ -80,7 +80,7 @@ if ($int10 = 1) {
 if ($int11 > 1) {
     $string0 = "<$string0><br><~script10979($int11)><~script10876($int11)>+</col>";
 } else if ($int12 ! 0) {
-    $string0 = "<$string0><br><col=FFFF00><enum(int, string, enum_16539, $int12)> category</col>";
+    $string0 = "<$string0><br><col=FFFF00><enum(int, string, trh_category_name, $int12)> category</col>";
 }
 if ($int13 > 1) {
     $string0 = "<$string0><br><col=FF00>x<tostring($int13)> multiplier</col>";

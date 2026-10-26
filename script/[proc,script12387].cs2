@@ -3,39 +3,39 @@
 def_int $int1 = 1;
 def_int $int2 = 0;
 def_string $string0 = "Faction reputation rewards";
-def_enum $enum3 = enum(int, enum, enum_10994, $int0);
+def_enum $enum3 = enum(int, enum, gwd2_rep_unlock_desc_enums, $int0);
 if ($enum3 = null) {
     return;
 }
 switch_int ($int0) {
     case 1 :
-        $int2 = %varplayerbit_30864;
+        $int2 = %gwd2_rep_seren;
         $string0 = "Seren reputation";
-        if_setgraphic("gwd2_icon_god_symbol_50px,0", interface_1747:com_6);
-        if_setgraphic("gwd2_icon_god_symbol_50px,0", interface_1747:com_7);
+        if_setgraphic("gwd2_icon_god_symbol_50px,0", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,0", gwd2_rep:faction_icon_r);
     case 2 :
-        $int2 = %varplayerbit_30865;
+        $int2 = %gwd2_rep_sliske;
         $string0 = "Sliske reputation";
-        if_setgraphic("gwd2_icon_god_symbol_50px,1", interface_1747:com_6);
-        if_setgraphic("gwd2_icon_god_symbol_50px,1", interface_1747:com_7);
+        if_setgraphic("gwd2_icon_god_symbol_50px,1", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,1", gwd2_rep:faction_icon_r);
     case 3 :
-        $int2 = %varplayerbit_30871;
+        $int2 = %gwd2_rep_zamorak;
         $string0 = "Zamorak reputation";
-        if_setgraphic("gwd2_icon_god_symbol_50px,2", interface_1747:com_6);
-        if_setgraphic("gwd2_icon_god_symbol_50px,2", interface_1747:com_7);
+        if_setgraphic("gwd2_icon_god_symbol_50px,2", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,2", gwd2_rep:faction_icon_r);
     case 4 :
-        $int2 = %varplayerbit_30870;
+        $int2 = %gwd2_rep_zaros;
         $string0 = "Zaros reputation";
-        if_setgraphic("gwd2_icon_god_symbol_50px,3", interface_1747:com_6);
-        if_setgraphic("gwd2_icon_god_symbol_50px,3", interface_1747:com_7);
+        if_setgraphic("gwd2_icon_god_symbol_50px,3", gwd2_rep:faction_icon_l);
+        if_setgraphic("gwd2_icon_god_symbol_50px,3", gwd2_rep:faction_icon_r);
 }
-%varclient_5185 = $int0;
-if_sethide(true, interface_1747:com_4);
-~script9554(interface_1747:com_23, interface_1747:com_25, interface_1747:com_24, "<$string0> rewards", struct_21218);
+%gwd2_current_faction_client = $int0;
+if_sethide(true, gwd2_rep:info_layer);
+~script9554(gwd2_rep:mainmodal_window_background, gwd2_rep:mainmodal_window_border, gwd2_rep:mainmodal_window_content, "<$string0> rewards", toplevel_v2_default_main_modal_skin_data);
 ~script12392($int0);
 def_int $int4 = 2;
 def_int $int5 = 0;
-if (calc(%varplayerbit_30864 + %varplayerbit_30865 + %varplayerbit_30871 + %varplayerbit_30870) >= calc(2000 * 4)) {
+if (calc(%gwd2_rep_seren + %gwd2_rep_sliske + %gwd2_rep_zamorak + %gwd2_rep_zaros) >= calc(2000 * 4)) {
     $int4 = 0;
     $int5 = 8;
 } else if ($int2 >= 2000) {
@@ -63,29 +63,29 @@ if (calc(%varplayerbit_30864 + %varplayerbit_30865 + %varplayerbit_30871 + %varp
     $int4 = 2;
     $int5 = 0;
 }
-def_int $int6 = calc($int2 - enum(int, int, enum_10999, calc($int4 - 1)));
+def_int $int6 = calc($int2 - enum(int, int, gwd2_rep_unlock_reqs, calc($int4 - 1)));
 def_string $string1 = "Unknown";
-def_int $int7 = calc(enum(int, int, enum_10999, $int4) - enum(int, int, enum_10999, calc($int4 - 1)));
+def_int $int7 = calc(enum(int, int, gwd2_rep_unlock_reqs, $int4) - enum(int, int, gwd2_rep_unlock_reqs, calc($int4 - 1)));
 ~script12388($int2, $int4);
 if ($int4 = 14) {
-    $int6 = calc(%varplayerbit_30864 + %varplayerbit_30865 + %varplayerbit_30871 + %varplayerbit_30870);
+    $int6 = calc(%gwd2_rep_seren + %gwd2_rep_sliske + %gwd2_rep_zamorak + %gwd2_rep_zaros);
     $int7 = 8000;
 }
 if ($int4 = 0) {
     $string1 = "All rewards unlocked!";
-    if_setsize(444, 9, ^setsize_abs, ^setsize_abs, interface_1747:com_12);
+    if_setsize(444, 9, ^setsize_abs, ^setsize_abs, gwd2_rep:overall_progress_front);
 } else {
     if ($int5 = 0) {
-        if_setsize(0, 9, ^setsize_abs, ^setsize_abs, interface_1747:com_12);
+        if_setsize(0, 9, ^setsize_abs, ^setsize_abs, gwd2_rep:overall_progress_front);
     } else {
-        if_setsize(calc(4 + 56 * $int5), 9, ^setsize_abs, ^setsize_abs, interface_1747:com_12);
+        if_setsize(calc(4 + 56 * $int5), 9, ^setsize_abs, ^setsize_abs, gwd2_rep:overall_progress_front);
     }
-    $string1 = enum(int, string, enum_10993, $int4);
+    $string1 = enum(int, string, gwd2_rep_unlock_names, $int4);
     if ($int4 = 14) {
         $string1 = "Next unlock: <$string1><br>Total Reputation: <tostring_localised($int6, true)>/<tostring_localised($int7, true)>";
     } else {
         $string1 = "Next unlock: <$string1><br>Progress: <tostring_localised($int6, true)>/<tostring_localised($int7, true)>";
     }
 }
-if_settext($string1, interface_1747:com_28);
-if_settext("<$string0>: <tostring_localised(min(2000, $int2), true)>/<tostring_localised(2000, true)>", interface_1747:com_35);
+if_settext($string1, gwd2_rep:next_unlock_text);
+if_settext("<$string0>: <tostring_localised(min(2000, $int2), true)>/<tostring_localised(2000, true)>", gwd2_rep:rep_total_text);

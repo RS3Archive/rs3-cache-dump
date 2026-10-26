@@ -1,39 +1,39 @@
 // 919
 [proc,script919]
-def_int $int0 = inv_total(inv_93, %varclient_743);
-if (%varclient_743 = obj_995 | %varclient_743 = null) {
+def_int $int0 = inv_total(inv, %objreq_currency);
+if (%objreq_currency = coins | %objreq_currency = null) {
     $int0 = ~script17404;
 }
 def_string $string0 = "Cost:";
 def_int $int1 = -1;
-if (%varclient_744 = 0) {
+if (%objreq_price = 0) {
     $string0 = "None available";
-} else if (%varclient_744 = -1) {
+} else if (%objreq_price = -1) {
     $string0 = "Free sample!";
 } else {
-    $int1 = %varclient_744;
+    $int1 = %objreq_price;
 }
-if_settext($string0, interface_449:com_10);
+if_settext($string0, obj_info:buy_text);
 if ($int1 > $int0) {
-    if_setcolour(^red, interface_449:com_11);
+    if_setcolour(^red, obj_info:player_has);
 } else {
-    if_setcolour(%varclient_1241, interface_449:com_11);
+    if_setcolour(%objreq_fontcol, obj_info:player_has);
 }
 if ($int1 > -1) {
-    if_setobject_alwaysnum(%varclient_743, $int1, interface_449:com_9);
+    if_setobject_alwaysnum(%objreq_currency, $int1, obj_info:buy_graphic);
 } else {
-    if_setobject_nonum(null, -1, interface_449:com_9);
+    if_setobject_nonum(null, -1, obj_info:buy_graphic);
 }
-if (%varclient_744 = -1) {
-    ~script13969(interface_449:com_8, null, struct_28553, "Take");
-    if_setop(1, "Take 1", interface_449:com_8);
-    if_setop(2, "Take 5", interface_449:com_8);
-    if_setop(3, "Take 10", interface_449:com_8);
-    if_setop(4, "Take 50", interface_449:com_8);
+if (%objreq_price = -1) {
+    ~script13969(obj_info:buy_button, null, rs3tli_positive_button, "Take");
+    if_setop(1, "Take 1", obj_info:buy_button);
+    if_setop(2, "Take 5", obj_info:buy_button);
+    if_setop(3, "Take 10", obj_info:buy_button);
+    if_setop(4, "Take 50", obj_info:buy_button);
 } else {
-    ~script13969(interface_449:com_8, null, struct_28553, "Buy");
-    if_setop(1, "Buy 1", interface_449:com_8);
-    if_setop(2, "Buy 5", interface_449:com_8);
-    if_setop(3, "Buy 10", interface_449:com_8);
-    if_setop(4, "Buy 50", interface_449:com_8);
+    ~script13969(obj_info:buy_button, null, rs3tli_positive_button, "Buy");
+    if_setop(1, "Buy 1", obj_info:buy_button);
+    if_setop(2, "Buy 5", obj_info:buy_button);
+    if_setop(3, "Buy 10", obj_info:buy_button);
+    if_setop(4, "Buy 50", obj_info:buy_button);
 }

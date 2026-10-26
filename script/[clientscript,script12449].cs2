@@ -6,35 +6,35 @@ if (~machinima_camera_open = false) {
 switch_int ($int0) {
     case 5 :
         if_close;
-        ~machinima_close(interface_1477:com_39);
+        ~machinima_close(toplevel_v2:machinima_camera);
     case 8 :
         if ($int1 > 0 & %varclientbit_23075 < 1) {
             ~script835;
             %varclientbit_23075 = 1;
-            if_setontimer("script12448", interface_1477:com_17);
+            if_setontimer("script12448", toplevel_v2:gamepad_listener);
         }
     case 9 :
         if ($int1 > 0 & %varclientbit_23075 < 1) {
-            if (if_gethide(interface_475:com_8) = true) {
-                if_sethide(false, interface_475:com_8);
+            if (if_gethide(machinima_livecamera:ui) = true) {
+                if_sethide(false, machinima_livecamera:ui);
             } else {
-                if_sethide(true, interface_475:com_8);
+                if_sethide(true, machinima_livecamera:ui);
             }
-            if_setontimer("script12448", interface_1477:com_17);
+            if_setontimer("script12448", toplevel_v2:gamepad_listener);
             %varclientbit_23075 = 1;
             return;
         }
     case 14 :
-        %varclient_4667 = min(1024, max(calc(%varclient_4667 - $int1 * 2), 0));
+        %machinima_livecamera_camera_pos_speed = min(1024, max(calc(%machinima_livecamera_camera_pos_speed - $int1 * 2), 0));
         ~script6587;
     case 15 :
-        %varclient_4667 = max(0, min(calc($int1 * 2 + %varclient_4667), 1024));
+        %machinima_livecamera_camera_pos_speed = max(0, min(calc($int1 * 2 + %machinima_livecamera_camera_pos_speed), 1024));
         ~script6587;
     case 12 :
-        %varclient_4668 = min(50, max(calc(%varclient_4668 - $int1), 1));
+        %machinima_livecamera_camera_rot_speed = min(50, max(calc(%machinima_livecamera_camera_rot_speed - $int1), 1));
         ~script6636;
     case 13 :
-        %varclient_4668 = max(1, min(calc($int1 + %varclient_4668), 50));
+        %machinima_livecamera_camera_rot_speed = max(1, min(calc($int1 + %machinima_livecamera_camera_rot_speed), 50));
         ~script6636;
     case default :
         return;

@@ -1,0 +1,61 @@
+// 21190
+[proc,script21190](component $component0, int $int1, int $int2)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_string $string4 = "";
+$string0, $string1, $string2, $string3, $int3, $int4, $string4 = ~script21153($int2);
+def_string $string5 = "";
+def_int $int5 = calc(2500 * 1 + $int1);
+def_int $int6 = calc(2500 * 2 + $int1);
+def_int $int7 = calc(2500 * 3 + $int1);
+def_int $int8 = calc(2500 * 4 + $int1);
+def_int $int9 = calc(2500 * 5 + $int1);
+def_int $int10 = calc(2500 * 6 + $int1);
+def_int $int11 = calc(2500 * 7 + $int1);
+def_int $int12 = calc(2500 * 8 + $int1);
+def_int $int13 = calc(2500 * 9 + $int1);
+def_int $int14 = calc(2500 * 10 + $int1);
+if (cc_find($component0, $int1) = true) {
+    ~script16109(~script21130($int5), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $int1, false);
+    ~cc_add_child_graphic(~script21130($int6), 4, 0, ^setpos_abs_left, ^setpos_abs_centre, 112, 63, ^setsize_abs, ^setsize_abs, null);
+    cc_setgraphicname($string3);
+    ~cc_add_child_text(~script21130($int7), 120, 2, ^setpos_abs_left, ^setpos_abs_top, 300, 18, ^setsize_abs, ^setsize_abs, text_subtitle_body, $string0);
+    ~cc_add_child_text(~script21130($int9), 120, 22, ^setpos_abs_left, ^setpos_abs_top, 276, 32, ^setsize_minus, ^setsize_minus, text_body_default, $string2);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_setmaxlines(3);
+    cc_settext($string2);
+    cc_setonmouserepeat("script8799($string2, event_com, event_comsubid)");
+    cc_setonmouseleave("script8805");
+    ~cc_add_child_text(~script21130($int8), 4, 4, ^setpos_abs_right, ^setpos_abs_top, 170, 16, ^setsize_abs, ^setsize_abs, text_body_default, "by <$string1>");
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    ~cc_add_child_text(~script21130($int10), 4, 22, ^setpos_abs_right, ^setpos_abs_top, 170, 16, ^setsize_abs, ^setsize_abs, text_body_default, "<tostring_localised($int3, true)> downloads");
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    switch_int ($int4) {
+        case 2 :
+            ~cc_add_child_button(~script21130($int14), 4, 4, ^setpos_abs_right, ^setpos_abs_bottom, 120, 24, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Installed");
+            ~script7872(false, true, false, false);
+        case 1 :
+            ~cc_add_child_button(~script21130($int14), 4, 4, ^setpos_abs_right, ^setpos_abs_bottom, 120, 24, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Installing...");
+            ~script7872(false, true, false, false);
+        case default :
+            ~cc_add_child_button(~script21130($int14), 4, 4, ^setpos_abs_right, ^setpos_abs_bottom, 120, 24, ^setsize_abs, ^setsize_abs, button_cornered_neutral, "Install");
+            cc_setop(1, "Install <$string0>");
+            cc_setonop("script21191(event_com, $int1, $int2, $string0)");
+            $string5 = "Install <$string0>.";
+            cc_setonmouserepeat("script8799($string5, event_com, event_comsubid)");
+    }
+    ~cc_add_child_layer(~script21130($int11), calc(120 + 4 * 2), 4, ^setpos_abs_right, ^setpos_abs_bottom, 24, 24, ^setsize_abs, ^setsize_abs);
+    ~cc_add_child_button(~script21130($int12), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, button_icon_neutral, "");
+    cc_setop(1, "More Information");
+    cc_setonop("script21152(event_com, 1, $int2, $string4)");
+    $string5 = "Visit Mod.io for more information about <$string0>.";
+    cc_setonmouserepeat("script8799($string5, event_com, event_comsubid)");
+    ~cc_add_child_graphic(~script21130($int13), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 18, 18, ^setsize_abs, ^setsize_abs, rs3_icon_plugin_hub_info);
+    cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_info)");
+    cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, rs3_icon_plugin_hub_info)");
+}
+if_sethide(true, plugin_hub_parent_browse:loading_layer);

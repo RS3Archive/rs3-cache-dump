@@ -1,26 +1,26 @@
 // 111
 [proc,meslayer_mode10]
-if_sethide(false, interface_1469:com_0);
-if (%varclient_1413 = false) {
+if_sethide(false, meslayer:root);
+if (%has_displayname_client = false) {
     return;
 }
-if (%varclient_11 = true) {
+if (%snapshot_open = true) {
     ~script675;
 }
-if_settext("Enter the player name whose channel you wish to join:", interface_1469:com_3);
-%varclient_5 = 10;
+if_settext("Enter the player name whose channel you wish to join:", meslayer:mes_text);
+%meslayermode = 10;
 ~meslayer_setupinput("");
-if_setonclick(null, interface_1469:com_1);
+if_setonclick(null, meslayer:mes_layer);
 ~script2026;
-cc_create(interface_1469:com_1, ^iftype_text, 0);
+cc_create(meslayer:mes_layer, ^iftype_text, 0);
 ~meslayer_setupdynamicbutton;
-if (%varclient_1027 = true & string_length(%varclient_2508) > 0) {
-    cc_settext("Last name entered: <%varclient_2508> <~mobile_text_get(10)>");
+if (%last_clanchannelowner_init = true & string_length(%last_clanchannelowner) > 0) {
+    cc_settext("Last name entered: <%last_clanchannelowner> <~mobile_text_get(10)>");
 } else {
-    %varclient_2508 = removetags(chat_playername);
-    %varclient_1027 = true;
-    cc_settext("Your name: <%varclient_2508>");
+    %last_clanchannelowner = removetags(chat_playername);
+    %last_clanchannelowner_init = true;
+    cc_settext("Your name: <%last_clanchannelowner>");
 }
 cc_setop(1, "Use:");
-cc_setopbase("<col=ff9040><removetags(%varclient_2508)></col>");
-cc_setonop("meslayer_lastname(%varclient_5, event_op, event_com, event_comsubid, %varclient_2508)");
+cc_setopbase("<col=ff9040><removetags(%last_clanchannelowner)></col>");
+cc_setonop("meslayer_lastname(%meslayermode, event_op, event_com, event_comsubid, %last_clanchannelowner)");

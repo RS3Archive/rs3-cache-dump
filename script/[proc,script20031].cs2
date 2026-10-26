@@ -5,32 +5,32 @@ def_component $component3 = null;
 def_component $component4 = null;
 switch_int ($int0) {
     case 1 :
-        $component2 = interface_1340:com_103;
-        $component3 = interface_1340:com_105;
-        $component4 = interface_1340:com_104;
+        $component2 = trh210_overlay:bonus_option_1_title_text;
+        $component3 = trh210_overlay:bonus_option_1_info_text;
+        $component4 = trh210_overlay:bonus_option_1_build_layer;
     case 2 :
-        $component2 = interface_1340:com_108;
-        $component3 = interface_1340:com_111;
-        $component4 = interface_1340:com_109;
+        $component2 = trh210_overlay:bonus_option_2_title_text;
+        $component3 = trh210_overlay:bonus_option_2_info_text;
+        $component4 = trh210_overlay:bonus_option_2_build_layer;
 }
 cc_deleteall($component4);
 if ($dbrow1 = null) {
     return;
 }
 def_string $string0 = "";
-def_int $int5 = db_getfield($dbrow1, dbtable_320:col1, 0);
-def_int $int6 = db_getfield($dbrow1, dbtable_320:col2, 0);
-def_int $int7 = db_getfield($dbrow1, dbtable_320:col5, 0);
-def_int $int8 = db_getfield($dbrow1, dbtable_320:col6, 0);
+def_int $int5 = db_getfield($dbrow1, trh210_bonus:col1, 0);
+def_int $int6 = db_getfield($dbrow1, trh210_bonus:col2, 0);
+def_int $int7 = db_getfield($dbrow1, trh210_bonus:col5, 0);
+def_int $int8 = db_getfield($dbrow1, trh210_bonus:col6, 0);
 def_obj $obj9 = null;
 def_int $int10 = 0;
 def_graphic $graphic11 = null;
 def_int $int12 = 0;
 def_int $int13 = 0;
-$graphic11, $int12, $int13 = db_getfield($dbrow1, dbtable_320:col4, 0);
-$obj9, $int10 = db_getfield($dbrow1, dbtable_320:col3, 0);
+$graphic11, $int12, $int13 = db_getfield($dbrow1, trh210_bonus:col4, 0);
+$obj9, $int10 = db_getfield($dbrow1, trh210_bonus:col3, 0);
 if ($int5 > 1 | $int6 > 0 | $int7 > 1 | $int8 > 0) {
-    if_sethide(false, interface_1340:com_110);
+    if_sethide(false, trh210_overlay:bonus_option_2_empty_gem);
     if_settext("Bonus", $component2);
     if ($int5 > 1) {
         if_settext("Minimum Multipliers", $component2);
@@ -49,7 +49,7 @@ if ($int5 > 1 | $int6 > 0 | $int7 > 1 | $int8 > 0) {
 } else if ($obj9 ! null & $int10 > 0) {
     if_settext("Loot", $component2);
     if ($int0 = 2) {
-        if_sethide(true, interface_1340:com_110);
+        if_sethide(true, trh210_overlay:bonus_option_2_empty_gem);
     }
     if ($int10 > 1) {
         $string0 = "<tostring($int10)> x <oc_name($obj9)>";
@@ -61,7 +61,7 @@ if ($int5 > 1 | $int6 > 0 | $int7 > 1 | $int8 > 0) {
     } else {
         ~if_add_child_model($component4, 0, if_getnextsubid($component4), 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 100, 100, ^setsize_abs, ^setsize_abs);
         cc_setobject_nonum($obj9, $int10);
-        cc_setmodellighting(2048, 0, 0, 255, 255, 255, 0, 0, 0, material_3224);
+        cc_setmodellighting(2048, 0, 0, 255, 255, 255, 0, 0, 0, reflec_small);
     }
 }
 if_settext($string0, $component3);

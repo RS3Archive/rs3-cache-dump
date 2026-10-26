@@ -2,23 +2,23 @@
 [clientscript,script12206](component $component0)
 def_obj $obj1 = null;
 switch_component ($component0) {
-    case interface_1715:com_58 :
-        $obj1 = obj_36739;
-    case interface_1715:com_80 :
-        $obj1 = obj_36740;
-    case interface_1715:com_69 :
-        $obj1 = obj_36741;
-    case interface_1715:com_38 :
-        $obj1 = obj_36742;
-    case interface_1715:com_48 :
-        $obj1 = obj_36743;
-    case interface_1715:com_111 :
-        $obj1 = obj_36744;
-    case interface_1715:com_91 :
-        $obj1 = obj_36745;
-    case interface_1715:com_101 :
-        $obj1 = obj_36735;
-    case interface_1715:com_39, interface_1715:com_49, interface_1715:com_59, interface_1715:com_70, interface_1715:com_81, interface_1715:com_112, interface_1715:com_92 :
+    case trh80_corrupt:helmet_button_active :
+        $obj1 = trh80_grotesque_head;
+    case trh80_corrupt:chestplate_button_active :
+        $obj1 = trh80_grotesque_torso;
+    case trh80_corrupt:legplates_button_active :
+        $obj1 = trh80_grotesque_legs;
+    case trh80_corrupt:gauntlets_button_active :
+        $obj1 = trh80_grotesque_hands;
+    case trh80_corrupt:boots_button_active :
+        $obj1 = trh80_grotesque_feet;
+    case trh80_corrupt:cape_button_active :
+        $obj1 = trh80_grotesque_back;
+    case trh80_corrupt:wings_button_active :
+        $obj1 = trh80_grotesque_wings;
+    case trh80_corrupt:soulgem_button_active :
+        $obj1 = trh80_soul_gem;
+    case trh80_corrupt:gauntlets_button_disabled, trh80_corrupt:boots_button_disabled, trh80_corrupt:helmet_button_disabled, trh80_corrupt:legplates_button_disabled, trh80_corrupt:chestplate_button_disabled, trh80_corrupt:cape_button_disabled, trh80_corrupt:wings_button_disabled :
         mes("You have already unlocked that reward.");
         return;
 }
@@ -26,16 +26,16 @@ if (~script12207($obj1) >= 1) {
     mes("You have already unlocked that item.");
     return;
 }
-def_int $int2 = enum(obj, int, enum_10765, $obj1);
-if (inv_total(inv_93, obj_36734) < $int2) {
+def_int $int2 = enum(obj, int, trh80_item_cost, $obj1);
+if (inv_total(inv, trh80_corrupted_soul) < $int2) {
     mes("You don't have enough grotesque souls to create that item.");
     return;
 }
-def_string $string0 = enum(obj, string, enum_10771, $obj1);
-if ($component0 = interface_1715:com_101) {
-    if_settext("Are you sure you want to create a <$string0> for <tostring_localised($int2, true)> grotesque souls?", interface_1715:com_123);
+def_string $string0 = enum(obj, string, trh80_name_from_obj, $obj1);
+if ($component0 = trh80_corrupt:soulgem_button_active) {
+    if_settext("Are you sure you want to create a <$string0> for <tostring_localised($int2, true)> grotesque souls?", trh80_corrupt:confirm_purchase_text);
 } else {
-    if_settext("Are you sure you want to create the <$string0> for <tostring_localised($int2, true)> grotesque souls? You will receive <tostring(calc(3 * $int2))> Slayer XP.", interface_1715:com_123);
+    if_settext("Are you sure you want to create the <$string0> for <tostring_localised($int2, true)> grotesque souls? You will receive <tostring(calc(3 * $int2))> Slayer XP.", trh80_corrupt:confirm_purchase_text);
 }
-if_sethide(false, interface_1715:com_2);
-if_sethide(false, interface_1715:com_31);
+if_sethide(false, trh80_corrupt:darkness);
+if_sethide(false, trh80_corrupt:confirm_purchase);

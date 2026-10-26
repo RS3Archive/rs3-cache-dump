@@ -24,12 +24,12 @@ $graphicarray1(1) = "aif_make_x_available,1";
 $graphicarray1(2) = "aif_make_x_available,2";
 def_int $int14 = 0;
 while ($int1 < $int0) {
-    if (%varplayer_1169 ! null) {
-        $obj8 = enum(int, obj, %varplayer_1169, $int1);
+    if (%makex2012_active_recipe_list ! null) {
+        $obj8 = enum(int, obj, %makex2012_active_recipe_list, $int1);
     } else {
         return(0);
     }
-    $obj9 = oc_param($obj8, param_2989);
+    $obj9 = oc_param($obj8, recipe_non_dummy_obj);
     if ($obj9 = null) {
         $obj9 = $obj8;
     }
@@ -43,7 +43,7 @@ while ($int1 < $int0) {
     }
     $int7 = calc(5 + ($int4 * 10 + $int4 * $int13));
     $int6 = calc($int5 * 10 + $int5 * $int13 + $int14);
-    cc_create(interface_1371:com_22, ^iftype_graphic, $int12);
+    cc_create(makex2012_controls:items_list, ^iftype_graphic, $int12);
     if ($boolean2 = false) {
         cc_sethide(true);
     } else {
@@ -61,7 +61,7 @@ while ($int1 < $int0) {
         }
     }
     $int12 = calc($int12 + 1);
-    cc_create(interface_1371:com_22, ^iftype_graphic, $int12);
+    cc_create(makex2012_controls:items_list, ^iftype_graphic, $int12);
     if ($boolean2 = false) {
         cc_sethide(true);
     } else {
@@ -71,7 +71,7 @@ while ($int1 < $int0) {
         $string0 = "";
         if ($boolean10 = false | $int11 = 0) {
             cc_setonop("script7121($obj8, event_comsubid, $graphicarray0(2))");
-            if ($obj8 = %varplayer_1170) {
+            if ($obj8 = %makex2012_active_recipe) {
                 cc_setgraphic($graphicarray0(2));
             }
             if (map_members = false & ~script7116($obj8) = true) {
@@ -80,38 +80,38 @@ while ($int1 < $int0) {
             if ($boolean10 = false) {
                 $string0 = append($string0, "<br>Requirements not met");
             }
-            if ($int11 = 0 & oc_param($obj8, param_5450) > 0 & inv_freespace(inv_93) = 0) {
+            if ($int11 = 0 & oc_param($obj8, recipe_extra_inv_space_required) > 0 & inv_freespace(inv) = 0) {
                 $string0 = append($string0, "<br>No free space");
             } else {
                 $string0 = append($string0, "<br>Ingredients missing");
             }
         } else {
             cc_setonop("script7121($obj8, event_comsubid, $graphicarray1(2))");
-            if ($obj8 = %varplayer_1170) {
+            if ($obj8 = %makex2012_active_recipe) {
                 cc_setgraphic($graphicarray1(2));
             }
         }
-        if (string_length(oc_param($obj8, param_3859)) > 0 & oc_param($obj8, param_2989) ! null) {
-            cc_setonmouserepeat("script3584(oc_param($obj8, param_2989), oc_param($obj8, param_2989), null, event_com, event_comsubid, 0, 1, $string0)");
+        if (string_length(oc_param($obj8, recipe_name_override)) > 0 & oc_param($obj8, recipe_non_dummy_obj) ! null) {
+            cc_setonmouserepeat("script3584(oc_param($obj8, recipe_non_dummy_obj), oc_param($obj8, recipe_non_dummy_obj), null, event_com, event_comsubid, 0, 1, $string0)");
         } else {
             cc_setonmouserepeat("script14193($string0, $obj8, event_com, event_comsubid)");
         }
         cc_setop(1, "Select");
     }
     $int12 = calc($int12 + 1);
-    cc_create(interface_1371:com_22, ^iftype_graphic, $int12);
+    cc_create(makex2012_controls:items_list, ^iftype_graphic, $int12);
     if ($boolean2 = false) {
         cc_sethide(true);
     } else {
         cc_setposition(calc($int7 + (46 - 36) / 2 + 2), calc($int6 + (46 - 32) / 2), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
-        if (oc_param($obj8, param_5491) ! null) {
+        if (oc_param($obj8, recipe_graphic) ! null) {
             cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
-            cc_setgraphic(oc_param($obj8, param_5491));
-        } else if (oc_param($obj8, param_2653) > 1) {
+            cc_setgraphic(oc_param($obj8, recipe_graphic));
+        } else if (oc_param($obj8, recipe_make_stack_size) > 1) {
             cc_setobject($obj9, ~script18374($obj8));
-        } else if (oc_param($obj8, param_3860) > 1) {
-            cc_setobject($obj9, oc_param($obj8, param_3860));
+        } else if (oc_param($obj8, recipe_batch_size) > 1) {
+            cc_setobject($obj9, oc_param($obj8, recipe_batch_size));
         } else {
             cc_setobject_nonum($obj9, -1);
         }
@@ -120,7 +120,7 @@ while ($int1 < $int0) {
         }
     }
     $int12 = calc($int12 + 1);
-    cc_create(interface_1371:com_22, ^iftype_graphic, $int12);
+    cc_create(makex2012_controls:items_list, ^iftype_graphic, $int12);
     if ($boolean2 = false) {
         cc_sethide(true);
     } else {
@@ -136,10 +136,10 @@ while ($int1 < $int0) {
     $int1 = calc($int1 + 1);
 }
 if ($int3 = 0) {
-    cc_create(interface_1371:com_22, ^iftype_text, $int12);
+    cc_create(makex2012_controls:items_list, ^iftype_text, $int12);
     cc_settext("There is nothing in this category available for you to work on at this time.");
     ~script11024(3);
-    cc_settextfont(fontmetrics_26);
+    cc_settextfont(museo_sans_11pt_regular);
     cc_setposition(5, 5, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(10, 10, ^setsize_minus, ^setsize_minus);
 }

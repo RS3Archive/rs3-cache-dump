@@ -4,11 +4,11 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = -1;
 def_int $int3 = -1;
-switch_int (cc_param(param_5836)) {
+switch_int (cc_param(rs3tli_component_rotation_type)) {
     case 0 :
-        cc_set2dangle(cc_param(param_5936));
+        cc_set2dangle(cc_param(rs3tli_component_target_2dangle));
     case 1 :
-        $int1 = calc(cc_param(param_5936) % 65536);
+        $int1 = calc(cc_param(rs3tli_component_target_2dangle) % 65536);
         if ($int1 < 0) {
             $int1 = calc($int1 + 65536);
         }
@@ -26,22 +26,22 @@ switch_int (cc_param(param_5836)) {
             }
         }
     case 2 :
-        $int3 = cc_param(param_4155);
+        $int3 = cc_param(rs3tli_component_rotation_clock);
         $int2 = calc(clientclock % (65536 / 1872));
         cc_set2dangle(calc((0 - 1872) * $int2));
-        cc_setparam(param_4155, $int2);
+        cc_setparam(rs3tli_component_rotation_clock, $int2);
     case 3 :
-        $int3 = cc_param(param_4155);
+        $int3 = cc_param(rs3tli_component_rotation_clock);
         $int2 = calc(~script12706(-1) % 360);
-        cc_set2dangle(~invert(scale(scale(65536, 360, 15), 100, enum(int, int, enum_9054, $int2))));
-        cc_setparam(param_4155, $int2);
+        cc_set2dangle(~invert(scale(scale(65536, 360, 15), 100, enum(int, int, sin_deg2percentage_enum, $int2))));
+        cc_setparam(rs3tli_component_rotation_clock, $int2);
     case 4 :
-        $int3 = cc_param(param_4155);
+        $int3 = cc_param(rs3tli_component_rotation_clock);
         $int1, $int2 = ~script10253(~script12706(-1));
         cc_set2dangle($int1);
-        cc_setparam(param_4155, $int2);
+        cc_setparam(rs3tli_component_rotation_clock, $int2);
     case 5 :
-        cc_set2dangle(calc(cc_get2dangle + cc_param(param_5935) % 65536));
+        cc_set2dangle(calc(cc_get2dangle + cc_param(rs3tli_component_rotation_step) % 65536));
 }
 if ($int2 < $int3) {
     return(true);

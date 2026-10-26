@@ -1,6 +1,6 @@
 // 20702
 [clientscript,script20702]
-def_component $component0 = interface_184:com_9;
+def_component $component0 = bait_box:food_layer;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
@@ -10,13 +10,13 @@ def_int $int6 = 0;
 def_obj $obj7 = null;
 def_string $string0 = "";
 cc_deleteall($component0);
-if (%varplayer_12695 ! null & %varplayer_12696 ! null) {
-    $int1 = enum_getoutputcount(%varplayer_12695);
+if (%big_game_hunter_bait_box_active_list ! null & %big_game_hunter_bait_box_active_inv ! null) {
+    $int1 = enum_getoutputcount(%big_game_hunter_bait_box_active_list);
     while ($int2 < $int1) {
         $int4 = calc(41 * ($int2 % 5));
         $int5 = calc(37 * ($int2 / 5));
-        $obj7 = enum(int, obj, %varplayer_12695, $int2);
-        $int3 = inv_total(%varplayer_12696, oc_cert($obj7));
+        $obj7 = enum(int, obj, %big_game_hunter_bait_box_active_list, $int2);
+        $int3 = inv_total(%big_game_hunter_bait_box_active_inv, oc_cert($obj7));
         cc_create($component0, ^iftype_graphic, $int6++);
         cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
         cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
@@ -41,7 +41,7 @@ if (%varplayer_12695 ! null & %varplayer_12696 ! null) {
         cc_setonmouseleave("script5495(null)");
         $int2 = calc($int2 + 1);
     }
-    if_setoninvtransmit("script20702{%varplayer_12696}", $component0);
+    if_setoninvtransmit("script20702{%big_game_hunter_bait_box_active_inv}", $component0);
 }
 ~script20704;
-if_setonvartransmit("script20703{varplayer_8606}", interface_184:com_17);
+if_setonvartransmit("script20703{dino_bait_box_grey_out}", bait_box:inv_contents_layer);

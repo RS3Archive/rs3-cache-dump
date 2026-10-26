@@ -33,8 +33,8 @@ while ($int10++ < 3) {
     cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
     cc_setfill(true);
     cc_setop(1, "Select");
-    cc_setonmouseover("script15920(1, event_com, event_comsubid, interface_1867:com_1)");
-    cc_setonmouseleave("script15920(0, event_com, event_comsubid, interface_1867:com_1)");
+    cc_setonmouseover("script15920(1, event_com, event_comsubid, sworld_start:sworld_challenge_world_highlight_mouseover)");
+    cc_setonmouseleave("script15920(0, event_com, event_comsubid, sworld_start:sworld_challenge_world_highlight_mouseover)");
     if (calc($int10 - 1) = 0) {
         cc_setcolour($int2);
     } else {
@@ -42,37 +42,37 @@ while ($int10++ < 3) {
     }
     $int15 = calc($int15 + 1);
     .cc_create($component0, ^iftype_text, $int15);
-    .cc_settext(struct_param($struct14, param_2232));
-    .cc_setsize(10, ~script7593(.cc_gettext, calc($int11 - 10), fontmetrics_26, 0), ^setsize_minus, ^setsize_abs);
+    .cc_settext(struct_param($struct14, sworlds_challenge_text));
+    .cc_setsize(10, ~script7593(.cc_gettext, calc($int11 - 10), museo_sans_11pt_regular, 0), ^setsize_minus, ^setsize_abs);
     .cc_setposition(5, calc($int9 + $int8), ^setpos_abs_left, ^setpos_abs_top);
     switch_int ($int10) {
         case 1 :
             .cc_setcolour(0xcd7f32);
-            cc_setparam(param_6804, 1);
+            cc_setparam(sworlds_challenge_represents, 1);
         case 2 :
             .cc_setcolour(0xc0c0c0);
-            cc_setparam(param_6804, 2);
+            cc_setparam(sworlds_challenge_represents, 2);
         case 3 :
             .cc_setcolour(0xffd700);
-            cc_setparam(param_6804, 3);
+            cc_setparam(sworlds_challenge_represents, 3);
     }
     .cc_settextshadow(true);
     .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-    .cc_settextfont(fontmetrics_26);
-    $int8 = calc($int8 + (~script7593(.cc_gettext, calc($int11 - 10), fontmetrics_26, 0) + $int7));
+    .cc_settextfont(museo_sans_11pt_regular);
+    $int8 = calc($int8 + (~script7593(.cc_gettext, calc($int11 - 10), museo_sans_11pt_regular, 0) + $int7));
     $int15 = calc($int15 + 1);
     .cc_create($component0, ^iftype_text, $int15);
-    .cc_settext(struct_param($struct14, param_6449));
-    .cc_setsize(10, ~script7593(.cc_gettext, calc($int11 - 10), fontmetrics_27, 0), ^setsize_minus, ^setsize_abs);
+    .cc_settext(struct_param($struct14, sworlds_challenge_description_text));
+    .cc_setsize(10, ~script7593(.cc_gettext, calc($int11 - 10), museo_sans_11pt_regular_multiline, 0), ^setsize_minus, ^setsize_abs);
     .cc_setposition(5, calc($int9 + $int8), ^setpos_abs_left, ^setpos_abs_top);
     .cc_setcolour($int6);
     .cc_settextshadow(true);
     .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-    .cc_settextfont(fontmetrics_27);
-    $int8 = calc($int8 + (~script7593(.cc_gettext, calc($int11 - 10), fontmetrics_27, 0) + $int7));
-    $enum16 = struct_param($struct14, param_6464);
+    .cc_settextfont(museo_sans_11pt_regular_multiline);
+    $int8 = calc($int8 + (~script7593(.cc_gettext, calc($int11 - 10), museo_sans_11pt_regular_multiline, 0) + $int7));
+    $enum16 = struct_param($struct14, sworlds_challenge_override_mutators);
     if ($enum16 ! null) {
-        $int18 = enum_getoutputcount(struct_param($struct14, param_6464));
+        $int18 = enum_getoutputcount(struct_param($struct14, sworlds_challenge_override_mutators));
     }
     if ($int18 > 0) {
         $int17 = 0;
@@ -88,7 +88,7 @@ while ($int10++ < 3) {
                 .cc_setgraphic(trh102_ui_gem_questionmark);
                 ~script14928("<col=1bb3f9>Random</col><br>A random mutator will be selected for this challenge.");
             } else {
-                .cc_setgraphic(struct_param(enum(int, struct, enum_12533, $int23), param_6504));
+                .cc_setgraphic(struct_param(enum(int, struct, sworlds_mutator_const_to_struct, $int23), sworlds_mutator_graphic));
                 ~script14928(~sworlds_mutator_tooltip($int23));
             }
             switch_int (calc($int17 % 4)) {
@@ -134,7 +134,7 @@ while ($int10++ < 3) {
     switch_int ($int10) {
         case 1 :
             .cc_settext("<tostring_localised(250000, true)> anima");
-            if (%varplayerbit_35817 = 1) {
+            if (%sworlds_reward_challenge_bronze_complete = 1) {
                 .cc_settext("<str><.cc_gettext></str>");
                 ~script14928("You have already claimed the reward for this challenge this week.");
             } else {
@@ -142,7 +142,7 @@ while ($int10++ < 3) {
             }
         case 2 :
             .cc_settext("<tostring_localised(1000000, true)> anima");
-            if (%varplayerbit_35818 = 1) {
+            if (%sworlds_reward_challenge_silver_complete = 1) {
                 .cc_settext("<str><.cc_gettext></str>");
                 ~script14928("You have already claimed the reward for this challenge this week.");
             } else {
@@ -150,22 +150,22 @@ while ($int10++ < 3) {
             }
         case 3 :
             .cc_settext("<tostring_localised(7500000, true)> anima");
-            if (%varplayerbit_35819 = 1) {
+            if (%sworlds_reward_challenge_gold_complete = 1) {
                 .cc_settext("<str><.cc_gettext></str>");
                 ~script14928("You have already claimed the reward for this challenge this week.");
             } else {
                 ~script14928("The amount of anima you will gain for completing this challenge.");
             }
     }
-    .cc_setsize(10, ~script7593(.cc_gettext, calc($int11 - 10), fontmetrics_26, 0), ^setsize_minus, ^setsize_abs);
+    .cc_setsize(10, ~script7593(.cc_gettext, calc($int11 - 10), museo_sans_11pt_regular, 0), ^setsize_minus, ^setsize_abs);
     .cc_setposition(5, calc($int9 + $int8), ^setpos_abs_left, ^setpos_abs_top);
     .cc_setcolour($int6);
     .cc_settextshadow(true);
     .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-    .cc_settextfont(fontmetrics_26);
-    $int8 = calc($int8 + (~script7593(.cc_gettext, calc($int11 - 10), fontmetrics_26, 0) + $int7));
+    .cc_settextfont(museo_sans_11pt_regular);
+    $int8 = calc($int8 + (~script7593(.cc_gettext, calc($int11 - 10), museo_sans_11pt_regular, 0) + $int7));
     cc_setsize(0, $int8, ^setsize_minus, ^setsize_abs);
-    cc_setparam(param_6805, calc($int15 + 1));
+    cc_setparam(sworlds_challenge_subid_of_outline_rect, calc($int15 + 1));
     $int15 = calc($int15 + 1);
     cc_create($component0, ^iftype_rectangle, $int15);
     cc_setsize(0, $int8, ^setsize_minus, ^setsize_abs);
@@ -178,14 +178,14 @@ while ($int10++ < 3) {
     $int18 = 0;
     $int15 = calc($int15 + 1);
 }
-~script3536("Please select a challenge first", interface_1867:com_53, -1);
-if_sethide(true, interface_1867:com_52);
-if_sethide(false, interface_1867:com_53);
-if (calc($int9 - 3) > if_getheight(interface_1867:com_7)) {
-    if_setscrollsize(0, $int9, interface_1867:com_7);
-    if_setscrollpos(0, 0, interface_1867:com_7);
+~script3536("Please select a challenge first", sworld_start:challenge_start_button_disabled_layer, -1);
+if_sethide(true, sworld_start:challenge_start_button_active_layer);
+if_sethide(false, sworld_start:challenge_start_button_disabled_layer);
+if (calc($int9 - 3) > if_getheight(sworld_start:sworld_select_challenge_world_list)) {
+    if_setscrollsize(0, $int9, sworld_start:sworld_select_challenge_world_list);
+    if_setscrollpos(0, 0, sworld_start:sworld_select_challenge_world_list);
 } else {
-    if_setscrollsize(0, 0, interface_1867:com_7);
-    if_setscrollpos(0, 0, interface_1867:com_7);
+    if_setscrollsize(0, 0, sworld_start:sworld_select_challenge_world_list);
+    if_setscrollpos(0, 0, sworld_start:sworld_select_challenge_world_list);
 }
-~rs3_scrollbar_vertical(interface_1867:com_3, interface_1867:com_7);
+~rs3_scrollbar_vertical(sworld_start:sworld_select_world_sb, sworld_start:sworld_select_challenge_world_list);

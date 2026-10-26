@@ -1,38 +1,38 @@
 // 1271
 [proc,bankpin_shuffle](int $int0)
-switch_int (%varplayerbit_446) {
+switch_int (%bankpin_counter) {
     case 0 :
-        if_settext("First click the FIRST digit.", interface_13:com_11);
-        if_settext("?", interface_13:com_12);
-        if_settext("?", interface_13:com_13);
-        if_settext("?", interface_13:com_14);
-        if_settext("?", interface_13:com_15);
+        if_settext("First click the FIRST digit.", bankpin_main:next_digit_instruction);
+        if_settext("?", bankpin_main:digit_1);
+        if_settext("?", bankpin_main:digit_2);
+        if_settext("?", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
     case 1 :
-        if_settext("Now click the SECOND digit.", interface_13:com_11);
-        if_settext("*", interface_13:com_12);
-        if_settext("?", interface_13:com_13);
-        if_settext("?", interface_13:com_14);
-        if_settext("?", interface_13:com_15);
+        if_settext("Now click the SECOND digit.", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("?", bankpin_main:digit_2);
+        if_settext("?", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
     case 2 :
-        if_settext("Time for the THIRD digit.", interface_13:com_11);
-        if_settext("*", interface_13:com_12);
-        if_settext("*", interface_13:com_13);
-        if_settext("?", interface_13:com_14);
-        if_settext("?", interface_13:com_15);
+        if_settext("Time for the THIRD digit.", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("*", bankpin_main:digit_2);
+        if_settext("?", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
     case 3 :
-        if_settext("Finally, the FOURTH digit.", interface_13:com_11);
-        if_settext("*", interface_13:com_12);
-        if_settext("*", interface_13:com_13);
-        if_settext("*", interface_13:com_14);
-        if_settext("?", interface_13:com_15);
+        if_settext("Finally, the FOURTH digit.", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("*", bankpin_main:digit_2);
+        if_settext("*", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
     case 4 :
-        if_settext("Please wait...", interface_13:com_11);
-        if_settext("*", interface_13:com_12);
-        if_settext("*", interface_13:com_13);
-        if_settext("*", interface_13:com_14);
-        if_settext("*", interface_13:com_15);
-        if_resume_pausebutton(interface_13:com_4);
-        if (%varplayerbit_449 ! 0) {
+        if_settext("Please wait...", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("*", bankpin_main:digit_2);
+        if_settext("*", bankpin_main:digit_3);
+        if_settext("*", bankpin_main:digit_4);
+        if_resume_pausebutton(bankpin_main:unpause);
+        if (%bankpin_status ! 0) {
             return;
         }
     case 5 :
@@ -40,11 +40,11 @@ switch_int (%varplayerbit_446) {
             return;
         }
     case default :
-        if_settext("Please wait...", interface_13:com_11);
-        if_settext("*", interface_13:com_12);
-        if_settext("*", interface_13:com_13);
-        if_settext("*", interface_13:com_14);
-        if_settext("*", interface_13:com_15);
+        if_settext("Please wait...", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("*", bankpin_main:digit_2);
+        if_settext("*", bankpin_main:digit_3);
+        if_settext("*", bankpin_main:digit_4);
 }
 def_int $int1 = 0;
 if ($int0 = 0) {
@@ -68,23 +68,23 @@ while ($int1 < 10) {
     $int2 = $intarray0(9);
     $intarray0(9) = $intarray0($int3);
     $intarray0($int3) = $int2;
-    if_setposition(calc(25 - randominc(50)), calc(20 - randominc(40)), ^setpos_abs_centre, ^setpos_abs_centre, enum(int, component, enum_3557, $int1));
+    if_setposition(calc(25 - randominc(50)), calc(20 - randominc(40)), ^setpos_abs_centre, ^setpos_abs_centre, enum(int, component, bankpin_digits, $int1));
     $int1 = calc($int1 + 1);
 }
 def_int $int4 = 64;
 def_int $int5 = 64;
-def_int $int6 = calc((if_getwidth(interface_13:com_5) - $int4) / 3);
-def_int $int7 = calc((if_getheight(interface_13:com_5) - $int5) / 2);
+def_int $int6 = calc((if_getwidth(bankpin_main:numberbuttons) - $int4) / 3);
+def_int $int7 = calc((if_getheight(bankpin_main:numberbuttons) - $int5) / 2);
 def_int $int8 = calc($int6 * 2);
 def_int $int9 = calc($int7 * 2);
 def_int $int10 = calc($int6 * 3);
-if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(0)));
-if_setposition($int6, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(1)));
-if_setposition($int8, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(2)));
-if_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(3)));
-if_setposition(0, $int7, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(4)));
-if_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(5)));
-if_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(6)));
-if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(7)));
-if_setposition($int6, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(8)));
-if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_3556, $intarray0(9)));
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(0)));
+if_setposition($int6, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(1)));
+if_setposition($int8, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(2)));
+if_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(3)));
+if_setposition(0, $int7, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(4)));
+if_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(5)));
+if_setposition($int8, $int7, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(6)));
+if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(7)));
+if_setposition($int6, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(8)));
+if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, bankpin_overlaycontainers, $intarray0(9)));

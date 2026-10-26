@@ -1,9 +1,9 @@
 // 20607
 [proc,script20607](struct $struct0, dbrow $dbrow1, int $int2, int $int3, string $string0, int $int4, int $int5, int $int6, int $int7, int $int8)
-cc_deleteall(interface_1495:com_44);
-if_setscrollsize(0, 0, interface_1495:com_43);
-cc_deleteall(interface_1495:com_43);
-def_fontmetrics $fontmetrics9 = ~script20491(dbrow_2100);
+cc_deleteall(marketplace_preview:scrollbar_layer);
+if_setscrollsize(0, 0, marketplace_preview:description_layer);
+cc_deleteall(marketplace_preview:description_layer);
+def_fontmetrics $fontmetrics9 = ~script20491(text_body_default);
 def_string $string1 = ~script20608($struct0, $int2);
 def_string $string2 = ~script20855($struct0);
 if (string_length($string2) > 0) {
@@ -21,33 +21,33 @@ if ($int5 = 1) {
     }
     $string0 = append($string0, "This purchase includes an offhand variant.");
 }
-def_int $int10 = ~script15891($string0, if_getwidth(interface_1495:com_43), $fontmetrics9, 0);
-~cc_add_text(interface_1495:com_43, if_getnextsubid(interface_1495:com_43), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int10, ^setsize_minus, ^setsize_abs, dbrow_2100, $string0);
+def_int $int10 = ~script15891($string0, if_getwidth(marketplace_preview:description_layer), $fontmetrics9, 0);
+~cc_add_text(marketplace_preview:description_layer, if_getnextsubid(marketplace_preview:description_layer), 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int10, ^setsize_minus, ^setsize_abs, text_body_default, $string0);
 def_int $int11 = $int10;
 $string0 = "";
 def_string $string3 = "";
 def_string $string4 = "";
-if ($dbrow1 ! null & db_getrowtable($dbrow1) = dbtable_348 & db_getfield($dbrow1, dbtable_348:col20, 0) = true) {
-    if (db_getfieldcount($dbrow1, dbtable_348:col21) > 0) {
+if ($dbrow1 ! null & db_getrowtable($dbrow1) = marketplace_store_item & db_getfield($dbrow1, marketplace_store_item:col20, 0) = true) {
+    if (db_getfieldcount($dbrow1, marketplace_store_item:col21) > 0) {
         if ($int7 = 1) {
-            $string3 = "<col=32FA32><db_getfield($dbrow1, dbtable_348:col22, 0)></col>";
+            $string3 = "<col=32FA32><db_getfield($dbrow1, marketplace_store_item:col22, 0)></col>";
         } else {
-            $string3 = "<col=FA3232><db_getfield($dbrow1, dbtable_348:col21, 0)></col>";
+            $string3 = "<col=FA3232><db_getfield($dbrow1, marketplace_store_item:col21, 0)></col>";
         }
         $string3 = append("Purchase Requirements<br>", $string3);
         $int11 = ~script20854($int11, $fontmetrics9, marketplace_icon_earned, $string3);
     } else {
         error("Earned item has been created but does not have the appropriate requirement strings added.");
     }
-    if (db_getfieldcount($dbrow1, dbtable_348:col23) > 0) {
-        $string4 = db_getfield($dbrow1, dbtable_348:col23, 0);
+    if (db_getfieldcount($dbrow1, marketplace_store_item:col23) > 0) {
+        $string4 = db_getfield($dbrow1, marketplace_store_item:col23, 0);
         $string4 = append("Equip Restrictions<br>", $string4);
         $int11 = ~script20854($int11, $fontmetrics9, rs3_menu_icon_worn_equipment_normal, $string4);
     }
 }
 if ($int4 = 1) {
-    $int10 = ~script15891("Discounts for partially owned packages are not supported at this time.", if_getwidth(interface_1495:com_43), $fontmetrics9, 0);
-    ~cc_add_text(interface_1495:com_43, if_getnextsubid(interface_1495:com_43), 0, calc($int11 + 15), ^setpos_abs_left, ^setpos_abs_top, 0, $int10, ^setsize_minus, ^setsize_abs, dbrow_2100, "Discounts for partially owned packages are not supported at this time.");
+    $int10 = ~script15891("Discounts for partially owned packages are not supported at this time.", if_getwidth(marketplace_preview:description_layer), $fontmetrics9, 0);
+    ~cc_add_text(marketplace_preview:description_layer, if_getnextsubid(marketplace_preview:description_layer), 0, calc($int11 + 15), ^setpos_abs_left, ^setpos_abs_top, 0, $int10, ^setsize_minus, ^setsize_abs, text_body_default, "Discounts for partially owned packages are not supported at this time.");
     $int11 = calc($int11 + ($int10 + 15));
 }
 def_int $int12 = 0;
@@ -56,9 +56,9 @@ def_graphic $graphic13 = null;
 if ($int3 = 0) {
     if (playermember = true) {
         switch_struct ($struct0) {
-            case struct_31861, struct_31867, struct_31868, struct_31869 :
+            case mtx_batch2_bank_space_item6, mtx54_bank_space_item12, mtx54_bank_space_item13, mtx54_bank_space_item14 :
                 $string5 = "As you're a member, this item is free for you!";
-            case struct_52422 :
+            case prem25_pack :
                 $string5 = "As you're a 12-month member, this item is free for you!";
             case default :
                 if ($int6 > 0) {
@@ -68,7 +68,7 @@ if ($int3 = 0) {
         $graphic13 = rs3_icon_members_102px;
     } else {
         switch_struct ($struct0) {
-            case struct_31861, struct_31867, struct_31868, struct_31869 :
+            case mtx_batch2_bank_space_item6, mtx54_bank_space_item12, mtx54_bank_space_item13, mtx54_bank_space_item14 :
                 $string5 = "If you were a member, this item would be free for you!";
             case default :
                 if ($int6 > 0) {
@@ -81,7 +81,7 @@ if ($int3 = 0) {
         $int11 = ~script20854($int11, $fontmetrics9, $graphic13, $string5);
     }
 }
-if ($int11 > if_getheight(interface_1495:com_43)) {
-    if_setscrollsize(0, $int11, interface_1495:com_43);
-    ~rs3_scrollbar_vertical(interface_1495:com_44, interface_1495:com_43);
+if ($int11 > if_getheight(marketplace_preview:description_layer)) {
+    if_setscrollsize(0, $int11, marketplace_preview:description_layer);
+    ~rs3_scrollbar_vertical(marketplace_preview:scrollbar_layer, marketplace_preview:description_layer);
 }

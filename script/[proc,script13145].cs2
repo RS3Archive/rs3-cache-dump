@@ -12,21 +12,21 @@ if (if_find($component1) = true) {
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     switch_component (if_getparentlayer($component2)) {
-        case interface_1558:com_2 :
-            if_setonvartransmit("script10769($component0, $component1){varplayer_5005}", $component0);
-            if (%varplayer_5005 ! null) {
-                cc_setmodelanim(bas_getanim_ready(%varplayer_5005));
+        case toplevel_v2_inspect_worn:ragdoll_layer :
+            if_setonvartransmit("script10769($component0, $component1){player_inspect_baseanimset}", $component0);
+            if (%player_inspect_baseanimset ! null) {
+                cc_setmodelanim(bas_getanim_ready(%player_inspect_baseanimset));
             } else {
-                cc_setmodelanim(bas_getanim_ready(bas_1426));
+                cc_setmodelanim(bas_getanim_ready(default_human));
             }
             cc_setmodelangle(0, 100, 0, 0, 0, 380);
-        case interface_1841:com_3 :
-            if_setonvartransmit("script10769($component0, $component1){varplayer_6867, varplayer_6868}", $component0);
-            if (cc_param(param_6373) = 1) {
+        case toplevel_v2_store_worn:ragdoll_layer :
+            if_setonvartransmit("script10769($component0, $component1){mtxmgt_store_baseanimset, mtxmgt_store_transmog}", $component0);
+            if (cc_param(mtxmgt_store_chathead_mode) = 1) {
                 cc_setmodelangle(0, 0, 10, 200, 10, 950);
-                cc_setmodelanim(seq_37903);
+                cc_setmodelanim(human_actor_chathead_idle_standard);
             } else {
-                ~script17271(%varplayer_6867);
+                ~script17271(%mtxmgt_store_baseanimset);
                 if (%varclientbit_35134 = 1) {
                     cc_setmodelangle(0, 100, 0, 200, 0, 240);
                 } else {
@@ -34,36 +34,36 @@ if (if_find($component1) = true) {
                 }
             }
             if (.if_find($component2) = true) {
-                .cc_setparam(param_6374, 1);
+                .cc_setparam(toplevel_v2_ragdoll_background_type, 1);
                 if (%varclientbit_35134 = 1) {
-                    .cc_setparam(param_6375, 1450);
+                    .cc_setparam(toplevel_v2_ragdoll_background_scale, 1450);
                 } else {
-                    .cc_setparam(param_6375, 1000);
+                    .cc_setparam(toplevel_v2_ragdoll_background_scale, 1000);
                 }
                 ~script10455($component2);
             }
-        case interface_1843:com_252, interface_1843:com_253, interface_1843:com_254, interface_1843:com_255, interface_1843:com_256, interface_1843:com_257, interface_1843:com_258, interface_1843:com_259, interface_1477:com_913 :
+        case mtxmgt_store:ragdoll_0_layer, mtxmgt_store:ragdoll_1_layer, mtxmgt_store:ragdoll_2_layer, mtxmgt_store:ragdoll_3_layer, mtxmgt_store:ragdoll_4_layer, mtxmgt_store:ragdoll_5_layer, mtxmgt_store:ragdoll_6_layer, mtxmgt_store:ragdoll_7_layer, toplevel_v2:tooltips_ragdoll_layer :
             $dbrow4 = ~script18843(if_getparentlayer($component2));
             if ($dbrow4 ! null) {
                 $bas6 = ~script19117($dbrow4);
             }
             ~script17271($bas6);
             if (.if_find($component2) = true) {
-                .cc_setparam(param_6374, 2);
-                .cc_setparam(param_6375, 600);
+                .cc_setparam(toplevel_v2_ragdoll_background_type, 2);
+                .cc_setparam(toplevel_v2_ragdoll_background_scale, 600);
                 ~script10455($component2);
             }
         case default :
             switch_component ($component2) {
-                case interface_891:com_18 :
+                case mtx_front_end_confirm:preview_pane :
                     if (gender = 1) {
-                        cc_setmodelanim(bas_getanim_ready(bas_2703));
+                        cc_setmodelanim(bas_getanim_ready(combat_2012_casual_armed_female));
                     } else {
-                        cc_setmodelanim(bas_getanim_ready(bas_2698));
+                        cc_setmodelanim(bas_getanim_ready(combat_2012_casual_armed));
                     }
                     cc_setmodelangle(0, 100, 0, 200, 0, 380);
                 case default :
-                    cc_setmodelanim(bas_getanim_ready(bas_1426));
+                    cc_setmodelanim(bas_getanim_ready(default_human));
                     cc_setmodelangle(0, 100, 0, 0, 0, 380);
             }
     }
@@ -71,4 +71,4 @@ if (if_find($component1) = true) {
 if_setdraggable($component2, -1, $component0);
 if_setondrag("script8479($component0, $component1, -1)", $component0);
 if_setondragcomplete("script8480($component0, $component1, -1)", $component0);
-if_setmouseovercursor(cursor_189, $component0);
+if_setmouseovercursor(cursor_acc_create_hover_small, $component0);

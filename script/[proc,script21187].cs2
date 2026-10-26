@@ -1,0 +1,20 @@
+// 21187
+[proc,script21187](int $int0, int $int1, int $int2)
+def_string $string0 = "";
+def_boolean $boolean3 = true;
+switch_int ($int1) {
+    case -1 :
+        $string0 = "<lt>";
+        $int1 = max(0, calc(%plugin_hub_page - 1));
+        $boolean3 = ~script9464(-1, calc(%plugin_hub_page - 1));
+    case -2 :
+        $string0 = "<gt>";
+        $int1 = min(calc($int2 - 1), calc(%plugin_hub_page + 1));
+        $boolean3 = ~script9464($int1, calc($int2 - 1));
+    case default :
+        $string0 = tostring(calc($int1 + 1));
+}
+~cc_add_child_button_full(0, $int0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, button_cornered_neutral, $string0, $boolean3, true, true, ~equal_int_bool(%plugin_hub_page, $int1));
+cc_setop(1, tostring(calc($int1 + 1)));
+cc_setopbase("Page");
+cc_setonbuttonpressed("script21188($int1)");

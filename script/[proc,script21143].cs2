@@ -1,0 +1,20 @@
+// 21143
+[proc,script21143](int $int0, int $int1, int $int2)
+if ($int1 = -1) {
+    $int1 = max(0, %plugin_hub_sort_id);
+}
+switch_int ($int0) {
+    case 2 :
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, plugin_hub_parent_manage:list_layer);
+        ~script21208(plugin_hub_parent_manage:list, plugin_hub_parent_manage:loading_layer, plugin_hub_parent_manage:list_scrollbar, $int1);
+    case 1 :
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, plugin_hub_parent_browse:list_layer);
+        if_setonpluginstatusevent("script21193(event_mousex, event_mousey)", plugin_hub_parent_browse:install_listener);
+        if ($int2 = 1) {
+            if_setontimer("script21182(plugin_hub_parent_browse:list, plugin_hub_parent_browse:loading_layer, plugin_hub_parent_browse:list_scrollbar, $int1)", plugin_hub_parent_browse:rebuild_listener);
+            if_sethide(false, plugin_hub_parent_browse:loading_layer);
+            if_sethide(true, plugin_hub_parent_browse:content);
+        } else {
+            ~script21183(plugin_hub_parent_browse:list, plugin_hub_parent_browse:loading_layer, plugin_hub_parent_browse:list_scrollbar, $int1);
+        }
+}

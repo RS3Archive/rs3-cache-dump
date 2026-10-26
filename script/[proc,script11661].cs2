@@ -1,33 +1,33 @@
 // 11661
 [proc,script11661](int $int0, int $int1)
-if_sethide(true, interface_1562:com_10);
-if_sethide(true, interface_1562:com_11);
-if_sethide(true, interface_1562:com_12);
-if_sethide(true, interface_1562:com_13);
-cc_deleteall(interface_1562:com_140);
-def_component $component2 = interface_1562:com_8;
+if_sethide(true, mtxmgt_purchase:confirm_runecoins_button_layer);
+if_sethide(true, mtxmgt_purchase:confirm_loyaltypoints_button_layer);
+if_sethide(true, mtxmgt_purchase:confirm_bonds_button_layer);
+if_sethide(true, mtxmgt_purchase:confirm_bonds_to_runecoins_button_layer);
+cc_deleteall(mtxmgt_purchase:confirm_bonds_to_runecoins_button_active_layer);
+def_component $component2 = mtxmgt_purchase:confirm_info_layer;
 cc_deleteall($component2);
 if ($int0 = -1) {
     if ($int1 = 1) {
-        if (%varclient_4661 = 1) {
-            %varclient_4661 = 0;
+        if (%mtxmgt_purchase_state = 1) {
+            %mtxmgt_purchase_state = 0;
         }
         ~script10804;
     }
     return;
 }
-if (%varplayer_5006 = null) {
+if (%mtxmgt_purchase_struct = null) {
     return;
 }
-def_struct $struct3 = struct_param(%varplayer_5006, param_4419);
+def_struct $struct3 = struct_param(%mtxmgt_purchase_struct, mtxmgt_parent_struct);
 if ($struct3 = null) {
-    $struct3 = %varplayer_5006;
+    $struct3 = %mtxmgt_purchase_struct;
 }
-def_int $int4 = ~script10813(%varplayerbit_26175);
-def_int $int5 = ~script10814(%varplayerbit_26176);
+def_int $int4 = ~script10813(%mtxmgt_purchase_rc_price);
+def_int $int5 = ~script10814(%mtxmgt_purchase_lp_price);
 def_int $int6 = -1;
 def_int $int7 = 195;
-def_int $int8 = calc(%varclient_4968 + %varclient_4969);
+def_int $int8 = calc(%mtxmgt_total_tradeable_bonds + %mtxmgt_total_untradeable_bonds);
 def_string $string0 = "Confirm Purchase";
 def_string $string1 = "You wish to buy";
 def_string $string2 = ~script11659($struct3, 0);
@@ -39,7 +39,7 @@ def_int $int10 = 0;
 switch_int ($int0) {
     case 0 :
         if ($int4 > -1) {
-            if_sethide(false, interface_1562:com_10);
+            if_sethide(false, mtxmgt_purchase:confirm_runecoins_button_layer);
             if ($int4 = 0) {
                 $string1 = "You wish to claim";
                 $string4 = "Free";
@@ -54,24 +54,24 @@ switch_int ($int0) {
                     case 225 :
                         $string4 = append($string4, " <~script16760(2, $int4)>");
                 }
-                $string5 = "<$string5><tostring_localised(%varclient_4659, true)>)";
+                $string5 = "<$string5><tostring_localised(%mtxmgt_total_runecoins, true)>)";
             }
         }
     case 1 :
         if ($int5 > -1) {
-            if_sethide(false, interface_1562:com_11);
+            if_sethide(false, mtxmgt_purchase:confirm_loyaltypoints_button_layer);
             if ($int5 = 0) {
                 $string1 = "You wish to claim";
                 $string4 = "Free";
                 $string5 = "";
             } else {
                 $string4 = "<tostring_localised($int5, true)> Loyalty Points";
-                $string5 = "<$string5><tostring_localised(%varclient_4660, true)>)";
+                $string5 = "<$string5><tostring_localised(%mtxmgt_total_loyaltypoints, true)>)";
             }
         }
     case 2 :
         if ($int6 > -1) {
-            if_sethide(false, interface_1562:com_12);
+            if_sethide(false, mtxmgt_purchase:confirm_bonds_button_layer);
             if ($int6 = 1) {
                 $string4 = "<tostring_localised($int6, true)> Bond";
             } else {
@@ -80,14 +80,14 @@ switch_int ($int0) {
             $string5 = "<$string5><tostring_localised($int8, true)>)";
         }
     case 3 :
-        if ($int4 > 0 & $int4 > %varclient_4659 & $int8 > 0) {
+        if ($int4 > 0 & $int4 > %mtxmgt_total_runecoins & $int8 > 0) {
             $string0 = "Redeem Bonds";
             $string1 = "You wish to top up";
             $string3 = "by redeeming";
-            $int4 = calc($int4 - %varclient_4659);
+            $int4 = calc($int4 - %mtxmgt_total_runecoins);
             $int6 = calc($int4 / 195 + min(1, calc($int4 % 195)));
-            if ($int8 < $int6 | enum_getoutputcount(enum_8808) < $int6) {
-                $int6 = min(min($int8, $int6), enum_getoutputcount(enum_8808));
+            if ($int8 < $int6 | enum_getoutputcount(bonds_packages_runecoins_dbrow) < $int6) {
+                $int6 = min(min($int8, $int6), enum_getoutputcount(bonds_packages_runecoins_dbrow));
                 $string5 = "Please note that you will still need additional RuneCoins to purchase this item.";
                 $int9 = 1;
             } else {
@@ -105,37 +105,37 @@ switch_int ($int0) {
                 $string4 = "<tostring_localised($int6, true)> Bonds";
             }
             while ($int10 < $int6) {
-                cc_create(interface_1562:com_140, ^iftype_graphic, $int10);
+                cc_create(mtxmgt_purchase:confirm_bonds_to_runecoins_button_active_layer, ^iftype_graphic, $int10);
                 $int10 = calc($int10 + 1);
             }
-            cc_create(interface_1562:com_140, ^iftype_graphic, $int10);
+            cc_create(mtxmgt_purchase:confirm_bonds_to_runecoins_button_active_layer, ^iftype_graphic, $int10);
             cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
             cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
             cc_setop(1, "Select");
             cc_setonop("script11660(1, 2)");
-            if_sethide(false, interface_1562:com_13);
+            if_sethide(false, mtxmgt_purchase:confirm_bonds_to_runecoins_button_layer);
         }
 }
 if (string_length($string4) = 0) {
     if ($int1 = 1) {
-        if (%varclient_4661 = 1) {
-            %varclient_4661 = 0;
+        if (%mtxmgt_purchase_state = 1) {
+            %mtxmgt_purchase_state = 0;
         }
         ~script10804;
     }
     return;
 }
 if ($int1 = 1) {
-    %varclient_4661 = 1;
+    %mtxmgt_purchase_state = 1;
     ~script10804;
 }
 $int10 = 0;
 def_int $int11 = 8;
 def_int $int12 = 0;
 def_int $int13 = if_getwidth($component2);
-def_fontmetrics $fontmetrics14 = fontmetrics_57;
-def_fontmetrics $fontmetrics15 = fontmetrics_29;
-def_fontmetrics $fontmetrics16 = fontmetrics_26;
+def_fontmetrics $fontmetrics14 = cinzel_15pt_bold;
+def_fontmetrics $fontmetrics15 = museo_sans_13pt_bold;
+def_fontmetrics $fontmetrics16 = museo_sans_11pt_regular;
 def_int $int17 = ~script10495(0);
 def_int $int18 = ~script10495(3);
 def_int $int19 = ~script10495(6);

@@ -2,13 +2,13 @@
 [proc,script285](component $component0)
 cc_deleteall($component0);
 def_int $int1 = 0;
-~deltooltip_action(interface_1422:com_75);
+~deltooltip_action(worldmap_v2_ui:tooltip);
 def_boolean $boolean2 = true;
 def_int $int3 = -1;
 def_string $string0 = "Hide";
 def_string $string1 = "Show";
 def_string $string2 = "`You are here'";
-if (%varplayerbit_14109 = 1) {
+if (%worldmap_yah_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -20,9 +20,9 @@ cc_setsize(26, 26, ^setsize_abs, ^setsize_abs);
 .cc_setposition(calc(cc_getx + cc_getwidth - 1), $int1, ^setpos_abs_left, ^setpos_abs_top);
 .cc_setsize(.cc_getx, cc_getheight, ^setsize_minus, ^setsize_abs);
 def_int $int4 = .cc_getwidth;
-cc_setgraphic(struct_param(struct_280, param_130));
+cc_setgraphic(struct_param(worldmap_overlay_style_default, worldmap_overlay_pointer_onscreen));
 .cc_setcolour(~script10495(4));
-.cc_settextfont(fontmetrics_26);
+.cc_settextfont(museo_sans_11pt_regular);
 .cc_settextshadow(true);
 .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 .cc_settext($string2);
@@ -42,7 +42,7 @@ cc_setonop("worldmap_key_toggle(event_op, $component0, cc_getid, .cc_getid, 2, $
 ~script287(2, $boolean2, $component0, $int1);
 $int1 = calc($int1 + cc_getheight);
 $string2 = "Intra-map links";
-if (%varplayerbit_14110 = 1) {
+if (%worldmap_samemaplinks_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -58,7 +58,7 @@ cc_setsize(22, 26, ^setsize_abs, ^setsize_abs);
 .cc_setposition(calc(cc_getx + cc_getwidth), $int1, ^setpos_abs_left, ^setpos_abs_top);
 .cc_setsize(calc(.cc_getx + cc_getx), cc_getheight, ^setsize_minus, ^setsize_abs);
 .cc_setcolour(~script10495(4));
-.cc_settextfont(fontmetrics_26);
+.cc_settextfont(museo_sans_11pt_regular);
 .cc_settextshadow(true);
 .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 .cc_settext($string2);
@@ -103,7 +103,7 @@ cc_setonop("worldmap_key_toggle(event_op, $component0, cc_getid, .cc_getid, 10, 
 ~script287(10, $boolean2, $component0, $int1);
 $int1 = calc($int1 + cc_getheight);
 $string2 = "Map labels";
-if (%varplayerbit_14111 = 1) {
+if (%worldmap_textlabels_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -115,7 +115,7 @@ if (%varplayerbit_14111 = 1) {
 cc_create($component0, ^iftype_text, 11);
 cc_setposition(1, $int1, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(23, 26, ^setsize_abs, ^setsize_abs);
-cc_settextfont(fontmetrics_66);
+cc_settextfont(p11_full);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_settextshadow(true);
 cc_setcolour(^white);
@@ -124,7 +124,7 @@ cc_settext("ABC<br>XYZ");
 .cc_setposition(calc(cc_getx + cc_getwidth), $int1, ^setpos_abs_left, ^setpos_abs_top);
 .cc_setsize(calc(.cc_getx + cc_getx), cc_getheight, ^setsize_minus, ^setsize_abs);
 .cc_setcolour(~script10495(4));
-.cc_settextfont(fontmetrics_26);
+.cc_settextfont(museo_sans_11pt_regular);
 .cc_settextshadow(true);
 .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 .cc_settext($string2);
@@ -144,7 +144,7 @@ cc_setonop("worldmap_key_toggle(event_op, $component0, cc_getid, .cc_getid, 13, 
 ~script287(13, $boolean2, $component0, $int1);
 $int1 = calc($int1 + cc_getheight);
 $string2 = "Icon tooltips";
-if (%varplayerbit_14112 = 1) {
+if (%worldmap_tooltips_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -167,7 +167,7 @@ cc_create($component0, ^iftype_text, 16);
 cc_setposition(calc(.cc_getx + .cc_getwidth + 2), $int1, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(calc(cc_getx + .cc_getx), 26, ^setsize_minus, ^setsize_abs);
 cc_setcolour(~script10495(4));
-cc_settextfont(fontmetrics_26);
+cc_settextfont(museo_sans_11pt_regular);
 cc_settextshadow(true);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_settext($string2);
@@ -192,22 +192,22 @@ $string2 = "Double-click the map to set a marker";
 if (~script6431 = true) {
     $string2 = "Double-tap the map to set a marker";
 }
-def_int $int5 = max(calc(paraheight($string2, $int4, fontmetrics_26) * 16), cc_getheight);
+def_int $int5 = max(calc(paraheight($string2, $int4, museo_sans_11pt_regular) * 16), cc_getheight);
 cc_setposition(-1, calc($int1 + ($int5 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
-cc_setgraphic(struct_param(struct_972, param_130));
+cc_setgraphic(struct_param(worldmap_overlay_style_questpointer, worldmap_overlay_pointer_onscreen));
 .cc_create($component0, ^iftype_text, 19);
 .cc_setposition(0, $int1, ^setpos_abs_right, ^setpos_abs_top);
 .cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
 .cc_setcolour(~script10495(4));
 .cc_settextshadow(true);
-if (%varplayer_2807 = null | %varplayer_2807 = 0_0_0_0_0) {
+if (%playerdesign2_col = null | %playerdesign2_col = 0_0_0_0_0) {
     .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
-    .cc_settextfont(fontmetrics_26);
+    .cc_settextfont(museo_sans_11pt_regular);
     .cc_settext($string2);
 } else {
     $string2 = "Clear your marker";
     .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
-    .cc_settextfont(fontmetrics_26);
+    .cc_settextfont(museo_sans_11pt_regular);
     .cc_settext($string2);
     cc_setop(1, $string2);
     .cc_setop(1, $string2);
@@ -222,5 +222,5 @@ if (%varplayer_2807 = null | %varplayer_2807 = 0_0_0_0_0) {
     .cc_setonop("worldmap_key_toggle(event_op, $component0, -1, -1, -1, \"\", false)");
 }
 $int1 = calc($int1 + .cc_getheight);
-if_setparam_int(param_4052, calc($int1 + 2), if_getparentlayer(if_getparentlayer($component0)));
+if_setparam_int(rs3tli_accordion_content_fix_height, calc($int1 + 2), if_getparentlayer(if_getparentlayer($component0)));
 ~script9581(if_getparentlayer(if_getparentlayer(if_getparentlayer($component0))));

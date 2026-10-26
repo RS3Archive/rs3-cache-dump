@@ -2,95 +2,95 @@
 [clientscript,script7826](int $int0)
 def_component $component1 = null;
 if ($int0 = 2) {
-    if_setsize(0, 80, ^setsize_minus, ^setsize_minus, interface_1419:com_31);
-    if_setsize(0, 80, ^setsize_minus, ^setsize_abs, interface_1419:com_52);
-    if_settext("All Hiscores will be updated on log-in.<br>XP will only be tracked when the Illumination aura is active.", interface_1419:com_57);
+    if_setsize(0, 80, ^setsize_minus, ^setsize_minus, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_layer);
+    if_setsize(0, 80, ^setsize_minus, ^setsize_abs, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_footer_layer);
+    if_settext("All Hiscores will be updated on log-in.<br>XP will only be tracked when the Illumination aura is active.", toplevel_v2_parent_suboverlay_high_scores:info_text);
 } else {
-    if_setsize(0, 58, ^setsize_minus, ^setsize_minus, interface_1419:com_31);
-    if_setsize(0, 58, ^setsize_minus, ^setsize_abs, interface_1419:com_52);
-    if_settext("All Hiscores will be updated on log-in.", interface_1419:com_57);
+    if_setsize(0, 58, ^setsize_minus, ^setsize_minus, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_layer);
+    if_setsize(0, 58, ^setsize_minus, ^setsize_abs, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_footer_layer);
+    if_settext("All Hiscores will be updated on log-in.", toplevel_v2_parent_suboverlay_high_scores:info_text);
 }
-def_int $int2 = if_getheight(interface_1419:com_5);
+def_int $int2 = if_getheight(toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_table_layer);
 if ($int0 = 0) {
-    if_sethide(false, interface_1419:com_4);
-    if (calc(%varclient_2820 + 47) < $int2) {
-        while (calc(%varclient_2820 + 47) < $int2) {
-            switch_int (calc(%varclient_2819 % 2)) {
+    if_sethide(false, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_scroll_bar);
+    if (calc(%toplevel_v2_high_scores_current_row + 47) < $int2) {
+        while (calc(%toplevel_v2_high_scores_current_row + 47) < $int2) {
+            switch_int (calc(%toplevel_v2_high_scores_current_column % 2)) {
                 case 0 :
-                    $component1 = interface_1419:com_41;
+                    $component1 = toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_2_col1_layer;
                 case 1 :
-                    $component1 = interface_1419:com_42;
+                    $component1 = toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_2_col2_layer;
             }
-            if (calc(%varclient_2820 / 47 % 2) = 0) {
-                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %varclient_2820, ^setpos_abs_left, ^setpos_abs_top, 0, 47, ^setsize_minus, ^setsize_abs, dbrow_4128);
+            if (calc(%toplevel_v2_high_scores_current_row / 47 % 2) = 0) {
+                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %toplevel_v2_high_scores_current_row, ^setpos_abs_left, ^setpos_abs_top, 0, 47, ^setsize_minus, ^setsize_abs, rect_light);
             } else {
-                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %varclient_2820, ^setpos_abs_left, ^setpos_abs_top, 0, 47, ^setsize_minus, ^setsize_abs, dbrow_4127);
+                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %toplevel_v2_high_scores_current_row, ^setpos_abs_left, ^setpos_abs_top, 0, 47, ^setsize_minus, ^setsize_abs, rect_dark);
             }
-            if (%varclient_2819 = 1) {
-                %varclient_2819 = 0;
-                %varclient_2820 = calc(%varclient_2820 + 48);
+            if (%toplevel_v2_high_scores_current_column = 1) {
+                %toplevel_v2_high_scores_current_column = 0;
+                %toplevel_v2_high_scores_current_row = calc(%toplevel_v2_high_scores_current_row + 48);
             } else {
-                %varclient_2819 = calc(%varclient_2819 + 1);
+                %toplevel_v2_high_scores_current_column = calc(%toplevel_v2_high_scores_current_column + 1);
             }
         }
-        if_setscrollsize(0, $int2, interface_1419:com_11);
+        if_setscrollsize(0, $int2, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_2_col);
     } else {
-        if_setscrollsize(0, calc(%varclient_2820 + 48), interface_1419:com_11);
+        if_setscrollsize(0, calc(%toplevel_v2_high_scores_current_row + 48), toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_2_col);
     }
-    ~rs3_scrollbar_vertical(interface_1419:com_4, interface_1419:com_11);
+    ~rs3_scrollbar_vertical(toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_scroll_bar, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_2_col);
 } else if ($int0 = 1) {
-    if_sethide(true, interface_1419:com_4);
-    $int2 = if_getheight(interface_1419:com_17);
-    if (calc(%varclient_2820 + 27) < $int2) {
-        while (calc(%varclient_2820 + 27) < $int2) {
-            switch_int (calc(%varclient_2819 % 3)) {
+    if_sethide(true, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_scroll_bar);
+    $int2 = if_getheight(toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_rank_layer);
+    if (calc(%toplevel_v2_high_scores_current_row + 27) < $int2) {
+        while (calc(%toplevel_v2_high_scores_current_row + 27) < $int2) {
+            switch_int (calc(%toplevel_v2_high_scores_current_column % 3)) {
                 case 0 :
-                    $component1 = interface_1419:com_49;
+                    $component1 = toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_3_col1_layer;
                 case 1 :
-                    $component1 = interface_1419:com_50;
+                    $component1 = toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_3_col2_layer;
                 case 2 :
-                    $component1 = interface_1419:com_51;
+                    $component1 = toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_3_col3_layer;
             }
-            if (calc(%varclient_2820 / 26 % 2) = 0) {
-                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %varclient_2820, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, dbrow_4128);
+            if (calc(%toplevel_v2_high_scores_current_row / 26 % 2) = 0) {
+                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %toplevel_v2_high_scores_current_row, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, rect_light);
             } else {
-                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %varclient_2820, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, dbrow_4127);
+                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %toplevel_v2_high_scores_current_row, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, rect_dark);
             }
-            if (%varclient_2819 = 2) {
-                %varclient_2819 = 0;
-                %varclient_2820 = calc(%varclient_2820 + 27);
+            if (%toplevel_v2_high_scores_current_column = 2) {
+                %toplevel_v2_high_scores_current_column = 0;
+                %toplevel_v2_high_scores_current_row = calc(%toplevel_v2_high_scores_current_row + 27);
             } else {
-                %varclient_2819 = calc(%varclient_2819 + 1);
+                %toplevel_v2_high_scores_current_column = calc(%toplevel_v2_high_scores_current_column + 1);
             }
         }
     } else {
     }
 } else if ($int0 = 2) {
-    if_sethide(false, interface_1419:com_4);
-    $int2 = if_getheight(interface_1419:com_75);
-    if (calc(%varclient_2820 + 27) < $int2) {
-        while (calc(%varclient_2820 + 27) < $int2) {
-            switch_int (calc(%varclient_2819 % 2)) {
+    if_sethide(false, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_scroll_bar);
+    $int2 = if_getheight(toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_summer16_content_layer);
+    if (calc(%toplevel_v2_high_scores_current_row + 27) < $int2) {
+        while (calc(%toplevel_v2_high_scores_current_row + 27) < $int2) {
+            switch_int (calc(%toplevel_v2_high_scores_current_column % 2)) {
                 case 0 :
-                    $component1 = interface_1419:com_1;
+                    $component1 = toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_summer16_col1_layer;
                 case 1 :
-                    $component1 = interface_1419:com_2;
+                    $component1 = toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_summer16_col2_layer;
             }
-            if (calc(%varclient_2820 / 26 % 2) = 0) {
-                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %varclient_2820, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, dbrow_4128);
+            if (calc(%toplevel_v2_high_scores_current_row / 26 % 2) = 0) {
+                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %toplevel_v2_high_scores_current_row, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, rect_light);
             } else {
-                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %varclient_2820, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, dbrow_4127);
+                ~cc_add_rect($component1, if_getnextsubid($component1), 0, %toplevel_v2_high_scores_current_row, ^setpos_abs_left, ^setpos_abs_top, 0, 26, ^setsize_minus, ^setsize_abs, rect_dark);
             }
-            if (%varclient_2819 = 1) {
-                %varclient_2819 = 0;
-                %varclient_2820 = calc(%varclient_2820 + 27);
+            if (%toplevel_v2_high_scores_current_column = 1) {
+                %toplevel_v2_high_scores_current_column = 0;
+                %toplevel_v2_high_scores_current_row = calc(%toplevel_v2_high_scores_current_row + 27);
             } else {
-                %varclient_2819 = calc(%varclient_2819 + 1);
+                %toplevel_v2_high_scores_current_column = calc(%toplevel_v2_high_scores_current_column + 1);
             }
         }
-        if_setscrollsize(0, calc(%varclient_2820 + 27), interface_1419:com_12);
+        if_setscrollsize(0, calc(%toplevel_v2_high_scores_current_row + 27), toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_summer16);
     } else {
-        if_setscrollsize(0, calc(%varclient_2820 + 27), interface_1419:com_12);
+        if_setscrollsize(0, calc(%toplevel_v2_high_scores_current_row + 27), toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_summer16);
     }
-    ~rs3_scrollbar_vertical(interface_1419:com_4, interface_1419:com_12);
+    ~rs3_scrollbar_vertical(toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_scroll_bar, toplevel_v2_parent_suboverlay_high_scores:toplevel_v2_parent_suboverlay_hiscore_content_summer16);
 }

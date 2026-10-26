@@ -1,14 +1,14 @@
 // 8509
 [proc,chatdefault_onkey](int $int0, char $char1)
-if (%varclient_2235 ! null) {
-    if (if_gethide(%varclient_2235) = true) {
+if (%p_dialog_listener ! null) {
+    if (if_gethide(%p_dialog_listener) = true) {
         ~script7208("", null);
-    } else if (%varclient_2873 = 11) {
+    } else if (%keyboard_manager_listening_input_subsystem = 11) {
         return;
     }
 }
 def_string $string0 = "";
-def_int $int2 = %varclient_2231;
+def_int $int2 = %chatbox_focus;
 def_int $int3 = 0;
 def_int $int4 = 0;
 $int3, $int4 = ~script8825(7, 0);
@@ -24,7 +24,7 @@ if (~script11370 = 0) {
     }
     return;
 }
-if (%varclient_2873 ! 8 & $int0 ! 84 & (~script16474($int4) = false | $int0 ! $int3)) {
+if (%keyboard_manager_listening_input_subsystem ! 8 & $int0 ! 84 & (~script16474($int4) = false | $int0 ! $int3)) {
     return;
 }
 def_int $int5 = 0;
@@ -37,7 +37,7 @@ switch_int ($int0) {
             ~quickchat_respond(~script8629($int2), ~script8609($int2), ~script8627($int2), $int2);
         }
     case 10 :
-        if (%varplayerbit_21242 = 0 & ~script1036 ! null) {
+        if (%toplevel_v2_quickchat_toggle = 0 & ~script1036 ! null) {
             ~quickchat_open_context(0, "", $int2);
         }
     case 12 :
@@ -63,11 +63,11 @@ switch_int ($int0) {
         }
     case 96, 97, 98, 99, 102, 103 :
         if (keyheld_shift = true & ~is_mobile_client = false) {
-            %varclient_1028 = ~script1553($int0, %varclient_1028, ~script8521($int2));
+            %chat_caret = ~script1553($int0, %chat_caret, ~script8521($int2));
         }
     case 13 :
-        if (%varclient_1652 = true) {
-            %varclient_1652 = false;
+        if (%message_channel_just_switched = true) {
+            %message_channel_just_switched = false;
             ~cancel_targetmode;
             ~script8517($int2);
             return;
@@ -79,7 +79,7 @@ switch_int ($int0) {
             ~script8517($int2);
         } else {
             ~script8522($int2, "");
-            %varclient_1028 = 0;
+            %chat_caret = 0;
             if (~script8853 > 1) {
                 ~script9958(8, 0);
             }
@@ -105,16 +105,16 @@ switch_int ($int0) {
         if (~script16474($int4) = true & $int0 = $int3) {
             ~script8511($int2);
         } else {
-            if (~script6431 = false & %varclient_1652 = true) {
-                %varclient_1652 = false;
+            if (~script6431 = false & %message_channel_just_switched = true) {
+                %message_channel_just_switched = false;
                 return;
             }
             if ($int2 = 18) {
-                $int8 = string_length(%varclient_2483);
+                $int8 = string_length(%chatinput);
             }
             ~script8510($int2, $int0, $char1);
-            if ($int2 = 18 & $int8 = 0 & string_length(%varclient_2483) > 0) {
-                if_sethide(true, interface_137:com_78);
+            if ($int2 = 18 & $int8 = 0 & string_length(%chatinput) > 0) {
+                if_sethide(true, chatdefault:wiki_button);
             }
         }
 }

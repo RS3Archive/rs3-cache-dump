@@ -1,0 +1,32 @@
+// 21211
+[clientscript,script21211](component $component0, int $int1, int $int2)
+def_boolean $boolean3 = false;
+def_string $string0 = "";
+def_string $string1 = "";
+$boolean3, $string0, $string1 = ~script21210($int1);
+if ($boolean3 = false) {
+    plugin_info_request($int1, 1);
+    return;
+}
+def_int $int4 = calc(2500 * 4 + $int2);
+def_int $int5 = calc(2500 * 7 + $int2);
+def_int $int6 = calc(2500 * 8 + $int2);
+if (cc_findbycategory($component0, ~script21130($int4)) = 1) {
+    cc_settext("Installed version: <$string0>");
+}
+if (compare($string0, $string1) = 0) {
+    if (cc_find($component0, $int2) = true) {
+        cc_setontimer(null);
+    }
+    return;
+}
+if (cc_findbycategory($component0, ~script21130($int5)) = 1) {
+    cc_sethide(false);
+    cc_settext("Update available: <$string1>");
+}
+if (cc_findbycategory($component0, ~script21130($int6)) = 1) {
+    cc_sethide(false);
+}
+if (cc_find($component0, $int2) = true) {
+    cc_setontimer(null);
+}

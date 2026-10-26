@@ -1,25 +1,25 @@
 // 14708
 [clientscript,info_popup_onload](graphic $graphic0, obj $obj1, string $string0, string $string1, string $string2)
-if (~is_mobile_client = true & if_gethide(interface_276:com_27) = false) {
-    if_sethide(true, interface_512:com_0);
+if (~is_mobile_client = true & if_gethide(toplevel_v2_mobile:chat_panel) = false) {
+    if_sethide(true, info_popup:bespoke_window);
     return;
 }
-if_sethide(false, interface_512:com_0);
+if_sethide(false, info_popup:bespoke_window);
 def_int $int2 = 0;
 if (string_length($string1) > 0) {
-    $int2 = paraheight($string1, 300, fontmetrics_29);
+    $int2 = paraheight($string1, 300, museo_sans_13pt_bold);
 }
-if_setsize(300, calc(92 + $int2 * 20), ^setsize_abs, ^setsize_abs, interface_512:com_0);
+if_setsize(300, calc(92 + $int2 * 20), ^setsize_abs, ^setsize_abs, info_popup:bespoke_window);
 if ($graphic0 ! null) {
-    if_setgraphic($graphic0, interface_512:com_7);
+    if_setgraphic($graphic0, info_popup:graphic);
 }
 if ($obj1 ! null) {
-    if_setobject_nonum($obj1, 1, interface_512:com_8);
+    if_setobject_nonum($obj1, 1, info_popup:obj);
     if ($graphic0 = null) {
-        ~script13959(interface_512:com_7, struct_11954, false);
+        ~script13959(info_popup:graphic, rs3tli_inv_icon_slot_large, false);
     }
 }
-if_settext($string0, interface_512:com_4);
-if_settext($string1, interface_512:com_5);
-if_settext($string2, interface_512:com_11);
-if_setontimer("info_popup_timer(clientclock)", interface_512:com_2);
+if_settext($string0, info_popup:title);
+if_settext($string1, info_popup:subtitle);
+if_settext($string2, info_popup:description);
+if_setontimer("info_popup_timer(clientclock)", info_popup:bespoke_window_content);

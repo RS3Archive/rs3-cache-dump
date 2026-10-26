@@ -3,7 +3,7 @@
 def_string $string0 = "Select a task on the left for more information";
 def_int $int0 = 0;
 def_int $int1 = 0;
-switch_int (%varplayerbit_22401) {
+switch_int (%mm14_temp_task_clicked) {
     case 0 :
         $string0 = "Select a task on the left for more information.";
     case 1 :
@@ -47,30 +47,30 @@ switch_int (%varplayerbit_22401) {
     case 20 :
         $string0 = "Gather your daily limit from divine locations.";
 }
-if (~script7719(%varplayerbit_22401) > 0) {
-    if_sethide(false, interface_1047:com_14);
-    if_sethide(true, interface_1047:com_15);
-} else if (%varplayerbit_22401 = 0) {
-    if_sethide(true, interface_1047:com_14);
-    if_sethide(true, interface_1047:com_15);
+if (~script7719(%mm14_temp_task_clicked) > 0) {
+    if_sethide(false, mm_tasklist:task_complete_layer);
+    if_sethide(true, mm_tasklist:task_buttons);
+} else if (%mm14_temp_task_clicked = 0) {
+    if_sethide(true, mm_tasklist:task_complete_layer);
+    if_sethide(true, mm_tasklist:task_buttons);
 } else {
-    if_sethide(true, interface_1047:com_14);
-    if_sethide(false, interface_1047:com_15);
-    if (%varplayerbit_22387 > 0) {
-        if (%varplayerbit_22387 = %varplayerbit_22401) {
-            if_sethide(true, interface_1047:com_70);
+    if_sethide(true, mm_tasklist:task_complete_layer);
+    if_sethide(false, mm_tasklist:task_buttons);
+    if (%mm14_current_tracker > 0) {
+        if (%mm14_current_tracker = %mm14_temp_task_clicked) {
+            if_sethide(true, mm_tasklist:set_active_task);
             $string0 = append($string0, "<br><col=00C800>This is your active task.");
         } else {
-            if_sethide(false, interface_1047:com_70);
+            if_sethide(false, mm_tasklist:set_active_task);
         }
     }
-    if (%varplayerbit_22388 > 0) {
-        if (%varplayerbit_22388 = %varplayerbit_22401) {
-            if_sethide(true, interface_1047:com_69);
+    if (%mm14_current_tracker_jmod > 0) {
+        if (%mm14_current_tracker_jmod = %mm14_temp_task_clicked) {
+            if_sethide(true, mm_tasklist:jmod_support);
             $string0 = append($string0, "<br><col=00C800>A JMod can help with this task.");
         } else {
-            if_sethide(false, interface_1047:com_69);
+            if_sethide(false, mm_tasklist:jmod_support);
         }
     }
 }
-if_settext($string0, interface_1047:com_13);
+if_settext($string0, mm_tasklist:right_panel_text);

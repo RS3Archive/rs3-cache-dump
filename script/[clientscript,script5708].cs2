@@ -3,14 +3,14 @@
 if (clientclock < $int1) {
     return;
 }
-if (%varclient_6791 = false | %varplayerbit_1899 = 0 & %varplayerbit_27003 = 0) {
-    %varclient_6515 = 0;
+if (%mobile_fullscreen_interface_open = false | %combatv2_player_is_in_combat = 0 & %combatv2_npc_attacked = 0) {
+    %mobile_attack_warning_timer_running = 0;
     if_setontimer(null, $component0);
-    if_sethide(true, interface_1477:com_905);
+    if_sethide(true, toplevel_v2:interface_zoom_under_attack_display);
     return;
 }
 def_int $int2 = 126;
-def_int $int3 = scale(%varplayer_13537, ~script2915, 100);
+def_int $int3 = scale(%lifepoints, ~script2915, 100);
 if ($int3 < 10) {
     $int2 = 51;
 } else if ($int3 < 25) {
@@ -19,16 +19,16 @@ if ($int3 < 10) {
     $int2 = 101;
 }
 $int1 = calc(clientclock + $int2);
-if (if_find(interface_1477:com_906) = true) {
+if (if_find(toplevel_v2:interface_zoom_under_attack_lefttop) = true) {
     cc_setontimer("script5709(event_com, 0)");
 }
-if (if_find(interface_1477:com_907) = true) {
+if (if_find(toplevel_v2:interface_zoom_under_attack_righttop) = true) {
     cc_setontimer("script5709(event_com, 0)");
 }
-if (if_find(interface_1477:com_908) = true) {
+if (if_find(toplevel_v2:interface_zoom_under_attack_leftbottom) = true) {
     cc_setontimer("script5709(event_com, 0)");
 }
-if (if_find(interface_1477:com_909) = true) {
+if (if_find(toplevel_v2:interface_zoom_under_attack_rightbottom) = true) {
     cc_setontimer("script5709(event_com, 0)");
 }
 if_setontimer("script5708($component0, $int1)", $component0);

@@ -1,12 +1,12 @@
 // 4301
 [proc,clansettings_list_build]
-def_component $component0 = interface_1096:com_23;
-def_component $component1 = interface_1096:com_24;
-def_component $component2 = interface_1096:com_25;
-def_component $component3 = interface_1096:com_26;
+def_component $component0 = clansettings:list_name_layer;
+def_component $component1 = clansettings:list_job_layer;
+def_component $component2 = clansettings:list_rank_layer;
+def_component $component3 = clansettings:list_button_layer;
 def_int $int4 = 71827476;
-def_component $component5 = interface_1096:com_21;
-def_component $component6 = interface_1096:com_27;
+def_component $component5 = clansettings:list_scrolling_layer;
+def_component $component6 = clansettings:mute_icon_layer;
 def_string $string0 = "";
 def_string $string1 = "";
 def_int $int7 = 15;
@@ -45,9 +45,9 @@ while ($int12 < $int13) {
     $int20 = activeclansettings_getaffinedrank($int12);
     $int22 = activeclansettings_getaffinedextrainfo($int12, 10, 10);
     $int21 = activeclansettings_getaffinedjoinruneday($int12);
-    if (calc(%varclient_1516 - 1) ! $int20) {
+    if (calc(%clansettings_clanmate_filter_rank_plus_1 - 1) ! $int20) {
         $int23 = 1;
-        if (%varclient_1516 = 0 | %varclient_1516 = -1) {
+        if (%clansettings_clanmate_filter_rank_plus_1 = 0 | %clansettings_clanmate_filter_rank_plus_1 = -1) {
             $int23 = 0;
         }
     } else {
@@ -55,7 +55,7 @@ while ($int12 < $int13) {
     }
     cc_create($component0, ^iftype_text, $int12);
     if ($int23 = 0) {
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
         cc_setsize($int26, $int25, ^setsize_rel, ^setsize_abs);
         $int19 = -1;
         if ($int21 = 0) {
@@ -80,8 +80,8 @@ while ($int12 < $int13) {
     cc_create($component2, ^iftype_graphic, $int12);
     if ($int23 = 0) {
         cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(enum(int, graphic, enum_3712, $int20));
-        $string1 = enum(int, string, enum_3714, $int20);
+        cc_setgraphic(enum(int, graphic, clanchat2_rankgraphic, $int20));
+        $string1 = enum(int, string, clan_core_player_rank_int_to_rank, $int20);
         cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
     }
     cc_create($component6, ^iftype_graphic, $int12);
@@ -128,5 +128,5 @@ while ($int12 < $int13) {
     }
     $int12 = calc($int12 + 1);
 }
-%varclient_1517 = $int33;
+%clansettings_clanmate_unfiltered_count = $int33;
 ~script4318;

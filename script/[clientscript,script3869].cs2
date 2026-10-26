@@ -1,11 +1,11 @@
 // 3869
 [clientscript,script3869]
-if_settext("Closest lodestone: <col=FFFFFF><struct_param(enum(int, struct, enum_13200, struct_param(%varclient_4485, param_1378)), param_2794)></col>", interface_753:com_121);
-if_settext(struct_param(%varclient_4485, param_1348), interface_753:com_11);
-if_settext("Recommended Combat Level: <col=FFFFFF><tostring(struct_param(%varclient_4485, param_1353))></col>", interface_753:com_16);
-if_settext("Recommended Group Size: <col=FFFFFF><tostring(struct_param(%varclient_4485, param_2237))></col>", interface_753:com_18);
+if_settext("Closest lodestone: <col=FFFFFF><struct_param(enum(int, struct, thas_index_to_struct, struct_param(%bslay_monster_struct, bslay_lod_coord)), combatv2_ability_name)></col>", bslay_boss_info:lodestone_text);
+if_settext(struct_param(%bslay_monster_struct, bslay_name), bslay_boss_info:boss_name);
+if_settext("Recommended Combat Level: <col=FFFFFF><tostring(struct_param(%bslay_monster_struct, bslay_combat_req))></col>", bslay_boss_info:boss_rec_cbl_text);
+if_settext("Recommended Group Size: <col=FFFFFF><tostring(struct_param(%bslay_monster_struct, bslay_group_size))></col>", bslay_boss_info:group_size_text);
 ~script11074;
-cc_deleteall(interface_753:com_34);
+cc_deleteall(bslay_boss_info:boss_req_build_layer);
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
@@ -17,59 +17,59 @@ def_int $int6 = 1;
 def_obj $obj7 = null;
 def_graphic $graphic8 = null;
 def_struct $struct9 = null;
-if (struct_param(%varclient_4485, param_6415) ! 1 & map_members = false) {
+if (struct_param(%bslay_monster_struct, cheevo_game) ! 1 & map_members = false) {
     $int0, $int1 = ~bslay_req_add(0, null, "rs3_icon_members_32px,0", "To fight this boss, you must log into a members' world.", $int0, $int1);
 }
 while ($int2 < 12) {
     $int6, $obj7, $graphic8, $struct9 = 1, null, null, null;
     switch_int ($int2) {
         case 0 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1294), struct_param(%varclient_4485, param_1295);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_1_type), struct_param(%bslay_monster_struct, task_requirement_1_value);
         case 1 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1296), struct_param(%varclient_4485, param_1297);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_2_type), struct_param(%bslay_monster_struct, task_requirement_2_value);
         case 2 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1298), struct_param(%varclient_4485, param_1299);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_3_type), struct_param(%bslay_monster_struct, task_requirement_3_value);
         case 3 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1300), struct_param(%varclient_4485, param_1301);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_4_type), struct_param(%bslay_monster_struct, task_requirement_4_value);
         case 4 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1302), struct_param(%varclient_4485, param_1303);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_5_type), struct_param(%bslay_monster_struct, task_requirement_5_value);
         case 5 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1304), struct_param(%varclient_4485, param_1305);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_6_type), struct_param(%bslay_monster_struct, task_requirement_6_value);
         case 6 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1306), struct_param(%varclient_4485, param_1307);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_7_type), struct_param(%bslay_monster_struct, task_requirement_7_value);
         case 7 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1308), struct_param(%varclient_4485, param_1309);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_8_type), struct_param(%bslay_monster_struct, task_requirement_8_value);
         case 8 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1310), struct_param(%varclient_4485, param_1311);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_9_type), struct_param(%bslay_monster_struct, task_requirement_9_value);
         case 9 :
-            $int3, $int4 = struct_param(%varclient_4485, param_1312), struct_param(%varclient_4485, param_1313);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_10_type), struct_param(%bslay_monster_struct, task_requirement_10_value);
         case 10 :
-            $int3, $int4 = struct_param(%varclient_4485, param_2227), struct_param(%varclient_4485, param_2228);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_11_type), struct_param(%bslay_monster_struct, task_requirement_11_value);
         case 11 :
-            $int3, $int4 = struct_param(%varclient_4485, param_2229), struct_param(%varclient_4485, param_2230);
+            $int3, $int4 = struct_param(%bslay_monster_struct, task_requirement_12_type), struct_param(%bslay_monster_struct, task_requirement_12_value);
     }
     if ($int3 > 0 & $int3 < 60) {
-        $graphic8, $string0 = enum(int, graphic, enum_8548, $int3), "You must have level <tostring($int4)> <enum(int, string, enum_108, $int3)>.";
-        if (stat_base(enum(int, stat, enum_681, $int3)) < $int4) {
+        $graphic8, $string0 = enum(int, graphic, stat2icon_medium, $int3), "You must have level <tostring($int4)> <enum(int, string, statstring, $int3)>.";
+        if (stat_base(enum(int, stat, int_to_stat, $int3)) < $int4) {
             $int6 = 0;
         }
     } else if ($int3 = 60) {
         $struct9 = ~task_get_data($int4);
         if ($struct9 ! null) {
-            if (struct_param($struct9, param_1345) > 0) {
-                $graphic8 = ~quest_icon(enum(int, quest, enum_2252, struct_param($struct9, param_1345)));
+            if (struct_param($struct9, quest_id) > 0) {
+                $graphic8 = ~quest_icon(enum(int, quest, ql4_quests, struct_param($struct9, quest_id)));
             } else {
-                $graphic8 = struct_param($struct9, param_1271);
+                $graphic8 = struct_param($struct9, task_icon);
             }
-            $string0 = "You must complete the task: '<struct_param($struct9, param_1266)>'.";
-            if (~task_get_progress(struct_param($struct9, param_1268)) ! 2) {
+            $string0 = "You must complete the task: '<struct_param($struct9, task_name)>'.";
+            if (~task_get_progress(struct_param($struct9, task_unique_id)) ! 2) {
                 $int6 = 0;
             }
             $struct9 = null;
         }
     } else if ($int3 = 61) {
-        $graphic8 = ~quest_icon(enum(int, quest, enum_2252, $int4));
-        $string0 = "You must complete the quest: '<~quest_name(enum(int, quest, enum_2252, $int4))>'";
+        $graphic8 = ~quest_icon(enum(int, quest, ql4_quests, $int4));
+        $string0 = "You must complete the quest: '<~quest_name(enum(int, quest, ql4_quests, $int4))>'";
         $string0 = append($string0, ".");
         if (~script1524($int4) = false) {
             $int6 = 0;
@@ -99,40 +99,40 @@ while ($int2 < 12) {
         $int0, $int1 = ~bslay_req_add($int6, $obj7, $graphic8, $string0, $int0, $int1);
     }
 }
-cc_deleteall(interface_753:com_35);
-if_setscrollpos(0, 0, interface_753:com_34);
-if (calc($int1 + 36) > if_getheight(interface_753:com_34)) {
-    if_setscrollsize(0, calc($int1 + 36), interface_753:com_34);
-    ~rs3_scrollbar_vertical(interface_753:com_35, interface_753:com_34);
+cc_deleteall(bslay_boss_info:scroll_layer);
+if_setscrollpos(0, 0, bslay_boss_info:boss_req_build_layer);
+if (calc($int1 + 36) > if_getheight(bslay_boss_info:boss_req_build_layer)) {
+    if_setscrollsize(0, calc($int1 + 36), bslay_boss_info:boss_req_build_layer);
+    ~rs3_scrollbar_vertical(bslay_boss_info:scroll_layer, bslay_boss_info:boss_req_build_layer);
 } else {
-    if_setscrollsize(0, 0, interface_753:com_34);
+    if_setscrollsize(0, 0, bslay_boss_info:boss_req_build_layer);
 }
-if (if_getnextsubid(interface_753:com_34) = 0) {
-    cc_create(interface_753:com_34, ^iftype_text, if_getnextsubid(interface_753:com_34));
+if (if_getnextsubid(bslay_boss_info:boss_req_build_layer) = 0) {
+    cc_create(bslay_boss_info:boss_req_build_layer, ^iftype_text, if_getnextsubid(bslay_boss_info:boss_req_build_layer));
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_settext("There are no special requirements.");
-    cc_settextfont(fontmetrics_26);
+    cc_settextfont(museo_sans_11pt_regular);
     cc_setcolour(~script10495(3));
     cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 }
-if (struct_param(%varclient_4485, param_3038) ! null) {
-    if_setgraphic(struct_param(%varclient_4485, param_3038), interface_753:com_39);
+if (struct_param(%bslay_monster_struct, bslay_back_drop) ! null) {
+    if_setgraphic(struct_param(%bslay_monster_struct, bslay_back_drop), bslay_boss_info:npc_background);
 } else {
-    if_setgraphic(null, interface_753:com_39);
+    if_setgraphic(null, bslay_boss_info:npc_background);
 }
-if_setnpcmodel(struct_param(%varclient_4485, param_1347), interface_753:com_40);
-if_setmodelanim(bas_getanim_ready(%varclient_4484), interface_753:com_40);
-if_setmodelangle(0, struct_param(%varclient_4485, param_3041), 0, 0, 0, struct_param(%varclient_4485, param_3040), interface_753:com_40);
-if_settext("Combat Level: <col=FFFFFF><tostring(struct_param(%varclient_4485, param_2238))></col>", interface_753:com_52);
+if_setnpcmodel(struct_param(%bslay_monster_struct, bslay_npc), bslay_boss_info:boss_model);
+if_setmodelanim(bas_getanim_ready(%blsay_monster_bas), bslay_boss_info:boss_model);
+if_setmodelangle(0, struct_param(%bslay_monster_struct, bslay_yoffset), 0, 0, 0, struct_param(%bslay_monster_struct, bslay_zoom), bslay_boss_info:boss_model);
+if_settext("Combat Level: <col=FFFFFF><tostring(struct_param(%bslay_monster_struct, bslay_combat_level))></col>", bslay_boss_info:boss_combat_level);
 def_string $string1 = "";
 ~script12274;
-if_setposition(75, 0, ^setpos_abs_right, ^setpos_abs_centre, interface_753:com_54);
-if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre, interface_753:com_58);
-if_sethide(true, interface_753:com_62);
+if_setposition(75, 0, ^setpos_abs_right, ^setpos_abs_centre, bslay_boss_info:boss_timed_death);
+if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre, bslay_boss_info:boss_death);
+if_sethide(true, bslay_boss_info:boss_death_hardmode);
 def_int $int10 = -1;
 def_int $int11 = -1;
-$int10, $int11 = ~script15912(%varclient_4485);
+$int10, $int11 = ~script15912(%bslay_monster_struct);
 $string0 = "Total kills: ";
 switch_int ($int10) {
     case 2 :
@@ -144,17 +144,17 @@ switch_int ($int10) {
     case 5 :
         $string0 = "Total enrage mode kills: ";
 }
-if (%varclient_4486 = 60000) {
+if (%bslay_monster_kill_count = 60000) {
     $string1 = "<col=FF0000>Lots!</col>";
 } else {
-    $string1 = tostring_localised(%varclient_4486, true);
+    $string1 = tostring_localised(%bslay_monster_kill_count, true);
 }
 $string0 = append($string0, $string1);
-if_setonmouserepeat("script8799($string0, interface_753:com_61, -1)", interface_753:com_58);
-if_settext($string1, interface_753:com_60);
+if_setonmouserepeat("script8799($string0, bslay_boss_info:boss_death_graphic, -1)", bslay_boss_info:boss_death);
+if_settext($string1, bslay_boss_info:boss_death_count);
 def_graphic $graphic12 = null;
-if (%varclient_4487 ! -1) {
-    $graphic12 = ~script15909(%varclient_4485);
+if (%bslay_monster_kill_count_hardmode ! -1) {
+    $graphic12 = ~script15909(%bslay_monster_struct);
     switch_int ($int11) {
         case 1 :
             $string0 = "Total hard mode kills: ";
@@ -167,19 +167,19 @@ if (%varclient_4487 ! -1) {
         case 5 :
             $string0 = "Total enrage mode kills: ";
     }
-    if (%varclient_4487 = 60000) {
+    if (%bslay_monster_kill_count_hardmode = 60000) {
         $string1 = "<col=FF0000>Lots!</col>";
     } else {
-        $string1 = tostring_localised(%varclient_4487, true);
+        $string1 = tostring_localised(%bslay_monster_kill_count_hardmode, true);
     }
     $string0 = append($string0, $string1);
-    if_setonmouserepeat("script8799($string0, interface_753:com_61, -1)", interface_753:com_62);
-    if_settext($string1, interface_753:com_64);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, interface_753:com_54);
-    if_setposition(75, 0, ^setpos_abs_right, ^setpos_abs_centre, interface_753:com_58);
-    if_sethide(false, interface_753:com_62);
-    if_setgraphic($graphic12, interface_753:com_65);
+    if_setonmouserepeat("script8799($string0, bslay_boss_info:boss_death_graphic, -1)", bslay_boss_info:boss_death_hardmode);
+    if_settext($string1, bslay_boss_info:boss_death_count_hardmode);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, bslay_boss_info:boss_timed_death);
+    if_setposition(75, 0, ^setpos_abs_right, ^setpos_abs_centre, bslay_boss_info:boss_death);
+    if_sethide(false, bslay_boss_info:boss_death_hardmode);
+    if_setgraphic($graphic12, bslay_boss_info:boss_death_hardmode_graphic);
 }
-cc_deleteall(interface_753:com_94);
-~bslay_rewards_build(interface_753:com_94, interface_753:com_95, interface_753:com_93, %varclient_4485, 0, 0, 0);
-if_sethide(false, interface_753:com_7);
+cc_deleteall(bslay_boss_info:boss_loot_build_layer);
+~bslay_rewards_build(bslay_boss_info:boss_loot_build_layer, bslay_boss_info:boss_loot_scrollbar_layer, bslay_boss_info:boss_loot_wrapper, %bslay_monster_struct, 0, 0, 0);
+if_sethide(false, bslay_boss_info:boss_info_wrapper);

@@ -1,0 +1,3145 @@
+// 105:0
+[listeners]
+type=layer
+width=2
+height=2
+noclickthrough=yes
+
+// 105:1
+[stocktransmit_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=listeners
+
+// 105:2
+[custom_percent_listener]
+type=layer
+width=2
+height=2
+layer=listeners
+noclickthrough=yes
+onvartransmit=script20873{exchange_settings}
+
+// 105:3
+[stockmarket]
+type=layer
+widthmode=minus
+heightmode=minus
+candrop=yes
+onload=stockmarket_onload
+onvartransmit=stockmarket_onvartransmit{stock_offeritem, stock_offerslot, stock_offerprice, stock_offercount, stock_offertype, exchange_version}
+
+// 105:4
+[quantity_input_clickout]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+noclickthrough=yes
+
+// 105:5
+[price_input_clickout]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+noclickthrough=yes
+
+// 105:6
+[stockmarket_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=stockmarket
+onload=script8420(event_com, stockmarket:stockmarket_frame, stockmarket:stockmarket_content, null, "", toplevel_v2_bespoke_window_skin_data, -1)
+
+// 105:7
+[stockmarket_content]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=stockmarket
+
+// 105:8
+[stockmarket_frame]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=stockmarket
+
+// 105:9
+[newofferlayer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=stockmarket
+
+// 105:10
+[search_layer]
+type=layer
+height=253
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=newofferlayer
+
+// 105:11
+[summarylayer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=stockmarket_content
+hide=yes
+
+// 105:12
+[offersummary0]
+type=layer
+x=4
+y=4
+width=170
+height=122
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 0)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:13
+[offersummary0_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary0
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:14
+[offerchoosetype0]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary0
+
+// 105:15
+[choosebuy0_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype0
+candrop=yes
+
+// 105:16
+[choosebuy0]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy0_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(0)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:17
+[choosebuy0_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy0_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:18
+[choosesell0_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype0
+candrop=yes
+
+// 105:19
+[choosesell0]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell0_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=script15035(0)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:20
+[choosesell0_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell0_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:21
+[label_layer_0]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary0
+
+// 105:22
+[labelbuy0]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_0
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:23
+[labelsell0]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_0
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:24
+[abort_holder0]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary0
+noclickthrough=yes
+
+// 105:25
+[abort0]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder0
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:26
+[offersummary1]
+type=layer
+y=4
+width=170
+height=122
+xmode=abs_centre
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 1)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:27
+[offersummary1_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary1
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:28
+[offerchoosetype1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary1
+
+// 105:29
+[choosebuy1_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype1
+
+// 105:30
+[choosebuy1]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy1_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(1)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:31
+[choosebuy1_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy1_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:32
+[choosesell1_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype1
+
+// 105:33
+[choosesell1]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell1_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Sell
+onop=script15035(1)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:34
+[choosesell1_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell1_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:35
+[label_layer_1]
+type=layer
+width=170
+height=122
+layer=offersummary1
+
+// 105:36
+[labelbuy1]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_1
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:37
+[labelsell1]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_1
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:38
+[abort_holder1]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary1
+noclickthrough=yes
+
+// 105:39
+[abort1]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder1
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:40
+[offersummary2]
+type=layer
+x=4
+y=4
+width=170
+height=122
+xmode=abs_right
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 2)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:41
+[offersummary2_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary2
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:42
+[offerchoosetype2]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary2
+
+// 105:43
+[choosebuy2_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype2
+
+// 105:44
+[choosebuy2]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy2_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(2)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:45
+[choosebuy2_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy2_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:46
+[choosesell2_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype2
+
+// 105:47
+[choosesell2]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell2_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Sell
+onop=script15035(2)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:48
+[choosesell2_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell2_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:49
+[label_layer_2]
+type=layer
+width=170
+height=122
+layer=offersummary2
+
+// 105:50
+[labelbuy2]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_2
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:51
+[labelsell2]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_2
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:52
+[abort_holder2]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary2
+noclickthrough=yes
+
+// 105:53
+[abort2]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder2
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:54
+[offersummary3]
+type=layer
+x=4
+y=132
+width=170
+height=122
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 3)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:55
+[offersummary3_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary3
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:56
+[offerchoosetype3]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary3
+
+// 105:57
+[choosebuy3_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype3
+
+// 105:58
+[choosebuy3]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy3_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(3)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:59
+[choosebuy3_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy3_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:60
+[choosesell3_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype3
+
+// 105:61
+[choosesell3]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell3_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Sell
+onop=script15035(3)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:62
+[choosesell3_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell3_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:63
+[label_layer_3]
+type=layer
+width=170
+height=122
+layer=offersummary3
+
+// 105:64
+[labelbuy3]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_3
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:65
+[labelsell3]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_3
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:66
+[abort_holder3]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary3
+noclickthrough=yes
+
+// 105:67
+[abort3]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder3
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:68
+[offersummary4]
+type=layer
+y=132
+width=170
+height=122
+xmode=abs_centre
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 4)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:69
+[offersummary4_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary4
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:70
+[offerchoosetype4]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary4
+
+// 105:71
+[choosebuy4_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype4
+
+// 105:72
+[choosebuy4]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy4_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(4)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:73
+[choosebuy4_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy4_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:74
+[choosesell4_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype4
+
+// 105:75
+[choosesell4]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell4_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Sell
+onop=script15035(4)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:76
+[choosesell4_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell4_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:77
+[label_layer_4]
+type=layer
+width=170
+height=122
+layer=offersummary4
+
+// 105:78
+[labelbuy4]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_4
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:79
+[labelsell4]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_4
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:80
+[abort_holder4]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary4
+noclickthrough=yes
+
+// 105:81
+[abort4]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder4
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:82
+[offersummary5]
+type=layer
+x=4
+y=132
+width=170
+height=122
+xmode=abs_right
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 5)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:83
+[offersummary5_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary5
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:84
+[offerchoosetype5]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary5
+
+// 105:85
+[choosebuy5_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype5
+
+// 105:86
+[choosebuy5]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy5_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(5)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:87
+[choosebuy5_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy5_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:88
+[choosesell5_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype5
+
+// 105:89
+[choosesell5]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell5_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Sell
+onop=script15035(5)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:90
+[choosesell5_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell5_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:91
+[label_layer_5]
+type=layer
+width=170
+height=122
+layer=offersummary5
+
+// 105:92
+[labelbuy5]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_5
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:93
+[labelsell5]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_5
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:94
+[abort_holder5]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary5
+noclickthrough=yes
+
+// 105:95
+[abort5]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder5
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:96
+[offersummary6]
+type=layer
+x=4
+y=260
+width=170
+height=122
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 6)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:97
+[offersummary6_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary6
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:98
+[offerchoosetype6]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary6
+
+// 105:99
+[choosebuy6_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype6
+
+// 105:100
+[choosebuy6]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy6_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(6)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:101
+[choosebuy6_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy6_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:102
+[choosesell6_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype6
+
+// 105:103
+[choosesell6]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell6_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Sell
+onop=script15035(6)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:104
+[choosesell6_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell6_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:105
+[label_layer_6]
+type=layer
+width=170
+height=122
+layer=offersummary6
+
+// 105:106
+[labelbuy6]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_6
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:107
+[labelsell6]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_6
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:108
+[abort_holder6]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary6
+noclickthrough=yes
+
+// 105:109
+[abort6]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder6
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:110
+[offersummary7]
+type=layer
+y=260
+width=170
+height=122
+xmode=abs_centre
+layer=summarylayer
+transmitop=1,2,4,5,6,7,8
+op1=Make Offer
+op2=Abort Offer
+op4=<lt><lt>%
+op5=<lt>%
+op6=Set to Market Price
+op7=<gt>%
+op8=<gt><gt>%
+onop=script20889(event_op, 7)
+onmouserepeat=script10009("View offer", event_com, event_comsubid)
+
+// 105:111
+[offersummary7_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary7
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:112
+[offerchoosetype7]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=offersummary7
+
+// 105:113
+[choosebuy7_button_layer]
+type=layer
+x=-30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype7
+
+// 105:114
+[choosebuy7]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosebuy7_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Buy
+onop=stockmarket_choosebuy_client(7)
+onmouserepeat=script10009("Buy", event_com, event_comsubid)
+
+// 105:115
+[choosebuy7_icon]
+type=graphic
+x=5
+y=5
+width=35
+height=35
+layer=choosebuy7_button_layer
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:116
+[choosesell7_button_layer]
+type=layer
+x=30
+y=10
+width=45
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=offerchoosetype7
+
+// 105:117
+[choosesell7]
+type=button
+widthmode=minus
+heightmode=minus
+layer=choosesell7_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+candrop=yes
+op1=Sell
+onop=script15035(7)
+onmouserepeat=script10009("Sell", event_com, event_comsubid)
+
+// 105:118
+[choosesell7_icon]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=choosesell7_button_layer
+graphic="grand_exchange_buy_sell_icon,0"
+
+// 105:119
+[label_layer_7]
+type=layer
+width=170
+height=122
+layer=offersummary7
+
+// 105:120
+[labelbuy7]
+type=text
+x=-30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_7
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:121
+[labelsell7]
+type=text
+x=30
+y=40
+width=70
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=label_layer_7
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Sell
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:122
+[abort_holder7]
+type=layer
+x=5
+y=5
+width=18
+height=18
+xmode=abs_right
+layer=offersummary7
+noclickthrough=yes
+
+// 105:123
+[abort7]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=abort_holder7
+graphic="grand_exchange_cancelled_buttons,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:124
+[lending_container]
+type=layer
+x=4
+y=260
+width=170
+height=122
+xmode=abs_right
+layer=summarylayer
+
+// 105:125
+[lending_container_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=lending_container
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:126
+[lending_item_bg]
+type=graphic
+y=30
+width=40
+height=36
+xmode=abs_centre
+layer=lending_container
+graphic=rs3_inventory_slot
+
+// 105:127
+[lending_item]
+type=graphic
+y=32
+width=36
+height=32
+xmode=abs_centre
+layer=lending_container
+outline=1
+graphicshadow=3355443
+transmitop=1,10
+op1=*
+op10=Examine
+onmouserepeat=script10009("", event_com, event_comsubid)
+
+// 105:128
+[lending_indicator]
+type=text
+y=92
+width=14
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=lending_container
+textfont=museo_sans_11pt_regular
+fontmono=no
+text=Available
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 105:129
+[lending_title]
+type=text
+x=3
+y=3
+width=6
+height=15
+widthmode=minus
+layer=lending_container
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Lent item
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffcb05
+
+// 105:130
+[offerlayer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=stockmarket_content
+
+// 105:131
+[backbutton]
+type=button
+widthmode=minus
+heightmode=minus
+layer=back_wrapper
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Back
+onop=stockmarket_choosecancel
+onmouserepeat=script10009("Back to offer summary", event_com, event_comsubid)
+
+// 105:132
+[backbutton_arrow]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=back_wrapper
+graphic="rs3_icon_direction_left_32px,0"
+
+// 105:133
+[box1]
+type=layer
+height=92
+widthmode=minus
+xmode=abs_centre
+layer=offerlayer
+
+// 105:134
+[separator_h_box1]
+type=layer
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=box1
+onload=script349(event_com)
+
+// 105:135
+[separator_v_box1]
+type=layer
+x=161
+width=2
+height=1
+heightmode=minus
+layer=box1
+onload=script20902(event_com)
+
+// 105:136
+[box1_offset]
+type=layer
+y=4
+width=8
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=box1
+noclickthrough=yes
+
+// 105:137
+[item_description]
+type=layer
+width=163
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=box1_offset
+onload=rs3_background_panel(event_com, toplevel_v2_default_skin_data)
+
+// 105:138
+[item_and_price]
+type=layer
+width=160
+heightmode=minus
+layer=box1_offset
+
+// 105:139
+[offeritem_name]
+type=text
+height=18
+widthmode=minus
+layer=item_description
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Choose an item to exchange
+textalignv=centre
+textshadow=yes
+colour=0xf0be79
+onload=script10496(event_com, event_comsubid, 1)
+
+// 105:140
+[offeritem_desc]
+type=text
+y=20
+height=48
+widthmode=minus
+layer=item_description
+textfont=notosans_11
+fontmono=no
+textshadow=yes
+colour=0xe3d7cf
+maxlines=3
+onload=script10496(event_com, event_comsubid, 3)
+
+// 105:141
+[offeritem_buylimit]
+type=text
+height=15
+widthmode=minus
+ymode=abs_bottom
+layer=item_description
+textfont=museo_sans_11pt_regular_multiline
+fontmono=no
+textalignv=bottom
+textshadow=yes
+onload=script10496(event_com, event_comsubid, 21)
+
+// 105:142
+[favourite_holder]
+type=layer
+x=4
+y=4
+width=18
+height=18
+xmode=abs_right
+layer=item_description
+oninvtransmit=script15020{stock_favourites}
+onmouserepeat=script10009("Add item to favourites", event_com, event_comsubid)
+
+// 105:143
+[favourite_build]
+type=layer
+width=18
+height=18
+layer=favourite_holder
+
+// 105:144
+[favourite_click]
+type=layer
+width=18
+height=18
+layer=favourite_holder
+
+// 105:145
+[offertype_text]
+type=text
+x=2
+width=18
+height=16
+widthmode=minus
+xmode=abs_right
+layer=item_and_price
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Buy Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf0be79
+onload=script10496(event_com, event_comsubid, 1)
+
+// 105:146
+[prices]
+type=layer
+width=160
+height=32
+ymode=abs_bottom
+layer=item_and_price
+noclickthrough=yes
+
+// 105:147
+[offeritem_marketprice]
+type=text
+y=14
+width=30
+height=16
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=prices
+textfont=museo_sans_11pt_regular_multiline
+fontmono=no
+text=45000
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onload=script10496(event_com, event_comsubid, 21)
+
+// 105:148
+[tooltip_prices]
+type=layer
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=item_and_price
+
+// 105:149
+[offeritem_marketpriceicon]
+type=graphic
+x=15
+y=14
+width=16
+height=14
+ymode=abs_bottom
+layer=prices
+graphic="grand_exchange_misc_graphics,8"
+
+// 105:150
+[offeritem_recentprice]
+type=text
+width=30
+height=16
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=prices
+textfont=museo_sans_11pt_regular_multiline
+fontmono=no
+text=45000
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe3d7cf
+onload=script10496(event_com, event_comsubid, 3)
+
+// 105:151
+[offertype_icon]
+type=graphic
+x=-2
+width=35
+height=35
+layer=item_and_price
+graphic="grand_exchange_buy_sell_icon,2"
+
+// 105:152
+[offeritem_recentpriceicon]
+type=graphic
+x=15
+width=16
+height=14
+ymode=abs_bottom
+layer=prices
+graphic=aif_grand_exchange_25x25
+
+// 105:153
+[offeritem_backing]
+type=graphic
+y=20
+width=40
+height=36
+xmode=abs_centre
+layer=item_and_price
+graphic=rs3_inventory_slot
+candrop=yes
+onmouseover=graphic_swapper(stockmarket:offeritem_backing, "bank_slot,3")
+onmouseleave=graphic_swapper(stockmarket:offeritem_backing, rs3_inventory_slot)
+
+// 105:154
+[offeritem_model]
+type=graphic
+y=22
+width=36
+height=32
+xmode=abs_centre
+layer=item_and_price
+graphicshadow=3158064
+
+// 105:155
+[offeritem_pulsate]
+type=graphic
+y=20
+width=40
+height=36
+xmode=abs_centre
+layer=item_and_price
+graphic="bank_slot,3"
+trans=255
+
+// 105:156
+[box2]
+type=layer
+y=92
+height=88
+widthmode=minus
+xmode=abs_centre
+layer=offerlayer
+
+// 105:157
+[separator_h_box2]
+type=layer
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=box2
+onload=script349(event_com)
+
+// 105:158
+[separator_v_box2]
+type=layer
+width=2
+height=1
+heightmode=minus
+xmode=abs_centre
+layer=box2
+onload=script20902(event_com)
+
+// 105:159
+[box2_offset]
+type=layer
+y=4
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=box2
+noclickthrough=yes
+
+// 105:160
+[quantity_info]
+type=layer
+width=8192
+widthmode=proportion
+heightmode=minus
+layer=box2_offset
+
+// 105:161
+[quantity_buttons]
+type=layer
+width=8192
+height=84
+widthmode=proportion
+layer=box2_offset
+
+// 105:162
+[price_info]
+type=layer
+width=8192
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=box2_offset
+
+// 105:163
+[price_buttons]
+type=layer
+width=8192
+height=84
+widthmode=proportion
+xmode=abs_right
+layer=box2_offset
+onload=script20880
+
+// 105:164
+[quantity_text]
+type=text
+height=16
+widthmode=minus
+layer=quantity_info
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Quantity:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf0be79
+onload=script10496(event_com, event_comsubid, 1)
+
+// 105:165
+[quantity_input_box]
+type=layer
+y=22
+width=140
+height=24
+xmode=abs_centre
+layer=quantity_info
+
+// 105:166
+[quantity_input_border]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=quantity_input_box
+onload=script13964(event_com, null, rs3tli_text_entry_box)
+
+// 105:167
+[quantity_input_listener]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=quantity_input_box
+noclickthrough=yes
+onvarctransmit=script15056(event_com, stockmarket:quantity_input_listen, stockmarket:quantity_input_caret, stockmarket:quantity_input_display, stockmarket:quantity_input_clickout, 1, 0){p_dialog_listener, p_dialog_mode}
+
+// 105:168
+[quantity_input_listen]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=quantity_input_listener
+hide=yes
+textfont=verdana_13pt_regular
+fontmono=no
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfffefe
+
+// 105:169
+[quantity_input_caret]
+type=rectangle
+width=2
+height=14
+xmode=abs_centre
+ymode=abs_centre
+layer=quantity_input_listener
+hide=yes
+colour=0xe2dede
+fill=yes
+
+// 105:170
+[quantity_input_display]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=quantity_input_listener
+textfont=verdana_13pt_regular
+fontmono=no
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Enter Number
+onop=script15033
+onclick=script7203(stockmarket:quantity_input_stop_click, stockmarket:quantity_input_clickout)
+
+// 105:171
+[quantity_input_stop_click]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=quantity_input_listener
+hide=yes
+noclickthrough=yes
+
+// 105:172
+[offercount_plus]
+type=graphic
+x=90
+y=22
+width=23
+height=23
+xmode=abs_centre
+layer=quantity_buttons
+graphic=rs3_btn_increase_active
+transmitop=1
+op1=Increase
+onload=script13914(event_com, rs3tli_increase_button_23px_on)
+onop=stock_offercount_plus
+onmouserepeat=script8799("Increase quantity by 1", event_com, event_comsubid)
+
+// 105:173
+[offercount_minus]
+type=graphic
+x=-90
+y=22
+width=23
+height=23
+xmode=abs_centre
+layer=quantity_buttons
+graphic=rs3_btn_decrease_active
+transmitop=1
+op1=Decrease
+onload=script13914(event_com, rs3tli_decrease_button_23px_on)
+onop=stock_offercount_minus
+onmouserepeat=script8799("Decrease quantity by 1", event_com, event_comsubid)
+
+// 105:174
+[offercount_1]
+type=button
+x=-90
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=quantity_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=+1
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onbuttonpressed=stock_offercount_1
+
+// 105:175
+[offercount_10]
+type=button
+x=-45
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=quantity_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=+10
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onbuttonpressed=stock_offercount_10
+
+// 105:176
+[offercount_100]
+type=button
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=quantity_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=+100
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onbuttonpressed=stock_offercount_100
+
+// 105:177
+[offercount_1000]
+type=button
+x=45
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=quantity_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=+1K
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onbuttonpressed=script865
+
+// 105:178
+[offercount_limit]
+type=button
+x=90
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=quantity_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=+Lim
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onbuttonpressed=script2754
+
+// 105:179
+[price_text]
+type=text
+height=16
+widthmode=minus
+xmode=abs_centre
+layer=price_info
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Your price per item:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf0be79
+onload=script10496(event_com, event_comsubid, 1)
+
+// 105:180
+[price_input_box]
+type=layer
+y=22
+width=180
+height=24
+xmode=abs_centre
+layer=price_info
+
+// 105:181
+[price_input_border]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=price_input_box
+onload=script13964(event_com, null, rs3tli_text_entry_box)
+
+// 105:182
+[price_input_listener]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=price_input_box
+noclickthrough=yes
+onvarctransmit=script15056(event_com, stockmarket:price_input_listen, stockmarket:price_input_caret, stockmarket:price_input_display, stockmarket:price_input_clickout, 1, 0){p_dialog_listener, p_dialog_mode}
+
+// 105:183
+[price_input_listen]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=price_input_listener
+hide=yes
+textfont=verdana_13pt_regular
+fontmono=no
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfffefe
+
+// 105:184
+[price_input_caret]
+type=rectangle
+width=2
+height=14
+xmode=abs_centre
+ymode=abs_centre
+layer=price_input_listener
+hide=yes
+colour=0xe2dede
+fill=yes
+
+// 105:185
+[price_input_display]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=price_input_listener
+textfont=verdana_13pt_regular
+fontmono=no
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Enter Number
+onop=script15034
+onclick=script7203(stockmarket:price_input_stop_click, stockmarket:price_input_clickout)
+
+// 105:186
+[price_input_stop_click]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=price_input_listener
+hide=yes
+noclickthrough=yes
+
+// 105:187
+[offerprice_plus]
+type=graphic
+x=110
+y=22
+width=23
+height=23
+xmode=abs_centre
+layer=price_buttons
+graphic=rs3_btn_increase_active
+transmitop=1
+op1=Increase
+onload=script13914(event_com, rs3tli_increase_button_23px_on)
+onop=stock_offerprice_plus
+onmouserepeat=script8799("Increase price by 1", event_com, event_comsubid)
+
+// 105:188
+[offerprice_minus]
+type=graphic
+x=-110
+y=22
+width=23
+height=23
+xmode=abs_centre
+layer=price_buttons
+graphic=rs3_btn_decrease_active
+transmitop=1
+op1=Decrease
+onload=script13914(event_com, rs3tli_decrease_button_23px_on)
+onop=stock_offerprice_minus
+onmouserepeat=script8799("Decrease price by 1", event_com, event_comsubid)
+
+// 105:189
+[offerprice_biggerdecrease]
+type=button
+x=-90
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=price_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=-20%
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1,2
+op1=Select
+op2=Customise
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onop=script20882(event_op)
+
+// 105:190
+[offerprice_bigdecrease]
+type=button
+x=-45
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=price_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=-5%
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onop=script20883
+
+// 105:191
+[offerprice_market_button_layer]
+type=layer
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=price_buttons
+
+// 105:192
+[offerprice_bigraise]
+type=button
+x=45
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=price_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=+5%
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onop=script20884
+
+// 105:193
+[offerprice_biggerraise]
+type=button
+x=90
+y=8
+width=40
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=price_buttons
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=+20%
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1,2
+op1=Select
+op2=Customise
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onop=script20885(event_op)
+
+// 105:194
+[offerprice_market]
+type=button
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=offerprice_market_button_layer
+noclickthrough=yes
+sprite.graphic=button_cornered_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_cornered_neutral
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=stylesheet_set(event_com)
+onmouserepeat=script8799("Set price to item's Guide Price", event_com, event_comsubid)
+onbuttonpressed=stock_offerprice_market
+
+// 105:195
+[com_195]
+type=graphic
+width=16
+height=14
+xmode=abs_centre
+ymode=abs_centre
+layer=offerprice_market_button_layer
+graphic="grand_exchange_misc_graphics,8"
+
+// 105:196
+[box3]
+type=layer
+y=180
+height=64
+widthmode=minus
+xmode=abs_centre
+layer=offerlayer
+
+// 105:197
+[runninglayer]
+type=layer
+y=244
+height=58
+widthmode=minus
+xmode=abs_centre
+layer=offerlayer
+
+// 105:198
+[separator_h_box4]
+type=layer
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=runninglayer
+onload=script349(event_com)
+
+// 105:199
+[runninglayer_offset]
+type=layer
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=runninglayer
+noclickthrough=yes
+
+// 105:200
+[progresstext]
+type=text
+x=26
+y=2
+width=170
+height=30
+widthmode=minus
+layer=runninglayer_offset
+textfont=museo_sans_11pt_regular_multiline
+fontmono=no
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe3d7cf
+onload=script10496(event_com, event_comsubid, 3)
+
+// 105:201
+[progressbar]
+type=layer
+x=9
+y=34
+width=130
+height=18
+widthmode=minus
+layer=runninglayer_offset
+
+// 105:202
+[offerabort]
+type=graphic
+x=124
+y=5
+width=24
+height=24
+xmode=abs_right
+layer=runninglayer_offset
+graphic="rs3_btn_close_24px,0"
+transmitop=1
+op1=Abort Offer
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onmouserepeat=script8799("Abort offer", event_com, event_comsubid)
+onclick=script618(event_com)
+
+// 105:203
+[offercollect_repeat]
+type=graphic
+x=124
+y=5
+width=26
+height=26
+xmode=abs_right
+layer=runninglayer_offset
+hide=yes
+graphic=aif_cust_avatar_return_item
+colour=0xbfbfbf
+transmitop=1
+op1=Collect and repeat
+onmouseover=script1256(event_com)
+onmouseleave=script1257(event_com)
+onmouserepeat=script8799("Collect and repeat", event_com, event_comsubid)
+onclick=script1257(event_com)
+
+// 105:204
+[com_204]
+type=graphic
+x=62
+y=11
+width=40
+height=36
+xmode=abs_right
+layer=runninglayer_offset
+graphic=rs3_inventory_slot
+onmouseover=graphic_swapper(event_com, "bank_slot,3")
+onmouseleave=graphic_swapper(event_com, rs3_inventory_slot)
+
+// 105:205
+[offercollect_a]
+type=graphic
+x=64
+y=13
+width=36
+height=32
+xmode=abs_right
+layer=runninglayer_offset
+
+// 105:206
+[com_206]
+type=graphic
+x=13
+y=11
+width=40
+height=36
+xmode=abs_right
+layer=runninglayer_offset
+graphic=rs3_inventory_slot
+onmouseover=graphic_swapper(event_com, "bank_slot,3")
+onmouseleave=graphic_swapper(event_com, rs3_inventory_slot)
+
+// 105:207
+[offercollect_b]
+type=graphic
+x=15
+y=13
+width=36
+height=32
+xmode=abs_right
+layer=runninglayer_offset
+
+// 105:208
+[separator_h_box3]
+type=layer
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=box3
+onload=script349(event_com)
+
+// 105:209
+[box3_offset]
+type=layer
+y=6
+width=8
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=box3
+noclickthrough=yes
+
+// 105:210
+[back_wrapper]
+type=layer
+width=40
+height=36
+ymode=abs_centre
+layer=box3_offset
+noclickthrough=yes
+
+// 105:211
+[totalvalue_wrapper]
+type=layer
+x=5
+width=290
+height=24
+xmode=abs_centre
+layer=box3_offset
+noclickthrough=yes
+
+// 105:212
+[makeofferbutton]
+type=button
+width=200
+height=27
+xmode=abs_centre
+ymode=abs_bottom
+layer=box3_offset
+noclickthrough=yes
+sprite.graphic=button_action_positive
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_action_positive
+transmitop=1
+op1=Confirm
+onload=stylesheet_set(event_com)
+onbuttonpressed=stockmarket_clear_search
+
+// 105:213
+[updateofferbutton]
+type=button
+width=200
+height=27
+xmode=abs_centre
+ymode=abs_bottom
+layer=box3_offset
+noclickthrough=yes
+sprite.graphic=button_action_positive
+text.textfont=notosans_12
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_action_positive
+transmitop=1
+op1=Confirm
+onload=stylesheet_set(event_com)
+onbuttonpressed=script15042
+
+// 105:214
+[totalvalue_backing]
+type=button
+width=10
+widthmode=minus
+heightmode=minus
+layer=totalvalue_wrapper
+noclickthrough=yes
+sprite.graphic=background_default
+text.fontmono=no
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=background_default
+onload=stylesheet_set(event_com)
+
+// 105:215
+[totalvalue]
+type=text
+x=4
+width=18
+height=20
+widthmode=minus
+ymode=abs_centre
+layer=totalvalue_wrapper
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=0 coins
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onload=script10496(event_com, event_comsubid, 21)
+
+// 105:216
+[totalvalue_tax_info]
+type=graphic
+width=24
+height=24
+xmode=abs_right
+layer=totalvalue_wrapper
+noclickthrough=yes
+graphic=rs3_icon_info
+
+// 105:217
+[totalvalue_tax_tooltip]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=totalvalue_wrapper
+
+// 105:218
+[search_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=search_layer
+noclickthrough=yes
+onload=script8420(event_com, stockmarket:search_frame, stockmarket:search_content, null, "", toplevel_v2_bespoke_window_skin_data, -1)
+
+// 105:219
+[search_content]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=search_layer
+noclickthrough=yes
+
+// 105:220
+[search_bar_layer]
+type=layer
+x=5
+y=4
+width=9
+height=24
+widthmode=minus
+layer=search_content
+
+// 105:221
+[search_obj_select_no_search_box_focus_1]
+type=layer
+layer=search_bar_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 105:222
+[search_scrolling]
+type=layer
+y=32
+width=16
+height=36
+widthmode=minus
+heightmode=minus
+layer=search_content
+
+// 105:223
+[search_build_scrollbar]
+type=layer
+y=32
+width=16
+height=32
+heightmode=minus
+xmode=abs_right
+layer=search_content
+
+// 105:224
+[search_warning_layer]
+type=layer
+y=20
+height=20
+widthmode=minus
+heightmode=minus
+layer=search_content
+
+// 105:225
+[search_input]
+type=input
+width=28
+widthmode=minus
+heightmode=minus
+layer=search_bar_layer
+noclickthrough=yes
+enabled=yes
+filtermode=0
+visibilitymode=0
+unknown8=20
+colour=ffffffff
+text.textfont=notosans_12
+text.fontmono=no
+text.textshadow=yes
+scrollbar.unknown17=yes
+scrollbar.unknown18=yes
+scrollbar.unknown19=16
+scrollbar.unknown20=10
+stylesheet=input_searchbox_24px
+transmitop=1
+op1=Enter Text
+onload=stylesheet_set(event_com)
+onop=script15029
+onmouserepeat=script10009("", event_com, event_comsubid)
+oncontentchanged=script20894(event_text, event_mousex)
+
+// 105:226
+[search_input_clickout]
+type=layer
+width=24
+height=24
+xmode=abs_right
+ymode=abs_centre
+layer=search_bar_layer
+noclickthrough=yes
+onclick=stockmarket_clear_search
+
+// 105:227
+[search_abort]
+type=graphic
+width=24
+height=24
+xmode=abs_right
+ymode=abs_centre
+layer=search_input_clickout
+graphic="rs3_btn_close_24px,0"
+onmouseover=script617(event_com)
+onmouseleave=script618(event_com)
+onclick=script618(event_com)
+
+// 105:228
+[search_obj_select_no_search_box_focus]
+type=layer
+layer=search_scrolling
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 105:229
+[search_build]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=search_scrolling
+
+// 105:230
+[search_obj]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=search_scrolling
+
+// 105:231
+[search_frame]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=search_layer
+
+// 105:232
+[com_232]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=search_warning_layer
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Grand Exchange Item Search<br><br>To search for an item, start by typing part of its name.<br>Then simply select the item you want from the results on display.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf0be79
+onload=script10496(event_com, event_comsubid, 1)
+
+// 105:233
+[warning_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=stockmarket_content
+hide=yes
+noclickthrough=yes
+onop=stockmarket_hide_warning(event_com)
+
+// 105:234
+[com_234]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=warning_layer
+colour=0x000000
+fill=yes
+trans=85
+pausebutton=yes
+pausetext=Close
+
+// 105:235
+[warning_layer_console]
+type=layer
+width=310
+height=130
+xmode=abs_centre
+ymode=abs_centre
+layer=warning_layer
+noclickthrough=yes
+
+// 105:236
+[info_holder_inactive_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=warning_layer_console
+onload=rs3_background_panel(event_com, rs3_content_container_inactive)
+
+// 105:237
+[com_237]
+type=text
+y=5
+width=13082
+height=24
+widthmode=proportion
+xmode=abs_centre
+layer=warning_layer_console
+textfont=museo_sans_13pt_regular
+fontmono=no
+text=Warning:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf0be79
+onload=script10496(event_com, event_comsubid, 1)
+
+// 105:238
+[com_238]
+type=text
+width=9520
+height=34
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=warning_layer_console
+textfont=museo_sans_11pt_regular
+fontmono=no
+text=You're trying to sell an item for far less than its guide price!
+textalignh=centre
+textshadow=yes
+colour=0xe3d7cf
+onload=script10496(event_com, event_comsubid, 3)
+
+// 105:239
+[dismiss_button]
+type=button
+y=5
+width=160
+height=27
+xmode=abs_centre
+ymode=abs_bottom
+layer=warning_layer_console
+noclickthrough=yes
+sprite.graphic=button_action_neutral
+text.textfont=notosans_12
+text.fontmono=no
+text.text=Dismiss
+text.textalignh=centre
+text.textalignv=centre
+text.textshadow=yes
+stylesheet=button_action_neutral
+transmitop=1
+op1=Dismiss
+onload=stylesheet_set(event_com)
+onbuttonpressed=stockmarket_hide_warning(stockmarket:warning_layer)
+
+// 105:240
+[loading_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=stockmarket_content
+hide=yes
+noclickthrough=yes
+onload=spinner_create(event_com, 1, -1)
+
+// 105:241
+[com_241]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=loading_layer
+colour=0x010101
+fill=yes
+

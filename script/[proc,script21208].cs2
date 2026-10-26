@@ -1,0 +1,39 @@
+// 21208
+[proc,script21208](component $component0, component $component1, component $component2, int $int3)
+if (plugin_getunavailable(-1) = true) {
+    if_sethide(true, plugin_hub_parent_manage:auth_layer);
+    ~script21189($component0, $component1, $component2, "The Plugin Hub is currently disabled. Please try again later.");
+    return;
+}
+if (~script21162(plugin_hub_parent_manage:auth_layer) = false) {
+    if_setontimer("script21207($component0, $component1, $component2, $int3)", plugin_hub_parent_manage:rebuild_listener);
+    return;
+}
+if (%plugin_api_manage_redraw = clientclock) {
+    return;
+}
+%plugin_api_manage_redraw = clientclock;
+if_setontimer(null, plugin_hub_parent_manage:rebuild_listener);
+def_int $int4 = plugin_installed_count;
+if ($int4 < 1) {
+    ~script21189($component0, $component1, $component2, "You do not have any plugins installed.");
+    return;
+}
+cc_deleteall($component0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = -1;
+while ($int5 < $int4) {
+    $int7 = plugin_installed_get($int5);
+    ~cc_add_layer($component0, $int5, 0, $int6, ^setpos_abs_left, ^setpos_abs_top, 0, 72, ^setsize_minus, ^setsize_abs);
+    if (~script21209($component0, $int5, $int7) = true) {
+        $int6 = calc($int6 + (72 + 4));
+    }
+    $int5 = calc($int5 + 1);
+}
+~script19620($component2, $component0, $int6, null, -1, 0, 0, 0);
+if ($int6 > if_getheight($component0)) {
+    if_sethide(false, $component2);
+} else {
+    if_sethide(true, $component2);
+}

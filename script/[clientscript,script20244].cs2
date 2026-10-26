@@ -1,10 +1,10 @@
 // 20244
 [clientscript,script20244](component $component0)
-def_dbrow $dbrow1 = ~script20117(%varplayer_12314);
+def_dbrow $dbrow1 = ~script20117(%league_active_player);
 if (~script20132($dbrow1) = false) {
     return;
 }
-if (%varplayerbit_58406 = 0 | %varplayerbit_61498 = 0) {
+if (%league_relic_cache_next_tier_points = 0 | %league_task_combat_relic_next_tier_total = 0) {
     ~script20147;
     if_setontimer("script20244($component0)", $component0);
     return;
@@ -18,11 +18,11 @@ def_int $int4 = 86;
 def_int $int5 = 90;
 def_int $int6 = 2;
 cc_deleteall($component0);
-def_var_int $var_int7 = db_getfield($dbrow1, dbtable_326:col28, 0);
-def_int $int8 = calc(%varplayerbit_58406 - %varplayerbit_58405);
-def_int $int9 = calc(var_reference_get($var_int7) - %varplayerbit_58405);
-def_int $int10 = %varplayerbit_61493;
-%varplayerbit_61493 = 0;
+def_var_int $var_int7 = db_getfield($dbrow1, league:col28, 0);
+def_int $int8 = calc(%league_relic_cache_next_tier_points - %league_relic_cache_current_tier_points);
+def_int $int9 = calc(var_reference_get($var_int7) - %league_relic_cache_current_tier_points);
+def_int $int10 = %leagues_parent_relics_selected_type;
+%leagues_parent_relics_selected_type = 0;
 def_int $int11 = ~script20245;
 if ($int11 ! -1) {
     $string0 = "A relic is ready to unlock!";
@@ -38,10 +38,10 @@ if ($int11 ! -1) {
         $int6 = calc($int6 + 26);
     }
 }
-%varplayerbit_61493 = 1;
+%leagues_parent_relics_selected_type = 1;
 $int11 = ~script3979;
-$int8 = calc(%varplayerbit_61498 - %varplayerbit_1668);
-$int9 = calc(%varplayerbit_61497 - %varplayerbit_1668);
+$int8 = calc(%league_task_combat_relic_next_tier_total - %league_task_combat_relic_current_tier_total);
+$int9 = calc(%league_task_combat_relic_completed_total - %league_task_combat_relic_current_tier_total);
 if ($int11 ! -1) {
     $string0 = "A blessing is ready to unlock!";
     ~script20246($component0, 1, $int6, 1, 1, rs3_icon_leagues_combat_points, $string0, $int2, $int3);
@@ -56,11 +56,11 @@ if ($int11 ! -1) {
         $int6 = calc($int6 + 28);
     }
 }
-def_enum $enum12 = db_getfield($dbrow1, dbtable_326:col22, 0);
+def_enum $enum12 = db_getfield($dbrow1, league:col22, 0);
 def_int $int13 = 0;
-def_int $int14 = %varplayerbit_58389;
-if (~script3977(%varplayerbit_58388, $enum12) = true) {
-    $int13 = enum(int, int, $enum12, %varplayerbit_58388);
+def_int $int14 = %league_task_completed_total;
+if (~script3977(%league_locality_unlock_count, $enum12) = true) {
+    $int13 = enum(int, int, $enum12, %league_locality_unlock_count);
     if ($int14 > $int13) {
         $string0 = "A region is ready to unlock!";
     } else {
@@ -72,7 +72,7 @@ if (~script3977(%varplayerbit_58388, $enum12) = true) {
     $int4 = calc($int4 - 32);
     $int5 = calc($int5 - 32);
 }
-if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, interface_1361:com_10);
-if_setposition(0, $int5, ^setpos_abs_centre, ^setpos_abs_top, interface_1361:com_11);
-if_setsize(0, calc(125 - (90 - $int5)), ^setsize_minus, ^setsize_minus, interface_1361:com_11);
-%varplayerbit_61493 = $int10;
+if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, league_child_tasks:separator_3);
+if_setposition(0, $int5, ^setpos_abs_centre, ^setpos_abs_top, league_child_tasks:contents);
+if_setsize(0, calc(125 - (90 - $int5)), ^setsize_minus, ^setsize_minus, league_child_tasks:contents);
+%leagues_parent_relics_selected_type = $int10;

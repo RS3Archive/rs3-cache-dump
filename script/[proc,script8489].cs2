@@ -1,6 +1,6 @@
 // 8489
 [proc,script8489](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10)
-$component1 = interface_1477:com_910;
+$component1 = toplevel_v2:tooltips_layer;
 cc_deleteall($component3);
 cc_deleteall($component4);
 cc_deleteall($component6);
@@ -14,13 +14,13 @@ if ($int0 = 102039552) {
 }
 def_int $int12 = if_getheight($component10);
 if_setsize(0, $int12, ^setsize_minus, ^setsize_minus, $component2);
-def_int $int13 = enum_getoutputcount(enum_7674);
+def_int $int13 = enum_getoutputcount(toplevel_v2_stats_structs);
 def_int $int14 = 60;
 def_int $int15 = 27;
 def_int $int16 = 0;
 def_int $int17 = 0;
 if (~script6431 = true) {
-    if ($component2 = interface_1557:com_1) {
+    if ($component2 = stats_inspect:list) {
         $int16 = 5;
         $int15 = calc($int15 + 5);
     } else {
@@ -97,8 +97,8 @@ while ($int31 < $int13) {
     $int32 = calc($int31 / $int24);
     $int34 = $intarray0($int33);
     $int35 = calc($int32 * $int15 + $int17);
-    $struct30 = enum(int, struct, enum_7674, $int31);
-    $stat36 = struct_param($struct30, param_3440);
+    $struct30 = enum(int, struct, toplevel_v2_stats_structs, $int31);
+    $stat36 = struct_param($struct30, toplevel_v2_stats_stat);
     $int40 = ~script3158($stat36);
     if ($int11 = 1) {
         $int44 = ~player_inspect_get_xp($stat36);
@@ -115,7 +115,7 @@ while ($int31 < $int13) {
     cc_create($component4, ^iftype_graphic, $int31);
     cc_setsize(60, 27, ^setsize_abs, ^setsize_abs);
     cc_setposition($int34, $int35, ^setpos_abs_left, ^setpos_abs_top);
-    if (enum_hasoutput(stat, enum_10327, $stat36) = true) {
+    if (enum_hasoutput(stat, stat_elite_list, $stat36) = true) {
         if ($int11 = 1 | ~stat_unlocked($stat36) = 1) {
             $graphic37 = "stats_background_button_elite,0";
             $graphic38 = "stats_background_button_elite,1";
@@ -130,9 +130,9 @@ while ($int31 < $int13) {
         $graphic38 = "stats_background_button,1";
         $int39 = ~script10495(0);
     }
-    if (%varplayerbit_19009 = 1) {
+    if (%option_stattrim = 1) {
         if ($int45 >= $int40) {
-            if (enum_hasoutput(stat, enum_10327, $stat36) = true) {
+            if (enum_hasoutput(stat, stat_elite_list, $stat36) = true) {
                 $graphic37 = "stats_background_button_elite,4";
                 $graphic38 = "stats_background_button_elite,5";
             } else {
@@ -140,7 +140,7 @@ while ($int31 < $int13) {
                 $graphic38 = "stats_background_button,5";
             }
         } else if ($int11 = 1 & ~script10782($stat36) >= 99 | $int11 = 0 & stat_base_actual($stat36) >= 99) {
-            if (enum_hasoutput(stat, enum_10327, $stat36) = true) {
+            if (enum_hasoutput(stat, stat_elite_list, $stat36) = true) {
                 $graphic37 = "stats_background_button_elite,2";
                 $graphic38 = "stats_background_button_elite,3";
             } else {
@@ -149,7 +149,7 @@ while ($int31 < $int13) {
             }
         }
     }
-    if (%varplayerbit_44074 = 0) {
+    if (%option_hide_skillboost_highlight = 0) {
         if ($int11 = 1) {
             cc_setcolour(^black);
         }
@@ -168,17 +168,17 @@ while ($int31 < $int13) {
     cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
     cc_setposition($int34, $int35, ^setpos_abs_left, ^setpos_abs_top);
     if ($int11 = 1 | ~stat_unlocked($stat36) = 1) {
-        cc_setgraphic(struct_param($struct30, param_3442));
+        cc_setgraphic(struct_param($struct30, toplevel_v2_stats_graphic));
     } else {
-        cc_setgraphic(struct_param($struct30, param_5493));
+        cc_setgraphic(struct_param($struct30, toplevel_v2_stats_graphic_disabled));
     }
     if ($int11 = 0) {
-        cc_setonvartransmit("script968($component5, $int31){varplayer_1227}");
+        cc_setonvartransmit("script968($component5, $int31){lvl_active}");
     }
     cc_create($component6, ^iftype_text, $int31);
     cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int34 + 24), calc($int35 + 2), ^setpos_abs_left, ^setpos_abs_top);
-    cc_settextfont(fontmetrics_66);
+    cc_settextfont(p11_full);
     cc_settextshadow(true);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_setcolour($int39);
@@ -191,7 +191,7 @@ while ($int31 < $int13) {
     cc_create($component7, ^iftype_text, $int31);
     cc_setsize(18, 11, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int34 + 39), calc($int35 + 14), ^setpos_abs_left, ^setpos_abs_top);
-    cc_settextfont(fontmetrics_66);
+    cc_settextfont(p11_full);
     cc_settextshadow(true);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_setcolour($int39);
@@ -205,13 +205,13 @@ while ($int31 < $int13) {
     cc_setsize(14, 13, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int34 + 43), calc($int35 + 1), ^setpos_abs_left, ^setpos_abs_top);
     if ($int44 >= 200000000) {
-        if (%varplayerbit_19011 = 0) {
-            cc_setgraphic(enum(int, graphic, enum_10398, %varplayerbit_19010));
+        if (%option_vanityicon_maxxp = 0) {
+            cc_setgraphic(enum(int, graphic, vtlvl_int_to_icon, %option_vanityicon_maxlvl));
         } else {
-            cc_setgraphic(enum(int, graphic, enum_10399, %varplayerbit_19011));
+            cc_setgraphic(enum(int, graphic, vtlvl_int_to_icon2, %option_vanityicon_maxxp));
         }
     } else if ($int45 >= $int40) {
-        cc_setgraphic(enum(int, graphic, enum_10398, %varplayerbit_19010));
+        cc_setgraphic(enum(int, graphic, vtlvl_int_to_icon, %option_vanityicon_maxlvl));
     }
     cc_create($component9, ^iftype_text, $int31);
     cc_setsize(60, 27, ^setsize_abs, ^setsize_abs);
@@ -221,9 +221,9 @@ while ($int31 < $int13) {
         cc_setop(2, "Set Level Target");
         cc_setop(3, "Set XP Target");
         cc_setop(4, "Clear Target");
-        cc_setonop("skillguide_setskill(struct_param($struct30, param_3441))");
-        cc_setparam(param_7540, 3);
-        cc_setparam(param_7545, $stat36);
+        cc_setonop("skillguide_setskill(struct_param($struct30, toplevel_v2_stats_statasint))");
+        cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 3);
+        cc_setparam(toplevel_v2_tooltip_mobile_stat, $stat36);
     }
     cc_setonmouserepeat("stats_mouseover($component9, $int31, $stat36, $component1, $int11)");
     cc_setonmouseleave("script546($component1)");

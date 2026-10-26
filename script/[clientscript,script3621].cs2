@@ -1,16 +1,16 @@
 // 3621
 [clientscript,script3621]
-if (%varclient_6739 = 0 & %varclient_6740 = 0) {
+if (%runepass_target_scroll = 0 & %runepass_scroll_start = 0) {
     return;
 }
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
-if_setgraphic(runepass_icon_scroll_default, interface_634:com_43);
-if_setmouseovercursor(cursor_46, interface_634:com_43);
-$int1 = calc(%varclient_6739 - %varclient_6740);
+if_setgraphic(runepass_icon_scroll_default, runepass:slider_yak);
+if_setmouseovercursor(cursor_use, runepass:slider_yak);
+$int1 = calc(%runepass_target_scroll - %runepass_scroll_start);
 if ($int1 ! 0) {
-    $int2 = calc(%varclient_6739 - if_getscrolly(interface_634:com_10));
+    $int2 = calc(%runepass_target_scroll - if_getscrolly(runepass:scrolling));
     $int0 = calc($int1 / 50);
     $int0 = calc(2 * $int0 * $int2 / $int1);
     if ($int0 > 0) {
@@ -20,9 +20,9 @@ if ($int1 ! 0) {
     }
 }
 if (abs($int0) < 5) {
-    %varclient_6739 = 0;
-    %varclient_6740 = 0;
+    %runepass_target_scroll = 0;
+    %runepass_scroll_start = 0;
 }
-%varclient_6741 = if_getscrolly(interface_634:com_10);
-if_setscrollpos(if_getscrollx(interface_634:com_10), calc(if_getscrolly(interface_634:com_10) + $int0), interface_634:com_10);
-~script3660(if_getscrolly(interface_634:com_10));
+%runepass_last_scroll = if_getscrolly(runepass:scrolling);
+if_setscrollpos(if_getscrollx(runepass:scrolling), calc(if_getscrolly(runepass:scrolling) + $int0), runepass:scrolling);
+~script3660(if_getscrolly(runepass:scrolling));

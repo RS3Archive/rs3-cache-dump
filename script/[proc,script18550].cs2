@@ -12,7 +12,7 @@ if ($int1 = 0) {
 if ($int7 = 1) {
     $int10 = calc($int10 + (15 + 205));
 }
-if (struct_param($struct3, param_9077) = 1) {
+if (struct_param($struct3, rewardshop_dynamic_entry) = 1) {
     while ($int5 < calc(($int1 + 1) * 11)) {
         if (cc_find($component0, $int5++) = true) {
             cc_delete;
@@ -20,7 +20,7 @@ if (struct_param($struct3, param_9077) = 1) {
     }
     return;
 }
-def_obj $obj11 = struct_param($struct3, param_4851);
+def_obj $obj11 = struct_param($struct3, rewardshop_obj);
 def_struct $struct12 = null;
 def_struct $struct13 = null;
 def_int $int14 = 0;
@@ -50,27 +50,27 @@ cc_setsize(251, 1, ^setsize_abs, ^setsize_aspect);
 cc_setposition($int9, calc($int10 + $int17 - cc_getheight - scale(1, 205, $int17)), ^setpos_abs_left, ^setpos_abs_top);
 def_int $int18 = calc($int9 + 255 / 2 - 120 / 2);
 def_int $int19 = calc($int10 + 10);
-if (struct_param($struct3, param_4852) ! null) {
+if (struct_param($struct3, rewardshop_icon) ! null) {
     cc_create($component0, ^iftype_graphic, $int5);
-    cc_setgraphic(struct_param($struct3, param_4852));
+    cc_setgraphic(struct_param($struct3, rewardshop_icon));
     cc_setposition($int18, $int19, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(120, 120, ^setsize_abs, ^setsize_abs);
 } else if ($obj11 ! null) {
-    if (struct_param($struct3, param_9078) = 1) {
+    if (struct_param($struct3, rewardshop_draw_model) = 1) {
         if ($int14 = 5) {
-            $npc15 = struct_param($struct13, param_3152);
+            $npc15 = struct_param($struct13, mtxmgt_pet_adult_npc);
             cc_create($component0, ^iftype_model, $int5);
             cc_setmodelorthog(false);
             cc_setnpcmodel($npc15);
-            cc_setmodelangle(struct_param($struct3, param_9081), struct_param($struct3, param_9082), struct_param($struct3, param_9083), struct_param($struct3, param_9084), struct_param($struct3, param_9085), struct_param($struct3, param_9080));
+            cc_setmodelangle(struct_param($struct3, rewardshop_model_x_offset), struct_param($struct3, rewardshop_model_y_offset), struct_param($struct3, rewardshop_model_x_angle), struct_param($struct3, rewardshop_model_y_angle), struct_param($struct3, rewardshop_model_z_angle), struct_param($struct3, rewardshop_model_zoom));
             cc_setposition($int18, $int19, ^setpos_abs_left, ^setpos_abs_top);
             cc_setsize(120, 120, ^setsize_abs, ^setsize_abs);
-        } else if (struct_param($struct3, param_9079) ! null) {
+        } else if (struct_param($struct3, rewardshop_model_override) ! null) {
             cc_create($component0, ^iftype_model, $int5);
             cc_setposition($int18, $int19, ^setpos_abs_left, ^setpos_abs_top);
-            cc_setmodel(struct_param($struct3, param_9079));
+            cc_setmodel(struct_param($struct3, rewardshop_model_override));
             cc_setmodelorthog(true);
-            cc_setmodelangle(struct_param($struct3, param_9081), struct_param($struct3, param_9082), struct_param($struct3, param_9083), struct_param($struct3, param_9084), struct_param($struct3, param_9085), struct_param($struct3, param_9080));
+            cc_setmodelangle(struct_param($struct3, rewardshop_model_x_offset), struct_param($struct3, rewardshop_model_y_offset), struct_param($struct3, rewardshop_model_x_angle), struct_param($struct3, rewardshop_model_y_angle), struct_param($struct3, rewardshop_model_z_angle), struct_param($struct3, rewardshop_model_zoom));
             cc_setposition($int18, $int19, ^setpos_abs_left, ^setpos_abs_top);
             cc_setsize(120, 120, ^setsize_abs, ^setsize_abs);
         } else {
@@ -86,12 +86,12 @@ if (struct_param($struct3, param_4852) ! null) {
 }
 $int5 = calc($int5 + 1);
 def_string $string0 = ~script13337($struct3);
-def_int $int20 = struct_param($struct3, param_4448);
+def_int $int20 = struct_param($struct3, rewardshop_obj_count);
 $string0 = ~script325($int20, $string0, true, 0);
-$string0 = ~script3930($string0, calc(255 - 10), 2, fontmetrics_57);
+$string0 = ~script3930($string0, calc(255 - 10), 2, cinzel_15pt_bold);
 cc_create($component0, ^iftype_text, $int5);
 cc_settext($string0);
-cc_settextfont(fontmetrics_57);
+cc_settextfont(cinzel_15pt_bold);
 cc_setcolour(0xe0d471);
 cc_setsize(calc(255 - 10), scale(205, 100, 30), ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int9 + 5), calc($int10 + scale(205, 100, 55)), ^setpos_abs_left, ^setpos_abs_top);
@@ -99,22 +99,22 @@ cc_settextalign(^settextalign_centre, ^settextalign_centre, 10);
 $int5 = calc($int5 + 1);
 cc_create($component0, ^iftype_text, $int5);
 def_int $int21 = ~script9095($struct3, $boolean16);
-if (playermember = false & struct_param($struct3, param_5147) > 0) {
-    $int21 = struct_param($struct3, param_5147);
+if (playermember = false & struct_param($struct3, rewardshop_cost_f2p) > 0) {
+    $int21 = struct_param($struct3, rewardshop_cost_f2p);
 }
 def_string $string1 = tostring_localised($int21, true);
 if ($int21 = 0) {
     $string1 = "FREE!";
 }
 cc_settext($string1);
-cc_settextfont(fontmetrics_57);
+cc_settextfont(cinzel_15pt_bold);
 cc_setcolour(0xe0e0e0);
 cc_setsize(255, scale(205, 100, 15), ^setsize_abs, ^setsize_abs);
 cc_setposition($int9, calc($int10 + scale(205, 100, 83)), ^setpos_abs_left, ^setpos_abs_top);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 20);
 $int5 = calc($int5 + 1);
 cc_create($component0, ^iftype_graphic, $int5);
-cc_setgraphic(struct_param($struct2, param_8661));
+cc_setgraphic(struct_param($struct2, rewardshop_currency_sprite));
 cc_setsize(scale(205, 100, 15), scale(205, 100, 15), ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int9 + 40), calc($int10 + scale(205, 100, 83)), ^setpos_abs_left, ^setpos_abs_top);
 if ($int21 = 0) {
@@ -122,25 +122,25 @@ if ($int21 = 0) {
 }
 $int5 = calc($int5 + 1);
 cc_create($component0, ^iftype_graphic, $int5);
-cc_setgraphic(struct_param($struct4, param_4738));
+cc_setgraphic(struct_param($struct4, big_window_discount_banner_left));
 cc_setsize(16, 28, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int9 + 255 - 16), calc($int10 - 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_sethide(true);
 $int5 = calc($int5 + 1);
 cc_create($component0, ^iftype_graphic, $int5);
-cc_setgraphic(struct_param($struct4, param_4739));
+cc_setgraphic(struct_param($struct4, big_window_discount_banner_tile));
 cc_setsize(0, 28, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int9 + 255), calc($int10 - 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_sethide(true);
 $int5 = calc($int5 + 1);
 cc_create($component0, ^iftype_graphic, $int5);
-cc_setgraphic(struct_param($struct4, param_4740));
+cc_setgraphic(struct_param($struct4, big_window_discount_banner_right));
 cc_setsize(12, 28, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int9 + 255), calc($int10 - 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_sethide(true);
 $int5 = calc($int5 + 1);
 cc_create($component0, ^iftype_text, $int5);
-cc_settextfont(fontmetrics_57);
+cc_settextfont(cinzel_15pt_bold);
 cc_setcolour(^white);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setsize(0, 23, ^setsize_abs, ^setsize_abs);

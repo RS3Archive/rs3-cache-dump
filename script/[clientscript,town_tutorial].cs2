@@ -2,8 +2,8 @@
 [clientscript,town_tutorial](component $component0, component $component1)
 def_string $string0 = "Tutorial:<br>Welcome to the Guards team!";
 def_int $int2 = 0;
-if (%varplayerbit_21649 = 0) {
-    switch_int (%varplayerbit_21642) {
+if (%town_role = 0) {
+    switch_int (%town_tutorial_step) {
         case 1 :
             $string0 = "Tutorial - Robbers:<br><br>Welcome to the island, fresh with opportunity.<br>Your goal as a robber is to infiltrate the town, locate the bank and bring as many loot bags to the boat as possible while avoiding the guards!";
         case 2 :
@@ -35,7 +35,7 @@ if (%varplayerbit_21649 = 0) {
             $string0 = "Tutorial - Robbers:<br><br>And those are the basics!<br>There are perks to being on each side that can be unlocked from the rewards shop, as well as random events, where townsfolk need your help.<br>For now, click to exit!";
     }
 } else {
-    switch_int (%varplayerbit_21642) {
+    switch_int (%town_tutorial_step) {
         case 1 :
             $string0 = "Tutorial - Guards:<br><br>Welcome to the island - yours to defend.<br>Your goal as a guard is to prevent the robbers from getting away with too much loot.";
         case 2 :
@@ -56,13 +56,13 @@ if (%varplayerbit_21649 = 0) {
             $string0 = "Tutorial - Guards:<br><br>And those are the basics!<br>Visit the reward shop for perks that can be unlocked. There are also random events, where townsfolk need your help.<br>For now, click to exit!";
     }
 }
-if_settextfont(fontmetrics_26, $component1);
+if_settextfont(museo_sans_11pt_regular, $component1);
 def_int $int3 = min(500, max(30, calc(paraheight($string0, if_getwidth($component1), if_getfontmetrics($component1)) * 15)));
 $int3 = calc($int3 + 85);
 if ($int2 = 1) {
-    if_sethide(true, interface_1036:com_14);
+    if_sethide(true, town_tutorial:next_arrow);
 } else {
-    if_sethide(false, interface_1036:com_14);
+    if_sethide(false, town_tutorial:next_arrow);
 }
 if_setsize(if_getwidth($component0), $int3, ^setsize_abs, ^setsize_abs, $component0);
 if_settext($string0, $component1);

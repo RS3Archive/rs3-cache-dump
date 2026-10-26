@@ -1,7 +1,7 @@
 // 13824
 [clientscript,optext_timer]
-if (%varplayerbit_42094 = 1 | ~script6431 = true) {
-    if_setontimer(null, interface_1477:com_883);
+if (%option_optext_disabled = 1 | ~script6431 = true) {
+    if_setontimer(null, toplevel_v2:optext_layer);
     return;
 }
 def_int $int0 = 0;
@@ -9,27 +9,27 @@ def_string $string0 = "";
 def_string $string1 = "";
 def_string $string2 = "";
 $int0, $string1, $string0, $string2 = get_active_minimenu_entry;
-%varclient_6363 = 0;
+%toplevel_v2_hover_layer_npc_in_focus = 0;
 switch_int ($int0) {
     case 4, 3, 2, 7 :
-        if (%varclient_6347 ! $int0) {
+        if (%optext_last_type ! $int0) {
             ~script5487(1);
         }
-        %varclient_6363 = 1;
+        %toplevel_v2_hover_layer_npc_in_focus = 1;
     case 1 :
-        if (%varclient_1691 = null) {
-            if (%varclient_1688 = true) {
+        if (%tli_optext_item = null) {
+            if (%tli_optext_open = true) {
                 ~script5487(1);
             }
             return;
         }
     case default :
-        if (%varclient_1688 = true) {
+        if (%tli_optext_open = true) {
             ~script5487(1);
         }
         return;
 }
-%varclient_6347 = $int0;
+%optext_last_type = $int0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 $int1, $int2 = get_minimenu_length;
@@ -43,9 +43,9 @@ if ($boolean3 = true & $int1 < 2) {
     $string2 = "";
     $int0 = -1;
 }
-if (compare($string0, %varclient_2252) ! 0 | compare($string1, %varclient_6361) ! 0) {
-    %varclient_2252 = $string0;
-    %varclient_6361 = $string1;
+if (compare($string0, %tli_optext_last_noun) ! 0 | compare($string1, %tli_optext_last_verb) ! 0) {
+    %tli_optext_last_noun = $string0;
+    %tli_optext_last_verb = $string1;
     ~script5487(0);
 } else if ($int0 = 1) {
     if (calc(clientclock % 50) ! 0) {
@@ -67,9 +67,9 @@ if (string_length($string0) > 0) {
 switch_int ($int0) {
     case 4 :
         if (npc_find_active_minimenu_entry = true) {
-            if (%varclient_173 <= 0 & %varplayerbit_3028 = 0 & (compare($string1, "Attack") = 0 | nc_param(npc_type, param_9321) = 1)) {
+            if (%camera_control_mode <= 0 & %cutscene_status = 0 & (compare($string1, "Attack") = 0 | nc_param(npc_type, toplevel_v2_show_overhead_panel) = 1)) {
                 if (is_targeted_entity = false) {
-                    ~script8876(removetags($string0), nc_param(npc_type, param_2848), nc_param(npc_type, param_26));
+                    ~script8876(removetags($string0), nc_param(npc_type, combatv2_weakness), nc_param(npc_type, damagetype));
                     ~script7234($string5);
                 } else {
                     ~script8880;
@@ -87,13 +87,13 @@ switch_int ($int0) {
     case 7 :
         ~script7234($string5);
     case 1 :
-        if (%varclient_1691 ! null) {
+        if (%tli_optext_item ! null) {
             ~script7234($string5);
         } else {
             ~script5487(1);
         }
     case default :
-        if (%varclient_1688 = true) {
+        if (%tli_optext_open = true) {
             ~script5487(1);
         }
 }

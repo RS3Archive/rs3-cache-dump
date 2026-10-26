@@ -1,14 +1,14 @@
 // 18245
 [clientscript,script18245]
-def_enum $enum0 = ~script18158(%varplayer_3232);
+def_enum $enum0 = ~script18158(%omge_job_interface_skill);
 if ($enum0 = null) {
     return;
 }
-cc_deleteall(interface_1343:com_19);
-cc_deleteall(interface_1343:com_20);
-cc_deleteall(interface_1343:com_22);
-cc_deleteall(interface_1343:com_21);
-cc_deleteall(interface_1343:com_23);
+cc_deleteall(jobs_main:button_graphics);
+cc_deleteall(jobs_main:button_icons);
+cc_deleteall(jobs_main:button_stamps);
+cc_deleteall(jobs_main:button_labels);
+cc_deleteall(jobs_main:button_clickboxes);
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = enum_getoutputcount($enum0);
@@ -21,33 +21,33 @@ while ($int1 < $int3) {
 $int1 = 0;
 def_int $int6 = 0;
 while ($int5 = 0) {
-    $int1 = calc(struct_param($struct4, param_1268) - 1);
+    $int1 = calc(struct_param($struct4, task_unique_id) - 1);
     $int6 = 0;
-    if (~script15771(%varplayer_3232, struct_param($struct4, param_1268)) = 1) {
+    if (~script15771(%omge_job_interface_skill, struct_param($struct4, task_unique_id)) = 1) {
         $int6 = 1;
     }
     if ($int6 = 1) {
         ~script18242($struct4, $int1, $int2);
         $int2 = calc($int2 + 1);
     } else {
-        if (cc_find(interface_1343:com_19, $int1) = true) {
+        if (cc_find(jobs_main:button_graphics, $int1) = true) {
             cc_sethide(true);
         }
-        if (cc_find(interface_1343:com_20, $int1) = true) {
+        if (cc_find(jobs_main:button_icons, $int1) = true) {
             cc_sethide(true);
         }
-        if (cc_find(interface_1343:com_21, $int1) = true) {
+        if (cc_find(jobs_main:button_labels, $int1) = true) {
             cc_sethide(true);
         }
-        if (cc_find(interface_1343:com_22, $int1) = true) {
+        if (cc_find(jobs_main:button_stamps, $int1) = true) {
             cc_sethide(true);
         }
-        if (cc_find(interface_1343:com_23, $int1) = true) {
+        if (cc_find(jobs_main:button_clickboxes, $int1) = true) {
             cc_sethide(true);
         }
     }
-    if (struct_param($struct4, param_1269) ! 0) {
-        $struct4 = enum(int, struct, $enum0, struct_param($struct4, param_1269));
+    if (struct_param($struct4, task_next_id) ! 0) {
+        $struct4 = enum(int, struct, $enum0, struct_param($struct4, task_next_id));
     } else {
         $int5 = 1;
     }

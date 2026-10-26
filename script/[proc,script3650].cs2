@@ -10,13 +10,13 @@ def_npc $npc9 = null;
 def_loc $loc10 = null;
 def_boolean $boolean11 = false;
 def_string $string0 = "";
-def_int $int12 = db_getfieldcount($dbrow3, dbtable_74:col15);
+def_int $int12 = db_getfieldcount($dbrow3, runepass_task:col15);
 def_int $int13 = calc(if_getwidth($component1) - 5);
-if (if_gethide(interface_634:com_54) = true) {
+if (if_gethide(runepass:task_scrollbar) = true) {
     $int13 = calc($int13 - 16);
 }
 $int13 = calc($int13 - 30);
-def_boolean $boolean14 = db_getfield($dbrow3, dbtable_74:col16, 0);
+def_boolean $boolean14 = db_getfield($dbrow3, runepass_task:col16, 0);
 def_int $int15 = ~script3604($int2);
 cc_deleteall($component1);
 switch_int ($int2) {
@@ -29,35 +29,35 @@ if_settext("Task <$string0>", $component0);
 def_int $int16 = 0;
 def_int $int17 = ~script3606($int2, 0);
 def_int $int18 = ~script3606($int2, 1);
-def_int $int19 = db_getfield($dbrow3, dbtable_74:col7, 0);
+def_int $int19 = db_getfield($dbrow3, runepass_task:col7, 0);
 def_int $int20 = 0;
-def_boolean $boolean21 = db_getfield($dbrow3, dbtable_74:col18, 0);
+def_boolean $boolean21 = db_getfield($dbrow3, runepass_task:col18, 0);
 def_stat $stat22 = null;
 def_string $string1 = "";
 def_string $string2 = "";
-$string1, $string2 = db_getfield($dbrow3, dbtable_74:col6, 0);
+$string1, $string2 = db_getfield($dbrow3, runepass_task:col6, 0);
 def_int $int23 = 0;
 def_int $int24 = 0;
 if (string_length($string1) > 0) {
     ~script8758($component1, $int16, $string1, $int24);
 } else {
-    $stat22 = db_getfield($dbrow3, dbtable_74:col2, 0);
+    $stat22 = db_getfield($dbrow3, runepass_task:col2, 0);
     if ($stat22 ! null) {
-        ~script8758($component1, $int16, enum(stat, string, enum_680, $stat22), $int24);
+        ~script8758($component1, $int16, enum(stat, string, stat_to_string, $stat22), $int24);
     } else {
-        ~script8758($component1, $int16, db_getfield($dbrow3, dbtable_74:col0, 0), $int24);
+        ~script8758($component1, $int16, db_getfield($dbrow3, runepass_task:col0, 0), $int24);
     }
 }
 $int24 = calc($int24 + 1);
 $int16 = calc($int16 + 34);
 while ($int17 < $int12) {
-    $int6, $int5, $int7, $obj8, $npc9, $loc10, $boolean11, $string0 = db_getfield($dbrow3, dbtable_74:col15, $int17);
+    $int6, $int5, $int7, $obj8, $npc9, $loc10, $boolean11, $string0 = db_getfield($dbrow3, runepass_task:col15, $int17);
     if (($boolean21 = true | $int6 <= $int4 & $int6 >= $int20) & $int17 ! $int19) {
-        if ($boolean11 = true & calc($int5 & %varplayer_9062) ! 0) {
+        if ($boolean11 = true & calc($int5 & %runepass_availability) ! 0) {
             if (string_length($string0) = 0 & $obj8 ! null) {
                 $string0 = oc_name($obj8);
             }
-            $int23 = calc(16 + max(24, ~script7593($string0, $int13, fontmetrics_28, -1)));
+            $int23 = calc(16 + max(24, ~script7593($string0, $int13, museo_sans_13pt_regular, -1)));
             if (calc($int24 % 2) = 0) {
                 cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
                 cc_setgraphic(scroll_divider);
@@ -67,7 +67,7 @@ while ($int17 < $int12) {
             cc_create($component1, ^iftype_text, if_getnextsubid($component1));
             cc_setcolour(0x8eb9bc);
             cc_settext($string0);
-            cc_settextfont(fontmetrics_28);
+            cc_settextfont(museo_sans_13pt_regular);
             cc_setposition(5, $int16, ^setpos_abs_left, ^setpos_abs_top);
             cc_setsize($int13, $int23, ^setsize_abs, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
@@ -91,16 +91,16 @@ while ($int17 < $int12) {
     } else if ($int18 > 0) {
         $int17 = $int18;
         $int4 = ~script3610($dbrow3, 1);
-        $boolean21 = db_getfield($dbrow3, dbtable_74:col19, 0);
+        $boolean21 = db_getfield($dbrow3, runepass_task:col19, 0);
         $int18 = 0;
         $int19 = 0;
         $int20 = 0;
         if (string_length($string2) > 0) {
             ~script8758($component1, $int16, $string2, $int24);
         } else {
-            $stat22 = db_getfield($dbrow3, dbtable_74:col3, 0);
+            $stat22 = db_getfield($dbrow3, runepass_task:col3, 0);
             if ($stat22 ! null) {
-                ~script8758($component1, $int16, enum(stat, string, enum_680, $stat22), $int24);
+                ~script8758($component1, $int16, enum(stat, string, stat_to_string, $stat22), $int24);
             }
         }
         $int24 = calc($int24 + 1);
@@ -109,15 +109,15 @@ while ($int17 < $int12) {
         $int17 = $int12;
     }
 }
-if_setscrollsize(0, $int16, interface_634:com_58);
-if (if_getscrolly(interface_634:com_58) > if_getscrollheight(interface_634:com_58)) {
-    if_setscrollpos(0, if_getscrollheight(interface_634:com_58), interface_634:com_58);
+if_setscrollsize(0, $int16, runepass:task_specifics);
+if (if_getscrolly(runepass:task_specifics) > if_getscrollheight(runepass:task_specifics)) {
+    if_setscrollpos(0, if_getscrollheight(runepass:task_specifics), runepass:task_specifics);
 }
-if ($int16 < if_getheight(interface_634:com_58)) {
-    if_sethide(true, interface_634:com_54);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, interface_634:com_58);
+if ($int16 < if_getheight(runepass:task_specifics)) {
+    if_sethide(true, runepass:task_scrollbar);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, runepass:task_specifics);
 } else {
-    if_sethide(false, interface_634:com_54);
-    if_setsize(16, 0, ^setsize_minus, ^setsize_minus, interface_634:com_58);
+    if_sethide(false, runepass:task_scrollbar);
+    if_setsize(16, 0, ^setsize_minus, ^setsize_minus, runepass:task_specifics);
 }
-~scrollbar_vertical_existing(interface_634:com_56, interface_634:com_54, interface_634:com_58);
+~scrollbar_vertical_existing(runepass:task_bar_dragger, runepass:task_scrollbar, runepass:task_specifics);

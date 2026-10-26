@@ -1,24 +1,24 @@
 // 6782
 [clientscript,script6782]
-def_component $component0 = interface_1253:com_320;
+def_component $component0 = wheel_of_fortune:reward_layer_bonus_prizes_content;
 cc_deleteall($component0);
 ~cc_add_panel($component0, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, false, 0);
 def_int $int1 = 0;
 def_graphic $graphic2 = null;
-db_listall(dbtable_162);
+db_listall(trh196_promo_bonus);
 def_dbrow $dbrow3 = db_findnext;
 def_obj $obj4 = null;
 def_int $int5 = 0;
 def_string $string0 = "";
 while ($dbrow3 ! null) {
-    if (db_getfieldcount($dbrow3, dbtable_162:col6) > 0 & ~script6734($dbrow3) = true) {
+    if (db_getfieldcount($dbrow3, trh196_promo_bonus:col6) > 0 & ~script6734($dbrow3) = true) {
         $int1 = calc($int1 + 1);
-        $obj4, $int5 = db_getfield($dbrow3, dbtable_162:col6, 0);
+        $obj4, $int5 = db_getfield($dbrow3, trh196_promo_bonus:col6, 0);
         ~script15939($component0, $int1, 0, 0, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
         ~script7920($component0, $int1, 1, $int1, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 40, 40, ^setsize_abs, ^setsize_abs, rs3_ui_slot_bonus_prize);
         ~script10024($component0, $int1, 2, $int1, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 32, 32, ^setsize_abs, ^setsize_abs, $obj4, $int5, 2, 0);
-        $string0 = "<tostring($int5)> x <oc_name($obj4)><br><oc_param($obj4, param_4085)>";
-        if (oc_param($obj4, param_6799) = 1) {
+        $string0 = "<tostring($int5)> x <oc_name($obj4)><br><oc_param($obj4, trh_extended_desc)>";
+        if (oc_param($obj4, premium_currency_object) = 1) {
             $graphic2 = "rs3_icon_bonds_pouch,0";
             $string0 = "<$string0><br>This item gets sent to your currency pouch.";
         } else {
@@ -42,20 +42,20 @@ while ($dbrow3 ! null) {
     }
     $dbrow3 = db_findnext;
 }
-if_settext("Bonus Prizes  <col=FFFFFF>(<tostring($int1)>)</col>", interface_1253:com_317);
+if_settext("Bonus Prizes  <col=FFFFFF>(<tostring($int1)>)</col>", wheel_of_fortune:reward_layer_bonus_prizes_title);
 if (cc_find($component0, 0) = true) {
     cc_setsize(calc(80 * $int1), 0, ^setsize_abs, ^setsize_minus);
     if ($int1 <= 8) {
-        ~script13959(interface_1253:com_322, struct_37674, true);
-        ~script13959(interface_1253:com_324, struct_37674, true);
-        if_sethide(true, interface_1253:com_321);
-        if_sethide(true, interface_1253:com_323);
+        ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_left_btn, rs3tli_icon_scroll_horizontal, true);
+        ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_right_btn, rs3tli_icon_scroll_horizontal, true);
+        if_sethide(true, wheel_of_fortune:reward_layer_bonus_prizes_scroll_left);
+        if_sethide(true, wheel_of_fortune:reward_layer_bonus_prizes_scroll_right);
     } else {
-        if_setscrollsize(cc_getwidth, 0, interface_1253:com_319);
-        if_setscrollpos(0, 0, interface_1253:com_319);
-        ~script13959(interface_1253:com_322, struct_37674, true);
-        if_sethide(false, interface_1253:com_321);
-        if_sethide(false, interface_1253:com_323);
+        if_setscrollsize(cc_getwidth, 0, wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer);
+        if_setscrollpos(0, 0, wheel_of_fortune:reward_layer_bonus_prizes_content_scroll_layer);
+        ~script13959(wheel_of_fortune:reward_layer_bonus_scroll_left_btn, rs3tli_icon_scroll_horizontal, true);
+        if_sethide(false, wheel_of_fortune:reward_layer_bonus_prizes_scroll_left);
+        if_sethide(false, wheel_of_fortune:reward_layer_bonus_prizes_scroll_right);
     }
 }
-if_settext("(<tostring($int1)>)", interface_1253:com_318);
+if_settext("(<tostring($int1)>)", wheel_of_fortune:reward_layer_bonus_prizes_number);

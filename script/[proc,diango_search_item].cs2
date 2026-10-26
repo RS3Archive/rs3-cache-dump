@@ -3,12 +3,12 @@
 def_obj $obj1 = null;
 def_int $int2 = if_getwidth($component0);
 def_string $string1 = lowercase($string0);
-def_int $int3 = enum_getoutputcount(enum_6245);
-def_int $int4 = calc($int3 + enum_getoutputcount(enum_8842));
-def_enum $enum5 = enum_6245;
-if (%varplayer_9167 = 1) {
-    $enum5 = enum_14535;
-    $int4 = enum_getoutputcount(enum_14535);
+def_int $int3 = enum_getoutputcount(diango_items);
+def_int $int4 = calc($int3 + enum_getoutputcount(trh_diango_recoverable_items));
+def_enum $enum5 = diango_items;
+if (%diango_interface_mode = 1) {
+    $enum5 = qps_storage_chest_items;
+    $int4 = enum_getoutputcount(qps_storage_chest_items);
     $int3 = $int4;
 }
 def_int $int6 = 0;
@@ -22,7 +22,7 @@ if (~script6431 = true) {
     $int12 = 44;
     $int10 = 64;
 }
-if (%varclient_6684 = true) {
+if (%bank_searchmode_client = true) {
     $int8 = 20;
 }
 while ($int6 < $int4) {
@@ -31,7 +31,7 @@ while ($int6 < $int4) {
             $obj1 = enum(int, obj, $enum5, $int6);
         } else {
             $int9 = 1;
-            $obj1 = enum(int, obj, enum_8842, calc($int6 - $int3));
+            $obj1 = enum(int, obj, trh_diango_recoverable_items, calc($int6 - $int3));
         }
         if (~script14437($obj1, $int9) = true & string_indexof_string(lowercase(oc_name(~script13794($obj1))), $string1, 0) > -1) {
             $int11 = calc($int11 + 1);
@@ -53,8 +53,8 @@ if ($int7 > 8) {
     $int8 = calc($int8 + $int10);
 }
 def_int $int13 = 0;
-if (%varclient_6684 = true) {
-    $int13 = if_gety(interface_517:com_202);
+if (%bank_searchmode_client = true) {
+    $int13 = if_gety(bank:diango_inv);
     if ($int11 > 0) {
         if ($int13 = 0) {
             $int13 = calc($int13 + 5);
@@ -63,17 +63,17 @@ if (%varclient_6684 = true) {
         ~script15434($int11);
     } else if ($int11 = 0) {
         if ($int13 = 0) {
-            if_sethide(false, interface_517:com_198);
+            if_sethide(false, bank:message_nomatches);
         }
         ~script10186(1, 1);
     }
     ~bank_build_scrollbar(calc($int13 + $int8));
     return;
 }
-if ($int8 > if_getheight(interface_1387:com_38)) {
-    if_setscrollsize(0, $int8, interface_1387:com_38);
-    ~scrollbar_resize(interface_1387:com_39, interface_1387:com_38, if_getscrolly(interface_1387:com_38));
+if ($int8 > if_getheight(diango_items:holiday_items)) {
+    if_setscrollsize(0, $int8, diango_items:holiday_items);
+    ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, if_getscrolly(diango_items:holiday_items));
 } else {
-    if_setscrollsize(0, 0, interface_1387:com_38);
-    ~scrollbar_resize(interface_1387:com_39, interface_1387:com_38, 0);
+    if_setscrollsize(0, 0, diango_items:holiday_items);
+    ~scrollbar_resize(diango_items:holiday_scrollbar, diango_items:holiday_items, 0);
 }

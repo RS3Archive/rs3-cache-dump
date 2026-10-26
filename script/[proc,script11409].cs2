@@ -1,21 +1,21 @@
 // 11409
 [proc,script11409](component $component0)
-def_int $int1 = inv_size(inv_773);
+def_int $int1 = inv_size(loot);
 def_int $int2 = calc(if_getheight($component0) - 52);
 def_int $int3 = 0;
 def_int $int4 = 0;
-if_sethide(false, interface_1622:com_2);
-if_setsize(0, 52, ^setsize_minus, ^setsize_minus, interface_1622:com_1);
-if_setsize(16, 52, ^setsize_abs, ^setsize_minus, interface_1622:com_0);
-if (%varplayerbit_22875 ! 1) {
-    if_sethide(false, interface_1622:com_10);
+if_sethide(false, toplevel_v2_loot:fixed_layer);
+if_setsize(0, 52, ^setsize_minus, ^setsize_minus, toplevel_v2_loot:scrolling_layer);
+if_setsize(16, 52, ^setsize_abs, ^setsize_minus, toplevel_v2_loot:scrollbar_layer);
+if (%toplevel_v2_active_skinset ! 1) {
+    if_sethide(false, toplevel_v2_loot:slot_layer);
 } else {
-    if_sethide(true, interface_1622:com_10);
+    if_sethide(true, toplevel_v2_loot:slot_layer);
 }
 def_int $int5 = -1;
 def_int $int6 = -1;
-$int5 = if_getwidth(interface_1622:com_1);
-$int6 = if_getheight(interface_1622:com_1);
+$int5 = if_getwidth(toplevel_v2_loot:scrolling_layer);
+$int6 = if_getheight(toplevel_v2_loot:scrolling_layer);
 def_int $int7 = 40;
 def_int $int8 = 36;
 def_int $int9 = 2;
@@ -42,11 +42,11 @@ if (calc($int1 % $int15) > 0) {
 $int16 = max(1, $int16);
 if (calc($int16 * $int11) > $int12) {
     $int3 = 1;
-    if_setsize(16, 52, ^setsize_minus, ^setsize_minus, interface_1622:com_1);
-    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, interface_1622:com_0);
-    if_setsize(16, 52, ^setsize_abs, ^setsize_minus, interface_1622:com_0);
-    $int5 = if_getwidth(interface_1622:com_1);
-    $int6 = if_getheight(interface_1622:com_1);
+    if_setsize(16, 52, ^setsize_minus, ^setsize_minus, toplevel_v2_loot:scrolling_layer);
+    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, toplevel_v2_loot:scrollbar_layer);
+    if_setsize(16, 52, ^setsize_abs, ^setsize_minus, toplevel_v2_loot:scrollbar_layer);
+    $int5 = if_getwidth(toplevel_v2_loot:scrolling_layer);
+    $int6 = if_getheight(toplevel_v2_loot:scrolling_layer);
     $int15, $int13, $int14 = ~script9856(calc($int5 - 2), $int10, calc(2 + 2), 2);
 }
 $int15 = min($int15, $int1);
@@ -58,13 +58,13 @@ if (calc($int1 % $int15) > 0) {
 $int16 = max(1, $int16);
 def_int $int17 = calc($int15 * $int10 + 2 + 2);
 def_int $int18 = calc($int16 * $int11 + (2 + 2));
-$int4 = max(if_getheight(interface_1622:com_1), calc($int18 - $int6));
-if_setscrollsize(0, $int4, interface_1622:com_1);
+$int4 = max(if_getheight(toplevel_v2_loot:scrolling_layer), calc($int18 - $int6));
+if_setscrollsize(0, $int4, toplevel_v2_loot:scrolling_layer);
 def_int $int19 = 0;
 def_int $int20 = 0;
 def_obj $obj21 = null;
 def_int $int22 = 0;
-def_int $int23 = calc(%varclient_1031 - 1);
+def_int $int23 = calc(%inventory_target - 1);
 def_int $intarray0($int15);
 def_int $int24 = 0;
 while ($int24 < $int15) {
@@ -72,11 +72,11 @@ while ($int24 < $int15) {
     $int24 = calc($int24 + 1);
 }
 while ($int19 < $int1) {
-    if (.cc_find(interface_1622:com_10, $int19) = true & cc_find(interface_1622:com_11, $int19) = true) {
-        $obj21 = inv_getobj(inv_773, $int19);
-        $int22 = inv_getnum(inv_773, $int19);
+    if (.cc_find(toplevel_v2_loot:slot_layer, $int19) = true & cc_find(toplevel_v2_loot:item_layer, $int19) = true) {
+        $obj21 = inv_getobj(loot, $int19);
+        $int22 = inv_getnum(loot, $int19);
         .cc_setposition(calc($intarray0(calc($int19 % $int15)) - 1), calc($int19 / $int15 * $int11 + 2 - 1), ^setpos_abs_left, ^setpos_abs_top);
-        if (.cc_find(interface_1622:com_12, $int19) = true) {
+        if (.cc_find(toplevel_v2_loot:highlight_layer, $int19) = true) {
             .cc_setposition(calc($intarray0(calc($int19 % $int15)) - 1), calc($int19 / $int15 * $int11 + 2 - 1), ^setpos_abs_left, ^setpos_abs_top);
         }
         cc_setposition(calc($intarray0(calc($int19 % $int15)) + 3), calc($int19 / $int15 * $int11 + 1 + 2), ^setpos_abs_left, ^setpos_abs_top);
@@ -89,9 +89,9 @@ while ($int19 < $int1) {
     $int19 = calc($int19 + 1);
 }
 def_int $int25 = calc($int16 * $int11 + 2 + 2);
-$int25 = max(if_getheight(interface_1622:com_1), $int25);
-cc_deleteall(interface_1622:com_0);
-if_setscrollsize(0, $int25, interface_1622:com_1);
-if ($int25 > if_getheight(interface_1622:com_1)) {
-    ~rs3_scrollbar_vertical(interface_1622:com_0, interface_1622:com_1);
+$int25 = max(if_getheight(toplevel_v2_loot:scrolling_layer), $int25);
+cc_deleteall(toplevel_v2_loot:scrollbar_layer);
+if_setscrollsize(0, $int25, toplevel_v2_loot:scrolling_layer);
+if ($int25 > if_getheight(toplevel_v2_loot:scrolling_layer)) {
+    ~rs3_scrollbar_vertical(toplevel_v2_loot:scrollbar_layer, toplevel_v2_loot:scrolling_layer);
 }

@@ -1,7 +1,7 @@
 // 770
 [proc,script770](boolean $boolean0, int $int1, int $int2)
-def_int $int3 = if_getwidth(interface_673:com_0);
-def_int $int4 = if_getheight(interface_673:com_0);
+def_int $int3 = if_getwidth(tut5_spotlight:content_layer);
+def_int $int4 = if_getheight(tut5_spotlight:content_layer);
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 0;
@@ -20,19 +20,19 @@ if ($boolean0 = false) {
     } else {
         $int11 = 4;
     }
-    if (%varclient_3851 ! 0 & $int11 = %varclient_3851) {
+    if (%tut5_offscreen_built ! 0 & $int11 = %tut5_offscreen_built) {
         return;
     }
-    cc_deleteall(interface_673:com_0);
-    cc_create(interface_673:com_0, ^iftype_rectangle, 0);
+    cc_deleteall(tut5_spotlight:content_layer);
+    cc_create(tut5_spotlight:content_layer, ^iftype_rectangle, 0);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
     cc_setfill(true);
     cc_settrans(125);
-    cc_create(interface_673:com_0, ^iftype_graphic, 1);
+    cc_create(tut5_spotlight:content_layer, ^iftype_graphic, 1);
     cc_setgraphic(rs3_info_display_pointer);
     cc_setsize(41, 54, ^setsize_abs, ^setsize_abs);
-    cc_setontimer("script773(1, 0, interface_673:com_0)");
+    cc_setontimer("script773(1, 0, tut5_spotlight:content_layer)");
     switch_int ($int11) {
         case default :
             cc_setposition(0, calc($int4 / 2 - cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
@@ -47,63 +47,63 @@ if ($boolean0 = false) {
             cc_setposition(calc($int3 / 2 - cc_getwidth / 2), calc($int4 - cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
             cc_set2dangle(0);
     }
-    %varclient_3851 = $int11;
+    %tut5_offscreen_built = $int11;
     return;
 }
-cc_deleteall(interface_673:com_0);
-%varclient_3851 = 0;
-def_int $int13 = db_getfield(%varplayer_8746, dbtable_72:col26, 0);
-$int5 = scale(calc(%varclient_3848 - %varclient_3847), 100, %varclient_3845);
-$int6 = scale(calc(%varclient_3850 - %varclient_3849), 100, %varclient_3845);
+cc_deleteall(tut5_spotlight:content_layer);
+%tut5_offscreen_built = 0;
+def_int $int13 = db_getfield(%uitutorial_current_step, uitutorial_step:col26, 0);
+$int5 = scale(calc(%tut5_bound_right - %tut5_bound_left), 100, %tut5_bound_scaler);
+$int6 = scale(calc(%tut5_bound_bottom - %tut5_bound_top), 100, %tut5_bound_scaler);
 if ($int13 = 0) {
     $int5 = max($int5, $int6);
     $int6 = max($int5, $int6);
 }
 $graphic12, $int5, $int6 = ~script771($int13, $int5, $int6);
 def_boolean $boolean14 = true;
-if (db_getfield(%varplayer_8746, dbtable_72:col27, 0) = 1) {
+if (db_getfield(%uitutorial_current_step, uitutorial_step:col27, 0) = 1) {
     $boolean14 = false;
 }
 if ($int13 = 0) {
     $int7 = calc($int1 - $int6 / 2);
     $int9 = calc($int7 + $int6);
-    $int8 = calc($int2 - scale($int6, 100, %varclient_3846));
+    $int8 = calc($int2 - scale($int6, 100, %tut5_bound_y_scaler));
     $int10 = calc($int8 + $int6);
 } else {
     $int7 = calc($int1 - $int5 / 2);
     $int9 = calc($int7 + $int5);
-    $int8 = calc($int2 - scale($int6, 100, %varclient_3846));
+    $int8 = calc($int2 - scale($int6, 100, %tut5_bound_y_scaler));
     $int10 = calc($int8 + $int6);
 }
-if_sethide(false, interface_673:com_1);
-if_setgraphic($graphic12, interface_673:com_1);
-if_setsize($int5, $int6, ^setsize_abs, ^setsize_abs, interface_673:com_1);
-if_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top, interface_673:com_1);
-if_sethide(false, interface_673:com_2);
-if_setsize($int5, calc($int4 - ($int4 - $int8)), ^setsize_abs, ^setsize_abs, interface_673:com_2);
-if_setposition($int7, 0, ^setpos_abs_left, ^setpos_abs_top, interface_673:com_2);
-if_setfill(true, interface_673:com_10);
-if_setcolour(^black, interface_673:com_10);
-if_settrans(125, interface_673:com_10);
-if_sethide($boolean14, interface_673:com_3);
-if_sethide(false, interface_673:com_4);
-if_setsize($int5, calc($int4 - $int10), ^setsize_abs, ^setsize_abs, interface_673:com_4);
-if_setposition($int7, $int10, ^setpos_abs_left, ^setpos_abs_top, interface_673:com_4);
-if_setfill(true, interface_673:com_11);
-if_setcolour(^black, interface_673:com_11);
-if_settrans(125, interface_673:com_11);
-if_sethide($boolean14, interface_673:com_5);
-if_sethide(false, interface_673:com_6);
-if_setsize($int7, $int4, ^setsize_abs, ^setsize_abs, interface_673:com_6);
-if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_673:com_6);
-if_setfill(true, interface_673:com_12);
-if_setcolour(^black, interface_673:com_12);
-if_settrans(125, interface_673:com_12);
-if_sethide($boolean14, interface_673:com_7);
-if_sethide(false, interface_673:com_8);
-if_setsize(calc($int3 - $int9), $int4, ^setsize_abs, ^setsize_abs, interface_673:com_8);
-if_setposition($int9, 0, ^setpos_abs_left, ^setpos_abs_top, interface_673:com_8);
-if_setfill(true, interface_673:com_13);
-if_setcolour(^black, interface_673:com_13);
-if_settrans(125, interface_673:com_13);
-if_sethide($boolean14, interface_673:com_9);
+if_sethide(false, tut5_spotlight:centre);
+if_setgraphic($graphic12, tut5_spotlight:centre);
+if_setsize($int5, $int6, ^setsize_abs, ^setsize_abs, tut5_spotlight:centre);
+if_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:centre);
+if_sethide(false, tut5_spotlight:top);
+if_setsize($int5, calc($int4 - ($int4 - $int8)), ^setsize_abs, ^setsize_abs, tut5_spotlight:top);
+if_setposition($int7, 0, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:top);
+if_setfill(true, tut5_spotlight:top_rect);
+if_setcolour(^black, tut5_spotlight:top_rect);
+if_settrans(125, tut5_spotlight:top_rect);
+if_sethide($boolean14, tut5_spotlight:top_noclickthrough);
+if_sethide(false, tut5_spotlight:bottom);
+if_setsize($int5, calc($int4 - $int10), ^setsize_abs, ^setsize_abs, tut5_spotlight:bottom);
+if_setposition($int7, $int10, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:bottom);
+if_setfill(true, tut5_spotlight:bottom_rect);
+if_setcolour(^black, tut5_spotlight:bottom_rect);
+if_settrans(125, tut5_spotlight:bottom_rect);
+if_sethide($boolean14, tut5_spotlight:bottom_noclickthrough);
+if_sethide(false, tut5_spotlight:left);
+if_setsize($int7, $int4, ^setsize_abs, ^setsize_abs, tut5_spotlight:left);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:left);
+if_setfill(true, tut5_spotlight:left_rect);
+if_setcolour(^black, tut5_spotlight:left_rect);
+if_settrans(125, tut5_spotlight:left_rect);
+if_sethide($boolean14, tut5_spotlight:left_noclickthrough);
+if_sethide(false, tut5_spotlight:right);
+if_setsize(calc($int3 - $int9), $int4, ^setsize_abs, ^setsize_abs, tut5_spotlight:right);
+if_setposition($int9, 0, ^setpos_abs_left, ^setpos_abs_top, tut5_spotlight:right);
+if_setfill(true, tut5_spotlight:right_rect);
+if_setcolour(^black, tut5_spotlight:right_rect);
+if_settrans(125, tut5_spotlight:right_rect);
+if_sethide($boolean14, tut5_spotlight:right_noclickthrough);

@@ -1,20 +1,20 @@
 // 7898
 [clientscript,script7898]
-if (%varclient_3484 = 0) {
-    %varclient_3487 = if_getmodelangle_y(interface_1420:com_46);
-    %varclient_6880 = if_getmodelangle_y(interface_1420:com_47);
-    %varclient_3483 = get_mousex;
-    %varclient_3484 = 1;
-    %varclient_3494 = clientclock;
-    ~script3121(cursor_188, cursor_188);
+if (%acc_create_rotation = 0) {
+    %acc_create_avatar_rotation = if_getmodelangle_y(acc_create:avatar_paperdoll);
+    %acc_create_head_rotation = if_getmodelangle_y(acc_create:avatar_head);
+    %acc_create_mouse_x = get_mousex;
+    %acc_create_rotation = 1;
+    %acc_create_drag_time = clientclock;
+    ~script3121(cursor_acc_create_rotate_small, cursor_acc_create_rotate_small);
 }
 def_int $int0 = get_mousex;
-$int0 = calc($int0 - %varclient_3483);
+$int0 = calc($int0 - %acc_create_mouse_x);
 $int0 = calc($int0 * 8);
 def_int $int1 = -1;
 if ($int0 < 0) {
     $int0 = calc($int0 * -1);
     $int1 = 1;
 }
-if_setontimer("script7899(calc(clientclock + 10), $int0, $int1, 50)", interface_1420:com_11);
-%varclient_3483 = get_mousex;
+if_setontimer("script7899(calc(clientclock + 10), $int0, $int1, 50)", acc_create:avatar_listener);
+%acc_create_mouse_x = get_mousex;

@@ -1,7 +1,7 @@
 // 8584
 [proc,script8584](stat $stat0, int $int1, quest $quest2)(string, int)
 if ($quest2 = null) {
-    ~error("$quest for <tostring($int1)> <enum(stat, string, enum_680, $stat0)> is null");
+    ~error("$quest for <tostring($int1)> <enum(stat, string, stat_to_string, $stat0)> is null");
     return("", 0);
 }
 if (~ql4_getquestcomplete($quest2) = true) {
@@ -10,13 +10,13 @@ if (~ql4_getquestcomplete($quest2) = true) {
 def_int $int3 = stat_base($stat0);
 def_int $int4 = 0;
 def_int $int5 = 0;
-if ($quest2 = quest_86 & ($stat0 = strength | $stat0 = attack)) {
+if ($quest2 = while_guthix_sleeps & ($stat0 = strength | $stat0 = attack)) {
     if ($stat0 = attack) {
         $int4 = stat_base_actual(strength);
-        $int5 = %varclient_1470;
+        $int5 = %lvl_strength_before_levelup_varc;
     } else {
         $int4 = stat_base_actual(attack);
-        $int5 = %varclient_1469;
+        $int5 = %lvl_attack_before_levelup_varc;
     }
     if (calc($int1 + $int5) < 130 & calc($int3 + $int4) >= 130) {
         return(~script8583($stat0, $int3, $quest2));

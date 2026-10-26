@@ -1,11 +1,11 @@
 // 5872
 [clientscript,script5872]
 def_string $string0 = "The potion slot is only available after you have completed the Daemonheim medium tasks.";
-def_component $component0 = interface_116:com_30;
-def_component $component1 = interface_116:com_29;
-def_component $component2 = interface_116:com_118;
-def_component $component3 = interface_116:com_115;
-def_component $component4 = interface_116:com_116;
+def_component $component0 = rand_bound_interface:potion_item;
+def_component $component1 = rand_bound_interface:potion_blank;
+def_component $component2 = rand_bound_interface:potion_slot_blocked;
+def_component $component3 = rand_bound_interface:bound_item_15_blocked;
+def_component $component4 = rand_bound_interface:bound_item_16_blocked;
 if (map_members = false) {
     if_sethide(false, $component2);
     if_sethide(false, $component3);
@@ -20,14 +20,14 @@ if (map_members = false) {
     if_setonmouserepeat("script8799($string0, $component4, -1)", $component4);
     return;
 }
-if (%varplayerbit_20534 = 0) {
+if (%atdun_hard_reward = 0) {
     $string0 = "This slot is only available after you have completed the Daemonheim hard tasks.";
     if_sethide(false, $component3);
     if_sethide(false, $component4);
     if_setonmouserepeat("script8799($string0, $component3, -1)", $component3);
     if_setonmouserepeat("script8799($string0, $component4, -1)", $component4);
 }
-if (%varplayerbit_20532 = 0) {
+if (%atdun_med_reward = 0) {
     if_sethide(false, $component2);
     if_setgraphic("rs3_icon_worn_equipment,13", $component1);
     if_setgraphic(null, $component0);
@@ -36,23 +36,23 @@ if (%varplayerbit_20532 = 0) {
     if_setonmouserepeat("script8799($string0, $component2, -1)", $component2);
     return;
 }
-if (%varplayer_3857 = null) {
+if (%rand_potion_slot = null) {
     if_setgraphic("rs3_icon_worn_equipment,13", $component1);
     if_setgraphic(null, $component0);
     if_clearops($component0);
     $string0 = "To bind a potion, right click it and select Bind. You may claim a bound potion from this slot once per floor.";
 } else {
     if_setgraphic(null, $component1);
-    if_setobject_nonum(%varplayer_3857, 1, $component0);
-    if (%varplayerbit_20478 = 1) {
+    if_setobject_nonum(%rand_potion_slot, 1, $component0);
+    if (%rand_potion_taken = 1) {
         if_clearops($component0);
         if_setop(10, "Examine", $component0);
-        if_setopbase("<col=ff9040><oc_name(%varplayer_3857)>", $component0);
+        if_setopbase("<col=ff9040><oc_name(%rand_potion_slot)>", $component0);
         $string0 = "To bind a potion, right click it and select Bind. You have already claimed a potion on this floor.";
     } else {
         if_setop(1, "Take", $component0);
         if_setop(10, "Examine", $component0);
-        if_setopbase("<col=ff9040><oc_name(%varplayer_3857)>", $component0);
+        if_setopbase("<col=ff9040><oc_name(%rand_potion_slot)>", $component0);
         $string0 = "To bind a potion, right click it and select Bind. You may claim a bound potion from this slot once per floor.";
     }
 }

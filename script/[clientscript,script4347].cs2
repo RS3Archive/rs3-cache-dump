@@ -1,19 +1,19 @@
 // 4347
 [clientscript,script4347]
-if (%varplayer_2072 = 0) {
-    ~script14141(interface_1097:com_29, interface_1097:com_30, enum_3702, 9, "Select the keyword category", 0, 0, false, "Select a category");
-    if_sethide(true, interface_1097:com_32);
-    ~script13971(interface_1097:com_29, null, struct_28619, "No Category Selected", true);
+if (%clan_keyword_temp_cat_varp = 0) {
+    ~script14141(clan_keywords:cat_build, clan_keywords:cat_click, clan_keyword_categories, 9, "Select the keyword category", 0, 0, false, "Select a category");
+    if_sethide(true, clan_keywords:key_click);
+    ~script13971(clan_keywords:cat_build, null, rs3_dropdown, "No Category Selected", true);
     return;
 }
-def_enum $enum0 = enum(int, enum, enum_3703, %varplayer_2072);
+def_enum $enum0 = enum(int, enum, clan_keyword_categories_id, %clan_keyword_temp_cat_varp);
 if ($enum0 = null) {
     return;
 }
-~script10428(interface_1097:com_29, interface_1097:com_30, enum_3702, 9, "Select the keyword category", %varplayer_2072, 0);
-if_sethide(false, interface_1097:com_32);
-if (%varplayer_2073 > 0) {
-    ~script10428(interface_1097:com_31, interface_1097:com_32, $enum0, enum_getoutputcount($enum0), "Select the keyword", %varplayer_2073, 0);
+~script10428(clan_keywords:cat_build, clan_keywords:cat_click, clan_keyword_categories, 9, "Select the keyword category", %clan_keyword_temp_cat_varp, 0);
+if_sethide(false, clan_keywords:key_click);
+if (%clan_keyword_temp_word_varp > 0) {
+    ~script10428(clan_keywords:key_build, clan_keywords:key_click, $enum0, enum_getoutputcount($enum0), "Select the keyword", %clan_keyword_temp_word_varp, 0);
 } else {
-    ~script14141(interface_1097:com_31, interface_1097:com_32, $enum0, enum_getoutputcount($enum0), "Select the keyword", 0, 0, false, "Select a keyword");
+    ~script14141(clan_keywords:key_build, clan_keywords:key_click, $enum0, enum_getoutputcount($enum0), "Select the keyword", 0, 0, false, "Select a keyword");
 }

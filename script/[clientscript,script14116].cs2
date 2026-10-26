@@ -2,18 +2,18 @@
 [clientscript,script14116]
 def_int $int0 = -1;
 def_int $int1 = 0;
-def_int $int2 = enum_getoutputcount(enum_6511);
-if (%varplayerbit_41612 = 0) {
-    if_settext("Herb collector<col=ff0000> - Purchased at the Ardougne Farmers' Market</col>", interface_1006:com_160);
-    if_sethide(true, interface_1006:com_159);
+def_int $int2 = enum_getoutputcount(rand_herbburner_build_component);
+if (%pof_rewards_herbicide_upgrade_unlocked = 0) {
+    if_settext("Herb collector<col=ff0000> - Purchased at the Ardougne Farmers' Market</col>", rand_herbburner:herb_collector_title);
+    if_sethide(true, rand_herbburner:herb_pickup_toggle_text);
 } else {
-    if_settext("Herb collector", interface_1006:com_160);
-    if_sethide(false, interface_1006:com_159);
+    if_settext("Herb collector", rand_herbburner:herb_collector_title);
+    if_sethide(false, rand_herbburner:herb_pickup_toggle_text);
 }
 while (++$int0 < $int2) {
-    ~static_checkbox_create(enum(int, component, enum_6511, $int0), enum(int, component, enum_6512, $int0), "", "", "", testbit(%varplayer_1086, $int0));
+    ~static_checkbox_create(enum(int, component, rand_herbburner_build_component, $int0), enum(int, component, rand_herbburner_click_component, $int0), "", "", "", testbit(%rand_herb_burner_interface, $int0));
 }
-if (bitcount(%varplayer_1086) = $int2) {
+if (bitcount(%rand_herb_burner_interface) = $int2) {
     $int1 = 1;
 }
-~static_checkbox_create(interface_1006:com_71, interface_1006:com_177, "", "", "", $int1);
+~static_checkbox_create(rand_herbburner:herb_toggle_all_build, rand_herbburner:herb_toggle_all_click, "", "", "", $int1);

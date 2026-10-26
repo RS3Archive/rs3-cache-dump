@@ -1,6 +1,6 @@
 // 373
 [proc,script373](int $int0, int $int1, struct $struct2)
-if (testbit(struct_param($struct2, param_6653), $int0) = ^false) {
+if (testbit(struct_param($struct2, chat_available_ops), $int0) = ^false) {
     return;
 }
 def_int $int3 = 0;
@@ -11,12 +11,12 @@ switch_int ($int0) {
         if ($int4 = -1) {
             $int3 = calc(1 - $int3);
         } else if ($int3 = 0) {
-            if ($struct2 = struct_37632) {
-                if (%varplayerbit_36983 = 1) {
-                    %varplayerbit_36983 = 0;
+            if ($struct2 = chat_filter_local) {
+                if (%chat_v2_hide_public = 1) {
+                    %chat_v2_hide_public = 0;
                     $int3 = 1;
                 } else {
-                    %varplayerbit_36983 = 1;
+                    %chat_v2_hide_public = 1;
                 }
             } else {
                 $int3 = 1;
@@ -28,52 +28,52 @@ switch_int ($int0) {
             $int4 = 1;
         }
     case 2 :
-        if ($struct2 = struct_37632) {
-            %varplayerbit_36983 = 0;
+        if ($struct2 = chat_filter_local) {
+            %chat_v2_hide_public = 0;
         }
         $int3 = 1;
         $int4 = 0;
     case 3 :
-        if ($struct2 = struct_37632) {
-            %varplayerbit_36983 = 0;
+        if ($struct2 = chat_filter_local) {
+            %chat_v2_hide_public = 0;
         }
         $int3 = 1;
         $int4 = 1;
     case 4 :
-        if ($struct2 = struct_37632) {
-            %varplayerbit_36983 = 0;
+        if ($struct2 = chat_filter_local) {
+            %chat_v2_hide_public = 0;
         }
         $int3 = 0;
         $int4 = 0;
     case 5 :
         $int3, $int4 = ~script11599($int1, $struct2);
-        if ($struct2 = struct_37632) {
-            %varplayerbit_36983 = 1;
+        if ($struct2 = chat_filter_local) {
+            %chat_v2_hide_public = 1;
         }
 }
-if ($int3 = 0 & testbit(struct_param($struct2, param_6652), ~script383($int1)) = ^true) {
+if ($int3 = 0 & testbit(struct_param($struct2, chat_forced_chats), ~script383($int1)) = ^true) {
     $int3 = 1;
 }
 switch_struct ($struct2) {
-    case struct_37631 :
+    case chat_filter_game :
         ~script8528($int1, $int3, $int4);
-    case struct_37632 :
+    case chat_filter_local :
         ~script8529($int1, $int3, $int4);
-    case struct_37633 :
+    case chat_filter_private :
         ~script8530($int1, $int3, $int4);
-    case struct_37634 :
+    case chat_filter_friends :
         ~script8531($int1, $int3, $int4);
-    case struct_37635 :
+    case chat_filter_clan :
         ~script8532($int1, $int3, $int4);
-    case struct_37636 :
+    case chat_filter_guest :
         ~script8533($int1, $int3, $int4);
-    case struct_37637 :
+    case chat_filter_group :
         ~script10486($int1, $int3, $int4);
-    case struct_52683 :
+    case chat_filter_requests :
         ~script8534($int1, $int3, $int4);
-    case struct_37641 :
-        ~script9213($int1, calc(1 - %varplayerbit_20828));
-    case struct_50652 :
+    case chat_filter_broadcast :
+        ~script9213($int1, calc(1 - %toplevel_v2_chat1_broadcast));
+    case chat_filter_group_ironman :
         ~script19380($int1, $int3, $int4);
     case default :
         return;

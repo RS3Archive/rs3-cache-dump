@@ -3,29 +3,29 @@
 if ($struct0 = null) {
     return;
 }
-%varclient_5879 = $int2;
-%varclient_5880 = calc(date_minutes_fromruneday(calc(struct_param($struct0, param_6133) + 1)) - ($int3 + 1));
-%varclient_5881 = $int4;
-if (%varclient_5879 < struct_param($struct0, param_6132)) {
+%timed_event_countdown_runeday = $int2;
+%timed_event_countdown_minutes = calc(date_minutes_fromruneday(calc(struct_param($struct0, timed_event_end) + 1)) - ($int3 + 1));
+%timed_event_countdown_minuteseconds = $int4;
+if (%timed_event_countdown_runeday < struct_param($struct0, timed_event_start)) {
     return;
 }
-def_component $component5 = interface_1802:com_64;
-def_component $component6 = interface_1802:com_66;
-def_component $component7 = interface_1802:com_101;
-def_component $component8 = interface_1802:com_157;
-def_component $component9 = interface_1802:com_7;
-def_component $component10 = interface_1802:com_0;
-if ($struct0 = struct_9802 | $struct0 = struct_40974) {
-    $component5 = interface_1930:com_98;
-    $component6 = interface_1930:com_37;
-    $component7 = interface_1930:com_92;
-    $component8 = interface_1930:com_90;
-    $component10 = interface_1930:com_59;
+def_component $component5 = timed_event:left_container;
+def_component $component6 = timed_event:countdown_layer;
+def_component $component7 = timed_event:event_ended_layer;
+def_component $component8 = timed_event:title_text;
+def_component $component9 = timed_event:title_graphic;
+def_component $component10 = timed_event:universe;
+if ($struct0 = timed_event10 | $struct0 = timed_event11) {
+    $component5 = timed_event_tasks:left_container;
+    $component6 = timed_event_tasks:countdown_layer;
+    $component7 = timed_event_tasks:event_ended_layer;
+    $component8 = timed_event_tasks:title_text;
+    $component10 = timed_event_tasks:main_layer;
 }
 if ($int1 = 2) {
     if_sethide(true, $component5);
     if_sethide(true, $component6);
-    if (struct_param($struct0, param_7898) = 0) {
+    if (struct_param($struct0, timed_event_compact_countdown) = 0) {
         if_sethide(false, $component7);
     }
 } else {

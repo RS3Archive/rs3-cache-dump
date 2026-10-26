@@ -1,20 +1,20 @@
 // 21082
 [proc,script21082](component $component0)
-def_dbrow $dbrow1 = ~script20117(%varplayer_12314);
+def_dbrow $dbrow1 = ~script20117(%league_active_player);
 if (~script20132($dbrow1) = false) {
     return;
 }
 cc_deleteall($component0);
-def_var_int $var_int2 = db_getfield($dbrow1, dbtable_326:col29, 0);
-def_int $int3 = db_getfield($dbrow1, dbtable_326:col8, 0);
+def_var_int $var_int2 = db_getfield($dbrow1, league:col29, 0);
+def_int $int3 = db_getfield($dbrow1, league:col8, 0);
 def_int $int4 = var_reference_get($var_int2);
 if ($int4 = -1) {
     error("Trying to load the blessings progress bar with no combat progress var set on the leagues table");
     return;
 }
-def_dbrow $dbrow5 = db_getfield($dbrow1, dbtable_326:col10, 0);
-def_int $int6 = db_getfieldcount($dbrow5, dbtable_327:col0);
-def_dbrow $dbrow7 = db_getfield($dbrow5, dbtable_327:col0, calc($int6 - 1));
+def_dbrow $dbrow5 = db_getfield($dbrow1, league:col10, 0);
+def_int $int6 = db_getfieldcount($dbrow5, league_relic_list:col0);
+def_dbrow $dbrow7 = db_getfield($dbrow5, league_relic_list:col0, calc($int6 - 1));
 def_int $int8 = 4227654;
 def_int $int9 = 6734126;
 def_int $int10 = 0;
@@ -29,8 +29,8 @@ $int12, $int13 = ~script20247(0, $int12, $int3, $int4, $int8, $int9, 0);
 def_int $int14 = 0;
 def_string $string0 = "";
 while ($int10 < $int6) {
-    $dbrow7 = db_getfield($dbrow5, dbtable_327:col0, $int10);
-    $int11 = db_getfield($dbrow7, dbtable_328:col2, 0);
+    $dbrow7 = db_getfield($dbrow5, league_relic_list:col0, $int10);
+    $int11 = db_getfield($dbrow7, league_relic_tier:col2, 0);
     if ($int10 = 0) {
         $string0 = "Blessing Unlocks:<br>Tier <tostring(calc($int10 + 1))> requires <tostring_localised($int11, true)> blessing task.";
     } else {
@@ -45,5 +45,5 @@ cc_find_parent;
 ~script3537($string0);
 cc_find_parent;
 $int12 = ~script21083($dbrow5, $int12);
-~if_add_child_text($component0, 0, $int12++, 55, 2, ^setpos_abs_left, ^setpos_abs_top, 200, 20, ^setsize_abs, ^setsize_abs, dbrow_2141, "<col=<tostring(~script10495(2), 16)>>Blessing tasks complete</col>: <col=<tostring(~script10495(21), 16)>><tostring_localised($int4, true)>");
+~if_add_child_text($component0, 0, $int12++, 55, 2, ^setpos_abs_left, ^setpos_abs_top, 200, 20, ^setsize_abs, ^setsize_abs, text_label_standard, "<col=<tostring(~script10495(2), 16)>>Blessing tasks complete</col>: <col=<tostring(~script10495(21), 16)>><tostring_localised($int4, true)>");
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);

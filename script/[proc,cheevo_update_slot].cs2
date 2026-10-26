@@ -5,15 +5,15 @@ def_struct $struct3 = null;
 def_string $string0 = "";
 def_int $int4 = 60;
 $int1 = calc($int1 * 11);
-if (cc_find(interface_1851:com_40, $int1) = true) {
-    $int2 = cc_param(param_6430);
-    $struct3 = cc_param(param_6431);
+if (cc_find(achievements_sub:build_layer, $int1) = true) {
+    $int2 = cc_param(cheevo_state_value);
+    $struct3 = cc_param(cheevo_cheevo_value);
 }
 if ($int2 = -65535) {
     return;
 }
 def_int $int5 = 0;
-if (%varplayerbit_37059 = 1) {
+if (%cheevo_min_mode = 1) {
     $int5 = 1;
     $int4 = 35;
 }
@@ -31,28 +31,28 @@ switch_int ($int2) {
         $int7 = 7829367;
         $int8 = 16355874;
     case default :
-        if (~date_runeday < struct_param($struct3, param_7895)) {
+        if (~date_runeday < struct_param($struct3, cheevo_gracedate)) {
             $int8 = 16355874;
         } else {
             $int8 = 7829367;
         }
         $int7 = 7829367;
 }
-if (%varclient_6831 = $struct3) {
-    %varclient_5992 = $int6;
+if (%cheevo_to_find_old = $struct3) {
+    %cheevo_card_y = $int6;
 }
 def_string $string1 = "";
-if (cc_find(interface_1851:com_40, $int1) = true) {
+if (cc_find(achievements_sub:build_layer, $int1) = true) {
     cc_setposition(0, $int6, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(0, $int4, ^setsize_minus, ^setsize_abs);
     cc_setfill(true);
     cc_setcolour(~script10495(12));
     $string1 = ~script8954($struct3, $int2, "");
     cc_setonmouserepeat("script8799($string1, event_com, event_comsubid)");
-    if (struct_param($struct3, param_6427) > -1) {
+    if (struct_param($struct3, cheevo_meta_list_type) > -1) {
         cc_setonop("script13342(cc_getid, $struct3)");
         cc_setop(5, "Open");
-        cc_setopcursor(5, cursor_46);
+        cc_setopcursor(5, cursor_use);
     }
 }
 def_int $int9 = 0;
@@ -61,11 +61,11 @@ def_int $int11 = 0;
 def_int $int12 = 0;
 def_int $int13 = 0;
 def_string $string2 = "";
-def_int $int14 = struct_param($struct3, param_7895);
+def_int $int14 = struct_param($struct3, cheevo_gracedate);
 if ($int5 = 1) {
-    if (cc_find(interface_1851:com_40, calc($int1 + 4)) = true) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 4)) = true) {
         cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
-        if (struct_param($struct3, param_6755) > 0) {
+        if (struct_param($struct3, cheevo_runescore) > 0) {
             cc_setposition(calc($int9 + 2), calc($int6 + 2), ^setpos_abs_left, ^setpos_abs_top);
         } else {
             cc_setposition(calc($int9 + 2), calc($int6 + ($int4 / 2 - cc_getheight / 2)), ^setpos_abs_left, ^setpos_abs_top);
@@ -76,16 +76,16 @@ if ($int5 = 1) {
         }
         $int10 = calc(cc_getx + cc_getwidth);
     }
-    if (struct_param($struct3, param_6755) > 0 & cc_find(interface_1851:com_40, calc($int1 + 10)) = true) {
+    if (struct_param($struct3, cheevo_runescore) > 0 & cc_find(achievements_sub:build_layer, calc($int1 + 10)) = true) {
         cc_setposition(calc($int9 + 1 + 2), calc($int6 + 14 + 2 * 2), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(14, 12, ^setsize_abs, ^setsize_abs);
         cc_setcolour(~script10495(3));
-        cc_settext(tostring_localised(struct_param($struct3, param_6755), true));
+        cc_settext(tostring_localised(struct_param($struct3, cheevo_runescore), true));
         cc_settextshadow(true);
         cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
     }
-    if (cc_find(interface_1851:com_40, calc($int1 + 6)) = true) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 6)) = true) {
         cc_setposition(calc($int10 + 2), $int6, ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(calc($int10 + 2 * 2 + 15), $int4, ^setsize_minus, ^setsize_abs);
         cc_setcolour($int7);
@@ -96,18 +96,18 @@ if ($int5 = 1) {
         cc_settext($string2);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
     }
-    if ((compare(struct_param($struct3, param_6414), "") ! 0 | struct_param($struct3, param_7894) = true) & cc_find(interface_1851:com_40, calc($int1 + 8)) = true) {
+    if ((compare(struct_param($struct3, cheevo_rewards), "") ! 0 | struct_param($struct3, cheevo_rewards_exception) = true) & cc_find(achievements_sub:build_layer, calc($int1 + 8)) = true) {
         cc_setposition(2, calc($int6 + 2), ^setpos_abs_right, ^setpos_abs_top);
         cc_setgraphic("achievement_icon_rewards_14px,0");
         cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
         ~cheevo_reward_tooltip($struct3);
-        cc_setmouseovercursor(cursor_172);
+        cc_setmouseovercursor(cursor_info);
         cc_setnoclickthrough(true);
         $int13 = 1;
     }
-    if (struct_param($struct3, param_6427) > -1 & cc_find(interface_1851:com_40, calc($int1 + 7)) = true) {
+    if (struct_param($struct3, cheevo_meta_list_type) > -1 & cc_find(achievements_sub:build_layer, calc($int1 + 7)) = true) {
         cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
         if ($int13 = 0) {
             cc_setposition(2, calc($int6 + ($int4 / 2 - cc_getheight / 2)), ^setpos_abs_right, ^setpos_abs_top);
@@ -117,20 +117,20 @@ if ($int5 = 1) {
         cc_setgraphic("rs3_icon_accordion,0");
     }
 } else {
-    if (cc_find(interface_1851:com_40, calc($int1 + 1)) = true) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 1)) = true) {
         cc_setposition(2, calc($int6 + 2), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(28, 28, ^setsize_abs, ^setsize_abs);
         cc_setgraphic(~cheevo_icon($struct3));
         $int9 = calc(cc_getx + cc_getwidth);
     }
-    if (($int2 = -1 | $int2 = -2) & cc_find(interface_1851:com_40, calc($int1 + 3)) = true) {
+    if (($int2 = -1 | $int2 = -2) & cc_find(achievements_sub:build_layer, calc($int1 + 3)) = true) {
         cc_setposition(2, calc($int6 + 2), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(28, 28, ^setsize_abs, ^setsize_abs);
         if ($int2 = -2) {
             cc_setgraphic(mad_may_16_icon_case_complete);
         } else {
             cc_setgraphic(mad_may_16_icon_case_locked);
-            if (.cc_find(interface_1851:com_40, calc($int1 + 2)) = true) {
+            if (.cc_find(achievements_sub:build_layer, calc($int1 + 2)) = true) {
                 .cc_setposition(2, calc($int6 + 2), ^setpos_abs_left, ^setpos_abs_top);
                 .cc_setsize(28, 28, ^setsize_abs, ^setsize_abs);
                 .cc_setfill(true);
@@ -139,7 +139,7 @@ if ($int5 = 1) {
             }
         }
     }
-    if (cc_find(interface_1851:com_40, calc($int1 + 4)) = true) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 4)) = true) {
         cc_setposition(calc($int9 + 2), $int6, ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
         cc_setnoclickthrough(true);
@@ -148,9 +148,9 @@ if ($int5 = 1) {
         }
         $int10 = calc(cc_getx + cc_getwidth);
     }
-    if (cc_find(interface_1851:com_40, calc($int1 + 5)) = true) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 5)) = true) {
         cc_setposition(calc($int10 + 2), $int6, ^setpos_abs_left, ^setpos_abs_top);
-        switch_int (~cheevo_get_difficulty(struct_param($struct3, param_6417))) {
+        switch_int (~cheevo_get_difficulty(struct_param($struct3, cheevo_meta_id))) {
             case 1 :
                 $string0 = append($string0, "Beginner - ");
             case 2 :
@@ -167,10 +167,10 @@ if ($int5 = 1) {
         cc_settext($string0);
         cc_setsize($int10, 15, ^setsize_minus, ^setsize_abs);
         cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
-        cc_settextfont(fontmetrics_55);
+        cc_settextfont(cinzel_12pt_bold);
         cc_setcolour($int8);
     }
-    if (cc_find(interface_1851:com_40, calc($int1 + 6)) = true) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 6)) = true) {
         cc_setposition(calc($int9 + 2), calc($int6 + 15), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(calc($int9 + 13), calc($int4 - 15), ^setsize_minus, ^setsize_abs);
         cc_setcolour($int7);
@@ -181,39 +181,39 @@ if ($int5 = 1) {
         cc_settext($string2);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_left, ^settextalign_top, 0);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
         $int11 = cc_gety;
         $int12 = calc(cc_getheight / 2);
     }
-    if (cc_find(interface_1851:com_40, calc($int1 + 7)) = true) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 7)) = true) {
         cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
         cc_setposition(2, calc($int11 + ($int12 - cc_getheight / 2)), ^setpos_abs_right, ^setpos_abs_top);
-        if (struct_param($struct3, param_6427) > -1) {
+        if (struct_param($struct3, cheevo_meta_list_type) > -1) {
             cc_setgraphic("rs3_icon_accordion,0");
         }
     }
-    if ((compare(struct_param($struct3, param_6414), "") ! 0 | struct_param($struct3, param_7894) = true) & cc_find(interface_1851:com_40, calc($int1 + 8)) = true) {
+    if ((compare(struct_param($struct3, cheevo_rewards), "") ! 0 | struct_param($struct3, cheevo_rewards_exception) = true) & cc_find(achievements_sub:build_layer, calc($int1 + 8)) = true) {
         cc_setposition(2, calc($int6 + 2), ^setpos_abs_right, ^setpos_abs_top);
         cc_setgraphic("achievement_icon_rewards_14px,0");
         cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
         ~cheevo_reward_tooltip($struct3);
-        cc_setmouseovercursor(cursor_172);
+        cc_setmouseovercursor(cursor_info);
         cc_setnoclickthrough(true);
     }
-    if (cc_find(interface_1851:com_40, calc($int1 + 9)) = true & struct_param($struct3, param_6755) > 0) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 9)) = true & struct_param($struct3, cheevo_runescore) > 0) {
         cc_setposition(calc($int9 - 15), calc($int6 + 2 + 28 - 12), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(15, 12, ^setsize_abs, ^setsize_abs);
         cc_setcolour(^black);
         cc_settrans(128);
         cc_setfill(true);
     }
-    if (cc_find(interface_1851:com_40, calc($int1 + 10)) = true & struct_param($struct3, param_6755) > 0) {
+    if (cc_find(achievements_sub:build_layer, calc($int1 + 10)) = true & struct_param($struct3, cheevo_runescore) > 0) {
         cc_setposition(calc($int9 - 15), calc($int6 + $int9 - 12), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(14, 12, ^setsize_abs, ^setsize_abs);
         cc_setcolour(~script10495(3));
-        cc_settext(tostring_localised(struct_param($struct3, param_6755), true));
+        cc_settext(tostring_localised(struct_param($struct3, cheevo_runescore), true));
         cc_settextshadow(true);
         cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
     }
 }

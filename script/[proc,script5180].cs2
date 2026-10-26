@@ -1,12 +1,12 @@
 // 5180
 [proc,script5180](int $int0)
-def_struct $struct1 = enum(int, struct, enum_4849, $int0);
+def_struct $struct1 = enum(int, struct, hcape_enum_goal_id_to_struct, $int0);
 if ($struct1 = null) {
     return;
 }
 def_string $string0 = "<col=FF0000>LOCKED</col>";
-def_string $string1 = struct_param($struct1, param_1879);
-def_string $string2 = struct_param($struct1, param_1880);
+def_string $string1 = struct_param($struct1, hcape_goal_name);
+def_string $string2 = struct_param($struct1, hcape_goal_desc);
 if ($int0 ! 13) {
     if (~script5200($int0) = 1) {
         $string0 = "<col=00FF00>COMPLETED</col>";
@@ -15,15 +15,15 @@ if ($int0 ! 13) {
     }
 }
 def_string $string3 = "Goal: <$string1><br>Status: <$string0><br><$string2>";
-def_int $int2 = if_getwidth(interface_1122:com_52);
-def_int $int3 = paraheight($string3, $int2, fontmetrics_26);
-if_settext($string3, interface_1122:com_31);
+def_int $int2 = if_getwidth(hcape_interface:goals_text_layer);
+def_int $int3 = paraheight($string3, $int2, museo_sans_11pt_regular);
+if_settext($string3, hcape_interface:goals_text);
 def_int $int4 = calc($int3 * 13);
-if ($int4 < if_getheight(interface_1122:com_52)) {
+if ($int4 < if_getheight(hcape_interface:goals_text_layer)) {
     $int4 = 0;
-    if_setscrollpos(0, 0, interface_1122:com_52);
+    if_setscrollpos(0, 0, hcape_interface:goals_text_layer);
 }
-if_setscrollsize(0, $int4, interface_1122:com_52);
-~rs3_scrollbar_vertical(interface_1122:com_32, interface_1122:com_31);
-%varclient_1596 = $int0;
+if_setscrollsize(0, $int4, hcape_interface:goals_text_layer);
+~rs3_scrollbar_vertical(hcape_interface:goals_text_scrollbar, hcape_interface:goals_text);
+%hcape_active_goal = $int0;
 ~script5176;

@@ -34,34 +34,34 @@ while ($int6 < 100 & $chattype7 ! null) {
         case ^chattype_privatechat :
             $int3, $int14 = ~script3055($component1, $int3, "<$string1>From <$string2>: <$string0><$string6>", 1, $string2, $string3, $chattype7, $int8, $boolean15);
             if ($int12 = 1) {
-                %varclient_2505, $int12 = removetags($string3), 0;
+                %last_pm_received_sender, $int12 = removetags($string3), 0;
             }
         case ^chattype_loginlogoutnotification :
-            if (%varplayerbit_24940 = 0) {
+            if (%toplevel_v2_player_notification_toggle = 0) {
                 $int3, $int14 = ~script3055($component1, $int3, "<$string1><$string0><$string6>", 0, $string2, $string3, $chattype7, $int8, $boolean15);
             }
         case ^chattype_privatechatout :
             $int3, $int14 = ~script3055($component1, $int3, "<$string1>To <$string2>: <$string0><$string6>", 1, $string2, $string3, $chattype7, $int8, $boolean15);
             if ($int12 = 1) {
-                %varclient_2505, $int12 = removetags($string3), 0;
+                %last_pm_received_sender, $int12 = removetags($string3), 0;
             }
         case ^chattype_modprivatechat :
             $int3, $int14 = ~script3055($component1, $int3, "<$string1>From <$string2>: <$string0><$string6>", 1, $string2, $string3, $chattype7, $int8, $boolean15);
             if ($int12 = 1) {
-                %varclient_2505, $int12 = removetags($string3), 0;
+                %last_pm_received_sender, $int12 = removetags($string3), 0;
             }
         case ^chattype_quickchat_private_incoming :
             $int3, $int14 = ~script3055($component1, $int3, "<$string1>From <$string2>: <$string0><$string6>", 1, $string2, $string3, $chattype7, $int8, $boolean15);
             if ($int12 = 1) {
-                %varclient_2505, $int12 = removetags($string3), 0;
+                %last_pm_received_sender, $int12 = removetags($string3), 0;
             }
         case ^chattype_quickchat_private_outgoing :
             $int3, $int14 = ~script3055($component1, $int3, "<$string1>To <$string2>: <$string0><$string6>", 1, $string2, $string3, $chattype7, $int8, $boolean15);
             if ($int12 = 1) {
-                %varclient_2505, $int12 = removetags($string3), 0;
+                %last_pm_received_sender, $int12 = removetags($string3), 0;
             }
         case ^chattype_system_broadcast :
-            if (string_length(enum(int, string, enum_15193, $int8)) > 0) {
+            if (string_length(enum(int, string, chat_v2_urls, $int8)) > 0) {
                 $int13 = 1;
             } else {
                 $int13 = 0;
@@ -75,7 +75,7 @@ while ($int6 < 100 & $chattype7 ! null) {
     $int6 = calc($int6 + 1);
     $chattype7, $string1, $int8, $string2, $string3, $string4, $string5, $chatphrase9, $string6, $int10, $int11 = chat_gethistory_byuid(--$int4);
 }
-%varclient_2835 = $int5;
-~script17127($component1, $component2, $int14, calc(%varclient_1122 + if_getscrollheight($component1) - %varclient_1123));
-%varclient_1122 = if_getscrolly($component1);
-%varclient_1123 = if_getscrollheight($component1);
+%toplevel_v2_chat_last_uid = $int5;
+~script17127($component1, $component2, $int14, calc(%lobby_pmchat_lastscrollpos + if_getscrollheight($component1) - %lobby_pmchat_lastscrollsize));
+%lobby_pmchat_lastscrollpos = if_getscrolly($component1);
+%lobby_pmchat_lastscrollsize = if_getscrollheight($component1);

@@ -1,15 +1,15 @@
 // 7238
 [proc,script7238](string $string0, int $int0, struct $struct1, component $component2, component $component3, int $int4)(int)
-def_int $int5 = struct_param($struct1, param_4205);
-def_fontmetrics $fontmetrics6 = struct_param($struct1, param_4202);
+def_int $int5 = struct_param($struct1, optext_line_height);
+def_fontmetrics $fontmetrics6 = struct_param($struct1, optext_font);
 if (~script6431 = true) {
     switch_fontmetrics ($fontmetrics6) {
-        case fontmetrics_28 :
-            $fontmetrics6 = fontmetrics_30;
-        case fontmetrics_29 :
-            $fontmetrics6 = fontmetrics_31;
-        case fontmetrics_26 :
-            $fontmetrics6 = fontmetrics_28;
+        case museo_sans_13pt_regular :
+            $fontmetrics6 = museo_sans_15pt_regular;
+        case museo_sans_13pt_bold :
+            $fontmetrics6 = museo_sans_15pt_bold;
+        case museo_sans_11pt_regular :
+            $fontmetrics6 = museo_sans_13pt_regular;
     }
 }
 def_int $int7 = 0;
@@ -20,14 +20,14 @@ def_int $int8 = if_getwidth($component2);
 def_int $int9 = 300;
 def_int $int10 = 16;
 def_int $int11 = stringwidth($string0, $fontmetrics6);
-if ($component3 = interface_1486:com_14) {
+if ($component3 = text_tooltip:tooltip_dynamic_text) {
     $int9 = 350;
     $int11 = min($int11, $int9);
     $int10 = 0;
     if ($int8 < $int11) {
         $int8 = max($int8, min(parawidth($string0, $int9, $fontmetrics6), $int9));
     }
-} else if ($component3 = interface_1322:com_7) {
+} else if ($component3 = minimenu:mobile_tooltip_text) {
     $int9 = 270;
     $int11 = min($int11, $int9);
     $int10 = 0;
@@ -45,7 +45,7 @@ cc_setsize(0, $int5, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, $int7, ^setpos_abs_centre, ^setpos_abs_top);
 cc_settextfont($fontmetrics6);
 cc_setcolour($int0);
-cc_settextalign(struct_param($struct1, param_4203), struct_param($struct1, param_4204), $int5);
+cc_settextalign(struct_param($struct1, optext_halign), struct_param($struct1, optext_valign), $int5);
 cc_settextshadow(true);
 cc_settext($string0);
 def_int $int12 = paraheight($string0, cc_getwidth, $fontmetrics6);

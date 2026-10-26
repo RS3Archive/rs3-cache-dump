@@ -1,18 +1,18 @@
 // 19193
 [clientscript,script19193]
-sound_vorbis_volume(sound_36961, 1, 0, 180);
+sound_vorbis_volume(tli_click_01, 1, 0, 180);
 def_struct $struct0 = ~script16161;
-if_sethide(false, interface_1288:com_57);
-if_settext("Level - <tostring(~script19145($struct0))>", interface_1288:com_65);
+if_sethide(false, trh_academy_shared_overlay:milestone_reward_layer);
+if_settext("Level - <tostring(~script19145($struct0))>", trh_academy_shared_overlay:milestone_reward_level_text);
 def_dbrow $dbrow1 = ~script19148($struct0);
 def_obj $obj2 = null;
 def_int $int3 = 0;
 def_int $int4 = 0;
 def_boolean $boolean5 = false;
 def_int $int6 = 0;
-def_int $int7 = db_getfieldcount($dbrow1, dbtable_98:col1);
+def_int $int7 = db_getfieldcount($dbrow1, progression_track:col1);
 def_int $int8 = 50;
-def_component $component9 = interface_1288:com_68;
+def_component $component9 = trh_academy_shared_overlay:milestone_rewards_scroll_layer;
 cc_deleteall($component9);
 def_string $string0 = "";
 def_int $int10 = 1;
@@ -24,7 +24,7 @@ def_graphic $graphic14 = null;
 def_int $int15 = -1;
 $dbrow13, $graphic14 = ~script19198($struct0);
 while ($int6 < $int7) {
-    $obj2, $int3, $int4 = db_getfield($dbrow1, dbtable_98:col1, $int6);
+    $obj2, $int3, $int4 = db_getfield($dbrow1, progression_track:col1, $int6);
     if ($int4 <= $int11) {
         $boolean5 = true;
     } else {
@@ -38,16 +38,16 @@ while ($int6 < $int7) {
         ~script15958($component9, calc($int6 + 1), $int10, 0, $int6, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $dbrow13, $boolean5);
     }
     $int10 = calc($int10 + 1);
-    ~script10507($component9, calc($int6 + 1), $int10, 0, $int6, 5, 0, ^setpos_abs_left, ^setpos_abs_top, 45, 32, ^setsize_minus, ^setsize_minus, dbrow_17467, "<col=FFFFFF>Level <tostring($int4)></col>");
+    ~script10507($component9, calc($int6 + 1), $int10, 0, $int6, 5, 0, ^setpos_abs_left, ^setpos_abs_top, 45, 32, ^setsize_minus, ^setsize_minus, text_body_emphasis, "<col=FFFFFF>Level <tostring($int4)></col>");
     cc_settextshadow(true);
     $int10 = calc($int10 + 1);
-    $struct12 = oc_param($obj2, param_4414);
+    $struct12 = oc_param($obj2, mtxmgt_item_struct);
     if ($struct12 ! null) {
         $string1 = ~script19200($struct12);
     } else {
         $string1 = "<tostring($int3)> x <oc_name($obj2)>";
     }
-    ~script10507($component9, calc($int6 + 1), $int10, 0, $int6, 5, 16, ^setpos_abs_left, ^setpos_abs_top, 45, 16, ^setsize_minus, ^setsize_minus, dbrow_13569, "<col=FFFFFF><$string1></col>");
+    ~script10507($component9, calc($int6 + 1), $int10, 0, $int6, 5, 16, ^setpos_abs_left, ^setpos_abs_top, 45, 16, ^setsize_minus, ^setsize_minus, text_body_paragraph, "<col=FFFFFF><$string1></col>");
     $int10 = calc($int10 + 1);
     ~script7920($component9, calc($int6 + 1), $int10, 0, $int6, 3, 0, ^setpos_abs_right, ^setpos_abs_centre, 34, 34, ^setsize_abs, ^setsize_abs, $graphic14);
     ~script19195($boolean5, $int4, $obj2, $int3);
@@ -69,4 +69,4 @@ if ($int15 = -1) {
 }
 if_setscrollsize(if_getwidth($component9), $int16, $component9);
 if_setscrollpos(0, $int17, $component9);
-~rs3_scrollbar_vertical(interface_1288:com_67, $component9);
+~rs3_scrollbar_vertical(trh_academy_shared_overlay:milestone_rewards_scroll_bar, $component9);

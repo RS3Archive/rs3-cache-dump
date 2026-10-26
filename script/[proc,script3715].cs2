@@ -15,13 +15,13 @@ switch_int ($int0) {
     case 3011 :
         if ($int1 = 1) {
             $string0 = "You require 33 Quest Points to enter the Champions' Guild.";
-            if (%varplayer_1297 >= 33) {
+            if (%qp >= 33) {
                 $int3 = 1;
             }
         }
     case 3000 :
         if ($int1 = 2) {
-            if (%varplayer_1297 >= %varplayerbit_4915 | ~script4218 <= 0) {
+            if (%qp >= %tog_qp_before_return | ~script4218 <= 0) {
                 $int3 = 1;
             }
             $string0 = "You must have gained a Quest Point or 100,000 total experience since last entering Juna's cavern.";
@@ -36,73 +36,73 @@ switch_int ($int0) {
     case 3052 :
         if ($int1 = 1) {
             $string0 = "You need an active or sealed <col=ffffff>clue scroll</col> in your inventory or bank. You can have one active clue from each tier at a time.";
-            if (%varclient_5212 > 0) {
+            if (%uaui_dnd_clue_count > 0) {
                 $int3 = 1;
             }
         }
     case 3002 :
         if ($int1 = 1) {
             $string0 = "You need to visit <col=ffffff>Larry</col> or <col=ffffff>Chuck</col> in <col=ffffff>Ardougne Zoo</col> before you can begin penguin spying.";
-            if (%varplayerbit_4165 = 1) {
+            if (%peng_spy_explain = 1) {
                 $int3 = 1;
             }
         } else if ($int1 = 2) {
             $string0 = "You must have spied on fewer than ten penguins already this week.";
-            if (%varplayerbit_4164 < 10) {
+            if (%peng_spy_week_peng < 10) {
                 $int3 = 1;
             }
         } else if ($int1 = 3) {
             $string0 = "You may spy on penguins if your total Penguin Points are less than the maximum of <tostring(250)>.";
-            if (%varplayerbit_4163 < 250) {
+            if (%peng_spy_points < 250) {
                 $int3 = 1;
             }
         }
     case 3003 :
         if ($int1 = 1) {
             $string0 = "You may not chop down more than two evil trees per day.";
-            if (%varplayerbit_5331 < 2) {
+            if (%eviltree_interactions_today < 2) {
                 $int3 = 1;
             }
         }
     case 3004 :
         if ($int1 = 1) {
             $string0 = "You may not mine more than <tostring(3)> crashed stars per day.";
-            if (%varplayerbit_57006 < 3) {
+            if (%star_daily_count < 3) {
                 $int3 = 1;
             }
         }
     case 3047 :
         if ($int1 = 1) {
             $string0 = "You must have completed or manually turned off the tutorial.";
-            if (%varplayerbit_3617 = 0 | %varplayerbit_3584 >= 60 | %varplayerbit_13240 = 40) {
+            if (%task_priority_mode = 0 | %task_completed_total >= 60 | %ltep_quest = 40) {
                 $int3 = 1;
             }
         }
     case 3007 :
         if ($int1 = 1) {
             $string0 = "You may attempt the Agility, Magic and Ranged performances after a week has passed since your last show.";
-            if (%varplayerbit_5479 = 0 | %varplayerbit_5480 = 0 | %varplayerbit_5481 = 0) {
+            if (%crcs_agility_complete = 0 | %crcs_magic_complete = 0 | %crcs_ranged_complete = 0) {
                 $int3 = 1;
             }
         }
     case 3035 :
         if ($int1 = 1) {
             $string0 = "You may not help catch more than two Plutonial chinchompas per day.";
-            if (%varplayerbit_4882 = 0) {
+            if (%bigchinchompa_enteredsecondgametoday = 0) {
                 $int3 = 1;
             }
         }
     case 3072 :
         if ($int1 = 2) {
             $string0 = "You must complete the Rag and Bone Man's wishlist mini-quest to face the Skeletal Horror.";
-            if (%varplayerbit_9902 >= 10) {
+            if (%rag2_quest_var >= 10) {
                 $int3 = 1;
             }
         }
     case 3010 :
         if ($int1 = 2) {
             $string0 = "At least a week must pass since you last faced the Skeletal Horror.";
-            if (%varplayerbit_26628 = 0) {
+            if (%rag2_fight_complete = 0) {
                 $int3 = 1;
             }
         }
@@ -121,7 +121,7 @@ switch_int ($int0) {
             }
         } else if ($int1 = 3) {
             $string0 = "You need to have a <col=ffffff>court summons</col> in your inventory or bank";
-            if (inv_total(inv_93, obj_18757) > 0 | inv_total(inv_95, obj_18757) > 0) {
+            if (inv_total(inv, csi_summons_scroll) > 0 | inv_total(bank, csi_summons_scroll) > 0) {
                 $int3 = 1;
             }
         }
@@ -135,91 +135,91 @@ switch_int ($int0) {
     case 610 :
         if ($int1 = 2) {
             $string0 = "You need to have made some progress in the Icthlarin's Little Helper quest to enter Sophanem.";
-            if (%varplayerbit_10987 >= 3) {
+            if (%ics_little_var >= 3) {
                 $int3 = 1;
             }
         }
     case 858 :
         if ($int1 = 2) {
             $string0 = "You must have either entered Keldagrim or completed Priest in Peril to complete this task.";
-            if (%varplayer_2171 >= 60 | %varplayerbit_13266 >= 5) {
+            if (%priestperil >= 60 | %giantdwarf_quest >= 5) {
                 $int3 = 1;
             }
         }
     case 881 :
         if ($int1 = 2) {
             $string0 = "You must have finished the gnome cooking and gnome cocktail tutorials to complete this task.";
-            if (%varplayer_3202 >= 7 & %varplayer_3197 >= 7) {
+            if (%blurberry >= 7 & %aluft_gianne >= 7) {
                 $int3 = 1;
             }
         }
     case 911 :
         if ($int1 = 1) {
-            $string0 = "You should have a combat level of at least <tostring(struct_param(~task_get_struct($int0), param_2233))>.";
-            if (~comlevel >= struct_param(~task_get_struct($int0), param_2233)) {
+            $string0 = "You should have a combat level of at least <tostring(struct_param(~task_get_struct($int0), task_combat_level_recommended))>.";
+            if (~comlevel >= struct_param(~task_get_struct($int0), task_combat_level_recommended)) {
                 $int3 = 1;
             }
         }
     case 916, 915 :
         if ($int1 = 1) {
-            $string0 = "You should have a combat level of at least <tostring(struct_param(~task_get_struct($int0), param_2233))>.";
-            if (~comlevel >= struct_param(~task_get_struct($int0), param_2233)) {
+            $string0 = "You should have a combat level of at least <tostring(struct_param(~task_get_struct($int0), task_combat_level_recommended))>.";
+            if (~comlevel >= struct_param(~task_get_struct($int0), task_combat_level_recommended)) {
                 $int3 = 1;
             }
         }
     case 656 :
         if ($int1 = 2) {
             $string0 = "You need to have partially completed the Zogre Flesh Eaters quest (learning how to cure disease from Sithik Ints).";
-            if (%varplayerbit_10459 = 1) {
+            if (%thzfe_makecuredisease = 1) {
                 $int3 = 1;
             }
         }
     case 818 :
         if ($int1 = 2) {
-            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), param_2233))>.";
-            if (~comlevel >= struct_param(~task_get_struct($int0), param_2233)) {
+            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), task_combat_level_recommended))>.";
+            if (~comlevel >= struct_param(~task_get_struct($int0), task_combat_level_recommended)) {
                 $int3 = 1;
             }
         }
     case 819 :
         if ($int1 = 2) {
-            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), param_2233))>.";
-            if (~comlevel >= struct_param(~task_get_struct($int0), param_2233)) {
+            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), task_combat_level_recommended))>.";
+            if (~comlevel >= struct_param(~task_get_struct($int0), task_combat_level_recommended)) {
                 $int3 = 1;
             }
         }
     case 820 :
         if ($int1 = 3) {
-            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), param_2233))>.";
-            if (~comlevel >= struct_param(~task_get_struct($int0), param_2233)) {
+            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), task_combat_level_recommended))>.";
+            if (~comlevel >= struct_param(~task_get_struct($int0), task_combat_level_recommended)) {
                 $int3 = 1;
             }
         }
     case 822 :
         if ($int1 = 3) {
-            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), param_2233))>.";
-            if (~comlevel >= struct_param(~task_get_struct($int0), param_2233)) {
+            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), task_combat_level_recommended))>.";
+            if (~comlevel >= struct_param(~task_get_struct($int0), task_combat_level_recommended)) {
                 $int3 = 1;
             }
         }
     case 928, 933 :
         if ($int1 = 2) {
             $string0 = "You need to find and free Skaldrun from the frozen floors in Daemonheim.";
-            if (%varplayerbit_4759 >= 3) {
+            if (%fremsaga_skaldrun >= 3) {
                 $int3 = 1;
             }
         }
     case 908 :
         if ($int1 = 1) {
-            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), param_2233))>.";
-            if (~comlevel >= struct_param(~task_get_struct($int0), param_2233)) {
+            $string0 = "You need a combat level of at least <tostring(struct_param(~task_get_struct($int0), task_combat_level_recommended))>.";
+            if (~comlevel >= struct_param(~task_get_struct($int0), task_combat_level_recommended)) {
                 $int3 = 1;
             }
         }
     case 659 :
         if ($int1 = 2) {
             $string0 = "You need to learn how to brew this during the In Aid of the Myreque quest.";
-            if (%varplayerbit_11498 >= 280) {
+            if (%myreque_2_quest >= 280) {
                 $int3 = 1;
             }
         }
@@ -231,28 +231,28 @@ switch_int ($int0) {
     case 3065 :
         if ($int1 = 1) {
             $string0 = "You must wait at least a day since you last used the Rune Goldberg Machine.";
-            if (%varplayerbit_24907 = 0) {
+            if (%runemach_experimented_today = 0) {
                 $int3 = 1;
             }
         }
     case 3074 :
         if ($int1 = 2) {
             $string0 = "You must complete the Beneath Cursed Tides quest in order to gain access to the oyster.";
-            if (%varplayerbit_30071 >= 200) {
+            if (%tutisland_main >= 200) {
                 $int3 = 1;
             }
         }
     case 3085 :
         if ($int1 = 2) {
             $string0 = "You must complete Sins of the Father in order to gain access to The Effigy Incubator.";
-            if (%varplayerbit_15817 >= 10) {
+            if (%kerapac_dnd_quest_main >= 10) {
                 $int3 = 1;
             }
         }
     case 3087 :
         if ($int1 = 2) {
             $string0 = "You must complete Kili Row in order to gain access to Thalmund's Wares.";
-            if (~script18522(quest_500) = true) {
+            if (~script18522(necromancy_city_smith) = true) {
                 $int3 = 1;
             }
         }

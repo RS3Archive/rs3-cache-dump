@@ -16,7 +16,7 @@ if (%varclientbit_30623 = 0) {
     %varclientbit_30630 = 1;
 }
 def_int $int1 = %varclientbit_30629;
-if ($struct0 = struct_33116) {
+if ($struct0 = telemetry_graph_embedded) {
     $int1 = 1;
 }
 if (%varclientbit_30621 ! 0) {
@@ -25,7 +25,7 @@ if (%varclientbit_30621 ! 0) {
 if (%varclientbit_30622 < 0 | %varclientbit_30622 > 4) {
     %varclientbit_30622 = 0;
 }
-def_component $component2 = struct_param($struct0, param_5650);
+def_component $component2 = struct_param($struct0, graph_display_layer);
 if ($component2 = null) {
     return;
 }
@@ -38,26 +38,26 @@ cc_deleteall($component3);
 if_setonscrollwheel(null, $component3);
 if_setontimer(null, $component3);
 if_setonvartransmit(null, $component3);
-if (%varclient_5156 ! 0) {
+if (%telemetry_graph_ids_changed ! 0) {
     return;
 }
 def_int $int4 = ~script12285(%varclientbit_30618, %varclientbit_30619);
 if (%varclientbit_30630 = 1) {
-    %varclient_5173 = enum(int, int, enum_10877, $int4);
-    %varclient_5174 = enum(int, int, enum_10878, $int4);
-    %varclient_5175 = enum(int, int, enum_10878, $int4);
-    %varclient_5176 = %varclient_5173;
-    %varclient_5177 = %varclient_5174;
-    %varclient_5178 = %varclient_5175;
+    %telemetry_graph_colour_positive = enum(int, int, telemetry_graph_colours_normal, $int4);
+    %telemetry_graph_colour_positive_over = enum(int, int, telemetry_graph_colours_over, $int4);
+    %telemetry_graph_colour_positive_highlight = enum(int, int, telemetry_graph_colours_over, $int4);
+    %telemetry_graph_colour_negative = %telemetry_graph_colour_positive;
+    %telemetry_graph_colour_negative_over = %telemetry_graph_colour_positive_over;
+    %telemetry_graph_colour_negative_highlight = %telemetry_graph_colour_positive_highlight;
 } else {
-    %varclient_5173 = 0x51ff57;
-    %varclient_5174 = 16773632;
-    %varclient_5175 = 0x00ff08;
-    %varclient_5176 = 0xff6051;
-    %varclient_5177 = 16773632;
-    %varclient_5178 = 0xff1500;
+    %telemetry_graph_colour_positive = 0x51ff57;
+    %telemetry_graph_colour_positive_over = 16773632;
+    %telemetry_graph_colour_positive_highlight = 0x00ff08;
+    %telemetry_graph_colour_negative = 0xff6051;
+    %telemetry_graph_colour_negative_over = 16773632;
+    %telemetry_graph_colour_negative_highlight = 0xff1500;
 }
-def_component $component5 = struct_param($struct0, param_5646);
+def_component $component5 = struct_param($struct0, graph_info_layer);
 def_component $component6 = if_getlayer($component5);
 if ($component5 = null | $component6 = null) {
     return;
@@ -74,7 +74,7 @@ if ($int8 = 1 & calc(if_getheight($component6) - 28 - (if_getheight($component7)
     if_setsize(0, 0, ^setsize_minus, ^setsize_abs, $component5);
 }
 cc_deleteall($component5);
-def_component $component9 = struct_param($struct0, param_5647);
+def_component $component9 = struct_param($struct0, graph_guide_values_layer);
 if ($component9 = null) {
     return;
 }
@@ -86,7 +86,7 @@ if ($int10 = 1 & calc(if_getwidth($component6) - 28 - (if_getwidth($component7) 
     if_setsize(0, 0, ^setsize_abs, ^setsize_minus, $component9);
 }
 cc_deleteall($component9);
-def_component $component11 = struct_param($struct0, param_5648);
+def_component $component11 = struct_param($struct0, graph_guide_values_overlay_layer);
 if ($component11 = null) {
     return;
 }
@@ -100,7 +100,7 @@ if ($int8 = 1) {
 } else {
     if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component7);
 }
-def_component $component12 = struct_param($struct0, param_5649);
+def_component $component12 = struct_param($struct0, graph_guide_lines_layer);
 if ($component12 = null) {
     return;
 }
@@ -110,23 +110,23 @@ if (%varclientbit_30627 = 1) {
     cc_create($component12, ^iftype_rectangle, 0);
     cc_setposition(-1, calc(16384 * 3 / 4), ^setpos_abs_left, ^setpos_rel_bottom);
     cc_setsize(-2, 0, ^setsize_minus, ^setsize_minus);
-    ~script10010(struct_28687);
-    if ($struct0 = struct_33115) {
-        ~script12591(4, struct_33125);
+    ~script10010(rs3_separator);
+    if ($struct0 = telemetry_graph) {
+        ~script12591(4, toplevel_v2_window_data_graph);
     }
     cc_create($component12, ^iftype_rectangle, 1);
     cc_setposition(-1, calc(16384 / 2), ^setpos_abs_left, ^setpos_rel_bottom);
     cc_setsize(-2, 0, ^setsize_minus, ^setsize_minus);
-    ~script10010(struct_28687);
-    if ($struct0 = struct_33115) {
-        ~script12591(4, struct_33125);
+    ~script10010(rs3_separator);
+    if ($struct0 = telemetry_graph) {
+        ~script12591(4, toplevel_v2_window_data_graph);
     }
     cc_create($component12, ^iftype_rectangle, 2);
     cc_setposition(-1, calc(16384 / 4), ^setpos_abs_left, ^setpos_rel_bottom);
     cc_setsize(-2, 0, ^setsize_minus, ^setsize_minus);
-    ~script10010(struct_28687);
-    if ($struct0 = struct_33115) {
-        ~script12591(4, struct_33125);
+    ~script10010(rs3_separator);
+    if ($struct0 = telemetry_graph) {
+        ~script12591(4, toplevel_v2_window_data_graph);
     }
 } else {
     if_sethide(true, $component12);
@@ -149,14 +149,14 @@ if ($int1 = 1) {
 } else {
     if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component7);
 }
-def_component $component13 = struct_param($struct0, param_5653);
-def_component $component14 = struct_param($struct0, param_5654);
+def_component $component13 = struct_param($struct0, graph_dropdown_build_layer);
+def_component $component14 = struct_param($struct0, graph_dropdown_click_layer);
 if ($component13 = null | $component14 = null) {
     return;
 }
 cc_deleteall($component13);
 cc_deleteall($component14);
-def_component $component15 = struct_param($struct0, param_5657);
+def_component $component15 = struct_param($struct0, graph_time_layer);
 if ($component15 = null) {
     return;
 }
@@ -170,7 +170,7 @@ if ($component6 = null) {
 if ($int1 = 1) {
     if_setsize(0, 33, ^setsize_minus, ^setsize_abs, $component6);
     $int16 = calc(if_getwidth($component6) - 4 * 2);
-    $component7 = struct_param($struct0, param_5652);
+    $component7 = struct_param($struct0, graph_open_parent_button_layer);
     if ($component7 ! null) {
         $int16 = calc($int16 - if_getwidth($component7) - 4);
     }
@@ -180,7 +180,7 @@ if ($int1 = 1) {
     } else {
         if_sethide(true, $component15);
     }
-    $component7 = struct_param($struct0, param_5655);
+    $component7 = struct_param($struct0, graph_zoom_in_button_disabled_layer);
     if ($component7 ! null) {
         if (%varclientbit_30622 = 0) {
             if_sethide(false, $component7);
@@ -192,7 +192,7 @@ if ($int1 = 1) {
             if ($int16 >= calc(100 + 2 * (if_getwidth($component7) + 4))) {
                 if_sethide(false, $component7);
                 $int16 = calc($int16 - 2 * (if_getwidth($component7) + 4));
-                $component7 = struct_param($struct0, param_5656);
+                $component7 = struct_param($struct0, graph_zoom_out_button_disabled_layer);
                 if ($component7 ! null) {
                     if (%varclientbit_30622 = 4) {
                         if_sethide(false, $component7);
@@ -206,7 +206,7 @@ if ($int1 = 1) {
                 }
             } else {
                 if_sethide(true, $component7);
-                $component7 = struct_param($struct0, param_5656);
+                $component7 = struct_param($struct0, graph_zoom_out_button_disabled_layer);
                 if ($component7 ! null) {
                     $component7 = if_getlayer($component7);
                     if ($component7 ! null) {
@@ -220,21 +220,21 @@ if ($int1 = 1) {
     if ($component7 ! null) {
         if_setsize(calc(if_getwidth($component6) - $int16), if_getheight($component7), ^setsize_minus, ^setsize_abs, $component7);
     }
-    ~script10430($component13, $component14, 0, 0, if_getwidth($component13), 0, enum_9734, null, 32, "Select a group/row type.", $int4, 1);
+    ~script10430($component13, $component14, 0, 0, if_getwidth($component13), 0, telemetry_subcategory_skill, null, 32, "Select a group/row type.", $int4, 1);
 } else {
     if_setsize(0, 0, ^setsize_minus, ^setsize_abs, $component6);
 }
 def_int $int17 = 1;
 def_int $int18 = 0;
-if_setparam_int(param_5644, $int17, $component2);
-if_setparam_int(param_5645, $int18, $component2);
-if_setparam_int(param_5643, 0, $component2);
-if_setparam_int(param_5641, clientclock, $component2);
-if_setparam_int(param_5642, 0, $component2);
-if_setparam_int(param_5639, %varclientbit_30621, $component2);
-if_setparam_int(param_5640, %varclientbit_30622, $component2);
+if_setparam_int(telemetry_graph_value_max, $int17, $component2);
+if_setparam_int(telemetry_graph_value_min, $int18, $component2);
+if_setparam_int(telemetry_graph_component_offset, 0, $component2);
+if_setparam_int(telemetry_graph_last_update, clientclock, $component2);
+if_setparam_int(telemetry_graph_last_update_offset, 0, $component2);
+if_setparam_int(telemetry_graph_display_type, %varclientbit_30621, $component2);
+if_setparam_int(telemetry_graph_display_zoom, %varclientbit_30622, $component2);
 def_int $int19 = max(1, ~script12303);
-def_int $int20 = calc((clientclock - %varclient_5159) / max(1, %varclient_5157) % $int19);
+def_int $int20 = calc((clientclock - %telemetry_graph_data_initial_modulo) / max(1, %telemetry_graph_data_divisor) % $int19);
 def_int $int21 = calc(256 / $int19 - 1 + %varclientbit_30621);
 def_int $int22 = 2;
 if (%varclientbit_30621 = 1) {
@@ -243,7 +243,7 @@ if (%varclientbit_30621 = 1) {
 def_int $int23 = calc((if_getwidth($component3) + %varclientbit_30621) / $int22);
 $int23 = min($int23, $int21);
 if_setsize(calc($int23 * $int22 - %varclientbit_30621), 0, ^setsize_abs, ^setsize_minus, $component2);
-$component7 = struct_param($struct0, param_5651);
+$component7 = struct_param($struct0, graph_historical_layer);
 def_string $string0 = "";
 def_int $int24 = 0;
 if ($component7 ! null) {
@@ -296,7 +296,7 @@ def_int $int29 = 0;
 def_int $int30 = 0;
 while (++$int26 < $int23) {
     if ($boolean28 = true) {
-        $boolean28, $int29, $int30 = ~script12310(interface_1477:com_14, calc(($int23 - 1 - $int26) * $int19 + $int20), $int19);
+        $boolean28, $int29, $int30 = ~script12310(toplevel_v2:graph_data_layer, calc(($int23 - 1 - $int26) * $int19 + $int20), $int19);
         $int29 = ~script12311($int29, $int30);
         if ($int29 > $int17) {
             $int17 = $int29;
@@ -311,7 +311,7 @@ while (++$int26 < $int23) {
     } else {
         cc_setsize($int22, 0, ^setsize_abs, ^setsize_abs);
     }
-    cc_setparam(param_5946, $int29);
+    cc_setparam(rs3tli_component_param_int0, $int29);
     cc_settrans(127);
     cc_setonmouserepeat("script12326(event_com, event_comsubid)");
 }
@@ -322,10 +322,10 @@ if (%varclientbit_30621 = 1 & ++$int23 > 0) {
         $int29 = 0;
         $int30 = 0;
     } else {
-        $boolean28, $int29, $int30 = ~script12310(interface_1477:com_14, 0, $int20);
+        $boolean28, $int29, $int30 = ~script12310(toplevel_v2:graph_data_layer, 0, $int20);
     }
     if ($boolean28 = true) {
-        $boolean28, $int31, $int32 = ~script12310(interface_1477:com_15, 0, 1);
+        $boolean28, $int31, $int32 = ~script12310(toplevel_v2:graph_data_fine_layer, 0, 1);
     }
     if ($boolean28 = true) {
         $int29, $int30 = ~script12313($int29, $int30, $int31, $int32);
@@ -339,18 +339,18 @@ if (%varclientbit_30621 = 1 & ++$int23 > 0) {
     cc_create($component2, ^iftype_rectangle, $int26);
     cc_setsize(calc($int22 - 1), 0, ^setsize_abs, ^setsize_abs);
     cc_setfill(true);
-    cc_setparam(param_5946, $int29);
+    cc_setparam(rs3tli_component_param_int0, $int29);
     cc_settrans(127);
     cc_setonmouserepeat("script12326(event_com, event_comsubid)");
 }
-if_setparam_int(param_5644, $int17, $component2);
-if_setparam_int(param_5645, $int18, $component2);
+if_setparam_int(telemetry_graph_value_max, $int17, $component2);
+if_setparam_int(telemetry_graph_value_min, $int18, $component2);
 def_int $int33 = -1;
 if ($boolean28 = false) {
     $int33 = calc(clientclock + 1500);
 }
 if_setontimer("script12322($struct0, $int33)", $component3);
-if_setonvartransmit("script12317($struct0){varplayer_3814}", $component3);
+if_setonvartransmit("script12317($struct0){toplevel_v2_skins_varp}", $component3);
 $string0 = "";
 def_int $int34 = -1;
 def_int $int35 = 0;
@@ -364,7 +364,7 @@ def_int $int42 = 0;
 if ($int23 > 0) {
     if_setonscrollwheel("script12301(event_mousey)", $component3);
     if ($int8 = 1 | $int1 = 1 & if_gethide($component15) = false) {
-        $int35 = calc(10 * %varclient_5157 * $int19 / 50);
+        $int35 = calc(10 * %telemetry_graph_data_divisor * $int19 / 50);
         $string0 = "Zoom: <~script12304>";
         $string0 = "Interval: <~script12291($int35)><br><$string0>";
         $int35 = calc($int35 * $int23);
@@ -373,7 +373,7 @@ if ($int23 > 0) {
     if ($int1 = 1 & if_gethide($component15) = false) {
         if_setonscrollwheel("script12301(event_mousey)", $component15);
         cc_create($component15, ^iftype_text, 0);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
         cc_setcolour($rgb37);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
@@ -384,17 +384,17 @@ if ($int23 > 0) {
     }
     if ($int8 = 1) {
         cc_create($component5, ^iftype_text, 0);
-        cc_settextfont(fontmetrics_29);
+        cc_settextfont(museo_sans_13pt_bold);
         cc_setcolour($rgb37);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
         cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
         $int34, $int39 = ~script12299(%varclientbit_30618);
-        cc_settext(enum(int, string, enum_10039, $int34));
+        cc_settext(enum(int, string, telemetry_all_statistics, $int34));
         cc_setsize(calc(parawidth(cc_gettext, 1000, cc_getfontmetrics) + 4), 4, ^setsize_abs, ^setsize_minus);
         $int16 = if_getwidth(cc_getlayer);
         $int40 = parawidth("-888W", 1000, cc_getfontmetrics);
-        if (%varplayerbit_28120 = 1) {
+        if (%telemetry_show_precise_values = 1) {
             $int41 = parawidth("-2,088,888,888", 1000, cc_getfontmetrics);
         }
         if ($int16 >= calc(max($int40, $int41) + cc_getwidth + 25 + 4)) {
@@ -408,7 +408,7 @@ if ($int23 > 0) {
             $int42 = 1;
         }
         .cc_create($component5, ^iftype_text, 1);
-        .cc_settextfont(fontmetrics_29);
+        .cc_settextfont(museo_sans_13pt_bold);
         .cc_setcolour($rgb37);
         .cc_settextshadow(true);
         .cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
@@ -419,9 +419,9 @@ if ($int23 > 0) {
         } else {
             .cc_setsize(cc_getwidth, 4, ^setsize_minus, ^setsize_minus);
         }
-        .cc_setparam(param_4261, $int35);
+        .cc_setparam(toplevel_v2_tooltip_param_int0, $int35);
         if ($int42 >= 2) {
-            .cc_setparam(param_5946, 0);
+            .cc_setparam(rs3tli_component_param_int0, 0);
         }
         cc_create($component5, ^iftype_graphic, 2);
         if ($int42 < 1) {
@@ -436,14 +436,14 @@ if ($int23 > 0) {
     }
     if ($int10 = 1) {
         cc_create($component9, ^iftype_text, 0);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
         cc_setcolour($rgb37);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
         cc_setposition(4, 0, ^setpos_abs_right, ^setpos_abs_bottom);
         cc_setsize(4, ~script7593("8888", 1000, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
         cc_create($component9, ^iftype_text, 1);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
         cc_setcolour($rgb37);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
@@ -452,14 +452,14 @@ if ($int23 > 0) {
     }
     if (%varclientbit_30626 = 1) {
         cc_create($component11, ^iftype_text, 0);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
         cc_setcolour($rgb37);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
         cc_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_bottom);
         cc_setsize(0, ~script7593("8888", 1000, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
         cc_create($component11, ^iftype_text, 1);
-        cc_settextfont(fontmetrics_26);
+        cc_settextfont(museo_sans_11pt_regular);
         cc_setcolour($rgb37);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
@@ -484,7 +484,7 @@ if ($int23 > 0) {
     if (%varclientbit_30621 = 1) {
         cc_sendtoback;
         cc_setfill(true);
-        cc_setparam(param_4424, 1);
+        cc_setparam(rs3tli_component_sin_trans, 1);
         cc_setontimer("script12320(event_com, event_comsubid, $component2)");
         ~script12321($component3, cc_getid, $component2);
     }

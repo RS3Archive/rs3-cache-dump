@@ -1,0 +1,42 @@
+// 21164
+[proc,script21164](int $int0, int $int1)(int)
+if ((%plugin_hub_auth_skip_flow = 1 | %plugin_hub_auth_state_last = 8) & staffmodlevel >= 2 & modewhere ! 0) {
+    return(8);
+}
+switch_int ($int0) {
+    case 0 :
+        return(0);
+    case 1 :
+        return(8);
+    case 2 :
+        switch_int ($int1) {
+            case 0 :
+                return(5);
+            case 4 :
+                return(4);
+            case default :
+                return(2);
+        }
+    case 3 :
+        switch_int ($int1) {
+            case 0 :
+                return(5);
+            case 5 :
+                ~error("Invalid display name reply (invalid) unexpected");
+                return(4);
+            case 6 :
+                ~error("Invalid display name reply (unavailable) unexpected");
+                return(4);
+            case default :
+                return(7);
+        }
+    case 4 :
+        switch_int ($int1) {
+            case 7, 8, 9 :
+                return(7);
+            case default :
+                return(5);
+        }
+}
+~error("Unexpected fallthrough: <tostring($int0)> / <tostring($int1)>");
+return(%plugin_hub_auth_state_last);

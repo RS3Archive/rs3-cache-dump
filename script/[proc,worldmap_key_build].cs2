@@ -21,7 +21,7 @@ cc_settext("Select/deselect all");
 cc_setposition(calc(.cc_getx + .cc_getwidth + 3), $int8, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(calc(cc_getx + 16 + 3 / 2), 18, ^setsize_minus, ^setsize_abs);
 cc_setcolour(~script10495(3));
-cc_settextfont(fontmetrics_28);
+cc_settextfont(museo_sans_13pt_regular);
 cc_settextshadow(true);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 .cc_create($component1, ^iftype_rectangle, if_getnextsubid($component1));
@@ -51,9 +51,9 @@ cc_setposition(0, calc($int8 - 1), ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(0, 0, ^setsize_minus, ^setsize_abs);
 cc_setcolour(~script10495(8));
 $int8 = calc($int8 + 5);
-def_int $intarray0(calc(enum_getoutputcount(enum_1805) + 1));
+def_int $intarray0(calc(enum_getoutputcount(worldmap_key_data) + 1));
 def_struct $struct9 = null;
-def_int $intarray1(calc(enum_getoutputcount(enum_1805) + 1));
+def_int $intarray1(calc(enum_getoutputcount(worldmap_key_data) + 1));
 def_int $int10 = -1;
 def_int $int11 = -1;
 def_enum $enum12 = null;
@@ -71,19 +71,19 @@ def_int $int23 = 0;
 def_int $int24 = 0;
 def_int $int25 = -1;
 if ($int0 = 0) {
-    while ($int4 <= enum_getoutputcount(enum_1805)) {
-        $struct9 = enum(int, struct, enum_1805, $int4);
-        if ($struct9 ! null & (map_members = true | struct_param($struct9, param_478) = false)) {
+    while ($int4 <= enum_getoutputcount(worldmap_key_data)) {
+        $struct9 = enum(int, struct, worldmap_key_data, $int4);
+        if ($struct9 ! null & (map_members = true | struct_param($struct9, membersonly) = false)) {
             $intarray0($int7) = $int4;
-            $intarray1($int7) = calc((struct_param($struct9, param_597) + 1) * 100 + struct_param($struct9, param_4031) + 1);
+            $intarray1($int7) = calc((struct_param($struct9, worldmap_key_category) + 1) * 100 + struct_param($struct9, worldmap_key_subcategory) + 1);
             $int7 = calc($int7 + 1);
         }
         $int4 = calc($int4 + 1);
     }
 } else {
-    while ($int4 <= enum_getoutputcount(enum_1805)) {
-        $struct9 = enum(int, struct, enum_1805, $int4);
-        if ($struct9 ! null & (map_members = true | struct_param($struct9, param_478) = false)) {
+    while ($int4 <= enum_getoutputcount(worldmap_key_data)) {
+        $struct9 = enum(int, struct, worldmap_key_data, $int4);
+        if ($struct9 ! null & (map_members = true | struct_param($struct9, membersonly) = false)) {
             $intarray0($int7) = $int4;
             $int7 = calc($int7 + 1);
         }
@@ -101,7 +101,7 @@ if ($int0 = 1) {
     if_settext("Key order:<br>Alphabetical", $component3);
 } else if ($int0 = 0) {
     array_sort(calc($int7 + 1), 1, 0);
-    while ($int10 < enum_getoutputcount(enum_1806)) {
+    while ($int10 < enum_getoutputcount(worldmap_key_categorynames)) {
         $int17 = if_getnextsubid($component1);
         $int18 = 0;
         $int19 = 0;
@@ -109,11 +109,11 @@ if ($int0 = 1) {
         $int15 = ~script9640($int14);
         $int8 = ~worldmap_createtitle($component1, $component2, $int10, $int8, $int14, $int15);
         $int14 = calc($int14 + 1);
-        while (struct_param(enum(int, struct, enum_1805, $intarray0($int5)), param_597) = $int10) {
+        while (struct_param(enum(int, struct, worldmap_key_data, $intarray0($int5)), worldmap_key_category) = $int10) {
             $int5 = calc($int5 + 1);
         }
         $int11 = -1;
-        $enum12 = enum(int, enum, enum_8351, $int10);
+        $enum12 = enum(int, enum, worldmap_key_cat2subcat, $int10);
         if ($enum12 ! null) {
             while ($int11 < enum_getoutputcount($enum12)) {
                 $int21 = if_getnextsubid($component1);
@@ -129,7 +129,7 @@ if ($int0 = 1) {
                     $int13 = 1;
                     ~script9626($component1);
                 }
-                while (struct_param(enum(int, struct, enum_1805, $intarray0($int6)), param_4031) = $int11) {
+                while (struct_param(enum(int, struct, worldmap_key_data, $intarray0($int6)), worldmap_key_subcategory) = $int11) {
                     $int6 = calc($int6 + 1);
                 }
                 if (calc($int4 + 1) < $int6) {
@@ -159,7 +159,7 @@ if ($int0 = 1) {
                             cc_setgraphic("rs3_btn_checkbox_small,4");
                         }
                     } else {
-                        cc_setparam_int(param_4033, 1);
+                        cc_setparam_int(worldmap_category_empty, 1);
                     }
                 }
                 $int11 = calc($int11 + 1);
@@ -191,7 +191,7 @@ if ($int0 = 1) {
                     cc_setgraphic("rs3_btn_checkbox_small,4");
                 }
             } else {
-                cc_setparam_int(param_4033, 1);
+                cc_setparam_int(worldmap_category_empty, 1);
             }
         }
         $int10 = calc($int10 + 1);

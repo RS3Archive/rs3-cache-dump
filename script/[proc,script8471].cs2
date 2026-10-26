@@ -2,10 +2,10 @@
 [proc,script8471](component $component0, inv $inv1)
 def_inv $inv2 = null;
 if_setonresize("script8470(event_com, $inv1)", $component0);
-if ($inv1 = inv_743) {
-    $inv2 = inv_742;
-} else if ($inv1 = inv_818) {
-    $inv2 = inv_816;
+if ($inv1 = inspect_worn_display) {
+    $inv2 = inspect_worn;
+} else if ($inv1 = mtxmgt_store_worn_display_preview) {
+    $inv2 = mtxmgt_store_worn;
 } else {
     $inv2 = $inv1;
     $inv1 = null;
@@ -54,11 +54,11 @@ def_int $int18 = max(calc(if_getheight($component0) - $int15), 0);
 def_int $int19 = 0;
 def_int $int20 = 0;
 def_int $int21 = 0;
-if ($boolean16 = true & ($component0 = interface_1464:com_0 | $component0 = interface_1462:com_3)) {
+if ($boolean16 = true & ($component0 = toplevel_v2_worn:content_layer | $component0 = toplevel_v2_parent_suboverlay_worn:content_layer)) {
     $int21 = 1;
 }
 def_int $int22 = 0;
-if ($inv1 = inv_818 & %varclientbit_35134 = 1) {
+if ($inv1 = mtxmgt_store_worn_display_preview & %varclientbit_35134 = 1) {
     $int22 = 2;
     if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component0);
     if ($component3 ! null) {
@@ -70,7 +70,7 @@ if ($inv1 = inv_818 & %varclientbit_35134 = 1) {
         if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, $component5);
         if_setsize(0, 0, ^setsize_abs, ^setsize_minus, $component5);
     }
-    if_setposition(calc(2 + 4 - 2), calc(if_getheight(interface_1843:com_296) + 4 + 2 + 8), ^setpos_abs_right, ^setpos_abs_bottom, $component4);
+    if_setposition(calc(2 + 4 - 2), calc(if_getheight(mtxmgt_store:buttons_layer) + 4 + 2 + 8), ^setpos_abs_right, ^setpos_abs_bottom, $component4);
     if_setsize(calc(220 - 2 * (2 + 4 - 2)), 200, ^setsize_abs, ^setsize_abs, $component4);
     $int19 = calc((if_getwidth($component4) - 140) / 2);
     if ($component10 ! null) {
@@ -127,7 +127,7 @@ if ($inv1 = inv_818 & %varclientbit_35134 = 1) {
         if_setsize(calc($int19 + 200), calc($int20 + 320), ^setsize_abs, ^setsize_abs, $component12);
     }
     $int19 = 0;
-} else if (%varplayerbit_51268 = 1 & %varplayer_7879 ! 1 & $int21 = 1 | $component10 ! null & $int17 >= 140 & $int18 >= 200) {
+} else if (%toplevel_v2_mobile_toggle_right_action_buttons = 1 & %mobile_interface_mode ! 1 & $int21 = 1 | $component10 ! null & $int17 >= 140 & $int18 >= 200) {
     $int22 = 2;
     if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component0);
     if ($component3 ! null) {
@@ -257,16 +257,16 @@ switch_int ($int22) {
 }
 if ($component6 ! null) {
     switch_component ($component6) {
-        case interface_1464:com_17 :
-            ~child_buttons_resize(interface_1464:com_19, 3);
-        case interface_1462:com_33 :
-            ~child_buttons_resize(interface_1462:com_35, 3);
+        case toplevel_v2_worn:fixed_layer :
+            ~child_buttons_resize(toplevel_v2_worn:button_layer, 3);
+        case toplevel_v2_parent_suboverlay_worn:fixed_layer :
+            ~child_buttons_resize(toplevel_v2_parent_suboverlay_worn:button_layer, 3);
     }
 }
 $int31 = -1;
-if ($inv1 = inv_818) {
+if ($inv1 = mtxmgt_store_worn_display_preview) {
     while (cc_find($component8, ++$int31) = true) {
-        cc_setparam(param_8968, null);
+        cc_setparam(mtxmgt_item_dbrow, null);
     }
 }
 $int31 = 0;
@@ -285,7 +285,7 @@ while ($int31 < $int30) {
     $obj37 = null;
     $struct38 = null;
     if (.cc_find($component7, $int31) = true) {
-        if ($component8 = interface_517:com_289 & testbit(%varplayer_6954, $int31) = ^true) {
+        if ($component8 = bank:preset_worn_item_layer & testbit(%share_preset_worn_error_bits, $int31) = ^true) {
             cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
             cc_setsize(.cc_getwidth, .cc_getheight, ^setsize_abs, ^setsize_abs);
             cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
@@ -310,8 +310,8 @@ while ($int31 < $int30) {
                 if ($inv1 ! null) {
                     $obj37 = inv_getobj($inv1, $int31);
                     if ($obj37 ! null) {
-                        if (oc_param($obj37, param_4949) = 1) {
-                            $obj37 = enum_getreverseindex(obj, obj, enum_9904, $obj37, 0);
+                        if (oc_param($obj37, skillcape_is_retro) = 1) {
+                            $obj37 = enum_getreverseindex(obj, obj, retro_skillcapes_convert_to_retro, $obj37, 0);
                         } else {
                             $obj37 = ~script13427($obj37, $inv1);
                         }
@@ -341,17 +341,17 @@ while ($int31 < $int30) {
                     ~script12112($obj35, inv_getnum($inv2, $int31), $inv2, $int31);
                     cc_settrans(0);
                     switch_component ($component8) {
-                        case interface_517:com_28 :
-                            if (oc_param($obj35, param_2091) = false | compare(oc_param($obj35, param_528), "Remove") = 0 | compare(oc_param($obj35, param_529), "Remove") = 0 | compare(oc_param($obj35, param_530), "Remove") = 0 | compare(oc_param($obj35, param_531), "Remove") = 0 | compare(oc_param($obj35, param_1211), "Remove") = 0 | compare(oc_param($obj35, param_6712), "Remove") = 0 | compare(oc_param($obj35, param_6713), "Remove") = 0 | compare(oc_param($obj35, param_6714), "Remove") = 0 | oc_param($obj35, param_9058) = true) {
+                        case bank:item_layer :
+                            if (oc_param($obj35, hide_remove_op) = false | compare(oc_param($obj35, wear_op1), "Remove") = 0 | compare(oc_param($obj35, wear_op2), "Remove") = 0 | compare(oc_param($obj35, wear_op3), "Remove") = 0 | compare(oc_param($obj35, wear_op4), "Remove") = 0 | compare(oc_param($obj35, wear_op5), "Remove") = 0 | compare(oc_param($obj35, wear_op6), "Remove") = 0 | compare(oc_param($obj35, wear_op7), "Remove") = 0 | compare(oc_param($obj35, wear_op8), "Remove") = 0 | oc_param($obj35, show_remove_ops_in_bank) = true) {
                                 cc_setop(1, "Remove to bank");
                                 cc_setop(7, "Remove to inventory");
                             }
-                            if (oc_param($obj35, param_4594) = 1) {
+                            if (oc_param($obj35, trh33_fill_from_bank) = 1) {
                                 cc_setop(2, "Fill from bank");
                                 cc_setop(3, "Empty to bank");
                             }
                             cc_setop(10, "Examine");
-                        case interface_1367:com_96, interface_1367:com_86 :
+                        case duel3_options:player_item_layer, duel3_options:opponent_item_layer :
                             cc_setopbase("");
                             cc_setonop(null);
                             cc_setdraggable(null, -1);
@@ -359,7 +359,7 @@ while ($int31 < $int30) {
                             cc_setondragcomplete(null);
                             cc_setop(10, "Examine");
                             ~script14994($obj35, $inv2, $int31, $obj37, $inv1, 0);
-                        case interface_517:com_289 :
+                        case bank:preset_worn_item_layer :
                             cc_setonmouserepeat("script14392($obj35, $inv2, event_com, event_comsubid)");
                             cc_setonop("script14393($inv2, event_com, event_comsubid, event_op)");
                             cc_setdraggable(null, -1);
@@ -367,10 +367,10 @@ while ($int31 < $int30) {
                             cc_setondragcomplete(null);
                             cc_setop(1, "Remove");
                             cc_setop(10, "Examine");
-                            cc_setparam(param_7540, 0);
-                            cc_setparam(param_7541, $obj35);
-                            cc_setparam(param_7542, $int31);
-                            cc_setparam(param_7543, $inv2);
+                            cc_setparam(toplevel_v2_tooltip_mobile_tooltip_type, 0);
+                            cc_setparam(toplevel_v2_tooltip_mobile_item, $obj35);
+                            cc_setparam(toplevel_v2_tooltip_mobile_item_slot, $int31);
+                            cc_setparam(toplevel_v2_tooltip_mobile_inv, $inv2);
                         case default :
                             if ($inv1 ! null) {
                                 ~script14994($obj35, $inv2, $int31, $obj37, $inv1, 0);
@@ -380,7 +380,7 @@ while ($int31 < $int30) {
                                 cc_setondrag(null);
                                 cc_setondragcomplete(null);
                             } else {
-                                if (oc_param($obj35, param_2091) = false) {
+                                if (oc_param($obj35, hide_remove_op) = false) {
                                     cc_setop(1, "Remove");
                                 }
                                 while ($int39 <= 8) {
@@ -398,12 +398,12 @@ while ($int31 < $int30) {
                     ~script9222(null, -1);
                     cc_setgraphic(~script8478($inv1, $int31, 0));
                     cc_setsize(calc(36 - 4), calc(32 - 2), ^setsize_abs, ^setsize_abs);
-                    if ($boolean16 = true & (cc_getlayer = interface_1462:com_31 | cc_getlayer = interface_1464:com_15)) {
+                    if ($boolean16 = true & (cc_getlayer = toplevel_v2_parent_suboverlay_worn:item_layer | cc_getlayer = toplevel_v2_worn:item_layer)) {
                         cc_setsize(44, 39, ^setsize_abs, ^setsize_abs);
                     }
                     if (~script13139($inv1, $int31) = 1) {
                         cc_settrans(204);
-                        if ($inv1 = inv_818) {
+                        if ($inv1 = mtxmgt_store_worn_display_preview) {
                             $string2 = "No cosmetic appearance";
                             cc_setonmouserepeat("script3876($string2, event_com, event_comsubid)");
                         }
@@ -418,24 +418,24 @@ while ($int31 < $int30) {
                     }
                 }
                 if ($inv1 ! null) {
-                    if ($inv1 = inv_818) {
+                    if ($inv1 = mtxmgt_store_worn_display_preview) {
                         if (~script13139($inv1, $int31) = 0) {
                             $string0 = "Filter";
                             cc_setop(1, $string0);
                             cc_setonop("script13194(event_com, event_comsubid, event_op)");
-                            if (enum(int, obj, enum_8043, $int31) ! null & $obj37 ! enum(int, obj, enum_8043, $int31)) {
+                            if (enum(int, obj, mtx_extras_invisible_full, $int31) ! null & $obj37 ! enum(int, obj, mtx_extras_invisible_full, $int31)) {
                                 cc_setop(4, "Hide slot");
                             }
                             cc_settrans(127);
                             if ($obj37 = null) {
-                                ~script14994(null, null, -1, obj_39753, $inv1, 0);
+                                ~script14994(null, null, -1, mtx_no_customisation, $inv1, 0);
                             } else {
-                                $struct38 = oc_param($obj37, param_4414);
+                                $struct38 = oc_param($obj37, mtxmgt_item_struct);
                             }
-                            $obj35 = inv_getobj(inv_94, $int31);
+                            $obj35 = inv_getobj(worn, $int31);
                             if ($obj35 ! null) {
-                                if (oc_param($obj35, param_4949) = 1) {
-                                    $obj35 = enum_getreverseindex(obj, obj, enum_9904, $obj35, 0);
+                                if (oc_param($obj35, skillcape_is_retro) = 1) {
+                                    $obj35 = enum_getreverseindex(obj, obj, retro_skillcapes_convert_to_retro, $obj35, 0);
                                 } else {
                                     $obj35 = ~script13427($obj35, $inv1);
                                 }
@@ -446,7 +446,7 @@ while ($int31 < $int30) {
                                         cc_setgraphic(~script8478($inv1, $int31, 1));
                                         cc_settrans(0);
                                         cc_setop(3, "Clear customisation");
-                                        if ($struct38 ! null & oc_param($obj37, param_2500) ! null & oc_param($obj37, param_2500) ! struct_28387) {
+                                        if ($struct38 ! null & oc_param($obj37, mtxrecol_set) ! null & oc_param($obj37, mtxrecol_set) ! mtxrecol_special) {
                                             if ($boolean16 = true) {
                                                 cc_setop(5, "Recolour");
                                             } else {
@@ -455,16 +455,16 @@ while ($int31 < $int30) {
                                             $int41 = setbit($int41, 0);
                                             if ($component13 ! null) {
                                                 .cc_create($component13, ^iftype_graphic, if_getnextsubid($component13));
-                                                .cc_setsize(struct_param(struct_35562, param_3915), struct_param(struct_35562, param_3916), ^setsize_abs, ^setsize_abs);
+                                                .cc_setsize(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_width), struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
                                                 .cc_setposition(calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2), calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
-                                                .cc_setgraphic(struct_param(struct_35562, param_3911));
+                                                .cc_setgraphic(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_over));
                                                 .cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
-                                                .cc_setgraphic(struct_param(struct_35562, param_3910));
+                                                .cc_setgraphic(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_on));
                                                 .cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
                                             }
                                         }
                                     }
-                                    if ($obj37 ! inv_getobj(inv_817, $int31) | ~script13103($inv1, $int31) ! ~script13103(inv_817, $int31)) {
+                                    if ($obj37 ! inv_getobj(mtxmgt_store_worn_display, $int31) | ~script13103($inv1, $int31) ! ~script13103(mtxmgt_store_worn_display, $int31)) {
                                         if ($boolean16 = true) {
                                             cc_setop(2, "Undo change");
                                         } else {
@@ -472,14 +472,14 @@ while ($int31 < $int30) {
                                         }
                                         if ($component14 ! null) {
                                             .cc_create($component14, ^iftype_graphic, if_getnextsubid($component14));
-                                            .cc_setsize(struct_param(struct_35560, param_3915), struct_param(struct_35560, param_3916), ^setsize_abs, ^setsize_abs);
+                                            .cc_setsize(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_width), struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
                                             .cc_setposition(calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2), calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
-                                            .cc_setgraphic(struct_param(struct_35560, param_3911));
+                                            .cc_setgraphic(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_over));
                                             .cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
-                                            .cc_setgraphic(struct_param(struct_35560, param_3910));
+                                            .cc_setgraphic(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_on));
                                             .cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
                                         }
-                                        if ($obj37 = null | $obj37 = inv_getobj(inv_817, $int31) & ~script12779($struct38, $obj37, ~script13103($inv1, $int31)) = 1) {
+                                        if ($obj37 = null | $obj37 = inv_getobj(mtxmgt_store_worn_display, $int31) & ~script12779($struct38, $obj37, ~script13103($inv1, $int31)) = 1) {
                                             if (.cc_find($component7, $int31) = true) {
                                                 cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
                                                 cc_setsize(.cc_getwidth, .cc_getheight, ^setsize_abs, ^setsize_abs);
@@ -497,7 +497,7 @@ while ($int31 < $int30) {
                                             }
                                         } else if (.cc_find($component7, $int31) = true) {
                                             $int41 = clearbit($int41, 1);
-                                            cc_setparam(param_8968, ~script15769($struct38));
+                                            cc_setparam(mtxmgt_item_dbrow, ~script15769($struct38));
                                             cc_setgraphic(~script8478($inv1, $int31, 2));
                                             cc_settrans(0);
                                             cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
@@ -508,14 +508,14 @@ while ($int31 < $int30) {
                                         }
                                     }
                                 case 3, 5, 0, 1, 2, 4, 7, 9, 10 :
-                                    if ($obj37 = obj_39752) {
+                                    if ($obj37 = mtx_invisible_slot) {
                                         cc_setgraphic(~script8478($inv1, $int31, 3));
                                         cc_settrans(76);
-                                    } else if ($obj37 ! $obj35 | $obj37 ! null & testbit(%varplayer_6870, $int31) = ^true) {
+                                    } else if ($obj37 ! $obj35 | $obj37 ! null & testbit(%mtxmgt_store_worn_display_preview_keepsake_bits, $int31) = ^true) {
                                         cc_setgraphic(~script8478($inv1, $int31, 1));
                                         cc_settrans(0);
                                         cc_setop(3, "Clear customisation");
-                                        if ($struct38 ! null & oc_param($obj37, param_2500) ! null & oc_param($obj37, param_2500) ! struct_28387) {
+                                        if ($struct38 ! null & oc_param($obj37, mtxrecol_set) ! null & oc_param($obj37, mtxrecol_set) ! mtxrecol_special) {
                                             if ($boolean16 = true) {
                                                 cc_setop(5, "Recolour");
                                             } else {
@@ -524,27 +524,27 @@ while ($int31 < $int30) {
                                             $int41 = setbit($int41, 0);
                                             if ($component13 ! null) {
                                                 .cc_create($component13, ^iftype_graphic, if_getnextsubid($component13));
-                                                .cc_setsize(struct_param(struct_35562, param_3915), struct_param(struct_35562, param_3916), ^setsize_abs, ^setsize_abs);
+                                                .cc_setsize(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_width), struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
                                                 .cc_setposition(calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2), calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
-                                                .cc_setgraphic(struct_param(struct_35562, param_3911));
+                                                .cc_setgraphic(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_over));
                                                 .cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
-                                                .cc_setgraphic(struct_param(struct_35562, param_3910));
+                                                .cc_setgraphic(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_on));
                                                 .cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
                                             }
-                                        } else if (oc_param($obj37, param_7896) ! 0) {
+                                        } else if (oc_param($obj37, skillcape_recolour_group) ! 0) {
                                             cc_setop(5, ~mobile_text("Recolour", "Recolour (SHIFT+Click)"));
                                             if ($component13 ! null) {
                                                 .cc_create($component13, ^iftype_graphic, if_getnextsubid($component13));
-                                                .cc_setsize(struct_param(struct_35562, param_3915), struct_param(struct_35562, param_3916), ^setsize_abs, ^setsize_abs);
+                                                .cc_setsize(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_width), struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
                                                 .cc_setposition(calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2), calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
-                                                .cc_setgraphic(struct_param(struct_35562, param_3911));
+                                                .cc_setgraphic(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_over));
                                                 .cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
-                                                .cc_setgraphic(struct_param(struct_35562, param_3910));
+                                                .cc_setgraphic(struct_param(mtxmgt_store_recolour_icons, rs3tli_icon_graphic_on));
                                                 .cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
                                             }
                                         }
                                     }
-                                    if ($obj37 ! inv_getobj(inv_817, $int31) | testbit(%varplayer_6870, $int31) ! testbit(%varplayer_6869, $int31) | ~script13103($inv1, $int31) ! ~script13103(inv_817, $int31)) {
+                                    if ($obj37 ! inv_getobj(mtxmgt_store_worn_display, $int31) | testbit(%mtxmgt_store_worn_display_preview_keepsake_bits, $int31) ! testbit(%mtxmgt_store_worn_display_keepsake_bits, $int31) | ~script13103($inv1, $int31) ! ~script13103(mtxmgt_store_worn_display, $int31)) {
                                         if ($boolean16 = true) {
                                             cc_setop(2, "Undo change");
                                         } else {
@@ -552,20 +552,20 @@ while ($int31 < $int30) {
                                         }
                                         if ($component14 ! null) {
                                             .cc_create($component14, ^iftype_graphic, if_getnextsubid($component14));
-                                            .cc_setsize(struct_param(struct_35560, param_3915), struct_param(struct_35560, param_3916), ^setsize_abs, ^setsize_abs);
+                                            .cc_setsize(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_width), struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_height), ^setsize_abs, ^setsize_abs);
                                             .cc_setposition(calc(cc_getx + cc_getwidth / 2 - .cc_getwidth / 2), calc(cc_gety + cc_getheight / 2 - .cc_getheight / 2), ^setpos_abs_left, ^setpos_abs_top);
-                                            .cc_setgraphic(struct_param(struct_35560, param_3911));
+                                            .cc_setgraphic(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_over));
                                             .cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
-                                            .cc_setgraphic(struct_param(struct_35560, param_3910));
+                                            .cc_setgraphic(struct_param(mtxmgt_store_revert_icons, rs3tli_icon_graphic_on));
                                             .cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, .cc_getgraphic)");
                                         }
-                                        if ($obj37 = obj_39752) {
+                                        if ($obj37 = mtx_invisible_slot) {
                                             if (.cc_find($component7, $int31) = true) {
                                                 cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
                                                 cc_setsize(.cc_getwidth, .cc_getheight, ^setsize_abs, ^setsize_abs);
                                                 cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
                                             }
-                                        } else if ($obj37 = null | ~script12779($struct38, $obj37, ~script13103($inv1, $int31)) = 1 & (($obj37 = $obj35 | ~script13428($obj35, $obj37) = true) & testbit(%varplayer_6870, $int31) = ^false | $obj37 = inv_getobj(inv_817, $int31) & testbit(%varplayer_6870, $int31) = testbit(%varplayer_6869, $int31))) {
+                                        } else if ($obj37 = null | ~script12779($struct38, $obj37, ~script13103($inv1, $int31)) = 1 & (($obj37 = $obj35 | ~script13428($obj35, $obj37) = true) & testbit(%mtxmgt_store_worn_display_preview_keepsake_bits, $int31) = ^false | $obj37 = inv_getobj(mtxmgt_store_worn_display, $int31) & testbit(%mtxmgt_store_worn_display_preview_keepsake_bits, $int31) = testbit(%mtxmgt_store_worn_display_keepsake_bits, $int31))) {
                                             if (.cc_find($component7, $int31) = true) {
                                                 cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
                                                 cc_setsize(.cc_getwidth, .cc_getheight, ^setsize_abs, ^setsize_abs);
@@ -584,7 +584,7 @@ while ($int31 < $int30) {
                                                 }
                                             } else if (.cc_find($component7, $int31) = true) {
                                                 $int41 = clearbit($int41, 1);
-                                                cc_setparam(param_8968, ~script15769($struct38));
+                                                cc_setparam(mtxmgt_item_dbrow, ~script15769($struct38));
                                                 cc_setgraphic(~script8478($inv1, $int31, 2));
                                                 cc_settrans(0);
                                                 cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
@@ -593,7 +593,7 @@ while ($int31 < $int30) {
                                                 cc_setgraphic(rs3_icon_slot_unavailable);
                                                 $int41 = setbit($int41, 2);
                                             }
-                                        } else if (inv_total(inv_675, $obj37) > 0) {
+                                        } else if (inv_total(worn_custom_overrides, $obj37) > 0) {
                                             if (.cc_find($component7, $int31) = true) {
                                                 cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
                                                 cc_setsize(.cc_getwidth, .cc_getheight, ^setsize_abs, ^setsize_abs);
@@ -603,7 +603,7 @@ while ($int31 < $int30) {
                                             }
                                         } else if (.cc_find($component7, $int31) = true) {
                                             $int41 = clearbit($int41, 1);
-                                            cc_setparam(param_8968, dbrow_10640);
+                                            cc_setparam(mtxmgt_item_dbrow, mtx_keepsake_not_found);
                                             cc_setgraphic(~script8478($inv1, $int31, 2));
                                             cc_settrans(0);
                                             cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
@@ -616,7 +616,7 @@ while ($int31 < $int30) {
                             }
                         }
                     } else if ($obj37 ! null & $obj37 ! $obj35) {
-                        $struct38 = oc_param($obj37, param_4414);
+                        $struct38 = oc_param($obj37, mtxmgt_item_struct);
                         if ($struct38 ! null & ~script6488($struct38) = 1) {
                             if (.cc_find($component7, $int31) = true) {
                                 cc_create($component11, ^iftype_graphic, if_getnextsubid($component11));
@@ -659,15 +659,15 @@ if ($int22 ! 0 & $int21 = 0) {
         ~rs3_scrollbar_vertical($component5, $component4);
     }
 }
-if ($inv1 = inv_818) {
-    if (if_find(interface_1843:com_272) = true) {
+if ($inv1 = mtxmgt_store_worn_display_preview) {
+    if (if_find(mtxmgt_store:recolour_button_disabled_layer) = true) {
         if (testbit($int41, 0) = ^true) {
             cc_sethide(true);
         } else {
             cc_sethide(false);
         }
     }
-    if (if_find(interface_1843:com_312) = true) {
+    if (if_find(mtxmgt_store:apply_button_text) = true) {
         if (testbit($int41, 1) = ^true) {
             cc_settext("Apply");
         } else {
@@ -676,8 +676,8 @@ if ($inv1 = inv_818) {
     }
     ~script13243($component8, $int41);
 }
-if ($component0 = interface_1464:com_0) {
-    ~child_buttons_rebuild(interface_1464:com_19, 3);
-} else if ($component0 = interface_1462:com_3) {
-    ~child_buttons_rebuild(interface_1462:com_35, 3);
+if ($component0 = toplevel_v2_worn:content_layer) {
+    ~child_buttons_rebuild(toplevel_v2_worn:button_layer, 3);
+} else if ($component0 = toplevel_v2_parent_suboverlay_worn:content_layer) {
+    ~child_buttons_rebuild(toplevel_v2_parent_suboverlay_worn:button_layer, 3);
 }

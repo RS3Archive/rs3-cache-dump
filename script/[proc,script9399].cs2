@@ -1,7 +1,7 @@
 // 9399
 [proc,script9399](component $component0, component $component1, component $component2)
 def_int $int3 = 0;
-def_enum $enum4 = enum_9458;
+def_enum $enum4 = stat_autoint_to_int;
 def_int $int5 = 0;
 def_int $int6 = enum_getoutputcount($enum4);
 def_int $int7 = 0;
@@ -13,11 +13,11 @@ while ($int3 < $int6) {
     $int3 = calc($int3 + 1);
 }
 if ($int5 = 0) {
-    if_settext("Skill Tracker", interface_240:com_6);
+    if_settext("Skill Tracker", activity_tracker_embedded_options:options_title);
     cc_create($component0, ^iftype_text, if_getnextsubid($component0));
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
-    cc_settextfont(fontmetrics_26);
+    cc_settextfont(museo_sans_11pt_regular);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     if (~script6431 = false) {
         cc_settext("You are currently not tracking any skills.<br>Open 'Skills' and use the Right Click menu to select and begin tracking a level or XP target.");
@@ -25,7 +25,7 @@ if ($int5 = 0) {
         cc_settext("You are currently not tracking any skills.<br>Open 'Skills' and use the Tap and Hold menu to select and begin tracking a level or XP target.");
     }
     ~script11024(3);
-    if_sethide(false, interface_240:com_1);
+    if_sethide(false, activity_tracker_embedded_options:options_layer);
     return;
 }
 def_int $int8 = 5;
@@ -39,22 +39,22 @@ while ($int3 > -1) {
     $int3 = calc($int3 - 1);
 }
 if ($int8 = 0) {
-    if_settext("Skill Tracker", interface_240:com_6);
+    if_settext("Skill Tracker", activity_tracker_embedded_options:options_title);
     cc_create($component0, ^iftype_text, if_getnextsubid($component0));
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
-    cc_settextfont(fontmetrics_26);
+    cc_settextfont(museo_sans_11pt_regular);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_settext("There are currently no trackers available.<br>Please remove some and try again");
     ~script11024(3);
-    if_sethide(false, interface_240:com_1);
+    if_sethide(false, activity_tracker_embedded_options:options_layer);
     return;
 }
 def_int $int10 = 0;
 def_enum $enum11 = null;
 def_int $int12 = 0;
 $int10, $enum11, $int12 = ~stat_select_build_setup($int5, if_getwidth($component0), 5);
-if_settext("Choose skills to (un)track", interface_240:com_6);
+if_settext("Choose skills to (un)track", activity_tracker_embedded_options:options_title);
 $int3 = 0;
 def_int $int13 = 0;
 def_int $int14 = 0;
@@ -73,7 +73,7 @@ while ($int3 < $int6) {
     if (testbit($int5, $int7) = ^true) {
         $int13 = calc(5 + $int16 % $int10 * $int12 + $int16 % $int10 * 5);
         $int14 = calc($int15 * (5 + $int12));
-        ~script10410($component0, null, struct_21363, $int13, $int14, $int12, $int12, 0, false, "");
+        ~script10410($component0, null, rs3_icon_holder, $int13, $int14, $int12, $int12, 0, false, "");
         cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
         cc_setgraphic(enum(int, graphic, $enum11, $int7));
         cc_setsize(calc($int12 - 8), calc($int12 - 8), ^setsize_abs, ^setsize_abs);
@@ -85,7 +85,7 @@ while ($int3 < $int6) {
             cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
             cc_setsize($int12, $int12, ^setsize_abs, ^setsize_abs);
             cc_sethide(false);
-            cc_setonvartransmit("script9400($int3){varplayer_8740}");
+            cc_setonvartransmit("script9400($int3){activity_tracker_rebuild_child}");
         }
         if (cc_find($component2, $int3) = true) {
             cc_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
@@ -94,4 +94,4 @@ while ($int3 < $int6) {
     }
     $int3 = calc($int3 + 1);
 }
-if_sethide(false, interface_240:com_1);
+if_sethide(false, activity_tracker_embedded_options:options_layer);

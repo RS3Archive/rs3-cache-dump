@@ -1,22 +1,22 @@
 // 5497
 [clientscript,info_box_timer](int $int0)
-if (%varclient_2243 = 1) {
+if (%info_box_stop_timeout = 1) {
     return;
 }
 if ($int0 ! 0) {
-    if (if_find(interface_1177:com_0) = true) {
+    if (if_find(info_box:mainlayer) = true) {
         cc_setontimer("info_box_timer(calc($int0 - 1))");
     }
     return;
 }
 def_int $int1 = 0;
 while ($int1 < 11) {
-    ~info_fade_component($int1, interface_1177:com_0);
+    ~info_fade_component($int1, info_box:mainlayer);
     $int1 = calc($int1 + 1);
 }
-~info_fade_component(-1, interface_1177:com_2);
-~info_fade_component(-1, interface_1177:com_3);
-~info_fade_component(-1, interface_1177:com_4);
-if (cc_find(interface_1177:com_0, 9) = true & cc_gettrans = 255) {
+~info_fade_component(-1, info_box:line_vertical);
+~info_fade_component(-1, info_box:line_end_top);
+~info_fade_component(-1, info_box:line_end_bot);
+if (cc_find(info_box:mainlayer, 9) = true & cc_gettrans = 255) {
     ~info_reset;
 }

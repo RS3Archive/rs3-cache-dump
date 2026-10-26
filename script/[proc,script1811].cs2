@@ -1,6 +1,6 @@
 // 1811
 [proc,script1811](component $component0, component $component1, component $component2)
-if (string_length(%varclient_2409) = 0) {
+if (string_length(%clanwars_caller) = 0) {
     ~script1812("", $component2);
     return;
 }
@@ -24,7 +24,7 @@ while ($int9 <= $int3) {
     $chattype5, $string0, $int6, $string1, $string2, $string3, $string4, $chatphrase7, $string5, $int8, $int11 = chat_gethistory_byuid($int9);
     switch_int ($chattype5) {
         case ^chattype_modchat, ^chattype_publicchat, ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_friendschat, ^chattype_friendschatnotification, ^chattype_quickchat_public, ^chattype_quickchat_private_incoming, ^chattype_quickchat_friend_chat, ^chattype_group_all, ^chattype_group_same_team, ^chattype_quickchat_group_all, ^chattype_quickchat_group_same_team, ^chattype_clanchat, ^chattype_quickchat_clanchat, ^chattype_clanguestchat, ^chattype_quickchat_clanguestchat :
-            if (compare(lowercase(removetags($string1)), %varclient_2409) = 0) {
+            if (compare(lowercase(removetags($string1)), %clanwars_caller) = 0) {
                 $string6 = $string5;
                 $int10 = $int9;
             }
@@ -32,11 +32,11 @@ while ($int9 <= $int3) {
     $int9 = calc($int9 + 1);
 }
 if ($int10 < 0) {
-    %varclient_267 = -1;
+    %clanwars_caller_lastindex = -1;
     ~script1812("", $component2);
     return;
 }
-if (%varclient_267 = -1 | $int10 <= %varclient_267 | compare($string6, %varclient_2410) ! 0) {
+if (%clanwars_caller_lastindex = -1 | $int10 <= %clanwars_caller_lastindex | compare($string6, %clanwars_caller_lastusedstring) ! 0) {
     ~script1812($string6, $component2);
 }
-%varclient_267 = $int10;
+%clanwars_caller_lastindex = $int10;

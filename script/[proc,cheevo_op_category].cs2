@@ -1,10 +1,10 @@
 // 15353
 [proc,cheevo_op_category](component $component0, component $component1, int $int2)
 ~script15357($component0, $component1, 0, 0);
-cc_deleteall(interface_1851:com_40);
+cc_deleteall(achievements_sub:build_layer);
 ~cheevo_reset_dropdown;
-def_int $int3 = enum_getoutputcount(enum_16072);
-def_category $category4 = enum(int, category, enum_16072, $int2);
+def_int $int3 = enum_getoutputcount(cheevo_categories);
+def_category $category4 = enum(int, category, cheevo_categories, $int2);
 if ($int2 = $int3) {
     ~script15339;
 } else if (achievement_getsubcatcount($category4, -1) > 0) {
@@ -12,20 +12,20 @@ if ($int2 = $int3) {
 } else {
     ~script15365;
 }
-def_component $component5 = interface_1851:com_12;
+def_component $component5 = achievements_sub:subcategory_container;
 if_clearscripthooks($component5);
 def_int $int6 = 0;
 if (cc_find($component1, $int2) = true) {
     $int6 = cc_gety;
 }
-if (calc(%varclient_6829 - 1) = $int2 & if_gethide($component5) = false) {
+if (calc(%cheevo_selected_cat_client - 1) = $int2 & if_gethide($component5) = false) {
     ~script16145($component5);
     ~script15356($component1, $int6);
     return;
 }
 ~script15351($int2, -1);
 ~script16145($component5);
-def_enum $enum7 = enum(category, enum, enum_16076, $category4);
+def_enum $enum7 = enum(category, enum, cheevo_cat_to_subcat, $category4);
 if ($enum7 = null) {
     ~script15356($component1, $int6);
     return;

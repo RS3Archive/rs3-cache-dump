@@ -1,15 +1,15 @@
 // 18001
 [proc,script18001](dbrow $dbrow0, boolean $boolean1, int $int2, component $component3, int $int4, int $int5, int $int6, int $int7)
-def_int $int8 = db_getfield(%varplayer_11339, dbtable_242:col2, 0);
+def_int $int8 = db_getfield(%bp3_current_viewed_pass, bp3_table:col2, 0);
 def_boolean $boolean9 = false;
-if (%varclient_7294 ! null) {
-    if (%varclient_7297 ! 1 & cc_find(%varclient_7294, %varclient_7295) = true) {
+if (%bp3_reward_showcase_selected_component ! null) {
+    if (%bp3_reward_showcase_selected_bespoke_tile ! 1 & cc_find(%bp3_reward_showcase_selected_component, %bp3_reward_showcase_selected_component_id) = true) {
         ~script7872(true, true, true, false);
     }
-    if (%varclient_7296 ! $int2) {
-        ~script17976($int8, %varclient_7296, %varclient_7297);
-        ~script18022(%varclient_7296, ~script17874(%varplayer_11339, %varclient_7296), ~script17868(%varplayer_11339, %varclient_7296), -1, %varclient_7297);
-        $boolean9 = ~script17874(%varplayer_11339, %varclient_7296);
+    if (%bp3_reward_showcase_selected_level ! $int2) {
+        ~script17976($int8, %bp3_reward_showcase_selected_level, %bp3_reward_showcase_selected_bespoke_tile);
+        ~script18022(%bp3_reward_showcase_selected_level, ~script17874(%bp3_current_viewed_pass, %bp3_reward_showcase_selected_level), ~script17868(%bp3_current_viewed_pass, %bp3_reward_showcase_selected_level), -1, %bp3_reward_showcase_selected_bespoke_tile);
+        $boolean9 = ~script17874(%bp3_current_viewed_pass, %bp3_reward_showcase_selected_level);
         if ($boolean9 = true & $boolean1 = false) {
             ~script17984;
         } else if ($boolean9 = false & $boolean1 = true) {
@@ -28,20 +28,20 @@ def_component $component15 = null;
 def_int $int16 = 80;
 def_int $int17 = ~script18023;
 if ($int7 > 0) {
-    $int17 = ~script17969(%varplayer_11339, 0, 0, $int7);
+    $int17 = ~script17969(%bp3_current_viewed_pass, 0, 0, $int7);
     $int17 = calc($int17 + ~script18024);
 }
 if (cc_find($component3, $int4) = true) {
-    %varclient_7294 = $component3;
-    %varclient_7295 = $int4;
-    %varclient_7296 = $int2;
-    %varclient_7297 = $int7;
+    %bp3_reward_showcase_selected_component = $component3;
+    %bp3_reward_showcase_selected_component_id = $int4;
+    %bp3_reward_showcase_selected_level = $int2;
+    %bp3_reward_showcase_selected_bespoke_tile = $int7;
     if ($int7 ! 1) {
         ~script7872(true, true, true, true);
     }
-    if_setposition(cc_unknown1, cc_unknown2, ^setpos_abs_left, ^setpos_abs_top, interface_1227:com_18);
-    $component14 = interface_1227:com_35;
-    $component15 = interface_1227:com_36;
+    if_setposition(cc_unknown1, cc_unknown2, ^setpos_abs_left, ^setpos_abs_top, bp3_track_tab:reward_tutorial_anchor);
+    $component14 = bp3_track_tab:rewards_scroll_bar;
+    $component15 = bp3_track_tab:reward_track_scroll_section;
     $int10 = if_getscrollx($component15);
     $int11 = if_getwidth($component15);
     switch_int ($int7) {
@@ -67,14 +67,14 @@ if (cc_find($component3, $int4) = true) {
             }
     }
     ~script17927;
-    if (%varclient_7302 > 0) {
-        $int13 = %varclient_7303;
+    if (%bp3_auto_select_reward_override > 0) {
+        $int13 = %bp3_auto_select_scroll_override;
     }
     if ($int13 ! -1) {
         ~scrollbar_horizontal_doscroll($component14, $component15, $int13, 1);
     }
 }
 ~script17927;
-%varclient_7303 = if_getscrollx($component15);
+%bp3_auto_select_scroll_override = if_getscrollx($component15);
 ~script18002($dbrow0, $boolean1, $int2, $int5, $int6, $int8, $int7, 0);
-%varclient_7302 = -1;
+%bp3_auto_select_reward_override = -1;

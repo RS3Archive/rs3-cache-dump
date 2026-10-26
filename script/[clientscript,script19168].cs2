@@ -1,42 +1,42 @@
 // 19168
 [clientscript,script19168](struct $struct0)
-def_component $component1 = interface_1288:com_43;
-def_component $component2 = interface_1288:com_111;
+def_component $component1 = trh_academy_shared_overlay:entity_model;
+def_component $component2 = trh_academy_shared_overlay:entity_name;
 def_dbrow $dbrow3 = ~script19150($struct0);
 if ($dbrow3 = null) {
-    ~error("Null entity dbrow for promo ID <tostring(struct_param($struct0, param_8202))>.");
+    ~error("Null entity dbrow for promo ID <tostring(struct_param($struct0, trh_promo_id))>.");
     return;
 }
 def_npc $npc4 = null;
 def_seq $seq5 = null;
 $npc4, $seq5 = ~script19151($dbrow3);
-%varclient_7803 = $seq5;
+%trh_academy_shared_default_entity_anim = $seq5;
 if_setnpcmodel($npc4, $component1);
 if_setmodelangle(~script19205($dbrow3), $component1);
-if_setontimer(null, interface_1288:com_43);
+if_setontimer(null, trh_academy_shared_overlay:entity_model);
 if_setmodelanim($seq5, $component1);
 def_string $string0 = ~script19154($dbrow3);
 if_settext($string0, $component2);
 def_int $int6 = ~script19206($dbrow3);
-if_settext("Level<br><tostring($int6)>", interface_1288:com_112);
+if_settext("Level<br><tostring($int6)>", trh_academy_shared_overlay:entity_level);
 def_fontmetrics $fontmetrics7 = null;
 def_int $int8 = 0;
 switch_struct ($struct0) {
-    case struct_32986 :
+    case trh182_promo :
         if ($int6 >= 10000) {
-            if_settextfont(fontmetrics_57, interface_1288:com_112);
+            if_settextfont(cinzel_15pt_bold, trh_academy_shared_overlay:entity_level);
         } else if ($int6 >= 1000) {
-            if_settextfont(fontmetrics_58, interface_1288:com_112);
+            if_settextfont(cinzel_18pt_bold, trh_academy_shared_overlay:entity_level);
         } else {
-            if_settextfont(fontmetrics_58, interface_1288:com_112);
+            if_settextfont(cinzel_18pt_bold, trh_academy_shared_overlay:entity_level);
         }
-    case struct_50263 :
-        $fontmetrics7 = ~script16927(110, if_getheight($component2), 4, enum_16355, 15, 11, $string0);
+    case trh203_promo :
+        $fontmetrics7 = ~script16927(110, if_getheight($component2), 4, fonts_cinzel_bold, 15, 11, $string0);
         if_settextfont($fontmetrics7, $component2);
         $int8 = max(~script19155($string0, $fontmetrics7), 110);
         if_setsize($int8, if_getheight($component2), ^setsize_abs, ^setsize_abs, $component2);
-    case struct_2951 :
-        $fontmetrics7 = fontmetrics_57;
+    case trh207_promo :
+        $fontmetrics7 = cinzel_15pt_bold;
         if_settextfont($fontmetrics7, $component2);
 }
 def_graphic $graphic9 = null;
@@ -45,19 +45,19 @@ def_graphic $graphic11 = null;
 def_graphic $graphic12 = null;
 $graphic9, $graphic10, $graphic11, $graphic12 = ~script19170($dbrow3);
 ~script19169($struct0);
-if_sethide(true, interface_1288:com_46);
-if_setop(5, "Examine", interface_1288:com_44);
-if_setonop("script19188", interface_1288:com_44);
-if_setopbase("<col=FFFF00><~script16737($string0)></col>", interface_1288:com_44);
-if_setgraphic($graphic9, interface_1253:com_5);
-if_setgraphic($graphic9, interface_1288:com_4);
-if_setgraphic($graphic10, interface_1288:com_3);
-if_setgraphic($graphic11, interface_1288:com_79);
-if_setgraphic($graphic11, interface_1288:com_76);
-if_setgraphic($graphic11, interface_1288:com_73);
-if_setgraphic($graphic12, interface_1288:com_33);
-if_setgraphic($graphic12, interface_1288:com_29);
-if_setgraphic($graphic12, interface_1288:com_25);
+if_sethide(true, trh_academy_shared_overlay:hitsplat_layer);
+if_setop(5, "Examine", trh_academy_shared_overlay:entity_examine);
+if_setonop("script19188", trh_academy_shared_overlay:entity_examine);
+if_setopbase("<col=FFFF00><~script16737($string0)></col>", trh_academy_shared_overlay:entity_examine);
+if_setgraphic($graphic9, wheel_of_fortune:background);
+if_setgraphic($graphic9, trh_academy_shared_overlay:background_graphic);
+if_setgraphic($graphic10, trh_academy_shared_overlay:swirly);
+if_setgraphic($graphic11, trh_academy_shared_overlay:milestone_reward_background_0);
+if_setgraphic($graphic11, trh_academy_shared_overlay:milestone_reward_background_1);
+if_setgraphic($graphic11, trh_academy_shared_overlay:milestone_reward_background_2);
+if_setgraphic($graphic12, trh_academy_shared_overlay:entity_loot_gem_tile_0);
+if_setgraphic($graphic12, trh_academy_shared_overlay:entity_loot_gem_tile_1);
+if_setgraphic($graphic12, trh_academy_shared_overlay:entity_loot_gem_tile_2);
 def_jingle $jingle13 = ~script19207($dbrow3);
 if ($jingle13 ! null) {
     sound_jingle_volume($jingle13, 1000, 200);

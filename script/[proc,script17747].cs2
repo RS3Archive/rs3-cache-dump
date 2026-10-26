@@ -10,79 +10,79 @@ def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 0;
 if ($dbrow1 ! null) {
-    $struct2 = db_getfield($dbrow1, dbtable_233:col8, 0);
-    $int5 = db_getfield($dbrow1, dbtable_233:col4, 0);
-    if_sethide(true, interface_1222:com_33);
-    if_sethide(true, interface_1222:com_32);
-    switch_int (db_getfield($dbrow1, dbtable_233:col2, 0)) {
+    $struct2 = db_getfield($dbrow1, skill_tree_node:col8, 0);
+    $int5 = db_getfield($dbrow1, skill_tree_node:col4, 0);
+    if_sethide(true, skill_tree:node_info_cooldown_graphic);
+    if_sethide(true, skill_tree:node_info_target_type_graphic);
+    switch_int (db_getfield($dbrow1, skill_tree_node:col2, 0)) {
         case 1 :
             $string0, $string2, $string1, $int4, $int6 = ~script967($struct2, 0, 0, 2);
             $int7 = ~script7473($struct2, $int4, $int6, 2);
-            if_settext(~script17698($struct2, 0), interface_1222:com_40);
-            if (string_length(if_gettext(interface_1222:com_40)) > 0) {
-                if_sethide(false, interface_1222:com_33);
+            if_settext(~script17698($struct2, 0), skill_tree:node_info_cooldown);
+            if (string_length(if_gettext(skill_tree:node_info_cooldown)) > 0) {
+                if_sethide(false, skill_tree:node_info_cooldown_graphic);
             }
-            if_settext(~script17706($struct2, 0), interface_1222:com_42);
-            if_setgraphic(~script17705(struct_param($struct2, param_8170)), interface_1222:com_32);
-            if_sethide(false, interface_1222:com_32);
+            if_settext(~script17706($struct2, 0), skill_tree:node_info_target_type);
+            if_setgraphic(~script17705(struct_param($struct2, combatv2_ability_target_type)), skill_tree:node_info_target_type_graphic);
+            if_sethide(false, skill_tree:node_info_target_type_graphic);
         case default :
             $graphic3 = ~script17489($dbrow1, 0, 1);
             $string0 = ~script17486($dbrow1);
             $string2 = ~script17487($dbrow1);
-            if_settext("", interface_1222:com_40);
-            if_settext("", interface_1222:com_42);
+            if_settext("", skill_tree:node_info_cooldown);
+            if_settext("", skill_tree:node_info_target_type);
     }
-    if_settextalign(^settextalign_left, ^settextalign_top, 14, interface_1222:com_49);
+    if_settextalign(^settextalign_left, ^settextalign_top, 14, skill_tree:node_info_description);
 } else {
     $string2 = "Select a talent to see more information.";
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 14, interface_1222:com_49);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 14, skill_tree:node_info_description);
 }
-if_setgraphic($graphic3, interface_1222:com_52);
-if_settext("<col=ffffff><$string0></col>", interface_1222:com_39);
-if_settext($string1, interface_1222:com_41);
-if_settext($string2, interface_1222:com_49);
+if_setgraphic($graphic3, skill_tree:node_info_icon_graphic);
+if_settext("<col=ffffff><$string0></col>", skill_tree:node_info_name);
+if_settext($string1, skill_tree:node_info_type);
+if_settext($string2, skill_tree:node_info_description);
 if ($int7 > 0) {
-    if_setsize(0, if_getheight(interface_1222:com_47), ^setsize_minus, ^setsize_minus, interface_1222:com_45);
-    if_setsize(16, if_getheight(interface_1222:com_47), ^setsize_abs, ^setsize_minus, interface_1222:com_46);
-    if_sethide(false, interface_1222:com_47);
+    if_setsize(0, if_getheight(skill_tree:node_info_requirement_layer), ^setsize_minus, ^setsize_minus, skill_tree:node_info_description_layer);
+    if_setsize(16, if_getheight(skill_tree:node_info_requirement_layer), ^setsize_abs, ^setsize_minus, skill_tree:node_info_description_scrollbar_layer);
+    if_sethide(false, skill_tree:node_info_requirement_layer);
 } else {
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, interface_1222:com_45);
-    if_setsize(16, 0, ^setsize_abs, ^setsize_minus, interface_1222:com_46);
-    if_sethide(true, interface_1222:com_47);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, skill_tree:node_info_description_layer);
+    if_setsize(16, 0, ^setsize_abs, ^setsize_minus, skill_tree:node_info_description_scrollbar_layer);
+    if_sethide(true, skill_tree:node_info_requirement_layer);
 }
-if (~script7593($string2, if_getwidth(interface_1222:com_49), if_getfontmetrics(interface_1222:com_49), 14) > if_getheight(interface_1222:com_45)) {
-    if_setsize(calc(16 + 3), 0, ^setsize_minus, ^setsize_minus, interface_1222:com_49);
-    if_setscrollsize(0, calc(2 + ~script7593($string2, if_getwidth(interface_1222:com_49), if_getfontmetrics(interface_1222:com_49), 14)), interface_1222:com_45);
-    if_sethide(false, interface_1222:com_46);
+if (~script7593($string2, if_getwidth(skill_tree:node_info_description), if_getfontmetrics(skill_tree:node_info_description), 14) > if_getheight(skill_tree:node_info_description_layer)) {
+    if_setsize(calc(16 + 3), 0, ^setsize_minus, ^setsize_minus, skill_tree:node_info_description);
+    if_setscrollsize(0, calc(2 + ~script7593($string2, if_getwidth(skill_tree:node_info_description), if_getfontmetrics(skill_tree:node_info_description), 14)), skill_tree:node_info_description_layer);
+    if_sethide(false, skill_tree:node_info_description_scrollbar_layer);
 } else {
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, interface_1222:com_49);
-    if_setscrollsize(0, 0, interface_1222:com_45);
-    if_sethide(true, interface_1222:com_46);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, skill_tree:node_info_description);
+    if_setscrollsize(0, 0, skill_tree:node_info_description_layer);
+    if_sethide(true, skill_tree:node_info_description_scrollbar_layer);
 }
-if_setscrollpos(0, 0, interface_1222:com_45);
-~rs3_scrollbar_vertical(interface_1222:com_46, interface_1222:com_45);
-if_setonop(null, interface_1222:com_54);
-if_settext("<col=ffffff>Cost: <tostring_localised($int5, true)> <~script17481(%varplayer_11091, db_getfield($dbrow1, dbtable_233:col4, 0))>", interface_1222:com_36);
-if_sethide(false, interface_1222:com_37);
-if_settextalign(^settextalign_centre, ^settextalign_top, 14, interface_1222:com_36);
+if_setscrollpos(0, 0, skill_tree:node_info_description_layer);
+~rs3_scrollbar_vertical(skill_tree:node_info_description_scrollbar_layer, skill_tree:node_info_description_layer);
+if_setonop(null, skill_tree:node_info_button_control_layer);
+if_settext("<col=ffffff>Cost: <tostring_localised($int5, true)> <~script17481(%skill_tree_dbrow, db_getfield($dbrow1, skill_tree_node:col4, 0))>", skill_tree:node_info_summary);
+if_sethide(false, skill_tree:node_info_button_layer);
+if_settextalign(^settextalign_centre, ^settextalign_top, 14, skill_tree:node_info_summary);
 def_int $int8 = ~script17485($dbrow0, $dbrow1);
 switch_int ($int8) {
     case 0 :
-        if_settext("<col=FF0000>You do not meet the requirements to unlock this talent</col>", interface_1222:com_36);
-        ~script13969(interface_1222:com_53, interface_1222:com_54, struct_28554, "More Info");
-        if_setonop("script17748($dbrow0, $dbrow1)", interface_1222:com_54);
+        if_settext("<col=FF0000>You do not meet the requirements to unlock this talent</col>", skill_tree:node_info_summary);
+        ~script13969(skill_tree:node_info_button_build_layer, skill_tree:node_info_button_control_layer, rs3tli_neutral_button, "More Info");
+        if_setonop("script17748($dbrow0, $dbrow1)", skill_tree:node_info_button_control_layer);
     case 1 :
-        if (~script17480(%varplayer_11091) < $int5) {
-            if_settext("<col=ff0000>Cost: <tostring_localised($int5, true)> <~script17481(%varplayer_11091, db_getfield($dbrow1, dbtable_233:col4, 0))>", interface_1222:com_36);
-            ~script13971(interface_1222:com_53, interface_1222:com_54, struct_28554, "Unlock Talent", true);
+        if (~script17480(%skill_tree_dbrow) < $int5) {
+            if_settext("<col=ff0000>Cost: <tostring_localised($int5, true)> <~script17481(%skill_tree_dbrow, db_getfield($dbrow1, skill_tree_node:col4, 0))>", skill_tree:node_info_summary);
+            ~script13971(skill_tree:node_info_button_build_layer, skill_tree:node_info_button_control_layer, rs3tli_neutral_button, "Unlock Talent", true);
         } else {
-            ~script13969(interface_1222:com_53, interface_1222:com_54, struct_28553, "Unlock Talent");
-            if_setonop("script17748($dbrow0, $dbrow1)", interface_1222:com_54);
+            ~script13969(skill_tree:node_info_button_build_layer, skill_tree:node_info_button_control_layer, rs3tli_positive_button, "Unlock Talent");
+            if_setonop("script17748($dbrow0, $dbrow1)", skill_tree:node_info_button_control_layer);
         }
     case 2 :
-        if_sethide(true, interface_1222:com_37);
-        if_settextalign(^settextalign_centre, ^settextalign_centre, 14, interface_1222:com_36);
-        if_settext("<col=00FF00>You have unlocked this talent</col>", interface_1222:com_36);
+        if_sethide(true, skill_tree:node_info_button_layer);
+        if_settextalign(^settextalign_centre, ^settextalign_centre, 14, skill_tree:node_info_summary);
+        if_settext("<col=00FF00>You have unlocked this talent</col>", skill_tree:node_info_summary);
     case -1 :
-        if_settext("", interface_1222:com_36);
+        if_settext("", skill_tree:node_info_summary);
 }

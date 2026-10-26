@@ -13,14 +13,14 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 def_int $int8 = 0;
 def_int $int9 = 0;
-def_int $int10 = if_getwidth(interface_517:com_199);
-def_int $int11 = if_getheight(interface_517:com_199);
+def_int $int10 = if_getwidth(bank:bank_items_container);
+def_int $int11 = if_getheight(bank:bank_items_container);
 $int1, $int2 = ~script5788;
 def_int $int12 = $int2;
 def_int $int13 = 0;
 def_string $string0 = "";
 while ($int12 < 1920) {
-    if (cc_find(interface_517:com_201, $int12) = true) {
+    if (cc_find(bank:bank_inv, $int12) = true) {
         cc_sethide(true);
     }
     $int12 = calc($int12 + 1);
@@ -33,7 +33,7 @@ while ($int5 <= 15) {
     $int8 = $int3;
     $int9 = $int4;
     while ($int12 < $int2) {
-        if (cc_find(interface_517:com_201, $int12) = true & .cc_find(interface_517:com_217, $int12) = true) {
+        if (cc_find(bank:bank_inv, $int12) = true & .cc_find(bank:bank_inv_insert, $int12) = true) {
             cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
             cc_sethide(false);
             .cc_setposition(calc($int3 - 8), $int4, ^setpos_abs_left, ^setpos_abs_top);
@@ -71,12 +71,12 @@ while ($int5 <= 15) {
         $string0 = "Tab <tostring($int5)>";
         $int13 = ~script5883($int6);
         if ($int13 ! 0) {
-            $string0 = "<$string0> - <enum(int, string, enum_8657, $int13)>";
+            $string0 = "<$string0> - <enum(int, string, share_preset_enum_int_string, $int13)>";
         }
         ~script9328($int5, $int4, $string0);
         $int4 = calc($int4 + 20);
         $int3 = 8;
     }
 }
-if_setscrollpos(0, min(%varclient_6691, $int4), interface_517:com_199);
+if_setscrollpos(0, min(%bank_lastscrollpos_tab1, $int4), bank:bank_items_container);
 ~bank_build_scrollbar($int4);

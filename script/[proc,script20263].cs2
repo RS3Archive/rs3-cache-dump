@@ -1,59 +1,59 @@
 // 20263
 [proc,script20263]
-def_dbrow $dbrow0 = ~script20117(%varplayer_12314);
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
 if (~script20132($dbrow0) = false) {
     ~script20254;
     return;
 }
 def_dbrow $dbrow1 = ~script20938($dbrow0);
-def_dbrow $dbrow2 = db_getfield($dbrow1, dbtable_327:col0, %varplayerbit_58407);
+def_dbrow $dbrow2 = db_getfield($dbrow1, league_relic_list:col0, %league_relic_selected_tier);
 if ($dbrow2 = null) {
     ~script20254;
     return;
 }
-def_dbrow $dbrow3 = db_getfield($dbrow2, dbtable_328:col1, %varplayerbit_58408);
+def_dbrow $dbrow3 = db_getfield($dbrow2, league_relic_tier:col1, %league_relic_selected_id);
 if ($dbrow3 = null) {
     ~script20254;
     return;
 }
 ~script20264($dbrow2, $dbrow3);
 ~script20268($dbrow1);
-if_sethide(false, interface_1443:com_9);
-if_sethide(false, interface_1443:com_26);
-if_sethide(true, interface_1443:com_2);
-if_sethide(true, interface_1443:com_1);
-if_sethide(true, interface_1443:com_3);
-if_sethide(true, interface_1443:com_27);
-cc_deleteall(interface_1443:com_23);
-cc_deleteall(interface_1443:com_24);
-def_string $string0 = db_getfield($dbrow3, dbtable_329:col0, 0);
-def_graphic $graphic4 = db_getfield($dbrow3, dbtable_329:col7, 0);
+if_sethide(false, league_parent_relics:relic_info);
+if_sethide(false, league_parent_relics:passive_info);
+if_sethide(true, league_parent_relics:relic_contents);
+if_sethide(true, league_parent_relics:progress_bar);
+if_sethide(true, league_parent_relics:relic_scrollbar);
+if_sethide(true, league_parent_relics:confirm_popup);
+cc_deleteall(league_parent_relics:overview_scrolling_contents);
+cc_deleteall(league_parent_relics:overview_scrolling_toggles);
+def_string $string0 = db_getfield($dbrow3, league_relic:col0, 0);
+def_graphic $graphic4 = db_getfield($dbrow3, league_relic:col7, 0);
 def_boolean $boolean5 = ~league_relic_active($dbrow3);
-def_int $int6 = db_getfield($dbrow3, dbtable_329:col2, 0);
-def_int $int7 = db_getfield($dbrow2, dbtable_328:col11, 0);
+def_int $int6 = db_getfield($dbrow3, league_relic:col2, 0);
+def_int $int7 = db_getfield($dbrow2, league_relic_tier:col11, 0);
 def_string $string1 = "Relics";
 if ($int6 = 1) {
     $string1 = "Blessings";
 }
-if_settext("<~script21088($dbrow2, %varplayerbit_58407)> <$string1>", interface_1443:com_15);
+if_settext("<~script21088($dbrow2, %league_relic_selected_tier)> <$string1>", league_parent_relics:detailed_window_title);
 if ($int7 = 1) {
-    if ($boolean5 = false & ~script20944($dbrow2) = true & ~script20947($dbrow2) = %varplayerbit_58408) {
-        if_setenabled(true, interface_1443:com_38);
+    if ($boolean5 = false & ~script20944($dbrow2) = true & ~script20947($dbrow2) = %league_relic_selected_id) {
+        if_setenabled(true, league_parent_relics:overview_unlock);
     } else {
-        if_setenabled(false, interface_1443:com_38);
+        if_setenabled(false, league_parent_relics:overview_unlock);
     }
-} else if ($boolean5 = false & ~script20142(%varplayerbit_58407) = true) {
-    if_setenabled(true, interface_1443:com_38);
+} else if ($boolean5 = false & ~script20142(%league_relic_selected_tier) = true) {
+    if_setenabled(true, league_parent_relics:overview_unlock);
 } else {
-    if_setenabled(false, interface_1443:com_38);
+    if_setenabled(false, league_parent_relics:overview_unlock);
 }
 def_int $int8 = 4;
 def_int $int9 = 0;
-def_int $int10 = if_getwidth(interface_1443:com_22);
-if (if_find(interface_1443:com_23) = true) {
+def_int $int10 = if_getwidth(league_parent_relics:overview_scrolling);
+if (if_find(league_parent_relics:overview_scrolling_contents) = true) {
     $int9, $int8 = ~script20266($dbrow3, $dbrow2, $int9, $int8, $int10);
     $int9, $int8 = ~script20265($dbrow3, $int9, $int8, $int10, $boolean5);
     $int9, $int8 = ~script20267($dbrow3, $dbrow2, $int9, $int8, $int10);
 }
-~script19620(interface_1443:com_25, interface_1443:com_22, $int8, null, -1, 0, 8, 4);
-if_setsize(24, if_getheight(interface_1443:com_22), ^setsize_minus, ^setsize_abs, interface_1443:com_22);
+~script19620(league_parent_relics:overview_scrollbar, league_parent_relics:overview_scrolling, $int8, null, -1, 0, 8, 4);
+if_setsize(24, if_getheight(league_parent_relics:overview_scrolling), ^setsize_minus, ^setsize_abs, league_parent_relics:overview_scrolling);

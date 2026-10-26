@@ -1,6 +1,6 @@
 // 4369
 [clientscript,clan_qfc_text_input](component $component0, char $char1, int $int2, component $component3)
-%varclient_2539 = if_gettext($component0);
+%qfc_input_varc = if_gettext($component0);
 switch_int ($int2) {
     case 84 :
         ~clan_qfc_return(1);
@@ -13,20 +13,20 @@ switch_int ($int2) {
         if (keyheld_shift = false) {
             return;
         }
-        ~script1553($int2, %varclient_1498, %varclient_2539);
+        ~script1553($int2, %qfc_input_caret_varc, %qfc_input_varc);
     case 85 :
-        if (string_length(%varclient_2539) > 0) {
-            %varclient_2539 = substring(%varclient_2539, 0, calc(string_length(%varclient_2539) - 1));
+        if (string_length(%qfc_input_varc) > 0) {
+            %qfc_input_varc = substring(%qfc_input_varc, 0, calc(string_length(%qfc_input_varc) - 1));
         }
     case default :
         if ($int2 = 67 & keyheld_ctrl = true) {
             ~script4367;
             return;
         }
-        if (string_length(%varclient_2539) < 13) {
-            %varclient_2539 = ~add_to_inputstring(%varclient_2539, 0, $int2, $char1);
+        if (string_length(%qfc_input_varc) < 13) {
+            %qfc_input_varc = ~add_to_inputstring(%qfc_input_varc, 0, $int2, $char1);
         }
 }
-%varclient_1498 = ~script1552(%varclient_1498, %varclient_2539, fontmetrics_26, $component0, -1);
-if_setposition(%varclient_1498, if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
-if_settext(%varclient_2539, $component0);
+%qfc_input_caret_varc = ~script1552(%qfc_input_caret_varc, %qfc_input_varc, museo_sans_11pt_regular, $component0, -1);
+if_setposition(%qfc_input_caret_varc, if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
+if_settext(%qfc_input_varc, $component0);

@@ -7,55 +7,55 @@ def_graphic $graphic3 = null;
 def_dbrow $dbrow4 = null;
 def_int $rgb5 = ^black;
 ~trh178_set_chest;
-switch_int (%varplayerbit_51126) {
+switch_int (%trh178_vault) {
     case 44 :
         $graphic1 = "trh178_progress_bar,1";
         $graphic3 = trh178_emerald_lock;
         $graphic2 = trh178_emerald_lock_open;
-        $dbrow4 = dbrow_5909;
+        $dbrow4 = trh_prize_generation_emerald_vault_trh178;
         $rgb5 = ^green;
     case 45 :
         $graphic1 = "trh178_progress_bar,2";
         $graphic3 = trh178_ruby_lock;
         $graphic2 = trh178_ruby_lock_open;
-        $dbrow4 = dbrow_5910;
+        $dbrow4 = trh_prize_generation_ruby_vault_trh178;
         $rgb5 = ^red;
     case 46 :
         $graphic1 = "trh178_progress_bar,3";
         $graphic3 = trh178_diamond_lock;
         $graphic2 = trh178_diamond_lock_open;
-        $dbrow4 = dbrow_5911;
+        $dbrow4 = trh_prize_generation_diamond_vault_trh178;
         $rgb5 = ^white;
     case 78 :
         $graphic1 = "trh178_progress_bar,1";
         $graphic3 = trh178_dragonstone_lock;
         $graphic2 = trh178_dragonstone_lock_open;
-        $dbrow4 = dbrow_15119;
+        $dbrow4 = trh_prize_generation_dragonstone_vault_trh178;
         $rgb5 = ^green;
     case 79 :
         $graphic1 = "trh178_progress_bar,2";
         $graphic3 = trh178_onyx_lock;
         $graphic2 = trh178_onyx_lock_open;
-        $dbrow4 = dbrow_15120;
+        $dbrow4 = trh_prize_generation_onyx_vault_trh178;
         $rgb5 = ^red;
     case 80 :
         $graphic1 = "trh178_progress_bar,3";
         $graphic3 = trh178_hydrix_lock;
         $graphic2 = trh178_hydrix_lock_open;
-        $dbrow4 = dbrow_15121;
+        $dbrow4 = trh_prize_generation_hydrix_vault_trh178;
         $rgb5 = ^white;
     case default :
         return;
 }
-def_string $string0 = db_getfield(~trh_chest_get_dbrow(%varplayerbit_51126), dbtable_123:col1, 0);
-~script16498($dbrow4, interface_959:com_14);
-if_setgraphic($graphic1, interface_959:com_9);
-if_settext("You open your <$string0> and receive", interface_959:com_31);
-if_setcolour($rgb5, interface_959:com_21);
-if_setcolour($rgb5, interface_959:com_20);
-if (%varplayerbit_51127 = 0) {
-    if_setgraphic($graphic2, interface_959:com_12);
+def_string $string0 = db_getfield(~trh_chest_get_dbrow(%trh178_vault), trh_chest:col1, 0);
+~script16498($dbrow4, trh178_overlay:prize_display_grid);
+if_setgraphic($graphic1, trh178_overlay:progress_bar_graphic);
+if_settext("You open your <$string0> and receive", trh178_overlay:prize_claim_title);
+if_setcolour($rgb5, trh178_overlay:light_flare);
+if_setcolour($rgb5, trh178_overlay:glow);
+if (%trh178_keys_required = 0) {
+    if_setgraphic($graphic2, trh178_overlay:progress_lock);
 } else {
-    if_setgraphic($graphic3, interface_959:com_12);
+    if_setgraphic($graphic3, trh178_overlay:progress_lock);
 }
 ~trh178_chest_setup;

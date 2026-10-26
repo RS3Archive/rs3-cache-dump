@@ -2,14 +2,14 @@
 [proc,script7478](int $int0, struct $struct1, int $int2)(int)
 def_string $string0 = "<col=ff0000>";
 def_string $string1 = "";
-def_obj $obj3 = inv_getobj(inv_94, 3);
-def_obj $obj4 = inv_getobj(inv_94, 5);
+def_obj $obj3 = inv_getobj(worn, 3);
+def_obj $obj4 = inv_getobj(worn, 5);
 def_string $string2 = "";
 def_graphic $graphic5 = null;
-def_int $int6 = struct_param($struct1, param_2806);
+def_int $int6 = struct_param($struct1, combatv2_ability_parent_stat);
 def_string $string3 = "";
-if (struct_param($struct1, param_2811) = 1) {
-    if (oc_param($obj3, param_2826) = 1 & oc_param($obj4, param_2826) = 1 & $int6 = 3 | oc_param($obj3, param_2827) = 1 & oc_param($obj4, param_2827) = 1 & $int6 = 4 | oc_param($obj3, param_8898) = 1 & oc_param($obj4, param_8898) = 1 & $int6 = 29 | oc_param($obj3, param_2825) = 1 & oc_param($obj4, param_2825) = 1 & $int6 ! 3 & $int6 ! 4 & $int6 ! 29) {
+if (struct_param($struct1, combatv2_ability_req_2x) = 1) {
+    if (oc_param($obj3, combatv2_ranged_weapon) = 1 & oc_param($obj4, combatv2_ranged_weapon) = 1 & $int6 = 3 | oc_param($obj3, combatv2_magic_weapon) = 1 & oc_param($obj4, combatv2_magic_weapon) = 1 & $int6 = 4 | oc_param($obj3, combatv2_necromancy_weapon) = 1 & oc_param($obj4, combatv2_necromancy_weapon) = 1 & $int6 = 29 | oc_param($obj3, combatv2_melee_weapon) = 1 & oc_param($obj4, combatv2_melee_weapon) = 1 & $int6 ! 3 & $int6 ! 4 & $int6 ! 29) {
         $string0 = "<col=00ff00>";
     }
     $string2 = "<$string0>2x</col>";
@@ -26,7 +26,7 @@ if (struct_param($struct1, param_2811) = 1) {
         case default :
             $graphic5 = "combatv2_attribute_requirement_icons,2";
             switch_struct ($struct1) {
-                case struct_1488 :
+                case combatv2_ability_attack_bladed_dive :
                     $string3 = "Requires dual-wielded melee weapons or skilling tools.";
                     if (~script6688($struct1) = true) {
                         $string0 = "<col=00ff00>";
@@ -36,8 +36,8 @@ if (struct_param($struct1, param_2811) = 1) {
                     $string3 = "Requires dual-wielded melee weapons.";
             }
     }
-} else if (struct_param($struct1, param_2812) = 1) {
-    if (oc_wearpos($obj3) > 0 & oc_wearpos2($obj3) > 0 & ($int6 = 3 & oc_param($obj3, param_2826) = 1 | $int6 = 4 & oc_param($obj3, param_2827) = 1 | $int6 = 29 & oc_param($obj3, param_8898) = 1 | $int6 ! 3 & $int6 ! 4 & $int6 ! 29 & oc_param($obj3, param_2825) = 1)) {
+} else if (struct_param($struct1, combatv2_ability_req_2h) = 1) {
+    if (oc_wearpos($obj3) > 0 & oc_wearpos2($obj3) > 0 & ($int6 = 3 & oc_param($obj3, combatv2_ranged_weapon) = 1 | $int6 = 4 & oc_param($obj3, combatv2_magic_weapon) = 1 | $int6 = 29 & oc_param($obj3, combatv2_necromancy_weapon) = 1 | $int6 ! 3 & $int6 ! 4 & $int6 ! 29 & oc_param($obj3, combatv2_melee_weapon) = 1)) {
         $string0 = "<col=00ff00>";
     }
     $string2 = "<$string0>2h</col>";
@@ -55,20 +55,20 @@ if (struct_param($struct1, param_2811) = 1) {
             $graphic5 = "combatv2_attribute_requirement_icons,1";
             $string3 = "Requires a two-handed melee weapon.";
     }
-} else if (struct_param($struct1, param_2813) = 1) {
+} else if (struct_param($struct1, combatv2_ability_req_shield) = 1) {
     switch_int (~script17448) {
         case 1, 2 :
             $string0 = "<col=00ff00>";
         case 3 :
-            if (struct_param($struct1, param_8888) = 0) {
+            if (struct_param($struct1, combatv2_ability_offensive) = 0) {
                 $string0 = "<col=00ff00>";
             }
     }
     $string2 = "<$string0>Shield</col>";
     $graphic5 = "combatv2_attribute_requirement_icons,0";
     $string3 = "Requires a shield or a defender.";
-} else if (struct_param($struct1, param_5195) = 1) {
-    if ($obj3 ! null & calc(oc_param($obj3, param_2826) + oc_param($obj3, param_2825) + oc_param($obj3, param_2827) + oc_param($obj3, param_8898)) > 0) {
+} else if (struct_param($struct1, combatv2_ability_req_any_weapon) = 1) {
+    if ($obj3 ! null & calc(oc_param($obj3, combatv2_ranged_weapon) + oc_param($obj3, combatv2_melee_weapon) + oc_param($obj3, combatv2_magic_weapon) + oc_param($obj3, combatv2_necromancy_weapon)) > 0) {
         $string0 = "<col=00ff00>";
     }
     $string2 = "<$string0>Weapon</col>";

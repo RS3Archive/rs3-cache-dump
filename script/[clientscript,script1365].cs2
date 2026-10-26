@@ -1,42 +1,42 @@
 // 1365
 [clientscript,script1365](struct $struct0)
-def_component $component1 = interface_1594:com_95;
-def_component $component2 = interface_1594:com_96;
-def_string $string0 = ~script17844(%varplayer_5148, 3);
-def_string $string1 = ~script17844(%varplayer_5148, 4);
-if_sethide(false, interface_1594:com_33);
-if_settext(~script13337($struct0), interface_1594:com_79);
-if_settext(struct_param($struct0, param_4858), $component1);
-if_settext("Cost: <~script12658(%varplayer_5148, $struct0, ~script9095($struct0, ~script13501($struct0)), struct_param($struct0, param_5878), true, 0)>", $component2);
+def_component $component1 = rewardshop:item_description;
+def_component $component2 = rewardshop:item_cost;
+def_string $string0 = ~script17844(%rewardshop_struct, 3);
+def_string $string1 = ~script17844(%rewardshop_struct, 4);
+if_sethide(false, rewardshop:information_panel);
+if_settext(~script13337($struct0), rewardshop:item_name);
+if_settext(struct_param($struct0, rewardshop_tooltip), $component1);
+if_settext("Cost: <~script12658(%rewardshop_struct, $struct0, ~script9095($struct0, ~script13501($struct0)), struct_param($struct0, rewardshop_cost2), true, 0)>", $component2);
 def_int $int3 = 0;
 def_int $int4 = 0;
 $int3, $int4 = ~script19888($struct0, $struct0);
-~script19890(%varplayer_5148, -1, $struct0, null, null, $int3, $int4, 0, 0, 1);
-def_component $component5 = interface_1594:com_72;
-def_component $component6 = interface_1594:com_90;
-def_component $component7 = interface_1594:com_89;
-def_component $component8 = interface_1594:com_81;
-def_component $component9 = interface_1594:com_88;
-def_component $component10 = interface_1594:com_87;
-def_component $component11 = interface_1594:com_86;
-def_component $component12 = interface_1594:com_94;
-def_component $component13 = interface_1594:com_93;
-def_component $component14 = interface_1594:com_92;
-def_component $component15 = interface_1594:com_91;
-def_component $component16 = interface_1594:com_80;
-def_component $component17 = interface_1594:com_97;
+~script19890(%rewardshop_struct, -1, $struct0, null, null, $int3, $int4, 0, 0, 1);
+def_component $component5 = rewardshop:information_frame;
+def_component $component6 = rewardshop:item_preview_spinner_layer;
+def_component $component7 = rewardshop:item_preview_drag_layer;
+def_component $component8 = rewardshop:item_preview_layer;
+def_component $component9 = rewardshop:item_preview_outfit_layer;
+def_component $component10 = rewardshop:item_preview_pet_layer;
+def_component $component11 = rewardshop:item_preview_anim_layer;
+def_component $component12 = rewardshop:item_preview_title_layer;
+def_component $component13 = rewardshop:item_graphic;
+def_component $component14 = rewardshop:item_model;
+def_component $component15 = rewardshop:item_background;
+def_component $component16 = rewardshop:info_panel_scrolling_layer;
+def_component $component17 = rewardshop:info_panel_scrollbar_layer;
 def_struct $struct18 = null;
 def_struct $struct19 = null;
 def_npc $npc20 = null;
-def_obj $obj21 = struct_param($struct0, param_4851);
+def_obj $obj21 = struct_param($struct0, rewardshop_obj);
 def_int $int22 = 0;
 $struct18, $struct19, $int22 = ~script326($struct0);
 def_dbrow $dbrow23 = null;
 if ($obj21 ! null) {
-    $dbrow23 = oc_param($obj21, param_9254);
+    $dbrow23 = oc_param($obj21, mtxmgt_interface_positioning);
 }
 if ($struct18 ! null) {
-    $dbrow23 = struct_param($struct18, param_9254);
+    $dbrow23 = struct_param($struct18, mtxmgt_interface_positioning);
 }
 if (~script6431 = true) {
     if_setsize(300, 208, ^setsize_abs, ^setsize_abs, $component5);
@@ -56,8 +56,8 @@ if_setmodel(null, $component9);
 if_setmodel(null, $component10);
 cc_deleteall($component11);
 def_int $int24 = if_getheight($component8);
-def_enum $enum25 = struct_param($struct0, param_9252);
-if (struct_param($struct0, param_9346) = true) {
+def_enum $enum25 = struct_param($struct0, mtxmgt_object_outfit_enum);
+if (struct_param($struct0, mtxmgt_object_outfit_gender_variants) = true) {
     $enum25 = enum(int, enum, $enum25, gender);
 }
 ~spinner_create($component6, 3, -1);
@@ -77,15 +77,15 @@ switch_int ($int22) {
         if ($int22 = 3) {
             if_sethide(false, $component12);
             if_setsize(32, 40, ^setsize_minus, ^setsize_abs, $component15);
-            if_settext(~player_title_get(struct_param($struct18, param_2543), gender), $component12);
-        } else if (struct_param($struct0, param_4852) ! null) {
+            if_settext(~player_title_get(struct_param($struct18, mtxmgt_title_id), gender), $component12);
+        } else if (struct_param($struct0, rewardshop_icon) ! null) {
             if_sethide(false, $component13);
             if_setsize(40, 40, ^setsize_abs, ^setsize_abs, $component15);
-            if_setgraphic(struct_param($struct0, param_4852), $component13);
+            if_setgraphic(struct_param($struct0, rewardshop_icon), $component13);
         } else {
             if_sethide(false, $component14);
             if_setsize(40, 40, ^setsize_abs, ^setsize_abs, $component15);
-            if_setobject(~script14453($struct0, $obj21), struct_param($struct0, param_4448), $component14);
+            if_setobject(~script14453($struct0, $obj21), struct_param($struct0, rewardshop_obj_count), $component14);
         }
         $int24 = if_getheight($component15);
 }

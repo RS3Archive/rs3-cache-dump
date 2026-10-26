@@ -1,14 +1,14 @@
 // 17548
 [clientscript,script17548]
-if (%varplayer_10946 = null) {
-    if_setontimer("script17548", interface_1181:com_2);
+if (%activity_progress_bar_active_struct = null) {
+    if_setontimer("script17548", activity_progress_bar_extension:main_window);
     return;
 }
-if_setontimer(null, interface_1181:com_2);
-if_sethide(true, interface_1181:com_3);
-if_sethide(true, interface_1181:com_7);
-if_sethide(true, interface_1181:com_4);
-if_sethide(true, interface_1181:com_5);
+if_setontimer(null, activity_progress_bar_extension:main_window);
+if_sethide(true, activity_progress_bar_extension:info_box_1_layer);
+if_sethide(true, activity_progress_bar_extension:info_box_2_layer);
+if_sethide(true, activity_progress_bar_extension:progress_bar_layer);
+if_sethide(true, activity_progress_bar_extension:progress_bar_2_layer);
 def_int $int0 = 180;
 switch_int (~script11319) {
     case 29 :
@@ -18,22 +18,22 @@ switch_int (~script11319) {
     case 38 :
         $int0 = 195;
 }
-if_setsize($int0, if_getheight(interface_1181:com_6), ^setsize_abs, ^setsize_abs, interface_1181:com_6);
+if_setsize($int0, if_getheight(activity_progress_bar_extension:buff_bar_layer), ^setsize_abs, ^setsize_abs, activity_progress_bar_extension:buff_bar_layer);
 def_int $int1 = 0;
-if (struct_param(%varplayer_10946, param_8991) > 0) {
-    $int1 = calc(clientclock + struct_param(%varplayer_10946, param_8991) * 30);
-    if_setontimer("script18323($int1)", interface_1181:com_0);
+if (struct_param(%activity_progress_bar_active_struct, activity_progress_bar_extension_delay) > 0) {
+    $int1 = calc(clientclock + struct_param(%activity_progress_bar_active_struct, activity_progress_bar_extension_delay) * 30);
+    if_setontimer("script18323($int1)", activity_progress_bar_extension:timer_delay);
 } else {
     ~script18324;
 }
-if (struct_param(%varplayer_10946, param_8990) ! null) {
-    if_sethide(false, interface_1181:com_1);
-    if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_top, interface_1171:com_24);
-    if_setposition(0, 60, ^setpos_abs_centre, ^setpos_abs_top, interface_1181:com_2);
-    if_setsize(0, 99, ^setsize_minus, ^setsize_abs, interface_1171:com_24);
+if (struct_param(%activity_progress_bar_active_struct, activity_progress_bar_second_healthbar) ! null) {
+    if_sethide(false, activity_progress_bar_extension:container);
+    if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_top, activity_progress_bar:suboverlay_layer);
+    if_setposition(0, 60, ^setpos_abs_centre, ^setpos_abs_top, activity_progress_bar_extension:main_window);
+    if_setsize(0, 99, ^setsize_minus, ^setsize_abs, activity_progress_bar:suboverlay_layer);
 } else {
-    if_sethide(true, interface_1181:com_1);
-    if_setposition(0, 60, ^setpos_abs_centre, ^setpos_abs_top, interface_1171:com_24);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, interface_1181:com_2);
-    if_setsize(118, 99, ^setsize_minus, ^setsize_abs, interface_1171:com_24);
+    if_sethide(true, activity_progress_bar_extension:container);
+    if_setposition(0, 60, ^setpos_abs_centre, ^setpos_abs_top, activity_progress_bar:suboverlay_layer);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, activity_progress_bar_extension:main_window);
+    if_setsize(118, 99, ^setsize_minus, ^setsize_abs, activity_progress_bar:suboverlay_layer);
 }

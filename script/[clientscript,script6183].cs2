@@ -1,36 +1,36 @@
 // 6183
 [clientscript,script6183]
 def_int $int0 = 0;
-def_int $int1 = %varclient_1910;
-if (%varplayerbit_16540 = 0) {
-    if_settext("0", interface_1273:com_67);
+def_int $int1 = %rcsiphonxp_esteem_client;
+if (%rcsiphonxp_shop_selected_item = 0) {
+    if_settext("0", rcsiphonxp_shop:cost_number);
     return;
 }
-if (if_gethide(interface_1273:com_36) = false) {
+if (if_gethide(rcsiphonxp_shop:confirm_layer_layer) = false) {
     return;
 }
-if (%varplayerbit_16539 = 1) {
-    while ($int1 < %varplayerbit_16540) {
-        $int0 = calc($int0 + enum(int, int, enum_5842, $int1));
+if (%rcsiphonxp_shop_tab = 1) {
+    while ($int1 < %rcsiphonxp_shop_selected_item) {
+        $int0 = calc($int0 + enum(int, int, rcsiphonxp_esteem_cost, $int1));
         $int1 = calc($int1 + 1);
     }
-    if_settext("Rank <tostring(calc(11 - %varplayerbit_16540))> Esteem = <tostring($int0)> points", interface_1273:com_67);
+    if_settext("Rank <tostring(calc(11 - %rcsiphonxp_shop_selected_item))> Esteem = <tostring($int0)> points", rcsiphonxp_shop:cost_number);
     return;
 }
-if (%varplayerbit_16539 = 2) {
-    if_settext("Recolour = <tostring(2000)> points", interface_1273:com_67);
+if (%rcsiphonxp_shop_tab = 2) {
+    if_settext("Recolour = <tostring(2000)> points", rcsiphonxp_shop:cost_number);
     return;
 }
-def_struct $struct2 = enum(int, struct, enum_5838, calc(%varplayerbit_16540 - 1));
+def_struct $struct2 = enum(int, struct, rcsiphonxp_item_iterator, calc(%rcsiphonxp_shop_selected_item - 1));
 if ($struct2 = null) {
     return;
 }
-$int0 = struct_param($struct2, param_2379);
-$int0 = calc($int0 * %varplayerbit_16541);
-if (struct_param($struct2, param_2378) = 0) {
-    if_settext("<tostring(%varplayerbit_16541)> x <struct_param($struct2, param_2376)> = <tostring($int0)>", interface_1273:com_67);
+$int0 = struct_param($struct2, rcsiphonxp_price);
+$int0 = calc($int0 * %rcsiphonxp_shop_amount);
+if (struct_param($struct2, rcsiphonxp_has_name2) = 0) {
+    if_settext("<tostring(%rcsiphonxp_shop_amount)> x <struct_param($struct2, rcsiphonxp_name)> = <tostring($int0)>", rcsiphonxp_shop:cost_number);
 } else if (map_lang = 3 | map_lang = 2) {
-    if_settext("<tostring(%varplayerbit_16541)> x <struct_param($struct2, param_2377)> <struct_param($struct2, param_2376)> = <tostring($int0)>", interface_1273:com_67);
+    if_settext("<tostring(%rcsiphonxp_shop_amount)> x <struct_param($struct2, rcsiphonxp_name2)> <struct_param($struct2, rcsiphonxp_name)> = <tostring($int0)>", rcsiphonxp_shop:cost_number);
 } else {
-    if_settext("<tostring(%varplayerbit_16541)> x <struct_param($struct2, param_2376)> <struct_param($struct2, param_2377)> = <tostring($int0)>", interface_1273:com_67);
+    if_settext("<tostring(%rcsiphonxp_shop_amount)> x <struct_param($struct2, rcsiphonxp_name)> <struct_param($struct2, rcsiphonxp_name2)> = <tostring($int0)>", rcsiphonxp_shop:cost_number);
 }

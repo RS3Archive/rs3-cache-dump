@@ -1,9 +1,9 @@
 // 20631
 [proc,script20631](int $int0)
 if ($int0 = 1) {
-    cc_deleteall(interface_1498:com_1);
+    cc_deleteall(marketplace_store:categories_layer);
 }
-def_int $int1 = db_getfieldcount(dbrow_17540, dbtable_347:col0);
+def_int $int1 = db_getfieldcount(marketplace_store, marketplace_store_data:col0);
 if ($int1 <= 0) {
     ~error("Store has no side tabs so the left panel has not been drawn.");
     return;
@@ -13,27 +13,27 @@ def_int $int3 = -1;
 def_string $string0 = "";
 def_int $int4 = 0;
 while (++$int2 < $int1) {
-    $int3, $string0 = db_getfield(dbrow_17540, dbtable_347:col0, $int2);
+    $int3, $string0 = db_getfield(marketplace_store, marketplace_store_data:col0, $int2);
     if (~script20473($int3) = true) {
         if ($int0 = 1) {
-            ~script20857(interface_1498:com_1, $int3, ~script20651($int3), $int4);
+            ~script20857(marketplace_store:categories_layer, $int3, ~script20651($int3), $int4);
             cc_setonop("script20629($int3)");
             ~script20632($int3);
             $int4 = calc($int4 + 28);
             if ($int3 = 1) {
                 $int4 = calc($int4 + 2);
-                ~cc_add_line(interface_1498:com_1, 500, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_abs, ~script10495(7));
+                ~cc_add_line(marketplace_store:categories_layer, 500, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_abs, ~script10495(7));
                 $int4 = calc($int4 + 6);
             }
-        } else if (cc_find(interface_1498:com_1, $int3) = true) {
+        } else if (cc_find(marketplace_store:categories_layer, $int3) = true) {
             ~script20632($int3);
         }
     }
 }
 if (~script20848 = true & $int0 = 1) {
     $int4 = calc($int4 + 4);
-    ~cc_add_line(interface_1498:com_1, if_getnextsubid(interface_1498:com_1), 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_abs, ~script10495(7));
+    ~cc_add_line(marketplace_store:categories_layer, if_getnextsubid(marketplace_store:categories_layer), 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_abs, ~script10495(7));
     $int4 = calc($int4 + 4);
-    ~cc_add_checkbox_full(interface_1498:com_1, 1000, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, 24, ^setsize_minus, ^setsize_abs, dbrow_2550, "Sale Only", true, true, %varclient_8472);
+    ~cc_add_checkbox_full(marketplace_store:categories_layer, 1000, 0, $int4, ^setpos_abs_left, ^setpos_abs_top, 0, 24, ^setsize_minus, ^setsize_abs, checkbox_default_left_aligned, "Sale Only", true, true, %marketplace_store_filter_sale_only);
     cc_setonbuttonpressed("script20859");
 }

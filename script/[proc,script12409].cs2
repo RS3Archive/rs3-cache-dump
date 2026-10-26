@@ -10,7 +10,7 @@ def_int $int6 = ~script3510;
 ~script14980($component1, $int6);
 if_setsize(16, 84, ^setsize_minus, ^setsize_abs, $component0);
 if_setsize(0, 16, ^setsize_minus, ^setsize_minus, $component4);
-if (%varplayerbit_22875 ! 1) {
+if (%toplevel_v2_active_skinset ! 1) {
     if_sethide(false, $component1);
 } else {
     if_sethide(true, $component1);
@@ -56,15 +56,15 @@ def_graphic $graphic27 = null;
 while ($int17 < $int6) {
     if (.cc_find($component1, $int17) = true & cc_find($component2, $int17) = true) {
         if ($int17 = 0) {
-            $obj19 = obj_29492;
-            $int20 = %varplayerbit_23015;
+            $obj19 = rs_bond;
+            $int20 = %bonds_pouch_tradeable_total;
         } else if ($int17 = 1) {
-            $obj19 = obj_29494;
-            $int20 = %varplayerbit_23016;
+            $obj19 = rs_bond_untradeable;
+            $int20 = %bonds_pouch_untradeable_total;
         } else if ($int17 < calc(8 + 2)) {
             $int25 = calc($int17 - 2);
-            $obj19 = inv_getobj(inv_795, $int25);
-            $int20 = inv_getnum(inv_795, $int25);
+            $obj19 = inv_getobj(premium_currency_inv, $int25);
+            $int20 = inv_getnum(premium_currency_inv, $int25);
             if ($obj19 ! null & ~script20672($obj19) = false) {
                 $obj19 = null;
             }
@@ -77,17 +77,17 @@ while ($int17 < $int6) {
             }
         }
         if ($dbrow21 ! null) {
-            $obj26 = db_getfield($dbrow21, dbtable_66:col4, 0);
-            $graphic27 = db_getfield($dbrow21, dbtable_66:col3, 0);
+            $obj26 = db_getfield($dbrow21, currency_table:col4, 0);
+            $graphic27 = db_getfield($dbrow21, currency_table:col3, 0);
             $int20 = ~currency_pouch_total($dbrow21);
-            if ($dbrow21 = dbrow_2274) {
+            if ($dbrow21 = currency_livid_points) {
                 $int20 = calc($int20 * 10);
             }
             if ($obj26 ! null) {
                 cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
                 $graphic27 = null;
             } else {
-                $obj26 = obj_41028;
+                $obj26 = currency_pouch_dummy;
             }
             ~script14982($obj26, $int20, $intarray0(calc($int18 % $int15)), calc($int18 / $int15 * $int11));
             cc_setonmouseover("script3519($dbrow21, event_com, event_comsubid)");
@@ -98,9 +98,9 @@ while ($int17 < $int6) {
                     .cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
                 }
             }
-            $string0 = db_getfield($dbrow21, dbtable_66:col8, 0);
-            $string1 = db_getfield($dbrow21, dbtable_66:col9, 0);
-            if ($obj26 ! null & $obj26 ! obj_41028) {
+            $string0 = db_getfield($dbrow21, currency_table:col8, 0);
+            $string1 = db_getfield($dbrow21, currency_table:col9, 0);
+            if ($obj26 ! null & $obj26 ! currency_pouch_dummy) {
                 cc_setopbase("<~script4033($obj26)><oc_name($obj26)>");
             }
             if (string_length($string0) ! 0 | string_length($string1) ! 0) {
@@ -112,7 +112,7 @@ while ($int17 < $int6) {
                 }
                 ~script10407;
             }
-            if (db_getfield($dbrow21, dbtable_66:col1, 0) = 1) {
+            if (db_getfield($dbrow21, currency_table:col1, 0) = 1) {
                 cc_setop(3, "Withdraw");
                 cc_setop(10, "Examine");
                 ~script10407;
@@ -121,7 +121,7 @@ while ($int17 < $int6) {
         } else if ($obj19 ! null) {
             ~script14982($obj19, $int20, $intarray0(calc($int18 % $int15)), calc($int18 / $int15 * $int11));
             ~script12410($obj19);
-            cc_setonmouserepeat("script12093($obj19, inv_795, $int17)");
+            cc_setonmouserepeat("script12093($obj19, premium_currency_inv, $int17)");
             if (.cc_find($component5, $int17) = true) {
                 .cc_setgraphic(null);
             }

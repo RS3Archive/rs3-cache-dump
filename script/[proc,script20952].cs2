@@ -1,35 +1,35 @@
 // 20952
 [proc,script20952]
-def_dbrow $dbrow0 = ~script20117(%varplayer_12314);
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
 if ($dbrow0 = null) {
-    ~error("Attempted lookup without an active league: <tostring(%varplayer_12314)>");
+    ~error("Attempted lookup without an active league: <tostring(%league_active_player)>");
     return;
 }
-def_dbrow $dbrow1 = db_getfield($dbrow0, dbtable_326:col10, 0);
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col10, 0);
 if ($dbrow1 = null) {
     return;
 }
 def_dbrow $dbrow2 = null;
 def_int $int3 = 0;
-def_int $int4 = db_getfieldcount($dbrow1, dbtable_327:col0);
+def_int $int4 = db_getfieldcount($dbrow1, league_relic_list:col0);
 def_int $int5 = 0;
 def_int $int6 = 0;
 while ($int3 < $int4) {
-    $dbrow2 = db_getfield($dbrow1, dbtable_327:col0, $int3);
-    $int6 = db_getfield($dbrow2, dbtable_328:col2, 0);
-    if (%varplayerbit_61497 < $int6) {
+    $dbrow2 = db_getfield($dbrow1, league_relic_list:col0, $int3);
+    $int6 = db_getfield($dbrow2, league_relic_tier:col2, 0);
+    if (%league_task_combat_relic_completed_total < $int6) {
         if ($int3 = 0) {
-            %varplayerbit_61499 = 15;
+            %league_task_combat_relic_current_tier = 15;
         } else {
-            %varplayerbit_61499 = calc($int3 - 1);
+            %league_task_combat_relic_current_tier = calc($int3 - 1);
         }
-        %varplayerbit_1668 = $int5;
-        %varplayerbit_61498 = $int6;
+        %league_task_combat_relic_current_tier_total = $int5;
+        %league_task_combat_relic_next_tier_total = $int6;
         return;
     }
     $int5 = $int6;
     $int3 = calc($int3 + 1);
 }
-%varplayerbit_61499 = calc($int3 - 1);
-%varplayerbit_1668 = 255;
-%varplayerbit_61498 = 255;
+%league_task_combat_relic_current_tier = calc($int3 - 1);
+%league_task_combat_relic_current_tier_total = 255;
+%league_task_combat_relic_next_tier_total = 255;

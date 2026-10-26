@@ -1,26 +1,26 @@
 // 11957
 [proc,script11957](int $int0, string $string0)
 def_int $int1 = 0;
-if (if_find(interface_1108:com_2) = true) {
-    if (cc_param(param_5433) = -1) {
+if (if_find(friendschatsetup:chat_frame) = true) {
+    if (cc_param(friends_sort_mode) = -1) {
         return;
     }
-    if (cc_param(param_5433) = $int0 & compare(%varclient_5113, $string0) = 0) {
+    if (cc_param(friends_sort_mode) = $int0 & compare(%friend_lastfilter, $string0) = 0) {
         return;
     }
-    %varclient_5113 = $string0;
-    cc_setparam(param_5433, $int0);
+    %friend_lastfilter = $string0;
+    cc_setparam(friends_sort_mode, $int0);
     switch_int ($int0) {
         case 0 :
             $int1 = 0;
         case 1 :
-            $int1 = cc_param(param_5434);
+            $int1 = cc_param(friends_sort_atoz);
         case 2 :
-            $int1 = cc_param(param_5435);
+            $int1 = cc_param(friends_sort_ztoa);
         case 3 :
-            $int1 = cc_param(param_5436);
+            $int1 = cc_param(friends_sort_rank_atoz);
         case 4 :
-            $int1 = cc_param(param_5437);
+            $int1 = cc_param(friends_sort_rank_ztoa);
         case default :
             return;
     }
@@ -32,13 +32,13 @@ def_int $int3 = friend_count;
 def_boolean $boolean4 = false;
 if ($int3 > 1) {
     while ($int1 ! -1) {
-        if (cc_find(interface_1108:com_7, $int1) = true) {
+        if (cc_find(friendschatsetup:rank, $int1) = true) {
             cc_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top);
         }
-        if (cc_find(interface_1108:com_5, $int1) = true) {
+        if (cc_find(friendschatsetup:icon, $int1) = true) {
             cc_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top);
         }
-        if (cc_find(interface_1108:com_6, $int1) = true) {
+        if (cc_find(friendschatsetup:name, $int1) = true) {
             cc_setposition(0, $int2, ^setpos_abs_left, ^setpos_abs_top);
             switch_int ($int0) {
                 case 0 :
@@ -46,13 +46,13 @@ if ($int3 > 1) {
                         $int1 = -1;
                     }
                 case 1 :
-                    $int1 = cc_param(param_5434);
+                    $int1 = cc_param(friends_sort_atoz);
                 case 2 :
-                    $int1 = cc_param(param_5435);
+                    $int1 = cc_param(friends_sort_ztoa);
                 case 3 :
-                    $int1 = cc_param(param_5436);
+                    $int1 = cc_param(friends_sort_rank_atoz);
                 case 4 :
-                    $int1 = cc_param(param_5437);
+                    $int1 = cc_param(friends_sort_rank_ztoa);
                 case default :
                     return;
             }
@@ -65,12 +65,12 @@ if ($int3 > 1) {
         }
     }
 }
-if (if_getscrolly(interface_1108:com_27) > $int2) {
-    if_setscrollpos(0, 0, interface_1108:com_27);
+if (if_getscrolly(friendschatsetup:chat_scroller) > $int2) {
+    if_setscrollpos(0, 0, friendschatsetup:chat_scroller);
 }
-if ($int2 > if_getheight(interface_1108:com_27)) {
-    if_setscrollsize(0, $int2, interface_1108:com_27);
+if ($int2 > if_getheight(friendschatsetup:chat_scroller)) {
+    if_setscrollsize(0, $int2, friendschatsetup:chat_scroller);
 } else {
-    if_setscrollsize(0, 0, interface_1108:com_27);
+    if_setscrollsize(0, 0, friendschatsetup:chat_scroller);
 }
-~rs3_scrollbar_vertical(interface_1108:com_3, interface_1108:com_27);
+~rs3_scrollbar_vertical(friendschatsetup:scrollbar, friendschatsetup:chat_scroller);

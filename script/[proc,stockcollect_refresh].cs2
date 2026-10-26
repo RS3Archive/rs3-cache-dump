@@ -9,39 +9,39 @@
 ~script662(6);
 ~script662(7);
 ~script186;
-def_obj $obj0 = inv_getobj(inv_540, 0);
+def_obj $obj0 = inv_getobj(lent_items, 0);
 if ($obj0 = null) {
-    if_sethide(false, interface_109:com_29);
-    if_setobject(null, -1, interface_109:com_19);
-    if_settext("", interface_109:com_20);
-    if_setopbase(null, interface_109:com_19);
-    if_setop(1, null, interface_109:com_19);
+    if_sethide(false, stockcollect:lending_layer_hide);
+    if_setobject(null, -1, stockcollect:lending_item);
+    if_settext("", stockcollect:lending_indicator);
+    if_setopbase(null, stockcollect:lending_item);
+    if_setop(1, null, stockcollect:lending_item);
     return;
 }
-if_sethide(true, interface_109:com_29);
-if_setobject($obj0, -1, interface_109:com_19);
-if_setopbase("<col=ff9040><oc_name($obj0)></col>", interface_109:com_19);
+if_sethide(true, stockcollect:lending_layer_hide);
+if_setobject($obj0, -1, stockcollect:lending_item);
+if_setopbase("<col=ff9040><oc_name($obj0)></col>", stockcollect:lending_item);
 def_graphic $graphic1 = "bank_slot,3";
-if_setonmouseover("graphic_swapper(interface_109:com_18, $graphic1)", interface_109:com_18);
+if_setonmouseover("graphic_swapper(stockcollect:lending_item_bg, $graphic1)", stockcollect:lending_item_bg);
 $graphic1 = rs3_inventory_slot;
-if_setonmouseleave("graphic_swapper(interface_109:com_18, $graphic1)", interface_109:com_18);
+if_setonmouseleave("graphic_swapper(stockcollect:lending_item_bg, $graphic1)", stockcollect:lending_item_bg);
 def_string $string0 = "Lent item";
 def_string $string1 = "Still on loan";
-if_settext($string0, interface_109:com_17);
-if (%varplayer_429 ! null | %varplayer_431 > 0) {
-    if_settrans(200, interface_109:com_19);
-    if_setcolour(^red, interface_109:com_20);
-    if_setop(1, "Demand", interface_109:com_19);
+if_settext($string0, stockcollect:lending_title);
+if (%lending_mydebtor ! null | %lending_retrievetime > 0) {
+    if_settrans(200, stockcollect:lending_item);
+    if_setcolour(^red, stockcollect:lending_indicator);
+    if_setop(1, "Demand", stockcollect:lending_item);
 } else {
-    if_settrans(0, interface_109:com_19);
-    if_setcolour(0x00df00, interface_109:com_20);
+    if_settrans(0, stockcollect:lending_item);
+    if_setcolour(0x00df00, stockcollect:lending_indicator);
     $string1 = "Available";
-    if_setop(1, "Reclaim", interface_109:com_19);
+    if_setop(1, "Reclaim", stockcollect:lending_item);
 }
-if_settext($string1, interface_109:com_20);
-def_int $int2 = max(stringwidth($string0, fontmetrics_28), stringwidth($string1, fontmetrics_26));
-$int2 = max($int2, if_getwidth(interface_109:com_19));
+if_settext($string1, stockcollect:lending_indicator);
+def_int $int2 = max(stringwidth($string0, museo_sans_13pt_regular), stringwidth($string1, museo_sans_11pt_regular));
+$int2 = max($int2, if_getwidth(stockcollect:lending_item));
 $int2 = calc($int2 + 30);
 $int2 = max($int2, 106);
 $int2 = min($int2, 178);
-if_setsize($int2, 73, ^setsize_abs, ^setsize_abs, interface_109:com_28);
+if_setsize($int2, 73, ^setsize_abs, ^setsize_abs, stockcollect:lending_container);

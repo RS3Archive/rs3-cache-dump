@@ -3,38 +3,38 @@
 if (~script6431 = false) {
     return;
 }
-if (%varclient_6791 = false | %varplayerbit_1899 = 0 & %varplayerbit_27003 = 0) {
-    %varclient_6515 = 0;
-    if_setontimer(null, interface_1477:com_905);
-    if_sethide(true, interface_1477:com_905);
+if (%mobile_fullscreen_interface_open = false | %combatv2_player_is_in_combat = 0 & %combatv2_npc_attacked = 0) {
+    %mobile_attack_warning_timer_running = 0;
+    if_setontimer(null, toplevel_v2:interface_zoom_under_attack_display);
+    if_sethide(true, toplevel_v2:interface_zoom_under_attack_display);
     return;
 }
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
-if (%varclient_6515 = 1) {
+if (%mobile_attack_warning_timer_running = 1) {
     $int0, $int1, $int2, $int3 = unknown_command_15;
-    if (%varclient_6403 = 0) {
-        $int2 = if_getwidth(interface_1477:com_27);
-        $int3 = if_getheight(interface_1477:com_27);
+    if (%mobile_zoom = 0) {
+        $int2 = if_getwidth(toplevel_v2:background_colour);
+        $int3 = if_getheight(toplevel_v2:background_colour);
     }
-    if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, interface_1477:com_905);
-    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_1477:com_905);
+    if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, toplevel_v2:interface_zoom_under_attack_display);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, toplevel_v2:interface_zoom_under_attack_display);
     return;
 }
-%varclient_6515 = 1;
-if (if_find(interface_1477:com_906) = true) {
+%mobile_attack_warning_timer_running = 1;
+if (if_find(toplevel_v2:interface_zoom_under_attack_lefttop) = true) {
     cc_settrans(255);
 }
-if (if_find(interface_1477:com_907) = true) {
+if (if_find(toplevel_v2:interface_zoom_under_attack_righttop) = true) {
     cc_settrans(255);
 }
-if (if_find(interface_1477:com_908) = true) {
+if (if_find(toplevel_v2:interface_zoom_under_attack_leftbottom) = true) {
     cc_settrans(255);
 }
-if (if_find(interface_1477:com_909) = true) {
+if (if_find(toplevel_v2:interface_zoom_under_attack_rightbottom) = true) {
     cc_settrans(255);
 }
-if_sethide(false, interface_1477:com_905);
-if_setontimer("script5708(interface_1477:com_905, 0)", interface_1477:com_905);
+if_sethide(false, toplevel_v2:interface_zoom_under_attack_display);
+if_setontimer("script5708(toplevel_v2:interface_zoom_under_attack_display, 0)", toplevel_v2:interface_zoom_under_attack_display);

@@ -3,72 +3,72 @@
 def_int $int2 = 0;
 switch_int ($int0) {
     case 1 :
-        $int2 = %varclient_1469;
+        $int2 = %lvl_attack_before_levelup_varc;
     case 2 :
-        $int2 = %varclient_1470;
+        $int2 = %lvl_strength_before_levelup_varc;
     case 5 :
-        $int2 = %varclient_1471;
+        $int2 = %lvl_defence_before_levelup_varc;
     case 3 :
-        $int2 = %varclient_1472;
+        $int2 = %lvl_ranged_before_levelup_varc;
     case 7 :
-        $int2 = %varclient_1473;
+        $int2 = %lvl_prayer_before_levelup_varc;
     case 4 :
-        $int2 = %varclient_1474;
+        $int2 = %lvl_magic_before_levelup_varc;
     case 6 :
-        $int2 = %varclient_1475;
+        $int2 = %lvl_hitpoints_before_levelup_varc;
     case 8 :
-        $int2 = %varclient_1476;
+        $int2 = %lvl_agility_before_levelup_varc;
     case 9 :
-        $int2 = %varclient_1477;
+        $int2 = %lvl_herblore_before_levelup_varc;
     case 10 :
-        $int2 = %varclient_1478;
+        $int2 = %lvl_thieving_before_levelup_varc;
     case 11 :
-        $int2 = %varclient_1479;
+        $int2 = %lvl_crafting_before_levelup_varc;
     case 19 :
-        $int2 = %varclient_1480;
+        $int2 = %lvl_fletching_before_levelup_varc;
     case 13 :
-        $int2 = %varclient_1481;
+        $int2 = %lvl_mining_before_levelup_varc;
     case 14 :
-        $int2 = %varclient_1482;
+        $int2 = %lvl_smithing_before_levelup_varc;
     case 15 :
-        $int2 = %varclient_1483;
+        $int2 = %lvl_fishing_before_levelup_varc;
     case 16 :
-        $int2 = %varclient_1484;
+        $int2 = %lvl_cooking_before_levelup_varc;
     case 17 :
-        $int2 = %varclient_1485;
+        $int2 = %lvl_firemaking_before_levelup_varc;
     case 18 :
-        $int2 = %varclient_1486;
+        $int2 = %lvl_woodcutting_before_levelup_varc;
     case 12 :
-        $int2 = %varclient_1487;
+        $int2 = %lvl_runecraft_before_levelup_varc;
     case 20 :
-        $int2 = %varclient_1488;
+        $int2 = %lvl_slayer_before_levelup_varc;
     case 21 :
-        $int2 = %varclient_1489;
+        $int2 = %lvl_farming_before_levelup_varc;
     case 22 :
-        $int2 = %varclient_1490;
+        $int2 = %lvl_construction_before_levelup_varc;
     case 23 :
-        $int2 = %varclient_1491;
+        $int2 = %lvl_hunter_before_levelup_varc;
     case 24 :
-        $int2 = %varclient_1492;
+        $int2 = %lvl_summoning_before_levelup_varc;
     case 25 :
-        $int2 = %varclient_1493;
+        $int2 = %lvl_dungeoneering_before_levelup_varc;
     case 26 :
-        $int2 = %varclient_3715;
+        $int2 = %lvl_divination_before_levelup_varc;
     case 27 :
-        $int2 = %varclient_5125;
+        $int2 = %lvl_invention_before_levelup_varc;
     case 28 :
-        $int2 = %varclient_6783;
+        $int2 = %lvl_archaeology_before_levelup_varc;
     case 29 :
-        $int2 = %varclient_7292;
+        $int2 = %lvl_necromancy_before_levelup_varc;
     case default :
         return;
 }
-def_stat $stat3 = enum(int, stat, enum_681, $int0);
+def_stat $stat3 = enum(int, stat, int_to_stat, $int0);
 def_int $int4 = stat_base($stat3);
-def_enum $enum5 = enum(int, enum, enum_5420, $int0);
+def_enum $enum5 = enum(int, enum, skillguide_skills, $int0);
 def_int $int6 = enum_getoutputcount($enum5);
-def_stat $stat7 = enum(int, stat, enum_681, $int0);
-$stat7 = enum(stat, stat, enum_744, $stat7);
+def_stat $stat7 = enum(int, stat, int_to_stat, $int0);
+$stat7 = enum(stat, stat, stat_f2p_list, $stat7);
 def_int $int8 = 0;
 def_int $int9 = 0;
 def_struct $struct10 = null;
@@ -84,8 +84,8 @@ if ($int4 > $int2 & $int4 <= 120) {
     }
     switch_int ($int0) {
         case 1, 2, 5, 3, 7, 4, 6, 24, 29 :
-            if (%varplayerbit_3294 = 1) {
-                %varplayerbit_3294 = 0;
+            if (%lvl_combat_level_change = 1) {
+                %lvl_combat_level_change = 0;
                 ~levelup_custom_unlock("Increased Combat level!", $int9, $int1);
                 $int9 = calc($int9 + 1);
             }
@@ -107,7 +107,7 @@ if ($int4 > $int2 & $int4 <= 120) {
         switch_stat ($stat3) {
             case construction :
                 $dbfilter11 = ~script20817($int2, $int4);
-                unknown_command_77($dbfilter11, dbtable_370:col9, true);
+                unknown_command_77($dbfilter11, construction_house_furniture:col9, true);
                 $dbrow12 = db_findnext;
                 while ($dbrow12 ! null & $int9 < 5) {
                     $int9 = ~script16267(null, $dbrow12, $int9, $int2, $int4, $int1);

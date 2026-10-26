@@ -1,0 +1,13 @@
+// 21174
+[proc,script21174]
+def_string $string0 = "";
+if (if_find(plugin_hub_parent_auth:input) = true) {
+    $string0 = cc_gettext;
+    if (string_length($string0) <= 5 | string_indexof_string($string0, "@", 0) = -1 | string_indexof_string($string0, ".", 0) = -1) {
+        cc_focus;
+        ~script426("Please enter a valid email address first.", plugin_hub_parent_auth:input, -1, 1);
+        return;
+    }
+    pluginapi_auth_submit(0, $string0);
+    ~script21167(3);
+}

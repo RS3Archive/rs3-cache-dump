@@ -1,15 +1,15 @@
 // 1328
 [clientscript,script1328](int $key0)
-if (if_gethide(interface_906:com_99) = false | if_gethide(interface_906:com_100) = false | if_gethide(interface_906:com_101) = false | if_gethide(interface_906:com_151) = false | if_gethide(interface_906:com_144) = false | if_gethide(interface_906:com_145) = false | if_gethide(interface_906:com_146) = false) {
+if (if_gethide(lobbyscreen:input) = false | if_gethide(lobbyscreen:windowmode_confirm) = false | if_gethide(lobbyscreen:pvp_warning) = false | if_gethide(lobbyscreen:popup) = false | if_gethide(lobbyscreen:report_abuse_stage1) = false | if_gethide(lobbyscreen:report_abuse_stage2) = false | if_gethide(lobbyscreen:report_abuse_ignore) = false) {
     return;
 }
-if (if_gethide(interface_906:com_149) = false) {
+if (if_gethide(lobbyscreen:under_13) = false) {
     if ($key0 = ^key_escape) {
         ~lobbyscreen_leavelobby;
     }
     return;
 }
-def_int $int1 = %varclient_4270;
+def_int $int1 = %lobby_current_tab;
 if (keyheld_ctrl = true) {
     switch_int ($key0) {
         case ^key_1, ^key_end :
@@ -26,9 +26,9 @@ if (keyheld_ctrl = true) {
             $int1 = 5;
         case ^key_tab :
             if (keyheld_shift = false) {
-                $int1 = calc((%varclient_4270 + 1) % 6);
+                $int1 = calc((%lobby_current_tab + 1) % 6);
             } else {
-                $int1 = calc(%varclient_4270 - 1);
+                $int1 = calc(%lobby_current_tab - 1);
                 if ($int1 < 0) {
                     $int1 = 5;
                 }
@@ -36,12 +36,12 @@ if (keyheld_ctrl = true) {
         case default :
             return;
     }
-    if ($int1 ! %varclient_4270) {
+    if ($int1 ! %lobby_current_tab) {
         ~lobbyscreen_tabswitch($int1);
     }
     return;
 }
-if (%varclient_4270 ! 3 & %varclient_4270 ! 4) {
+if (%lobby_current_tab ! 3 & %lobby_current_tab ! 4) {
     switch_int ($key0) {
         case ^key_1, ^key_end :
             ~script15608(1);
@@ -54,8 +54,8 @@ if (%varclient_4270 ! 3 & %varclient_4270 ! 4) {
         case ^key_return, ^key_tab :
             ~script15616;
         case ^key_space :
-            if_triggerop(interface_906:com_81, -1, 1);
+            if_triggerop(lobbyscreen:login_button, -1, 1);
     }
-} else if ($key0 = ^key_escape & (%varclient_4270 = 3 & string_length(%varclient_2480) = 0 | %varclient_4270 = 4 & string_length(%varclient_2479) = 0)) {
+} else if ($key0 = ^key_escape & (%lobby_current_tab = 3 & string_length(%lobbyscreen_input_friendschat) = 0 | %lobby_current_tab = 4 & string_length(%lobbyscreen_input_clan) = 0)) {
     ~script1896;
 }

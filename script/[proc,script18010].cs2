@@ -1,19 +1,19 @@
 // 18010
 [proc,script18010]
-if (%varplayer_11339 = null) {
+if (%bp3_current_viewed_pass = null) {
     return;
 }
-def_dbrow $dbrow0 = %varplayer_11339;
-if (db_getrowtable($dbrow0) ! dbtable_242) {
+def_dbrow $dbrow0 = %bp3_current_viewed_pass;
+if (db_getrowtable($dbrow0) ! bp3_table) {
     ~error("Invalid table.");
     return;
 }
 ~script18030($dbrow0);
-def_component $component1 = interface_1227:com_40;
+def_component $component1 = bp3_track_tab:reward_track_tile_layer;
 cc_deleteall($component1);
-def_component $component2 = interface_1227:com_41;
+def_component $component2 = bp3_track_tab:reward_track_level_layer;
 cc_deleteall($component2);
-def_int $int3 = db_getfield($dbrow0, dbtable_242:col3, 0);
+def_int $int3 = db_getfield($dbrow0, bp3_table:col3, 0);
 def_int $int4 = 100;
 def_int $int5 = ~script18011;
 ~cc_add_panel($component2, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, false, $int5);
@@ -33,10 +33,10 @@ while ($int7 <= $int6) {
     }
     $int7 = calc($int7 + 1);
 }
-def_component $component9 = interface_1227:com_36;
+def_component $component9 = bp3_track_tab:reward_track_scroll_section;
 ~script17927;
 def_int $int10 = calc($int6 * ($int4 + $int5));
 if_setscrollpos(0, 0, $component9);
 if_setscrollsize($int10, if_getheight($component9), $component9);
-~rs3_scrollbar_horizontal(interface_1227:com_35, $component9);
-if_setontimer("script18012(15, 1, $dbrow0, 0, 3, 0, 3, 0)", interface_1227:com_33);
+~rs3_scrollbar_horizontal(bp3_track_tab:rewards_scroll_bar, $component9);
+if_setontimer("script18012(15, 1, $dbrow0, 0, 3, 0, 3, 0)", bp3_track_tab:reward_track_section);

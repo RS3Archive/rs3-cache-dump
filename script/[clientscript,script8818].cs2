@@ -1,6 +1,6 @@
 // 8818
 [clientscript,script8818](int $int0, char $char1)
-if (%varclient_2850 <= 0) {
+if (%keyboard_manager_keybind_system_in_progress <= 0) {
     return;
 }
 if (~script8815($int0) = false) {
@@ -11,7 +11,7 @@ if (~script8815($int0) = false) {
             if (~cancel_targetmode = true) {
                 return;
             }
-            ~script8212(%varclient_2850, %varclient_2851, -1, -1);
+            ~script8212(%keyboard_manager_keybind_system_in_progress, %keyboard_manager_keybind_action_in_progress, -1, -1);
             ~script8820(0);
         case 82, 86, 81 :
         case -1 :
@@ -33,9 +33,9 @@ def_boolean $boolean3 = false;
 def_int $int4 = 0;
 def_int $int5 = -1;
 def_int $int6 = 0;
-def_int $int7 = enum_getoutputcount(enum_7691);
+def_int $int7 = enum_getoutputcount(keyboard_manager_customisable_systems);
 while ($int6 < $int7) {
-    $int4 = enum(int, int, enum_7691, $int6);
+    $int4 = enum(int, int, keyboard_manager_customisable_systems, $int6);
     $int5 = ~script8824($int4, $int0, $int2);
     if ($int5 ! -1) {
         $int6 = $int7;
@@ -44,7 +44,7 @@ while ($int6 < $int7) {
     }
 }
 def_string $string0 = "";
-$boolean3, $string0 = ~script8823(%varclient_2850, %varclient_2851, $int0, $int2);
+$boolean3, $string0 = ~script8823(%keyboard_manager_keybind_system_in_progress, %keyboard_manager_keybind_action_in_progress, $int0, $int2);
 if ($boolean3 = false) {
     if (compare($string0, "") = 0) {
         $string0 = "Key bind failed. Please try again later.";
@@ -52,12 +52,12 @@ if ($boolean3 = false) {
     ~script8210($string0, -1, -1);
     return;
 } else if ($int5 ! -1) {
-    if (%varclient_2850 ! $int4 | %varclient_2851 ! $int5) {
+    if (%keyboard_manager_keybind_system_in_progress ! $int4 | %keyboard_manager_keybind_action_in_progress ! $int5) {
         ~script8823($int4, $int5, 255, 0);
     } else {
         $int4 = -1;
         $int5 = -1;
     }
 }
-~script8212(%varclient_2850, %varclient_2851, $int4, $int5);
+~script8212(%keyboard_manager_keybind_system_in_progress, %keyboard_manager_keybind_action_in_progress, $int4, $int5);
 ~script8820(0);

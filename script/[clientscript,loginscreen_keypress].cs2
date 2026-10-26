@@ -1,6 +1,6 @@
 // 1221
 [clientscript,loginscreen_keypress](int $int0, char $char1)
-if (%varclient_174 = 108 | %varclient_6886 = 1) {
+if (%loginscreen_focus = 108 | %loginscreen_disable_keyboard = 1) {
     ~script15660;
     return;
 }
@@ -13,7 +13,7 @@ if (~is_mobile_client = true) {
             ~script15660;
     }
 }
-switch_int (%varclient_174) {
+switch_int (%loginscreen_focus) {
     case 100 :
         switch_int ($int2) {
             case -3, 21, 1 :
@@ -26,24 +26,24 @@ switch_int (%varclient_174) {
                 }
                 return;
             case 84, 80 :
-                if (%varclient_175 >= clientclock) {
+                if (%loginscreen_focustime >= clientclock) {
                     return;
                 }
                 ~login_setfocus(101);
                 ~script315;
-                %varclient_175 = clientclock;
-                %varclient_1099 = string_length(~script2949(%varclient_2577));
-                ~script3237(interface_744:com_129, interface_744:com_130, interface_744:com_131, ~script2949(%varclient_2577), 101, fontmetrics_212);
+                %loginscreen_focustime = clientclock;
+                %login_caret = string_length(~script2949(%loginscreen_password));
+                ~script3237(loginscreen:password_layer, loginscreen:password, loginscreen:password_caret, ~script2949(%loginscreen_password), 101, notosans_17);
                 return;
             case 96, 97, 98, 99, 102, 103 :
-                %varclient_1099 = ~script1553($int0, %varclient_1099, %varclient_2576);
-                ~script3237(interface_744:com_106, interface_744:com_107, interface_744:com_108, %varclient_2576, 100, fontmetrics_212);
+                %login_caret = ~script1553($int0, %login_caret, %loginscreen_username);
+                ~script3237(loginscreen:username_layer, loginscreen:username, loginscreen:username_caret, %loginscreen_username, 100, notosans_17);
                 return;
         }
-        if (string_length(%varclient_2576) >= 320 & $int0 ! 85 & $int0 ! 101 | string_length(removetags(append_char("", $char1))) = 0) {
+        if (string_length(%loginscreen_username) >= 320 & $int0 ! 85 & $int0 ! 101 | string_length(removetags(append_char("", $char1))) = 0) {
             return;
         }
-        %varclient_2576, %varclient_1099 = ~script802(%varclient_1099, %varclient_2576, 0, $int0, $char1);
+        %loginscreen_username, %login_caret = ~script802(%login_caret, %loginscreen_username, 0, $int0, $char1);
         ~script15698(100);
         return;
     case 101 :
@@ -58,27 +58,27 @@ switch_int (%varclient_174) {
                 }
                 return;
             case 84, 80 :
-                if (%varclient_175 >= clientclock) {
+                if (%loginscreen_focustime >= clientclock) {
                     return;
                 }
-                if ($int0 = 84 & string_length(%varclient_2576) > 0) {
+                if ($int0 = 84 & string_length(%loginscreen_username) > 0) {
                     ~login_dologin;
                     return;
                 }
                 ~login_setfocus(100);
-                %varclient_175 = clientclock;
-                %varclient_1099 = string_length(%varclient_2576);
-                ~script3237(interface_744:com_106, interface_744:com_107, interface_744:com_108, %varclient_2576, 100, fontmetrics_212);
+                %loginscreen_focustime = clientclock;
+                %login_caret = string_length(%loginscreen_username);
+                ~script3237(loginscreen:username_layer, loginscreen:username, loginscreen:username_caret, %loginscreen_username, 100, notosans_17);
                 return;
             case 96, 97, 98, 99, 102, 103 :
-                %varclient_1099 = ~script1553($int0, %varclient_1099, ~script2949(%varclient_2577));
-                ~script3237(interface_744:com_129, interface_744:com_130, interface_744:com_131, ~script2949(%varclient_2577), 101, fontmetrics_212);
+                %login_caret = ~script1553($int0, %login_caret, ~script2949(%loginscreen_password));
+                ~script3237(loginscreen:password_layer, loginscreen:password, loginscreen:password_caret, ~script2949(%loginscreen_password), 101, notosans_17);
                 return;
         }
-        if (string_length(%varclient_2577) >= 20 & $int0 ! 85 & $int0 ! 101) {
+        if (string_length(%loginscreen_password) >= 20 & $int0 ! 85 & $int0 ! 101) {
             return;
         }
-        %varclient_2577, %varclient_1099 = ~script802(%varclient_1099, %varclient_2577, 0, $int0, $char1);
+        %loginscreen_password, %login_caret = ~script802(%login_caret, %loginscreen_password, 0, $int0, $char1);
         ~script15699;
         return;
     case 114 :
@@ -88,31 +88,31 @@ switch_int (%varclient_174) {
         }
         switch_int ($int0) {
             case 84 :
-                if (%varclient_175 >= clientclock) {
+                if (%loginscreen_focustime >= clientclock) {
                     return;
                 }
-                if (string_length(%varclient_4192) > 0) {
+                if (string_length(%loginscreen_totp_auth) > 0) {
                     ~script9824;
                     return;
                 }
                 ~login_setfocus(114);
-                %varclient_175 = clientclock;
-                %varclient_1099 = string_length(%varclient_4192);
+                %loginscreen_focustime = clientclock;
+                %login_caret = string_length(%loginscreen_totp_auth);
                 return;
             case 96, 97, 98, 99, 102, 103 :
-                %varclient_1099 = ~script1553($int0, %varclient_1099, %varclient_4192);
-                ~script3237(interface_744:com_160, interface_744:com_161, interface_744:com_162, %varclient_4192, 114, fontmetrics_212);
+                %login_caret = ~script1553($int0, %login_caret, %loginscreen_totp_auth);
+                ~script3237(loginscreen:auth_input_layer, loginscreen:auth_input_text, loginscreen:auth_input_caret, %loginscreen_totp_auth, 114, notosans_17);
                 return;
             case 13 :
                 ~script15705;
                 return;
         }
-        if (string_length(%varclient_4192) >= 6 & $int0 ! 85 & $int0 ! 101) {
+        if (string_length(%loginscreen_totp_auth) >= 6 & $int0 ! 85 & $int0 ! 101) {
             return;
         }
-        %varclient_4192, %varclient_1099 = ~script802(%varclient_1099, %varclient_4192, 1, $int0, $char1);
-        if_settext(%varclient_4192, interface_744:com_161);
-        ~script3237(interface_744:com_160, interface_744:com_161, interface_744:com_162, %varclient_4192, 114, fontmetrics_212);
+        %loginscreen_totp_auth, %login_caret = ~script802(%login_caret, %loginscreen_totp_auth, 1, $int0, $char1);
+        if_settext(%loginscreen_totp_auth, loginscreen:auth_input_text);
+        ~script3237(loginscreen:auth_input_layer, loginscreen:auth_input_text, loginscreen:auth_input_caret, %loginscreen_totp_auth, 114, notosans_17);
         ~script15700;
         return;
     case 15, 113 :
@@ -123,27 +123,27 @@ switch_int (%varclient_174) {
         switch_int ($int0) {
             case 13 :
                 ~loginscreen_setactivemenu(8);
-                %varclient_6896 = "";
+                %loginscreen_recovery_username = "";
                 ~script15698(113);
                 return;
             case 84, 80 :
-                if (%varclient_175 >= clientclock) {
+                if (%loginscreen_focustime >= clientclock) {
                     return;
                 }
-                %varclient_175 = clientclock;
-                if (string_length(%varclient_6896) > 0) {
+                %loginscreen_focustime = clientclock;
+                if (string_length(%loginscreen_recovery_username) > 0) {
                     ~script7722(1);
                 }
                 return;
             case 96, 97, 98, 99, 102, 103 :
-                %varclient_1099 = ~script1553($int0, %varclient_1099, %varclient_6896);
-                ~script3237(interface_744:com_327, interface_744:com_328, interface_744:com_329, %varclient_6896, 113, fontmetrics_212);
+                %login_caret = ~script1553($int0, %login_caret, %loginscreen_recovery_username);
+                ~script3237(loginscreen:recovery_text_entry_layer, loginscreen:recovery_text, loginscreen:recovery_caret, %loginscreen_recovery_username, 113, notosans_17);
                 return;
         }
-        if (string_length(%varclient_2576) >= 320 & $int0 ! 85 & $int0 ! 101 | string_length(removetags(append_char("", $char1))) = 0) {
+        if (string_length(%loginscreen_username) >= 320 & $int0 ! 85 & $int0 ! 101 | string_length(removetags(append_char("", $char1))) = 0) {
             return;
         }
-        %varclient_6896, %varclient_1099 = ~script802(%varclient_1099, %varclient_6896, 0, $int0, $char1);
+        %loginscreen_recovery_username, %login_caret = ~script802(%login_caret, %loginscreen_recovery_username, 0, $int0, $char1);
         ~script15698(113);
         return;
     case 102 :
@@ -165,9 +165,9 @@ switch_int (%varclient_174) {
         return;
     case 18 :
         if ($int0 = 13) {
-            if (if_gethide(interface_744:com_290) = true) {
+            if (if_gethide(loginscreen:tnc_decline_popup) = true) {
                 ~script3131;
-            } else if (if_gethide(interface_744:com_290) = false) {
+            } else if (if_gethide(loginscreen:tnc_decline_popup) = false) {
                 ~script2465;
             } else {
                 ~loginscreen_quit(0);

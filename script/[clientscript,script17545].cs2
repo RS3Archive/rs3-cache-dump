@@ -1,41 +1,41 @@
 // 17545
 [clientscript,script17545](component $component0)
-def_component $component1 = ~script18321($component0, interface_1171:com_23);
-def_component $component2 = ~script18321($component0, interface_1171:com_22);
-def_component $component3 = ~script18321($component0, interface_1171:com_5);
-def_component $component4 = ~script18321($component0, interface_1171:com_14);
-def_component $component5 = ~script18321($component0, interface_1171:com_15);
-def_component $component6 = ~script18321($component0, interface_1171:com_16);
-def_struct $struct7 = %varplayer_10946;
-def_int $int8 = %varplayerbit_53292;
-def_int $int9 = %varplayerbit_53294;
+def_component $component1 = ~script18321($component0, activity_progress_bar:container);
+def_component $component2 = ~script18321($component0, activity_progress_bar:progress_diamond_left);
+def_component $component3 = ~script18321($component0, activity_progress_bar:progress_bar_fill);
+def_component $component4 = ~script18321($component0, activity_progress_bar:progress_bar_fill_underlay);
+def_component $component5 = ~script18321($component0, activity_progress_bar:progress_bar);
+def_component $component6 = ~script18321($component0, activity_progress_bar:progress_markers);
+def_struct $struct7 = %activity_progress_bar_active_struct;
+def_int $int8 = %activity_progress_bar_active_progress;
+def_int $int9 = %activity_progress_bar_active_max_progress;
 def_int $int10 = 0;
-if ($struct7 ! null & struct_param($struct7, param_8990) ! null & $component1 ! interface_1171:com_23) {
-    $struct7 = struct_param($struct7, param_8990);
-    $int8 = %varplayer_11535;
-    $int9 = %varplayer_11536;
+if ($struct7 ! null & struct_param($struct7, activity_progress_bar_second_healthbar) ! null & $component1 ! activity_progress_bar:container) {
+    $struct7 = struct_param($struct7, activity_progress_bar_second_healthbar);
+    $int8 = %activity_progress_bar_extension_second_health_bar_progress;
+    $int9 = %activity_progress_bar_extension_second_health_bar_max_progress;
     $int10 = 1;
 }
 if ($int9 < 1) {
     return;
 }
 def_int $int11 = scale($int8, $int9, 100);
-def_int $rgb12 = struct_param($struct7, param_8860);
-def_int $rgb13 = struct_param($struct7, param_9157);
-def_int $rgb14 = struct_param($struct7, param_8861);
+def_int $rgb12 = struct_param($struct7, activity_progress_bar_colour);
+def_int $rgb13 = struct_param($struct7, activity_progress_bar_underlay_colour);
+def_int $rgb14 = struct_param($struct7, activity_progress_bar_secondary_colour);
 if ($int10 = 0) {
-    if (%varplayerbit_53296 > 0 & %varplayerbit_53295 > 0) {
-        $int11 = scale(%varplayerbit_53295, %varplayerbit_53296, 100);
-        if_setcolour(struct_param($struct7, param_8862), $component3);
-    } else if (%varplayerbit_53298 > 0 & %varplayerbit_53297 > 0) {
-        $int11 = scale(%varplayerbit_53297, %varplayerbit_53298, 100);
-        if (%varplayer_10945 ! null) {
-            $rgb14 = %varplayer_10945;
+    if (%activity_progress_bar_active_max_shield > 0 & %activity_progress_bar_active_shield > 0) {
+        $int11 = scale(%activity_progress_bar_active_shield, %activity_progress_bar_active_max_shield, 100);
+        if_setcolour(struct_param($struct7, activity_progress_bar_shield_colour), $component3);
+    } else if (%activity_progress_bar_active_secondary_max_progress > 0 & %activity_progress_bar_active_secondary_progress > 0) {
+        $int11 = scale(%activity_progress_bar_active_secondary_progress, %activity_progress_bar_active_secondary_max_progress, 100);
+        if (%activity_progress_bar_active_secondary_progress_bar_colour_override ! null) {
+            $rgb14 = %activity_progress_bar_active_secondary_progress_bar_colour_override;
         }
         if_setcolour($rgb14, $component3);
     } else {
-        if (%varplayer_10944 ! null) {
-            $rgb14 = %varplayer_10944;
+        if (%activity_progress_bar_active_primary_progress_bar_colour_override ! null) {
+            $rgb14 = %activity_progress_bar_active_primary_progress_bar_colour_override;
         }
         $int11 = scale($int8, $int9, 100);
         if_setcolour($rgb12, $component3);
@@ -43,7 +43,7 @@ if ($int10 = 0) {
 } else {
     if_setcolour($rgb12, $component3);
 }
-if (struct_param($struct7, param_9157) ! -1) {
+if (struct_param($struct7, activity_progress_bar_underlay_colour) ! -1) {
     if_sethide(false, $component4);
     if_setcolour($rgb13, $component4);
 }

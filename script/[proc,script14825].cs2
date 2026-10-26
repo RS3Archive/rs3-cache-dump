@@ -1,9 +1,9 @@
 // 14825
 [proc,script14825](enum $enum0)
-cc_deleteall(interface_685:com_18);
-cc_deleteall(interface_685:com_19);
-~script14814(interface_685:com_17, if_getscrollheight(interface_685:com_17), -1, interface_685:com_68, interface_685:com_69);
-if_setscrollpos(0, 0, interface_685:com_17);
+cc_deleteall(arch_journal:mysteries_build_layer);
+cc_deleteall(arch_journal:mysteries_control_layer);
+~script14814(arch_journal:mysteries_scrolling_layer, if_getscrollheight(arch_journal:mysteries_scrolling_layer), -1, arch_journal:mysteries_page_num_left, arch_journal:mysteries_page_num_right);
+if_setscrollpos(0, 0, arch_journal:mysteries_scrolling_layer);
 if ($enum0 = null) {
     return;
 }
@@ -11,10 +11,10 @@ def_dbrow $dbrow1 = null;
 def_int $int2 = enum_getoutputcount($enum0);
 def_int $int3 = 0;
 def_int $int4 = 55;
-if (if_getheight(interface_685:com_0) >= 550) {
+if (if_getheight(arch_journal:mainmodal_window) >= 550) {
     $int4 = 75;
 }
-def_int $int5 = if_getheight(interface_685:com_17);
+def_int $int5 = if_getheight(arch_journal:mysteries_scrolling_layer);
 def_int $int6 = $int5;
 def_int $int7 = -1;
 while (++$int7 < $int2) {
@@ -25,17 +25,17 @@ while (++$int7 < $int2) {
             $int4 = calc($int4 - (70 + 5) * 5 + $int5);
             $int6 = calc($int6 + $int5);
         } else {
-            $int3 = calc(if_getwidth(interface_685:com_18) - 326);
+            $int3 = calc(if_getwidth(arch_journal:mysteries_build_layer) - 326);
             $int4 = calc($int4 - (70 + 5) * 5);
         }
     }
-    ~arch_mystery_build_info(interface_685:com_18, interface_685:com_19, $dbrow1, $int3, $int4, 326, 70, if_getnextsubid(interface_685:com_19));
+    ~arch_mystery_build_info(arch_journal:mysteries_build_layer, arch_journal:mysteries_control_layer, $dbrow1, $int3, $int4, 326, 70, if_getnextsubid(arch_journal:mysteries_control_layer));
     $int4 = calc($int4 + (70 + 5));
 }
-if_setscrollsize(0, $int6, interface_685:com_17);
+if_setscrollsize(0, $int6, arch_journal:mysteries_scrolling_layer);
 if ($int6 > $int5) {
-    if_sethide(false, interface_685:com_65);
-    ~script14812(interface_685:com_17, $int5, interface_685:com_66, interface_685:com_68, interface_685:com_67, interface_685:com_69);
+    if_sethide(false, arch_journal:mysteries_navigation_layer);
+    ~script14812(arch_journal:mysteries_scrolling_layer, $int5, arch_journal:mysteries_navigate_left, arch_journal:mysteries_page_num_left, arch_journal:mysteries_navigate_right, arch_journal:mysteries_page_num_right);
 } else {
-    if_sethide(true, interface_685:com_65);
+    if_sethide(true, arch_journal:mysteries_navigation_layer);
 }

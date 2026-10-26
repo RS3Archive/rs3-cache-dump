@@ -1,9 +1,9 @@
 // 18273
 [proc,script18273](component $component0)
 cc_deleteall($component0);
-def_int $int1 = db_listall(dbtable_263);
-if (%varplayerbit_54610 > 1) {
-    $int1 = db_find_refine(dbtable_263:col2, %varplayerbit_54610);
+def_int $int1 = db_listall(headicons_emote);
+if (%emotes_overhead_filter > 1) {
+    $int1 = db_find_refine(headicons_emote:col2, %emotes_overhead_filter);
 }
 def_dbrow $dbrow2 = db_findnext;
 def_int $int3 = 0;
@@ -17,17 +17,17 @@ if (~script6431 = true) {
     $string3 = "This emote has other appearances available. Long press to customise.";
 }
 while ($dbrow2 ! null) {
-    if (db_getfieldcount($dbrow2, dbtable_263:col8) <= 0) {
+    if (db_getfieldcount($dbrow2, headicons_emote:col8) <= 0) {
         $int5 = ~script17716($dbrow2);
         if ($int5 > 0) {
             $dbrow2 = ~script18779($dbrow2);
         }
-        $int3 = db_getfield($dbrow2, dbtable_263:col3, 0);
+        $int3 = db_getfield($dbrow2, headicons_emote:col3, 0);
         $int4, $string1 = ~script450($dbrow2);
         $string0 = ~script18302($dbrow2);
         $string2 = $string0;
-        if (%varplayerbit_54610 ! 1 | $int4 = 1) {
-            if (%varplayerbit_34815 = 0) {
+        if (%emotes_overhead_filter ! 1 | $int4 = 1) {
+            if (%emote_display_mode = 0) {
                 ~if_add_child_graphic($component0, $int3, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, ~script18301($dbrow2));
                 cc_setop(1, $string0);
                 if ($int5 > 0) {
@@ -41,7 +41,7 @@ while ($dbrow2 ! null) {
                     cc_setcolour(^white);
                 }
             } else {
-                ~if_add_child_text($component0, $int3, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, dbrow_2100, $string0);
+                ~if_add_child_text($component0, $int3, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, text_body_default, $string0);
                 cc_setop(1, $string0);
                 if ($int5 > 0) {
                     cc_setop(2, "Customise");
@@ -60,7 +60,7 @@ while ($dbrow2 ! null) {
     }
     $dbrow2 = db_findnext;
 }
-if_setparam_int(param_8348, $int1, $component0);
+if_setparam_int(emotes2_overhead_draw_count, $int1, $component0);
 if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component0);
 if_setsize(16, 0, ^setsize_minus, ^setsize_minus, $component0);
 ~script5863($component0);

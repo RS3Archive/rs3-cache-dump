@@ -1,29 +1,29 @@
 // 21051
 [clientscript,script21051]
-def_dbrow $dbrow0 = ~script20117(%varplayer_12314);
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
 if (~script20132($dbrow0) = false) {
     return;
 }
 def_dbrow $dbrow1 = ~script20938($dbrow0);
-def_dbrow $dbrow2 = db_getfield($dbrow1, dbtable_327:col0, %varplayerbit_58407);
+def_dbrow $dbrow2 = db_getfield($dbrow1, league_relic_list:col0, %league_relic_selected_tier);
 if ($dbrow2 = null) {
     return;
 }
-def_boolean $boolean3 = db_getfield($dbrow2, dbtable_328:col3, 0);
+def_boolean $boolean3 = db_getfield($dbrow2, league_relic_tier:col3, 0);
 def_string $string0 = "Relic choices are permanent.<br><br>This is your final chance to change your mind.<br><br>You are about to activate:";
-if (%varplayerbit_61493 = 1) {
+if (%leagues_parent_relics_selected_type = 1) {
     $string0 = "You will have limited opportunities to reset your choice of Blessings.<br><br>This is your final chance to change your mind.<br><br>You are about to activate:";
 }
 def_string $string1 = "Unlock";
 if (playermember = true | $boolean3 = false) {
-    if_sethide(false, interface_1443:com_27);
-    if_sethide(true, interface_1443:com_26);
-    if_settext($string0, interface_1443:com_42);
-    if_setontimer("script21096(clientclock, interface_1443:com_45, interface_1443:com_46, $string1)", interface_1443:com_45);
-    if_sethide(false, interface_1443:com_46);
-    if_settext("5...", interface_1443:com_45);
-    if_setenabled(false, interface_1443:com_45);
-    if_setenabled(false, interface_1443:com_38);
+    if_sethide(false, league_parent_relics:confirm_popup);
+    if_sethide(true, league_parent_relics:passive_info);
+    if_settext($string0, league_parent_relics:body_confirm);
+    if_setontimer("script21096(clientclock, league_parent_relics:overview_confirm_unlock, league_parent_relics:overview_confirm_unlock_spinner, $string1)", league_parent_relics:overview_confirm_unlock);
+    if_sethide(false, league_parent_relics:overview_confirm_unlock_spinner);
+    if_settext("5...", league_parent_relics:overview_confirm_unlock);
+    if_setenabled(false, league_parent_relics:overview_confirm_unlock);
+    if_setenabled(false, league_parent_relics:overview_unlock);
 } else {
     ~script21097($dbrow2);
     return;

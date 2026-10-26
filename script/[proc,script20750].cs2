@@ -1,6 +1,6 @@
 // 20750
 [proc,script20750](component $component0, component $component1, component $component2, component $component3)
-if ($component1 = interface_1512:com_17 & (%varclientbit_61875 = 1 | %varclientbit_61226 = 62)) {
+if ($component1 = house_furniture_catalogue:items_obj & (%varclientbit_61875 = 1 | %varclientbit_61226 = 62)) {
     return;
 }
 def_dbrow $dbrow4 = db_findnext;
@@ -9,11 +9,11 @@ def_int $int6 = 0;
 def_dbrow $dbrow7 = null;
 def_int $int8 = -1;
 while ($dbrow4 ! null) {
-    $int5 = db_getfield($dbrow4, dbtable_370:col0, 0);
+    $int5 = db_getfield($dbrow4, construction_house_furniture:col0, 0);
     if (cc_find($component0, $int5) = true & .cc_find($component1, $int5) = true) {
-        $int6 = inv_total(inv_1004, db_getfield($dbrow4, dbtable_370:col4, 0));
+        $int6 = inv_total(house_furniture_trunk, db_getfield($dbrow4, construction_house_furniture:col4, 0));
         if ($int6 > 0) {
-            ~cc_set_stylesheet(dbrow_18459);
+            ~cc_set_stylesheet(button_makex_available);
             if (%varclientbit_61228 = $int5) {
                 ~script7872(true, true, true, true);
                 .cc_settrans(0);
@@ -25,7 +25,7 @@ while ($dbrow4 ! null) {
                 .cc_settext(~script17372(int_to_long($int6), 3, 1));
             }
         } else {
-            ~cc_set_stylesheet(dbrow_18460);
+            ~cc_set_stylesheet(button_makex_unavailable);
             if (%varclientbit_61228 = $int5) {
                 ~script7872(true, true, true, true);
                 .cc_settrans(175);
@@ -36,8 +36,8 @@ while ($dbrow4 ! null) {
         }
     }
     if (cc_find($component3, $int5) = true) {
-        $dbrow7 = db_getfield($dbrow4, dbtable_370:col21, 0);
-        $int8 = db_getfieldcount($dbrow7, dbtable_384:col0);
+        $dbrow7 = db_getfield($dbrow4, construction_house_furniture:col21, 0);
+        $int8 = db_getfieldcount($dbrow7, construction_house_furniture_skins_list:col0);
         if ($int8 > 0) {
             cc_settext("<sprite=35194><~script17372(int_to_long($int8), 3, 1)>");
         }

@@ -1,39 +1,39 @@
 // 5879
 [proc,wof_startup]
-%varclient_1783 = 0;
+%wof_slot_spinner = 0;
 def_int $int0 = 82116608;
 def_int $int1 = max(0, ~script6950);
 def_string $string0 = "Whether to use a single key, or to use one after another.";
 def_struct $struct2 = ~trh_promo_current;
 if (platformtype ! ^platformtype_default & platformtype ! ^platformtype_jagex) {
-    if_setsize(48, 48, ^setsize_abs, ^setsize_abs, interface_1253:com_557);
-    if_setposition(1, 1, ^setpos_abs_right, ^setpos_abs_top, interface_1253:com_557);
-    if_setonclick("script7774($string0, interface_1253:com_57, -1, 0)", interface_1253:com_57);
+    if_setsize(48, 48, ^setsize_abs, ^setsize_abs, wheel_of_fortune:wheel_close_button_layer);
+    if_setposition(1, 1, ^setpos_abs_right, ^setpos_abs_top, wheel_of_fortune:wheel_close_button_layer);
+    if_setonclick("script7774($string0, wheel_of_fortune:multi_wrapper, -1, 0)", wheel_of_fortune:multi_wrapper);
 }
 switch_struct ($struct2) {
-    case struct_33217 :
-        if_sethide(true, interface_1253:com_8);
-        if_sethide(true, interface_1253:com_171);
-        if_sethide(true, interface_1253:com_89);
-        if_sethide(true, interface_1253:com_90);
-        if_setgraphic(trh87_easter_background_leaf, interface_1253:com_5);
-    case struct_34277 :
-        if_sethide(true, interface_1253:com_8);
-        if_sethide(true, interface_1253:com_171);
-        if_sethide(true, interface_1253:com_89);
-        if_sethide(true, interface_1253:com_90);
-        if_setgraphic(trh104_background, interface_1253:com_5);
-        if_setgraphic(~trh104_get_map_graphic, interface_1786:com_1);
+    case trh87_promo :
+        if_sethide(true, wheel_of_fortune:chests_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:foreground_grey);
+        if_setgraphic(trh87_easter_background_leaf, wheel_of_fortune:background);
+    case trh104_promo :
+        if_sethide(true, wheel_of_fortune:chests_layer);
+        if_sethide(true, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(true, wheel_of_fortune:foreground_layer);
+        if_sethide(true, wheel_of_fortune:foreground_grey);
+        if_setgraphic(trh104_background, wheel_of_fortune:background);
+        if_setgraphic(~trh104_get_map_graphic, trh104_overlay:background_map);
     case default :
-        if_sethide(false, interface_1253:com_8);
-        if_sethide(false, interface_1253:com_171);
-        if_sethide(false, interface_1253:com_90);
-        if ($struct2 = struct_33918 | $struct2 = struct_33522) {
-            if_sethide(true, interface_1253:com_89);
+        if_sethide(false, wheel_of_fortune:chests_layer);
+        if_sethide(false, wheel_of_fortune:ticker_tape_viewport);
+        if_sethide(false, wheel_of_fortune:foreground_grey);
+        if ($struct2 = trh93_promo | $struct2 = trh99_promo) {
+            if_sethide(true, wheel_of_fortune:foreground_layer);
         }
 }
 ~trh_options_onload;
-if (%varplayerbit_4323 > 0 | %varclient_1781 > 0) {
+if (%wof_reward_slot > 0 | %wof_result_slot_client > 0) {
     ~wof_show_reward;
 } else if ($int1 > 0) {
     ~wof_show_wheel;
@@ -41,8 +41,8 @@ if (%varplayerbit_4323 > 0 | %varclient_1781 > 0) {
     ~wof_show_wheel;
 }
 ~script3904;
-%varclient_1781 = -1;
-if_setonvarctransmit("script5880{varclient_1800}", interface_1253:com_45);
-if_setonvartransmit("script5880{varplayer_1448, varplayer_1451}", interface_1253:com_45);
-%varclient_1784 = 0;
+%wof_result_slot_client = -1;
+if_setonvarctransmit("script5880{wof_rsspintoken_balance}", wheel_of_fortune:spins_left_text);
+if_setonvartransmit("script5880{wof_main_5, wof_main_8}", wheel_of_fortune:spins_left_text);
+%wof_in_progress = 0;
 ~script5881;

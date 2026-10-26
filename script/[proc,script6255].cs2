@@ -9,16 +9,16 @@ def_string $string0 = "";
 def_int $int8 = 1;
 def_int $int9 = 1;
 def_int $int10 = -1;
-def_enum $enum11 = enum(int, enum, enum_15109, $int2);
-def_int $int12 = enum_getoutputcount(enum_15103);
+def_enum $enum11 = enum(int, enum, emotes2_transmog_types_list_enum, $int2);
+def_int $int12 = enum_getoutputcount(emotes2_transmog_items);
 def_int $int13 = if_getwidth($component0);
 def_int $int14 = 0;
 def_int $int15 = 0;
 def_int $int16 = -1;
 def_int $int17 = 0;
 def_int $int18 = 13;
-if (%varplayerbit_34815 = 1) {
-    if (%varplayerbit_38842 = 1) {
+if (%emote_display_mode = 1) {
+    if (%toplevel_v2_mobile_interface = 1) {
         $int14 = 1;
         $int18 = 30;
     } else {
@@ -27,9 +27,9 @@ if (%varplayerbit_34815 = 1) {
 } else {
     $int14, $int13, $int17 = ~script8107($int13, 43);
 }
-def_fontmetrics $fontmetrics19 = fontmetrics_26;
+def_fontmetrics $fontmetrics19 = museo_sans_11pt_regular;
 while (++$int5 < $int12) {
-    $obj7 = enum(int, obj, enum_15103, $int5);
+    $obj7 = enum(int, obj, emotes2_transmog_items, $int5);
     $int8 = ~script5860($obj7);
     $int9 = 1;
     if ($enum11 ! null) {
@@ -37,7 +37,7 @@ while (++$int5 < $int12) {
     }
     $string0 = oc_name($obj7);
     if (cc_find($component0, $int5) = true) {
-        if (%varplayerbit_34815 = 1) {
+        if (%emote_display_mode = 1) {
             cc_setsize(107, $int18, ^setsize_abs, ^setsize_abs);
         } else {
             cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
@@ -50,7 +50,7 @@ while (++$int5 < $int12) {
         $string0 = oc_name($obj7);
         cc_setop(1, $string0);
         cc_setonmouserepeat("script8799($string0, event_com, event_comsubid)");
-        if (%varplayerbit_34815 = 1) {
+        if (%emote_display_mode = 1) {
             cc_settext($string0);
             cc_settextfont($fontmetrics19);
             cc_setmaxlines(1);
@@ -62,14 +62,14 @@ while (++$int5 < $int12) {
         } else {
             cc_setobject($obj7, 1);
         }
-        if ($int9 = 1 & ($int2 = 1 | oc_param($obj7, param_3326) ! 0)) {
+        if ($int9 = 1 & ($int2 = 1 | oc_param($obj7, emotes2_hide_when_locked) ! 0)) {
             $int9 = $int8;
         }
         if ($int9 = 1 & $int8 = 1) {
-            if (oc_param($obj7, param_5430) = 1) {
-                cc_setop(2, enum(obj, string, enum_15104, $obj7));
+            if (oc_param($obj7, emotes2_has_op) = 1) {
+                cc_setop(2, enum(obj, string, emotes2_transmog_items_ops, $obj7));
             }
-            if (oc_param($obj7, param_863) = 1) {
+            if (oc_param($obj7, emotes2_transmog_reclaimable) = 1) {
                 cc_setop(3, "Reclaim");
             }
         } else {
@@ -78,7 +78,7 @@ while (++$int5 < $int12) {
         }
         if ($int9 = 1) {
             cc_sethide(false);
-            if (%varplayerbit_34815 = 1) {
+            if (%emote_display_mode = 1) {
                 if ($int14 > 1) {
                     $int15 = calc($int6 % $int14);
                     if ($int15 = 0) {
@@ -109,10 +109,10 @@ while (++$int5 < $int12) {
     }
 }
 def_int $int20 = calc($int4 + 58);
-if (%varplayerbit_34815 = 1) {
+if (%emote_display_mode = 1) {
     $int20 = calc($int4 + $int18);
 }
 if_setscrollsize(0, $int20, $component0);
 if_sethide(false, $component1);
 ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-%varclient_6540 = $int2;
+%emote_last_transmog_sort = $int2;

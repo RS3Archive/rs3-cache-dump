@@ -4,139 +4,139 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
-switch_int (%varclient_2650) {
+switch_int (%pop_crew_stat_captain_number) {
     case 1 :
-        $int0 = %varplayerbit_17155;
-        $int1 = %varplayerbit_17153;
-        $int2 = %varplayerbit_17152;
-        $int3 = %varplayerbit_17154;
+        $int0 = %pop_captain_1_gender;
+        $int1 = %pop_captain_1_hair;
+        $int2 = %pop_captain_1_haircol;
+        $int3 = %pop_captain_1_skincol;
     case 2 :
-        $int0 = %varplayerbit_17168;
-        $int1 = %varplayerbit_17166;
-        $int2 = %varplayerbit_17165;
-        $int3 = %varplayerbit_17167;
+        $int0 = %pop_captain_2_gender;
+        $int1 = %pop_captain_2_hair;
+        $int2 = %pop_captain_2_haircol;
+        $int3 = %pop_captain_2_skincol;
     case 3 :
-        $int0 = %varplayerbit_17181;
-        $int1 = %varplayerbit_17179;
-        $int2 = %varplayerbit_17178;
-        $int3 = %varplayerbit_17180;
+        $int0 = %pop_captain_3_gender;
+        $int1 = %pop_captain_3_hair;
+        $int2 = %pop_captain_3_haircol;
+        $int3 = %pop_captain_3_skincol;
     case 4 :
-        $int0 = %varplayerbit_17194;
-        $int1 = %varplayerbit_17192;
-        $int2 = %varplayerbit_17191;
-        $int3 = %varplayerbit_17193;
+        $int0 = %pop_captain_4_gender;
+        $int1 = %pop_captain_4_hair;
+        $int2 = %pop_captain_4_haircol;
+        $int3 = %pop_captain_4_skincol;
     case 5 :
-        $int0 = %varplayerbit_17207;
-        $int1 = %varplayerbit_17205;
-        $int2 = %varplayerbit_17204;
-        $int3 = %varplayerbit_17206;
+        $int0 = %pop_captain_5_gender;
+        $int1 = %pop_captain_5_hair;
+        $int2 = %pop_captain_5_haircol;
+        $int3 = %pop_captain_5_skincol;
     case 6 :
-        $int0 = %varplayerbit_17220;
-        $int1 = %varplayerbit_17218;
-        $int2 = %varplayerbit_17217;
-        $int3 = %varplayerbit_17219;
+        $int0 = %pop_captain_n_gender;
+        $int1 = %pop_captain_n_hair;
+        $int2 = %pop_captain_n_haircol;
+        $int3 = %pop_captain_n_skincol;
 }
 def_npc $npc4 = ~script2356($int0, $int1, $int3, $int2);
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 0;
 def_string $string0 = "";
-if (enum_hasoutput(obj, enum_2173, %varclient_2626) = true) {
-    if_setnpchead($npc4, interface_1276:com_139);
-    if_setmodelanim(seq_9806, interface_1276:com_139);
-    if_setgraphic(null, interface_1276:com_124);
-    if_settext("Level <tostring(%varclient_2642)>", interface_1276:com_109);
-    $int5, $int6, $int7 = ~script3005(inv_677, %varplayerbit_17147);
+if (enum_hasoutput(obj, pop_captain_list, %pop_crew_stat_obj) = true) {
+    if_setnpchead($npc4, pop_crew:face_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_crew:face_model);
+    if_setgraphic(null, pop_crew:face_icon);
+    if_settext("Level <tostring(%pop_crew_stat_level)>", pop_crew:selected_info);
+    $int5, $int6, $int7 = ~script3005(pop_crew, %pop_crew_selected);
     $string0 = "<tostring($int6)>/<tostring($int7)>";
-    ~aif_progressbar_set($int5, interface_1276:com_116, interface_1276:com_121);
-    if_setonmouserepeat("script8799($string0, event_com, -1)", interface_1276:com_110);
-    if_sethide(true, interface_1276:com_122);
+    ~aif_progressbar_set($int5, pop_crew:xp_progress_value_layer, pop_crew:xp_progress_text);
+    if_setonmouserepeat("script8799($string0, event_com, -1)", pop_crew:xp_pogress_bar);
+    if_sethide(true, pop_crew:xp_progress_disabled_layer);
 } else {
-    if_setmodel(null, interface_1276:com_139);
-    if_setgraphic(oc_param(%varclient_2626, param_3080), interface_1276:com_124);
-    if_settext("Level <tostring(%varclient_2642)>", interface_1276:com_109);
-    $int5, $int6, $int7 = ~script3005(inv_677, %varplayerbit_17147);
+    if_setmodel(null, pop_crew:face_model);
+    if_setgraphic(oc_param(%pop_crew_stat_obj, pop_crew_graphic), pop_crew:face_icon);
+    if_settext("Level <tostring(%pop_crew_stat_level)>", pop_crew:selected_info);
+    $int5, $int6, $int7 = ~script3005(pop_crew, %pop_crew_selected);
     $string0 = "<tostring($int6)>/<tostring($int7)>";
-    ~aif_progressbar_set($int5, interface_1276:com_116, interface_1276:com_121);
-    if_setonmouserepeat("script8799($string0, event_com, -1)", interface_1276:com_110);
-    if_sethide(true, interface_1276:com_122);
+    ~aif_progressbar_set($int5, pop_crew:xp_progress_value_layer, pop_crew:xp_progress_text);
+    if_setonmouserepeat("script8799($string0, event_com, -1)", pop_crew:xp_pogress_bar);
+    if_sethide(true, pop_crew:xp_progress_disabled_layer);
 }
-if_setmodelzoom(2900, interface_1276:com_139);
-def_string $string1 = %varclient_2627;
-if_settext($string1, interface_1276:com_138);
-if_sethide(true, interface_1276:com_142);
-def_int $int8 = ~script7319(%varplayerbit_17147);
+if_setmodelzoom(2900, pop_crew:face_model);
+def_string $string1 = %pop_crew_stat_name;
+if_settext($string1, pop_crew:name_text);
+if_sethide(true, pop_crew:dismiss_button_disabled);
+def_int $int8 = ~script7319(%pop_crew_selected);
 def_int $int9 = calc(($int8 & 57344) / 8192);
 def_int $int10 = calc(($int8 & 458752) / 65536);
 def_int $int11 = calc(($int8 & 3670016) / 524288);
 def_int $int12 = calc(($int8 & 29360128) / 4194304);
 def_int $int13 = 10;
-if (enum_hasoutput(obj, enum_2173, %varclient_2626) = true) {
+if (enum_hasoutput(obj, pop_captain_list, %pop_crew_stat_obj) = true) {
     $int13 = 20;
 }
 $int9 = calc($int9 * $int13);
 $int10 = calc($int10 * $int13);
 $int11 = calc($int11 * $int13);
 $int12 = calc($int12 * $int13);
-def_int $int14 = ~script7317(inv_677, %varplayerbit_17147);
+def_int $int14 = ~script7317(pop_crew, %pop_crew_selected);
 def_int $int15 = calc(10 * $int14);
-def_int $int16 = oc_param(%varclient_2626, param_3081);
+def_int $int16 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_1);
 def_int $int17 = scale($int15, 100, $int16);
-def_int $int18 = calc(%varclient_2632 - $int16 - $int17 - $int9);
+def_int $int18 = calc(%pop_crew_stat_speed - $int16 - $int17 - $int9);
 def_string $string2 = "<col=C5BCAC>Base:</col> <tostring($int16)><br><col=C5BCAC>Level Boost:</col> <tostring($int17)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int9)><br><col=C5BCAC>Traits:</col> <tostring($int18)>";
-if_settext(tostring(%varclient_2632), interface_1276:com_134);
-if_setonmouserepeat("script8799($string2, event_com, -1)", interface_1276:com_132);
-def_int $int19 = oc_param(%varclient_2626, param_3082);
+if_settext(tostring(%pop_crew_stat_speed), pop_crew:speed_text);
+if_setonmouserepeat("script8799($string2, event_com, -1)", pop_crew:speed_label);
+def_int $int19 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_2);
 def_int $int20 = scale($int15, 100, $int19);
-def_int $int21 = calc(%varclient_2638 - $int19 - $int20 - $int10);
+def_int $int21 = calc(%pop_crew_stat_graft - $int19 - $int20 - $int10);
 def_string $string3 = "<col=C5BCAC>Base:</col> <tostring($int19)><br><col=C5BCAC>Level Boost:</col> <tostring($int20)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int10)><br><col=C5BCAC>Traits:</col> <tostring($int21)>";
-if_settext(tostring(%varclient_2638), interface_1276:com_130);
-if_setonmouserepeat("script8799($string3, event_com, -1)", interface_1276:com_128);
-def_int $int22 = oc_param(%varclient_2626, param_3083);
+if_settext(tostring(%pop_crew_stat_graft), pop_crew:graft_text);
+if_setonmouserepeat("script8799($string3, event_com, -1)", pop_crew:graft_label);
+def_int $int22 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_3);
 def_int $int23 = scale($int15, 100, $int22);
-def_int $int24 = calc(%varclient_2634 - $int22 - $int23 - $int11);
+def_int $int24 = calc(%pop_crew_stat_combat - $int22 - $int23 - $int11);
 def_string $string4 = "<col=C5BCAC>Base:</col> <tostring($int22)><br><col=C5BCAC>Level Boost:</col> <tostring($int23)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int11)><br><col=C5BCAC>Traits:</col> <tostring($int24)>";
-if_settext(tostring(%varclient_2634), interface_1276:com_129);
-if_setonmouserepeat("script8799($string4, event_com, -1)", interface_1276:com_127);
-def_int $int25 = oc_param(%varclient_2626, param_3084);
+if_settext(tostring(%pop_crew_stat_combat), pop_crew:combat_text);
+if_setonmouserepeat("script8799($string4, event_com, -1)", pop_crew:combat_label);
+def_int $int25 = oc_param(%pop_crew_stat_obj, pop_crew_basestat_4);
 def_int $int26 = scale($int15, 100, $int25);
-def_int $int27 = calc(%varclient_2640 - $int25 - $int26 - $int12);
+def_int $int27 = calc(%pop_crew_stat_seafaring - $int25 - $int26 - $int12);
 def_string $string5 = "<col=C5BCAC>Base:</col> <tostring($int25)><br><col=C5BCAC>Level Boost:</col> <tostring($int26)><br><col=C5BCAC>Personal Bonus:</col> <tostring($int12)><br><col=C5BCAC>Traits:</col> <tostring($int27)>";
-if_settext(tostring(%varclient_2640), interface_1276:com_133);
-if_setonmouserepeat("script8799($string5, event_com, -1)", interface_1276:com_131);
-def_string $string6 = %varclient_2629;
+if_settext(tostring(%pop_crew_stat_seafaring), pop_crew:seafaring_text);
+if_setonmouserepeat("script8799($string5, event_com, -1)", pop_crew:seafaring_label);
+def_string $string6 = %pop_crew_stat_trait;
 if (compare($string6, "") = 0) {
     $string6 = "No Traits";
 }
-if_settext($string6, interface_1276:com_135);
-if (compare(%varclient_2630, "") ! 0) {
-    if_setonmouserepeat("script8799(%varclient_2630, event_com, -1)", interface_1276:com_135);
-    if_setonmouseover("text_colour_swapper(event_com, 16686339)", interface_1276:com_135);
+if_settext($string6, pop_crew:trait_text);
+if (compare(%pop_crew_stat_trait_tooltip, "") ! 0) {
+    if_setonmouserepeat("script8799(%pop_crew_stat_trait_tooltip, event_com, -1)", pop_crew:trait_text);
+    if_setonmouseover("text_colour_swapper(event_com, 16686339)", pop_crew:trait_text);
 } else {
-    if_setonmouserepeat(null, interface_1276:com_135);
-    if_setonmouseover(null, interface_1276:com_135);
+    if_setonmouserepeat(null, pop_crew:trait_text);
+    if_setonmouseover(null, pop_crew:trait_text);
 }
-if_setonmouseleave("script7305", interface_1276:com_135);
-if (enum_hasoutput(obj, enum_2174, %varclient_2626) = true & %varclient_2626 ! obj_26265 & %varclient_2626 ! obj_26266) {
-    if_settext("Useful supplies for a journey.", interface_1276:com_125);
-    if_settext("Ship Supplies", interface_1276:com_109);
-    ~aif_progressbar_set(0, interface_1276:com_116, interface_1276:com_121);
-    if_sethide(false, interface_1276:com_122);
+if_setonmouseleave("script7305", pop_crew:trait_text);
+if (enum_hasoutput(obj, pop_item_list, %pop_crew_stat_obj) = true & %pop_crew_stat_obj ! pop_crew_item_ghost & %pop_crew_stat_obj ! pop_crew_item_zombie) {
+    if_settext("Useful supplies for a journey.", pop_crew:fluff_text);
+    if_settext("Ship Supplies", pop_crew:selected_info);
+    ~aif_progressbar_set(0, pop_crew:xp_progress_value_layer, pop_crew:xp_progress_text);
+    if_sethide(false, pop_crew:xp_progress_disabled_layer);
 } else {
-    if_settext(%varclient_2628, interface_1276:com_125);
+    if_settext(%pop_crew_stat_fluff, pop_crew:fluff_text);
 }
-if (%varplayerbit_17147 < inv_size(inv_677)) {
-    if (~pop_crew_available(%varplayerbit_17147) = 1) {
-        if_sethide(true, interface_1276:com_142);
+if (%pop_crew_selected < inv_size(pop_crew)) {
+    if (~pop_crew_available(%pop_crew_selected) = 1) {
+        if_sethide(true, pop_crew:dismiss_button_disabled);
     } else {
-        if_sethide(false, interface_1276:com_142);
+        if_sethide(false, pop_crew:dismiss_button_disabled);
     }
-    if (%varclient_2643 > 0 & %varclient_2643 < 5 & testbit(%varplayer_3404, %varplayerbit_17147) = ^true) {
-        if_settext(tostring(%varclient_2643), interface_1276:com_140);
+    if (%pop_crew_stat_shipslot > 0 & %pop_crew_stat_shipslot < 5 & testbit(%pop_voyages_spaces, %pop_crew_selected) = ^true) {
+        if_settext(tostring(%pop_crew_stat_shipslot), pop_crew:ship_number);
     } else {
-        if_settext("-", interface_1276:com_140);
+        if_settext("-", pop_crew:ship_number);
     }
 }
-if (%varclient_2626 = null | compare("No crewman", %varclient_2627) = 0) {
-    if_sethide(false, interface_1276:com_142);
+if (%pop_crew_stat_obj = null | compare("No crewman", %pop_crew_stat_name) = 0) {
+    if_sethide(false, pop_crew:dismiss_button_disabled);
 }

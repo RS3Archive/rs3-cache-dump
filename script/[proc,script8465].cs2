@@ -2,33 +2,33 @@
 [proc,script8465](component $component0)
 def_int $int1 = 0;
 def_int $int2 = 94;
-def_int $int3 = %varplayer_711;
-def_int $int4 = %varplayer_3563;
-def_int $int5 = %varplayer_712;
-def_int $int6 = %varplayer_713;
-def_int $int7 = %varplayer_714;
-def_int $int8 = %varplayer_11217;
-def_int $int9 = %varplayer_3596;
-def_int $int10 = %varplayerbit_22841;
-def_int $int11 = %varplayerbit_22842;
-def_int $int12 = %varplayer_4500;
-def_int $int13 = %varclient_2760;
-if ($component0 = interface_1559:com_25) {
+def_int $int3 = %combatv2_armour_rating;
+def_int $int4 = %combatv2_armour_rating_bonus;
+def_int $int5 = %combatv2_melee_defence;
+def_int $int6 = %combatv2_range_defence;
+def_int $int7 = %combatv2_magic_defence;
+def_int $int8 = %combatv2_necromancy_defence;
+def_int $int9 = %combatv2_constitution_bonus;
+def_int $int10 = %combatv2_tank_armour_damage_reduction;
+def_int $int11 = %combatv2_shield_damage_reduction;
+def_int $int12 = %combatv2_pvp_damage_reduction;
+def_int $int13 = %combatv2_equip_screen_vs_level;
+if ($component0 = toplevel_v2_inspect_worn_stats:main_layer) {
     $int1 = 1;
     $int2 = 742;
-    $int3 = %varplayer_4975;
-    $int4 = %varplayer_4976;
-    $int5 = %varplayer_4977;
-    $int6 = %varplayer_4978;
-    $int7 = %varplayer_4979;
-    $int8 = %varplayer_11209;
-    $int9 = %varplayer_4980;
-    $int10 = %varplayerbit_26126;
-    $int11 = %varplayerbit_26127;
-    $int12 = %varplayer_4981;
+    $int3 = %player_inspect_combatv2_armour_rating;
+    $int4 = %player_inspect_combatv2_armour_rating_bonus;
+    $int5 = %player_inspect_combatv2_melee_defence;
+    $int6 = %player_inspect_combatv2_range_defence;
+    $int7 = %player_inspect_combatv2_magic_defence;
+    $int8 = %player_inspect_combatv2_necromancy_defence;
+    $int9 = %player_inspect_combatv2_constitution_bonus;
+    $int10 = %player_inspect_combatv2_tank_armour_damage_reduction;
+    $int11 = %player_inspect_combatv2_shield_damage_reduction;
+    $int12 = %player_inspect_combatv2_pvp_damage_reduction;
 }
 def_int $int14 = scale($int13, 100, 50);
-def_int $int15 = scale(enum(int, int, enum_7339, $int14), 100, calc(100 + 40 / 2));
+def_int $int15 = scale(enum(int, int, combatv2_weapon_attack_value, $int14), 100, calc(100 + 40 / 2));
 def_int $int16 = calc($int3 + $int4);
 def_int $int17 = 0;
 def_int $int18 = 0;
@@ -40,7 +40,7 @@ if ($int16 > 0) {
 }
 def_int $int20 = ~script21026;
 def_int $int21 = calc(stat(hitpoints) * 100);
-if (%varplayerbit_27168 = 1) {
+if (%toplevel_v2_legacy_combat = 1) {
     $int21 = calc($int21 / 10);
 }
 def_int $int22 = $int9;
@@ -48,91 +48,91 @@ def_int $int23 = -1;
 def_string $string0 = "";
 def_string $string1 = "";
 if ($int1 = 1) {
-    if_settext(tostring($int16), interface_1559:com_119);
+    if_settext(tostring($int16), toplevel_v2_inspect_worn_stats:armour_rating_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int5)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1559:com_117);
+    if_settext($string0, toplevel_v2_inspect_worn_stats:effective_melee_armour_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int6)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1559:com_121);
+    if_settext($string0, toplevel_v2_inspect_worn_stats:effective_ranged_armour_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int7)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1559:com_123);
+    if_settext($string0, toplevel_v2_inspect_worn_stats:effective_magic_armour_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int8)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1559:com_156);
-    if_settext("<~script10006(calc(10 * ($int10 + $int11 + min(99, ~player_inspect_get_stat(defence)))))>%", interface_1559:com_80);
+    if_settext($string0, toplevel_v2_inspect_worn_stats:effective_necromancy_armour_value);
+    if_settext("<~script10006(calc(10 * ($int10 + $int11 + min(99, ~player_inspect_get_stat(defence)))))>%", toplevel_v2_inspect_worn_stats:damage_reduction_pve);
     $string1 = "Defence level : <col=00FF00><~script10006(min(990, calc(10 * ~player_inspect_get_stat(defence))))>%</col><br>Tank armour : <col=00FF00><~script10006(calc(10 * $int10))>%</col><br>Shield : <col=00FF00><~script10006(calc(10 * $int11))>%</col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1559:com_80);
-    if_setonmouseleave("script8805", interface_1559:com_80);
-    if_settext("<~script10006(calc($int12 + min(990, calc(10 * ~player_inspect_get_stat(defence)))))>%", interface_1559:com_82);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:damage_reduction_pve);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:damage_reduction_pve);
+    if_settext("<~script10006(calc($int12 + min(990, calc(10 * ~player_inspect_get_stat(defence)))))>%", toplevel_v2_inspect_worn_stats:damage_reduction_pvp);
     $string1 = "Defence level : <col=00FF00><~script10006(min(990, calc(10 * ~player_inspect_get_stat(defence))))>%</col><br>PvP armour : <col=00FF00><~script10006($int12)>%</col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1559:com_82);
-    if_setonmouseleave("script8805", interface_1559:com_82);
-    if_settext(tostring($int20), interface_1559:com_101);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:damage_reduction_pvp);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:damage_reduction_pvp);
+    if_settext(tostring($int20), toplevel_v2_inspect_worn_stats:prayer_bonus_value);
     $string1 = "Armour : <col=00FF00><tostring($int3)></col><br>Skill Bonus : <col=00FF00><tostring($int4)></col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1559:com_119);
-    if_setonmouseleave("script8805", interface_1559:com_119);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:armour_rating_value);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:armour_rating_value);
     $string1 = "<col=F3B13F>Life Points</col><br>Base : <col=00FF00><tostring($int21)></col><br>Armour Bonus : <col=00FF00><tostring($int22)></col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1559:com_19);
-    if_setonmouseleave("script8805", interface_1559:com_19);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:health_value_text);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:health_value_text);
     $string1 = "<col=F3B13F>Prayer Points</col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1559:com_20);
-    if_setonmouseleave("script8805", interface_1559:com_20);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:prayer_value_text);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:prayer_value_text);
 } else {
-    if_settext(tostring($int16), interface_1463:com_197);
+    if_settext(tostring($int16), toplevel_v2_parent_suboverlay_worn_stats:armour_rating_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int5)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1463:com_8);
+    if_settext($string0, toplevel_v2_parent_suboverlay_worn_stats:effective_melee_armour_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int6)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1463:com_6);
+    if_settext($string0, toplevel_v2_parent_suboverlay_worn_stats:effective_ranged_armour_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int7)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1463:com_3);
+    if_settext($string0, toplevel_v2_parent_suboverlay_worn_stats:effective_magic_armour_value);
     $int23 = calc(scale($int16, 100, calc(100 - $int8)) - scale($int16, 100, 45));
     $string0 = tostring($int23);
     if ($int23 > 0) {
         $string0 = "+<$string0>";
     }
-    if_settext($string0, interface_1463:com_231);
-    if_settext("<tostring(scale($int17, 1000, 10))>%", interface_1463:com_148);
-    if_settext("<tostring(scale($int18, 1000, 10))>%", interface_1463:com_152);
-    if_settext("<tostring(scale($int19, 1000, 10))>%", interface_1463:com_156);
-    if_settext("<~script10006(calc(10 * ($int10 + $int11 + min(99, stat(defence)))))>%", interface_1463:com_160);
+    if_settext($string0, toplevel_v2_parent_suboverlay_worn_stats:effective_necromancy_armour_value);
+    if_settext("<tostring(scale($int17, 1000, 10))>%", toplevel_v2_parent_suboverlay_worn_stats:armour_vs_melee_value);
+    if_settext("<tostring(scale($int18, 1000, 10))>%", toplevel_v2_parent_suboverlay_worn_stats:armour_vs_range_value);
+    if_settext("<tostring(scale($int19, 1000, 10))>%", toplevel_v2_parent_suboverlay_worn_stats:armour_vs_magic_value);
+    if_settext("<~script10006(calc(10 * ($int10 + $int11 + min(99, stat(defence)))))>%", toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pve);
     $string1 = "Defence level : <col=00FF00><~script10006(min(990, calc(10 * stat(defence))))>%</col><br>Tank armour : <col=00FF00><~script10006(calc(10 * $int10))>%</col><br>Shield : <col=00FF00><~script10006(calc(10 * $int11))>%</col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1463:com_160);
-    if_setonmouseleave("script8805", interface_1463:com_160);
-    if_settext("<~script10006(calc($int12 + min(990, calc(10 * stat(defence)))))>%", interface_1463:com_162);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pve);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pve);
+    if_settext("<~script10006(calc($int12 + min(990, calc(10 * stat(defence)))))>%", toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pvp);
     $string1 = "Defence level : <col=00FF00><~script10006(min(990, calc(10 * stat(defence))))>%</col><br>PvP armour : <col=00FF00><~script10006($int12)>%</col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1463:com_162);
-    if_setonmouseleave("script8805", interface_1463:com_162);
-    if_settext(tostring($int20), interface_1463:com_181);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pvp);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:damage_reduction_pvp);
+    if_settext(tostring($int20), toplevel_v2_parent_suboverlay_worn_stats:prayer_bonus_value);
     $string1 = "Armour : <col=00FF00><tostring($int3)></col><br>Skill Bonus : <col=00FF00><tostring($int4)></col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1463:com_197);
-    if_setonmouseleave("script8805", interface_1463:com_197);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:armour_rating_value);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:armour_rating_value);
     $string1 = "Base : <col=00FF00><tostring($int21)></col><br>Armour Bonus : <col=00FF00><tostring($int22)></col>";
-    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", interface_1463:com_24);
-    if_setonmouseleave("script8805", interface_1463:com_24);
+    if_setonmouserepeat("script3876($string1, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:health_value_text);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:health_value_text);
 }

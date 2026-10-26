@@ -1,6 +1,6 @@
 // 2497
 [proc,trh153_chest_update]
-%varplayerbit_42991 = 0;
+%trh153_chest_clicked = 0;
 def_struct $struct0 = null;
 def_component $component1 = null;
 def_component $component2 = null;
@@ -12,49 +12,49 @@ def_int $int6 = -1;
 while (++$int5 < 4) {
     switch_int ($int5) {
         case 0 :
-            $struct0 = enum(int, struct, enum_1932, %varplayerbit_42981);
-            $component1 = interface_35:com_27;
-            $component2 = interface_35:com_23;
-            $component3 = interface_35:com_22;
-            $component4 = interface_35:com_21;
+            $struct0 = enum(int, struct, trh153_chests, %trh153_chest_1);
+            $component1 = trh153_overlay:chest_1_model;
+            $component2 = trh153_overlay:chest_1_icon;
+            $component3 = trh153_overlay:chest_1_icon_glow;
+            $component4 = trh153_overlay:chest_1_icon_container;
         case 1 :
-            $struct0 = enum(int, struct, enum_1932, %varplayerbit_42982);
-            $component1 = interface_35:com_12;
-            $component2 = interface_35:com_26;
-            $component3 = interface_35:com_25;
-            $component4 = interface_35:com_24;
+            $struct0 = enum(int, struct, trh153_chests, %trh153_chest_2);
+            $component1 = trh153_overlay:chest_2_model;
+            $component2 = trh153_overlay:chest_2_icon;
+            $component3 = trh153_overlay:chest_2_icon_glow;
+            $component4 = trh153_overlay:chest_2_icon_container;
         case 2 :
-            $struct0 = enum(int, struct, enum_1932, %varplayerbit_42983);
-            $component1 = interface_35:com_29;
-            $component2 = interface_35:com_20;
-            $component3 = interface_35:com_19;
-            $component4 = interface_35:com_18;
+            $struct0 = enum(int, struct, trh153_chests, %trh153_chest_3);
+            $component1 = trh153_overlay:chest_3_model;
+            $component2 = trh153_overlay:chest_3_icon;
+            $component3 = trh153_overlay:chest_3_icon_glow;
+            $component4 = trh153_overlay:chest_3_icon_container;
         case 3 :
-            $struct0 = enum(int, struct, enum_1932, %varplayerbit_42984);
-            $component1 = interface_35:com_10;
-            $component2 = interface_35:com_4;
-            $component3 = interface_35:com_3;
-            $component4 = interface_35:com_2;
+            $struct0 = enum(int, struct, trh153_chests, %trh153_chest_4);
+            $component1 = trh153_overlay:chest_4_model;
+            $component2 = trh153_overlay:chest_4_icon;
+            $component3 = trh153_overlay:chest_4_icon_glow;
+            $component4 = trh153_overlay:chest_4_icon_container;
     }
-    if_setmodel(struct_param($struct0, param_7750), $component1);
+    if_setmodel(struct_param($struct0, trh153_chest_model), $component1);
     if_setmodelangle(0, 0, 19, 29, 0, 450, $component1);
-    if_setmodelanim(struct_param($struct0, param_7751), $component1);
-    if ($struct0 = struct_28662) {
+    if_setmodelanim(struct_param($struct0, trh153_chest_idle), $component1);
+    if ($struct0 = trh153_chest_category) {
         $int6 = ~trh_get_slot_category($int5);
-        if_setgraphic(enum(int, graphic, enum_16540, $int6), $component2);
-        $string0 = "A firework which gives a prize from the <enum(int, string, enum_16539, $int6)> category.";
+        if_setgraphic(enum(int, graphic, trh_category_icon, $int6), $component2);
+        $string0 = "A firework which gives a prize from the <enum(int, string, trh_category_name, $int6)> category.";
     } else {
-        if_setgraphic(struct_param($struct0, param_7746), $component2);
-        $string0 = struct_param($struct0, param_7745);
+        if_setgraphic(struct_param($struct0, trh153_chest_icon), $component2);
+        $string0 = struct_param($struct0, trh153_chest_description);
     }
-    if_setsize(struct_param($struct0, param_7747), struct_param($struct0, param_7748), ^setsize_abs, ^setsize_abs, $component2);
-    if_setgraphic(struct_param($struct0, param_7749), $component3);
+    if_setsize(struct_param($struct0, trh153_chest_icon_width), struct_param($struct0, trh153_chest_icon_height), ^setsize_abs, ^setsize_abs, $component2);
+    if_setgraphic(struct_param($struct0, trh153_chest_icon_glow), $component3);
     if (~is_mobile_client = true) {
         if_setop(1, "Information", $component4);
         if_setonop("script7774($string0, event_com, event_comsubid, 0)", $component4);
     } else {
         if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", $component4);
     }
-    if_setonmouseover("trh153_chest_mouseover($component1, struct_param($struct0, param_7752), struct_param($struct0, param_7744))", $component1);
-    if_setonmouseleave("trh153_chest_mouseleave($component1, struct_param($struct0, param_7751))", $component1);
+    if_setonmouseover("trh153_chest_mouseover($component1, struct_param($struct0, trh153_chest_selected), struct_param($struct0, trh153_chest_name))", $component1);
+    if_setonmouseleave("trh153_chest_mouseleave($component1, struct_param($struct0, trh153_chest_idle))", $component1);
 }

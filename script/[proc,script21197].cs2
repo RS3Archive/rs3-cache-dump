@@ -1,0 +1,26 @@
+// 21197
+[proc,script21197](int $int0, int $int1)
+def_int $int2 = plugin_info_int($int0, 1, -1);
+if ($int2 = 1) {
+    if_triggerop(plugin_hub_parent_install:close_button, -1, 1);
+    return;
+}
+def_string $string0 = plugin_info_string($int0, 10, -1);
+if_setsize(0, 72, ^setsize_minus, ^setsize_abs, plugin_hub_parent_install:info_layer);
+def_component $component3 = plugin_hub_parent_install:info_layer;
+~cc_add_layer($component3, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 72, ^setsize_minus, ^setsize_abs);
+def_int $int4 = calc(2500 * 10);
+~script21190($component3, 0, $int0);
+if (cc_find($component3, $int4) = true) {
+    cc_delete;
+}
+cc_deleteall(plugin_hub_parent_install:dependency_list);
+cc_deleteall(plugin_hub_parent_install:dependency_scrollbar);
+if_settext("", plugin_hub_parent_install:dependency_title);
+if_setscrollsize(0, 0, plugin_hub_parent_install:dependency_list);
+if ($int1 = 1) {
+    if_settext("Install Update", plugin_hub_parent_install:install_button);
+}
+%plugin_hub_install_status = -1;
+if_setontimer("script21198($int0, $int1)", plugin_hub_parent_install:status_listener);
+~script21199($int0, $int1);

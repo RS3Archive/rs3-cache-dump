@@ -1,19 +1,19 @@
 // 13055
 [proc,script13055](stat $stat0, component $component1, component $component2, component $component3)
-def_int $int4 = enum(stat, int, enum_1482, $stat0);
-def_string $string0 = enum(stat, string, enum_680, $stat0);
-%varclient_1796 = %varplayer_6791;
-%varclient_5924 = %varplayer_6792;
-def_boolean $boolean5 = ~xp_reward_checkskill($stat0, %varclient_1798, %varclient_1799, 0);
-def_enum $enum6 = enum_3495;
+def_int $int4 = enum(stat, int, stat_to_int, $stat0);
+def_string $string0 = enum(stat, string, stat_to_string, $stat0);
+%xp_reward_currentchoice = %xp_reward_current_choice;
+%xp_reward_secondchoice = %xp_reward_second_choice;
+def_boolean $boolean5 = ~xp_reward_checkskill($stat0, %xp_reward_minlevel, %xp_reward_item, 0);
+def_enum $enum6 = stat2icon_small_off;
 if ($boolean5 = true) {
-    $enum6 = enum_371;
+    $enum6 = stat2icon_small;
 }
 cc_deleteall($component1);
-def_struct $struct7 = struct_21363;
-def_struct $struct8 = struct_28303;
-def_struct $struct9 = struct_29006;
-if ($int4 = %varclient_1796 | $int4 = %varclient_5924) {
+def_struct $struct7 = rs3_icon_holder;
+def_struct $struct8 = rs3_icon_holder_selected;
+def_struct $struct9 = rs3_icon_holder_over;
+if ($int4 = %xp_reward_currentchoice | $int4 = %xp_reward_secondchoice) {
     ~rs3_background_panel($component2, $struct8);
     if_setonmouseover(null, $component2);
     if_setonmouseleave(null, $component2);
@@ -38,5 +38,5 @@ if ($boolean5 = false) {
 }
 if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", $component1);
 if_setop(1, "Choose", $component1);
-if_setopbase(enum(stat, string, enum_680, $stat0), $component1);
+if_setopbase(enum(stat, string, stat_to_string, $stat0), $component1);
 if_setonop("script13056($stat0, $int4, $component1, $component3)", $component1);

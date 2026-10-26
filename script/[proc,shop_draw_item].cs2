@@ -1,18 +1,18 @@
 // 6089
 [proc,shop_draw_item](inv $inv0, int $int1, int $int2, int $int3)
-def_component $component4 = interface_1265:com_20;
-def_component $component5 = interface_1265:com_23;
-def_component $component6 = interface_1265:com_24;
-def_component $component7 = interface_1265:com_22;
-def_component $component8 = interface_1265:com_21;
-def_component $component9 = interface_1265:com_25;
-if ($inv0 = %varplayer_305) {
-    $component4 = interface_1265:com_14;
-    $component5 = interface_1265:com_16;
-    $component6 = interface_1265:com_17;
+def_component $component4 = shop_main:list_background;
+def_component $component5 = shop_main:list_name;
+def_component $component6 = shop_main:list_icon;
+def_component $component7 = shop_main:list_currency;
+def_component $component8 = shop_main:list_price;
+def_component $component9 = shop_main:list_extra_icon;
+if ($inv0 = %shopfreebie) {
+    $component4 = shop_main:free_background;
+    $component5 = shop_main:free_name;
+    $component6 = shop_main:free_icon;
     $component7 = null;
-    $component8 = interface_1265:com_15;
-    $component9 = interface_1265:com_18;
+    $component8 = shop_main:free_price;
+    $component9 = shop_main:free_extra_icon;
 }
 def_int $int10 = 0;
 def_int $int11 = 0;
@@ -47,7 +47,7 @@ cc_setsize($int15, 52, ^setsize_abs, ^setsize_abs);
 cc_setonmouserepeat("script12093($obj18, $inv0, event_comsubid)");
 cc_setcolour(~script10495(9));
 cc_setfill(true);
-if ($inv0 = %varplayer_299 & $int1 = %varplayer_301) {
+if ($inv0 = %shop_last_viewed_inventory & $int1 = %shop_last_viewed_slot) {
     cc_setgraphic($graphic17);
     cc_setonmouseover("shop_item_hover($int3, 1, 1, event_com, event_comsubid)");
     cc_setonmouseleave("shop_item_hover($int3, 1, 0, event_com, event_comsubid)");
@@ -58,15 +58,15 @@ if ($inv0 = %varplayer_299 & $int1 = %varplayer_301) {
 cc_setposition(calc($int13 + 2), calc($int14 + 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_setopbase("<col=FF981F><oc_name($obj18)></col>");
 cc_setop(1, "Info");
-if ($inv0 = %varplayer_305) {
-    cc_setonop("shop_item_info(%varplayer_305, $int1)");
+if ($inv0 = %shopfreebie) {
+    cc_setonop("shop_item_info(%shopfreebie, $int1)");
     if ($int19 > 0) {
         cc_setop(2, "Take 1");
     }
     if ($int19 >= 5) {
         cc_setop(3, "Take 5");
     }
-    if ($obj18 = obj_36) {
+    if ($obj18 = unlit_candle) {
         cc_setop(3, "Take 4");
     }
     if ($int19 >= 10) {
@@ -81,11 +81,11 @@ if ($inv0 = %varplayer_305) {
     if ($int19 > 1) {
         cc_setop(7, "Take All");
     }
-} else if ($inv0 = inv_93) {
-    cc_setonop("shop_item_info(inv_93, $int1)");
+} else if ($inv0 = inv) {
+    cc_setonop("shop_item_info(inv, $int1)");
     cc_setop(2, "Sell 1");
     cc_setop(3, "Sell 5");
-    if ($obj18 = obj_36) {
+    if ($obj18 = unlit_candle) {
         cc_setop(3, "Sell 4");
     }
     cc_setop(4, "Sell 10");
@@ -93,14 +93,14 @@ if ($inv0 = %varplayer_305) {
     cc_setop(6, "Sell 500");
     cc_setop(7, "Sell All");
 } else {
-    cc_setonop("shop_item_info(%varplayer_304, $int1)");
+    cc_setonop("shop_item_info(%shop, $int1)");
     if ($int19 > 0) {
         cc_setop(2, "Buy 1");
     }
     if ($int19 >= 5) {
         cc_setop(3, "Buy 5");
     }
-    if ($obj18 = obj_36) {
+    if ($obj18 = unlit_candle) {
         cc_setop(3, "Buy 4");
     }
     if ($int19 >= 10) {
@@ -128,7 +128,7 @@ if ($int3 = 0) {
     cc_setcolour(0xf7edb7);
     cc_setsize(calc(151 - 53), calc(52 - 18), ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int13 + 47), calc($int14 + 3), ^setpos_abs_left, ^setpos_abs_top);
-    cc_settextfont(~script12028(fontmetrics_207, fontmetrics_206, fontmetrics_206, $string0, cc_getwidth, cc_getheight));
+    cc_settextfont(~script12028(notosans_12, notosans_11, notosans_11, $string0, cc_getwidth, cc_getheight));
     cc_settextalign(^settextalign_right, ^settextalign_top, 13);
     cc_settext($string0);
 }
@@ -145,25 +145,25 @@ cc_create($component8, ^iftype_text, $int1);
 cc_setcolour(0xe5b051);
 cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int13 + $int15 - 33), calc($int14 + 40), ^setpos_abs_left, ^setpos_abs_top);
-cc_settextfont(fontmetrics_66);
+cc_settextfont(p11_full);
 cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
 def_int $int20 = ~buyprice($obj18);
 if ($int20 = -1) {
     cc_settext("N/A");
-} else if ($inv0 = %varplayer_305) {
+} else if ($inv0 = %shopfreebie) {
     cc_settext("Free!");
-} else if ($inv0 = inv_93) {
-    if (testbit(%varclient_1879, $int1) = ^false) {
+} else if ($inv0 = inv) {
+    if (testbit(%shop_inventory_sell_status, $int1) = ^false) {
         $int20 = -1;
         cc_settext("N/A");
     } else {
-        $int20 = ~sellprice(%varplayer_306, $obj18, %varplayer_304);
+        $int20 = ~sellprice(%currency, $obj18, %shop);
         cc_settext(~script940($int20));
     }
 } else {
     cc_settext(~script940($int20));
 }
-if ($inv0 ! %varplayer_305) {
+if ($inv0 ! %shopfreebie) {
     if ($int20 > 100000) {
         cc_setcolour(^white);
     } else if ($int20 > 10000000) {
@@ -175,10 +175,10 @@ if ($component7 ! null) {
     cc_create($component7, ^iftype_graphic, $int1);
     cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int13 + $int15 - 12), calc($int14 + 39), ^setpos_abs_left, ^setpos_abs_top);
-    if ($inv0 = inv_93 & testbit(%varclient_1879, $int1) = ^false) {
+    if ($inv0 = inv & testbit(%shop_inventory_sell_status, $int1) = ^false) {
         cc_setgraphic("km_shopitems,0");
     } else {
-        cc_setgraphic(enum(int, graphic, enum_200, %varplayer_306));
+        cc_setgraphic(enum(int, graphic, currency_graphic, %currency));
     }
 }
 cc_create($component9, ^iftype_graphic, $int1);

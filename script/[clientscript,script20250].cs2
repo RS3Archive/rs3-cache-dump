@@ -1,36 +1,36 @@
 // 20250
 [clientscript,script20250]
-cc_deleteall(interface_1442:com_17);
+cc_deleteall(league_parent_ranks:table_contents);
 def_dbrow $dbrow0 = ~script20117(-1);
 if ($dbrow0 = null) {
     return;
 }
-def_dbrow $dbrow1 = db_getfield($dbrow0, dbtable_326:col12, 0);
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col12, 0);
 def_int $int2 = 0;
-def_int $int3 = db_getfieldcount($dbrow1, dbtable_333:col0);
-def_int $int4 = if_getheight(interface_1442:com_17);
+def_int $int3 = db_getfieldcount($dbrow1, league_ranks:col0);
+def_int $int4 = if_getheight(league_parent_ranks:table_contents);
 def_int $int5 = calc(($int4 - 4 * ($int3 - 1)) / $int3);
 def_int $int6 = 0;
 def_int $int7 = scale(32, 36, calc($int5 - 4));
-def_int $int8 = var_reference_get(db_getfield($dbrow0, dbtable_326:col28, 0));
+def_int $int8 = var_reference_get(db_getfield($dbrow0, league:col28, 0));
 def_int $int9 = 0;
 def_int $int10 = 4128;
-def_dbrow $dbrow11 = dbrow_2099;
-def_obj $obj12 = obj_63625;
+def_dbrow $dbrow11 = text_body_large;
+def_obj $obj12 = league_2_trophy_bronze;
 def_int $int13 = 0;
 def_string $string0 = "";
 def_int $int14 = -1;
 def_string $string1 = "";
 ~script1854($dbrow1, $int8);
 while ($int2 < $int3) {
-    $int9, $obj12, $string1 = db_getfield($dbrow1, dbtable_333:col0, $int2);
-    if ($int2 = calc(%varplayerbit_59849 - 1)) {
-        $dbrow11 = dbrow_2196;
+    $int9, $obj12, $string1 = db_getfield($dbrow1, league_ranks:col0, $int2);
+    if ($int2 = calc(%league_relic_cache_next_trophy_tier - 1)) {
+        $dbrow11 = text_title_body;
         $int13 = $int2;
     } else {
-        $dbrow11 = dbrow_2099;
+        $dbrow11 = text_body_large;
     }
-    ~if_add_child_layer(interface_1442:com_17, $int2, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int5, ^setsize_minus, ^setsize_abs);
+    ~if_add_child_layer(league_parent_ranks:table_contents, $int2, 0, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, $int5, ^setsize_minus, ^setsize_abs);
     $int6 = cc_getwidth;
     ~script16109($int2, 1, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, $int2, false);
     ~script17950($int2, 2, 4, 4, ^setpos_abs_left, ^setpos_abs_top, $int7, 8, ^setsize_abs, ^setsize_minus, $obj12, 1);
@@ -38,26 +38,26 @@ while ($int2 < $int3) {
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     ~cc_add_child_text($int2, 4, 0, 0, ^setpos_abs_right, ^setpos_abs_centre, calc($int6 / 2), $int5, ^setsize_abs, ^setsize_abs, $dbrow11, tostring_localised($int9, true));
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
-    if ($int2 = calc(%varplayerbit_59849 - 1)) {
-        ~cc_add_child_rect($int2, 5, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, dbrow_14486);
+    if ($int2 = calc(%league_relic_cache_next_trophy_tier - 1)) {
+        ~cc_add_child_rect($int2, 5, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, rect_outline_selected);
     }
     $int2 = calc($int2 + 1);
 }
-if (cc_find(interface_1442:com_1, 0) = true) {
-    $obj12 = db_getfield($dbrow1, dbtable_333:col0:1, $int13);
+if (cc_find(league_parent_ranks:progress_bar, 0) = true) {
+    $obj12 = db_getfield($dbrow1, league_ranks:col0:1, $int13);
     cc_setobject_highres($obj12);
 }
 def_int $int15 = 0;
-if ($int8 >= db_getfield($dbrow1, dbtable_333:col0:0, 0)) {
+if ($int8 >= db_getfield($dbrow1, league_ranks:col0:0, 0)) {
     $int15 = ~clamp(calc($int13 + 1), 0, calc($int3 - 1));
 }
-$int9, $obj12, $string1 = db_getfield($dbrow1, dbtable_333:col0, $int15);
+$int9, $obj12, $string1 = db_getfield($dbrow1, league_ranks:col0, $int15);
 if ($int13 = calc($int3 - 1)) {
     $string0 = "All trophies unlocked!";
 } else {
     $string0 = "Earn <tostring_localised(calc($int9 - $int8), true)> points to unlock the next trophy";
 }
-if_settext($string0, interface_1442:com_13);
+if_settext($string0, league_parent_ranks:current_title);
 def_model $model16 = null;
 def_int $int17 = -1;
 def_material $material18 = null;
@@ -69,23 +69,23 @@ def_int $int23 = -1;
 def_int $int24 = -1;
 def_int $int25 = -1;
 $model16, $int17, $material18, $material19, $int20, $int21, $int22, $int23, $int24, $int25 = ~script21087($obj12);
-if_setmodel($model16, interface_1442:com_14);
-if_setmodelzoom($int17, interface_1442:com_14);
+if_setmodel($model16, league_parent_ranks:next_trophy);
+if_setmodelzoom($int17, league_parent_ranks:next_trophy);
 if ($material18 ! null & $material19 ! null) {
-    if_setretex(1, $material18, $material19, interface_1442:com_14);
+    if_setretex(1, $material18, $material19, league_parent_ranks:next_trophy);
 }
 if ($int20 ! -1 & $int21 ! -1) {
-    if_setrecol(1, $int20, $int21, interface_1442:com_14);
+    if_setrecol(1, $int20, $int21, league_parent_ranks:next_trophy);
     if ($int22 ! -1 & $int23 ! -1) {
-        if_setrecol(2, $int22, $int23, interface_1442:com_14);
+        if_setrecol(2, $int22, $int23, league_parent_ranks:next_trophy);
     }
 }
-if_setposition($int24, $int25, ^setpos_abs_centre, ^setpos_abs_centre, interface_1442:com_14);
-if_settext("Trophies are available once the League ends.", interface_1442:com_15);
+if_setposition($int24, $int25, ^setpos_abs_centre, ^setpos_abs_centre, league_parent_ranks:next_trophy);
+if_settext("Trophies are available once the League ends.", league_parent_ranks:disclaimer);
 def_string $string2 = "You have already set your nominated account for this league, you cannot change it again.";
-if (%varplayer_13541 = -1) {
-    if_setenabled(false, interface_1442:com_10);
-    if_setonop("script15194($string2, event_com)", interface_1442:com_10);
+if (%league_onboarding_link_last_league_set = -1) {
+    if_setenabled(false, league_parent_ranks:change_nomination);
+    if_setonop("script15194($string2, event_com)", league_parent_ranks:change_nomination);
 } else {
-    if_setenabled(true, interface_1442:com_10);
+    if_setenabled(true, league_parent_ranks:change_nomination);
 }

@@ -5,30 +5,30 @@ if ($dbrow0 = null) {
     return;
 }
 if (~script6431 = false) {
-    if_setdraggable(interface_1359:com_1, -1, interface_1359:com_2);
-    if_setondragcomplete("script20073(event_mousex, event_mousey, interface_1359:com_1, event_com)", interface_1359:com_2);
-    ~script20074(%varclient_8314, %varclient_8315, interface_1359:com_1, interface_1359:com_2);
+    if_setdraggable(marketplace_floater:drag_layer, -1, marketplace_floater:floater_pos_layer);
+    if_setondragcomplete("script20073(event_mousex, event_mousey, marketplace_floater:drag_layer, event_com)", marketplace_floater:floater_pos_layer);
+    ~script20074(%marketplace_floater_x, %marketplace_floater_y, marketplace_floater:drag_layer, marketplace_floater:floater_pos_layer);
 }
-def_graphic $graphic1 = db_getfield($dbrow0, dbtable_321:col0, 0);
-if_setgraphic($graphic1, interface_1359:com_14);
+def_graphic $graphic1 = db_getfield($dbrow0, marketplace_floater_data:col0, 0);
+if_setgraphic($graphic1, marketplace_floater:background);
 def_int $int2 = 0;
 def_int $int3 = 0;
 def_int $int4 = 0;
 def_int $int5 = 0;
-$int2, $int3, $int4, $int5 = db_getfield($dbrow0, dbtable_321:col1, 0);
-if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, interface_1359:com_14);
-if_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top, interface_1359:com_14);
-if_setsize(145, 31, ^setsize_abs, ^setsize_abs, interface_1359:com_7);
-def_string $string0 = db_getfield($dbrow0, dbtable_321:col2, 0);
-def_int $int6 = if_getwidth(interface_1359:com_11);
-def_int $int7 = parawidth($string0, 100, fontmetrics_167);
+$int2, $int3, $int4, $int5 = db_getfield($dbrow0, marketplace_floater_data:col1, 0);
+if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, marketplace_floater:background);
+if_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top, marketplace_floater:background);
+if_setsize(145, 31, ^setsize_abs, ^setsize_abs, marketplace_floater:banner_ribbon);
+def_string $string0 = db_getfield($dbrow0, marketplace_floater_data:col2, 0);
+def_int $int6 = if_getwidth(marketplace_floater:banner_text);
+def_int $int7 = parawidth($string0, 100, notosans_bold_12);
 if ($int7 > $int6) {
-    if_setsize(calc(145 + ($int7 - 145)), 31, ^setsize_abs, ^setsize_abs, interface_1359:com_7);
+    if_setsize(calc(145 + ($int7 - 145)), 31, ^setsize_abs, ^setsize_abs, marketplace_floater:banner_ribbon);
 }
-if_settext($string0, interface_1359:com_11);
-if (db_getfieldcount($dbrow0, dbtable_321:col3) > 0) {
-    if_setonmouserepeat("script2674(db_getfield($dbrow0, dbtable_321:col3, 0), interface_1359:com_3, -1)", interface_1359:com_3);
+if_settext($string0, marketplace_floater:banner_text);
+if (db_getfieldcount($dbrow0, marketplace_floater_data:col3) > 0) {
+    if_setonmouserepeat("script2674(db_getfield($dbrow0, marketplace_floater_data:col3, 0), marketplace_floater:container, -1)", marketplace_floater:container);
 } else {
-    if_setonmouserepeat(null, interface_1359:com_3);
+    if_setonmouserepeat(null, marketplace_floater:container);
 }
 ~script20075;

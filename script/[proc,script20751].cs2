@@ -1,14 +1,14 @@
 // 20751
 [proc,script20751](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, int $int6, int $int7, int $int8)
-if_sethide(false, interface_1512:com_14);
-if_setsize(0, 30, ^setsize_minus, ^setsize_abs, interface_1512:com_14);
+if_sethide(false, house_furniture_catalogue:items_stairs_toggle);
+if_setsize(0, 30, ^setsize_minus, ^setsize_abs, house_furniture_catalogue:items_stairs_toggle);
 if_setsize(16, 36, ^setsize_minus, ^setsize_minus, $component0);
 if_setsize(16, 36, ^setsize_abs, ^setsize_minus, $component1);
 cc_deleteall($component2);
 cc_deleteall($component3);
 cc_deleteall($component4);
 cc_deleteall($component5);
-db_listall(dbtable_369);
+db_listall(construction_house_room);
 def_dbrow $dbrow9 = db_findnext;
 def_int $int10 = 0;
 def_int $int11 = 0;
@@ -29,40 +29,40 @@ def_int $int21 = calc(72 - 8 + 2);
 def_int $int22 = calc(72 + 15);
 def_int $int23 = ~script16260;
 while ($dbrow9 ! null) {
-    $int14 = db_getfield($dbrow9, dbtable_369:col0, 0);
-    $string0 = db_getfield($dbrow9, dbtable_369:col1, 0);
-    $int15 = db_getfield($dbrow9, dbtable_369:col3, 0);
-    $int16 = db_getfield($dbrow9, dbtable_369:col2, 0);
-    $graphic13 = db_getfield($dbrow9, dbtable_369:col4, 0);
+    $int14 = db_getfield($dbrow9, construction_house_room:col0, 0);
+    $string0 = db_getfield($dbrow9, construction_house_room:col1, 0);
+    $int15 = db_getfield($dbrow9, construction_house_room:col3, 0);
+    $int16 = db_getfield($dbrow9, construction_house_room:col2, 0);
+    $graphic13 = db_getfield($dbrow9, construction_house_room:col4, 0);
     if ($int23 = 0) {
-        if ($dbrow9 = dbrow_19127) {
-            $dbrow17 = dbrow_18459;
+        if ($dbrow9 = construction_house_room_square) {
+            $dbrow17 = button_makex_available;
             $int15 = 0;
             $string1 = "<col=777777><sprite=14154><~script12971(int_to_long($int15))>";
             $string2 = "<sprite=23771,16><tostring($int16)>";
             $int18 = 0;
             $string3 = "Cost: <$string1><br>Level: <$string2>";
         } else {
-            $dbrow17 = dbrow_18460;
+            $dbrow17 = button_makex_unavailable;
             $string1 = "<col=777777><sprite=14154><~script12971(int_to_long($int15))>";
             $string2 = "<col=777777><sprite=23771,16><tostring($int16)>";
             $int18 = 175;
             $string3 = "Cost: <sprite=14154><~script17371(int_to_long($int15))><br>Level: <$string2><br>Not yet unlocked.";
         }
     } else if (stat_base(construction) >= $int16) {
-        $dbrow17 = dbrow_18459;
+        $dbrow17 = button_makex_available;
         $string1 = "<sprite=14154><~script17371(int_to_long($int15))>";
         $string2 = "<sprite=23771,16><tostring($int16)>";
         $int18 = 0;
         $string3 = "Cost: <$string1><br>Level: <$string2>";
     } else {
-        $dbrow17 = dbrow_18460;
+        $dbrow17 = button_makex_unavailable;
         $string1 = "<col=777777><sprite=14154><~script12971(int_to_long($int15))>";
         $string2 = "<col=777777><sprite=23771,16><tostring($int16)>";
         $int18 = 175;
         $string3 = "Cost: <sprite=14154><~script17371(int_to_long($int15))><br>Level: <$string2><br>Not yet unlocked.";
     }
-    $int19 = stringwidth($string1, fontmetrics_26);
+    $int19 = stringwidth($string1, museo_sans_11pt_regular);
     $int20 = calc((80 - $int19) / 2);
     ~cc_add_button_full($component2, $int14, $int10, $int11, ^setpos_abs_left, ^setpos_abs_top, 80, $int22, ^setsize_abs, ^setsize_abs, $dbrow17, "", true, true, true, ~equal_int_bool(%varclientbit_61230, $int14));
     cc_setop(1, "Select");
@@ -70,7 +70,7 @@ while ($dbrow9 ! null) {
     cc_setonop("script20752($component0, $component1, $component2, $component3, $component4, $component5, $int14, $int7, $dbrow17)");
     ~cc_add_graphic($component3, $int14, calc($int10 + 8), calc($int11 + 8), ^setpos_abs_left, ^setpos_abs_top, 63, 56, ^setsize_abs, ^setsize_abs, $graphic13);
     cc_settrans($int18);
-    ~cc_add_text($component4, $int14, calc($int10 + $int20), calc($int11 + $int21), ^setpos_abs_left, ^setpos_abs_top, 63, 13, ^setsize_abs, ^setsize_abs, dbrow_2100, $string1);
+    ~cc_add_text($component4, $int14, calc($int10 + $int20), calc($int11 + $int21), ^setpos_abs_left, ^setpos_abs_top, 63, 13, ^setsize_abs, ^setsize_abs, text_body_default, $string1);
     $int10 = calc($int10 + 80 + 4);
     if (calc($int10 + 80) > $int12) {
         $int10 = 0;

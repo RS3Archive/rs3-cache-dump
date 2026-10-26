@@ -1,13 +1,13 @@
 // 14772
 [proc,script14772](int $int0)
-if (%varplayer_9212 = null) {
+if (%collection_log_data = null) {
     return;
 }
-~script9554(interface_656:com_4, interface_656:com_26, interface_656:com_5, db_getfield(%varplayer_9212, dbtable_83:col2, 0), struct_21218);
-cc_deleteall(interface_656:com_30);
-cc_deleteall(interface_656:com_31);
-cc_deleteall(interface_656:com_29);
-def_int $int1 = db_getfieldcount(%varplayer_9212, dbtable_83:col7);
+~script9554(collection_log:mainmodal_window_background, collection_log:mainmodal_window_border, collection_log:mainmodal_window_content, db_getfield(%collection_log_data, collection_log:col2, 0), toplevel_v2_default_main_modal_skin_data);
+cc_deleteall(collection_log:collection_list_build_layer);
+cc_deleteall(collection_log:collection_list_control_layer);
+cc_deleteall(collection_log:collection_list_scrollbar_layer);
+def_int $int1 = db_getfieldcount(%collection_log_data, collection_log:col7);
 def_dbrow $dbrow2 = null;
 def_string $string0 = "";
 def_int $int3 = 25;
@@ -18,19 +18,19 @@ def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = -1;
 while (++$int6 < $int1) {
-    $dbrow2 = db_getfield(%varplayer_9212, dbtable_83:col7, $int6);
+    $dbrow2 = db_getfield(%collection_log_data, collection_log:col7, $int6);
     if (~script14505($dbrow2) = 1) {
-        $string0 = db_getfield($dbrow2, dbtable_84:col4, 0);
-        $int4 = max($int3, calc(2 * ~script7593($string0, calc(if_getwidth(interface_656:com_30) - 2 * 1), fontmetrics_26, 0)));
-        ~script13998(interface_656:com_30, interface_656:com_31, struct_28556, 1, calc($int5 + 1), calc(if_getwidth(interface_656:com_30) - 2 * 1), $int4, $int6, false, $string0, ~equal_int($int6, %varplayer_9213));
-        if (cc_find(interface_656:com_31, $int6) = true) {
+        $string0 = db_getfield($dbrow2, collection:col4, 0);
+        $int4 = max($int3, calc(2 * ~script7593($string0, calc(if_getwidth(collection_log:collection_list_build_layer) - 2 * 1), museo_sans_11pt_regular, 0)));
+        ~script13998(collection_log:collection_list_build_layer, collection_log:collection_list_control_layer, rs3tli_3x3_button, 1, calc($int5 + 1), calc(if_getwidth(collection_log:collection_list_build_layer) - 2 * 1), $int4, $int6, false, $string0, ~equal_int($int6, %collection_log_selected));
+        if (cc_find(collection_log:collection_list_control_layer, $int6) = true) {
             cc_setonop("script14771($int6)");
         }
         $int5 = calc($int5 + $int4);
     } else {
-        cc_create(interface_656:com_31, ^iftype_text, $int6);
+        cc_create(collection_log:collection_list_control_layer, ^iftype_text, $int6);
     }
 }
-if_setscrollsize(0, max(if_getheight(interface_656:com_28), calc($int5 + 1)), interface_656:com_28);
-~rs3_scrollbar_vertical(interface_656:com_29, interface_656:com_28);
+if_setscrollsize(0, max(if_getheight(collection_log:collection_list_scrolling_layer), calc($int5 + 1)), collection_log:collection_list_scrolling_layer);
+~rs3_scrollbar_vertical(collection_log:collection_list_scrollbar_layer, collection_log:collection_list_scrolling_layer);
 ~script14773($int0);

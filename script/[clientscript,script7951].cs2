@@ -3,13 +3,13 @@
 if (worldmap_isloaded = false) {
     return;
 }
-if ($int0 = %varclient_3526 & $int1 = %varclient_3527) {
+if ($int0 = %worldmap_v2_last_hold_x & $int1 = %worldmap_v2_last_hold_y) {
     return;
 }
-def_coordfine $coordfine0 = worldmap_3dview_getcoordfine(%varclient_3526, %varclient_3527, 0);
+def_coordfine $coordfine0 = worldmap_3dview_getcoordfine(%worldmap_v2_last_hold_x, %worldmap_v2_last_hold_y, 0);
 def_coordfine $coordfine1 = worldmap_3dview_getcoordfine($int0, $int1, 0);
-%varclient_3526 = $int0;
-%varclient_3527 = $int1;
+%worldmap_v2_last_hold_x = $int0;
+%worldmap_v2_last_hold_y = $int1;
 def_int $int2 = calc(coordx_fine($coordfine0) - coordx_fine($coordfine1));
 def_int $int3 = calc(coordz_fine($coordfine0) - coordz_fine($coordfine1));
 def_int $int4 = 0;
@@ -23,24 +23,24 @@ if ($int2 ! 0 | $int3 ! 0) {
     $int5 = calc($int5 * 512);
     $int6 = calc($int6 * 512);
     $int7 = calc($int7 * 512);
-    if ($int2 < 0 & $int4 < %varclient_3524) {
-        $int2 = max(calc($int4 - %varclient_3524), $int2);
-        %varclient_3524 = calc(%varclient_3524 + $int2);
+    if ($int2 < 0 & $int4 < %worldmap_v2_focus_fine_x) {
+        $int2 = max(calc($int4 - %worldmap_v2_focus_fine_x), $int2);
+        %worldmap_v2_focus_fine_x = calc(%worldmap_v2_focus_fine_x + $int2);
         $int8 = 0;
-    } else if ($int2 > 0 & $int6 > %varclient_3524) {
-        $int2 = min(calc($int6 - %varclient_3524), $int2);
-        %varclient_3524 = calc(%varclient_3524 + $int2);
+    } else if ($int2 > 0 & $int6 > %worldmap_v2_focus_fine_x) {
+        $int2 = min(calc($int6 - %worldmap_v2_focus_fine_x), $int2);
+        %worldmap_v2_focus_fine_x = calc(%worldmap_v2_focus_fine_x + $int2);
         $int8 = 0;
     } else {
         $int2 = 0;
     }
-    if ($int3 < 0 & $int5 < %varclient_3525) {
-        $int3 = max(calc($int5 - %varclient_3525), $int3);
-        %varclient_3525 = calc(%varclient_3525 + $int3);
+    if ($int3 < 0 & $int5 < %worldmap_v2_focus_fine_z) {
+        $int3 = max(calc($int5 - %worldmap_v2_focus_fine_z), $int3);
+        %worldmap_v2_focus_fine_z = calc(%worldmap_v2_focus_fine_z + $int3);
         $int8 = 0;
-    } else if ($int3 > 0 & $int7 > %varclient_3525) {
-        $int3 = min(calc($int7 - %varclient_3525), $int3);
-        %varclient_3525 = calc(%varclient_3525 + $int3);
+    } else if ($int3 > 0 & $int7 > %worldmap_v2_focus_fine_z) {
+        $int3 = min(calc($int7 - %worldmap_v2_focus_fine_z), $int3);
+        %worldmap_v2_focus_fine_z = calc(%worldmap_v2_focus_fine_z + $int3);
         $int8 = 0;
     } else {
         $int3 = 0;

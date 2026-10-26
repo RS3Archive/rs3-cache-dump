@@ -1,21 +1,21 @@
 // 10809
 [proc,script10809]
-def_component $component0 = interface_1562:com_29;
-def_component $component1 = interface_1562:com_53;
-def_component $component2 = interface_1562:com_54;
-def_component $component3 = interface_1562:com_17;
-def_component $component4 = interface_1562:com_63;
-def_component $component5 = interface_1562:com_18;
-def_component $component6 = interface_1562:com_55;
+def_component $component0 = mtxmgt_purchase:runecoins_layer;
+def_component $component1 = mtxmgt_purchase:runecoins_bg_layer;
+def_component $component2 = mtxmgt_purchase:runecoins_content_layer;
+def_component $component3 = mtxmgt_purchase:runecoins_button_layer;
+def_component $component4 = mtxmgt_purchase:runecoins_button_text;
+def_component $component5 = mtxmgt_purchase:buy_runecoins_button_layer;
+def_component $component6 = mtxmgt_purchase:bonds_to_runecoins_button_layer;
 cc_deleteall($component2);
 def_int $int7 = -1;
-def_int $int8 = calc(%varclient_4968 + %varclient_4969);
-if (%varplayer_5006 ! null) {
-    $int7 = ~script10813(%varplayerbit_26175);
+def_int $int8 = calc(%mtxmgt_total_tradeable_bonds + %mtxmgt_total_untradeable_bonds);
+if (%mtxmgt_purchase_struct ! null) {
+    $int7 = ~script10813(%mtxmgt_purchase_rc_price);
 }
 if ($int7 ! -1) {
-    ~script10812($component2, $component5, rs3_icon_general_store_runecoin, null, 34, 35, "RuneCoins", $int7, %varclient_4659, 0);
-    if (%varclient_4659 < $int7) {
+    ~script10812($component2, $component5, rs3_icon_general_store_runecoin, null, 34, 35, "RuneCoins", $int7, %mtxmgt_total_runecoins, 0);
+    if (%mtxmgt_total_runecoins < $int7) {
         if_sethide(false, $component5);
         if ($int8 > 0) {
             if_sethide(false, $component6);
@@ -33,9 +33,9 @@ if ($int7 ! -1) {
             if_settext("Buy", $component4);
         }
     }
-    ~rs3_background_panel($component1, struct_21361);
+    ~rs3_background_panel($component1, rs3_content_container_active);
     if_sethide(false, $component0);
-    if_setonvarctransmit("script10807{varclient_4659, varclient_4968, varclient_4969}", $component0);
+    if_setonvarctransmit("script10807{mtxmgt_total_runecoins, mtxmgt_total_tradeable_bonds, mtxmgt_total_untradeable_bonds}", $component0);
 } else {
     if_sethide(true, $component0);
     if_setonvarctransmit(null, $component0);

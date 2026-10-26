@@ -1,53 +1,54 @@
 // 2601
 [proc,script2601]
-def_string $string0 = "Membership";
+def_string $string0 = "";
 def_int $int0 = 0;
 def_string $string1 = "";
-def_string $string2 = "";
 def_boolean $boolean1 = false;
 def_int $int2 = 0;
 def_int $int3 = 0;
 $int2, $int3, $boolean1 = userdetail_lobby_membership;
-def_string $string3 = format_datetime_from_minutes($int2);
+def_string $string2 = format_datetime_from_minutes($int2);
 def_int $int4 = 0;
-def_int $int5 = 0;
-def_int $int6 = 0;
-def_int $int7 = -1;
-def_string $string4 = "";
+def_int $int5 = -1;
+def_string $string3 = "";
 if ($boolean1 = true) {
-    $string1 = "Subscription Active";
-    $string2 = "You have an active subscription. Use this button to view your account information. Make sure you play on a members' world to enjoy all of your members' benefits.";
-    $int7 = 2518;
+    $string0 = "Your membership is active.";
+    $string1 = "Use this button for more detail and to manage your membership.";
+    switch_int (platformtype) {
+        case ^platformtype_default, ^platformtype_jagex :
+            $int5 = 2518;
+        case default :
+            $int5 = 2517;
+    }
 } else if (playermember = true) {
     $int4 = calc($int3 / 1440);
-    $int5 = calc($int3 % 1440 / 60);
-    $int6 = calc($int3 % 60);
     if ($int4 < 7) {
         $int0 = 2;
     } else if ($int4 < 13) {
         $int0 = 1;
     }
-    if (calc($int4 + $int5 + $int6) ! 0) {
-        $string4 = " (in <~date_tostring($int4, $int5, $int6)>)";
+    if ($int4 = 0) {
+        $string0 = "You have less than 1 day of membership remaining.";
+    } else {
+        $string0 = "You have <tostring($int4)> <~text_plural($int4, "day", "days")> of membership remaining.";
     }
-    $string1 = "Expires <$string3>";
-    $string2 = "Your membership will expire on <$string3><$string4>. Renew now to avoid losing member status. Use this button to renew.";
-    $int7 = 2517;
+    $string1 = "Use this button to renew your membership.";
+    $int5 = 2517;
 } else {
     $int0 = 1;
-    $string1 = "Not a Member";
-    $string2 = "You are not a member. Members get loads of extra benefits and features. Use this button to become a member.";
-    $int7 = 2517;
+    $string0 = "You are not a member.";
+    $string1 = "Use this button to become a member.";
+    $int5 = 2517;
 }
 if ($int0 = 2) {
-    ~script10017(interface_906:com_136, -1, 6, 2, null, null);
+    ~script10017(lobbyscreen:membership_button_layer, -1, 6, 2, null, null);
 } else if ($int0 = 1) {
-    ~script10017(interface_906:com_136, -1, 6, 1, null, null);
+    ~script10017(lobbyscreen:membership_button_layer, -1, 6, 1, null, null);
 }
 if (playermember = true) {
-    ~script13959(interface_906:com_138, struct_28696, false);
+    ~script13959(lobbyscreen:icon_membership, rs3tli_lobby_members_icons, false);
 } else {
-    ~script13959(interface_906:com_138, struct_28697, false);
+    ~script13959(lobbyscreen:icon_membership, rs3tli_lobby_non_members_icons, false);
 }
-~script10059($string0, $string1, $string2, interface_906:com_137);
-if_setonbuttonpressed("lobbyscreen_link($int7)", interface_906:com_137);
+~script10059($string0, "", $string1, lobbyscreen:button_membership);
+if_setonbuttonpressed("lobbyscreen_link($int5)", lobbyscreen:button_membership);

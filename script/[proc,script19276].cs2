@@ -10,44 +10,44 @@ def_component $component7 = null;
 def_component $component8 = null;
 switch_int ($int0) {
     case 1 :
-        $int1 = %varplayerbit_56171;
-        $component2 = interface_1290:com_61;
-        $component3 = interface_1290:com_183;
-        $component4 = interface_1290:com_66;
-        $component5 = interface_1290:com_69;
-        $component6 = interface_1290:com_70;
-        $component7 = interface_1290:com_192;
-        $component8 = interface_1290:com_72;
+        $int1 = %trh_dungeon_crawl_dungeon_option_1_id;
+        $component2 = trh_dungeon_crawl_overlay:dungeon_option_1_token_graphic;
+        $component3 = trh_dungeon_crawl_overlay:dungeon_option_1_button_layer;
+        $component4 = trh_dungeon_crawl_overlay:dungeon_option_1_button_graphic;
+        $component5 = trh_dungeon_crawl_overlay:dungeon_option_1_title_text;
+        $component6 = trh_dungeon_crawl_overlay:dungeon_option_1_subtitle_text;
+        $component7 = trh_dungeon_crawl_overlay:dungeon_option_1_npc_model;
+        $component8 = trh_dungeon_crawl_overlay:dungeon_option_1_rewards_grid;
     case 2 :
-        $int1 = %varplayerbit_56172;
-        $component2 = interface_1290:com_62;
-        $component3 = interface_1290:com_190;
-        $component4 = interface_1290:com_74;
-        $component5 = interface_1290:com_186;
-        $component6 = interface_1290:com_187;
-        $component7 = interface_1290:com_193;
-        $component8 = interface_1290:com_189;
+        $int1 = %trh_dungeon_crawl_dungeon_option_2_id;
+        $component2 = trh_dungeon_crawl_overlay:dungeon_option_2_token_graphic;
+        $component3 = trh_dungeon_crawl_overlay:dungeon_option_2_button_layer;
+        $component4 = trh_dungeon_crawl_overlay:dungeon_option_2_button_graphic;
+        $component5 = trh_dungeon_crawl_overlay:dungeon_option_2_title_text;
+        $component6 = trh_dungeon_crawl_overlay:dungeon_option_2_subtitle_text;
+        $component7 = trh_dungeon_crawl_overlay:dungeon_option_2_npc_model;
+        $component8 = trh_dungeon_crawl_overlay:dungeon_option_2_rewards_grid;
 }
 if ($int1 = 0) {
     return;
 }
 def_dbrow $dbrow9 = ~script19210($int1);
-def_dbrow $dbrow10 = db_getfield($dbrow9, dbtable_297:col1, 0);
-def_string $string0 = db_getfield($dbrow9, dbtable_297:col2, 0);
-def_graphic $graphic11 = db_getfield($dbrow10, dbtable_296:col3:0, 0);
-def_graphic $graphic12 = db_getfield($dbrow10, dbtable_296:col3:1, 0);
-def_graphic $graphic13 = db_getfield($dbrow10, dbtable_296:col1:0, 0);
-def_graphic $graphic14 = db_getfield($dbrow10, dbtable_296:col1:1, 0);
-if_setopbase("<col=B8D1D1><db_getfield($dbrow10, dbtable_296:col0, 0)> Token</col>", $component2);
-if_setopcursor(1, cursor_5, $component2);
+def_dbrow $dbrow10 = db_getfield($dbrow9, trh_dungeon_crawl_dungeon:col1, 0);
+def_string $string0 = db_getfield($dbrow9, trh_dungeon_crawl_dungeon:col2, 0);
+def_graphic $graphic11 = db_getfield($dbrow10, trh_dungeon_crawl_theme:col3:0, 0);
+def_graphic $graphic12 = db_getfield($dbrow10, trh_dungeon_crawl_theme:col3:1, 0);
+def_graphic $graphic13 = db_getfield($dbrow10, trh_dungeon_crawl_theme:col1:0, 0);
+def_graphic $graphic14 = db_getfield($dbrow10, trh_dungeon_crawl_theme:col1:1, 0);
+if_setopbase("<col=B8D1D1><db_getfield($dbrow10, trh_dungeon_crawl_theme:col0, 0)> Token</col>", $component2);
+if_setopcursor(1, cursor_exchange, $component2);
 if (if_getgraphic($component2) ! $graphic14) {
     if_setgraphic($graphic13, $component2);
 }
 if_setonmouseover("graphic_swapper($component2, $graphic14)", $component2);
 if_setonmouseleave("graphic_swapper($component2, $graphic13)", $component2);
 if_setopbase("<col=00FFFF><$string0></col>", $component3);
-if ($int0 = %varplayer_11903) {
-    if_setgraphic(db_getfield($dbrow10, dbtable_296:col3:2, 0), $component4);
+if ($int0 = %trh_dungeon_crawl_dungeon_option_selected) {
+    if_setgraphic(db_getfield($dbrow10, trh_dungeon_crawl_theme:col3:2, 0), $component4);
     if_setonmouseover(null, $component3);
     if_setonmouseleave(null, $component3);
 } else {
@@ -61,27 +61,27 @@ if ($int0 = 2) {
     if_sethflip(true, $component4);
 }
 if_settext($string0, $component5);
-def_int $int15 = db_getfieldcount($dbrow9, dbtable_297:col3);
+def_int $int15 = db_getfieldcount($dbrow9, trh_dungeon_crawl_dungeon:col3);
 def_dbrow $dbrow16 = null;
 def_int $int17 = 0;
 def_int $int18 = -1;
 while (++$int18 < $int15) {
-    $dbrow16 = db_getfield($dbrow9, dbtable_297:col3, $int18);
-    if (db_getrowtable($dbrow16) = dbtable_298) {
-        $int17 = calc($int17 + (db_getfieldcount($dbrow16, dbtable_298:col5) - 1));
+    $dbrow16 = db_getfield($dbrow9, trh_dungeon_crawl_dungeon:col3, $int18);
+    if (db_getrowtable($dbrow16) = trh_dungeon_crawl_map) {
+        $int17 = calc($int17 + (db_getfieldcount($dbrow16, trh_dungeon_crawl_map:col5) - 1));
     }
 }
 if_settext("Keys required: <tostring($int17)>", $component6);
-~script19221(db_getfield($dbrow16, dbtable_300:col3, 0), $component7);
+~script19221(db_getfield($dbrow16, trh_dungeon_crawl_boss_encounter:col3, 0), $component7);
 if (if_find($component7) = true) {
     cc_setmodelangle(cc_getmodelxof, cc_getmodelyof, cc_getmodelangle_x, cc_getmodelangle_y, cc_getmodelangle_z, scale(250, 100, cc_getmodelzoom));
     cc_setposition(0, -10, ^setpos_abs_centre, ^setpos_abs_centre);
 }
-def_int $int19 = db_getfieldcount($dbrow9, dbtable_297:col4);
+def_int $int19 = db_getfieldcount($dbrow9, trh_dungeon_crawl_dungeon:col4);
 def_int $int20 = 1;
 def_int $int21 = 0;
 while (++$int21 <= 8) {
-    $int20 = db_getfield($dbrow9, dbtable_297:col4, calc($int21 - 1));
+    $int20 = db_getfield($dbrow9, trh_dungeon_crawl_dungeon:col4, calc($int21 - 1));
     ~if_add_child_layer($component8, $int21, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 35, 43, ^setsize_abs, ^setsize_abs);
     ~cc_add_child_graphic($int21, 2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, ~script227($int20));
     ~script3537(~script10876($int20));

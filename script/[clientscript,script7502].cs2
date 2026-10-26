@@ -4,45 +4,45 @@ def_int $int0 = 0;
 def_obj $obj1 = null;
 def_graphic $graphic2 = null;
 def_int $int3 = 0;
-%varclient_2706 = false;
-%varclient_2707 = 0;
+%rand_dnd_interface_scrolling = false;
+%rand_dnd_total_cards = 0;
 while ($int0 < 28) {
-    switch_obj (inv_getobj(inv_93, $int0)) {
-        case obj_27338, obj_27339, obj_27340, obj_27341, obj_27342, obj_27343, obj_27344, obj_27345, obj_27346, obj_27347, obj_27348 :
-            $obj1 = inv_getobj(inv_93, $int0);
+    switch_obj (inv_getobj(inv, $int0)) {
+        case rand_dnd_card_praying_mantis, rand_dnd_card_bloated_leech, rand_dnd_card_spirit_mosquito, rand_dnd_card_bunyip, rand_dnd_card_steel_titan, rand_dnd_card_ravenous_locust, rand_dnd_card_pack_yak, rand_dnd_card_meerkat, rand_dnd_card_phoenix, rand_dnd_card_ibis, rand_dnd_card_smoke_devil :
+            $obj1 = inv_getobj(inv, $int0);
             $int3 = 1;
         case default :
             $int3 = 0;
     }
     if ($int3 = 1) {
-        %varclient_2705 = 3;
+        %rand_dnd_current_card = 3;
         $graphic2 = ~script7503($obj1);
-        switch_int (%varclient_2707) {
+        switch_int (%rand_dnd_total_cards) {
             case 0 :
-                if_setgraphic($graphic2, interface_1389:com_11);
-                if_setgraphic(~script7504($graphic2), interface_1389:com_15);
-                if_settext(~script7505($graphic2), interface_1389:com_7);
-                if_settext(~script7515($graphic2), interface_1389:com_26);
+                if_setgraphic($graphic2, rand_dnd_select_card:rand_dnd_card_3);
+                if_setgraphic(~script7504($graphic2), rand_dnd_select_card:rand_dnd_chosen_card);
+                if_settext(~script7505($graphic2), rand_dnd_select_card:rand_dnd_card_name_text);
+                if_settext(~script7515($graphic2), rand_dnd_select_card:info_text);
             case 1 :
-                if_setgraphic($graphic2, interface_1389:com_10);
-                if_sethide(false, interface_1389:com_10);
+                if_setgraphic($graphic2, rand_dnd_select_card:rand_dnd_card_2);
+                if_sethide(false, rand_dnd_select_card:rand_dnd_card_2);
             case 2 :
-                if_setgraphic($graphic2, interface_1389:com_12);
-                if_sethide(false, interface_1389:com_12);
+                if_setgraphic($graphic2, rand_dnd_select_card:rand_dnd_card_4);
+                if_sethide(false, rand_dnd_select_card:rand_dnd_card_4);
             case 3 :
-                if_setgraphic($graphic2, interface_1389:com_9);
-                if_sethide(false, interface_1389:com_9);
+                if_setgraphic($graphic2, rand_dnd_select_card:rand_dnd_card_1);
+                if_sethide(false, rand_dnd_select_card:rand_dnd_card_1);
             case 4 :
-                if_setgraphic($graphic2, interface_1389:com_13);
-                if_sethide(false, interface_1389:com_13);
+                if_setgraphic($graphic2, rand_dnd_select_card:rand_dnd_card_5);
+                if_sethide(false, rand_dnd_select_card:rand_dnd_card_5);
         }
-        %varclient_2707 = calc(%varclient_2707 + 1);
+        %rand_dnd_total_cards = calc(%rand_dnd_total_cards + 1);
         $int3 = 0;
     }
     $int0 = calc($int0 + 1);
 }
-if (%varclient_2710 = 0) {
-    if_setontimer("script7512(15, 0)", interface_1389:com_23);
+if (%rand_dnd_turn_time = 0) {
+    if_setontimer("script7512(15, 0)", rand_dnd_select_card:rand_dnd_progress_bar_fill);
 } else {
-    if_setontimer("script7512(%varclient_2710, 0)", interface_1389:com_23);
+    if_setontimer("script7512(%rand_dnd_turn_time, 0)", rand_dnd_select_card:rand_dnd_progress_bar_fill);
 }

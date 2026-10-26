@@ -1,16 +1,16 @@
 // 20304
 [proc,script20304]
-def_dbrow $dbrow0 = ~script20117(%varplayer_12314);
+def_dbrow $dbrow0 = ~script20117(%league_active_player);
 if (~script20132($dbrow0) = false) {
     return;
 }
-if (%varclient_8334 = if_getwidth(interface_1361:com_7) & %varclient_8335 = if_getheight(interface_1361:com_7)) {
+if (%league_task_child_last_w = if_getwidth(league_child_tasks:main) & %league_task_child_last_h = if_getheight(league_child_tasks:main)) {
     return;
 }
-def_dbrow $dbrow1 = db_getfield($dbrow0, dbtable_326:col13, 0);
-def_dbrow $dbrow2 = db_getfield($dbrow1, dbtable_335:col6, 1);
+def_dbrow $dbrow1 = db_getfield($dbrow0, league:col13, 0);
+def_dbrow $dbrow2 = db_getfield($dbrow1, league_task_settings:col6, 1);
 def_int $int3 = 0;
-def_dbfilter $dbfilter4 = ~script20168(db_getfield($dbrow0, dbtable_326:col24, 0));
+def_dbfilter $dbfilter4 = ~script20168(db_getfield($dbrow0, league:col24, 0));
 def_achievement $achievement5 = null;
 def_string $string0 = "";
 def_int $int6 = 0;
@@ -18,18 +18,18 @@ def_int $int7 = 0;
 def_int $int8 = 0;
 def_int $int9 = 0;
 def_int $int10 = 0;
-unknown_command_77($dbfilter4, dbtable_334:col7, true);
+unknown_command_77($dbfilter4, league_task:col7, true);
 def_dbrow $dbrow11 = db_findnext;
 def_int $int12 = 0;
-def_fontmetrics $fontmetrics13 = ~script20491(dbrow_2100);
+def_fontmetrics $fontmetrics13 = ~script20491(text_body_default);
 while ($dbrow11 ! null) {
-    $int9 = db_getfield($dbrow11, dbtable_334:col0, 0);
-    $achievement5 = db_getfield($dbrow11, dbtable_334:col3, 0);
-    $int6 = db_getfield($dbrow11, dbtable_334:col6, 0);
+    $int9 = db_getfield($dbrow11, league_task:col0, 0);
+    $achievement5 = db_getfield($dbrow11, league_task:col3, 0);
+    $int6 = db_getfield($dbrow11, league_task:col6, 0);
     $string0 = ~script20131($dbrow11, $achievement5);
-    $int3 = calc(200 + db_getfield($dbrow2, dbtable_336:col1:0, $int6));
-    if (.cc_findbycategory(interface_1361:com_21, $int3, 0) = 1 & cc_find(interface_1361:com_21, $int9) = true) {
-        if (if_exists(~script20173(calc(3000 * 5 + $int9)), interface_1361:com_21) = 1) {
+    $int3 = calc(200 + db_getfield($dbrow2, league_task_order:col1:0, $int6));
+    if (.cc_findbycategory(league_child_tasks:task_panel, $int3, 0) = 1 & cc_find(league_child_tasks:task_panel, $int9) = true) {
+        if (if_exists(~script20173(calc(3000 * 5 + $int9)), league_child_tasks:task_panel) = 1) {
             $int12 = calc(38 + 32);
         } else {
             $int12 = 38;
@@ -39,20 +39,20 @@ while ($dbrow11 ! null) {
         if ($int8 ! $int7) {
             cc_setsize(6, $int8, ^setsize_minus, ^setsize_abs);
             if ($int8 > $int7) {
-                $int10 = calc(.cc_param(param_9334) + ($int8 - $int7));
+                $int10 = calc(.cc_param(league_task_cat_full_height) + ($int8 - $int7));
             } else {
-                $int10 = calc(.cc_param(param_9334) - ($int7 - $int8));
+                $int10 = calc(.cc_param(league_task_cat_full_height) - ($int7 - $int8));
             }
             if (~script20171(1, calc(200 - $int3)) = 0) {
                 .cc_setsize(0, $int10, ^setsize_minus, ^setsize_abs);
             }
-            .cc_setparam(param_9334, $int10);
+            .cc_setparam(league_task_cat_full_height, $int10);
         }
     }
     $dbrow11 = db_findnext;
 }
-~script20309(interface_1361:com_21, interface_1361:com_20, interface_1361:com_22);
-%varclient_8334 = if_getwidth(interface_1361:com_7);
-%varclient_8335 = if_getheight(interface_1361:com_7);
-~child_buttons_resize(interface_1361:com_24, 100);
+~script20309(league_child_tasks:task_panel, league_child_tasks:task_scrolling, league_child_tasks:task_scrollbar);
+%league_task_child_last_w = if_getwidth(league_child_tasks:main);
+%league_task_child_last_h = if_getheight(league_child_tasks:main);
+~child_buttons_resize(league_child_tasks:button_layer, 100);
 ~script20316;

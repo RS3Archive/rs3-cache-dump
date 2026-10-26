@@ -1,8 +1,8 @@
 // 16449
 [proc,script16449]
-def_component $component0 = interface_1486:com_14;
-def_int $int1 = cc_param(param_4261);
-db_find(dbtable_170:col0, $int1);
+def_component $component0 = text_tooltip:tooltip_dynamic_text;
+def_int $int1 = cc_param(toplevel_v2_tooltip_param_int0);
+db_find(farming_site:col0, $int1);
 def_dbrow $dbrow2 = db_findnext;
 if ($dbrow2 = null) {
     return;
@@ -13,7 +13,7 @@ def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = -1;
 def_int $int8 = 0;
-def_enum $enum9 = db_getfield($dbrow2, dbtable_170:col2, 0);
+def_enum $enum9 = db_getfield($dbrow2, farming_site:col2, 0);
 def_int $int10 = enum_getoutputcount($enum9);
 if ($int10 <= 0) {
     return;
@@ -25,11 +25,11 @@ if ($struct11 = null) {
 def_int $int12 = 0;
 def_string $string0 = "";
 def_int $int13 = 0;
-$int12, $string0, $int13 = ~script16461($struct11, ~bool_to_int(struct_param($struct11, param_2217)));
+$int12, $string0, $int13 = ~script16461($struct11, ~bool_to_int(struct_param($struct11, skillguide_members)));
 $int12, $string0, $int13 = ~script16451($dbrow2, $int12, $string0, $int13);
-def_string $string1 = db_getfield($dbrow2, dbtable_170:col1, 0);
+def_string $string1 = db_getfield($dbrow2, farming_site:col1, 0);
 if (string_length($string1) = 0) {
-    $string1 = struct_param($struct11, param_2210);
+    $string1 = struct_param($struct11, skillguide_name);
 }
 def_int $int14 = 6;
 if (string_length($string1) > 0) {
@@ -42,7 +42,7 @@ if ($int10 > $int14) {
     $int3 = calc($int3 * 2);
     $int8 = 1;
 }
-~script7924($component0, if_getnextsubid($component0), 35, 35, 0, 0, enum(int, graphic, enum_8548, 21), false, false, false, 0);
+~script7924($component0, if_getnextsubid($component0), 35, 35, 0, 0, enum(int, graphic, stat2icon_medium, 21), false, false, false, 0);
 $int6 = ~script14747($component0, calc(35 + 4 * 2), $int6, calc($int3 - 35 - 4 * 2), $string1, $int13, 40);
 $int6 = ~script14748($component0, 0, $int6);
 if (string_length($string0) > 0) {
@@ -65,7 +65,7 @@ while (++$int7 < $int10) {
     }
 }
 def_string $string2 = "Unlock the <col=EBE076>Remote Farming Device</col> at your player-owned farm.";
-if (%varplayerbit_45420 = 1) {
+if (%pof_remote_farm_built = 1) {
     $string2 = ~script15204($int1, ~script3214($int1), ~script16790($int1));
 }
 $int6 = ~script14748($component0, 0, $int6);

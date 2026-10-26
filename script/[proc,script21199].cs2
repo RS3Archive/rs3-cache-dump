@@ -1,0 +1,82 @@
+// 21199
+[proc,script21199](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int2, $int3 = plugin_install_status;
+if (%plugin_hub_install_status = $int3) {
+    return;
+}
+if (%plugin_hub_install_status >= 3 & $int3 = 0) {
+    if_setontimer(null, plugin_hub_parent_install:status_listener);
+    $int3 = 4;
+}
+def_int $int4 = %plugin_hub_install_status;
+%plugin_hub_install_status = $int3;
+switch_int ($int3) {
+    case 0 :
+        if_sethide(false, plugin_hub_parent_install:prepare_buttons);
+        if_settext("Load dependencies for installation", plugin_hub_parent_install:prepare_button);
+        if_sethide(true, plugin_hub_parent_install:prepare_spinner);
+        if_sethide(true, plugin_hub_parent_install:install_spinner);
+        if_setenabled(true, plugin_hub_parent_install:prepare_button);
+        if_sethide(true, plugin_hub_parent_install:install_buttons);
+        if_setenabled(false, plugin_hub_parent_install:install_button);
+        if_setenabled(false, plugin_hub_parent_install:cancel_button);
+        if_setonbuttonpressed("script21202($int0)", plugin_hub_parent_install:prepare_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:install_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:cancel_button);
+        if ($int4 = -1) {
+            plugin_install_begin($int0);
+        }
+    case 1 :
+        if_sethide(false, plugin_hub_parent_install:prepare_buttons);
+        if_settext("Loading dependencies...", plugin_hub_parent_install:prepare_button);
+        if_sethide(false, plugin_hub_parent_install:prepare_spinner);
+        if_sethide(true, plugin_hub_parent_install:install_spinner);
+        if_setenabled(false, plugin_hub_parent_install:prepare_button);
+        if_sethide(true, plugin_hub_parent_install:install_buttons);
+        if_setenabled(false, plugin_hub_parent_install:install_button);
+        if_setenabled(false, plugin_hub_parent_install:cancel_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:prepare_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:install_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:cancel_button);
+    case 2 :
+        if_sethide(true, plugin_hub_parent_install:prepare_buttons);
+        if_settext("", plugin_hub_parent_install:prepare_button);
+        if_sethide(true, plugin_hub_parent_install:prepare_spinner);
+        if_sethide(true, plugin_hub_parent_install:install_spinner);
+        if_setenabled(false, plugin_hub_parent_install:prepare_button);
+        if_sethide(false, plugin_hub_parent_install:install_buttons);
+        if_setenabled(true, plugin_hub_parent_install:install_button);
+        if_setenabled(true, plugin_hub_parent_install:cancel_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:prepare_button);
+        if_setonbuttonpressed("script21203($int0, $int1)", plugin_hub_parent_install:install_button);
+        if_setonbuttonpressed("script21205($int0, $int1)", plugin_hub_parent_install:cancel_button);
+        ~script21200($int0);
+    case 3 :
+        if_sethide(true, plugin_hub_parent_install:prepare_buttons);
+        if_settext("", plugin_hub_parent_install:prepare_button);
+        if_sethide(true, plugin_hub_parent_install:prepare_spinner);
+        if_sethide(false, plugin_hub_parent_install:install_spinner);
+        if_setenabled(false, plugin_hub_parent_install:prepare_button);
+        if_sethide(false, plugin_hub_parent_install:install_buttons);
+        if_setenabled(false, plugin_hub_parent_install:install_button);
+        if_setenabled(true, plugin_hub_parent_install:cancel_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:prepare_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:install_button);
+        if_setonbuttonpressed("script21205($int0, $int1)", plugin_hub_parent_install:cancel_button);
+    case 4 :
+        if_sethide(true, plugin_hub_parent_install:prepare_buttons);
+        if_settext("", plugin_hub_parent_install:prepare_button);
+        if_sethide(true, plugin_hub_parent_install:prepare_spinner);
+        if_sethide(true, plugin_hub_parent_install:install_spinner);
+        if_setenabled(false, plugin_hub_parent_install:prepare_button);
+        if_sethide(true, plugin_hub_parent_install:install_buttons);
+        if_setenabled(false, plugin_hub_parent_install:install_button);
+        if_setenabled(false, plugin_hub_parent_install:cancel_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:prepare_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:install_button);
+        if_setonbuttonpressed(null, plugin_hub_parent_install:cancel_button);
+        ~script21201($int0);
+        ~script21206;
+}

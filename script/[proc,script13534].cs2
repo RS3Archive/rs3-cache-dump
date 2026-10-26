@@ -30,19 +30,19 @@ cc_deleteall($component4);
 while ($int9 < $int10) {
     $struct17 = enum(int, struct, $enum1, $int9);
     .cc_create($component4, ^iftype_text, $int9);
-    if (testbit(struct_param($struct17, param_6651), $int5) = ^true & ~script19379($struct17) = true) {
-        if (struct_param($struct17, param_6654) = 1) {
+    if (testbit(struct_param($struct17, chat_allowed_chats), $int5) = ^true & ~script19379($struct17) = true) {
+        if (struct_param($struct17, chat_has_stream) = 1) {
             $int11, $int12 = ~script11599($int0, $struct17);
         } else {
             $int12 = 0;
             switch_struct ($struct17) {
-                case struct_37640 :
-                    $int11 = %varclient_2834;
+                case chat_filter_profanity :
+                    $int11 = %chat_v2_profanity_filter;
                     $int12 = calc(1 - $int11);
-                case struct_37641 :
-                    $int11 = %varplayerbit_20828;
+                case chat_filter_broadcast :
+                    $int11 = %toplevel_v2_chat1_broadcast;
                     $int12 = calc(1 - $int11);
-                case struct_37642 :
+                case chat_filter_online :
                     switch_int (chat_getfilter_private) {
                         case default :
                             $int11 = 1;
@@ -59,42 +59,42 @@ while ($int9 < $int10) {
                     $int12 = -1;
             }
         }
-        $string2 = struct_param($struct17, param_6647);
-        $int13 = struct_param($struct17, param_6653);
+        $string2 = struct_param($struct17, chat_filter_name);
+        $int13 = struct_param($struct17, chat_available_ops);
         $string5 = "<$string2>: ";
-        $graphic19 = struct_param($struct17, param_6726);
-        if ($struct17 = struct_37632 & %varplayerbit_36983 = 1) {
+        $graphic19 = struct_param($struct17, chat_filter_graphic_over);
+        if ($struct17 = chat_filter_local & %chat_v2_hide_public = 1) {
             $string0 = "<col=00FFFF>Hide";
             $string1 = "Turn ON";
-            $graphic18 = struct_param($struct17, param_6656);
+            $graphic18 = struct_param($struct17, chat_filter_graphic_filtered);
         } else if ($int11 = 0) {
             $string0 = "<col=7592A0>Off";
-            if ($struct17 = struct_37632 & %varplayerbit_36983 = 0) {
+            if ($struct17 = chat_filter_local & %chat_v2_hide_public = 0) {
                 $string1 = "Hide";
             } else {
                 $string1 = "Turn ON";
             }
-            $graphic18 = struct_param($struct17, param_6657);
+            $graphic18 = struct_param($struct17, chat_filter_graphic_off);
         } else if ($int12 = 1) {
-            $string0 = "<col=AED0E0><struct_param($struct17, param_6648)>";
+            $string0 = "<col=AED0E0><struct_param($struct17, chat_filtered_name)>";
             $string1 = "Turn OFF";
-            $graphic18 = struct_param($struct17, param_6656);
+            $graphic18 = struct_param($struct17, chat_filter_graphic_filtered);
         } else if ($int12 = -1) {
             $string5 = $string2;
             $string1 = $string2;
             $string2 = "";
             $string0 = "";
-            $graphic18 = struct_param($struct17, param_6655);
+            $graphic18 = struct_param($struct17, chat_filter_graphic_on);
             switch_struct ($struct17) {
-                case struct_37653 :
-                    if (%varclient_4505 = 1) {
+                case chat_filter_groupswitchteam :
+                    if (%message_group_send_to_team = 1) {
                         $graphic18 = grouping_sys_team_chat_on;
                         $graphic19 = grouping_sys_team_chat_over;
                     } else {
                         $graphic18 = grouping_sys_group_chat_on;
                         $graphic19 = grouping_sys_group_chat_over;
                     }
-                case struct_37645 :
+                case chat_filter_friendjoin :
                     if (clan_getchatcount > 0) {
                         $string1 = "Leave Chat";
                         $string5 = $string1;
@@ -104,7 +104,7 @@ while ($int9 < $int10) {
                         $string5 = $string1;
                         $graphic18 = "aif_clanchat_icons,2";
                     }
-                case struct_37647 :
+                case chat_filter_clanjoin :
                     if (activeclanchannel_find_affined(0) = true) {
                         $string1 = "Leave Clan Chat";
                         $string5 = $string1;
@@ -114,7 +114,7 @@ while ($int9 < $int10) {
                         $string5 = $string1;
                         $graphic18 = "aif_clanchat_icons,13";
                     }
-                case struct_37648 :
+                case chat_filter_guestjoin :
                     if (activeclanchannel_find_listened = true) {
                         $string1 = "Leave Guest Chat";
                         $string5 = $string1;
@@ -126,24 +126,24 @@ while ($int9 < $int10) {
                     }
             }
         } else {
-            $string5 = "<struct_param($struct17, param_6647)>: ";
+            $string5 = "<struct_param($struct17, chat_filter_name)>: ";
             $string0 = "<col=FFCB05>On";
-            if (compare("", struct_param($struct17, param_6648)) = 0) {
+            if (compare("", struct_param($struct17, chat_filtered_name)) = 0) {
                 $string1 = "Turn OFF";
             } else {
                 $string1 = "Filter";
             }
-            $graphic18 = struct_param($struct17, param_6655);
+            $graphic18 = struct_param($struct17, chat_filter_graphic_on);
         }
-        if ($struct17 = struct_37649) {
+        if ($struct17 = chat_filter_reportabuse) {
             .cc_setop(2, "Report Player");
             .cc_setop(3, "Report Bug");
         }
-        if ($struct17 = struct_41813) {
+        if ($struct17 = chat_filter_textsize) {
             $string5 = "<$string5>: ";
-            $string0 = "<col=FFCB05><enum(int, string, enum_1443, ~script3873)>pt</col>";
+            $string0 = "<col=FFCB05><enum(int, string, settings_chat_size, ~script3873)>pt</col>";
         }
-        if ($struct17 = struct_37912) {
+        if ($struct17 = chat_filter_divider) {
             if ($int2 = 1) {
                 $int15 = 0;
                 $int16 = 0;
@@ -154,7 +154,7 @@ while ($int9 < $int10) {
             }
         } else {
             $int15 = 16;
-            if (%varplayerbit_38842 = 1) {
+            if (%toplevel_v2_mobile_interface = 1) {
                 $int16 = 40;
             } else {
                 $int16 = 20;
@@ -176,19 +176,19 @@ while ($int9 < $int10) {
             cc_create($component3, ^iftype_text, if_getnextsubid($component3));
             cc_setposition(25, $int7, ^setpos_abs_left, ^setpos_abs_top);
             cc_setsize(25, $int16, ^setsize_minus, ^setsize_abs);
-            cc_settextfont(fontmetrics_26);
+            cc_settextfont(museo_sans_11pt_regular);
             cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
             cc_settext($string3);
             cc_setonmouseover("cc_text_swapper(event_com, event_comsubid, $string4)");
             cc_setonmouseleave("cc_text_swapper(event_com, event_comsubid, $string3)");
-            $int8 = max($int8, calc(25 + stringwidth(removetags($string3), fontmetrics_26)));
+            $int8 = max($int8, calc(25 + stringwidth(removetags($string3), museo_sans_11pt_regular)));
         } else {
-            if ($struct17 ! struct_37912) {
+            if ($struct17 ! chat_filter_divider) {
                 $string6 = $string5;
                 if (compare($string0, "") ! 0) {
                     $string6 = "<$string6><br>Current setting: <$string0>";
                 }
-                $string6 = "<$string6><br><struct_param($struct17, param_6724)>";
+                $string6 = "<$string6><br><struct_param($struct17, chat_filter_tooltip)>";
                 cc_setonmouserepeat("script3876($string6, event_com, event_comsubid)");
             }
             cc_setposition($int6, 0, ^setpos_abs_left, ^setpos_abs_centre);
@@ -196,15 +196,15 @@ while ($int9 < $int10) {
             .cc_setposition($int6, 0, ^setpos_abs_left, ^setpos_abs_centre);
             $int8 = calc($int6 + $int16);
         }
-        if ($struct17 ! struct_37912) {
+        if ($struct17 ! chat_filter_divider) {
             .cc_setonop("script8494($int0, $struct17, event_op, $enum1, $int2)");
             .cc_setop(1, $string1);
-            if (testbit(struct_param($struct17, param_6652), ~script383($int0)) = ^false) {
+            if (testbit(struct_param($struct17, chat_forced_chats), ~script383($int0)) = ^false) {
                 if (testbit($int13, 2) = ^true) {
                     .cc_setop(2, "Turn ON");
                 }
                 if (testbit($int13, 3) = ^true) {
-                    .cc_setop(3, struct_param($struct17, param_6648));
+                    .cc_setop(3, struct_param($struct17, chat_filtered_name));
                 }
                 if (testbit($int13, 4) = ^true) {
                     .cc_setop(4, "Turn OFF");

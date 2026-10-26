@@ -1,24 +1,24 @@
 // 7658
 [proc,bugreport_input]
-if (string_length(%varclient_2758) > 0) {
-    if_settext(%varclient_2758, interface_1405:com_12);
+if (string_length(%bugreport_input) > 0) {
+    if_settext(%bugreport_input, bugreport_interface:input_text);
 }
-if (string_length(%varclient_2759) > 0) {
-    if_settext(%varclient_2759, interface_1405:com_26);
+if (string_length(%bugreport_repro) > 0) {
+    if_settext(%bugreport_repro, bugreport_interface:input_repro);
 }
-%varclient_2753 = 1;
+%bugreport_input_focus = 1;
 ~script8841(17, 1);
-%varclient_2749 = string_length(%varclient_2758);
-%varclient_2750 = string_length(%varclient_2759);
-%varclient_2755 = 0;
-%varclient_2756 = 0;
-%varclient_2757 = -1;
-if_setonclick("script7669(event_mousex, event_mousey, interface_1405:com_12, interface_1405:com_15)", interface_1405:com_12);
-if_setonclick("script7669(event_mousex, event_mousey, interface_1405:com_26, interface_1405:com_27)", interface_1405:com_26);
-~script1566(0, %varclient_2758, 0);
-~script7671(interface_1405:com_12, interface_1405:com_15, %varclient_2758);
-~script7671(interface_1405:com_26, interface_1405:com_27, %varclient_2759);
-if_sethide(true, interface_1405:com_15);
-if_sethide(true, interface_1405:com_27);
-if_settext(tostring(calc(500 - string_length(removetags(%varclient_2758)))), interface_1405:com_14);
-if_settext(tostring(calc(500 - string_length(removetags(%varclient_2759)))), interface_1405:com_29);
+%bugreport_caret = string_length(%bugreport_input);
+%bugreport_caret_repro = string_length(%bugreport_repro);
+%bugreport_caret1_pos = 0;
+%bugreport_caret2_pos = 0;
+%bugreport_caret_lastindex = -1;
+if_setonclick("script7669(event_mousex, event_mousey, bugreport_interface:input_text, bugreport_interface:input_caret)", bugreport_interface:input_text);
+if_setonclick("script7669(event_mousex, event_mousey, bugreport_interface:input_repro, bugreport_interface:repro_caret)", bugreport_interface:input_repro);
+~script1566(0, %bugreport_input, 0);
+~script7671(bugreport_interface:input_text, bugreport_interface:input_caret, %bugreport_input);
+~script7671(bugreport_interface:input_repro, bugreport_interface:repro_caret, %bugreport_repro);
+if_sethide(true, bugreport_interface:input_caret);
+if_sethide(true, bugreport_interface:repro_caret);
+if_settext(tostring(calc(500 - string_length(removetags(%bugreport_input)))), bugreport_interface:chars_left);
+if_settext(tostring(calc(500 - string_length(removetags(%bugreport_repro)))), bugreport_interface:chars_repro);

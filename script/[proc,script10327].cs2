@@ -26,19 +26,19 @@ def_int $int15 = 3;
 def_int $int16 = ~script10275;
 def_int $int17 = if_getwidth($component4);
 def_int $int18 = if_getwidth($component3);
-def_struct $struct19 = ~script10285(%varplayergroup_16);
+def_struct $struct19 = ~script10285(%group_type);
 if ($int16 ! -1) {
     if ($int16 = player_group_get_owner_slot) {
         $int15 = ~script10329($int15, $component0, $component7);
         $int15 = ~script10329($int15, $component0, $component6);
         $int15 = ~script10329($int15, $component0, $component13);
-        if (%varplayergroup_16 ! 999999) {
+        if (%group_type ! 999999) {
             $int15 = ~script10329($int15, $component0, $component12);
         }
         if ($struct19 ! null) {
-            if (struct_param($struct19, param_4655) = true & player_group_member_get_status($int16) = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, param_4500)) {
+            if (struct_param($struct19, group_in_world) = true & player_group_member_get_status($int16) = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, group_min_players)) {
                 $int15 = ~script10329($int15, $component0, $component9);
-            } else if (player_group_get_overall_status = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, param_4500) & struct_param($struct19, param_4506) ! null & %varplayergroup_16 ! 999999) {
+            } else if (player_group_get_overall_status = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, group_min_players) & struct_param($struct19, group_tele_coord) ! null & %group_type ! 999999) {
                 $int15 = ~script10329($int15, $component0, $component9);
             }
         }
@@ -49,11 +49,11 @@ if ($int16 ! -1) {
     } else {
         $int15 = ~script10329($int15, $component0, $component7);
         $int15 = ~script10329($int15, $component0, $component13);
-        if ($struct19 ! null & struct_param($struct19, param_4655) = true & player_group_member_get_status($int16) = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, param_4500)) {
+        if ($struct19 ! null & struct_param($struct19, group_in_world) = true & player_group_member_get_status($int16) = playergroupstatus_1 & player_group_member_count >= struct_param($struct19, group_min_players)) {
             $int15 = ~script10329($int15, $component0, $component9);
         }
     }
-    if ($component0 = interface_1520:com_10) {
+    if ($component0 = group_child_dropdown:content_layer) {
         $int15 = ~script10329($int15, $component0, $component10);
     } else if (calc($int15 + 27 + 40 + $int18) < $int17) {
         ~script10329(calc($int17 - 40 - $int18 - 27), $component0, $component10);
@@ -64,7 +64,7 @@ if ($int16 ! -1) {
     }
 }
 $int15 = calc($int15 + 3);
-if ($component0 = interface_1520:com_10) {
+if ($component0 = group_child_dropdown:content_layer) {
     if ($component1 ! null) {
         ~script8788(calc($int15 + 10), 40, $component1, -1, 2, -24, -6);
     }

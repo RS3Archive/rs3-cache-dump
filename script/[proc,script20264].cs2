@@ -1,35 +1,35 @@
 // 20264
 [proc,script20264](dbrow $dbrow0, dbrow $dbrow1)
-def_int $int2 = db_getfieldcount($dbrow0, dbtable_328:col1);
+def_int $int2 = db_getfieldcount($dbrow0, league_relic_tier:col1);
 def_int $int3 = -1;
-def_int $int4 = calc((%varplayerbit_58408 + 1) % $int2);
-if (%varplayerbit_58408 = 0) {
+def_int $int4 = calc((%league_relic_selected_id + 1) % $int2);
+if (%league_relic_selected_id = 0) {
     $int3 = calc($int2 - 1);
 } else {
-    $int3 = calc(%varplayerbit_58408 - 1);
+    $int3 = calc(%league_relic_selected_id - 1);
 }
-def_int $int5 = %varplayerbit_58407;
-def_dbrow $dbrow6 = db_getfield($dbrow0, dbtable_328:col1, $int4);
-def_dbrow $dbrow7 = db_getfield($dbrow0, dbtable_328:col1, $int3);
+def_int $int5 = %league_relic_selected_tier;
+def_dbrow $dbrow6 = db_getfield($dbrow0, league_relic_tier:col1, $int4);
+def_dbrow $dbrow7 = db_getfield($dbrow0, league_relic_tier:col1, $int3);
 def_int $int8 = calc((140 + 4) * 3 - 4);
 def_int $int9 = $int2;
-cc_deleteall(interface_1443:com_20);
-if_setsize($int8, 100, ^setsize_abs, ^setsize_abs, interface_1443:com_20);
-~if_add_child_layer(interface_1443:com_20, 200, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+cc_deleteall(league_parent_relics:overview_navigation_contents);
+if_setsize($int8, 100, ^setsize_abs, ^setsize_abs, league_parent_relics:overview_navigation_contents);
+~if_add_child_layer(league_parent_relics:overview_navigation_contents, 200, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
 if ($dbrow7 ! null & $dbrow7 ! $dbrow6) {
     ~cc_add_child_layer($int5, $int3, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
     cc_sendtofront;
     $int9 = ~script20257($dbrow0, $int5, $int3, $int9, 0, false, 2);
 }
-~if_add_child_layer(interface_1443:com_20, 200, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
-~cc_add_child_layer($int5, %varplayerbit_58408, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
+~if_add_child_layer(league_parent_relics:overview_navigation_contents, 200, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+~cc_add_child_layer($int5, %league_relic_selected_id, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
 cc_sendtofront;
-$int9 = ~script20257($dbrow0, $int5, %varplayerbit_58408, $int9, 0, true, 1);
-~if_add_child_layer(interface_1443:com_20, 200, 2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+$int9 = ~script20257($dbrow0, $int5, %league_relic_selected_id, $int9, 0, true, 1);
+~if_add_child_layer(league_parent_relics:overview_navigation_contents, 200, 2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
 if ($dbrow6 ! null & $dbrow6 ! $dbrow1) {
     ~cc_add_child_layer($int5, $int4, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus);
     cc_sendtofront;
     $int9 = ~script20257($dbrow0, $int5, $int4, $int9, 0, false, 3);
 }
-~if_add_child_layer(interface_1443:com_40, 200, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
-~script20257($dbrow0, $int5, %varplayerbit_58408, 0, 0, true, 4);
+~if_add_child_layer(league_parent_relics:relic_display, 200, 1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
+~script20257($dbrow0, $int5, %league_relic_selected_id, 0, 0, true, 4);

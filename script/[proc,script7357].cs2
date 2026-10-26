@@ -4,60 +4,60 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
-def_int $int4 = %varplayerbit_17220;
-def_int $int5 = %varplayerbit_17224;
-def_int $int6 = %varplayerbit_17225;
-def_enum $enum7 = enum_2195;
+def_int $int4 = %pop_captain_n_gender;
+def_int $int5 = %pop_captain_n_firstname;
+def_int $int6 = %pop_captain_n_lastname;
+def_enum $enum7 = pop_captain_firstname_male;
 def_string $string0 = "";
-def_int $int8 = %varplayerbit_17218;
+def_int $int8 = %pop_captain_n_hair;
 if ($int4 = 1) {
-    $enum7 = enum_5767;
+    $enum7 = pop_captain_firstname_female;
 }
-$string0 = append(enum(int, string, $enum7, $int5), append(" ", enum(int, string, enum_5768, $int6)));
-def_npc $npc9 = ~script2356($int4, %varplayerbit_17218, %varplayerbit_17219, %varplayerbit_17217);
+$string0 = append(enum(int, string, $enum7, $int5), append(" ", enum(int, string, pop_captain_lastname, $int6)));
+def_npc $npc9 = ~script2356($int4, %pop_captain_n_hair, %pop_captain_n_skincol, %pop_captain_n_haircol);
 $int0, $int1, $int2, $int3 = ~script7334;
 if ($int0 > 0) {
-    if_sethide(false, interface_944:com_79);
-    if_settext(enum(int, string, enum_1626, $int0), interface_944:com_82);
-    if_setmodel(enum(int, model, enum_1669, $int0), interface_944:com_81);
-    if_setmodelanim(seq_9806, interface_944:com_81);
+    if_sethide(false, pop_log:adventurer_1_layer);
+    if_settext(enum(int, string, pop_voyage_adventurers, $int0), pop_log:adventurer_1_name);
+    if_setmodel(enum(int, model, pop_story_adventurer_heads, $int0), pop_log:adventurer_1_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_log:adventurer_1_model);
     if ($int1 = 2) {
-        if_settext("In Port", interface_944:com_83);
+        if_settext("In Port", pop_log:adventurer_1_status);
     } else if ($int1 = 3) {
-        if_settext("Under Way", interface_944:com_83);
+        if_settext("Under Way", pop_log:adventurer_1_status);
     }
 } else {
-    if_sethide(true, interface_944:com_79);
+    if_sethide(true, pop_log:adventurer_1_layer);
 }
 if ($int2 > 0) {
-    if_sethide(false, interface_944:com_85);
-    if_settext(enum(int, string, enum_1626, $int2), interface_944:com_88);
-    if_setmodel(enum(int, model, enum_1669, $int2), interface_944:com_87);
-    if_setmodelanim(seq_9806, interface_944:com_87);
+    if_sethide(false, pop_log:adventurer_2_layer);
+    if_settext(enum(int, string, pop_voyage_adventurers, $int2), pop_log:adventurer_2_name);
+    if_setmodel(enum(int, model, pop_story_adventurer_heads, $int2), pop_log:adventurer_2_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_log:adventurer_2_model);
     if ($int3 = 2) {
-        if_settext("In Port", interface_944:com_89);
+        if_settext("In Port", pop_log:adventurer_2_status);
     } else if ($int3 = 3) {
-        if_settext("Under Way", interface_944:com_89);
+        if_settext("Under Way", pop_log:adventurer_2_status);
     }
 } else {
-    if_sethide(true, interface_944:com_85);
+    if_sethide(true, pop_log:adventurer_2_layer);
 }
-if (%varplayerbit_17224 > 0) {
-    if_sethide(false, interface_944:com_91);
-    if_setnpchead($npc9, interface_944:com_93);
-    if_setmodelanim(seq_9806, interface_944:com_93);
-    if_settext($string0, interface_944:com_95);
+if (%pop_captain_n_firstname > 0) {
+    if_sethide(false, pop_log:captain_layer);
+    if_setnpchead($npc9, pop_log:captain_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_log:captain_model);
+    if_settext($string0, pop_log:captain_name);
 } else {
-    if_sethide(true, interface_944:com_91);
+    if_sethide(true, pop_log:captain_layer);
 }
-if (%varplayerbit_17463 > 0) {
-    if_sethide(false, interface_944:com_97);
-    if_setmodel(model_81333, interface_944:com_99);
-    if_setmodelanim(seq_9806, interface_944:com_99);
-    if_setgraphic(enum(int, graphic, enum_7153, %varplayerbit_17462), interface_944:com_102);
-    if_setsize(17, 17, ^setsize_abs, ^setsize_abs, interface_944:com_102);
-    if_settext(enum(int, string, enum_2164, %varplayerbit_17462), interface_944:com_101);
-    if_settext("x <tostring(%varplayerbit_17463)>", interface_944:com_103);
+if (%pop_market_quantity > 0) {
+    if_sethide(false, pop_log:smuggler_layer);
+    if_setmodel(pop_original_black_marketeer_chat, pop_log:smuggler_model);
+    if_setmodelanim(human_update_chathead_neutral, pop_log:smuggler_model);
+    if_setgraphic(enum(int, graphic, pop_port_resource_icons, %pop_market_resource), pop_log:smuggler_goods_icon);
+    if_setsize(17, 17, ^setsize_abs, ^setsize_abs, pop_log:smuggler_goods_icon);
+    if_settext(enum(int, string, pop_voyage_rewards, %pop_market_resource), pop_log:smuggler_goods);
+    if_settext("x <tostring(%pop_market_quantity)>", pop_log:smuggler_quantity);
 } else {
-    if_sethide(true, interface_944:com_97);
+    if_sethide(true, pop_log:smuggler_layer);
 }

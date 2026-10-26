@@ -1,17 +1,17 @@
 // 9324
 [proc,script9324](int $int0)
-if (%varclient_6684 = true) {
-    ~bank_show_search(%varclient_6711, $int0);
-    ~diango_search_item(%varclient_6711, interface_517:com_202);
-} else if (%varplayerbit_45140 ! 0) {
-    switch_int (%varplayerbit_45140) {
+if (%bank_searchmode_client = true) {
+    ~bank_show_search(%bank_lastsearchstring, $int0);
+    ~diango_search_item(%bank_lastsearchstring, bank:diango_inv);
+} else if (%bank_filter ! 0) {
+    switch_int (%bank_filter) {
         case default :
-            ~bank_filter_simple(%varplayerbit_45140, $int0);
+            ~bank_filter_simple(%bank_filter, $int0);
         case 4, 1, 7 :
-            ~bank_filter_complex(%varplayerbit_45140, $int0);
+            ~bank_filter_complex(%bank_filter, $int0);
     }
-} else if (%varplayerbit_45141 = 1) {
+} else if (%bank_current_tab = 1) {
     ~bank_show_all;
 } else {
-    ~bank_show_tab(%varplayerbit_45141);
+    ~bank_show_tab(%bank_current_tab);
 }

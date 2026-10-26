@@ -2,15 +2,15 @@
 [proc,settings_select_entry](int $int0)
 def_int $int1 = 1023;
 def_int $int2 = ~script20385;
-def_dbrow $dbrow3 = enum(int, dbrow, enum_14569, $int0);
+def_dbrow $dbrow3 = enum(int, dbrow, settings_all_categories, $int0);
 def_dbrow $dbrow4 = null;
-def_int $int5 = db_getfieldcount($dbrow3, dbtable_31:col3);
+def_int $int5 = db_getfieldcount($dbrow3, settings_category:col3);
 def_int $int6 = 0;
 if ($int5 > 0) {
     $int1 = $int0;
     while ($int6 < $int5) {
-        $dbrow4 = db_getfield($dbrow3, dbtable_31:col3, $int6);
-        switch_int (db_getfield($dbrow4, dbtable_31:col4, 0)) {
+        $dbrow4 = db_getfield($dbrow3, settings_category:col3, $int6);
+        switch_int (db_getfield($dbrow4, settings_category:col4, 0)) {
             case default :
                 $int6 = $int5;
             case 1 :
@@ -34,13 +34,13 @@ if ($int5 > 0) {
                     $int6 = $int5;
                 }
             case 6 :
-                if (%varplayer_12314 <= 0) {
+                if (%league_active_player <= 0) {
                     $int6 = $int5;
                 }
         }
         $int6 = calc($int6 + 1);
     }
-    $int0 = enum_getreverseindex(dbrow, int, enum_14569, $dbrow4, 0);
+    $int0 = enum_getreverseindex(dbrow, int, settings_all_categories, $dbrow4, 0);
 } else if (~script2522($dbrow3, $int2) = true) {
     $int1 = $int2;
 } else {
@@ -48,5 +48,5 @@ if ($int5 > 0) {
 }
 ~script20383($int1);
 ~script20384($int0);
-%varplayer_8173 = null;
-%varplayer_8174 = null;
+%settings_struct_selected = null;
+%settings_slider_selected = null;

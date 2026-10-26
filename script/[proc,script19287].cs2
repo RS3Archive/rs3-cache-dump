@@ -1,19 +1,19 @@
 // 19287
 [proc,script19287]
-def_dbrow $dbrow0 = db_getfield(%varplayer_11901, dbtable_297:col1, 0);
-if (%varplayer_11882 > 0) {
-    ~script19221(db_getfield(%varplayer_11902, dbtable_300:col3, 0), interface_1290:com_83);
-    if_sethide(false, interface_1290:com_88);
-    if_settext("Attack", interface_1290:com_204);
+def_dbrow $dbrow0 = db_getfield(%trh_dungeon_crawl_dungeon_dbrow, trh_dungeon_crawl_dungeon:col1, 0);
+if (%trh_dungeon_crawl_boss_lifepoints > 0) {
+    ~script19221(db_getfield(%trh_dungeon_crawl_dungeon_floor_dbrow, trh_dungeon_crawl_boss_encounter:col3, 0), trh_dungeon_crawl_overlay:boss_encounter_npc_model);
+    if_sethide(false, trh_dungeon_crawl_overlay:boss_encounter_examine_layer);
+    if_settext("Attack", trh_dungeon_crawl_overlay:boss_encounter_button_text);
 } else {
     ~script19291;
 }
-if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, interface_1290:com_83);
-def_string $string0 = db_getfield(%varplayer_11902, dbtable_300:col1, 0);
-def_string $string1 = db_getfield(%varplayer_11902, dbtable_300:col2, 0);
-if_settext($string0, interface_1290:com_103);
-if_setopbase("<col=FFFF00><$string0></col> <col=FF0000>(level: ???)</col>", interface_1290:com_88);
-if_setonop("script7774($string1, event_com, event_comsubid, 0)", interface_1290:com_88);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, trh_dungeon_crawl_overlay:boss_encounter_npc_model);
+def_string $string0 = db_getfield(%trh_dungeon_crawl_dungeon_floor_dbrow, trh_dungeon_crawl_boss_encounter:col1, 0);
+def_string $string1 = db_getfield(%trh_dungeon_crawl_dungeon_floor_dbrow, trh_dungeon_crawl_boss_encounter:col2, 0);
+if_settext($string0, trh_dungeon_crawl_overlay:boss_healthbar_name_text);
+if_setopbase("<col=FFFF00><$string0></col> <col=FF0000>(level: ???)</col>", trh_dungeon_crawl_overlay:boss_encounter_examine_layer);
+if_setonop("script7774($string1, event_com, event_comsubid, 0)", trh_dungeon_crawl_overlay:boss_encounter_examine_layer);
 def_component $component1 = null;
 def_obj $obj2 = null;
 def_int $int3 = 0;
@@ -22,9 +22,9 @@ def_int $int5 = 0;
 while (++$int5 <= 8) {
     $obj2, $int3, $int4 = ~script19217($int5);
     if (calc(($int5 - 1) / 2 % 2) = 0) {
-        $component1 = interface_1290:com_86;
+        $component1 = trh_dungeon_crawl_overlay:boss_left_reward_grid;
     } else {
-        $component1 = interface_1290:com_87;
+        $component1 = trh_dungeon_crawl_overlay:boss_right_reward_grid;
     }
     if (if_exists($int5, 0, $component1) = 0) {
         ~if_add_child_layer($component1, $int5, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 82, 100, ^setsize_abs, ^setsize_abs);
@@ -33,4 +33,4 @@ while (++$int5 <= 8) {
         cc_settrans(160);
     }
 }
-~script19270(interface_1290:com_203, interface_1290:com_205);
+~script19270(trh_dungeon_crawl_overlay:boss_encounter_button_graphic, trh_dungeon_crawl_overlay:boss_encounter_button_layer);

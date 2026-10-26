@@ -1,24 +1,24 @@
 // 20266
 [proc,script20266](dbrow $dbrow0, dbrow $dbrow1, int $int2, int $int3, int $int4)(int, int)
 def_string $string0 = "You must be a member to activate this relic.";
-if (playermember = false & db_getfield($dbrow1, dbtable_328:col3, 0) = true) {
-    ~cc_add_graphic(interface_1443:com_23, $int2++, 1, $int3, ^setpos_abs_left, ^setpos_abs_top, 32, 32, ^setsize_abs, ^setsize_abs, "rs3_icon_members_32px,0");
-    if (db_getfield($dbrow0, dbtable_329:col2, 0) = 1) {
+if (playermember = false & db_getfield($dbrow1, league_relic_tier:col3, 0) = true) {
+    ~cc_add_graphic(league_parent_relics:overview_scrolling_contents, $int2++, 1, $int3, ^setpos_abs_left, ^setpos_abs_top, 32, 32, ^setsize_abs, ^setsize_abs, "rs3_icon_members_32px,0");
+    if (db_getfield($dbrow0, league_relic:col2, 0) = 1) {
         $string0 = "You must be a member to activate this blessing.";
     }
-    ~cc_add_text(interface_1443:com_23, $int2++, 0, $int3, ^setpos_abs_right, ^setpos_abs_top, 36, 32, ^setsize_minus, ^setsize_abs, dbrow_2100, "<col=EB2F2F><$string0></col>");
+    ~cc_add_text(league_parent_relics:overview_scrolling_contents, $int2++, 0, $int3, ^setpos_abs_right, ^setpos_abs_top, 36, 32, ^setsize_minus, ^setsize_abs, text_body_default, "<col=EB2F2F><$string0></col>");
     $int3 = calc($int3 + (32 + 4));
 }
-def_obj $obj5 = db_getfield($dbrow0, dbtable_329:col5, 0);
-def_string $string1 = db_getfield($dbrow0, dbtable_329:col1, 0);
+def_obj $obj5 = db_getfield($dbrow0, league_relic:col5, 0);
+def_string $string1 = db_getfield($dbrow0, league_relic:col1, 0);
 if ($obj5 = null) {
     if (string_length($string1) > 0) {
         return(~script19615(0, $int2, $int3, $int4, $string1));
     }
     return($int2, $int3);
 }
-def_int $int6 = max(50, ~script20478($string1, calc($int4 - 60), dbrow_2100, 0));
-~script17949(interface_1443:com_23, $int2++, 0, calc($int3 + max(0, calc(($int6 - 50) / 2))), ^setpos_abs_left, ^setpos_abs_top, 50, 50, ^setsize_abs, ^setsize_abs, $obj5, 1);
-~cc_add_text(interface_1443:com_23, $int2++, 0, $int3, ^setpos_abs_right, ^setpos_abs_top, 60, $int6, ^setsize_minus, ^setsize_abs, dbrow_2100, $string1);
+def_int $int6 = max(50, ~script20478($string1, calc($int4 - 60), text_body_default, 0));
+~script17949(league_parent_relics:overview_scrolling_contents, $int2++, 0, calc($int3 + max(0, calc(($int6 - 50) / 2))), ^setpos_abs_left, ^setpos_abs_top, 50, 50, ^setsize_abs, ^setsize_abs, $obj5, 1);
+~cc_add_text(league_parent_relics:overview_scrolling_contents, $int2++, 0, $int3, ^setpos_abs_right, ^setpos_abs_top, 60, $int6, ^setsize_minus, ^setsize_abs, text_body_default, $string1);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 return($int2, calc($int3 + $int6 + 4));

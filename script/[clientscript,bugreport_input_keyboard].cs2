@@ -11,8 +11,8 @@ if (~script11370 = 0) {
 switch_int ($int0) {
     case 84 :
         if (~is_mobile_client = false) {
-            ~script7666(%varclient_2753, $component2);
-            ~script7665(%varclient_2753);
+            ~script7666(%bugreport_input_focus, $component2);
+            ~script7665(%bugreport_input_focus);
         }
         return;
     case 13 :
@@ -29,13 +29,13 @@ switch_int ($int0) {
         if (keyheld_shift = false & $int0 ! 102 & $int0 ! 103) {
             return;
         }
-        if (%varclient_2753 = 1) {
-            %varclient_2749 = ~script7673($int0, %varclient_2749, %varclient_2758, $component2);
-            ~script7671(interface_1405:com_12, interface_1405:com_15, %varclient_2758);
+        if (%bugreport_input_focus = 1) {
+            %bugreport_caret = ~script7673($int0, %bugreport_caret, %bugreport_input, $component2);
+            ~script7671(bugreport_interface:input_text, bugreport_interface:input_caret, %bugreport_input);
             return;
-        } else if (%varclient_2753 = 2) {
-            %varclient_2750 = ~script7673($int0, %varclient_2750, %varclient_2759, $component2);
-            ~script7671(interface_1405:com_26, interface_1405:com_27, %varclient_2759);
+        } else if (%bugreport_input_focus = 2) {
+            %bugreport_caret_repro = ~script7673($int0, %bugreport_caret_repro, %bugreport_repro, $component2);
+            ~script7671(bugreport_interface:input_repro, bugreport_interface:repro_caret, %bugreport_repro);
             return;
         }
     case default :
@@ -45,17 +45,17 @@ switch_int ($int0) {
             if ($char1 = '<') {
                 return;
             }
-            if (%varclient_2753 = 1) {
-                if ($int0 ! 85 & $int0 ! 101 & string_length(removetags(%varclient_2758)) >= 500) {
-                    ~script7667(interface_1405:com_14);
+            if (%bugreport_input_focus = 1) {
+                if ($int0 ! 85 & $int0 ! 101 & string_length(removetags(%bugreport_input)) >= 500) {
+                    ~script7667(bugreport_interface:chars_left);
                     return;
                 }
-                $int4, $int5 = if_getcharposatindex(string_length(%varclient_2758), $component2);
+                $int4, $int5 = if_getcharposatindex(string_length(%bugreport_input), $component2);
                 if ($int5 >= if_getheight($component2) & $int0 ! 85 & $int0 ! 101) {
                     return;
                 }
-                %varclient_2758, %varclient_2749 = ~script802(%varclient_2749, %varclient_2758, $int3, $int0, $char1);
-                if_settext(%varclient_2758, $component2);
+                %bugreport_input, %bugreport_caret = ~script802(%bugreport_caret, %bugreport_input, $int3, $int0, $char1);
+                if_settext(%bugreport_input, $component2);
                 if (compare(if_gettext($component2), "Fox Mulder") = 0) {
                     if_settext("Keep searching for the Truth.", $component2);
                 }
@@ -66,27 +66,27 @@ switch_int ($int0) {
                 } else if (compare(if_gettext($component2), "Fr33 st00f pl0x!") = 0) {
                     if_settext("Have you tried picking up ashes?", $component2);
                 } else if (compare(if_gettext($component2), "OMG bugs!") = 0) {
-                    %varclient_2752 = 5000;
+                    %bugreport_bugs_squashed = 5000;
                 }
-                ~script7671(interface_1405:com_12, interface_1405:com_15, %varclient_2758);
-            } else if (%varclient_2753 = 2) {
-                if ($int0 ! 85 & $int0 ! 101 & string_length(removetags(%varclient_2759)) >= 500) {
-                    ~script7667(interface_1405:com_29);
+                ~script7671(bugreport_interface:input_text, bugreport_interface:input_caret, %bugreport_input);
+            } else if (%bugreport_input_focus = 2) {
+                if ($int0 ! 85 & $int0 ! 101 & string_length(removetags(%bugreport_repro)) >= 500) {
+                    ~script7667(bugreport_interface:chars_repro);
                     return;
                 }
-                $int4, $int5 = if_getcharposatindex(string_length(%varclient_2759), $component2);
+                $int4, $int5 = if_getcharposatindex(string_length(%bugreport_repro), $component2);
                 if ($int5 >= if_getheight($component2) & $int0 ! 85 & $int0 ! 101) {
                     return;
                 }
-                %varclient_2759, %varclient_2750 = ~script802(%varclient_2750, %varclient_2759, $int3, $int0, $char1);
-                if_settext(%varclient_2759, $component2);
-                ~script7671(interface_1405:com_26, interface_1405:com_27, %varclient_2759);
+                %bugreport_repro, %bugreport_caret_repro = ~script802(%bugreport_caret_repro, %bugreport_repro, $int3, $int0, $char1);
+                if_settext(%bugreport_repro, $component2);
+                ~script7671(bugreport_interface:input_repro, bugreport_interface:repro_caret, %bugreport_repro);
             }
         }
-        ~script7665(%varclient_2753);
+        ~script7665(%bugreport_input_focus);
         ~component_flashtext_stop(92078094);
         ~component_flashtext_stop(92078109);
-        if_settext(tostring(calc(500 - string_length(removetags(%varclient_2758)))), interface_1405:com_14);
-        if_settext(tostring(calc(500 - string_length(removetags(%varclient_2759)))), interface_1405:com_29);
+        if_settext(tostring(calc(500 - string_length(removetags(%bugreport_input)))), bugreport_interface:chars_left);
+        if_settext(tostring(calc(500 - string_length(removetags(%bugreport_repro)))), bugreport_interface:chars_repro);
         return;
 }

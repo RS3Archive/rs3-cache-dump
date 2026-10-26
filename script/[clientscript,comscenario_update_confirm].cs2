@@ -1,9 +1,9 @@
 // 11224
 [clientscript,comscenario_update_confirm](struct $struct0)
-if_settext(struct_param($struct0, param_4950), interface_1139:com_27);
-if_settext(struct_param($struct0, param_4951), interface_1139:com_30);
+if_settext(struct_param($struct0, comscenario_title), comscenario:confirm_title);
+if_settext(struct_param($struct0, comscenario_description), comscenario:confirm_desc);
 def_string $string0 = "general";
-switch_int (struct_param($struct0, param_4952)) {
+switch_int (struct_param($struct0, comscenario_type)) {
     case 0 :
         $string0 = "General";
     case 1 :
@@ -25,8 +25,8 @@ switch_int (struct_param($struct0, param_4952)) {
     case 9 :
         $string0 = "Celebration";
 }
-if_settext("Type: <$string0>", interface_1139:com_22);
-switch_int (struct_param($struct0, param_4954)) {
+if_settext("Type: <$string0>", comscenario:confirm_type);
+switch_int (struct_param($struct0, comscenario_difficulty)) {
     case 0 :
         $string0 = "Novice";
     case 1 :
@@ -36,12 +36,12 @@ switch_int (struct_param($struct0, param_4954)) {
     case 3 :
         $string0 = "Grandmaster";
 }
-if_settext("Difficulty: <$string0>", interface_1139:com_24);
+if_settext("Difficulty: <$string0>", comscenario:confirm_difficulty);
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
 def_string $string1 = "";
-$int1 = struct_param($struct0, param_4955);
+$int1 = struct_param($struct0, comscenario_time_limit);
 if ($int1 > 0) {
     $int2 = calc($int1 / 100);
     if ($int2 = 1) {
@@ -58,6 +58,6 @@ if ($int1 > 0) {
             $string1 = append($string1, " <tostring($int3)> seconds");
         }
     }
-    if_settext($string1, interface_1139:com_26);
+    if_settext($string1, comscenario:confirm_timelimit);
 }
-if_settext(append("Rewards: ", struct_param($struct0, param_4956)), interface_1139:com_25);
+if_settext(append("Rewards: ", struct_param($struct0, comscenario_rewards)), comscenario:confirm_rewards);

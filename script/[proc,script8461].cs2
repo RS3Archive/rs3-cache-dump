@@ -1,31 +1,31 @@
 // 8461
 [proc,script8461](component $component0)(int, int)
 def_int $int1 = 0;
-def_inv $inv2 = inv_94;
-def_int $int3 = %varplayer_715;
-def_int $int4 = %varplayer_3531;
-def_int $int5 = %varplayer_1039;
-def_int $int6 = %varplayer_1037;
-def_int $int7 = %varplayer_1038;
-def_int $int8 = %varplayer_11308;
-def_int $int9 = %varplayer_3561;
-def_int $int10 = %varplayer_717;
-def_int $int11 = %varplayerbit_43;
-def_int $int12 = %varplayer_3532;
-def_int $int13 = %varclient_2760;
-if ($component0 = interface_1559:com_25) {
+def_inv $inv2 = worn;
+def_int $int3 = %combatv2_mainhand_strength;
+def_int $int4 = %combatv2_mainhand_strength_normalised;
+def_int $int5 = %combatv2_magic_attack_nerf;
+def_int $int6 = %combatv2_melee_attack_nerf;
+def_int $int7 = %combatv2_ranged_attack_nerf;
+def_int $int8 = %combatv2_necromancy_attack_nerf;
+def_int $int9 = %combatv2_mainhand_attack_rating_bonus;
+def_int $int10 = %combatv2_mainhand_style;
+def_int $int11 = %autocast_spell;
+def_int $int12 = %combatv2_offhand_strength_normalised;
+def_int $int13 = %combatv2_equip_screen_vs_level;
+if ($component0 = toplevel_v2_inspect_worn_stats:main_layer) {
     $int1 = 1;
-    $inv2 = inv_742;
-    $int3 = %varplayer_4964;
-    $int4 = %varplayer_4965;
-    $int5 = %varplayer_4968;
-    $int6 = %varplayer_4966;
-    $int7 = %varplayer_4967;
-    $int8 = %varplayer_11208;
-    $int9 = %varplayer_4969;
-    $int10 = %varplayer_4970;
-    $int11 = %varplayerbit_26124;
-    $int12 = %varplayer_4971;
+    $inv2 = inspect_worn;
+    $int3 = %player_inspect_combatv2_mainhand_strength;
+    $int4 = %player_inspect_combatv2_mainhand_strength_normalised;
+    $int5 = %player_inspect_combatv2_magic_attack_nerf;
+    $int6 = %player_inspect_combatv2_melee_attack_nerf;
+    $int7 = %player_inspect_combatv2_ranged_attack_nerf;
+    $int8 = %player_inspect_combatv2_necromancy_attack_nerf;
+    $int9 = %player_inspect_combatv2_mainhand_attack_rating_bonus;
+    $int10 = %player_inspect_combatv2_mainhand_style;
+    $int11 = %player_inspect_autocast_spell;
+    $int12 = %player_inspect_combatv2_offhand_strength_normalised;
 }
 def_obj $obj14 = inv_getobj($inv2, 3);
 def_obj $obj15 = inv_getobj($inv2, 5);
@@ -35,26 +35,26 @@ def_obj $obj18 = inv_getobj($inv2, 13);
 def_int $int19 = $int3;
 def_int $int20 = $int4;
 def_int $int21 = 0;
-if (oc_param($obj14, param_2827) = 1) {
+if (oc_param($obj14, combatv2_magic_weapon) = 1) {
     $int21 = $int5;
-} else if (oc_param($obj14, param_2825) = 1) {
+} else if (oc_param($obj14, combatv2_melee_weapon) = 1) {
     $int21 = $int6;
-} else if (oc_param($obj14, param_2826) = 1) {
+} else if (oc_param($obj14, combatv2_ranged_weapon) = 1) {
     $int21 = $int7;
-} else if (oc_param($obj14, param_8898) = 1) {
+} else if (oc_param($obj14, combatv2_necromancy_weapon) = 1) {
     $int21 = $int8;
 }
 def_int $int22 = calc(~script7244($obj14) + $int9 - $int21);
 def_int $int23 = 0;
 def_int $int24 = ~script7436($obj14);
-def_string $string0 = enum(int, string, enum_6744, $int10);
+def_string $string0 = enum(int, string, combatv2_attack_types, $int10);
 def_string $string1 = "Weapon";
-def_string $string2 = enum(int, string, enum_6741, $int24);
-def_struct $struct25 = enum(int, struct, enum_6740, $int11);
-def_string $string3 = "<~tostring_decimal(~script18545(%varplayer_717, $obj14), 1, 1, 0, 1)>%";
-def_string $string4 = "<~tostring_decimal(~script17469(%varplayer_717, $obj14), 1, 1, 0, 1)>%";
+def_string $string2 = enum(int, string, combatv2_weapon_speeds, $int24);
+def_struct $struct25 = enum(int, struct, combatv2_abilities_magic, $int11);
+def_string $string3 = "<~tostring_decimal(~script18545(%combatv2_mainhand_style, $obj14), 1, 1, 0, 1)>%";
+def_string $string4 = "<~tostring_decimal(~script17469(%combatv2_mainhand_style, $obj14), 1, 1, 0, 1)>%";
 def_int $int26 = scale($int13, 100, 50);
-def_int $int27 = scale(enum(int, int, enum_7339, $int26), 100, calc(100 + 40 / 2));
+def_int $int27 = scale(enum(int, int, combatv2_weapon_attack_value, $int26), 100, calc(100 + 40 / 2));
 def_int $int28 = 0;
 def_int $int29 = 0;
 def_int $int30 = 0;
@@ -71,55 +71,55 @@ switch_int (~script7241($obj14)) {
         $int29 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 70), 100, $int6)));
         $int30 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 50), 100, $int6)));
         $int32 = scale(calc(100 + ($int24 - 4) * 25), 100, scale(stat(strength), 100, 250));
-        $int34 = enum(int, int, enum_7338, oc_param($obj14, param_3267));
+        $int34 = enum(int, int, combatv2_weapon_level, oc_param($obj14, meleeattack));
         if (oc_wearpos($obj14) > 0 & oc_wearpos2($obj14) > 0) {
-            $int31 = calc(scale(oc_param($obj14, param_641), 100, calc(100 - 25 + scale(min(stat(strength), $int34), $int34, 25))) / 10);
+            $int31 = calc(scale(oc_param($obj14, melee_strength), 100, calc(100 - 25 + scale(min(stat(strength), $int34), $int34, 25))) / 10);
             $int32 = scale($int32, 100, 150);
         } else {
-            $int31 = calc(scale(oc_param($obj14, param_641), 100, calc(100 - 25 + scale(min(stat(strength), $int34), $int34, 25))) / 10);
+            $int31 = calc(scale(oc_param($obj14, melee_strength), 100, calc(100 - 25 + scale(min(stat(strength), $int34), $int34, 25))) / 10);
         }
         $int33 = calc($int3 - $int31 - $int32);
-        if (oc_param(inv_getobj(inv_94, 3), param_2825) = 1 & oc_param(inv_getobj(inv_94, 5), param_2825) = 1) {
+        if (oc_param(inv_getobj(worn, 3), combatv2_melee_weapon) = 1 & oc_param(inv_getobj(worn, 5), combatv2_melee_weapon) = 1) {
             $int20 = calc($int4 + scale($int12, 100, 50));
         } else {
             $int20 = $int4;
         }
-        $int23 = calc($int23 + oc_param($obj16, param_3267));
+        $int23 = calc($int23 + oc_param($obj16, meleeattack));
     case 2 :
         $int28 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 50), 100, $int7)));
         $int29 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 60), 100, $int7)));
         $int30 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 70), 100, $int7)));
         $int32 = scale(calc(100 + (min($int24, 6) - 4) * 25), 100, scale(stat(ranged), 100, 250));
-        if (oc_wearpos($obj14) > 0 & oc_wearpos2($obj14) > 0 & oc_param($obj14, param_2832) ! 1) {
+        if (oc_wearpos($obj14) > 0 & oc_wearpos2($obj14) > 0 & oc_param($obj14, combatv2_item_is_shield) ! 1) {
             $int32 = scale($int32, 100, 150);
         }
-        $int34 = enum(int, int, enum_7338, oc_param($obj14, param_4));
-        $int35 = oc_param($obj18, param_643);
-        if (oc_param($obj14, param_1047) ! 1) {
-            $int35 = min(enum(int, int, enum_7443, oc_param($obj14, param_23)), $int35);
+        $int34 = enum(int, int, combatv2_weapon_level, oc_param($obj14, rangeattack));
+        $int35 = oc_param($obj18, ranged_strength);
+        if (oc_param($obj14, rand_item) ! 1) {
+            $int35 = min(enum(int, int, combatv2_1h_speed4_damagevalues, oc_param($obj14, levelrequire)), $int35);
         } else {
-            $int35 = min(enum(int, int, enum_7443, oc_param($obj14, param_750)), $int35);
+            $int35 = min(enum(int, int, combatv2_1h_speed4_damagevalues, oc_param($obj14, wear_requires_stat_level1)), $int35);
         }
-        if ($int10 = 10 | oc_param($obj14, param_21) ! oc_category($obj18)) {
+        if ($int10 = 10 | oc_param($obj14, ammocategory) ! oc_category($obj18)) {
             $int35 = 0;
         }
-        if (oc_param($obj14, param_686) = struct_14940 & $obj18 ! null & oc_param($obj18, param_23) <= oc_param($obj14, param_23)) {
-            $enum37 = enum(int, enum, enum_12907, $int24);
-            $int31 = calc((enum(int, int, $enum37, oc_param($obj14, param_23)) + $int35) / 10);
+        if (oc_param($obj14, weapon_category) = combatv2_weapon_chargebow & $obj18 ! null & oc_param($obj18, levelrequire) <= oc_param($obj14, levelrequire)) {
+            $enum37 = enum(int, enum, combatv2_2h_ranged_speed_damagevalue_enums, $int24);
+            $int31 = calc((enum(int, int, $enum37, oc_param($obj14, levelrequire)) + $int35) / 10);
         } else {
-            $int31 = calc((oc_param($obj14, param_643) + $int35) / 10);
+            $int31 = calc((oc_param($obj14, ranged_strength) + $int35) / 10);
         }
         $int33 = calc($int3 - $int31 - $int32);
-        if (oc_param(inv_getobj(inv_94, 3), param_2826) = 1 & oc_param(inv_getobj(inv_94, 5), param_2826) = 1) {
+        if (oc_param(inv_getobj(worn, 3), combatv2_ranged_weapon) = 1 & oc_param(inv_getobj(worn, 5), combatv2_ranged_weapon) = 1) {
             $int20 = calc($int4 + scale($int12, 100, 50));
         } else {
             $int20 = $int4;
         }
-        $int23 = calc($int23 + oc_param($obj16, param_4));
+        $int23 = calc($int23 + oc_param($obj16, rangeattack));
     case 3 :
         $string1 = "Spell";
         if ($struct25 ! null) {
-            $string0 = enum(int, string, enum_6744, struct_param($struct25, param_2873));
+            $string0 = enum(int, string, combatv2_attack_types, struct_param($struct25, combatv2_which_element));
         } else {
             $string0 = "-";
             $int22 = 0;
@@ -128,60 +128,60 @@ switch_int (~script7241($obj14)) {
         $int29 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 50), 100, $int5)));
         $int30 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 60), 100, $int5)));
         $int32 = scale(stat(magic), 100, 250);
-        $int34 = enum(int, int, enum_7338, oc_param($obj14, param_3));
+        $int34 = enum(int, int, combatv2_weapon_level, oc_param($obj14, magicattack));
         if ($struct25 ! null) {
             $int32 = scale(calc(100 + ($int24 - 4) * 25), 100, scale(stat(magic), 100, 250));
-            $int36 = max(0, calc((min($int34, struct_param($struct25, param_2879)) - struct_param($struct25, param_2807)) * struct_param($struct25, param_2878)));
+            $int36 = max(0, calc((min($int34, struct_param($struct25, combatv2_damage_caps_at_level)) - struct_param($struct25, combatv2_ability_level_req)) * struct_param($struct25, combatv2_additional_damage_per_level)));
             if (oc_wearpos($obj14) > 0 & oc_wearpos2($obj14) > 0) {
-                $int31 = calc((scale(min(enum(int, int, enum_7443, $int34), struct_param($struct25, param_2877)), 100, 150) + scale(calc(2 * (3975 * $int34)), 100, 1) + $int36) / 10);
+                $int31 = calc((scale(min(enum(int, int, combatv2_1h_speed4_damagevalues, $int34), struct_param($struct25, combatv2_base_damage)), 100, 150) + scale(calc(2 * (3975 * $int34)), 100, 1) + $int36) / 10);
                 $int32 = scale($int32, 100, 150);
             } else {
-                $int31 = calc((min(enum(int, int, enum_7443, $int34), struct_param($struct25, param_2877)) + $int36) / 10);
+                $int31 = calc((min(enum(int, int, combatv2_1h_speed4_damagevalues, $int34), struct_param($struct25, combatv2_base_damage)) + $int36) / 10);
             }
         }
         $int33 = calc($int3 - $int31 - $int32);
-        if (oc_param(inv_getobj(inv_94, 3), param_2827) = 1 & oc_param(inv_getobj(inv_94, 5), param_2827) = 1) {
+        if (oc_param(inv_getobj(worn, 3), combatv2_magic_weapon) = 1 & oc_param(inv_getobj(worn, 5), combatv2_magic_weapon) = 1) {
             $int20 = calc($int4 + scale($int12, 100, 50));
         } else {
             $int20 = $int4;
         }
-        $int23 = calc($int23 + oc_param($obj16, param_3));
+        $int23 = calc($int23 + oc_param($obj16, magicattack));
     case 11 :
         $int28 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 60), 100, $int8)));
         $int29 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 60), 100, $int8)));
         $int30 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 60), 100, $int8)));
         $int32 = scale(scale(stat(necromancy), 100, 250), 100, calc(100 + ($int24 - 4) * 25));
-        $int34 = enum(int, int, enum_7338, oc_param($obj14, param_8879));
+        $int34 = enum(int, int, combatv2_weapon_level, oc_param($obj14, necromancyattack));
         if (oc_wearpos($obj14) > 0 & oc_wearpos2($obj14) > 0) {
             $int32 = scale($int32, 100, 150);
         }
-        $int31 = calc(oc_param($obj14, param_8881) / 10);
+        $int31 = calc(oc_param($obj14, necromancy_strength) / 10);
         $int33 = calc($int3 - $int31 - $int32);
-        if (oc_param(inv_getobj(inv_94, 3), param_8898) = 1 & oc_param(inv_getobj(inv_94, 5), param_8898) = 1) {
+        if (oc_param(inv_getobj(worn, 3), combatv2_necromancy_weapon) = 1 & oc_param(inv_getobj(worn, 5), combatv2_necromancy_weapon) = 1) {
             $int20 = calc($int4 + scale($int12, 100, 50));
         } else {
             $int20 = $int4;
         }
         $string3 = "<~tostring_decimal(100, 1, 1, 0, 1)>%";
         $string4 = "<~tostring_decimal(~script17469(37, $obj14), 1, 1, 0, 1)>%";
-        $int23 = calc($int23 + oc_param($obj16, param_8879));
+        $int23 = calc($int23 + oc_param($obj16, necromancyattack));
     case default :
         $int28 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 60), 100, $int6)));
         $int29 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 70), 100, $int6)));
         $int30 = max(0, min(10000, scale(calc(scale($int22, $int27, 100) * 50), 100, $int6)));
         if ($obj14 = null & $obj15 = null) {
-            if (oc_category($obj17) = category_2769) {
-                $int23 = calc($int23 + oc_param($obj17, param_3267));
-            } else if (oc_category($obj17) = category_2770) {
-                $int23 = calc($int23 + oc_param($obj17, param_4));
-            } else if (oc_category($obj17) = category_2771) {
-                $int23 = calc($int23 + oc_param($obj17, param_3));
+            if (oc_category($obj17) = dom_gloves_melee) {
+                $int23 = calc($int23 + oc_param($obj17, meleeattack));
+            } else if (oc_category($obj17) = dom_gloves_range) {
+                $int23 = calc($int23 + oc_param($obj17, rangeattack));
+            } else if (oc_category($obj17) = dom_gloves_magic) {
+                $int23 = calc($int23 + oc_param($obj17, magicattack));
             }
         }
         $int32 = scale(calc(100 + ($int24 - 4) * 25), 100, scale(stat(strength), 100, 250));
         $int33 = calc($int3 - $int31 - $int32);
 }
-if (%varplayerbit_27168 = 1) {
+if (%toplevel_v2_legacy_combat = 1) {
     $int19 = calc($int19 / 10);
     $int31 = calc($int31 / 10);
     $int32 = calc($int32 / 10);
@@ -190,63 +190,63 @@ if (%varplayerbit_27168 = 1) {
 }
 def_string $string5 = "";
 if ($int1 = 1) {
-    if_settext(tostring($int19), interface_1559:com_41);
-    if_settext(tostring(calc($int22 + $int23)), interface_1559:com_46);
-    if_settext($string0, interface_1559:com_51);
-    if_settext($string2, interface_1559:com_55);
-    if_settext(tostring($int20), interface_1559:com_138);
-    if_settext(tostring(calc($int22 + $int23)), interface_1559:com_143);
-    if_settext($string0, interface_1559:com_148);
-    if_settext("N/A", interface_1559:com_153);
+    if_settext(tostring($int19), toplevel_v2_inspect_worn_stats:main_damage_value);
+    if_settext(tostring(calc($int22 + $int23)), toplevel_v2_inspect_worn_stats:main_accuracy_value);
+    if_settext($string0, toplevel_v2_inspect_worn_stats:main_type_value);
+    if_settext($string2, toplevel_v2_inspect_worn_stats:main_speed_value);
+    if_settext(tostring($int20), toplevel_v2_inspect_worn_stats:ab_damage_value);
+    if_settext(tostring(calc($int22 + $int23)), toplevel_v2_inspect_worn_stats:ab_accuracy_value);
+    if_settext($string0, toplevel_v2_inspect_worn_stats:ab_type_value);
+    if_settext("N/A", toplevel_v2_inspect_worn_stats:ab_speed_value);
     $string5 = "Weapon : <col=00FF00><tostring(~script7244($obj14))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col>";
     if ($int21 > 0) {
         $string5 = "Weapon : <col=00FF00><tostring(~script7244($obj14))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col><br>Hybrid Nerf : <col=00FF00>-<tostring($int21)></col>";
     }
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1559:com_44);
-    if_setonmouseleave("script8805", interface_1559:com_44);
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:main_accuracy_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:main_accuracy_value_box);
     $string5 = "Weapon : <col=00FF00><tostring(~script7244($obj14))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col>";
     if ($int21 > 0) {
         $string5 = "Weapon : <col=00FF00><tostring(~script7244($obj14))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col><br>Hybrid Nerf : <col=00FF00>-<tostring($int21)></col>";
     }
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1559:com_142);
-    if_setonmouseleave("script8805", interface_1559:com_142);
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:ab_accuracy_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:ab_accuracy_value_box);
     $string5 = "<$string1> : <col=00FF00><tostring($int31)></col><br>Skill Bonus : <col=00FF00><tostring($int32)></col><br>Damage Bonus : <col=00FF00><tostring($int33)></col>";
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1559:com_39);
-    if_setonmouseleave("script8805", interface_1559:com_39);
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_inspect_worn_stats:main_damage_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_inspect_worn_stats:main_damage_value_box);
 } else {
-    if_settext(tostring($int19), interface_1463:com_46);
-    if_settext(tostring(calc($int22 + $int23)), interface_1463:com_51);
-    if_settext($string0, interface_1463:com_56);
-    if_settext($string2, interface_1463:com_60);
-    if_settext(tostring($int20), interface_1463:com_214);
-    if_settext(tostring(calc($int22 + $int23)), interface_1463:com_219);
-    if_settext($string0, interface_1463:com_224);
-    if_settext("N/A", interface_1463:com_228);
-    if_settext($string3, interface_1463:com_239);
-    if_settext($string4, interface_1463:com_245);
-    $string5 = "Skill Bonus : <col=00FF00><~tostring_decimal(~script18545(%varplayer_717, $obj14), 1, 1, 0, 1)>%</col>";
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1463:com_237);
-    if_setonmouseleave("script8805", interface_1463:com_237);
-    $string5 = "Skill Bonus : <col=00FF00><~tostring_decimal(~script17469(%varplayer_717, $obj14), 1, 1, 0, 1)>%</col>";
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1463:com_244);
-    if_setonmouseleave("script8805", interface_1463:com_244);
-    if_settext("<tostring(scale($int28, 1000, 10))>%", interface_1463:com_103);
-    if_settext("<tostring(scale($int29, 1000, 10))>%", interface_1463:com_107);
-    if_settext("<tostring(scale($int30, 1000, 10))>%", interface_1463:com_111);
+    if_settext(tostring($int19), toplevel_v2_parent_suboverlay_worn_stats:main_damage_value);
+    if_settext(tostring(calc($int22 + $int23)), toplevel_v2_parent_suboverlay_worn_stats:main_accuracy_value);
+    if_settext($string0, toplevel_v2_parent_suboverlay_worn_stats:main_type_value);
+    if_settext($string2, toplevel_v2_parent_suboverlay_worn_stats:main_speed_value);
+    if_settext(tostring($int20), toplevel_v2_parent_suboverlay_worn_stats:ab_damage_value);
+    if_settext(tostring(calc($int22 + $int23)), toplevel_v2_parent_suboverlay_worn_stats:ab_accuracy_value);
+    if_settext($string0, toplevel_v2_parent_suboverlay_worn_stats:ab_type_value);
+    if_settext("N/A", toplevel_v2_parent_suboverlay_worn_stats:ab_speed_value);
+    if_settext($string3, toplevel_v2_parent_suboverlay_worn_stats:critical_strike_chance_value_text);
+    if_settext($string4, toplevel_v2_parent_suboverlay_worn_stats:critical_strike_damage_value_text);
+    $string5 = "Skill Bonus : <col=00FF00><~tostring_decimal(~script18545(%combatv2_mainhand_style, $obj14), 1, 1, 0, 1)>%</col>";
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:critical_strike_chance_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:critical_strike_chance_value_box);
+    $string5 = "Skill Bonus : <col=00FF00><~tostring_decimal(~script17469(%combatv2_mainhand_style, $obj14), 1, 1, 0, 1)>%</col>";
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:critical_strike_damage_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:critical_strike_damage_value_box);
+    if_settext("<tostring(scale($int28, 1000, 10))>%", toplevel_v2_parent_suboverlay_worn_stats:main_vs_melee_value);
+    if_settext("<tostring(scale($int29, 1000, 10))>%", toplevel_v2_parent_suboverlay_worn_stats:main_vs_range_value);
+    if_settext("<tostring(scale($int30, 1000, 10))>%", toplevel_v2_parent_suboverlay_worn_stats:main_vs_magic_value);
     $string5 = "Weapon : <col=00FF00><tostring(calc(~script7244($obj14) + $int23))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col>";
     if ($int21 > 0) {
         $string5 = "Weapon : <col=00FF00><tostring(calc(~script7244($obj14) + $int23))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col><br>Hybrid Nerf : <col=00FF00>-<tostring($int21)></col>";
     }
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1463:com_49);
-    if_setonmouseleave("script8805", interface_1463:com_49);
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:main_accuracy_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:main_accuracy_value_box);
     $string5 = "Weapon : <col=00FF00><tostring(~script7244($obj14))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col>";
     if ($int21 > 0) {
         $string5 = "Weapon : <col=00FF00><tostring(~script7244($obj14))></col><br>Skill Bonus : <col=00FF00><tostring($int9)></col><br>Hybrid Nerf : <col=00FF00>-<tostring($int21)></col>";
     }
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1463:com_217);
-    if_setonmouseleave("script8805", interface_1463:com_217);
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:ab_accuracy_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:ab_accuracy_value_box);
     $string5 = "<$string1> : <col=00FF00><tostring($int31)></col><br>Skill Bonus : <col=00FF00><tostring($int32)></col><br>Damage Bonus : <col=00FF00><tostring($int33)></col>";
-    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", interface_1463:com_44);
-    if_setonmouseleave("script8805", interface_1463:com_44);
+    if_setonmouserepeat("script3876($string5, event_com, event_comsubid)", toplevel_v2_parent_suboverlay_worn_stats:main_damage_value_box);
+    if_setonmouseleave("script8805", toplevel_v2_parent_suboverlay_worn_stats:main_damage_value_box);
 }
 return($int20, $int31);

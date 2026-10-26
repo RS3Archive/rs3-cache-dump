@@ -4,24 +4,24 @@ def_int $int2 = 0;
 def_int $int3 = calc($int1 - $int0);
 if ($int1 ! -1) {
     if ($int1 = -1337) {
-        $int2 = scale(230, 200, min(200, %varclient_4275));
-        if_setsize($int2, if_getheight(interface_1515:com_28), ^setsize_abs, ^setsize_abs, interface_1515:com_28);
-        if_sethide(false, interface_1515:com_30);
-        if_settext("Wall health: <tostring(scale(calc($int2 * 2), 100, 43))>%", interface_1515:com_30);
+        $int2 = scale(230, 200, min(200, %sb_boss_wall_health));
+        if_setsize($int2, if_getheight(sb_overlay:progress_bar), ^setsize_abs, ^setsize_abs, sb_overlay:progress_bar);
+        if_sethide(false, sb_overlay:progress_text);
+        if_settext("Wall health: <tostring(scale(calc($int2 * 2), 100, 43))>%", sb_overlay:progress_text);
     } else if (clientclock > $int1) {
-        if_setontimer(null, interface_1515:com_20);
-        if_sethide(true, interface_1515:com_18);
-        if_setsize(0, if_getheight(interface_1515:com_28), ^setsize_abs, ^setsize_abs, interface_1515:com_28);
+        if_setontimer(null, sb_overlay:progress_bar_layer);
+        if_sethide(true, sb_overlay:progress_holder);
+        if_setsize(0, if_getheight(sb_overlay:progress_bar), ^setsize_abs, ^setsize_abs, sb_overlay:progress_bar);
     } else {
         $int2 = calc(100 - scale(max(0, calc($int1 - clientclock)), $int3, 100));
         $int2 = scale(230, 100, min(100, $int2));
-        if_setsize($int2, if_getheight(interface_1515:com_28), ^setsize_abs, ^setsize_abs, interface_1515:com_28);
-        if_sethide(false, interface_1515:com_30);
-        if_settext("Burn: <tostring(scale(calc($int2 + 2), 100, 43))>%", interface_1515:com_30);
+        if_setsize($int2, if_getheight(sb_overlay:progress_bar), ^setsize_abs, ^setsize_abs, sb_overlay:progress_bar);
+        if_sethide(false, sb_overlay:progress_text);
+        if_settext("Burn: <tostring(scale(calc($int2 + 2), 100, 43))>%", sb_overlay:progress_text);
     }
 } else {
-    $int2 = scale(230, 200, min(200, %varclient_4274));
-    if_setsize($int2, if_getheight(interface_1515:com_28), ^setsize_abs, ^setsize_abs, interface_1515:com_28);
-    if_sethide(false, interface_1515:com_30);
-    if_settext("Acidity level: <tostring(%varclient_4274)>%", interface_1515:com_30);
+    $int2 = scale(230, 200, min(200, %sb_boss_acid_level));
+    if_setsize($int2, if_getheight(sb_overlay:progress_bar), ^setsize_abs, ^setsize_abs, sb_overlay:progress_bar);
+    if_sethide(false, sb_overlay:progress_text);
+    if_settext("Acidity level: <tostring(%sb_boss_acid_level)>%", sb_overlay:progress_text);
 }

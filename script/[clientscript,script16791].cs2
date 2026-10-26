@@ -1,7 +1,7 @@
 // 16791
 [clientscript,script16791](component $component0, component $component1, int $int2)
 def_int $int3 = -1;
-def_int $int4 = db_listall(dbtable_217);
+def_int $int4 = db_listall(building_information);
 def_dbrow $dbrow5 = null;
 def_int $int6 = 0;
 def_int $int7 = calc(140 + if_getchildspacing($component0));
@@ -26,7 +26,7 @@ def_string $string1 = "";
 def_int $int18 = $int2;
 while (++$int3 < $int4) {
     $dbrow5 = db_findnext;
-    $int6 = min(3, ~script15809(db_getfield($dbrow5, dbtable_217:col0, 0)));
+    $int6 = min(3, ~script15809(db_getfield($dbrow5, building_information:col0, 0)));
     if ($int18 = -1) {
         if ($int6 >= 1) {
             $string1 = "Earned Tier <tostring($int6)> Rewards";
@@ -42,17 +42,17 @@ while (++$int3 < $int4) {
     $int9 = 0;
     ~if_add_child_layer($component0, $int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 10, 140, ^setsize_minus, ^setsize_abs);
     $int9 = calc($int9 + 1);
-    ~cc_add_child_rect($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, dbrow_4128);
+    ~cc_add_child_rect($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, rect_light);
     $int9 = calc($int9 + 1);
     ~cc_add_child_panel($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus, false, 6);
     $int8 = ui_getdynid(cc_getid);
     $int9 = calc($int9 + 1);
     ~cc_add_child_panel($int3, $int9, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 7373, 0, ^setsize_rel, ^setsize_minus, true, 0);
     $int9 = calc($int9 + 1);
-    ~cc_add_child_text($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 25, ^setsize_minus, ^setsize_abs, dbrow_2196, db_getfield($dbrow5, dbtable_217:col1, 0));
+    ~cc_add_child_text($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 25, ^setsize_minus, ^setsize_abs, text_title_body, db_getfield($dbrow5, building_information:col1, 0));
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     $int9 = calc($int9 + 1);
-    ~cc_add_child_model_full($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 81, 81, ^setsize_abs, ^setsize_abs, db_getfield($dbrow5, dbtable_217:col2, 0), 0, 0, 512, 0, 0, 400);
+    ~cc_add_child_model_full($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 81, 81, ^setsize_abs, ^setsize_abs, db_getfield($dbrow5, building_information:col2, 0), 0, 0, 512, 0, 0, 400);
     $int9 = calc($int9 + 1);
     ~cc_add_child_panel($int3, $int9, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 0, ^setsize_minus, ^setsize_minus, false, 6);
     $int10 = ui_getdynid(cc_getid);
@@ -75,40 +75,40 @@ while (++$int3 < $int4) {
     ~script15939($component0, $int3, $int9, $int3, $int8, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 0, 0, ^setsize_minus, ^setsize_minus);
     $int14 = cc_getwidth;
     $int9 = calc($int9 + 1);
-    ~cc_add_child_text($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 25, ^setsize_minus, ^setsize_abs, dbrow_2196, $string1);
+    ~cc_add_child_text($int3, $int9, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, 25, ^setsize_minus, ^setsize_abs, text_title_body, $string1);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     $int9 = calc($int9 + 1);
     $int16 = -1;
     $int15 = 25;
     switch_int ($int2) {
         case -1 :
-            ~cc_add_child_text($int3, $int9, 0, $int15, ^setpos_abs_centre, ^setpos_abs_top, 0, $int15, ^setsize_minus, ^setsize_minus, dbrow_2100, "Building not available.");
+            ~cc_add_child_text($int3, $int9, 0, $int15, ^setpos_abs_centre, ^setpos_abs_top, 0, $int15, ^setsize_minus, ^setsize_minus, text_body_default, "Building not available.");
             cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
         case 0 :
-            ~cc_add_child_text($int3, $int9, 0, $int15, ^setpos_abs_centre, ^setpos_abs_top, 0, $int15, ^setsize_minus, ^setsize_minus, dbrow_2100, "Building yet to be constructed.");
+            ~cc_add_child_text($int3, $int9, 0, $int15, ^setpos_abs_centre, ^setpos_abs_top, 0, $int15, ^setsize_minus, ^setsize_minus, text_body_default, "Building yet to be constructed.");
             cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
         case 1 :
-            $int17 = db_getfieldcount($dbrow5, dbtable_217:col3);
+            $int17 = db_getfieldcount($dbrow5, building_information:col3);
             while (++$int16 < $int17) {
-                $string0 = db_getfield($dbrow5, dbtable_217:col3, $int16);
+                $string0 = db_getfield($dbrow5, building_information:col3, $int16);
                 $int15, $int9 = ~script16821($int3, $int15, $int9, $int14, $string0);
             }
         case 2 :
-            $int17 = db_getfieldcount($dbrow5, dbtable_217:col4);
+            $int17 = db_getfieldcount($dbrow5, building_information:col4);
             while (++$int16 < $int17) {
-                $string0 = db_getfield($dbrow5, dbtable_217:col4, $int16);
+                $string0 = db_getfield($dbrow5, building_information:col4, $int16);
                 $int15, $int9 = ~script16821($int3, $int15, $int9, $int14, $string0);
             }
         case 3 :
-            $int17 = db_getfieldcount($dbrow5, dbtable_217:col5);
+            $int17 = db_getfieldcount($dbrow5, building_information:col5);
             while (++$int16 < $int17) {
-                $string0 = db_getfield($dbrow5, dbtable_217:col5, $int16);
+                $string0 = db_getfield($dbrow5, building_information:col5, $int16);
                 $int15, $int9 = ~script16821($int3, $int15, $int9, $int14, $string0);
             }
         case default :
-            $int17 = db_getfieldcount($dbrow5, dbtable_217:col5);
+            $int17 = db_getfieldcount($dbrow5, building_information:col5);
             while (++$int16 < $int17) {
-                $string0 = db_getfield($dbrow5, dbtable_217:col5, $int16);
+                $string0 = db_getfield($dbrow5, building_information:col5, $int16);
                 $int15, $int9 = ~script16821($int3, $int15, $int9, $int14, $string0);
             }
     }

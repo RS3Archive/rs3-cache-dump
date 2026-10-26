@@ -10,58 +10,58 @@ def_string $string0 = "";
 def_quest $quest10 = null;
 switch_int ($int2) {
     case 0 :
-        $int6 = struct_param($struct4, param_1294);
-        $int7 = struct_param($struct4, param_1295);
+        $int6 = struct_param($struct4, task_requirement_1_type);
+        $int7 = struct_param($struct4, task_requirement_1_value);
     case 1 :
-        $int6 = struct_param($struct4, param_1296);
-        $int7 = struct_param($struct4, param_1297);
+        $int6 = struct_param($struct4, task_requirement_2_type);
+        $int7 = struct_param($struct4, task_requirement_2_value);
     case 2 :
-        $int6 = struct_param($struct4, param_1298);
-        $int7 = struct_param($struct4, param_1299);
+        $int6 = struct_param($struct4, task_requirement_3_type);
+        $int7 = struct_param($struct4, task_requirement_3_value);
     case 3 :
-        $int6 = struct_param($struct4, param_1300);
-        $int7 = struct_param($struct4, param_1301);
+        $int6 = struct_param($struct4, task_requirement_4_type);
+        $int7 = struct_param($struct4, task_requirement_4_value);
     case 4 :
-        $int6 = struct_param($struct4, param_1302);
-        $int7 = struct_param($struct4, param_1303);
+        $int6 = struct_param($struct4, task_requirement_5_type);
+        $int7 = struct_param($struct4, task_requirement_5_value);
     case 5 :
-        $int6 = struct_param($struct4, param_1304);
-        $int7 = struct_param($struct4, param_1305);
+        $int6 = struct_param($struct4, task_requirement_6_type);
+        $int7 = struct_param($struct4, task_requirement_6_value);
     case 6 :
-        $int6 = struct_param($struct4, param_1306);
-        $int7 = struct_param($struct4, param_1307);
+        $int6 = struct_param($struct4, task_requirement_7_type);
+        $int7 = struct_param($struct4, task_requirement_7_value);
     case 7 :
-        $int6 = struct_param($struct4, param_1308);
-        $int7 = struct_param($struct4, param_1309);
+        $int6 = struct_param($struct4, task_requirement_8_type);
+        $int7 = struct_param($struct4, task_requirement_8_value);
     case 8 :
-        $int6 = struct_param($struct4, param_1310);
-        $int7 = struct_param($struct4, param_1311);
+        $int6 = struct_param($struct4, task_requirement_9_type);
+        $int7 = struct_param($struct4, task_requirement_9_value);
     case 9 :
-        $int6 = struct_param($struct4, param_1312);
-        $int7 = struct_param($struct4, param_1313);
+        $int6 = struct_param($struct4, task_requirement_10_type);
+        $int7 = struct_param($struct4, task_requirement_10_value);
     case 10 :
-        $int6 = struct_param($struct4, param_2227);
-        $int7 = struct_param($struct4, param_2228);
+        $int6 = struct_param($struct4, task_requirement_11_type);
+        $int7 = struct_param($struct4, task_requirement_11_value);
     case 11 :
-        $int6 = struct_param($struct4, param_2229);
-        $int7 = struct_param($struct4, param_2230);
+        $int6 = struct_param($struct4, task_requirement_12_type);
+        $int7 = struct_param($struct4, task_requirement_12_value);
 }
 if ($int6 = 0) {
     return($int0);
 } else if ($int6 < 60) {
-    $stat8 = enum(int, stat, enum_681, $int6);
+    $stat8 = enum(int, stat, int_to_stat, $int6);
     if ($stat8 ! null) {
-        $string0 = "Level <col=ffffff><tostring($int7)> <enum(int, string, enum_108, $int6)></col> required.";
+        $string0 = "Level <col=ffffff><tostring($int7)> <enum(int, string, statstring, $int6)></col> required.";
     }
 } else if ($int6 = 61) {
-    $quest10 = enum(int, quest, enum_2252, $int7);
+    $quest10 = enum(int, quest, ql4_quests, $int7);
     $string0 = "You must complete the quest <col=ffffff>'<~quest_name($quest10)>'</col>.";
 } else if ($int6 = 60) {
     $struct5 = ~task_get_data($int7);
     if ($struct5 = null) {
         return($int0);
     }
-    $string0 = "You must complete the Task <col=ffffff>'<struct_param($struct5, param_1266)>'</col>.";
+    $string0 = "You must complete the Task <col=ffffff>'<struct_param($struct5, task_name)>'</col>.";
 } else {
     $string0 = removetags(~task_special_requirements($int1, calc($int2 + 1)));
 }
@@ -69,10 +69,10 @@ def_int $int11 = 0;
 if (compare($string0, "") ! 0) {
     if_sethide(false, $component3);
     if_settext($string0, $component3);
-    if_settextfont(fontmetrics_26, $component3);
+    if_settextfont(museo_sans_11pt_regular, $component3);
     if_settextalign(^settextalign_left, ^settextalign_centre, 13, $component3);
     $int11 = calc(if_getwidth(if_getlayer($component3)) - 18);
-    $int9 = calc(16 * paraheight($string0, $int11, fontmetrics_26));
+    $int9 = calc(16 * paraheight($string0, $int11, museo_sans_11pt_regular));
     if_setsize($int11, $int9, ^setsize_abs, ^setsize_abs, $component3);
     if_setposition(9, $int0, ^setpos_abs_left, ^setpos_abs_top, $component3);
 } else {

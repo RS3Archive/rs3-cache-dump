@@ -5,26 +5,26 @@ def_string $string1 = "(Active)";
 def_string $string2 = "(Active)";
 def_int $int1 = 0;
 def_int $int2 = 0;
-if (%varclient_6728 > 0 | %varclient_6727 > 0) {
+if (%doublexp_week_seconds_remaining > 0 | %doublexp_week_minutes_remaining > 0) {
     $int1 = 1;
 }
-if ((%varclient_7340 > 0 | %varclient_7339 > 0) & ~script15206 = false) {
+if ((%doublexp_personal_buff_seconds_remaining > 0 | %doublexp_personal_buff_minutes_remaining > 0) & ~script15206 = false) {
     $int2 = 1;
 }
-if (%varplayerbit_54479 = 1 & $int2 = 1 | %varplayerbit_47683 = 1 | $int0 = 1) {
+if (%doublexp_prioritise_dxp_personal_buff_time = 1 & $int2 = 1 | %doublexp_time_paused = 1 | $int0 = 1) {
     $string1 = "(Paused)";
 }
-if (%varplayerbit_54479 = 0 & $int1 = 1 | %varplayerbit_47683 = 1 | $int0 = 1) {
+if (%doublexp_prioritise_dxp_personal_buff_time = 0 & $int1 = 1 | %doublexp_time_paused = 1 | $int0 = 1) {
     $string2 = "(Paused)";
 }
 if ($int1 = 1) {
-    $string0 = "<$string0>Double XP time <$string1>: <~time_to_string(calc(%varclient_6727 / 60), calc(%varclient_6727 % 60), %varclient_6728, true, true)>";
+    $string0 = "<$string0>Double XP time <$string1>: <~time_to_string(calc(%doublexp_week_minutes_remaining / 60), calc(%doublexp_week_minutes_remaining % 60), %doublexp_week_seconds_remaining, true, true)>";
 }
 if ($int2 = 1) {
     if (string_length($string0) > 0) {
         $string0 = "<$string0><br>";
     }
-    $string0 = "<$string0>Double XP buff time <$string2>: <~time_to_string(calc(%varclient_7339 / 60), calc(%varclient_7339 % 60), %varclient_7340, true, true)>";
-    $string0 = "<$string0><br>Double XP buff days left: <tostring_localised(calc(%varplayerbit_54478 - date_runeday), true)>";
+    $string0 = "<$string0>Double XP buff time <$string2>: <~time_to_string(calc(%doublexp_personal_buff_minutes_remaining / 60), calc(%doublexp_personal_buff_minutes_remaining % 60), %doublexp_personal_buff_seconds_remaining, true, true)>";
+    $string0 = "<$string0><br>Double XP buff days left: <tostring_localised(calc(%doublexp_personal_buff_end_date - date_runeday), true)>";
 }
-~script18172($string0, interface_584:com_3, -1);
+~script18172($string0, doublexp_week:doublexp_timer_layer, -1);

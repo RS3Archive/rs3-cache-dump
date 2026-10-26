@@ -1,49 +1,49 @@
 // 9257
 [proc,script9257](inv $inv0, obj $obj1, int $int2)(boolean)
-if (%varplayer_1784 ! null) {
-    switch_npc (%varplayer_1784) {
-        case npc_6818, npc_6819, npc_6820, npc_6821, npc_7349, npc_7350 :
-            if ($obj1 ! obj_1436 & $obj1 ! obj_7936 & $obj1 ! obj_55667 & $obj1 ! obj_63938) {
+if (%lore_npc_head ! null) {
+    switch_npc (%lore_npc_head) {
+        case lore_abyssal_leech, lore_abyssal_leech_combat, lore_abyssal_lurker, lore_abyssal_lurker_combat, lore_abyssal_titan, lore_abyssal_titan_combat :
+            if ($obj1 ! blankrune & $obj1 ! blankrune_high & $obj1 ! impure_essence & $obj1 ! exalted_essence) {
                 return(true);
             }
-        case npc_32716 :
+        case lore_jackalope :
             return(true);
         case default :
-            if ($obj1 = obj_1436 | $obj1 = obj_7936 | $obj1 = obj_55667 & $obj1 = obj_63938) {
+            if ($obj1 = blankrune | $obj1 = blankrune_high | $obj1 = impure_essence & $obj1 = exalted_essence) {
                 return(true);
             }
     }
-    if (nc_param(%varplayer_1784, param_1323) = 0 & (nc_param(%varplayer_1784, param_5048) = 0 | nc_param(%varplayer_1784, param_5048) = 1 & %varplayerbit_27747 = 0)) {
-        switch_npc (%varplayer_1784) {
-            case npc_11186, npc_11188, npc_11190, npc_11192, npc_11194, npc_11196, npc_11198, npc_11200, npc_11202, npc_11204, npc_11187, npc_11189, npc_11191, npc_11193, npc_11195, npc_11197, npc_11199, npc_11201, npc_11203, npc_11205 :
+    if (nc_param(%lore_npc_head, lore_is_bob) = 0 & (nc_param(%lore_npc_head, mtxmgt_pet_legendary) = 0 | nc_param(%lore_npc_head, mtxmgt_pet_legendary) = 1 & %mtx_pet_bob_ability = 0)) {
+        switch_npc (%lore_npc_head) {
+            case rand_lorebob_01, rand_lorebob_02, rand_lorebob_03, rand_lorebob_04, rand_lorebob_05, rand_lorebob_06, rand_lorebob_07, rand_lorebob_08, rand_lorebob_09, rand_lorebob_10, rand_lorebob_01_combat, rand_lorebob_02_combat, rand_lorebob_03_combat, rand_lorebob_04_combat, rand_lorebob_05_combat, rand_lorebob_06_combat, rand_lorebob_07_combat, rand_lorebob_08_combat, rand_lorebob_09_combat, rand_lorebob_10_combat :
             case default :
                 return(true);
         }
     }
-} else if ($inv0 ! inv_741) {
+} else if ($inv0 ! share_preset_bob) {
     return(true);
 }
-if ($obj1 = obj_29492 | $obj1 = obj_29494) {
+if ($obj1 = rs_bond | $obj1 = rs_bond_untradeable) {
     return(true);
 }
-if (oc_param($obj1, param_3741) ! 0) {
+if (oc_param($obj1, one_to_one_trade) ! 0) {
     return(true);
 }
-if (oc_category($obj1) = category_43) {
+if (oc_category($obj1) = castlewars_item) {
     return(true);
 }
-if (oc_param($obj1, param_226) = 1) {
+if (oc_param($obj1, poh_only) = 1) {
     return(true);
 }
-if (oc_category($obj1) = category_2941) {
+if (oc_category($obj1) = wof46_lamp_part) {
     return(true);
 }
 switch_obj ($obj1) {
-    case obj_32817, obj_32818, obj_32819, obj_32820, obj_32821 :
+    case trh38_crafting_rig, trh38_rig_case, trh38_rig_focus, trh38_rig_setting, trh38_summoning_focus :
         return(true);
 }
-if (oc_tradeable($obj1) = false & oc_param($obj1, param_2240) = 0) {
-    if ($obj1 ! null & oc_cert($obj1) = $obj1 & oc_param(oc_uncert($obj1), param_2240) = 1) {
+if (oc_tradeable($obj1) = false & oc_param($obj1, lore_trade_to_bob) = 0) {
+    if ($obj1 ! null & oc_cert($obj1) = $obj1 & oc_param(oc_uncert($obj1), lore_trade_to_bob) = 1) {
         return(false);
     }
     return(true);

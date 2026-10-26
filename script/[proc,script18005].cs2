@@ -7,8 +7,8 @@ def_int $int5 = 0;
 def_int $int6 = 0;
 def_graphic $graphic7 = null;
 $obj2, $struct3, $dbrow4, $int5, $int6, $graphic7 = ~script17884($dbrow0);
-def_component $component8 = interface_1227:com_14;
-def_component $component9 = interface_1227:com_17;
+def_component $component8 = bp3_track_tab:reward_cosmetic_display;
+def_component $component9 = bp3_track_tab:reward_object_display;
 def_int $int10 = -1;
 if_sethide(true, $component8);
 if_sethide(true, $component9);
@@ -30,24 +30,24 @@ switch_int ($int1) {
                 if_sethide(false, $component9);
             case default :
                 if ($struct3 = null & $obj2 ! null) {
-                    $struct3 = oc_param($obj2, param_4414);
+                    $struct3 = oc_param($obj2, mtxmgt_item_struct);
                 }
                 if ($struct3 ! null) {
-                    $int10 = struct_param($struct3, param_2531);
+                    $int10 = struct_param($struct3, mtxmgt_category);
                     switch_int ($int10) {
                         case 3 :
                             ~cc_add_graphic($component9, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 160, 160, ^setsize_abs, ^setsize_abs, bp3_icon_title_256);
                             if_sethide(false, $component9);
                         case default :
                             if ($int10 ! 2) {
-                                ~script18007(dbrow_7885, $struct3);
+                                ~script18007(bp3_prize_preview_components, $struct3);
                             } else {
-                                ~spinner_create(interface_1227:com_97, 3, -1);
+                                ~spinner_create(bp3_track_tab:load_preview, 3, -1);
                             }
                             if_sethide(false, $component8);
                     }
                 } else if ($obj2 ! null) {
-                    if ($obj2 = obj_55781) {
+                    if ($obj2 = bp3_reward_crate) {
                         ~script17927;
                         ~cc_add_graphic($component9, 0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre, 200, 200, ^setsize_abs, ^setsize_abs, bp3_icon_satchel_256);
                     } else {

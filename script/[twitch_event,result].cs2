@@ -3,15 +3,15 @@
 if ($int0 = 1 & $int1 = 0) {
     mes("You have logged in to Twitch!");
     %varclientbit_23064 = 1;
-    ~script9528(interface_232:com_70, 100);
-    if_sethide(true, interface_232:com_72);
-    if_sethide(true, interface_232:com_73);
-    if_sethide(true, interface_232:com_69);
-    if_sethide(true, interface_232:com_64);
-    if_sethide(false, interface_232:com_66);
-    if_setontimer("script10142(clientclock)", interface_232:com_66);
-    if_sethide(true, interface_232:com_38);
-    if_sethide(false, interface_232:com_37);
+    ~script9528(toplevel_v2_parent_suboverlay_twitch:login_spinner_build, 100);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_login);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:twitch_setup);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:logging_in);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:api_check);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:autosetup);
+    if_setontimer("script10142(clientclock)", toplevel_v2_parent_suboverlay_twitch:autosetup);
+    if_sethide(true, toplevel_v2_parent_suboverlay_twitch:logout_btn_disable);
+    if_sethide(false, toplevel_v2_parent_suboverlay_twitch:logout_btn);
     ~script7698;
 } else if ($int0 = 2 & $int1 = 0) {
     mes("You have successfully logged out from Twitch.");
@@ -20,11 +20,11 @@ if ($int0 = 1 & $int1 = 0) {
     ~script7698;
 } else if ($int0 = 4) {
     if ($int1 = 13) {
-        %varclient_4287 = "";
-        %varclient_4288 = 0;
+        %twitch_login_password = "";
+        %twitch_login_password_caret = 0;
         %varclientbit_23064 = 0;
         %varclientbit_23079 = 0;
-        if_settext("", interface_232:com_93);
+        if_settext("", toplevel_v2_parent_suboverlay_twitch:login_password);
         mes("Your Twitch username or Password is incorrect.");
     }
     ~script10118;
@@ -34,8 +34,8 @@ if ($int0 = 1 & $int1 = 0) {
     }
 } else if ($int0 = 30) {
     if ($int1 = 2 | $int1 = 1) {
-    } else if ($int1 = 3 & %varclient_4297 = 1) {
-        %varclient_4297 = 0;
+    } else if ($int1 = 3 & %twitch_webcam_reload_needed = 1) {
+        %twitch_webcam_reload_needed = 0;
         ~script10149;
     }
 } else if ($int0 = 33 & $int1 = 0 & %varclientbit_23070 = 1) {

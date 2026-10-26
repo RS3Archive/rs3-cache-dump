@@ -3,7 +3,7 @@
 if ($int0 <= 0 | $int0 = 1019) {
     return;
 }
-if ((%varplayerbit_27169 = 1 | %varplayerbit_38842 = 0 & %varplayerbit_60441 = 1) & $int0 ! 18) {
+if ((%toplevel_v2_legacy_interface = 1 | %toplevel_v2_mobile_interface = 0 & %toplevel_v2_chat_style = 1) & $int0 ! 18) {
     return;
 }
 def_component $component2 = ~script8557($int0);
@@ -19,7 +19,7 @@ if_setcolour(^white, $component2);
 if_settextshadow(true, $component4);
 if_setcolour(^white, $component4);
 def_boolean $boolean11 = ~script6431;
-if (~script11370 = 0 & %varplayer_1295 = 1000 & $int0 ! 24) {
+if (~script11370 = 0 & %tutorial = 1000 & $int0 ! 24) {
     ~dob_entry_setup_window($int0);
     if_settext("", $component4);
     if_setonclick(null, $component4);
@@ -45,7 +45,7 @@ if (~script6431 = false) {
 }
 if_sethide(false, $component4);
 if_sethide(false, $component3);
-if (%varplayerbit_27169 = 1 | %varplayerbit_38842 = 0 & %varplayerbit_60441 = 1) {
+if (%toplevel_v2_legacy_interface = 1 | %toplevel_v2_mobile_interface = 0 & %toplevel_v2_chat_style = 1) {
     if_sethide(true, ~script13539($int0));
     if_sethide(true, ~script13540($int0));
     if_setposition(0, 29, ^setpos_abs_left, ^setpos_abs_bottom, if_getparentlayer($component5));
@@ -71,11 +71,11 @@ switch_int (~script19312) {
         $string0 = "<img=<11>><$string0>";
 }
 def_string $string1 = "";
-if (%varplayerbit_27169 = 0 & (%varplayerbit_38842 = 1 | %varplayerbit_60441 = 0)) {
+if (%toplevel_v2_legacy_interface = 0 & (%toplevel_v2_mobile_interface = 1 | %toplevel_v2_chat_style = 0)) {
     switch_int ($int10) {
         case 100 :
-            if (string_length(%varclient_2367) > 0) {
-                $string0 = "To <%varclient_2367>:";
+            if (string_length(%friendtomessage) > 0) {
+                $string0 = "To <%friendtomessage>:";
             }
             $string1 = "Private Chat";
         case 1 :
@@ -93,14 +93,14 @@ if (%varplayerbit_27169 = 0 & (%varplayerbit_38842 = 1 | %varplayerbit_60441 = 0
         case 102 :
             $string1 = "Group Ironman";
         case default :
-            if (%varclient_6858 = true) {
+            if (%chatbox_wiki_mode = true) {
                 $string0 = "Search Wiki<img=<3>>:";
             } else {
                 $string1 = "Public Chat";
             }
     }
 } else {
-    switch_int (%varplayerbit_22846) {
+    switch_int (%chat_v2_legacy_filter) {
         case 3 :
             $string1 = "Private Chat";
         case 4 :
@@ -114,14 +114,14 @@ if (%varplayerbit_27169 = 0 & (%varplayerbit_38842 = 1 | %varplayerbit_60441 = 0
         case 11 :
             $string1 = "Group Ironman";
         case default :
-            if (%varclient_6858 = true) {
+            if (%chatbox_wiki_mode = true) {
                 $string0 = "Search Wiki<img=<3>>:";
             } else {
                 $string1 = "Public Chat";
             }
     }
-    if (string_length(%varclient_2367) > 0 & $int10 = 100) {
-        $string0 = "To <%varclient_2367>:";
+    if (string_length(%friendtomessage) > 0 & $int10 = 100) {
+        $string0 = "To <%friendtomessage>:";
     }
 }
 if_settext($string0, $component8);
@@ -129,19 +129,19 @@ if (string_length($string1) > 0) {
     $string1 = "<$string1> - ";
 }
 if ($boolean11 = false) {
-    if_settextfont(fontmetrics_26, $component4);
+    if_settextfont(museo_sans_11pt_regular, $component4);
 } else {
-    if_settextfont(fontmetrics_30, $component4);
+    if_settextfont(museo_sans_15pt_regular, $component4);
 }
 if_setcolour(0x7fa9ff, $component4);
-if_settextfont(fontmetrics_26, $component8);
+if_settextfont(museo_sans_11pt_regular, $component8);
 if_setcolour(^white, $component8);
 if_settextshadow(true, $component8);
 if_setcolour(^white, $component2);
-if (string_length(~script8521($int0)) > 0 | %varclient_2873 = 8 & %varclient_2231 = $int0) {
+if (string_length(~script8521($int0)) > 0 | %keyboard_manager_listening_input_subsystem = 8 & %chatbox_focus = $int0) {
     if_settext(escape(~script8521($int0)), $component4);
 } else {
-    if (%varclient_2231 = $int0) {
+    if (%chatbox_focus = $int0) {
         if ($boolean11 = true) {
             if_settext("<$string1>Enter Message", $component4);
         } else {
@@ -158,7 +158,7 @@ if (string_length(~script8521($int0)) > 0 | %varclient_2873 = 8 & %varclient_223
 }
 ~script7172($int0);
 def_int $setposv12 = ^setpos_abs_bottom;
-def_int $int13 = stringwidth(if_gettext($component8), fontmetrics_26);
+def_int $int13 = stringwidth(if_gettext($component8), museo_sans_11pt_regular);
 if ($boolean11 = true) {
     $setposv12 = ^setpos_abs_centre;
 }
@@ -175,8 +175,8 @@ if ($boolean11 = false) {
 }
 if_setonclick("script1554($int0, event_mousex, 0)", $component4);
 def_string $string2 = ~script8521($int0);
-%varclient_1028 = min(%varclient_1028, string_length(escape($string2)));
-%varclient_1028 = max(%varclient_1028, 0);
+%chat_caret = min(%chat_caret, string_length(escape($string2)));
+%chat_caret = max(%chat_caret, 0);
 ~script1555($int0, 0);
 if (string_length(chat_playername) > 0) {
     if_setontimer(null, $component5);

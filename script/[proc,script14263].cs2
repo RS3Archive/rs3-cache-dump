@@ -1,33 +1,33 @@
 // 14263
 [proc,script14263]
-def_int $int0 = max(1, %varplayerbit_5388);
-~script13995(interface_1015:com_41, null, struct_28556, ~script483(%varplayerbit_5396), ~equal_int(1, $int0));
-~script13995(interface_1015:com_42, null, struct_28556, ~script483(%varplayerbit_5397), ~equal_int(2, $int0));
-~script13995(interface_1015:com_43, null, struct_28556, ~script483(%varplayerbit_5402), ~equal_int(3, $int0));
-~script13995(interface_1015:com_44, null, struct_28556, ~script483(%varplayerbit_5403), ~equal_int(4, $int0));
-~script13995(interface_1015:com_45, null, struct_28556, ~script483(%varplayerbit_5406), ~equal_int(5, $int0));
-~script13995(interface_1015:com_46, null, struct_28556, ~script483(%varplayerbit_5407), ~equal_int(6, $int0));
-~script13995(interface_1015:com_47, null, struct_28556, ~script483(%varplayerbit_5408), ~equal_int(7, $int0));
-~script13995(interface_1015:com_48, null, struct_28556, ~script483(%varplayerbit_5409), ~equal_int(8, $int0));
-~script13995(interface_1015:com_49, null, struct_28556, ~script483(%varplayerbit_5410), ~equal_int(9, $int0));
-~script13995(interface_1015:com_50, null, struct_28556, ~script483(%varplayerbit_5411), ~equal_int(10, $int0));
-def_int $int1 = ~bankdraw_side(%varplayerbit_5388);
+def_int $int0 = max(1, %conq_current_unit_purchase_slot);
+~script13995(conq_buy_army:unit_01, null, rs3tli_3x3_button, ~script483(%conq_unit_1_type), ~equal_int(1, $int0));
+~script13995(conq_buy_army:unit_02, null, rs3tli_3x3_button, ~script483(%conq_unit_2_type), ~equal_int(2, $int0));
+~script13995(conq_buy_army:unit_03, null, rs3tli_3x3_button, ~script483(%conq_unit_3_type), ~equal_int(3, $int0));
+~script13995(conq_buy_army:unit_04, null, rs3tli_3x3_button, ~script483(%conq_unit_4_type), ~equal_int(4, $int0));
+~script13995(conq_buy_army:unit_05, null, rs3tli_3x3_button, ~script483(%conq_unit_5_type), ~equal_int(5, $int0));
+~script13995(conq_buy_army:unit_06, null, rs3tli_3x3_button, ~script483(%conq_unit_6_type), ~equal_int(6, $int0));
+~script13995(conq_buy_army:unit_07, null, rs3tli_3x3_button, ~script483(%conq_unit_7_type), ~equal_int(7, $int0));
+~script13995(conq_buy_army:unit_08, null, rs3tli_3x3_button, ~script483(%conq_unit_8_type), ~equal_int(8, $int0));
+~script13995(conq_buy_army:unit_09, null, rs3tli_3x3_button, ~script483(%conq_unit_9_type), ~equal_int(9, $int0));
+~script13995(conq_buy_army:unit_10, null, rs3tli_3x3_button, ~script483(%conq_unit_10_type), ~equal_int(10, $int0));
+def_int $int1 = ~bankdraw_side(%conq_current_unit_purchase_slot);
 ~script14264($int1);
 def_npc $npc2 = ~script486($int1);
-if_sethide(true, interface_1015:com_81);
-if_sethide(false, interface_1015:com_79);
+if_sethide(true, conq_buy_army:select_a_unit_text);
+if_sethide(false, conq_buy_army:purchase_replace_details_layer);
 if ($npc2 = null) {
-    if_sethide(false, interface_1015:com_38);
-    if_settext("No Troop", interface_1015:com_38);
-    if_sethide(true, interface_1015:com_78);
+    if_sethide(false, conq_buy_army:no_unit_selected_text);
+    if_settext("No Troop", conq_buy_army:no_unit_selected_text);
+    if_sethide(true, conq_buy_army:purchase_current_details_layer);
 } else {
-    if_sethide(true, interface_1015:com_38);
-    if_sethide(false, interface_1015:com_78);
-    if_settext(nc_param($npc2, param_1139), interface_1015:com_57);
-    if_setgraphic(nc_param($npc2, param_1148), interface_1015:com_59);
-    if_settext("Movement: <col=ffffff><tostring(nc_param($npc2, param_1134))>", interface_1015:com_83);
-    if_settext("Damage: <col=ffffff><tostring(calc(nc_param($npc2, param_1135) * 100))>", interface_1015:com_84);
-    if_settext("Health: <col=ffffff><tostring(calc(nc_param($npc2, param_1136) * 100))>", interface_1015:com_85);
-    if_settext("Range: <col=ffffff><tostring(nc_param($npc2, param_1137))>", interface_1015:com_86);
-    if_settext("Cost: <col=ffffff><tostring(nc_param($npc2, param_1138))>", interface_1015:com_87);
+    if_sethide(true, conq_buy_army:no_unit_selected_text);
+    if_sethide(false, conq_buy_army:purchase_current_details_layer);
+    if_settext(nc_param($npc2, conq_unit_name), conq_buy_army:unit_type_text);
+    if_setgraphic(nc_param($npc2, conq_unit_icon), conq_buy_army:current_unit_image);
+    if_settext("Movement: <col=ffffff><tostring(nc_param($npc2, conq_unit_movement))>", conq_buy_army:unit_movement_text);
+    if_settext("Damage: <col=ffffff><tostring(calc(nc_param($npc2, conq_unit_damage) * 100))>", conq_buy_army:unit_damage_text);
+    if_settext("Health: <col=ffffff><tostring(calc(nc_param($npc2, conq_unit_health) * 100))>", conq_buy_army:unit_health_text);
+    if_settext("Range: <col=ffffff><tostring(nc_param($npc2, conq_unit_range))>", conq_buy_army:unit_range_text);
+    if_settext("Cost: <col=ffffff><tostring(nc_param($npc2, conq_unit_cost))>", conq_buy_army:unit_cost_text);
 }

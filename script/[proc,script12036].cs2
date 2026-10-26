@@ -2,23 +2,23 @@
 [proc,script12036](component $component0, int $int1, string $string0)
 def_int $int2 = 0;
 if (if_find($component0) = true) {
-    if (cc_param(param_5433) = -1) {
+    if (cc_param(friends_sort_mode) = -1) {
         return;
     }
-    if (cc_param(param_5433) = $int1 & compare(%varclient_5113, $string0) = 0) {
+    if (cc_param(friends_sort_mode) = $int1 & compare(%friend_lastfilter, $string0) = 0) {
         return;
     }
-    %varclient_5113 = $string0;
-    cc_setparam(param_5433, $int1);
+    %friend_lastfilter = $string0;
+    cc_setparam(friends_sort_mode, $int1);
     switch_int ($int1) {
         case 0 :
             $int2 = 0;
             ~script14979("rs3_icon_sort,4");
         case 1 :
-            $int2 = cc_param(param_5434);
+            $int2 = cc_param(friends_sort_atoz);
             ~script14979("rs3_icon_sort,1");
         case 2 :
-            $int2 = cc_param(param_5435);
+            $int2 = cc_param(friends_sort_ztoa);
             ~script14979("rs3_icon_sort,6");
         case default :
             return;
@@ -32,9 +32,9 @@ def_boolean $boolean5 = false;
 def_component $component6 = ~script12023($component0);
 def_component $component7 = ~script12024($component0);
 def_boolean $boolean8 = ~script6431;
-def_int $int9 = enum(fontmetrics, int, enum_8549, fontmetrics_26);
+def_int $int9 = enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_11pt_regular);
 if ($boolean8 = true) {
-    $int9 = enum(fontmetrics, int, enum_8549, fontmetrics_32);
+    $int9 = enum(fontmetrics, int, toplevel_v2_font_heights, museo_sans_17pt_bold);
 }
 $int9 = calc($int9 + 4);
 while ($int2 ! -1) {
@@ -49,9 +49,9 @@ while ($int2 ! -1) {
                     $int2 = -1;
                 }
             case 1 :
-                $int2 = cc_param(param_5434);
+                $int2 = cc_param(friends_sort_atoz);
             case 2 :
-                $int2 = cc_param(param_5435);
+                $int2 = cc_param(friends_sort_ztoa);
             case default :
                 return;
         }

@@ -18,16 +18,16 @@ def_boolean $boolean6 = false;
 def_boolean $boolean7 = false;
 def_string $string0 = "";
 if ($int0 = 1) {
-    if (%varplayerbit_45140 = 1) {
+    if (%bank_filter = 1) {
         if (~script8232($obj2) ! -1) {
-            $boolean7, $string0 = ~bank_get_destroy_mes($obj2, inv_95, $int1);
+            $boolean7, $string0 = ~bank_get_destroy_mes($obj2, bank, $int1);
             if ($boolean7 = true | ~bank_confirm_drop($obj2, 95, "Destroy Item", $string0, "Destroy") = true) {
                 ~script14289($obj2, $int3, $int1);
             }
         }
         return;
     }
-    $int0 = %varplayerbit_45189;
+    $int0 = %bank_customop;
 }
 if (~script16797($obj2) = false) {
     return;
@@ -43,7 +43,7 @@ switch_int ($int0) {
     case 4 :
         $int4 = 10;
     case 5 :
-        $int4 = %varplayer_111;
+        $int4 = %bank_move_x;
     case 6 :
         $int4 = ~bank_get_custom_amount;
     case 7 :
@@ -56,11 +56,11 @@ switch_int ($int0) {
         $int4 = $int3;
         $boolean6 = true;
     case 9 :
-        if (%varplayerbit_45139 = 2) {
-            $inv5 = inv_93;
+        if (%bank_current_inv = 2) {
+            $inv5 = inv;
             $int4 = 1;
         } else {
-            $inv5 = inv_94;
+            $inv5 = worn;
             if (oc_stackable($obj2) = true) {
                 $int4 = max(1, calc($int3 - 1));
             } else {

@@ -1,20 +1,20 @@
 // 4283
 [proc,script4283]
-if_settext(activeclansettings_getclanname, interface_1095:com_4);
-~script4332(interface_1095:com_18, interface_1095:com_19);
-~script4334(interface_1095:com_21, interface_1095:com_22);
-~script4336(interface_1095:com_5);
-if (compare(if_gettext(interface_1095:com_5), "") ! 0) {
-    if_settext(append("'", append(if_gettext(interface_1095:com_5), "'")), interface_1095:com_5);
+if_settext(activeclansettings_getclanname, clan_join_invite:clan_name);
+~script4332(clan_join_invite:logo1_gfx, clan_join_invite:logo2_gfx);
+~script4334(clan_join_invite:colour1, clan_join_invite:colour2);
+~script4336(clan_join_invite:clan_motto);
+if (compare(if_gettext(clan_join_invite:clan_motto), "") ! 0) {
+    if_settext(append("'", append(if_gettext(clan_join_invite:clan_motto), "'")), clan_join_invite:clan_motto);
 }
-if_settext("Size: <tostring(activeclansettings_getaffinedcount)>", interface_1095:com_8);
+if_settext("Size: <tostring(activeclansettings_getaffinedcount)>", clan_join_invite:clan_size);
 def_string $string0 = "Home World: Not Set";
-if (%varclansettingbit_8805 > 0) {
-    $string0 = "Home World: <enum(int, string, enum_3700, %varclansettingbit_8805)>";
+if (%clan_homeworld_varclan > 0) {
+    $string0 = "Home World: <enum(int, string, clan_noticeboard_event_world, %clan_homeworld_varclan)>";
 }
-if_settext($string0, interface_1095:com_9);
-~script12226(interface_1095:com_0);
-if_settext("<u=A0B6C0><if_gettext(interface_1095:com_0)>", interface_1095:com_0);
-~script4329(interface_1095:com_1);
-if_settext("<u=A0B6C0>Clan Thread", interface_1095:com_1);
-if_sethide(true, interface_1095:com_14);
+if_settext($string0, clan_join_invite:clan_home_world);
+~script12226(clan_join_invite:clan_homepage_link);
+if_settext("<u=A0B6C0><if_gettext(clan_join_invite:clan_homepage_link)>", clan_join_invite:clan_homepage_link);
+~script4329(clan_join_invite:clan_forum_link);
+if_settext("<u=A0B6C0>Clan Thread", clan_join_invite:clan_forum_link);
+if_sethide(true, clan_join_invite:clan_data_waiting);

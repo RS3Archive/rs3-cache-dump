@@ -1,13 +1,13 @@
 // 1708
 [proc,script1708]
-def_int $int0 = %varplayerbit_17121;
-if (%varplayerbit_17115 > 0) {
+def_int $int0 = %pop_voyage_rerolls;
+if (%pop_voyage_random_1_id > 0) {
     $int0 = calc($int0 + 1);
 }
-if (%varplayerbit_17116 > 0) {
+if (%pop_voyage_random_2_id > 0) {
     $int0 = calc($int0 + 1);
 }
-if (%varplayerbit_17117 > 0) {
+if (%pop_voyage_random_3_id > 0) {
     $int0 = calc($int0 + 1);
 }
 def_int $int1 = 0;
@@ -20,54 +20,54 @@ if ($int1 = 0) {
     $string0 = "<tostring($int1)>h";
 }
 if ($int0 > 0) {
-    if_settext("Voyages available: <tostring($int0)>", interface_950:com_11);
+    if_settext("Voyages available: <tostring($int0)>", pop_voyage_list:list_rerolls);
 } else {
-    if_settext("New voyages in <$string0>", interface_950:com_11);
+    if_settext("New voyages in <$string0>", pop_voyage_list:list_rerolls);
 }
-~script13993(interface_950:com_13, null, struct_28556, "Add 5 rerolls (<tostring(%varplayerbit_17421)>)");
-if (%varplayerbit_17421 < 1 | %varplayerbit_17121 > 15) {
-    if_sethide(false, interface_950:com_14);
+~script13993(pop_voyage_list:add_rerolls, null, rs3tli_3x3_button, "Add 5 rerolls (<tostring(%pop_port_item_2_quantity)>)");
+if (%pop_port_item_2_quantity < 1 | %pop_voyage_rerolls > 15) {
+    if_sethide(false, pop_voyage_list:add_rerolls_no);
 } else {
-    if_sethide(true, interface_950:com_14);
+    if_sethide(true, pop_voyage_list:add_rerolls_no);
 }
-if (%varplayerbit_17423 < 1) {
-    if_sethide(false, interface_950:com_277);
+if (%pop_port_item_4_quantity < 1) {
+    if_sethide(false, pop_voyage_list:reroll_special_voyages_disable_layer);
 } else {
-    if_sethide(true, interface_950:com_277);
+    if_sethide(true, pop_voyage_list:reroll_special_voyages_disable_layer);
 }
-~script1711(%varplayerbit_17129, 1);
-~script1711(%varplayerbit_17129, 2);
-~script1711(%varplayerbit_17129, 3);
-if_setopkey(2, ^key_left, 0, interface_950:com_106);
-if_setopkey(1, ^key_right, 0, interface_950:com_106);
-if_setopkey(2, ^key_up, 0, interface_950:com_2);
-if_setopkey(1, ^key_down, 0, interface_950:com_2);
-if_setopkey(1, ^key_escape, 0, interface_950:com_218);
+~script1711(%pop_voyage_list_mode, 1);
+~script1711(%pop_voyage_list_mode, 2);
+~script1711(%pop_voyage_list_mode, 3);
+if_setopkey(2, ^key_left, 0, pop_voyage_list:ship_list_selector);
+if_setopkey(1, ^key_right, 0, pop_voyage_list:ship_list_selector);
+if_setopkey(2, ^key_up, 0, pop_voyage_list:voyage_list_selector);
+if_setopkey(1, ^key_down, 0, pop_voyage_list:voyage_list_selector);
+if_setopkey(1, ^key_escape, 0, pop_voyage_list:mainmodal_window_close_button);
 ~script2192;
 ~script1885;
-def_int $int3 = %varplayer_3415;
-if (%varplayerbit_17495 >= 38 & %varplayerbit_17495 < 50) {
+def_int $int3 = %pop_voyage_list_story_available;
+if (%pop_tutorial_progress >= 38 & %pop_tutorial_progress < 50) {
     $int3 = 1;
 }
-~script13972(interface_950:com_219, interface_950:com_220, struct_28595, "Special Voyages (<tostring($int3)>)", ~equal_int(1, %varplayerbit_17129));
-~script13972(interface_950:com_221, interface_950:com_222, struct_28595, "Standard Voyages", ~equal_int(0, %varplayerbit_17129));
-if (%varplayerbit_17121 < 1) {
-    ~script13960(interface_950:com_35, struct_28693, true, 0);
-    ~script13960(interface_950:com_55, struct_28693, true, 0);
-    ~script13960(interface_950:com_75, struct_28693, true, 0);
+~script13972(pop_voyage_list:tab_build, pop_voyage_list:tab_click, rs3tli_modal_tab, "Special Voyages (<tostring($int3)>)", ~equal_int(1, %pop_voyage_list_mode));
+~script13972(pop_voyage_list:tab_build_1, pop_voyage_list:tab_click_1, rs3tli_modal_tab, "Standard Voyages", ~equal_int(0, %pop_voyage_list_mode));
+if (%pop_voyage_rerolls < 1) {
+    ~script13960(pop_voyage_list:list_1_reroll_icon, rs3tli_lobby_refresh_icons, true, 0);
+    ~script13960(pop_voyage_list:list_2_reroll_icon, rs3tli_lobby_refresh_icons, true, 0);
+    ~script13960(pop_voyage_list:list_3_reroll_icon, rs3tli_lobby_refresh_icons, true, 0);
 } else {
-    ~script13960(interface_950:com_35, struct_28693, false, 0);
-    ~script13960(interface_950:com_55, struct_28693, false, 0);
-    ~script13960(interface_950:com_75, struct_28693, false, 0);
+    ~script13960(pop_voyage_list:list_1_reroll_icon, rs3tli_lobby_refresh_icons, false, 0);
+    ~script13960(pop_voyage_list:list_2_reroll_icon, rs3tli_lobby_refresh_icons, false, 0);
+    ~script13960(pop_voyage_list:list_3_reroll_icon, rs3tli_lobby_refresh_icons, false, 0);
 }
-if (%varplayerbit_17495 < 63) {
-    if_sethide(true, interface_950:com_110);
-    if_sethide(true, interface_950:com_10);
-    if_sethide(true, interface_950:com_7);
-    if_sethide(true, interface_950:com_33);
-    if_sethide(true, interface_950:com_53);
-    if_sethide(true, interface_950:com_73);
-    if (%varplayerbit_17495 < 38) {
-        if_sethide(true, interface_950:com_108);
+if (%pop_tutorial_progress < 63) {
+    if_sethide(true, pop_voyage_list:effects_button);
+    if_sethide(true, pop_voyage_list:reroll_layer);
+    if_sethide(true, pop_voyage_list:more_layer);
+    if_sethide(true, pop_voyage_list:list_1_reroll);
+    if_sethide(true, pop_voyage_list:list_2_reroll);
+    if_sethide(true, pop_voyage_list:list_3_reroll);
+    if (%pop_tutorial_progress < 38) {
+        if_sethide(true, pop_voyage_list:crew_roster);
     }
 }

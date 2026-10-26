@@ -1,23 +1,23 @@
 // 13903
 [proc,script13903]
-if (%varplayerbit_45140 ! 0) {
-    if_triggerop(interface_517:com_259, -1, 1);
+if (%bank_filter ! 0) {
+    if_triggerop(bank:bottom_panel_cancel_button, -1, 1);
     ~bank_filter_clear(0);
 }
 ~dynamic_dropdown_hide;
-if_sethide(true, interface_517:com_197);
+if_sethide(true, bank:message_nofilter);
 ~script10239;
 ~bank_build_tabs(1);
-~bank_show_search(%varclient_6711, 1);
-%varclient_6684 = true;
-%varclient_2235 = interface_517:com_234;
-%varclient_2236 = 8;
-%varclient_2237 = 12;
+~bank_show_search(%bank_lastsearchstring, 1);
+%bank_searchmode_client = true;
+%p_dialog_listener = bank:text_input_listener;
+%p_dialog_mode = 8;
+%p_dialog_maxchar = 12;
 def_string $string0 = "";
-if_setontimer("bank_search_timer($string0, clientclock)", interface_517:com_231);
-if_setontimer("diango_search_timer($string0, clientclock, interface_517:com_233, interface_517:com_202, 1)", interface_517:com_233);
-~script9833(interface_517:com_234, interface_517:com_235, interface_517:com_236, interface_517:com_237, interface_517:com_239, 0, 0);
-if_sethide(false, interface_517:com_257);
-if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre, interface_517:com_257);
-~script13993(interface_517:com_257, null, struct_28228, "Cancel Search");
-if_setonop("bank_search_abort", interface_517:com_259);
+if_setontimer("bank_search_timer($string0, clientclock)", bank:bank_search_button_layer);
+if_setontimer("diango_search_timer($string0, clientclock, bank:search_icon, bank:diango_inv, 1)", bank:search_icon);
+~script9833(bank:text_input_listener, bank:text_input_listen, bank:text_input_caret, bank:text_input_display, bank:text_input_clickout, 0, 0);
+if_sethide(false, bank:bottom_panel_cancel);
+if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre, bank:bottom_panel_cancel);
+~script13993(bank:bottom_panel_cancel, null, rs3tli_30px_button_3x3, "Cancel Search");
+if_setonop("bank_search_abort", bank:bottom_panel_cancel_button);

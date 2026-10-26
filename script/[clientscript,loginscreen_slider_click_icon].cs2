@@ -2,9 +2,9 @@
 [clientscript,loginscreen_slider_click_icon]
 def_int $int0 = clientoption_get(^clientoption_volume_login_music);
 if ($int0 = 0) {
-    if (%varclient_1394 > 0 & %varclient_1394 <= 255) {
-        clientoption_set(^clientoption_volume_login_music, %varclient_1394);
-        clientoption_set(^clientoption_volume_main_effects, %varclient_6888);
+    if (%loginscreen_musicvol_last > 0 & %loginscreen_musicvol_last <= 255) {
+        clientoption_set(^clientoption_volume_login_music, %loginscreen_musicvol_last);
+        clientoption_set(^clientoption_volume_main_effects, %loginscreen_musicvol_save);
     } else {
         clientoption_set(^clientoption_volume_login_music, 127);
         clientoption_set(^clientoption_volume_main_effects, 127);
@@ -13,11 +13,11 @@ if ($int0 = 0) {
     clientoption_set(^clientoption_volume_login_music, 0);
     clientoption_set(^clientoption_volume_main_effects, 0);
 }
-%varclient_6888 = clientoption_get(^clientoption_volume_login_music);
-def_component $component1 = interface_744:com_234;
+%loginscreen_musicvol_save = clientoption_get(^clientoption_volume_login_music);
+def_component $component1 = loginscreen:audio_build;
 switch_toplevelinterface (if_gettop) {
-    case interface_906 :
-        $component1 = interface_911:com_10;
+    case lobbyscreen :
+        $component1 = lobbyscreen_pane_options:audio_build;
 }
-~script10452($component1, 0, 255, %varclient_6888);
+~script10452($component1, 0, 255, %loginscreen_musicvol_save);
 ~script15657;

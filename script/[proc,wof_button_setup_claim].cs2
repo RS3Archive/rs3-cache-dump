@@ -1,25 +1,25 @@
 // 6671
 [proc,wof_button_setup_claim](obj $obj0, int $int1)
-if (%varclient_1790 = -1) {
+if (%wof_claim_state = -1) {
     return;
 }
 def_string $string0 = "Claim item";
 def_boolean $boolean2 = false;
 def_string $string1 = "You do not have a prize to claim.";
 def_string $string2 = "You do not have a prize to claim.";
-if (%varplayerbit_4323 <= 0) {
+if (%wof_reward_slot <= 0) {
     $string1 = "You do not have a prize to claim.";
     $string2 = "You do not have a prize to claim.";
     $boolean2 = false;
 } else {
     $string0 = "Claim item";
-    switch_int (%varclient_1790) {
+    switch_int (%wof_claim_state) {
         case 1, 3, 8, 9, 5 :
             $boolean2 = true;
         case default :
             $boolean2 = false;
     }
-    switch_int (%varclient_1790) {
+    switch_int (%wof_claim_state) {
         case 1 :
             $string1 = "Claim your prize to your backpack.";
             $string2 = "Your backpack doesn't have room for your prize at the moment.";
@@ -54,10 +54,10 @@ if (%varplayerbit_4323 <= 0) {
             $string2 = "Your backpack doesn't have room for your prize at the moment.";
     }
 }
-if_setop(1, $string0, interface_1253:com_276);
-if_setenabled($boolean2, interface_1253:com_276);
+if_setop(1, $string0, wheel_of_fortune:reward_claim_auto_button);
+if_setenabled($boolean2, wheel_of_fortune:reward_claim_auto_button);
 if ($boolean2 = true) {
-    if_setonmouserepeat("script3876($string1, event_com, -1)", interface_1253:com_276);
+    if_setonmouserepeat("script3876($string1, event_com, -1)", wheel_of_fortune:reward_claim_auto_button);
 } else {
-    if_setonmouserepeat("script3876($string2, event_com, -1)", interface_1253:com_276);
+    if_setonmouserepeat("script3876($string2, event_com, -1)", wheel_of_fortune:reward_claim_auto_button);
 }

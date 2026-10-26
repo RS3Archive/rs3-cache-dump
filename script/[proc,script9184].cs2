@@ -1,33 +1,33 @@
 // 9184
 [proc,script9184]
-if (%varplayerbit_20797 = 1) {
+if (%dndtracker_always_switch_world = 1) {
     return;
 }
-if (%varplayer_3233 < 1) {
+if (%omge_job_interface_id < 1) {
     ~script6748;
     return;
 }
 def_int $int0 = -1;
 def_enum $enum1 = null;
 def_int $int2 = 0;
-switch_int (%varplayerbit_20794) {
+switch_int (%dndtracker_filter_selection) {
     case 0, 1 :
-        $enum1 = enum_6452;
+        $enum1 = uaui_minigames_all;
     case 2 :
-        $enum1 = enum_8014;
+        $enum1 = uaui_minigames_dnds;
     case 3 :
-        $enum1 = enum_8015;
+        $enum1 = uaui_minigames_all_minigames;
     case 4 :
-        $enum1 = enum_8016;
+        $enum1 = uaui_minigames_combat;
     case 5 :
-        $enum1 = enum_8017;
+        $enum1 = uaui_minigames_nocombat;
 }
 if ($enum1 = null) {
     ~script6748;
     return;
 }
-if (struct_param(enum(int, struct, $enum1, %varplayer_3233), param_2701) > 0) {
-    if_sethide(false, interface_1344:com_101);
+if (struct_param(enum(int, struct, $enum1, %omge_job_interface_id), challenge_theme_world) > 0) {
+    if_sethide(false, minigames_main:teleport_message);
 }
-if_sethide(false, interface_1344:com_107);
-if_sethide(true, interface_1344:com_106);
+if_sethide(false, minigames_main:checkbox_deselected_layer);
+if_sethide(true, minigames_main:checkbox_selected_layer);

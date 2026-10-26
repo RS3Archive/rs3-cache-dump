@@ -1,0 +1,29 @@
+// 21200
+[proc,script21200](int $int0)
+def_component $component1 = plugin_hub_parent_install:dependency_list;
+def_int $int2 = plugin_install_action_count;
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = calc(0 - 4);
+def_int $int7 = calc(2500 * 10);
+if ($int2 <= 1) {
+    if_settext("Dependencies", plugin_hub_parent_install:dependency_title);
+    ~cc_add_text(plugin_hub_parent_install:dependency_list, $int3, 0, 0, ^setpos_abs_left, ^setpos_abs_top, 0, 40, ^setsize_minus, ^setsize_abs, text_body_paragraph, "The selected plugin has no dependencies.");
+} else {
+    if_settext("Installing includes all dependencies:", plugin_hub_parent_install:dependency_title);
+    while ($int3 < $int2) {
+        $int4, $int5 = plugin_install_action_get($int3);
+        if ($int4 ! $int0) {
+            $int6 = calc($int6 + 4);
+            ~cc_add_layer($component1, $int3, 0, $int6, ^setpos_abs_left, ^setpos_abs_top, 0, 72, ^setsize_minus, ^setsize_abs);
+            ~script21190($component1, $int3, $int4);
+            if (cc_findbycategory($component1, ~script21130(calc($int7 + $int3))) = 1) {
+                cc_delete;
+            }
+            $int6 = calc($int6 + 72);
+        }
+        $int3 = calc($int3 + 1);
+    }
+}
+~script19620(plugin_hub_parent_install:dependency_scrollbar, plugin_hub_parent_install:dependency_list, $int6, null, -1, 0, 0, 24);

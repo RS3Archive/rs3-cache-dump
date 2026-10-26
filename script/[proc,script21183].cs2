@@ -1,0 +1,47 @@
+// 21183
+[proc,script21183](component $component0, component $component1, component $component2, int $int3)
+if (plugin_getunavailable(-1) = true) {
+    if_sethide(true, plugin_hub_parent_browse:auth_layer);
+    if_sethide(false, plugin_hub_parent_browse:content);
+    ~script21189($component0, $component1, $component2, "The Plugin Hub is currently disabled. Please try again later.");
+    return;
+}
+if (~script21162(plugin_hub_parent_browse:auth_layer) = false) {
+    if_setontimer("script21182($component0, $component1, $component2, $int3)", plugin_hub_parent_browse:rebuild_listener);
+    return;
+}
+if (calc(%plugin_hub_last_search_clientclock + 50) > clientclock) {
+    if_setontimer("script21182($component0, $component1, $component2, $int3)", plugin_hub_parent_browse:rebuild_listener);
+    if_sethide(false, $component1);
+    return;
+}
+if_setontimer(null, plugin_hub_parent_browse:rebuild_listener);
+if (%plugin_hub_page = -1) {
+    %plugin_hub_page = 0;
+}
+def_string $string0 = enum(int, string, plugin_hub_categories, %plugin_hub_category_id);
+def_string $string1 = "";
+pluginapi_search_reset;
+switch_int ($int3) {
+    case 2 :
+        pluginapi_search_sortby(3);
+    case 1 :
+        pluginapi_search_sortby(2);
+    case default :
+        pluginapi_search_sortby(1);
+}
+pluginapi_search_page(%plugin_hub_page, 50);
+pluginapi_search_filterinstalled(2);
+if (string_length(%plugin_hub_last_search) >= 2) {
+    $string1 = urlencode("*<%plugin_hub_last_search>*");
+    pluginapi_search_addfield(0, 0, $string1);
+}
+if (pluginapi_search_submit = true) {
+    %plugin_hub_last_search_clientclock = clientclock;
+    if_setonpluginsearchevent("script21184($component0, $component1, $component2, event_mousex, event_mousey)", plugin_hub_parent_browse:search_listener);
+    if_setontimer("script21185($component0, $component1, $component2)", plugin_hub_parent_browse:search_listener);
+    if_sethide(false, $component1);
+    return;
+}
+if_sethide(false, plugin_hub_parent_browse:content);
+~script21189($component0, $component1, $component2, "Plugin details can not be loaded at this time (error type: 1). Please try again later.");

@@ -10,11 +10,11 @@ def_boolean $boolean2 = ~script7112($obj0);
 if ($int1 = 0) {
     $boolean2 = false;
 }
-def_obj $obj3 = oc_param($obj0, param_2655);
+def_obj $obj3 = oc_param($obj0, recipe_ingredient_type_1);
 def_int $int4 = ~makex2012_get_ingredient_number($obj0, 1);
-def_int $int5 = oc_param($obj0, param_5456);
-def_struct $struct6 = oc_param($obj0, param_2675);
-def_boolean $boolean7 = oc_param($obj0, param_2686);
+def_int $int5 = oc_param($obj0, recipe_ingredient_extra_info_1);
+def_struct $struct6 = oc_param($obj0, recipe_ingredient_1_multiple);
+def_boolean $boolean7 = oc_param($obj0, recipe_ingredient_1_scale_stack);
 def_int $int8 = ~script15148($obj0);
 def_int $int9 = 1;
 def_boolean $boolean10 = false;
@@ -23,7 +23,7 @@ def_int $int12 = ~script18374($obj0);
 def_int $int13 = 1;
 def_int $int14 = 0;
 def_int $int15 = 0;
-def_int $int16 = inv_total(inv_93, $obj0);
+def_int $int16 = inv_total(inv, $obj0);
 while ($int9 <= 10) {
     $obj3, $int5, $int4, $struct6, $boolean7 = ~script2517($obj0, $int9);
     if ($struct6 ! null) {
@@ -59,12 +59,12 @@ while ($int9 <= 10) {
     }
     $int9 = calc($int9 + 1);
 }
-def_int $int17 = oc_param($obj0, param_7764);
-if (oc_param($obj0, param_8878) = false) {
+def_int $int17 = oc_param($obj0, recipe_slots_needed);
+if (oc_param($obj0, recipe_add_to_inv) = false) {
     $int17 = 0;
 }
 def_boolean $boolean18 = oc_stackable($obj0);
-if (oc_param($obj0, param_7801) > 0 & $boolean18 = true & $int16 > 0) {
+if (oc_param($obj0, smithing_progress_needed) > 0 & $boolean18 = true & $int16 > 0) {
     $int16 = 0;
     $boolean18 = false;
 }
@@ -87,7 +87,7 @@ if ($int20 <= 0) {
     if ($int17 <= 0) {
         return($int8);
     } else {
-        return(min(calc(inv_size(inv_93) - $int19), $int8));
+        return(min(calc(inv_size(inv) - $int19), $int8));
     }
 } else if ($int20 > 0) {
     if ($boolean18 = true) {
@@ -97,14 +97,14 @@ if ($int20 <= 0) {
             } else {
                 return($int8);
             }
-        } else if (inv_freespace(inv_93) >= $int17) {
+        } else if (inv_freespace(inv) >= $int17) {
             return($int8);
         } else {
             return(0);
         }
     } else if ($int13 = 1) {
-        return(min($int8, calc(inv_freespace(inv_93) / $int20)));
+        return(min($int8, calc(inv_freespace(inv) / $int20)));
     } else {
-        return(min($int8, calc(inv_size(inv_93) / $int20)));
+        return(min($int8, calc(inv_size(inv) / $int20)));
     }
 }

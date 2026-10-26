@@ -1,13 +1,13 @@
 // 12634
 [proc,script12634](int $setposh0, int $setposv1)
-def_int $int2 = cc_param(param_5931);
-def_int $int3 = cc_param(param_5932);
-def_int $int4 = cc_param(param_4058);
-def_int $int5 = cc_param(param_4059);
+def_int $int2 = cc_param(rs3tli_component_target_width);
+def_int $int3 = cc_param(rs3tli_component_target_height);
+def_int $int4 = cc_param(rs3tli_component_original_width);
+def_int $int5 = cc_param(rs3tli_component_original_height);
 def_int $int6 = -1;
 def_int $int7 = -1;
 def_int $int8 = -1;
-switch_int (cc_param(param_5835)) {
+switch_int (cc_param(rs3tli_component_resize_type)) {
     case 0 :
         if ($int2 = -1 & $int3 = -1) {
             return;
@@ -34,7 +34,7 @@ switch_int (cc_param(param_5835)) {
         } else if ($int3 = -1) {
             $int3 = cc_getheight;
         }
-        $int8 = abs(cc_param(param_5930));
+        $int8 = abs(cc_param(rs3tli_component_resize_step));
         $int7 = calc($int2 - cc_getwidth);
         if ($int7 ! 0) {
             $int2 = calc(~script12421($int7) * min(abs($int7), $int8));
@@ -52,15 +52,15 @@ switch_int (cc_param(param_5835)) {
         if ($setposh0 = ^setpos_abs_centre & $setposv1 = ^setpos_abs_centre) {
             if ($int4 = -1) {
                 $int4 = cc_getwidth;
-                cc_setparam(param_4058, $int4);
+                cc_setparam(rs3tli_component_original_width, $int4);
             }
             if ($int5 = -1) {
                 $int5 = cc_getheight;
-                cc_setparam(param_4059, $int5);
+                cc_setparam(rs3tli_component_original_height, $int5);
             }
-            $int6 = enum(int, int, enum_9054, calc(~script12722(cc_param(param_8629), cc_param(param_8628)) % 360));
-            $int2 = calc($int4 + scale(cc_param(param_8550), 100, $int6));
-            $int3 = calc($int5 + scale(cc_param(param_8627), 100, $int6));
+            $int6 = enum(int, int, sin_deg2percentage_enum, calc(~script12722(cc_param(rs3tli_component_resize_playback_rate), cc_param(rs3tli_component_resize_offset)) % 360));
+            $int2 = calc($int4 + scale(cc_param(rs3tli_component_resize_delta_width), 100, $int6));
+            $int3 = calc($int5 + scale(cc_param(rs3tli_component_resize_delta_height), 100, $int6));
             $int2 = max(1, $int2);
             $int3 = max(1, $int3);
             if ($int6 >= 0) {

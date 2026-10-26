@@ -7,11 +7,11 @@ if (if_hassub($component0) = false) {
 def_int $int1 = 0;
 def_interface $interface2 = null;
 def_component $component3 = null;
-db_listall(dbtable_360);
+db_listall(interface_fullscreen_interface);
 def_dbrow $dbrow4 = db_findnext;
 while ($dbrow4 ! null & $int1 = 0) {
-    $interface2 = db_getfield($dbrow4, dbtable_360:col0, 0);
-    $component3 = db_getfield($dbrow4, dbtable_360:col1, 0);
+    $interface2 = db_getfield($dbrow4, interface_fullscreen_interface:col0, 0);
+    $component3 = db_getfield($dbrow4, interface_fullscreen_interface:col1, 0);
     if (if_hassubmodal($component0, $interface2) = true) {
         $int1 = 1;
     }
@@ -21,8 +21,8 @@ if ($int1 = 0) {
     ~error("[proc,interface_zoom_set_fullmodal] called, however, no interface was setup using [interface_fullscreen_interface]");
     return;
 }
-if ($interface2 = interface_1253) {
-    if_setsize(800, 600, ^setsize_abs, ^setsize_abs, struct_param(struct_40393, param_3503));
+if ($interface2 = wheel_of_fortune) {
+    if_setsize(800, 600, ^setsize_abs, ^setsize_abs, struct_param(toplevel_v2_window_data_full_modal, toplevel_v2_window_layer));
 }
 def_int $int5 = 0;
 def_int $int6 = 0;
@@ -30,20 +30,20 @@ def_int $int7 = 0;
 def_int $int8 = 0;
 def_int $int9 = 0;
 def_int $int10 = 0;
-if (%varclient_6403 ! 2 & if_find($component3) = true) {
+if (%mobile_zoom ! 2 & if_find($component3) = true) {
     $int9 = cc_getwidth;
-    if (if_hassub(struct_param(struct_21300, param_3505)) = true | if_hassub(interface_1477:com_740) = true) {
+    if (if_hassub(struct_param(toplevel_v2_window_data_side_modal, toplevel_v2_window_content_layer)) = true | if_hassub(toplevel_v2:side_modal_window_alt_content) = true) {
         $int9 = calc($int9 + (210 + 10));
     }
-    ~script4452(calc(if_getx(interface_1477:com_725) + cc_getx), calc(if_gety(interface_1477:com_725) + cc_gety), $int9, cc_getheight);
-    ~script14171(interface_1477:com_723);
+    ~script4452(calc(if_getx(toplevel_v2:fullmodal_window) + cc_getx), calc(if_gety(toplevel_v2:fullmodal_window) + cc_gety), $int9, cc_getheight);
+    ~script14171(toplevel_v2:moveable_modal_windows);
     ~interface_zoom_set_var(5);
     return;
 }
 $int7, $int8, $int9, $int10 = unknown_command_15;
 if (if_find($component3) = true) {
-    $int5 = calc(if_getx(interface_1477:com_725) + cc_getx);
-    $int6 = calc(if_gety(interface_1477:com_725) + cc_gety);
+    $int5 = calc(if_getx(toplevel_v2:fullmodal_window) + cc_getx);
+    $int6 = calc(if_gety(toplevel_v2:fullmodal_window) + cc_gety);
     if ($int5 < $int7) {
         $int9 = calc($int9 + ($int7 - $int5));
         $int7 = $int5;
@@ -54,10 +54,10 @@ if (if_find($component3) = true) {
     }
     $int9 = max($int9, cc_getwidth);
     $int10 = max($int10, cc_getheight);
-    if (if_hassub(struct_param(struct_21300, param_3505)) = true | if_hassub(interface_1477:com_740) = true) {
+    if (if_hassub(struct_param(toplevel_v2_window_data_side_modal, toplevel_v2_window_content_layer)) = true | if_hassub(toplevel_v2:side_modal_window_alt_content) = true) {
         $int9 = calc($int9 + (210 + 10));
     }
     ~script4452($int7, $int8, $int9, $int10);
-    ~script14172(interface_1477:com_708, interface_1477:com_723);
+    ~script14172(toplevel_v2:parent_wrapper, toplevel_v2:moveable_modal_windows);
     ~interface_zoom_set_var(5);
 }

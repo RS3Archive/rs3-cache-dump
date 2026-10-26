@@ -1,16 +1,16 @@
 // 15355
 [proc,script15355](component $component0, component $component1, enum $enum2, category $category3, int $int4, int $int5, int $int6)
-def_component $component7 = interface_1851:com_12;
-if_setonvartransmit("script15354($component0, $component1, $enum2, $category3, $int4){varplayer_7120}", $component7);
-def_component $component8 = interface_1851:com_13;
-def_component $component9 = interface_1851:com_21;
+def_component $component7 = achievements_sub:subcategory_container;
+if_setonvartransmit("script15354($component0, $component1, $enum2, $category3, $int4){cheevo_misc_varp}", $component7);
+def_component $component8 = achievements_sub:subcat_build;
+def_component $component9 = achievements_sub:subcat_click;
 cc_deleteall($component8);
 cc_deleteall($component9);
-if_sethide(true, interface_1851:com_22);
+if_sethide(true, achievements_sub:subcat_highlight);
 def_int $int10 = enum_getoutputcount($enum2);
-def_int $int11 = enum_getreverseindex(category, int, enum_16072, $category3, 0);
+def_int $int11 = enum_getreverseindex(category, int, cheevo_categories, $category3, 0);
 if ($int11 = -1) {
-    $int11 = enum_getoutputcount(enum_16072);
+    $int11 = enum_getoutputcount(cheevo_categories);
 }
 def_int $int12 = 0;
 if (cc_find($component1, $int11) = true) {
@@ -29,8 +29,8 @@ def_category $category20 = null;
 $int12 = 0;
 def_string $string1 = "";
 def_category $category21 = null;
-if (%varplayer_9607 ! null) {
-    $category21 = achievement_subcat(%varplayer_9607);
+if (%cheevo_goto_achievement ! null) {
+    $category21 = achievement_subcat(%cheevo_goto_achievement);
 }
 while ($int13 < $int10) {
     $category20 = enum(int, category, $enum2, $int13);
@@ -51,17 +51,17 @@ while ($int13 < $int10) {
     cc_create($component8, ^iftype_rectangle, if_getnextsubid($component8));
     cc_create($component8, ^iftype_text, if_getnextsubid($component8));
     cc_create($component8, ^iftype_text, if_getnextsubid($component8));
-    if (%varplayerbit_48340 = 0 | %varplayerbit_48340 = 1 & $int16 < $int15) {
+    if (%cheevo_toggle_complete = 0 | %cheevo_toggle_complete = 1 & $int16 < $int15) {
         $int12 = calc($int14 * (32 + 2 + 2));
         $int14 = calc($int14 + 1);
-        $string1 = enum(category, string, enum_16086, $category20);
+        $string1 = enum(category, string, cheevo_subcat_to_name, $category20);
         if (cc_find($component9, $int13) = true) {
             cc_setposition(0, $int12, ^setpos_abs_left, ^setpos_abs_top);
             cc_setsize(0, 32, ^setsize_minus, ^setsize_abs);
             cc_setonop("script15358($category3, $category20, cc_gety)");
             cc_setop(1, "Select");
             cc_setopbase(~script400($string1, "<br>", " "));
-            if ($category20 = $category21 | calc(%varclient_6830 - 1) = enum_getreverseindex(category, int, $enum2, $category20, 0)) {
+            if ($category20 = $category21 | calc(%cheevo_selected_subcat_client - 1) = enum_getreverseindex(category, int, $enum2, $category20, 0)) {
                 ~script15360(cc_gety);
                 if ($int6 = 1) {
                     $int5 = calc($int5 + cc_gety);
@@ -84,7 +84,7 @@ while ($int13 < $int10) {
                 cc_setonmouseover("cc_text_colour_swapper(event_com, cc_getid, ~script10495(10))");
                 cc_setonmouseleave("cc_text_colour_swapper(event_com, cc_getid, ~script10495(9))");
             }
-            $string0 = enum(category, string, enum_16087, $category20);
+            $string0 = enum(category, string, cheevo_subcat_to_tooltip, $category20);
             if (compare($string0, "") ! 0) {
                 cc_setonmouserepeat("script8799($string0, $component8, cc_getid)");
             }
@@ -94,7 +94,7 @@ while ($int13 < $int10) {
             cc_settext("<tostring_localised($int16, true)>/<tostring_localised($int15, true)>");
             cc_settextshadow(true);
             cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
-            cc_settextfont(fontmetrics_26);
+            cc_settextfont(museo_sans_11pt_regular);
             cc_setcolour(~script10495(3));
             cc_setsize(50, 32, ^setsize_abs, ^setsize_abs);
         }
@@ -104,12 +104,12 @@ while ($int13 < $int10) {
             cc_setcolour(~script10495(3));
             cc_settextshadow(true);
             cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
-            cc_settextfont(fontmetrics_26);
+            cc_settextfont(museo_sans_11pt_regular);
             cc_setmaxlines(2);
             cc_settext($string1);
         }
-    } else if (calc(%varclient_6830 - 1) = enum_getreverseindex(category, int, $enum2, $category20, 0)) {
-        if_sethide(true, interface_1851:com_22);
+    } else if (calc(%cheevo_selected_subcat_client - 1) = enum_getreverseindex(category, int, $enum2, $category20, 0)) {
+        if_sethide(true, achievements_sub:subcat_highlight);
     }
     $int13 = calc($int13 + 1);
 }

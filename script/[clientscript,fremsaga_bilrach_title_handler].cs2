@@ -1,41 +1,41 @@
 // 6152
 [clientscript,fremsaga_bilrach_title_handler](int $int0)
-%varclient_1888 = calc(%varclient_1888 + 1);
+%fremsaga_bilrach_title_counter = calc(%fremsaga_bilrach_title_counter + 1);
 switch_int ($int0) {
     case 1 :
-        if (%varclient_1888 > 50) {
-            %varclient_1888 = 0;
-            if_settrans(255, interface_1268:com_2);
-            if_setontimer("fremsaga_bilrach_title_handler(2)", interface_1268:com_0);
+        if (%fremsaga_bilrach_title_counter > 50) {
+            %fremsaga_bilrach_title_counter = 0;
+            if_settrans(255, fremsaga_bilrach_title:title_foreground);
+            if_setontimer("fremsaga_bilrach_title_handler(2)", fremsaga_bilrach_title:title_background);
         } else {
-            if_setontimer("fremsaga_bilrach_title_handler(1)", interface_1268:com_0);
-            if_settrans(scale(%varclient_1888, 50, 255), interface_1268:com_2);
+            if_setontimer("fremsaga_bilrach_title_handler(1)", fremsaga_bilrach_title:title_background);
+            if_settrans(scale(%fremsaga_bilrach_title_counter, 50, 255), fremsaga_bilrach_title:title_foreground);
         }
     case 2 :
-        if (%varclient_1888 > 150) {
-            %varclient_1888 = 0;
-            if_setontimer("fremsaga_bilrach_title_handler(3)", interface_1268:com_0);
+        if (%fremsaga_bilrach_title_counter > 150) {
+            %fremsaga_bilrach_title_counter = 0;
+            if_setontimer("fremsaga_bilrach_title_handler(3)", fremsaga_bilrach_title:title_background);
         } else {
-            if_setontimer("fremsaga_bilrach_title_handler(2)", interface_1268:com_0);
+            if_setontimer("fremsaga_bilrach_title_handler(2)", fremsaga_bilrach_title:title_background);
         }
     case 3 :
-        if (%varclient_1888 > 50) {
-            %varclient_1888 = 0;
-            if_settrans(0, interface_1268:com_2);
-            if_setontimer("fremsaga_bilrach_title_handler(4)", interface_1268:com_0);
-            if_sethide(true, interface_1268:com_2);
-            if_sethide(true, interface_1268:com_1);
+        if (%fremsaga_bilrach_title_counter > 50) {
+            %fremsaga_bilrach_title_counter = 0;
+            if_settrans(0, fremsaga_bilrach_title:title_foreground);
+            if_setontimer("fremsaga_bilrach_title_handler(4)", fremsaga_bilrach_title:title_background);
+            if_sethide(true, fremsaga_bilrach_title:title_foreground);
+            if_sethide(true, fremsaga_bilrach_title:title_text);
         } else {
-            if_setontimer("fremsaga_bilrach_title_handler(3)", interface_1268:com_0);
-            if_settrans(calc(255 - scale(%varclient_1888, 50, 255)), interface_1268:com_2);
+            if_setontimer("fremsaga_bilrach_title_handler(3)", fremsaga_bilrach_title:title_background);
+            if_settrans(calc(255 - scale(%fremsaga_bilrach_title_counter, 50, 255)), fremsaga_bilrach_title:title_foreground);
         }
     case 4 :
-        if (%varclient_1888 > 150) {
-            %varclient_1888 = 0;
-            if_settrans(255, interface_1268:com_0);
-            if_setontimer(null, interface_1268:com_0);
+        if (%fremsaga_bilrach_title_counter > 150) {
+            %fremsaga_bilrach_title_counter = 0;
+            if_settrans(255, fremsaga_bilrach_title:title_background);
+            if_setontimer(null, fremsaga_bilrach_title:title_background);
         } else {
-            if_setontimer("fremsaga_bilrach_title_handler(4)", interface_1268:com_0);
-            if_settrans(scale(%varclient_1888, 150, 255), interface_1268:com_0);
+            if_setontimer("fremsaga_bilrach_title_handler(4)", fremsaga_bilrach_title:title_background);
+            if_settrans(scale(%fremsaga_bilrach_title_counter, 150, 255), fremsaga_bilrach_title:title_background);
         }
 }

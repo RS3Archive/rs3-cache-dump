@@ -1,0 +1,29 @@
+// 21162
+[proc,script21162](component $component0)(boolean)
+def_int $int1 = 0;
+if (%plugin_hub_auth_state_last = -1) {
+    $int1 = 1;
+    ~script21163(pluginapi_auth_state);
+}
+if (%plugin_hub_auth_state_last = 8) {
+    if_sethide(true, $component0);
+    return(true);
+}
+if ($component0 = null) {
+    ~error("Can't continue with auth!");
+    return(false);
+}
+if_sethide(false, $component0);
+if (%plugin_hub_auth_skip_flow = 1) {
+    %plugin_hub_auth_skip_flow = 0;
+    if_triggerop(plugin_hub_parent_auth:auth_skip, -1, 1);
+}
+if_sethide(~script6427(%plugin_hub_auth_allow_skip_button), plugin_hub_parent_auth:auth_skip);
+if ($int1 = 1) {
+    ~script21261(20, %toplevel_v2_parent_last_parent_tab_id_plugin_hub, -1, -1);
+    ~script8421(plugin_hub_parent_auth:background, plugin_hub_parent_auth:border, plugin_hub_parent_auth:content, null, "Authentication", toplevel_v2_default_main_modal_skin_data_noclose, -1, 1, null, null);
+    if_setonop("script21165($component0)", plugin_hub_parent_auth:close_listener);
+    if_setonpluginauthevent("script21166(event_mousex, event_mousey)", plugin_hub_parent_auth:status_listener);
+    ~script21168(%plugin_hub_auth_state_last);
+}
+return(false);

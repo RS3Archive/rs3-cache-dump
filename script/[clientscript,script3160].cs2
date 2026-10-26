@@ -19,22 +19,22 @@ switch_int ($int0) {
             mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your Clan Chat.");
         } else if ($int7 = 1) {
             mes_typed(^chattype_clanmessage, 0, "You've been muted by your Clan and can't talk in your Clan Chat.");
-        } else if (string_length(%varclient_2479) > 0) {
+        } else if (string_length(%lobbyscreen_input_clan) > 0) {
             chat_setmode_affined_clan(0);
-            chat_sendpublic(%varclient_2479);
+            chat_sendpublic(%lobbyscreen_input_clan);
             ~script1594;
         }
-        %varclient_2479 = "";
-        if_settext(escape(%varclient_2479), $component2);
-        %varclient_1098 = string_length(%varclient_2479);
-        ~script1390($component2, $component3, %varclient_2479);
+        %lobbyscreen_input_clan = "";
+        if_settext(escape(%lobbyscreen_input_clan), $component2);
+        %lobby_caret_clan = string_length(%lobbyscreen_input_clan);
+        ~script1390($component2, $component3, %lobbyscreen_input_clan);
     case 96, 97, 98, 99, 102, 103 :
-        %varclient_1098 = ~script1553($int0, %varclient_1098, %varclient_2479);
-        ~script1390($component2, $component3, %varclient_2479);
+        %lobby_caret_clan = ~script1553($int0, %lobby_caret_clan, %lobbyscreen_input_clan);
+        ~script1390($component2, $component3, %lobbyscreen_input_clan);
     case default :
         if (char_isprintable($char1) = true | $int0 = 85 | $int0 = 101) {
-            %varclient_2479, %varclient_1098 = ~script802(%varclient_1098, %varclient_2479, 0, $int0, $char1);
-            if_settext(escape(%varclient_2479), $component2);
-            ~script1390($component2, $component3, %varclient_2479);
+            %lobbyscreen_input_clan, %lobby_caret_clan = ~script802(%lobby_caret_clan, %lobbyscreen_input_clan, 0, $int0, $char1);
+            if_settext(escape(%lobbyscreen_input_clan), $component2);
+            ~script1390($component2, $component3, %lobbyscreen_input_clan);
         }
 }

@@ -1,30 +1,30 @@
 // 4675
 [clientscript,script4675]
-def_int $int0 = calc(%varplayerbit_4758 * 10);
+def_int $int0 = calc(%fremsaga_completion * 10);
 def_int $int1 = 0;
-if (%varclient_1530 < $int0) {
-    %varclient_1530 = calc(%varclient_1530 + 1);
-    sound_vorbis_volume(sound_5251, 1, 0, 255);
+if (%fremsaga_varc_completed < $int0) {
+    %fremsaga_varc_completed = calc(%fremsaga_varc_completed + 1);
+    sound_vorbis_volume(fremsaga_score_ticker, 1, 0, 255);
 }
-~aif_progressbar_set(%varclient_1530, interface_102:com_48, interface_102:com_53);
-switch_int (%varplayerbit_4766) {
+~aif_progressbar_set(%fremsaga_varc_completed, fremsaga_reward:completed_bar, fremsaga_reward:completed_text_bar);
+switch_int (%fremsaga_current_saga) {
     case 1 :
-        $int1 = calc(%varplayerbit_4769 * 10);
+        $int1 = calc(%fremsaga_collected_1 * 10);
     case 2 :
-        $int1 = calc(%varplayerbit_4770 * 10);
+        $int1 = calc(%fremsaga_collected_2 * 10);
     case 3 :
-        $int1 = calc(%varplayerbit_4771 * 10);
+        $int1 = calc(%fremsaga_collected_3 * 10);
     case 4 :
-        $int1 = calc(%varplayerbit_4772 * 10);
+        $int1 = calc(%fremsaga_collected_4 * 10);
     case 5 :
-        $int1 = calc(%varplayerbit_4773 * 10);
+        $int1 = calc(%fremsaga_collected_5 * 10);
     case 6 :
-        $int1 = calc(%varplayerbit_4774 * 10);
+        $int1 = calc(%fremsaga_collected_6 * 10);
 }
-if (%varclient_1530 >= $int0 & %varclient_1531 >= $int1) {
-    ~fremsaga_reward_book_setup(%varplayerbit_4766);
+if (%fremsaga_varc_completed >= $int0 & %fremsaga_varc_best >= $int1) {
+    ~fremsaga_reward_book_setup(%fremsaga_current_saga);
 }
-if (%varclient_1531 < $int1) {
-    %varclient_1531 = calc(%varclient_1531 + 1);
+if (%fremsaga_varc_best < $int1) {
+    %fremsaga_varc_best = calc(%fremsaga_varc_best + 1);
 }
-~aif_progressbar_set(%varclient_1531, interface_102:com_58, interface_102:com_63);
+~aif_progressbar_set(%fremsaga_varc_best, fremsaga_reward:bestscore_bar, fremsaga_reward:bestscore_bar_text);

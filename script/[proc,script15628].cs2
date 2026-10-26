@@ -9,61 +9,61 @@ def_boolean $boolean5 = ~is_mobile_client;
 if ($boolean5 = false) {
     $int1 = 546;
     $int2 = 106;
-    if (%varclient_4270 = 2 | %varclient_4270 = 4 | %varclient_4270 = 3) {
+    if (%lobby_current_tab = 2 | %lobby_current_tab = 4 | %lobby_current_tab = 3) {
         $int0 = 1;
         $int1 = 0;
     }
 }
-if (%varclient_4270 = 1 & map_lang = 0) {
+if (%lobby_current_tab = 1 & map_lang = 0) {
     $int0 = 1;
     $int1 = 0;
 }
-if (if_gethide(interface_906:com_53) = false) {
+if (if_gethide(lobbyscreen:autologout_warning) = false) {
     $int4 = 30;
-    if (if_gethide(interface_906:com_56) = true) {
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, interface_906:com_53);
+    if (if_gethide(lobbyscreen:update_timer) = true) {
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen:autologout_warning);
     } else {
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, interface_906:com_53);
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, interface_906:com_56);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:autologout_warning);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:update_timer);
     }
-} else if (if_gethide(interface_906:com_56) = false) {
+} else if (if_gethide(lobbyscreen:update_timer) = false) {
     $int4 = 30;
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, interface_906:com_56);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen:update_timer);
 }
 def_int $int6 = 0;
 def_int $int7 = 0;
 def_int $int8 = 0;
 def_int $int9 = 0;
-if (if_gethide(interface_906:com_51) = false) {
+if (if_gethide(lobbyscreen:preload_cache) = false) {
     $int6, $int7, $int8, $int9 = ~script2956;
-    if_setsize(calc($int6 + $int8), if_getheight(interface_826:com_0), ^setsize_minus, ^setsize_abs, interface_826:com_0);
-    if_setposition($int6, if_gety(interface_826:com_0), ^setpos_abs_left, ^setpos_abs_top, interface_826:com_0);
-    $int4 = calc($int4 + if_getheight(interface_826:com_0));
+    if_setsize(calc($int6 + $int8), if_getheight(preload_cache:base), ^setsize_minus, ^setsize_abs, preload_cache:base);
+    if_setposition($int6, if_gety(preload_cache:base), ^setpos_abs_left, ^setpos_abs_top, preload_cache:base);
+    $int4 = calc($int4 + if_getheight(preload_cache:base));
 }
-if (%varclient_4270 = 5) {
+if (%lobby_current_tab = 5) {
     $int2 = 56;
     $int3 = 0;
 }
 if ($boolean5 = false) {
     if ($int0 = 0) {
-        if_setsize(800, calc($int1 + $int4), ^setsize_abs, ^setsize_abs, interface_906:com_25);
+        if_setsize(800, calc($int1 + $int4), ^setsize_abs, ^setsize_abs, lobbyscreen:mainmodal_window);
     } else {
-        if_setsize(800, $int1, ^setsize_abs, ^setsize_minus, interface_906:com_25);
+        if_setsize(800, $int1, ^setsize_abs, ^setsize_minus, lobbyscreen:mainmodal_window);
     }
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, interface_906:com_25);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:mainmodal_window);
 }
-if_setsize(0, calc($int2 + $int4), ^setsize_minus, ^setsize_minus, interface_906:com_28);
-if_setsize(0, $int4, ^setsize_minus, ^setsize_abs, interface_906:com_50);
-if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_bottom, interface_906:com_50);
-switch_int (%varclient_4270) {
+if_setsize(0, calc($int2 + $int4), ^setsize_minus, ^setsize_minus, lobbyscreen:tabbed_content_panel);
+if_setsize(0, $int4, ^setsize_minus, ^setsize_abs, lobbyscreen:warning_area);
+if_setposition(0, $int3, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:warning_area);
+switch_int (%lobby_current_tab) {
     case 0 :
         ~script15633;
         ~script10941;
     case 2 :
         if ($boolean5 = false) {
-            if_setontimer("script10055", interface_909:com_0);
+            if_setontimer("script10055", lobbyscreen_pane_friendslist:main);
         } else {
-            if_setontimer("script10055", interface_1044:com_0);
+            if_setontimer("script10055", lobbyscreen_pane_mobile_social:main);
         }
     case 3 :
         if ($boolean5 = false) {
@@ -80,6 +80,6 @@ def_int $setposv10 = ^setpos_abs_centre;
 if ($boolean5 = true) {
     $setposv10 = ^setpos_abs_top;
 }
-if_setposition(0, 0, ^setpos_abs_centre, $setposv10, interface_914:com_2);
-if_setposition(0, 0, ^setpos_abs_centre, $setposv10, interface_915:com_1);
-if_setposition(0, 0, ^setpos_abs_centre, $setposv10, interface_913:com_1);
+if_setposition(0, 0, ^setpos_abs_centre, $setposv10, lobbyscreen_report_abuse_stage1:mainmodal_window);
+if_setposition(0, 0, ^setpos_abs_centre, $setposv10, lobbyscreen_report_abuse_stage2:mainmodal_window);
+if_setposition(0, 0, ^setpos_abs_centre, $setposv10, lobbyscreen_report_abuse_ignore:mainmodal_window);

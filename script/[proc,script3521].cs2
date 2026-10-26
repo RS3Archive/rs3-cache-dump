@@ -1,43 +1,43 @@
 // 3521
 [proc,script3521]
-if_settext(tostring(%varplayerbit_23015), interface_1790:com_59);
-if_setopbase("<~script4033(obj_29492)>Tradable Bonds", interface_1790:com_58);
-if_settext(tostring(%varplayerbit_23016), interface_1790:com_62);
-if_setopbase("<~script4033(obj_29494)>Untradable Bonds", interface_1790:com_61);
+if_settext(tostring(%bonds_pouch_tradeable_total), currency:mtx_tradebond_text);
+if_setopbase("<~script4033(rs_bond)>Tradable Bonds", currency:bonds_tradeable_icon);
+if_settext(tostring(%bonds_pouch_untradeable_total), currency:mtx_untradebond_text);
+if_setopbase("<~script4033(rs_bond_untradeable)>Untradable Bonds", currency:bonds_untradeable_icon);
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_obj $obj2 = null;
 def_int $int3 = 0;
 def_int $int4 = 0;
 while ($int0 < 8) {
-    $obj2 = inv_getobj(inv_795, $int0);
+    $obj2 = inv_getobj(premium_currency_inv, $int0);
     if ($obj2 ! null & ~script20672($obj2) = true) {
         $int3 = calc($int1 % 2 * 55);
         $int4 = calc($int1 / 2 * 63);
-        cc_create(interface_1790:com_54, ^iftype_graphic, $int0);
+        cc_create(currency:mtx_invslot_layer, ^iftype_graphic, $int0);
         cc_setsize(40, 40, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int3 + 7), $int4, ^setpos_abs_left, ^setpos_abs_top);
         cc_setgraphic("rs3_icon_slot_40px,0");
-        cc_create(interface_1790:com_55, ^iftype_graphic, $int0);
+        cc_create(currency:mtx_obj_layer, ^iftype_graphic, $int0);
         cc_setsize(38, 38, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int3 + 8), calc($int4 + 1), ^setpos_abs_left, ^setpos_abs_top);
         cc_setobject($obj2, -1);
         ~script12410($obj2);
         cc_setonop("script1620(event_com, event_comsubid, 100, 0, 8)");
-        ~script14992($obj2, inv_795, $int0);
-        cc_create(interface_1790:com_56, ^iftype_text, $int0);
+        ~script14992($obj2, premium_currency_inv, $int0);
+        cc_create(currency:mtx_text_layer, ^iftype_text, $int0);
         cc_setsize(55, 11, ^setsize_abs, ^setsize_abs);
         if ($int3 = 0) {
             cc_setposition(0, calc($int4 + 44), ^setpos_abs_left, ^setpos_abs_top);
         } else {
             cc_setposition(0, calc($int4 + 44), ^setpos_abs_right, ^setpos_abs_top);
         }
-        cc_settextfont(fontmetrics_29);
+        cc_settextfont(museo_sans_13pt_bold);
         cc_settextalign(^settextalign_centre, ^settextalign_bottom, 0);
         cc_settextshadow(true);
         cc_setcolour(~script10495(3));
-        cc_settext(~script11601(inv_getnum(inv_795, $int0), true));
-        cc_setonvartransmit("script6719(event_com, event_comsubid, 0){varplayer_3814}");
+        cc_settext(~script11601(inv_getnum(premium_currency_inv, $int0), true));
+        cc_setonvartransmit("script6719(event_com, event_comsubid, 0){toplevel_v2_skins_varp}");
         $int1 = calc($int1 + 1);
     }
     $int0 = calc($int0 + 1);

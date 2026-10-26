@@ -1,12 +1,12 @@
 // 11281
 [proc,script11281](int $int0, coord $coord1)
-if_sethide(false, interface_1422:com_18);
-if_sethide(false, interface_1612:com_1);
-def_component $component2 = interface_1612:com_3;
-def_component $component3 = interface_1612:com_11;
-if_settext("Yes", interface_1612:com_14);
-if_settext("No", interface_1612:com_22);
-if_setonop("script10090", interface_1612:com_19);
+if_sethide(false, worldmap_v2_ui:overlay_window_cancel_layer);
+if_sethide(false, worldmap_v2_confirm:confirm_window);
+def_component $component2 = worldmap_v2_confirm:confirm_window_content;
+def_component $component3 = worldmap_v2_confirm:positive_button_active_layer;
+if_settext("Yes", worldmap_v2_confirm:positive_button_text);
+if_settext("No", worldmap_v2_confirm:neutral_button_text);
+if_setonop("script10090", worldmap_v2_confirm:neutral_button_active_layer);
 cc_deleteall($component2);
 cc_deleteall($component3);
 if_setop(1, "", $component3);
@@ -22,10 +22,10 @@ cc_create($component2, ^iftype_text, 0);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 cc_setsize(0, calc(if_getheight($component2) - if_gety(if_getlayer($component3))), ^setsize_minus, ^setsize_minus);
 if ($int0 <= 34) {
-    cc_settext("Teleport to <enum(coord, string, enum_5726, $coord1)>?");
+    cc_settext("Teleport to <enum(coord, string, thas_coord_to_string, $coord1)>?");
 } else {
     cc_settext("Teleport to J-Mod?");
 }
-cc_settextfont(fontmetrics_26);
+cc_settextfont(museo_sans_11pt_regular);
 cc_setcolour(~script10495(3));
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);

@@ -1,15 +1,15 @@
 // 19023
 [clientscript,script19023]
-if (%varplayer_11775 <= 0 | %varclient_7786 <= clientclock) {
-    if_sethide(true, interface_994:com_5);
-    if_settrans(255, interface_994:com_5);
-    if_setontimer(null, interface_994:com_1);
+if (%combatv2_debuff_resurrection_sickness_active <= 0 | %combatv2_debuff_resurrection_sickness_end_client <= clientclock) {
+    if_sethide(true, toplevel_v2_status_effects:resurrection_sickness_graphic);
+    if_settrans(255, toplevel_v2_status_effects:resurrection_sickness_graphic);
+    if_setontimer(null, toplevel_v2_status_effects:resurrection_sickness_layer);
     return;
 }
-if_sethide(false, interface_994:com_5);
-if (calc(%varclient_7786 - clientclock) < 30) {
-    if_settrans(calc(255 - scale(calc(%varclient_7786 - clientclock), 30, 255)), interface_994:com_5);
+if_sethide(false, toplevel_v2_status_effects:resurrection_sickness_graphic);
+if (calc(%combatv2_debuff_resurrection_sickness_end_client - clientclock) < 30) {
+    if_settrans(calc(255 - scale(calc(%combatv2_debuff_resurrection_sickness_end_client - clientclock), 30, 255)), toplevel_v2_status_effects:resurrection_sickness_graphic);
 } else {
-    if_settrans(0, interface_994:com_5);
+    if_settrans(0, toplevel_v2_status_effects:resurrection_sickness_graphic);
 }
-if_setontimer("script19023", interface_994:com_1);
+if_setontimer("script19023", toplevel_v2_status_effects:resurrection_sickness_layer);

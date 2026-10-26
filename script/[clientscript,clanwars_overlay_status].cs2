@@ -4,21 +4,21 @@ def_string $string0 = "";
 def_int $int17 = 0;
 def_int $int18 = 0;
 def_int $int19 = 0;
-if (%varclient_271 = true) {
+if (%clanwars_transmit_clanmember = true) {
     if_settext("<clan_getchatdisplayname>:", $component3);
 } else {
     if_settext("This clan:", $component3);
 }
-if_settext(tostring(%varclient_261), $component5);
-if_settext(tostring(%varclient_262), $component11);
-if (%varplayerbit_4095 > 0) {
-    if (%varclient_263 < 65535) {
-        if_settext(~tostring_spacer(%varclient_263, ","), $component7);
+if_settext(tostring(%clanwars_transmit_myteam_living), $component5);
+if_settext(tostring(%clanwars_transmit_theirteam_living), $component11);
+if (%clanwars_rules_endtype > 0) {
+    if (%clanwars_transmit_myteam_kills < 65535) {
+        if_settext(~tostring_spacer(%clanwars_transmit_myteam_kills, ","), $component7);
     } else {
         if_settext("<col=ff0000>You rock!</col>", $component7);
     }
-    if (%varclient_264 < 65535) {
-        if_settext(~tostring_spacer(%varclient_264, ","), $component13);
+    if (%clanwars_transmit_theirteam_kills < 65535) {
+        if_settext(~tostring_spacer(%clanwars_transmit_theirteam_kills, ","), $component13);
     } else {
         if_settext("<col=ff0000>They rock!</col>", $component13);
     }
@@ -27,8 +27,8 @@ if (%varplayerbit_4095 > 0) {
     if_sethide(false, $component7);
     if_sethide(false, $component13);
     $int17 = 1;
-    if (%varplayerbit_4095 < 15) {
-        $string0 = "/ <~tostring_spacer(enum(int, int, enum_1605, %varplayerbit_4095), ",")>";
+    if (%clanwars_rules_endtype < 15) {
+        $string0 = "/ <~tostring_spacer(enum(int, int, clanwars_killcount_options, %clanwars_rules_endtype), ",")>";
         if_settext($string0, $component8);
         if_settext($string0, $component14);
         if_sethide(false, $component8);
@@ -46,15 +46,15 @@ if (%varplayerbit_4095 > 0) {
     if_sethide(true, $component8);
     if_sethide(true, $component14);
 }
-if (%varclient_260 = true) {
+if (%clanwars_transmit_battlecommenced = true) {
     if_setontimer(null, $component16);
-    if (%varplayerbit_4096 > 0) {
+    if (%clanwars_rules_timelimit > 0) {
         if_settext("Time remaining:", $component15);
-        if (%varclient_270 > 60) {
+        if (%clanwars_transmit_time > 60) {
             ~script1791($component16);
-        } else if (%varclient_270 > 1) {
-            if_settext("<tostring(%varclient_270)> minutes", $component16);
-        } else if (%varclient_270 = 1) {
+        } else if (%clanwars_transmit_time > 1) {
+            if_settext("<tostring(%clanwars_transmit_time)> minutes", $component16);
+        } else if (%clanwars_transmit_time = 1) {
             if_settext("<col=ff0000>1 minute</col>", $component16);
         } else {
             if_settext("<col=ff0000>Not much!</col>", $component16);
@@ -68,27 +68,27 @@ if (%varclient_260 = true) {
     }
 } else {
     if_settext("Countdown to battle:", $component15);
-    if (%varclient_265 ! %varclient_270) {
-        %varclient_265 = %varclient_270;
+    if (%clanwars_countdown_timer ! %clanwars_transmit_time) {
+        %clanwars_countdown_timer = %clanwars_transmit_time;
         ~script1790($component16);
-        if_setontimer("clanwars_overlay_status_timecounter($component16, clientclock, %varclient_270)", $component16);
+        if_setontimer("clanwars_overlay_status_timecounter($component16, clientclock, %clanwars_transmit_time)", $component16);
     }
     if_sethide(false, $component15);
     if_sethide(false, $component16);
     $int19 = 1;
 }
-def_int $int20 = parawidth(if_gettext($component3), 512, fontmetrics_66);
-def_int $int21 = parawidth(if_gettext($component9), 512, fontmetrics_66);
-$int20 = max(calc(parawidth(if_gettext($component4), 512, fontmetrics_66) + 10 + parawidth(if_gettext($component5), 512, fontmetrics_66)), $int20);
-$int21 = max(calc(parawidth(if_gettext($component10), 512, fontmetrics_66) + 10 + parawidth(if_gettext($component11), 512, fontmetrics_66)), $int21);
+def_int $int20 = parawidth(if_gettext($component3), 512, p11_full);
+def_int $int21 = parawidth(if_gettext($component9), 512, p11_full);
+$int20 = max(calc(parawidth(if_gettext($component4), 512, p11_full) + 10 + parawidth(if_gettext($component5), 512, p11_full)), $int20);
+$int21 = max(calc(parawidth(if_gettext($component10), 512, p11_full) + 10 + parawidth(if_gettext($component11), 512, p11_full)), $int21);
 def_int $int22 = calc(if_getheight($component3) + if_getheight($component4));
 if ($int17 = 1) {
-    $int20 = max(calc(parawidth(if_gettext($component6), 512, fontmetrics_66) + 10 + parawidth(if_gettext($component7), 512, fontmetrics_66)), $int20);
-    $int21 = max(calc(parawidth(if_gettext($component12), 512, fontmetrics_66) + 10 + parawidth(if_gettext($component13), 512, fontmetrics_66)), $int21);
+    $int20 = max(calc(parawidth(if_gettext($component6), 512, p11_full) + 10 + parawidth(if_gettext($component7), 512, p11_full)), $int20);
+    $int21 = max(calc(parawidth(if_gettext($component12), 512, p11_full) + 10 + parawidth(if_gettext($component13), 512, p11_full)), $int21);
     $int22 = calc($int22 + if_getheight($component6));
     if ($int18 = 1) {
-        $int20 = max(parawidth(if_gettext($component8), 512, fontmetrics_66), $int20);
-        $int21 = max(parawidth(if_gettext($component14), 512, fontmetrics_66), $int21);
+        $int20 = max(parawidth(if_gettext($component8), 512, p11_full), $int20);
+        $int21 = max(parawidth(if_gettext($component14), 512, p11_full), $int21);
         $int22 = calc($int22 + if_getheight($component8));
     }
 }
@@ -104,8 +104,8 @@ if ($int19 = 0) {
 }
 def_int $int24 = $int22;
 $int22 = calc($int22 + 10 + if_getheight($component15) + if_getheight($component16));
-$int23 = max(parawidth(if_gettext($component15), 512, fontmetrics_66), $int23);
-$int23 = max(parawidth(if_gettext($component16), 512, fontmetrics_66), $int23);
+$int23 = max(parawidth(if_gettext($component15), 512, p11_full), $int23);
+$int23 = max(parawidth(if_gettext($component16), 512, p11_full), $int23);
 if_setsize(calc($int23 + 8), calc($int22 + 8), ^setsize_abs, ^setsize_abs, $component0);
 if_setsize(if_getwidth($component0), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component1);
 ~script1788($int20, $component3, $component4, $component5, $component6, $component7, $component8, $int21, $component9, $component10, $component11, $component12, $component13, $component14, $int23);

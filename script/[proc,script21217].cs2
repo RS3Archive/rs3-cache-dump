@@ -1,0 +1,14 @@
+// 21217
+[proc,script21217]
+if (%plugin_hub_install_component = null | %plugin_hub_install_row_id = -1 | %plugin_hub_install_plugin_id = -1 | string_length(%plugin_hub_install_name) = 0) {
+    return;
+}
+~script21261(19, 2, %plugin_hub_category_id, %plugin_hub_install_plugin_id);
+def_int $int0 = calc(2500 * 21 + %plugin_hub_install_row_id);
+if (cc_findbycategory(%plugin_hub_install_component, ~script21130($int0)) = 1) {
+    if (plugin_uninstall(%plugin_hub_install_plugin_id) = true) {
+        ~script21206;
+    } else {
+        ~script426("Uninstall failed. Please try again later.", %plugin_hub_install_component, %plugin_hub_install_row_id, 1);
+    }
+}

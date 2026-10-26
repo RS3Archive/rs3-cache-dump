@@ -28,7 +28,7 @@ def_int $intarray0(147);
 while ($int4 <= $int2) {
     if ($int5 ! -1) {
         if ($int6 = 100 & ($int5 = 125 | $int5 = 137 | $int5 = 138 | $int5 = 139)) {
-            %varclient_5882 = 1;
+            %timed_event_active_client = 1;
             ~script15210(4);
         }
         if (~script8507($int0, $int5, 0, $int9) = 1 & ~script8508($int0, $int5, $int6, $string2, $int8, $int9) = 1) {
@@ -52,10 +52,10 @@ $int4 = calc($int4 - 1);
 def_int $int11 = if_getnextsubid($component3);
 def_int $int12 = min(200, calc($int11 + $int10));
 def_int $int13 = ~script3873;
-def_fontmetrics $fontmetrics14 = enum(int, fontmetrics, enum_1649, $int13);
+def_fontmetrics $fontmetrics14 = enum(int, fontmetrics, settings_chat_size_to_fontmetric, $int13);
 def_int $int15 = ~script11432($fontmetrics14);
-def_int $int16 = enum(int, int, enum_1648, $int13);
-def_int $int17 = enum(int, int, enum_1648, $int13);
+def_int $int16 = enum(int, int, settings_chat_size_bottomdisplacement, $int13);
+def_int $int17 = enum(int, int, settings_chat_size_bottomdisplacement, $int13);
 while ($int11 < $int12) {
     cc_create($component3, ^iftype_text, $int11);
     cc_settextfont($fontmetrics14);
@@ -89,9 +89,9 @@ while ($int11 >= $int10) {
         .cc_setopcursor(8, null);
         .cc_setopcursor(9, null);
         .cc_setopcursor(10, null);
-        .cc_setparam(param_3443, cc_param(param_3443));
+        .cc_setparam(toplevel_v2_chat_line_uid, cc_param(toplevel_v2_chat_line_uid));
         .cc_setonop("chat_op($int0, event_op, event_comsubid)");
-        $int5, $string0, $int6, $string1, $string2, $string3, $string4, $chatphrase7, $string5, $int8, $int9 = chat_gethistory_byuid(cc_param(param_3443));
+        $int5, $string0, $int6, $string1, $string2, $string3, $string4, $chatphrase7, $string5, $int8, $int9 = chat_gethistory_byuid(cc_param(toplevel_v2_chat_line_uid));
         ~script10488($int5, $string3, $int9);
         if ($int0 = 1019) {
             ~script3927(1019);
@@ -109,12 +109,12 @@ def_int $int21 = 0;
 $int11 = 0;
 $int5, $string0, $int6, $string1, $string2, $string3, $string4, $chatphrase7, $string5, $int8, $int9 = chat_gethistory_byuid($int4);
 def_boolean $boolean22 = ~script6431;
-def_int $int23 = if_gettrans(interface_137:com_2);
-if (if_gethide(interface_276:com_27) = false) {
+def_int $int23 = if_gettrans(chatdefault:mobile_listener_graphic);
+if (if_gethide(toplevel_v2_mobile:chat_panel) = false) {
     $int23 = 0;
 }
 def_int $setposv24 = ^setpos_abs_bottom;
-if ($boolean22 = true & %varplayerbit_29940 = 0) {
+if ($boolean22 = true & %settings_chat_message_direction = 0) {
     $setposv24 = ^setpos_abs_top;
 }
 while ($int11 < $int10 & $int4 <= $int2) {
@@ -123,7 +123,7 @@ while ($int11 < $int10 & $int4 <= $int2) {
             ~script8505($int5, $string5, $int6, $string1, $string4, $int9, $chatphrase7, $string0);
             ~script8506($int0, $int5, $string5, $int6, $string1, $string2, $chatphrase7, $int18, $int19, $int9);
             ~script16610($int5, $int6);
-            cc_setparam(param_3443, $int4);
+            cc_setparam(toplevel_v2_chat_line_uid, $int4);
             cc_setsize(0, calc(paraheight(cc_gettext, $int20, cc_getfontmetrics) * $int15), ^setsize_minus, ^setsize_abs);
             cc_setposition(0, $int17, ^setpos_abs_left, $setposv24);
             $int17 = calc($int17 + cc_getheight);
@@ -134,7 +134,7 @@ while ($int11 < $int10 & $int4 <= $int2) {
             ~script10487($int5, $string3, $int9);
             switch_int ($int5) {
                 case 3, 6, 7, 18, 19 :
-                    %varclient_2505 = removetags($string2);
+                    %last_pm_received_sender = removetags($string2);
             }
         }
         if ($int5 ! 109 & $int5 ! 143) {

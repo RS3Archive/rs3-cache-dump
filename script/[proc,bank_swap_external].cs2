@@ -22,11 +22,11 @@ def_obj $obj11 = oc_uncert($obj8);
 if ($obj6 = null | $obj8 = null | $int7 < 1 | $int9 < 1 | ~script3994($obj11) = true) {
     return(false);
 }
-def_int $int12 = %varplayer_160;
+def_int $int12 = %bankcert;
 def_obj $obj13 = oc_cert($obj6);
 def_obj $obj14 = null;
 def_obj $obj15 = null;
-if ($inv1 = inv_94) {
+if ($inv1 = worn) {
     $int12 = 0;
     $obj14 = ~script8156($obj11);
     switch_int (~bank_deposit_worn_check($obj14, $int3, $obj8, $obj11, 1)) {
@@ -44,11 +44,11 @@ if ($inv1 = inv_94) {
         case default :
             return(false);
     }
-} else if ($inv1 = inv_530) {
-    if (%varplayer_1831 ! null) {
-        $int10 = calc($int7 - ~script3970(inv_95, $obj6, $int7, $obj8, ~int_to_bool($int12)));
+} else if ($inv1 = lore_bob) {
+    if (%follower_obj ! null) {
+        $int10 = calc($int7 - ~script3970(bank, $obj6, $int7, $obj8, ~int_to_bool($int12)));
         if ($int10 = 0) {
-            ~script2347($obj8, $obj11, ~bank_get_item_slot($inv1, $obj11), $int9, $int0, -1, inv_530, $int3, 1, 1);
+            ~script2347($obj8, $obj11, ~bank_get_item_slot($inv1, $obj11), $int9, $int0, -1, lore_bob, $int3, 1, 1);
             ~script14187;
             return(false);
         }
@@ -67,7 +67,7 @@ def_boolean $boolean17 = ~script3802($obj11);
 def_int $int18 = ~bank_get_item_slot($inv1, $obj11);
 def_int $int19 = 0;
 if ($int18 ! -1) {
-    $int19 = inv_getnum(inv_95, $int18);
+    $int19 = inv_getnum(bank, $int18);
 }
 def_int $int20 = -1;
 def_int $int21 = 0;
@@ -111,9 +111,9 @@ if ($int23 = 0) {
             }
             return(false);
         }
-        %varplayerbit_45912 = 1;
+        %bank_deposit_all_or_swap_inprogress = 1;
         $int24 = ~script2347($obj8, $obj11, $int18, $int9, $int18, -1, $inv1, $int3, 1, 1);
-        %varplayerbit_45912 = 0;
+        %bank_deposit_all_or_swap_inprogress = 0;
         if ($int24 = 0) {
             return(false);
         }
@@ -136,14 +136,14 @@ if (~bank_itemspace($obj8, $int9) = 0) {
     }
     return(false);
 }
-if (%varplayer_8970 ! -1 & ~script14337 >= ~bank_get_size) {
+if (%bank_first_freeslot ! -1 & ~script14337 >= ~bank_get_size) {
     $int18 = calc($int18 - ~bank_freespace_range(0, $int18));
     $int0 = calc($int0 - ~bank_freespace_range(0, $int0));
     ~bank_compress;
 }
-%varplayerbit_45912 = 1;
+%bank_deposit_all_or_swap_inprogress = 1;
 $int24 = ~script2347($obj8, $obj11, $int18, $int9, calc($int0 + 1), ~bank_get_tab($int0), $inv1, $int3, 1, 1);
-%varplayerbit_45912 = 0;
+%bank_deposit_all_or_swap_inprogress = 0;
 if ($int24 = 0) {
     return(false);
 }

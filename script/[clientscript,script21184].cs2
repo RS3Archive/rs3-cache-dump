@@ -1,0 +1,37 @@
+// 21184
+[clientscript,script21184](component $component0, component $component1, component $component2, int $int3, int $int4)
+if_setontimer(null, plugin_hub_parent_browse:search_listener);
+if_sethide(false, plugin_hub_parent_browse:content);
+switch_int ($int3) {
+    case 0 :
+        if_sethide(true, $component1);
+    case 1 :
+        ~script21189($component0, $component1, $component2, "Plugin details can not be loaded at this time (error type: 2). Please try again later.");
+        return;
+    case default :
+        ~script21189($component0, $component1, $component2, "Plugin details can not be loaded at this time (error type: 3.<tostring($int4)>). Please try again later.");
+        return;
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+$int6, $int5 = pluginapi_search_resultcount;
+~script21186($int6, $int5);
+if ($int6 <= 0 | $int5 <= 0) {
+    ~script21189($component0, $component1, $component2, "No results found.");
+    return;
+}
+cc_deleteall($component0);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = -1;
+while ($int7 < $int5) {
+    $int9 = pluginapi_search_result($int7);
+    if (plugin_getunavailable($int9) = false) {
+        ~cc_add_layer($component0, $int7, 0, $int8, ^setpos_abs_left, ^setpos_abs_top, 0, 72, ^setsize_minus, ^setsize_abs);
+        cc_setparam(plugin_api_plugin_id, $int9);
+        ~script21190($component0, $int7, $int9);
+        $int8 = calc($int8 + (72 + 4));
+    }
+    $int7 = calc($int7 + 1);
+}
+~script19620($component2, $component0, $int8, null, -1, 0, 0, 0);

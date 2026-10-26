@@ -1,27 +1,27 @@
 // 20559
 [proc,script20559]
-if_settext("Radiant Stars Available : <tostring_localised(%varplayer_12582, true)>", interface_1485:com_36);
-if (%varplayer_12583 = 0) {
+if_settext("Radiant Stars Available : <tostring_localised(%marketplace_bonus_xp_available, true)>", marketplace_bonus_xp_redeem:boosters_available);
+if (%marketplace_bonus_xp_current_choice = 0) {
     return;
 }
-def_stat $stat0 = enum(int, stat, enum_681, %varplayer_12583);
+def_stat $stat0 = enum(int, stat, int_to_stat, %marketplace_bonus_xp_current_choice);
 def_int $int1 = ~script20456($stat0);
-if (%varplayer_12583 > 0) {
+if (%marketplace_bonus_xp_current_choice > 0) {
     if (~script20569($stat0) = false) {
-        %varplayer_12584 = 0;
+        %marketplace_bonus_xp_boosters_to_use = 0;
     } else if (~script11151($stat0) >= 1000000000) {
-        %varplayer_12584 = 0;
+        %marketplace_bonus_xp_boosters_to_use = 0;
     } else if (stat_visible_xp($stat0) >= 200000000) {
-        %varplayer_12584 = 0;
-    } else if (%varplayer_12584 = 0) {
-        if (%varplayer_12582 > 0) {
-            %varplayer_12584 = 1;
+        %marketplace_bonus_xp_boosters_to_use = 0;
+    } else if (%marketplace_bonus_xp_boosters_to_use = 0) {
+        if (%marketplace_bonus_xp_available > 0) {
+            %marketplace_bonus_xp_boosters_to_use = 1;
         }
-    } else if (%varplayer_12584 > $int1) {
-        %varplayer_12584 = $int1;
+    } else if (%marketplace_bonus_xp_boosters_to_use > $int1) {
+        %marketplace_bonus_xp_boosters_to_use = $int1;
     }
 } else {
-    %varplayer_12584 = 0;
+    %marketplace_bonus_xp_boosters_to_use = 0;
 }
-if_settext(tostring_localised(%varplayer_12584, true), interface_1485:com_82);
+if_settext(tostring_localised(%marketplace_bonus_xp_boosters_to_use, true), marketplace_bonus_xp_redeem:quantity_input_display);
 ~script20576;

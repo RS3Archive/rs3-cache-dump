@@ -1,28 +1,28 @@
 // 2786
 [clientscript,script2786](int $int0)
 if ($int0 = 2) {
-    sound_vorbis_volume(sound_36961, 1, 0, 120);
+    sound_vorbis_volume(tli_click_01, 1, 0, 120);
     autosetup_setlow;
     if (~is_mobile_client = true) {
         ~script17420;
     }
-    %varclient_6503 = 0;
+    %using_autosetup = 0;
     ~script2710;
-} else if ($int0 = 3 & %varclient_6503 = 0) {
-    sound_vorbis_volume(sound_36961, 1, 0, 120);
-    if_sethide(true, interface_324:com_45);
-    if_sethide(false, interface_324:com_16);
-    if_sethide(false, interface_324:com_15);
+} else if ($int0 = 3 & %using_autosetup = 0) {
+    sound_vorbis_volume(tli_click_01, 1, 0, 120);
+    if_sethide(true, graphics_options_v2_client_mobile:rec_button_click);
+    if_sethide(false, graphics_options_v2_client_mobile:prevent_click_through_layer);
+    if_sethide(false, graphics_options_v2_client_mobile:auto_setup_in_progress);
     switch_toplevelinterface (if_gettop) {
-        case interface_744 :
+        case loginscreen :
             ~autosetup(0);
-        case interface_1477 :
-            if (if_hassuboverlay(interface_1477:com_816, interface_1420) = false) {
+        case toplevel_v2 :
+            if (if_hassuboverlay(toplevel_v2:fullscreen_pop_ups, acc_create) = false) {
                 ~autosetup(1);
             } else {
                 ~autosetup(4);
             }
-        case interface_906 :
+        case lobbyscreen :
             ~autosetup(2);
     }
 }

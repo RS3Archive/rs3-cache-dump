@@ -4,27 +4,27 @@ def_int $int1 = ~login_getreply;
 if ($int1 = -3 & $int0 ! 10 | $int1 = 21 | $int1 = 1) {
     return;
 }
-if_settext(~script1346(%varclient_2576), interface_744:com_107);
-if_settext(~script2949(%varclient_2577), interface_744:com_130);
-if (if_gethide(interface_744:com_308) = false) {
+if_settext(~script1346(%loginscreen_username), loginscreen:username);
+if_settext(~script2949(%loginscreen_password), loginscreen:password);
+if (if_gethide(loginscreen:recovery_layer) = false) {
     ~login_setfocus(113);
-    %varclient_1099 = string_length(%varclient_6896);
-    ~script3237(interface_744:com_327, interface_744:com_328, interface_744:com_329, %varclient_6896, 113, fontmetrics_212);
-} else if (if_gethide(interface_744:com_143) = false) {
+    %login_caret = string_length(%loginscreen_recovery_username);
+    ~script3237(loginscreen:recovery_text_entry_layer, loginscreen:recovery_text, loginscreen:recovery_caret, %loginscreen_recovery_username, 113, notosans_17);
+} else if (if_gethide(loginscreen:auth_layer) = false) {
     ~login_setfocus(114);
-    %varclient_1099 = string_length(%varclient_4192);
-    ~script3237(interface_744:com_160, interface_744:com_161, interface_744:com_162, %varclient_4192, 114, fontmetrics_212);
-} else if (if_gethide(interface_744:com_89) = false) {
-    if (string_length(%varclient_2576) > 0) {
+    %login_caret = string_length(%loginscreen_totp_auth);
+    ~script3237(loginscreen:auth_input_layer, loginscreen:auth_input_text, loginscreen:auth_input_caret, %loginscreen_totp_auth, 114, notosans_17);
+} else if (if_gethide(loginscreen:login) = false) {
+    if (string_length(%loginscreen_username) > 0) {
         ~login_setfocus(101);
     } else {
         ~login_setfocus(100);
     }
-    if (%varclient_174 = 100) {
-        %varclient_1099 = string_length(%varclient_2576);
-        ~script3237(interface_744:com_106, interface_744:com_107, interface_744:com_108, %varclient_2576, 100, fontmetrics_212);
+    if (%loginscreen_focus = 100) {
+        %login_caret = string_length(%loginscreen_username);
+        ~script3237(loginscreen:username_layer, loginscreen:username, loginscreen:username_caret, %loginscreen_username, 100, notosans_17);
     } else {
-        %varclient_1099 = string_length(~script2949(%varclient_2577));
-        ~script3237(interface_744:com_129, interface_744:com_130, interface_744:com_131, ~script2949(%varclient_2577), 101, fontmetrics_212);
+        %login_caret = string_length(~script2949(%loginscreen_password));
+        ~script3237(loginscreen:password_layer, loginscreen:password, loginscreen:password_caret, ~script2949(%loginscreen_password), 101, notosans_17);
     }
 }

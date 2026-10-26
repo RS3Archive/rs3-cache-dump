@@ -1,27 +1,27 @@
 // 11074
 [proc,script11074]
-def_string $string0 = struct_param(%varclient_4485, param_6411);
+def_string $string0 = struct_param(%bslay_monster_struct, cheevo_details);
 def_string $string1 = "";
 def_string $string2 = "";
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
-def_component $component3 = interface_753:com_28;
-def_component $component4 = interface_753:com_31;
-def_component $component5 = interface_753:com_30;
+def_component $component3 = bslay_boss_info:boss_desc_build_layer;
+def_component $component4 = bslay_boss_info:boss_desc_scrollbar_layer;
+def_component $component5 = bslay_boss_info:boss_desc_click_layer;
 cc_deleteall($component3);
 cc_deleteall($component4);
 cc_deleteall($component5);
-if (struct_param(%varclient_4485, param_4830) = 1) {
-    switch_struct (%varclient_4485) {
-        case struct_24975 :
+if (struct_param(%bslay_monster_struct, bslay_has_dynamic_attacks) = 1) {
+    switch_struct (%bslay_monster_struct) {
+        case bslay_araxxi :
             $string0 = append($string0, "<br><br><col=FFFFFF>This encounter has mechanics that may change based on what day it is.<br><br>");
             $string0 = append($string0, "Current blocked tunnel: <col=FFFFFF><~script19824(0)>");
-            $string0 = append($string0, "<br>Current enrage: <col=FFFFFF><tostring(calc(%varplayerbit_23045 * 20))>%");
-            if (%varplayer_12121 >= 3) {
+            $string0 = append($string0, "<br>Current enrage: <col=FFFFFF><tostring(calc(%sb_daily_damage_player * 20))>%");
+            if (%combat_mastery_passive_tier_unlocked >= 3) {
                 $int2 = 1;
             }
-        case struct_28642 :
+        case bslay_rots :
             $int0 = ~script19847(0);
             $string0 = append($string0, "<br><br><col=FFFFFF>This boss has mechanics that may change based on what day it is.<br>Current brother positions:</col>");
             $string1 = "<col=FFFFFF><br>West side: ";
@@ -58,34 +58,34 @@ if (struct_param(%varclient_4485, param_4830) = 1) {
             }
             $string1 = append($string1, $string2);
             $string0 = append($string0, $string1);
-            if (%varplayer_12121 >= 3) {
+            if (%combat_mastery_passive_tier_unlocked >= 3) {
                 $int2 = 1;
             }
-        case struct_28659 :
+        case bslay_vorago :
             $string0 = append($string0, "<br><br><col=FFFFFF>This boss has mechanics that may change based on what day it is.<br><br>");
             $string0 = append($string0, "Current rotation: <col=FFFFFF><~script14604(0)>");
-            if (%varplayer_12121 >= 4) {
+            if (%combat_mastery_passive_tier_unlocked >= 4) {
                 $int2 = 1;
             }
-        case struct_33661 :
-            $string0 = append($string0, "<br><br>Current killstreak: <col=FFFFFF><tostring_localised(%varplayerbit_32635, true)>");
-            $string0 = append($string0, "<br>Highest killstreak: <col=FFFFFF><tostring_localised(%varplayerbit_34272, true)>");
-            $string0 = append($string0, "<br><br>Current enrage: <col=FFFFFF><tostring_localised(%varplayerbit_32626, true)>%");
-            $string0 = append($string0, "<br>Highest enrage: <col=FFFFFF><tostring_localised(%varplayerbit_32627, true)>%");
-        case struct_45611 :
+        case bslay_gwd2_solo_boss :
+            $string0 = append($string0, "<br><br>Current killstreak: <col=FFFFFF><tostring_localised(%gwd2_solo_current_streak, true)>");
+            $string0 = append($string0, "<br>Highest killstreak: <col=FFFFFF><tostring_localised(%gwd2_solo_highest_streak, true)>");
+            $string0 = append($string0, "<br><br>Current enrage: <col=FFFFFF><tostring_localised(%gwd2_solo_current_enrage, true)>%");
+            $string0 = append($string0, "<br>Highest enrage: <col=FFFFFF><tostring_localised(%gwd2_solo_highest_enrage, true)>%");
+        case bslay_egwd_wen_boss :
             $string0 = append($string0, "<br><br><col=FFFFFF>This encounter has mechanics that may change based on your decisions in the lobby.");
-            $string0 = append($string0, "<br><br>Current hard mode killstreak: <col=FFFFFF><tostring_localised(%varplayerbit_50186, true)>");
-            $string0 = append($string0, "<br>Highest hard mode killstreak: <col=FFFFFF><tostring_localised(%varplayerbit_50187, true)>");
-            $string0 = append($string0, "<br><br>Current hard mode enrage: <col=FFFFFF><tostring_localised(%varplayerbit_50177, true)>%");
-            $string0 = append($string0, "<br>Highest hard mode enrage: <col=FFFFFF><tostring_localised(%varplayerbit_50178, true)>%");
+            $string0 = append($string0, "<br><br>Current hard mode killstreak: <col=FFFFFF><tostring_localised(%egwd_wen_boss_current_streak, true)>");
+            $string0 = append($string0, "<br>Highest hard mode killstreak: <col=FFFFFF><tostring_localised(%egwd_wen_boss_highest_streak, true)>");
+            $string0 = append($string0, "<br><br>Current hard mode enrage: <col=FFFFFF><tostring_localised(%egwd_wen_boss_current_enrage, true)>%");
+            $string0 = append($string0, "<br>Highest hard mode enrage: <col=FFFFFF><tostring_localised(%egwd_wen_boss_highest_enrage, true)>%");
     }
 }
-if_settext($string0, interface_753:com_29);
-$int1 = calc($int1 + ~script15891(if_gettext(interface_753:com_29), if_getwidth(interface_753:com_29), if_getfontmetrics(interface_753:com_29), 0));
+if_settext($string0, bslay_boss_info:boss_desc_text);
+$int1 = calc($int1 + ~script15891(if_gettext(bslay_boss_info:boss_desc_text), if_getwidth(bslay_boss_info:boss_desc_text), if_getfontmetrics(bslay_boss_info:boss_desc_text), 0));
 if ($int2 = 1) {
     $int1 = calc($int1 + ~script19863($component3, $component5, $int1));
 }
-if ($int1 >= if_getheight(interface_753:com_27)) {
+if ($int1 >= if_getheight(bslay_boss_info:boss_desc_wrapper)) {
     if_sethide(false, $component4);
     if_setscrollsize(0, $int1, $component3);
     if_setscrollpos(0, 0, $component3);

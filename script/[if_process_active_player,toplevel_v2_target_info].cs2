@@ -1,0 +1,24 @@
+// 10219
+[if_process_active_player,toplevel_v2_target_info]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0, $int1 = ~script7(null);
+if ($int0 = -1) {
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = %toplevel_v2_target_player_current_hp;
+def_int $int5 = %toplevel_v2_target_player_max_hp;
+if (%toplevel_v2_legacy_combat = 1) {
+    if ($int4 > 0) {
+        $int4 = max(1, calc($int4 / 10));
+    }
+    $int5 = max(1, calc($int5 / 10));
+}
+if_settext(tostring_localised($int4, true), toplevel_v2_target_info:entity_health_left);
+$int2 = max(min(scale($int4, $int5, 100), 100), 0);
+$int3 = calc($int2 * 16384 / 100);
+if_setsize($int3, if_getheight(toplevel_v2_target_info:probar_fake_layer), ^setsize_rel, ^setsize_abs, toplevel_v2_target_info:probar_actual_health_layer);
+~script17671(250, %toplevel_v2_target_hitchance);
+~script5($int0, $int1);

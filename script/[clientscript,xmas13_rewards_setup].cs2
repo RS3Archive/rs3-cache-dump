@@ -1,37 +1,37 @@
 // 9278
 [clientscript,xmas13_rewards_setup]
 def_int $int0 = 0;
-if (calc(^max_32bit_int - %varplayer_4024) > %varplayer_4025) {
-    $int0 = calc(%varplayer_4024 + %varplayer_4025);
+if (calc(^max_32bit_int - %xmas13_points_nice) > %xmas13_points_naughty) {
+    $int0 = calc(%xmas13_points_nice + %xmas13_points_naughty);
 } else {
     $int0 = ^max_32bit_int;
 }
-if_settext("Total points: <col=EBD090><tostring($int0)></col>", interface_513:com_2);
-if (%varplayerbit_21253 = 1 | $int0 < 500) {
-    if_setcolour(0xb92922, interface_513:com_26);
-    if (%varplayerbit_21253 = 1) {
-        if_settext("Already unlocked.", interface_513:com_26);
+if_settext("Total points: <col=EBD090><tostring($int0)></col>", xmas13_rewards:points);
+if (%xmas13_unlocked_scarf = 1 | $int0 < 500) {
+    if_setcolour(0xb92922, xmas13_rewards:scarf_cost);
+    if (%xmas13_unlocked_scarf = 1) {
+        if_settext("Already unlocked.", xmas13_rewards:scarf_cost);
     }
-    if_sethide(true, interface_513:com_27);
-    if_sethide(false, interface_513:com_28);
+    if_sethide(true, xmas13_rewards:scarf_buy);
+    if_sethide(false, xmas13_rewards:scarf_buy_disabled);
 }
-if (%varplayerbit_21254 = 1 | $int0 < 1000 | map_members = false) {
-    if_setcolour(0xb92922, interface_513:com_40);
-    if (%varplayerbit_21254 = 1) {
-        if_settext("Already unlocked.", interface_513:com_40);
+if (%xmas13_unlocked_jumper = 1 | $int0 < 1000 | map_members = false) {
+    if_setcolour(0xb92922, xmas13_rewards:jumper_cost);
+    if (%xmas13_unlocked_jumper = 1) {
+        if_settext("Already unlocked.", xmas13_rewards:jumper_cost);
     } else if (map_members = false) {
-        if_settext("Members' only.", interface_513:com_40);
+        if_settext("Members' only.", xmas13_rewards:jumper_cost);
     }
-    if_sethide(true, interface_513:com_41);
-    if_sethide(false, interface_513:com_42);
+    if_sethide(true, xmas13_rewards:jumper_buy);
+    if_sethide(false, xmas13_rewards:jumper_buy_disabled);
 }
-if (%varplayerbit_21255 = 1 | $int0 < 2000 | map_members = false | testbit(%varplayer_1778, calc(42 % 32)) = ^true) {
-    if_setcolour(0xb92922, interface_513:com_48);
-    if (%varplayerbit_21255 = 1) {
-        if_settext("Already unlocked.", interface_513:com_48);
+if (%xmas13_unlocked_pet = 1 | $int0 < 2000 | map_members = false | testbit(%lore_followers_owned_2, calc(42 % 32)) = ^true) {
+    if_setcolour(0xb92922, xmas13_rewards:demon_cost);
+    if (%xmas13_unlocked_pet = 1) {
+        if_settext("Already unlocked.", xmas13_rewards:demon_cost);
     } else if (map_members = false) {
-        if_settext("Members' only.", interface_513:com_48);
+        if_settext("Members' only.", xmas13_rewards:demon_cost);
     }
-    if_sethide(true, interface_513:com_49);
-    if_sethide(false, interface_513:com_50);
+    if_sethide(true, xmas13_rewards:demon_buy);
+    if_sethide(false, xmas13_rewards:demon_buy_disabled);
 }

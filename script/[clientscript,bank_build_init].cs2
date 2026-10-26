@@ -1,9 +1,9 @@
 // 13353
 [clientscript,bank_build_init]
-%varclient_6681 = clientclock;
-%varclient_6683 = 0;
-if (%varplayerbit_45189 = 0) {
-    %varplayerbit_45189 = 2;
+%bank_init_cycle = clientclock;
+%bank_tab_rebuild_delay = 0;
+if (%bank_customop = 0) {
+    %bank_customop = 2;
 }
 def_int $int0 = 0;
 def_int $int1 = 40;
@@ -23,11 +23,11 @@ if (~script6431 = true) {
     $int6 = 5;
 }
 while ($int0 < 1920) {
-    cc_create(interface_517:com_201, ^iftype_graphic, $int0);
+    cc_create(bank:bank_inv, ^iftype_graphic, $int0);
     cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
     cc_setoutline(1);
     cc_setonop("bank_onop_bank(event_op, event_comsubid, event_com)");
-    cc_setdraggable(interface_517:com_0, -1);
+    cc_setdraggable(bank:all, -1);
     cc_setdragdeadzone($int5);
     cc_setdragdeadtime($int6);
     cc_setondrag("bank_bankitemdrag(event_com, event_comsubid, event_mousey)");
@@ -36,27 +36,27 @@ while ($int0 < 1920) {
     cc_setonmouseleave("script9300(event_com, event_comsubid)");
     cc_setonmouserepeat("bank_item_mouserepeat(event_com, event_comsubid)");
     cc_sethide(true);
-    .cc_create(interface_517:com_217, ^iftype_graphic, $int0);
+    .cc_create(bank:bank_inv_insert, ^iftype_graphic, $int0);
     .cc_setcolour(^cyan);
     .cc_setonmouseover("script13866(event_comsubid, 1)");
     .cc_setonmouseleave("script13866(event_comsubid, 0)");
     .cc_setsize(8, $int4, ^setsize_abs, ^setsize_abs);
     $int0 = calc($int0 + 1);
 }
-if_setparam_int(param_3843, -1, interface_517:com_168);
-~script10017(interface_517:com_251, -1, -1, 6, null, interface_517:com_253);
+if_setparam_int(bank_last_tab_count, -1, bank:tabs_dynamic);
+~script10017(bank:buy_booster_bg, -1, -1, 6, null, bank:buy_booster_button_highlight_layer);
 $int0 = 0;
 while ($int0 <= 15) {
-    cc_create(interface_517:com_205, ^iftype_text, $int0);
+    cc_create(bank:tab_spacer_endrow, ^iftype_text, $int0);
     cc_setonmouseover("script13870(event_com, event_comsubid, 1)");
     cc_setonmouseleave("script13870(event_com, event_comsubid, 0)");
-    cc_create(interface_517:com_206, ^iftype_text, $int0);
+    cc_create(bank:tab_spacer_below, ^iftype_text, $int0);
     cc_setonmouseover("script13870(event_com, event_comsubid, 1)");
     cc_setonmouseleave("script13870(event_com, event_comsubid, 0)");
-    cc_create(interface_517:com_171, ^iftype_text, $int0);
-    cc_create(interface_517:com_169, ^iftype_text, $int0);
-    cc_create(interface_517:com_170, ^iftype_graphic, $int0);
-    cc_create(interface_517:com_200, ^iftype_graphic, $int0);
+    cc_create(bank:tabs_spacers, ^iftype_text, $int0);
+    cc_create(bank:tabs_click, ^iftype_text, $int0);
+    cc_create(bank:tabs_icons, ^iftype_graphic, $int0);
+    cc_create(bank:tab_highlights, ^iftype_graphic, $int0);
     cc_setsize($int1, $int2, ^setsize_abs, ^setsize_abs);
     cc_setgraphic($graphic7);
     cc_settrans($int8);
@@ -70,12 +70,12 @@ while ($int0 <= 20) {
 ~script9313;
 ~script592;
 ~script13908;
-~rs3_scrollbar_vertical(interface_517:com_195, interface_517:com_199);
+~rs3_scrollbar_vertical(bank:scrollbar, bank:bank_items_container);
 ~script13770;
 ~script8841(24, 1);
-~script9236(interface_517:com_14, interface_517:com_15, interface_517:com_16, inv_93, false, -1, -1, 1, "Deposit");
-~script9236(interface_517:com_34, interface_517:com_35, interface_517:com_36, inv_530, false, 0, calc(%varclient_6709 - 1), 1, "Deposit");
-if (inv_getobj(inv_95, 0) ! null) {
+~script9236(bank:inventory_slots, bank:inventory_click, bank:inventory_scrollbar, inv, false, -1, -1, 1, "Deposit");
+~script9236(bank:bob_slots, bank:bob_click, bank:bob_scrollbar, lore_bob, false, 0, calc(%bank_player_has_bob - 1), 1, "Deposit");
+if (inv_getobj(bank, 0) ! null) {
     %varclientbit_45227 = 1;
     ~bank_rebuild(0);
 }

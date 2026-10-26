@@ -1,109 +1,109 @@
 // 6108
 [proc,shop_item_info](inv $inv0, int $int1)
-if (%varplayer_299 = null | %varplayer_301 = -1) {
+if (%shop_last_viewed_inventory = null | %shop_last_viewed_slot = -1) {
     return;
 }
-if_sethide(false, interface_1265:com_148);
-if_sethide(false, interface_1265:com_145);
+if_sethide(false, shop_main:quantity_disabled);
+if_sethide(false, shop_main:buy_disabled);
 def_obj $obj2 = inv_getobj($inv0, $int1);
 if ($obj2 = null | inv_total($inv0, $obj2) = -1) {
-    if_settext("Select an item", interface_1265:com_58);
-    if_setobject(null, -1, interface_1265:com_60);
-    if_settext("N/A", interface_1265:com_137);
-    if_setgraphic(null, interface_1265:com_136);
-    if_setcolour(0x827f79, interface_1265:com_147);
-    if_settext("N/A", interface_1265:com_147);
+    if_settext("Select an item", shop_main:item_name);
+    if_setobject(null, -1, shop_main:item_icon);
+    if_settext("N/A", shop_main:total_value);
+    if_setgraphic(null, shop_main:total_icon);
+    if_setcolour(0x827f79, shop_main:buy_text);
+    if_settext("N/A", shop_main:buy_text);
     return;
 }
-if_setcolour(0xe5b051, interface_1265:com_147);
-if_settext(oc_name($obj2), interface_1265:com_58);
-if_setobject($obj2, -1, interface_1265:com_60);
-if_settext(%varclient_2361, interface_1265:com_59);
-def_int $int3 = ~buyprice_total($obj2, %varplayer_302);
-if ($inv0 = inv_93) {
-    if_settext("Value:", interface_1265:com_133);
-    if_settext("Sell", interface_1265:com_147);
-    $int3 = ~sellprice_total($obj2, %varplayer_302, %varplayer_304);
-    if (testbit(%varclient_1879, $int1) = ^false) {
+if_setcolour(0xe5b051, shop_main:buy_text);
+if_settext(oc_name($obj2), shop_main:item_name);
+if_setobject($obj2, -1, shop_main:item_icon);
+if_settext(%shop_item_description, shop_main:item_description);
+def_int $int3 = ~buyprice_total($obj2, %shop_last_viewed_buyamt);
+if ($inv0 = inv) {
+    if_settext("Value:", shop_main:total_title);
+    if_settext("Sell", shop_main:buy_text);
+    $int3 = ~sellprice_total($obj2, %shop_last_viewed_buyamt, %shop);
+    if (testbit(%shop_inventory_sell_status, $int1) = ^false) {
         $int3 = -1;
     }
-} else if ($inv0 = %varplayer_305) {
-    if_settext("Price:", interface_1265:com_133);
-    if_settext("Take", interface_1265:com_147);
+} else if ($inv0 = %shopfreebie) {
+    if_settext("Price:", shop_main:total_title);
+    if_settext("Take", shop_main:buy_text);
 } else {
-    if_settext("Price:", interface_1265:com_133);
-    if_settext("Buy", interface_1265:com_147);
+    if_settext("Price:", shop_main:total_title);
+    if_settext("Buy", shop_main:buy_text);
 }
 ~script17395;
 if ($int3 = -1) {
-    if_settext("N/A", interface_1265:com_137);
-    if_setgraphic("km_shopitems,0", interface_1265:com_136);
-} else if ($inv0 = %varplayer_305) {
-    if_settext("Free!", interface_1265:com_137);
-    if_setgraphic(null, interface_1265:com_136);
+    if_settext("N/A", shop_main:total_value);
+    if_setgraphic("km_shopitems,0", shop_main:total_icon);
+} else if ($inv0 = %shopfreebie) {
+    if_settext("Free!", shop_main:total_value);
+    if_setgraphic(null, shop_main:total_icon);
 } else {
-    if_settext(~script940($int3), interface_1265:com_137);
-    if_setgraphic(enum(int, graphic, enum_200, %varplayer_306), interface_1265:com_136);
+    if_settext(~script940($int3), shop_main:total_value);
+    if_setgraphic(enum(int, graphic, currency_graphic, %currency), shop_main:total_icon);
 }
-def_int $int4 = parawidth(if_gettext(interface_1265:com_137), if_getwidth(interface_1265:com_134), fontmetrics_26);
-if ($inv0 ! %varplayer_305) {
-    $int4 = calc($int4 + 2 + if_getwidth(interface_1265:com_136));
+def_int $int4 = parawidth(if_gettext(shop_main:total_value), if_getwidth(shop_main:total_bounding_layer), museo_sans_11pt_regular);
+if ($inv0 ! %shopfreebie) {
+    $int4 = calc($int4 + 2 + if_getwidth(shop_main:total_icon));
 }
-if_setsize($int4, 15, ^setsize_abs, ^setsize_abs, interface_1265:com_135);
+if_setsize($int4, 15, ^setsize_abs, ^setsize_abs, shop_main:total_layer);
 if ($int3 ! -1) {
-    if_sethide(true, interface_1265:com_148);
-    if_sethide(true, interface_1265:com_145);
+    if_sethide(true, shop_main:quantity_disabled);
+    if_sethide(true, shop_main:buy_disabled);
 }
-def_component $component5 = interface_1265:com_20;
-if (%varclient_1881 ! null & %varclient_1880 ! -1) {
-    if_sethide(true, interface_1266:com_3);
-    if (%varclient_1881 = %varplayer_305) {
-        $component5 = interface_1265:com_14;
+def_component $component5 = shop_main:list_background;
+if (%shop_previously_viewed_inventory ! null & %shop_previously_viewed_slot ! -1) {
+    if_sethide(true, shop_side:select_reticule);
+    if (%shop_previously_viewed_inventory = %shopfreebie) {
+        $component5 = shop_main:free_background;
     }
-    if (cc_find($component5, %varclient_1880) = true) {
-        cc_setonmouseover("shop_item_hover(%varplayerbit_987, 0, 1, event_com, event_comsubid)");
-        cc_setonmouseleave("shop_item_hover(%varplayerbit_987, 0, 0, event_com, event_comsubid)");
-        if (%varplayerbit_987 = 0) {
+    if (cc_find($component5, %shop_previously_viewed_slot) = true) {
+        cc_setonmouseover("shop_item_hover(%shop_verbose_mode, 0, 1, event_com, event_comsubid)");
+        cc_setonmouseleave("shop_item_hover(%shop_verbose_mode, 0, 0, event_com, event_comsubid)");
+        if (%shop_verbose_mode = 0) {
             cc_setgraphic("rs3_btn_icon_38px,0");
         } else {
             cc_setgraphic("rs3_btn_icon_38px,0");
         }
     }
 }
-$component5 = interface_1265:com_20;
-if (%varplayer_299 = %varplayer_305) {
-    $component5 = interface_1265:com_14;
+$component5 = shop_main:list_background;
+if (%shop_last_viewed_inventory = %shopfreebie) {
+    $component5 = shop_main:free_background;
 }
-if ($inv0 = %varplayer_299) {
-    if ($inv0 = inv_93 & cc_find(interface_1266:com_0, $int1) = true) {
-        if_setposition(calc(cc_getx + 2 - 2), calc(cc_gety + 2 - 2), ^setpos_abs_left, ^setpos_abs_top, interface_1266:com_3);
-        if_sethide(false, interface_1266:com_3);
+if ($inv0 = %shop_last_viewed_inventory) {
+    if ($inv0 = inv & cc_find(shop_side:inventory_layer, $int1) = true) {
+        if_setposition(calc(cc_getx + 2 - 2), calc(cc_gety + 2 - 2), ^setpos_abs_left, ^setpos_abs_top, shop_side:select_reticule);
+        if_sethide(false, shop_side:select_reticule);
     }
-    if (cc_find($component5, $int1) = true & ($inv0 ! inv_93 | %varplayer_303 = 1)) {
-        cc_setonmouseover("shop_item_hover(%varplayerbit_987, 1, 1, event_com, event_comsubid)");
-        cc_setonmouseleave("shop_item_hover(%varplayerbit_987, 1, 0, event_com, event_comsubid)");
-        if (%varplayerbit_987 = 0) {
+    if (cc_find($component5, $int1) = true & ($inv0 ! inv | %shop_filter = 1)) {
+        cc_setonmouseover("shop_item_hover(%shop_verbose_mode, 1, 1, event_com, event_comsubid)");
+        cc_setonmouseleave("shop_item_hover(%shop_verbose_mode, 1, 0, event_com, event_comsubid)");
+        if (%shop_verbose_mode = 0) {
             cc_setgraphic("rs3_btn_icon_38px,3");
         } else {
             cc_setgraphic("rs3_btn_icon_38px,3");
         }
     }
-    %varclient_1881 = $inv0;
-    %varclient_1880 = $int1;
+    %shop_previously_viewed_inventory = $inv0;
+    %shop_previously_viewed_slot = $int1;
 }
 def_string $string0 = ~script2706($obj2);
 if (compare($string0, "") ! 0) {
-    if (compare(%varclient_2355, "") ! 0) {
-        $string0 = append($string0, %varclient_2355);
+    if (compare(%objreq_wearable, "") ! 0) {
+        $string0 = append($string0, %objreq_wearable);
     }
-    if (compare(%varclient_2356, "") ! 0) {
-        $string0 = append($string0, "<br><%varclient_2356>");
+    if (compare(%objreq_useable, "") ! 0) {
+        $string0 = append($string0, "<br><%objreq_useable>");
     }
-    if_setgraphic("km_shopitems,0", interface_1265:com_61);
-    if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", interface_1265:com_58);
+    if_setgraphic("km_shopitems,0", shop_main:item_no_use);
+    if_setonmouserepeat("script8799($string0, event_com, event_comsubid)", shop_main:item_name);
 } else {
-    if_setgraphic(null, interface_1265:com_61);
-    if_setonmouserepeat(null, interface_1265:com_61);
-    if_setonmouserepeat(null, interface_1265:com_60);
-    if_setonmouserepeat(null, interface_1265:com_58);
+    if_setgraphic(null, shop_main:item_no_use);
+    if_setonmouserepeat(null, shop_main:item_no_use);
+    if_setonmouserepeat(null, shop_main:item_icon);
+    if_setonmouserepeat(null, shop_main:item_name);
 }

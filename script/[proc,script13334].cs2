@@ -1,7 +1,7 @@
 // 13334
 [proc,script13334](enum $enum0, int $int1)
-cc_deleteall(interface_1851:com_40);
-if_sethide(true, interface_1851:com_41);
+cc_deleteall(achievements_sub:build_layer);
+if_sethide(true, achievements_sub:cheevo_details);
 def_int $int2 = 0;
 if ($enum0 = null) {
     ~cheevo_setup_scrollbar($int2, $int1);
@@ -18,19 +18,19 @@ def_int $int8 = -65535;
 def_int $int9 = 0;
 def_int $int10 = 20000;
 def_int $int11 = 15000;
-if (%varplayerbit_48340 < %varplayerbit_48341) {
+if (%cheevo_toggle_complete < %cheevo_toggle_locked) {
     $int10 = 15000;
     $int11 = 20000;
 }
 while ($int2 < $int4) {
     $struct3 = enum(int, struct, $enum0, $int2);
-    if (struct_param($struct3, param_6428) > 0) {
+    if (struct_param($struct3, cheevo_chain) > 0) {
         $struct3 = ~script13283($struct3);
     }
     $intarray0($int2) = $int2;
     $int8 = ~cheevo_obtain_progress($struct3);
-    if ($enum0 = enum_15228) {
-        $int9 = struct_param($struct3, param_7895);
+    if ($enum0 = cheevo_grace_list) {
+        $int9 = struct_param($struct3, cheevo_gracedate);
         if (date_runeday > $int9) {
             $int8 = -65535;
         }
@@ -43,7 +43,7 @@ while ($int2 < $int4) {
             $intarray1($int2) = calc($int2 + $int10);
             $int5 = calc($int5 + 1);
         case -1 :
-            if (struct_param($struct3, param_6797) = 0) {
+            if (struct_param($struct3, cheevo_hidden) = 0) {
                 $intarray1($int2) = calc($int2 + $int11);
                 $int6 = calc($int6 + 1);
             } else {
@@ -51,7 +51,7 @@ while ($int2 < $int4) {
                 $int7 = calc($int7 + 1);
             }
         case default :
-            if (struct_param($struct3, param_6797) = 0) {
+            if (struct_param($struct3, cheevo_hidden) = 0) {
                 $intarray1($int2) = calc($int2 + 10000);
             } else {
                 $intarray1($int2) = calc($int2 + 50000);
@@ -64,10 +64,10 @@ while ($int2 < $int4) {
 array_sort($int4, 1, 0);
 $int2 = 0;
 $int4 = calc($int4 - $int7);
-if (%varplayerbit_48340 = 1) {
+if (%cheevo_toggle_complete = 1) {
     $int4 = calc($int4 - $int5);
 }
-if (%varplayerbit_48341 = 1) {
+if (%cheevo_toggle_locked = 1) {
     $int4 = calc($int4 - $int6);
 }
 while ($int2 < $int4) {

@@ -1,23 +1,23 @@
 // 6074
 [clientscript,script6074](int $int0)
-def_int $int1 = %varplayer_302;
+def_int $int1 = %shop_last_viewed_buyamt;
 def_int $int2 = ^max_32bit_int;
 def_obj $obj3 = null;
 def_int $int4 = 0;
-if (%varplayer_299 ! null & %varplayer_301 ! -1) {
-    $obj3 = inv_getobj(%varplayer_299, %varplayer_301);
-    if (%varplayer_299 = inv_93) {
+if (%shop_last_viewed_inventory ! null & %shop_last_viewed_slot ! -1) {
+    $obj3 = inv_getobj(%shop_last_viewed_inventory, %shop_last_viewed_slot);
+    if (%shop_last_viewed_inventory = inv) {
         $int2 = 500;
-        $int4 = ~sellprice(%varplayer_306, $obj3, %varplayer_304);
+        $int4 = ~sellprice(%currency, $obj3, %shop);
     } else {
         $int4 = ~buyprice($obj3);
     }
-    if (%varplayer_304 = inv_600 & $obj3 = obj_1391) {
+    if (%shop = naffstaffshop & $obj3 = battlestaff) {
         $int2 = ~battlestaff_number;
     } else if ($obj3 ! null) {
-        $int2 = min($int2, inv_total(%varplayer_299, $obj3));
-        if (oc_stackable($obj3) = false & %varplayer_299 ! inv_93) {
-            $int2 = min($int2, inv_freespace(inv_93));
+        $int2 = min($int2, inv_total(%shop_last_viewed_inventory, $obj3));
+        if (oc_stackable($obj3) = false & %shop_last_viewed_inventory ! inv) {
+            $int2 = min($int2, inv_freespace(inv));
         }
     } else {
         $int2 = 1;
@@ -29,12 +29,12 @@ if ($int4 > 0) {
 if ($int0 > 0) {
     if ($int0 > $int2) {
         $int1 = $int2;
-        if_settext(~script940($int1), interface_1265:com_67);
+        if_settext(~script940($int1), shop_main:selected_quantity);
         return;
     }
     if (calc(^max_32bit_int - $int1) < $int0) {
         $int1 = $int2;
-        if_settext(~script940($int1), interface_1265:com_67);
+        if_settext(~script940($int1), shop_main:selected_quantity);
         return;
     } else {
         $int1 = min(calc($int1 + $int0), $int2);
@@ -42,4 +42,4 @@ if ($int0 > 0) {
 } else {
     $int1 = min($int2, max(1, calc($int1 + $int0)));
 }
-if_settext(~script940($int1), interface_1265:com_67);
+if_settext(~script940($int1), shop_main:selected_quantity);

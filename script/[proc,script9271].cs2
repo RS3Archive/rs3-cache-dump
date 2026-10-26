@@ -26,7 +26,7 @@ if ($int5 = 1) {
 def_int $int12 = 0;
 def_long $long0 = 0;
 def_long $long1 = 0;
-if ($obj6 = obj_995) {
+if ($obj6 = coins) {
     $int5 = 0;
     $long1 = ~script17402($inv1, null);
     $long0 = calc($long1 - ~pouch_itemspace2($long1));
@@ -35,13 +35,13 @@ if ($obj6 = obj_995) {
     }
 } else {
     if (oc_stackable($obj9) = true) {
-        if (inv_total(inv_93, $obj9) > 0) {
-            $int12 = max(0, calc($int7 - (^max_32bit_int - inv_total(inv_93, $obj9))));
-        } else if (inv_freespace(inv_93) = 0) {
+        if (inv_total(inv, $obj9) > 0) {
+            $int12 = max(0, calc($int7 - (^max_32bit_int - inv_total(inv, $obj9))));
+        } else if (inv_freespace(inv) = 0) {
             $int12 = $int7;
         }
     } else {
-        $int12 = max(0, calc($int7 - inv_freespace(inv_93)));
+        $int12 = max(0, calc($int7 - inv_freespace(inv)));
     }
     $int7 = calc($int7 - $int12);
     if ($int7 <= 0) {
@@ -63,40 +63,40 @@ if (if_find($component0) = true) {
     }
 }
 if ($int5 = 1) {
-    if (.cc_find($component3, ~script9250(inv_93, $obj9)) = true) {
+    if (.cc_find($component3, ~script9250(inv, $obj9)) = true) {
         .cc_setobject(.cc_getinvobject, calc(.cc_getinvcount + $int7));
-    } else if ($int4 = -1 & .cc_find($component3, ~script9249(inv_93)) = true) {
+    } else if ($int4 = -1 & .cc_find($component3, ~script9249(inv)) = true) {
         .cc_setobject($obj9, $int7);
     } else if (.cc_find($component3, $int4) = true) {
         .cc_setobject($obj9, $int7);
     }
 } else {
     switch_obj ($obj6) {
-        case obj_995, obj_54830 :
+        case coins, coins_b :
             ~money_pouch_update_amount(calc(~pouch_total + ~script17402($inv1, null)));
         case default :
             if (oc_stackable($obj6) = true) {
-                if (.cc_find($component3, ~script9250(inv_93, $obj9)) = true) {
+                if (.cc_find($component3, ~script9250(inv, $obj9)) = true) {
                     .cc_setobject(.cc_getinvobject, calc(.cc_getinvcount + $int7));
-                } else if ($int4 = -1 & .cc_find($component3, ~script9249(inv_93)) = true) {
+                } else if ($int4 = -1 & .cc_find($component3, ~script9249(inv)) = true) {
                     .cc_setobject($obj9, $int7);
                 } else if (.cc_find($component3, $int4) = true) {
                     .cc_setobject($obj9, $int7);
                 }
             } else if ($int7 = 1) {
-                if ($int4 = -1 & .cc_find($component3, ~script9249(inv_93)) = true) {
+                if ($int4 = -1 & .cc_find($component3, ~script9249(inv)) = true) {
                     .cc_setobject($obj9, $int7);
                 } else if (.cc_find($component3, $int4) = true) {
                     .cc_setobject($obj9, $int7);
                 }
             } else {
-                $int13 = ~script9249(inv_93);
+                $int13 = ~script9249(inv);
                 while ($int13 ! -1 & $int7 > 0) {
                     if (.cc_find($component3, $int13) = true) {
                         .cc_setobject($obj9, 1);
                     }
                     $int7 = calc($int7 - 1);
-                    $int13 = ~script9251(inv_93, null, calc($int13 + 1));
+                    $int13 = ~script9251(inv, null, calc($int13 + 1));
                 }
             }
     }

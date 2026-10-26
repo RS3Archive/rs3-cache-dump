@@ -1,49 +1,49 @@
 // 6548
 [clientscript,script6548]
-~script9554(interface_168:com_1, interface_168:com_38, interface_168:com_2, db_getfield(%varplayer_8551, dbtable_47:col0, 0), struct_21218);
-if (~script6545(%varplayer_8551) = true) {
-    if_sethide(false, interface_168:com_22);
+~script9554(reward_chest:mainmodal_window_background, reward_chest:mainmodal_window_border, reward_chest:mainmodal_window_content, db_getfield(%reward_chest, reward_chest:col0, 0), toplevel_v2_default_main_modal_skin_data);
+if (~script6545(%reward_chest) = true) {
+    if_sethide(false, reward_chest:bank_all_button_layer);
 }
 def_string $string0 = "";
-switch_dbrow (%varplayer_8551) {
-    case dbrow_2629 :
-        if_settext("Deposit all", interface_168:com_30);
+switch_dbrow (%reward_chest) {
+    case reward_chest_arch_research :
+        if_settext("Deposit all", reward_chest:bank_all_button_text);
         $string0 = "Deposit all materials into your material storage.";
-        if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", interface_168:com_22);
+        if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", reward_chest:bank_all_button_layer);
 }
 def_int $int0 = 0;
-if (~script6546(%varplayer_8551) = 1) {
-    switch_dbrow (%varplayer_8551) {
-        case dbrow_1668 :
-            if (%varplayerbit_23063 = 1) {
+if (~script6546(%reward_chest) = 1) {
+    switch_dbrow (%reward_chest) {
+        case reward_chest_sb :
+            if (%sb_taken_any_loot = 1) {
                 return;
             } else {
-                if_settext("Pet Chance", interface_168:com_47);
+                if_settext("Pet Chance", reward_chest:reroll_button_text);
             }
-        case dbrow_1578 :
-            if (%varplayerbit_28712 ! 1) {
+        case reward_chest_raid1 :
+            if (%raid1_loot_state ! 1) {
                 return;
             }
-        case dbrow_6362 :
-            if (%varplayerbit_51510 ! 1) {
+        case reward_chest_dungeon_egwd_zamorak_boss :
+            if (%egwd_zamorak_boss_loot_state ! 1) {
                 return;
             }
-        case dbrow_1669 :
-            $string0 = "Number of rolls left: <tostring(%varplayerbit_17792)>";
-            if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", interface_168:com_31);
+        case reward_chest_dominion_tower :
+            $string0 = "Number of rolls left: <tostring(%atdes_reward_dom_reroll)>";
+            if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", reward_chest:reroll_button_layer);
     }
     $int0 = 1;
-    if_sethide(false, interface_168:com_31);
+    if_sethide(false, reward_chest:reroll_button_layer);
 }
-if (~script6547(%varplayer_8551) = 1) {
-    switch_dbrow (%varplayer_8551) {
-        case dbrow_1669 :
+if (~script6547(%reward_chest) = 1) {
+    switch_dbrow (%reward_chest) {
+        case reward_chest_dominion_tower :
             $string0 = "Using this button will convert all Dominion Tower items into more Factor points that will be added to the XP book reward.";
-            if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", interface_168:com_32);
+            if_setonmouserepeat("script3876($string0, event_com, event_comsubid)", reward_chest:convert_button_layer);
     }
     $int0 = 1;
-    if_sethide(false, interface_168:com_32);
+    if_sethide(false, reward_chest:convert_button_layer);
 }
 if ($int0 = 1) {
-    if_setsize(if_getwidth(interface_168:com_0), 0, ^setsize_abs, ^setsize_minus, interface_168:com_0);
+    if_setsize(if_getwidth(reward_chest:mainmodal_window), 0, ^setsize_abs, ^setsize_minus, reward_chest:mainmodal_window);
 }

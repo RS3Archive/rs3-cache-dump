@@ -2,15 +2,18 @@
 [proc,script4752]
 def_int $int0 = 300;
 def_int $int1 = 0;
-def_string $string0 = "Switch to a Jagex Account for improved security, account alerts, and easier access to multiple characters.";
-def_int $int2 = ~script5347(interface_744:com_371, $int1++, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, ^setsize_minus, dbrow_2196, "Upgrade to a Jagex Account");
-~script20484(dbrow_2196, -1, ^settextalign_centre, ^settextalign_top);
+def_string $string0 = "You'll soon need the Jagex Launcher and a Jagex Account to play. To avoid losing access, download the Launcher and follow the prompts to migrate. Your character and progress will carry over safely.";
+def_int $int2 = ~script5347(loginscreen:launcher_warning_build, $int1++, 0, 0, ^setpos_abs_centre, ^setpos_abs_top, 0, ^setsize_minus, text_title_body, "The move is almost here!");
+~script20484(text_title_body, -1, ^settextalign_centre, ^settextalign_top);
 def_int $int3 = calc($int2 + 10);
-$int2 = ~script5347(interface_744:com_371, $int1++, 0, $int3, ^setpos_abs_left, ^setpos_abs_top, 0, ^setsize_minus, dbrow_2100, $string0);
-~script20484(dbrow_2100, -1, ^settextalign_centre, ^settextalign_top);
+$int2 = ~script5347(loginscreen:launcher_warning_build, $int1++, 0, $int3, ^setpos_abs_left, ^setpos_abs_top, 0, ^setsize_minus, text_body_default, $string0);
+~script20484(text_body_default, -1, ^settextalign_centre, ^settextalign_top);
 $int3 = calc($int3 + $int2 + 10);
-~cc_add_button(interface_744:com_371, $int1++, 0, $int3, ^setpos_abs_left, ^setpos_abs_top, 0, 36, ^setsize_minus, ^setsize_abs, dbrow_17062, "Download Launcher");
+~cc_add_button(loginscreen:launcher_warning_build, $int1++, 0, $int3, ^setpos_abs_left, ^setpos_abs_top, 0, 36, ^setsize_minus, ^setsize_abs, button_action_positive, "Learn more");
+cc_setonbuttonpressed("script15228(32)");
+$int3 = calc($int3 + 36 + 10);
+~cc_add_button(loginscreen:launcher_warning_build, $int1++, 0, $int3, ^setpos_abs_left, ^setpos_abs_top, 0, 36, ^setsize_minus, ^setsize_abs, button_action_positive, "Download Launcher");
 cc_setonbuttonpressed("script15228(31)");
 $int3 = calc($int3 + 36);
-if_settext("Login", interface_744:com_372);
-if_setsize(300, $int3, ^setsize_abs, ^setsize_abs, interface_744:com_371);
+if_settext("Login", loginscreen:launcher_warning_later);
+if_setsize(300, $int3, ^setsize_abs, ^setsize_abs, loginscreen:launcher_warning_build);

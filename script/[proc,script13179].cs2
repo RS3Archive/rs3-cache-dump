@@ -11,12 +11,12 @@ def_struct $struct5 = ~script9984($struct2, 6);
 if ($struct5 = null) {
     return;
 }
-def_fontmetrics $fontmetrics6 = struct_param($struct5, param_3810);
-def_int $rgb7 = struct_param($struct5, param_3811);
+def_fontmetrics $fontmetrics6 = struct_param($struct5, rs3tli_button_text_font);
+def_int $rgb7 = struct_param($struct5, rs3tli_button_text_colour);
 def_int $int8 = calc(2 + 1);
 def_int $int9 = calc(if_getwidth($component0) - $int8 * 2);
 def_int $int10 = calc(if_getheight($component0) - $int8 * 2);
-def_int $int11 = inv_size(inv_675);
+def_int $int11 = inv_size(worn_custom_overrides);
 def_int $int12 = if_getnextsubid($component0);
 cc_create($component0, ^iftype_text, $int12++);
 cc_settextfont($fontmetrics6);
@@ -26,16 +26,16 @@ cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
 cc_setcolour($rgb7);
 def_string $string0 = "";
-if (%varclient_5939 = 0) {
+if (%mtxmgt_store_keepsake_slots_used = 0) {
     $string0 = "The Keepsake Box can store wearable items as cosmetic overrides.";
 } else {
-    $string0 = "Keepsake slots available:<br><tostring(calc($int11 - %varclient_5939))> / <tostring($int11)>";
+    $string0 = "Keepsake slots available:<br><tostring(calc($int11 - %mtxmgt_store_keepsake_slots_used))> / <tostring($int11)>";
 }
 def_int $int13 = 34;
 def_int $int14 = 35;
 def_int $int15 = 0;
 .cc_create($component0, ^iftype_graphic, $int12++);
-if (%varplayer_6808 = 0) {
+if (%mtx_batch11_customiser_consumable = 0) {
     $string0 = "<$string0><br><br>To add an item you'll need a Keepsake Key.";
     .cc_setgraphic(wardrobe_icon_keepsake_currency);
 } else {
@@ -51,13 +51,13 @@ cc_settext($string0);
 $int15 = ~script7593($string0, $int9, $fontmetrics6, 0);
 $int10 = calc($int10 - $int14 - 4);
 if ($int15 > $int10) {
-    cc_settext(~script3930($string0, $int9, calc($int10 / enum(fontmetrics, int, enum_8549, $fontmetrics6)), $fontmetrics6));
+    cc_settext(~script3930($string0, $int9, calc($int10 / enum(fontmetrics, int, toplevel_v2_font_heights, $fontmetrics6)), $fontmetrics6));
     $int15 = min($int10, ~script7593(cc_gettext, $int9, $fontmetrics6, 0));
 }
 cc_setsize($int9, $int15, ^setsize_abs, ^setsize_abs);
 cc_setposition(cc_getx, calc($int8 + ($int10 - $int15) / 2), ^setpos_abs_left, ^setpos_abs_top);
 .cc_setposition(0, cc_gety, ^setpos_abs_centre, ^setpos_abs_bottom);
-if (%varplayer_6808 = 0) {
+if (%mtx_batch11_customiser_consumable = 0) {
     cc_create($component0, ^iftype_graphic, $int12++);
     cc_setgraphic(rs3_btn_add_currency_sml_nml);
     cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
