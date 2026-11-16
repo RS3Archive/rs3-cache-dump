@@ -1,8 +1,10 @@
 // 13685
-[proc,script13685]()(string)
-if (%bank_filter = 1) {
+[proc,script13685](obj $obj0)(string)
+def_int $int1 = -1;
+if (%bank_filter = 1 & enum_getreversecount(obj, mtx_removal_items_removed_bankable, $obj0) = 0 & enum_getreversecount(obj, mtx_removal_items_changing_bankable, $obj0) = 0) {
     return("Destroy");
-} else if (%bank_current_inv = 2) {
+}
+if (%bank_current_inv = 2) {
     return(~script13687("Equip"));
 }
 return(~script13687("Withdraw"));

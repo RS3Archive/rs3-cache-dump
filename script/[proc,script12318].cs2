@@ -243,188 +243,144 @@ if (%varclientbit_30621 = 1) {
 def_int $int23 = calc((if_getwidth($component3) + %varclientbit_30621) / $int22);
 $int23 = min($int23, $int21);
 if_setsize(calc($int23 * $int22 - %varclientbit_30621), 0, ^setsize_abs, ^setsize_minus, $component2);
-$component7 = struct_param($struct0, graph_historical_layer);
-def_string $string0 = "";
-def_int $int24 = 0;
-if ($component7 ! null) {
-    if (if_getx($component2) >= $int22) {
-        if_setsize(if_getwidth($component2), 0, ^setsize_minus, ^setsize_minus, $component7);
-    } else {
-        if_setsize(0, 0, ^setsize_abs, ^setsize_minus, $component7);
-    }
-    cc_deleteall($component7);
-    cc_create($component7, ^iftype_rectangle, 0);
-    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
-    cc_setfill(true);
-    cc_settrans(205);
-    if (%varclientbit_30618 = 3 | %varclientbit_30618 = 1) {
-        if (platformtype = ^platformtype_default | platformtype = ^platformtype_jagex) {
-            cc_setop(1, "Open link");
-            if (%varclientbit_30618 = 3) {
-                cc_setonop("script10395(event_com, event_comsubid)");
-            } else if (%varclientbit_30618 = 1) {
-                cc_setonop("script1148(event_com, event_comsubid, %varclientbit_30619)");
-            }
-        }
-        cc_setcolour(~script10495(3));
-        cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(4))");
-        cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ~script10495(3))");
-        cc_setonclick("cc_settrans(event_com, event_comsubid, 180)");
-        cc_setonrelease("cc_settrans(event_com, event_comsubid, 205)");
-        $string0 = ~mobile_text_get(14);
-        cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
-        if (platformtype = ^platformtype_default | platformtype = ^platformtype_jagex) {
-            cc_create($component7, ^iftype_graphic, 1);
-            cc_setgraphic(rs3_icon_external_link);
-            cc_settrans(127);
-            cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
-            $int24 = min(0, calc(if_getwidth(cc_getlayer) - cc_getwidth));
-            $int24 = calc($int24 / 2 + $int24 % 2);
-            cc_setposition($int24, 0, ^setpos_abs_centre, ^setpos_abs_centre);
-        }
-    } else {
-        cc_setcolour(~script10495(5));
-    }
-}
 $int23 = calc($int23 - %varclientbit_30621);
-def_int $int25 = if_getheight($component2);
-def_int $int26 = -1;
-def_int $int27 = 0;
-def_boolean $boolean28 = true;
+def_int $int24 = if_getheight($component2);
+def_int $int25 = -1;
+def_int $int26 = 0;
+def_boolean $boolean27 = true;
+def_int $int28 = 0;
 def_int $int29 = 0;
-def_int $int30 = 0;
-while (++$int26 < $int23) {
-    if ($boolean28 = true) {
-        $boolean28, $int29, $int30 = ~script12310(toplevel_v2:graph_data_layer, calc(($int23 - 1 - $int26) * $int19 + $int20), $int19);
-        $int29 = ~script12311($int29, $int30);
-        if ($int29 > $int17) {
-            $int17 = $int29;
-        } else if ($int29 < $int18) {
-            $int18 = $int29;
+while (++$int25 < $int23) {
+    if ($boolean27 = true) {
+        $boolean27, $int28, $int29 = ~script12310(toplevel_v2:graph_data_layer, calc(($int23 - 1 - $int25) * $int19 + $int20), $int19);
+        $int28 = ~script12311($int28, $int29);
+        if ($int28 > $int17) {
+            $int17 = $int28;
+        } else if ($int28 < $int18) {
+            $int18 = $int28;
         }
     }
-    cc_create($component2, ^iftype_rectangle, $int26);
+    cc_create($component2, ^iftype_rectangle, $int25);
     if (%varclientbit_30621 = 1) {
         cc_setsize(calc($int22 - 1), 0, ^setsize_abs, ^setsize_abs);
         cc_setfill(true);
     } else {
         cc_setsize($int22, 0, ^setsize_abs, ^setsize_abs);
     }
-    cc_setparam(rs3tli_component_param_int0, $int29);
+    cc_setparam(rs3tli_component_param_int0, $int28);
     cc_settrans(127);
     cc_setonmouserepeat("script12326(event_com, event_comsubid)");
 }
+def_int $int30 = 0;
 def_int $int31 = 0;
-def_int $int32 = 0;
 if (%varclientbit_30621 = 1 & ++$int23 > 0) {
-    if ($int20 = 0 | $boolean28 = false) {
+    if ($int20 = 0 | $boolean27 = false) {
+        $int28 = 0;
         $int29 = 0;
-        $int30 = 0;
     } else {
-        $boolean28, $int29, $int30 = ~script12310(toplevel_v2:graph_data_layer, 0, $int20);
+        $boolean27, $int28, $int29 = ~script12310(toplevel_v2:graph_data_layer, 0, $int20);
     }
-    if ($boolean28 = true) {
-        $boolean28, $int31, $int32 = ~script12310(toplevel_v2:graph_data_fine_layer, 0, 1);
+    if ($boolean27 = true) {
+        $boolean27, $int30, $int31 = ~script12310(toplevel_v2:graph_data_fine_layer, 0, 1);
     }
-    if ($boolean28 = true) {
-        $int29, $int30 = ~script12313($int29, $int30, $int31, $int32);
+    if ($boolean27 = true) {
+        $int28, $int29 = ~script12313($int28, $int29, $int30, $int31);
     }
-    $int29 = ~script12311($int29, $int30);
-    if ($int29 > $int17) {
-        $int17 = $int29;
-    } else if ($int29 < $int18) {
-        $int18 = $int29;
+    $int28 = ~script12311($int28, $int29);
+    if ($int28 > $int17) {
+        $int17 = $int28;
+    } else if ($int28 < $int18) {
+        $int18 = $int28;
     }
-    cc_create($component2, ^iftype_rectangle, $int26);
+    cc_create($component2, ^iftype_rectangle, $int25);
     cc_setsize(calc($int22 - 1), 0, ^setsize_abs, ^setsize_abs);
     cc_setfill(true);
-    cc_setparam(rs3tli_component_param_int0, $int29);
+    cc_setparam(rs3tli_component_param_int0, $int28);
     cc_settrans(127);
     cc_setonmouserepeat("script12326(event_com, event_comsubid)");
 }
 if_setparam_int(telemetry_graph_value_max, $int17, $component2);
 if_setparam_int(telemetry_graph_value_min, $int18, $component2);
-def_int $int33 = -1;
-if ($boolean28 = false) {
-    $int33 = calc(clientclock + 1500);
+def_int $int32 = -1;
+if ($boolean27 = false) {
+    $int32 = calc(clientclock + 1500);
 }
-if_setontimer("script12322($struct0, $int33)", $component3);
+if_setontimer("script12322($struct0, $int32)", $component3);
 if_setonvartransmit("script12317($struct0){toplevel_v2_skins_varp}", $component3);
-$string0 = "";
-def_int $int34 = -1;
-def_int $int35 = 0;
-def_int $int36 = ~script10495(0);
-def_int $rgb37 = ^white;
-def_int $int38 = ~script10495(3);
+def_string $string0 = "";
+def_int $int33 = -1;
+def_int $int34 = 0;
+def_int $int35 = ~script10495(0);
+def_int $rgb36 = ^white;
+def_int $int37 = ~script10495(3);
+def_int $int38 = 0;
 def_int $int39 = 0;
-def_int $int40 = 0;
-def_int $int41 = -1;
-def_int $int42 = 0;
+def_int $int40 = -1;
+def_int $int41 = 0;
 if ($int23 > 0) {
     if_setonscrollwheel("script12301(event_mousey)", $component3);
     if ($int8 = 1 | $int1 = 1 & if_gethide($component15) = false) {
-        $int35 = calc(10 * %telemetry_graph_data_divisor * $int19 / 50);
+        $int34 = calc(10 * %telemetry_graph_data_divisor * $int19 / 50);
         $string0 = "Zoom: <~script12304>";
-        $string0 = "Interval: <~script12291($int35)><br><$string0>";
-        $int35 = calc($int35 * $int23);
-        $string0 = "Time window: <~script12291($int35)><br><$string0>";
+        $string0 = "Interval: <~script12291($int34)><br><$string0>";
+        $int34 = calc($int34 * $int23);
+        $string0 = "Time window: <~script12291($int34)><br><$string0>";
     }
     if ($int1 = 1 & if_gethide($component15) = false) {
         if_setonscrollwheel("script12301(event_mousey)", $component15);
         cc_create($component15, ^iftype_text, 0);
         cc_settextfont(museo_sans_11pt_regular);
-        cc_setcolour($rgb37);
+        cc_setcolour($rgb36);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
         cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
         cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
-        cc_settext(~script12291($int35));
+        cc_settext(~script12291($int34));
         cc_setonmouserepeat("script3876($string0, event_com, event_comsubid)");
     }
     if ($int8 = 1) {
         cc_create($component5, ^iftype_text, 0);
         cc_settextfont(museo_sans_13pt_bold);
-        cc_setcolour($rgb37);
+        cc_setcolour($rgb36);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
         cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
-        $int34, $int39 = ~script12299(%varclientbit_30618);
-        cc_settext(enum(int, string, telemetry_all_statistics, $int34));
+        $int33, $int38 = ~script12299(%varclientbit_30618);
+        cc_settext(enum(int, string, telemetry_all_statistics, $int33));
         cc_setsize(calc(parawidth(cc_gettext, 1000, cc_getfontmetrics) + 4), 4, ^setsize_abs, ^setsize_minus);
         $int16 = if_getwidth(cc_getlayer);
-        $int40 = parawidth("-888W", 1000, cc_getfontmetrics);
+        $int39 = parawidth("-888W", 1000, cc_getfontmetrics);
         if (%telemetry_show_precise_values = 1) {
-            $int41 = parawidth("-2,088,888,888", 1000, cc_getfontmetrics);
+            $int40 = parawidth("-2,088,888,888", 1000, cc_getfontmetrics);
         }
-        if ($int16 >= calc(max($int40, $int41) + cc_getwidth + 25 + 4)) {
-        } else if ($int16 < $int40) {
-            $int42 = 3;
+        if ($int16 >= calc(max($int39, $int40) + cc_getwidth + 25 + 4)) {
+        } else if ($int16 < $int39) {
+            $int41 = 3;
+        } else if ($int16 < calc($int39 + cc_getwidth)) {
+            $int41 = 3;
         } else if ($int16 < calc($int40 + cc_getwidth)) {
-            $int42 = 3;
-        } else if ($int16 < calc($int41 + cc_getwidth)) {
-            $int42 = 2;
-        } else if ($int16 < calc(max($int40, $int41) + cc_getwidth + 25 + 4)) {
-            $int42 = 1;
+            $int41 = 2;
+        } else if ($int16 < calc(max($int39, $int40) + cc_getwidth + 25 + 4)) {
+            $int41 = 1;
         }
         .cc_create($component5, ^iftype_text, 1);
         .cc_settextfont(museo_sans_13pt_bold);
-        .cc_setcolour($rgb37);
+        .cc_setcolour($rgb36);
         .cc_settextshadow(true);
         .cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
         .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
-        if ($int42 >= 3) {
+        if ($int41 >= 3) {
             cc_sethide(true);
             .cc_setsize(0, 4, ^setsize_minus, ^setsize_minus);
         } else {
             .cc_setsize(cc_getwidth, 4, ^setsize_minus, ^setsize_minus);
         }
-        .cc_setparam(toplevel_v2_tooltip_param_int0, $int35);
-        if ($int42 >= 2) {
+        .cc_setparam(toplevel_v2_tooltip_param_int0, $int34);
+        if ($int41 >= 2) {
             .cc_setparam(rs3tli_component_param_int0, 0);
         }
         cc_create($component5, ^iftype_graphic, 2);
-        if ($int42 < 1) {
+        if ($int41 < 1) {
             cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
             cc_setposition(0, calc((28 - 4 - 25) / 2), ^setpos_abs_left, ^setpos_abs_top);
             cc_setgraphic(~script12288(%varclientbit_30618, %varclientbit_30619));
@@ -437,14 +393,14 @@ if ($int23 > 0) {
     if ($int10 = 1) {
         cc_create($component9, ^iftype_text, 0);
         cc_settextfont(museo_sans_11pt_regular);
-        cc_setcolour($rgb37);
+        cc_setcolour($rgb36);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
         cc_setposition(4, 0, ^setpos_abs_right, ^setpos_abs_bottom);
         cc_setsize(4, ~script7593("8888", 1000, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
         cc_create($component9, ^iftype_text, 1);
         cc_settextfont(museo_sans_11pt_regular);
-        cc_setcolour($rgb37);
+        cc_setcolour($rgb36);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
         cc_setposition(4, 0, ^setpos_abs_right, ^setpos_abs_top);
@@ -453,14 +409,14 @@ if ($int23 > 0) {
     if (%varclientbit_30626 = 1) {
         cc_create($component11, ^iftype_text, 0);
         cc_settextfont(museo_sans_11pt_regular);
-        cc_setcolour($rgb37);
+        cc_setcolour($rgb36);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
         cc_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_bottom);
         cc_setsize(0, ~script7593("8888", 1000, cc_getfontmetrics, 0), ^setsize_minus, ^setsize_abs);
         cc_create($component11, ^iftype_text, 1);
         cc_settextfont(museo_sans_11pt_regular);
-        cc_setcolour($rgb37);
+        cc_setcolour($rgb36);
         cc_settextshadow(true);
         cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
         cc_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_top);
@@ -468,7 +424,7 @@ if ($int23 > 0) {
     }
     cc_create($component3, ^iftype_rectangle, 0);
     if (%varclientbit_30628 = 1) {
-        cc_setposition(0, calc($int27 / $int23), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_setposition(0, calc($int26 / $int23), ^setpos_abs_left, ^setpos_abs_bottom);
         cc_setsize(0, 2, ^setsize_minus, ^setsize_abs);
         cc_setcolour(0xfff200);
         cc_settrans(127);

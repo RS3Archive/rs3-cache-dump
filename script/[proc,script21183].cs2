@@ -10,7 +10,7 @@ if (~script21162(plugin_hub_parent_browse:auth_layer) = false) {
     if_setontimer("script21182($component0, $component1, $component2, $int3)", plugin_hub_parent_browse:rebuild_listener);
     return;
 }
-if (calc(%plugin_hub_last_search_clientclock + 50) > clientclock) {
+if (calc(%plugin_hub_last_search_input_clientclock + 25) > clientclock | calc(%plugin_hub_last_search_clientclock + 75) > clientclock) {
     if_setontimer("script21182($component0, $component1, $component2, $int3)", plugin_hub_parent_browse:rebuild_listener);
     if_sethide(false, $component1);
     return;
@@ -33,7 +33,7 @@ switch_int ($int3) {
 pluginapi_search_page(%plugin_hub_page, 50);
 pluginapi_search_filterinstalled(2);
 if (string_length(%plugin_hub_last_search) >= 2) {
-    $string1 = urlencode("*<%plugin_hub_last_search>*");
+    $string1 = "*<%plugin_hub_last_search>*";
     pluginapi_search_addfield(0, 0, $string1);
 }
 if (pluginapi_search_submit = true) {
